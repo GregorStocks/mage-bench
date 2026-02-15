@@ -54,6 +54,7 @@
       "context_k": 200,
       "thinking": true,
       "tier": "cheap",
+      "cache_control": {"type": "ephemeral"},
       "notes": "Cheapest Claude with extended thinking (min 1024 tokens, max 128K). Good tool use. Likely solid at Magic — Claude models understand complex rules well. Extended thinking should help with combat math."
     },
     {
@@ -65,6 +66,7 @@
       "context_k": 1000,
       "thinking": true,
       "tier": "mid",
+      "cache_control": {"type": "ephemeral"},
       "notes": "Strong all-rounder with extended thinking. Excellent tool use and instruction following. Probably the best mid-tier option for strategic play. 1M context available."
     },
     {
@@ -76,6 +78,7 @@
       "context_k": 1000,
       "thinking": true,
       "tier": "expensive",
+      "cache_control": {"type": "ephemeral"},
       "notes": "Most capable Claude. Extended thinking up to 128K tokens. Likely best strategic play but very expensive — a full Commander game could cost $5-10+. Use for showcase matches, not bulk testing."
     },
     {

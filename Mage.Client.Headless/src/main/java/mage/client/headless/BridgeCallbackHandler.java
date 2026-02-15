@@ -2443,6 +2443,26 @@ public class BridgeCallbackHandler {
     );
 
     /**
+     * Merge action choices into a pass_priority result so the LLM gets choices
+     * without a separate get_action_choices round-trip.
+     */
+    private void mergeActionChoices(Map<String, Object> result) {
+        Map<String, Object> choices = getActionChoices();
+        if (!Boolean.TRUE.equals(choices.get("action_pending"))) {
+            // Rare race: action disappeared between pass_priority detecting it
+            // and getActionChoices() fetching it.
+            result.put("warning", "Action changed before choices were fetched");
+            return;
+        }
+        // Merge all choice fields into the result.  pass_priority fields
+        // (action_pending, actions_passed, stop_reason, etc.) are already set
+        // and take precedence — only copy fields the result doesn't have yet.
+        for (Map.Entry<String, Object> entry : choices.entrySet()) {
+            result.putIfAbsent(entry.getKey(), entry.getValue());
+        }
+    }
+
+    /**
      * Pass priority. Without until: passes once and returns. With until set to a
      * step name (upkeep, draw, etc.): client-side yield that auto-passes until
      * the target step is reached within the current turn. With until set to a
@@ -2451,7 +2471,9 @@ public class BridgeCallbackHandler {
      *
      * Both modes auto-handle mechanical callbacks (GAME_PLAY_MANA auto-cancel,
      * optional GAME_TARGET with no legal targets). Returns stop_reason indicating
-     * why the call returned.
+     * why the call returned. When action_pending=true, also includes the full
+     * action choices (same data as get_action_choices) so the LLM can respond
+     * immediately without a separate round-trip.
      */
     public Map<String, Object> passPriority(String until) {
         interactionsThisTurn++;
@@ -2589,6 +2611,7 @@ public class BridgeCallbackHandler {
                     result.put("actions_passed", actionsPassed);
                     result.put("stop_reason", "non_priority_action");
                     attachUnseenChat(result);
+                    mergeActionChoices(result);
                     return result;
                 }
 
@@ -2602,6 +2625,7 @@ public class BridgeCallbackHandler {
                     result.put("combat_phase", combatType);
                     result.put("stop_reason", "combat");
                     attachUnseenChat(result);
+                    mergeActionChoices(result);
                     return result;
                 }
 
@@ -2617,6 +2641,7 @@ public class BridgeCallbackHandler {
                         result.put("current_step", gv.getStep().toString());
                         result.put("stop_reason", "reached_step");
                         attachUnseenChat(result);
+                        mergeActionChoices(result);
                         return result;
                     }
                     // Not at target step: auto-pass (skip playable-cards check)
@@ -2659,6 +2684,7 @@ public class BridgeCallbackHandler {
                         result.put("has_playable_cards", true);
                         result.put("stop_reason", "playable_cards");
                         attachUnseenChat(result);
+                        mergeActionChoices(result);
                         return result;
                     }
                     // First pass — fall through to auto-pass so the game advances
@@ -2741,44 +2767,10 @@ public class BridgeCallbackHandler {
 
     /**
      * Combined helper for models: wait using pass_priority, then return full choices.
-     * This reduces one round trip compared to pass_priority + get_action_choices.
+     * pass_priority already merges action choices, so this is just a pass-through.
      */
     public Map<String, Object> waitAndGetChoices(String until) {
-        Map<String, Object> waitResult = passPriority(until);
-        if (!Boolean.TRUE.equals(waitResult.get("action_pending"))) {
-            return waitResult;
-        }
-
-        Map<String, Object> choices = getActionChoices();
-        if (!Boolean.TRUE.equals(choices.get("action_pending"))) {
-            // Rare race: actionable result from pass_priority disappeared before choices fetch.
-            waitResult.put("warning", "Action changed before choices were fetched");
-            return waitResult;
-        }
-
-        if (waitResult.containsKey("actions_passed")) {
-            choices.put("actions_passed", waitResult.get("actions_passed"));
-        }
-        if (waitResult.containsKey("recent_chat")) {
-            choices.put("recent_chat", waitResult.get("recent_chat"));
-        }
-        if (waitResult.containsKey("player_dead")) {
-            choices.put("player_dead", true);
-        }
-        if (waitResult.containsKey("game_over")) {
-            choices.put("game_over", true);
-        }
-        if (waitResult.containsKey("has_playable_cards") && !choices.containsKey("has_playable_cards")) {
-            choices.put("has_playable_cards", waitResult.get("has_playable_cards"));
-        }
-        if (waitResult.containsKey("combat_phase") && !choices.containsKey("combat_phase")) {
-            choices.put("combat_phase", waitResult.get("combat_phase"));
-        }
-        if (waitResult.containsKey("stop_reason")) {
-            choices.put("stop_reason", waitResult.get("stop_reason"));
-        }
-
-        return choices;
+        return passPriority(until);
     }
 
     private String getGameLogSince(int offset) {

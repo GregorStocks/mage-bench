@@ -596,3 +596,95 @@ def test_render_interval_constant():
     """RENDER_INTERVAL should be a positive integer."""
     assert isinstance(RENDER_INTERVAL, int)
     assert RENDER_INTERVAL > 0
+
+
+# ---------------------------------------------------------------------------
+# pass_priority with inline choices (merged from get_action_choices)
+# ---------------------------------------------------------------------------
+
+
+def test_summarize_pass_priority_with_choices():
+    """pass_priority now returns choices inline when action_pending=true."""
+    content = json.dumps(
+        {
+            "action_pending": True,
+            "action_type": "GAME_SELECT",
+            "actions_passed": 3,
+            "stop_reason": "playable_cards",
+            "response_type": "select",
+            "choices": [
+                {"index": 0, "name": "Lightning Bolt", "action": "cast", "mana_cost": "{R}"},
+                {"index": 1, "name": "Mountain", "action": "land"},
+            ],
+            "context": "T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
+            "players": "You(20), Opp(18)",
+            "untapped_lands": 2,
+        }
+    )
+    result = _summarize_tool_result("pass_priority", content)
+    assert "action_pending" in result
+    assert "GAME_SELECT" in result
+    assert "playable_cards" in result
+    assert "select" in result
+    assert "2 choices" in result
+    assert "Lightning Bolt" in result
+
+
+def test_summarize_pass_priority_with_message_no_choices():
+    """Non-priority actions have a message but no choices list."""
+    content = json.dumps(
+        {
+            "action_pending": True,
+            "action_type": "GAME_ASK",
+            "actions_passed": 0,
+            "stop_reason": "non_priority_action",
+            "response_type": "boolean",
+            "message": "Mulligan hand?",
+        }
+    )
+    result = _summarize_tool_result("pass_priority", content)
+    assert "action_pending" in result
+    assert "GAME_ASK" in result
+    assert "boolean" in result
+    assert "Mulligan" in result
+
+
+# ---------------------------------------------------------------------------
+# _render_context with cache_control
+# ---------------------------------------------------------------------------
+
+
+def test_render_cache_control_content_block():
+    """With cache_control, system message uses content block array format."""
+    history = _make_history(5)
+    cc = {"type": "ephemeral"}
+    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
+    sys_msg = messages[0]
+    assert sys_msg["role"] == "system"
+    assert isinstance(sys_msg["content"], list)
+    assert len(sys_msg["content"]) == 1
+    block = sys_msg["content"][0]
+    assert block["type"] == "text"
+    assert block["text"] == SYSTEM_PROMPT
+    assert block["cache_control"] == {"type": "ephemeral"}
+
+
+def test_render_no_cache_control_plain_string():
+    """Without cache_control, system message uses plain string format."""
+    history = _make_history(5)
+    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=None)
+    sys_msg = messages[0]
+    assert sys_msg["role"] == "system"
+    assert sys_msg["content"] == SYSTEM_PROMPT
+
+
+def test_render_cache_control_with_strategy():
+    """cache_control + strategy: strategy appended to text, cache_control on block."""
+    history = _make_history(5)
+    cc = {"type": "ephemeral"}
+    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, saved_strategy="Play aggro", cache_control=cc)
+    sys_msg = messages[0]
+    assert isinstance(sys_msg["content"], list)
+    block = sys_msg["content"][0]
+    assert "Play aggro" in block["text"]
+    assert block["cache_control"] == {"type": "ephemeral"}

@@ -204,6 +204,9 @@ public class McpToolRegistry {
                 prop.put("type", type);
             }
             prop.put("description", f.description());
+            if (!f.conditional().isEmpty()) {
+                prop.put("conditional", f.conditional());
+            }
             properties.put(f.name(), prop);
         }
         schema.put("properties", properties);

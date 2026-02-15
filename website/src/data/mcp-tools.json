@@ -63,10 +63,12 @@
           "type": "integer"
         },
         "cursor_reset": {
+          "conditional": "when cursor parameter was used",
           "description": "Whether requested cursor was too old and had to be reset to oldest retained log offset",
           "type": "boolean"
         },
         "since_player": {
+          "conditional": "when since_turn parameter was used",
           "description": "The player whose turn the log starts from",
           "type": "string"
         },
@@ -75,6 +77,7 @@
           "type": "string"
         },
         "since_turn": {
+          "conditional": "when since_turn parameter was used",
           "description": "The per-player turn number the log starts from",
           "type": "integer"
         },
@@ -167,6 +170,47 @@
           "description": "\"declare_attackers\" or \"declare_blockers\"",
           "type": "string"
         },
+        "action_type": {
+          "description": "XMage callback method name",
+          "type": "string"
+        },
+        "players": {
+          "conditional": "action_pending",
+          "description": "Life total summary (e.g. \"You(20), Opp(18)\")",
+          "type": "string"
+        },
+        "stop_reason": {
+          "description": "Why the call returned: playable_cards, combat, non_priority_action, game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step)",
+          "type": "string"
+        },
+        "response_type": {
+          "conditional": "action_pending",
+          "description": "How to respond: \"select\", \"boolean\", \"index\", \"amount\", \"pile\", or \"multi_amount\"",
+          "type": "string"
+        },
+        "untapped_lands": {
+          "conditional": "action_pending",
+          "description": "Number of untapped lands",
+          "type": "integer"
+        },
+        "message": {
+          "conditional": "action_pending",
+          "description": "Human-readable prompt from XMage",
+          "type": "string"
+        },
+        "mana_pool": {
+          "conditional": "action_pending",
+          "description": "Current mana pool {R, G, U, W, B, C}",
+          "type": "object"
+        },
+        "action_pending": {
+          "description": "Whether a decision-requiring action was found",
+          "type": "boolean"
+        },
+        "player_dead": {
+          "description": "Whether you died during priority passing",
+          "type": "boolean"
+        },
         "actions_passed": {
           "description": "Number of priority passes performed",
           "type": "integer"
@@ -175,12 +219,9 @@
           "description": "Whether you have playable cards in hand",
           "type": "boolean"
         },
-        "action_type": {
-          "description": "XMage callback method name",
-          "type": "string"
-        },
-        "stop_reason": {
-          "description": "Why the call returned: playable_cards, combat, non_priority_action, game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step)",
+        "context": {
+          "conditional": "action_pending",
+          "description": "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")",
           "type": "string"
         },
         "recent_chat": {
@@ -190,44 +231,40 @@
             "type": "string"
           }
         },
-        "action_pending": {
-          "description": "Whether a decision-requiring action was found",
-          "type": "boolean"
+        "choices": {
+          "conditional": "action_pending",
+          "description": "Structured choices with index, name, and type-specific fields",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "your_hand": {
+          "conditional": "action_pending",
+          "description": "Hand cards with name, mana_cost",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
         },
         "current_step": {
           "description": "Current game step (only for reached_step/step_not_reached)",
           "type": "string"
-        },
-        "player_dead": {
-          "description": "Whether you died during priority passing",
-          "type": "boolean"
         }
       }
     },
     "examples": [
       {
         "label": "Playable cards found",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 3,\n  \"has_playable_cards\": true,\n  \"stop_reason\": \"playable_cards\"\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 3,\n  \"has_playable_cards\": true,\n  \"stop_reason\": \"playable_cards\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"players\": \"You(20), Opp(18)\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
       },
       {
         "label": "Combat phase",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 5,\n  \"has_playable_cards\": false,\n  \"combat_phase\": \"declare_attackers\",\n  \"stop_reason\": \"combat\"\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 5,\n  \"has_playable_cards\": false,\n  \"combat_phase\": \"declare_attackers\",\n  \"stop_reason\": \"combat\",\n  \"response_type\": \"select\",\n  \"context\": \"T4 COMBAT (Player1) YOUR_COMBAT\",\n  \"players\": \"You(18), Opp(15)\"\n}"
       },
       {
-        "label": "Non-priority action (mulligan, targeting)",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"actions_passed\": 0,\n  \"stop_reason\": \"non_priority_action\"\n}"
-      },
-      {
-        "label": "Yield until next turn",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 8,\n  \"has_playable_cards\": true,\n  \"stop_reason\": \"playable_cards\"\n}"
-      },
-      {
-        "label": "Yield to step (reached)",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 12,\n  \"current_step\": \"Declare Attackers\",\n  \"stop_reason\": \"reached_step\"\n}"
-      },
-      {
-        "label": "Yield to step (turn ended)",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 6,\n  \"current_step\": \"Upkeep\",\n  \"stop_reason\": \"step_not_reached\"\n}"
+        "label": "Non-priority action (mulligan)",
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"actions_passed\": 0,\n  \"stop_reason\": \"non_priority_action\",\n  \"response_type\": \"boolean\",\n  \"message\": \"Mulligan hand?\",\n  \"context\": \"T0 PREGAME\",\n  \"players\": \"You(20), Opp(20)\",\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\"\n    }\n  ]\n}"
       }
     ],
     "inputSchema": {
@@ -254,7 +291,7 @@
       }
     },
     "name": "pass_priority",
-    "description": "Pass priority. Blocks until you have a pending action (playable cards, combat, non-priority action like mulligan/targeting). With until: skips ahead to a target step or phase. Step values (current turn, client-side): upkeep, draw, precombat_main, begin_combat, declare_attackers, declare_blockers, end_combat, postcombat_main. Cross-turn values (server-side): end_of_turn, my_turn, stack_resolved. Always stops for combat and non-priority actions. Auto-handles mechanical callbacks (mana payment failures, optional targets with no legal targets). Returns stop_reason indicating why the call returned."
+    "description": "Pass priority. Blocks until you have a pending action (playable cards, combat, non-priority action like mulligan/targeting). With until: skips ahead to a target step or phase. Step values (current turn, client-side): upkeep, draw, precombat_main, begin_combat, declare_attackers, declare_blockers, end_combat, postcombat_main. Cross-turn values (server-side): end_of_turn, my_turn, stack_resolved. Always stops for combat and non-priority actions. Auto-handles mechanical callbacks (mana payment failures, optional targets with no legal targets). Returns stop_reason indicating why the call returned. When action_pending=true, includes full action choices (response_type, choices, context, etc.) so you can call choose_action immediately."
   },
   {
     "outputSchema": {
