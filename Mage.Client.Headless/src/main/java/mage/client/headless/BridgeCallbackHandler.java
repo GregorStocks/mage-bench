@@ -2696,8 +2696,12 @@ public class BridgeCallbackHandler {
                 startTime = System.currentTimeMillis();
             }
 
-            // Lost callback recovery
-            if (pendingAction == null && lastResponseSentAt == 0) {
+            // Lost callback recovery — only after we've received at least one
+            // actionable callback. Before that, the server hasn't asked us for
+            // input yet and a speculative pass would be a stale response that
+            // gets queued in the server's waitResponseOpen and delivered when
+            // the server eventually asks us (e.g. mulligan), causing auto-keep.
+            if (pendingAction == null && lastResponseSentAt == 0 && lastActionableCallbackAt > 0) {
                 long now = System.currentTimeMillis();
                 long idleTime = now - Math.max(lastActionableCallbackAt, startTime);
                 boolean transportAlive = lastCallbackReceivedAt > startTime;
