@@ -465,22 +465,31 @@
   min-width: 0;
 }
 
+.card-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .card-name {
   font-size: 0.9rem;
   font-weight: 700;
-  margin-bottom: 4px;
+}
+
+.card-cost {
+  flex-shrink: 0;
 }
 
 .card-type {
   font-size: 0.75rem;
   color: #a0a0b8;
   margin-bottom: 4px;
-}
-
-.card-stats {
-  font-size: 0.75rem;
-  color: #a8d9a5;
-  margin-bottom: 6px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .card-rules {
@@ -491,6 +500,14 @@
   line-height: 1.35;
   color: #c0c0d0;
   font-family: system-ui, -apple-system, sans-serif;
+  flex: 1;
+}
+
+.card-stats {
+  font-size: 0.75rem;
+  color: #a8d9a5;
+  text-align: right;
+  margin-top: 4px;
 }
 
 @media (max-width: 600px) {
@@ -508,9 +525,14 @@
   margin: 0 1px;
 }
 
-.card-type .mana-icon {
-  width: 18px;
-  height: 18px;
+.card-cost .mana-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.card-rules .mana-icon {
+  width: 13px;
+  height: 13px;
 }
 
 /* Diff highlight animations */

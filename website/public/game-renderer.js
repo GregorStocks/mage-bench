@@ -159,11 +159,121 @@
     return frag;
   }
 
+  /**
+   * Render text with inline mana symbols and italic reminder text.
+   * {2}{U} → mana icons, (reminder text) → <i>
+   */
+  function renderTextWithMana(text) {
+    var frag = document.createDocumentFragment();
+    if (!text) return frag;
+    // Match mana symbols {X} or reminder text (...)
+    var re = /\{([^}]+)\}|(\([^)]+\))/g;
+    var last = 0;
+    var match;
+    while ((match = re.exec(text)) !== null) {
+      if (match.index > last) {
+        frag.appendChild(document.createTextNode(text.substring(last, match.index)));
+      }
+      if (match[1] != null) {
+        // Mana symbol
+        var symbol = match[1].replace(/\//g, "");
+        var img = document.createElement("img");
+        img.className = "mana-icon";
+        img.src = "https://svgs.scryfall.io/card-symbols/" + encodeURIComponent(symbol) + ".svg";
+        img.alt = match[0];
+        img.title = match[0];
+        frag.appendChild(img);
+      } else {
+        // Reminder text — render italic with mana symbols inside
+        var em = document.createElement("i");
+        em.style.color = "#888";
+        // Render mana symbols inside the reminder text (use renderManaCostInline for just {X})
+        var inner = match[2];
+        var manaRe = /\{([^}]+)\}/g;
+        var mLast = 0;
+        var mMatch;
+        while ((mMatch = manaRe.exec(inner)) !== null) {
+          if (mMatch.index > mLast) em.appendChild(document.createTextNode(inner.substring(mLast, mMatch.index)));
+          var mSym = mMatch[1].replace(/\//g, "");
+          var mImg = document.createElement("img");
+          mImg.className = "mana-icon";
+          mImg.src = "https://svgs.scryfall.io/card-symbols/" + encodeURIComponent(mSym) + ".svg";
+          mImg.alt = mMatch[0];
+          mImg.title = mMatch[0];
+          em.appendChild(mImg);
+          mLast = manaRe.lastIndex;
+        }
+        if (mLast < inner.length) em.appendChild(document.createTextNode(inner.substring(mLast)));
+        frag.appendChild(em);
+      }
+      last = re.lastIndex;
+    }
+    if (last < text.length) {
+      frag.appendChild(document.createTextNode(text.substring(last)));
+    }
+    return frag;
+  }
+
   // ── Card preview ──
+
+  // Cache for Scryfall card data fetched on hover (cardName -> { typeLine, rules, mana_cost } or null)
+  var _scryfallCardCache = {};
+
+  function _applyScryfallData(data, els, expectedName) {
+    // Only apply if preview is still showing the same card
+    if (!els || els.name.textContent !== expectedName) return;
+    if (data.mana_cost && els.cost && !els.cost.hasChildNodes()) {
+      els.cost.appendChild(renderManaCost(data.mana_cost));
+    }
+    if (data.type_line && !els.type.textContent) {
+      els.type.textContent = data.type_line;
+    }
+    if (data.oracle_text && !els.rules.textContent) {
+      els.rules.textContent = "";
+      els.rules.appendChild(renderTextWithMana(data.oracle_text));
+    }
+    if (!els.stats.textContent) {
+      var parts = [];
+      if (data.power != null && data.toughness != null) {
+        parts.push(data.power + "/" + data.toughness);
+      }
+      if (data.loyalty) parts.push("Loyalty " + data.loyalty);
+      if (data.defense) parts.push("Defense " + data.defense);
+      if (parts.length > 0) els.stats.textContent = parts.join(" | ");
+    }
+  }
+
+  function _fetchScryfallCard(cardName, cardImages, els) {
+    if (_scryfallCardCache[cardName] !== undefined) {
+      if (_scryfallCardCache[cardName]) {
+        _applyScryfallData(_scryfallCardCache[cardName], els, cardName);
+      }
+      return;
+    }
+    _scryfallCardCache[cardName] = null; // mark as in-flight
+    // Try to derive API URL from cardImages map (strip image format params)
+    var apiUrl = null;
+    if (cardImages && cardImages[cardName]) {
+      apiUrl = cardImages[cardName].replace(/\?.*$/, "");
+    }
+    if (!apiUrl) {
+      apiUrl = "https://api.scryfall.com/cards/named?exact=" + encodeURIComponent(cardName);
+    }
+    fetch(apiUrl)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (data) {
+          _scryfallCardCache[cardName] = data;
+          _applyScryfallData(data, els, cardName);
+        }
+      })
+      .catch(function () {});
+  }
 
   function showPreview(cardName, cardObj, cardImages, els) {
     if (!els || !els.name) return;
     els.name.textContent = cardName;
+    if (els.cost) els.cost.textContent = "";
     els.type.textContent = "";
     els.stats.textContent = "";
     els.rules.textContent = "";
@@ -181,22 +291,19 @@
       if (cardObj.damage && Number(cardObj.damage) > 0) {
         els.stats.textContent = (els.stats.textContent ? els.stats.textContent + " | " : "") + "Damage " + cardObj.damage;
       }
-      if (cardObj.mana_cost) {
-        els.type.textContent = "";
-        els.type.appendChild(renderManaCost(cardObj.mana_cost));
+      if (cardObj.mana_cost && els.cost) {
+        els.cost.appendChild(renderManaCost(cardObj.mana_cost));
       }
       if (cardObj.typeLine) {
-        // If we already rendered mana cost, append type line
-        if (els.type.childNodes.length > 0) {
-          els.type.appendChild(document.createTextNode(" — " + cardObj.typeLine));
-        } else {
-          els.type.textContent = cardObj.typeLine;
-        }
+        els.type.textContent = cardObj.typeLine;
       }
       if (cardObj.rules) {
-        els.rules.textContent = cardObj.rules;
+        els.rules.appendChild(renderTextWithMana(cardObj.rules));
       }
     }
+
+    // Fetch card details from Scryfall (oracle text, type line, mana cost)
+    _fetchScryfallCard(cardName, cardImages, els);
 
     var imgUrl = resolveCardImage(cardName, cardObj, cardImages, "normal");
     els.image.src = imgUrl;
