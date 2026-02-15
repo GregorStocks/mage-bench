@@ -69,7 +69,7 @@ Optional JVM override for staller delay:
 
 ## OBS setup
 
-1. Keep XMage streaming client running (`make run`).
+1. Keep the spectator running (`make run`).
 2. In OBS, add your game/window capture source for XMage.
 3. Add a Browser Source:
    - URL: `http://127.0.0.1:17888/live?positions=1&obs=1`

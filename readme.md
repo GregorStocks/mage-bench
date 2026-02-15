@@ -90,7 +90,7 @@ Configure players in JSON config files (see `configs/`).
 
 ## Streaming & recording
 
-The streaming client provides:
+The spectator provides:
 - Live game visualization (JavaFX)
 - Video recording via FFmpeg
 - Local overlay server for Twitch/OBS (`http://localhost:17888/video_overlay.html`)

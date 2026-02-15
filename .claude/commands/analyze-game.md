@@ -109,7 +109,7 @@ Priority guide:
 - **P3**: Suboptimal tool behavior or missing features (bad descriptions, missing info in prompts)
 - **P4**: Minor issues (cosmetic, transient, or rare edge cases)
 
-Labels: `headless-client`, `puppeteer`, `pilot`, `streaming-client`
+Labels: `bridge`, `puppeteer`, `pilot`, `spectator`
 
 ### Step 10: Focus on a single game
 
