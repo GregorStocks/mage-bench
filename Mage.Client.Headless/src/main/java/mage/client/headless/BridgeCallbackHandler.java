@@ -1279,7 +1279,7 @@ public class BridgeCallbackHandler {
      * Respond to the current pending action with a specific choice.
      * Exactly one parameter should be non-null, matching the response_type from getActionChoices().
      */
-    public Map<String, Object> chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, com.google.gson.JsonArray manaPlanArray, Boolean autoTap, String[] attackers, com.google.gson.JsonArray blockersArray) {
+    public Map<String, Object> chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
         hasUnhandledNextAction = false;
         interactionsThisTurn++;
         var result = new HashMap<String, Object>();
@@ -1338,7 +1338,7 @@ public class BridgeCallbackHandler {
         }
 
         // Batch combat: blockers
-        if (blockersArray != null && !blockersArray.isEmpty()) {
+        if (blockersArray != null && blockersArray.length > 0) {
             String combatType = detectCombatSelect(action);
             if ("blockers".equals(combatType)) {
                 return handleBatchBlockers(blockersArray, action, result);
@@ -1394,12 +1394,12 @@ public class BridgeCallbackHandler {
         }
 
         // Validate mana_plan / auto_tap mutual exclusivity
-        if (manaPlanArray != null && !manaPlanArray.isEmpty() && autoTap != null && autoTap) {
+        if (manaPlanArray != null && manaPlanArray.length > 0 && autoTap != null && autoTap) {
             return buildError(result, "missing_param",
                 "mana_plan and auto_tap are mutually exclusive", false, action);
         }
         // Normalize empty mana_plan to null
-        if (manaPlanArray != null && manaPlanArray.isEmpty()) {
+        if (manaPlanArray != null && manaPlanArray.length == 0) {
             manaPlanArray = null;
         }
 
@@ -1975,7 +1975,7 @@ public class BridgeCallbackHandler {
      * Sends each blocker UUID, then the attacker UUID when prompted, then confirms.
      */
     @SuppressWarnings("unchecked")
-    private Map<String, Object> handleBatchBlockers(com.google.gson.JsonArray blockersArray, PendingAction action, Map<String, Object> result) {
+    private Map<String, Object> handleBatchBlockers(String[] blockersArray, PendingAction action, Map<String, Object> result) {
         UUID gameId = action.gameId();
         var declared = new ArrayList<Map<String, Object>>();
         var failed = new ArrayList<Map<String, Object>>();
@@ -1988,7 +1988,7 @@ public class BridgeCallbackHandler {
         } catch (IllegalArgumentException e) {
             return buildError(result, "invalid_blockers",
                 "Invalid blockers: " + e.getMessage()
-                + ". Expected: [{\"id\":\"pN\",\"blocks\":\"pM\"}]", false, action);
+                + ". Expected: [\"blocker:attacker\",...]", false, action);
         }
 
         // Get possibleBlockers from the current action's options
@@ -2142,19 +2142,22 @@ public class BridgeCallbackHandler {
     }
 
     /**
-     * Parse blocker assignments JSON: [{"id":"p5","blocks":"p1"},...]
+     * Parse blocker assignments: ["p5:p1","p6:p2"] where each entry is "blocker_id:attacker_id".
      */
-    private List<Map<String, String>> parseBlockerAssignments(com.google.gson.JsonArray arr) {
+    private List<Map<String, String>> parseBlockerAssignments(String[] arr) {
         var assignments = new ArrayList<Map<String, String>>();
-        for (int i = 0; i < arr.size(); i++) {
-            if (!arr.get(i).isJsonObject()) {
-                throw new IllegalArgumentException("blockers entry " + i + " must be an object, got: " + arr.get(i));
+        for (int i = 0; i < arr.length; i++) {
+            String entry = arr[i];
+            int colonIdx = entry.indexOf(':');
+            if (colonIdx < 0) {
+                throw new IllegalArgumentException("blockers entry " + i + " must be \"blocker:attacker\", got: " + entry);
             }
-            var obj = arr.get(i).getAsJsonObject();
-            if (!obj.has("id") || !obj.has("blocks")) {
-                throw new IllegalArgumentException("blockers entry " + i + " must have 'id' and 'blocks' fields, got: " + obj);
+            String blockerId = entry.substring(0, colonIdx);
+            String attackerId = entry.substring(colonIdx + 1);
+            if (blockerId.isEmpty() || attackerId.isEmpty()) {
+                throw new IllegalArgumentException("blockers entry " + i + " has empty id in: " + entry);
             }
-            assignments.add(Map.of("id", obj.get("id").getAsString(), "blocks", obj.get("blocks").getAsString()));
+            assignments.add(Map.of("id", blockerId, "blocks", attackerId));
         }
         return assignments;
     }
@@ -4163,18 +4166,13 @@ public class BridgeCallbackHandler {
     }
 
     /**
-     * Parse a mana plan JsonArray into a list of ManaPlanEntry.
+     * Parse a mana plan String[] into a list of ManaPlanEntry.
      * Format: ["p1", "p2:0", "RED"] — short IDs activate mana abilities (with optional
      * :N ability index for multi-ability permanents), color names spend from pool.
      */
-    private CopyOnWriteArrayList<ManaPlanEntry> parseManaPlan(com.google.gson.JsonArray arr) {
+    private CopyOnWriteArrayList<ManaPlanEntry> parseManaPlan(String[] arr) {
         var plan = new CopyOnWriteArrayList<ManaPlanEntry>();
-        for (int i = 0; i < arr.size(); i++) {
-            if (!arr.get(i).isJsonPrimitive() || !arr.get(i).getAsJsonPrimitive().isString()) {
-                throw new IllegalArgumentException(
-                    "mana_plan entry " + i + " must be a string (short ID or pool color), got: " + arr.get(i));
-            }
-            String entry = arr.get(i).getAsString();
+        for (String entry : arr) {
             if (isPoolColor(entry)) {
                 plan.add(new ManaPlanEntry("pool", entry));
             } else {

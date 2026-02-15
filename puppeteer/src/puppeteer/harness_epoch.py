@@ -20,7 +20,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #   8 - pass_priority returns action choices; Anthropic prompt caching (Feb 15)
 #   9 - GAME_CHOOSE_ABILITY presented to LLM instead of auto-selecting (Feb 15)
 #  10 - Flat mana_plan format + multi-ability land support (Feb 15)
-HARNESS_EPOCH = 10
+#  11 - Remove JsonArray from tool type system; blockers now "blocker:attacker" strings (Feb 15)
+HARNESS_EPOCH = 11
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.

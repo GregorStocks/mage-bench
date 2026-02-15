@@ -183,8 +183,6 @@ public class McpToolRegistry {
             var items = new HashMap<String, Object>();
             items.put("type", "integer");
             prop.put("items", items);
-        } else if (type == JsonArray.class) {
-            prop.put("type", "array");
         } else {
             throw new RuntimeException("Unsupported parameter type: " + type.getName());
         }
@@ -244,8 +242,6 @@ public class McpToolRegistry {
                     result[i] = arr.get(i).isJsonNull() ? 0 : arr.get(i).getAsInt();
                 }
                 return result;
-            } else if (type == JsonArray.class) {
-                return obj.getAsJsonArray(key);
             }
         } catch (UnsupportedOperationException | ClassCastException | IllegalStateException e) {
             String actualType = obj.get(key).getClass().getSimpleName();
@@ -264,7 +260,6 @@ public class McpToolRegistry {
         if (type == Boolean.class) return "boolean";
         if (type == String[].class) return "array of strings";
         if (type == int[].class) return "array of integers";
-        if (type == JsonArray.class) return "array";
         return type.getSimpleName();
     }
 
