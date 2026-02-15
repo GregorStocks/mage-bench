@@ -109,7 +109,18 @@ public class StreamingMain {
                 StreamingMageFrame streamingFrame = new StreamingMageFrame();
                 StreamingMageFrame.setInstance(streamingFrame);
                 EDTExceptionHandler.registerMainApp(streamingFrame);
-                // Prevent the observer window from stealing OS focus on startup
+                // Prevent the observer window from ever stealing OS keyboard focus.
+                // setFocusableWindowState(false) marks this as a non-focusable window
+                // (like a floating palette). Internal JInternalFrame dialogs (card
+                // reveals, pick choices) call setSelected(true) which triggers
+                // requestFocus() that bubbles up to the parent JFrame and steals
+                // focus from the user's active window. This is the only reliable fix —
+                // overriding toFront() alone doesn't prevent these internal focus
+                // requests.
+                // The window can still be clicked to raise it (window manager handles
+                // raising separately from keyboard focus), but it won't receive
+                // keyboard input — which is fine for an observer.
+                streamingFrame.setFocusableWindowState(false);
                 streamingFrame.setAutoRequestFocus(false);
                 streamingFrame.setVisible(true);
                 LOGGER.info("Streaming client started successfully");
