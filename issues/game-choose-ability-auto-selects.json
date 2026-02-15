@@ -1,0 +1,10 @@
+{
+  "title": "GAME_CHOOSE_ABILITY auto-selects in MCP mode instead of presenting choice to LLM",
+  "description": "When a GAME_CHOOSE_ABILITY callback fires in MCP mode, the bridge always auto-handles it (BridgeCallbackHandler.java:3439-3477) instead of storing it as a pending action for the LLM. This means the LLM never gets to choose between:\n\n1. **Multi-ability permanents** (e.g. Wasteland: tap for {C} vs destroy target nonbasic land). The bridge calls `pickBestAbilityForMana()` which always picks the mana ability. Gem3P Spike in game_20260214_185313_g1 tried to activate Wasteland's destroy ability 11 times across the game, and every single time it was auto-selected as tap-for-mana instead (see pilot.log lines 1030, 1410, 1479, 1707, 1831, 1922, 2003, 2323, 2846, 3108).\n\n2. **Modal spell mode selection** (e.g. Kozilek's Command). Mode selection arrives as GAME_CHOOSE_ABILITY and gets auto-picked by the mana heuristic. Qwen3L Sarge in game_20260214_174030_g3 (seq=160) was confused that modes were skipped.\n\n3. **Bestow cast mode** (creature vs aura). Springheart Nantuko's bestow mode was auto-handled without LLM input in game_20260214_204439_g4.\n\nThe fix should store GAME_CHOOSE_ABILITY as a pending action (like GAME_CHOOSE_CHOICE) when it's not part of mana payment (i.e. when manaPlan is null and the choice isn't during a mana payment prompt). The current code at line 3460-3468 should call storePendingAction instead of auto-selecting.\n\nKey log references:\n- game_20260214_185313_g1/Gem3P Spike_llm.jsonl seq=250 (Wasteland complaint)\n- game_20260214_185313_g1/Gem3P Spike_pilot.log line 216 (Auto-selecting ability: Wasteland -> {T}: Add {C})\n- game_20260214_174030_g3/Qwen3L Sarge_llm.jsonl seq=160 (Kozilek's Command mode confusion)",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["headless-client", "mcp"],
+  "created_at": "2026-02-15T12:36:26.000000-08:00",
+  "updated_at": "2026-02-15T12:36:26.000000-08:00"
+}

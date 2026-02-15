@@ -1,0 +1,10 @@
+{
+  "title": "Models can't express exile-for-mana cards in mana_plan (Simian Spirit Guide, Elvish Spirit Guide)",
+  "description": "The mana_plan parameter only supports `{\"tap\":\"id\"}` (tap a permanent) and `{\"pool\":\"COLOR\"}` (use floating mana). Models repeatedly try to express Simian Spirit Guide's exile-from-hand-for-mana ability using formats like:\n\n- `{\"id\":\"p7\", \"action\":\"exile\"}` (Gem25F Johnny, game_20260214_115320_g2)\n- `{\"tap\":\"p6\"}` where p6 is in hand, not on battlefield (Gem3P Stoic, game_20260214_115320_g1)\n\nBoth fail with clear errors (\"Unknown mana_plan entry type: id\", or JsonObject errors), but there's no way for the model to actually accomplish what it wants. The mana_plan has no syntax for \"exile this card from hand to add mana.\"\n\nThis causes repeated cast failures. In game_20260214_115320_g2, Gem25F Johnny spent ~50 turns trying to cast Blood Moon with Simian Spirit Guide mana and never succeeded. The model correctly understood it needed SSG for mana but couldn't express it.\n\nPossible fix: the auto-tap system should handle exile-for-mana abilities (like Elvish Spirit Guide, Simian Spirit Guide, Chrome Mox) automatically during mana payment, or mana_plan should support an `{\"exile\":\"id\"}` entry type.\n\nThis is model stupidity in the sense that models should just use auto_tap:true for these cases, but it's also a real API limitation since there's no way to manually plan mana from exile sources.\n\nKey log references:\n- game_20260214_115320_g2/Gem25F Johnny_pilot.log lines 153-155 (mana_plan error)\n- game_20260214_115320_g2/Gem25F Johnny_llm.jsonl seq=109 (first attempt), seq=604 (still failing)\n- game_20260214_115320_g1/Gem3P Stoic_llm.jsonl seq=221 (tap p6 which is in hand)",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["headless-client", "mcp"],
+  "created_at": "2026-02-15T12:36:26.000000-08:00",
+  "updated_at": "2026-02-15T12:36:26.000000-08:00"
+}

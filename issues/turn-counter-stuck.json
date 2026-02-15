@@ -1,0 +1,10 @@
+{
+  "title": "get_game_state turn counter stuck at initial value for entire game",
+  "description": "In game_20260215_103054_g1, DSV3 Libby's get_game_state always returned `\"turn\":2` even when the actual game was at turn 15+. The game_events.jsonl correctly shows TURN 15 at that point.\n\nThis caused the model to believe creatures cast earlier in the game had summoning sickness: \"p11 entered this turn, so it has summoning sickness. But the game allowed me to declare it as an attacker. That's strange.\" (seq=231). In reality, p11 (Duelist of the Mind) had been on the battlefield since Turn 7 (game_events seq=94-95) and was correctly attackable.\n\nThe turn counter shown via get_game_state at seq=89, seq=124, and seq=217 all showed turn=2. The get_action_choices context field shows \"T2\" as well. Meanwhile the game_events.jsonl shows the correct turn progression from turn 1 through 18+.\n\nThis may be a bug in how GameView.getTurn() is populated or how the MCP layer reads it. Note: the game_events.jsonl correctly tracks turns, so the issue is specifically in the game state returned to the LLM.\n\nKey log references:\n- game_20260215_103054_g1/DSV3 Libby_llm.jsonl seq=217 (get_game_state returns turn=2 when actual is ~15)\n- game_20260215_103054_g1/DSV3 Libby_llm.jsonl seq=231 (model confused about summoning sickness)\n- game_20260215_103054_g1/game_events.jsonl seq=248 (actual TURN 15)",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["headless-client", "mcp"],
+  "created_at": "2026-02-15T12:36:26.000000-08:00",
+  "updated_at": "2026-02-15T12:36:26.000000-08:00"
+}
