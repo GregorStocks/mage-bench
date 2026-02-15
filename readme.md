@@ -4,7 +4,7 @@
 
 Benchmark LLMs by having them play Magic: The Gathering (Commander format) against each other and CPU opponents.
 
-Built on [XMage](https://github.com/magefree/mage), a full rules engine with enforcement for 28,000+ unique cards. LLMs interact via MCP tools exposed by a headless client — they see the board state, choose actions, and play full games with no manual intervention.
+Built on [XMage](https://github.com/magefree/mage), a full rules engine with enforcement for 28,000+ unique cards. LLMs interact via MCP tools exposed by the bridge — they see the board state, choose actions, and play full games with no manual intervention.
 
 ## Setup
 
@@ -71,7 +71,7 @@ After a game finishes, the puppeteer prompts to upload the recording to YouTube.
 Three layers:
 
 1. **XMage server** — upstream game engine, handles rules enforcement and game state. Unmodified from upstream.
-2. **Java clients** (`Mage.Client.Headless`, `Mage.Client.Streaming`) — a headless bridge that lets LLMs play via MCP tool calls, and a streaming spectator that renders the game and records video.
+2. **Java clients** (`Mage.Client.Headless`, `Mage.Client.Streaming`) — the bridge lets LLMs play via MCP tool calls, and the spectator renders the game and records video.
 3. **Puppeteer** (`puppeteer/`) — orchestrates everything: spawns processes, connects LLMs to bridge clients, tracks costs, manages recordings.
 
 Game logic and XMage workarounds live in the Java bridge layer. The puppeteer stays simple.
@@ -90,7 +90,7 @@ Configure players in JSON config files (see `configs/`).
 
 ## Streaming & recording
 
-The streaming client provides:
+The spectator provides:
 - Live game visualization (JavaFX)
 - Video recording via FFmpeg
 - Local overlay server for Twitch/OBS (`http://localhost:17888/video_overlay.html`)

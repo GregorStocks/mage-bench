@@ -84,7 +84,7 @@ For each **code bug** found (not model behavior issues), create an issue in `iss
 
 Priority: P1 = crashes/broken actions, P2 = loops/stalling/repeated errors, P3 = bad tool descriptions/missing features, P4 = minor/cosmetic.
 
-Labels: `headless-client`, `puppeteer`, `pilot`, `streaming-client`
+Labels: `bridge`, `puppeteer`, `pilot`, `spectator`
 
 ### Step 5: Present summary
 

@@ -68,7 +68,7 @@ jq 'select(.type=="game_end") | {player, total_cost_usd}' game.jsonl
 | File | Created by | Contents |
 |---|---|---|
 | `errors.log` | `orchestrator.py` `_write_error_log()` | All `*_errors.log` files concatenated, prefixed with source |
-| `spectator.log` | Spectator/streaming client | Game creation, table setup, recording |
+| `spectator.log` | Spectator | Game creation, table setup, recording |
 | `config.json` | `orchestrator.py` | Copy of the game config used |
 
 ## Error logging

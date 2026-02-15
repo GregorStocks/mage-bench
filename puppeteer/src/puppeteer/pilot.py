@@ -652,18 +652,6 @@ async def run_pilot_loop(
                     elif fn.name == "pass_priority":
                         try:
                             result_data = json.loads(result_text)
-                            if result_data.get("game_over"):
-                                _log("[pilot] Game over detected, switching to auto-pass")
-                                if game_log:
-                                    game_log.emit("auto_pilot_mode", reason="game_over")
-                                await auto_pass_loop(session, game_dir, username, "pilot")
-                                return
-                            if result_data.get("player_dead"):
-                                _log("[pilot] Player is dead, switching to auto-pass")
-                                if game_log:
-                                    game_log.emit("auto_pilot_mode", reason="player_dead")
-                                await auto_pass_loop(session, game_dir, username, "pilot")
-                                return
                             if result_data.get("action_pending"):
                                 turn_had_actionable_opportunity = True
                                 consecutive_pass_errors = 0
@@ -696,6 +684,25 @@ async def run_pilot_loop(
                                 last_pass_error_msg = ""
                         except (json.JSONDecodeError, TypeError):
                             pass
+
+                    # Detect game_over/player_dead from ANY tool result
+                    try:
+                        _rd = json.loads(result_text)
+                        if isinstance(_rd, dict):
+                            if _rd.get("game_over"):
+                                _log(f"[pilot] Game over detected from {fn.name}, switching to auto-pass")
+                                if game_log:
+                                    game_log.emit("auto_pilot_mode", reason="game_over")
+                                await auto_pass_loop(session, game_dir, username, "pilot")
+                                return
+                            if _rd.get("player_dead"):
+                                _log(f"[pilot] Player dead detected from {fn.name}, switching to auto-pass")
+                                if game_log:
+                                    game_log.emit("auto_pilot_mode", reason="player_dead")
+                                await auto_pass_loop(session, game_dir, username, "pilot")
+                                return
+                    except (json.JSONDecodeError, TypeError):
+                        pass
 
                     history.append(
                         {

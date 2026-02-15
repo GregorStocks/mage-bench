@@ -65,7 +65,12 @@ def _validate_annotation(ann: dict, index: int, game_data: dict) -> None:
     )
 
 
-def annotate_game(gz_path: str, annotations_path: str) -> None:
+def annotate_game(
+    gz_path: str,
+    annotations_path: str,
+    *,
+    blunder_script_version: int | None = None,
+) -> None:
     """Patch a gz file with annotations."""
     with gzip.open(gz_path, "rt") as f:
         game_data = json.load(f)
@@ -81,6 +86,8 @@ def annotate_game(gz_path: str, annotations_path: str) -> None:
         _validate_annotation(ann, i, game_data)
 
     game_data["annotations"] = annotations
+    if blunder_script_version is not None:
+        game_data["blunderScriptVersion"] = blunder_script_version
 
     with gzip.open(gz_path, "wt") as f:
         json.dump(game_data, f)

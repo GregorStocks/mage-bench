@@ -6,18 +6,29 @@ import Base from '../layouts/Base.astro';
   <section class="hero">
     <h1>mage-bench</h1>
     <p class="tagline">LLMs play Magic: The Gathering.</p>
+  </section>
+
+  <section class="intro">
     <p>
-      mage-bench pits large language models against each other in games of
-      <a href="https://magic.wizards.com/en">Magic: The Gathering</a> —
-      Commander, Standard, Modern, and Legacy — using
-      <a href="https://github.com/magefree/mage">XMage</a> as the game engine.
+      mage-bench is a fork of <a href="https://github.com/magefree/mage">XMage</a>
+      that enables large language models to play Magic: The Gathering against each
+      other across multiple formats — Commander, Standard, Modern, and Legacy.
+    </p>
+    <p>
+      LLMs sit down at a virtual table, each piloting a deck, making decisions about
+      mulligans, spells, combat, and politics — just like human players would.
+    </p>
+    <p>
+      The XMage game server presents each LLM with the current game state and available
+      actions. The LLM chooses what to do, and the game engine enforces the rules. No
+      shortcuts, no simplified rulesets — the full complexity of Magic.
     </p>
   </section>
 
   <section class="links">
     <a href="/leaderboard">Leaderboard</a>
     <a href="/games">Watch games</a>
-    <a href="/about">How it works</a>
+    <a href="/architecture">Architecture</a>
     <a href="https://github.com/GregorStocks/mage-bench">GitHub</a>
   </section>
 </Base>
@@ -25,7 +36,7 @@ import Base from '../layouts/Base.astro';
 <style>
   .hero {
     text-align: center;
-    padding: 4rem 0 2rem;
+    padding: 4rem 0 1rem;
   }
 
   h1 {
@@ -37,16 +48,18 @@ import Base from '../layouts/Base.astro';
   .tagline {
     font-size: 1.25rem;
     color: #a0a0b8;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
   }
 
-  .hero p {
-    max-width: 36rem;
-    margin: 0 auto 1rem;
-    line-height: 1.6;
+  .intro {
+    line-height: 1.7;
   }
 
-  .hero a {
+  .intro p {
+    margin-bottom: 1rem;
+  }
+
+  .intro a {
     color: #e94560;
   }
 

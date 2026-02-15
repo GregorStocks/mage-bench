@@ -14,6 +14,7 @@ Requires OPENROUTER_API_KEY environment variable.
 import gzip
 import json
 import os
+import random
 import sys
 import tempfile
 from pathlib import Path
@@ -30,6 +31,16 @@ TMP_DIR = REPO_ROOT / "tmp"
 OPUS_MODEL = "anthropic/claude-opus-4.6"
 HAIKU_MODEL = "anthropic/claude-haiku-4.5"
 BASE_URL = "https://openrouter.ai/api/v1"
+
+# When Haiku flags zero decisions, send this many random decisions to Opus as a
+# calibration check. Catches cases where Haiku is too conservative.
+CALIBRATION_SAMPLE_SIZE = 3
+
+# Bump this when the analysis pipeline changes enough to warrant re-running.
+# Games analyzed with an older version will be automatically re-analyzed.
+# v1: initial two-phase pipeline (Haiku pre-filter + Opus analysis)
+# v2: softened Haiku prompt + Opus calibration check for zero-flag games
+BLUNDER_SCRIPT_VERSION = 2
 
 # Prices per million tokens (from models.json, Feb 2026)
 PRICES: dict[str, tuple[float, float]] = {
@@ -53,8 +64,8 @@ Common blunder patterns:
 - Poor attack or block decisions (bad_combat)
 - Overextending into obvious removal or countermagic (walked_into_removal)
 
-Only flag CLEAR mistakes where a better line is obvious. Skip close calls and reasonable \
-strategic differences.
+Err on the side of flagging. A downstream model will confirm or dismiss each flag, \
+so false positives are cheap. Only skip decisions that are clearly reasonable.
 
 Respond with ONLY a JSON array. Each element: {"index": <decision_index>, "reason": "<brief reason>"}
 If no decisions look suspicious, return []."""
@@ -207,6 +218,24 @@ def _format_decisions_for_opus(
     return "\n\n---\n\n".join(parts)
 
 
+def _format_decisions_for_opus_calibration(
+    decisions: list[dict],
+    sample_indices: list[int],
+) -> str:
+    """Full decision data for Opus calibration check (unflagged random sample)."""
+    sample_set = set(sample_indices)
+    parts: list[str] = []
+    for d in decisions:
+        idx = d["decision_index"]
+        if idx not in sample_set:
+            continue
+        header = (
+            f"## Decision {idx} (calibration sample \u2014 not flagged by pre-filter)\n"
+        )
+        parts.append(header + json.dumps(d, indent=2))
+    return "\n\n---\n\n".join(parts)
+
+
 def _compute_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
     input_price, output_price = PRICES[model]
     return (prompt_tokens * input_price + completion_tokens * output_price) / 1_000_000
@@ -278,23 +307,30 @@ def _write_annotations(gz_path: str, annotations: list) -> None:
         ann_path = f.name
 
     try:
-        annotate_game(gz_path, ann_path)
+        annotate_game(gz_path, ann_path, blunder_script_version=BLUNDER_SCRIPT_VERSION)
         print(f"Annotations written to {gz_path}")
     finally:
         os.unlink(ann_path)
 
 
-def main(gz_path: str, *, reanalyze: bool = False) -> None:
+def main(gz_path: str) -> None:
     api_key = os.environ.get("OPENROUTER_API_KEY")
     assert api_key, "OPENROUTER_API_KEY environment variable required"
 
-    # Skip if already analyzed (unless --reanalyze)
+    # Skip if already analyzed with the current script version.
+    # Missing blunderScriptVersion with existing annotations → v1.
     data = _load_game(gz_path)
-    if not reanalyze and "annotations" in data:
+    if "annotations" in data:
+        existing_version = data.get("blunderScriptVersion", 1)
+        if existing_version >= BLUNDER_SCRIPT_VERSION:
+            print(
+                f"Already analyzed (v{existing_version}): {gz_path} "
+                f"({len(data['annotations'])} annotations)"
+            )
+            return
         print(
-            f"Already analyzed: {gz_path} ({len(data['annotations'])} annotations). Use --reanalyze to redo."
+            f"Reanalyzing: v{existing_version} → v{BLUNDER_SCRIPT_VERSION} ({gz_path})"
         )
-        return
 
     client = OpenAI(base_url=BASE_URL, api_key=api_key)
 
@@ -331,8 +367,47 @@ def main(gz_path: str, *, reanalyze: bool = False) -> None:
         print(f"    [{f['index']}] {f.get('reason', '?')}")
 
     if not flagged:
-        print("\nNo suspicious decisions found. Game looks clean!")
-        _write_annotations(gz_path, [])
+        # Haiku found nothing suspicious. Send a random sample to Opus as calibration.
+        sample_size = min(CALIBRATION_SAMPLE_SIZE, len(non_forced))
+        sample = random.sample(non_forced, sample_size)
+        sample_indices = [d["decision_index"] for d in sample]
+        print(
+            f"\nNo flags from Haiku. Calibration check: "
+            f"sending {sample_size} random decisions to Opus..."
+        )
+
+        opus_user = (
+            f"## Game Overview\n{overview}\n\n"
+            f"## Calibration Sample\n\n"
+            f"The pre-filter flagged zero decisions in this game. "
+            f"Below is a random sample of {sample_size} unflagged decisions "
+            f"for quality assurance. "
+            f"Analyze each one. If any are blunders, provide full annotations. "
+            f"If all are reasonable plays, return [].\n\n"
+            f"{_format_decisions_for_opus_calibration(decisions, sample_indices)}"
+        )
+        opus_text, o_in, o_out = _call_llm(client, OPUS_MODEL, OPUS_SYSTEM, opus_user)
+        o_cost = _compute_cost(OPUS_MODEL, o_in, o_out)
+        cost_entries.append(("Opus calibration", OPUS_MODEL, o_in, o_out, o_cost))
+        print(f"  Tokens: {o_in:,} input, {o_out:,} output (${o_cost:.3f})")
+
+        annotations = _parse_json_array(opus_text)
+
+        if not annotations:
+            print("\nCalibration confirmed: no blunders in sample.")
+        else:
+            snapshots = data.get("snapshots", [])
+            print(f"\nCalibration found {len(annotations)} blunder(s):\n")
+            for ann in annotations:
+                snap_idx = ann["snapshotIndex"]
+                turn = snapshots[snap_idx]["turn"] if snap_idx < len(snapshots) else "?"
+                sev = ann["severity"].upper()
+                print(f"  Turn {turn} ({ann['player']}) - {sev} {ann['category']}")
+                print(f"    {ann['description']}")
+                print(f"    Better: {ann['betterLine']}")
+                print()
+
+        _write_annotations(gz_path, annotations)
         _print_cost(cost_entries)
         return
 
@@ -377,9 +452,7 @@ def main(gz_path: str, *, reanalyze: bool = False) -> None:
 
 
 if __name__ == "__main__":
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    flags = {a for a in sys.argv[1:] if a.startswith("--")}
-    if not args:
-        print(f"Usage: {sys.argv[0]} [--reanalyze] <game.json.gz>", file=sys.stderr)
+    if len(sys.argv) < 2:
+        print(f"Usage: {sys.argv[0]} <game.json.gz>", file=sys.stderr)
         sys.exit(1)
-    main(args[0], reanalyze="--reanalyze" in flags)
+    main(sys.argv[1])

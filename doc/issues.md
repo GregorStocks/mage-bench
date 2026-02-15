@@ -13,7 +13,7 @@ Resolved issues should be deleted, not marked as resolved/closed.
   "status": "open",
   "priority": 3,
   "type": "task",
-  "labels": ["streaming-client"],
+  "labels": ["spectator"],
   "created_at": "2026-02-09T14:30:00.000000-08:00",
   "updated_at": "2026-02-09T14:30:00.000000-08:00"
 }
@@ -30,7 +30,7 @@ Use real timestamps (the actual time you're creating the issue), not `00:00:00` 
 | `status` | string | Always "open" (delete closed issues) |
 | `priority` | int | 1 (highest) to 4 (lowest) |
 | `type` | string | Usually "task" |
-| `labels` | string[] | Tags like "streaming-client", "ui", "puppeteer" |
+| `labels` | string[] | Tags like "spectator", "bridge", "puppeteer" |
 | `created_at` | string | ISO 8601 timestamp |
 | `updated_at` | string | ISO 8601 timestamp |
 | `not_autoclaimable` | bool? | If true, `autoclaim-issue.py` skips this issue (has preconditions) |
@@ -58,7 +58,7 @@ uv run python scripts/list-issues.py
 ### Find issues by label
 
 ```bash
-uv run python scripts/query-issues.py --label streaming-client
+uv run python scripts/query-issues.py --label spectator
 ```
 
 ### Find high priority issues (priority 1-2)

@@ -130,6 +130,92 @@ async def test_game_over_from_pass_priority_triggers_auto_pass():
         mock_auto_pass.assert_called_once()
 
 
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
+async def test_game_over_from_get_action_choices_triggers_auto_pass():
+    """When get_action_choices returns game_over, pilot should switch to auto-pass."""
+    session = _make_session()
+
+    # Mock get_action_choices to return game_over
+    choices_result = MagicMock()
+    choices_result.content = [MagicMock(text='{"action_pending": false, "game_over": true}')]
+    session.call_tool = AsyncMock(return_value=choices_result)
+
+    # Mock LLM to call get_action_choices
+    tool_call = MagicMock()
+    tool_call.id = "call_1"
+    tool_call.function.name = "get_action_choices"
+    tool_call.function.arguments = "{}"
+
+    choice = MagicMock()
+    choice.finish_reason = "tool_calls"
+    choice.message.tool_calls = [tool_call]
+    choice.message.content = None
+
+    response = MagicMock()
+    response.choices = [choice]
+    response.usage = MagicMock(prompt_tokens=10, completion_tokens=5)
+
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(return_value=response)
+
+    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
+        await run_pilot_loop(
+            session=session,
+            client=client,
+            model="test-model",
+            system_prompt="You are a test.",
+            tools=[{"type": "function", "function": {"name": "get_action_choices", "parameters": {}}}],
+            username="test-player",
+        )
+        mock_auto_pass.assert_called_once()
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
+async def test_game_over_from_choose_action_triggers_auto_pass():
+    """When choose_action returns game_over, pilot should switch to auto-pass."""
+    session = _make_session()
+
+    # Mock choose_action to return error with game_over
+    action_result = MagicMock()
+    result_json = (
+        '{"success": false, "error": "No pending action after 10s wait",'
+        ' "error_code": "no_pending_action", "game_over": true}'
+    )
+    action_result.content = [MagicMock(text=result_json)]
+    session.call_tool = AsyncMock(return_value=action_result)
+
+    # Mock LLM to call choose_action
+    tool_call = MagicMock()
+    tool_call.id = "call_1"
+    tool_call.function.name = "choose_action"
+    tool_call.function.arguments = '{"index": 0}'
+
+    choice = MagicMock()
+    choice.finish_reason = "tool_calls"
+    choice.message.tool_calls = [tool_call]
+    choice.message.content = None
+
+    response = MagicMock()
+    response.choices = [choice]
+    response.usage = MagicMock(prompt_tokens=10, completion_tokens=5)
+
+    client = MagicMock()
+    client.chat.completions.create = AsyncMock(return_value=response)
+
+    with patch("puppeteer.pilot.auto_pass_loop", new_callable=AsyncMock) as mock_auto_pass:
+        await run_pilot_loop(
+            session=session,
+            client=client,
+            model="test-model",
+            system_prompt="You are a test.",
+            tools=[{"type": "function", "function": {"name": "choose_action", "parameters": {}}}],
+            username="test-player",
+        )
+        mock_auto_pass.assert_called_once()
+
+
 # --- mcp_tools_to_openai tests ---
 
 

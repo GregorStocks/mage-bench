@@ -555,6 +555,7 @@ public class BridgeCallbackHandler {
         if (action == null) {
             result.put("action_pending", false);
             clearChoiceSnapshot();
+            attachUnseenChat(result);
             return result;
         }
 
@@ -1261,6 +1262,7 @@ public class BridgeCallbackHandler {
         if (attachChoices) {
             attachChoicesToError(result);
         }
+        attachUnseenChat(result);
         return result;
     }
 
@@ -1424,7 +1426,9 @@ public class BridgeCallbackHandler {
                     // GAME_ASK is boolean-only; ignore index if also provided
                     // (some models send all params with defaults)
                     if (answer == null) {
-                        return buildError(result, "missing_param", "Boolean 'answer' required for " + method, true, action);
+                        return buildError(result, "missing_param",
+                            "GAME_ASK requires answer=true (yes) or answer=false (no). "
+                            + "Do not use index or id — this is a yes/no question.", true, action);
                     }
                     if (index != null) {
                         logger.warn("[" + client.getUsername() + "] choose_action: ignoring index=" + index + " for GAME_ASK (boolean-only)");
@@ -1450,7 +1454,7 @@ public class BridgeCallbackHandler {
                             } else {
                                 return buildError(result, "index_out_of_range",
                                     "Index " + index + " is out of range"
-                                    + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded)")
+                                    + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
                                     + ". Call get_action_choices to see current options.", true, action, true);
                             }
                         } else {
@@ -1514,7 +1518,7 @@ public class BridgeCallbackHandler {
                             } else {
                                 return buildError(result, "index_out_of_range",
                                     "Index " + index + " is out of range"
-                                    + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded)")
+                                    + (choices != null ? " (valid: 0-" + (choices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
                                     + ". Call get_action_choices to see current options.", true, action, true);
                             }
                         } else {
@@ -1566,7 +1570,8 @@ public class BridgeCallbackHandler {
                             result.put("action_taken", "cancelled_spell");
                         } else {
                             return buildError(result, "missing_param",
-                                "Provide 'index' to choose mana source/pool, or 'answer: false' to cancel", true, action, true);
+                                "GAME_PLAY_MANA requires index=N to choose a mana source, or answer=false to cancel the spell. "
+                                + "Call get_action_choices first to see available mana sources.", true, action, true);
                         }
                     }
                     break;
@@ -1597,7 +1602,7 @@ public class BridgeCallbackHandler {
                             List<Object> targetChoices = lastChoices;
                             return buildError(result, "index_out_of_range",
                                 "Index " + index + " is out of range"
-                                + (targetChoices != null ? " (valid: 0-" + (targetChoices.size() - 1) + ")" : " (no choices loaded)")
+                                + (targetChoices != null ? " (valid: 0-" + (targetChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
                                 + ". Call get_action_choices to see current targets.", true, action, true);
                         }
                         logger.warn("[" + client.getUsername() + "] choose_action: index " + index
@@ -1616,7 +1621,8 @@ public class BridgeCallbackHandler {
                     } else if (!required) {
                         // No index, no answer=false — return error for optional targets
                         return buildError(result, "missing_param",
-                            "Integer 'index' required for GAME_TARGET (or answer=false to cancel)", true, action, true);
+                            "GAME_TARGET requires index=N to select a target, or answer=false to cancel targeting. "
+                            + "Call get_action_choices first to see available targets.", true, action, true);
                     }
 
                     // Auto-select for required targets when index was invalid/missing
@@ -1649,7 +1655,7 @@ public class BridgeCallbackHandler {
                         logChoiceOutOfRangeDiagnostic(method, index, abilityChoices);
                         return buildError(result, "index_out_of_range",
                             "Index " + index + " is out of range"
-                            + (abilityChoices != null ? " (valid: 0-" + (abilityChoices.size() - 1) + ")" : " (no choices loaded)")
+                            + (abilityChoices != null ? " (valid: 0-" + (abilityChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
                             + ". Call get_action_choices to see current options.", true, action, true);
                     }
                     UUID abilityUUID = (UUID) abilityChoices.get(index);
@@ -1717,7 +1723,7 @@ public class BridgeCallbackHandler {
                         logChoiceOutOfRangeDiagnostic(method, index, choiceChoices);
                         return buildError(result, "index_out_of_range",
                             "Index " + index + " is out of range"
-                            + (choiceChoices != null ? " (valid: 0-" + (choiceChoices.size() - 1) + ")" : " (no choices loaded)")
+                            + (choiceChoices != null ? " (valid: 0-" + (choiceChoices.size() - 1) + ")" : " (no choices loaded — call get_action_choices first)")
                             + ". Call get_action_choices to see current options.", true, action, true);
                     }
                     String choiceStr = (String) choiceChoices.get(index);

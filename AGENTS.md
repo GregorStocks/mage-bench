@@ -20,8 +20,8 @@ Avoid **modifying existing behavior** in Java outside of `Mage.Client.Streaming`
 **Bug fixes in upstream modules are OK** when we're confident they're XMage bugs (e.g. incorrect combat legality checks). File a P2 issue for tracking and keep the fix minimal.
 
 **Our code (free to modify):**
-- `Mage.Client.Streaming` - streaming/spectator client
-- `Mage.Client.Headless` - headless bridge client
+- `Mage.Client.Streaming` - spectator client
+- `Mage.Client.Headless` - bridge client
 - `puppeteer/` - Python orchestration
 
 ## Architecture: MCP Layer vs Puppeteer
@@ -221,7 +221,7 @@ make website
 The dev server runs at `http://localhost:4321/`. Key pages:
 - Home: `http://localhost:4321/`
 - Leaderboard: `http://localhost:4321/leaderboard`
-- About: `http://localhost:4321/about`
+- Architecture: `http://localhost:4321/architecture`
 - MCP Tools: `http://localhost:4321/mcp-tools`
 - Games list: `http://localhost:4321/games`
 - Live viewer (mock): `http://localhost:4321/games/live?mock=1`
