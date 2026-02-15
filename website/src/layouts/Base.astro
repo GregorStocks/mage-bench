@@ -10,9 +10,9 @@ const currentPath = Astro.url.pathname;
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/leaderboard', label: 'Leaderboard' },
+  { href: '/games', label: 'Games' },
   { href: '/about', label: 'About' },
   { href: '/mcp-tools', label: 'MCP Tools' },
-  { href: '/games', label: 'Games' },
 ];
 ---
 
@@ -44,6 +44,8 @@ const navLinks = [
     <footer>
       <p>
         <a href="https://github.com/GregorStocks/mage-bench">GitHub</a>
+        <span class="sep">|</span>
+        Brewed by <a href="https://www.linkedin.com/in/gregorstocks/">Gregor Stocks</a>
       </p>
     </footer>
   </body>
@@ -117,6 +119,10 @@ const navLinks = [
     padding: 2rem;
     color: #666;
     border-top: 1px solid #0f3460;
+  }
+
+  footer .sep {
+    margin: 0 0.5rem;
   }
 
   footer a {
