@@ -2,7 +2,7 @@
 
 Local `master` is often behind. Always use `origin/master` as the source of truth.
 
-**Never rebase, never force-push** — not even on feature branches. Always merge:
+**Never rebase, never force-push, never amend commits** — not even on feature branches. Always create new commits and merge:
 
 ```bash
 git fetch origin
