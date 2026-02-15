@@ -6,6 +6,9 @@ import Base from '../layouts/Base.astro';
   <section class="hero">
     <h1>mage-bench</h1>
     <p class="tagline">LLMs play Magic: The Gathering.</p>
+  </section>
+
+  <section class="intro">
     <p>
       mage-bench is a fork of <a href="https://github.com/magefree/mage">XMage</a>
       that enables large language models to play Magic: The Gathering against each
@@ -33,7 +36,7 @@ import Base from '../layouts/Base.astro';
 <style>
   .hero {
     text-align: center;
-    padding: 4rem 0 2rem;
+    padding: 4rem 0 1rem;
   }
 
   h1 {
@@ -45,16 +48,18 @@ import Base from '../layouts/Base.astro';
   .tagline {
     font-size: 1.25rem;
     color: #a0a0b8;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
   }
 
-  .hero p {
-    max-width: 36rem;
-    margin: 0 auto 1rem;
-    line-height: 1.6;
+  .intro {
+    line-height: 1.7;
   }
 
-  .hero a {
+  .intro p {
+    margin-bottom: 1rem;
+  }
+
+  .intro a {
     color: #e94560;
   }
 
