@@ -555,6 +555,7 @@ public class BridgeCallbackHandler {
         if (action == null) {
             result.put("action_pending", false);
             clearChoiceSnapshot();
+            attachUnseenChat(result);
             return result;
         }
 
@@ -1261,6 +1262,7 @@ public class BridgeCallbackHandler {
         if (attachChoices) {
             attachChoicesToError(result);
         }
+        attachUnseenChat(result);
         return result;
     }
 
