@@ -130,6 +130,7 @@ public class BridgeCallbackHandler {
     private volatile int poolManaAttempts = 0; // Consecutive pool-mana sends for the same spell
     private static final int MAX_POOL_MANA_ATTEMPTS = 10; // Cancel payment after this many pool retries
     private volatile CopyOnWriteArrayList<ManaPlanEntry> manaPlan = null; // Explicit mana sourcing plan from LLM
+    private volatile Integer manaPlanAbilityIndex = null; // Ability index from last consumed mana plan entry (for GAME_CHOOSE_ABILITY)
     private volatile int lastTurnNumber = -1; // For clearing failedManaCasts on turn change
     private volatile int interactionsThisTurn = 0; // Generic loop detection: count model interactions per turn
     private volatile int landsPlayedThisTurn = 0; // Track land plays for land_drops_used hint
@@ -152,7 +153,9 @@ public class BridgeCallbackHandler {
     // the game thread on a slow/disconnected player, and our response arrives before
     // the game thread reaches waitForResponse().
     private enum ResponseType { UUID, BOOLEAN, STRING, INTEGER, MANA_TYPE }
-    private record ManaPlanEntry(String type, String value) {}  // type="tap"|"pool", value=shortId|manaType
+    private record ManaPlanEntry(String type, String value, Integer abilityIndex) {
+        ManaPlanEntry(String type, String value) { this(type, value, null); }
+    }
     private volatile long lastResponseSentAt = 0;
     private volatile UUID lastResponseGameId;
     private volatile ResponseType lastResponseType;
@@ -697,6 +700,7 @@ public class BridgeCallbackHandler {
                             poolManaAttempts = 0;
                             poolManaPayingForId = null;
                             manaPlan = null;
+                            manaPlanAbilityIndex = null;
                         }
                     }
 
@@ -1488,6 +1492,7 @@ public class BridgeCallbackHandler {
                         result.put("mana_plan_size", manaPlan.size());
                     } else if (usedIndex && autoTap != null && autoTap) {
                         manaPlan = null;  // Explicit auto-tap mode
+                        manaPlanAbilityIndex = null;
                     }
                     if (!usedIndex) {
                         if (answer != null) {
@@ -1566,6 +1571,7 @@ public class BridgeCallbackHandler {
                                 failedManaCasts.add(payingForId);
                             }
                             manaPlan = null;
+                            manaPlanAbilityIndex = null;
                             session.sendPlayerBoolean(gameId, false);
                             result.put("action_taken", "cancelled_spell");
                         } else {
@@ -2621,6 +2627,7 @@ public class BridgeCallbackHandler {
                             poolManaAttempts = 0;
                             poolManaPayingForId = null;
                             manaPlan = null;
+                            manaPlanAbilityIndex = null;
                         }
                     }
                 }
@@ -3522,19 +3529,35 @@ public class BridgeCallbackHandler {
 
                     if (mcpMode && choices != null && !choices.isEmpty()) {
                         if (manaPlan != null) {
-                            // Plan mode: auto-select single ability, cancel on multi-ability.
-                            // LLMs should avoid multi-ability lands in mana plans, or fill pool first.
-                            if (choices.size() == 1) {
-                                UUID selected = choices.keySet().iterator().next();
-                                logger.info("[" + client.getUsername() + "] Mana plan: auto-selecting sole ability: \""
-                                        + picker.getMessage() + "\" -> " + choices.get(selected));
-                                session.sendPlayerUUID(objectId, selected);
-                                trackSentResponse(objectId, ResponseType.UUID, selected, null);
+                            // Mana plan mode: use ability index if specified, otherwise pick first.
+                            Integer abilityIdx = manaPlanAbilityIndex;
+                            manaPlanAbilityIndex = null;  // consume
+                            UUID selected;
+                            if (abilityIdx != null) {
+                                List<UUID> abilityIds = new ArrayList<>(choices.keySet());
+                                if (abilityIdx >= 0 && abilityIdx < abilityIds.size()) {
+                                    selected = abilityIds.get(abilityIdx);
+                                    logger.info("[" + client.getUsername() + "] Mana plan: selecting ability " + abilityIdx + ": \""
+                                            + picker.getMessage() + "\" -> " + choices.get(selected));
+                                } else {
+                                    logger.warn("[" + client.getUsername() + "] Mana plan: ability index " + abilityIdx
+                                            + " out of range (0-" + (abilityIds.size() - 1) + ") for \""
+                                            + picker.getMessage() + "\", cancelling spell");
+                                    cancelSpellFromBadManaPlan(objectId, null, picker.getMessage());
+                                    break;
+                                }
                             } else {
-                                logger.warn("[" + client.getUsername() + "] Mana plan: multi-ability choice for \""
-                                        + picker.getMessage() + "\", cancelling spell");
-                                cancelSpellFromBadManaPlan(objectId, null, picker.getMessage());
+                                selected = choices.keySet().iterator().next();
+                                if (choices.size() == 1) {
+                                    logger.info("[" + client.getUsername() + "] Mana plan: auto-selecting sole ability: \""
+                                            + picker.getMessage() + "\" -> " + choices.get(selected));
+                                } else {
+                                    logger.info("[" + client.getUsername() + "] Mana plan: no ability index, picking first of "
+                                            + choices.size() + ": \"" + picker.getMessage() + "\" -> " + choices.get(selected));
+                                }
                             }
+                            session.sendPlayerUUID(objectId, selected);
+                            trackSentResponse(objectId, ResponseType.UUID, selected, null);
                         } else {
                             // No mana plan: let the LLM choose the ability
                             storePendingAction(objectId, method, callback);
@@ -4141,7 +4164,8 @@ public class BridgeCallbackHandler {
 
     /**
      * Parse a mana plan JsonArray into a list of ManaPlanEntry.
-     * Format: ["p1", "p2", "RED"] — short IDs activate mana abilities, color names spend from pool.
+     * Format: ["p1", "p2:0", "RED"] — short IDs activate mana abilities (with optional
+     * :N ability index for multi-ability permanents), color names spend from pool.
      */
     private CopyOnWriteArrayList<ManaPlanEntry> parseManaPlan(com.google.gson.JsonArray arr) {
         var plan = new CopyOnWriteArrayList<ManaPlanEntry>();
@@ -4154,7 +4178,14 @@ public class BridgeCallbackHandler {
             if (isPoolColor(entry)) {
                 plan.add(new ManaPlanEntry("pool", entry));
             } else {
-                plan.add(new ManaPlanEntry("tap", entry));
+                int colonIdx = entry.indexOf(':');
+                if (colonIdx >= 0) {
+                    String shortId = entry.substring(0, colonIdx);
+                    int abilityIndex = Integer.parseInt(entry.substring(colonIdx + 1));
+                    plan.add(new ManaPlanEntry("tap", shortId, abilityIndex));
+                } else {
+                    plan.add(new ManaPlanEntry("tap", entry));
+                }
             }
         }
         return plan;
@@ -4174,6 +4205,7 @@ public class BridgeCallbackHandler {
             failedManaCasts.add(payingForId);
         }
         manaPlan = null;
+        manaPlanAbilityIndex = null;
         if (mcpMode) {
             synchronized (unseenChat) {
                 unseenChat.add("[System] Spell cancelled — mana plan was incorrect or incomplete.");
@@ -4217,6 +4249,7 @@ public class BridgeCallbackHandler {
             ManaPlanEntry entry = plan.remove(0);  // consume first entry
 
             if ("tap".equals(entry.type())) {
+                manaPlanAbilityIndex = entry.abilityIndex();  // save for GAME_CHOOSE_ABILITY
                 UUID targetId = shortIds.resolve(entry.value());
                 PlayableObjectsList playableForPlan = gameView != null ? gameView.getCanPlayObjects() : null;
                 if (playableForPlan != null) {
@@ -4320,6 +4353,7 @@ public class BridgeCallbackHandler {
                     poolManaAttempts = 0;
                     poolManaPayingForId = null;
                     manaPlan = null;
+                    manaPlanAbilityIndex = null;
                     if (payingForId != null) {
                         failedManaCasts.add(payingForId);
                     }
@@ -4349,6 +4383,7 @@ public class BridgeCallbackHandler {
             failedManaCasts.add(payingForId);
         }
         manaPlan = null;
+        manaPlanAbilityIndex = null;
         if (mcpMode) {
             synchronized (unseenChat) {
                 unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
