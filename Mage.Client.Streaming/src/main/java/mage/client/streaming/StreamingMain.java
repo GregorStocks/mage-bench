@@ -93,11 +93,35 @@ public class StreamingMain {
                 PreferencesDialog.saveValue(PreferencesDialog.KEY_SETTINGS_VERSION, String.valueOf(1));
             }
 
+            // Disable macOS fullscreen toggle — it grabs focus and we never want that.
+            // MageFrame.main() reads this from -Dxmage.fullScreen but StreamingMain
+            // doesn't go through MageFrame.main(), so the static field stays true.
+            try {
+                java.lang.reflect.Field f = MageFrame.class.getDeclaredField("macOsFullScreenEnabled");
+                f.setAccessible(true);
+                f.setBoolean(null, false);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                LOGGER.warn("Could not disable macOS fullscreen: " + e.getMessage());
+            }
+
             // Create the streaming frame (instead of regular MageFrame)
             try {
                 StreamingMageFrame streamingFrame = new StreamingMageFrame();
                 StreamingMageFrame.setInstance(streamingFrame);
                 EDTExceptionHandler.registerMainApp(streamingFrame);
+                // Prevent the observer window from ever stealing OS keyboard focus.
+                // setFocusableWindowState(false) marks this as a non-focusable window
+                // (like a floating palette). Internal JInternalFrame dialogs (card
+                // reveals, pick choices) call setSelected(true) which triggers
+                // requestFocus() that bubbles up to the parent JFrame and steals
+                // focus from the user's active window. This is the only reliable fix —
+                // overriding toFront() alone doesn't prevent these internal focus
+                // requests.
+                // The window can still be clicked to raise it (window manager handles
+                // raising separately from keyboard focus), but it won't receive
+                // keyboard input — which is fine for an observer.
+                streamingFrame.setFocusableWindowState(false);
+                streamingFrame.setAutoRequestFocus(false);
                 streamingFrame.setVisible(true);
                 LOGGER.info("Streaming client started successfully");
             } catch (Throwable e) {

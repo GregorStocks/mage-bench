@@ -159,11 +159,121 @@
     return frag;
   }
 
+  /**
+   * Render text with inline mana symbols and italic reminder text.
+   * {2}{U} → mana icons, (reminder text) → <i>
+   */
+  function renderTextWithMana(text) {
+    var frag = document.createDocumentFragment();
+    if (!text) return frag;
+    // Match mana symbols {X} or reminder text (...)
+    var re = /\{([^}]+)\}|(\([^)]+\))/g;
+    var last = 0;
+    var match;
+    while ((match = re.exec(text)) !== null) {
+      if (match.index > last) {
+        frag.appendChild(document.createTextNode(text.substring(last, match.index)));
+      }
+      if (match[1] != null) {
+        // Mana symbol
+        var symbol = match[1].replace(/\//g, "");
+        var img = document.createElement("img");
+        img.className = "mana-icon";
+        img.src = "https://svgs.scryfall.io/card-symbols/" + encodeURIComponent(symbol) + ".svg";
+        img.alt = match[0];
+        img.title = match[0];
+        frag.appendChild(img);
+      } else {
+        // Reminder text — render italic with mana symbols inside
+        var em = document.createElement("i");
+        em.style.color = "#888";
+        // Render mana symbols inside the reminder text (use renderManaCostInline for just {X})
+        var inner = match[2];
+        var manaRe = /\{([^}]+)\}/g;
+        var mLast = 0;
+        var mMatch;
+        while ((mMatch = manaRe.exec(inner)) !== null) {
+          if (mMatch.index > mLast) em.appendChild(document.createTextNode(inner.substring(mLast, mMatch.index)));
+          var mSym = mMatch[1].replace(/\//g, "");
+          var mImg = document.createElement("img");
+          mImg.className = "mana-icon";
+          mImg.src = "https://svgs.scryfall.io/card-symbols/" + encodeURIComponent(mSym) + ".svg";
+          mImg.alt = mMatch[0];
+          mImg.title = mMatch[0];
+          em.appendChild(mImg);
+          mLast = manaRe.lastIndex;
+        }
+        if (mLast < inner.length) em.appendChild(document.createTextNode(inner.substring(mLast)));
+        frag.appendChild(em);
+      }
+      last = re.lastIndex;
+    }
+    if (last < text.length) {
+      frag.appendChild(document.createTextNode(text.substring(last)));
+    }
+    return frag;
+  }
+
   // ── Card preview ──
+
+  // Cache for Scryfall card data fetched on hover (cardName -> { typeLine, rules, mana_cost } or null)
+  var _scryfallCardCache = {};
+
+  function _applyScryfallData(data, els, expectedName) {
+    // Only apply if preview is still showing the same card
+    if (!els || els.name.textContent !== expectedName) return;
+    if (data.mana_cost && els.cost && !els.cost.hasChildNodes()) {
+      els.cost.appendChild(renderManaCost(data.mana_cost));
+    }
+    if (data.type_line && !els.type.textContent) {
+      els.type.textContent = data.type_line;
+    }
+    if (data.oracle_text && !els.rules.textContent) {
+      els.rules.textContent = "";
+      els.rules.appendChild(renderTextWithMana(data.oracle_text));
+    }
+    if (!els.stats.textContent) {
+      var parts = [];
+      if (data.power != null && data.toughness != null) {
+        parts.push(data.power + "/" + data.toughness);
+      }
+      if (data.loyalty) parts.push("Loyalty " + data.loyalty);
+      if (data.defense) parts.push("Defense " + data.defense);
+      if (parts.length > 0) els.stats.textContent = parts.join(" | ");
+    }
+  }
+
+  function _fetchScryfallCard(cardName, cardImages, els) {
+    if (_scryfallCardCache[cardName] !== undefined) {
+      if (_scryfallCardCache[cardName]) {
+        _applyScryfallData(_scryfallCardCache[cardName], els, cardName);
+      }
+      return;
+    }
+    _scryfallCardCache[cardName] = null; // mark as in-flight
+    // Try to derive API URL from cardImages map (strip image format params)
+    var apiUrl = null;
+    if (cardImages && cardImages[cardName]) {
+      apiUrl = cardImages[cardName].replace(/\?.*$/, "");
+    }
+    if (!apiUrl) {
+      apiUrl = "https://api.scryfall.com/cards/named?exact=" + encodeURIComponent(cardName);
+    }
+    fetch(apiUrl)
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (data) {
+          _scryfallCardCache[cardName] = data;
+          _applyScryfallData(data, els, cardName);
+        }
+      })
+      .catch(function () {});
+  }
 
   function showPreview(cardName, cardObj, cardImages, els) {
     if (!els || !els.name) return;
     els.name.textContent = cardName;
+    if (els.cost) els.cost.textContent = "";
     els.type.textContent = "";
     els.stats.textContent = "";
     els.rules.textContent = "";
@@ -181,22 +291,19 @@
       if (cardObj.damage && Number(cardObj.damage) > 0) {
         els.stats.textContent = (els.stats.textContent ? els.stats.textContent + " | " : "") + "Damage " + cardObj.damage;
       }
-      if (cardObj.mana_cost) {
-        els.type.textContent = "";
-        els.type.appendChild(renderManaCost(cardObj.mana_cost));
+      if (cardObj.mana_cost && els.cost) {
+        els.cost.appendChild(renderManaCost(cardObj.mana_cost));
       }
       if (cardObj.typeLine) {
-        // If we already rendered mana cost, append type line
-        if (els.type.childNodes.length > 0) {
-          els.type.appendChild(document.createTextNode(" — " + cardObj.typeLine));
-        } else {
-          els.type.textContent = cardObj.typeLine;
-        }
+        els.type.textContent = cardObj.typeLine;
       }
       if (cardObj.rules) {
-        els.rules.textContent = cardObj.rules;
+        els.rules.appendChild(renderTextWithMana(cardObj.rules));
       }
     }
+
+    // Fetch card details from Scryfall (oracle text, type line, mana cost)
+    _fetchScryfallCard(cardName, cardImages, els);
 
     var imgUrl = resolveCardImage(cardName, cardObj, cardImages, "normal");
     els.image.src = imgUrl;
@@ -260,12 +367,12 @@
       if (isToken) {
         fetchTokenImage(cardName, function (url) {
           img.src = url;
-          img.style.display = "";
+          img.style.opacity = "";
           var fb = wrapper.querySelector(".card-thumb-fallback");
           if (fb) fb.remove();
         });
       }
-      img.style.display = "none";
+      img.style.opacity = "0";
       var fallback = document.createElement("div");
       fallback.className = "card-thumb-fallback" + (isToken ? " token-fallback" : "");
 
@@ -625,22 +732,13 @@
           costBadge.textContent = "$" + meta.totalCostUsd.toFixed(2);
           badgeRow.appendChild(costBadge);
         }
-        if (meta.eloBefore != null && meta.eloAfter != null) {
-          var eloBadge = document.createElement("span");
-          eloBadge.className = "player-elo";
-          var delta = meta.eloAfter - meta.eloBefore;
-          if (delta > 0) eloBadge.classList.add("elo-up");
-          else if (delta < 0) eloBadge.classList.add("elo-down");
-          eloBadge.textContent = meta.eloBefore + " \u2192 " + meta.eloAfter;
-          badgeRow.appendChild(eloBadge);
-        }
         header.appendChild(badgeRow);
       }
 
       var lifeEl = document.createElement("div");
       lifeEl.className = "player-life";
       var lifeText = "Life " + (player.life != null ? player.life : "?") +
-                     " | Lib " + (player.library_count != null ? player.library_count : "?");
+                     " | Library " + (player.library_count != null ? player.library_count : "?");
       if (showTimer && (player.priorityTimeLeftSecs > 0 || player.timerActive)) {
         var secs = player.priorityTimeLeftSecs || 0;
         var m = Math.floor(secs / 60);
@@ -730,8 +828,8 @@
 
         bodyRow.appendChild(sideCol);
 
-        // Fit graveyard cards with overlap so entire zone is visible
-        _fitOverlappingCards(gyZone, 300, 70);
+        // Fit graveyard cards with aggressive overlap (show only card names)
+        _fitOverlappingCards(gyZone, 300, 70, true);
       }
 
       // Main column (battlefield + hand)
@@ -763,7 +861,7 @@
 
   // ── Overlapping card fit (graveyard/exile) ──
 
-  function _fitOverlappingCards(zoneEl, maxHeight, baseWidth) {
+  function _fitOverlappingCards(zoneEl, maxHeight, baseWidth, alwaysOverlap) {
     var grid = zoneEl.querySelector(".cards-grid-sm");
     if (!grid) return;
     var cards = grid.querySelectorAll(".card-thumb-sm");
@@ -771,6 +869,19 @@
     if (N <= 1) return;
 
     var cardH = Math.round(baseWidth * 204 / 146);
+
+    // Force aggressive overlap: show only card name for cards below the top.
+    // Dynamically shrink the visible slice so the zone stays within maxHeight.
+    if (alwaysOverlap) {
+      var visibleSlice = Math.min(20, Math.floor((maxHeight - cardH) / (N - 1)));
+      if (visibleSlice < 1) visibleSlice = 1;
+      var forceOverlap = cardH - visibleSlice;
+      for (var i = 1; i < cards.length; i++) {
+        cards[i].style.marginTop = "-" + forceOverlap + "px";
+      }
+      return;
+    }
+
     var totalNatural = N * cardH;
     if (totalNatural <= maxHeight) return; // fits without overlap
 
@@ -1028,6 +1139,26 @@
     return true;
   }
 
+  // ── Mouse-following card preview ──
+
+  function setupMousePreview(container) {
+    if (typeof document === "undefined") return;
+    document.addEventListener("mousemove", function (e) {
+      if (!container || container.classList.contains("hidden")) return;
+      var x = e.clientX + 20;
+      var y = e.clientY - 20;
+      var vw = window.innerWidth;
+      var vh = window.innerHeight;
+      var w = container.offsetWidth;
+      var h = container.offsetHeight;
+      if (x + w > vw) x = e.clientX - w - 20;
+      if (y + h > vh) y = vh - h - 8;
+      if (y < 8) y = 8;
+      container.style.left = x + "px";
+      container.style.top = y + "px";
+    });
+  }
+
   // ── Public API ──
 
   var GameRenderer = {
@@ -1053,6 +1184,7 @@
     renderPlayers: renderPlayers,
     renderStack: renderStack,
     renderStatusLine: renderStatusLine,
+    setupMousePreview: setupMousePreview,
     // Diffs
     computeDiff: computeDiff,
     diffStringBag: diffStringBag,

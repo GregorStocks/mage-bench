@@ -44,10 +44,13 @@ import Base from '../../layouts/Base.astro';
       <div id="card-preview" class="hidden">
         <img id="preview-image" alt="" />
         <div class="card-meta">
-          <div id="preview-name" class="card-name"></div>
+          <div class="card-name-row">
+            <div id="preview-name" class="card-name"></div>
+            <div id="preview-cost" class="card-cost"></div>
+          </div>
           <div id="preview-type" class="card-type"></div>
-          <div id="preview-stats" class="card-stats"></div>
           <pre id="preview-rules" class="card-rules"></pre>
+          <div id="preview-stats" class="card-stats"></div>
         </div>
       </div>
     </div>
@@ -163,6 +166,7 @@ import Base from '../../layouts/Base.astro';
       container: document.getElementById("card-preview"),
       image: document.getElementById("preview-image"),
       name: document.getElementById("preview-name"),
+      cost: document.getElementById("preview-cost"),
       type: document.getElementById("preview-type"),
       stats: document.getElementById("preview-stats"),
       rules: document.getElementById("preview-rules"),
@@ -198,7 +202,10 @@ import Base from '../../layouts/Base.astro';
       return escaped;
     }
 
+    var SPAM_RE = / skip attack$|^Attacker: .+ unblocked$/;
+
     function appendEvent(evt) {
+      if (evt.type !== "player_chat" && SPAM_RE.test(evt.message || "")) return;
       if (evt.type === "player_chat") {
         var line = document.createElement("div");
         line.className = "chat-line";
@@ -307,6 +314,9 @@ import Base from '../../layouts/Base.astro';
         requestInFlight = false;
       }
     }
+
+    // Mouse-following card preview
+    R.setupMousePreview(previewEls.container);
 
     // Preview dismiss
     window.addEventListener("blur", function () { R.hidePreview(previewEls); });
