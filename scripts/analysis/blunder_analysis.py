@@ -268,6 +268,22 @@ def _print_cost(entries: list[tuple[str, str, int, int, float]]) -> None:
     print(f"  {'Total':20s} ${total:.3f}")
 
 
+def _write_annotations(gz_path: str, annotations: list) -> None:
+    """Write annotations (possibly empty) to the game file."""
+    TMP_DIR.mkdir(exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".json", delete=False, dir=str(TMP_DIR)
+    ) as f:
+        json.dump(annotations, f)
+        ann_path = f.name
+
+    try:
+        annotate_game(gz_path, ann_path)
+        print(f"Annotations written to {gz_path}")
+    finally:
+        os.unlink(ann_path)
+
+
 def main(gz_path: str, *, reanalyze: bool = False) -> None:
     api_key = os.environ.get("OPENROUTER_API_KEY")
     assert api_key, "OPENROUTER_API_KEY environment variable required"
@@ -316,6 +332,7 @@ def main(gz_path: str, *, reanalyze: bool = False) -> None:
 
     if not flagged:
         print("\nNo suspicious decisions found. Game looks clean!")
+        _write_annotations(gz_path, [])
         _print_cost(cost_entries)
         return
 
@@ -338,6 +355,7 @@ def main(gz_path: str, *, reanalyze: bool = False) -> None:
 
     if not annotations:
         print("\nNo confirmed blunders.")
+        _write_annotations(gz_path, [])
         _print_cost(cost_entries)
         return
 
@@ -353,19 +371,7 @@ def main(gz_path: str, *, reanalyze: bool = False) -> None:
         print(f"    Better: {ann['betterLine']}")
         print()
 
-    # Write annotations to game file
-    TMP_DIR.mkdir(exist_ok=True)
-    with tempfile.NamedTemporaryFile(
-        mode="w", suffix=".json", delete=False, dir=str(TMP_DIR)
-    ) as f:
-        json.dump(annotations, f)
-        ann_path = f.name
-
-    try:
-        annotate_game(gz_path, ann_path)
-        print(f"Annotations written to {gz_path}")
-    finally:
-        os.unlink(ann_path)
+    _write_annotations(gz_path, annotations)
 
     _print_cost(cost_entries)
 

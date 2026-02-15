@@ -343,9 +343,9 @@ class TestMainIntegration:
         # Only one API call (Haiku), no Opus call
         assert mock_client.chat.completions.create.call_count == 1
 
-        # No annotations written
+        # Empty annotations written (marks game as analyzed)
         result = self._read_gz(gz_path)
-        assert "annotations" not in result
+        assert result["annotations"] == []
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("blunder_analysis.OpenAI")
