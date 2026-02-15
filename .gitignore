@@ -73,6 +73,9 @@ mage-bundle.zip
 /temp
 /plugins
 
+# scratch directory (avoid /tmp permission issues in Claude Code)
+/tmp
+
 # Python / uv
 __pycache__
 *.pyc

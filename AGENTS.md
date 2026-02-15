@@ -55,6 +55,10 @@ This updates `website/src/data/mcp-tools.json`. Include the regenerated file in 
 
 MCP tool results are stored verbatim in `{player}_llm.jsonl` and `.json.gz` exports, which live forever. When changing MCP tool result formats (field names, structure), analysis code that reads persisted data must handle both old and new formats. The Python summarizer is the main consumer of choice-level fields — use `c.get("name", c.get("description", "?"))` patterns when reading fields that were renamed.
 
+## Temporary Files
+
+Use `tmp/` (in the repo root) as a scratch directory instead of `/tmp/`. It's gitignored and created by `worktree-setup.py`.
+
 ## Testing
 
 When changing Python code in `puppeteer/`, add or update tests in `puppeteer/tests/`. Run tests with:

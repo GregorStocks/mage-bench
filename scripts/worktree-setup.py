@@ -17,6 +17,9 @@ CLIENT_MODULES = ["Mage.Client", "Mage.Client.Streaming"]
 
 
 def main() -> None:
+    # Create scratch directory (avoids /tmp permission issues in Claude Code)
+    (PROJECT_ROOT / "tmp").mkdir(exist_ok=True)
+
     # Ensure shared Maven build cache directory exists
     (Path.home() / ".m2" / "build-cache").mkdir(parents=True, exist_ok=True)
 
