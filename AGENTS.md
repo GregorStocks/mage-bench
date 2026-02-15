@@ -87,6 +87,21 @@ Always run `make check` before creating a PR. This runs lint, typecheck, and tes
 make check
 ```
 
+## Build System
+
+**Always use `make` targets.** Never invoke `mvn`, `npm`, `npx`, or other build tools directly — the Makefile handles compilation, classpaths, and caching correctly. Running `mvn` directly causes stale class issues and skips necessary build steps.
+
+```bash
+make build          # Full Java build
+make check          # Lint + typecheck + tests
+make mcp-tools      # Compile + regenerate tool definitions
+make website        # Leaderboard + npm install + dev server
+make run            # Build + run a game
+make test           # Python tests
+```
+
+If a `make` target doesn't exist for what you need, ask — don't improvise with raw `mvn`/`npm` commands.
+
 ## Python
 
 Always use `uv` for Python. **Never** use `python3`, `pip`, `pip3`, or any system Python directly — not for running scripts, not for installing packages, not for anything. All Python execution must go through `uv`.

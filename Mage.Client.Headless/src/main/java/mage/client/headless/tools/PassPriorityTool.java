@@ -20,7 +20,9 @@ public class PassPriorityTool {
             + "Always stops for combat and non-priority actions. "
             + "Auto-handles mechanical callbacks (mana payment failures, "
             + "optional targets with no legal targets). "
-            + "Returns stop_reason indicating why the call returned.",
+            + "Returns stop_reason indicating why the call returned. "
+            + "When action_pending=true, includes full action choices "
+            + "(response_type, choices, context, etc.) so you can call choose_action immediately.",
         output = {
             @Tool.Field(name = "action_pending", type = "boolean", description = "Whether a decision-requiring action was found"),
             @Tool.Field(name = "action_type", type = "string", description = "XMage callback method name"),
@@ -32,7 +34,26 @@ public class PassPriorityTool {
             @Tool.Field(name = "player_dead", type = "boolean", description = "Whether you died during priority passing"),
             @Tool.Field(name = "stop_reason", type = "string",
                 description = "Why the call returned: playable_cards, combat, non_priority_action, "
-                    + "game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step)")
+                    + "game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step)"),
+            @Tool.Field(name = "response_type", type = "string",
+                description = "How to respond: \"select\", \"boolean\", \"index\", \"amount\", \"pile\", or \"multi_amount\"",
+                conditional = "action_pending"),
+            @Tool.Field(name = "message", type = "string", description = "Human-readable prompt from XMage",
+                conditional = "action_pending"),
+            @Tool.Field(name = "context", type = "string",
+                description = "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")",
+                conditional = "action_pending"),
+            @Tool.Field(name = "players", type = "string", description = "Life total summary (e.g. \"You(20), Opp(18)\")",
+                conditional = "action_pending"),
+            @Tool.Field(name = "choices", type = "array[object]",
+                description = "Structured choices with index, name, and type-specific fields",
+                conditional = "action_pending"),
+            @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards with name, mana_cost",
+                conditional = "action_pending"),
+            @Tool.Field(name = "mana_pool", type = "object", description = "Current mana pool {R, G, U, W, B, C}",
+                conditional = "action_pending"),
+            @Tool.Field(name = "untapped_lands", type = "integer", description = "Number of untapped lands",
+                conditional = "action_pending")
         }
     )
     public static Map<String, Object> execute(
@@ -63,36 +84,35 @@ public class PassPriorityTool {
                 "action_type", "GAME_SELECT",
                 "actions_passed", 3,
                 "has_playable_cards", true,
-                "stop_reason", "playable_cards")),
+                "stop_reason", "playable_cards",
+                "response_type", "select",
+                "context", "T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
+                "players", "You(20), Opp(18)",
+                "choices", List.of(
+                    json("index", 0, "name", "Lightning Bolt", "action", "cast", "mana_cost", "{R}"),
+                    json("index", 1, "name", "Mountain", "action", "land")),
+                "untapped_lands", 2)),
             example("Combat phase", json(
                 "action_pending", true,
                 "action_type", "GAME_SELECT",
                 "actions_passed", 5,
                 "has_playable_cards", false,
                 "combat_phase", "declare_attackers",
-                "stop_reason", "combat")),
-            example("Non-priority action (mulligan, targeting)", json(
+                "stop_reason", "combat",
+                "response_type", "select",
+                "context", "T4 COMBAT (Player1) YOUR_COMBAT",
+                "players", "You(18), Opp(15)")),
+            example("Non-priority action (mulligan)", json(
                 "action_pending", true,
                 "action_type", "GAME_ASK",
                 "actions_passed", 0,
-                "stop_reason", "non_priority_action")),
-            example("Yield until next turn", json(
-                "action_pending", true,
-                "action_type", "GAME_SELECT",
-                "actions_passed", 8,
-                "has_playable_cards", true,
-                "stop_reason", "playable_cards")),
-            example("Yield to step (reached)", json(
-                "action_pending", true,
-                "action_type", "GAME_SELECT",
-                "actions_passed", 12,
-                "current_step", "Declare Attackers",
-                "stop_reason", "reached_step")),
-            example("Yield to step (turn ended)", json(
-                "action_pending", true,
-                "action_type", "GAME_SELECT",
-                "actions_passed", 6,
-                "current_step", "Upkeep",
-                "stop_reason", "step_not_reached")));
+                "stop_reason", "non_priority_action",
+                "response_type", "boolean",
+                "message", "Mulligan hand?",
+                "context", "T0 PREGAME",
+                "players", "You(20), Opp(20)",
+                "your_hand", List.of(
+                    json("name", "Mountain", "is_land", true),
+                    json("name", "Lightning Bolt", "mana_cost", "{R}")))));
     }
 }

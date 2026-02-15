@@ -721,6 +721,8 @@ def start_pilot_client(
         args.extend(["--tools", ",".join(player.tools)])
     if player.ignore_providers:
         args.extend(["--ignore-providers", ",".join(player.ignore_providers)])
+    if player.cache_control:
+        args.extend(["--cache-control", json.dumps(player.cache_control)])
     if game_dir:
         args.extend(["--game-dir", str(game_dir)])
 

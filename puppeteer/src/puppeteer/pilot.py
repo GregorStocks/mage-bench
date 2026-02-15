@@ -86,9 +86,23 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
         if data.get("action_pending"):
             stop = data.get("stop_reason", "")
             action_type = data.get("action_type", "?")
+            parts = []
             if stop:
-                return f"action_pending({action_type}, {stop})"
-            return f"action_pending({action_type})"
+                parts.append(f"action_pending({action_type}, {stop})")
+            else:
+                parts.append(f"action_pending({action_type})")
+            # Include choice summary (pass_priority now returns choices inline)
+            resp_type = data.get("response_type", "")
+            if resp_type:
+                parts.append(resp_type)
+            choices = data.get("choices", [])
+            if choices:
+                names = [c.get("name", c.get("description", "?"))[:30] for c in choices[:3]]
+                parts.append(f"{len(choices)} choices: {', '.join(names)}")
+            msg = data.get("message", "")
+            if msg and not choices:
+                parts.append(msg[:60])
+            return "; ".join(parts)
         stop = data.get("stop_reason", "")
         passed = data.get("actions_passed", "?")
         if stop:
@@ -185,6 +199,7 @@ def _render_context(
     history: list[dict],
     system_prompt: str,
     state_summary: str,
+    cache_control: dict | None = None,
 ) -> list[dict]:
     """Build the LLM messages list from append-only history.
 
@@ -192,7 +207,18 @@ def _render_context(
     Older messages (up to CONTEXT_SUMMARY_COUNT before the recent window) have
     their tool results summarised to save tokens. Everything older is dropped.
     """
-    messages: list[dict] = [{"role": "system", "content": system_prompt}]
+    messages: list[dict]
+    if cache_control:
+        # Use content block format with cache_control for providers that need it
+        # (e.g. Anthropic via OpenRouter)
+        messages = [
+            {
+                "role": "system",
+                "content": [{"type": "text", "text": system_prompt, "cache_control": cache_control}],
+            }
+        ]
+    else:
+        messages = [{"role": "system", "content": system_prompt}]
 
     if len(history) <= CONTEXT_RECENT_COUNT:
         # Short history — include everything at full fidelity
@@ -229,10 +255,10 @@ def _render_context(
             "role": "user",
             "content": (
                 f"{state_summary}"
-                "Continue playing. Use pass_priority to skip ahead, "
-                "then get_action_choices before choose_action. "
+                "Continue playing. Call pass_priority to get your next decision, "
+                "then choose_action to respond. "
                 "All cards listed are playable right now. "
-                "Play cards with index=N, pass with answer=false."
+                "Play cards with id=pN, pass with answer=false."
             ),
         }
     )
@@ -362,6 +388,7 @@ async def run_pilot_loop(
     trace_log: GameLogWriter | None = None,
     reasoning_effort: str = "",
     ignore_providers: list[str] | None = None,
+    cache_control: dict | None = None,
 ) -> None:
     """Run the LLM-driven game-playing loop."""
     # Pre-fetch the first decision so the LLM knows what it's deciding
@@ -406,14 +433,14 @@ async def run_pilot_loop(
                 need_rerender = cached_render is None or render_counter % RENDER_INTERVAL == 0
                 if need_rerender:
                     state_summary = await _fetch_state_summary(session)
-                    messages = _render_context(history, system_prompt, state_summary)
+                    messages = _render_context(history, system_prompt, state_summary, cache_control)
                     cached_render = list(messages)
                     cached_history_len = len(history)
                     render_counter = 0
                 else:
                     messages = list(cached_render) + history[cached_history_len:]
             else:
-                messages = _render_context(history, system_prompt, state_summary)
+                messages = _render_context(history, system_prompt, state_summary, cache_control)
                 cached_render = None
                 render_counter = 0
 
@@ -883,6 +910,7 @@ async def run_pilot(
     reasoning_effort: str = "",
     tools: set[str] | None = None,
     ignore_providers: list[str] | None = None,
+    cache_control: dict | None = None,
 ) -> None:
     """Run the pilot client."""
     _log(f"[pilot] Starting for {username}@{server}:{port}")
@@ -894,6 +922,8 @@ async def run_pilot(
         _log(f"[pilot] Custom toolset: {sorted(tools)}")
     if ignore_providers:
         _log(f"[pilot] Ignoring providers: {ignore_providers}")
+    if cache_control:
+        _log(f"[pilot] Prompt cache_control: {cache_control}")
 
     # Initialize OpenAI-compatible client
     llm_client = AsyncOpenAI(
@@ -988,6 +1018,7 @@ async def run_pilot(
                     trace_log=trace_log,
                     reasoning_effort=reasoning_effort,
                     ignore_providers=ignore_providers,
+                    cache_control=cache_control,
                 )
         finally:
             if game_log:
@@ -1011,6 +1042,7 @@ def main() -> int:
     parser.add_argument("--reasoning-effort", default="", help="OpenRouter reasoning effort: low, medium, high")
     parser.add_argument("--tools", default="", help="Comma-separated MCP tool names (default: all)")
     parser.add_argument("--ignore-providers", default="", help="Comma-separated OpenRouter providers to exclude")
+    parser.add_argument("--cache-control", default="", help="JSON cache_control config for prompt caching")
     args = parser.parse_args()
 
     # Determine project root
@@ -1040,6 +1072,7 @@ def main() -> int:
     # Parse tool names: CLI arg > default
     pilot_tools = set(args.tools.split(",")) if args.tools else None
     ignore_providers = args.ignore_providers.split(",") if args.ignore_providers else None
+    cache_control = json.loads(args.cache_control) if args.cache_control else None
 
     try:
         asyncio.run(
@@ -1059,6 +1092,7 @@ def main() -> int:
                 reasoning_effort=args.reasoning_effort,
                 tools=pilot_tools,
                 ignore_providers=ignore_providers,
+                cache_control=cache_control,
             )
         )
     except KeyboardInterrupt:
