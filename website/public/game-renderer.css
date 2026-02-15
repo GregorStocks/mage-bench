@@ -918,6 +918,11 @@
   font-size: 0.78rem;
 }
 
+.annotation-block.severity-questionable {
+  background: rgba(148, 163, 184, 0.08);
+  border-left-color: #94a3b8;
+}
+
 .annotation-block.severity-minor {
   background: rgba(251, 191, 36, 0.08);
   border-left-color: #fbbf24;
@@ -948,6 +953,11 @@
   padding: 0.1rem 0.4rem;
   border-radius: 3px;
   letter-spacing: 0.03em;
+}
+
+.annotation-badge.severity-questionable {
+  background: rgba(148, 163, 184, 0.2);
+  color: #94a3b8;
 }
 
 .annotation-badge.severity-minor {
@@ -1024,6 +1034,10 @@
 
 .annotation-marker:hover {
   transform: translate(-50%, -50%) scale(1.5);
+}
+
+.annotation-marker.severity-questionable {
+  background: #94a3b8;
 }
 
 .annotation-marker.severity-minor {

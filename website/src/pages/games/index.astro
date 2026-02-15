@@ -68,12 +68,13 @@ if (fs.existsSync(gamesDir)) {
     if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
     const annotations = data.annotations || [];
     if (annotations.length > 0) {
-      entry.blunderCount = annotations.length;
-      const severities: Record<string, number> = { minor: 0, moderate: 0, major: 0 };
+      const severities: Record<string, number> = { questionable: 0, minor: 0, moderate: 0, major: 0 };
       for (const a of annotations) {
         const sev = (a as Record<string, unknown>).severity as string;
         if (sev in severities) severities[sev]++;
       }
+      // blunderCount excludes questionable (shown in game viewer but not counted)
+      entry.blunderCount = annotations.length - severities.questionable;
       entry.blunderSeverities = severities;
     }
     games.push(entry);
@@ -462,6 +463,11 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     letter-spacing: 0.03em;
   }
 
+  .blunder-badge.severity-questionable {
+    background: rgba(148, 163, 184, 0.15);
+    color: #94a3b8;
+  }
+
   .blunder-badge.severity-minor {
     background: rgba(251, 191, 36, 0.15);
     color: #fbbf24;
@@ -712,14 +718,22 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     }
     header.appendChild(winnerEl);
 
-    if (game.blunderCount) {
-      var blunderEl = document.createElement("span");
-      blunderEl.className = "blunder-badge";
-      var sev = game.blunderSeverities || {};
-      var maxSev = sev.major > 0 ? "major" : sev.moderate > 0 ? "moderate" : "minor";
-      blunderEl.classList.add("severity-" + maxSev);
-      blunderEl.textContent = game.blunderCount + " blunder" + (game.blunderCount !== 1 ? "s" : "");
-      header.appendChild(blunderEl);
+    var sev = game.blunderSeverities || {};
+    var severityOrder = [
+      ["major", sev.major],
+      ["moderate", sev.moderate],
+      ["minor", sev.minor],
+      ["questionable", sev.questionable],
+    ];
+    for (var si = 0; si < severityOrder.length; si++) {
+      var sevName = severityOrder[si][0];
+      var sevCount = severityOrder[si][1];
+      if (sevCount > 0) {
+        var blunderEl = document.createElement("span");
+        blunderEl.className = "blunder-badge severity-" + sevName;
+        blunderEl.textContent = sevCount + " " + sevName;
+        header.appendChild(blunderEl);
+      }
     }
 
     // Old harness badge

@@ -317,10 +317,12 @@ def generate_leaderboard(
     # Aggregate per-player-key stats (model_id::effort or just model_id)
     stats: dict[str, dict[str, float]] = {}
     for game in scored_games:
-        # Build name -> blunder count from annotations
+        # Build name -> blunder count from annotations.
+        # "questionable" severity is excluded — it shows in the game viewer
+        # but doesn't count toward leaderboard blunder stats.
         blunders_by_name: dict[str, int] = {}
         for ann in game.get("annotations", []):
-            if ann.get("type") == "blunder":
+            if ann.get("type") == "blunder" and ann.get("severity") != "questionable":
                 name = ann.get("player", "")
                 blunders_by_name[name] = blunders_by_name.get(name, 0) + 1
 

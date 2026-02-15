@@ -9,17 +9,7 @@ import gzip
 import json
 import sys
 
-VALID_SEVERITIES = {"minor", "moderate", "major"}
-VALID_CATEGORIES = {
-    "missed_lethal",
-    "walked_into_removal",
-    "bad_sequencing",
-    "bad_combat",
-    "wasted_resources",
-    "wrong_target",
-    "unused_mana",
-    "strategic_error",
-}
+VALID_SEVERITIES = {"questionable", "minor", "moderate", "major"}
 REQUIRED_FIELDS = {
     "snapshotIndex",
     "player",
@@ -60,8 +50,8 @@ def _validate_annotation(ann: dict, index: int, game_data: dict) -> None:
         f"Annotation {index}: severity '{ann['severity']}' not in {VALID_SEVERITIES}"
     )
 
-    assert ann["category"] in VALID_CATEGORIES, (
-        f"Annotation {index}: category '{ann['category']}' not in {VALID_CATEGORIES}"
+    assert isinstance(ann["category"], str) and ann["category"], (
+        f"Annotation {index}: category must be a non-empty string"
     )
 
 

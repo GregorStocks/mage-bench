@@ -40,7 +40,8 @@ CALIBRATION_SAMPLE_SIZE = 3
 # Games analyzed with an older version will be automatically re-analyzed.
 # v1: initial two-phase pipeline (Haiku pre-filter + Opus analysis)
 # v2: softened Haiku prompt + Opus calibration check for zero-flag games
-BLUNDER_SCRIPT_VERSION = 2
+# v3: add "questionable" severity, fix Opus dismissal bias, better category examples
+BLUNDER_SCRIPT_VERSION = 3
 
 # Prices per million tokens (from models.json, Feb 2026)
 PRICES: dict[str, tuple[float, float]] = {
@@ -73,45 +74,38 @@ If no decisions look suspicious, return []."""
 OPUS_SYSTEM = """\
 You are a Magic: The Gathering expert annotating blunders in a game replay.
 
-Analyze each flagged decision. For confirmed blunders, provide detailed annotations. \
-If a flagged decision is actually reasonable given the game context, omit it.
+Analyze each flagged decision carefully. Check whether the action achieved anything \
+meaningful given the board state. Use the severity scale below — use "questionable" for \
+borderline cases rather than omitting them. Only omit a flagged decision if the play is \
+genuinely correct with no reasonable argument against it.
 
-## Blunder Categories
+## Category
 
-### `unused_mana`
-Missing land drops. Holding castable creatures/spells for no reason. Not activating \
-abilities (equipment, planeswalkers). Not using mana sinks at end of turn.
+The "category" field is a short snake_case label you choose to describe the type of mistake. \
+Use your judgment — here are some common examples, but use whatever fits best:
 
-### `wasted_resources`
-Color-restricted spells on wrong color (Pyroblast on non-blue). Casting into Chalice \
-of the Void. Show and Tell with nothing to cheat in. Mox Diamond with no land. \
-Countering own spells. Self-targeting removal. Duplicate legendaries. Declining \
-pure-upside "may" abilities.
+- `missed_lethal` — not attacking for lethal, missing combo kills, burn in hand at low life
+- `wasted_resources` — casting spells that accomplish nothing, cards with no valid targets, \
+countering own spells, declining pure-upside abilities
+- `wrong_target` — removing the wrong threat, fetching the wrong land, naming the wrong card
+- `bad_sequencing` — casting spells before playing lands, creatures before combat with tricks
+- `bad_combat` — poor attack/block decisions, attacking such that opponent can make favorable blocks
+- `unused_mana` — missing land drops, not using mana sinks at end of opponent's turn, \
+holding castable spells for no reason
+- `strategic_error` — fundamentally wrong game plan decisions, not countering must-answer threats
+- `walked_into_removal` — overextending into board wipes, running best threat into open counter mana
 
-### `wrong_target`
-Wasteland on basic land. Fetching wrong land type. Removing irrelevant creature while \
-bigger threat exists. Naming wrong card with Needle/Extraction. Exiling wrong card from hand.
+## Severity Levels
 
-### `missed_lethal`
-Not attacking with lethal on board. Missing combo completion (Dark Depths + Thespian's \
-Stage). Burn spells in hand with opponent at low life. Skipping attacks with no blockers.
-
-### `strategic_error`
-Not completing known combos. Choosing draw over play with aggro. Drawing cards at \
-critical life when removal mode available. Not countering game-winning threats. \
-Cancelling search without selecting.
-
-### `bad_sequencing`
-Cantrip after land drop. Creatures before combat with tricks. Bounce land as only land. \
-Spells before lands. Postcombat Thoughtseize.
-
-### `bad_combat`
-Not blocking when correct. Blocking tramplers with small creatures. Not using deathtouch \
-strategically. Only sending part of lethal force. Attacking into guaranteed bad trade.
-
-### `walked_into_removal`
-Overextending into board wipes. Best threat into open counter mana. Duplicate legendary. \
-Stacking buffs on one creature.
+- **questionable**: Probably suboptimal but debatable. A human reviewing the game would \
+find this interesting to think about. Use this when there's at least a ~30% chance the \
+play was wrong. Low bar — when in doubt, include as questionable rather than omitting.
+- **minor**: Clearly suboptimal — a small amount of value was lost (e.g. slightly wrong \
+sequencing, fetching a less optimal land, missing a minor advantage).
+- **moderate**: A real mistake with meaningful consequences — wasted a card, missed a \
+significant line, or gave the opponent an unnecessary opening.
+- **major**: Game-losing or close to it — threw away a winning position, wasted multiple \
+cards for nothing, missed lethal, or made an error that directly led to losing.
 
 ## Output Format
 
@@ -120,16 +114,13 @@ Return ONLY a JSON array of annotation objects:
   "snapshotIndex": <int>,
   "player": "<name>",
   "type": "blunder",
-  "severity": "minor" | "moderate" | "major",
-  "category": "<category>",
+  "severity": "questionable" | "minor" | "moderate" | "major",
+  "category": "<short_snake_case_label>",
   "description": "<what went wrong in concrete game terms>",
   "llmReasoning": "<why the LLM made this mistake, referencing their reasoning text>",
   "actionTaken": "<what they actually did>",
   "betterLine": "<what they should have done>"
-}
-
-Severity: minor = slightly suboptimal. moderate = clear mistake with consequences. \
-major = game-losing or massive value loss."""
+}"""
 
 
 def _load_game(gz_path: str) -> dict:

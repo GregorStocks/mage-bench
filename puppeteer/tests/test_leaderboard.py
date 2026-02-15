@@ -913,6 +913,30 @@ def test_generate_leaderboard_avg_blunders():
     assert bob["avgBlundersPerGame"] == 1.0
 
 
+def test_generate_leaderboard_blunders_excludes_questionable():
+    """Questionable severity should not count toward leaderboard blunder stats."""
+    games = [
+        _make_game(
+            "g1",
+            "20260101_000000",
+            "Alice",
+            [
+                _pilot("Alice", "a/model-a", placement=1),
+                _pilot("Bob", "b/model-b", placement=2),
+            ],
+        ),
+    ]
+    games[0]["annotations"] = [
+        {"type": "blunder", "player": "Alice", "severity": "major"},
+        {"type": "blunder", "player": "Alice", "severity": "questionable"},
+        {"type": "blunder", "player": "Alice", "severity": "questionable"},
+    ]
+    result, _ = generate_leaderboard(games, {})
+    alice = next(m for m in result["models"] if m["modelName"] == "Model A")
+    # Only the major blunder counts; two questionable are excluded
+    assert alice["avgBlundersPerGame"] == 1.0
+
+
 def test_generate_leaderboard_blunders_no_annotations():
     """Games without annotations should not count toward blunder average."""
     games = [

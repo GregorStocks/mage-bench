@@ -381,12 +381,12 @@ class TestAnnotateGame:
         with pytest.raises(subprocess.CalledProcessError):
             _run_script("annotate_game.py", str(gz_path), str(ann_path))
 
-    def test_invalid_category(self, tmp_path: Path) -> None:
+    def test_empty_category(self, tmp_path: Path) -> None:
         gz_path = tmp_path / "game.json.gz"
         _write_gz(_make_test_game(), gz_path)
 
         annotation = _make_valid_annotation()
-        annotation["category"] = "bad_vibes"
+        annotation["category"] = ""
         ann_path = tmp_path / "annotations.json"
         ann_path.write_text(json.dumps([annotation]))
 

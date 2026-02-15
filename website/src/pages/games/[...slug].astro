@@ -687,7 +687,7 @@ const { slug } = Astro.params;
       header.className = "annotation-header";
       var badge = document.createElement("span");
       badge.className = "annotation-badge severity-" + ann.severity;
-      badge.textContent = ann.severity + " blunder";
+      badge.textContent = ann.severity === "questionable" ? "questionable" : ann.severity + " blunder";
       header.appendChild(badge);
       var catEl = document.createElement("span");
       catEl.className = "annotation-category";
@@ -1034,7 +1034,7 @@ const { slug } = Astro.params;
 
         // Blunder summary in header
         if (game.annotations && game.annotations.length > 0) {
-          var counts = { minor: 0, moderate: 0, major: 0 };
+          var counts = { questionable: 0, minor: 0, moderate: 0, major: 0 };
           game.annotations.forEach(function (a) { counts[a.severity] = (counts[a.severity] || 0) + 1; });
           var summaryEl = document.createElement("div");
           summaryEl.id = "blunder-summary";
@@ -1042,6 +1042,7 @@ const { slug } = Astro.params;
           if (counts.major > 0) parts.push(counts.major + " major");
           if (counts.moderate > 0) parts.push(counts.moderate + " moderate");
           if (counts.minor > 0) parts.push(counts.minor + " minor");
+          if (counts.questionable > 0) parts.push(counts.questionable + " questionable");
           summaryEl.textContent = parts.join(", ") + " blunder" + (game.annotations.length !== 1 ? "s" : "");
           document.getElementById("game-header").appendChild(summaryEl);
 
