@@ -4,28 +4,15 @@ Pick and solve exactly **one** issue, then create a PR.
 
 ## Workflow
 
-1. Rebase against origin/master:
+1. **Claim an issue** by running:
    ```bash
-   git fetch origin && git rebase origin/master
+   uv run python scripts/autoclaim-issue.py
    ```
-2. List open issues sorted by priority:
-   ```bash
-   uv run python scripts/list-issues.py
-   ```
-3. Check which issues are already claimed by other agents:
-   ```bash
-   uv run python scripts/claim-issue.py --list
-   ```
-   Any issue whose filename appears in this list is taken — skip it.
-4. Pick **one** unclaimed issue. **You must select from the highest available priority tier** — never bypass a higher-priority issue (e.g. P2) in favor of a lower-priority one (e.g. P3). No exceptions. Within the same priority tier, use your judgment. **Read the issue JSON** and check any preconditions — some issues only apply in specific circumstances. If the issue doesn't apply, skip it and pick the next one *within the same priority tier*. If an issue applies but isn't immediately actionable, your goal is to make progress on it (e.g. by discussing it with the human to get clarification) — don't skip it. Only move to a lower priority tier after exhausting all unclaimed issues at the current tier.
-5. **Claim the issue** by running:
-   ```bash
-   uv run python scripts/claim-issue.py <issue-filename>
-   ```
-   This pushes your branch, creates a draft PR, and checks for race conditions (lowest PR number wins).
-   - If the script **succeeds** (exit 0): you claimed it. Continue to step 6.
-   - If the script **fails** (exit 1): someone else claimed it first. Re-run step 3 and go back to step 4. Give up after 5 failed attempts and tell the user no unclaimed issues are available.
-6. **Enter plan mode** — explore the codebase, design your approach, and present it to the user for feedback before writing any code. This is the user's chance to redirect you if the approach is wrong. **Your plan must end with this checklist** (copy it verbatim into your plan):
+   This merges origin/master, picks the highest-priority unclaimed autoclaimable issue, and claims it (creating a draft PR). Issues with `"not_autoclaimable": true` are skipped — those have preconditions that need manual review.
+   - If the script **succeeds** (exit 0): you claimed it. Continue to step 2.
+   - If the script **fails** (exit 1): no claimable issues available. Tell the user.
+   - If the script **fails** (exit 2): lost all race attempts. Tell the user.
+2. **Enter plan mode** — explore the codebase, design your approach, and present it to the user for feedback before writing any code. This is the user's chance to redirect you if the approach is wrong. **Your plan must end with this checklist** (copy it verbatim into your plan):
 
    ```
    ## Post-implementation checklist
@@ -39,16 +26,16 @@ Pick and solve exactly **one** issue, then create a PR.
    ```
 
    This checklist survives the plan mode boundary and ensures no steps are skipped even if earlier context is compressed.
-7. After the plan is approved, **create tasks** from the checklist using `TaskCreate`. Mark each task in_progress when you start it and completed when you finish it.
-8. Implement the fix. Push progress:
+3. After the plan is approved, **create tasks** from the checklist using `TaskCreate`. Mark each task in_progress when you start it and completed when you finish it.
+4. Implement the fix. Push progress:
    ```bash
    git push origin HEAD
    ```
-9. Update tests to expect the correct behavior
-10. Run `make check` to verify lint, typecheck, and tests pass
-11. Delete the issue file (e.g., `rm issues/<issue-filename>.json`) and **include the deletion in the commit** — the issue removal must ship with the fix
-12. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
-13. Push final changes, update the PR title/description, and mark it as ready. **The body must end with the `<!-- claim: ... -->` comment** so the issue stays claimed. Extract it from the current PR body first:
+5. Update tests to expect the correct behavior
+6. Run `make check` to verify lint, typecheck, and tests pass
+7. Delete the issue file (e.g., `rm issues/<issue-filename>.json`) and **include the deletion in the commit** — the issue removal must ship with the fix
+8. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
+9. Push final changes, update the PR title/description, and mark it as ready. **The body must end with the `<!-- claim: ... -->` comment** so the issue stays claimed. Extract it from the current PR body first:
     ```bash
     git push origin HEAD
     CLAIM_TAG=$(gh pr view --json body --jq '.body' | grep -o '<!-- claim: .* -->')
@@ -65,7 +52,7 @@ If you determine an issue isn't worth fixing after claiming it, clean up your cl
 ```bash
 gh pr close --delete-branch
 ```
-Then restart from step 2 to pick a different issue.
+Then restart from step 1 to pick a different issue.
 
 ## Is It Worth Fixing?
 
