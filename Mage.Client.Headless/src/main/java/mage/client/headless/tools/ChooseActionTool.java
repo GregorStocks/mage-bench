@@ -55,12 +55,13 @@ public class ChooseActionTool {
             @Param(description = "Multiple amount values (for multi_amount actions)") int[] amounts,
             @Param(description = "Pile number: 1 or 2 (for pile choices)") Integer pile,
             @Param(description = "Text value for GAME_CHOOSE_CHOICE (use instead of index to pick any option by name, e.g. a creature type not in the filtered list)") String text,
-            @Param(description = "Mana sources to tap when casting a spell. "
-                + "Each entry: {\"tap\": \"p3\"} to tap a permanent by short ID, "
-                + "or {\"pool\": \"RED\"} to spend mana from pool "
-                + "(valid types: WHITE, BLUE, BLACK, RED, GREEN, COLORLESS). "
+            @Param(description = "List of mana sources to use when casting a spell. "
+                + "Each entry is a short ID (e.g. \"p1\") to activate that object's mana ability, "
+                + "or a pool color (WHITE, BLUE, BLACK, RED, GREEN, COLORLESS) to spend from pool. "
+                + "Works for any mana source: lands, mana rocks, and cards in hand with mana abilities "
+                + "(e.g. Simian Spirit Guide). "
                 + "Consumed in order as mana payment callbacks arrive. "
-                + "Example: [{\"tap\": \"p1\"}, {\"tap\": \"p2\"}]. "
+                + "Example: [\"p1\", \"p2\", \"RED\"]. "
                 + "The plan must be COMPLETE — if any entry fails or runs out, the spell is cancelled. "
                 + "Avoid multi-ability permanents (filter lands, dual lands). "
                 + "Mutually exclusive with auto_tap.") JsonArray mana_plan,

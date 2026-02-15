@@ -152,7 +152,7 @@ public class BridgeCallbackHandler {
     // the game thread on a slow/disconnected player, and our response arrives before
     // the game thread reaches waitForResponse().
     private enum ResponseType { UUID, BOOLEAN, STRING, INTEGER, MANA_TYPE }
-    private record ManaPlanEntry(String type, String value) {}  // type="tap"|"pool", value=uuid|manaType
+    private record ManaPlanEntry(String type, String value) {}  // type="tap"|"pool", value=shortId|manaType
     private volatile long lastResponseSentAt = 0;
     private volatile UUID lastResponseGameId;
     private volatile ResponseType lastResponseType;
@@ -4135,24 +4135,28 @@ public class BridgeCallbackHandler {
 
     /**
      * Parse a mana plan JsonArray into a list of ManaPlanEntry.
-     * Format: [{"tap": "p3"}, {"pool": "RED"}, ...]
+     * Format: ["p1", "p2", "RED"] — short IDs activate mana abilities, color names spend from pool.
      */
     private CopyOnWriteArrayList<ManaPlanEntry> parseManaPlan(com.google.gson.JsonArray arr) {
         var plan = new CopyOnWriteArrayList<ManaPlanEntry>();
         for (int i = 0; i < arr.size(); i++) {
-            if (!arr.get(i).isJsonObject()) {
-                throw new IllegalArgumentException("mana_plan entry " + i + " must be an object, got: " + arr.get(i));
+            if (!arr.get(i).isJsonPrimitive() || !arr.get(i).getAsJsonPrimitive().isString()) {
+                throw new IllegalArgumentException(
+                    "mana_plan entry " + i + " must be a string (short ID or pool color), got: " + arr.get(i));
             }
-            var obj = arr.get(i).getAsJsonObject();
-            if (obj.has("tap")) {
-                plan.add(new ManaPlanEntry("tap", obj.get("tap").getAsString()));
-            } else if (obj.has("pool")) {
-                plan.add(new ManaPlanEntry("pool", obj.get("pool").getAsString()));
+            String entry = arr.get(i).getAsString();
+            if (isPoolColor(entry)) {
+                plan.add(new ManaPlanEntry("pool", entry));
             } else {
-                throw new IllegalArgumentException("mana_plan entry " + i + " must have 'tap' or 'pool' key, got: " + obj);
+                plan.add(new ManaPlanEntry("tap", entry));
             }
         }
         return plan;
+    }
+
+    private static boolean isPoolColor(String s) {
+        try { ManaType.valueOf(s); return true; }
+        catch (IllegalArgumentException e) { return false; }
     }
 
     /**

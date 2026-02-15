@@ -1,0 +1,10 @@
+{
+  "title": "Allow mana_plan to specify which ability to use on multi-ability lands",
+  "description": "When a mana_plan entry references a multi-ability permanent (e.g. dual lands, filter lands), the system currently auto-selects the sole ability or cancels the spell if there are multiple (BridgeCallbackHandler.java GAME_CHOOSE_ABILITY handler, line ~3518).\n\nThis means models must \"avoid multi-ability permanents\" in their mana plans, which is a significant limitation.\n\nPossible approach: extend the mana_plan string format to support ability selection, e.g. \"p1:1\" to select ability index 1 on object p1. Plain \"p1\" would keep current behavior (auto-select sole ability, cancel on multi). The colon-index syntax would let the GAME_CHOOSE_ABILITY handler pick the right ability instead of cancelling.\n\nThis would let models use dual lands, filter lands, and other multi-ability permanents in mana plans.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["headless-client", "mcp"],
+  "created_at": "2026-02-15T14:48:00.000000-08:00",
+  "updated_at": "2026-02-15T14:48:00.000000-08:00"
+}
