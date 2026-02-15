@@ -24,6 +24,7 @@ public class GetActionChoicesTool {
             @Tool.Field(name = "action_type", type = "string", description = "XMage callback method name"),
             @Tool.Field(name = "message", type = "string", description = "Human-readable prompt from XMage"),
             @Tool.Field(name = "response_type", type = "string", description = "How to respond: \"select\", \"boolean\", \"index\", \"amount\", \"pile\", or \"multi_amount\""),
+            @Tool.Field(name = "respond_with", type = "string", description = "Exact choose_action parameter(s) to use for this action type"),
             @Tool.Field(name = "context", type = "string", description = "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")"),
             @Tool.Field(name = "players", type = "string", description = "Life total summary (e.g. \"You(20), Opp(18)\")"),
             @Tool.Field(name = "choices", type = "array[object]", description = "Structured choices with index, name, and type-specific fields (action/mana_cost/power/toughness for cards; choice_type for combat/mana; target_type/controller/tapped for targets)"),

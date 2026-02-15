@@ -1,7 +1,7 @@
 """Shared auto-pass loop for LLM fallback mode.
 
 When an LLM becomes non-functional (degraded, credits exhausted, model not
-found), the puppeteer falls back to repeatedly calling default_action until
+found), the puppeteer falls back to repeatedly calling pass_priority until
 the game ends. This module provides that shared loop so pilot.py doesn't
 duplicate it.
 """
@@ -49,7 +49,7 @@ async def auto_pass_loop(
     max_iterations: int = MAX_AUTO_PASS_ITERATIONS,
     max_consecutive_errors: int = MAX_CONSECUTIVE_ERRORS,
 ) -> None:
-    """Run default_action in a loop until game over or error threshold.
+    """Run pass_priority in a loop until game over or error threshold.
 
     Used when the LLM is no longer functional and the game must finish on
     autopilot.
@@ -57,7 +57,7 @@ async def auto_pass_loop(
     consecutive_errors = 0
     for _ in range(max_iterations):
         try:
-            result_text = await _execute_tool(session, "default_action", {})
+            result_text = await _execute_tool(session, "pass_priority", {})
             try:
                 result_data = json.loads(result_text)
             except (json.JSONDecodeError, TypeError):

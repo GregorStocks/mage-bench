@@ -3,61 +3,6 @@
     "outputSchema": {
       "type": "object",
       "properties": {
-        "action_type": {
-          "description": "The callback method that was handled",
-          "type": "string"
-        },
-        "success": {
-          "description": "Whether the action was executed successfully",
-          "type": "boolean"
-        },
-        "action_taken": {
-          "description": "Description of what was done (e.g. \"passed_priority\")",
-          "type": "string"
-        },
-        "game_over": {
-          "description": "Whether the game has ended",
-          "type": "boolean"
-        },
-        "recent_chat": {
-          "description": "Chat messages received since last check",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "error": {
-          "description": "Error message",
-          "type": "string"
-        },
-        "player_dead": {
-          "description": "Whether you died",
-          "type": "boolean"
-        }
-      }
-    },
-    "examples": [
-      {
-        "label": "Success",
-        "value": "{\n  \"success\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"action_taken\": \"passed_priority\"\n}"
-      },
-      {
-        "label": "No pending action",
-        "value": "{\n  \"success\": false,\n  \"error\": \"No pending action\"\n}"
-      }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {}
-    },
-    "name": "default_action",
-    "description": "Execute default action (pass priority or first available choice)"
-  },
-  {
-    "outputSchema": {
-      "type": "object",
-      "properties": {
         "cursor": {
           "description": "Cursor to pass to the next get_game_log call",
           "type": "integer"
@@ -475,6 +420,10 @@
           "description": "Maximum allowed value",
           "type": "integer"
         },
+        "respond_with": {
+          "description": "Exact choose_action parameter(s) to use for this action type",
+          "type": "string"
+        },
         "recent_chat": {
           "description": "Chat messages received since last check",
           "type": "array",
@@ -642,8 +591,8 @@
           "type": "integer"
         },
         "mana_plan": {
-          "description": "JSON array of mana sources to tap when casting a spell. Each entry: {\"tap\": \"p3\"} to tap a permanent by short ID, or {\"pool\": \"RED\"} to spend mana from pool (valid types: WHITE, BLUE, BLACK, RED, GREEN, COLORLESS). Consumed in order as mana payment callbacks arrive. Example: [{\"tap\": \"p1\"}, {\"tap\": \"p2\"}]. The plan must be COMPLETE — if any entry fails (wrong ID, unavailable permanent) or the plan runs out before all mana is paid, the spell is cancelled. Avoid multi-ability permanents (filter lands, dual lands) — they cancel the spell. For X spells, include entries for both the X pips and the regular cost. Mutually exclusive with auto_tap.",
-          "type": "string"
+          "description": "Mana sources to tap when casting a spell. Each entry: {\"tap\": \"p3\"} to tap a permanent by short ID, or {\"pool\": \"RED\"} to spend mana from pool (valid types: WHITE, BLUE, BLACK, RED, GREEN, COLORLESS). Consumed in order as mana payment callbacks arrive. Example: [{\"tap\": \"p1\"}, {\"tap\": \"p2\"}]. The plan must be COMPLETE — if any entry fails or runs out, the spell is cancelled. Avoid multi-ability permanents (filter lands, dual lands). Mutually exclusive with auto_tap.",
+          "type": "array"
         },
         "attackers": {
           "description": "Declare multiple attackers at once. Array of short IDs (e.g. [\"p1\",\"p2\"]). Use [\"all\"] to declare all possible attackers. Automatically confirms after declaring.",
@@ -653,11 +602,11 @@
           }
         },
         "blockers": {
-          "description": "Declare multiple blockers at once. JSON array of assignments: [{\"id\":\"p5\",\"blocks\":\"p1\"},{\"id\":\"p6\",\"blocks\":\"p2\"}]. Each entry specifies which attacker the blocker should block (use IDs from incoming_attackers). Automatically confirms after declaring.",
-          "type": "string"
+          "description": "Declare multiple blockers at once. Array of assignments, each with \"id\" (blocker) and \"blocks\" (attacker from incoming_attackers). Example: [{\"id\":\"p5\",\"blocks\":\"p1\"},{\"id\":\"p6\",\"blocks\":\"p2\"}]. Automatically confirms after declaring.",
+          "type": "array"
         },
         "id": {
-          "description": "Short ID of the object to select (e.g. \"p3\"). Alternative to index. Mutually exclusive with index.",
+          "description": "Short ID of the object to select (e.g. \"p3\"). Alternative to index.",
           "type": "string"
         },
         "text": {
@@ -668,37 +617,5 @@
     },
     "name": "choose_action",
     "description": "Respond to pending action. Use id or index to pick a choice (card, attacker, blocker, target, ability, mana source). Use answer for yes/no, pass priority, or confirm combat (true=confirm attackers/blockers). Use attackers/blockers for batch combat. Call get_action_choices first."
-  },
-  {
-    "outputSchema": {
-      "type": "object",
-      "properties": {
-        "cards": {
-          "description": "Main deck cards, one per line (e.g. \"4x Lightning Bolt\")",
-          "type": "string"
-        },
-        "sideboard": {
-          "description": "Sideboard cards, same format",
-          "type": "string"
-        },
-        "error": {
-          "description": "Error message",
-          "type": "string"
-        }
-      }
-    },
-    "examples": [
-      {
-        "label": "Decklist loaded",
-        "value": "{\n  \"cards\": \"4x Lightning Bolt\\n4x Goblin Guide\\n20x Mountain\",\n  \"sideboard\": \"2x Smash to Smithereens\\n3x Eidolon of the Great Revel\"\n}"
-      }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {}
-    },
-    "name": "get_my_decklist",
-    "description": "Get your original decklist (card names and quantities)."
   }
 ]

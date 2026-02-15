@@ -1,0 +1,10 @@
+{
+  "title": "LLM gets priority with no pending action (choose_action returns no_pending_action)",
+  "description": "choose_action returns error_code=\"no_pending_action\" when the LLM calls it but the player has no pending action from XMage. This should never happen — the harness should only give the LLM control when a callback is pending.\n\nObserved 29 times across epoch 4-7 games (out of 8174 choose_action calls). Still happening in epoch 7: 11 instances across Llama4, Kimi25, GPT5m, Sonnet, and GLM47. Not model-specific.\n\nThe root cause is likely a timing issue in the bridge or pilot loop where the LLM is prompted to act before a callback has arrived, or after a callback was already consumed by auto-pass/loop detection.\n\nThis is distinct from the auto-populate race (fixed in this PR) where get_action_choices wasn't called first — those cases had a pending action but no cached choices.",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": ["headless-client", "puppeteer"],
+  "created_at": "2026-02-15T12:00:00.000000-08:00",
+  "updated_at": "2026-02-15T12:00:00.000000-08:00"
+}

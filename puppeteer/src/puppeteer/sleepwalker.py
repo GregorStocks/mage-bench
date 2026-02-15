@@ -110,10 +110,9 @@ async def run_sleepwalker(
                     # Delay before taking action
                     await asyncio.sleep(ACTION_DELAY_SECS)
 
-                    # Execute default action
-                    result = await session.call_tool("default_action", {})
-                    action_result = json.loads(result.content[0].text)
-                    _log(f"[sleepwalker]   Result: {action_result.get('action_taken', 'unknown')}")
+                    # Pass priority (auto-handles the pending action)
+                    await session.call_tool("pass_priority", {})
+                    _log("[sleepwalker]   Result: passed")
 
                     # Print game log (only new entries since last check)
                     log_result = await session.call_tool("get_game_log", {"max_chars": 10000})

@@ -31,7 +31,6 @@ public class McpServer {
     private static final String SERVER_VERSION = "1.0.0";
 
     private static final Class<?>[] TOOL_CLASSES = {
-        DefaultActionTool.class,
         GetGameLogTool.class,
         SendChatMessageTool.class,
         PassPriorityTool.class,
@@ -39,7 +38,6 @@ public class McpServer {
         GetOracleTextTool.class,
         GetActionChoicesTool.class,
         ChooseActionTool.class,
-        GetMyDecklistTool.class,
     };
 
     private final BridgeCallbackHandler callbackHandler;

@@ -49,7 +49,6 @@ MAX_GAME_DURATION_SECS = 3 * 3600  # 3 hours absolute maximum
 CONTEXT_RECENT_COUNT = 40  # recent history entries kept at full fidelity
 CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
 TOOL_RESULT_MAX_CHARS = 200  # max chars for a summarised tool result
-STRATEGY_MAX_CHARS = 500  # max chars for save_strategy notes
 RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
 
 
@@ -147,10 +146,7 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
             return prefix + log_text[:remaining]
         return prefix.rstrip(": ")
 
-    if tool_name == "save_strategy":
-        return f"saved {data.get('chars', '?')} chars"
-
-    # get_oracle_text, send_chat_message, default_action, unknown
+    # get_oracle_text, send_chat_message, unknown
     return content[:TOOL_RESULT_MAX_CHARS]
 
 
@@ -176,13 +172,10 @@ def _extract_last_reasoning(history: list[dict]) -> str:
 
 def _build_reset_message(
     base_text: str,
-    saved_strategy: str,
     last_reasoning: str,
 ) -> str:
-    """Build the user message for a context reset, including persistent state."""
+    """Build the user message for a context reset."""
     parts = [base_text]
-    if saved_strategy:
-        parts.append(f"Your saved strategy notes: {saved_strategy}")
     if last_reasoning:
         parts.append(f"Before your context was reset, you were thinking: {last_reasoning}")
     return "\n\n".join(parts)
@@ -192,7 +185,6 @@ def _render_context(
     history: list[dict],
     system_prompt: str,
     state_summary: str,
-    saved_strategy: str = "",
 ) -> list[dict]:
     """Build the LLM messages list from append-only history.
 
@@ -200,10 +192,7 @@ def _render_context(
     Older messages (up to CONTEXT_SUMMARY_COUNT before the recent window) have
     their tool results summarised to save tokens. Everything older is dropped.
     """
-    effective_prompt = system_prompt
-    if saved_strategy:
-        effective_prompt += f"\n\nYour saved strategy notes: {saved_strategy}"
-    messages: list[dict] = [{"role": "system", "content": effective_prompt}]
+    messages: list[dict] = [{"role": "system", "content": system_prompt}]
 
     if len(history) <= CONTEXT_RECENT_COUNT:
         # Short history — include everything at full fidelity
@@ -278,31 +267,7 @@ async def _fetch_state_summary(session: ClientSession) -> str:
 
 # Tools that are purely informational (don't advance game state).
 # Used by stall detection to classify LLM turns.
-INFO_ONLY_TOOLS = {"get_game_state", "get_oracle_text", "send_chat_message", "save_strategy"}
-
-# Synthetic tool definition for save_strategy (not an MCP tool — handled in Python).
-SAVE_STRATEGY_TOOL = {
-    "type": "function",
-    "function": {
-        "name": "save_strategy",
-        "description": (
-            "Save strategy notes that persist even if your context is reset "
-            "(e.g. opponent playstyles, your game plan, key threats to track). "
-            "Max 500 chars. Overwrites previous notes."
-        ),
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "text": {
-                    "type": "string",
-                    "description": "Strategy notes to save",
-                }
-            },
-            "required": ["text"],
-            "additionalProperties": False,
-        },
-    },
-}
+INFO_ONLY_TOOLS = {"get_game_state", "get_oracle_text", "send_chat_message"}
 
 
 def _load_default_system_prompt() -> str:
@@ -406,7 +371,6 @@ async def run_pilot_loop(
         {"role": "user", "content": initial_message},
     ]
     state_summary = ""
-    saved_strategy = ""  # persistent notes from save_strategy tool
     model_price = get_model_price(model, prices or {})
     cumulative_cost = 0.0
     empty_responses = 0  # consecutive LLM responses with no reasoning text
@@ -427,7 +391,6 @@ async def run_pilot_loop(
     cached_render: list[dict] | None = None
     cached_history_len: int = 0
     render_counter: int = 0
-    last_strategy_at_render: str = ""
 
     while True:
         if time.monotonic() - game_start > MAX_GAME_DURATION_SECS:
@@ -440,22 +403,17 @@ async def run_pilot_loop(
             # Render context from history; use cached prefix when possible
             if len(history) > CONTEXT_RECENT_COUNT:
                 render_counter += 1
-                need_rerender = (
-                    cached_render is None
-                    or render_counter % RENDER_INTERVAL == 0
-                    or saved_strategy != last_strategy_at_render
-                )
+                need_rerender = cached_render is None or render_counter % RENDER_INTERVAL == 0
                 if need_rerender:
                     state_summary = await _fetch_state_summary(session)
-                    messages = _render_context(history, system_prompt, state_summary, saved_strategy)
+                    messages = _render_context(history, system_prompt, state_summary)
                     cached_render = list(messages)
                     cached_history_len = len(history)
-                    last_strategy_at_render = saved_strategy
                     render_counter = 0
                 else:
                     messages = list(cached_render) + history[cached_history_len:]
             else:
-                messages = _render_context(history, system_prompt, state_summary, saved_strategy)
+                messages = _render_context(history, system_prompt, state_summary)
                 cached_render = None
                 render_counter = 0
 
@@ -512,7 +470,6 @@ async def run_pilot_loop(
                             "role": "user",
                             "content": _build_reset_message(
                                 "Continue playing. Be concise. Call pass_priority.",
-                                saved_strategy,
                                 last_reasoning,
                             ),
                         },
@@ -607,13 +564,7 @@ async def run_pilot_loop(
                     _log(f"[pilot] Tool: {fn.name}({json.dumps(args, separators=(',', ':'))})")
 
                     tool_start = time.monotonic()
-                    if fn.name == "save_strategy":
-                        text = args.get("text", "")[:STRATEGY_MAX_CHARS]
-                        saved_strategy = text
-                        result_text = json.dumps({"saved": True, "chars": len(text)})
-                        _log(f"[pilot] Strategy saved ({len(text)} chars)")
-                    else:
-                        result_text = await execute_tool(session, fn.name, args)
+                    result_text = await execute_tool(session, fn.name, args)
                     tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
 
                     # Log tool call to JSONL
@@ -809,7 +760,7 @@ async def run_pilot_loop(
                 except Exception:
                     pass
                 try:
-                    await execute_tool(session, "default_action", {})
+                    await execute_tool(session, "pass_priority", {})
                     _log("[pilot] Auto-passed stalled action")
                 except Exception as e:
                     _log(f"[pilot] Auto-pass failed: {e}")
@@ -821,7 +772,6 @@ async def run_pilot_loop(
                         "role": "user",
                         "content": _build_reset_message(
                             "A new turn has started. Call pass_priority to continue.",
-                            saved_strategy,
                             last_reasoning,
                         ),
                     },
@@ -846,7 +796,7 @@ async def run_pilot_loop(
                     error_message=f"Timed out after {LLM_REQUEST_TIMEOUT_SECS}s [{consecutive_timeouts}]",
                 )
             try:
-                await execute_tool(session, "default_action", {})
+                await execute_tool(session, "pass_priority", {})
             except Exception:
                 await asyncio.sleep(5)
 
@@ -860,7 +810,6 @@ async def run_pilot_loop(
                         "role": "user",
                         "content": _build_reset_message(
                             "Continue playing. Call pass_priority.",
-                            saved_strategy,
                             last_reasoning,
                         ),
                     },
@@ -897,7 +846,7 @@ async def run_pilot_loop(
 
             # Transient error - keep actions flowing while waiting to retry
             try:
-                await execute_tool(session, "default_action", {})
+                await execute_tool(session, "pass_priority", {})
             except Exception:
                 await asyncio.sleep(5)
 
@@ -908,7 +857,6 @@ async def run_pilot_loop(
                     "role": "user",
                     "content": _build_reset_message(
                         "Continue playing. Call pass_priority.",
-                        saved_strategy,
                         last_reasoning,
                     ),
                 },
@@ -1014,7 +962,6 @@ async def run_pilot(
                             f"Available: {sorted(available_mcp_names)}"
                         )
                 openai_tools = mcp_tools_to_openai(tools_result.tools, tools)
-                openai_tools.append(SAVE_STRATEGY_TOOL)
                 tool_names = [t["function"]["name"] for t in openai_tools]
                 _log(f"[pilot] Available tools: {tool_names}")
 

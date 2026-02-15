@@ -183,6 +183,8 @@ public class McpToolRegistry {
             var items = new HashMap<String, Object>();
             items.put("type", "integer");
             prop.put("items", items);
+        } else if (type == JsonArray.class) {
+            prop.put("type", "array");
         } else {
             throw new RuntimeException("Unsupported parameter type: " + type.getName());
         }
@@ -238,6 +240,8 @@ public class McpToolRegistry {
                 result[i] = arr.get(i).isJsonNull() ? 0 : arr.get(i).getAsInt();
             }
             return result;
+        } else if (type == JsonArray.class) {
+            return obj.getAsJsonArray(key);
         }
         throw new RuntimeException("Unsupported parameter type: " + type.getName());
     }

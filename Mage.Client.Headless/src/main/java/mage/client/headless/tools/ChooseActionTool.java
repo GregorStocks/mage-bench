@@ -1,5 +1,7 @@
 package mage.client.headless.tools;
 
+import com.google.gson.JsonArray;
+
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +38,7 @@ public class ChooseActionTool {
             BridgeCallbackHandler handler,
             @Param(description = "Choice index from get_action_choices") Integer index,
             @Param(description = "Short ID of the object to select (e.g. \"p3\"). "
-                + "Alternative to index. Mutually exclusive with index.") String id,
+                + "Alternative to index.") String id,
             @Param(description = "Yes/No response. For GAME_ASK: true means YES to the question, false means NO. "
                 + "For mulligan: true = YES MULLIGAN (discard hand, draw new cards), false = NO KEEP (keep this hand). "
                 + "For GAME_SELECT: false = pass priority (done playing cards this phase), "
@@ -46,17 +48,15 @@ public class ChooseActionTool {
             @Param(description = "Multiple amount values (for multi_amount actions)") int[] amounts,
             @Param(description = "Pile number: 1 or 2 (for pile choices)") Integer pile,
             @Param(description = "Text value for GAME_CHOOSE_CHOICE (use instead of index to pick any option by name, e.g. a creature type not in the filtered list)") String text,
-            @Param(description = "JSON array of mana sources to tap when casting a spell. "
+            @Param(description = "Mana sources to tap when casting a spell. "
                 + "Each entry: {\"tap\": \"p3\"} to tap a permanent by short ID, "
                 + "or {\"pool\": \"RED\"} to spend mana from pool "
                 + "(valid types: WHITE, BLUE, BLACK, RED, GREEN, COLORLESS). "
                 + "Consumed in order as mana payment callbacks arrive. "
                 + "Example: [{\"tap\": \"p1\"}, {\"tap\": \"p2\"}]. "
-                + "The plan must be COMPLETE — if any entry fails (wrong ID, unavailable permanent) "
-                + "or the plan runs out before all mana is paid, the spell is cancelled. "
-                + "Avoid multi-ability permanents (filter lands, dual lands) — they cancel the spell. "
-                + "For X spells, include entries for both the X pips and the regular cost. "
-                + "Mutually exclusive with auto_tap.") String mana_plan,
+                + "The plan must be COMPLETE — if any entry fails or runs out, the spell is cancelled. "
+                + "Avoid multi-ability permanents (filter lands, dual lands). "
+                + "Mutually exclusive with auto_tap.") JsonArray mana_plan,
             @Param(description = "Set true to use the automatic mana tapper. "
                 + "WARNING: The autotapper is not smart — it taps the first available source with no color "
                 + "awareness and uses a naive heuristic for multi-ability lands. Prefer mana_plan for "
@@ -64,17 +64,17 @@ public class ChooseActionTool {
             @Param(description = "Declare multiple attackers at once. Array of short IDs (e.g. [\"p1\",\"p2\"]). "
                 + "Use [\"all\"] to declare all possible attackers. "
                 + "Automatically confirms after declaring.") String[] attackers,
-            @Param(description = "Declare multiple blockers at once. JSON array of assignments: "
-                + "[{\"id\":\"p5\",\"blocks\":\"p1\"},{\"id\":\"p6\",\"blocks\":\"p2\"}]. "
-                + "Each entry specifies which attacker the blocker should block (use IDs from incoming_attackers). "
-                + "Automatically confirms after declaring.") String blockers) {
+            @Param(description = "Declare multiple blockers at once. Array of assignments, "
+                + "each with \"id\" (blocker) and \"blocks\" (attacker from incoming_attackers). "
+                + "Example: [{\"id\":\"p5\",\"blocks\":\"p1\"},{\"id\":\"p6\",\"blocks\":\"p2\"}]. "
+                + "Automatically confirms after declaring.") JsonArray blockers) {
         // Treat empty arrays/strings as "not provided" (some models send all params with defaults)
         if (amounts != null && amounts.length == 0) amounts = null;
         if (text != null && text.isEmpty()) text = null;
-        if (mana_plan != null && mana_plan.isBlank()) mana_plan = null;
+        if (mana_plan != null && mana_plan.isEmpty()) mana_plan = null;
         if (id != null && id.isBlank()) id = null;
         if (attackers != null && attackers.length == 0) attackers = null;
-        if (blockers != null && blockers.isBlank()) blockers = null;
+        if (blockers != null && blockers.isEmpty()) blockers = null;
         return handler.chooseAction(index, id, answer, amount, amounts, pile, text, mana_plan, auto_tap, attackers, blockers);
     }
 

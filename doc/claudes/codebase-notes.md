@@ -20,7 +20,7 @@ An AI benchmark for Magic: The Gathering, built on top of XMage (an open-source 
 
 ## MCP Tools Available to LLMs
 
-`pass_priority`, `get_action_choices`, `choose_action`, `default_action`, `get_game_state`, `get_game_log`, `get_oracle_text`, `get_my_decklist`, `send_chat_message`
+`pass_priority`, `get_action_choices`, `choose_action`, `get_game_state`, `get_game_log`, `get_oracle_text`, `send_chat_message`
 
 ## Player Types
 
