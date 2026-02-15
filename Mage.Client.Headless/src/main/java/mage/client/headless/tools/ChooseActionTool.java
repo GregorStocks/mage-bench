@@ -13,7 +13,8 @@ import static mage.client.headless.tools.McpToolRegistry.json;
 public class ChooseActionTool {
     @Tool(
         name = "choose_action",
-        description = "Respond to pending action. Use id or index to pick a choice (card, attacker, blocker, "
+        description = "Respond to pending action. Blocks until an action is pending (like pass_priority). "
+            + "Use id or index to pick a choice (card, attacker, blocker, "
             + "target, ability, mana source). Use answer for yes/no, pass priority, or confirm "
             + "combat (true=confirm attackers/blockers). Use attackers/blockers for batch combat. "
             + "Call get_action_choices first.",

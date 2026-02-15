@@ -171,47 +171,44 @@ def _mock_tool_result(text: str) -> MagicMock:
 
 @pytest.mark.asyncio
 async def test_prefetch_mulligan():
-    """Pre-fetch should detect mulligan and build a descriptive message."""
+    """Pre-fetch should detect mulligan from pass_priority inline choices."""
     session = MagicMock()
-    call_count = 0
 
     async def fake_call_tool(name, args):
-        nonlocal call_count
-        call_count += 1
         if name == "pass_priority":
-            return _mock_tool_result('{"action_pending": true, "action_type": "GAME_ASK"}')
-        if name == "get_action_choices":
+            # pass_priority returns choices inline (including message)
             return _mock_tool_result(
-                '{"action_type": "GAME_ASK", "message": "Mulligan down to 6 cards?", "choices": []}'
+                '{"action_pending": true, "action_type": "GAME_ASK", '
+                '"message": "Mulligan down to 6 cards?", "choices": []}'
             )
         raise AssertionError(f"Unexpected tool: {name}")
 
     session.call_tool = AsyncMock(side_effect=fake_call_tool)
     msg = await _prefetch_first_action(session)
     assert "Mulligan" in msg
-    assert "get_action_choices" in msg
+    assert "choose_action" in msg
 
 
 @pytest.mark.asyncio
 async def test_prefetch_waits_for_action():
-    """Pre-fetch calls pass_priority once (it blocks) and gets action."""
+    """Pre-fetch calls pass_priority once (it blocks) and uses inline choices."""
     session = MagicMock()
     calls = []
 
     async def fake_call_tool(name, args):
         calls.append(name)
         if name == "pass_priority":
-            # pass_priority now blocks until action is pending
-            return _mock_tool_result('{"action_pending": true, "action_type": "GAME_ASK"}')
-        if name == "get_action_choices":
-            return _mock_tool_result('{"action_type": "GAME_ASK", "message": "Choose play or draw"}')
+            # pass_priority returns choices inline
+            return _mock_tool_result(
+                '{"action_pending": true, "action_type": "GAME_ASK", "message": "Choose play or draw"}'
+            )
         raise AssertionError(f"Unexpected tool: {name}")
 
     session.call_tool = AsyncMock(side_effect=fake_call_tool)
     msg = await _prefetch_first_action(session)
     assert "GAME_ASK" in msg
-    # Single blocking call, no polling
-    assert calls.count("pass_priority") == 1
+    # Single blocking call, no separate get_action_choices
+    assert calls == ["pass_priority"]
 
 
 @pytest.mark.asyncio

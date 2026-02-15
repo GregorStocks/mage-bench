@@ -1279,8 +1279,33 @@ public class BridgeCallbackHandler {
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
 
+        // Block-wait for a pending action (like pass_priority does).
+        // The LLM may call choose_action before the next callback arrives
+        // (e.g. double choose_action in one response, or calling it before
+        // pass_priority). Wait instead of failing immediately.
         if (action == null) {
-            return buildError(result, "no_pending_action", "No pending action", false, null);
+            long waitStart = System.currentTimeMillis();
+            synchronized (actionLock) {
+                while ((action = pendingAction) == null) {
+                    if (playerDead || (activeGames.isEmpty() && gameEverStarted)) {
+                        break;
+                    }
+                    if (System.currentTimeMillis() - waitStart > 10_000) {
+                        break;
+                    }
+                    try {
+                        actionLock.wait(200);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
+                }
+            }
+            if (action == null) {
+                return buildError(result, "no_pending_action", "No pending action after 10s wait", false, null);
+            }
+            logger.info("[" + client.getUsername() + "] choose_action: waited "
+                + (System.currentTimeMillis() - waitStart) + "ms for pending action");
         }
 
         // Loop detection: model has made too many interactions this turn — auto-handle

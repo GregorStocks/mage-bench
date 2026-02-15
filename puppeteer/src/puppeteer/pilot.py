@@ -337,29 +337,24 @@ async def _prefetch_first_action(session: ClientSession) -> str:
     """Wait for the first game decision and return a descriptive initial message.
 
     Calls pass_priority() which blocks until a decision arrives (e.g.
-    mulligan, choose play/draw), then fetches the action choices and builds
-    a message that tells the LLM exactly what it needs to decide.
+    mulligan, choose play/draw). Since pass_priority returns choices inline,
+    we extract action_type and message directly — no separate get_action_choices
+    round-trip needed.
     """
     # pass_priority blocks until this player's first action is pending
     result_text = await execute_tool(session, "pass_priority", {})
     try:
         result = json.loads(result_text)
     except (json.JSONDecodeError, TypeError):
-        return "The game is starting. Call get_action_choices to see your first decision."
+        return "The game is starting. Call pass_priority to get your first decision."
     if result.get("game_over"):
         return "The game is over."
     if not result.get("action_pending"):
-        return "The game is starting. Call get_action_choices to see your first decision."
+        return "The game is starting. Call pass_priority to get your first decision."
 
-    # Fetch the actual choices
-    choices_text = await execute_tool(session, "get_action_choices", {})
-    try:
-        choices = json.loads(choices_text)
-    except (json.JSONDecodeError, TypeError):
-        return "The game is starting. Call get_action_choices to see your first decision."
-
-    action_type = choices.get("action_type", "")
-    message = choices.get("message", "")
+    # pass_priority returns choices inline (action_type, message, choices, etc.)
+    action_type = result.get("action_type", "")
+    message = result.get("message", "")
 
     if "Mulligan" in message or "mulligan" in message.lower():
         return (
@@ -372,7 +367,7 @@ async def _prefetch_first_action(session: ClientSession) -> str:
             f"Call get_action_choices to see your options, then choose_action to decide."
         )
     else:
-        return "The game is starting. Call get_action_choices to see your first decision."
+        return "The game is starting. Call pass_priority to get your first decision."
 
 
 async def run_pilot_loop(
