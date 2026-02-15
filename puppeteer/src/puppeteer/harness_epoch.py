@@ -16,7 +16,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #   4 - Short object IDs + batch combat (Feb 14)
 #   5 - Fix parallel-game duplicate username disconnect loop (Feb 14)
 #   6 - Bump max_tokens to 20k, fix GPT-5 Nano reasoning effort (Feb 14)
-HARNESS_EPOCH = 6
+#   7 - Strip HTML tags and [xxx] hex ID suffixes from MCP tool results (Feb 15)
+HARNESS_EPOCH = 7
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
@@ -30,6 +31,7 @@ _EPOCH_BOUNDARIES = [
     ("20260214_200000", 4),  # short object IDs + batch combat
     ("20260214_230000", 5),  # fix parallel-game duplicate username loop
     ("20260215_060000", 6),  # max_tokens 20k + GPT-5 Nano reasoning_effort=low
+    ("20260215_100000", 7),  # strip HTML tags + [xxx] hex suffixes from MCP tool results
 ]
 
 
