@@ -5,6 +5,7 @@ import json
 import tempfile
 from pathlib import Path
 
+from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.leaderboard import (
     _player_key,
     _split_key,
@@ -972,13 +973,14 @@ def test_generate_leaderboard_file_excludes_old_epochs():
         old_game["deckType"] = "Constructed - Standard"
         (games_dir / "game_20260210_090000.json.gz").write_bytes(gzip.compress(json.dumps(old_game).encode()))
 
-        # Epoch 5 game (current, should be included)
+        # Current epoch game (should be included)
         new_game = _make_game(
             "game_20260215_090000",
             "20260215_090000",
             "Carol",
             [_pilot("Carol", "c/z", placement=1), _pilot("Dave", "d/w", placement=2)],
         )
+        new_game["harnessEpoch"] = HARNESS_EPOCH
         new_game["deckType"] = "Constructed - Standard"
         (games_dir / "game_20260215_090000.json.gz").write_bytes(gzip.compress(json.dumps(new_game).encode()))
 
@@ -992,13 +994,13 @@ def test_generate_leaderboard_file_excludes_old_epochs():
         )
         result = json.loads(output_path.read_text())
 
-        # Only the epoch 5 game should be in ratings (epoch 1 excluded, min is 2)
+        # Only the current-epoch game should be in ratings (epoch 1 excluded, min is 2)
         assert result["totalGames"] == 1
         assert result["excludedGames"] == 1
         assert result["minEpoch"] == 2
-        assert result["epochCounts"] == {"1": 1, "5": 1}
+        assert result["epochCounts"] == {"1": 1, str(HARNESS_EPOCH): 1}
 
-        # Only epoch-5 models should appear (epoch 1 is below MIN_LEADERBOARD_EPOCH=2)
+        # Only current-epoch models should appear (epoch 1 is below MIN_LEADERBOARD_EPOCH=2)
         model_ids = {m["modelId"] for m in result["models"]}
         assert "c/z" in model_ids
         assert "a/x" not in model_ids

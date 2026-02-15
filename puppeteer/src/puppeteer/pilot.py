@@ -37,7 +37,7 @@ class PermanentLLMFailure(Exception):
     """Raised when the LLM is permanently unreachable (model not found, credits exhausted)."""
 
 
-MAX_TOKENS = 4096
+MAX_TOKENS = 20_000
 LLM_REQUEST_TIMEOUT_SECS = 45
 MAX_CONSECUTIVE_TIMEOUTS = 3
 MAX_GAME_DURATION_SECS = 3 * 3600  # 3 hours absolute maximum

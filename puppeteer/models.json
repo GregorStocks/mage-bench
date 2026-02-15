@@ -283,9 +283,9 @@
       "input_per_m": 0.05,
       "output_per_m": 0.40,
       "context_k": 400,
-      "thinking": false,
+      "thinking": true,
       "tier": "dirt-cheap",
-      "notes": "Cheapest OpenAI model. Very popular (300B weekly tokens). Non-thinking baseline."
+      "notes": "Cheapest OpenAI model. Very popular (300B weekly tokens). Despite the name, generates large hidden reasoning tokens by default — causes 20s+ latency and frequent timeouts without reasoning_effort=low."
     },
     {
       "id": "openai/gpt-4.1-mini",

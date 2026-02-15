@@ -15,7 +15,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #   3 - Priority blocking + simplified pass_priority API (Feb 14)
 #   4 - Short object IDs + batch combat (Feb 14)
 #   5 - Fix parallel-game duplicate username disconnect loop (Feb 14)
-HARNESS_EPOCH = 5
+#   6 - Bump max_tokens to 20k, fix GPT-5 Nano reasoning effort (Feb 14)
+HARNESS_EPOCH = 6
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
@@ -28,6 +29,7 @@ _EPOCH_BOUNDARIES = [
     ("20260214_084000", 3),  # priority blocking landed
     ("20260214_200000", 4),  # short object IDs + batch combat
     ("20260214_230000", 5),  # fix parallel-game duplicate username loop
+    ("20260215_060000", 6),  # max_tokens 20k + GPT-5 Nano reasoning_effort=low
 ]
 
 
