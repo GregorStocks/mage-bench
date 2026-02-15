@@ -91,6 +91,21 @@ def test_summarize_pass_priority_step_not_reached():
     assert "GAME_SELECT" in result
 
 
+def test_summarize_pass_priority_pending_action_from_choose_action():
+    content = json.dumps(
+        {
+            "action_pending": True,
+            "action_type": "GAME_SELECT",
+            "actions_passed": 0,
+            "stop_reason": "pending_action_from_choose_action",
+            "warning": "A previous choose_action returned next_action_pending:true.",
+        }
+    )
+    result = _summarize_tool_result("pass_priority", content)
+    assert "pending_action_from_choose_action" in result
+    assert "GAME_SELECT" in result
+
+
 def test_summarize_pass_priority_player_dead():
     content = json.dumps({"player_dead": True})
     assert _summarize_tool_result("pass_priority", content) == "player_dead"
