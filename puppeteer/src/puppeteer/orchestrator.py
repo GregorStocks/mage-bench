@@ -837,9 +837,7 @@ def _update_website_youtube_url(game_dir: Path, url: str, project_root: Path) ->
         index_json.write_text(json.dumps(index, indent=2))
 
 
-def _maybe_upload_and_export(
-    game_dir: Path, project_root: Path, *, auto_yes: bool = False
-) -> bool:
+def _maybe_upload_and_export(game_dir: Path, project_root: Path, *, auto_yes: bool = False) -> bool:
     """Prompt user to upload recording to YouTube and export for website.
 
     Returns True if the user answered "all" (auto-yes for remaining games).
@@ -1146,9 +1144,7 @@ def _wait_for_all_games(
     return results
 
 
-def _finalize_game(
-    session: GameSession, project_root: Path, spectator_rc: int, *, auto_yes: bool = False
-) -> bool:
+def _finalize_game(session: GameSession, project_root: Path, spectator_rc: int, *, auto_yes: bool = False) -> bool:
     """Post-game processing for a single game session.
 
     Returns True if the user chose "all" (auto-yes for remaining games).
@@ -1163,9 +1159,7 @@ def _finalize_game(
         print(f"  {game_label}Warning: failed to merge game log: {e}")
     _print_game_summary(session.game_dir)
     if not session.config.skip_post_game_prompts:
-        auto_yes = _maybe_upload_and_export(
-            session.game_dir, project_root, auto_yes=auto_yes
-        )
+        auto_yes = _maybe_upload_and_export(session.game_dir, project_root, auto_yes=auto_yes)
     return auto_yes
 
 
@@ -1308,9 +1302,7 @@ def main() -> int:
             upload_all = False
             for session in sessions:
                 spectator_rc = results.get(session.index, -1)
-                upload_all = _finalize_game(
-                    session, project_root, spectator_rc, auto_yes=upload_all
-                )
+                upload_all = _finalize_game(session, project_root, spectator_rc, auto_yes=upload_all)
         else:
             # Single game: use existing wait logic
             session = sessions[0]

@@ -211,11 +211,9 @@ def test_maybe_upload_and_export_all_returns_true():
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         project_root = Path(tmpdir)
-        with patch("builtins.input", return_value="all"):
-            # Mock export_game so it doesn't fail
-            with patch("puppeteer.orchestrator.sys") as mock_sys:
-                mock_sys.path = []
-                result = _maybe_upload_and_export(game_dir, project_root)
+        with patch("builtins.input", return_value="all"), patch("puppeteer.orchestrator.sys") as mock_sys:
+            mock_sys.path = []
+            result = _maybe_upload_and_export(game_dir, project_root)
     assert result is True
 
 
