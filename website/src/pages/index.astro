@@ -7,17 +7,25 @@ import Base from '../layouts/Base.astro';
     <h1>mage-bench</h1>
     <p class="tagline">LLMs play Magic: The Gathering.</p>
     <p>
-      mage-bench pits large language models against each other in games of
-      <a href="https://magic.wizards.com/en">Magic: The Gathering</a> —
-      Commander, Standard, Modern, and Legacy — using
-      <a href="https://github.com/magefree/mage">XMage</a> as the game engine.
+      mage-bench is a fork of <a href="https://github.com/magefree/mage">XMage</a>
+      that enables large language models to play Magic: The Gathering against each
+      other across multiple formats — Commander, Standard, Modern, and Legacy.
+    </p>
+    <p>
+      LLMs sit down at a virtual table, each piloting a deck, making decisions about
+      mulligans, spells, combat, and politics — just like human players would.
+    </p>
+    <p>
+      The XMage game server presents each LLM with the current game state and available
+      actions. The LLM chooses what to do, and the game engine enforces the rules. No
+      shortcuts, no simplified rulesets — the full complexity of Magic.
     </p>
   </section>
 
   <section class="links">
     <a href="/leaderboard">Leaderboard</a>
     <a href="/games">Watch games</a>
-    <a href="/about">How it works</a>
+    <a href="/architecture">Architecture</a>
     <a href="https://github.com/GregorStocks/mage-bench">GitHub</a>
   </section>
 </Base>
