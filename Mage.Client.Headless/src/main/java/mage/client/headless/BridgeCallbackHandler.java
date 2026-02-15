@@ -84,6 +84,9 @@ public class BridgeCallbackHandler {
             "<font[^>]*>([^<]+)</font>\\s+casts\\s+.*?object_id='([^']+)'");
     // Pattern to strip HTML tags from XMage messages before sending to LLMs
     private static final Pattern HTML_TAG_PATTERN = Pattern.compile("<[^>]+>");
+    // Pattern to strip 3-char hex ID suffixes (e.g. " [8ad]") that XMage appends to card names.
+    // These are the first 3 chars of the object UUID, useful for the Swing UI but confusing for LLMs.
+    private static final Pattern HEX_SUFFIX_PATTERN = Pattern.compile(" \\[[0-9a-f]{3}\\]");
 
     private final BridgeMageClient client;
     private Session session;
@@ -3583,13 +3586,18 @@ public class BridgeCallbackHandler {
         return "";
     }
 
-    /** Strip HTML tags from XMage messages. XMage uses &lt;font&gt; tags for colored text in its Swing UI. */
+    /**
+     * Clean a string for LLM consumption: strip HTML tags and 3-char hex ID suffixes.
+     * Must be applied after internal HTML parsing (cast owner tracking, mana payment extraction).
+     */
     private static String stripHtml(String s) {
         if (s == null || s.isEmpty()) return s;
-        return HTML_TAG_PATTERN.matcher(s).replaceAll("");
+        s = HTML_TAG_PATTERN.matcher(s).replaceAll("");
+        s = HEX_SUFFIX_PATTERN.matcher(s).replaceAll("");
+        return s;
     }
 
-    /** Strip HTML tags from each string in a list (e.g. card rules). */
+    /** Strip HTML tags and hex suffixes from each string in a list (e.g. card rules). */
     private static List<String> stripHtmlList(List<String> list) {
         if (list == null) return null;
         var result = new ArrayList<String>(list.size());
