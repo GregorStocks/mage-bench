@@ -2309,7 +2309,7 @@ public class BridgeCallbackHandler {
             int requestedOffset = cursor;
             int effectiveOffset = Math.max(requestedOffset, oldestOffset);
             effectiveOffset = Math.min(effectiveOffset, totalLength);
-            result.put("log", getGameLogSince(effectiveOffset));
+            result.put("log", stripHtml(getGameLogSince(effectiveOffset)));
             result.put("total_length", totalLength);
             result.put("truncated", requestedOffset < oldestOffset);
             result.put("cursor", totalLength);
@@ -2319,10 +2319,10 @@ public class BridgeCallbackHandler {
             return result;
         }
 
-        String log = getGameLog(maxChars);
-        result.put("log", log);
+        String rawLog = getGameLog(maxChars);
+        result.put("log", stripHtml(rawLog));
         result.put("total_length", totalLength);
-        result.put("truncated", log.length() < totalLength);
+        result.put("truncated", rawLog.length() < totalLength);
         result.put("cursor", totalLength);
         return result;
     }
@@ -2354,7 +2354,7 @@ public class BridgeCallbackHandler {
             }
 
             if (startPos >= 0) {
-                result.put("log", logStr.substring(startPos));
+                result.put("log", stripHtml(logStr.substring(startPos)));
                 result.put("truncated", false);
                 result.put("since_turn", sinceTurn);
                 result.put("since_player", player);
@@ -2363,7 +2363,7 @@ public class BridgeCallbackHandler {
                 Integer currentTurn = playerTurnCounts.get(player);
                 if (currentTurn != null && sinceTurn <= currentTurn && !logStr.isEmpty()) {
                     // Turn existed but was trimmed from the buffer
-                    result.put("log", logStr);
+                    result.put("log", stripHtml(logStr));
                     result.put("truncated", true);
                     result.put("since_player", player);
                 } else {
@@ -3657,7 +3657,6 @@ public class BridgeCallbackHandler {
                         logEntry = "TURN " + roundTracker.getGameRound() + logEntry.substring(turnMatcher.end());
                     }
                 }
-                logEntry = stripHtml(logEntry);
                 synchronized (gameLog) {
                     if (gameLog.length() > 0) {
                         gameLog.append("\n");
