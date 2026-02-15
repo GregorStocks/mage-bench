@@ -220,33 +220,56 @@ public class McpToolRegistry {
     private static Object extractArg(JsonObject obj, String key, Class<?> type) {
         if (!obj.has(key) || obj.get(key).isJsonNull()) return null;
 
-        if (type == String.class) {
-            return obj.get(key).getAsString();
-        } else if (type == Integer.class) {
-            return obj.get(key).getAsInt();
-        } else if (type == Long.class) {
-            return obj.get(key).getAsLong();
-        } else if (type == Boolean.class) {
-            return obj.get(key).getAsBoolean();
-        } else if (type == String[].class) {
-            JsonArray arr = obj.getAsJsonArray(key);
-            var result = new String[arr.size()];
-            for (int i = 0; i < arr.size(); i++) {
-                JsonElement elem = arr.get(i);
-                result[i] = elem.isJsonNull() ? null : elem.getAsString();
+        try {
+            if (type == String.class) {
+                return obj.get(key).getAsString();
+            } else if (type == Integer.class) {
+                return obj.get(key).getAsInt();
+            } else if (type == Long.class) {
+                return obj.get(key).getAsLong();
+            } else if (type == Boolean.class) {
+                return obj.get(key).getAsBoolean();
+            } else if (type == String[].class) {
+                JsonArray arr = obj.getAsJsonArray(key);
+                var result = new String[arr.size()];
+                for (int i = 0; i < arr.size(); i++) {
+                    JsonElement elem = arr.get(i);
+                    result[i] = elem.isJsonNull() ? null : elem.getAsString();
+                }
+                return result;
+            } else if (type == int[].class) {
+                JsonArray arr = obj.getAsJsonArray(key);
+                var result = new int[arr.size()];
+                for (int i = 0; i < arr.size(); i++) {
+                    result[i] = arr.get(i).isJsonNull() ? 0 : arr.get(i).getAsInt();
+                }
+                return result;
+            } else if (type == JsonArray.class) {
+                return obj.getAsJsonArray(key);
             }
-            return result;
-        } else if (type == int[].class) {
-            JsonArray arr = obj.getAsJsonArray(key);
-            var result = new int[arr.size()];
-            for (int i = 0; i < arr.size(); i++) {
-                result[i] = arr.get(i).isJsonNull() ? 0 : arr.get(i).getAsInt();
-            }
-            return result;
-        } else if (type == JsonArray.class) {
-            return obj.getAsJsonArray(key);
+        } catch (UnsupportedOperationException | ClassCastException | IllegalStateException e) {
+            String actualType = obj.get(key).getClass().getSimpleName();
+            throw new IllegalArgumentException(
+                "Parameter '" + key + "': expected " + jsonTypeName(type)
+                + ", got " + actualType + " (" + truncate(obj.get(key).toString(), 80)
+                + "). Check the tool schema for correct parameter types.");
         }
         throw new RuntimeException("Unsupported parameter type: " + type.getName());
+    }
+
+    private static String jsonTypeName(Class<?> type) {
+        if (type == String.class) return "string";
+        if (type == Integer.class) return "integer";
+        if (type == Long.class) return "integer";
+        if (type == Boolean.class) return "boolean";
+        if (type == String[].class) return "array of strings";
+        if (type == int[].class) return "array of integers";
+        if (type == JsonArray.class) return "array";
+        return type.getSimpleName();
+    }
+
+    private static String truncate(String s, int max) {
+        return s.length() <= max ? s : s.substring(0, max) + "...";
     }
 
     private record ToolEntry(Tool annotation, Method method, Method examplesMethod) {}
