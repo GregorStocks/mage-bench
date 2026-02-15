@@ -763,9 +763,11 @@
 
     var cardH = Math.round(baseWidth * 204 / 146);
 
-    // Force aggressive overlap: show only card name (~20px) for cards below the top
+    // Force aggressive overlap: show only card name for cards below the top.
+    // Dynamically shrink the visible slice so the zone stays within maxHeight.
     if (alwaysOverlap) {
-      var visibleSlice = 20;
+      var visibleSlice = Math.min(20, Math.floor((maxHeight - cardH) / (N - 1)));
+      if (visibleSlice < 1) visibleSlice = 1;
       var forceOverlap = cardH - visibleSlice;
       for (var i = 1; i < cards.length; i++) {
         cards[i].style.marginTop = "-" + forceOverlap + "px";
