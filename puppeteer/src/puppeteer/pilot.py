@@ -417,6 +417,8 @@ async def run_pilot_loop(
     consecutive_pass_errors = 0  # consecutive identical pass_priority errors
     last_pass_error_msg = ""
     MAX_CONSECUTIVE_PASS_ERRORS = 3
+    consecutive_truncations = 0  # consecutive finish_reason=length (model can't fit tool call)
+    MAX_CONSECUTIVE_TRUNCATIONS = 3
     consecutive_empty_errors = 0  # consecutive tool calls returning {"error": ""}
     MAX_CONSECUTIVE_EMPTY_ERRORS = 10  # bridge is dead if every tool returns empty error
     game_start = time.monotonic()
@@ -492,13 +494,37 @@ async def run_pilot_loop(
             # This means the model ran out of output budget (often reasoning
             # models burning tokens on thinking) and couldn't emit a tool call.
             if choice.finish_reason == "length":
+                consecutive_truncations += 1
                 tokens_used = (response.usage.completion_tokens or 0) if response.usage else "?"
                 _log_error(
                     game_dir,
                     username,
                     f"[pilot] OUTPUT TRUNCATED: finish_reason=length, completion_tokens={tokens_used}/{MAX_TOKENS}. "
-                    "Model hit max_tokens cap before producing a tool call.",
+                    f"Model hit max_tokens cap before producing a tool call. [{consecutive_truncations}]",
                 )
+                if consecutive_truncations >= MAX_CONSECUTIVE_TRUNCATIONS:
+                    _log("[pilot] Repeated truncations, resetting conversation context")
+                    if game_log:
+                        game_log.emit("context_reset", reason="repeated_truncations")
+                    last_reasoning = _extract_last_reasoning(history)
+                    history = [
+                        {
+                            "role": "user",
+                            "content": _build_reset_message(
+                                "Continue playing. Be concise. Call pass_priority.",
+                                saved_strategy,
+                                last_reasoning,
+                            ),
+                        },
+                    ]
+                    state_summary = ""
+                    cached_render = None
+                    cached_history_len = 0
+                    render_counter = 0
+                    consecutive_truncations = 0
+                    continue
+            else:
+                consecutive_truncations = 0
 
             # Log full LLM request/response to trace file
             if trace_log:
