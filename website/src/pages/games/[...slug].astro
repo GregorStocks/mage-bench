@@ -29,7 +29,6 @@ const { slug } = Astro.params;
         <div id="youtube-link" class="hidden">
           <a id="youtube-url" href="#" target="_blank" rel="noopener">Watch on YouTube</a>
         </div>
-        <div id="turn-info"></div>
       </div>
 
       <!-- Transport controls -->
@@ -153,33 +152,7 @@ const { slug } = Astro.params;
     color: #fff;
   }
 
-  #turn-info {
-    font-size: 0.85rem;
-    color: #a0a0b8;
-    text-align: right;
-  }
 
-  #epoch-info {
-    font-size: 0.8rem;
-    color: #a0a0b8;
-    font-family: monospace;
-  }
-
-  #epoch-banner {
-    font-size: 0.85rem;
-    color: #fbbf24;
-    background: rgba(251, 191, 36, 0.08);
-    border: 1px solid rgba(251, 191, 36, 0.25);
-    border-radius: 6px;
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.75rem;
-  }
-
-  #blunder-summary {
-    font-size: 0.8rem;
-    color: #f97316;
-    font-weight: 600;
-  }
 
   /* Transport */
   #transport {
@@ -317,10 +290,6 @@ const { slug } = Astro.params;
       flex-wrap: wrap;
     }
 
-    #turn-info {
-      font-size: 0.75rem;
-    }
-
     #game-left {
       flex-direction: column;
     }
@@ -445,7 +414,6 @@ const { slug } = Astro.params;
 
     // Display
     var gameTitleEl = document.getElementById("game-title");
-    var turnInfoEl = document.getElementById("turn-info");
     var playersGrid = document.getElementById("players-grid");
     var stackSection = document.getElementById("stack-section");
     var stackCards = document.getElementById("stack-cards");
@@ -471,7 +439,6 @@ const { slug } = Astro.params;
     var autoPlayInterval = null;
     var playerColorMap = {};
     var playerMeta = {};
-    var eloData = null;
     var turnStartIndices = [];
     var showLlm = true;
     var isCommander = false;
@@ -774,14 +741,23 @@ const { slug } = Astro.params;
       var prevSnap = index > 0 ? game.snapshots[index - 1] : null;
       var diffs = R.computeDiff(prevSnap, snap);
 
-      // Turn info
-      var phase = snap.phase || "";
-      var step = snap.step || "";
-      var phaseDisplay = step && step !== phase ? phase + " / " + step : phase;
-      turnInfoEl.textContent =
-        "Turn " + snap.turn + "/" + game.totalTurns +
-        " | " + phaseDisplay +
-        " | Active: " + (snap.active_player || "?");
+      // Compute running cost up to current snapshot
+      if (game.llmEvents && game.llmEvents.length > 0) {
+        var costNextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
+        var costCutoffTs = costNextSnap ? (costNextSnap.ts || "") : "";
+        var runningCost = {};
+        game.llmEvents.forEach(function (e) {
+          if (costCutoffTs && e.ts >= costCutoffTs) return;
+          if (e.costUsd && e.player) {
+            runningCost[e.player] = (runningCost[e.player] || 0) + e.costUsd;
+          }
+        });
+        (game.players || []).forEach(function (p) {
+          if (playerMeta[p.name]) {
+            playerMeta[p.name].totalCostUsd = runningCost[p.name] || 0;
+          }
+        });
+      }
 
       // Players
       R.renderPlayers(playersGrid, snap.players, {
@@ -793,6 +769,18 @@ const { slug } = Astro.params;
         priorityPlayerName: snap.priority_player,
         isCommander: isCommander,
       });
+
+      // Phase bar between player battlefields
+      if (playersGrid.children.length >= 2) {
+        var insertIdx = playersGrid.children.length <= 2 ? 1 : 2;
+        var phaseBar = document.createElement("div");
+        phaseBar.id = "phase-bar";
+        var phase = snap.phase || "";
+        var step = snap.step || "";
+        var phaseDisplay = step && step !== phase ? phase + " / " + step : phase;
+        phaseBar.textContent = "Turn " + snap.turn + " \u2014 " + phaseDisplay;
+        playersGrid.insertBefore(phaseBar, playersGrid.children[insertIdx]);
+      }
 
       // Stack
       R.renderStack(stackSection, stackCards, snap.stack, game.cardImages, previewEls);
@@ -889,7 +877,9 @@ const { slug } = Astro.params;
         var leftHeight = document.getElementById("game-left").offsetHeight;
         // Subtract action-log header (~60px for filters/title)
         var headerHeight = actionList.parentElement.offsetHeight - actionList.offsetHeight;
-        actionList.style.maxHeight = Math.max(200, leftHeight - headerHeight) + "px";
+        var targetHeight = Math.max(400, leftHeight - headerHeight);
+        actionList.style.maxHeight = targetHeight + "px";
+        actionList.style.minHeight = targetHeight + "px";
         actionList.scrollTop = actionList.scrollHeight;
       }, 50);
 
@@ -944,16 +934,8 @@ const { slug } = Astro.params;
       });
     }
 
-    // Load game data + Elo data in parallel
-    Promise.all([
-      fetchGzJson("/games/" + slug + ".json.gz"),
-      fetch("/data/elo.json").then(function (r) {
-        return r.ok ? r.json() : {};
-      }).catch(function () { return {}; }),
-    ])
-      .then(function (results) {
-        var data = results[0];
-        eloData = results[1];
+    fetchGzJson("/games/" + slug + ".json.gz")
+      .then(function (data) {
         game = data;
 
         if (!game.snapshots || game.snapshots.length === 0) {
@@ -966,18 +948,10 @@ const { slug } = Astro.params;
         gameUI.classList.remove("hidden");
 
         // Build player color map and meta
-        var gameElo = eloData[game.id] || {};
         (game.players || []).forEach(function (p, i) {
           playerColorMap[p.name] = i % 4;
           if (p.model || p.totalCostUsd != null) {
-            var meta = { model: p.model, totalCostUsd: p.totalCostUsd };
-            var eloKey = p.model && p.reasoningEffort ? p.model + "::" + p.reasoningEffort : p.model;
-            var elo = eloKey ? gameElo[eloKey] : null;
-            if (elo) {
-              meta.eloBefore = elo.before;
-              meta.eloAfter = elo.after;
-            }
-            playerMeta[p.name] = meta;
+            playerMeta[p.name] = { model: p.model, totalCostUsd: 0 };
           }
         });
 
@@ -1025,9 +999,10 @@ const { slug } = Astro.params;
           turnSelect.appendChild(opt);
         });
 
-        // Title
+        // Title: "PlayerName (deck) vs PlayerName (deck)"
         var playerNames = (game.players || []).map(function (p) {
-          return p.deckName || p.commander || p.name;
+          var deck = p.deckName || p.commander || "";
+          return deck ? p.name + " (" + deck + ")" : p.name;
         }).join(" vs ");
         gameTitleEl.textContent = playerNames;
 
@@ -1124,6 +1099,9 @@ const { slug } = Astro.params;
           if (e.key === "[") { e.preventDefault(); btnPrevTurn.click(); }
           if (e.key === "]") { e.preventDefault(); btnNextTurn.click(); }
         });
+
+        // Set up mouse-following card preview
+        R.setupMousePreview(previewEls.container);
 
         // Render first snapshot
         renderSnapshot(0);

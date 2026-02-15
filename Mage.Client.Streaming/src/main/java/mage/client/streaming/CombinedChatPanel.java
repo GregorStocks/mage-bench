@@ -87,8 +87,12 @@ public class CombinedChatPanel extends ChatPanelBasic {
         }
 
         // Log to JSONL (all messages, before spam filtering)
+        // Prepend username when present — the server sends status messages
+        // like " has started watching" with the username as a separate field
         if (gamePanel != null && message != null && !message.isEmpty()) {
-            gamePanel.logChatEvent("game_action", message, null);
+            String logMessage = (username != null && !username.isEmpty())
+                    ? username + message : message;
+            gamePanel.logChatEvent("game_action", logMessage, null);
         }
 
         // Game log messages stay here, with spam filtering

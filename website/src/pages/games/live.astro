@@ -308,6 +308,9 @@ import Base from '../../layouts/Base.astro';
       }
     }
 
+    // Mouse-following card preview
+    R.setupMousePreview(previewEls.container);
+
     // Preview dismiss
     window.addEventListener("blur", function () { R.hidePreview(previewEls); });
     document.addEventListener("keydown", function (e) {

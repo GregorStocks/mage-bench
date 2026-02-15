@@ -260,12 +260,12 @@
       if (isToken) {
         fetchTokenImage(cardName, function (url) {
           img.src = url;
-          img.style.display = "";
+          img.style.opacity = "";
           var fb = wrapper.querySelector(".card-thumb-fallback");
           if (fb) fb.remove();
         });
       }
-      img.style.display = "none";
+      img.style.opacity = "0";
       var fallback = document.createElement("div");
       fallback.className = "card-thumb-fallback" + (isToken ? " token-fallback" : "");
 
@@ -625,22 +625,13 @@
           costBadge.textContent = "$" + meta.totalCostUsd.toFixed(2);
           badgeRow.appendChild(costBadge);
         }
-        if (meta.eloBefore != null && meta.eloAfter != null) {
-          var eloBadge = document.createElement("span");
-          eloBadge.className = "player-elo";
-          var delta = meta.eloAfter - meta.eloBefore;
-          if (delta > 0) eloBadge.classList.add("elo-up");
-          else if (delta < 0) eloBadge.classList.add("elo-down");
-          eloBadge.textContent = meta.eloBefore + " \u2192 " + meta.eloAfter;
-          badgeRow.appendChild(eloBadge);
-        }
         header.appendChild(badgeRow);
       }
 
       var lifeEl = document.createElement("div");
       lifeEl.className = "player-life";
       var lifeText = "Life " + (player.life != null ? player.life : "?") +
-                     " | Lib " + (player.library_count != null ? player.library_count : "?");
+                     " | Library " + (player.library_count != null ? player.library_count : "?");
       if (showTimer && (player.priorityTimeLeftSecs > 0 || player.timerActive)) {
         var secs = player.priorityTimeLeftSecs || 0;
         var m = Math.floor(secs / 60);
@@ -730,8 +721,8 @@
 
         bodyRow.appendChild(sideCol);
 
-        // Fit graveyard cards with overlap so entire zone is visible
-        _fitOverlappingCards(gyZone, 300, 70);
+        // Fit graveyard cards with aggressive overlap (show only card names)
+        _fitOverlappingCards(gyZone, 300, 70, true);
       }
 
       // Main column (battlefield + hand)
@@ -763,7 +754,7 @@
 
   // ── Overlapping card fit (graveyard/exile) ──
 
-  function _fitOverlappingCards(zoneEl, maxHeight, baseWidth) {
+  function _fitOverlappingCards(zoneEl, maxHeight, baseWidth, alwaysOverlap) {
     var grid = zoneEl.querySelector(".cards-grid-sm");
     if (!grid) return;
     var cards = grid.querySelectorAll(".card-thumb-sm");
@@ -771,6 +762,17 @@
     if (N <= 1) return;
 
     var cardH = Math.round(baseWidth * 204 / 146);
+
+    // Force aggressive overlap: show only card name (~20px) for cards below the top
+    if (alwaysOverlap) {
+      var visibleSlice = 20;
+      var forceOverlap = cardH - visibleSlice;
+      for (var i = 1; i < cards.length; i++) {
+        cards[i].style.marginTop = "-" + forceOverlap + "px";
+      }
+      return;
+    }
+
     var totalNatural = N * cardH;
     if (totalNatural <= maxHeight) return; // fits without overlap
 
@@ -1028,6 +1030,26 @@
     return true;
   }
 
+  // ── Mouse-following card preview ──
+
+  function setupMousePreview(container) {
+    if (typeof document === "undefined") return;
+    document.addEventListener("mousemove", function (e) {
+      if (!container || container.classList.contains("hidden")) return;
+      var x = e.clientX + 20;
+      var y = e.clientY - 20;
+      var vw = window.innerWidth;
+      var vh = window.innerHeight;
+      var w = container.offsetWidth;
+      var h = container.offsetHeight;
+      if (x + w > vw) x = e.clientX - w - 20;
+      if (y + h > vh) y = vh - h - 8;
+      if (y < 8) y = 8;
+      container.style.left = x + "px";
+      container.style.top = y + "px";
+    });
+  }
+
   // ── Public API ──
 
   var GameRenderer = {
@@ -1053,6 +1075,7 @@
     renderPlayers: renderPlayers,
     renderStack: renderStack,
     renderStatusLine: renderStatusLine,
+    setupMousePreview: setupMousePreview,
     // Diffs
     computeDiff: computeDiff,
     diffStringBag: diffStringBag,

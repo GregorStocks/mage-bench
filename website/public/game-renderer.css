@@ -144,20 +144,6 @@
   font-family: monospace;
 }
 
-.player-elo {
-  font-size: 0.65rem;
-  color: #a0a0b8;
-  font-family: monospace;
-}
-
-.player-elo.elo-up {
-  color: #a8d9a5;
-}
-
-.player-elo.elo-down {
-  color: #e94560;
-}
-
 .player-counters {
   font-size: 0.75rem;
   color: #a0a0b8;
@@ -314,6 +300,8 @@
   width: 100%;
   height: auto;
   border-radius: 3px;
+  aspect-ratio: 146 / 204;
+  background: rgba(44, 64, 72, 0.8);
 }
 
 .card-thumb.tapped {
@@ -335,11 +323,11 @@
 }
 
 .card-thumb-fallback {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  aspect-ratio: 146 / 204;
   background: rgba(44, 64, 72, 0.8);
   color: #e0e0e0;
   font-size: 0.5rem;
@@ -442,11 +430,13 @@
   width: 100%;
 }
 
-/* Card preview */
+/* Card preview (follows mouse cursor) */
 #card-preview {
   position: fixed;
-  right: 12px;
-  bottom: 12px;
+  left: 0;
+  top: 0;
+  right: auto;
+  bottom: auto;
   width: min(420px, calc(100vw - 24px));
   max-height: calc(100vh - 24px);
   overflow: hidden;
@@ -459,6 +449,7 @@
   background: rgba(22, 33, 62, 0.97);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
   z-index: 9999;
+  pointer-events: none;
 }
 
 #card-preview img:not(.mana-icon) {
@@ -700,47 +691,55 @@
 }
 
 .llm-thought {
-  border-left: 2px solid #888;
-  padding: 4px 8px 4px 8px;
-  margin: 4px 0;
-  background: rgba(136, 136, 136, 0.06);
-  border-radius: 0 4px 4px 0;
+  border-left: 3px solid #888;
+  padding: 8px 12px;
+  margin: 6px 0;
+  background: rgba(136, 136, 136, 0.08);
+  border-radius: 0 6px 6px 0;
 }
 
 .llm-thought .llm-player {
   font-weight: 600;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
 }
 
 .llm-thought .llm-reasoning {
   color: #d0d0e0;
   white-space: pre-wrap;
   word-break: break-word;
-  margin-top: 2px;
+  margin-top: 6px;
+  padding: 6px 8px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  font-size: 0.78rem;
+  line-height: 1.45;
 }
 
 .llm-thinking-block {
-  margin: 4px 0;
-  font-size: 0.72rem;
+  margin: 6px 0;
+  font-size: 0.75rem;
 }
 
 .llm-thinking-block summary {
   color: #c084fc;
   cursor: pointer;
   font-style: italic;
+  padding: 2px 0;
 }
 
 .llm-thinking-text {
   color: #a78bfa;
   white-space: pre-wrap;
   word-break: break-word;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   max-height: 20rem;
   overflow-y: auto;
-  margin-top: 2px;
-  padding: 4px;
-  background: rgba(139, 92, 246, 0.08);
-  border-radius: 4px;
+  margin-top: 4px;
+  padding: 8px;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 6px;
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  line-height: 1.4;
 }
 
 .llm-compact {
@@ -1015,6 +1014,41 @@
 
 .annotation-marker.severity-major {
   background: #ef4444;
+}
+
+/* Harness epoch (small metadata) */
+#epoch-info {
+  font-size: 0.6rem;
+  color: #666;
+  font-family: monospace;
+}
+
+#epoch-banner {
+  font-size: 0.85rem;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+#blunder-summary {
+  font-size: 0.8rem;
+  color: #f97316;
+  font-weight: 600;
+}
+
+/* Phase bar between player battlefields */
+#phase-bar {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #a0a0b8;
+  padding: 0.3rem 0.75rem;
+  background: rgba(15, 52, 96, 0.3);
+  border: 1px solid rgba(15, 52, 96, 0.5);
+  border-radius: 6px;
 }
 
 .hidden {
