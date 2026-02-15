@@ -1,0 +1,383 @@
+"""Tests for the blunder analysis script."""
+
+import gzip
+import json
+from pathlib import Path
+from unittest.mock import MagicMock, patch
+
+import pytest
+from blunder_analysis import (
+    _chosen_display,
+    _compute_cost,
+    _format_decisions_for_haiku,
+    _format_decisions_for_opus,
+    _parse_json_array,
+    main,
+)
+
+
+def _make_decision(**overrides: object) -> dict:
+    d: dict = {
+        "decision_index": 0,
+        "snapshot_index": 0,
+        "player": "Alice",
+        "turn": 1,
+        "phase": "PRECOMBAT_MAIN",
+        "message": "Play spells",
+        "action_type": "GAME_SELECT",
+        "response_type": "select",
+        "choices": [
+            {"index": 0, "name": "Mountain"},
+            {"index": 1, "name": "Lightning Bolt"},
+        ],
+        "choice_count": 2,
+        "chosen": 0,
+        "chosen_args": {"index": 0},
+        "action_result": {"success": True},
+        "reasoning": "I should play a land.",
+        "is_forced": False,
+        "game_state": {
+            "turn": 1,
+            "phase": "PRECOMBAT_MAIN",
+            "players": [
+                {"name": "Alice", "life": 20, "hand_count": 2, "battlefield": []},
+                {"name": "Bob", "life": 20, "hand_count": 7, "battlefield": ["Grizzly Bears"]},
+            ],
+        },
+        "subsequent_actions": ["Alice plays Mountain"],
+    }
+    d.update(overrides)
+    return d
+
+
+def _make_game() -> dict:
+    return {
+        "id": "game_test_001",
+        "gameType": "Two Player Duel",
+        "deckType": "Constructed - Standard",
+        "totalTurns": 5,
+        "winner": "Alice",
+        "players": [
+            {"name": "Alice", "type": "pilot", "model": "test-model"},
+            {"name": "Bob", "type": "pilot", "model": "test-model"},
+        ],
+        "snapshots": [
+            {
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "ts": "2026-01-01T00:00:01.000-08:00",
+                "players": [
+                    {
+                        "name": "Alice",
+                        "life": 20,
+                        "hand": [{"name": "Mountain"}],
+                        "battlefield": [],
+                        "graveyard": [],
+                        "commanders": [],
+                    },
+                    {
+                        "name": "Bob",
+                        "life": 20,
+                        "hand": [],
+                        "battlefield": [{"name": "Grizzly Bears"}],
+                        "graveyard": [],
+                        "commanders": [],
+                    },
+                ],
+                "stack": [],
+            },
+        ],
+        "actions": [],
+        "llmEvents": [],
+    }
+
+
+# --- _parse_json_array ---
+
+
+class TestParseJsonArray:
+    def test_plain_json(self) -> None:
+        assert _parse_json_array('[{"a": 1}]') == [{"a": 1}]
+
+    def test_empty_array(self) -> None:
+        assert _parse_json_array("[]") == []
+
+    def test_markdown_json_fence(self) -> None:
+        text = '```json\n[{"a": 1}]\n```'
+        assert _parse_json_array(text) == [{"a": 1}]
+
+    def test_markdown_plain_fence(self) -> None:
+        text = "```\n[1, 2, 3]\n```"
+        assert _parse_json_array(text) == [1, 2, 3]
+
+    def test_surrounding_text(self) -> None:
+        text = 'Here are the results:\n[{"a": 1}]\nDone.'
+        assert _parse_json_array(text) == [{"a": 1}]
+
+    def test_rejects_non_array(self) -> None:
+        with pytest.raises(AssertionError, match="Expected JSON array"):
+            _parse_json_array('{"a": 1}')
+
+    def test_rejects_garbage(self) -> None:
+        with pytest.raises(AssertionError, match="No JSON array"):
+            _parse_json_array("no json here at all")
+
+
+# --- _compute_cost ---
+
+
+class TestComputeCost:
+    def test_opus_million_tokens(self) -> None:
+        cost = _compute_cost("anthropic/claude-opus-4.6", 1_000_000, 1_000_000)
+        assert cost == pytest.approx(30.0)
+
+    def test_haiku_small(self) -> None:
+        # 10K in at $1/M + 500 out at $5/M
+        cost = _compute_cost("anthropic/claude-haiku-4.5", 10_000, 500)
+        assert cost == pytest.approx(0.0125)
+
+    def test_zero_tokens(self) -> None:
+        assert _compute_cost("anthropic/claude-opus-4.6", 0, 0) == 0.0
+
+
+# --- _chosen_display ---
+
+
+class TestChosenDisplay:
+    def test_index_choice(self) -> None:
+        d = _make_decision(chosen=1)
+        assert _chosen_display(d) == "Lightning Bolt"
+
+    def test_boolean_choice(self) -> None:
+        d = _make_decision(chosen=False)
+        assert _chosen_display(d) == "False"
+
+    def test_none_choice(self) -> None:
+        d = _make_decision(chosen=None)
+        assert _chosen_display(d) == "?"
+
+    def test_out_of_range(self) -> None:
+        d = _make_decision(chosen=99)
+        assert _chosen_display(d) == "99"
+
+
+# --- _format_decisions_for_haiku ---
+
+
+class TestFormatHaiku:
+    def test_skips_forced(self) -> None:
+        decisions = [
+            _make_decision(decision_index=0, is_forced=True),
+            _make_decision(decision_index=1, is_forced=False),
+        ]
+        result = _format_decisions_for_haiku(decisions)
+        assert "[Decision 0]" not in result
+        assert "[Decision 1]" in result
+
+    def test_includes_key_fields(self) -> None:
+        result = _format_decisions_for_haiku([_make_decision()])
+        assert "Alice" in result
+        assert "Mountain" in result
+        assert "Lightning Bolt" in result
+        assert "I should play a land." in result
+        assert "Bob" in result
+
+    def test_truncates_reasoning(self) -> None:
+        long_reasoning = "x" * 1000
+        result = _format_decisions_for_haiku([_make_decision(reasoning=long_reasoning)])
+        # Should be truncated to 500 chars
+        assert "x" * 500 in result
+        assert "x" * 501 not in result
+
+
+# --- _format_decisions_for_opus ---
+
+
+class TestFormatOpus:
+    def test_only_includes_flagged(self) -> None:
+        decisions = [
+            _make_decision(decision_index=0),
+            _make_decision(decision_index=1),
+            _make_decision(decision_index=2),
+        ]
+        flagged = [{"index": 1, "reason": "missed land drop"}]
+        result = _format_decisions_for_opus(decisions, flagged)
+        assert '"decision_index": 0' not in result
+        assert '"decision_index": 1' in result
+        assert '"decision_index": 2' not in result
+
+    def test_includes_flag_reason(self) -> None:
+        decisions = [_make_decision(decision_index=5)]
+        flagged = [{"index": 5, "reason": "passed with mana open"}]
+        result = _format_decisions_for_opus(decisions, flagged)
+        assert "flagged: passed with mana open" in result
+
+    def test_empty_flagged(self) -> None:
+        decisions = [_make_decision()]
+        result = _format_decisions_for_opus(decisions, [])
+        assert result == ""
+
+
+# --- Integration: main with mocked API ---
+
+
+class TestMainIntegration:
+    def _write_gz(self, path: Path, data: dict) -> None:
+        with gzip.open(path, "wt") as f:
+            json.dump(data, f)
+
+    def _read_gz(self, path: Path) -> dict:
+        with gzip.open(path, "rt") as f:
+            return json.load(f)
+
+    def _make_game_with_decisions(self) -> dict:
+        """Game with LLM events that produce extractable decisions."""
+        game = _make_game()
+        game["llmEvents"] = [
+            {
+                "ts": "2026-01-01T00:00:01.500-08:00",
+                "player": "Alice",
+                "type": "tool_call",
+                "tool": "get_action_choices",
+                "args": {},
+                "result": json.dumps(
+                    {
+                        "action_pending": True,
+                        "action_type": "GAME_SELECT",
+                        "response_type": "select",
+                        "message": "Play spells",
+                        "choices": [
+                            {"index": 0, "name": "Mountain"},
+                            {"index": 1, "name": "Lightning Bolt"},
+                        ],
+                    }
+                ),
+            },
+            {
+                "ts": "2026-01-01T00:00:01.700-08:00",
+                "player": "Alice",
+                "type": "llm_response",
+                "reasoning": "I will pass without playing anything.",
+            },
+            {
+                "ts": "2026-01-01T00:00:01.800-08:00",
+                "player": "Alice",
+                "type": "tool_call",
+                "tool": "choose_action",
+                "args": {"index": 0},
+                "result": json.dumps({"success": True}),
+            },
+        ]
+        return game
+
+    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.OpenAI")
+    def test_full_flow_with_blunders(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+        # Set up game file
+        game = self._make_game_with_decisions()
+        gz_path = tmp_path / "game.json.gz"
+        self._write_gz(gz_path, game)
+
+        # Mock API responses
+        mock_client = MagicMock()
+        mock_openai_cls.return_value = mock_client
+
+        haiku_response = MagicMock()
+        haiku_response.choices = [MagicMock()]
+        haiku_response.choices[0].message.content = json.dumps([{"index": 0, "reason": "passed with playable cards"}])
+        haiku_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=50)
+
+        opus_response = MagicMock()
+        opus_response.choices = [MagicMock()]
+        opus_response.choices[0].message.content = json.dumps(
+            [
+                {
+                    "snapshotIndex": 0,
+                    "player": "Alice",
+                    "type": "blunder",
+                    "severity": "moderate",
+                    "category": "unused_mana",
+                    "description": "Passed with Mountain in hand and no land played",
+                    "llmReasoning": "Model said 'I will pass' but had castable cards",
+                    "actionTaken": "Passed priority",
+                    "betterLine": "Play Mountain for mana development",
+                }
+            ]
+        )
+        opus_response.usage = MagicMock(prompt_tokens=2000, completion_tokens=200)
+
+        mock_client.chat.completions.create.side_effect = [haiku_response, opus_response]
+
+        # Run
+        main(str(gz_path))
+
+        # Verify annotations were written
+        result = self._read_gz(gz_path)
+        assert "annotations" in result
+        assert len(result["annotations"]) == 1
+        assert result["annotations"][0]["category"] == "unused_mana"
+
+        # Verify two API calls were made (Haiku + Opus)
+        assert mock_client.chat.completions.create.call_count == 2
+
+    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.OpenAI")
+    def test_no_blunders_found(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+        game = self._make_game_with_decisions()
+        gz_path = tmp_path / "game.json.gz"
+        self._write_gz(gz_path, game)
+
+        mock_client = MagicMock()
+        mock_openai_cls.return_value = mock_client
+
+        # Haiku flags nothing
+        haiku_response = MagicMock()
+        haiku_response.choices = [MagicMock()]
+        haiku_response.choices[0].message.content = "[]"
+        haiku_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
+
+        mock_client.chat.completions.create.return_value = haiku_response
+
+        main(str(gz_path))
+
+        # Only one API call (Haiku), no Opus call
+        assert mock_client.chat.completions.create.call_count == 1
+
+        # No annotations written
+        result = self._read_gz(gz_path)
+        assert "annotations" not in result
+
+    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.OpenAI")
+    def test_skips_already_analyzed(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+        game = self._make_game_with_decisions()
+        game["annotations"] = [{"existing": True}]
+        gz_path = tmp_path / "game.json.gz"
+        self._write_gz(gz_path, game)
+
+        main(str(gz_path))
+
+        # No API calls made at all
+        mock_openai_cls.assert_not_called()
+
+    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.OpenAI")
+    def test_reanalyze_flag_overrides_skip(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+        game = self._make_game_with_decisions()
+        game["annotations"] = [{"existing": True}]
+        gz_path = tmp_path / "game.json.gz"
+        self._write_gz(gz_path, game)
+
+        mock_client = MagicMock()
+        mock_openai_cls.return_value = mock_client
+
+        haiku_response = MagicMock()
+        haiku_response.choices = [MagicMock()]
+        haiku_response.choices[0].message.content = "[]"
+        haiku_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
+        mock_client.chat.completions.create.return_value = haiku_response
+
+        main(str(gz_path), reanalyze=True)
+
+        # API was called despite existing annotations
+        assert mock_client.chat.completions.create.call_count == 1

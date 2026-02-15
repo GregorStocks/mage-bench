@@ -1,0 +1,379 @@
+#!/usr/bin/env python3
+"""Analyze a game for blunders using Claude Opus 4.6 via OpenRouter.
+
+Two-phase approach:
+1. Claude Haiku pre-filters decisions to flag suspicious ones (cheap)
+2. Claude Opus analyzes only flagged decisions for detailed annotations (expensive)
+
+Usage:
+    uv run --project puppeteer python scripts/analysis/blunder_analysis.py <game.json.gz>
+
+Requires OPENROUTER_API_KEY environment variable.
+"""
+
+import gzip
+import json
+import os
+import sys
+import tempfile
+from pathlib import Path
+
+from openai import OpenAI
+
+from annotate_game import annotate_game
+from extract_decisions import extract_decisions
+
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+TMP_DIR = REPO_ROOT / "tmp"
+
+# Models (OpenRouter IDs from models.json)
+OPUS_MODEL = "anthropic/claude-opus-4.6"
+HAIKU_MODEL = "anthropic/claude-haiku-4.5"
+BASE_URL = "https://openrouter.ai/api/v1"
+
+# Prices per million tokens (from models.json, Feb 2026)
+PRICES: dict[str, tuple[float, float]] = {
+    OPUS_MODEL: (5.0, 25.0),
+    HAIKU_MODEL: (1.0, 5.0),
+}
+
+HAIKU_SYSTEM = """\
+You are a Magic: The Gathering expert pre-filtering game decisions for blunder analysis.
+
+Review each decision and flag any that look like potential blunders — moments where a \
+clearly better line of play was available.
+
+Common blunder patterns:
+- Passing priority with playable cards and open mana (unused_mana)
+- Casting spells with no meaningful impact or that hurt the caster (wasted_resources)
+- Targeting the wrong permanent/player/card when a better target exists (wrong_target)
+- Missing lethal damage on board (missed_lethal)
+- Fundamentally wrong strategic choices (strategic_error)
+- Playing cards in the wrong order — land before cantrip, creature before combat (bad_sequencing)
+- Poor attack or block decisions (bad_combat)
+- Overextending into obvious removal or countermagic (walked_into_removal)
+
+Only flag CLEAR mistakes where a better line is obvious. Skip close calls and reasonable \
+strategic differences.
+
+Respond with ONLY a JSON array. Each element: {"index": <decision_index>, "reason": "<brief reason>"}
+If no decisions look suspicious, return []."""
+
+OPUS_SYSTEM = """\
+You are a Magic: The Gathering expert annotating blunders in a game replay.
+
+Analyze each flagged decision. For confirmed blunders, provide detailed annotations. \
+If a flagged decision is actually reasonable given the game context, omit it.
+
+## Blunder Categories
+
+### `unused_mana`
+Missing land drops. Holding castable creatures/spells for no reason. Not activating \
+abilities (equipment, planeswalkers). Not using mana sinks at end of turn.
+
+### `wasted_resources`
+Color-restricted spells on wrong color (Pyroblast on non-blue). Casting into Chalice \
+of the Void. Show and Tell with nothing to cheat in. Mox Diamond with no land. \
+Countering own spells. Self-targeting removal. Duplicate legendaries. Declining \
+pure-upside "may" abilities.
+
+### `wrong_target`
+Wasteland on basic land. Fetching wrong land type. Removing irrelevant creature while \
+bigger threat exists. Naming wrong card with Needle/Extraction. Exiling wrong card from hand.
+
+### `missed_lethal`
+Not attacking with lethal on board. Missing combo completion (Dark Depths + Thespian's \
+Stage). Burn spells in hand with opponent at low life. Skipping attacks with no blockers.
+
+### `strategic_error`
+Not completing known combos. Choosing draw over play with aggro. Drawing cards at \
+critical life when removal mode available. Not countering game-winning threats. \
+Cancelling search without selecting.
+
+### `bad_sequencing`
+Cantrip after land drop. Creatures before combat with tricks. Bounce land as only land. \
+Spells before lands. Postcombat Thoughtseize.
+
+### `bad_combat`
+Not blocking when correct. Blocking tramplers with small creatures. Not using deathtouch \
+strategically. Only sending part of lethal force. Attacking into guaranteed bad trade.
+
+### `walked_into_removal`
+Overextending into board wipes. Best threat into open counter mana. Duplicate legendary. \
+Stacking buffs on one creature.
+
+## Output Format
+
+Return ONLY a JSON array of annotation objects:
+{
+  "snapshotIndex": <int>,
+  "player": "<name>",
+  "type": "blunder",
+  "severity": "minor" | "moderate" | "major",
+  "category": "<category>",
+  "description": "<what went wrong in concrete game terms>",
+  "llmReasoning": "<why the LLM made this mistake, referencing their reasoning text>",
+  "actionTaken": "<what they actually did>",
+  "betterLine": "<what they should have done>"
+}
+
+Severity: minor = slightly suboptimal. moderate = clear mistake with consequences. \
+major = game-losing or massive value loss."""
+
+
+def _load_game(gz_path: str) -> dict:
+    with gzip.open(gz_path, "rt") as f:
+        return json.load(f)
+
+
+def _game_overview(data: dict) -> str:
+    lines = [
+        f"Game: {data['id']}",
+        f"Format: {data.get('deckType', '?')} ({data.get('gameType', '?')})",
+        f"Turns: {data['totalTurns']}",
+        f"Winner: {data['winner']}",
+    ]
+    for p in data["players"]:
+        lines.append(f"  {p['name']} ({p.get('model', '?')})")
+    return "\n".join(lines)
+
+
+def _format_decisions_for_haiku(decisions: list[dict]) -> str:
+    """Compact decision format for Haiku pre-filtering."""
+    parts: list[str] = []
+    for d in decisions:
+        if d["is_forced"]:
+            continue
+        gs = d.get("game_state", {})
+        players: list[str] = []
+        for p in gs.get("players", []):
+            bf = p.get("battlefield", [])
+            s = f"{p['name']}: {p.get('life', '?')}hp hand={p.get('hand_count', '?')}"
+            if bf:
+                s += f" bf=[{', '.join(str(x) for x in bf[:8])}]"
+            players.append(s)
+
+        choice_names: list[str] = []
+        for c in d.get("choices", [])[:10]:
+            choice_names.append(
+                c.get("name", c.get("description", f"option_{c.get('index', '?')}"))
+            )
+
+        chosen_name = _chosen_display(d)
+
+        lines = [
+            f"[Decision {d['decision_index']}] Turn {d.get('turn', '?')} "
+            f"{d.get('phase', '?')} - {d['player']}",
+            f"  Board: {' | '.join(players)}",
+            f"  Message: {d.get('message', '')}",
+            f"  Choices ({len(d.get('choices', []))}): {', '.join(choice_names)}",
+            f"  Chosen: {chosen_name}",
+        ]
+        if d.get("reasoning"):
+            lines.append(f"  Reasoning: {d['reasoning'][:500]}")
+        if d.get("subsequent_actions"):
+            lines.append(f"  After: {'; '.join(d['subsequent_actions'][:3])}")
+        parts.append("\n".join(lines))
+    return "\n\n".join(parts)
+
+
+def _chosen_display(d: dict) -> str:
+    """Human-readable name of what was chosen in a decision."""
+    chosen = d.get("chosen")
+    choices = d.get("choices", [])
+    if isinstance(chosen, bool):
+        return str(chosen)
+    if isinstance(chosen, int) and 0 <= chosen < len(choices):
+        c = choices[chosen]
+        return c.get("name", c.get("description", f"option_{chosen}"))
+    if chosen is not None:
+        return str(chosen)
+    return "?"
+
+
+def _format_decisions_for_opus(
+    decisions: list[dict],
+    flagged: list[dict],
+) -> str:
+    """Full decision data for Opus, only for flagged indices."""
+    flagged_map = {f["index"]: f.get("reason", "") for f in flagged}
+    parts: list[str] = []
+    for d in decisions:
+        idx = d["decision_index"]
+        if idx not in flagged_map:
+            continue
+        header = f"## Decision {idx} (flagged: {flagged_map[idx]})\n"
+        parts.append(header + json.dumps(d, indent=2))
+    return "\n\n---\n\n".join(parts)
+
+
+def _compute_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
+    input_price, output_price = PRICES[model]
+    return (prompt_tokens * input_price + completion_tokens * output_price) / 1_000_000
+
+
+def _call_llm(
+    client: OpenAI,
+    model: str,
+    system: str,
+    user: str,
+) -> tuple[str, int, int]:
+    """Call LLM, return (text, prompt_tokens, completion_tokens)."""
+    response = client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ],
+        max_tokens=16384,
+        temperature=0,
+    )
+    text = response.choices[0].message.content or ""
+    usage = response.usage
+    assert usage is not None, "API response missing usage data"
+    return text, usage.prompt_tokens, usage.completion_tokens
+
+
+def _parse_json_array(text: str) -> list:
+    """Parse a JSON array from LLM response, stripping markdown fences if present."""
+    text = text.strip()
+    # Strip markdown code fences
+    if text.startswith("```"):
+        lines = text.split("\n")
+        lines = lines[1:]  # drop opening fence line
+        if lines and lines[-1].strip().startswith("```"):
+            lines = lines[:-1]
+        text = "\n".join(lines).strip()
+
+    try:
+        result = json.loads(text)
+    except json.JSONDecodeError:
+        # Try extracting [...]  from surrounding text
+        start = text.find("[")
+        end = text.rfind("]")
+        assert start != -1 and end != -1, (
+            f"No JSON array found in response:\n{text[:500]}"
+        )
+        result = json.loads(text[start : end + 1])
+
+    assert isinstance(result, list), f"Expected JSON array, got {type(result).__name__}"
+    return result
+
+
+def _print_cost(entries: list[tuple[str, str, int, int, float]]) -> None:
+    total = sum(e[4] for e in entries)
+    print("\nCost breakdown:")
+    for label, _model, in_tok, out_tok, cost in entries:
+        print(f"  {label:20s} ${cost:.3f}  ({in_tok:,} in + {out_tok:,} out)")
+    print(f"  {'Total':20s} ${total:.3f}")
+
+
+def main(gz_path: str, *, reanalyze: bool = False) -> None:
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    assert api_key, "OPENROUTER_API_KEY environment variable required"
+
+    # Skip if already analyzed (unless --reanalyze)
+    data = _load_game(gz_path)
+    if not reanalyze and "annotations" in data:
+        print(
+            f"Already analyzed: {gz_path} ({len(data['annotations'])} annotations). Use --reanalyze to redo."
+        )
+        return
+
+    client = OpenAI(base_url=BASE_URL, api_key=api_key)
+
+    overview = _game_overview(data)
+    print(overview)
+    print()
+
+    # Extract decisions
+    decisions = extract_decisions(gz_path)
+    non_forced = [d for d in decisions if not d["is_forced"]]
+    print(f"Extracted {len(decisions)} decisions ({len(non_forced)} non-forced)")
+
+    if not non_forced:
+        print("No non-forced decisions to analyze.")
+        return
+
+    cost_entries: list[tuple[str, str, int, int, float]] = []
+
+    # --- Phase 1: Haiku pre-filter ---
+    print("\nPhase 1: Pre-filtering with Haiku...")
+    haiku_user = (
+        f"## Game Overview\n{overview}\n\n"
+        f"## Decisions ({len(non_forced)} non-forced)\n\n"
+        f"{_format_decisions_for_haiku(decisions)}"
+    )
+    haiku_text, h_in, h_out = _call_llm(client, HAIKU_MODEL, HAIKU_SYSTEM, haiku_user)
+    h_cost = _compute_cost(HAIKU_MODEL, h_in, h_out)
+    cost_entries.append(("Haiku pre-filter", HAIKU_MODEL, h_in, h_out, h_cost))
+    print(f"  Tokens: {h_in:,} input, {h_out:,} output (${h_cost:.3f})")
+
+    flagged = _parse_json_array(haiku_text)
+    print(f"  Flagged {len(flagged)}/{len(non_forced)} decisions")
+    for f in flagged:
+        print(f"    [{f['index']}] {f.get('reason', '?')}")
+
+    if not flagged:
+        print("\nNo suspicious decisions found. Game looks clean!")
+        _print_cost(cost_entries)
+        return
+
+    # --- Phase 2: Opus analysis ---
+    print(f"\nPhase 2: Analyzing {len(flagged)} decisions with Opus...")
+    opus_user = (
+        f"## Game Overview\n{overview}\n\n"
+        f"## Flagged Decisions\n\n"
+        f"Each decision below was pre-flagged as a potential blunder. "
+        f"Analyze each one. Confirm blunders with full annotations, "
+        f"omit reasonable plays.\n\n"
+        f"{_format_decisions_for_opus(decisions, flagged)}"
+    )
+    opus_text, o_in, o_out = _call_llm(client, OPUS_MODEL, OPUS_SYSTEM, opus_user)
+    o_cost = _compute_cost(OPUS_MODEL, o_in, o_out)
+    cost_entries.append(("Opus analysis", OPUS_MODEL, o_in, o_out, o_cost))
+    print(f"  Tokens: {o_in:,} input, {o_out:,} output (${o_cost:.3f})")
+
+    annotations = _parse_json_array(opus_text)
+
+    if not annotations:
+        print("\nNo confirmed blunders.")
+        _print_cost(cost_entries)
+        return
+
+    # Display blunders
+    snapshots = data.get("snapshots", [])
+    print(f"\nFound {len(annotations)} blunder(s):\n")
+    for ann in annotations:
+        snap_idx = ann["snapshotIndex"]
+        turn = snapshots[snap_idx]["turn"] if snap_idx < len(snapshots) else "?"
+        sev = ann["severity"].upper()
+        print(f"  Turn {turn} ({ann['player']}) - {sev} {ann['category']}")
+        print(f"    {ann['description']}")
+        print(f"    Better: {ann['betterLine']}")
+        print()
+
+    # Write annotations to game file
+    TMP_DIR.mkdir(exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".json", delete=False, dir=str(TMP_DIR)
+    ) as f:
+        json.dump(annotations, f)
+        ann_path = f.name
+
+    try:
+        annotate_game(gz_path, ann_path)
+        print(f"Annotations written to {gz_path}")
+    finally:
+        os.unlink(ann_path)
+
+    _print_cost(cost_entries)
+
+
+if __name__ == "__main__":
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    flags = {a for a in sys.argv[1:] if a.startswith("--")}
+    if not args:
+        print(f"Usage: {sys.argv[0]} [--reanalyze] <game.json.gz>", file=sys.stderr)
+        sys.exit(1)
+    main(args[0], reanalyze="--reanalyze" in flags)

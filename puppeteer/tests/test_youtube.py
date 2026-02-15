@@ -1,13 +1,9 @@
 """Tests for YouTube upload and related orchestrator functions."""
 
 import json
-import sys
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
-
-# Add scripts/ to path so we can import upload_youtube
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "scripts"))
 
 from upload_youtube import _build_description, _build_title
 

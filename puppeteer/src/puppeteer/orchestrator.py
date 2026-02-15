@@ -873,6 +873,7 @@ def _maybe_upload_and_export(game_dir: Path, project_root: Path) -> None:
             print(f"  Warning: YouTube upload failed: {e}")
 
     # Export for website
+    output_path = None
     try:
         from export_game import export_game
 
@@ -882,6 +883,16 @@ def _maybe_upload_and_export(game_dir: Path, project_root: Path) -> None:
         print(f"  Exported for website: {output_path} ({size_kb} KB)")
     except Exception as e:
         print(f"  Warning: website export failed: {e}")
+
+    # Blunder analysis (requires OPENROUTER_API_KEY; skips already-analyzed games)
+    if output_path and os.environ.get("OPENROUTER_API_KEY"):
+        try:
+            sys.path.insert(0, str(project_root / "scripts" / "analysis"))
+            from blunder_analysis import main as analyze_blunders
+
+            analyze_blunders(str(output_path))
+        except Exception as e:
+            print(f"  Warning: blunder analysis failed: {e}")
 
 
 @dataclass
