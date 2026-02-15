@@ -198,7 +198,10 @@ import Base from '../../layouts/Base.astro';
       return escaped;
     }
 
+    var SPAM_RE = / skip attack$|^Attacker: .+ unblocked$/;
+
     function appendEvent(evt) {
+      if (evt.type !== "player_chat" && SPAM_RE.test(evt.message || "")) return;
       if (evt.type === "player_chat") {
         var line = document.createElement("div");
         line.className = "chat-line";

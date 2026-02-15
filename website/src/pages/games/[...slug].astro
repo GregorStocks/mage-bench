@@ -790,9 +790,13 @@ const { slug } = Astro.params;
       var prevSeq = index > 0 ? game.snapshots[index - 1].seq : 0;
       var curSeq = snap.seq;
 
+      // Spam patterns to filter from the game log
+      var SPAM_RE = / skip attack$|^Attacker: .+ unblocked$/;
+
       // All game actions + chat up to current snapshot
       var allActions = game.actions.filter(function (a) {
         if (a.seq > curSeq) return false;
+        if (a.type !== "chat" && SPAM_RE.test(a.message)) return false;
         if (filterPlayer) {
           if (a.type === "chat") {
             if (a.from !== filterPlayer) return false;
@@ -870,6 +874,16 @@ const { slug } = Astro.params;
             actionList.appendChild(renderAnnotation(ann));
           }
         });
+      }
+
+      // Show winner at end of game
+      if (game.winner && index === game.snapshots.length - 1) {
+        var winLine = document.createElement("div");
+        winLine.className = "game-result-line";
+        var winIdx = playerColorMap[game.winner];
+        var winCls = winIdx != null ? "action-" + R.PLAYER_COLORS[winIdx] : "";
+        winLine.innerHTML = '<span class="' + winCls + '">' + escapeHtml(game.winner) + '</span> wins the game!';
+        actionList.appendChild(winLine);
       }
 
       // Sync game log height with left column, then auto-scroll to bottom

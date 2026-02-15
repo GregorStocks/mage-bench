@@ -1051,6 +1051,16 @@
   border-radius: 6px;
 }
 
+.game-result-line {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e0e0f0;
+  padding: 0.75rem 0.5rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid #0f3460;
+}
+
 .hidden {
   display: none !important;
 }
