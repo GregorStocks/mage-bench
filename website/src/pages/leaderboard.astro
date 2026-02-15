@@ -48,7 +48,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     <p class="subtitle" id="subtitle">
       Model ratings based on {benchmarkData.totalGames.toLocaleString()} games.
       {excludedGames > 0 && (
-        <span class="excluded-note">({excludedGames} older {excludedGames === 1 ? 'game' : 'games'} excluded)</span>
+        <span class="excluded-note">({excludedGames} pre-epoch-{minEpoch} {excludedGames === 1 ? 'game' : 'games'} excluded)</span>
       )}
       Last updated: <time>{new Date(benchmarkData.generatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</time>.
     </p>
@@ -79,9 +79,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
         </p>
         {minEpoch && excludedGames > 0 && (
           <p>
-            {excludedGames} older {excludedGames === 1 ? 'game is' : 'games are'} excluded
-            from ratings. The evaluation harness has improved over time, so games played on
-            early versions aren't representative of current model quality.
+            {excludedGames} {excludedGames === 1 ? 'game is' : 'games are'} excluded
+            from ratings (harness epoch &lt; {minEpoch}). The harness epoch is a monotonic
+            integer that increments when MCP tools, priority semantics, or pilot logic change
+            enough to make game results non-comparable. Games from older epochs are still
+            viewable but don't contribute to Elo.
           </p>
         )}
       </div>

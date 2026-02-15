@@ -746,7 +746,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     if (epoch < MIN_LEADERBOARD_EPOCH) {
       var epochBadge = document.createElement("span");
       epochBadge.className = "epoch-badge epoch-old";
-      epochBadge.title = "Played on an early version of the evaluation harness. Not included in ratings.";
+      epochBadge.title = "Harness epoch " + epoch + " — excluded from ratings (min epoch " + MIN_LEADERBOARD_EPOCH + ")";
       epochBadge.textContent = "Old harness";
       header.appendChild(epochBadge);
     }
