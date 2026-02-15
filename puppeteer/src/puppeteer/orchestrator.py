@@ -837,23 +837,30 @@ def _update_website_youtube_url(game_dir: Path, url: str, project_root: Path) ->
         index_json.write_text(json.dumps(index, indent=2))
 
 
-def _maybe_upload_and_export(game_dir: Path, project_root: Path) -> None:
-    """Prompt user to upload recording to YouTube and export for website."""
+def _maybe_upload_and_export(game_dir: Path, project_root: Path, *, auto_yes: bool = False) -> bool:
+    """Prompt user to upload recording to YouTube and export for website.
+
+    Returns True if the user answered "all" (auto-yes for remaining games).
+    """
     recording = game_dir / "recording.mov"
     has_recording = recording.exists()
 
-    prompt = "Upload to YouTube and export?" if has_recording else "Export for website?"
-    while True:
-        try:
-            answer = input(f"{prompt} [y/N]: ").strip().lower()
-        except (EOFError, KeyboardInterrupt):
-            print()
-            return
-        if answer in ("y", "yes"):
-            break
-        if answer in ("n", "no", ""):
-            return
-        print(f"  Unrecognized answer: {answer!r} — please enter y or n")
+    if not auto_yes:
+        prompt = "Upload to YouTube and export?" if has_recording else "Export for website?"
+        while True:
+            try:
+                answer = input(f"{prompt} [y/N/all]: ").strip().lower()
+            except (EOFError, KeyboardInterrupt):
+                print()
+                return False
+            if answer in ("y", "yes"):
+                break
+            if answer in ("all", "a"):
+                auto_yes = True
+                break
+            if answer in ("n", "no", ""):
+                return False
+            print(f"  Unrecognized answer: {answer!r} — please enter y, n, or all")
 
     # Upload to YouTube (only if we have a recording)
     if has_recording:
@@ -873,6 +880,7 @@ def _maybe_upload_and_export(game_dir: Path, project_root: Path) -> None:
             print(f"  Warning: YouTube upload failed: {e}")
 
     # Export for website
+    output_path = None
     try:
         from export_game import export_game
 
@@ -882,6 +890,18 @@ def _maybe_upload_and_export(game_dir: Path, project_root: Path) -> None:
         print(f"  Exported for website: {output_path} ({size_kb} KB)")
     except Exception as e:
         print(f"  Warning: website export failed: {e}")
+
+    # Blunder analysis (requires OPENROUTER_API_KEY; skips already-analyzed games)
+    if output_path and os.environ.get("OPENROUTER_API_KEY"):
+        try:
+            sys.path.insert(0, str(project_root / "scripts" / "analysis"))
+            from blunder_analysis import main as analyze_blunders
+
+            analyze_blunders(str(output_path))
+        except Exception as e:
+            print(f"  Warning: blunder analysis failed: {e}")
+
+    return auto_yes
 
 
 @dataclass
@@ -1124,8 +1144,11 @@ def _wait_for_all_games(
     return results
 
 
-def _finalize_game(session: GameSession, project_root: Path, spectator_rc: int) -> None:
-    """Post-game processing for a single game session."""
+def _finalize_game(session: GameSession, project_root: Path, spectator_rc: int, *, auto_yes: bool = False) -> bool:
+    """Post-game processing for a single game session.
+
+    Returns True if the user chose "all" (auto-yes for remaining games).
+    """
     game_label = f"Game {session.index + 1}: " if session.config.num_games > 1 else ""
     _ensure_game_over_event(session.game_dir, spectator_rc)
     _write_error_log(session.game_dir)
@@ -1136,7 +1159,8 @@ def _finalize_game(session: GameSession, project_root: Path, spectator_rc: int) 
         print(f"  {game_label}Warning: failed to merge game log: {e}")
     _print_game_summary(session.game_dir)
     if not session.config.skip_post_game_prompts:
-        _maybe_upload_and_export(session.game_dir, project_root)
+        auto_yes = _maybe_upload_and_export(session.game_dir, project_root, auto_yes=auto_yes)
+    return auto_yes
 
 
 def main() -> int:
@@ -1275,9 +1299,10 @@ def main() -> int:
         # --- Wait for all games to complete ---
         if batch:
             results = _wait_for_all_games(sessions, pm)
+            upload_all = False
             for session in sessions:
                 spectator_rc = results.get(session.index, -1)
-                _finalize_game(session, project_root, spectator_rc)
+                upload_all = _finalize_game(session, project_root, spectator_rc, auto_yes=upload_all)
         else:
             # Single game: use existing wait logic
             session = sessions[0]

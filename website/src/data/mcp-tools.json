@@ -125,7 +125,7 @@
           "type": "string"
         },
         "stop_reason": {
-          "description": "Why the call returned: playable_cards, combat, non_priority_action, game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step)",
+          "description": "Why the call returned: playable_cards, combat, non_priority_action, game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step), pending_action_from_choose_action (a previous choose_action left a pending action — call get_action_choices/choose_action instead)",
           "type": "string"
         },
         "response_type": {
@@ -532,24 +532,12 @@
           "description": "IDs of successfully declared attackers/blockers (batch combat)",
           "type": "array"
         },
-        "success": {
-          "description": "Whether the action was accepted",
-          "type": "boolean"
+        "next_action_hint": {
+          "description": "Instruction to call get_action_choices or choose_action to handle the follow-up action",
+          "type": "string"
         },
         "action_taken": {
           "description": "Description of what was done (e.g. \"selected_0\", \"yes\", \"passed_priority\", \"batch_attack\")",
-          "type": "string"
-        },
-        "warning": {
-          "description": "Warning (e.g. possible game loop detected)",
-          "type": "string"
-        },
-        "mana_plan_set": {
-          "description": "Whether a mana plan was stored for upcoming payment callbacks",
-          "type": "boolean"
-        },
-        "error_code": {
-          "description": "Machine-readable error code: no_pending_action, missing_param, index_out_of_range, invalid_choice, internal_error, unknown_action_type",
           "type": "string"
         },
         "failed": {
@@ -562,6 +550,30 @@
         },
         "error": {
           "description": "Error message",
+          "type": "string"
+        },
+        "next_action_pending": {
+          "description": "Whether a follow-up action arrived from the server (e.g. bestow mode selection, kicker choice). Call get_action_choices or choose_action next — not pass_priority.",
+          "type": "boolean"
+        },
+        "next_action_type": {
+          "description": "XMage callback method name of the follow-up action (e.g. GAME_SELECT, GAME_CHOOSE_CHOICE)",
+          "type": "string"
+        },
+        "success": {
+          "description": "Whether the action was accepted",
+          "type": "boolean"
+        },
+        "warning": {
+          "description": "Warning (e.g. possible game loop detected)",
+          "type": "string"
+        },
+        "mana_plan_set": {
+          "description": "Whether a mana plan was stored for upcoming payment callbacks",
+          "type": "boolean"
+        },
+        "error_code": {
+          "description": "Machine-readable error code: no_pending_action, missing_param, index_out_of_range, invalid_choice, internal_error, unknown_action_type",
           "type": "string"
         },
         "mana_plan_size": {

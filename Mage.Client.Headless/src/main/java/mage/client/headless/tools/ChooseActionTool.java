@@ -31,7 +31,13 @@ public class ChooseActionTool {
             @Tool.Field(name = "mana_plan_size", type = "integer", description = "Number of entries in the stored mana plan"),
             @Tool.Field(name = "declared", type = "array", description = "IDs of successfully declared attackers/blockers (batch combat)"),
             @Tool.Field(name = "failed", type = "array", description = "Entries that failed during batch combat: {id, reason}"),
-            @Tool.Field(name = "interrupted", type = "boolean", description = "Whether batch combat was interrupted by a trigger")
+            @Tool.Field(name = "interrupted", type = "boolean", description = "Whether batch combat was interrupted by a trigger"),
+            @Tool.Field(name = "next_action_pending", type = "boolean",
+                description = "Whether a follow-up action arrived from the server (e.g. bestow mode selection, kicker choice). Call get_action_choices or choose_action next — not pass_priority."),
+            @Tool.Field(name = "next_action_type", type = "string",
+                description = "XMage callback method name of the follow-up action (e.g. GAME_SELECT, GAME_CHOOSE_CHOICE)"),
+            @Tool.Field(name = "next_action_hint", type = "string",
+                description = "Instruction to call get_action_choices or choose_action to handle the follow-up action")
         }
     )
     public static Map<String, Object> execute(

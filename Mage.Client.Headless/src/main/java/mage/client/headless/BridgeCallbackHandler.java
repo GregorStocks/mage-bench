@@ -107,6 +107,14 @@ public class BridgeCallbackHandler {
     private volatile UUID currentGameId = null;
     private volatile GameView lastGameView = null;
     private final RoundTracker roundTracker = new RoundTracker();
+
+    /** Update lastGameView and feed the RoundTracker so it sees every turn transition. */
+    private void updateLastGameView(GameView gv) {
+        if (gv != null) {
+            lastGameView = gv;
+            roundTracker.update(gv);
+        }
+    }
     private final ShortIdRegistry shortIds = new ShortIdRegistry();
     private volatile List<Object> lastChoices = null; // Index→UUID/String mapping for choose_action
     private volatile String lastChoicesActionType = null; // Debug context for stale-choice diagnostics
@@ -126,6 +134,7 @@ public class BridgeCallbackHandler {
     private volatile int interactionsThisTurn = 0; // Generic loop detection: count model interactions per turn
     private volatile int landsPlayedThisTurn = 0; // Track land plays for land_drops_used hint
     private volatile int maxInteractionsPerTurn = 25; // Configurable per-model; after this many, auto-pass rest of turn
+    private volatile boolean hasUnhandledNextAction = false; // Set when choose_action returns next_action_pending:true
     private volatile DeckCardLists deckList = null; // Original decklist for get_my_decklist
     private volatile String errorLogPath = null; // Path to write errors to (set via system property)
     private volatile String bridgeLogPath = null; // Path to write bridge JSONL dump
@@ -538,6 +547,7 @@ public class BridgeCallbackHandler {
      */
     @SuppressWarnings("unchecked")
     public Map<String, Object> getActionChoices() {
+        hasUnhandledNextAction = false;
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
         GameView gameView = lastGameView; // snapshot volatile to prevent TOCTOU race
@@ -1264,6 +1274,7 @@ public class BridgeCallbackHandler {
      * Exactly one parameter should be non-null, matching the response_type from getActionChoices().
      */
     public Map<String, Object> chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, com.google.gson.JsonArray manaPlanArray, Boolean autoTap, String[] attackers, com.google.gson.JsonArray blockersArray) {
+        hasUnhandledNextAction = false;
         interactionsThisTurn++;
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
@@ -1767,6 +1778,9 @@ public class BridgeCallbackHandler {
             if (next != null) {
                 result.put("next_action_pending", true);
                 result.put("next_action_type", next.method().name());
+                result.put("next_action_hint", "Call get_action_choices or choose_action to handle the pending "
+                    + next.method().name() + ". Do NOT call pass_priority \u2014 it would cancel the pending action.");
+                hasUnhandledNextAction = true;
             }
         }
 
@@ -2135,6 +2149,9 @@ public class BridgeCallbackHandler {
         if (next != null) {
             result.put("next_action_pending", true);
             result.put("next_action_type", next.method().name());
+            result.put("next_action_hint", "Call get_action_choices or choose_action to handle the pending "
+                + next.method().name() + ". Do NOT call pass_priority \u2014 it would cancel the pending action.");
+            hasUnhandledNextAction = true;
         }
     }
 
@@ -2492,6 +2509,29 @@ public class BridgeCallbackHandler {
      */
     public Map<String, Object> passPriority(String until) {
         interactionsThisTurn++;
+
+        // Guard: if choose_action just returned next_action_pending:true, the LLM should
+        // call get_action_choices or choose_action, not pass_priority. Auto-passing would
+        // silently cancel pending modal selections (bestow, kicker modes, etc.).
+        if (hasUnhandledNextAction) {
+            PendingAction action = pendingAction;
+            if (action != null) {
+                hasUnhandledNextAction = false;
+                var result = new HashMap<String, Object>();
+                result.put("action_pending", true);
+                result.put("action_type", action.method().name());
+                result.put("actions_passed", 0);
+                result.put("stop_reason", "pending_action_from_choose_action");
+                result.put("warning", "A previous choose_action returned next_action_pending:true. "
+                    + "Call get_action_choices or choose_action instead of pass_priority to avoid "
+                    + "cancelling the pending action.");
+                attachUnseenChat(result);
+                mergeActionChoices(result);
+                return result;
+            }
+            hasUnhandledNextAction = false;
+        }
+
         int actionsPassed = 0;
 
         // Route the "until" parameter: check step phases first, then server-side yields
@@ -2540,7 +2580,7 @@ public class BridgeCallbackHandler {
                 if (action.data() instanceof GameClientMessage) {
                     GameView gv = ((GameClientMessage) action.data()).getGameView();
                     if (gv != null) {
-                        lastGameView = gv;
+                        updateLastGameView(gv);
                         int turn = gv.getTurn();
                         if (turn != lastTurnNumber) {
                             lastTurnNumber = turn;
@@ -3431,7 +3471,7 @@ public class BridgeCallbackHandler {
                                 logger.info("[" + client.getUsername() + "] Auto-selecting single mandatory target: " + onlyTarget.toString().substring(0, 8));
                                 // Update game view if available
                                 GameView gv = targetCallbackMsg.getGameView();
-                                if (gv != null) lastGameView = gv;
+                                updateLastGameView(gv);
                                 session.sendPlayerUUID(objectId, onlyTarget);
                                 trackSentResponse(objectId, ResponseType.UUID, onlyTarget, null);
                                 break;
@@ -3447,7 +3487,7 @@ public class BridgeCallbackHandler {
                     AbilityPickerView picker = (AbilityPickerView) callback.getData();
                     Map<UUID, String> choices = picker.getChoices();
                     GameView gv = picker.getGameView();
-                    if (gv != null) lastGameView = gv;
+                    updateLastGameView(gv);
 
                     if (mcpMode && choices != null && !choices.isEmpty()) {
                         if (manaPlan != null) {
@@ -3465,13 +3505,8 @@ public class BridgeCallbackHandler {
                                 cancelSpellFromBadManaPlan(objectId, null, picker.getMessage());
                             }
                         } else {
-                            // Auto-tap mode: use naive heuristic
-                            UUID selected = pickBestAbilityForMana(choices);
-                            String choiceText = choices.get(selected);
-                            logger.info("[" + client.getUsername() + "] Auto-selecting ability: \""
-                                    + picker.getMessage() + "\" -> " + choiceText);
-                            session.sendPlayerUUID(objectId, selected);
-                            trackSentResponse(objectId, ResponseType.UUID, selected, null);
+                            // No mana plan: let the LLM choose the ability
+                            storePendingAction(objectId, method, callback);
                         }
                     } else if (mcpMode) {
                         logger.warn("[" + client.getUsername() + "] Auto-selecting ability: no choices, sending null");
@@ -3564,10 +3599,7 @@ public class BridgeCallbackHandler {
         String message = extractMessage(data);
         // Capture GameView if available
         if (data instanceof GameClientMessage) {
-            GameView gameView = ((GameClientMessage) data).getGameView();
-            if (gameView != null) {
-                lastGameView = gameView;
-            }
+            updateLastGameView(((GameClientMessage) data).getGameView());
         }
         synchronized (actionLock) {
             pendingAction = new PendingAction(gameId, method, data, message);
@@ -3726,7 +3758,7 @@ public class BridgeCallbackHandler {
 
     private void handleGameInit(UUID gameId, ClientCallback callback) {
         GameView gameView = (GameView) callback.getData();
-        lastGameView = gameView;
+        updateLastGameView(gameView);
         logger.info("[" + client.getUsername() + "] Game initialized: " + gameView.getPlayers().size() + " players");
     }
 
@@ -3734,14 +3766,14 @@ public class BridgeCallbackHandler {
         Object data = callback.getData();
         if (data instanceof GameView) {
             GameView gameView = (GameView) data;
-            lastGameView = gameView;
+            updateLastGameView(gameView);
             logger.debug("[" + client.getUsername() + "] Game update: turn " + gameView.getTurn() +
                     ", phase " + gameView.getPhase() + ", active player " + gameView.getActivePlayerName());
         } else if (data instanceof GameClientMessage) {
             GameClientMessage message = (GameClientMessage) data;
             GameView gameView = message.getGameView();
             if (gameView != null) {
-                lastGameView = gameView;
+                updateLastGameView(gameView);
                 logger.debug("[" + client.getUsername() + "] Game inform: " + message.getMessage());
             }
         }
@@ -4136,9 +4168,7 @@ public class BridgeCallbackHandler {
 
     private boolean handleGamePlayManaAuto(UUID gameId, GameClientMessage message) {
         GameView gameView = message.getGameView();
-        if (gameView != null) {
-            lastGameView = gameView;
-        }
+        updateLastGameView(gameView);
 
         String msg = message.getMessage();
         lastManaPaymentPrompt = msg;

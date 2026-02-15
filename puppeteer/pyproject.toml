@@ -73,3 +73,4 @@ disable_error_code = ["assignment"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+pythonpath = ["../scripts", "../scripts/analysis"]

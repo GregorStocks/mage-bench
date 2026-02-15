@@ -1,13 +1,9 @@
 """Tests for YouTube upload and related orchestrator functions."""
 
 import json
-import sys
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
-
-# Add scripts/ to path so we can import upload_youtube
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "scripts"))
 
 from upload_youtube import _build_description, _build_title
 
@@ -174,10 +170,11 @@ def test_maybe_upload_and_export_defaults_to_no(capsys):
         project_root = Path(tmpdir)
         (game_dir / "recording.mov").write_bytes(b"fake")
         with patch("builtins.input", return_value=""):
-            _maybe_upload_and_export(game_dir, project_root)
+            result = _maybe_upload_and_export(game_dir, project_root)
     output = capsys.readouterr().out
     assert "Exported" not in output
     assert "YouTube" not in output
+    assert result is False
 
 
 def test_maybe_upload_and_export_skips_without_recording():
@@ -188,8 +185,9 @@ def test_maybe_upload_and_export_skips_without_recording():
         game_dir = Path(tmpdir)
         project_root = Path(tmpdir)
         with patch("builtins.input", return_value="n") as mock_input:
-            _maybe_upload_and_export(game_dir, project_root)
+            result = _maybe_upload_and_export(game_dir, project_root)
         mock_input.assert_called_once()
+        assert result is False
 
 
 def test_maybe_upload_and_export_reprompts_on_bad_input(capsys):
@@ -204,3 +202,29 @@ def test_maybe_upload_and_export_reprompts_on_bad_input(capsys):
             _maybe_upload_and_export(game_dir, project_root)
     output = capsys.readouterr().out
     assert "Unrecognized answer" in output
+
+
+def test_maybe_upload_and_export_all_returns_true():
+    """Answering 'all' should return True to auto-yes remaining games."""
+    from puppeteer.orchestrator import _maybe_upload_and_export
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir)
+        project_root = Path(tmpdir)
+        with patch("builtins.input", return_value="all"), patch("puppeteer.orchestrator.sys") as mock_sys:
+            mock_sys.path = []
+            result = _maybe_upload_and_export(game_dir, project_root)
+    assert result is True
+
+
+def test_maybe_upload_and_export_auto_yes_skips_prompt():
+    """auto_yes=True should skip the prompt entirely."""
+    from puppeteer.orchestrator import _maybe_upload_and_export
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir)
+        project_root = Path(tmpdir)
+        with patch("builtins.input") as mock_input:
+            result = _maybe_upload_and_export(game_dir, project_root, auto_yes=True)
+        mock_input.assert_not_called()
+        assert result is True

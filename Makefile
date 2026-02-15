@@ -149,3 +149,9 @@ screenshot:
 	  ffmpeg -y -ss "$$TIME" -i "$$VIDEO" -frames:v 1 -update 1 "$$OUT" 2>/dev/null; \
 	fi && \
 	echo "Screenshot saved to $$OUT (T=$$TIME from $$VIDEO)"
+
+# Analyze a game for blunders using Claude Opus 4.6 via OpenRouter
+# Usage: make blunders GAME=website/public/games/game_20260214_185313_g1.json.gz
+.PHONY: blunders
+blunders:
+	uv run --project puppeteer python scripts/analysis/blunder_analysis.py $(GAME)
