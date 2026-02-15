@@ -970,6 +970,7 @@ def test_generate_leaderboard_file_excludes_old_epochs():
             "Alice",
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
         )
+        old_game["harnessEpoch"] = 1
         old_game["deckType"] = "Constructed - Standard"
         (games_dir / "game_20260210_090000.json.gz").write_bytes(gzip.compress(json.dumps(old_game).encode()))
 
@@ -1006,8 +1007,8 @@ def test_generate_leaderboard_file_excludes_old_epochs():
         assert "a/x" not in model_ids
 
 
-def test_generate_leaderboard_file_explicit_epoch_overrides_inferred():
-    """Explicit harnessEpoch in game data should override timestamp inference."""
+def test_generate_leaderboard_file_explicit_epoch():
+    """Game with explicit harnessEpoch should be included when above minimum."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
         games_dir = root / "games"

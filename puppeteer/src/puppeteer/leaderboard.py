@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH, infer_epoch
+from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
 
 _LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 
@@ -491,7 +491,7 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
             "totalTurns": game.get("totalTurns", 0),
             "winner": game.get("winner"),
             "players": players,
-            "harnessEpoch": infer_epoch(game["id"], game.get("harnessEpoch")),
+            "harnessEpoch": game.get("harnessEpoch"),
         }
         if "annotations" in game:
             game_entry["annotations"] = game["annotations"]

@@ -533,26 +533,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     "commander": "Commander",
   };
 
-  // Harness epoch inference for games that predate epoch tracking.
-  // Must match puppeteer/src/puppeteer/harness_epoch.py boundaries.
   var MIN_LEADERBOARD_EPOCH = 2;
-  var EPOCH_BOUNDARIES = [
-    ["20260212_224200", 2],
-    ["20260214_084000", 3],
-    ["20260214_200000", 4],
-    ["20260214_230000", 5],
-    ["20260215_060000", 6],
-  ];
-
-  function inferEpoch(gameId, harnessEpoch) {
-    if (harnessEpoch != null) return harnessEpoch;
-    var ts = gameId.replace("game_", "");
-    var epoch = 1;
-    for (var i = 0; i < EPOCH_BOUNDARIES.length; i++) {
-      if (ts >= EPOCH_BOUNDARIES[i][0]) epoch = EPOCH_BOUNDARIES[i][1];
-    }
-    return epoch;
-  }
 
   function formatTime(secs) {
     if (secs < 60) return Math.round(secs) + "s";
@@ -742,7 +723,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     }
 
     // Old harness badge
-    var epoch = inferEpoch(game.id, game.harnessEpoch);
+    var epoch = game.harnessEpoch || 1;
     if (epoch < MIN_LEADERBOARD_EPOCH) {
       var epochBadge = document.createElement("span");
       epochBadge.className = "epoch-badge epoch-old";

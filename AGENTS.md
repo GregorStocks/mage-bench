@@ -173,9 +173,7 @@ assert self.config_file is not None, "run_tag requires config_file to be set"
 When you bump `HARNESS_EPOCH`:
 1. Add a comment to the history in `harness_epoch.py`
 2. Update `MIN_LEADERBOARD_EPOCH` if the old epoch should be excluded from ratings
-3. Update the `EPOCH_BOUNDARIES` in `harness_epoch.py` (for backfill inference)
-4. Update the JS epoch boundaries in `website/src/pages/games/index.astro` and `website/src/pages/games/[...slug].astro` to match
-5. Re-export affected games and regenerate the leaderboard
+3. Re-export affected games and regenerate the leaderboard
 
 ## Logging
 

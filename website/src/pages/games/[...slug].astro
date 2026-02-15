@@ -1057,16 +1057,8 @@ const { slug } = Astro.params;
         }
 
         // Harness epoch display
-        var epochBoundaries = [["20260212_224200", 2], ["20260214_084000", 3], ["20260214_200000", 4], ["20260214_230000", 5], ["20260215_060000", 6]];
         var minEpoch = 2;
-        var gameEpoch = game.harnessEpoch;
-        if (gameEpoch == null) {
-          var gameTs = game.id.replace("game_", "");
-          gameEpoch = 1;
-          for (var eb = 0; eb < epochBoundaries.length; eb++) {
-            if (gameTs >= epochBoundaries[eb][0]) gameEpoch = epochBoundaries[eb][1];
-          }
-        }
+        var gameEpoch = game.harnessEpoch || 1;
         var epochEl = document.createElement("div");
         epochEl.id = "epoch-info";
         epochEl.textContent = "Harness epoch " + gameEpoch;
