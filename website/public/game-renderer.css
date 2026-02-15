@@ -21,6 +21,38 @@
   }
 }
 
+@media (max-width: 600px) {
+  .player-body {
+    flex-direction: column;
+  }
+
+  .side-zones {
+    width: auto;
+    border-right: none;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.06);
+  }
+
+  .side-zones .cards-row {
+    flex-direction: row;
+  }
+
+  #stack-section {
+    width: auto;
+  }
+
+  #stack-section .cards-row {
+    flex-direction: row;
+  }
+
+  #stack-section .card-thumb {
+    width: 80px;
+  }
+
+  .battlefield-zone {
+    min-height: 120px;
+  }
+}
+
 .player-card {
   border: 1px solid #0f3460;
   border-radius: 8px;
