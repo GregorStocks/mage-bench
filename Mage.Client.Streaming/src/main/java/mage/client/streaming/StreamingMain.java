@@ -93,11 +93,24 @@ public class StreamingMain {
                 PreferencesDialog.saveValue(PreferencesDialog.KEY_SETTINGS_VERSION, String.valueOf(1));
             }
 
+            // Disable macOS fullscreen toggle — it grabs focus and we never want that.
+            // MageFrame.main() reads this from -Dxmage.fullScreen but StreamingMain
+            // doesn't go through MageFrame.main(), so the static field stays true.
+            try {
+                java.lang.reflect.Field f = MageFrame.class.getDeclaredField("macOsFullScreenEnabled");
+                f.setAccessible(true);
+                f.setBoolean(null, false);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                LOGGER.warn("Could not disable macOS fullscreen: " + e.getMessage());
+            }
+
             // Create the streaming frame (instead of regular MageFrame)
             try {
                 StreamingMageFrame streamingFrame = new StreamingMageFrame();
                 StreamingMageFrame.setInstance(streamingFrame);
                 EDTExceptionHandler.registerMainApp(streamingFrame);
+                // Prevent the observer window from stealing OS focus on startup
+                streamingFrame.setAutoRequestFocus(false);
                 streamingFrame.setVisible(true);
                 LOGGER.info("Streaming client started successfully");
             } catch (Throwable e) {

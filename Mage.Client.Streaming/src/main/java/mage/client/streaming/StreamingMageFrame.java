@@ -80,6 +80,16 @@ public class StreamingMageFrame extends MageFrame {
     }
 
     /**
+     * Prevent the observer window from ever stealing OS focus.
+     * The parent MageFrame or Swing internals may call toFront() during game
+     * events — override it to be a no-op so we never yank focus from the user.
+     */
+    @Override
+    public void toFront() {
+        // Intentionally empty — observer should never steal focus
+    }
+
+    /**
      * Override setTitle to always add streaming prefix.
      * This intercepts all title changes from MageFrame.setWindowTitle().
      */
