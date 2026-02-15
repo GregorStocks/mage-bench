@@ -3465,13 +3465,8 @@ public class BridgeCallbackHandler {
                                 cancelSpellFromBadManaPlan(objectId, null, picker.getMessage());
                             }
                         } else {
-                            // Auto-tap mode: use naive heuristic
-                            UUID selected = pickBestAbilityForMana(choices);
-                            String choiceText = choices.get(selected);
-                            logger.info("[" + client.getUsername() + "] Auto-selecting ability: \""
-                                    + picker.getMessage() + "\" -> " + choiceText);
-                            session.sendPlayerUUID(objectId, selected);
-                            trackSentResponse(objectId, ResponseType.UUID, selected, null);
+                            // No mana plan: let the LLM choose the ability
+                            storePendingAction(objectId, method, callback);
                         }
                     } else if (mcpMode) {
                         logger.warn("[" + client.getUsername() + "] Auto-selecting ability: no choices, sending null");
