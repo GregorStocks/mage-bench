@@ -107,6 +107,14 @@ public class BridgeCallbackHandler {
     private volatile UUID currentGameId = null;
     private volatile GameView lastGameView = null;
     private final RoundTracker roundTracker = new RoundTracker();
+
+    /** Update lastGameView and feed the RoundTracker so it sees every turn transition. */
+    private void updateLastGameView(GameView gv) {
+        if (gv != null) {
+            lastGameView = gv;
+            roundTracker.update(gv);
+        }
+    }
     private final ShortIdRegistry shortIds = new ShortIdRegistry();
     private volatile List<Object> lastChoices = null; // Index→UUID/String mapping for choose_action
     private volatile String lastChoicesActionType = null; // Debug context for stale-choice diagnostics
@@ -2540,7 +2548,7 @@ public class BridgeCallbackHandler {
                 if (action.data() instanceof GameClientMessage) {
                     GameView gv = ((GameClientMessage) action.data()).getGameView();
                     if (gv != null) {
-                        lastGameView = gv;
+                        updateLastGameView(gv);
                         int turn = gv.getTurn();
                         if (turn != lastTurnNumber) {
                             lastTurnNumber = turn;
@@ -3431,7 +3439,7 @@ public class BridgeCallbackHandler {
                                 logger.info("[" + client.getUsername() + "] Auto-selecting single mandatory target: " + onlyTarget.toString().substring(0, 8));
                                 // Update game view if available
                                 GameView gv = targetCallbackMsg.getGameView();
-                                if (gv != null) lastGameView = gv;
+                                updateLastGameView(gv);
                                 session.sendPlayerUUID(objectId, onlyTarget);
                                 trackSentResponse(objectId, ResponseType.UUID, onlyTarget, null);
                                 break;
@@ -3447,7 +3455,7 @@ public class BridgeCallbackHandler {
                     AbilityPickerView picker = (AbilityPickerView) callback.getData();
                     Map<UUID, String> choices = picker.getChoices();
                     GameView gv = picker.getGameView();
-                    if (gv != null) lastGameView = gv;
+                    updateLastGameView(gv);
 
                     if (mcpMode && choices != null && !choices.isEmpty()) {
                         if (manaPlan != null) {
@@ -3564,10 +3572,7 @@ public class BridgeCallbackHandler {
         String message = extractMessage(data);
         // Capture GameView if available
         if (data instanceof GameClientMessage) {
-            GameView gameView = ((GameClientMessage) data).getGameView();
-            if (gameView != null) {
-                lastGameView = gameView;
-            }
+            updateLastGameView(((GameClientMessage) data).getGameView());
         }
         synchronized (actionLock) {
             pendingAction = new PendingAction(gameId, method, data, message);
@@ -3726,7 +3731,7 @@ public class BridgeCallbackHandler {
 
     private void handleGameInit(UUID gameId, ClientCallback callback) {
         GameView gameView = (GameView) callback.getData();
-        lastGameView = gameView;
+        updateLastGameView(gameView);
         logger.info("[" + client.getUsername() + "] Game initialized: " + gameView.getPlayers().size() + " players");
     }
 
@@ -3734,14 +3739,14 @@ public class BridgeCallbackHandler {
         Object data = callback.getData();
         if (data instanceof GameView) {
             GameView gameView = (GameView) data;
-            lastGameView = gameView;
+            updateLastGameView(gameView);
             logger.debug("[" + client.getUsername() + "] Game update: turn " + gameView.getTurn() +
                     ", phase " + gameView.getPhase() + ", active player " + gameView.getActivePlayerName());
         } else if (data instanceof GameClientMessage) {
             GameClientMessage message = (GameClientMessage) data;
             GameView gameView = message.getGameView();
             if (gameView != null) {
-                lastGameView = gameView;
+                updateLastGameView(gameView);
                 logger.debug("[" + client.getUsername() + "] Game inform: " + message.getMessage());
             }
         }
@@ -4136,9 +4141,7 @@ public class BridgeCallbackHandler {
 
     private boolean handleGamePlayManaAuto(UUID gameId, GameClientMessage message) {
         GameView gameView = message.getGameView();
-        if (gameView != null) {
-            lastGameView = gameView;
-        }
+        updateLastGameView(gameView);
 
         String msg = message.getMessage();
         lastManaPaymentPrompt = msg;
