@@ -286,11 +286,34 @@ def main(gz_path: str) -> None:
         f"## Decisions ({len(non_forced)} non-forced)\n\n"
         f"{_format_decisions(decisions)}"
     )
-    text, in_tok, out_tok = _call_llm(client, OPUS_MODEL, OPUS_SYSTEM, user_msg)
-    cost = _compute_cost(OPUS_MODEL, in_tok, out_tok)
-    print(f"  Tokens: {in_tok:,} input, {out_tok:,} output (${cost:.3f})")
+    total_cost = 0.0
+    max_attempts = 3
+    for attempt in range(1, max_attempts + 1):
+        text, in_tok, out_tok = _call_llm(client, OPUS_MODEL, OPUS_SYSTEM, user_msg)
+        cost = _compute_cost(OPUS_MODEL, in_tok, out_tok)
+        total_cost += cost
+        print(f"  Tokens: {in_tok:,} input, {out_tok:,} output (${cost:.3f})")
 
-    annotations = _parse_json_array(text)
+        try:
+            annotations = _parse_json_array(text)
+            break
+        except (json.JSONDecodeError, AssertionError) as e:
+            # Log the bad response for debugging
+            TMP_DIR.mkdir(exist_ok=True)
+            dump_path = TMP_DIR / f"bad_blunder_response_attempt{attempt}.txt"
+            dump_path.write_text(text)
+            if attempt < max_attempts:
+                print(
+                    f"  Opus returned invalid JSON (attempt {attempt}/{max_attempts}): {e}\n"
+                    f"  Response dumped to {dump_path}\n"
+                    f"  Retrying..."
+                )
+            else:
+                raise RuntimeError(
+                    f"Opus returned invalid JSON on all {max_attempts} attempts. "
+                    f"Last error: {e}\n"
+                    f"Last response dumped to {dump_path}"
+                ) from e
 
     # Filter out annotations with invalid snapshotIndex (LLM sometimes fabricates indices)
     num_snapshots = len(data.get("snapshots", []))
@@ -312,7 +335,7 @@ def main(gz_path: str) -> None:
     if not annotations:
         print("\nNo blunders found.")
         _write_annotations(gz_path, [])
-        print(f"\nTotal cost: ${cost:.3f}")
+        print(f"\nTotal cost: ${total_cost:.3f}")
         return
 
     # Display blunders
@@ -329,7 +352,7 @@ def main(gz_path: str) -> None:
 
     _write_annotations(gz_path, annotations)
 
-    print(f"\nTotal cost: ${cost:.3f}")
+    print(f"\nTotal cost: ${total_cost:.3f}")
 
 
 if __name__ == "__main__":

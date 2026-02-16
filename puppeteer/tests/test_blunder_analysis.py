@@ -371,6 +371,57 @@ class TestMainIntegration:
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("blunder_analysis.OpenAI")
+    def test_retries_on_invalid_json(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+        game = self._make_game_with_decisions()
+        gz_path = tmp_path / "game.json.gz"
+        self._write_gz(gz_path, game)
+
+        mock_client = MagicMock()
+        mock_openai_cls.return_value = mock_client
+
+        bad_response = MagicMock()
+        bad_response.choices = [MagicMock()]
+        bad_response.choices[0].message.content = '[{"a": 1}]\n[{"b": 2}]'
+        bad_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=100)
+
+        good_response = MagicMock()
+        good_response.choices = [MagicMock()]
+        good_response.choices[0].message.content = "[]"
+        good_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
+
+        mock_client.chat.completions.create.side_effect = [bad_response, good_response]
+
+        main(str(gz_path))
+
+        # Two API calls: first failed JSON parse, second succeeded
+        assert mock_client.chat.completions.create.call_count == 2
+        result = self._read_gz(gz_path)
+        assert result["annotations"] == []
+
+    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.OpenAI")
+    def test_retry_exhaustion_raises(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+        game = self._make_game_with_decisions()
+        gz_path = tmp_path / "game.json.gz"
+        self._write_gz(gz_path, game)
+
+        mock_client = MagicMock()
+        mock_openai_cls.return_value = mock_client
+
+        bad_response = MagicMock()
+        bad_response.choices = [MagicMock()]
+        bad_response.choices[0].message.content = "not json at all {"
+        bad_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=100)
+
+        mock_client.chat.completions.create.return_value = bad_response
+
+        with pytest.raises(RuntimeError, match="invalid JSON on all 3 attempts"):
+            main(str(gz_path))
+
+        assert mock_client.chat.completions.create.call_count == 3
+
+    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.OpenAI")
     def test_reanalyzes_old_version(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
         game = self._make_game_with_decisions()
         game["annotations"] = []
