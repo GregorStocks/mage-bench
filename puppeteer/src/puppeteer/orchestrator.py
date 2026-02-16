@@ -494,7 +494,6 @@ def start_server(
     jvm_args = " ".join(
         [
             config.jvm_headless_opts,
-            "-Dxmage.testMode=false",
             f"-Dxmage.config.path={config_path}",
         ]
     )
