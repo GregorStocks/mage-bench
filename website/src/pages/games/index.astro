@@ -824,9 +824,11 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         cell.appendChild(thinkEl);
       }
 
-      // Elo (if available)
+      // Elo (if available) — key matches _player_key(): "model::effort" or "model"
       var gameElo = eloData[game.id];
-      var playerElo = gameElo && p.model ? gameElo[p.model] : null;
+      var eloKey = p.model;
+      if (eloKey && p.reasoningEffort) eloKey += "::" + p.reasoningEffort;
+      var playerElo = gameElo && eloKey ? gameElo[eloKey] : null;
       if (playerElo) {
         var eloEl = document.createElement("div");
         eloEl.className = "player-elo";
@@ -915,8 +917,9 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     if (!tabsEl) return;
     var filters = getFilters();
 
-    // Count games per model, respecting current format filter
+    // Count games per model+effort, respecting current format filter
     var counts = {};
+    var tabMeta = {}; // key -> {model, effort}
     games.forEach(function (game) {
       if (filters.format) {
         var fmt = getGameFormat(game.deckType);
@@ -924,18 +927,23 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
       }
       var seen = {};
       (game.players || []).forEach(function (p) {
-        if (p.model && !seen[p.model]) {
-          seen[p.model] = true;
-          counts[p.model] = (counts[p.model] || 0) + 1;
+        if (!p.model) return;
+        var key = p.model;
+        var effort = p.reasoningEffort || "";
+        if (effort) key += "::" + effort;
+        if (!seen[key]) {
+          seen[key] = true;
+          counts[key] = (counts[key] || 0) + 1;
+          if (!tabMeta[key]) tabMeta[key] = { model: p.model, effort: effort };
         }
       });
     });
 
-    var models = Object.keys(counts).sort(function (a, b) {
+    var keys = Object.keys(counts).sort(function (a, b) {
       return counts[b] - counts[a] || a.localeCompare(b);
     });
 
-    if (models.length === 0) {
+    if (keys.length === 0) {
       tabsEl.innerHTML = "";
       return;
     }
@@ -946,21 +954,24 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     label.textContent = "Model:";
     tabsEl.appendChild(label);
 
-    models.forEach(function (model) {
+    keys.forEach(function (key) {
+      var meta = tabMeta[key];
+      var isActive = filters.model === meta.model && (filters.effort || "") === meta.effort;
       var btn = document.createElement("button");
-      btn.className = "model-tab" + (filters.model === model ? " active" : "");
-      var displayName = model;
+      btn.className = "model-tab" + (isActive ? " active" : "");
+      var displayName = meta.model;
       var slash = displayName.indexOf("/");
       if (slash !== -1) displayName = displayName.substring(slash + 1);
-      btn.innerHTML = displayName + ' <span class="tab-count">(' + counts[model] + ")</span>";
+      if (meta.effort) displayName += " (" + meta.effort + ")";
+      btn.innerHTML = displayName + ' <span class="tab-count">(' + counts[key] + ")</span>";
       btn.onclick = function () {
         var f = getFilters();
-        if (f.model === model) {
+        if (f.model === meta.model && (f.effort || "") === meta.effort) {
           f.model = "";
           f.effort = "";
         } else {
-          f.model = model;
-          f.effort = "";
+          f.model = meta.model;
+          f.effort = meta.effort;
         }
         setFilters(f);
         renderAll();

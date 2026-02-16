@@ -133,7 +133,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
                 <td class="model-name">{m.modelName}</td>
                 <td>{m.provider}</td>
                 <td class="num">{m.rating}</td>
-                <td class="num"><a class="games-link" href={`/games?model=${encodeURIComponent(m.modelId)}`}>{m.gamesPlayed}</a></td>
+                <td class="num"><a class="games-link" href={`/games?model=${encodeURIComponent(m.modelId)}${m.reasoningEffort ? '&effort=' + encodeURIComponent(m.reasoningEffort) : ''}`}>{m.gamesPlayed}</a></td>
                 <td class="num col-winrate">{(m.winRate * 100).toFixed(1)}%</td>
                 <td class="num">{formatTime(m.avgThinkingTimeSecs ?? 0)}</td>
                 <td class="num">{(m.avgBlundersPerGame ?? 0).toFixed(1)}</td>
@@ -307,6 +307,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
   searchInput.addEventListener('input', applyFilters);
   providerFilter.addEventListener('change', applyFilters);
+  updateGamesLinks();
   }
 </script>
 
