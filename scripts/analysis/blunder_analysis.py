@@ -119,10 +119,19 @@ def _format_decisions(decisions: list[dict]) -> str:
         if d["is_forced"]:
             continue
         gs = d.get("game_state", {})
+        deciding_player = d["player"]
         players: list[str] = []
         for p in gs.get("players", []):
             bf = p.get("battlefield", [])
-            s = f"{p['name']}: {p.get('life', '?')}hp hand={p.get('hand_count', '?')}"
+            if p["name"] == deciding_player:
+                # Show full hand for the deciding player
+                hand = p.get("hand", [])
+                if hand:
+                    s = f"{p['name']}: {p.get('life', '?')}hp hand=[{', '.join(str(x) for x in hand)}]"
+                else:
+                    s = f"{p['name']}: {p.get('life', '?')}hp hand=0"
+            else:
+                s = f"{p['name']}: {p.get('life', '?')}hp hand={p.get('hand_count', '?')}"
             if bf:
                 s += f" bf=[{', '.join(str(x) for x in bf[:8])}]"
             players.append(s)

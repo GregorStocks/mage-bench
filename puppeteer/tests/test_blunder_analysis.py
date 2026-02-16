@@ -40,7 +40,13 @@ def _make_decision(**overrides: object) -> dict:
             "turn": 1,
             "phase": "PRECOMBAT_MAIN",
             "players": [
-                {"name": "Alice", "life": 20, "hand_count": 2, "battlefield": []},
+                {
+                    "name": "Alice",
+                    "life": 20,
+                    "hand": ["Mountain", "Lightning Bolt"],
+                    "hand_count": 2,
+                    "battlefield": [],
+                },
                 {"name": "Bob", "life": 20, "hand_count": 7, "battlefield": ["Grizzly Bears"]},
             ],
         },
@@ -176,6 +182,13 @@ class TestFormatDecisions:
         assert "Lightning Bolt" in result
         assert "I should play a land." in result
         assert "Bob" in result
+
+    def test_shows_hand_for_deciding_player_only(self) -> None:
+        result = _format_decisions([_make_decision()])
+        # Alice (deciding player) should show full hand
+        assert "hand=[Mountain, Lightning Bolt]" in result
+        # Bob (opponent) should only show hand count
+        assert "Bob: 20hp hand=7" in result
 
     def test_truncates_reasoning(self) -> None:
         long_reasoning = "x" * 1000
