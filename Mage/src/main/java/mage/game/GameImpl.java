@@ -1797,6 +1797,17 @@ public abstract class GameImpl implements Game {
                         GameState restoredState = restoreState(rollbackBookmarkOnPriorityStart, "Game error: " + e);
                         rollbackBookmarkOnPriorityStart = 0;
                         if (restoredState != null) {
+                            // Remove the stack item that caused the error — it's back on the
+                            // stack after restore and would fail identically on retry.
+                            if (!state.getStack().isEmpty()) {
+                                StackObject offending = state.getStack().peek();
+                                state.getStack().remove(offending, this);
+                                String msg = "Dropped " + offending.getLogName()
+                                        + " from stack to recover from game error";
+                                logger.error(msg);
+                                this.fireErrorEvent(msg, e);
+                                this.informPlayers(msg);
+                            }
                             this.informPlayers(String.format("Auto-restored to %s due game error: %s", restoredState, e));
                         } else {
                             throw new MageException("Can't auto-restore to prev state after error: " + e);

@@ -180,6 +180,7 @@ public class BridgeCallbackHandler {
     private volatile long lastStallNudgeAt = 0;
     private static final long STALL_NUDGE_MS = 10_000; // speculative nudge interval (fresh pass, not subject to 30s server timeout)
     private static final long STALL_NUDGE_FALLBACK_MS = 60_000; // nudge even without transport evidence after 60s
+    private static final long ZOMBIE_GAME_TIMEOUT_MS = 60 * 60 * 1000; // no actionable callback for 60min = zombie
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
@@ -2848,6 +2849,16 @@ public class BridgeCallbackHandler {
                         session.sendPlayerBoolean(gameId, false);
                         startTime = System.currentTimeMillis();
                     }
+                }
+
+                // Zombie game detection: no actionable callback for too long means the
+                // server game thread is dead. Declare the game over so the pilot exits.
+                long absoluteIdle = now - lastActionableCallbackAt;
+                if (absoluteIdle > ZOMBIE_GAME_TIMEOUT_MS) {
+                    logger.error("[" + client.getUsername() + "] Zombie game detected: "
+                            + "no actionable callback for " + absoluteIdle + "ms, declaring game dead");
+                    logError("Zombie game detected: no actionable callback for " + absoluteIdle + "ms");
+                    playerDead = true;
                 }
             }
         }
