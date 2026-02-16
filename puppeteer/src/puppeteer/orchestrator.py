@@ -917,6 +917,7 @@ def _setup_game(
     log_dir: Path,
     timestamp: str,
     used_player_names: set[str] | None = None,
+    cross_game_round_robin: list[tuple[str, ...]] | None = None,
 ) -> GameSession:
     """Set up a single game: create dir, load config, start spectator + clients.
 
@@ -940,7 +941,10 @@ def _setup_game(
             overlay_host=base_config.overlay_host,
             num_games=num_games,
         )
-        game_config.load_config(cross_game_used_names=used_player_names)
+        game_config.load_config(
+            cross_game_used_names=used_player_names,
+            cross_game_round_robin=cross_game_round_robin,
+        )
         game_config.port = base_config.port
         game_config.timestamp = timestamp
         # Each spectator needs a unique username on the server to avoid
@@ -1269,6 +1273,9 @@ def main() -> int:
         # Track player names across games to prevent duplicate XMage
         # usernames, which cause an infinite disconnect/reconnect loop.
         used_player_names: set[str] = set()
+        # Track round-robin matchups across games so each game in a batch
+        # picks a different coverage-optimal pairing.
+        cross_game_round_robin: list[tuple[str, ...]] = []
         for i in range(config.num_games):
             try:
                 session = _setup_game(
@@ -1280,6 +1287,7 @@ def main() -> int:
                     log_dir,
                     config.timestamp,
                     used_player_names=used_player_names if batch else None,
+                    cross_game_round_robin=cross_game_round_robin if batch else None,
                 )
             except (TimeoutError, RuntimeError) as e:
                 if not batch:
