@@ -1,0 +1,161 @@
+---
+import Base from '../layouts/Base.astro';
+import benchmarkData from '../data/benchmark-results.json';
+
+const excludedGames = (benchmarkData as any).excludedGames ?? 0;
+const minEpoch = (benchmarkData as any).minEpoch ?? null;
+---
+
+<Base title="Methodology">
+  <h1>Methodology</h1>
+
+  <h2>Ratings</h2>
+
+  <p>
+    <strong>1v1</strong> ratings use
+    <a href="https://en.wikipedia.org/wiki/Elo_rating_system" target="_blank" rel="noopener">Elo</a>
+    (K=32). Standard, Modern, and Legacy games share one rating pool.
+    <strong>Commander</strong> ratings use
+    <a href="https://openskill.me/" target="_blank" rel="noopener">OpenSkill</a>
+    PlackettLuce with winner-takes-all scoring: the winner is rank 1 and all other
+    players tie at rank 2. Elimination order among non-winners is not treated as a
+    meaningful signal. Both start at <strong>1600</strong>.
+  </p>
+
+  {excludedGames > 0 && minEpoch && (
+    <p>
+      {excludedGames} {excludedGames === 1 ? 'game is' : 'games are'} excluded
+      from ratings (harness epoch &lt; {minEpoch}). The harness epoch is a monotonic
+      integer that increments when MCP tools, priority semantics, or pilot logic change
+      enough to make game results non-comparable. Games from older epochs are still
+      viewable but don't contribute to ratings.
+    </p>
+  )}
+
+  <h2>Blunder Index</h2>
+
+  <p>
+    Each game is analyzed by a separate LLM (Claude Opus) that reviews every non-forced
+    decision and flags blunders with a severity level. The <strong>Blunder Index</strong>
+    measures how many severity-weighted blunders a model makes per game turn. Lower is better.
+  </p>
+
+  <h3>Severity weights</h3>
+
+  <table class="weights-table">
+    <thead>
+      <tr>
+        <th>Severity</th>
+        <th>Weight</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Questionable</td>
+        <td class="num">0.5</td>
+        <td>Probably suboptimal but debatable</td>
+      </tr>
+      <tr>
+        <td>Minor</td>
+        <td class="num">1</td>
+        <td>Clearly suboptimal, small value lost</td>
+      </tr>
+      <tr>
+        <td>Moderate</td>
+        <td class="num">2</td>
+        <td>Real mistake with meaningful consequences</td>
+      </tr>
+      <tr>
+        <td>Major</td>
+        <td class="num">4</td>
+        <td>Game-losing or close to it</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Formula</h3>
+
+  <p>
+    For each game: <code>score = sum(weight for each blunder) / total_turns</code>.
+    The leaderboard shows the average score across all games for that model.
+  </p>
+
+  <h3>Interpretation</h3>
+
+  <p>
+    A score of <strong>0</strong> means no blunders were found.
+    A score of <strong>0.40</strong> means the model averages the equivalent of one major
+    blunder every 10 turns, or one minor blunder per turn in a short game.
+    Higher is worse.
+  </p>
+</Base>
+
+<style>
+  h1 {
+    color: #e94560;
+    margin-bottom: 0.5rem;
+  }
+
+  h2 {
+    color: #e0e0e0;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #0f3460;
+    padding-bottom: 0.3rem;
+  }
+
+  h3 {
+    color: #a0a0b8;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #a0a0b8;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: #e94560;
+  }
+
+  code {
+    background: #16213e;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.85em;
+    color: #e0e0e0;
+  }
+
+  .weights-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .weights-table th {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid #0f3460;
+    color: #a0a0b8;
+    font-weight: 600;
+  }
+
+  .weights-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
+    color: #e0e0e0;
+  }
+
+  .weights-table .num {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .weights-table tbody tr:nth-child(even) {
+    background: rgba(22, 33, 62, 0.3);
+  }
+</style>
