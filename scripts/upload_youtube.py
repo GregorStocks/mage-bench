@@ -226,11 +226,11 @@ def upload_to_youtube(game_dir: Path) -> str | None:
         status, response = request.next_chunk()
         if status:
             pct = int(status.progress() * 100)
-            print(f"  Upload progress: {pct}%")
+            print(f"\r  Upload progress: {pct}%", end="", flush=True)
 
     video_id = response["id"]
     url = f"https://youtu.be/{video_id}"
-    print(f"  Upload complete: {url}")
+    print(f"\r  Upload complete: {url}  ")
 
     # Add to playlist
     try:
