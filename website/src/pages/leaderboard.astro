@@ -95,14 +95,14 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
                 data-rating={m.rating}
                 data-games-played={m.gamesPlayed}
                 data-win-rate={m.winRate}
-                data-blunder-score={m.blunderScore ?? 0}
+                data-blunder-score={m.blunderScore}
                 data-avg-api-cost={m.avgApiCost}
               >
                 <td class="rank-cell">{i + 1}</td>
                 <td class="model-name">{m.modelName}</td>
                 <td>{m.provider}</td>
                 <td class="num">{m.rating}</td>
-                <td class="num">{m.blunderScore != null ? <span class={`blunder-val ${m.blunderScore < 0.3 ? 'blunder-good' : m.blunderScore < 0.8 ? 'blunder-ok' : 'blunder-bad'}`}>{m.blunderScore.toFixed(2)}</span> : '\u2014'}</td>
+                <td class="num"><span class={`blunder-val ${m.blunderScore < 0.3 ? 'blunder-good' : m.blunderScore < 0.8 ? 'blunder-ok' : 'blunder-bad'}`}>{m.blunderScore.toFixed(2)}</span></td>
                 <td class="num"><a class="games-link" href={`/games?model=${encodeURIComponent(m.modelId)}${m.reasoningEffort ? '&effort=' + encodeURIComponent(m.reasoningEffort) : ''}`}>{m.gamesPlayed}</a></td>
                 <td class="num col-winrate">{(m.winRate * 100).toFixed(1)}%</td>
                 <td class="num">${m.avgApiCost.toFixed(2)}</td>

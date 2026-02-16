@@ -5,6 +5,8 @@ import json
 import tempfile
 from pathlib import Path
 
+import pytest
+
 from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.leaderboard import (
     _player_key,
@@ -35,6 +37,7 @@ def _make_game(
         "totalTurns": 10,
         "winner": winner,
         "players": players,
+        "annotations": [],
     }
 
 
@@ -1038,7 +1041,7 @@ def test_generate_leaderboard_blunder_score_includes_questionable():
 
 
 def test_generate_leaderboard_blunder_score_no_annotations():
-    """Games without annotations should produce blunderScore=None."""
+    """Games without annotations should crash."""
     games = [
         _make_game(
             "g1",
@@ -1047,18 +1050,13 @@ def test_generate_leaderboard_blunder_score_no_annotations():
             [_pilot("Alice", "a/model-a", placement=1), _pilot("Bob", "b/model-b", placement=2)],
         ),
     ]
-    # No annotations key at all
-    result, _ = generate_leaderboard(
-        games,
-        {},
-    )
-
-    alice = next(m for m in result["models"] if m["modelName"] == "Model A")
-    assert alice["blunderScore"] is None
+    del games[0]["annotations"]
+    with pytest.raises(AssertionError, match="no annotations"):
+        generate_leaderboard(games, {})
 
 
 def test_generate_leaderboard_blunder_score_zero_turns():
-    """Games with totalTurns=0 should produce blunderScore=None."""
+    """Games with totalTurns=0 should crash."""
     game = _make_game(
         "g1",
         "20260101_000000",
@@ -1069,10 +1067,8 @@ def test_generate_leaderboard_blunder_score_zero_turns():
     game["annotations"] = [
         {"type": "blunder", "player": "Alice", "severity": "major"},
     ]
-    result, _ = generate_leaderboard([game], {})
-
-    alice = next(m for m in result["models"] if m["modelName"] == "Model A")
-    assert alice["blunderScore"] is None
+    with pytest.raises(AssertionError, match="no turns"):
+        generate_leaderboard([game], {})
 
 
 def test_ratings_separate_by_effort():

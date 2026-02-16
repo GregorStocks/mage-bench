@@ -454,9 +454,10 @@ def generate_leaderboard(
             stats[key]["total_tool_calls_ok"] += p.get("toolCallsOk", 0)
             stats[key]["total_tool_calls_failed"] += p.get("toolCallsFailed", 0)
             stats[key]["total_thinking_time"] += p.get("thinkingTimeSecs", 0.0)
-            if game.get("annotations") is not None and total_turns > 0:
-                stats[key]["total_annotated_turns"] += total_turns
-                stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(p["name"], 0)
+            assert game.get("annotations") is not None, f"Game {game.get('id')} has no annotations"
+            assert total_turns > 0, f"Game {game.get('id')} has no turns"
+            stats[key]["total_annotated_turns"] += total_turns
+            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(p["name"], 0)
 
     # Build models list
     models: list[dict[str, str | int | float | None]] = []
@@ -477,7 +478,8 @@ def generate_leaderboard(
         avg_tool_calls_failed = s["total_tool_calls_failed"] / games_played
         avg_thinking_time = s["total_thinking_time"] / games_played
         total_annotated_turns = int(s["total_annotated_turns"])
-        blunder_score = s["total_weighted_blunders"] / total_annotated_turns if total_annotated_turns > 0 else None
+        assert total_annotated_turns > 0, f"Model {model_id} has no annotated turns"
+        blunder_score = s["total_weighted_blunders"] / total_annotated_turns
         entry: dict[str, str | int | float | None] = {
             "modelId": model_id,
             "modelName": display_name,
@@ -489,7 +491,7 @@ def generate_leaderboard(
             "avgToolCallsOk": round(avg_tool_calls_ok, 1),
             "avgToolCallsFailed": round(avg_tool_calls_failed, 1),
             "avgThinkingTimeSecs": round(avg_thinking_time, 1),
-            "blunderScore": round(blunder_score, 2) if blunder_score is not None else None,
+            "blunderScore": round(blunder_score, 2),
         }
         if effort:
             entry["reasoningEffort"] = effort
