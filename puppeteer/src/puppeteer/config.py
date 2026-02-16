@@ -6,7 +6,7 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from puppeteer.matchmaker import get_yente_pool
+from puppeteer.matchmaker import get_round_robin_matchup, get_yente_pool
 
 
 @dataclass
@@ -210,8 +210,9 @@ def _resolve_randoms(
     toolsets: dict[str, list[str]] | None = None,
     cross_game_used_names: set[str] | None = None,
     yente_pool: list[str] | None = None,
+    round_robin_picks: list[str] | None = None,
 ) -> None:
-    """Resolve 'random'/'yente' preset/personality values and apply defaults.
+    """Resolve 'random'/'yente'/'round-robin' preset/personality values and apply defaults.
 
     Each player tuple is (player, had_explicit_name). Modifies players in-place.
     Avoids duplicate personalities and presets across players.
@@ -222,8 +223,12 @@ def _resolve_randoms(
 
     yente_pool: preset names for top-rated models (from matchmaker.get_yente_pool).
     Required when any player has preset="yente".
+
+    round_robin_picks: ordered preset names for coverage-optimal matchup
+    (from matchmaker.get_round_robin_matchup). Required when any player has
+    preset="round-robin". Consumed in order via pop(0).
     """
-    has_randoms = any(p.preset in ("random", "yente") or p.personality == "random" for p, _ in players)
+    has_randoms = any(p.preset in ("random", "yente", "round-robin") or p.personality == "random" for p, _ in players)
     if has_randoms:
         _validate_name_parts(personalities, presets_data, models_data)
 
@@ -267,6 +272,15 @@ def _resolve_randoms(
                 f"Pool has {len(yente_pool)} presets but need more unique picks."
             )
             chosen_preset = random.choice(remaining)
+            used_presets.add(chosen_preset)
+            player.preset = chosen_preset
+
+        # Resolve round-robin preset (coverage-optimal matchup from matchmaker)
+        elif player.preset == "round-robin":
+            assert round_robin_picks, (
+                "preset='round-robin' requires round_robin_picks (from matchmaker.get_round_robin_matchup)"
+            )
+            chosen_preset = round_robin_picks.pop(0)
             used_presets.add(chosen_preset)
             player.preset = chosen_preset
 
@@ -421,12 +435,21 @@ class Config:
     pilot_players: list[PilotPlayer] = field(default_factory=list)
     cpu_players: list[CpuPlayer] = field(default_factory=list)
 
-    def load_config(self, cross_game_used_names: set[str] | None = None) -> None:
+    def load_config(
+        self,
+        cross_game_used_names: set[str] | None = None,
+        cross_game_round_robin: list[tuple[str, ...]] | None = None,
+    ) -> None:
         """Load player configuration from JSON file.
 
         cross_game_used_names: names already claimed by earlier games in a
         parallel batch.  Passed to _resolve_randoms so it can re-roll
         personalities to avoid duplicate XMage usernames.
+
+        cross_game_round_robin: matchups already selected by earlier games in a
+        parallel batch.  Passed to get_round_robin_matchup as extra_matchups so
+        each game in a batch picks a different coverage-optimal pairing.
+        The selected matchup is appended to this list for the next game.
         """
         if self.config_file is None:
             # Try default locations in order
@@ -506,7 +529,19 @@ class Config:
             if has_yente:
                 yp = get_yente_pool(self.deck_type)
 
-            # Second pass: resolve random/yente presets/personalities and generate names
+            # Compute round-robin picks if any player uses preset="round-robin"
+            num_rr_seats = sum(1 for p, _ in llm_players if p.preset == "round-robin")
+            rrp: list[str] | None = None
+            if num_rr_seats > 0:
+                rrp = get_round_robin_matchup(
+                    self.deck_type,
+                    num_rr_seats,
+                    extra_matchups=cross_game_round_robin,
+                )
+                if cross_game_round_robin is not None:
+                    cross_game_round_robin.append(tuple(rrp))
+
+            # Second pass: resolve random/yente/round-robin presets/personalities and generate names
             _resolve_randoms(
                 llm_players,
                 personalities,
@@ -516,6 +551,7 @@ class Config:
                 toolsets,
                 cross_game_used_names=cross_game_used_names,
                 yente_pool=yp,
+                round_robin_picks=rrp,
             )
 
     def get_players_config_json(self) -> str:
