@@ -401,9 +401,9 @@ def parse_args() -> Config:
         help="Record game to video file (optionally specify output path)",
     )
     parser.add_argument(
-        "--no-overlay",
+        "--overlay",
         action="store_true",
-        help="Disable local overlay server in streaming spectator",
+        help="Enable local overlay server in streaming spectator (requires website-build)",
     )
     parser.add_argument(
         "--overlay-port",
@@ -435,7 +435,7 @@ def parse_args() -> Config:
         streaming=args.streaming,
         record=bool(args.record),
         record_output=record_output,
-        overlay=not args.no_overlay,
+        overlay=args.overlay,
         overlay_port=args.overlay_port,
         overlay_host=args.overlay_host,
         num_games=args.games,

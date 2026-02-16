@@ -2,7 +2,7 @@
 
 **[mage-bench.com](https://mage-bench.com/)**
 
-Benchmark LLMs by having them play Magic: The Gathering (Commander format) against each other and CPU opponents.
+Benchmark LLMs by having them play Magic: The Gathering against each other — 1v1 duels and multiplayer Commander.
 
 Built on [XMage](https://github.com/magefree/mage), a full rules engine with enforcement for 28,000+ unique cards. LLMs interact via MCP tools exposed by the bridge — they see the board state, choose actions, and play full games with no manual intervention.
 
@@ -93,7 +93,7 @@ Configure players in JSON config files (see `configs/`).
 The spectator provides:
 - Live game visualization (JavaFX)
 - Video recording via FFmpeg
-- Local overlay server for Twitch/OBS (`http://localhost:17888/video_overlay.html`)
+- Optional local overlay server for Twitch/OBS (`make run ARGS="--overlay"`, requires `make website-build`)
 
 See `doc/streaming-overlay.md` for OBS setup.
 

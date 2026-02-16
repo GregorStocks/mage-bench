@@ -375,7 +375,7 @@ class Config:
     streaming: bool = False
     record: bool = False
     record_output: Path | None = None
-    overlay: bool = True
+    overlay: bool = False
     overlay_port: int = 17888
     overlay_host: str = "127.0.0.1"
     num_games: int = 1  # Number of parallel games on the same server

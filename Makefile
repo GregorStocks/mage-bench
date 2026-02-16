@@ -82,12 +82,11 @@ website-build: leaderboard
 #   make run CONFIG=commander-frontier    # frontier models from 4 major labs
 #   make run CONFIG=path/to/x.json  # custom config file
 # Pass OUTPUT to specify recording path: make run OUTPUT=/path/to/video.mov
-# Overlay controls: make run ARGS="--overlay-port 18080"
-# Disable overlay: make run ARGS="--no-overlay"
+# Enable overlay: make run ARGS="--overlay" (requires website-build)
 # Parallel games: make run CONFIG=commander-gauntlet GAMES=3
 CONFIG ?= standard-dumb
 .PHONY: run
-run: website-build
+run:
 	@CONFIG_PATH="$(CONFIG)"; \
 	case "$$CONFIG_PATH" in \
 	  */*|*.json) ;; \
