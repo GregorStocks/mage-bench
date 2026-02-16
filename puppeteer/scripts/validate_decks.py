@@ -23,15 +23,11 @@ DEFAULT_DECK_DIR = PROJECT_ROOT / "Mage.Client" / "release" / "sample-decks"
 
 # Matches: cards.add(new SetCardInfo("Card Name", 123, ...))
 # Handles escaped quotes in card names like "Kongming, \"Sleeping Dragon\""
-_SET_CARD_RE = re.compile(
-    r'cards\.add\(new SetCardInfo\("((?:[^"\\]|\\.)+)",\s*"?(\d+)"?\s*,'
-)
+_SET_CARD_RE = re.compile(r'cards\.add\(new SetCardInfo\("((?:[^"\\]|\\.)+)",\s*"?(\d+)"?\s*,')
 
 # Matches deck lines: COUNT [SET:NUM] Card Name
 # Also handles SB: prefix
-_DECK_LINE_RE = re.compile(
-    r"^(?:SB:\s*)?(\d+)\s+\[([A-Z0-9]+):(\d+)\]\s+(.+)$"
-)
+_DECK_LINE_RE = re.compile(r"^(?:SB:\s*)?(\d+)\s+\[([A-Z0-9]+):(\d+)\]\s+(.+)$")
 
 # Matches the set code from the constructor: super("Name", "CODE", ...)
 _SET_CODE_RE = re.compile(r'super\("[^"]*",\s*"([^"]+)"')
@@ -63,9 +59,7 @@ def build_card_database(sets_dir: Path) -> set[tuple[str, str]]:
     return db
 
 
-def validate_deck(
-    deck_path: Path, card_db: set[tuple[str, str]]
-) -> list[tuple[str, str, str, int]]:
+def validate_deck(deck_path: Path, card_db: set[tuple[str, str]]) -> list[tuple[str, str, str, int]]:
     """Validate a deck file. Returns list of (setCode, cardNumber, cardName, line_num) for missing cards."""
     missing = []
     for line_num, line in enumerate(deck_path.read_text().splitlines(), 1):
@@ -85,10 +79,7 @@ def validate_deck(
 
 def main() -> None:
     args = sys.argv[1:]
-    if args:
-        deck_dirs = [Path(a) for a in args]
-    else:
-        deck_dirs = [DEFAULT_DECK_DIR]
+    deck_dirs = [Path(a) for a in args] if args else [DEFAULT_DECK_DIR]
 
     print(f"Building card database from {SETS_DIR}...")
     card_db = build_card_database(SETS_DIR)
