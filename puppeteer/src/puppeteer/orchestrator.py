@@ -1057,47 +1057,58 @@ def _setup_game(
         + len(game_config.staller_players)
     )
 
-    if headless_count > 0:
-        _wait_for_spectator_table(spectator_log, spectator_proc, timeout=300)
+    try:
+        if headless_count > 0:
+            _wait_for_spectator_table(spectator_log, spectator_proc, timeout=300)
 
-        # Release overlay reservation now that spectator has bound it
+            # Release overlay reservation now that spectator has bound it
+            if overlay_reservation is not None:
+                overlay_reservation.release()
+                session.overlay_reservation = None
+
+            # Start headless clients
+            for player in game_config.sleepwalker_players:
+                log_path = game_dir / f"{player.name}_mcp.log"
+                print(f"{game_label}Sleepwalker ({player.name}) log: {log_path}")
+                start_sleepwalker_client(pm, project_root, game_config, player.name, player.deck, log_path)
+
+            for player in game_config.pilot_players:
+                log_path = game_dir / f"{player.name}_pilot.log"
+                print(f"{game_label}Pilot ({player.name}) log: {log_path}")
+                proc = start_pilot_client(pm, project_root, game_config, player, log_path, game_dir=game_dir)
+                session.pilot_procs.append((player.name, proc))
+
+            for player in game_config.potato_players:
+                log_path = game_dir / f"{player.name}_mcp.log"
+                print(f"{game_label}Potato ({player.name}) log: {log_path}")
+                start_potato_client(pm, project_root, game_config, player.name, player.deck, log_path)
+
+            for player in game_config.staller_players:
+                log_path = game_dir / f"{player.name}_mcp.log"
+                print(f"{game_label}Staller ({player.name}) log: {log_path}")
+                start_potato_client(
+                    pm, project_root, game_config, player.name, player.deck, log_path, personality="staller"
+                )
+
+            # In parallel mode, wait for the game to actually start (table leaves
+            # WAITING state) before returning.  This prevents the next game's
+            # headless clients from joining this table by mistake.
+            if batch:
+                _wait_for_game_start(spectator_log, spectator_proc)
+        else:
+            if overlay_reservation is not None:
+                overlay_reservation.release()
+                session.overlay_reservation = None
+    except (TimeoutError, RuntimeError):
+        # Clean up processes for this game before propagating the error.
+        if spectator_proc.poll() is None:
+            spectator_proc.terminate()
+        for _, proc in session.pilot_procs:
+            if proc.poll() is None:
+                proc.terminate()
         if overlay_reservation is not None:
             overlay_reservation.release()
-            session.overlay_reservation = None
-
-        # Start headless clients
-        for player in game_config.sleepwalker_players:
-            log_path = game_dir / f"{player.name}_mcp.log"
-            print(f"{game_label}Sleepwalker ({player.name}) log: {log_path}")
-            start_sleepwalker_client(pm, project_root, game_config, player.name, player.deck, log_path)
-
-        for player in game_config.pilot_players:
-            log_path = game_dir / f"{player.name}_pilot.log"
-            print(f"{game_label}Pilot ({player.name}) log: {log_path}")
-            proc = start_pilot_client(pm, project_root, game_config, player, log_path, game_dir=game_dir)
-            session.pilot_procs.append((player.name, proc))
-
-        for player in game_config.potato_players:
-            log_path = game_dir / f"{player.name}_mcp.log"
-            print(f"{game_label}Potato ({player.name}) log: {log_path}")
-            start_potato_client(pm, project_root, game_config, player.name, player.deck, log_path)
-
-        for player in game_config.staller_players:
-            log_path = game_dir / f"{player.name}_mcp.log"
-            print(f"{game_label}Staller ({player.name}) log: {log_path}")
-            start_potato_client(
-                pm, project_root, game_config, player.name, player.deck, log_path, personality="staller"
-            )
-
-        # In parallel mode, wait for the game to actually start (table leaves
-        # WAITING state) before returning.  This prevents the next game's
-        # headless clients from joining this table by mistake.
-        if batch:
-            _wait_for_game_start(spectator_log, spectator_proc)
-    else:
-        if overlay_reservation is not None:
-            overlay_reservation.release()
-            session.overlay_reservation = None
+        raise
 
     return session
 
@@ -1267,17 +1278,28 @@ def main() -> int:
         # usernames, which cause an infinite disconnect/reconnect loop.
         used_player_names: set[str] = set()
         for i in range(config.num_games):
-            session = _setup_game(
-                i,
-                config.num_games,
-                config,
-                pm,
-                project_root,
-                log_dir,
-                config.timestamp,
-                used_player_names=used_player_names if batch else None,
-            )
+            try:
+                session = _setup_game(
+                    i,
+                    config.num_games,
+                    config,
+                    pm,
+                    project_root,
+                    log_dir,
+                    config.timestamp,
+                    used_player_names=used_player_names if batch else None,
+                )
+            except (TimeoutError, RuntimeError) as e:
+                if not batch:
+                    raise
+                game_label = f"Game {i + 1}/{config.num_games}"
+                print(f"\n{game_label}: failed to launch, skipping: {e}")
+                continue
             sessions.append(session)
+
+        if batch and not sessions:
+            print("ERROR: No games launched successfully")
+            return 1
 
         # Bring the GUI window to the foreground on macOS (single game only)
         if not batch:

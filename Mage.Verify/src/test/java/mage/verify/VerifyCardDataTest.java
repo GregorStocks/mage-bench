@@ -590,6 +590,7 @@ public class VerifyCardDataTest {
 
     @Test
     public void test_checkSampleDecks() {
+        CardScanner.scan();
         Collection<String> errorsList = new ArrayList<>();
 
         // workaround to run verify test from IDE or from maven's project root folder
