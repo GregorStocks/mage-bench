@@ -1,9 +1,0 @@
-{
-  "title": "GameWorker.call() never notifies clients when game thread crashes",
-  "description": "When game.start() throws in GameWorker.call(), the catch blocks only log the error. gameController.endGameWithResult() is never called, so clients are never told the game ended. Bridge clients become zombies waiting forever for callbacks from a dead game thread.\n\nFix: call gameController.endGameWithResult(game.getWinner()) in both catch blocks.",
-  "status": "closed",
-  "priority": 2,
-  "type": "bug",
-  "labels": ["server"],
-  "created_at": "2026-02-15T21:50:00.000000-08:00"
-}
