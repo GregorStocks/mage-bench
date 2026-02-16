@@ -24,6 +24,7 @@ import argparse
 import json
 import os
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -55,6 +56,9 @@ PRICES: dict[str, tuple[float, float]] = {
     SONNET: (3.0, 15.0),
     FLASH: (0.30, 2.50),
 }
+
+# Max parallel API calls for per-decision approaches
+MAX_WORKERS = 8
 
 
 def _compute_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
@@ -371,6 +375,24 @@ Return ONLY a JSON array — either empty [] or containing one annotation object
 Use the snapshot= number from the decision header as snapshotIndex."""
 
 
+def _eval_one_decision(
+    client: OpenAI,
+    model: str,
+    system: str,
+    user_msg: str,
+    label: str,
+    thinking: bool = False,
+) -> tuple[CallTrace, list[dict]]:
+    """Evaluate a single decision and return (trace, annotations)."""
+    trace = _call_llm(client, model, system, user_msg, thinking=thinking, label=label)
+    anns: list[dict] = []
+    try:
+        anns = _parse_json_array(trace.response_text)
+    except (json.JSONDecodeError, AssertionError):
+        print(f"    WARNING: Failed to parse response for {label}")
+    return trace, anns
+
+
 def _approach_per_decision(
     client: OpenAI,
     data: dict,
@@ -384,27 +406,31 @@ def _approach_per_decision(
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
     non_forced = [d for d in decisions if not d["is_forced"]]
 
-    for d in non_forced:
+    def make_task(d: dict) -> tuple[str, str, str]:
         formatted = _format_decisions([d])
         user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
+        label = f"decision_{d['decision_index']}"
+        return user_msg, label, PER_DECISION_SYSTEM
 
-        trace = _call_llm(
-            client,
-            model,
-            PER_DECISION_SYSTEM,
-            user_msg,
-            thinking=thinking,
-            label=f"decision_{d['decision_index']}",
-        )
-        result.calls.append(trace)
-
-        try:
-            anns = _parse_json_array(trace.response_text)
-            result.annotations.extend(anns)
-        except (json.JSONDecodeError, AssertionError):
-            print(
-                f"    WARNING: Failed to parse response for decision {d['decision_index']}"
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {}
+        for d in non_forced:
+            user_msg, label, system = make_task(d)
+            fut = pool.submit(
+                _eval_one_decision, client, model, system, user_msg, label, thinking
             )
+            futures[fut] = d["decision_index"]
+
+        # Collect results, preserving decision order for deterministic output
+        results_by_idx: dict[int, tuple[CallTrace, list[dict]]] = {}
+        for fut in as_completed(futures):
+            idx = futures[fut]
+            results_by_idx[idx] = fut.result()
+
+    for d in non_forced:
+        trace, anns = results_by_idx[d["decision_index"]]
+        result.calls.append(trace)
+        result.annotations.extend(anns)
 
     return result
 
@@ -500,27 +526,26 @@ def _approach_per_decision_minimal(
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
     non_forced = [d for d in decisions if not d["is_forced"]]
 
-    for d in non_forced:
-        formatted = _format_decisions([d])
-        # No game overview — the decision text already has board state
-        user_msg = f"## Decision\n\n{formatted}"
-
-        trace = _call_llm(
-            client,
-            model,
-            MINIMAL_SYSTEM,
-            user_msg,
-            label=f"decision_{d['decision_index']}",
-        )
-        result.calls.append(trace)
-
-        try:
-            anns = _parse_json_array(trace.response_text)
-            result.annotations.extend(anns)
-        except (json.JSONDecodeError, AssertionError):
-            print(
-                f"    WARNING: Failed to parse response for decision {d['decision_index']}"
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {}
+        for d in non_forced:
+            formatted = _format_decisions([d])
+            user_msg = f"## Decision\n\n{formatted}"
+            label = f"decision_{d['decision_index']}"
+            fut = pool.submit(
+                _eval_one_decision, client, model, MINIMAL_SYSTEM, user_msg, label
             )
+            futures[fut] = d["decision_index"]
+
+        results_by_idx: dict[int, tuple[CallTrace, list[dict]]] = {}
+        for fut in as_completed(futures):
+            idx = futures[fut]
+            results_by_idx[idx] = fut.result()
+
+    for d in non_forced:
+        trace, anns = results_by_idx[d["decision_index"]]
+        result.calls.append(trace)
+        result.annotations.extend(anns)
 
     return result
 
@@ -550,12 +575,10 @@ def _approach_flash_opus(
     )
     non_forced = [d for d in decisions if not d["is_forced"]]
 
-    # Phase 1: Flash screens each decision
-    flagged: list[dict] = []
-    for d in non_forced:
+    # Phase 1: Flash screens each decision (parallel)
+    def screen_one(d: dict) -> tuple[int, CallTrace, bool]:
         formatted = _format_decisions([d])
         user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
-
         trace = _call_llm(
             client,
             FLASH,
@@ -563,37 +586,48 @@ def _approach_flash_opus(
             user_msg,
             label=f"screen_{d['decision_index']}",
         )
-        result.calls.append(trace)
+        flagged = not trace.response_text.strip().upper().startswith("PASS")
+        return d["decision_index"], trace, flagged
 
-        response = trace.response_text.strip().upper()
-        if not response.startswith("PASS"):
+    screen_results: dict[int, tuple[CallTrace, bool]] = {}
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futs = {pool.submit(screen_one, d): d for d in non_forced}
+        for fut in as_completed(futs):
+            idx, trace, flagged = fut.result()
+            screen_results[idx] = (trace, flagged)
+
+    flagged: list[dict] = []
+    for d in non_forced:
+        trace, was_flagged = screen_results[d["decision_index"]]
+        result.calls.append(trace)
+        if was_flagged:
             flagged.append(d)
 
     print(
         f"    Flash flagged {len(flagged)}/{len(non_forced)} decisions for Opus review"
     )
 
-    # Phase 2: Opus analyzes flagged decisions
-    for d in flagged:
-        formatted = _format_decisions([d])
-        user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
-
-        trace = _call_llm(
-            client,
-            OPUS,
-            PER_DECISION_SYSTEM,
-            user_msg,
-            label=f"opus_{d['decision_index']}",
-        )
-        result.calls.append(trace)
-
-        try:
-            anns = _parse_json_array(trace.response_text)
-            result.annotations.extend(anns)
-        except (json.JSONDecodeError, AssertionError):
-            print(
-                f"    WARNING: Failed to parse Opus response for decision {d['decision_index']}"
+    # Phase 2: Opus analyzes flagged decisions (parallel)
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {}
+        for d in flagged:
+            formatted = _format_decisions([d])
+            user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
+            label = f"opus_{d['decision_index']}"
+            fut = pool.submit(
+                _eval_one_decision, client, OPUS, PER_DECISION_SYSTEM, user_msg, label
             )
+            futures[fut] = d["decision_index"]
+
+        opus_results: dict[int, tuple[CallTrace, list[dict]]] = {}
+        for fut in as_completed(futures):
+            idx = futures[fut]
+            opus_results[idx] = fut.result()
+
+    for d in flagged:
+        trace, anns = opus_results[d["decision_index"]]
+        result.calls.append(trace)
+        result.annotations.extend(anns)
 
     return result
 
@@ -635,7 +669,8 @@ def _approach_batched(
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
     non_forced = [d for d in decisions if not d["is_forced"]]
 
-    # Chunk non-forced decisions into batches
+    # Build all batches
+    batches: list[tuple[list[dict], str, str]] = []
     for batch_start in range(0, len(non_forced), BATCH_SIZE):
         batch = non_forced[batch_start : batch_start + BATCH_SIZE]
         batch_indices = [d["decision_index"] for d in batch]
@@ -649,16 +684,27 @@ def _approach_batched(
             f"## Game Overview\n{overview}\n\n"
             f"## Decisions ({len(batch)} to evaluate)\n\n" + "\n\n".join(parts)
         )
-
         label = f"batch_{batch_indices[0]}-{batch_indices[-1]}"
-        trace = _call_llm(client, model, BATCHED_SYSTEM, user_msg, label=label)
-        result.calls.append(trace)
+        batches.append((batch, user_msg, label))
 
-        try:
-            anns = _parse_json_array(trace.response_text)
-            result.annotations.extend(anns)
-        except (json.JSONDecodeError, AssertionError):
-            print(f"    WARNING: Failed to parse response for batch {label}")
+    # Run all batches in parallel
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {}
+        for i, (batch, user_msg, label) in enumerate(batches):
+            fut = pool.submit(
+                _eval_one_decision, client, model, BATCHED_SYSTEM, user_msg, label
+            )
+            futures[fut] = i
+
+        results_by_idx: dict[int, tuple[CallTrace, list[dict]]] = {}
+        for fut in as_completed(futures):
+            idx = futures[fut]
+            results_by_idx[idx] = fut.result()
+
+    for i in range(len(batches)):
+        trace, anns = results_by_idx[i]
+        result.calls.append(trace)
+        result.annotations.extend(anns)
 
     return result
 
