@@ -1,9 +1,9 @@
 {
-  "title": "XMage bug: isFastFailInTestMode defaults to true for all players",
-  "description": "PlayerImpl.java sets isFastFailInTestMode = true by default. The error recovery code in GameImpl.java checks !isFastFailInTestMode(), so real games take the 'tests - try to fail fast' branch and kill the game thread on any card NPE instead of incrementing the error counter (up to 15 allowed errors) and continuing.\n\nTest players are unaffected because GameImpl checks !isTestMode() first, which short-circuits for test players regardless of isFastFailInTestMode.\n\nFix: change default to false in PlayerImpl.java.",
+  "title": "isFastFailInTestMode defaults to true, killing games on card NPEs",
+  "description": "PlayerImpl.java sets isFastFailInTestMode = true by default. Because we run the server in test mode (normal XMage servers don't), the error recovery code in GameImpl.java takes the 'tests - try to fail fast' branch and kills the game thread on any card NPE instead of incrementing the error counter (up to 15 allowed errors) and continuing.\n\nFix: change default to false in PlayerImpl.java.",
   "status": "closed",
   "priority": 2,
   "type": "bug",
-  "labels": ["xmage-upstream"],
+  "labels": ["server"],
   "created_at": "2026-02-15T21:50:00.000000-08:00"
 }
