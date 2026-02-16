@@ -67,17 +67,23 @@ if (fs.existsSync(gamesDir)) {
     };
     if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
     const annotations = data.annotations || [];
-    if (annotations.length > 0) {
-      // Build per-player severity counts
-      const perPlayer: Record<string, Record<string, number>> = {};
+    const totalTurns = data.totalTurns as number || 0;
+    if (annotations.length > 0 && totalTurns > 0) {
+      // Build per-player blunder score (severity-weighted blunders / turns)
+      const WEIGHTS: Record<string, number> = { questionable: 0.5, minor: 1, moderate: 2, major: 4 };
+      const weightedByPlayer: Record<string, number> = {};
       for (const a of annotations) {
         const ann = a as Record<string, unknown>;
+        if (ann.type !== "blunder") continue;
         const sev = ann.severity as string;
         const player = (ann.player as string) || "Unknown";
-        if (!perPlayer[player]) perPlayer[player] = { questionable: 0, minor: 0, moderate: 0, major: 0 };
-        if (sev in perPlayer[player]) perPlayer[player][sev]++;
+        weightedByPlayer[player] = (weightedByPlayer[player] || 0) + (WEIGHTS[sev] || 0);
       }
-      entry.blundersByPlayer = perPlayer;
+      const scoreByPlayer: Record<string, number> = {};
+      for (const [player, weight] of Object.entries(weightedByPlayer)) {
+        scoreByPlayer[player] = Math.round((weight / totalTurns) * 100) / 100;
+      }
+      entry.blunderScoreByPlayer = scoreByPlayer;
     }
     games.push(entry);
   }
@@ -456,33 +462,21 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     font-variant-numeric: tabular-nums;
   }
 
-  .blunder-badge {
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    letter-spacing: 0.03em;
+  .player-blunder-score {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
   }
 
-  .blunder-badge.severity-questionable {
-    background: rgba(148, 163, 184, 0.15);
-    color: #94a3b8;
+  .player-blunder-score.blunder-low {
+    color: #a8d9a5;
   }
 
-  .blunder-badge.severity-minor {
-    background: rgba(251, 191, 36, 0.15);
+  .player-blunder-score.blunder-med {
     color: #fbbf24;
   }
 
-  .blunder-badge.severity-moderate {
-    background: rgba(249, 115, 22, 0.15);
-    color: #f97316;
-  }
-
-  .blunder-badge.severity-major {
-    background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
+  .player-blunder-score.blunder-high {
+    color: #e94560;
   }
 
   .epoch-badge {
@@ -815,28 +809,16 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         cell.appendChild(thinkEl);
       }
 
-      // Blunders per player
-      var playerBlunders = (game.blundersByPlayer || {})[p.name];
-      if (playerBlunders) {
-        var blunderRow = document.createElement("div");
-        blunderRow.className = "player-blunders";
-        var sevOrder = [
-          ["major", playerBlunders.major],
-          ["moderate", playerBlunders.moderate],
-          ["minor", playerBlunders.minor],
-          ["questionable", playerBlunders.questionable],
-        ];
-        for (var si = 0; si < sevOrder.length; si++) {
-          var sevName = sevOrder[si][0];
-          var sevCount = sevOrder[si][1];
-          if (sevCount > 0) {
-            var blunderEl = document.createElement("span");
-            blunderEl.className = "blunder-badge severity-" + sevName;
-            blunderEl.textContent = sevCount + " " + sevName;
-            blunderRow.appendChild(blunderEl);
-          }
-        }
-        if (blunderRow.childNodes.length > 0) cell.appendChild(blunderRow);
+      // Blunder score per player
+      var playerScore = (game.blunderScoreByPlayer || {})[p.name];
+      if (playerScore != null) {
+        var scoreEl = document.createElement("div");
+        scoreEl.className = "player-blunder-score";
+        if (playerScore >= 1.5) scoreEl.classList.add("blunder-high");
+        else if (playerScore >= 0.5) scoreEl.classList.add("blunder-med");
+        else scoreEl.classList.add("blunder-low");
+        scoreEl.textContent = "Blunder: " + playerScore.toFixed(2);
+        cell.appendChild(scoreEl);
       }
 
       // Elo (if available) — key matches _player_key(): "model::effort" or "model"

@@ -967,8 +967,8 @@ def test_generate_leaderboard_no_effort_no_suffix():
     assert "reasoningEffort" not in model_a
 
 
-def test_generate_leaderboard_avg_blunders():
-    """Average blunders per game should be computed from annotations."""
+def test_generate_leaderboard_blunder_score():
+    """Blunder score should be severity-weighted blunders per turn."""
     games = [
         _make_game(
             "g1",
@@ -989,13 +989,14 @@ def test_generate_leaderboard_avg_blunders():
             ],
         ),
     ]
+    # totalTurns=10 per game (from _make_game)
     games[0]["annotations"] = [
-        {"type": "blunder", "player": "Alice", "severity": "major"},
-        {"type": "blunder", "player": "Alice", "severity": "minor"},
-        {"type": "blunder", "player": "Bob", "severity": "moderate"},
+        {"type": "blunder", "player": "Alice", "severity": "major"},  # weight 4
+        {"type": "blunder", "player": "Alice", "severity": "minor"},  # weight 1
+        {"type": "blunder", "player": "Bob", "severity": "moderate"},  # weight 2
     ]
     games[1]["annotations"] = [
-        {"type": "blunder", "player": "Bob", "severity": "major"},
+        {"type": "blunder", "player": "Bob", "severity": "major"},  # weight 4
     ]
     result, _ = generate_leaderboard(
         games,
@@ -1005,14 +1006,14 @@ def test_generate_leaderboard_avg_blunders():
     alice = next(m for m in result["models"] if m["modelName"] == "Model A")
     bob = next(m for m in result["models"] if m["modelName"] == "Model B")
 
-    # Alice: 2 blunders in game1, 0 in game2 -> 1.0 avg
-    assert alice["avgBlundersPerGame"] == 1.0
-    # Bob: 1 blunder in game1, 1 in game2 -> 1.0 avg
-    assert bob["avgBlundersPerGame"] == 1.0
+    # Alice: game1 = (4+1)/10 = 0.5, game2 = 0/10 = 0.0 -> total 5/20 = 0.25
+    assert alice["blunderScore"] == 0.25
+    # Bob: game1 = 2/10 = 0.2, game2 = 4/10 = 0.4 -> total 6/20 = 0.3
+    assert bob["blunderScore"] == 0.3
 
 
-def test_generate_leaderboard_blunders_excludes_questionable():
-    """Questionable severity should not count toward leaderboard blunder stats."""
+def test_generate_leaderboard_blunder_score_includes_questionable():
+    """Questionable severity should contribute at weight 0.5."""
     games = [
         _make_game(
             "g1",
@@ -1024,19 +1025,20 @@ def test_generate_leaderboard_blunders_excludes_questionable():
             ],
         ),
     ]
+    # totalTurns=10
     games[0]["annotations"] = [
-        {"type": "blunder", "player": "Alice", "severity": "major"},
-        {"type": "blunder", "player": "Alice", "severity": "questionable"},
-        {"type": "blunder", "player": "Alice", "severity": "questionable"},
+        {"type": "blunder", "player": "Alice", "severity": "major"},  # weight 4
+        {"type": "blunder", "player": "Alice", "severity": "questionable"},  # weight 0.5
+        {"type": "blunder", "player": "Alice", "severity": "questionable"},  # weight 0.5
     ]
     result, _ = generate_leaderboard(games, {})
     alice = next(m for m in result["models"] if m["modelName"] == "Model A")
-    # Only the major blunder counts; two questionable are excluded
-    assert alice["avgBlundersPerGame"] == 1.0
+    # (4 + 0.5 + 0.5) / 10 = 0.5
+    assert alice["blunderScore"] == 0.5
 
 
-def test_generate_leaderboard_blunders_no_annotations():
-    """Games without annotations should not count toward blunder average."""
+def test_generate_leaderboard_blunder_score_no_annotations():
+    """Games without annotations should produce blunderScore=None."""
     games = [
         _make_game(
             "g1",
@@ -1052,7 +1054,25 @@ def test_generate_leaderboard_blunders_no_annotations():
     )
 
     alice = next(m for m in result["models"] if m["modelName"] == "Model A")
-    assert alice["avgBlundersPerGame"] is None
+    assert alice["blunderScore"] is None
+
+
+def test_generate_leaderboard_blunder_score_zero_turns():
+    """Games with totalTurns=0 should produce blunderScore=None."""
+    game = _make_game(
+        "g1",
+        "20260101_000000",
+        "Alice",
+        [_pilot("Alice", "a/model-a", placement=1), _pilot("Bob", "b/model-b", placement=2)],
+    )
+    game["totalTurns"] = 0
+    game["annotations"] = [
+        {"type": "blunder", "player": "Alice", "severity": "major"},
+    ]
+    result, _ = generate_leaderboard([game], {})
+
+    alice = next(m for m in result["models"] if m["modelName"] == "Model A")
+    assert alice["blunderScore"] is None
 
 
 def test_ratings_separate_by_effort():
