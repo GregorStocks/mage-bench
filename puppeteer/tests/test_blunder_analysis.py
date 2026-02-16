@@ -10,9 +10,7 @@ from blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     _chosen_display,
     _compute_cost,
-    _format_decisions_for_opus,
-    _format_decisions_for_opus_calibration,
-    _format_decisions_for_prefilter,
+    _format_decisions,
     _parse_json_array,
     main,
 )
@@ -133,11 +131,6 @@ class TestComputeCost:
         cost = _compute_cost("anthropic/claude-opus-4.6", 1_000_000, 1_000_000)
         assert cost == pytest.approx(30.0)
 
-    def test_sonnet_small(self) -> None:
-        # 10K in at $3/M + 500 out at $15/M
-        cost = _compute_cost("anthropic/claude-sonnet-4.5", 10_000, 500)
-        assert cost == pytest.approx(0.0375)
-
     def test_zero_tokens(self) -> None:
         assert _compute_cost("anthropic/claude-opus-4.6", 0, 0) == 0.0
 
@@ -163,21 +156,21 @@ class TestChosenDisplay:
         assert _chosen_display(d) == "99"
 
 
-# --- _format_decisions_for_prefilter ---
+# --- _format_decisions ---
 
 
-class TestFormatPrefilter:
+class TestFormatDecisions:
     def test_skips_forced(self) -> None:
         decisions = [
             _make_decision(decision_index=0, is_forced=True),
             _make_decision(decision_index=1, is_forced=False),
         ]
-        result = _format_decisions_for_prefilter(decisions)
+        result = _format_decisions(decisions)
         assert "[Decision 0]" not in result
         assert "[Decision 1]" in result
 
     def test_includes_key_fields(self) -> None:
-        result = _format_decisions_for_prefilter([_make_decision()])
+        result = _format_decisions([_make_decision()])
         assert "Alice" in result
         assert "Mountain" in result
         assert "Lightning Bolt" in result
@@ -186,38 +179,10 @@ class TestFormatPrefilter:
 
     def test_truncates_reasoning(self) -> None:
         long_reasoning = "x" * 1000
-        result = _format_decisions_for_prefilter([_make_decision(reasoning=long_reasoning)])
+        result = _format_decisions([_make_decision(reasoning=long_reasoning)])
         # Should be truncated to 500 chars
         assert "x" * 500 in result
         assert "x" * 501 not in result
-
-
-# --- _format_decisions_for_opus ---
-
-
-class TestFormatOpus:
-    def test_only_includes_flagged(self) -> None:
-        decisions = [
-            _make_decision(decision_index=0),
-            _make_decision(decision_index=1),
-            _make_decision(decision_index=2),
-        ]
-        flagged = [{"index": 1, "reason": "missed land drop"}]
-        result = _format_decisions_for_opus(decisions, flagged)
-        assert '"decision_index": 0' not in result
-        assert '"decision_index": 1' in result
-        assert '"decision_index": 2' not in result
-
-    def test_includes_flag_reason(self) -> None:
-        decisions = [_make_decision(decision_index=5)]
-        flagged = [{"index": 5, "reason": "passed with mana open"}]
-        result = _format_decisions_for_opus(decisions, flagged)
-        assert "flagged: passed with mana open" in result
-
-    def test_empty_flagged(self) -> None:
-        decisions = [_make_decision()]
-        result = _format_decisions_for_opus(decisions, [])
-        assert result == ""
 
 
 # --- Integration: main with mocked API ---
@@ -275,20 +240,12 @@ class TestMainIntegration:
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("blunder_analysis.OpenAI")
     def test_full_flow_with_blunders(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
-        # Set up game file
         game = self._make_game_with_decisions()
         gz_path = tmp_path / "game.json.gz"
         self._write_gz(gz_path, game)
 
-        # Mock API responses
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
-
-        prefilter_response = MagicMock()
-        prefilter_response.choices = [MagicMock()]
-        flags = [{"index": 0, "reason": "passed with playable cards"}]
-        prefilter_response.choices[0].message.content = json.dumps(flags)
-        prefilter_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=50)
 
         opus_response = MagicMock()
         opus_response.choices = [MagicMock()]
@@ -309,9 +266,8 @@ class TestMainIntegration:
         )
         opus_response.usage = MagicMock(prompt_tokens=2000, completion_tokens=200)
 
-        mock_client.chat.completions.create.side_effect = [prefilter_response, opus_response]
+        mock_client.chat.completions.create.return_value = opus_response
 
-        # Run
         main(str(gz_path))
 
         # Verify annotations and version were written
@@ -321,8 +277,8 @@ class TestMainIntegration:
         assert result["annotations"][0]["category"] == "unused_mana"
         assert result["blunderScriptVersion"] == BLUNDER_SCRIPT_VERSION
 
-        # Verify two API calls were made (Haiku + Opus)
-        assert mock_client.chat.completions.create.call_count == 2
+        # Single API call (Opus only)
+        assert mock_client.chat.completions.create.call_count == 1
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("blunder_analysis.OpenAI")
@@ -334,24 +290,17 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        # Haiku flags nothing
-        prefilter_response = MagicMock()
-        prefilter_response.choices = [MagicMock()]
-        prefilter_response.choices[0].message.content = "[]"
-        prefilter_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
-
-        # Opus calibration also finds nothing
         opus_response = MagicMock()
         opus_response.choices = [MagicMock()]
         opus_response.choices[0].message.content = "[]"
-        opus_response.usage = MagicMock(prompt_tokens=500, completion_tokens=10)
+        opus_response.usage = MagicMock(prompt_tokens=2000, completion_tokens=10)
 
-        mock_client.chat.completions.create.side_effect = [prefilter_response, opus_response]
+        mock_client.chat.completions.create.return_value = opus_response
 
         main(str(gz_path))
 
-        # Two API calls: Haiku pre-filter + Opus calibration
-        assert mock_client.chat.completions.create.call_count == 2
+        # Single API call
+        assert mock_client.chat.completions.create.call_count == 1
 
         # Empty annotations written (marks game as analyzed)
         result = self._read_gz(gz_path)
@@ -383,120 +332,14 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        prefilter_response = MagicMock()
-        prefilter_response.choices = [MagicMock()]
-        prefilter_response.choices[0].message.content = "[]"
-        prefilter_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
-
         opus_response = MagicMock()
         opus_response.choices = [MagicMock()]
         opus_response.choices[0].message.content = "[]"
-        opus_response.usage = MagicMock(prompt_tokens=500, completion_tokens=10)
+        opus_response.usage = MagicMock(prompt_tokens=2000, completion_tokens=10)
 
-        mock_client.chat.completions.create.side_effect = [prefilter_response, opus_response]
+        mock_client.chat.completions.create.return_value = opus_response
 
         main(str(gz_path))
 
         # API was called despite existing annotations (old version)
-        assert mock_client.chat.completions.create.call_count == 2
-
-    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("blunder_analysis.OpenAI")
-    def test_calibration_finds_blunders(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
-        game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game.json.gz"
-        self._write_gz(gz_path, game)
-
-        mock_client = MagicMock()
-        mock_openai_cls.return_value = mock_client
-
-        prefilter_response = MagicMock()
-        prefilter_response.choices = [MagicMock()]
-        prefilter_response.choices[0].message.content = "[]"
-        prefilter_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
-
-        opus_response = MagicMock()
-        opus_response.choices = [MagicMock()]
-        opus_response.choices[0].message.content = json.dumps(
-            [
-                {
-                    "snapshotIndex": 0,
-                    "player": "Alice",
-                    "type": "blunder",
-                    "severity": "minor",
-                    "category": "unused_mana",
-                    "description": "Passed with playable Mountain",
-                    "llmReasoning": "Model chose to pass",
-                    "actionTaken": "Passed priority",
-                    "betterLine": "Play Mountain",
-                }
-            ]
-        )
-        opus_response.usage = MagicMock(prompt_tokens=500, completion_tokens=100)
-
-        mock_client.chat.completions.create.side_effect = [prefilter_response, opus_response]
-
-        main(str(gz_path))
-
-        assert mock_client.chat.completions.create.call_count == 2
-        result = self._read_gz(gz_path)
-        assert len(result["annotations"]) == 1
-        assert result["annotations"][0]["category"] == "unused_mana"
-
-    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("blunder_analysis.OpenAI")
-    def test_calibration_opus_prompt_mentions_calibration(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
-        game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game.json.gz"
-        self._write_gz(gz_path, game)
-
-        mock_client = MagicMock()
-        mock_openai_cls.return_value = mock_client
-
-        prefilter_response = MagicMock()
-        prefilter_response.choices = [MagicMock()]
-        prefilter_response.choices[0].message.content = "[]"
-        prefilter_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
-
-        opus_response = MagicMock()
-        opus_response.choices = [MagicMock()]
-        opus_response.choices[0].message.content = "[]"
-        opus_response.usage = MagicMock(prompt_tokens=500, completion_tokens=10)
-
-        mock_client.chat.completions.create.side_effect = [prefilter_response, opus_response]
-
-        main(str(gz_path))
-
-        # Second call is Opus calibration
-        opus_call = mock_client.chat.completions.create.call_args_list[1]
-        user_msg = opus_call.kwargs["messages"][1]["content"]
-        assert "Calibration Sample" in user_msg
-        assert "not flagged by pre-filter" in user_msg
-
-
-# --- _format_decisions_for_opus_calibration ---
-
-
-class TestFormatOpusCalibration:
-    def test_labels_as_calibration(self) -> None:
-        decisions = [_make_decision(decision_index=3)]
-        result = _format_decisions_for_opus_calibration(decisions, [3])
-        assert "calibration sample" in result
-        assert "not flagged by pre-filter" in result
-        assert '"decision_index": 3' in result
-
-    def test_only_includes_sampled(self) -> None:
-        decisions = [
-            _make_decision(decision_index=0),
-            _make_decision(decision_index=1),
-            _make_decision(decision_index=2),
-        ]
-        result = _format_decisions_for_opus_calibration(decisions, [1])
-        assert '"decision_index": 0' not in result
-        assert '"decision_index": 1' in result
-        assert '"decision_index": 2' not in result
-
-    def test_empty_sample(self) -> None:
-        decisions = [_make_decision()]
-        result = _format_decisions_for_opus_calibration(decisions, [])
-        assert result == ""
+        assert mock_client.chat.completions.create.call_count == 1

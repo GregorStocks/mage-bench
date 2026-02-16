@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Analyze a game for blunders using Claude via OpenRouter.
+"""Analyze a game for blunders using Claude Opus via OpenRouter.
 
-Two-phase approach:
-1. Claude Sonnet pre-filters decisions to flag suspicious ones (cheap)
-2. Claude Opus analyzes only flagged decisions for detailed annotations (expensive)
+Single-phase approach: sends all non-forced decisions to Opus in one pass.
+Opus identifies and annotates blunders directly, skipping reasonable plays.
 
 Usage:
     uv run --project puppeteer python scripts/analysis/blunder_analysis.py <game.json.gz>
@@ -14,7 +13,6 @@ Requires OPENROUTER_API_KEY environment variable.
 import gzip
 import json
 import os
-import random
 import sys
 import tempfile
 from pathlib import Path
@@ -29,12 +27,7 @@ TMP_DIR = REPO_ROOT / "tmp"
 
 # Models (OpenRouter IDs from models.json)
 OPUS_MODEL = "anthropic/claude-opus-4.6"
-SONNET_MODEL = "anthropic/claude-sonnet-4.5"
 BASE_URL = "https://openrouter.ai/api/v1"
-
-# When the pre-filter flags zero decisions, send this many random decisions to
-# Opus as a calibration check. Catches cases where the pre-filter is too conservative.
-CALIBRATION_SAMPLE_SIZE = 3
 
 # Bump this when the analysis pipeline changes enough to warrant re-running.
 # Games analyzed with an older version will be automatically re-analyzed.
@@ -42,43 +35,21 @@ CALIBRATION_SAMPLE_SIZE = 3
 # v2: softened Haiku prompt + Opus calibration check for zero-flag games
 # v3: add "questionable" severity, fix Opus dismissal bias, better category examples
 # v4: switch pre-filter from Haiku to Sonnet (more mechanically specific flags)
-BLUNDER_SCRIPT_VERSION = 4
+# v5: single-phase Opus (no pre-filter, cheaper, better coverage, 1M context)
+BLUNDER_SCRIPT_VERSION = 5
 
 # Prices per million tokens (from models.json, Feb 2026)
 PRICES: dict[str, tuple[float, float]] = {
     OPUS_MODEL: (5.0, 25.0),
-    SONNET_MODEL: (3.0, 15.0),
 }
-
-PREFILTER_SYSTEM = """\
-You are a Magic: The Gathering expert pre-filtering game decisions for blunder analysis.
-
-Review each decision and flag any that look like potential blunders — moments where a \
-clearly better line of play was available.
-
-Common blunder patterns:
-- Passing priority with playable cards and open mana (unused_mana)
-- Casting spells with no meaningful impact or that hurt the caster (wasted_resources)
-- Targeting the wrong permanent/player/card when a better target exists (wrong_target)
-- Missing lethal damage on board (missed_lethal)
-- Fundamentally wrong strategic choices (strategic_error)
-- Playing cards in the wrong order — land before cantrip, creature before combat (bad_sequencing)
-- Poor attack or block decisions (bad_combat)
-- Overextending into obvious removal or countermagic (walked_into_removal)
-
-Err on the side of flagging. A downstream model will confirm or dismiss each flag, \
-so false positives are cheap. Only skip decisions that are clearly reasonable.
-
-Respond with ONLY a JSON array. Each element: {"index": <decision_index>, "reason": "<brief reason>"}
-If no decisions look suspicious, return []."""
 
 OPUS_SYSTEM = """\
 You are a Magic: The Gathering expert annotating blunders in a game replay.
 
-Analyze each flagged decision carefully. Check whether the action achieved anything \
-meaningful given the board state. Use the severity scale below — use "questionable" for \
-borderline cases rather than omitting them. Only omit a flagged decision if the play is \
-genuinely correct with no reasonable argument against it.
+Review ALL decisions below. Most will be reasonable plays — skip those. Flag any \
+decision where the player made a clear mistake or a questionable choice. Use the \
+severity scale below — use "questionable" for borderline cases. Only annotate \
+decisions where there's a real argument the play was wrong.
 
 ## Category
 
@@ -141,8 +112,8 @@ def _game_overview(data: dict) -> str:
     return "\n".join(lines)
 
 
-def _format_decisions_for_prefilter(decisions: list[dict]) -> str:
-    """Compact decision format for pre-filtering."""
+def _format_decisions(decisions: list[dict]) -> str:
+    """Compact decision format for Opus analysis."""
     parts: list[str] = []
     for d in decisions:
         if d["is_forced"]:
@@ -192,40 +163,6 @@ def _chosen_display(d: dict) -> str:
     if chosen is not None:
         return str(chosen)
     return "?"
-
-
-def _format_decisions_for_opus(
-    decisions: list[dict],
-    flagged: list[dict],
-) -> str:
-    """Full decision data for Opus, only for flagged indices."""
-    flagged_map = {f["index"]: f.get("reason", "") for f in flagged}
-    parts: list[str] = []
-    for d in decisions:
-        idx = d["decision_index"]
-        if idx not in flagged_map:
-            continue
-        header = f"## Decision {idx} (flagged: {flagged_map[idx]})\n"
-        parts.append(header + json.dumps(d, indent=2))
-    return "\n\n---\n\n".join(parts)
-
-
-def _format_decisions_for_opus_calibration(
-    decisions: list[dict],
-    sample_indices: list[int],
-) -> str:
-    """Full decision data for Opus calibration check (unflagged random sample)."""
-    sample_set = set(sample_indices)
-    parts: list[str] = []
-    for d in decisions:
-        idx = d["decision_index"]
-        if idx not in sample_set:
-            continue
-        header = (
-            f"## Decision {idx} (calibration sample \u2014 not flagged by pre-filter)\n"
-        )
-        parts.append(header + json.dumps(d, indent=2))
-    return "\n\n---\n\n".join(parts)
 
 
 def _compute_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
@@ -281,14 +218,6 @@ def _parse_json_array(text: str) -> list:
     return result
 
 
-def _print_cost(entries: list[tuple[str, str, int, int, float]]) -> None:
-    total = sum(e[4] for e in entries)
-    print("\nCost breakdown:")
-    for label, _model, in_tok, out_tok, cost in entries:
-        print(f"  {label:20s} ${cost:.3f}  ({in_tok:,} in + {out_tok:,} out)")
-    print(f"  {'Total':20s} ${total:.3f}")
-
-
 def _write_annotations(gz_path: str, annotations: list) -> None:
     """Write annotations (possibly empty) to the game file."""
     TMP_DIR.mkdir(exist_ok=True)
@@ -339,93 +268,23 @@ def main(gz_path: str) -> None:
         print("No non-forced decisions to analyze.")
         return
 
-    cost_entries: list[tuple[str, str, int, int, float]] = []
-
-    # --- Phase 1: Sonnet pre-filter ---
-    print("\nPhase 1: Pre-filtering with Sonnet...")
-    prefilter_user = (
+    # --- Single-phase Opus analysis ---
+    print("\nAnalyzing with Opus...")
+    user_msg = (
         f"## Game Overview\n{overview}\n\n"
         f"## Decisions ({len(non_forced)} non-forced)\n\n"
-        f"{_format_decisions_for_prefilter(decisions)}"
+        f"{_format_decisions(decisions)}"
     )
-    pf_text, pf_in, pf_out = _call_llm(
-        client, SONNET_MODEL, PREFILTER_SYSTEM, prefilter_user
-    )
-    pf_cost = _compute_cost(SONNET_MODEL, pf_in, pf_out)
-    cost_entries.append(("Sonnet pre-filter", SONNET_MODEL, pf_in, pf_out, pf_cost))
-    print(f"  Tokens: {pf_in:,} input, {pf_out:,} output (${pf_cost:.3f})")
+    text, in_tok, out_tok = _call_llm(client, OPUS_MODEL, OPUS_SYSTEM, user_msg)
+    cost = _compute_cost(OPUS_MODEL, in_tok, out_tok)
+    print(f"  Tokens: {in_tok:,} input, {out_tok:,} output (${cost:.3f})")
 
-    flagged = _parse_json_array(pf_text)
-    print(f"  Flagged {len(flagged)}/{len(non_forced)} decisions")
-    for f in flagged:
-        print(f"    [{f['index']}] {f.get('reason', '?')}")
-
-    if not flagged:
-        # Pre-filter found nothing suspicious. Send a random sample to Opus as calibration.
-        sample_size = min(CALIBRATION_SAMPLE_SIZE, len(non_forced))
-        sample = random.sample(non_forced, sample_size)
-        sample_indices = [d["decision_index"] for d in sample]
-        print(
-            f"\nNo flags from Sonnet. Calibration check: "
-            f"sending {sample_size} random decisions to Opus..."
-        )
-
-        opus_user = (
-            f"## Game Overview\n{overview}\n\n"
-            f"## Calibration Sample\n\n"
-            f"The pre-filter flagged zero decisions in this game. "
-            f"Below is a random sample of {sample_size} unflagged decisions "
-            f"for quality assurance. "
-            f"Analyze each one. If any are blunders, provide full annotations. "
-            f"If all are reasonable plays, return [].\n\n"
-            f"{_format_decisions_for_opus_calibration(decisions, sample_indices)}"
-        )
-        opus_text, o_in, o_out = _call_llm(client, OPUS_MODEL, OPUS_SYSTEM, opus_user)
-        o_cost = _compute_cost(OPUS_MODEL, o_in, o_out)
-        cost_entries.append(("Opus calibration", OPUS_MODEL, o_in, o_out, o_cost))
-        print(f"  Tokens: {o_in:,} input, {o_out:,} output (${o_cost:.3f})")
-
-        annotations = _parse_json_array(opus_text)
-
-        if not annotations:
-            print("\nCalibration confirmed: no blunders in sample.")
-        else:
-            snapshots = data.get("snapshots", [])
-            print(f"\nCalibration found {len(annotations)} blunder(s):\n")
-            for ann in annotations:
-                snap_idx = ann["snapshotIndex"]
-                turn = snapshots[snap_idx]["turn"] if snap_idx < len(snapshots) else "?"
-                sev = ann["severity"].upper()
-                print(f"  Turn {turn} ({ann['player']}) - {sev} {ann['category']}")
-                print(f"    {ann['description']}")
-                print(f"    Better: {ann['betterLine']}")
-                print()
-
-        _write_annotations(gz_path, annotations)
-        _print_cost(cost_entries)
-        return
-
-    # --- Phase 2: Opus analysis ---
-    print(f"\nPhase 2: Analyzing {len(flagged)} decisions with Opus...")
-    opus_user = (
-        f"## Game Overview\n{overview}\n\n"
-        f"## Flagged Decisions\n\n"
-        f"Each decision below was pre-flagged as a potential blunder. "
-        f"Analyze each one. Confirm blunders with full annotations, "
-        f"omit reasonable plays.\n\n"
-        f"{_format_decisions_for_opus(decisions, flagged)}"
-    )
-    opus_text, o_in, o_out = _call_llm(client, OPUS_MODEL, OPUS_SYSTEM, opus_user)
-    o_cost = _compute_cost(OPUS_MODEL, o_in, o_out)
-    cost_entries.append(("Opus analysis", OPUS_MODEL, o_in, o_out, o_cost))
-    print(f"  Tokens: {o_in:,} input, {o_out:,} output (${o_cost:.3f})")
-
-    annotations = _parse_json_array(opus_text)
+    annotations = _parse_json_array(text)
 
     if not annotations:
-        print("\nNo confirmed blunders.")
+        print("\nNo blunders found.")
         _write_annotations(gz_path, [])
-        _print_cost(cost_entries)
+        print(f"\nTotal cost: ${cost:.3f}")
         return
 
     # Display blunders
@@ -442,7 +301,7 @@ def main(gz_path: str) -> None:
 
     _write_annotations(gz_path, annotations)
 
-    _print_cost(cost_entries)
+    print(f"\nTotal cost: ${cost:.3f}")
 
 
 if __name__ == "__main__":
