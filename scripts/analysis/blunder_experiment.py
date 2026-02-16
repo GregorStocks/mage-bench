@@ -183,7 +183,10 @@ def _call_llm(
 
     thinking_text = ""
     choice = response.choices[0]
-    if hasattr(choice.message, "reasoning_content") and choice.message.reasoning_content:
+    if (
+        hasattr(choice.message, "reasoning_content")
+        and choice.message.reasoning_content
+    ):
         thinking_text = choice.message.reasoning_content
     elif hasattr(choice.message, "reasoning") and choice.message.reasoning:
         thinking_text = choice.message.reasoning
@@ -380,29 +383,27 @@ def _approach_per_decision(
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
     non_forced = [d for d in decisions if not d["is_forced"]]
 
-    start = time.monotonic()
     for d in non_forced:
         formatted = _format_decisions([d])
         user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
 
-        text, in_tok, out_tok, think_tok = _call_llm(
-            client, model, PER_DECISION_SYSTEM, user_msg
+        trace = _call_llm(
+            client,
+            model,
+            PER_DECISION_SYSTEM,
+            user_msg,
+            label=f"decision_{d['decision_index']}",
         )
-        result.input_tokens += in_tok
-        result.output_tokens += out_tok
-        result.thinking_tokens += think_tok
-        result.cost_usd += _compute_cost(model, in_tok, out_tok)
-        result.num_api_calls += 1
+        result.calls.append(trace)
 
         try:
-            anns = _parse_json_array(text)
+            anns = _parse_json_array(trace.response_text)
             result.annotations.extend(anns)
         except (json.JSONDecodeError, AssertionError):
             print(
                 f"    WARNING: Failed to parse response for decision {d['decision_index']}"
             )
 
-    result.wall_time_seconds = time.monotonic() - start
     return result
 
 
@@ -422,19 +423,13 @@ def _approach_thinking(
         f"{_format_decisions(decisions)}"
     )
 
-    start = time.monotonic()
-    text, in_tok, out_tok, think_tok = _call_llm(
-        client, OPUS, OPUS_SYSTEM, user_msg, thinking=True
+    trace = _call_llm(
+        client, OPUS, OPUS_SYSTEM, user_msg, thinking=True, label="full_game"
     )
-    result.wall_time_seconds = time.monotonic() - start
-    result.input_tokens = in_tok
-    result.output_tokens = out_tok
-    result.thinking_tokens = think_tok
-    result.cost_usd = _compute_cost(OPUS, in_tok, out_tok)
-    result.num_api_calls = 1
+    result.calls.append(trace)
 
     try:
-        result.annotations = _parse_json_array(text)
+        result.annotations = _parse_json_array(trace.response_text)
     except (json.JSONDecodeError, AssertionError) as e:
         print(f"    WARNING: Failed to parse thinking response: {e}")
 
@@ -457,19 +452,326 @@ def _approach_baseline(
         f"{_format_decisions(decisions)}"
     )
 
-    start = time.monotonic()
-    text, in_tok, out_tok, think_tok = _call_llm(client, OPUS, OPUS_SYSTEM, user_msg)
-    result.wall_time_seconds = time.monotonic() - start
-    result.input_tokens = in_tok
-    result.output_tokens = out_tok
-    result.thinking_tokens = think_tok
-    result.cost_usd = _compute_cost(OPUS, in_tok, out_tok)
-    result.num_api_calls = 1
+    trace = _call_llm(client, OPUS, OPUS_SYSTEM, user_msg, label="full_game")
+    result.calls.append(trace)
 
     try:
-        result.annotations = _parse_json_array(text)
+        result.annotations = _parse_json_array(trace.response_text)
     except (json.JSONDecodeError, AssertionError) as e:
         print(f"    WARNING: Failed to parse baseline response: {e}")
+
+    return result
+
+
+# --- Approach F: Per-decision Opus, minimal context (no game overview) ---
+
+MINIMAL_SYSTEM = f"""\
+You are a Magic: The Gathering expert evaluating a single decision from a game replay.
+
+Analyze the decision below. The board state is shown inline — use it to evaluate the play.
+If the play was reasonable, return an empty JSON array: []
+If it was a blunder, return a JSON array with one annotation object.
+
+Most decisions are reasonable — only flag clear mistakes or questionable choices.
+
+{SHARED_CATEGORIES}
+
+{SHARED_SEVERITY}
+
+## Output Format
+
+Return ONLY a JSON array — either empty [] or containing one annotation object:
+{ANNOTATION_SCHEMA}
+
+Use the snapshot= number from the decision header as snapshotIndex."""
+
+
+def _approach_per_decision_minimal(
+    client: OpenAI,
+    data: dict,
+    decisions: list[dict],
+    overview: str,
+    model: str,
+    approach_name: str,
+) -> ExperimentResult:
+    """Per-decision with minimal context: no game overview, just the decision + board state."""
+    result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
+    non_forced = [d for d in decisions if not d["is_forced"]]
+
+    for d in non_forced:
+        formatted = _format_decisions([d])
+        # No game overview — the decision text already has board state
+        user_msg = f"## Decision\n\n{formatted}"
+
+        trace = _call_llm(
+            client,
+            model,
+            MINIMAL_SYSTEM,
+            user_msg,
+            label=f"decision_{d['decision_index']}",
+        )
+        result.calls.append(trace)
+
+        try:
+            anns = _parse_json_array(trace.response_text)
+            result.annotations.extend(anns)
+        except (json.JSONDecodeError, AssertionError):
+            print(
+                f"    WARNING: Failed to parse response for decision {d['decision_index']}"
+            )
+
+    return result
+
+
+# --- Approach G: Flash pre-filter → Opus deep dive ---
+
+FLASH_SCREEN_SYSTEM = f"""\
+You are a Magic: The Gathering expert doing a quick review of a single decision.
+
+Is this decision clearly correct, or does it deserve closer analysis?
+Respond with ONLY one of:
+- "PASS" if the play seems reasonable
+- "FLAG" followed by a brief reason if the play might be a mistake
+
+Be generous with flagging — flag anything that's even slightly questionable.
+It's much worse to miss a real blunder than to flag a correct play.
+
+{SHARED_CATEGORIES}"""
+
+
+def _approach_flash_opus(
+    client: OpenAI, data: dict, decisions: list[dict], overview: str
+) -> ExperimentResult:
+    """Two-phase: Flash screens each decision, Opus analyzes flagged ones."""
+    result = ExperimentResult(
+        approach="G_flash_opus", game_id=data["id"], model=f"{FLASH}+{OPUS}"
+    )
+    non_forced = [d for d in decisions if not d["is_forced"]]
+
+    # Phase 1: Flash screens each decision
+    flagged: list[dict] = []
+    for d in non_forced:
+        formatted = _format_decisions([d])
+        user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
+
+        trace = _call_llm(
+            client,
+            FLASH,
+            FLASH_SCREEN_SYSTEM,
+            user_msg,
+            label=f"screen_{d['decision_index']}",
+        )
+        result.calls.append(trace)
+
+        response = trace.response_text.strip().upper()
+        if not response.startswith("PASS"):
+            flagged.append(d)
+
+    print(
+        f"    Flash flagged {len(flagged)}/{len(non_forced)} decisions for Opus review"
+    )
+
+    # Phase 2: Opus analyzes flagged decisions
+    for d in flagged:
+        formatted = _format_decisions([d])
+        user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
+
+        trace = _call_llm(
+            client,
+            OPUS,
+            PER_DECISION_SYSTEM,
+            user_msg,
+            label=f"opus_{d['decision_index']}",
+        )
+        result.calls.append(trace)
+
+        try:
+            anns = _parse_json_array(trace.response_text)
+            result.annotations.extend(anns)
+        except (json.JSONDecodeError, AssertionError):
+            print(
+                f"    WARNING: Failed to parse Opus response for decision {d['decision_index']}"
+            )
+
+    return result
+
+
+# --- Approach H: Batched per-decision Opus (5 decisions per call) ---
+
+BATCH_SIZE = 5
+
+BATCHED_SYSTEM = f"""\
+You are a Magic: The Gathering expert evaluating decisions from a game replay.
+
+Analyze each decision below independently. For each one, decide if it was a blunder.
+Return a single JSON array containing annotation objects for any blunders found.
+If all decisions are reasonable, return an empty array: []
+
+Each decision is self-contained with its own board state. Evaluate them independently.
+
+{SHARED_CATEGORIES}
+
+{SHARED_SEVERITY}
+
+## Output Format
+
+Return ONLY a JSON array of annotation objects (may be empty):
+{ANNOTATION_SCHEMA}
+
+Use the snapshot= number from each decision header as snapshotIndex."""
+
+
+def _approach_batched(
+    client: OpenAI,
+    data: dict,
+    decisions: list[dict],
+    overview: str,
+    model: str,
+    approach_name: str,
+) -> ExperimentResult:
+    """Batched per-decision: send BATCH_SIZE decisions per API call."""
+    result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
+    non_forced = [d for d in decisions if not d["is_forced"]]
+
+    # Chunk non-forced decisions into batches
+    for batch_start in range(0, len(non_forced), BATCH_SIZE):
+        batch = non_forced[batch_start : batch_start + BATCH_SIZE]
+        batch_indices = [d["decision_index"] for d in batch]
+
+        parts: list[str] = []
+        for d in batch:
+            formatted = _format_decisions([d])
+            parts.append(f"--- DECISION ---\n{formatted}")
+
+        user_msg = (
+            f"## Game Overview\n{overview}\n\n"
+            f"## Decisions ({len(batch)} to evaluate)\n\n" + "\n\n".join(parts)
+        )
+
+        label = f"batch_{batch_indices[0]}-{batch_indices[-1]}"
+        trace = _call_llm(client, model, BATCHED_SYSTEM, user_msg, label=label)
+        result.calls.append(trace)
+
+        try:
+            anns = _parse_json_array(trace.response_text)
+            result.annotations.extend(anns)
+        except (json.JSONDecodeError, AssertionError):
+            print(f"    WARNING: Failed to parse response for batch {label}")
+
+    return result
+
+
+# --- Approach I: Multi-turn conversation ---
+
+CONVERSATION_SYSTEM = f"""\
+You are a Magic: The Gathering expert annotating blunders in a game replay.
+
+I'll send you decisions one at a time. For each decision, respond with EXACTLY one of:
+1. PASS — if the play is reasonable.
+2. A JSON annotation object — if the play is a blunder.
+
+Keep responses short. Do NOT explain your reasoning for PASS decisions.
+
+{SHARED_CATEGORIES}
+
+{SHARED_SEVERITY}
+
+## Annotation Format
+{ANNOTATION_SCHEMA}
+
+Use the snapshot= number from the decision header as snapshotIndex."""
+
+
+def _call_llm_messages(
+    client: OpenAI,
+    model: str,
+    messages: list[dict],
+    label: str = "",
+) -> CallTrace:
+    """Call LLM with a full messages list and return a CallTrace."""
+    kwargs: dict = {
+        "model": model,
+        "messages": messages,
+        "max_tokens": 2048,
+        "temperature": 0,
+    }
+
+    start = time.monotonic()
+    response = client.chat.completions.create(**kwargs)
+    elapsed = time.monotonic() - start
+
+    text = response.choices[0].message.content or ""
+    usage = response.usage
+    assert usage is not None, "API response missing usage data"
+
+    cost = _compute_cost(model, usage.prompt_tokens, usage.completion_tokens)
+
+    trace = CallTrace(
+        model=model,
+        system_prompt=messages[0]["content"] if messages else "",
+        user_prompt=messages[-1]["content"] if messages else "",
+        response_text=text,
+        thinking_text="",
+        input_tokens=usage.prompt_tokens,
+        output_tokens=usage.completion_tokens,
+        thinking_tokens=0,
+        cost_usd=cost,
+        wall_time_seconds=elapsed,
+        label=label,
+    )
+
+    print(
+        f"    [{label or 'call'}] {model} "
+        f"{usage.prompt_tokens:,} in / {usage.completion_tokens:,} out "
+        f"${cost:.4f} ({elapsed:.1f}s)"
+    )
+
+    return trace
+
+
+def _approach_conversation(
+    client: OpenAI,
+    data: dict,
+    decisions: list[dict],
+    overview: str,
+    model: str,
+    approach_name: str,
+) -> ExperimentResult:
+    """Multi-turn conversation: send decisions one at a time, accumulate context."""
+    result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
+    non_forced = [d for d in decisions if not d["is_forced"]]
+
+    # Build conversation history incrementally
+    messages: list[dict] = [
+        {"role": "system", "content": CONVERSATION_SYSTEM},
+        {
+            "role": "user",
+            "content": f"## Game Overview\n{overview}\n\nI'll now send you {len(non_forced)} decisions to evaluate.",
+        },
+        {"role": "assistant", "content": "Ready. Send the first decision."},
+    ]
+
+    for d in non_forced:
+        formatted = _format_decisions([d])
+        messages.append({"role": "user", "content": formatted})
+
+        trace = _call_llm_messages(
+            client,
+            model,
+            messages,
+            label=f"decision_{d['decision_index']}",
+        )
+        result.calls.append(trace)
+
+        # Add the assistant response to conversation history
+        messages.append({"role": "assistant", "content": trace.response_text})
+
+        # Parse response
+        text = trace.response_text.strip()
+        if not text.upper().startswith("PASS"):
+            # Try to extract annotation
+            parsed = _parse_inline_response(text)
+            result.annotations.extend(parsed)
 
     return result
 
@@ -478,14 +780,16 @@ def _approach_baseline(
 
 APPROACHES: dict[str, tuple[str, object]] = {
     "baseline": ("Current v5 (single Opus, no thinking)", _approach_baseline),
-    "A_inline": (
-        "Inline annotation (single Opus, annotate-as-you-go)",
-        None,
-    ),  # special
-    "B_flash": ("Per-decision Gemini 2.5 Flash", None),  # special
+    "A_inline": ("Inline annotation (single Opus, annotate-as-you-go)", None),
+    "B_flash": ("Per-decision Gemini 2.5 Flash", None),
     "C_thinking": ("Extended thinking Opus (single pass)", _approach_thinking),
-    "D_opus": ("Per-decision Opus", None),  # special
-    "E_sonnet": ("Per-decision Sonnet 4.5", None),  # special
+    "D_opus": ("Per-decision Opus", None),
+    "E_sonnet": ("Per-decision Sonnet 4.5", None),
+    "F_opus_minimal": ("Per-decision Opus, no game overview", None),
+    "G_flash_opus": ("Flash pre-filter → Opus deep dive", None),
+    "H_opus_batched": ("Batched Opus (5 decisions/call)", None),
+    "I_convo_opus": ("Multi-turn conversation Opus", None),
+    "J_convo_sonnet": ("Multi-turn conversation Sonnet", None),
 }
 
 
@@ -508,6 +812,24 @@ def run_approach(
     elif approach == "E_sonnet":
         return _approach_per_decision(
             client, data, decisions, overview, SONNET, "E_sonnet"
+        )
+    elif approach == "F_opus_minimal":
+        return _approach_per_decision_minimal(
+            client, data, decisions, overview, OPUS, "F_opus_minimal"
+        )
+    elif approach == "G_flash_opus":
+        return _approach_flash_opus(client, data, decisions, overview)
+    elif approach == "H_opus_batched":
+        return _approach_batched(
+            client, data, decisions, overview, OPUS, "H_opus_batched"
+        )
+    elif approach == "I_convo_opus":
+        return _approach_conversation(
+            client, data, decisions, overview, OPUS, "I_convo_opus"
+        )
+    elif approach == "J_convo_sonnet":
+        return _approach_conversation(
+            client, data, decisions, overview, SONNET, "J_convo_sonnet"
         )
     else:
         raise ValueError(f"Unknown approach: {approach}")
