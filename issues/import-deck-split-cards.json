@@ -1,0 +1,10 @@
+{
+  "title": "import-deck.py fails to resolve split cards and room cards via Scryfall",
+  "description": "The import-deck.py script sends card names to Scryfall's /cards/collection endpoint as {\"name\": \"Wear/Tear\"}, but Scryfall doesn't match split cards by their slash-separated name in the collection endpoint. This causes split cards and Duskmourn room cards to be silently dropped from imported decklists.\n\nAffected card types:\n- Split cards: Wear/Tear, Heaven/Earth, Struggle/Survive, Commit/Memory, Dusk/Dawn\n- Duskmourn room cards: Spiked Corridor/Torture Pit, Bottomless Pool/Locker Room, Cramped Vents/Access Maze, Secret Arcade/Dusty Parlor, Experimental Lab/Staff Room, Polluted Cistern/Dim Oubliette\n\nFix options:\n1. Try each half of the slash-separated name individually as a fallback\n2. Use Scryfall's /cards/named?fuzzy= endpoint for unresolved cards\n3. Query by the first half of the name (Scryfall returns the full card)\n\nImpact: 1-2 missing cards per affected deck. Not game-breaking but technically the decklists are incomplete.",
+  "status": "open",
+  "priority": 3,
+  "type": "bug",
+  "labels": ["puppeteer"],
+  "created_at": "2026-02-15T16:46:00.000000-08:00",
+  "updated_at": "2026-02-15T16:46:00.000000-08:00"
+}
