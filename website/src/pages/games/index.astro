@@ -377,24 +377,54 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     gap: 0.4rem;
   }
 
-  .player-badge {
-    font-size: 0.65rem;
+  .player-model-inline {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+    font-weight: 400;
+  }
+
+  .player-placement {
+    font-size: 0.7rem;
     font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.1rem 0.35rem;
+    padding: 0.05rem 0.3rem;
     border-radius: 3px;
-    letter-spacing: 0.03em;
     flex-shrink: 0;
   }
 
-  .badge-pilot {
-    background: rgba(233, 69, 96, 0.2);
-    color: #e94560;
+  .player-placement.placement-1 {
+    background: rgba(168, 217, 165, 0.2);
+    color: #a8d9a5;
   }
 
-  .badge-cpu {
-    background: rgba(160, 160, 184, 0.15);
+  .player-placement.placement-2 {
+    background: rgba(126, 184, 218, 0.2);
+    color: #7eb8da;
+  }
+
+  .player-placement.placement-3 {
+    background: rgba(212, 160, 74, 0.2);
+    color: #d4a04a;
+  }
+
+  .player-placement.placement-4 {
+    background: rgba(160, 160, 184, 0.2);
     color: #a0a0b8;
+  }
+
+  .player-cell.placement-1 {
+    box-shadow: inset 3px 0 0 #a8d9a5;
+  }
+
+  .player-cell.placement-2 {
+    box-shadow: inset 3px 0 0 #7eb8da;
+  }
+
+  .player-cell.placement-3 {
+    box-shadow: inset 3px 0 0 #d4a04a;
+  }
+
+  .player-cell.placement-4 {
+    box-shadow: inset 3px 0 0 #a0a0b8;
   }
 
   .player-commander {
@@ -405,32 +435,10 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     text-overflow: ellipsis;
   }
 
-  .player-model {
-    font-size: 0.75rem;
-    color: #e94560;
-    opacity: 0.8;
-  }
-
   .player-cost {
     font-size: 0.75rem;
     color: #a0a0b8;
     font-variant-numeric: tabular-nums;
-  }
-
-  .player-tools {
-    font-size: 0.75rem;
-    color: #a0a0b8;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .player-thinking {
-    font-size: 0.75rem;
-    color: #a0a0b8;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .tool-fail {
-    color: #e94560;
   }
 
   .player-elo {
@@ -745,25 +753,43 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
     var totalCost = 0;
     var hasCost = false;
+    var isCommander = getGameFormat(game.deckType) === "commander";
 
     (game.players || []).forEach(function (p) {
       var cell = document.createElement("div");
       cell.className = "player-cell";
-      if (game.winner && p.name === game.winner) {
+      if (isCommander && p.placement != null) {
+        cell.classList.add("placement-" + p.placement);
+      } else if (game.winner && p.name === game.winner) {
         cell.classList.add("is-winner");
       }
 
-      // Name + badge
+      // Name + model
       var nameRow = document.createElement("div");
       nameRow.className = "player-name";
 
-      var badge = document.createElement("span");
-      badge.className = "player-badge " + (p.type === "pilot" ? "badge-pilot" : "badge-cpu");
-      badge.textContent = p.type === "pilot" ? "AI" : "CPU";
-      nameRow.appendChild(badge);
+      // Placement for commander games
+      if (isCommander && p.placement != null) {
+        var placeEl = document.createElement("span");
+        placeEl.className = "player-placement placement-" + p.placement;
+        var ordinals = ["", "1st", "2nd", "3rd", "4th"];
+        placeEl.textContent = ordinals[p.placement] || p.placement + "th";
+        nameRow.appendChild(placeEl);
+      }
 
       var nameText = document.createTextNode(p.name);
       nameRow.appendChild(nameText);
+
+      if (p.model) {
+        var modelName = p.model;
+        var slash = modelName.indexOf("/");
+        if (slash !== -1) modelName = modelName.substring(slash + 1);
+        var modelSpan = document.createElement("span");
+        modelSpan.className = "player-model-inline";
+        modelSpan.textContent = "(" + modelName + ")";
+        nameRow.appendChild(modelSpan);
+      }
+
       cell.appendChild(nameRow);
 
       // Commander
@@ -771,17 +797,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
       cmdEl.className = "player-commander";
       cmdEl.textContent = p.deckName || p.commander || "";
       cell.appendChild(cmdEl);
-
-      // Model (only for pilots)
-      if (p.model) {
-        var modelEl = document.createElement("div");
-        modelEl.className = "player-model";
-        var modelName = p.model;
-        var slash = modelName.indexOf("/");
-        if (slash !== -1) modelName = modelName.substring(slash + 1);
-        modelEl.textContent = modelName;
-        cell.appendChild(modelEl);
-      }
 
       // Cost (only if present)
       if (p.totalCostUsd != null) {
@@ -791,28 +806,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         cell.appendChild(costEl);
         totalCost += p.totalCostUsd;
         hasCost = true;
-      }
-
-      // Tool calls (only if present)
-      if (p.toolCallsOk != null) {
-        var toolsEl = document.createElement("div");
-        toolsEl.className = "player-tools";
-        var total = p.toolCallsOk + (p.toolCallsFailed || 0);
-        var text = total + " tools";
-        if (p.toolCallsFailed > 0) {
-          toolsEl.innerHTML = text + " / <span class=\"tool-fail\">" + p.toolCallsFailed + " failed</span>";
-        } else {
-          toolsEl.textContent = text;
-        }
-        cell.appendChild(toolsEl);
-      }
-
-      // Thinking time (only if present)
-      if (p.thinkingTimeSecs != null) {
-        var thinkEl = document.createElement("div");
-        thinkEl.className = "player-thinking";
-        thinkEl.textContent = formatTime(p.thinkingTimeSecs) + " thinking";
-        cell.appendChild(thinkEl);
       }
 
       // Blunders per player
