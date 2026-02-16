@@ -378,6 +378,7 @@ def _approach_per_decision(
     overview: str,
     model: str,
     approach_name: str,
+    thinking: bool = False,
 ) -> ExperimentResult:
     """Per-decision approach: one API call per non-forced decision."""
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
@@ -392,6 +393,7 @@ def _approach_per_decision(
             model,
             PER_DECISION_SYSTEM,
             user_msg,
+            thinking=thinking,
             label=f"decision_{d['decision_index']}",
         )
         result.calls.append(trace)
@@ -790,6 +792,8 @@ APPROACHES: dict[str, tuple[str, object]] = {
     "H_opus_batched": ("Batched Opus (5 decisions/call)", None),
     "I_convo_opus": ("Multi-turn conversation Opus", None),
     "J_convo_sonnet": ("Multi-turn conversation Sonnet", None),
+    "K_opus_thinking": ("Per-decision Opus with extended thinking", None),
+    "L_sonnet_thinking": ("Per-decision Sonnet with extended thinking", None),
 }
 
 
@@ -830,6 +834,20 @@ def run_approach(
     elif approach == "J_convo_sonnet":
         return _approach_conversation(
             client, data, decisions, overview, SONNET, "J_convo_sonnet"
+        )
+    elif approach == "K_opus_thinking":
+        return _approach_per_decision(
+            client, data, decisions, overview, OPUS, "K_opus_thinking", thinking=True
+        )
+    elif approach == "L_sonnet_thinking":
+        return _approach_per_decision(
+            client,
+            data,
+            decisions,
+            overview,
+            SONNET,
+            "L_sonnet_thinking",
+            thinking=True,
         )
     else:
         raise ValueError(f"Unknown approach: {approach}")
