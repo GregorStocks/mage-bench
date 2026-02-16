@@ -565,6 +565,23 @@ It's much worse to miss a real blunder than to flag a correct play.
 
 {SHARED_CATEGORIES}"""
 
+FLASH_SCREEN_SENSITIVE_SYSTEM = f"""\
+You are a Magic: The Gathering expert screening decisions for potential mistakes.
+
+Your job is to FILTER OUT only the decisions that are OBVIOUSLY correct — where there \
+is essentially zero chance of a mistake. Everything else gets flagged for expert review.
+
+Respond with ONLY one of:
+- "PASS" — ONLY if the decision is trivially correct with no room for debate. Examples: \
+only one reasonable option, forced play, routine mana tapping, obvious block.
+- "FLAG" followed by a brief reason — for ANYTHING that could conceivably be questioned. \
+When in doubt, always FLAG.
+
+Your error budget is asymmetric: missing a real blunder is 100x worse than flagging a \
+correct play. The expert review is cheap — your job is just to save time on the obvious ones.
+
+{SHARED_CATEGORIES}"""
+
 
 def _approach_flash_opus(
     client: OpenAI, data: dict, decisions: list[dict], overview: str
@@ -626,6 +643,81 @@ def _approach_flash_opus(
 
     for d in flagged:
         trace, anns = opus_results[d["decision_index"]]
+        result.calls.append(trace)
+        result.annotations.extend(anns)
+
+    return result
+
+
+# --- Approach Q: Flash screening + Sonnet low thinking ---
+
+
+def _approach_flash_sonnet(
+    client: OpenAI, data: dict, decisions: list[dict], overview: str
+) -> ExperimentResult:
+    """Two-phase: sensitive Flash screens each decision, Sonnet+low analyzes flagged."""
+    result = ExperimentResult(
+        approach="Q_flash_sonnet", game_id=data["id"], model=f"{FLASH}+{SONNET}"
+    )
+    non_forced = [d for d in decisions if not d["is_forced"]]
+
+    # Phase 1: Flash screens each decision (parallel) with sensitive prompt
+    def screen_one(d: dict) -> tuple[int, CallTrace, bool]:
+        formatted = _format_decisions([d])
+        user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
+        trace = _call_llm(
+            client,
+            FLASH,
+            FLASH_SCREEN_SENSITIVE_SYSTEM,
+            user_msg,
+            label=f"screen_{d['decision_index']}",
+        )
+        flagged = not trace.response_text.strip().upper().startswith("PASS")
+        return d["decision_index"], trace, flagged
+
+    screen_results: dict[int, tuple[CallTrace, bool]] = {}
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futs = {pool.submit(screen_one, d): d for d in non_forced}
+        for fut in as_completed(futs):
+            idx, trace, flagged = fut.result()
+            screen_results[idx] = (trace, flagged)
+
+    flagged: list[dict] = []
+    for d in non_forced:
+        trace, was_flagged = screen_results[d["decision_index"]]
+        result.calls.append(trace)
+        if was_flagged:
+            flagged.append(d)
+
+    print(
+        f"    Flash flagged {len(flagged)}/{len(non_forced)} decisions for Sonnet review"
+    )
+
+    # Phase 2: Sonnet+low analyzes flagged decisions (parallel)
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {}
+        for d in flagged:
+            formatted = _format_decisions([d])
+            user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
+            label = f"sonnet_{d['decision_index']}"
+            fut = pool.submit(
+                _eval_one_decision,
+                client,
+                SONNET,
+                PER_DECISION_SYSTEM,
+                user_msg,
+                label,
+                "low",
+            )
+            futures[fut] = d["decision_index"]
+
+        sonnet_results: dict[int, tuple[CallTrace, list[dict]]] = {}
+        for fut in as_completed(futures):
+            idx = futures[fut]
+            sonnet_results[idx] = fut.result()
+
+    for d in flagged:
+        trace, anns = sonnet_results[d["decision_index"]]
         result.calls.append(trace)
         result.annotations.extend(anns)
 
@@ -864,6 +956,10 @@ APPROACHES: dict[str, tuple[str, object]] = {
         "Per-decision Sonnet with low thinking",
         None,
     ),
+    "Q_flash_sonnet": (
+        "Flash screening + Sonnet low thinking",
+        None,
+    ),
 }
 
 
@@ -959,6 +1055,8 @@ def run_approach(
             "P_sonnet_low",
             thinking="low",
         )
+    elif approach == "Q_flash_sonnet":
+        return _approach_flash_sonnet(client, data, decisions, overview)
     else:
         raise ValueError(f"Unknown approach: {approach}")
 

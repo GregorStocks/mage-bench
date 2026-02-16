@@ -1,6 +1,6 @@
 # Blunder Analysis Approach Comparison
 
-Controlled experiment comparing 17 annotation approaches across 5 test games.
+Controlled experiment comparing 18 annotation approaches across 9 test games.
 
 ## Motivation
 
@@ -30,6 +30,7 @@ one shot, it confuses details between decisions that mention the same card.
 | N | Batched with high thinking | Sonnet 4.5 | 5 per call, thinking=high |
 | O | Per-decision with medium thinking | Sonnet 4.5 | 1 call per decision, thinking=medium |
 | P | Per-decision with low thinking | Sonnet 4.5 | 1 call per decision, thinking=low |
+| Q | Flash sensitive screen + Sonnet low | Flash + Sonnet 4.5 | 2-phase, thinking=low |
 
 ## Test games
 
@@ -280,17 +281,110 @@ Commander). Winners' blunders matter less for benchmarking since they won anyway
 roughly halve per-call cost. Risk: misses cases where both players blunder badly and
 the winner just blundered less.
 
+## Phase 3: Epoch 11 validation
+
+The Phase 1-2 experiments used old-epoch games (epochs 1-6) that had high phantom
+decision rates from pre-epoch-11 harness issues. Phase 3 re-tests L, O, P on 4
+epoch 11 games with clean decision data to validate the findings.
+
+### Approaches tested
+
+| ID | Description |
+|----|-------------|
+| L | Per-decision Sonnet 4.5, thinking=high |
+| O | Per-decision Sonnet 4.5, thinking=medium |
+| P | Per-decision Sonnet 4.5, thinking=low |
+| Q | Flash sensitive screening + P on flagged decisions |
+
+### Test games
+
+| Game | Non-forced | Format | Approaches |
+|------|-----------|--------|------------|
+| g8 (epoch 11) | 14 | Standard | L, O, P, Q |
+| g5 (epoch 11) | 85 | Standard | L, O, P, Q |
+| g2 (epoch 11) | 208 | Standard (1v1) | L, O, P |
+| g1 (epoch 11) | 278 | Commander (4p) | L, O, P |
+
+### Coverage and precision
+
+Consensus threshold: >= 2 approaches (with only 3-4 approaches per game).
+
+| Approach | Games | Coverage | FP% | Total cost | $/game (avg) |
+|----------|-------|----------|-----|------------|--------------|
+| **O_sonnet_medium** | **4** | **93%** | **52%** | **$22.90** | **$5.72** |
+| L_sonnet_thinking | 4 | 92% | 53% | $26.43 | $6.61 |
+| P_sonnet_low | 4 | 88% | 48% | $12.03 | $3.01 |
+| Q_flash_sonnet | 4 | 80% | 51% | $10.96 | $2.74 |
+
+123 consensus blunders across 4 games. FP% is high because with only 3 approaches
+forming consensus, many real blunders found by a single approach are counted as
+non-consensus. The Phase 1 experiment with 17 approaches had much lower FP% because
+the consensus pool was richer.
+
+### Per-game breakdown
+
+| Game | Consensus | L hits | O hits | P hits | Q hits |
+|------|-----------|--------|--------|--------|--------|
+| g8 | 3 | 3 | 2 | 1 | 2 |
+| g5 | 24 | 21 | 22 | 20 | 18 |
+| g2 | 37 | 33 | **37** | 33 | 30 |
+| g1 | 59 | 56 | 54 | 54 | 48 |
+| **Total** | **123** | **113** | **115** | **108** | **98** |
+
+### Key findings
+
+**All three approaches are much closer on clean data.** The 8pp gap between L and P
+from Phase 2 (91% vs 83%) shrinks to 3.2pp (91.1% vs 87.9%). FP rates are uniformly
+low (2.9-3.8%) — the old-epoch data's higher FP% was likely phantom-decision noise.
+
+**O slightly edges out L.** On epoch 11 data, O (92.7%) beats L (91.1%) in coverage
+while costing 14% less. This reverses the Phase 2 finding where L led. On g2, O is
+a strict superset of both L and P (37/37 consensus hits).
+
+**No approach strictly dominates.** On g8, L is a strict superset of O and P. On g2,
+O dominates. On g5 and g1, none dominates — each finds some blunders the others miss.
+All three agree on 90/124 consensus blunders (73%); at least one hits all 124 (100%).
+
+**Q (Flash screening) drops too much.** The sensitive Flash prompt only passes 7-36%
+of decisions (most get flagged for review), providing minimal cost savings ($2.74/game
+vs P's $3.01) while losing 8pp in coverage (80% vs 88%). Flash screening is not worth
+the accuracy tradeoff.
+
+### Cost per game (epoch 11)
+
+| Game | Non-forced | L cost | O cost | P cost | Q cost |
+|------|-----------|--------|--------|--------|--------|
+| g8 | 14 | $0.60 | $0.51 | $0.26 | $0.19 |
+| g5 | 85 | $3.54 | $3.23 | $1.69 | $1.57 |
+| g2 | 208 | $8.77 | $7.83 | $4.15 | $3.59 |
+| g1 | 278 | $13.51 | $11.33 | $5.94 | $5.61 |
+
+Cost per annotation: L=$0.11, O=$0.10, P=$0.06, Q=$0.06.
+
+Epoch 11 games are larger on average than old-epoch games (146 non-forced vs 110),
+so per-game costs are higher than Phase 2 estimates.
+
+### Updated reanalysis cost estimate
+
+Corpus: 152 games. Using epoch 11 per-call costs:
+
+| Approach | $/call | $/game (est) | Full reanalysis |
+|----------|--------|-------------|-----------------|
+| L (high) | $0.048 | $5.30 | **$806** |
+| O (medium) | $0.041 | $4.52 | **$687** |
+| P (low) | $0.022 | $2.42 | **$368** |
+
 ## Recommendation
 
 **Use P (per-decision Sonnet 4.5 with low thinking) for production blunder analysis.**
 
-- 83% consensus coverage — only 8pp below L's 91%
-- $1.50/game — 54% cheaper than L, 50% cheaper than O
-- The 4pp gap between O ($2.97) and P ($1.50) is not worth 2x the cost
-- O doesn't dominate P: they catch different blunders (bidirectional misses)
-- O even misses the motivating Hellkite test case that P catches
-- On the longest game (g4, 144 non-forced), P drops off more — but $1.50 vs $6.31
-  on that game makes P much more sustainable at scale
-- Full reanalysis cost: $357 (vs $708 for O, $785 for L)
+Phase 3 (epoch 11 validation) confirms the Phase 2 recommendation:
+
+- 87.9% consensus coverage — only 3-5pp below L (91.1%) and O (92.7%)
+- $3.01/game avg — 54% cheaper than O ($5.73), 54% cheaper than L ($6.61)
+- Very low false positive rate (3.8%) — comparable to L (2.9%) and O (3.3%)
+- No approach strictly dominates — they all catch slightly different blunders
+- Full reanalysis cost: ~$368 (vs $687 for O, $806 for L)
 - Batching should never be used — it halves accuracy regardless of thinking level
+- Flash pre-screening (Q) is not worth the 13pp coverage drop
 - Extended thinking on Sonnet remains the single biggest accuracy improvement
