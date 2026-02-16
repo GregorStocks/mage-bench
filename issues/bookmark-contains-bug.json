@@ -1,0 +1,10 @@
+{
+  "title": "GameImpl.restoreState() uses value-contains instead of index-bounds check for bookmark validation",
+  "description": "In GameImpl.java:985, `savedStates.contains(bookmark - 1)` checks whether the VALUE `bookmark - 1` exists anywhere in the Stack<Integer>, but the intent is to check whether the INDEX `bookmark - 1` is valid. The correct check is `bookmark - 1 < savedStates.size()` (or equivalently `savedStates.size() >= bookmark`).\n\nThis works by coincidence when state indices happen to match their stack positions (e.g., first bookmark has state index 0, so contains(0) finds it). But for nested bookmarks with higher state indices, it would falsely report the bookmark doesn't exist.\n\nExample: savedStates = [5] (one bookmark pointing to state index 5). restoreState(1) checks contains(0), but [5] doesn't contain 0, so the restore is incorrectly rejected even though savedStates.get(0) = 5 is valid.\n\nThis is a latent bug in upstream XMage code. Low priority since the error recovery path (which is the main caller) typically has low state indices, but it could cause failed restores that lead to zombie games.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["server", "upstream"],
+  "created_at": "2026-02-16T10:40:00.000000-08:00",
+  "updated_at": "2026-02-16T10:40:00.000000-08:00"
+}

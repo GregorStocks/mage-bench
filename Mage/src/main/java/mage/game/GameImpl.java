@@ -1799,7 +1799,7 @@ public abstract class GameImpl implements Game {
                         if (restoredState != null) {
                             this.informPlayers(String.format("Auto-restored to %s due game error: %s", restoredState, e));
                         } else {
-                            logger.error("Can't auto-restore to prev state");
+                            throw new MageException("Can't auto-restore to prev state after error: " + e);
                         }
 
                         // count total errors
