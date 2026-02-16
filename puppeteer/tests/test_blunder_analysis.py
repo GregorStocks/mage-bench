@@ -168,12 +168,12 @@ class TestChosenDisplay:
 class TestFormatDecisions:
     def test_skips_forced(self) -> None:
         decisions = [
-            _make_decision(decision_index=0, is_forced=True),
-            _make_decision(decision_index=1, is_forced=False),
+            _make_decision(decision_index=0, snapshot_index=0, is_forced=True),
+            _make_decision(decision_index=1, snapshot_index=5, is_forced=False),
         ]
         result = _format_decisions(decisions)
-        assert "[Decision 0]" not in result
-        assert "[Decision 1]" in result
+        assert "[Decision 0" not in result
+        assert "[Decision 1, snapshot=5]" in result
 
     def test_includes_key_fields(self) -> None:
         result = _format_decisions([_make_decision()])
@@ -332,6 +332,42 @@ class TestMainIntegration:
 
         # No API calls made at all
         mock_openai_cls.assert_not_called()
+
+    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.OpenAI")
+    def test_filters_invalid_snapshot_index(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+        game = self._make_game_with_decisions()
+        gz_path = tmp_path / "game.json.gz"
+        self._write_gz(gz_path, game)
+
+        mock_client = MagicMock()
+        mock_openai_cls.return_value = mock_client
+
+        # Opus returns 2 annotations: one valid (index 0), one out of range (index 999)
+        opus_response = MagicMock()
+        opus_response.choices = [MagicMock()]
+        valid_ann = {
+            "snapshotIndex": 0,
+            "player": "Alice",
+            "type": "blunder",
+            "severity": "minor",
+            "category": "unused_mana",
+            "description": "test",
+            "llmReasoning": "test",
+            "actionTaken": "test",
+            "betterLine": "test",
+        }
+        invalid_ann = {**valid_ann, "snapshotIndex": 999}
+        opus_response.choices[0].message.content = json.dumps([valid_ann, invalid_ann])
+        opus_response.usage = MagicMock(prompt_tokens=2000, completion_tokens=200)
+
+        mock_client.chat.completions.create.return_value = opus_response
+
+        main(str(gz_path))
+
+        result = self._read_gz(gz_path)
+        assert len(result["annotations"]) == 1
+        assert result["annotations"][0]["snapshotIndex"] == 0
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("blunder_analysis.OpenAI")

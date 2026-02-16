@@ -82,9 +82,10 @@ cards for nothing, missed lethal, or made an error that directly led to losing.
 
 ## Output Format
 
-Return ONLY a JSON array of annotation objects:
+Return ONLY a JSON array of annotation objects. Use the snapshot= number from the \
+decision header as snapshotIndex (NOT the decision number):
 {
-  "snapshotIndex": <int>,
+  "snapshotIndex": <int from snapshot= in decision header>,
   "player": "<name>",
   "type": "blunder",
   "severity": "questionable" | "minor" | "moderate" | "major",
@@ -146,7 +147,7 @@ def _format_decisions(decisions: list[dict]) -> str:
         chosen_name = _chosen_display(d)
 
         lines = [
-            f"[Decision {d['decision_index']}] Turn {d.get('turn', '?')} "
+            f"[Decision {d['decision_index']}, snapshot={d['snapshot_index']}] Turn {d.get('turn', '?')} "
             f"{d.get('phase', '?')} - {d['player']}",
             f"  Board: {' | '.join(players)}",
             f"  Message: {d.get('message', '')}",
@@ -290,6 +291,23 @@ def main(gz_path: str) -> None:
     print(f"  Tokens: {in_tok:,} input, {out_tok:,} output (${cost:.3f})")
 
     annotations = _parse_json_array(text)
+
+    # Filter out annotations with invalid snapshotIndex (LLM sometimes fabricates indices)
+    num_snapshots = len(data.get("snapshots", []))
+    valid_annotations: list[dict] = []
+    for ann in annotations:
+        idx = ann.get("snapshotIndex")
+        if not isinstance(idx, int) or idx < 0 or idx >= num_snapshots:
+            print(
+                f"  WARNING: Dropping annotation with invalid snapshotIndex {idx} (max {num_snapshots - 1})"
+            )
+            continue
+        valid_annotations.append(ann)
+    if len(valid_annotations) < len(annotations):
+        print(
+            f"  Dropped {len(annotations) - len(valid_annotations)} invalid annotation(s)"
+        )
+    annotations = valid_annotations
 
     if not annotations:
         print("\nNo blunders found.")
