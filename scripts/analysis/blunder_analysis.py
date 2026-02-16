@@ -64,7 +64,8 @@ countering own spells, declining pure-upside abilities
 - `bad_combat` — poor attack/block decisions, attacking such that opponent can make favorable blocks
 - `unused_mana` — missing land drops, not using mana sinks at end of opponent's turn, \
 holding castable spells for no reason
-- `strategic_error` — fundamentally wrong game plan decisions, not countering must-answer threats
+- `strategic_error` — fundamentally wrong game plan decisions, not countering must-answer threats, \
+choosing to go second (going first is a significant advantage in most formats)
 - `walked_into_removal` — overextending into board wipes, running best threat into open counter mana
 
 ## Severity Levels
