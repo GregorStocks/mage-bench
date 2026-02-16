@@ -190,6 +190,10 @@ When you bump `HARNESS_EPOCH`:
 2. Update `MIN_LEADERBOARD_EPOCH` if the old epoch should be excluded from ratings
 3. Re-export affected games and regenerate the leaderboard
 
+## Game Exports
+
+Exported `.json.gz` game files live in `website/public/games/`. These are the source of truth for blunder analysis, the leaderboard, and the game viewer. Raw game logs in `~/.mage-bench/logs/` are the pre-export format and don't have annotations or merged data.
+
 ## Logging
 
 Game logs go to `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/`. See `doc/logging.md` for file layout and error logging architecture.
