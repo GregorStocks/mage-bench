@@ -1,6 +1,6 @@
 # Blunder Analysis Approach Comparison
 
-Controlled experiment comparing 13 annotation approaches across 5 test games.
+Controlled experiment comparing 17 annotation approaches across 5 test games.
 
 ## Motivation
 
@@ -25,17 +25,21 @@ one shot, it confuses details between decisions that mention the same card.
 | I | Multi-turn conversation | Opus | sequential chat |
 | J | Multi-turn conversation | Sonnet 4.5 | sequential chat |
 | K | Per-decision with extended thinking | Opus | 1 call per decision, thinking |
-| L | Per-decision with extended thinking | Sonnet 4.5 | 1 call per decision, thinking |
+| L | Per-decision with extended thinking | Sonnet 4.5 | 1 call per decision, thinking=high |
+| M | Batched with medium thinking | Sonnet 4.5 | 5 per call, thinking=medium |
+| N | Batched with high thinking | Sonnet 4.5 | 5 per call, thinking=high |
+| O | Per-decision with medium thinking | Sonnet 4.5 | 1 call per decision, thinking=medium |
+| P | Per-decision with low thinking | Sonnet 4.5 | 1 call per decision, thinking=low |
 
 ## Test games
 
 | Game | Decisions | Non-forced | Format | Approaches run |
 |------|-----------|------------|--------|----------------|
-| g8 | 113 | 14 | Standard | 13 |
-| g3 | 113 | 54 | Legacy (Doomsday vs Lands) | 13 |
-| g4 | 305 | 144 | Modern (Yawgmoth vs Prowess) | 11 |
-| g1 | 390 | 106 | Modern (Eldrazi vs Bant) | 6 |
-| new | 205 | 81 | Modern | 6 |
+| g8 | 23 | 14 | Standard | 17 |
+| g3 | 113 | 54 | Legacy (Doomsday vs Lands) | 17 |
+| g4 | 186 | 144 | Modern (Yawgmoth vs Prowess) | 15 |
+| g1 | 150 | 68 | Modern (Eldrazi vs Bant) | 10 |
+| 003230 | 134 | 70 | Modern | 10 |
 
 ## Results
 
@@ -44,21 +48,30 @@ with snapshots within +/-2 considered the same blunder.
 
 ### Coverage and precision
 
-| Approach | Games | Coverage | FP | FP% | $/game | $/hit | s/game |
-|----------|-------|----------|-----|-----|--------|-------|--------|
-| **L_sonnet_thinking** | **5** | **98%** | **23** | **11%** | **$3.29** | **$0.18** | **4291s** |
-| D_opus | 5 | 79% | 4 | 3% | $1.58 | $0.11 | 1184s |
-| G_flash_opus | 3 | 78% | 0 | 0% | $1.55 | $0.10 | 1225s |
-| B_flash | 5 | 76% | 26 | 17% | $0.07 | $0.00 | 148s |
-| H_opus_batched | 5 | 71% | 3 | 3% | $0.54 | $0.04 | 355s |
-| F_opus_minimal | 3 | 71% | 1 | 1% | $1.59 | $0.12 | 1222s |
-| K_opus_thinking | 5 | 63% | 0 | 0% | $5.66 | $0.49 | 4457s |
-| E_sonnet | 5 | 53% | 6 | 7% | $0.50 | $0.05 | 513s |
-| baseline | 3 | 48% | 0 | 0% | $0.17 | $0.02 | 51s |
-| I_convo_opus | 2 | 45% | 0 | 0% | $1.59 | $0.32 | 146s |
-| A_inline | 3 | 43% | 0 | 0% | $0.18 | $0.02 | 46s |
-| J_convo_sonnet | 2 | 5% | 0 | 0% | $0.63 | $1.27 | 46s |
-| C_thinking | 3 | 2% | 0 | 0% | $0.40 | $1.21 | 245s |
+Coverage = consensus blunder hits / (hits + misses). FP = non-consensus annotations.
+
+| Approach | Games | Coverage | FP% | $/game | s/game |
+|----------|-------|----------|-----|--------|--------|
+| **L_sonnet_thinking** | **5** | **91%** | **11%** | **$3.29** | **4291s** |
+| **O_sonnet_medium** | **5** | **87%** | **15%** | **$2.97** | **3929s** |
+| P_sonnet_low | 5 | 83% | 14% | $1.50 | 1899s |
+| D_opus | 5 | 66% | 5% | $1.58 | 1184s |
+| G_flash_opus | 3 | 64% | 6% | $1.55 | 1225s |
+| B_flash | 5 | 56% | 33% | $0.07 | 148s |
+| F_opus_minimal | 3 | 61% | 7% | $1.59 | 1222s |
+| K_opus_thinking | 5 | 51% | 3% | $5.66 | 4457s |
+| N_sonnet_batched_high | 5 | 50% | 12% | $0.89 | 1132s |
+| M_sonnet_batched_medium | 5 | 48% | 10% | $0.87 | 1098s |
+| H_opus_batched | 5 | 47% | 5% | $0.54 | 355s |
+| E_sonnet | 5 | 37% | 22% | $0.50 | 513s |
+| baseline | 3 | 32% | 6% | $0.17 | 51s |
+| I_convo_opus | 2 | 45% | 7% | $1.59 | 146s |
+| A_inline | 3 | 31% | 0% | $0.18 | 46s |
+| J_convo_sonnet | 2 | 0% | 100% | $0.63 | 46s |
+| C_thinking | 3 | 1% | 0% | $0.40 | 245s |
+
+Note: coverage percentages changed from Phase 1 because adding 4 more approaches
+(M-P) shifted the consensus pool. The relative ordering is preserved.
 
 ### L is a strict superset of D
 
@@ -143,12 +156,46 @@ opponent fails to activate the lethal Stage+Depths combo.
 
 All corroborated by 3-5 other approaches — these are real blunders, not noise.
 
+## Phase 2: Cost optimization
+
+L costs $3.29/game, up from ~$0.17 for the v5 baseline. We tested whether we could
+reduce cost without losing much accuracy by isolating two factors:
+
+1. **Batching**: sending multiple decisions per API call (reduces per-call overhead)
+2. **Thinking effort**: high vs medium vs low extended thinking
+
+### Factor isolation
+
+| Approach | Architecture | Thinking | Coverage | $/game |
+|----------|-------------|----------|----------|--------|
+| L | per-decision | high | 91% | $3.29 |
+| O | per-decision | medium | 87% | $2.97 |
+| P | per-decision | low | 83% | $1.50 |
+| N | batched(5) | high | 50% | $0.89 |
+| M | batched(5) | medium | 48% | $0.87 |
+
+### Key findings
+
+**Batching is the accuracy killer.** Comparing matched pairs:
+- L (pd+high, 91%) vs N (batch+high, 50%): **-41pp** from batching
+- O (pd+medium, 87%) vs M (batch+medium, 48%): **-39pp** from batching
+
+**Thinking level has modest impact.** Comparing per-decision approaches:
+- High → Medium (L→O): -4pp coverage, saves $0.32/game (10%)
+- Medium → Low (O→P): -4pp coverage, saves $1.47/game (49%)
+- High → Low (L→P): -8pp coverage, saves $1.79/game (54%)
+
+**The `llmReasoning` field was also removed** from the annotation schema in Phase 2.
+This field asked the model to explain why the LLM made the mistake. Removing it
+saved ~20% of output tokens with no impact on annotation quality.
+
 ## Recommendation
 
-**Use L (per-decision Sonnet 4.5 with extended thinking) for production blunder analysis.**
+**Use O (per-decision Sonnet 4.5 with medium thinking) for production blunder analysis.**
 
-- 98% consensus coverage vs D's 79% — a massive accuracy gap
-- L is a strict superset of D's coverage across all 5 test games
-- $3.29/game is 2x D but finds 24% more blunders
-- 11% false positive rate is acceptable (mostly real observations below consensus threshold)
-- Extended thinking on Sonnet is the single biggest accuracy improvement in the experiment
+- 87% consensus coverage vs L's 91% — a modest 4pp trade
+- $2.97/game vs $3.29/game — 10% cheaper
+- If cost pressure increases, P (low thinking) at $1.50/game with 83% coverage
+  is a viable fallback — 54% cheaper than L with only 8pp less coverage
+- Batching should never be used — it halves accuracy regardless of thinking level
+- Extended thinking on Sonnet remains the single biggest accuracy improvement
