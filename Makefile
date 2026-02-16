@@ -96,6 +96,16 @@ run:
 	  --record$(if $(OUTPUT),=$(OUTPUT)) $(if $(GAMES),--games $(GAMES)) \
 	  --config "$$CONFIG_PATH" $(ARGS)
 
+# Run a matchmaking game between top-rated 1v1 models
+# Usage: make matchmake [THRESHOLD=1600] [FORMAT=standard] [GAMES=1]
+THRESHOLD ?= 1600
+.PHONY: matchmake
+matchmake:
+	@uv run --project puppeteer python scripts/matchmake.py \
+	  --threshold $(THRESHOLD) $(if $(FORMAT),--format $(FORMAT)) \
+	  --output tmp/matchmake.json
+	@$(MAKE) run CONFIG=tmp/matchmake.json $(if $(GAMES),GAMES=$(GAMES)) $(if $(ARGS),ARGS="$(ARGS)")
+
 # List available configs
 .PHONY: configs
 configs:
