@@ -66,19 +66,32 @@ if (fs.existsSync(gamesDir)) {
       harnessEpoch: data.harnessEpoch ?? null,
     };
     if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
-    const annotations = data.annotations || [];
-    if (annotations.length > 0) {
-      // Build per-player severity counts
-      const perPlayer: Record<string, Record<string, number>> = {};
-      for (const a of annotations) {
-        const ann = a as Record<string, unknown>;
-        const sev = ann.severity as string;
-        const player = (ann.player as string) || "Unknown";
-        if (!perPlayer[player]) perPlayer[player] = { questionable: 0, minor: 0, moderate: 0, major: 0 };
-        if (sev in perPlayer[player]) perPlayer[player][sev]++;
-      }
-      entry.blundersByPlayer = perPlayer;
+    const annotations = data.annotations;
+    if (annotations == null) {
+      throw new Error(`Game ${data.id} has no annotations`);
     }
+    const totalTurns = data.totalTurns as number;
+    if (!totalTurns || totalTurns <= 0) {
+      throw new Error(`Game ${data.id} has no turns`);
+    }
+    // Build per-player blunder score (severity-weighted blunders / turns)
+    const WEIGHTS: Record<string, number> = { questionable: 0.5, minor: 1, moderate: 2, major: 4 };
+    const weightedByPlayer: Record<string, number> = {};
+    for (const p of players) {
+      weightedByPlayer[(p as any).name] = 0;
+    }
+    for (const a of annotations) {
+      const ann = a as Record<string, unknown>;
+      if (ann.type !== "blunder") continue;
+      const sev = ann.severity as string;
+      const player = (ann.player as string) || "Unknown";
+      weightedByPlayer[player] = (weightedByPlayer[player] || 0) + (WEIGHTS[sev] || 0);
+    }
+    const scoreByPlayer: Record<string, number> = {};
+    for (const [player, weight] of Object.entries(weightedByPlayer)) {
+      scoreByPlayer[player] = Math.round((weight / totalTurns) * 100) / 100;
+    }
+    entry.blunderScoreByPlayer = scoreByPlayer;
     games.push(entry);
   }
 }
@@ -377,24 +390,54 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     gap: 0.4rem;
   }
 
-  .player-badge {
-    font-size: 0.65rem;
+  .player-model-inline {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+    font-weight: 400;
+  }
+
+  .player-placement {
+    font-size: 0.7rem;
     font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.1rem 0.35rem;
+    padding: 0.05rem 0.3rem;
     border-radius: 3px;
-    letter-spacing: 0.03em;
     flex-shrink: 0;
   }
 
-  .badge-pilot {
-    background: rgba(233, 69, 96, 0.2);
-    color: #e94560;
+  .player-placement.placement-1 {
+    background: rgba(168, 217, 165, 0.2);
+    color: #a8d9a5;
   }
 
-  .badge-cpu {
-    background: rgba(160, 160, 184, 0.15);
+  .player-placement.placement-2 {
+    background: rgba(126, 184, 218, 0.2);
+    color: #7eb8da;
+  }
+
+  .player-placement.placement-3 {
+    background: rgba(212, 160, 74, 0.2);
+    color: #d4a04a;
+  }
+
+  .player-placement.placement-4 {
+    background: rgba(160, 160, 184, 0.2);
     color: #a0a0b8;
+  }
+
+  .player-cell.placement-1 {
+    box-shadow: inset 3px 0 0 #a8d9a5;
+  }
+
+  .player-cell.placement-2 {
+    box-shadow: inset 3px 0 0 #7eb8da;
+  }
+
+  .player-cell.placement-3 {
+    box-shadow: inset 3px 0 0 #d4a04a;
+  }
+
+  .player-cell.placement-4 {
+    box-shadow: inset 3px 0 0 #a0a0b8;
   }
 
   .player-commander {
@@ -405,32 +448,10 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     text-overflow: ellipsis;
   }
 
-  .player-model {
-    font-size: 0.75rem;
-    color: #e94560;
-    opacity: 0.8;
-  }
-
   .player-cost {
     font-size: 0.75rem;
     color: #a0a0b8;
     font-variant-numeric: tabular-nums;
-  }
-
-  .player-tools {
-    font-size: 0.75rem;
-    color: #a0a0b8;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .player-thinking {
-    font-size: 0.75rem;
-    color: #a0a0b8;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .tool-fail {
-    color: #e94560;
   }
 
   .player-elo {
@@ -456,33 +477,21 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     font-variant-numeric: tabular-nums;
   }
 
-  .blunder-badge {
-    font-size: 0.65rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 0.1rem 0.4rem;
-    border-radius: 3px;
-    letter-spacing: 0.03em;
+  .player-blunder-score {
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
   }
 
-  .blunder-badge.severity-questionable {
-    background: rgba(148, 163, 184, 0.15);
-    color: #94a3b8;
+  .player-blunder-score.blunder-low {
+    color: #a8d9a5;
   }
 
-  .blunder-badge.severity-minor {
-    background: rgba(251, 191, 36, 0.15);
+  .player-blunder-score.blunder-med {
     color: #fbbf24;
   }
 
-  .blunder-badge.severity-moderate {
-    background: rgba(249, 115, 22, 0.15);
-    color: #f97316;
-  }
-
-  .blunder-badge.severity-major {
-    background: rgba(239, 68, 68, 0.15);
-    color: #ef4444;
+  .player-blunder-score.blunder-high {
+    color: #e94560;
   }
 
   .epoch-badge {
@@ -497,13 +506,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   .epoch-old {
     background: rgba(239, 68, 68, 0.15);
     color: #ef4444;
-  }
-
-  .player-blunders {
-    display: flex;
-    gap: 0.3rem;
-    margin-top: 0.15rem;
-    flex-wrap: wrap;
   }
 
   @media (max-width: 500px) {
@@ -549,13 +551,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   };
 
   var MIN_LEADERBOARD_EPOCH = 2;
-
-  function formatTime(secs) {
-    if (secs < 60) return Math.round(secs) + "s";
-    var m = Math.floor(secs / 60);
-    var s = Math.round(secs % 60);
-    return s > 0 ? m + "m " + s + "s" : m + "m";
-  }
 
   function getGameFormat(deckType) {
     return DECK_TYPE_FORMATS[deckType] || "commander";
@@ -745,25 +740,43 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
     var totalCost = 0;
     var hasCost = false;
+    var isCommander = getGameFormat(game.deckType) === "commander";
 
     (game.players || []).forEach(function (p) {
       var cell = document.createElement("div");
       cell.className = "player-cell";
-      if (game.winner && p.name === game.winner) {
+      if (isCommander && p.placement != null) {
+        cell.classList.add("placement-" + p.placement);
+      } else if (game.winner && p.name === game.winner) {
         cell.classList.add("is-winner");
       }
 
-      // Name + badge
+      // Name + model
       var nameRow = document.createElement("div");
       nameRow.className = "player-name";
 
-      var badge = document.createElement("span");
-      badge.className = "player-badge " + (p.type === "pilot" ? "badge-pilot" : "badge-cpu");
-      badge.textContent = p.type === "pilot" ? "AI" : "CPU";
-      nameRow.appendChild(badge);
+      // Placement for commander games
+      if (isCommander && p.placement != null) {
+        var placeEl = document.createElement("span");
+        placeEl.className = "player-placement placement-" + p.placement;
+        var ordinals = ["", "1st", "2nd", "3rd", "4th"];
+        placeEl.textContent = ordinals[p.placement] || p.placement + "th";
+        nameRow.appendChild(placeEl);
+      }
 
       var nameText = document.createTextNode(p.name);
       nameRow.appendChild(nameText);
+
+      if (p.model) {
+        var modelName = p.model;
+        var slash = modelName.indexOf("/");
+        if (slash !== -1) modelName = modelName.substring(slash + 1);
+        var modelSpan = document.createElement("span");
+        modelSpan.className = "player-model-inline";
+        modelSpan.textContent = "(" + modelName + ")";
+        nameRow.appendChild(modelSpan);
+      }
+
       cell.appendChild(nameRow);
 
       // Commander
@@ -771,17 +784,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
       cmdEl.className = "player-commander";
       cmdEl.textContent = p.deckName || p.commander || "";
       cell.appendChild(cmdEl);
-
-      // Model (only for pilots)
-      if (p.model) {
-        var modelEl = document.createElement("div");
-        modelEl.className = "player-model";
-        var modelName = p.model;
-        var slash = modelName.indexOf("/");
-        if (slash !== -1) modelName = modelName.substring(slash + 1);
-        modelEl.textContent = modelName;
-        cell.appendChild(modelEl);
-      }
 
       // Cost (only if present)
       if (p.totalCostUsd != null) {
@@ -793,50 +795,16 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         hasCost = true;
       }
 
-      // Tool calls (only if present)
-      if (p.toolCallsOk != null) {
-        var toolsEl = document.createElement("div");
-        toolsEl.className = "player-tools";
-        var total = p.toolCallsOk + (p.toolCallsFailed || 0);
-        var text = total + " tools";
-        if (p.toolCallsFailed > 0) {
-          toolsEl.innerHTML = text + " / <span class=\"tool-fail\">" + p.toolCallsFailed + " failed</span>";
-        } else {
-          toolsEl.textContent = text;
-        }
-        cell.appendChild(toolsEl);
-      }
-
-      // Thinking time (only if present)
-      if (p.thinkingTimeSecs != null) {
-        var thinkEl = document.createElement("div");
-        thinkEl.className = "player-thinking";
-        thinkEl.textContent = formatTime(p.thinkingTimeSecs) + " thinking";
-        cell.appendChild(thinkEl);
-      }
-
-      // Blunders per player
-      var playerBlunders = (game.blundersByPlayer || {})[p.name];
-      if (playerBlunders) {
-        var blunderRow = document.createElement("div");
-        blunderRow.className = "player-blunders";
-        var sevOrder = [
-          ["major", playerBlunders.major],
-          ["moderate", playerBlunders.moderate],
-          ["minor", playerBlunders.minor],
-          ["questionable", playerBlunders.questionable],
-        ];
-        for (var si = 0; si < sevOrder.length; si++) {
-          var sevName = sevOrder[si][0];
-          var sevCount = sevOrder[si][1];
-          if (sevCount > 0) {
-            var blunderEl = document.createElement("span");
-            blunderEl.className = "blunder-badge severity-" + sevName;
-            blunderEl.textContent = sevCount + " " + sevName;
-            blunderRow.appendChild(blunderEl);
-          }
-        }
-        if (blunderRow.childNodes.length > 0) cell.appendChild(blunderRow);
+      // Blunder score per player
+      var playerScore = (game.blunderScoreByPlayer || {})[p.name];
+      if (playerScore != null) {
+        var scoreEl = document.createElement("div");
+        scoreEl.className = "player-blunder-score";
+        if (playerScore >= 1.5) scoreEl.classList.add("blunder-high");
+        else if (playerScore >= 0.5) scoreEl.classList.add("blunder-med");
+        else scoreEl.classList.add("blunder-low");
+        scoreEl.textContent = "Blunder Index: " + playerScore.toFixed(2);
+        cell.appendChild(scoreEl);
       }
 
       // Elo (if available) — key matches _player_key(): "model::effort" or "model"

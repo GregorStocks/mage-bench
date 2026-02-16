@@ -15,6 +15,14 @@ from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
 
 _LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 
+# Severity weights for blunder score. Higher weight = worse blunder.
+BLUNDER_WEIGHTS: dict[str, float] = {
+    "questionable": 0.5,
+    "minor": 1,
+    "moderate": 2,
+    "major": 4,
+}
+
 
 def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
     """Compute per-player thinking time from sorted LLM events.
@@ -350,10 +358,13 @@ def compute_openskill_ratings(
         teams = [[os_ratings[key]] for key in pilot_keys]
         has_placements = any(p["name"] in placements for p in pilots)
         if has_placements:
+            # Winner-takes-all: 1st place wins, everyone else ties as losers.
+            # Commander is "one winner, three losers" — elimination order
+            # among non-winners is not a meaningful signal.
             ranks: list[float] = []
             for p in pilots:
                 placement = placements.get(p["name"])
-                ranks.append(float(placement if placement is not None else len(pilots)))
+                ranks.append(1.0 if placement == 1 else 2.0)
             updated = model.rate(teams, ranks=ranks)
         else:
             updated = teams
@@ -414,14 +425,15 @@ def generate_leaderboard(
     # Aggregate per-player-key stats (model_id::effort or just model_id)
     stats: dict[str, dict[str, float]] = {}
     for game in scored_games:
-        # Build name -> blunder count from annotations.
-        # "questionable" severity is excluded — it shows in the game viewer
-        # but doesn't count toward leaderboard blunder stats.
-        blunders_by_name: dict[str, int] = {}
+        # Build name -> weighted blunder sum from annotations.
+        blunder_weight_by_name: dict[str, float] = {}
         for ann in game.get("annotations", []):
-            if ann.get("type") == "blunder" and ann.get("severity") != "questionable":
+            if ann.get("type") == "blunder":
                 name = ann.get("player", "")
-                blunders_by_name[name] = blunders_by_name.get(name, 0) + 1
+                severity = ann.get("severity", "")
+                blunder_weight_by_name[name] = blunder_weight_by_name.get(name, 0) + BLUNDER_WEIGHTS.get(severity, 0)
+
+        total_turns = game.get("totalTurns", 0)
 
         for p in game.get("players", []):
             if p.get("type") != "pilot" or not p.get("model"):
@@ -435,8 +447,8 @@ def generate_leaderboard(
                     "total_tool_calls_ok": 0,
                     "total_tool_calls_failed": 0,
                     "total_thinking_time": 0.0,
-                    "total_blunders": 0,
-                    "annotated_games": 0,
+                    "total_weighted_blunders": 0.0,
+                    "total_annotated_turns": 0,
                 }
             stats[key]["games_played"] += 1
             if game.get("winner") == p["name"]:
@@ -445,9 +457,10 @@ def generate_leaderboard(
             stats[key]["total_tool_calls_ok"] += p.get("toolCallsOk", 0)
             stats[key]["total_tool_calls_failed"] += p.get("toolCallsFailed", 0)
             stats[key]["total_thinking_time"] += p.get("thinkingTimeSecs", 0.0)
-            if game.get("annotations") is not None:
-                stats[key]["annotated_games"] += 1
-                stats[key]["total_blunders"] += blunders_by_name.get(p["name"], 0)
+            assert game.get("annotations") is not None, f"Game {game.get('id')} has no annotations"
+            assert total_turns > 0, f"Game {game.get('id')} has no turns"
+            stats[key]["total_annotated_turns"] += total_turns
+            stats[key]["total_weighted_blunders"] += blunder_weight_by_name.get(p["name"], 0)
 
     # Build models list
     models: list[dict[str, str | int | float | None]] = []
@@ -467,8 +480,9 @@ def generate_leaderboard(
         avg_tool_calls_ok = s["total_tool_calls_ok"] / games_played
         avg_tool_calls_failed = s["total_tool_calls_failed"] / games_played
         avg_thinking_time = s["total_thinking_time"] / games_played
-        annotated_games = int(s["annotated_games"])
-        avg_blunders = s["total_blunders"] / annotated_games if annotated_games > 0 else None
+        total_annotated_turns = int(s["total_annotated_turns"])
+        assert total_annotated_turns > 0, f"Model {model_id} has no annotated turns"
+        blunder_score = s["total_weighted_blunders"] / total_annotated_turns
         entry: dict[str, str | int | float | None] = {
             "modelId": model_id,
             "modelName": display_name,
@@ -480,7 +494,7 @@ def generate_leaderboard(
             "avgToolCallsOk": round(avg_tool_calls_ok, 1),
             "avgToolCallsFailed": round(avg_tool_calls_failed, 1),
             "avgThinkingTimeSecs": round(avg_thinking_time, 1),
-            "avgBlundersPerGame": round(avg_blunders, 1) if avg_blunders is not None else None,
+            "blunderScore": round(blunder_score, 2),
         }
         if effort:
             entry["reasoningEffort"] = effort

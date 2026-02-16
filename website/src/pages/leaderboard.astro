@@ -27,13 +27,6 @@ const allProviders = [
   ),
 ].sort();
 
-function formatTime(secs: number): string {
-  if (secs < 60) return Math.round(secs) + 's';
-  const m = Math.floor(secs / 60);
-  const s = Math.round(secs % 60);
-  return s > 0 ? `${m}m ${s}s` : `${m}m`;
-}
-
 const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length > 1;
 const excludedGames = (benchmarkData as any).excludedGames ?? 0;
 const minEpoch = (benchmarkData as any).minEpoch ?? null;
@@ -60,29 +53,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       ))}
     </div>
 
-    <details class="rating-info">
-      <summary>How ratings work</summary>
-      <div class="rating-info-body">
-        <p>
-          <strong>1v1</strong> ratings use
-          <a href="https://en.wikipedia.org/wiki/Elo_rating_system" target="_blank" rel="noopener">Elo</a>
-          (K=32). Standard, Modern, and Legacy games share one rating pool.
-          <strong>Commander</strong> ratings use
-          <a href="https://openskill.me/" target="_blank" rel="noopener">OpenSkill</a>
-          PlackettLuce, a Bayesian system that models the full finishing order (1st–4th).
-          Both start at <strong>1600</strong>.
-        </p>
-        {minEpoch && excludedGames > 0 && (
-          <p>
-            {excludedGames} {excludedGames === 1 ? 'game is' : 'games are'} excluded
-            from ratings (harness epoch &lt; {minEpoch}). The harness epoch is a monotonic
-            integer that increments when MCP tools, priority semantics, or pilot logic change
-            enough to make game results non-comparable. Games from older epochs are still
-            viewable but don't contribute to Elo.
-          </p>
-        )}
-      </div>
-    </details>
+    <p class="methodology-link"><a href="/methodology">How scoring works</a></p>
 
     <div class="filters">
       <input
@@ -107,10 +78,9 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
             <th data-sort="modelName" data-type="string">Model Name</th>
             <th data-sort="provider" data-type="string">Provider</th>
             <th data-sort="rating" data-type="number" class="sorted desc">Rating <span class="sort-arrow">&#9660;</span></th>
+            <th data-sort="blunderScore" data-type="number">Blunder Index</th>
             <th data-sort="gamesPlayed" data-type="number">Games Played</th>
             <th data-sort="winRate" data-type="number" class="col-winrate">Win Rate</th>
-            <th data-sort="avgThinkingTimeSecs" data-type="number">Avg Think Time</th>
-            <th data-sort="avgBlundersPerGame" data-type="number">Blunders/Game</th>
             <th data-sort="avgApiCost" data-type="number">Avg Cost</th>
           </tr>
         </thead>
@@ -125,18 +95,16 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
                 data-rating={m.rating}
                 data-games-played={m.gamesPlayed}
                 data-win-rate={m.winRate}
-                data-avg-thinking-time-secs={m.avgThinkingTimeSecs ?? 0}
-                data-avg-blunders-per-game={m.avgBlundersPerGame ?? 0}
+                data-blunder-score={m.blunderScore}
                 data-avg-api-cost={m.avgApiCost}
               >
                 <td class="rank-cell">{i + 1}</td>
                 <td class="model-name">{m.modelName}</td>
                 <td>{m.provider}</td>
                 <td class="num">{m.rating}</td>
+                <td class="num"><span class={`blunder-val ${m.blunderScore < 0.3 ? 'blunder-good' : m.blunderScore < 0.8 ? 'blunder-ok' : 'blunder-bad'}`}>{m.blunderScore.toFixed(2)}</span></td>
                 <td class="num"><a class="games-link" href={`/games?model=${encodeURIComponent(m.modelId)}${m.reasoningEffort ? '&effort=' + encodeURIComponent(m.reasoningEffort) : ''}`}>{m.gamesPlayed}</a></td>
                 <td class="num col-winrate">{(m.winRate * 100).toFixed(1)}%</td>
-                <td class="num">{formatTime(m.avgThinkingTimeSecs ?? 0)}</td>
-                <td class="num">{(m.avgBlundersPerGame ?? 0).toFixed(1)}</td>
                 <td class="num">${m.avgApiCost.toFixed(2)}</td>
               </tr>
             ))}
@@ -369,43 +337,18 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     margin-left: 0.2rem;
   }
 
-  .rating-info {
+  .methodology-link {
     margin-bottom: 1.5rem;
-    border: 1px solid #0f3460;
-    border-radius: 4px;
     font-size: 0.9rem;
   }
 
-  .rating-info summary {
-    padding: 0.5rem 0.75rem;
-    cursor: pointer;
+  .methodology-link a {
     color: #a0a0b8;
-    user-select: none;
+    text-decoration: none;
   }
 
-  .rating-info summary:hover {
-    color: #e0e0e0;
-  }
-
-  .rating-info-body {
-    padding: 0 0.75rem 0.75rem;
-    color: #a0a0b8;
-    line-height: 1.6;
-  }
-
-  .rating-info-body p {
-    margin: 0.5rem 0;
-  }
-
-  .rating-info-body a {
+  .methodology-link a:hover {
     color: #e94560;
-  }
-
-  .rating-info-body code {
-    background: #16213e;
-    padding: 0.1rem 0.35rem;
-    border-radius: 3px;
-    font-size: 0.85em;
   }
 
   .filters {
@@ -521,11 +464,22 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     text-decoration: underline;
   }
 
+  .blunder-good {
+    color: #a8d9a5;
+  }
+
+  .blunder-ok {
+    color: #fbbf24;
+  }
+
+  .blunder-bad {
+    color: #e94560;
+  }
+
   th[data-sort="rating"],
   th[data-sort="gamesPlayed"],
   th[data-sort="winRate"],
-  th[data-sort="avgThinkingTimeSecs"],
-  th[data-sort="avgBlundersPerGame"],
+  th[data-sort="blunderScore"],
   th[data-sort="avgApiCost"] {
     text-align: right;
   }

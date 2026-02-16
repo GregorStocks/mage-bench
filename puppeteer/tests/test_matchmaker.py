@@ -1,4 +1,4 @@
-"""Tests for Yente matchmaker (preset='yente' resolution)."""
+"""Tests for matchmakers (yente and round-robin)."""
 
 import gzip
 import json
@@ -7,7 +7,12 @@ from pathlib import Path
 import pytest
 
 from puppeteer.config import PilotPlayer, _resolve_randoms
-from puppeteer.matchmaker import _build_key_to_preset, get_yente_pool
+from puppeteer.matchmaker import (
+    _build_key_to_preset,
+    _build_matchup_matrix,
+    get_round_robin_matchup,
+    get_yente_pool,
+)
 
 
 def _write_presets(path: Path, presets: dict, gauntlet: list[str]) -> None:
@@ -286,4 +291,312 @@ class TestResolveRandomsYente:
                 {},
                 {"models": []},
                 yente_pool=None,
+            )
+
+
+# --- Round-robin matchmaker tests ---
+
+
+class TestBuildMatchupMatrix:
+    def test_empty_games(self) -> None:
+        pair_counts, game_counts = _build_matchup_matrix([], {})
+        assert pair_counts == {}
+        assert game_counts == {}
+
+    def test_counts_1v1_pairs(self, tmp_path: Path) -> None:
+        _games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+        key_to_preset = _build_key_to_preset(presets_path)
+
+        games = [
+            _make_1v1_game("g1", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta"),
+            _make_1v1_game("g2", "2026-01-02T00:00:00Z", "P2", "v/alpha", "v/beta"),
+        ]
+        pair_counts, game_counts = _build_matchup_matrix(games, key_to_preset)
+
+        assert pair_counts[("alpha-medium", "beta-medium")] == 2
+        assert game_counts["alpha-medium"] == 2
+        assert game_counts["beta-medium"] == 2
+
+    def test_counts_commander_pairs(self, tmp_path: Path) -> None:
+        _games_dir, presets_path, _models_path = _setup_fixtures(tmp_path, n=4)
+        key_to_preset = _build_key_to_preset(presets_path)
+
+        models = [("v/alpha", "medium"), ("v/beta", "medium"), ("v/gamma", "medium"), ("v/delta", "medium")]
+        games = [_make_commander_game("g1", "2026-01-01T00:00:00Z", "P1", models)]
+        pair_counts, _game_counts = _build_matchup_matrix(games, key_to_preset)
+
+        # C(4,2) = 6 pairs, each with count 1
+        assert len(pair_counts) == 6
+        assert all(v == 1 for v in pair_counts.values())
+
+    def test_ignores_non_gauntlet_players(self, tmp_path: Path) -> None:
+        _games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+        key_to_preset = _build_key_to_preset(presets_path)
+
+        # "v/unknown" is not in the gauntlet
+        game = _make_1v1_game("g1", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/unknown")
+        pair_counts, game_counts = _build_matchup_matrix([game], key_to_preset)
+
+        assert len(pair_counts) == 0  # No valid pair (one side is unknown)
+        assert game_counts.get("alpha-medium") == 1
+        assert "unknown" not in str(game_counts)
+
+    def test_extra_matchups(self, tmp_path: Path) -> None:
+        pair_counts, game_counts = _build_matchup_matrix([], {}, extra_matchups=[("alpha-medium", "beta-medium")])
+        assert pair_counts[("alpha-medium", "beta-medium")] == 1
+        assert game_counts["alpha-medium"] == 1
+        assert game_counts["beta-medium"] == 1
+
+
+class TestGetRoundRobinMatchup:
+    def test_zero_games_returns_valid_group(self, tmp_path: Path) -> None:
+        """With no history, any valid group is acceptable."""
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
+        picks = get_round_robin_matchup(
+            "Constructed - Standard",
+            2,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+        )
+        assert len(picks) == 2
+        assert picks[0] != picks[1]
+        gauntlet = {"alpha-medium", "beta-medium", "gamma-medium"}
+        assert set(picks).issubset(gauntlet)
+
+    def test_prefers_unplayed_pair(self, tmp_path: Path) -> None:
+        """Should prefer the pair that has never played each other."""
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
+
+        # Alpha vs Beta played 5 times, gamma untouched
+        for i in range(5):
+            _write_game(
+                games_dir,
+                f"game_{i}",
+                _make_1v1_game(f"game_{i}", f"2026-01-{i + 1:02d}T00:00:00Z", "P1", "v/alpha", "v/beta"),
+            )
+
+        picks = get_round_robin_matchup(
+            "Constructed - Standard",
+            2,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+        )
+        picked = set(picks)
+        # Should include gamma (untouched) paired with either alpha or beta
+        assert "gamma-medium" in picked
+
+    def test_tiebreaks_by_games_played(self, tmp_path: Path) -> None:
+        """Among pairs with equal matchup count, prefer models with fewer games."""
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=4)
+
+        # alpha-beta: 1 game, alpha-gamma: 1 game
+        # Unplayed pairs: alpha-delta, beta-gamma, beta-delta, gamma-delta
+        # Among those, delta has 0 games, gamma has 1, alpha has 2, beta has 1
+        # Best pair by games: beta-delta (1+0=1) or gamma-delta (1+0=1)
+        _write_game(
+            games_dir,
+            "game_1",
+            _make_1v1_game("game_1", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta"),
+        )
+        _write_game(
+            games_dir,
+            "game_2",
+            _make_1v1_game("game_2", "2026-01-02T00:00:00Z", "P1", "v/alpha", "v/gamma"),
+        )
+
+        picks = get_round_robin_matchup(
+            "Constructed - Standard",
+            2,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+        )
+        picked = set(picks)
+        # delta (0 games) should be in the pick
+        assert "delta-medium" in picked
+        # Paired with beta or gamma (1 game each), not alpha (2 games)
+        assert "alpha-medium" not in picked
+
+    def test_commander_four_seats(self, tmp_path: Path) -> None:
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=5)
+        picks = get_round_robin_matchup(
+            "",
+            4,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+        )
+        assert len(picks) == 4
+        assert len(set(picks)) == 4  # All unique
+
+    def test_filters_by_format(self, tmp_path: Path) -> None:
+        """1v1 matchmaker should only count 1v1 games, not commander."""
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=4)
+
+        # Alpha-beta played in commander (should be ignored for 1v1)
+        models = [("v/alpha", "medium"), ("v/beta", "medium"), ("v/gamma", "medium"), ("v/delta", "medium")]
+        _write_game(
+            games_dir,
+            "game_cmdr",
+            _make_commander_game("game_cmdr", "2026-01-01T00:00:00Z", "P1", models),
+        )
+        # Alpha-gamma played in 1v1 (should be counted)
+        _write_game(
+            games_dir,
+            "game_1v1",
+            _make_1v1_game("game_1v1", "2026-01-02T00:00:00Z", "P1", "v/alpha", "v/gamma"),
+        )
+
+        picks = get_round_robin_matchup(
+            "Constructed - Standard",
+            2,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+        )
+        picked = set(picks)
+        # Commander game ignored for 1v1. Only alpha-gamma counts.
+        # Unplayed 1v1 pairs with 0 count: alpha-beta, alpha-delta, beta-gamma, beta-delta, gamma-delta
+        # delta has 0 games total, so it should appear
+        assert "delta-medium" in picked
+
+    def test_filters_by_epoch(self, tmp_path: Path) -> None:
+        """Games below MIN_LEADERBOARD_EPOCH should be ignored."""
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
+
+        # Write game with old epoch — should be ignored
+        _write_game(
+            games_dir,
+            "game_old",
+            _make_1v1_game("game_old", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/beta", harness_epoch=1),
+        )
+        # Write game with current epoch — alpha-gamma is played
+        _write_game(
+            games_dir,
+            "game_new",
+            _make_1v1_game("game_new", "2026-01-02T00:00:00Z", "P1", "v/alpha", "v/gamma"),
+        )
+
+        picks = get_round_robin_matchup(
+            "Constructed - Standard",
+            2,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+        )
+        picked = set(picks)
+        # The old alpha-beta game was ignored. Only alpha-gamma counts.
+        # Unplayed pairs: alpha-beta, beta-gamma. beta has 0 games, so
+        # alpha-beta (2+0=2) or beta-gamma (0+1=1) are candidates.
+        # beta-gamma has lower games_score, so it should be picked.
+        assert "beta-medium" in picked
+
+    def test_extra_matchups_shifts_selection(self, tmp_path: Path) -> None:
+        """extra_matchups from parallel batch should prevent duplicate selections."""
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
+
+        # No historical games. First pick could be anything.
+        # With extra_matchups claiming alpha-beta, should pick a different pair.
+        picks = get_round_robin_matchup(
+            "Constructed - Standard",
+            2,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+            extra_matchups=[("alpha-medium", "beta-medium")],
+        )
+        picked = set(picks)
+        # Should NOT be alpha-beta (already "played" in this batch)
+        assert picked != {"alpha-medium", "beta-medium"}
+
+
+class TestResolveRandomsRoundRobin:
+    def _make_fixtures(self) -> tuple[dict, dict, dict, dict, dict]:
+        presets_data = {
+            "presets": {
+                "a-medium": {
+                    "model": "v/a",
+                    "reasoning_effort": "medium",
+                    "system_prompt": "default",
+                    "toolset": "default",
+                },
+                "b-medium": {
+                    "model": "v/b",
+                    "reasoning_effort": "medium",
+                    "system_prompt": "default",
+                    "toolset": "default",
+                },
+            },
+            "gauntlet": ["a-medium", "b-medium"],
+        }
+        prompts = {"default": "You are a player."}
+        toolsets = {"default": ["tool1"]}
+        models_data = {
+            "models": [
+                {"id": "v/a", "name": "Model A", "name_part": "ModA"},
+                {"id": "v/b", "name": "Model B", "name_part": "ModB"},
+            ]
+        }
+        personalities = {
+            "spike": {"name_part": "Spike", "prompt_suffix": "Play to win."},
+            "villain": {"name_part": "Vill", "prompt_suffix": "Evil."},
+        }
+        return presets_data, prompts, toolsets, models_data, personalities
+
+    def test_round_robin_picks_in_order(self) -> None:
+        """preset='round-robin' should consume picks in order."""
+        presets_data, prompts, toolsets, models_data, personalities = self._make_fixtures()
+
+        p1 = PilotPlayer(name="Player One", preset="round-robin", personality="spike")
+        p2 = PilotPlayer(name="Player Two", preset="round-robin", personality="villain")
+
+        _resolve_randoms(
+            [(p1, True), (p2, True)],
+            personalities,
+            presets_data,
+            prompts,
+            models_data,
+            toolsets,
+            round_robin_picks=["a-medium", "b-medium"],
+        )
+
+        assert p1.preset == "a-medium"
+        assert p2.preset == "b-medium"
+        assert p1.model == "v/a"
+        assert p2.model == "v/b"
+
+    def test_round_robin_asserts_without_picks(self) -> None:
+        """preset='round-robin' without round_robin_picks should fail."""
+        player = PilotPlayer(name="test", preset="round-robin", personality="spike")
+        presets_data = {"presets": {}, "gauntlet": []}
+        personalities = {"spike": {"name_part": "Spike", "prompt_suffix": ""}}
+
+        with pytest.raises(AssertionError, match="round_robin_picks"):
+            _resolve_randoms(
+                [(player, True)],
+                personalities,
+                presets_data,
+                {},
+                {"models": []},
+                round_robin_picks=None,
+            )
+
+    def test_round_robin_asserts_insufficient_picks(self) -> None:
+        """More round-robin players than picks should fail."""
+        presets_data, prompts, toolsets, models_data, personalities = self._make_fixtures()
+
+        p1 = PilotPlayer(name="PlayerOne", preset="round-robin", personality="spike")
+        p2 = PilotPlayer(name="PlayerTwo", preset="round-robin", personality="villain")
+
+        with pytest.raises((AssertionError, IndexError)):
+            _resolve_randoms(
+                [(p1, True), (p2, True)],
+                personalities,
+                presets_data,
+                prompts,
+                models_data,
+                toolsets,
+                round_robin_picks=["a-medium"],  # Only 1 pick for 2 players
             )

@@ -1,0 +1,10 @@
+{
+  "gameType": "Two Player Duel",
+  "deckType": "Constructed - Standard",
+  "matchTimeLimit": "MIN__60",
+  "matchBufferTime": "NONE",
+  "players": [
+    {"type": "pilot", "preset": "round-robin", "personality": "random", "deck": "random"},
+    {"type": "pilot", "preset": "round-robin", "personality": "random", "deck": "random"}
+  ]
+}
