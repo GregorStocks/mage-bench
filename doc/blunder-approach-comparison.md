@@ -109,7 +109,7 @@ Thinking transforms Sonnet from mediocre to dominant. But it makes Opus worse �
 possibly by encouraging overthinking that second-guesses correct initial assessments.
 K also costs 3.6x more than D ($5.66 vs $1.58/game) for worse results.
 
-## Spot checks
+## Spot checks (Phase 1)
 
 ### 1. Magmatic Hellkite ETB target (g8, snap 75)
 
@@ -189,13 +189,108 @@ reduce cost without losing much accuracy by isolating two factors:
 This field asked the model to explain why the LLM made the mistake. Removing it
 saved ~20% of output tokens with no impact on annotation quality.
 
+### Spot checks: L vs O vs P
+
+Per-game consensus hits:
+
+| Game | Consensus | L | O | P |
+|------|-----------|---|---|---|
+| 003230 | 30 | 28 | 27 | 28 |
+| g4 | 69 | 62 | 61 | 53 |
+| g3 | 26 | 25 | 24 | 23 |
+| g1 | 42 | 35 | 30 | 32 |
+| g8 | 3 | 2 | 1 | 2 |
+| **Total** | **170** | **152** | **143** | **138** |
+
+L vs O vs P are NOT strictly hierarchical — each approach finds some consensus
+blunders the others miss. But L consistently has the highest hit count.
+
+#### O misses the motivating test case (g8)
+
+O misses both the Hellkite ETB target (snap 75, the bug that started this experiment)
+and the Momo legend-rule blunder (snap 14). L catches both. P catches Momo but misses
+Hellkite. On a 3-consensus-blunder game this is a large fraction.
+
+#### O misses major blunders in g3
+
+O misses two *major* severity consensus blunders:
+- **snap 31**: Planning to cast Force of Will with no spell to counter
+- **snap 79**: Failed to activate Thespian's Stage to create 20/20 Marit Lage
+
+P misses two additional ones (snap 33, snap 81 — another missed Stage activation).
+These are game-defining mistakes that any good analysis should catch.
+
+#### g1: O has the biggest gap
+
+O misses 10 consensus blunders that L finds, including:
+- **snap 18** [major]: Failed to cast Reality Smasher with sufficient mana
+- **snap 133** [moderate]: Cast a 2/2 for 2 when exactly enough mana for Eldrazi Displacer
+- **snap 181** [moderate]: Cast creature without haste instead of Reality Smasher (haste) with opponent at 11 life
+
+P does slightly better here (misses 8 vs O's 10), suggesting that the specific
+blunders missed are somewhat random rather than systematically correlated with
+thinking effort.
+
+#### g4: P drops off significantly
+
+P misses 16 consensus blunders vs L (compared to O missing 7). The gap widens on
+longer games with more complex interactions. Notably, P misses:
+- **snap 172** [major]: Failed to use Yawgmoth to shrink attackers at 3 life, dying
+- **snap 136** [moderate]: Missed Yawgmoth + Young Wolf undying combo kill
+- **snap 153** [moderate]: Drew with Fiery Islet before casting, leaving no mana for Preordain
+
+#### Bidirectional misses
+
+All three approaches find some things the others don't. Across all 5 games:
+- O finds 12 consensus blunders that L misses
+- P finds 9 consensus blunders that L misses
+
+This suggests some inherent randomness in which specific blunders each run catches.
+The coverage numbers (91%/87%/83%) reflect average performance, not strict subsetting.
+
+## Reanalysis cost estimate
+
+Corpus: 152 games, 32,381 total decisions, 16,704 non-forced decisions.
+Average: 110 non-forced decisions/game.
+
+Per-call cost from experiment data:
+
+| Approach | $/call | $/game (avg) | Full reanalysis (152 games) |
+|----------|--------|-------------|---------------------------|
+| L (high) | $0.047 | $3.29 | **$785** |
+| O (medium) | $0.042 | $2.97 | **$708** |
+| P (low) | $0.021 | $1.50 | **$357** |
+
+### Other cost reduction ideas
+
+**Two-phase Flash screening.** Use Flash (~$0.001/call) to pre-screen all 16,704
+decisions as "clearly fine" vs "investigate further." Only send suspicious decisions
+to Sonnet+thinking. Flash screening cost: ~$17 total. If Flash correctly filters out
+30-40% of decisions, savings on O: $210-280 (net ~$190-260). Risk: Flash has a 33% FP
+rate in our experiment, so its judgment is noisy — it could false-negative real blunders.
+Would need a separate validation experiment.
+
+**Incremental analysis.** Only analyze new games going forward instead of re-analyzing
+the existing 152. At ~10-15 new games/week, ongoing cost is $30-45/week (O) or
+$15-22/week (P). The existing v5 annotations are imperfect but serviceable — whether
+to re-analyze depends on how much we care about historical accuracy.
+
+**Analyze losers only.** Only annotate the losing player's decisions (or non-winners in
+Commander). Winners' blunders matter less for benchmarking since they won anyway. Would
+roughly halve per-call cost. Risk: misses cases where both players blunder badly and
+the winner just blundered less.
+
 ## Recommendation
 
-**Use O (per-decision Sonnet 4.5 with medium thinking) for production blunder analysis.**
+**Use P (per-decision Sonnet 4.5 with low thinking) for production blunder analysis.**
 
-- 87% consensus coverage vs L's 91% — a modest 4pp trade
-- $2.97/game vs $3.29/game — 10% cheaper
-- If cost pressure increases, P (low thinking) at $1.50/game with 83% coverage
-  is a viable fallback — 54% cheaper than L with only 8pp less coverage
+- 83% consensus coverage — only 8pp below L's 91%
+- $1.50/game — 54% cheaper than L, 50% cheaper than O
+- The 4pp gap between O ($2.97) and P ($1.50) is not worth 2x the cost
+- O doesn't dominate P: they catch different blunders (bidirectional misses)
+- O even misses the motivating Hellkite test case that P catches
+- On the longest game (g4, 144 non-forced), P drops off more — but $1.50 vs $6.31
+  on that game makes P much more sustainable at scale
+- Full reanalysis cost: $357 (vs $708 for O, $785 for L)
 - Batching should never be used — it halves accuracy regardless of thinking level
 - Extended thinking on Sonnet remains the single biggest accuracy improvement
