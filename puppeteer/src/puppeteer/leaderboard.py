@@ -350,10 +350,13 @@ def compute_openskill_ratings(
         teams = [[os_ratings[key]] for key in pilot_keys]
         has_placements = any(p["name"] in placements for p in pilots)
         if has_placements:
+            # Winner-takes-all: 1st place wins, everyone else ties as losers.
+            # Commander is "one winner, three losers" — elimination order
+            # among non-winners is not a meaningful signal.
             ranks: list[float] = []
             for p in pilots:
                 placement = placements.get(p["name"])
-                ranks.append(float(placement if placement is not None else len(pilots)))
+                ranks.append(1.0 if placement == 1 else 2.0)
             updated = model.rate(teams, ranks=ranks)
         else:
             updated = teams

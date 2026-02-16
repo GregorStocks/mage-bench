@@ -334,9 +334,12 @@ def test_openskill_ratings_winner_gains():
         )
     ]
     ratings, _per_game = compute_openskill_ratings(games)
-    assert ratings["a/model-a"] > ratings["b/model-b"]
-    assert ratings["b/model-b"] > ratings["c/model-c"]
-    assert ratings["c/model-c"] > ratings["d/model-d"]
+    # Winner gains rating
+    assert ratings["a/model-a"] > 1600
+    # All losers get the same rating (winner-takes-all, no placement ordering)
+    assert ratings["b/model-b"] == ratings["c/model-c"] == ratings["d/model-d"]
+    # Losers lose rating
+    assert ratings["b/model-b"] < 1600
 
 
 def test_openskill_ratings_per_game_snapshots():
