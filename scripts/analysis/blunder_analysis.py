@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Analyze a game for blunders using Claude Opus 4.6 via OpenRouter.
+"""Analyze a game for blunders using Claude via OpenRouter.
 
 Two-phase approach:
-1. Claude Haiku pre-filters decisions to flag suspicious ones (cheap)
+1. Claude Sonnet pre-filters decisions to flag suspicious ones (cheap)
 2. Claude Opus analyzes only flagged decisions for detailed annotations (expensive)
 
 Usage:
@@ -29,11 +29,11 @@ TMP_DIR = REPO_ROOT / "tmp"
 
 # Models (OpenRouter IDs from models.json)
 OPUS_MODEL = "anthropic/claude-opus-4.6"
-HAIKU_MODEL = "anthropic/claude-haiku-4.5"
+SONNET_MODEL = "anthropic/claude-sonnet-4.5"
 BASE_URL = "https://openrouter.ai/api/v1"
 
-# When Haiku flags zero decisions, send this many random decisions to Opus as a
-# calibration check. Catches cases where Haiku is too conservative.
+# When the pre-filter flags zero decisions, send this many random decisions to
+# Opus as a calibration check. Catches cases where the pre-filter is too conservative.
 CALIBRATION_SAMPLE_SIZE = 3
 
 # Bump this when the analysis pipeline changes enough to warrant re-running.
@@ -41,15 +41,16 @@ CALIBRATION_SAMPLE_SIZE = 3
 # v1: initial two-phase pipeline (Haiku pre-filter + Opus analysis)
 # v2: softened Haiku prompt + Opus calibration check for zero-flag games
 # v3: add "questionable" severity, fix Opus dismissal bias, better category examples
-BLUNDER_SCRIPT_VERSION = 3
+# v4: switch pre-filter from Haiku to Sonnet (more mechanically specific flags)
+BLUNDER_SCRIPT_VERSION = 4
 
 # Prices per million tokens (from models.json, Feb 2026)
 PRICES: dict[str, tuple[float, float]] = {
     OPUS_MODEL: (5.0, 25.0),
-    HAIKU_MODEL: (1.0, 5.0),
+    SONNET_MODEL: (3.0, 15.0),
 }
 
-HAIKU_SYSTEM = """\
+PREFILTER_SYSTEM = """\
 You are a Magic: The Gathering expert pre-filtering game decisions for blunder analysis.
 
 Review each decision and flag any that look like potential blunders — moments where a \
@@ -140,8 +141,8 @@ def _game_overview(data: dict) -> str:
     return "\n".join(lines)
 
 
-def _format_decisions_for_haiku(decisions: list[dict]) -> str:
-    """Compact decision format for Haiku pre-filtering."""
+def _format_decisions_for_prefilter(decisions: list[dict]) -> str:
+    """Compact decision format for pre-filtering."""
     parts: list[str] = []
     for d in decisions:
         if d["is_forced"]:
@@ -340,30 +341,32 @@ def main(gz_path: str) -> None:
 
     cost_entries: list[tuple[str, str, int, int, float]] = []
 
-    # --- Phase 1: Haiku pre-filter ---
-    print("\nPhase 1: Pre-filtering with Haiku...")
-    haiku_user = (
+    # --- Phase 1: Sonnet pre-filter ---
+    print("\nPhase 1: Pre-filtering with Sonnet...")
+    prefilter_user = (
         f"## Game Overview\n{overview}\n\n"
         f"## Decisions ({len(non_forced)} non-forced)\n\n"
-        f"{_format_decisions_for_haiku(decisions)}"
+        f"{_format_decisions_for_prefilter(decisions)}"
     )
-    haiku_text, h_in, h_out = _call_llm(client, HAIKU_MODEL, HAIKU_SYSTEM, haiku_user)
-    h_cost = _compute_cost(HAIKU_MODEL, h_in, h_out)
-    cost_entries.append(("Haiku pre-filter", HAIKU_MODEL, h_in, h_out, h_cost))
-    print(f"  Tokens: {h_in:,} input, {h_out:,} output (${h_cost:.3f})")
+    pf_text, pf_in, pf_out = _call_llm(
+        client, SONNET_MODEL, PREFILTER_SYSTEM, prefilter_user
+    )
+    pf_cost = _compute_cost(SONNET_MODEL, pf_in, pf_out)
+    cost_entries.append(("Sonnet pre-filter", SONNET_MODEL, pf_in, pf_out, pf_cost))
+    print(f"  Tokens: {pf_in:,} input, {pf_out:,} output (${pf_cost:.3f})")
 
-    flagged = _parse_json_array(haiku_text)
+    flagged = _parse_json_array(pf_text)
     print(f"  Flagged {len(flagged)}/{len(non_forced)} decisions")
     for f in flagged:
         print(f"    [{f['index']}] {f.get('reason', '?')}")
 
     if not flagged:
-        # Haiku found nothing suspicious. Send a random sample to Opus as calibration.
+        # Pre-filter found nothing suspicious. Send a random sample to Opus as calibration.
         sample_size = min(CALIBRATION_SAMPLE_SIZE, len(non_forced))
         sample = random.sample(non_forced, sample_size)
         sample_indices = [d["decision_index"] for d in sample]
         print(
-            f"\nNo flags from Haiku. Calibration check: "
+            f"\nNo flags from Sonnet. Calibration check: "
             f"sending {sample_size} random decisions to Opus..."
         )
 

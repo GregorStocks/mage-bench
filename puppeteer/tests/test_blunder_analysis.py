@@ -10,9 +10,9 @@ from blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     _chosen_display,
     _compute_cost,
-    _format_decisions_for_haiku,
     _format_decisions_for_opus,
     _format_decisions_for_opus_calibration,
+    _format_decisions_for_prefilter,
     _parse_json_array,
     main,
 )
@@ -133,10 +133,10 @@ class TestComputeCost:
         cost = _compute_cost("anthropic/claude-opus-4.6", 1_000_000, 1_000_000)
         assert cost == pytest.approx(30.0)
 
-    def test_haiku_small(self) -> None:
-        # 10K in at $1/M + 500 out at $5/M
-        cost = _compute_cost("anthropic/claude-haiku-4.5", 10_000, 500)
-        assert cost == pytest.approx(0.0125)
+    def test_sonnet_small(self) -> None:
+        # 10K in at $3/M + 500 out at $15/M
+        cost = _compute_cost("anthropic/claude-sonnet-4.5", 10_000, 500)
+        assert cost == pytest.approx(0.0375)
 
     def test_zero_tokens(self) -> None:
         assert _compute_cost("anthropic/claude-opus-4.6", 0, 0) == 0.0
@@ -163,21 +163,21 @@ class TestChosenDisplay:
         assert _chosen_display(d) == "99"
 
 
-# --- _format_decisions_for_haiku ---
+# --- _format_decisions_for_prefilter ---
 
 
-class TestFormatHaiku:
+class TestFormatPrefilter:
     def test_skips_forced(self) -> None:
         decisions = [
             _make_decision(decision_index=0, is_forced=True),
             _make_decision(decision_index=1, is_forced=False),
         ]
-        result = _format_decisions_for_haiku(decisions)
+        result = _format_decisions_for_prefilter(decisions)
         assert "[Decision 0]" not in result
         assert "[Decision 1]" in result
 
     def test_includes_key_fields(self) -> None:
-        result = _format_decisions_for_haiku([_make_decision()])
+        result = _format_decisions_for_prefilter([_make_decision()])
         assert "Alice" in result
         assert "Mountain" in result
         assert "Lightning Bolt" in result
@@ -186,7 +186,7 @@ class TestFormatHaiku:
 
     def test_truncates_reasoning(self) -> None:
         long_reasoning = "x" * 1000
-        result = _format_decisions_for_haiku([_make_decision(reasoning=long_reasoning)])
+        result = _format_decisions_for_prefilter([_make_decision(reasoning=long_reasoning)])
         # Should be truncated to 500 chars
         assert "x" * 500 in result
         assert "x" * 501 not in result
@@ -284,10 +284,11 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        haiku_response = MagicMock()
-        haiku_response.choices = [MagicMock()]
-        haiku_response.choices[0].message.content = json.dumps([{"index": 0, "reason": "passed with playable cards"}])
-        haiku_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=50)
+        prefilter_response = MagicMock()
+        prefilter_response.choices = [MagicMock()]
+        flags = [{"index": 0, "reason": "passed with playable cards"}]
+        prefilter_response.choices[0].message.content = json.dumps(flags)
+        prefilter_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=50)
 
         opus_response = MagicMock()
         opus_response.choices = [MagicMock()]
@@ -308,7 +309,7 @@ class TestMainIntegration:
         )
         opus_response.usage = MagicMock(prompt_tokens=2000, completion_tokens=200)
 
-        mock_client.chat.completions.create.side_effect = [haiku_response, opus_response]
+        mock_client.chat.completions.create.side_effect = [prefilter_response, opus_response]
 
         # Run
         main(str(gz_path))
@@ -334,10 +335,10 @@ class TestMainIntegration:
         mock_openai_cls.return_value = mock_client
 
         # Haiku flags nothing
-        haiku_response = MagicMock()
-        haiku_response.choices = [MagicMock()]
-        haiku_response.choices[0].message.content = "[]"
-        haiku_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
+        prefilter_response = MagicMock()
+        prefilter_response.choices = [MagicMock()]
+        prefilter_response.choices[0].message.content = "[]"
+        prefilter_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
 
         # Opus calibration also finds nothing
         opus_response = MagicMock()
@@ -345,7 +346,7 @@ class TestMainIntegration:
         opus_response.choices[0].message.content = "[]"
         opus_response.usage = MagicMock(prompt_tokens=500, completion_tokens=10)
 
-        mock_client.chat.completions.create.side_effect = [haiku_response, opus_response]
+        mock_client.chat.completions.create.side_effect = [prefilter_response, opus_response]
 
         main(str(gz_path))
 
@@ -382,17 +383,17 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        haiku_response = MagicMock()
-        haiku_response.choices = [MagicMock()]
-        haiku_response.choices[0].message.content = "[]"
-        haiku_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
+        prefilter_response = MagicMock()
+        prefilter_response.choices = [MagicMock()]
+        prefilter_response.choices[0].message.content = "[]"
+        prefilter_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
 
         opus_response = MagicMock()
         opus_response.choices = [MagicMock()]
         opus_response.choices[0].message.content = "[]"
         opus_response.usage = MagicMock(prompt_tokens=500, completion_tokens=10)
 
-        mock_client.chat.completions.create.side_effect = [haiku_response, opus_response]
+        mock_client.chat.completions.create.side_effect = [prefilter_response, opus_response]
 
         main(str(gz_path))
 
@@ -409,10 +410,10 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        haiku_response = MagicMock()
-        haiku_response.choices = [MagicMock()]
-        haiku_response.choices[0].message.content = "[]"
-        haiku_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
+        prefilter_response = MagicMock()
+        prefilter_response.choices = [MagicMock()]
+        prefilter_response.choices[0].message.content = "[]"
+        prefilter_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
 
         opus_response = MagicMock()
         opus_response.choices = [MagicMock()]
@@ -433,7 +434,7 @@ class TestMainIntegration:
         )
         opus_response.usage = MagicMock(prompt_tokens=500, completion_tokens=100)
 
-        mock_client.chat.completions.create.side_effect = [haiku_response, opus_response]
+        mock_client.chat.completions.create.side_effect = [prefilter_response, opus_response]
 
         main(str(gz_path))
 
@@ -452,17 +453,17 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        haiku_response = MagicMock()
-        haiku_response.choices = [MagicMock()]
-        haiku_response.choices[0].message.content = "[]"
-        haiku_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
+        prefilter_response = MagicMock()
+        prefilter_response.choices = [MagicMock()]
+        prefilter_response.choices[0].message.content = "[]"
+        prefilter_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
 
         opus_response = MagicMock()
         opus_response.choices = [MagicMock()]
         opus_response.choices[0].message.content = "[]"
         opus_response.usage = MagicMock(prompt_tokens=500, completion_tokens=10)
 
-        mock_client.chat.completions.create.side_effect = [haiku_response, opus_response]
+        mock_client.chat.completions.create.side_effect = [prefilter_response, opus_response]
 
         main(str(gz_path))
 
