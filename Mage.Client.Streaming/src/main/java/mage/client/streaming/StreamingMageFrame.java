@@ -94,7 +94,7 @@ public class StreamingMageFrame extends MageFrame {
      */
     @Override
     public void setTitle(String title) {
-        if (title != null && !title.startsWith(titlePrefix)) {
+        if (title != null && titlePrefix != null && !title.startsWith(titlePrefix)) {
             super.setTitle(titlePrefix + title);
         } else {
             super.setTitle(title);
