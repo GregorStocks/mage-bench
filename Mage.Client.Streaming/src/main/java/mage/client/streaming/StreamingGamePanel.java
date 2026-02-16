@@ -254,8 +254,8 @@ public class StreamingGamePanel extends GamePanel {
         super.init(messageId, game, callGameUpdateAfterInit);
         this.lastGame = game;
         roundTracker.update(game);
-        // Update the window title with player names
-        updateFrameGameName(game);
+        // Update the window title with the game directory name
+        updateFrameGameName();
         // Hide the central hand container (we show hands in play areas instead)
         hideHandContainer();
         requestHandPermissions(game);
@@ -277,20 +277,15 @@ public class StreamingGamePanel extends GamePanel {
         writeStateSnapshotIfChanged(game);
     }
 
-    private void updateFrameGameName(GameView game) {
-        if (game.getPlayers() == null || game.getPlayers().isEmpty()) {
+    private void updateFrameGameName() {
+        String gameDirStr = System.getProperty("xmage.streaming.gameDir");
+        if (gameDirStr == null || gameDirStr.isEmpty()) {
             return;
         }
         MageFrame frame = MageFrame.getInstance();
         if (frame instanceof StreamingMageFrame) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < game.getPlayers().size(); i++) {
-                if (i > 0) {
-                    sb.append(" vs ");
-                }
-                sb.append(game.getPlayers().get(i).getName());
-            }
-            ((StreamingMageFrame) frame).setGameName(sb.toString());
+            String gameName = java.nio.file.Paths.get(gameDirStr).getFileName().toString();
+            ((StreamingMageFrame) frame).setGameName(gameName);
         }
     }
 
