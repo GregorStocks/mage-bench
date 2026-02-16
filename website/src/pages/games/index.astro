@@ -501,13 +501,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     color: #ef4444;
   }
 
-  .player-blunders {
-    display: flex;
-    gap: 0.3rem;
-    margin-top: 0.15rem;
-    flex-wrap: wrap;
-  }
-
   @media (max-width: 500px) {
     .game-players {
       grid-template-columns: 1fr;
@@ -551,13 +544,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   };
 
   var MIN_LEADERBOARD_EPOCH = 2;
-
-  function formatTime(secs) {
-    if (secs < 60) return Math.round(secs) + "s";
-    var m = Math.floor(secs / 60);
-    var s = Math.round(secs % 60);
-    return s > 0 ? m + "m " + s + "s" : m + "m";
-  }
 
   function getGameFormat(deckType) {
     return DECK_TYPE_FORMATS[deckType] || "commander";
@@ -802,28 +788,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         hasCost = true;
       }
 
-      // Tool calls (only if present)
-      if (p.toolCallsOk != null) {
-        var toolsEl = document.createElement("div");
-        toolsEl.className = "player-tools";
-        var total = p.toolCallsOk + (p.toolCallsFailed || 0);
-        var text = total + " tools";
-        if (p.toolCallsFailed > 0) {
-          toolsEl.innerHTML = text + " / <span class=\"tool-fail\">" + p.toolCallsFailed + " failed</span>";
-        } else {
-          toolsEl.textContent = text;
-        }
-        cell.appendChild(toolsEl);
-      }
-
-      // Thinking time (only if present)
-      if (p.thinkingTimeSecs != null) {
-        var thinkEl = document.createElement("div");
-        thinkEl.className = "player-thinking";
-        thinkEl.textContent = formatTime(p.thinkingTimeSecs) + " thinking";
-        cell.appendChild(thinkEl);
-      }
-
       // Blunder score per player
       var playerScore = (game.blunderScoreByPlayer || {})[p.name];
       if (playerScore != null) {
@@ -832,7 +796,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         if (playerScore >= 1.5) scoreEl.classList.add("blunder-high");
         else if (playerScore >= 0.5) scoreEl.classList.add("blunder-med");
         else scoreEl.classList.add("blunder-low");
-        scoreEl.textContent = "Blunder: " + playerScore.toFixed(2);
+        scoreEl.textContent = "BI: " + playerScore.toFixed(2);
         cell.appendChild(scoreEl);
       }
 
