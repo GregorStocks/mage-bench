@@ -42,18 +42,8 @@ public class GameWorker implements Callable<Boolean> {
             game.cleanUp();// TODO: no needs in cleanup code (cards list are useless for memory optimization, game states are more important)?
         } catch (MageException e) {
             LOGGER.fatal("GameWorker mage error [" + game.getId() + " - " + game + "]: " + e, e);
-            try {
-                gameController.endGameWithResult(game.getWinner());
-            } catch (Throwable e2) {
-                LOGGER.fatal("GameWorker failed to end game after mage error: " + e2, e2);
-            }
         } catch (Throwable e) {
             LOGGER.fatal("GameWorker system error [" + game.getId() + " - " + game + "]: " + e, e);
-            try {
-                gameController.endGameWithResult(game.getWinner());
-            } catch (Throwable e2) {
-                LOGGER.fatal("GameWorker failed to end game after system error: " + e2, e2);
-            }
         }
         return null;
     }
