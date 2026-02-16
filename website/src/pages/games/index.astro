@@ -68,14 +68,16 @@ if (fs.existsSync(gamesDir)) {
     if (data.youtubeUrl) entry.youtubeUrl = data.youtubeUrl;
     const annotations = data.annotations || [];
     if (annotations.length > 0) {
-      const severities: Record<string, number> = { questionable: 0, minor: 0, moderate: 0, major: 0 };
+      // Build per-player severity counts
+      const perPlayer: Record<string, Record<string, number>> = {};
       for (const a of annotations) {
-        const sev = (a as Record<string, unknown>).severity as string;
-        if (sev in severities) severities[sev]++;
+        const ann = a as Record<string, unknown>;
+        const sev = ann.severity as string;
+        const player = (ann.player as string) || "Unknown";
+        if (!perPlayer[player]) perPlayer[player] = { questionable: 0, minor: 0, moderate: 0, major: 0 };
+        if (sev in perPlayer[player]) perPlayer[player][sev]++;
       }
-      // blunderCount excludes questionable (shown in game viewer but not counted)
-      entry.blunderCount = annotations.length - severities.questionable;
-      entry.blunderSeverities = severities;
+      entry.blundersByPlayer = perPlayer;
     }
     games.push(entry);
   }
@@ -493,8 +495,15 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 
   .epoch-old {
-    background: rgba(160, 160, 184, 0.15);
-    color: #a0a0b8;
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+  }
+
+  .player-blunders {
+    display: flex;
+    gap: 0.3rem;
+    margin-top: 0.15rem;
+    flex-wrap: wrap;
   }
 
   @media (max-width: 500px) {
@@ -718,24 +727,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     }
     header.appendChild(winnerEl);
 
-    var sev = game.blunderSeverities || {};
-    var severityOrder = [
-      ["major", sev.major],
-      ["moderate", sev.moderate],
-      ["minor", sev.minor],
-      ["questionable", sev.questionable],
-    ];
-    for (var si = 0; si < severityOrder.length; si++) {
-      var sevName = severityOrder[si][0];
-      var sevCount = severityOrder[si][1];
-      if (sevCount > 0) {
-        var blunderEl = document.createElement("span");
-        blunderEl.className = "blunder-badge severity-" + sevName;
-        blunderEl.textContent = sevCount + " " + sevName;
-        header.appendChild(blunderEl);
-      }
-    }
-
     // Old harness badge
     var epoch = game.harnessEpoch || 1;
     if (epoch < MIN_LEADERBOARD_EPOCH) {
@@ -822,6 +813,30 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         thinkEl.className = "player-thinking";
         thinkEl.textContent = formatTime(p.thinkingTimeSecs) + " thinking";
         cell.appendChild(thinkEl);
+      }
+
+      // Blunders per player
+      var playerBlunders = (game.blundersByPlayer || {})[p.name];
+      if (playerBlunders) {
+        var blunderRow = document.createElement("div");
+        blunderRow.className = "player-blunders";
+        var sevOrder = [
+          ["major", playerBlunders.major],
+          ["moderate", playerBlunders.moderate],
+          ["minor", playerBlunders.minor],
+          ["questionable", playerBlunders.questionable],
+        ];
+        for (var si = 0; si < sevOrder.length; si++) {
+          var sevName = sevOrder[si][0];
+          var sevCount = sevOrder[si][1];
+          if (sevCount > 0) {
+            var blunderEl = document.createElement("span");
+            blunderEl.className = "blunder-badge severity-" + sevName;
+            blunderEl.textContent = sevCount + " " + sevName;
+            blunderRow.appendChild(blunderEl);
+          }
+        }
+        if (blunderRow.childNodes.length > 0) cell.appendChild(blunderRow);
       }
 
       // Elo (if available) — key matches _player_key(): "model::effort" or "model"
