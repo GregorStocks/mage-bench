@@ -6,6 +6,8 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from puppeteer.matchmaker import get_yente_pool
+
 
 @dataclass
 class PotatoPlayer:
@@ -207,8 +209,9 @@ def _resolve_randoms(
     models_data: dict,
     toolsets: dict[str, list[str]] | None = None,
     cross_game_used_names: set[str] | None = None,
+    yente_pool: list[str] | None = None,
 ) -> None:
-    """Resolve 'random' preset/personality values and apply preset/personality defaults.
+    """Resolve 'random'/'yente' preset/personality values and apply defaults.
 
     Each player tuple is (player, had_explicit_name). Modifies players in-place.
     Avoids duplicate personalities and presets across players.
@@ -216,8 +219,11 @@ def _resolve_randoms(
     cross_game_used_names: names already taken by other games in a parallel
     batch.  When a randomly generated name collides, the personality is
     re-rolled to produce a unique name.
+
+    yente_pool: preset names for top-rated models (from matchmaker.get_yente_pool).
+    Required when any player has preset="yente".
     """
-    has_randoms = any(p.preset == "random" or p.personality == "random" for p, _ in players)
+    has_randoms = any(p.preset in ("random", "yente") or p.personality == "random" for p, _ in players)
     if has_randoms:
         _validate_name_parts(personalities, presets_data, models_data)
 
@@ -248,6 +254,18 @@ def _resolve_randoms(
             if not remaining:
                 used_presets.clear()
                 remaining = available_presets
+            chosen_preset = random.choice(remaining)
+            used_presets.add(chosen_preset)
+            player.preset = chosen_preset
+
+        # Resolve yente preset (top-rated models from matchmaker)
+        elif player.preset == "yente":
+            assert yente_pool, "preset='yente' requires yente_pool (from matchmaker.get_yente_pool)"
+            remaining = [m for m in yente_pool if m not in used_presets]
+            assert remaining, (
+                f"Not enough top-rated models for yente matchmaking. "
+                f"Pool has {len(yente_pool)} presets but need more unique picks."
+            )
             chosen_preset = random.choice(remaining)
             used_presets.add(chosen_preset)
             player.preset = chosen_preset
@@ -482,7 +500,13 @@ class Config:
                 f"deck='choice' requires a pilot player (has LLM), but found on non-pilot player(s): {non_pilot_choice}"
             )
 
-            # Second pass: resolve random presets/personalities and generate names
+            # Compute yente pool if any player uses preset="yente"
+            has_yente = any(p.preset == "yente" for p, _ in llm_players)
+            yp: list[str] | None = None
+            if has_yente:
+                yp = get_yente_pool(self.deck_type)
+
+            # Second pass: resolve random/yente presets/personalities and generate names
             _resolve_randoms(
                 llm_players,
                 personalities,
@@ -491,6 +515,7 @@ class Config:
                 models_data,
                 toolsets,
                 cross_game_used_names=cross_game_used_names,
+                yente_pool=yp,
             )
 
     def get_players_config_json(self) -> str:

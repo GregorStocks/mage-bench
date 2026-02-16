@@ -84,24 +84,11 @@ website-build: leaderboard
 # Pass OUTPUT to specify recording path: make run OUTPUT=/path/to/video.mov
 # Enable overlay: make run ARGS="--overlay" (requires website-build)
 # Parallel games: make run CONFIG=commander-gauntlet GAMES=3
-# Yente configs (yente-1v1, yente-commander) dynamically generate matchups
-#   between top-rated models. Supports THRESHOLD (default 1600) and FORMAT.
 CONFIG ?= standard-dumb
-THRESHOLD ?= 1600
 .PHONY: run
 run:
 	@CONFIG_PATH="$(CONFIG)"; \
 	case "$$CONFIG_PATH" in \
-	  yente-1v1) \
-	    uv run --project puppeteer python scripts/matchmaker.py 1v1 \
-	      --threshold $(THRESHOLD) $(if $(FORMAT),--format $(FORMAT)) \
-	      --output tmp/matchmaker.json; \
-	    CONFIG_PATH="tmp/matchmaker.json" ;; \
-	  yente-commander) \
-	    uv run --project puppeteer python scripts/matchmaker.py commander \
-	      --threshold $(THRESHOLD) \
-	      --output tmp/matchmaker.json; \
-	    CONFIG_PATH="tmp/matchmaker.json" ;; \
 	  */*|*.json) ;; \
 	  *) CONFIG_PATH="configs/$$CONFIG_PATH.json" ;; \
 	esac; \
@@ -113,7 +100,6 @@ run:
 .PHONY: configs
 configs:
 	@for f in configs/*.json; do printf "  %s\n" "$$(basename $$f .json)"; done
-	@printf "  %s\n" "yente-1v1" "yente-commander"
 
 # Generate mcp-tools.json with MCP tool definitions
 # Compiles first to pick up any Java source changes.
