@@ -3,22 +3,20 @@ import Base from '../layouts/Base.astro';
 import benchmarkData from '../data/benchmark-results.json';
 
 const FORMAT_LABELS: Record<string, string> = {
-  combined: 'Combined',
-  standard: 'Standard',
-  modern: 'Modern',
-  legacy: 'Legacy',
+  '1v1': '1v1',
+  commander: 'Commander',
 };
 
-const FORMAT_ORDER = ['combined', 'standard', 'modern', 'legacy'];
+const FORMAT_ORDER = ['1v1', 'commander'];
 
 // Build per-format data from the formats key (or fall back to single leaderboard)
 const formats: Record<string, any> = (benchmarkData as any).formats ?? {
   combined: { totalGames: benchmarkData.totalGames, models: benchmarkData.models },
 };
 
-// Only show tabs for formats that have games (or combined)
+// Only show tabs for formats that have games (always show 1v1)
 const activeFormats = FORMAT_ORDER.filter(
-  (f) => f === 'combined' || (formats[f] && formats[f].totalGames > 0)
+  (f) => f === '1v1' || (formats[f] && formats[f].totalGames > 0)
 );
 
 // Collect all providers across all formats for the filter dropdown
@@ -46,7 +44,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
   {hasData ? (
     <p class="subtitle" id="subtitle">
-      Model ratings based on {benchmarkData.totalGames.toLocaleString()} games.
+      Model ratings based on {benchmarkData.totalGames.toLocaleString()} rated games.
       {excludedGames > 0 && (
         <span class="excluded-note">({excludedGames} pre-epoch-{minEpoch} {excludedGames === 1 ? 'game' : 'games'} excluded)</span>
       )}
@@ -55,11 +53,9 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
     <div class="format-tabs" id="format-tabs" style={activeFormats.length <= 1 ? 'display:none' : ''}>
       {activeFormats.map((fmt: string) => (
-        <button class:list={['format-tab', { active: fmt === 'combined' }]} data-format={fmt}>
+        <button class:list={['format-tab', { active: fmt === '1v1' }]} data-format={fmt}>
           {FORMAT_LABELS[fmt] || fmt}
-          {formats[fmt] && fmt !== 'combined' ? (
-            <span class="tab-count">({formats[fmt].totalGames})</span>
-          ) : null}
+          <span class="tab-count">({(formats[fmt]?.totalGames ?? 0)})</span>
         </button>
       ))}
     </div>
@@ -68,14 +64,13 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       <summary>How ratings work</summary>
       <div class="rating-info-body">
         <p>
-          Ratings use the <a href="https://en.wikipedia.org/wiki/Elo_rating_system" target="_blank" rel="noopener">Elo</a>
-          rating system with K-factor 32. Each model starts at <strong>1600</strong>.
-          After each game, the winner gains points and the loser loses points based on
-          the expected outcome — an upset yields a bigger swing.
-        </p>
-        <p>
-          The <strong>Combined</strong> leaderboard rates all 1v1 format games
-          (Standard, Modern, Legacy) in a single unified rating pool.
+          <strong>1v1</strong> ratings use
+          <a href="https://en.wikipedia.org/wiki/Elo_rating_system" target="_blank" rel="noopener">Elo</a>
+          (K=32). Standard, Modern, and Legacy games share one rating pool.
+          <strong>Commander</strong> ratings use
+          <a href="https://openskill.me/" target="_blank" rel="noopener">OpenSkill</a>
+          PlackettLuce, a Bayesian system that models the full finishing order (1st–4th).
+          Both start at <strong>1600</strong>.
         </p>
         {minEpoch && excludedGames > 0 && (
           <p>
@@ -105,7 +100,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     </div>
 
     <div class="table-wrap">
-      <table id="leaderboard-table" class="format-combined">
+      <table id="leaderboard-table" class="format-1v1">
         <thead>
           <tr>
             <th class="rank-col">#</th>
@@ -120,7 +115,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
           </tr>
         </thead>
         {activeFormats.map((fmt: string) => (
-          <tbody data-format={fmt} style={fmt !== 'combined' ? 'display: none;' : ''}>
+          <tbody data-format={fmt} style={fmt !== '1v1' ? 'display: none;' : ''}>
             {(formats[fmt]?.models || []).map((m: any, i: number) => (
               <tr
                 data-model-name={m.modelName.toLowerCase()}
@@ -169,7 +164,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   const noResults = document.getElementById('no-results')!;
   const formatTabs = document.getElementById('format-tabs');
 
-  let activeFormat = 'combined';
+  let activeFormat = '1v1';
 
   function getActiveTbody(): HTMLTableSectionElement {
     return table!.querySelector(`tbody[data-format="${activeFormat}"]`) as HTMLTableSectionElement;
@@ -184,7 +179,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       if (!link) return;
       const params = new URLSearchParams({ model: modelId });
       if (effort) params.set('effort', effort);
-      if (activeFormat !== 'combined') params.set('format', activeFormat);
+      if (activeFormat !== '1v1') params.set('format', activeFormat);
       link.href = '/games?' + params.toString();
     });
   }
@@ -209,7 +204,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       btn.classList.add('active');
 
       activeFormat = fmt;
-      table!.classList.toggle('format-combined', fmt === 'combined');
+      table!.classList.toggle('format-1v1', fmt === '1v1');
       updateGamesLinks();
       applyFilters();
     });

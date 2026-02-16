@@ -1,4 +1,4 @@
-"""Generate leaderboard data from game results using Elo ratings."""
+"""Generate leaderboard data from game results using Elo and OpenSkill ratings."""
 
 from __future__ import annotations
 
@@ -8,6 +8,8 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+from openskill.models import PlackettLuce
 
 from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
 
@@ -46,6 +48,10 @@ def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
 _STARTING_RATING = 1600
 _K_FACTOR = 32
 
+# Scale raw OpenSkill ordinals (centered at 0) to a DCI-style rating.
+_OPENSKILL_BASE = 1600
+_OPENSKILL_SCALE = 100
+
 # Map XMage deckType strings to canonical format names for leaderboard bucketing.
 _DECK_TYPE_TO_FORMAT: dict[str, str] = {
     "Constructed - Standard": "standard",
@@ -55,12 +61,10 @@ _DECK_TYPE_TO_FORMAT: dict[str, str] = {
     "Variant Magic - Commander": "commander",
 }
 
-# Display labels for format tabs.
+# Display labels for leaderboard tabs.
 FORMAT_LABELS: dict[str, str] = {
-    "combined": "Combined",
-    "standard": "Standard",
-    "modern": "Modern",
-    "legacy": "Legacy",
+    "1v1": "1v1",
+    "commander": "Commander",
 }
 
 
@@ -196,7 +200,12 @@ def _placements_from_winner(game: dict) -> dict[str, int]:
     return placements
 
 
-def compute_ratings(
+def _openskill_display_rating(ordinal: float) -> int:
+    """Convert raw OpenSkill ordinal to display rating."""
+    return round(ordinal * _OPENSKILL_SCALE + _OPENSKILL_BASE)
+
+
+def compute_elo_ratings(
     games_index: list[dict],
     games_dir: Path | None = None,
 ) -> tuple[dict[str, float], list[dict]]:
@@ -291,12 +300,99 @@ def compute_ratings(
     return final, per_game
 
 
+def compute_openskill_ratings(
+    games_index: list[dict],
+    games_dir: Path | None = None,
+) -> tuple[dict[str, float], list[dict]]:
+    """Compute OpenSkill PlackettLuce ratings from game history.
+
+    Uses full placement orderings for multiplayer games (e.g. Commander).
+    Games with no placement data are skipped (no rating update) but still
+    record snapshots.
+
+    Returns (final_ratings, per_game_ratings) with the same shape as
+    compute_elo_ratings.
+    """
+    model = PlackettLuce()
+    os_ratings: dict[str, Any] = {}
+    per_game: list[dict] = []
+
+    sorted_games = sorted(games_index, key=lambda g: g.get("timestamp", ""))
+
+    for game in sorted_games:
+        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]
+        if len(pilots) < 2:
+            for p in pilots:
+                key = _player_key(p)
+                if key not in os_ratings:
+                    os_ratings[key] = model.rating(name=key)
+            if pilots:
+                key = _player_key(pilots[0])
+                display = _openskill_display_rating(os_ratings[key].ordinal())
+                per_game.append(
+                    {
+                        "id": game.get("id", ""),
+                        "players": [{"key": key, "ratingBefore": display, "ratingAfter": display}],
+                    }
+                )
+            continue
+
+        for p in pilots:
+            key = _player_key(p)
+            if key not in os_ratings:
+                os_ratings[key] = model.rating(name=key)
+
+        pilot_keys = [_player_key(p) for p in pilots]
+        before = {key: _openskill_display_rating(os_ratings[key].ordinal()) for key in pilot_keys}
+
+        placements = extract_placements(game, games_dir)
+
+        teams = [[os_ratings[key]] for key in pilot_keys]
+        has_placements = any(p["name"] in placements for p in pilots)
+        if has_placements:
+            ranks: list[float] = []
+            for p in pilots:
+                placement = placements.get(p["name"])
+                ranks.append(float(placement if placement is not None else len(pilots)))
+            updated = model.rate(teams, ranks=ranks)
+        else:
+            updated = teams
+
+        for i, key in enumerate(pilot_keys):
+            os_ratings[key] = updated[i][0]
+
+        after = {key: _openskill_display_rating(os_ratings[key].ordinal()) for key in pilot_keys}
+        per_game.append(
+            {
+                "id": game.get("id", ""),
+                "players": [
+                    {
+                        "key": key,
+                        "ratingBefore": before[key],
+                        "ratingAfter": after[key],
+                    }
+                    for key in pilot_keys
+                ],
+            }
+        )
+
+    final: dict[str, float] = {}
+    for mid, r in os_ratings.items():
+        final[mid] = _openskill_display_rating(r.ordinal())
+
+    return final, per_game
+
+
 def generate_leaderboard(
     games_index: list[dict],
     model_registry: dict[str, str],
     games_dir: Path | None = None,
+    *,
+    rating_fn: str = "elo",
 ) -> tuple[dict, dict[str, dict[str, dict[str, int]]]]:
     """Aggregate game results into leaderboard data.
+
+    rating_fn selects the rating algorithm: "elo" or "openskill".
 
     Returns (benchmark_results, ratings_by_game) where ratings_by_game is
     {game_id: {model_id: {before, after}}}.
@@ -304,7 +400,8 @@ def generate_leaderboard(
     # Filter to games with a winner for leaderboard purposes
     scored_games = [g for g in games_index if g.get("winner")]
 
-    final_ratings, per_game = compute_ratings(scored_games, games_dir)
+    compute_fn = compute_openskill_ratings if rating_fn == "openskill" else compute_elo_ratings
+    final_ratings, per_game = compute_fn(scored_games, games_dir)
 
     # Build ratings_by_game lookup
     ratings_by_game: dict[str, dict[str, dict[str, int]]] = {}
@@ -406,28 +503,33 @@ def generate_all_leaderboards(
     model_registry: dict[str, str],
     games_dir: Path | None = None,
 ) -> tuple[dict[str, dict], dict[str, dict[str, dict[str, int]]]]:
-    """Generate per-format and combined leaderboards.
+    """Generate 1v1 and Commander leaderboards.
 
     Returns (format_results, ratings_by_game) where format_results maps
-    format name -> benchmark_results dict. The "combined" key has all
-    formats merged into one unified rating pool.
+    "1v1" and "commander" to their respective benchmark_results dicts.
+    1v1 uses Elo; Commander uses OpenSkill PlackettLuce.
     """
-    # Combined leaderboard excludes commander (different format, skews ratings)
-    non_commander = [g for g in games_index if derive_format(g) != "commander"]
-    combined_results, ratings_by_game = generate_leaderboard(non_commander, model_registry, games_dir)
+    # Partition into 1v1 (standard/modern/legacy) and commander
+    games_1v1 = [g for g in games_index if derive_format(g) != "commander"]
+    games_commander = [g for g in games_index if derive_format(g) == "commander"]
 
-    format_results: dict[str, dict] = {"combined": combined_results}
+    # 1v1: all Standard/Modern/Legacy in one Elo pool
+    results_1v1, ratings_1v1 = generate_leaderboard(games_1v1, model_registry, games_dir, rating_fn="elo")
 
-    # Partition games by format
-    by_format: dict[str, list[dict]] = {}
-    for game in games_index:
-        fmt = derive_format(game)
-        by_format.setdefault(fmt, []).append(game)
+    # Commander: OpenSkill PlackettLuce with full placement ordering
+    results_commander, ratings_commander = generate_leaderboard(
+        games_commander, model_registry, games_dir, rating_fn="openskill"
+    )
 
-    # Generate per-format leaderboards
-    for fmt, fmt_games in by_format.items():
-        fmt_results, _ = generate_leaderboard(fmt_games, model_registry, games_dir)
-        format_results[fmt] = fmt_results
+    format_results: dict[str, dict] = {
+        "1v1": results_1v1,
+        "commander": results_commander,
+    }
+
+    # Merge per-game ratings (game IDs are unique across pools)
+    ratings_by_game: dict[str, dict[str, dict[str, int]]] = {}
+    ratings_by_game.update(ratings_1v1)
+    ratings_by_game.update(ratings_commander)
 
     return format_results, ratings_by_game
 
@@ -512,12 +614,14 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     model_registry = load_model_registry(models_json)
     format_results, ratings_by_game = generate_all_leaderboards(rated_games, model_registry, games_dir)
 
-    # Build output with backward-compatible top-level fields from combined
-    combined = format_results.get("combined", {"generatedAt": "", "totalGames": 0, "models": []})
+    # Build output with backward-compatible top-level fields from 1v1
+    pool_1v1 = format_results.get("1v1", {"generatedAt": "", "totalGames": 0, "models": []})
+    pool_cmdr = format_results.get("commander", {"totalGames": 0})
+    total_games = pool_1v1.get("totalGames", 0) + pool_cmdr.get("totalGames", 0)
     output = {
-        "generatedAt": combined.get("generatedAt", ""),
-        "totalGames": combined.get("totalGames", 0),
-        "models": combined.get("models", []),
+        "generatedAt": pool_1v1.get("generatedAt", ""),
+        "totalGames": total_games,
+        "models": pool_1v1.get("models", []),
         "formats": format_results,
         "minEpoch": MIN_LEADERBOARD_EPOCH,
         "excludedGames": excluded_count,
