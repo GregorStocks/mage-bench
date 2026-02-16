@@ -35,25 +35,9 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   <h2>Blunder Index</h2>
 
   <p>
-    After each game, a separate Claude Sonnet 4.5 instance with extended thinking reviews
-    every non-forced decision for mistakes. Each decision is analyzed independently in its
-    own API call — the annotator sees the board state, available choices, the player's
-    reasoning, and what they chose, then judges whether the play was a blunder. The
-    <strong>Blunder Index</strong> measures how many severity-weighted blunders a model
-    makes per game turn. Lower is better.
-  </p>
-
-  <h3>Why per-decision analysis?</h3>
-
-  <p>
-    We evaluated 13 different annotation approaches across five test games ranging from
-    14 to 144 non-forced decisions. Approaches included single-pass analysis (sending all
-    decisions at once), per-decision analysis with different models (Opus, Sonnet, Gemini
-    Flash), batched analysis, multi-turn conversation, and extended thinking variants.
-    Per-decision Sonnet 4.5 with extended thinking achieved 98% consensus coverage — a
-    strict superset of every other approach's findings. Single-pass approaches miss
-    50-70% of consensus blunders because the model confuses details between decisions
-    that mention the same cards.
+    Each game is analyzed by a separate LLM (Claude Opus) that reviews every non-forced
+    decision and flags blunders with a severity level. The <strong>Blunder Index</strong>
+    measures how many severity-weighted blunders a model makes per game turn. Lower is better.
   </p>
 
   <h3>Severity weights</h3>
