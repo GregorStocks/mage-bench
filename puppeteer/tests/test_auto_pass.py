@@ -36,16 +36,11 @@ async def test_game_over_exits_immediately():
 
 
 @pytest.mark.asyncio
-async def test_player_dead_without_game_over_keeps_looping():
-    """Dead player stays connected until game_over to avoid mid-game disconnect."""
-    responses = [
-        json.dumps({"player_dead": True}),
-        json.dumps({"player_dead": True}),
-        json.dumps({"player_dead": True, "game_over": True}),
-    ]
-    session = _make_session(responses)
+async def test_player_dead_exits_immediately():
+    """Dead player exits auto-pass loop immediately to avoid log spam."""
+    session = _make_session([json.dumps({"player_dead": True})])
     await auto_pass_loop(session, None, "test", "test")
-    assert session.call_tool.call_count == 3
+    assert session.call_tool.call_count == 1
 
 
 @pytest.mark.asyncio

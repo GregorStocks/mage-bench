@@ -436,8 +436,8 @@
     "qwen": {
       "param": "reasoning.effort",
       "values": ["low", "medium", "high"],
-      "recommended": "medium",
-      "notes": "Qwen3 Max Thinking. Thinking content exposure unknown — needs testing."
+      "recommended": "low",
+      "notes": "Qwen3 Max Thinking. Medium was too slow (45s+ timeouts in 4p games). Thinking content exposure unknown — needs testing."
     }
   }
 }

@@ -1730,7 +1730,7 @@ public class TablesPanel extends javax.swing.JPanel {
             }
             options.setDeckType(deckTypeStr);
             options.setAttackOption(MultiplayerAttackOption.MULTIPLE);
-            options.setRange(RangeOfInfluence.ONE);
+            options.setRange(RangeOfInfluence.ALL);
             options.setWinsNeeded(2);
             String timeLimitEnv = System.getenv("XMAGE_AI_PUPPETEER_MATCH_TIME_LIMIT");
             options.setMatchTimeLimit(timeLimitEnv != null ? MatchTimeLimit.valueOf(timeLimitEnv) : MatchTimeLimit.NONE);
@@ -1741,7 +1741,7 @@ public class TablesPanel extends javax.swing.JPanel {
                 options.setCustomStartLifeEnabled(true);
                 options.setCustomStartLife(Integer.parseInt(customLifeEnv));
             }
-            options.setFreeMulligans(gameTypeStr.toLowerCase().contains("commander") ? 2 : 0);
+            options.setFreeMulligans(gameTypeStr.toLowerCase().contains("commander") ? 1 : 0);
             options.setSkillLevel(SkillLevel.CASUAL);
             options.setRollbackTurnsAllowed(true);
             options.setQuitRatio(100);

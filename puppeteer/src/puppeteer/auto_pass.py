@@ -62,7 +62,7 @@ async def auto_pass_loop(
                 result_data = json.loads(result_text)
             except (json.JSONDecodeError, TypeError):
                 result_data = {}
-            if result_data.get("game_over"):
+            if result_data.get("game_over") or result_data.get("player_dead"):
                 _log(f"[{label}] Game over detected, exiting auto-pass loop")
                 return
             if "error" in result_data:
