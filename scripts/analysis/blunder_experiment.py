@@ -151,7 +151,7 @@ def _call_llm(
     model: str,
     system: str,
     user: str,
-    thinking: bool = False,
+    thinking: bool | str = False,
     label: str = "",
 ) -> CallTrace:
     """Call LLM and return a full CallTrace with all intermediate data."""
@@ -166,7 +166,8 @@ def _call_llm(
 
     if thinking:
         # OpenRouter extended thinking via extra_body
-        kwargs["extra_body"] = {"reasoning": {"effort": "high"}}
+        effort = thinking if isinstance(thinking, str) else "high"
+        kwargs["extra_body"] = {"reasoning": {"effort": effort}}
         # Can't use temperature with thinking mode on some models
     else:
         kwargs["temperature"] = 0
@@ -264,7 +265,6 @@ ANNOTATION_SCHEMA = """\
   "severity": "questionable" | "minor" | "moderate" | "major",
   "category": "<short_snake_case_label>",
   "description": "<what went wrong in concrete game terms>",
-  "llmReasoning": "<why the LLM made this mistake, referencing their reasoning text>",
   "actionTaken": "<what they actually did>",
   "betterLine": "<what they should have done>"
 }"""
@@ -381,7 +381,7 @@ def _eval_one_decision(
     system: str,
     user_msg: str,
     label: str,
-    thinking: bool = False,
+    thinking: bool | str = False,
 ) -> tuple[CallTrace, list[dict]]:
     """Evaluate a single decision and return (trace, annotations)."""
     trace = _call_llm(client, model, system, user_msg, thinking=thinking, label=label)
@@ -400,7 +400,7 @@ def _approach_per_decision(
     overview: str,
     model: str,
     approach_name: str,
-    thinking: bool = False,
+    thinking: bool | str = False,
 ) -> ExperimentResult:
     """Per-decision approach: one API call per non-forced decision."""
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
@@ -664,15 +664,17 @@ def _approach_batched(
     overview: str,
     model: str,
     approach_name: str,
+    thinking: bool | str = False,
+    batch_size: int = BATCH_SIZE,
 ) -> ExperimentResult:
-    """Batched per-decision: send BATCH_SIZE decisions per API call."""
+    """Batched per-decision: send batch_size decisions per API call."""
     result = ExperimentResult(approach=approach_name, game_id=data["id"], model=model)
     non_forced = [d for d in decisions if not d["is_forced"]]
 
     # Build all batches
     batches: list[tuple[list[dict], str, str]] = []
-    for batch_start in range(0, len(non_forced), BATCH_SIZE):
-        batch = non_forced[batch_start : batch_start + BATCH_SIZE]
+    for batch_start in range(0, len(non_forced), batch_size):
+        batch = non_forced[batch_start : batch_start + batch_size]
         batch_indices = [d["decision_index"] for d in batch]
 
         parts: list[str] = []
@@ -692,7 +694,13 @@ def _approach_batched(
         futures = {}
         for i, (batch, user_msg, label) in enumerate(batches):
             fut = pool.submit(
-                _eval_one_decision, client, model, BATCHED_SYSTEM, user_msg, label
+                _eval_one_decision,
+                client,
+                model,
+                BATCHED_SYSTEM,
+                user_msg,
+                label,
+                thinking,
             )
             futures[fut] = i
 
@@ -840,6 +848,22 @@ APPROACHES: dict[str, tuple[str, object]] = {
     "J_convo_sonnet": ("Multi-turn conversation Sonnet", None),
     "K_opus_thinking": ("Per-decision Opus with extended thinking", None),
     "L_sonnet_thinking": ("Per-decision Sonnet with extended thinking", None),
+    "M_sonnet_batched_medium": (
+        "Batched Sonnet with medium thinking (5 decisions/call)",
+        None,
+    ),
+    "N_sonnet_batched_high": (
+        "Batched Sonnet with high thinking (5 decisions/call)",
+        None,
+    ),
+    "O_sonnet_medium": (
+        "Per-decision Sonnet with medium thinking",
+        None,
+    ),
+    "P_sonnet_low": (
+        "Per-decision Sonnet with low thinking",
+        None,
+    ),
 }
 
 
@@ -894,6 +918,46 @@ def run_approach(
             SONNET,
             "L_sonnet_thinking",
             thinking=True,
+        )
+    elif approach == "M_sonnet_batched_medium":
+        return _approach_batched(
+            client,
+            data,
+            decisions,
+            overview,
+            SONNET,
+            "M_sonnet_batched_medium",
+            thinking="medium",
+        )
+    elif approach == "N_sonnet_batched_high":
+        return _approach_batched(
+            client,
+            data,
+            decisions,
+            overview,
+            SONNET,
+            "N_sonnet_batched_high",
+            thinking=True,
+        )
+    elif approach == "O_sonnet_medium":
+        return _approach_per_decision(
+            client,
+            data,
+            decisions,
+            overview,
+            SONNET,
+            "O_sonnet_medium",
+            thinking="medium",
+        )
+    elif approach == "P_sonnet_low":
+        return _approach_per_decision(
+            client,
+            data,
+            decisions,
+            overview,
+            SONNET,
+            "P_sonnet_low",
+            thinking="low",
         )
     else:
         raise ValueError(f"Unknown approach: {approach}")
