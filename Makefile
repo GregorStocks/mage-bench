@@ -84,11 +84,24 @@ website-build: leaderboard
 # Pass OUTPUT to specify recording path: make run OUTPUT=/path/to/video.mov
 # Enable overlay: make run ARGS="--overlay" (requires website-build)
 # Parallel games: make run CONFIG=commander-gauntlet GAMES=3
+# Yente configs (yente-1v1, yente-commander) dynamically generate matchups
+#   between top-rated models. Supports THRESHOLD (default 1600) and FORMAT.
 CONFIG ?= standard-dumb
+THRESHOLD ?= 1600
 .PHONY: run
 run:
 	@CONFIG_PATH="$(CONFIG)"; \
 	case "$$CONFIG_PATH" in \
+	  yente-1v1) \
+	    uv run --project puppeteer python scripts/matchmaker.py 1v1 \
+	      --threshold $(THRESHOLD) $(if $(FORMAT),--format $(FORMAT)) \
+	      --output tmp/matchmaker.json; \
+	    CONFIG_PATH="tmp/matchmaker.json" ;; \
+	  yente-commander) \
+	    uv run --project puppeteer python scripts/matchmaker.py commander \
+	      --threshold $(THRESHOLD) \
+	      --output tmp/matchmaker.json; \
+	    CONFIG_PATH="tmp/matchmaker.json" ;; \
 	  */*|*.json) ;; \
 	  *) CONFIG_PATH="configs/$$CONFIG_PATH.json" ;; \
 	esac; \
@@ -96,20 +109,11 @@ run:
 	  --record$(if $(OUTPUT),=$(OUTPUT)) $(if $(GAMES),--games $(GAMES)) \
 	  --config "$$CONFIG_PATH" $(ARGS)
 
-# Run a matchmaking game between top-rated 1v1 models
-# Usage: make matchmake [THRESHOLD=1600] [FORMAT=standard] [GAMES=1]
-THRESHOLD ?= 1600
-.PHONY: matchmake
-matchmake:
-	@uv run --project puppeteer python scripts/matchmake.py \
-	  --threshold $(THRESHOLD) $(if $(FORMAT),--format $(FORMAT)) \
-	  --output tmp/matchmake.json
-	@$(MAKE) run CONFIG=tmp/matchmake.json $(if $(GAMES),GAMES=$(GAMES)) $(if $(ARGS),ARGS="$(ARGS)")
-
 # List available configs
 .PHONY: configs
 configs:
 	@for f in configs/*.json; do printf "  %s\n" "$$(basename $$f .json)"; done
+	@printf "  %s\n" "yente-1v1" "yente-commander"
 
 # Generate mcp-tools.json with MCP tool definitions
 # Compiles first to pick up any Java source changes.
