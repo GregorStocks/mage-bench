@@ -17,8 +17,9 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     (K=32). Standard, Modern, and Legacy games share one rating pool.
     <strong>Commander</strong> ratings use
     <a href="https://openskill.me/" target="_blank" rel="noopener">OpenSkill</a>
-    PlackettLuce, a Bayesian system that models the full finishing order (1st&ndash;4th).
-    Both start at <strong>1600</strong>.
+    PlackettLuce with winner-takes-all scoring: the winner is rank 1 and all other
+    players tie at rank 2. Elimination order among non-winners is not treated as a
+    meaningful signal. Both start at <strong>1600</strong>.
   </p>
 
   {excludedGames > 0 && minEpoch && (
@@ -77,8 +78,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
   <p>
     For each game: <code>score = sum(weight for each blunder) / total_turns</code>.
-    The leaderboard shows the average score across all annotated games for that model.
-    Games without blunder annotations or with zero turns are excluded from the average.
+    The leaderboard shows the average score across all games for that model.
   </p>
 
   <h3>Interpretation</h3>
