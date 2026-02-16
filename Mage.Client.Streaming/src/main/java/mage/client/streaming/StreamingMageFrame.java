@@ -29,8 +29,7 @@ public class StreamingMageFrame extends MageFrame {
     private static final int MAX_RECONNECT_ATTEMPTS = 5;
     private static final int[] RECONNECT_BACKOFF_MS = {2000, 4000, 8000, 16000, 30000};
     private static final String GIT_BRANCH = getGitBranch();
-    private static final String STREAMING_TITLE_PREFIX = "[STREAMING] " +
-            (GIT_BRANCH != null ? "[" + GIT_BRANCH + "] " : "");
+    private String titlePrefix = GIT_BRANCH != null ? "[" + GIT_BRANCH + "] " : "";
 
     /**
      * Get the current git branch name, or null if not in a git repo.
@@ -90,16 +89,31 @@ public class StreamingMageFrame extends MageFrame {
     }
 
     /**
-     * Override setTitle to always add streaming prefix.
+     * Override setTitle to always add our prefix.
      * This intercepts all title changes from MageFrame.setWindowTitle().
      */
     @Override
     public void setTitle(String title) {
-        if (title != null && !title.startsWith(STREAMING_TITLE_PREFIX)) {
-            super.setTitle(STREAMING_TITLE_PREFIX + title);
+        if (title != null && !title.startsWith(titlePrefix)) {
+            super.setTitle(titlePrefix + title);
         } else {
             super.setTitle(title);
         }
+    }
+
+    /**
+     * Set the game name to display in the window title (e.g. "Player1 vs Player2").
+     */
+    public void setGameName(String gameName) {
+        String oldPrefix = this.titlePrefix;
+        String branchPart = GIT_BRANCH != null ? "[" + GIT_BRANCH + "] " : "";
+        this.titlePrefix = gameName + " " + branchPart;
+        // Strip old prefix from current title and re-apply with new prefix
+        String currentTitle = getTitle();
+        if (currentTitle != null && currentTitle.startsWith(oldPrefix)) {
+            currentTitle = currentTitle.substring(oldPrefix.length());
+        }
+        super.setTitle(titlePrefix + currentTitle);
     }
 
     /**

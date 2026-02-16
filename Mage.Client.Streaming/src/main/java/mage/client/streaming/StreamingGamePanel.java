@@ -4,6 +4,7 @@ import mage.abilities.icon.CardIconRenderSettings;
 import mage.cards.Card;
 import mage.cards.MageCard;
 import mage.cards.MageCardLocation;
+import mage.client.MageFrame;
 import mage.client.MagePane;
 import mage.client.SessionHandler;
 import mage.client.cards.Cards;
@@ -253,6 +254,8 @@ public class StreamingGamePanel extends GamePanel {
         super.init(messageId, game, callGameUpdateAfterInit);
         this.lastGame = game;
         roundTracker.update(game);
+        // Update the window title with player names
+        updateFrameGameName(game);
         // Hide the central hand container (we show hands in play areas instead)
         hideHandContainer();
         requestHandPermissions(game);
@@ -272,6 +275,23 @@ public class StreamingGamePanel extends GamePanel {
         schedulePopupDismissal();
         pushOverlayState(game, true);
         writeStateSnapshotIfChanged(game);
+    }
+
+    private void updateFrameGameName(GameView game) {
+        if (game.getPlayers() == null || game.getPlayers().isEmpty()) {
+            return;
+        }
+        MageFrame frame = MageFrame.getInstance();
+        if (frame instanceof StreamingMageFrame) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < game.getPlayers().size(); i++) {
+                if (i > 0) {
+                    sb.append(" vs ");
+                }
+                sb.append(game.getPlayers().get(i).getName());
+            }
+            ((StreamingMageFrame) frame).setGameName(sb.toString());
+        }
     }
 
     @Override
