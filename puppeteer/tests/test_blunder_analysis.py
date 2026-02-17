@@ -146,6 +146,18 @@ class TestParseAnnotation:
         text = 'Here is the result:\n{"a": 1}\nDone.'
         assert _parse_annotation(text) == {"a": 1}
 
+    def test_text_with_null(self) -> None:
+        assert _parse_annotation("The play was reasonable.\n\nnull") is None
+
+    def test_text_with_reasonable(self) -> None:
+        assert _parse_annotation("This is a reasonable play.") is None
+
+    def test_unquoted_keys(self) -> None:
+        text = '{severity: "minor", category: "test", description: "d", actionTaken: "a", betterLine: "b"}'
+        result = _parse_annotation(text)
+        assert result is not None
+        assert result["severity"] == "minor"
+
     def test_rejects_garbage(self) -> None:
         with pytest.raises((json.JSONDecodeError, AssertionError)):
             _parse_annotation("no json here at all")
@@ -517,7 +529,7 @@ class TestMainIntegration:
     @patch("blunder_analysis._get_oracle_texts", return_value={})
     @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
-    def test_filters_invalid_snapshot_index(
+    def test_injects_metadata_fields(
         self,
         mock_openai_cls: MagicMock,
         _mock_prices: MagicMock,
@@ -531,25 +543,25 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        # Returns 2 annotations: one valid (index 0), one out of range (index 999)
-        valid_ann = {
-            "snapshotIndex": 0,
-            "player": "Alice",
-            "type": "blunder",
+        # LLM returns only severity/category/description (no snapshotIndex/player/type)
+        llm_ann = {
             "severity": "minor",
             "category": "unused_mana",
             "description": "test",
             "actionTaken": "test",
             "betterLine": "test",
         }
-        invalid_ann = {**valid_ann, "snapshotIndex": 999}
-        mock_client.chat.completions.create.return_value = _mock_response(json.dumps([valid_ann, invalid_ann]))
+        mock_client.chat.completions.create.return_value = _mock_response(json.dumps(llm_ann))
 
         main(str(gz_path))
 
         result = self._read_gz(gz_path)
         assert len(result["annotations"]) == 1
-        assert result["annotations"][0]["snapshotIndex"] == 0
+        ann = result["annotations"][0]
+        # These fields are injected server-side
+        assert ann["type"] == "blunder"
+        assert ann["player"] == "Alice"
+        assert "snapshotIndex" in ann
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("blunder_analysis._get_oracle_texts", return_value={})

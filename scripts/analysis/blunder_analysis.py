@@ -519,21 +519,33 @@ def _parse_annotation(text: str) -> dict | None:
             lines = lines[:-1]
         text = "\n".join(lines).strip()
 
-    try:
-        result = json.loads(text)
-    except json.JSONDecodeError:
-        # Try extracting {...} from surrounding text
-        start = text.find("{")
-        end = text.rfind("}")
-        if start != -1 and end != -1:
-            result = json.loads(text[start : end + 1])
-        else:
-            # Maybe it's a bare null or empty array (backwards compat)
-            if text.lower() in ("null", "[]", "none"):
-                return None
-            raise
+    # Check for null-like responses anywhere in text (model often wraps in explanation)
+    text_lower = text.lower()
+    if text_lower in ("null", "[]", "none"):
+        return None
+    # No JSON object present — treat as "no blunder"
+    if "{" not in text:
+        if (
+            "null" in text_lower
+            or "no blunder" in text_lower
+            or "reasonable" in text_lower
+        ):
+            return None
+        assert False, f"No JSON found and can't interpret as null:\n{text[:500]}"
 
-    # Accept null, empty array, or a single object
+    # Extract the JSON object from surrounding text
+    start = text.find("{")
+    end = text.rfind("}")
+    assert start != -1 and end != -1, f"Unmatched braces in response:\n{text[:500]}"
+    json_str = text[start : end + 1]
+
+    try:
+        result = json.loads(json_str)
+    except json.JSONDecodeError:
+        # Fix common LLM JSON errors: unquoted keys
+        fixed = re.sub(r"(?<=\{|,)\s*(\w+)\s*:", r' "\1":', json_str)
+        result = json.loads(fixed)
+
     if result is None:
         return None
     if isinstance(result, list):
@@ -595,6 +607,7 @@ def _eval_one_decision(
         ann = _parse_annotation(text)
     except (json.JSONDecodeError, AssertionError) as e:
         print(f"  WARNING: Failed to parse response for {label}: {e}")
+        print(f"    Raw response: {text[:200]!r}")
         return [], cost, False
 
     if ann is None:
