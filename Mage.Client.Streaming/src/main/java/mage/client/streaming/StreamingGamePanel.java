@@ -1789,6 +1789,9 @@ public class StreamingGamePanel extends GamePanel {
                     if (perm.isCreature()) {
                         permJson.addProperty("power", safe(perm.getPower()));
                         permJson.addProperty("toughness", safe(perm.getToughness()));
+                        if (perm.hasSummoningSickness()) {
+                            permJson.addProperty("summoning_sick", true);
+                        }
                     }
                     if (perm.getCounters() != null && !perm.getCounters().isEmpty()) {
                         var counters = new JsonObject();
@@ -1796,6 +1799,12 @@ public class StreamingGamePanel extends GamePanel {
                             counters.addProperty(counter.getName(), counter.getCount());
                         }
                         permJson.add("counters", counters);
+                    }
+                    if (perm.isToken()) {
+                        permJson.addProperty("token", true);
+                    }
+                    if (perm.isFaceDown()) {
+                        permJson.addProperty("face_down", true);
                     }
                     bfArray.add(permJson);
                 }

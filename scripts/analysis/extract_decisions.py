@@ -12,11 +12,24 @@ import sys
 
 
 def _summarize_permanent(c: dict) -> str | dict:
-    """Summarize a battlefield permanent. Returns just the name if no counters,
-    or a dict with name and counters if counters are present."""
-    name = c.get("name", "?") if isinstance(c, dict) else str(c)
-    if isinstance(c, dict) and c.get("counters"):
-        return {"name": name, "counters": c["counters"]}
+    """Summarize a battlefield permanent. Returns just the name if nothing
+    interesting, or a dict with extra info when tapped/counters/sick."""
+    if not isinstance(c, dict):
+        return str(c)
+    name = c.get("name", "?")
+    extras: dict = {}
+    if c.get("tapped"):
+        extras["tapped"] = True
+    if c.get("summoning_sick"):
+        extras["summoning_sick"] = True
+    if c.get("counters"):
+        extras["counters"] = c["counters"]
+    if c.get("token"):
+        extras["token"] = True
+    if c.get("face_down"):
+        extras["face_down"] = True
+    if extras:
+        return {"name": name, **extras}
     return name
 
 
