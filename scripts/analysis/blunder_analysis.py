@@ -54,7 +54,7 @@ MAX_WORKERS = 50
 # v9: switch from Sonnet 4.5 (thinking=low) to Opus 4.6 (no extended thinking)
 # v10: add prior context (snapshot from 2 turns ago + action deltas)
 # v11: filter out failed (success=false), cancelled, and cast-before-cancel decisions
-# v12: add current-turn action context + specific end-of-turn blunder examples
+# v12: add current-turn action context (no prompt additions, just context)
 BLUNDER_SCRIPT_VERSION = 12
 
 # --- Prompt components ---
@@ -70,9 +70,6 @@ Here are some examples of the kinds of mistakes to flag:
 - Casting spells before playing lands, creatures before combat when holding tricks
 - Poor attack/block decisions, attacking into unfavorable blocks
 - Missing land drops, not using mana sinks at end of opponent's turn
-- Passing in postcombat main (ending the turn) with lands in hand that could have been played, \
-or with castable sorcery-speed spells (sorceries, creatures, planeswalkers) and open mana — \
-always play your land for the turn even with nothing to cast
 - Fundamentally wrong game plan decisions, not countering must-answer threats
 - Overextending into board wipes, running best threat into open counter mana"""
 
@@ -106,12 +103,7 @@ If it was a blunder, return a JSON annotation object.
 Most decisions are reasonable — only flag clear mistakes or questionable choices.
 
 You may be given prior context showing the board state from earlier and the action log \
-since then. Use this to understand how the game reached the current state.
-
-You may also see a "This Turn" section showing actions taken earlier in the current turn. \
-Use this to check whether a land was played, what spells were cast, etc. Pay special attention \
-when a player passes in postcombat main — if no land was played this turn and they have lands \
-in hand, that is almost always a blunder (flag at least questionable)."""
+since then. Use this to understand how the game reached the current state."""
 
 PER_DECISION_FOOTER = f"""\
 {BLUNDER_EXAMPLES}
