@@ -666,8 +666,6 @@ const { slug } = Astro.params;
         div.textContent = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
       } else if (type === "llm_error") {
         div.textContent = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
-      } else if (type === "context_trim") {
-        div.textContent = event.player + " context trimmed: " + (event.messagesBefore || 0) + " -> " + (event.messagesAfter || 0) + " messages";
       } else if (type === "context_reset") {
         div.textContent = event.player + " context reset: " + (event.reason || "");
       } else if (type === "auto_pilot_mode") {
