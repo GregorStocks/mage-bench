@@ -707,10 +707,6 @@ const { slug } = Astro.params;
       badge.className = "annotation-badge severity-" + ann.severity;
       badge.textContent = ann.severity === "questionable" ? "questionable" : ann.severity + " blunder";
       header.appendChild(badge);
-      var catEl = document.createElement("span");
-      catEl.className = "annotation-category";
-      catEl.textContent = ann.category.replace(/_/g, " ");
-      header.appendChild(catEl);
       div.appendChild(header);
 
       var desc = document.createElement("div");

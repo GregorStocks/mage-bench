@@ -177,7 +177,7 @@ class TestParseAnnotation:
         assert _parse_annotation("This is a reasonable play.") is None
 
     def test_unquoted_keys(self) -> None:
-        text = '{severity: "minor", category: "test", description: "d", actionTaken: "a", betterLine: "b"}'
+        text = '{severity: "minor", description: "d", actionTaken: "a", betterLine: "b"}'
         result = _parse_annotation(text)
         assert result is not None
         assert result["severity"] == "minor"
@@ -480,7 +480,6 @@ class TestMainIntegration:
                         "player": "Alice",
                         "type": "blunder",
                         "severity": "moderate",
-                        "category": "unused_mana",
                         "description": "Passed with Mountain in hand and no land played",
                         "actionTaken": "Passed priority",
                         "betterLine": "Play Mountain for mana development",
@@ -496,7 +495,6 @@ class TestMainIntegration:
         result = self._read_gz(gz_path)
         assert "annotations" in result
         assert len(result["annotations"]) == 1
-        assert result["annotations"][0]["category"] == "unused_mana"
         assert result["blunderScriptVersion"] == BLUNDER_SCRIPT_VERSION
 
         # One API call per non-forced decision (this game has 1)
@@ -567,10 +565,9 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        # LLM returns only severity/category/description (no snapshotIndex/player/type)
+        # LLM returns only severity/description (no snapshotIndex/player/type)
         llm_ann = {
             "severity": "minor",
-            "category": "unused_mana",
             "description": "test",
             "actionTaken": "test",
             "betterLine": "test",

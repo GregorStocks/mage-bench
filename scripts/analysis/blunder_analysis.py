@@ -57,23 +57,19 @@ BLUNDER_SCRIPT_VERSION = 11
 
 # --- Prompt components ---
 
-SHARED_CATEGORIES = """\
-## Category
+BLUNDER_EXAMPLES = """\
+## Examples of Blunders
 
-The "category" field is a short snake_case label you choose to describe the type of mistake. \
-Use your judgment — here are some common examples, but use whatever fits best:
+Here are some examples of the kinds of mistakes to flag:
 
-- `missed_lethal` — not attacking for lethal, missing combo kills, burn in hand at low life
-- `wasted_resources` — casting spells that accomplish nothing, cards with no valid targets, \
-countering own spells, declining pure-upside abilities
-- `wrong_target` — removing the wrong threat, fetching the wrong land, naming the wrong card
-- `bad_sequencing` — casting spells before playing lands, creatures before combat with tricks
-- `bad_combat` — poor attack/block decisions, attacking such that opponent can make favorable blocks
-- `unused_mana` — missing land drops, not using mana sinks at end of opponent's turn, \
-holding castable spells for no reason
-- `strategic_error` — fundamentally wrong game plan decisions, not countering must-answer threats, \
-choosing to go second
-- `walked_into_removal` — overextending into board wipes, running best threat into open counter mana"""
+- Not attacking for lethal, missing combo kills, burn in hand at low life
+- Casting spells that accomplish nothing, cards with no valid targets, declining pure-upside abilities
+- Removing the wrong threat, fetching the wrong land, naming the wrong card
+- Casting spells before playing lands, creatures before combat when holding tricks
+- Poor attack/block decisions, attacking into unfavorable blocks
+- Missing land drops, not using mana sinks at end of opponent's turn
+- Fundamentally wrong game plan decisions, not countering must-answer threats
+- Overextending into board wipes, running best threat into open counter mana"""
 
 SHARED_SEVERITY = """\
 ## Severity Levels
@@ -91,7 +87,6 @@ cards for nothing, missed lethal, or made an error that directly led to losing."
 ANNOTATION_SCHEMA = """\
 {
   "severity": "questionable" | "minor" | "moderate" | "major",
-  "category": "<short_snake_case_label>",
   "description": "<what went wrong in concrete game terms>",
   "actionTaken": "<what they actually did>",
   "betterLine": "<what they should have done>"
@@ -109,7 +104,7 @@ You may be given prior context showing the board state from earlier and the acti
 since then. Use this to understand how the game reached the current state."""
 
 PER_DECISION_FOOTER = f"""\
-{SHARED_CATEGORIES}
+{BLUNDER_EXAMPLES}
 
 {SHARED_SEVERITY}
 
@@ -856,7 +851,7 @@ def main(gz_path: str) -> None:
         snap_idx = ann["snapshotIndex"]
         turn = snapshots[snap_idx]["turn"] if snap_idx < len(snapshots) else "?"
         sev = ann["severity"].upper()
-        print(f"  Turn {turn} ({ann['player']}) - {sev} {ann['category']}")
+        print(f"  Turn {turn} ({ann['player']}) - {sev}")
         print(f"    {ann['description']}")
         print(f"    Better: {ann['betterLine']}")
         print()

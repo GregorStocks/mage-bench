@@ -15,7 +15,6 @@ REQUIRED_FIELDS = {
     "player",
     "type",
     "severity",
-    "category",
     "description",
     "actionTaken",
     "betterLine",
@@ -47,10 +46,6 @@ def _validate_annotation(ann: dict, index: int, game_data: dict) -> None:
 
     assert ann["severity"] in VALID_SEVERITIES, (
         f"Annotation {index}: severity '{ann['severity']}' not in {VALID_SEVERITIES}"
-    )
-
-    assert isinstance(ann["category"], str) and ann["category"], (
-        f"Annotation {index}: category must be a non-empty string"
     )
 
 

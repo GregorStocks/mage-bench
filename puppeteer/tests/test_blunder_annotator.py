@@ -317,7 +317,6 @@ def _make_valid_annotation(snapshot_index: int = 0) -> dict:
         "player": "Alice",
         "type": "blunder",
         "severity": "moderate",
-        "category": "bad_sequencing",
         "description": "Played land before combat when holding combat trick",
         "actionTaken": "Play Mountain",
         "betterLine": "Attack first, then play land in second main phase",
@@ -390,18 +389,6 @@ class TestAnnotateGame:
 
         annotation = _make_valid_annotation()
         annotation["severity"] = "catastrophic"
-        ann_path = tmp_path / "annotations.json"
-        ann_path.write_text(json.dumps([annotation]))
-
-        with pytest.raises(subprocess.CalledProcessError):
-            _run_script("annotate_game.py", str(gz_path), str(ann_path))
-
-    def test_empty_category(self, tmp_path: Path) -> None:
-        gz_path = tmp_path / "game.json.gz"
-        _write_gz(_make_test_game(), gz_path)
-
-        annotation = _make_valid_annotation()
-        annotation["category"] = ""
         ann_path = tmp_path / "annotations.json"
         ann_path.write_text(json.dumps([annotation]))
 
