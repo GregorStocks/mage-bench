@@ -765,6 +765,7 @@ public class GameController implements GameCallback {
 
     public void endGame(final String message) throws MageException {
         // send end game message/dialog
+        logger.info("endGame called for game " + game.getId() + " with " + getGameSessions().size() + " players and " + getGameSessionWatchers().size() + " watchers");
         for (final GameSessionPlayer gameSession : getGameSessions()) {
             gameSession.gameOver(message);
             gameSession.removeGame();
@@ -772,6 +773,7 @@ public class GameController implements GameCallback {
         for (final GameSessionWatcher gameWatcher : getGameSessionWatchers()) {
             gameWatcher.gameOver(message);
         }
+        logger.info("endGame completed for game " + game.getId());
 
         // start next game or close finished table
         managerFactory.tableManager().endGame(tableId);

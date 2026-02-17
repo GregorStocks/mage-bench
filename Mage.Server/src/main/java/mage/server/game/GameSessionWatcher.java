@@ -76,8 +76,14 @@ public class GameSessionWatcher {
         if (!killed) {
             userManager.getUser(userId).ifPresent(user -> {
                 user.removeGameWatchInfo(game.getId());
+                logger.info("Sending GAME_OVER to user " + user.getName() + " (userId=" + userId + ") for game " + game.getId());
                 user.fireCallback(new ClientCallback(ClientCallbackMethod.GAME_OVER, game.getId(), new GameClientMessage(getGameView(), null, message)));
             });
+            if (!userManager.getUser(userId).isPresent()) {
+                logger.warn("GAME_OVER not sent - user not found for userId=" + userId + ", game=" + game.getId());
+            }
+        } else {
+            logger.warn("GAME_OVER not sent - session killed for userId=" + userId + ", game=" + game.getId());
         }
     }
 

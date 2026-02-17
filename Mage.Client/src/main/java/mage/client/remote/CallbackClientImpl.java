@@ -255,11 +255,14 @@ public class CallbackClientImpl implements CallbackClient {
                         GameClientMessage message = (GameClientMessage) callback.getData();
                         GamePanel panel = MageFrame.getGame(callback.getObjectId());
                         if (panel != null) {
+                            logger.info("GAME_OVER received for game " + callback.getObjectId() + ", panel found, calling endMessage");
                             Session session = SessionHandler.getSession();
                             if (session.isJsonLogActive()) {
                                 appendJsonEvent("GAME_OVER", callback.getObjectId(), message);
                             }
                             panel.endMessage(callback.getMessageId(), message.getGameView(), message.getOptions(), message.getMessage());
+                        } else {
+                            logger.error("GAME_OVER received for game " + callback.getObjectId() + " but panel is NULL - endMessage will not be called!");
                         }
                         break;
                     }

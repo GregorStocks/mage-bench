@@ -258,9 +258,16 @@ public class User {
 
     public void fireCallback(final ClientCallback call) {
         if (isConnected()) {
-            managerFactory.sessionManager().getSession(sessionId).ifPresent(session
-                    -> session.fireCallback(call)
-            );
+            boolean[] sessionFound = {false};
+            managerFactory.sessionManager().getSession(sessionId).ifPresent(session -> {
+                sessionFound[0] = true;
+                session.fireCallback(call);
+            });
+            if (!sessionFound[0] && call.getMethod() == ClientCallbackMethod.GAME_OVER) {
+                logger.warn("GAME_OVER not sent - session not found for user " + userName + " (sessionId=" + sessionId + ")");
+            }
+        } else if (call.getMethod() == ClientCallbackMethod.GAME_OVER) {
+            logger.warn("GAME_OVER not sent - user " + userName + " not connected (state=" + userState + ")");
         }
     }
 

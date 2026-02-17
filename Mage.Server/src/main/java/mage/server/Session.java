@@ -4,6 +4,7 @@ import mage.MageException;
 import mage.constants.Constants;
 import mage.interfaces.callback.ClientCallback;
 import mage.interfaces.callback.ClientCallbackMethod;
+import mage.interfaces.callback.ClientCallbackType;
 import mage.players.net.UserData;
 import mage.players.net.UserGroup;
 import mage.server.game.GamesRoom;
@@ -431,8 +432,15 @@ public class Session {
     public void fireCallback(final ClientCallback call) {
         boolean lockSet = false; // TODO: research about locks, why it here? 2023-12-06
 
+        // Game lifecycle callbacks (GAME_OVER, GAME_INIT, START_GAME, END_GAME_INFO) must not be
+        // silently dropped — use a longer lock timeout to survive contention with concurrent chat
+        // broadcasts during player disconnect processing.
+        long lockTimeoutMs = call.getMethod().getType() == ClientCallbackType.TABLE_CHANGE
+                || call.getMethod().getType() == ClientCallbackType.DIALOG
+                ? 5000 : 50;
+
         try {
-            if (valid && callBackLock.tryLock(50, TimeUnit.MILLISECONDS)) {
+            if (valid && callBackLock.tryLock(lockTimeoutMs, TimeUnit.MILLISECONDS)) {
                 lastCallbackInfo = call.getInfo();
                 call.setMessageId(messageId.incrementAndGet());
                 lockSet = true;
@@ -440,6 +448,11 @@ public class Session {
                 boolean sendAsync = SUPER_DUPER_BUGGY_AND_FASTEST_ASYNC_CONNECTION
                         && call.getMethod().getType().canComeInAnyOrder();
                 callbackHandler.handleCallbackOneway(callback, sendAsync);
+            } else if (!valid) {
+                logger.warn("CALLBACK DROPPED (session invalid) - " + call.getMethod() + " - userId: " + userId + ", call: " + call.getInfo());
+            } else {
+                logger.warn("CALLBACK DROPPED (lock timeout " + lockTimeoutMs + "ms) - " + call.getMethod() + " - userId: " + userId
+                        + ", prev call: " + lastCallbackInfo + ", current call: " + call.getInfo());
             }
         } catch (InterruptedException ex) {
             // already sending another command (connection problem?)
