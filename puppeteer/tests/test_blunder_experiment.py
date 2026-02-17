@@ -14,7 +14,6 @@ def _ann(**overrides: object) -> dict:
         "severity": "minor",
         "category": "x",
         "description": "d",
-        "llmReasoning": "r",
         "actionTaken": "a",
         "betterLine": "b",
     }
