@@ -227,6 +227,91 @@ class TestImportDeck:
         assert main_lines == []
         assert sb_lines == []
 
+    def test_normalize_split_name(self) -> None:
+        assert import_deck._normalize_split_name("Wear/Tear") == "Wear // Tear"
+        assert import_deck._normalize_split_name("Heaven/Earth") == "Heaven // Earth"
+
+    def test_normalize_split_name_already_canonical(self) -> None:
+        assert import_deck._normalize_split_name("Wear // Tear") == "Wear // Tear"
+
+    def test_normalize_split_name_no_slash(self) -> None:
+        assert import_deck._normalize_split_name("Lightning Bolt") == "Lightning Bolt"
+
+    def test_normalize_room_card(self) -> None:
+        assert import_deck._normalize_split_name("Spiked Corridor/Torture Pit") == "Spiked Corridor // Torture Pit"
+
+    def test_parse_deck_text_split_card(self) -> None:
+        text = "1 Wear/Tear\n4 Lightning Bolt\n"
+        cards = import_deck.parse_deck_text(text)
+        assert "Wear/Tear" in cards
+        assert cards["Wear/Tear"] == [(1, False)]
+
+    def test_resolve_cards_normalizes_split_names(self) -> None:
+        """resolve_cards normalizes slash names and keys result by original."""
+        scryfall_response = {
+            "data": [
+                {"name": "Wear // Tear", "set": "dgm", "collector_number": "135"},
+                {"name": "Lightning Bolt", "set": "a25", "collector_number": "141"},
+            ],
+            "not_found": [],
+        }
+        fake_resp = MagicMock()
+        fake_resp.read.return_value = json.dumps(scryfall_response).encode()
+        fake_resp.__enter__ = MagicMock(return_value=fake_resp)
+        fake_resp.__exit__ = MagicMock(return_value=False)
+
+        with patch("urllib.request.urlopen", return_value=fake_resp):
+            resolved = import_deck.resolve_cards(["Wear/Tear", "Lightning Bolt"])
+
+        # Keyed by original MTGGoldfish name, not Scryfall canonical name
+        assert "Wear/Tear" in resolved
+        assert resolved["Wear/Tear"] == ("DGM", "135")
+        assert "Lightning Bolt" in resolved
+
+    def test_resolve_cards_fallback_first_half(self) -> None:
+        """Fallback queries first half of split name when collection fails."""
+        collection_response = {
+            "data": [],
+            "not_found": [{"name": "Wear // Tear"}],
+        }
+        named_response = {
+            "name": "Wear // Tear",
+            "set": "dgm",
+            "collector_number": "135",
+        }
+        call_count = 0
+
+        def fake_urlopen(req):
+            nonlocal call_count
+            call_count += 1
+            resp = MagicMock()
+            resp.__enter__ = MagicMock(return_value=resp)
+            resp.__exit__ = MagicMock(return_value=False)
+            if call_count == 1:
+                # First call: collection endpoint returns not_found
+                resp.read.return_value = json.dumps(collection_response).encode()
+            else:
+                # Second call: named endpoint returns the card
+                resp.read.return_value = json.dumps(named_response).encode()
+            return resp
+
+        with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+            resolved = import_deck.resolve_cards(["Wear/Tear"])
+
+        assert "Wear/Tear" in resolved
+        assert resolved["Wear/Tear"] == ("DGM", "135")
+
+    def test_format_dck_split_card(self) -> None:
+        """Split cards resolved by original name appear in output."""
+        cards = {"Wear/Tear": [(1, False)], "Lightning Bolt": [(4, False)]}
+        resolved = {
+            "Wear/Tear": ("DGM", "135"),
+            "Lightning Bolt": ("A25", "141"),
+        }
+        main_lines, _sb_lines = import_deck.format_dck(cards, resolved)
+        assert len(main_lines) == 2
+        assert "1 [DGM:135] Wear/Tear" in main_lines
+
 
 # ===========================================================================
 # import-metagame
