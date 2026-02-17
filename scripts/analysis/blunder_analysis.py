@@ -703,8 +703,44 @@ def main(gz_path: str) -> None:
 
     # Extract decisions
     decisions = extract_decisions(gz_path)
-    non_forced = [d for d in decisions if not d["is_forced"]]
-    print(f"Extracted {len(decisions)} decisions ({len(non_forced)} non-forced)")
+
+    # Build set of decision indices to skip:
+    # 1. Forced decisions (only one choice)
+    # 2. Failed actions (success=false, e.g. bad index/args)
+    # 3. Cancelled actions (player backed out of a spell/ability)
+    # 4. The cast decision that preceded a cancel (tried to cast, then undid it)
+    skip_indices: set[int] = set()
+    for i, d in enumerate(decisions):
+        if d["is_forced"]:
+            skip_indices.add(i)
+            continue
+        ar = d.get("action_result", {})
+        if ar.get("success") is False:
+            skip_indices.add(i)
+            continue
+        if ar.get("action_taken") == "cancelled":
+            skip_indices.add(i)
+            # Also skip the preceding same-player decision if it was
+            # "Play spells and abilities" / "Play instants and activated abilities"
+            # — the net effect was nothing (cast attempt + cancel = no action)
+            for j in range(i - 1, max(i - 5, -1), -1):
+                if decisions[j]["player"] != d["player"]:
+                    continue
+                if decisions[j]["is_forced"]:
+                    continue
+                prev_msg = decisions[j].get("message", "")
+                if prev_msg.startswith(
+                    "Play spells and abilities"
+                ) or prev_msg.startswith("Play instants and activated abilities"):
+                    skip_indices.add(j)
+                break
+
+    non_forced = [d for i, d in enumerate(decisions) if i not in skip_indices]
+    print(
+        f"Extracted {len(decisions)} decisions, "
+        f"skipped {len(skip_indices)} (forced/failed/cancelled), "
+        f"{len(non_forced)} to analyze"
+    )
 
     if not non_forced:
         print("No non-forced decisions to analyze.")
