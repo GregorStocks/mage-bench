@@ -442,8 +442,8 @@ async def run_pilot_loop(
             if game_log and len(history) > CONTEXT_RECENT_COUNT:
                 game_log.emit(
                     "context_trim",
-                    history_size=len(history),
-                    rendered_size=len(messages),
+                    messages_before=len(history),
+                    messages_after=len(messages),
                 )
 
             create_kwargs: dict = dict(

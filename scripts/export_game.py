@@ -219,8 +219,12 @@ def _read_llm_events(
                 exported["turnsWithoutProgress"] = raw.get("turns_without_progress", 0)
                 exported["lastTools"] = raw.get("last_tools", [])
             elif event_type == "context_trim":
-                exported["messagesBefore"] = raw.get("messages_before", 0)
-                exported["messagesAfter"] = raw.get("messages_after", 0)
+                exported["messagesBefore"] = raw.get(
+                    "messages_before", raw.get("history_size", 0)
+                )
+                exported["messagesAfter"] = raw.get(
+                    "messages_after", raw.get("rendered_size", 0)
+                )
             elif event_type == "context_reset":
                 exported["reason"] = raw.get("reason", "")
             elif event_type == "llm_error":
