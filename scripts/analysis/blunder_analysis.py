@@ -298,13 +298,19 @@ def _format_prior_context(
     decision: dict,
     snapshots: list[dict],
     actions_by_turn: dict[int, list[str]],
+    num_players: int,
 ) -> str:
-    """Build prior context: snapshot from 2 turns ago + action deltas for intervening turns."""
+    """Build prior context: snapshot from 2 turn cycles ago + action deltas.
+
+    A turn cycle = one turn per player. So 2 cycles back = 2 * num_players
+    turn numbers back from the current turn.
+    """
     current_turn = decision.get("turn")
-    if not current_turn or current_turn <= 2:
+    lookback = 2 * num_players
+    if not current_turn or current_turn <= lookback:
         return ""
 
-    ref_turn = current_turn - 2
+    ref_turn = current_turn - lookback
     ref_snap = _snapshot_for_turn(snapshots, ref_turn)
     if ref_snap is None:
         return ""
@@ -322,8 +328,8 @@ def _format_prior_context(
             s += f" gy=[{', '.join(str(x) for x in gy)}]"
         players_parts.append(s)
 
-    lines = [f"## Prior Context (from turn {ref_turn})\n"]
-    lines.append(f"Board at start of turn {ref_turn}: {' | '.join(players_parts)}")
+    lines = [f"## Prior Context ({lookback} turns ago)\n"]
+    lines.append(f"Board at turn {ref_turn}: {' | '.join(players_parts)}")
 
     # Add action deltas for turns ref_turn through current_turn - 1
     for t in range(ref_turn, current_turn):
@@ -512,6 +518,7 @@ def _eval_one_decision(
     oracle_texts: dict[str, dict],
     snapshots: list[dict],
     actions_by_turn: dict[int, list[str]],
+    num_players: int,
 ) -> tuple[list[dict], float, bool]:
     """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok).
 
@@ -519,7 +526,7 @@ def _eval_one_decision(
     """
     formatted = _format_decisions([decision])
     card_ref = _card_reference_for_decision(decision, oracle_texts)
-    prior_ctx = _format_prior_context(decision, snapshots, actions_by_turn)
+    prior_ctx = _format_prior_context(decision, snapshots, actions_by_turn, num_players)
     user_msg = f"## Game Overview\n{overview}"
     if prior_ctx:
         user_msg += f"\n\n{prior_ctx}"
@@ -590,6 +597,7 @@ def main(gz_path: str) -> None:
     game_actions = data.get("actions", [])
     abt = _actions_by_turn(game_actions)
     game_snapshots = data.get("snapshots", [])
+    num_players = len(data.get("players", []))
 
     # --- Per-decision Opus analysis ---
     print(f"\nAnalyzing {len(non_forced)} decisions with {OPUS_MODEL}...")
@@ -611,6 +619,7 @@ def main(gz_path: str) -> None:
                 oracle_texts,
                 game_snapshots,
                 abt,
+                num_players,
             )
             futures[fut] = d["decision_index"]
 

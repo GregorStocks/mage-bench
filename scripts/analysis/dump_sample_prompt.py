@@ -3,7 +3,6 @@
 
 import gzip
 import json
-import sys
 from pathlib import Path
 
 from blunder_analysis import (
@@ -22,7 +21,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"
 
 # Pick a game with enough turns
-gz_path = str(REPO_ROOT / "website/public/games/game_20260216_155314_g5.json.gz")
+gz_path = str(REPO_ROOT / "website/public/games/game_20260216_155314_g7.json.gz")
 
 with gzip.open(gz_path, "rt") as f:
     data = json.load(f)
@@ -45,7 +44,8 @@ game_snapshots = data.get("snapshots", [])
 # Build the prompt exactly as sent to the LLM
 formatted = _format_decisions([decision])
 card_ref = _card_reference_for_decision(decision, oracle_texts)
-prior_ctx = _format_prior_context(decision, game_snapshots, abt)
+num_players = len(data.get("players", []))
+prior_ctx = _format_prior_context(decision, game_snapshots, abt, num_players)
 
 user_msg = f"## Game Overview\n{overview}"
 if prior_ctx:
@@ -64,7 +64,9 @@ sys_tokens = len(PER_DECISION_SYSTEM) // 4
 user_tokens = len(user_msg) // 4
 prior_tokens = len(prior_ctx) // 4 if prior_ctx else 0
 print(f"Game: {data['id']}")
-print(f"Decision {decision['decision_index']}, turn {decision.get('turn')}, {decision['player']}")
+print(
+    f"Decision {decision['decision_index']}, turn {decision.get('turn')}, {decision['player']}"
+)
 print(f"Message: {decision.get('message', '')[:80]}")
 print(f"\nSystem prompt: ~{sys_tokens} tokens")
 print(f"User message:  ~{user_tokens} tokens")
