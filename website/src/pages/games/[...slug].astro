@@ -870,9 +870,8 @@ const { slug } = Astro.params;
       if (game.annotations) {
         game.annotations.forEach(function (ann) {
           if (ann.snapshotIndex <= index) {
-            var nextSnap = game.snapshots[ann.snapshotIndex + 1];
-            var annTs = nextSnap ? (nextSnap.ts || "") : (game.snapshots[ann.snapshotIndex] || {}).ts || "";
-            timeline.push({ kind: "annotation", ts: annTs, data: ann });
+            var annSnap = game.snapshots[ann.snapshotIndex];
+            timeline.push({ kind: "annotation", ts: annSnap ? (annSnap.ts || "") : "", data: ann });
           }
         });
         // Re-sort; annotations sort last among items with the same timestamp

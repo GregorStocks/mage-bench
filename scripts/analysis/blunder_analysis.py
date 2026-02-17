@@ -636,9 +636,11 @@ def _eval_one_decision(
     if ann is None:
         return [], cost, True
 
-    # Inject constant fields the LLM doesn't need to generate
+    # Inject constant fields the LLM doesn't need to generate.
+    # snapshotIndex points to the snapshot AFTER the decision resolved,
+    # so the viewer shows the annotation alongside its consequences.
     ann["type"] = "blunder"
-    ann["snapshotIndex"] = decision["snapshot_index"]
+    ann["snapshotIndex"] = decision["snapshot_index"] + 1
     ann["player"] = decision["player"]
 
     return [ann], cost, True
