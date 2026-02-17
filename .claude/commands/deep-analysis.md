@@ -17,7 +17,7 @@ Determine which game to analyze:
   ```bash
   uv run python scripts/list-recent-games.py --config {config}
   ```
-  where `{config}` might be `commander-gauntlet`, `commander-frontier`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
+  where `{config}` might be `commander-gauntlet`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
 - **If no game specified at all**, find the most recent unanalyzed game. Check which games already have deep-analysis files in `doc/claudes/analyses/deep/` and skip those:
   ```bash
   ls doc/claudes/analyses/deep/game_*.md 2>/dev/null  # already deep-analyzed

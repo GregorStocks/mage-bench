@@ -79,7 +79,6 @@ website-build: leaderboard
 # Default: 4 CPU players, no API keys needed.
 #   make run                              # free, no API keys (2 CPU Standard duel)
 #   make run CONFIG=commander-gauntlet    # 4 random LLM pilots (needs OPENROUTER_API_KEY)
-#   make run CONFIG=commander-frontier    # frontier models from 4 major labs
 #   make run CONFIG=path/to/x.json  # custom config file
 # Pass OUTPUT to specify recording path: make run OUTPUT=/path/to/video.mov
 # Enable overlay: make run ARGS="--overlay" (requires website-build)

@@ -203,6 +203,17 @@
       "notes": "Absurdly cheap with optional reasoning. 2M context window. Untested for Magic tool calling — worth trying."
     },
     {
+      "id": "x-ai/grok-4.1-fast",
+      "name": "Grok 4.1 Fast",
+      "name_part": "Grk41F",
+      "input_per_m": 0.20,
+      "output_per_m": 0.50,
+      "context_k": 2000,
+      "thinking": true,
+      "tier": "dirt-cheap",
+      "notes": "Successor to Grok 4 Fast. 2M context. Improved tool calling."
+    },
+    {
       "id": "moonshotai/kimi-k2.5",
       "name": "Kimi K2.5",
       "name_part": "Kimi25",
@@ -340,6 +351,7 @@
     "gauntlet_pool": [
       "anthropic/claude-sonnet-4.5",
       "anthropic/claude-haiku-4.5",
+      "anthropic/claude-opus-4.6",
       "google/gemini-2.5-flash",
       "google/gemini-2.5-pro",
       "google/gemini-3-flash-preview",
@@ -350,8 +362,11 @@
       "z-ai/glm-4.7",
       "xiaomi/mimo-v2-flash",
       "qwen/qwen3-max-thinking",
+      "x-ai/grok-4",
       "x-ai/grok-4-fast",
-      "deepseek/deepseek-r1",
+      "x-ai/grok-4.1-fast",
+      "openai/o3",
+      "openai/gpt-5.2",
       "openai/gpt-5-mini",
       "openai/gpt-5-nano",
       "openai/gpt-4.1-mini",
@@ -360,21 +375,18 @@
       "qwen/qwen3-235b-a22b-2507",
       "meta-llama/llama-4-maverick"
     ],
-    "reasoning": "Broad gauntlet: 13 thinking models (Sonnet through Grok 4 Fast) + 8 non-thinking baselines (GPT-5 Mini through Llama 4 Maverick). Non-thinking models included to calibrate leaderboard — they should lose to reasoning models on complex board states. OpenAI o-series (o3, o4-mini) still excluded due to persistent empty responses and stall loops.",
+    "reasoning": "Full gauntlet: 16 thinking models (Opus through MiMo) + 9 non-thinking baselines (GPT-5.2 through Llama 4 Maverick). Frontier models (Opus, o3, Grok 4) now in main gauntlet with calibration cap ensuring new models face rated opponents. o3 has known stall issues but included for coverage.",
     "showcase_matches": [
       "anthropic/claude-opus-4.6",
       "google/gemini-3-pro-preview",
-      "openai/o3",
       "x-ai/grok-4"
     ],
     "skip": [
-      "openai/o3",
       "openai/o4-mini",
-      "openai/gpt-5.2",
       "openai/gpt-5.1",
       "mistralai/mistral-large-2512"
     ],
-    "skip_reasoning": "OpenAI reasoning models (o3, o4-mini) produce persistent empty responses and stall loops. GPT-5.2/5.1 are expensive non-thinking models — GPT-5 Mini is better value for the non-thinking baseline slot."
+    "skip_reasoning": "o4-mini produces persistent empty responses and stall loops. GPT-5.1 superseded by 5.2. Mistral Large is non-thinking and underperforms reasoning models."
   },
   "thinking_config": {
     "_comment": "How to enable thinking for each provider via OpenRouter's unified reasoning param",

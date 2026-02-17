@@ -17,7 +17,7 @@ Determine which game(s) to analyze:
   ```bash
   uv run python scripts/list-recent-games.py --config {config}
   ```
-  where `{config}` might be `commander-gauntlet`, `commander-frontier`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
+  where `{config}` might be `commander-gauntlet`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
 - **If no game specified at all**, find the 10 most recent unanalyzed games. Check which games already have fast-analysis files in `doc/claudes/analyses/fast/` and skip those:
   ```bash
   ls doc/claudes/analyses/fast/game_*.md 2>/dev/null  # already fast-analyzed

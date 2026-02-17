@@ -39,9 +39,6 @@ Other configs:
 # Default: no API keys needed (2 CPU Standard duel)
 make run
 
-# Frontier models: one from each major lab
-make run CONFIG=commander-frontier
-
 # 1 LLM pilot + 3 CPU opponents
 make run CONFIG=commander-1v3
 

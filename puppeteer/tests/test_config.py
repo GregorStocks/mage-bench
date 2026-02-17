@@ -188,11 +188,6 @@ def test_run_tag_commander_gauntlet():
     assert config.run_tag == "commander-gauntlet"
 
 
-def test_run_tag_commander_frontier():
-    config = Config(config_file=Path("configs/commander-frontier.json"))
-    assert config.run_tag == "commander-frontier"
-
-
 def test_run_tag_commander_1v3():
     config = Config(config_file=Path("configs/commander-1v3.json"))
     assert config.run_tag == "commander-1v3"

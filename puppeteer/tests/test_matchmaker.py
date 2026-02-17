@@ -8,6 +8,7 @@ import pytest
 
 from puppeteer.config import PilotPlayer, _resolve_randoms
 from puppeteer.matchmaker import (
+    _CALIBRATION_GAMES,
     _build_key_to_preset,
     _build_matchup_matrix,
     get_round_robin_matchup,
@@ -510,6 +511,105 @@ class TestGetRoundRobinMatchup:
         picked = set(picks)
         # Should NOT be alpha-beta (already "played" in this batch)
         assert picked != {"alpha-medium", "beta-medium"}
+
+
+class TestCalibrationCap:
+    """Tests for the underrated model cap in round-robin matchmaking."""
+
+    def test_caps_underrated_with_enough_rated(self, tmp_path: Path) -> None:
+        """New model should be paired with rated anchors, not other new models."""
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=5)
+
+        # Give alpha, beta, gamma enough games to be "rated" (>= _CALIBRATION_GAMES each)
+        for i in range(_CALIBRATION_GAMES):
+            _write_game(
+                games_dir,
+                f"game_ab_{i}",
+                _make_1v1_game(f"game_ab_{i}", f"2026-01-{i + 1:02d}T00:00:00Z", "P1", "v/alpha", "v/beta"),
+            )
+            _write_game(
+                games_dir,
+                f"game_ag_{i}",
+                _make_1v1_game(f"game_ag_{i}", f"2026-02-{i + 1:02d}T00:00:00Z", "P1", "v/alpha", "v/gamma"),
+            )
+
+        # delta and epsilon have 0 games — both underrated
+        picks = get_round_robin_matchup(
+            "Constructed - Standard",
+            2,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+        )
+        picked = set(picks)
+        underrated = {"delta-medium", "epsilon-medium"}
+        # At most 1 underrated model in the pick
+        assert len(picked & underrated) <= 1
+
+    def test_no_cap_when_all_underrated(self, tmp_path: Path) -> None:
+        """When all models are underrated (bootstrap), no filtering — any combo is valid."""
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
+        # No games at all
+        picks = get_round_robin_matchup(
+            "Constructed - Standard",
+            2,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+        )
+        assert len(picks) == 2
+
+    def test_no_cap_when_insufficient_rated(self, tmp_path: Path) -> None:
+        """When too few rated models to fill seats, cap is relaxed."""
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=5)
+
+        # alpha and beta each have _CALIBRATION_GAMES games (rated).
+        # gamma, delta, epsilon have 0 (underrated).
+        # For 4-seat commander: rated_count=2 < num_seats=4, so cap is relaxed.
+        for i in range(_CALIBRATION_GAMES):
+            _write_game(
+                games_dir,
+                f"game_{i}",
+                _make_1v1_game(f"game_{i}", f"2026-01-{i + 1:02d}T00:00:00Z", "P1", "v/alpha", "v/beta"),
+            )
+        picks = get_round_robin_matchup(
+            "",  # commander
+            4,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+        )
+        assert len(picks) == 4
+        # With only 2 rated models and 4 seats, cap is relaxed — multiple underrated allowed
+        underrated = {"gamma-medium", "delta-medium", "epsilon-medium"}
+        assert len(set(picks) & underrated) >= 2
+
+    def test_commander_caps_underrated(self, tmp_path: Path) -> None:
+        """In commander (4 seats), underrated models should be capped at 1."""
+        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=5)
+
+        # Give alpha, beta, gamma, delta enough games to be rated
+        models = [("v/alpha", "medium"), ("v/beta", "medium"), ("v/gamma", "medium"), ("v/delta", "medium")]
+        for i in range(_CALIBRATION_GAMES):
+            _write_game(
+                games_dir,
+                f"game_c_{i}",
+                _make_commander_game(f"game_c_{i}", f"2026-01-{i + 1:02d}T00:00:00Z", "P1", models),
+            )
+
+        # epsilon has 0 games — underrated
+        picks = get_round_robin_matchup(
+            "",  # commander
+            4,
+            games_dir=games_dir,
+            presets_path=presets_path,
+            models_path=models_path,
+        )
+        picked = set(picks)
+        # epsilon should appear (it's underrated, gets priority)
+        # but no more than 1 underrated model
+        underrated = {"epsilon-medium"}
+        assert len(picked & underrated) <= 1
 
 
 class TestResolveRandomsRoundRobin:

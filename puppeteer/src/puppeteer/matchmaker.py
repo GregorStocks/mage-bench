@@ -27,6 +27,7 @@ _PRESETS_JSON = _ROOT / "puppeteer" / "presets.json"
 _MODELS_JSON = _ROOT / "puppeteer" / "models.json"
 
 _DEFAULT_THRESHOLD = 1600
+_CALIBRATION_GAMES = 3  # Models with fewer games are "underrated" and get capped in round-robin
 
 _BLESSINGS = [
     "Matchmaker, matchmaker, make me a match!",
@@ -248,9 +249,20 @@ def get_round_robin_matchup(
     # Build matchup matrix
     pair_counts, game_counts = _build_matchup_matrix(pool_games, key_to_preset, extra_matchups)
 
+    # Calibration cap: limit underrated models per game so new models face
+    # established opponents and their ratings converge quickly.
+    underrated = {p for p in gauntlet if game_counts.get(p, 0) < _CALIBRATION_GAMES}
+    rated_count = len(gauntlet) - len(underrated)
+    # Only apply cap if enough rated models exist to fill the remaining seats
+    max_underrated = num_seats  # no cap by default
+    if underrated and rated_count >= num_seats:
+        max_underrated = 1
+
     # Score all possible groups
     candidates: list[tuple[int, int, tuple[str, ...]]] = []
     for combo in combinations(gauntlet, num_seats):
+        if sum(1 for p in combo if p in underrated) > max_underrated:
+            continue
         pair_score = sum(pair_counts.get(pair, 0) for pair in combinations(sorted(combo), 2))
         games_score = sum(game_counts.get(p, 0) for p in combo)
         candidates.append((pair_score, games_score, combo))
@@ -276,5 +288,11 @@ def get_round_robin_matchup(
     total_pairs = len(list(combinations(gauntlet, 2)))
     covered = sum(1 for pair in combinations(sorted(gauntlet), 2) if pair_counts.get(pair, 0) > 0)
     print(f"  Coverage: {covered}/{total_pairs} pairs have been played", file=sys.stderr)
+    if underrated and max_underrated < num_seats:
+        print(
+            f"  Calibration: {len(underrated)} underrated models (<{_CALIBRATION_GAMES} games), "
+            f"capped at {max_underrated}/game",
+            file=sys.stderr,
+        )
 
     return selected
