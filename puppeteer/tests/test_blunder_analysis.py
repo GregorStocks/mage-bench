@@ -8,12 +8,18 @@ from unittest.mock import MagicMock, patch
 import pytest
 from blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
+    SONNET_MODEL,
     _chosen_display,
     _compute_cost,
     _format_decisions,
     _parse_json_array,
     main,
 )
+
+# Fake prices for testing
+_TEST_PRICES = {
+    SONNET_MODEL: (3.0, 15.0),
+}
 
 
 def _make_decision(**overrides: object) -> dict:
@@ -98,6 +104,15 @@ def _make_game() -> dict:
     }
 
 
+def _mock_response(content: str, prompt_tokens: int = 2000, completion_tokens: int = 200) -> MagicMock:
+    """Create a mock API response."""
+    response = MagicMock()
+    response.choices = [MagicMock()]
+    response.choices[0].message.content = content
+    response.usage = MagicMock(prompt_tokens=prompt_tokens, completion_tokens=completion_tokens)
+    return response
+
+
 # --- _parse_json_array ---
 
 
@@ -133,12 +148,16 @@ class TestParseJsonArray:
 
 
 class TestComputeCost:
-    def test_opus_million_tokens(self) -> None:
-        cost = _compute_cost("anthropic/claude-opus-4.6", 1_000_000, 1_000_000)
-        assert cost == pytest.approx(30.0)
+    def test_sonnet_million_tokens(self) -> None:
+        cost = _compute_cost(_TEST_PRICES, SONNET_MODEL, 1_000_000, 1_000_000)
+        assert cost == pytest.approx(18.0)
 
     def test_zero_tokens(self) -> None:
-        assert _compute_cost("anthropic/claude-opus-4.6", 0, 0) == 0.0
+        assert _compute_cost(_TEST_PRICES, SONNET_MODEL, 0, 0) == 0.0
+
+    def test_missing_model_raises(self) -> None:
+        with pytest.raises(AssertionError, match="No pricing found"):
+            _compute_cost({}, "unknown/model", 100, 100)
 
 
 # --- _chosen_display ---
@@ -251,8 +270,9 @@ class TestMainIntegration:
         return game
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
-    def test_full_flow_with_blunders(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+    def test_full_flow_with_blunders(self, mock_openai_cls: MagicMock, _mock_prices: MagicMock, tmp_path: Path) -> None:
         game = self._make_game_with_decisions()
         gz_path = tmp_path / "game.json.gz"
         self._write_gz(gz_path, game)
@@ -260,26 +280,24 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        opus_response = MagicMock()
-        opus_response.choices = [MagicMock()]
-        opus_response.choices[0].message.content = json.dumps(
-            [
-                {
-                    "snapshotIndex": 0,
-                    "player": "Alice",
-                    "type": "blunder",
-                    "severity": "moderate",
-                    "category": "unused_mana",
-                    "description": "Passed with Mountain in hand and no land played",
-                    "llmReasoning": "Model said 'I will pass' but had castable cards",
-                    "actionTaken": "Passed priority",
-                    "betterLine": "Play Mountain for mana development",
-                }
-            ]
+        # Per-decision response (v6 schema: no llmReasoning)
+        response = _mock_response(
+            json.dumps(
+                [
+                    {
+                        "snapshotIndex": 0,
+                        "player": "Alice",
+                        "type": "blunder",
+                        "severity": "moderate",
+                        "category": "unused_mana",
+                        "description": "Passed with Mountain in hand and no land played",
+                        "actionTaken": "Passed priority",
+                        "betterLine": "Play Mountain for mana development",
+                    }
+                ]
+            )
         )
-        opus_response.usage = MagicMock(prompt_tokens=2000, completion_tokens=200)
-
-        mock_client.chat.completions.create.return_value = opus_response
+        mock_client.chat.completions.create.return_value = response
 
         main(str(gz_path))
 
@@ -290,29 +308,29 @@ class TestMainIntegration:
         assert result["annotations"][0]["category"] == "unused_mana"
         assert result["blunderScriptVersion"] == BLUNDER_SCRIPT_VERSION
 
-        # Single API call (Opus only)
+        # One API call per non-forced decision (this game has 1)
         assert mock_client.chat.completions.create.call_count == 1
 
+        # Verify the call used Sonnet with extended thinking
+        call_kwargs = mock_client.chat.completions.create.call_args
+        assert call_kwargs.kwargs["model"] == SONNET_MODEL
+        assert call_kwargs.kwargs["extra_body"] == {"reasoning": {"effort": "low"}}
+
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
-    def test_no_blunders_found(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+    def test_no_blunders_found(self, mock_openai_cls: MagicMock, _mock_prices: MagicMock, tmp_path: Path) -> None:
         game = self._make_game_with_decisions()
         gz_path = tmp_path / "game.json.gz"
         self._write_gz(gz_path, game)
 
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
-
-        opus_response = MagicMock()
-        opus_response.choices = [MagicMock()]
-        opus_response.choices[0].message.content = "[]"
-        opus_response.usage = MagicMock(prompt_tokens=2000, completion_tokens=10)
-
-        mock_client.chat.completions.create.return_value = opus_response
+        mock_client.chat.completions.create.return_value = _mock_response("[]", completion_tokens=10)
 
         main(str(gz_path))
 
-        # Single API call
+        # One API call per non-forced decision
         assert mock_client.chat.completions.create.call_count == 1
 
         # Empty annotations written (marks game as analyzed)
@@ -334,8 +352,14 @@ class TestMainIntegration:
         mock_openai_cls.assert_not_called()
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
-    def test_filters_invalid_snapshot_index(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+    def test_filters_invalid_snapshot_index(
+        self,
+        mock_openai_cls: MagicMock,
+        _mock_prices: MagicMock,
+        tmp_path: Path,
+    ) -> None:
         game = self._make_game_with_decisions()
         gz_path = tmp_path / "game.json.gz"
         self._write_gz(gz_path, game)
@@ -343,9 +367,7 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        # Opus returns 2 annotations: one valid (index 0), one out of range (index 999)
-        opus_response = MagicMock()
-        opus_response.choices = [MagicMock()]
+        # Returns 2 annotations: one valid (index 0), one out of range (index 999)
         valid_ann = {
             "snapshotIndex": 0,
             "player": "Alice",
@@ -353,15 +375,11 @@ class TestMainIntegration:
             "severity": "minor",
             "category": "unused_mana",
             "description": "test",
-            "llmReasoning": "test",
             "actionTaken": "test",
             "betterLine": "test",
         }
         invalid_ann = {**valid_ann, "snapshotIndex": 999}
-        opus_response.choices[0].message.content = json.dumps([valid_ann, invalid_ann])
-        opus_response.usage = MagicMock(prompt_tokens=2000, completion_tokens=200)
-
-        mock_client.chat.completions.create.return_value = opus_response
+        mock_client.chat.completions.create.return_value = _mock_response(json.dumps([valid_ann, invalid_ann]))
 
         main(str(gz_path))
 
@@ -370,8 +388,15 @@ class TestMainIntegration:
         assert result["annotations"][0]["snapshotIndex"] == 0
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
-    def test_retries_on_invalid_json(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+    def test_majority_parse_failure_raises(
+        self,
+        mock_openai_cls: MagicMock,
+        _mock_prices: MagicMock,
+        tmp_path: Path,
+    ) -> None:
+        """When >50% of decisions fail to parse, raises RuntimeError."""
         game = self._make_game_with_decisions()
         gz_path = tmp_path / "game.json.gz"
         self._write_gz(gz_path, game)
@@ -379,50 +404,16 @@ class TestMainIntegration:
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
 
-        bad_response = MagicMock()
-        bad_response.choices = [MagicMock()]
-        bad_response.choices[0].message.content = '[{"a": 1}]\n[{"b": 2}]'
-        bad_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=100)
+        # Return unparseable garbage for the single decision (1/1 = 100% failure)
+        mock_client.chat.completions.create.return_value = _mock_response("not json at all {")
 
-        good_response = MagicMock()
-        good_response.choices = [MagicMock()]
-        good_response.choices[0].message.content = "[]"
-        good_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=10)
-
-        mock_client.chat.completions.create.side_effect = [bad_response, good_response]
-
-        main(str(gz_path))
-
-        # Two API calls: first failed JSON parse, second succeeded
-        assert mock_client.chat.completions.create.call_count == 2
-        result = self._read_gz(gz_path)
-        assert result["annotations"] == []
-
-    @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
-    @patch("blunder_analysis.OpenAI")
-    def test_retry_exhaustion_raises(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
-        game = self._make_game_with_decisions()
-        gz_path = tmp_path / "game.json.gz"
-        self._write_gz(gz_path, game)
-
-        mock_client = MagicMock()
-        mock_openai_cls.return_value = mock_client
-
-        bad_response = MagicMock()
-        bad_response.choices = [MagicMock()]
-        bad_response.choices[0].message.content = "not json at all {"
-        bad_response.usage = MagicMock(prompt_tokens=1000, completion_tokens=100)
-
-        mock_client.chat.completions.create.return_value = bad_response
-
-        with pytest.raises(RuntimeError, match="invalid JSON on all 3 attempts"):
+        with pytest.raises(RuntimeError, match="Too many parse failures"):
             main(str(gz_path))
 
-        assert mock_client.chat.completions.create.call_count == 3
-
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
-    def test_reanalyzes_old_version(self, mock_openai_cls: MagicMock, tmp_path: Path) -> None:
+    def test_reanalyzes_old_version(self, mock_openai_cls: MagicMock, _mock_prices: MagicMock, tmp_path: Path) -> None:
         game = self._make_game_with_decisions()
         game["annotations"] = []
         # Missing blunderScriptVersion → treated as v1, which is < current
@@ -431,13 +422,7 @@ class TestMainIntegration:
 
         mock_client = MagicMock()
         mock_openai_cls.return_value = mock_client
-
-        opus_response = MagicMock()
-        opus_response.choices = [MagicMock()]
-        opus_response.choices[0].message.content = "[]"
-        opus_response.usage = MagicMock(prompt_tokens=2000, completion_tokens=10)
-
-        mock_client.chat.completions.create.return_value = opus_response
+        mock_client.chat.completions.create.return_value = _mock_response("[]", completion_tokens=10)
 
         main(str(gz_path))
 

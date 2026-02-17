@@ -17,7 +17,6 @@ REQUIRED_FIELDS = {
     "severity",
     "category",
     "description",
-    "llmReasoning",
     "actionTaken",
     "betterLine",
 }

@@ -706,10 +706,13 @@ const { slug } = Astro.params;
       summary.textContent = "Analysis";
       details.appendChild(summary);
       var content = document.createElement("div");
-      content.innerHTML =
+      var fieldsHtml =
         '<div class="annotation-field"><strong>Action taken:</strong> ' + escapeHtml(ann.actionTaken) + '</div>' +
-        '<div class="annotation-field"><strong>Better line:</strong> ' + escapeHtml(ann.betterLine) + '</div>' +
-        '<div class="annotation-field"><strong>Why the LLM erred:</strong> ' + escapeHtml(ann.llmReasoning) + '</div>';
+        '<div class="annotation-field"><strong>Better line:</strong> ' + escapeHtml(ann.betterLine) + '</div>';
+      if (ann.llmReasoning) {
+        fieldsHtml += '<div class="annotation-field"><strong>Why the LLM erred:</strong> ' + escapeHtml(ann.llmReasoning) + '</div>';
+      }
+      content.innerHTML = fieldsHtml;
       details.appendChild(content);
       div.appendChild(details);
 
@@ -1033,6 +1036,7 @@ const { slug } = Astro.params;
         }
 
         // Blunder summary in header
+        var CURRENT_BLUNDER_VERSION = 6;
         if (game.annotations && game.annotations.length > 0) {
           var counts = { questionable: 0, minor: 0, moderate: 0, major: 0 };
           game.annotations.forEach(function (a) { counts[a.severity] = (counts[a.severity] || 0) + 1; });
@@ -1043,7 +1047,12 @@ const { slug } = Astro.params;
           if (counts.moderate > 0) parts.push(counts.moderate + " moderate");
           if (counts.minor > 0) parts.push(counts.minor + " minor");
           if (counts.questionable > 0) parts.push(counts.questionable + " questionable");
-          summaryEl.textContent = parts.join(", ") + " blunder" + (game.annotations.length !== 1 ? "s" : "");
+          var gameBlunderVersion = game.blunderScriptVersion || 1;
+          var isOldBlunderAnalysis = gameBlunderVersion < CURRENT_BLUNDER_VERSION;
+          summaryEl.textContent = parts.join(", ") + " blunder" + (game.annotations.length !== 1 ? "s" : "") + (isOldBlunderAnalysis ? " *" : "");
+          if (isOldBlunderAnalysis) {
+            summaryEl.title = "Analyzed with blunder script v" + gameBlunderVersion + " (current: v" + CURRENT_BLUNDER_VERSION + ")";
+          }
           document.getElementById("game-header").appendChild(summaryEl);
 
           // Render timeline markers
