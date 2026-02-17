@@ -383,7 +383,7 @@ const { slug } = Astro.params;
   #action-list {
     overflow-y: auto;
     overflow-x: hidden;
-    font-size: 0.8rem;
+    font-size: 0.93rem;
     line-height: 1.5;
     word-break: break-word;
   }
@@ -526,6 +526,23 @@ const { slug } = Astro.params;
       } catch (e) {
         return str;
       }
+    }
+
+    function formatTimestamp(ts) {
+      if (!ts) return null;
+      var match = ts.match(/T(\d{2}:\d{2}:\d{2})(\.\d+)?/);
+      if (!match) return null;
+      return { display: match[1], full: match[1] + (match[2] || "") };
+    }
+
+    function makeTimestampEl(ts) {
+      var parsed = formatTimestamp(ts);
+      if (!parsed) return null;
+      var span = document.createElement("span");
+      span.className = "entry-ts";
+      span.textContent = parsed.display;
+      span.title = parsed.full;
+      return span;
     }
 
     // Merge consecutive llm_response + tool_call events into combined entries.
@@ -869,29 +886,32 @@ const { slug } = Astro.params;
 
       // Render interleaved timeline
       timeline.forEach(function (item) {
+        var el = null;
         if (item.kind === "chat") {
           var a = item.data;
-          var line = document.createElement("div");
-          line.className = "chat-line";
+          el = document.createElement("div");
+          el.className = "chat-line";
           var fromIdx = playerColorMap[a.from];
           var fromCls = fromIdx != null ? "action-" + R.PLAYER_COLORS[fromIdx] : "";
-          line.innerHTML = '<span class="chat-badge">chat</span><span class="chat-from ' + fromCls + '">' + escapeHtml(a.from || "") + ':</span> ' + escapeHtml(a.message);
-          actionList.appendChild(line);
+          el.innerHTML = '<span class="chat-badge">chat</span><span class="chat-from ' + fromCls + '">' + escapeHtml(a.from || "") + ':</span> ' + escapeHtml(a.message);
         } else if (item.kind === "action") {
           var a = item.data;
-          var line = document.createElement("div");
-          line.className = "action-line";
+          el = document.createElement("div");
+          el.className = "action-line";
           // Highlight actions from the current step
           if (a.seq > prevSeq) {
-            line.style.color = "#e0e0f0";
+            el.style.color = "#e0e0f0";
           }
-          line.innerHTML = colorizePlayerNames(a.message);
-          actionList.appendChild(line);
+          el.innerHTML = colorizePlayerNames(a.message);
         } else if (item.kind === "llm") {
-          var el = renderLlmEvent(item.data);
-          if (el) actionList.appendChild(el);
+          el = renderLlmEvent(item.data);
         } else if (item.kind === "annotation") {
-          actionList.appendChild(renderAnnotation(item.data));
+          el = renderAnnotation(item.data);
+        }
+        if (el) {
+          var tsEl = makeTimestampEl(item.ts);
+          if (tsEl) el.insertBefore(tsEl, el.firstChild);
+          actionList.appendChild(el);
         }
       });
 

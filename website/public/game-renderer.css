@@ -705,10 +705,20 @@
   background: rgba(22, 33, 62, 0.92);
 }
 
+/* Timestamp on every log entry */
+.entry-ts {
+  font-family: monospace;
+  font-size: 0.75em;
+  color: #555;
+  margin-right: 0.35rem;
+  cursor: default;
+  user-select: none;
+}
+
 /* LLM event display in action log */
 .llm-event {
   margin: 2px 0;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   line-height: 1.4;
 }
 
@@ -722,7 +732,7 @@
 
 .llm-thought .llm-player {
   font-weight: 600;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
 }
 
 .llm-thought .llm-reasoning {
@@ -733,7 +743,7 @@
   padding: 6px 8px;
   background: rgba(0, 0, 0, 0.15);
   border-radius: 4px;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   line-height: 1.45;
 }
 
@@ -905,7 +915,7 @@
 .game-log-list {
   max-height: calc(100vh - 8rem);
   overflow-y: auto;
-  font-size: 0.8rem;
+  font-size: 0.93rem;
   line-height: 1.5;
 }
 
@@ -915,7 +925,7 @@
   padding: 8px 10px;
   border-radius: 6px;
   border-left: 3px solid;
-  font-size: 0.78rem;
+  font-size: 0.9rem;
 }
 
 .annotation-block.severity-questionable {
