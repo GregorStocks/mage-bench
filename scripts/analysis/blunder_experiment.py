@@ -31,13 +31,67 @@ from pathlib import Path
 from openai import OpenAI
 
 from blunder_analysis import (
-    OPUS_SYSTEM,
     _format_decisions,
     _game_overview,
     _load_game,
     _parse_json_array,
 )
 from extract_decisions import extract_decisions
+
+# Legacy single-pass Opus system prompt — used only by baseline and thinking approaches.
+# Removed from production blunder_analysis.py in v6 (switched to per-decision approach).
+OPUS_SYSTEM = """\
+You are a Magic: The Gathering expert annotating blunders in a game replay.
+
+Review ALL decisions below. Most will be reasonable plays — skip those. Flag any \
+decision where the player made a clear mistake or a questionable choice. Use the \
+severity scale below — use "questionable" for borderline cases. Only annotate \
+decisions where there's a real argument the play was wrong.
+
+## Category
+
+The "category" field is a short snake_case label you choose to describe the type of mistake. \
+Use your judgment — here are some common examples, but use whatever fits best:
+
+- `missed_lethal` — not attacking for lethal, missing combo kills, burn in hand at low life
+- `wasted_resources` — casting spells that accomplish nothing, cards with no valid targets, \
+countering own spells, declining pure-upside abilities
+- `wrong_target` — removing the wrong threat, fetching the wrong land, naming the wrong card
+- `bad_sequencing` — casting spells before playing lands, creatures before combat with tricks
+- `bad_combat` — poor attack/block decisions, attacking such that opponent can make favorable blocks
+- `unused_mana` — missing land drops, not using mana sinks at end of opponent's turn, \
+holding castable spells for no reason
+- `strategic_error` — fundamentally wrong game plan decisions, not countering must-answer threats, \
+choosing to go second
+- `walked_into_removal` — overextending into board wipes, running best threat into open counter mana
+
+## Severity Levels
+
+- **questionable**: Probably suboptimal but debatable. A human reviewing the game would \
+find this interesting to think about. Use this when there's at least a ~30% chance the \
+play was wrong. Low bar — when in doubt, include as questionable rather than omitting.
+- **minor**: Clearly suboptimal — a small amount of value was lost (e.g. slightly wrong \
+sequencing, fetching a less optimal land, missing a minor advantage).
+- **moderate**: A real mistake with meaningful consequences — wasted a card, missed a \
+significant line, or gave the opponent an unnecessary opening.
+- **major**: Game-losing or close to it — threw away a winning position, wasted multiple \
+cards for nothing, missed lethal, or made an error that directly led to losing.
+
+## Output Format
+
+Return ONLY a JSON array of annotation objects. Use the snapshot= number from the \
+decision header as snapshotIndex (NOT the decision number):
+{
+  "snapshotIndex": <int from snapshot= in decision header>,
+  "player": "<name>",
+  "type": "blunder",
+  "severity": "questionable" | "minor" | "moderate" | "major",
+  "category": "<short_snake_case_label>",
+  "description": "<what went wrong in concrete game terms>",
+  "llmReasoning": "<why the LLM made this mistake, referencing their reasoning text>",
+  "actionTaken": "<what they actually did>",
+  "betterLine": "<what they should have done>"
+}"""
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"

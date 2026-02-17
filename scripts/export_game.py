@@ -25,7 +25,6 @@ _LLM_EVENT_TYPES = {
     "llm_response",
     "tool_call",
     "stall",
-    "context_trim",
     "context_reset",
     "llm_error",
     "auto_pilot_mode",
@@ -218,9 +217,6 @@ def _read_llm_events(
             elif event_type == "stall":
                 exported["turnsWithoutProgress"] = raw.get("turns_without_progress", 0)
                 exported["lastTools"] = raw.get("last_tools", [])
-            elif event_type == "context_trim":
-                exported["messagesBefore"] = raw.get("messages_before", 0)
-                exported["messagesAfter"] = raw.get("messages_after", 0)
             elif event_type == "context_reset":
                 exported["reason"] = raw.get("reason", "")
             elif event_type == "llm_error":

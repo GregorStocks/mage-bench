@@ -154,7 +154,7 @@ screenshot:
 verify-decks:
 	mvn test -pl Mage.Verify -Dtest="VerifyCardDataTest#test_checkSampleDecks"
 
-# Analyze a game for blunders using Claude Opus 4.6 via OpenRouter
+# Analyze a game for blunders using Sonnet 4.5 via OpenRouter
 # Usage: make blunders GAME=website/public/games/game_20260214_185313_g1.json.gz
 .PHONY: blunders
 blunders:

@@ -3011,8 +3011,8 @@ public class BridgeCallbackHandler {
                     }
 
                     // Summoning sickness
-                    if (perm.isCreature() && perm.hasSummoningSickness()) {
-                        permInfo.put("summoning_sickness", true);
+                    if (perm.isCreature()) {
+                        permInfo.put("summoning_sick", perm.hasSummoningSickness());
                     }
 
                     // State-deviation flags: info the LLM can't infer from card name alone
