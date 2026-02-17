@@ -509,11 +509,10 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     color: #ef4444;
   }
 
-  .blunder-footnote {
+  .old-analysis-tag {
     color: #a0a0b8;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-style: italic;
-    margin-top: 1rem;
   }
 
   @media (max-width: 500px) {
@@ -813,9 +812,14 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         else if (playerScore >= 0.5) scoreEl.classList.add("blunder-med");
         else scoreEl.classList.add("blunder-low");
         var isOldAnalysis = !game.blunderScriptVersion || game.blunderScriptVersion < CURRENT_BLUNDER_VERSION;
-        scoreEl.textContent = "Blunder Index: " + playerScore.toFixed(2) + (isOldAnalysis ? " *" : "");
+        scoreEl.textContent = "Blunder Index: " + playerScore.toFixed(2);
         if (isOldAnalysis) {
-          scoreEl.title = "Analyzed with blunder script v" + (game.blunderScriptVersion || 1) + " (current: v" + CURRENT_BLUNDER_VERSION + ")";
+          var oldTag = document.createElement("span");
+          oldTag.className = "old-analysis-tag";
+          oldTag.textContent = "(older analysis)";
+          oldTag.title = "Analyzed with blunder script v" + (game.blunderScriptVersion || 1) + " (current: v" + CURRENT_BLUNDER_VERSION + ")";
+          scoreEl.appendChild(document.createTextNode(" "));
+          scoreEl.appendChild(oldTag);
         }
         cell.appendChild(scoreEl);
       }
@@ -1003,15 +1007,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
       list.appendChild(renderGameCard(game, eloData));
     });
 
-    var hasOldAnnotations = filtered.some(function (g) {
-      return !g.blunderScriptVersion || g.blunderScriptVersion < CURRENT_BLUNDER_VERSION;
-    });
-    if (hasOldAnnotations) {
-      var footnote = document.createElement("p");
-      footnote.className = "blunder-footnote";
-      footnote.textContent = "* Blunder annotations from an older analysis version";
-      list.appendChild(footnote);
-    }
   }
 
   fetch("/data/elo.json").then(function (r) {

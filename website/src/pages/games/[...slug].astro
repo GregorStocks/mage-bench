@@ -1058,9 +1058,14 @@ const { slug } = Astro.params;
           if (counts.questionable > 0) parts.push(counts.questionable + " questionable");
           var gameBlunderVersion = game.blunderScriptVersion || 1;
           var isOldBlunderAnalysis = gameBlunderVersion < CURRENT_BLUNDER_VERSION;
-          summaryEl.textContent = parts.join(", ") + " blunder" + (game.annotations.length !== 1 ? "s" : "") + (isOldBlunderAnalysis ? " *" : "");
+          summaryEl.textContent = parts.join(", ") + " blunder" + (game.annotations.length !== 1 ? "s" : "");
           if (isOldBlunderAnalysis) {
-            summaryEl.title = "Analyzed with blunder script v" + gameBlunderVersion + " (current: v" + CURRENT_BLUNDER_VERSION + ")";
+            var oldTag = document.createElement("span");
+            oldTag.className = "old-analysis-tag";
+            oldTag.textContent = "(older analysis)";
+            oldTag.title = "Analyzed with blunder script v" + gameBlunderVersion + " (current: v" + CURRENT_BLUNDER_VERSION + ")";
+            summaryEl.appendChild(document.createTextNode(" "));
+            summaryEl.appendChild(oldTag);
           }
           document.getElementById("game-header").appendChild(summaryEl);
 

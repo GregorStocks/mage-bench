@@ -1075,6 +1075,13 @@
   font-weight: 600;
 }
 
+#blunder-summary .old-analysis-tag {
+  color: #a0a0b8;
+  font-size: 0.7rem;
+  font-weight: 400;
+  font-style: italic;
+}
+
 /* Phase bar between player battlefields */
 #phase-bar {
   grid-column: 1 / -1;
