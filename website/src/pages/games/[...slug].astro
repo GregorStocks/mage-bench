@@ -848,6 +848,22 @@ const { slug } = Astro.params;
         return 0;
       });
 
+      // Add annotations up to current snapshot into the timeline
+      if (game.annotations) {
+        game.annotations.forEach(function (ann) {
+          if (ann.snapshotIndex <= index) {
+            var annSnap = game.snapshots[ann.snapshotIndex];
+            timeline.push({ kind: "annotation", ts: annSnap ? (annSnap.ts || "") : "", data: ann });
+          }
+        });
+        // Re-sort after adding annotations
+        timeline.sort(function (a, b) {
+          if (a.ts < b.ts) return -1;
+          if (a.ts > b.ts) return 1;
+          return 0;
+        });
+      }
+
       // Render interleaved timeline
       timeline.forEach(function (item) {
         if (item.kind === "chat") {
@@ -871,17 +887,10 @@ const { slug } = Astro.params;
         } else if (item.kind === "llm") {
           var el = renderLlmEvent(item.data);
           if (el) actionList.appendChild(el);
+        } else if (item.kind === "annotation") {
+          actionList.appendChild(renderAnnotation(item.data));
         }
       });
-
-      // Render annotations for this snapshot
-      if (game.annotations) {
-        game.annotations.forEach(function (ann) {
-          if (ann.snapshotIndex === index) {
-            actionList.appendChild(renderAnnotation(ann));
-          }
-        });
-      }
 
       // Show winner at end of game
       if (game.winner && index === game.snapshots.length - 1) {
