@@ -437,6 +437,13 @@
           "description": "\"declare_attackers\" or \"declare_blockers\"",
           "type": "string"
         },
+        "stack": {
+          "description": "Spells/abilities currently on the stack: name, owner (only present when stack is non-empty)",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
         "action_type": {
           "description": "XMage callback method name",
           "type": "string"
@@ -518,6 +525,10 @@
         "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"message\": \"Select card to play or pass priority\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"players\": \"You(20), Opp(18)\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
       },
       {
+        "label": "Select (respond to opponent's spell)",
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"message\": \"Play instants and activated abilities\",\n  \"response_type\": \"select\",\n  \"context\": \"T4 PRECOMBAT_MAIN (Opponent)\",\n  \"players\": \"You(18), Opponent(20)\",\n  \"stack\": [\n    {\n      \"name\": \"Sheoldred's Edict\",\n      \"owner\": \"Opponent\"\n    }\n  ],\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Counterspell\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{U}{U}\"\n    }\n  ],\n  \"untapped_lands\": 3\n}"
+      },
+      {
         "label": "Boolean (mulligan)",
         "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"message\": \"Mulligan hand?\",\n  \"response_type\": \"boolean\",\n  \"context\": \"T0 PREGAME\",\n  \"players\": \"You(20), Opp(20)\",\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\"\n    }\n  ],\n  \"hand_size\": 7,\n  \"land_count\": 3\n}"
       }
@@ -546,7 +557,7 @@
       }
     },
     "name": "get_action_choices",
-    "description": "Get available choices for the current pending action. Call before choose_action. With until: blocks like pass_priority until a decision is needed, then returns choices in one call. Without until: returns immediately (action_pending=false if nothing to do). Includes context (phase/turn), players (life totals), and land_drops_used (during your main phase). response_type: select (cards to play, attackers, blockers), boolean (yes/no), index (target/ability), amount, pile, or multi_amount. During combat: combat_phase indicates declare_attackers or declare_blockers."
+    "description": "Get available choices for the current pending action. Call before choose_action. With until: blocks like pass_priority until a decision is needed, then returns choices in one call. Without until: returns immediately (action_pending=false if nothing to do). Includes context (phase/turn), players (life totals), stack (when non-empty), and land_drops_used (during your main phase). response_type: select (cards to play, attackers, blockers), boolean (yes/no), index (target/ability), amount, pile, or multi_amount. During combat: combat_phase indicates declare_attackers or declare_blockers."
   },
   {
     "outputSchema": {

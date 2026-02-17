@@ -658,7 +658,10 @@ const { slug } = Astro.params;
         return null; // Empty response, skip
       }
 
-      // Meta events: stall, llm_error, context_trim, context_reset, auto_pilot_mode
+      // context_trim is noise in the viewer — suppress it
+      if (type === "context_trim") return null;
+
+      // Meta events: stall, llm_error, context_reset, auto_pilot_mode
       var div = document.createElement("div");
       div.className = "llm-event llm-meta";
 

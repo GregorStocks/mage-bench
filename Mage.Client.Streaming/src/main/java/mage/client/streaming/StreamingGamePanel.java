@@ -1803,6 +1803,15 @@ public class StreamingGamePanel extends GamePanel {
             }
             playerJson.add("graveyard", gyArray);
 
+            // Exile (names only)
+            var exileArray = new JsonArray();
+            if (player.getExile() != null) {
+                for (CardView card : player.getExile().values()) {
+                    exileArray.add(safe(card.getDisplayName()));
+                }
+            }
+            playerJson.add("exile", exileArray);
+
             // Hand cards (spectator has permission to see all hands)
             CardsView handCards = getHandCardsForPlayer(player, game, loadedCards);
             var handArray = new JsonArray();

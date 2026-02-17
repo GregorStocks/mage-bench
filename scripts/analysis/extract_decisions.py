@@ -29,7 +29,14 @@ def _summarize_snapshot(snap: dict) -> dict:
                 ],
                 "hand_count": p.get("hand_count", len(p.get("hand", []))),
                 "battlefield": [c.get("name", "?") for c in p.get("battlefield", [])],
-                "graveyard_count": len(p.get("graveyard", [])),
+                "graveyard": [
+                    c.get("name", "?") if isinstance(c, dict) else str(c)
+                    for c in p.get("graveyard", [])
+                ],
+                "exile": [
+                    c.get("name", "?") if isinstance(c, dict) else str(c)
+                    for c in p.get("exile", [])
+                ],
                 "commanders": [
                     c.get("name", "?") if isinstance(c, dict) else c
                     for c in p.get("commanders", [])

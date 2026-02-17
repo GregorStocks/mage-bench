@@ -639,6 +639,23 @@ public class BridgeCallbackHandler {
             if (isMyTurn && isMainPhase) {
                 result.put("land_drops_used", landsPlayedThisTurn);
             }
+
+            // Stack summary — helps LLMs see what's pending before casting instants/counters
+            if (gameView.getStack() != null && !gameView.getStack().isEmpty()) {
+                var stackSummary = new ArrayList<Map<String, Object>>();
+                for (CardView card : gameView.getStack().values()) {
+                    var item = new HashMap<String, Object>();
+                    item.put("name", safeDisplayName(card));
+                    if (card.getId() != null) {
+                        String owner = castOwners.get(card.getId().toString());
+                        if (owner != null) {
+                            item.put("owner", owner);
+                        }
+                    }
+                    stackSummary.add(item);
+                }
+                result.put("stack", stackSummary);
+            }
         }
 
         ClientCallbackMethod method = action.method();

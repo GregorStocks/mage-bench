@@ -45,7 +45,8 @@ MAX_WORKERS = 50
 # v4: switch pre-filter from Haiku to Sonnet (more mechanically specific flags)
 # v5: single-phase Opus (no pre-filter, cheaper, better coverage, 1M context)
 # v6: per-decision Sonnet 4.5 + low thinking (approach P from experiment)
-BLUNDER_SCRIPT_VERSION = 6
+# v7: include stack, graveyard contents, exile contents in decision context
+BLUNDER_SCRIPT_VERSION = 7
 
 # --- Prompt components ---
 
@@ -151,6 +152,12 @@ def _format_decisions(decisions: list[dict]) -> str:
                 s = f"{p['name']}: {p.get('life', '?')}hp hand={p.get('hand_count', '?')}"
             if bf:
                 s += f" bf=[{', '.join(str(x) for x in bf[:8])}]"
+            gy = p.get("graveyard", [])
+            if gy:
+                s += f" gy=[{', '.join(str(x) for x in gy)}]"
+            exile = p.get("exile", [])
+            if exile:
+                s += f" exile=[{', '.join(str(x) for x in exile)}]"
             players.append(s)
 
         choice_names: list[str] = []
@@ -161,10 +168,22 @@ def _format_decisions(decisions: list[dict]) -> str:
 
         chosen_name = _chosen_display(d)
 
+        stack = gs.get("stack", [])
+        stack_line = ""
+        if stack:
+            stack_names = [
+                s if isinstance(s, str) else s.get("name", "?") for s in stack
+            ]
+            stack_line = f"  Stack: [{', '.join(stack_names)}]"
+
         lines = [
             f"[Decision {d['decision_index']}, snapshot={d['snapshot_index']}] Turn {d.get('turn', '?')} "
             f"{d.get('phase', '?')} - {d['player']}",
             f"  Board: {' | '.join(players)}",
+        ]
+        if stack_line:
+            lines.append(stack_line)
+        lines += [
             f"  Message: {d.get('message', '')}",
             f"  Choices ({len(d.get('choices', []))}): {', '.join(choice_names)}",
             f"  Chosen: {chosen_name}",
