@@ -9,8 +9,13 @@ import pytest
 from blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
     SONNET_MODEL,
+    _card_names_in_decision,
+    _card_reference_for_decision,
     _chosen_display,
+    _collect_card_names,
     _compute_cost,
+    _extract_oracle_fields,
+    _format_card_ref,
     _format_decisions,
     _parse_json_array,
     main,
@@ -217,6 +222,146 @@ class TestFormatDecisions:
         assert "x" * 501 not in result
 
 
+# --- Oracle text helpers ---
+
+
+_BOLT_SCRYFALL = {
+    "name": "Lightning Bolt",
+    "mana_cost": "{R}",
+    "type_line": "Instant",
+    "oracle_text": "Lightning Bolt deals 3 damage to any target.",
+}
+
+_AJANI_SCRYFALL = {
+    "name": "Ajani, Outland Chaperone",
+    "mana_cost": "{1}{W}{W}",
+    "type_line": "Legendary Planeswalker \u2014 Ajani",
+    "oracle_text": "+1: Create a 1/1 Kithkin.\n\u22122: Deal 4 to tapped creature.",
+    "loyalty": "3",
+}
+
+_BEARS_SCRYFALL = {
+    "name": "Grizzly Bears",
+    "mana_cost": "{1}{G}",
+    "type_line": "Creature \u2014 Bear",
+    "oracle_text": "",
+    "power": "2",
+    "toughness": "2",
+}
+
+_DFC_SCRYFALL = {
+    "name": "Delver of Secrets // Insectile Aberration",
+    "card_faces": [
+        {
+            "name": "Delver of Secrets",
+            "mana_cost": "{U}",
+            "type_line": "Creature \u2014 Human Wizard",
+            "oracle_text": "At the beginning of your upkeep, look at the top card.",
+            "power": "1",
+            "toughness": "1",
+        },
+        {
+            "name": "Insectile Aberration",
+            "mana_cost": "",
+            "type_line": "Creature \u2014 Human Insect",
+            "oracle_text": "Flying",
+            "power": "3",
+            "toughness": "2",
+        },
+    ],
+}
+
+
+class TestExtractOracleFields:
+    def test_creature(self) -> None:
+        fields = _extract_oracle_fields(_BEARS_SCRYFALL)
+        assert fields["name"] == "Grizzly Bears"
+        assert fields["mana_cost"] == "{1}{G}"
+        assert fields["power"] == "2"
+        assert "loyalty" not in fields
+
+    def test_planeswalker(self) -> None:
+        fields = _extract_oracle_fields(_AJANI_SCRYFALL)
+        assert fields["loyalty"] == "3"
+        assert "power" not in fields
+
+    def test_dfc(self) -> None:
+        fields = _extract_oracle_fields(_DFC_SCRYFALL)
+        assert len(fields["card_faces"]) == 2
+        assert fields["card_faces"][0]["name"] == "Delver of Secrets"
+        assert fields["card_faces"][1]["power"] == "3"
+
+
+class TestFormatCardRef:
+    def test_instant(self) -> None:
+        ref = _format_card_ref(_extract_oracle_fields(_BOLT_SCRYFALL))
+        assert "Lightning Bolt {R}" in ref
+        assert "Instant" in ref
+        assert "3 damage" in ref
+
+    def test_creature_pt(self) -> None:
+        ref = _format_card_ref(_extract_oracle_fields(_BEARS_SCRYFALL))
+        assert "2/2" in ref
+
+    def test_planeswalker_loyalty(self) -> None:
+        ref = _format_card_ref(_extract_oracle_fields(_AJANI_SCRYFALL))
+        assert "[Loyalty: 3]" in ref
+
+    def test_dfc_both_faces(self) -> None:
+        ref = _format_card_ref(_extract_oracle_fields(_DFC_SCRYFALL))
+        assert "Delver of Secrets" in ref
+        assert "Insectile Aberration" in ref
+        assert " // " in ref
+
+
+class TestCardNamesInDecision:
+    def test_extracts_from_all_zones(self) -> None:
+        d = _make_decision()
+        names = _card_names_in_decision(d)
+        assert "Mountain" in names
+        assert "Lightning Bolt" in names
+        assert "Grizzly Bears" in names
+
+    def test_extracts_from_choices(self) -> None:
+        d = _make_decision()
+        names = _card_names_in_decision(d)
+        # Choices include Mountain and Lightning Bolt
+        assert "Mountain" in names
+        assert "Lightning Bolt" in names
+
+
+class TestCardReferenceForDecision:
+    def test_builds_reference(self) -> None:
+        d = _make_decision()
+        oracle = {
+            "Lightning Bolt": _extract_oracle_fields(_BOLT_SCRYFALL),
+            "Grizzly Bears": _extract_oracle_fields(_BEARS_SCRYFALL),
+        }
+        ref = _card_reference_for_decision(d, oracle)
+        assert "## Card Reference" in ref
+        assert "Lightning Bolt" in ref
+        assert "Grizzly Bears" in ref
+
+    def test_empty_when_no_matches(self) -> None:
+        d = _make_decision()
+        ref = _card_reference_for_decision(d, {})
+        assert ref == ""
+
+
+class TestCollectCardNames:
+    def test_collects_from_snapshots(self) -> None:
+        game = _make_game()
+        names = _collect_card_names(game)
+        assert "Mountain" in names
+        assert "Grizzly Bears" in names
+
+    def test_filters_tokens(self) -> None:
+        game = _make_game()
+        game["snapshots"][0]["players"][0]["battlefield"] = [{"name": "Otter Token"}]
+        names = _collect_card_names(game)
+        assert "Otter Token" not in names
+
+
 # --- Integration: main with mocked API ---
 
 
@@ -270,9 +415,16 @@ class TestMainIntegration:
         return game
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis._get_oracle_texts", return_value={})
     @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
-    def test_full_flow_with_blunders(self, mock_openai_cls: MagicMock, _mock_prices: MagicMock, tmp_path: Path) -> None:
+    def test_full_flow_with_blunders(
+        self,
+        mock_openai_cls: MagicMock,
+        _mock_prices: MagicMock,
+        _mock_oracle: MagicMock,
+        tmp_path: Path,
+    ) -> None:
         game = self._make_game_with_decisions()
         gz_path = tmp_path / "game.json.gz"
         self._write_gz(gz_path, game)
@@ -317,9 +469,16 @@ class TestMainIntegration:
         assert call_kwargs.kwargs["extra_body"] == {"reasoning": {"effort": "low"}}
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis._get_oracle_texts", return_value={})
     @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
-    def test_no_blunders_found(self, mock_openai_cls: MagicMock, _mock_prices: MagicMock, tmp_path: Path) -> None:
+    def test_no_blunders_found(
+        self,
+        mock_openai_cls: MagicMock,
+        _mock_prices: MagicMock,
+        _mock_oracle: MagicMock,
+        tmp_path: Path,
+    ) -> None:
         game = self._make_game_with_decisions()
         gz_path = tmp_path / "game.json.gz"
         self._write_gz(gz_path, game)
@@ -352,12 +511,14 @@ class TestMainIntegration:
         mock_openai_cls.assert_not_called()
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis._get_oracle_texts", return_value={})
     @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
     def test_filters_invalid_snapshot_index(
         self,
         mock_openai_cls: MagicMock,
         _mock_prices: MagicMock,
+        _mock_oracle: MagicMock,
         tmp_path: Path,
     ) -> None:
         game = self._make_game_with_decisions()
@@ -388,12 +549,14 @@ class TestMainIntegration:
         assert result["annotations"][0]["snapshotIndex"] == 0
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis._get_oracle_texts", return_value={})
     @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
     def test_majority_parse_failure_raises(
         self,
         mock_openai_cls: MagicMock,
         _mock_prices: MagicMock,
+        _mock_oracle: MagicMock,
         tmp_path: Path,
     ) -> None:
         """When >50% of decisions fail to parse, raises RuntimeError."""
@@ -411,9 +574,16 @@ class TestMainIntegration:
             main(str(gz_path))
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
+    @patch("blunder_analysis._get_oracle_texts", return_value={})
     @patch("blunder_analysis.fetch_openrouter_prices", return_value=_TEST_PRICES)
     @patch("blunder_analysis.OpenAI")
-    def test_reanalyzes_old_version(self, mock_openai_cls: MagicMock, _mock_prices: MagicMock, tmp_path: Path) -> None:
+    def test_reanalyzes_old_version(
+        self,
+        mock_openai_cls: MagicMock,
+        _mock_prices: MagicMock,
+        _mock_oracle: MagicMock,
+        tmp_path: Path,
+    ) -> None:
         game = self._make_game_with_decisions()
         game["annotations"] = []
         # Missing blunderScriptVersion → treated as v1, which is < current

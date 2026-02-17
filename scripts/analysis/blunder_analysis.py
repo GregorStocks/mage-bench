@@ -15,6 +15,7 @@ import json
 import os
 import sys
 import tempfile
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
@@ -26,6 +27,7 @@ from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"
+SCRYFALL_CACHE_PATH = Path.home() / ".mage-bench" / "scryfall-cache.json"
 
 # Model (OpenRouter ID)
 SONNET_MODEL = "anthropic/claude-sonnet-4.5"
@@ -46,7 +48,8 @@ MAX_WORKERS = 50
 # v5: single-phase Opus (no pre-filter, cheaper, better coverage, 1M context)
 # v6: per-decision Sonnet 4.5 + low thinking (approach P from experiment)
 # v7: include stack, graveyard contents, exile contents in decision context
-BLUNDER_SCRIPT_VERSION = 7
+# v8: include Scryfall oracle text in per-decision prompt
+BLUNDER_SCRIPT_VERSION = 8
 
 # --- Prompt components ---
 
@@ -116,6 +119,150 @@ Use the snapshot= number from the decision header as snapshotIndex."""
 def _load_game(gz_path: str) -> dict:
     with gzip.open(gz_path, "rt") as f:
         return json.load(f)
+
+
+# --- Oracle text via Scryfall with disk cache ---
+
+
+def _scryfall_collection(names: list[str]) -> tuple[list[dict], list[dict]]:
+    """Query Scryfall /cards/collection for a batch of up to 75 names."""
+    body = json.dumps({"identifiers": [{"name": n} for n in names]}).encode()
+    req = urllib.request.Request(
+        "https://api.scryfall.com/cards/collection",
+        data=body,
+        headers={"Content-Type": "application/json"},
+    )
+    with urllib.request.urlopen(req) as resp:
+        data = json.loads(resp.read())
+    return data.get("data", []), data.get("not_found", [])
+
+
+def _extract_oracle_fields(card: dict) -> dict:
+    """Extract the fields we need from a Scryfall card object."""
+    fields: dict = {
+        "name": card["name"],
+        "mana_cost": card.get("mana_cost", ""),
+        "type_line": card.get("type_line", ""),
+        "oracle_text": card.get("oracle_text", ""),
+    }
+    if card.get("power") is not None:
+        fields["power"] = card["power"]
+        fields["toughness"] = card["toughness"]
+    if card.get("loyalty") is not None:
+        fields["loyalty"] = card["loyalty"]
+    if card.get("card_faces"):
+        fields["card_faces"] = [
+            _extract_oracle_fields(face) for face in card["card_faces"]
+        ]
+    return fields
+
+
+def _get_oracle_texts(names: list[str]) -> dict[str, dict]:
+    """Get oracle texts for cards, using disk cache as passthrough.
+
+    Returns {card_name: oracle_fields} for all names that resolved.
+    """
+    cache: dict[str, dict | None] = {}
+    if SCRYFALL_CACHE_PATH.exists():
+        cache = json.loads(SCRYFALL_CACHE_PATH.read_text())
+
+    missing = [n for n in names if n not in cache]
+    if missing:
+        for i in range(0, len(missing), 75):
+            batch = missing[i : i + 75]
+            found, not_found = _scryfall_collection(batch)
+            for card in found:
+                cache[card["name"]] = _extract_oracle_fields(card)
+            for nf in not_found:
+                # Mark as not-found so we don't re-fetch next time
+                cache[nf["name"]] = None
+        SCRYFALL_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        SCRYFALL_CACHE_PATH.write_text(json.dumps(cache))
+        print(f"  Scryfall: fetched {len(missing)} cards ({len(cache)} cached)")
+
+    return {n: cache[n] for n in names if cache.get(n) is not None}
+
+
+def _collect_card_names(data: dict) -> set[str]:
+    """Collect all unique card names from game snapshots and choices."""
+    names: set[str] = set()
+    for snap in data.get("snapshots", []):
+        for p in snap.get("players", []):
+            for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
+                for c in p.get(zone, []):
+                    if isinstance(c, dict):
+                        name = c.get("name", "")
+                        if name:
+                            names.add(name)
+                    elif isinstance(c, str) and c:
+                        names.add(c)
+        for item in snap.get("stack", []):
+            if isinstance(item, dict):
+                name = item.get("name", "")
+                if name:
+                    names.add(name)
+            elif isinstance(item, str) and item:
+                names.add(item)
+    # Also from choice names in llm events
+    for ev in data.get("llmEvents", []):
+        if ev.get("tool") == "get_action_choices":
+            try:
+                result = json.loads(ev.get("result", ""))
+                for c in result.get("choices", []):
+                    name = c.get("name", "")
+                    if name:
+                        names.add(name)
+            except (json.JSONDecodeError, TypeError):
+                pass
+    # Filter out tokens (not in Scryfall) and player names
+    return {n for n in names if "Token" not in n}
+
+
+def _format_card_ref(card: dict) -> str:
+    """Format a single card for the reference section (compact one-liner)."""
+    if card.get("card_faces"):
+        parts = []
+        for face in card["card_faces"]:
+            parts.append(_format_card_ref(face))
+        return " // ".join(parts)
+    name = card["name"]
+    mana = card.get("mana_cost", "")
+    type_line = card.get("type_line", "")
+    oracle = card.get("oracle_text", "")
+    pt = f" {card['power']}/{card['toughness']}" if card.get("power") else ""
+    loyalty = f" [Loyalty: {card['loyalty']}]" if card.get("loyalty") else ""
+    line = f"{name} {mana} -- {type_line}{pt}{loyalty}"
+    if oracle:
+        line += f": {oracle}"
+    return line
+
+
+def _card_names_in_decision(decision: dict) -> set[str]:
+    """Extract card names referenced in a decision's game state and choices."""
+    names: set[str] = set()
+    gs = decision.get("game_state", {})
+    for p in gs.get("players", []):
+        for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
+            for c in p.get(zone, []):
+                if isinstance(c, str) and c:
+                    names.add(c)
+    for item in gs.get("stack", []):
+        if isinstance(item, str) and item:
+            names.add(item)
+    for c in decision.get("choices", []):
+        name = c.get("name", c.get("description", ""))
+        if name:
+            names.add(name)
+    return names
+
+
+def _card_reference_for_decision(decision: dict, oracle_texts: dict[str, dict]) -> str:
+    """Build a card reference section for a single decision."""
+    names = _card_names_in_decision(decision) & set(oracle_texts.keys())
+    if not names:
+        return ""
+    lines = [_format_card_ref(oracle_texts[n]) for n in sorted(names)]
+    return "## Card Reference\n\n" + "\n".join(lines)
 
 
 def _game_overview(data: dict) -> str:
@@ -295,13 +442,17 @@ def _eval_one_decision(
     prices: dict[str, tuple[float, float]],
     overview: str,
     decision: dict,
+    oracle_texts: dict[str, dict],
 ) -> tuple[list[dict], float, bool]:
     """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok).
 
     On parse failure, prints a warning and returns ([], cost, False).
     """
     formatted = _format_decisions([decision])
+    card_ref = _card_reference_for_decision(decision, oracle_texts)
     user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
+    if card_ref:
+        user_msg += f"\n\n{card_ref}"
     label = f"decision_{decision['decision_index']}"
 
     text, in_tok, out_tok = _call_llm(client, model, PER_DECISION_SYSTEM, user_msg)
@@ -357,6 +508,11 @@ def main(gz_path: str) -> None:
         print("No non-forced decisions to analyze.")
         return
 
+    # Fetch oracle texts for all cards in the game
+    card_names = _collect_card_names(data)
+    oracle_texts = _get_oracle_texts(sorted(card_names))
+    print(f"Oracle texts: {len(oracle_texts)} cards resolved")
+
     # --- Per-decision Sonnet analysis with extended thinking ---
     print(
         f"\nAnalyzing {len(non_forced)} decisions with {SONNET_MODEL} (thinking=low)..."
@@ -370,7 +526,13 @@ def main(gz_path: str) -> None:
         futures = {}
         for d in non_forced:
             fut = pool.submit(
-                _eval_one_decision, client, SONNET_MODEL, prices, overview, d
+                _eval_one_decision,
+                client,
+                SONNET_MODEL,
+                prices,
+                overview,
+                d,
+                oracle_texts,
             )
             futures[fut] = d["decision_index"]
 
