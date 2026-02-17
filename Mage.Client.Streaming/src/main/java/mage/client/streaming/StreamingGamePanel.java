@@ -289,11 +289,22 @@ public class StreamingGamePanel extends GamePanel {
         }
     }
 
+    /**
+     * Override the 5-arg updateGame to capture state snapshots on every path.
+     * All update paths converge here: the 2-arg updateGame delegates to this,
+     * and callbacks like endMessage, select, ask, etc. call it directly.
+     */
+    @Override
+    public synchronized void updateGame(int messageId, GameView game, boolean showPlayable, Map<String, Serializable> options, Set<UUID> targets) {
+        super.updateGame(messageId, game, showPlayable, options, targets);
+        this.lastGame = game;
+        roundTracker.update(game);
+        writeStateSnapshotIfChanged(game);
+    }
+
     @Override
     public synchronized void updateGame(int messageId, GameView game) {
         super.updateGame(messageId, game);
-        this.lastGame = game;
-        roundTracker.update(game);
         // Schedule auto-dismissal of any popup dialogs created by the parent
         schedulePopupDismissal();
         // Hide the central hand container (we show hands in play areas instead)
@@ -317,7 +328,6 @@ public class StreamingGamePanel extends GamePanel {
         updatePlayerHighlights(game);
         // Re-layout stack cards vertically (parent lays them out horizontally)
         relayoutStackVertically();
-        writeStateSnapshotIfChanged(game);
         pushOverlayState(game, false);
     }
 
@@ -342,11 +352,6 @@ public class StreamingGamePanel extends GamePanel {
     public void endMessage(int messageId, GameView gameView, Map<String, Serializable> options, String message) {
         super.endMessage(messageId, gameView, options, message);
         pushOverlayState(gameView, true);
-
-        // Write a final snapshot before game_over — super.endMessage() goes through
-        // the 5-arg updateGame path which doesn't write snapshots, so the last state
-        // (e.g. combat damage, attack triggers killing a player) would be lost.
-        writeStateSnapshotIfChanged(gameView);
 
         if (gameEventWriter != null) {
             var event = new JsonObject();
