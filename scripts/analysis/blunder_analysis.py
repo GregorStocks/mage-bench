@@ -22,7 +22,7 @@ from pathlib import Path
 from openai import OpenAI
 
 from annotate_game import annotate_game
-from extract_decisions import extract_decisions
+from extract_decisions import _summarize_snapshot, extract_decisions
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -50,7 +50,8 @@ MAX_WORKERS = 50
 # v7: include stack, graveyard contents, exile contents in decision context
 # v8: include Scryfall oracle text in per-decision prompt
 # v9: switch from Sonnet 4.5 (thinking=low) to Opus 4.6 (no extended thinking)
-BLUNDER_SCRIPT_VERSION = 9
+# v10: add prior context (snapshot from 2 turns ago + action deltas)
+BLUNDER_SCRIPT_VERSION = 10
 
 # --- Prompt components ---
 
@@ -104,6 +105,9 @@ Analyze the decision below. If the play was reasonable, return an empty JSON arr
 If it was a blunder, return a JSON array with one annotation object.
 
 Most decisions are reasonable — only flag clear mistakes or questionable choices.
+
+You may be given prior context showing the board state from 2 turns ago and the action log \
+since then. Use this to understand how the game reached the current state.
 
 {SHARED_CATEGORIES}
 
@@ -264,6 +268,72 @@ def _card_reference_for_decision(decision: dict, oracle_texts: dict[str, dict]) 
         return ""
     lines = [_format_card_ref(oracle_texts[n]) for n in sorted(names)]
     return "## Card Reference\n\n" + "\n".join(lines)
+
+
+def _actions_by_turn(actions: list[dict]) -> dict[int, list[str]]:
+    """Split action log messages into per-turn buckets using TURN markers."""
+    import re
+
+    by_turn: dict[int, list[str]] = {}
+    current_turn = 0
+    for a in actions:
+        msg = a.get("message", "")
+        m = re.match(r"^TURN (\d+) ", msg)
+        if m:
+            current_turn = int(m.group(1))
+        if current_turn > 0 and msg:
+            by_turn.setdefault(current_turn, []).append(msg)
+    return by_turn
+
+
+def _snapshot_for_turn(snapshots: list[dict], turn: int) -> dict | None:
+    """Find the first snapshot for a given turn number."""
+    for snap in snapshots:
+        if snap.get("turn") == turn:
+            return snap
+    return None
+
+
+def _format_prior_context(
+    decision: dict,
+    snapshots: list[dict],
+    actions_by_turn: dict[int, list[str]],
+) -> str:
+    """Build prior context: snapshot from 2 turns ago + action deltas for intervening turns."""
+    current_turn = decision.get("turn")
+    if not current_turn or current_turn <= 2:
+        return ""
+
+    ref_turn = current_turn - 2
+    ref_snap = _snapshot_for_turn(snapshots, ref_turn)
+    if ref_snap is None:
+        return ""
+
+    # Format the reference snapshot
+    summary = _summarize_snapshot(ref_snap)
+    players_parts: list[str] = []
+    for p in summary.get("players", []):
+        bf = p.get("battlefield", [])
+        s = f"{p['name']}: {p.get('life', '?')}hp hand={p.get('hand_count', '?')}"
+        if bf:
+            s += f" bf=[{', '.join(str(x) for x in bf[:8])}]"
+        gy = p.get("graveyard", [])
+        if gy:
+            s += f" gy=[{', '.join(str(x) for x in gy)}]"
+        players_parts.append(s)
+
+    lines = [f"## Prior Context (from turn {ref_turn})\n"]
+    lines.append(f"Board at start of turn {ref_turn}: {' | '.join(players_parts)}")
+
+    # Add action deltas for turns ref_turn through current_turn - 1
+    for t in range(ref_turn, current_turn):
+        turn_actions = actions_by_turn.get(t, [])
+        if turn_actions:
+            lines.append(f"\nTurn {t} actions:")
+            for msg in turn_actions:
+                lines.append(f"  {msg}")
+
+    return "\n".join(lines)
 
 
 def _game_overview(data: dict) -> str:
@@ -440,6 +510,8 @@ def _eval_one_decision(
     overview: str,
     decision: dict,
     oracle_texts: dict[str, dict],
+    snapshots: list[dict],
+    actions_by_turn: dict[int, list[str]],
 ) -> tuple[list[dict], float, bool]:
     """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok).
 
@@ -447,7 +519,11 @@ def _eval_one_decision(
     """
     formatted = _format_decisions([decision])
     card_ref = _card_reference_for_decision(decision, oracle_texts)
-    user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
+    prior_ctx = _format_prior_context(decision, snapshots, actions_by_turn)
+    user_msg = f"## Game Overview\n{overview}"
+    if prior_ctx:
+        user_msg += f"\n\n{prior_ctx}"
+    user_msg += f"\n\n## Decision\n\n{formatted}"
     if card_ref:
         user_msg += f"\n\n{card_ref}"
     label = f"decision_{decision['decision_index']}"
@@ -510,6 +586,11 @@ def main(gz_path: str) -> None:
     oracle_texts = _get_oracle_texts(sorted(card_names))
     print(f"Oracle texts: {len(oracle_texts)} cards resolved")
 
+    # Build action log index for prior context
+    game_actions = data.get("actions", [])
+    abt = _actions_by_turn(game_actions)
+    game_snapshots = data.get("snapshots", [])
+
     # --- Per-decision Opus analysis ---
     print(f"\nAnalyzing {len(non_forced)} decisions with {OPUS_MODEL}...")
 
@@ -528,6 +609,8 @@ def main(gz_path: str) -> None:
                 overview,
                 d,
                 oracle_texts,
+                game_snapshots,
+                abt,
             )
             futures[fut] = d["decision_index"]
 
