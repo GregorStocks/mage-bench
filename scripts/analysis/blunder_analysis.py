@@ -488,20 +488,31 @@ def _call_llm(
     model: str,
     system: str,
     user: str,
+    retries: int = 2,
 ) -> tuple[str, int, int]:
-    """Call LLM. Returns (text, prompt_tokens, completion_tokens)."""
-    response = client.chat.completions.create(
-        model=model,
-        messages=[
-            {"role": "system", "content": system},
-            {"role": "user", "content": user},
-        ],
-        max_tokens=16384,
-    )
-    text = response.choices[0].message.content or ""
-    usage = response.usage
-    assert usage is not None, "API response missing usage data"
-    return text, usage.prompt_tokens, usage.completion_tokens
+    """Call LLM with retry on server errors. Returns (text, prompt_tokens, completion_tokens)."""
+    import time
+
+    for attempt in range(retries + 1):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                max_tokens=16384,
+            )
+            text = response.choices[0].message.content or ""
+            usage = response.usage
+            assert usage is not None, "API response missing usage data"
+            return text, usage.prompt_tokens, usage.completion_tokens
+        except Exception as e:
+            if attempt < retries and "500" in str(e):
+                print(f"    Retrying after server error (attempt {attempt + 1})...")
+                time.sleep(2 ** (attempt + 1))
+            else:
+                raise
 
 
 def _parse_annotation(text: str) -> dict | None:
@@ -511,13 +522,15 @@ def _parse_annotation(text: str) -> dict | None:
     or a dict for a blunder annotation.
     """
     text = text.strip()
-    # Strip markdown code fences
-    if text.startswith("```"):
-        lines = text.split("\n")
-        lines = lines[1:]  # drop opening fence line
-        if lines and lines[-1].strip().startswith("```"):
-            lines = lines[:-1]
-        text = "\n".join(lines).strip()
+    # Strip markdown code fences (may appear at start or after analysis text)
+    fence_match = re.search(r"```(?:json)?\s*\n", text)
+    if fence_match:
+        after_fence = text[fence_match.end() :]
+        close = after_fence.find("```")
+        if close != -1:
+            text = after_fence[:close].strip()
+        else:
+            text = after_fence.strip()
 
     # Check for null-like responses
     text_lower = text.lower()
@@ -525,7 +538,7 @@ def _parse_annotation(text: str) -> dict | None:
         return None
 
     # Look for a JSON object — must start with `{"` or `{word:` (not mana like {T}, {1})
-    json_match = re.search(r'\{"|\{\w+\s*:', text)
+    json_match = re.search(r'\{\s*"|\{\w+\s*:', text)
     if json_match is None:
         # No JSON object — if text is analysis concluding "reasonable", treat as null
         if (
