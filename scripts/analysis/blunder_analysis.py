@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Analyze a game for blunders using Sonnet 4.5 via OpenRouter.
+"""Analyze a game for blunders using Opus 4.6 via OpenRouter.
 
-Per-decision approach: sends each non-forced decision to Sonnet individually
-with extended thinking (low effort) for high-quality blunder detection.
+Per-decision approach: sends each non-forced decision to Opus individually
+for high-quality blunder detection.
 
 Usage:
     uv run --project puppeteer python scripts/analysis/blunder_analysis.py <game.json.gz>
@@ -30,7 +30,7 @@ TMP_DIR = REPO_ROOT / "tmp"
 SCRYFALL_CACHE_PATH = Path.home() / ".mage-bench" / "scryfall-cache.json"
 
 # Model (OpenRouter ID)
-SONNET_MODEL = "anthropic/claude-sonnet-4.5"
+OPUS_MODEL = "anthropic/claude-opus-4.6"
 BASE_URL = "https://openrouter.ai/api/v1"
 
 # Max parallel API calls for per-decision analysis.
@@ -49,7 +49,8 @@ MAX_WORKERS = 50
 # v6: per-decision Sonnet 4.5 + low thinking (approach P from experiment)
 # v7: include stack, graveyard contents, exile contents in decision context
 # v8: include Scryfall oracle text in per-decision prompt
-BLUNDER_SCRIPT_VERSION = 8
+# v9: switch from Sonnet 4.5 (thinking=low) to Opus 4.6 (no extended thinking)
+BLUNDER_SCRIPT_VERSION = 9
 
 # --- Prompt components ---
 
@@ -375,10 +376,7 @@ def _call_llm(
     system: str,
     user: str,
 ) -> tuple[str, int, int]:
-    """Call LLM with extended thinking (low effort).
-
-    Returns (text, prompt_tokens, completion_tokens).
-    """
+    """Call LLM. Returns (text, prompt_tokens, completion_tokens)."""
     response = client.chat.completions.create(
         model=model,
         messages=[
@@ -386,7 +384,6 @@ def _call_llm(
             {"role": "user", "content": user},
         ],
         max_tokens=16384,
-        extra_body={"reasoning": {"effort": "low"}},
     )
     text = response.choices[0].message.content or ""
     usage = response.usage
@@ -489,8 +486,8 @@ def main(gz_path: str) -> None:
 
     # Fetch live pricing from OpenRouter
     prices = fetch_openrouter_prices()
-    assert get_model_price(SONNET_MODEL, prices) is not None, (
-        f"Could not fetch pricing for {SONNET_MODEL} from OpenRouter"
+    assert get_model_price(OPUS_MODEL, prices) is not None, (
+        f"Could not fetch pricing for {OPUS_MODEL} from OpenRouter"
     )
 
     client = OpenAI(base_url=BASE_URL, api_key=api_key)
@@ -513,10 +510,8 @@ def main(gz_path: str) -> None:
     oracle_texts = _get_oracle_texts(sorted(card_names))
     print(f"Oracle texts: {len(oracle_texts)} cards resolved")
 
-    # --- Per-decision Sonnet analysis with extended thinking ---
-    print(
-        f"\nAnalyzing {len(non_forced)} decisions with {SONNET_MODEL} (thinking=low)..."
-    )
+    # --- Per-decision Opus analysis ---
+    print(f"\nAnalyzing {len(non_forced)} decisions with {OPUS_MODEL}...")
 
     annotations: list[dict] = []
     total_cost = 0.0
@@ -528,7 +523,7 @@ def main(gz_path: str) -> None:
             fut = pool.submit(
                 _eval_one_decision,
                 client,
-                SONNET_MODEL,
+                OPUS_MODEL,
                 prices,
                 overview,
                 d,

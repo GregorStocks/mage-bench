@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 from blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
-    SONNET_MODEL,
+    OPUS_MODEL,
     _card_names_in_decision,
     _card_reference_for_decision,
     _chosen_display,
@@ -23,7 +23,7 @@ from blunder_analysis import (
 
 # Fake prices for testing
 _TEST_PRICES = {
-    SONNET_MODEL: (3.0, 15.0),
+    OPUS_MODEL: (5.0, 25.0),
 }
 
 
@@ -153,12 +153,12 @@ class TestParseJsonArray:
 
 
 class TestComputeCost:
-    def test_sonnet_million_tokens(self) -> None:
-        cost = _compute_cost(_TEST_PRICES, SONNET_MODEL, 1_000_000, 1_000_000)
-        assert cost == pytest.approx(18.0)
+    def test_opus_million_tokens(self) -> None:
+        cost = _compute_cost(_TEST_PRICES, OPUS_MODEL, 1_000_000, 1_000_000)
+        assert cost == pytest.approx(30.0)
 
     def test_zero_tokens(self) -> None:
-        assert _compute_cost(_TEST_PRICES, SONNET_MODEL, 0, 0) == 0.0
+        assert _compute_cost(_TEST_PRICES, OPUS_MODEL, 0, 0) == 0.0
 
     def test_missing_model_raises(self) -> None:
         with pytest.raises(AssertionError, match="No pricing found"):
@@ -463,10 +463,10 @@ class TestMainIntegration:
         # One API call per non-forced decision (this game has 1)
         assert mock_client.chat.completions.create.call_count == 1
 
-        # Verify the call used Sonnet with extended thinking
+        # Verify the call used Opus
         call_kwargs = mock_client.chat.completions.create.call_args
-        assert call_kwargs.kwargs["model"] == SONNET_MODEL
-        assert call_kwargs.kwargs["extra_body"] == {"reasoning": {"effort": "low"}}
+        assert call_kwargs.kwargs["model"] == OPUS_MODEL
+        assert "extra_body" not in call_kwargs.kwargs
 
     @patch.dict("os.environ", {"OPENROUTER_API_KEY": "test-key"})
     @patch("blunder_analysis._get_oracle_texts", return_value={})
