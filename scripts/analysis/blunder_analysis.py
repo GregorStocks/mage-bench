@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Analyze a game for blunders using Claude Opus via OpenRouter.
+"""Analyze a game for blunders using Sonnet 4.5 via OpenRouter.
 
-Single-phase approach: sends all non-forced decisions to Opus in one pass.
-Opus identifies and annotates blunders directly, skipping reasonable plays.
+Per-decision approach: sends each non-forced decision to Sonnet individually
+with extended thinking (low effort) for high-quality blunder detection.
 
 Usage:
     uv run --project puppeteer python scripts/analysis/blunder_analysis.py <game.json.gz>
@@ -15,19 +15,24 @@ import json
 import os
 import sys
 import tempfile
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from openai import OpenAI
 
 from annotate_game import annotate_game
 from extract_decisions import extract_decisions
+from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 TMP_DIR = REPO_ROOT / "tmp"
 
-# Models (OpenRouter IDs from models.json)
-OPUS_MODEL = "anthropic/claude-opus-4.6"
+# Model (OpenRouter ID)
+SONNET_MODEL = "anthropic/claude-sonnet-4.5"
 BASE_URL = "https://openrouter.ai/api/v1"
+
+# Max parallel API calls for per-decision analysis
+MAX_WORKERS = 8
 
 # Bump this when the analysis pipeline changes enough to warrant re-running.
 # Games analyzed with an older version will be automatically re-analyzed.
@@ -36,21 +41,12 @@ BASE_URL = "https://openrouter.ai/api/v1"
 # v3: add "questionable" severity, fix Opus dismissal bias, better category examples
 # v4: switch pre-filter from Haiku to Sonnet (more mechanically specific flags)
 # v5: single-phase Opus (no pre-filter, cheaper, better coverage, 1M context)
-BLUNDER_SCRIPT_VERSION = 5
+# v6: per-decision Sonnet 4.5 + low thinking (approach P from experiment)
+BLUNDER_SCRIPT_VERSION = 6
 
-# Prices per million tokens (from models.json, Feb 2026)
-PRICES: dict[str, tuple[float, float]] = {
-    OPUS_MODEL: (5.0, 25.0),
-}
+# --- Prompt components ---
 
-OPUS_SYSTEM = """\
-You are a Magic: The Gathering expert annotating blunders in a game replay.
-
-Review ALL decisions below. Most will be reasonable plays — skip those. Flag any \
-decision where the player made a clear mistake or a questionable choice. Use the \
-severity scale below — use "questionable" for borderline cases. Only annotate \
-decisions where there's a real argument the play was wrong.
-
+SHARED_CATEGORIES = """\
 ## Category
 
 The "category" field is a short snake_case label you choose to describe the type of mistake. \
@@ -66,8 +62,9 @@ countering own spells, declining pure-upside abilities
 holding castable spells for no reason
 - `strategic_error` — fundamentally wrong game plan decisions, not countering must-answer threats, \
 choosing to go second
-- `walked_into_removal` — overextending into board wipes, running best threat into open counter mana
+- `walked_into_removal` — overextending into board wipes, running best threat into open counter mana"""
 
+SHARED_SEVERITY = """\
 ## Severity Levels
 
 - **questionable**: Probably suboptimal but debatable. A human reviewing the game would \
@@ -78,23 +75,38 @@ sequencing, fetching a less optimal land, missing a minor advantage).
 - **moderate**: A real mistake with meaningful consequences — wasted a card, missed a \
 significant line, or gave the opponent an unnecessary opening.
 - **major**: Game-losing or close to it — threw away a winning position, wasted multiple \
-cards for nothing, missed lethal, or made an error that directly led to losing.
+cards for nothing, missed lethal, or made an error that directly led to losing."""
 
-## Output Format
-
-Return ONLY a JSON array of annotation objects. Use the snapshot= number from the \
-decision header as snapshotIndex (NOT the decision number):
+ANNOTATION_SCHEMA = """\
 {
-  "snapshotIndex": <int from snapshot= in decision header>,
+  "snapshotIndex": <int>,
   "player": "<name>",
   "type": "blunder",
   "severity": "questionable" | "minor" | "moderate" | "major",
   "category": "<short_snake_case_label>",
   "description": "<what went wrong in concrete game terms>",
-  "llmReasoning": "<why the LLM made this mistake, referencing their reasoning text>",
   "actionTaken": "<what they actually did>",
   "betterLine": "<what they should have done>"
 }"""
+
+PER_DECISION_SYSTEM = f"""\
+You are a Magic: The Gathering expert evaluating a single decision from a game replay.
+
+Analyze the decision below. If the play was reasonable, return an empty JSON array: []
+If it was a blunder, return a JSON array with one annotation object.
+
+Most decisions are reasonable — only flag clear mistakes or questionable choices.
+
+{SHARED_CATEGORIES}
+
+{SHARED_SEVERITY}
+
+## Output Format
+
+Return ONLY a JSON array — either empty [] or containing one annotation object:
+{ANNOTATION_SCHEMA}
+
+Use the snapshot= number from the decision header as snapshotIndex."""
 
 
 def _load_game(gz_path: str) -> dict:
@@ -115,7 +127,7 @@ def _game_overview(data: dict) -> str:
 
 
 def _format_decisions(decisions: list[dict]) -> str:
-    """Compact decision format for Opus analysis."""
+    """Compact decision format for analysis."""
     parts: list[str] = []
     for d in decisions:
         if d["is_forced"]:
@@ -176,8 +188,15 @@ def _chosen_display(d: dict) -> str:
     return "?"
 
 
-def _compute_cost(model: str, prompt_tokens: int, completion_tokens: int) -> float:
-    input_price, output_price = PRICES[model]
+def _compute_cost(
+    prices: dict[str, tuple[float, float]],
+    model: str,
+    prompt_tokens: int,
+    completion_tokens: int,
+) -> float:
+    price = get_model_price(model, prices)
+    assert price is not None, f"No pricing found for model {model}"
+    input_price, output_price = price
     return (prompt_tokens * input_price + completion_tokens * output_price) / 1_000_000
 
 
@@ -187,7 +206,10 @@ def _call_llm(
     system: str,
     user: str,
 ) -> tuple[str, int, int]:
-    """Call LLM, return (text, prompt_tokens, completion_tokens)."""
+    """Call LLM with extended thinking (low effort).
+
+    Returns (text, prompt_tokens, completion_tokens).
+    """
     response = client.chat.completions.create(
         model=model,
         messages=[
@@ -195,7 +217,7 @@ def _call_llm(
             {"role": "user", "content": user},
         ],
         max_tokens=16384,
-        temperature=0,
+        extra_body={"reasoning": {"effort": "low"}},
     )
     text = response.choices[0].message.content or ""
     usage = response.usage
@@ -245,6 +267,34 @@ def _write_annotations(gz_path: str, annotations: list) -> None:
         os.unlink(ann_path)
 
 
+def _eval_one_decision(
+    client: OpenAI,
+    model: str,
+    prices: dict[str, tuple[float, float]],
+    overview: str,
+    decision: dict,
+) -> tuple[list[dict], float, bool]:
+    """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok).
+
+    On parse failure, prints a warning and returns ([], cost, False).
+    """
+    formatted = _format_decisions([decision])
+    user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
+    label = f"decision_{decision['decision_index']}"
+
+    text, in_tok, out_tok = _call_llm(client, model, PER_DECISION_SYSTEM, user_msg)
+    cost = _compute_cost(prices, model, in_tok, out_tok)
+    print(f"  [{label}] {in_tok:,} in / {out_tok:,} out (${cost:.4f})")
+
+    try:
+        anns = _parse_json_array(text)
+    except (json.JSONDecodeError, AssertionError) as e:
+        print(f"  WARNING: Failed to parse response for {label}: {e}")
+        return [], cost, False
+
+    return anns, cost, True
+
+
 def main(gz_path: str) -> None:
     api_key = os.environ.get("OPENROUTER_API_KEY")
     assert api_key, "OPENROUTER_API_KEY environment variable required"
@@ -264,6 +314,12 @@ def main(gz_path: str) -> None:
             f"Reanalyzing: v{existing_version} → v{BLUNDER_SCRIPT_VERSION} ({gz_path})"
         )
 
+    # Fetch live pricing from OpenRouter
+    prices = fetch_openrouter_prices()
+    assert get_model_price(SONNET_MODEL, prices) is not None, (
+        f"Could not fetch pricing for {SONNET_MODEL} from OpenRouter"
+    )
+
     client = OpenAI(base_url=BASE_URL, api_key=api_key)
 
     overview = _game_overview(data)
@@ -279,41 +335,42 @@ def main(gz_path: str) -> None:
         print("No non-forced decisions to analyze.")
         return
 
-    # --- Single-phase Opus analysis ---
-    print("\nAnalyzing with Opus...")
-    user_msg = (
-        f"## Game Overview\n{overview}\n\n"
-        f"## Decisions ({len(non_forced)} non-forced)\n\n"
-        f"{_format_decisions(decisions)}"
+    # --- Per-decision Sonnet analysis with extended thinking ---
+    print(
+        f"\nAnalyzing {len(non_forced)} decisions with {SONNET_MODEL} (thinking=low)..."
     )
-    total_cost = 0.0
-    max_attempts = 3
-    for attempt in range(1, max_attempts + 1):
-        text, in_tok, out_tok = _call_llm(client, OPUS_MODEL, OPUS_SYSTEM, user_msg)
-        cost = _compute_cost(OPUS_MODEL, in_tok, out_tok)
-        total_cost += cost
-        print(f"  Tokens: {in_tok:,} input, {out_tok:,} output (${cost:.3f})")
 
-        try:
-            annotations = _parse_json_array(text)
-            break
-        except (json.JSONDecodeError, AssertionError) as e:
-            # Log the bad response for debugging
-            TMP_DIR.mkdir(exist_ok=True)
-            dump_path = TMP_DIR / f"bad_blunder_response_attempt{attempt}.txt"
-            dump_path.write_text(text)
-            if attempt < max_attempts:
-                print(
-                    f"  Opus returned invalid JSON (attempt {attempt}/{max_attempts}): {e}\n"
-                    f"  Response dumped to {dump_path}\n"
-                    f"  Retrying..."
-                )
-            else:
-                raise RuntimeError(
-                    f"Opus returned invalid JSON on all {max_attempts} attempts. "
-                    f"Last error: {e}\n"
-                    f"Last response dumped to {dump_path}"
-                ) from e
+    annotations: list[dict] = []
+    total_cost = 0.0
+    parse_failures = 0
+
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {}
+        for d in non_forced:
+            fut = pool.submit(
+                _eval_one_decision, client, SONNET_MODEL, prices, overview, d
+            )
+            futures[fut] = d["decision_index"]
+
+        # Collect results preserving decision order
+        results_by_idx: dict[int, tuple[list[dict], float, bool]] = {}
+        for fut in as_completed(futures):
+            idx = futures[fut]
+            results_by_idx[idx] = fut.result()
+
+    for d in non_forced:
+        anns, cost, parsed_ok = results_by_idx[d["decision_index"]]
+        total_cost += cost
+        if not parsed_ok:
+            parse_failures += 1
+        annotations.extend(anns)
+
+    if parse_failures > len(non_forced) / 2:
+        raise RuntimeError(
+            f"Too many parse failures: {parse_failures}/{len(non_forced)} decisions failed"
+        )
+
+    print(f"\n  Total: {len(annotations)} annotation(s), ${total_cost:.3f}")
 
     # Filter out annotations with invalid snapshotIndex (LLM sometimes fabricates indices)
     num_snapshots = len(data.get("snapshots", []))

@@ -319,7 +319,6 @@ def _make_valid_annotation(snapshot_index: int = 0) -> dict:
         "severity": "moderate",
         "category": "bad_sequencing",
         "description": "Played land before combat when holding combat trick",
-        "llmReasoning": "The LLM prioritized mana development over combat advantage",
         "actionTaken": "Play Mountain",
         "betterLine": "Attack first, then play land in second main phase",
     }
@@ -340,6 +339,22 @@ class TestAnnotateGame:
         assert "annotations" in data
         assert len(data["annotations"]) == 1
         assert data["annotations"][0]["severity"] == "moderate"
+
+    def test_annotation_with_llm_reasoning(self, tmp_path: Path) -> None:
+        """v5 annotations with llmReasoning still pass validation."""
+        gz_path = tmp_path / "game.json.gz"
+        _write_gz(_make_test_game(), gz_path)
+
+        annotation = _make_valid_annotation()
+        annotation["llmReasoning"] = "The LLM prioritized mana development over combat advantage"
+        ann_path = tmp_path / "annotations.json"
+        ann_path.write_text(json.dumps([annotation]))
+
+        _run_script("annotate_game.py", str(gz_path), str(ann_path))
+
+        data = _read_gz(gz_path)
+        assert len(data["annotations"]) == 1
+        assert data["annotations"][0]["llmReasoning"] == "The LLM prioritized mana development over combat advantage"
 
     def test_replaces_existing(self, tmp_path: Path) -> None:
         game = _make_test_game()
