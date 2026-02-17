@@ -58,10 +58,22 @@ def main() -> None:
     print()
     for i, gz in enumerate(games, 1):
         game_id = Path(gz).stem.replace(".json", "")
+
+        # Count old annotations before analysis
+        with gzip.open(gz, "rt") as f:
+            data = json.load(f)
+        old_count = len(data["annotations"]) if "annotations" in data else 0
+
         print(f"{'=' * 60}")
         print(f"[{i}/{len(games)}] {game_id}")
         print(f"{'=' * 60}")
         analyze_game(gz)
+
+        # Count new annotations after analysis
+        with gzip.open(gz, "rt") as f:
+            data = json.load(f)
+        new_count = len(data.get("annotations", []))
+        print(f"  Annotations: {old_count} old -> {new_count} new")
         print()
 
 
