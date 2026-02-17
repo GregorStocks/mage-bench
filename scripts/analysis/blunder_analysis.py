@@ -605,10 +605,11 @@ def _eval_one_decision(
     snapshots: list[dict],
     actions_by_turn: dict[int, list[str]],
     num_players: int,
-) -> tuple[list[dict], float, bool]:
-    """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok).
+) -> tuple[list[dict], float, bool, dict]:
+    """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok, raw_record).
 
-    On parse failure, prints a warning and returns ([], cost, False).
+    On parse failure, prints a warning and returns ([], cost, False, raw_record).
+    The raw_record contains the full prompt and response for archival.
     """
     formatted = _format_decisions([decision])
     card_ref = _card_reference_for_decision(decision, oracle_texts)
@@ -626,15 +627,28 @@ def _eval_one_decision(
     cost = _compute_cost(prices, model, in_tok, out_tok)
     print(f"  [{label}] {in_tok:,} in / {out_tok:,} out (${cost:.4f})")
 
+    raw_record = {
+        "decision_index": decision["decision_index"],
+        "player": decision["player"],
+        "snapshot_index": decision["snapshot_index"],
+        "model": model,
+        "system_prompt": PER_DECISION_SYSTEM,
+        "user_prompt": user_msg,
+        "response": text,
+        "prompt_tokens": in_tok,
+        "completion_tokens": out_tok,
+        "cost_usd": cost,
+    }
+
     try:
         ann = _parse_annotation(text)
     except (json.JSONDecodeError, AssertionError) as e:
         print(f"  WARNING: Failed to parse response for {label}: {e}")
         print(f"    Raw response: {text[:200]!r}")
-        return [], cost, False
+        return [], cost, False, raw_record
 
     if ann is None:
-        return [], cost, True
+        return [], cost, True, raw_record
 
     # Inject constant fields the LLM doesn't need to generate.
     # snapshotIndex points to the first snapshot AFTER the action resolved,
@@ -653,7 +667,7 @@ def _eval_one_decision(
     ann["snapshotIndex"] = aftermath_idx
     ann["player"] = decision["player"]
 
-    return [ann], cost, True
+    return [ann], cost, True, raw_record
 
 
 def main(gz_path: str) -> None:
@@ -711,6 +725,7 @@ def main(gz_path: str) -> None:
     print(f"\nAnalyzing {len(non_forced)} decisions with {OPUS_MODEL}...")
 
     annotations: list[dict] = []
+    raw_records: list[dict] = []
     total_cost = 0.0
     parse_failures = 0
 
@@ -732,21 +747,23 @@ def main(gz_path: str) -> None:
             futures[fut] = d["decision_index"]
 
         # Collect results preserving decision order
-        results_by_idx: dict[int, tuple[list[dict], float, bool]] = {}
+        results_by_idx: dict[int, tuple[list[dict], float, bool, dict]] = {}
         for fut in as_completed(futures):
             idx = futures[fut]
             try:
                 results_by_idx[idx] = fut.result()
             except Exception as e:
                 print(f"  WARNING: decision_{idx} failed: {e}")
-                results_by_idx[idx] = ([], 0.0, False)
+                results_by_idx[idx] = ([], 0.0, False, {})
 
     for d in non_forced:
-        anns, cost, parsed_ok = results_by_idx[d["decision_index"]]
+        anns, cost, parsed_ok, raw = results_by_idx[d["decision_index"]]
         total_cost += cost
         if not parsed_ok:
             parse_failures += 1
         annotations.extend(anns)
+        if raw:
+            raw_records.append(raw)
 
     if parse_failures > len(non_forced) / 2:
         raise RuntimeError(
@@ -754,6 +771,21 @@ def main(gz_path: str) -> None:
         )
 
     print(f"\n  Total: {len(annotations)} annotation(s), ${total_cost:.3f}")
+
+    # Save raw LLM data to log directory (never overwrite — new file each run)
+    if raw_records:
+        from datetime import datetime
+
+        game_id = Path(gz_path).stem.replace(".json", "")
+        log_dir = Path.home() / ".mage-bench" / "logs" / game_id
+        if log_dir.is_dir():
+            ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+            raw_path = log_dir / f"blunder_analysis_v{BLUNDER_SCRIPT_VERSION}_{ts}.jsonl"
+            raw_records.sort(key=lambda r: r.get("decision_index", 0))
+            with open(raw_path, "w") as f:
+                for rec in raw_records:
+                    f.write(json.dumps(rec) + "\n")
+            print(f"  Raw LLM data saved to {raw_path}")
 
     # Filter out annotations with invalid snapshotIndex (LLM sometimes fabricates indices)
     num_snapshots = len(data.get("snapshots", []))
