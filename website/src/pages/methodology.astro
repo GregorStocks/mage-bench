@@ -38,6 +38,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     Each game is analyzed by a separate LLM (Claude Opus) that reviews every non-forced
     decision and flags blunders with a severity level. The <strong>Blunder Index</strong>
     measures how many severity-weighted blunders a model makes per game turn. Lower is better.
+    Questionable moves are tracked but excluded from the index.
   </p>
 
   <h3>Severity weights</h3>
@@ -51,11 +52,6 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Questionable</td>
-        <td class="num">0.5</td>
-        <td>Probably suboptimal but debatable</td>
-      </tr>
       <tr>
         <td>Minor</td>
         <td class="num">1</td>
