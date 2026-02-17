@@ -85,6 +85,18 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     blunder every 10 turns, or one minor blunder per turn in a short game.
     Higher is worse.
   </p>
+
+  <h3>Limitations</h3>
+
+  <p>
+    Blunder detection is performed by Claude Opus and is not perfect. It may miss
+    real blunders or occasionally flag reasonable plays. Like the harness itself,
+    the blunder analysis pipeline has its own version epoch &mdash; changes to the
+    analysis prompt, filtering logic, or context provided to the reviewer can shift
+    results across versions. Scores should be treated as directionally correct
+    rather than ground truth, but they are better than nothing: they surface real
+    patterns in how models play and provide a useful signal for comparison.
+  </p>
 </Base>
 
 <style>
