@@ -374,6 +374,96 @@ Corpus: 152 games. Using epoch 11 per-call costs:
 | O (medium) | $0.041 | $4.52 | **$687** |
 | P (low) | $0.022 | $2.42 | **$368** |
 
+## Phase 4: Follow-up cost experiments (R/S/T/U)
+
+After submitting the Phase 3 PR, we tested three additional ideas on epoch 11
+`g8` and `g5`:
+
+- **R**: P-style per-decision Sonnet low, but minimal context (drop game overview)
+- **S/T**: micro-batching with Sonnet low (batch size 2 and 3)
+- **U**: deterministic safe-skip for semantically identical choices, then P-style per-decision Sonnet low
+
+Consensus for this follow-up section is defined against the existing L/O/P pool
+(snapshot hit by >=2 of L/O/P on that game).
+
+### Results (g8 + g5 only)
+
+| Approach | Consensus hits | Coverage | Cost |
+|----------|----------------|----------|------|
+| P (baseline) | 26/34 | 76.5% | $1.947 |
+| **R_sonnet_low_minimal** | **27/34** | **79.4%** | **$1.945** |
+| S_sonnet_batched2_low | 19/34 | 55.9% | $1.146 |
+| T_sonnet_batched3_low | 19/34 | 55.9% | $0.841 |
+| U_sonnet_low_safe_skip | 22/34 | 64.7% | $1.894 |
+
+### Findings
+
+- **R is inconclusive.** On `g8`, R beat P on consensus hits (3 vs 1), but on `g5`
+  it underperformed P (24 vs 25). Cost was effectively identical.
+- **Micro-batching still hurts coverage badly**, even with batch size 2-3.
+  This reinforces the earlier "don't batch" conclusion.
+- **Current deterministic safe-skip is too conservative** to matter (it skipped
+  only 2/85 decisions on g5 and 0/14 on g8), so savings were negligible.
+
+Additional follow-up on `g2` was attempted but did not produce a saved result
+artifact in this pass, so we do not treat it as evidence.
+
+## Phase 4b: Context and prompt compression analysis (ideas 4/5)
+
+To estimate upside before running more expensive full experiments, we measured
+prompt composition across 585 non-forced decisions (`g8`, `g5`, `g2`, `g1`).
+
+### User prompt breakdown
+
+- Board line: 40.8%
+- Game overview: 21.1%
+- LLM reasoning text: 14.0%
+- Choices line: 9.2%
+- Header/message/chosen/after: remainder
+
+Most promising field-level cuts from the user prompt:
+
+- Drop per-call game overview (already validated by R)
+- Cap battlefield listing per player (e.g. 8 cards -> 4)
+- Remove `After` line
+- Optionally trim/remove reasoning text (higher risk; accuracy impact unknown)
+
+### System prompt overhead
+
+For P calls on these games:
+
+- Avg system prompt: 2644 chars
+- Avg user prompt: 1167 chars
+- System prompt is ~69% of prompt chars
+
+So idea 5 (compressing `PER_DECISION_SYSTEM`) is likely the largest remaining
+input-token lever.
+
+### Best-case dollar upside estimate (current corpus = 152 games)
+
+Baseline reanalysis cost from Phase 3: **$368** with P.
+
+- **Idea 4 best-case** (aggressive but plausible field pruning): ~6% total cost
+  reduction, about **$20-22** saved.
+- **Idea 5 best-case** (major system prompt compression): ~7-8% total cost
+  reduction, about **$25-30** saved.
+- **Combined best case** (both land cleanly): roughly **$45-50** saved, bringing
+  full reanalysis from ~$368 to about **$318-323**.
+
+These are upper-bound estimates, not measured realized savings.
+
+## Phase 4 conclusion
+
+Net result is underwhelming and inconclusive:
+
+- R did not show a reliable improvement over P
+- Micro-batching remains clearly worse
+- Safe-skip did not reduce enough calls to matter
+- Ideas 4/5 appear to have only modest upside even in best-case estimates
+
+**Decision: take no action for now.** Keep production on P and revisit only if
+we run a broader validation pass later.
+
 ## Recommendation
 
 **Use P (per-decision Sonnet 4.5 with low thinking) for production blunder analysis.**
