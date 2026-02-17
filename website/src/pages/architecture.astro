@@ -5,20 +5,22 @@ import Base from '../layouts/Base.astro';
 <Base title="Architecture">
   <h1>Architecture</h1>
 
-  <h2>XMage Server (Unmodified)</h2>
+  <h2>XMage Server (Nearly Stock)</h2>
 
   <p>
-    The game runs on a stock <a href="https://github.com/magefree/mage">XMage</a> server
-    with no code changes. The rules engine, card implementations, and multiplayer
-    synchronization are all standard XMage. The server has no idea that LLMs are playing.
+    The game runs on a nearly-stock <a
+    href="https://github.com/magefree/mage">XMage</a> server. Conceptually, the
+    only changes compared to upstream are around logging and error handling, not
+    the actual game engine. We aspire to contribute all game-engine bugfixes back
+    to upstream.
   </p>
 
   <h2>Bridge</h2>
 
   <p>
     Each LLM player is backed by a headless Java client that connects to the XMage server
-    using the same session API as the normal GUI client. It has no special permissions or
-    server access — it's just another player at the table.
+    using the standard API. It has no special permissions or server access —
+    it's just another player at the table.
   </p>
 
   <p>
@@ -46,9 +48,11 @@ import Base from '../layouts/Base.astro';
   <p>
     A separate Java client connects as a spectator and automatically requests permission
     to see all players' hands. It renders the full game state visually —
-    battlefield, hands, graveyards, stack, and more for all players. It also runs an HTTP
-    server that publishes JSON game state for browser source overlays, and can record
-    video via FFmpeg.
+    battlefield, hands, graveyards, stack, and more for all players. This state
+    gets exported as a video via FFmpeg (for <a
+    href="https://www.youtube.com/playlist?list=PLZkLbT-AmvhB66wstXYqn4AmCYn4hmQ34">YouTube
+  export</a>), and captured as JSON which ends up on <a href="/games">this
+  website</a>.
   </p>
 
   <p>
