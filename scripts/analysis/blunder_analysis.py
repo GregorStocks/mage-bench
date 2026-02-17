@@ -52,7 +52,8 @@ MAX_WORKERS = 50
 # v8: include Scryfall oracle text in per-decision prompt
 # v9: switch from Sonnet 4.5 (thinking=low) to Opus 4.6 (no extended thinking)
 # v10: add prior context (snapshot from 2 turns ago + action deltas)
-BLUNDER_SCRIPT_VERSION = 10
+# v11: filter out failed (success=false), cancelled, and cast-before-cancel decisions
+BLUNDER_SCRIPT_VERSION = 11
 
 # --- Prompt components ---
 
