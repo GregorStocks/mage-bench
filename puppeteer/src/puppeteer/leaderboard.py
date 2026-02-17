@@ -11,7 +11,7 @@ from typing import Any
 
 from openskill.models import PlackettLuce
 
-from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
+from puppeteer.harness_epoch import MIN_BLUNDER_VERSION, MIN_LEADERBOARD_EPOCH
 
 _LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 
@@ -638,6 +638,7 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
         "models": pool_1v1.get("models", []),
         "formats": format_results,
         "minEpoch": MIN_LEADERBOARD_EPOCH,
+        "minBlunderVersion": MIN_BLUNDER_VERSION,
         "excludedGames": excluded_count,
         "epochCounts": {str(e): c for e, c in sorted(epoch_counts.items())},
     }

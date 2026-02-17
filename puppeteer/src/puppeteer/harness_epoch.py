@@ -28,3 +28,8 @@ HARNESS_EPOCH = 13
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
 MIN_LEADERBOARD_EPOCH = 2
+
+# Minimum blunder analysis version for "acceptable" annotations. Games
+# analyzed below this show an "(older analysis)" tag on the website.
+# (See BLUNDER_SCRIPT_VERSION in scripts/analysis/blunder_analysis.py.)
+MIN_BLUNDER_VERSION = 11

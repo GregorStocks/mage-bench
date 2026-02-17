@@ -1,8 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
+import benchmarkData from '../../data/benchmark-results.json';
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
+const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
 
 const gamesDir = path.join(process.cwd(), 'public', 'games');
 const games: Array<Record<string, unknown>> = [];
@@ -539,7 +541,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   }
 </style>
 
-<script is:inline define:vars={{ games }}>
+<script is:inline define:vars={{ games, minBlunderVersion }}>
   var __games = games;
 
   var DECK_TYPE_FORMATS = {
@@ -558,7 +560,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
   };
 
   var MIN_LEADERBOARD_EPOCH = 2;
-  var CURRENT_BLUNDER_VERSION = 6;
+  var MIN_BLUNDER_VERSION = minBlunderVersion;
 
   function getGameFormat(deckType) {
     return DECK_TYPE_FORMATS[deckType] || "commander";
@@ -811,13 +813,13 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         if (playerScore >= 1.5) scoreEl.classList.add("blunder-high");
         else if (playerScore >= 0.5) scoreEl.classList.add("blunder-med");
         else scoreEl.classList.add("blunder-low");
-        var isOldAnalysis = !game.blunderScriptVersion || game.blunderScriptVersion < CURRENT_BLUNDER_VERSION;
+        var isOldAnalysis = !game.blunderScriptVersion || game.blunderScriptVersion < MIN_BLUNDER_VERSION;
         scoreEl.textContent = "Blunder Index: " + playerScore.toFixed(2);
         if (isOldAnalysis) {
           var oldTag = document.createElement("span");
           oldTag.className = "old-analysis-tag";
           oldTag.textContent = "(older analysis)";
-          oldTag.title = "Analyzed with blunder script v" + (game.blunderScriptVersion || 1) + " (current: v" + CURRENT_BLUNDER_VERSION + ")";
+          oldTag.title = "Analyzed with blunder script v" + (game.blunderScriptVersion || 1) + " (min: v" + MIN_BLUNDER_VERSION + ")";
           scoreEl.appendChild(document.createTextNode(" "));
           scoreEl.appendChild(oldTag);
         }

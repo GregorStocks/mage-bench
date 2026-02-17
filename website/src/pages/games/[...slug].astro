@@ -1,7 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
+import benchmarkData from '../../data/benchmark-results.json';
 import fs from 'node:fs';
 import path from 'node:path';
+const minBlunderVersion = (benchmarkData as any).minBlunderVersion ?? 11;
 
 export function getStaticPaths() {
   const gamesDir = path.join(process.cwd(), 'public', 'games');
@@ -391,7 +393,7 @@ const { slug } = Astro.params;
 </style>
 
 <script is:inline src="/game-renderer.js"></script>
-<script is:inline>
+<script is:inline define:vars={{ minBlunderVersion }}>
   (function () {
     var R = window.GameRenderer;
 
@@ -1066,7 +1068,7 @@ const { slug } = Astro.params;
         }
 
         // Blunder summary in header
-        var CURRENT_BLUNDER_VERSION = 6;
+        var MIN_BLUNDER_VERSION = minBlunderVersion;
         if (game.annotations && game.annotations.length > 0) {
           var counts = { questionable: 0, minor: 0, moderate: 0, major: 0 };
           game.annotations.forEach(function (a) { counts[a.severity] = (counts[a.severity] || 0) + 1; });
@@ -1078,13 +1080,13 @@ const { slug } = Astro.params;
           if (counts.minor > 0) parts.push(counts.minor + " minor");
           if (counts.questionable > 0) parts.push(counts.questionable + " questionable");
           var gameBlunderVersion = game.blunderScriptVersion || 1;
-          var isOldBlunderAnalysis = gameBlunderVersion < CURRENT_BLUNDER_VERSION;
+          var isOldBlunderAnalysis = gameBlunderVersion < MIN_BLUNDER_VERSION;
           summaryEl.textContent = parts.join(", ") + " blunder" + (game.annotations.length !== 1 ? "s" : "");
           if (isOldBlunderAnalysis) {
             var oldTag = document.createElement("span");
             oldTag.className = "old-analysis-tag";
             oldTag.textContent = "(older analysis)";
-            oldTag.title = "Analyzed with blunder script v" + gameBlunderVersion + " (current: v" + CURRENT_BLUNDER_VERSION + ")";
+            oldTag.title = "Analyzed with blunder script v" + gameBlunderVersion + " (min: v" + MIN_BLUNDER_VERSION + ")";
             summaryEl.appendChild(document.createTextNode(" "));
             summaryEl.appendChild(oldTag);
           }

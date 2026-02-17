@@ -16,6 +16,7 @@ from blunder_analysis import (
     _compute_cost,
     _extract_oracle_fields,
     _format_card_ref,
+    _format_current_turn_actions,
     _format_decisions,
     _parse_annotation,
     main,
@@ -185,6 +186,59 @@ class TestParseAnnotation:
     def test_rejects_garbage(self) -> None:
         with pytest.raises((json.JSONDecodeError, AssertionError)):
             _parse_annotation("no json here at all")
+
+
+# --- _format_current_turn_actions ---
+
+
+class TestFormatCurrentTurnActions:
+    def _actions(self) -> list[dict]:
+        return [
+            {"ts": "2026-01-01T00:00:01.000", "message": "TURN 1 for Alice (20 - 20)"},
+            {"ts": "2026-01-01T00:00:02.000", "message": "Alice plays Mountain"},
+            {"ts": "2026-01-01T00:00:03.000", "message": "Alice casts Sol Ring from hand"},
+            {"ts": "2026-01-01T00:00:04.000", "message": "Alice puts Sol Ring from stack onto the Battlefield"},
+            {"ts": "2026-01-01T00:00:10.000", "message": "Alice skip attack"},
+            {"ts": "2026-01-01T00:00:15.000", "message": "TURN 2 for Bob (20 - 20)"},
+            {"ts": "2026-01-01T00:00:16.000", "message": "Bob plays Forest"},
+        ]
+
+    def test_shows_current_turn_actions(self) -> None:
+        decision = {"turn": 1}
+        result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:12.000")
+        assert "## This Turn" in result
+        assert "Alice plays Mountain" in result
+        assert "Alice casts Sol Ring from hand" in result
+
+    def test_filters_noise(self) -> None:
+        decision = {"turn": 1}
+        result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:12.000")
+        # "puts from stack" and "skip attack" are noise
+        assert "Sol Ring from stack" not in result
+        assert "skip attack" not in result
+
+    def test_respects_cutoff_timestamp(self) -> None:
+        decision = {"turn": 1}
+        # Cutoff before Sol Ring cast
+        result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:02.500")
+        assert "Alice plays Mountain" in result
+        assert "Sol Ring" not in result
+
+    def test_no_actions_yet(self) -> None:
+        decision = {"turn": 1}
+        # Cutoff before any non-TURN action
+        result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:01.500")
+        assert "(no actions yet)" in result
+
+    def test_wrong_turn_excluded(self) -> None:
+        decision = {"turn": 2}
+        result = _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:20.000")
+        assert "Bob plays Forest" in result
+        assert "Alice plays Mountain" not in result
+
+    def test_no_turn_returns_empty(self) -> None:
+        decision = {"turn": None}
+        assert _format_current_turn_actions(decision, self._actions(), "2026-01-01T00:00:10.000") == ""
 
 
 # --- _compute_cost ---
