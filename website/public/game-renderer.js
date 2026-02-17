@@ -72,6 +72,11 @@
 
   function isLikelyLand(card) {
     if (!card || typeof card === "string") return false;
+    // Use typeLine when available (live mode + new snapshots)
+    if (card.typeLine) {
+      return /\bLand\b/.test(card.typeLine);
+    }
+    // Fallback for old snapshots without typeLine:
     // Creatures have P/T, planeswalkers have loyalty, battles have defense
     if (card.power || card.toughness || card.loyalty || card.defense) return false;
     // Tokens are not lands

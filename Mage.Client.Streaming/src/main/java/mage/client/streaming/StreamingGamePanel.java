@@ -1786,6 +1786,7 @@ public class StreamingGamePanel extends GamePanel {
                     var permJson = new JsonObject();
                     permJson.addProperty("name", safe(perm.getDisplayName()));
                     permJson.addProperty("tapped", perm.isTapped());
+                    permJson.addProperty("typeLine", formatTypeLine(perm));
                     if (perm.isCreature()) {
                         permJson.addProperty("power", safe(perm.getPower()));
                         permJson.addProperty("toughness", safe(perm.getToughness()));
