@@ -5,11 +5,13 @@ import mage.cards.decks.DeckCardLists;
 import mage.cards.repository.CardInfo;
 import mage.cards.repository.CardRepository;
 import mage.choices.Choice;
+import mage.constants.CardType;
 import mage.constants.ManaType;
 import mage.constants.PhaseStep;
 import mage.constants.PlayerAction;
 import mage.constants.SubType;
 import mage.constants.SubTypeSet;
+import mage.constants.SuperType;
 import mage.interfaces.callback.ClientCallback;
 import mage.interfaces.callback.ClientCallbackMethod;
 import mage.remote.Session;
@@ -3294,8 +3296,7 @@ public class BridgeCallbackHandler {
                         UUID uuid = shortIds.resolve(oid);
                         CardView cardView = findCardViewById(uuid);
                         if (cardView != null) {
-                            entry.put("name", cardView.getDisplayName());
-                            entry.put("rules", stripHtmlList(cardView.getRules()));
+                            populateCardFields(entry, cardView);
                         } else {
                             entry.put("error", "not found");
                         }
@@ -3318,7 +3319,7 @@ public class BridgeCallbackHandler {
                 entry.put("name", name);
                 CardInfo cardInfo = CardRepository.instance.findCard(name);
                 if (cardInfo != null) {
-                    entry.put("rules", stripHtmlList(cardInfo.getRules()));
+                    populateCardFields(entry, cardInfo);
                 } else {
                     entry.put("error", "not found");
                 }
@@ -3336,8 +3337,7 @@ public class BridgeCallbackHandler {
                 CardView cardView = findCardViewById(uuid);
                 if (cardView != null) {
                     result.put("success", true);
-                    result.put("name", cardView.getDisplayName());
-                    result.put("rules", stripHtmlList(cardView.getRules()));
+                    populateCardFields(result, cardView);
                     return result;
                 } else {
                     result.put("success", false);
@@ -3355,14 +3355,138 @@ public class BridgeCallbackHandler {
         CardInfo cardInfo = CardRepository.instance.findCard(cardName);
         if (cardInfo != null) {
             result.put("success", true);
-            result.put("name", cardInfo.getName());
-            result.put("rules", stripHtmlList(cardInfo.getRules()));
+            populateCardFields(result, cardInfo);
             return result;
         } else {
             result.put("success", false);
             result.put("error", "Card not found in database: " + cardName);
             return result;
         }
+    }
+
+    private void populateCardFields(Map<String, Object> entry, CardView cv) {
+        entry.put("name", cv.getDisplayName());
+        String manaCost = cv.getManaCostStr();
+        if (manaCost != null && !manaCost.isEmpty()) {
+            entry.put("mana_cost", manaCost);
+        }
+        String typeText = cv.getTypeText();
+        if (typeText != null && !typeText.trim().isEmpty()) {
+            entry.put("type", typeText.trim());
+        }
+        entry.put("rules", stripHtmlList(cv.getRules()));
+        if (cv.isCreature() && cv.getPower() != null) {
+            entry.put("power", cv.getPower());
+            entry.put("toughness", cv.getToughness());
+        }
+        if (cv.isPlaneswalker()) {
+            String loyalty = cv.getStartingLoyalty();
+            if (loyalty != null && !loyalty.isEmpty() && !loyalty.equals("0")) {
+                entry.put("starting_loyalty", loyalty);
+            }
+        }
+        if (cv.isBattle()) {
+            String defense = cv.getStartingDefense();
+            if (defense != null && !defense.isEmpty() && !defense.equals("0")) {
+                entry.put("starting_defense", defense);
+            }
+        }
+        CardView secondFace = cv.getSecondCardFace();
+        if (secondFace != null) {
+            var face = new HashMap<String, Object>();
+            populateCardFields(face, secondFace);
+            entry.put("second_face", face);
+        }
+    }
+
+    private void populateCardFields(Map<String, Object> entry, CardInfo ci) {
+        entry.put("name", ci.getName());
+        List<String> manaCosts = ci.getManaCosts(CardInfo.ManaCostSide.ALL);
+        if (manaCosts != null && !manaCosts.isEmpty()) {
+            entry.put("mana_cost", String.join("", manaCosts));
+        }
+        String typeText = buildTypeLine(ci);
+        if (!typeText.isEmpty()) {
+            entry.put("type", typeText);
+        }
+        entry.put("rules", stripHtmlList(ci.getRules()));
+        if (ci.getTypes().contains(CardType.CREATURE) && ci.getPower() != null) {
+            entry.put("power", ci.getPower());
+            entry.put("toughness", ci.getToughness());
+        }
+        if (ci.getTypes().contains(CardType.PLANESWALKER)) {
+            String loyalty = ci.getStartingLoyalty();
+            if (loyalty != null && !loyalty.isEmpty() && !loyalty.equals("0")) {
+                entry.put("starting_loyalty", loyalty);
+            }
+        }
+        if (ci.getTypes().contains(CardType.BATTLE)) {
+            String defense = ci.getStartingDefense();
+            if (defense != null && !defense.isEmpty() && !defense.equals("0")) {
+                entry.put("starting_defense", defense);
+            }
+        }
+        // Check for second face (transform, MDFC, flip, adventure)
+        String secondName = ci.getSecondSideName();
+        if (secondName == null || secondName.isEmpty()) {
+            secondName = ci.getDoubleFacedSecondSideName();
+        }
+        if (secondName == null || secondName.isEmpty()) {
+            secondName = ci.getFlipCardName();
+        }
+        if (secondName == null || secondName.isEmpty()) {
+            secondName = ci.getSpellOptionCardName();
+        }
+        if (secondName != null && !secondName.isEmpty()) {
+            CardInfo secondCard = CardRepository.instance.findCard(secondName);
+            if (secondCard != null) {
+                var face = new HashMap<String, Object>();
+                // Don't recurse further — second faces don't have second faces
+                face.put("name", secondCard.getName());
+                List<String> secondManaCosts = secondCard.getManaCosts(CardInfo.ManaCostSide.ALL);
+                if (secondManaCosts != null && !secondManaCosts.isEmpty()) {
+                    face.put("mana_cost", String.join("", secondManaCosts));
+                }
+                String secondType = buildTypeLine(secondCard);
+                if (!secondType.isEmpty()) {
+                    face.put("type", secondType);
+                }
+                face.put("rules", stripHtmlList(secondCard.getRules()));
+                if (secondCard.getTypes().contains(CardType.CREATURE) && secondCard.getPower() != null) {
+                    face.put("power", secondCard.getPower());
+                    face.put("toughness", secondCard.getToughness());
+                }
+                if (secondCard.getTypes().contains(CardType.PLANESWALKER)) {
+                    String loyalty = secondCard.getStartingLoyalty();
+                    if (loyalty != null && !loyalty.isEmpty() && !loyalty.equals("0")) {
+                        face.put("starting_loyalty", loyalty);
+                    }
+                }
+                if (secondCard.getTypes().contains(CardType.BATTLE)) {
+                    String defense = secondCard.getStartingDefense();
+                    if (defense != null && !defense.isEmpty() && !defense.equals("0")) {
+                        face.put("starting_defense", defense);
+                    }
+                }
+                entry.put("second_face", face);
+            }
+        }
+    }
+
+    private static String buildTypeLine(CardInfo ci) {
+        StringBuilder sb = new StringBuilder();
+        if (!ci.getSupertypes().isEmpty()) {
+            sb.append(ci.getSupertypes().stream().map(SuperType::toString).collect(java.util.stream.Collectors.joining(" ")));
+            sb.append(" ");
+        }
+        if (!ci.getTypes().isEmpty()) {
+            sb.append(ci.getTypes().stream().map(CardType::toString).collect(java.util.stream.Collectors.joining(" ")));
+        }
+        if (!ci.getSubTypes().isEmpty()) {
+            sb.append(" — ");
+            sb.append(ci.getSubTypes().stream().map(SubType::toString).collect(java.util.stream.Collectors.joining(" ")));
+        }
+        return sb.toString().trim();
     }
 
     private CardView findCardViewById(UUID objectId) {

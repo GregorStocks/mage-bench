@@ -21,7 +21,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #   9 - GAME_CHOOSE_ABILITY presented to LLM instead of auto-selecting (Feb 15)
 #  10 - Flat mana_plan format + multi-ability land support (Feb 15)
 #  11 - Remove JsonArray from tool type system; blockers now "blocker:attacker" strings (Feb 15)
-HARNESS_EPOCH = 11
+#  12 - Enrich get_oracle_text with mana_cost, type, P/T, loyalty, defense, second_face (Feb 16)
+HARNESS_EPOCH = 12
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.

@@ -324,8 +324,12 @@
     "outputSchema": {
       "type": "object",
       "properties": {
+        "second_face": {
+          "description": "Back face for transform/MDFC cards (same fields)",
+          "type": "object"
+        },
         "cards": {
-          "description": "Array of {name, rules} or {name, error} per card",
+          "description": "Array of card objects (batch mode). Each has name, mana_cost, type, rules, and optional power/toughness/starting_loyalty/starting_defense/second_face",
           "type": "array",
           "items": {
             "type": "object"
@@ -334,6 +338,10 @@
         "success": {
           "description": "Whether the lookup succeeded",
           "type": "boolean"
+        },
+        "mana_cost": {
+          "description": "Mana cost (e.g. \"{2}{R}\")",
+          "type": "string"
         },
         "name": {
           "description": "Card name",
@@ -346,24 +354,44 @@
             "type": "string"
           }
         },
+        "power": {
+          "description": "Power (creatures only)",
+          "type": "string"
+        },
+        "type": {
+          "description": "Type line (e.g. \"Creature — Human Wizard\")",
+          "type": "string"
+        },
+        "toughness": {
+          "description": "Toughness (creatures only)",
+          "type": "string"
+        },
+        "starting_defense": {
+          "description": "Starting defense (battles only)",
+          "type": "string"
+        },
         "error": {
           "description": "Error message",
+          "type": "string"
+        },
+        "starting_loyalty": {
+          "description": "Starting loyalty (planeswalkers only)",
           "type": "string"
         }
       }
     },
     "examples": [
       {
-        "label": "Single card",
-        "value": "{\n  \"success\": true,\n  \"name\": \"Lightning Bolt\",\n  \"rules\": [\n    \"Deal 3 damage to any target.\"\n  ]\n}"
+        "label": "Single creature",
+        "value": "{\n  \"success\": true,\n  \"name\": \"Snapcaster Mage\",\n  \"mana_cost\": \"{1}{U}\",\n  \"type\": \"Creature — Human Wizard\",\n  \"rules\": [\n    \"Flash\",\n    \"When Snapcaster Mage enters the battlefield, target instant or sorcery card in your graveyard gains flashback until end of turn. The flashback cost is equal to its mana cost.\"\n  ],\n  \"power\": \"2\",\n  \"toughness\": \"1\"\n}"
       },
       {
-        "label": "Batch card_names lookup",
-        "value": "{\n  \"success\": true,\n  \"cards\": [\n    {\n      \"name\": \"Lightning Bolt\",\n      \"rules\": [\n        \"Deal 3 damage to any target.\"\n      ]\n    },\n    {\n      \"name\": \"Counterspell\",\n      \"rules\": [\n        \"Counter target spell.\"\n      ]\n    }\n  ]\n}"
+        "label": "Transform card with second face",
+        "value": "{\n  \"success\": true,\n  \"name\": \"Delver of Secrets\",\n  \"mana_cost\": \"{U}\",\n  \"type\": \"Creature — Human Wizard\",\n  \"rules\": [\n    \"At the beginning of your upkeep, look at the top card of your library. You may reveal that card. If an instant or sorcery card is revealed this way, transform Delver of Secrets.\"\n  ],\n  \"power\": \"1\",\n  \"toughness\": \"1\",\n  \"second_face\": {\n    \"name\": \"Insectile Aberration\",\n    \"type\": \"Creature — Human Insect\",\n    \"rules\": [\n      \"Flying\"\n    ],\n    \"power\": \"3\",\n    \"toughness\": \"2\"\n  }\n}"
       },
       {
-        "label": "Batch object_ids lookup",
-        "value": "{\n  \"success\": true,\n  \"cards\": [\n    {\n      \"object_id\": \"p3\",\n      \"name\": \"Lightning Bolt\",\n      \"rules\": [\n        \"Deal 3 damage to any target.\"\n      ]\n    },\n    {\n      \"object_id\": \"p99\",\n      \"error\": \"not found\"\n    }\n  ]\n}"
+        "label": "Batch lookup",
+        "value": "{\n  \"success\": true,\n  \"cards\": [\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\",\n      \"type\": \"Instant\",\n      \"rules\": [\n        \"Lightning Bolt deals 3 damage to any target.\"\n      ]\n    },\n    {\n      \"name\": \"Counterspell\",\n      \"mana_cost\": \"{U}{U}\",\n      \"type\": \"Instant\",\n      \"rules\": [\n        \"Counter target spell.\"\n      ]\n    }\n  ]\n}"
       },
       {
         "label": "Not found",
@@ -399,7 +427,7 @@
       }
     },
     "name": "get_oracle_text",
-    "description": "Get oracle text (rules) for cards. Provide exactly one of: card_name (single), card_names (batch array), object_id (in-game object), or object_ids (batch array of in-game objects). Single returns {name, rules}. Batch returns {cards: [{name, rules}, ...]}."
+    "description": "Get oracle text and card details. Provide exactly one of: card_name (single), card_names (batch array), object_id (in-game object), or object_ids (batch array of in-game objects). Returns name, mana_cost, type, rules, and where applicable: power/toughness, starting_loyalty, starting_defense, second_face."
   },
   {
     "outputSchema": {
