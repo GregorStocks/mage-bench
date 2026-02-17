@@ -1,0 +1,10 @@
+{
+  "title": "pass_priority returns actions_passed=0 when pending_action_from_choose_action, trapping models in loop",
+  "description": "Models get stuck in a loop when they call choose_action(answer=false) to pass on a playable instant, then call pass_priority() to advance the game. pass_priority returns immediately with actions_passed=0 and stop_reason=pending_action_from_choose_action, so the game never advances.\n\nThis is a different variant from the bug fixed in #373 (pass_priority always pass once with playable cards). The #373 fix works when has_playable_cards is the stop reason, but not when pending_action_from_choose_action blocks it.\n\nThe model cycle is:\n1. get_action_choices shows playable instant (e.g. Three Steps Ahead)\n2. choose_action(answer=false) to pass\n3. Result includes next_action_pending: true\n4. Model calls pass_priority() to advance\n5. pass_priority returns actions_passed=0, stop_reason=pending_action_from_choose_action\n6. Model confused, eventually calls get_action_choices\n7. Same instant offered again (new priority window)\n8. Goto 1\n\nEvidence:\n- game_20260216_155314_g2: Gem25F Philo (gemini-2.5-flash) spent 28 of 86 LLM responses (33%) trapped in this loop with Three Steps Ahead. Model reasoning: \"I find myself trapped in a recursive dance with the game engine, endlessly offered Three Steps Ahead while my hand yearns for land.\"\n- game_20260216_155314_g4: Gem3P Sport (gemini-3-pro) reasoning: \"Stuck in loop with next_action_pending: true\", \"big bug in my usage of pass_priority\", \"I might be stuck in a priority loop with myself?\"\n\nBoth games are harness epoch 11, post-#373 fix.\n\nSuggested fix: When pass_priority encounters pending_action_from_choose_action, resolve it (pass once) rather than returning immediately. Or: improve tool description to tell models never to call pass_priority when next_action_pending is true.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["bridge"],
+  "created_at": "2026-02-16T18:30:00.000000-08:00",
+  "updated_at": "2026-02-16T18:30:00.000000-08:00"
+}

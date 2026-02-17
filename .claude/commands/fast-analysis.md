@@ -64,11 +64,21 @@ The scripts should cover:
 - **llm_events.py**: Event type counts by player, failed tool calls (with args and error messages), stalls/resets/auto-pilot/llm_error counts, and token/cost summaries.
 - **llm_reasoning.py**: Sample 3-4 reasoning excerpts per player from `llm_response` events to assess decision quality (mulligan, combat, spell targeting).
 
+**Smoking guns in reasoning and chat**: Pay close attention to what models complain about in their thinking traces and chat messages. When a model says things like "this doesn't make sense", "the tool returned wrong data", "I keep getting errors", or "why can't I cast this" — those are often smoking guns for platform bugs, not just model confusion. Cross-reference these complaints with the failed tool calls from `llm_events.py` to distinguish real bugs from model misunderstandings.
+
 ### Step 4: Check existing issues and file new ones
 
 ```bash
 uv run python scripts/list-issues.py
 ```
+
+Before filing a new issue, check whether the bug has already been fixed since the game was played. Compare the game date against recent commits:
+
+```bash
+git log --oneline --since="YYYY-MM-DD" origin/master  # date of the game
+```
+
+If a commit clearly fixes the bug, skip filing the issue. If unsure, file it and note the possibly-relevant commit in the description.
 
 For each **code bug** found (not model behavior issues), create an issue in `issues/`:
 

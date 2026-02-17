@@ -1,0 +1,10 @@
+{
+  "title": "send_chat_message returns bare {\"success\":false} with no error details",
+  "description": "The send_chat_message MCP tool returns {\"success\":false} with no error message or error_code, making it impossible for the LLM to understand what went wrong.\n\nEvidence:\n- game_20260216_155314_g4: Gem3P Sport tried \"Pop pop! Otters taking it home! GG!\" -> {\"success\":false}\n- game_20260216_112019_g8: Gem3P Proud tried \"GG! Those Slicks are slippery.\" -> {\"success\":false}\n\nBoth failures were from Gemini 3 Pro Preview models. The response has no error field, just success:false.\n\nSuggested fix: Add an error message to the response when send_chat_message fails, e.g. {\"success\":false,\"error\":\"reason here\"}.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["bridge"],
+  "created_at": "2026-02-16T18:05:00.000000-08:00",
+  "updated_at": "2026-02-16T18:05:00.000000-08:00"
+}

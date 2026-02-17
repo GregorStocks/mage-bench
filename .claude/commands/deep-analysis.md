@@ -57,7 +57,7 @@ uv run python scripts/list-issues.py
 
 - **Chat messages**: Extract `player_chat` events from `game_events.jsonl` (`jq 'select(.type=="player_chat")' game_events.jsonl`). Look for XMage system messages about illegal actions, failed spell resolutions, mana payment problems, and rule enforcement. Look for player messages that reveal confusion or frustration. Chat messages often point directly at the root cause before you even open error logs.
 - **Error logs**: Read `*_errors.log` files. Look for Java exceptions (NPE, IndexOutOfBounds, ClassCast), MCP tool failures, and stack traces. Note the exact filename and line numbers.
-- **Pilot logs**: Read `*_pilot.log` files. Look for LLM decision failures, repeated tool call patterns (loops), models sending wrong parameters, empty responses, and context trimming warnings.
+- **Pilot logs**: Read `*_pilot.log` files. Look for LLM decision failures, repeated tool call patterns (loops), models sending wrong parameters, empty responses, and context trimming warnings. **Pay close attention to what models complain about in their reasoning/thinking traces** — when a model says "this doesn't make sense", "the tool returned wrong data", or "why can't I cast this", those are often smoking guns for real platform bugs rather than model confusion.
 - **Bridge logs**: Read `*_bridge.jsonl` files. Look for repeated identical MCP calls (loop signatures), failed actions, "Index out of range" errors, and action sequences that suggest confusion (e.g., cast → cancel → cast → cancel).
   - For stale-choice race monitoring, grep for `choose_action out-of-range diagnostic` in `*_mcp.log` and classify each hit:
     - likely model misuse: `last_choices_response=boolean` with `index>=0`, or negative index
@@ -89,6 +89,14 @@ For each code bug, read the relevant Java/Python files to identify the exact lin
 - A brief description of the root cause and suggested fix direction
 
 ### Step 9: Create issue files
+
+Before filing a new issue, check whether the bug has already been fixed since the game was played. Compare the game date against recent commits:
+
+```bash
+git log --oneline --since="YYYY-MM-DD" origin/master  # date of the game
+```
+
+If a commit clearly fixes the bug, skip filing the issue. If unsure, file it and note the possibly-relevant commit in the description.
 
 Create issue files in `issues/`:
 ```json

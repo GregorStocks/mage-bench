@@ -1049,15 +1049,37 @@ public class BridgeCallbackHandler {
                 var choiceList = new ArrayList<Map<String, Object>>();
                 var indexToUuid = new ArrayList<Object>();
 
+                boolean allManaAbilities = choices != null && !choices.isEmpty();
                 if (choices != null) {
                     int idx = 0;
                     for (Map.Entry<UUID, String> entry : choices.entrySet()) {
                         var choiceEntry = new HashMap<String, Object>();
                         choiceEntry.put("index", idx);
-                        choiceEntry.put("description", stripHtml(entry.getValue()));
+                        String desc = stripHtml(entry.getValue());
+                        choiceEntry.put("description", desc);
                         choiceList.add(choiceEntry);
                         indexToUuid.add(entry.getKey());
                         idx++;
+                        // Check if this looks like a mana ability (e.g. "{T}: Add {W}.")
+                        if (!desc.contains("Add {")) {
+                            allManaAbilities = false;
+                        }
+                    }
+                }
+
+                // When all choices are mana abilities, rewrite the message to clarify
+                // this is a mana payment step, not a game action choice. Models often
+                // get confused when they see "Choose spell or ability" during mana payment.
+                if (allManaAbilities) {
+                    String msg = (String) result.get("message");
+                    if (msg != null && msg.startsWith("Choose spell or ability")) {
+                        // Extract the card name after ": " (from stripHtml's <br> replacement)
+                        int colonIdx = msg.indexOf(": ");
+                        String cardName = colonIdx >= 0 ? msg.substring(colonIdx + 2).trim() : "";
+                        if (!cardName.isEmpty()) {
+                            result.put("message", "Choose which mana to produce from " + cardName
+                                    + " (tapping to pay for a spell)");
+                        }
                     }
                 }
 
@@ -3823,6 +3845,10 @@ public class BridgeCallbackHandler {
      */
     private static String stripHtml(String s) {
         if (s == null || s.isEmpty()) return s;
+        // Replace <br> tags with ": " before stripping other tags.
+        // XMage uses <br> to separate label from card name (e.g. "Choose spell or ability to play<br>Hallowed Fountain").
+        // Without this, the tag is stripped and the words run together.
+        s = s.replaceAll("(?i)<br\\s*/?>", ": ");
         s = HTML_TAG_PATTERN.matcher(s).replaceAll("");
         s = HEX_SUFFIX_PATTERN.matcher(s).replaceAll("");
         return s;

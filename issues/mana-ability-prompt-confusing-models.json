@@ -1,0 +1,10 @@
+{
+  "title": "GAME_CHOOSE_ABILITY mana payment prompt confuses models ('Choose spell or ability to playHallowed Fountain')",
+  "description": "When a land has multiple mana abilities (e.g. Hallowed Fountain producing {W} or {U}), the GAME_CHOOSE_ABILITY callback presents a confusing message. XMage upstream generates 'Choose spell or ability to play<br>Hallowed Fountain' with a <br> tag, and stripHtml() strips the tag without adding a space, resulting in 'Choose spell or ability to playHallowed Fountain'.\n\nThis causes two problems:\n1. The words run together ('to playHallowed') due to missing space\n2. The message says 'Choose spell or ability to play' when the model is actually just choosing which mana to tap for — it's not playing a spell or ability, it's paying a mana cost\n\nModels get confused and think the game engine is broken. Example from Haiku Analyst in game_20260216_155314_g7: reasoning says 'I think the system is confused' when seeing this prompt while tapping Hallowed Fountain.\n\nFix:\n1. stripHtml() now replaces <br> tags with ': ' before stripping other HTML, so labels and card names don't run together\n2. GAME_CHOOSE_ABILITY detects when all choices are mana abilities (descriptions contain 'Add {') and rewrites the message to 'Choose which mana to produce from Hallowed Fountain (tapping to pay for a spell)'\n\nSource: BridgeCallbackHandler.java stripHtml() and GAME_CHOOSE_ABILITY handler",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["bridge"],
+  "created_at": "2026-02-16T19:00:00.000000-08:00",
+  "updated_at": "2026-02-16T19:00:00.000000-08:00"
+}
