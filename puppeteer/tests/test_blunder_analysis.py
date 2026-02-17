@@ -211,8 +211,9 @@ class TestFormatDecisions:
         result = _format_decisions([_make_decision()])
         # Alice (deciding player) should show full hand
         assert "hand=[Mountain, Lightning Bolt]" in result
-        # Bob (opponent) should only show hand count
-        assert "Bob: 20hp hand=7" in result
+        # Bob (opponent) should not show hand count (hidden info)
+        assert "Bob: 20hp bf=" in result
+        assert "hand=" not in result.split("Bob:")[1].split("\n")[0]
 
     def test_truncates_reasoning(self) -> None:
         long_reasoning = "x" * 1000

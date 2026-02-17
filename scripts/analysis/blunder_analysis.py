@@ -13,6 +13,7 @@ Requires OPENROUTER_API_KEY environment variable.
 import gzip
 import json
 import os
+import re
 import sys
 import tempfile
 import urllib.request
@@ -90,7 +91,6 @@ ANNOTATION_SCHEMA = """\
 {
   "snapshotIndex": <int>,
   "player": "<name>",
-  "type": "blunder",
   "severity": "questionable" | "minor" | "moderate" | "major",
   "category": "<short_snake_case_label>",
   "description": "<what went wrong in concrete game terms>",
@@ -229,15 +229,19 @@ def _format_card_ref(card: dict) -> str:
     if card.get("card_faces"):
         parts = []
         for face in card["card_faces"]:
-            parts.append(_format_card_ref(face))
-        return " // ".join(parts)
+            # Strip leading "- " for faces since we join with " // "
+            parts.append(_format_card_ref(face).lstrip("- "))
+        return "- " + " // ".join(parts)
     name = card["name"]
     mana = card.get("mana_cost", "")
     type_line = card.get("type_line", "")
     oracle = card.get("oracle_text", "")
+    # Collapse newlines in oracle text to ` / ` for single-line display
+    if oracle:
+        oracle = oracle.replace("\n", " / ")
     pt = f" {card['power']}/{card['toughness']}" if card.get("power") else ""
     loyalty = f" [Loyalty: {card['loyalty']}]" if card.get("loyalty") else ""
-    line = f"{name} {mana} -- {type_line}{pt}{loyalty}"
+    line = f"- {name} {mana} -- {type_line}{pt}{loyalty}"
     if oracle:
         line += f": {oracle}"
     return line
@@ -262,26 +266,64 @@ def _card_names_in_decision(decision: dict) -> set[str]:
     return names
 
 
+_BASIC_LANDS = {
+    "Plains",
+    "Island",
+    "Swamp",
+    "Mountain",
+    "Forest",
+    "Snow-Covered Plains",
+    "Snow-Covered Island",
+    "Snow-Covered Swamp",
+    "Snow-Covered Mountain",
+    "Snow-Covered Forest",
+    "Wastes",
+}
+
+
 def _card_reference_for_decision(decision: dict, oracle_texts: dict[str, dict]) -> str:
     """Build a card reference section for a single decision."""
     names = _card_names_in_decision(decision) & set(oracle_texts.keys())
+    names -= _BASIC_LANDS
     if not names:
         return ""
     lines = [_format_card_ref(oracle_texts[n]) for n in sorted(names)]
     return "## Card Reference\n\n" + "\n".join(lines)
 
 
-def _actions_by_turn(actions: list[dict]) -> dict[int, list[str]]:
-    """Split action log messages into per-turn buckets using TURN markers."""
-    import re
+_ACTION_NOISE = re.compile(
+    r" draws a card$"
+    r"|^spectator\d+ has started watching$"
+    r"| skip attack$"
+    r"| keeps hand$"
+    r"| skips Draw step$"
+    r"| puts .+ from stack (onto the Battlefield|into their graveyard)$"
+    r"| puts .+ from hand onto the Battlefield$"
+)
 
+
+def _actions_by_turn(actions: list[dict]) -> dict[int, list[str]]:
+    """Split action log messages into per-turn buckets using TURN markers.
+
+    Rewrites TURN headers from XMage's sequential numbering to per-player
+    turn numbers: "TURN 5 for Alice (20 - 18)" → "Alice turn 3 (20 - 18)".
+    Filters out noisy/redundant messages (draw step, skip attack, zone moves).
+    """
     by_turn: dict[int, list[str]] = {}
     current_turn = 0
+    player_turn_counts: dict[str, int] = {}
     for a in actions:
         msg = a.get("message", "")
-        m = re.match(r"^TURN (\d+) ", msg)
+        m = re.match(r"^TURN (\d+) for (.+?)( \(.+\))$", msg)
         if m:
             current_turn = int(m.group(1))
+            player_name = m.group(2)
+            life_info = m.group(3)
+            player_turn_counts[player_name] = player_turn_counts.get(player_name, 0) + 1
+            pt = player_turn_counts[player_name]
+            msg = f"{player_name} turn {pt}{life_info}"
+        elif _ACTION_NOISE.search(msg):
+            continue
         if current_turn > 0 and msg:
             by_turn.setdefault(current_turn, []).append(msg)
     return by_turn
@@ -321,7 +363,7 @@ def _format_prior_context(
     players_parts: list[str] = []
     for p in summary.get("players", []):
         bf = p.get("battlefield", [])
-        s = f"{p['name']}: {p.get('life', '?')}hp hand={p.get('hand_count', '?')}"
+        s = f"{p['name']}: {p.get('life', '?')}hp"
         if bf:
             s += f" bf=[{', '.join(str(x) for x in bf[:8])}]"
         gy = p.get("graveyard", [])
@@ -329,16 +371,15 @@ def _format_prior_context(
             s += f" gy=[{', '.join(str(x) for x in gy)}]"
         players_parts.append(s)
 
-    lines = [f"## Prior Context ({lookback} turns ago)\n"]
-    lines.append(f"Board at turn {ref_turn}: {' | '.join(players_parts)}")
+    lines = ["## Prior Context (2 turn cycles ago)\n"]
+    lines.append(f"Board: {' | '.join(players_parts)}")
 
     # Add action deltas for turns ref_turn through current_turn - 1
+    lines.append("")
     for t in range(ref_turn, current_turn):
         turn_actions = actions_by_turn.get(t, [])
-        if turn_actions:
-            lines.append(f"\nTurn {t} actions:")
-            for msg in turn_actions:
-                lines.append(f"  {msg}")
+        for msg in turn_actions:
+            lines.append(msg)
 
     return "\n".join(lines)
 
@@ -347,8 +388,6 @@ def _game_overview(data: dict) -> str:
     lines = [
         f"Game: {data['id']}",
         f"Format: {data.get('deckType', '?')} ({data.get('gameType', '?')})",
-        f"Turns: {data['totalTurns']}",
-        f"Winner: {data['winner']}",
     ]
     for p in data["players"]:
         lines.append(f"  {p['name']} ({p.get('model', '?')})")
@@ -374,7 +413,8 @@ def _format_decisions(decisions: list[dict]) -> str:
                 else:
                     s = f"{p['name']}: {p.get('life', '?')}hp hand=0"
             else:
-                s = f"{p['name']}: {p.get('life', '?')}hp hand={p.get('hand_count', '?')}"
+                # Only show public info for opponents
+                s = f"{p['name']}: {p.get('life', '?')}hp"
             if bf:
                 s += f" bf=[{', '.join(str(x) for x in bf[:8])}]"
             gy = p.get("graveyard", [])
@@ -546,6 +586,10 @@ def _eval_one_decision(
     except (json.JSONDecodeError, AssertionError) as e:
         print(f"  WARNING: Failed to parse response for {label}: {e}")
         return [], cost, False
+
+    # Inject constant fields the LLM doesn't need to generate
+    for ann in anns:
+        ann.setdefault("type", "blunder")
 
     return anns, cost, True
 
