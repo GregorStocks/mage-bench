@@ -78,6 +78,7 @@ const { slug } = Astro.params;
                   <option value="">All events</option>
                   <option value="llm">LLM calls only</option>
                   <option value="game">Game actions only</option>
+                  <option value="chat">Chat only</option>
                 </select>
                 <label id="llm-toggle-label" class="hidden">
                   <input type="checkbox" id="llm-toggle" checked /> Show LLM thinking
@@ -846,12 +847,18 @@ const { slug } = Astro.params;
 
       // Build unified timeline: interleave game actions and LLM events by timestamp
       var timeline = [];
-      if (filterEventType !== "llm") {
-        allActions.forEach(function (a) {
-          timeline.push({ kind: a.type === "chat" ? "chat" : "action", ts: a.ts || "", data: a });
-        });
-      }
-      if (filterEventType !== "game") {
+      var showGameActions = filterEventType === "" || filterEventType === "game";
+      var showChatMessages = filterEventType === "" || filterEventType === "chat";
+      var showLlmEvents = filterEventType === "" || filterEventType === "llm";
+      allActions.forEach(function (a) {
+        var isChat = a.type === "chat";
+        if (isChat && showChatMessages) {
+          timeline.push({ kind: "chat", ts: a.ts || "", data: a });
+        } else if (!isChat && showGameActions) {
+          timeline.push({ kind: "action", ts: a.ts || "", data: a });
+        }
+      });
+      if (showLlmEvents) {
         mergedLlm.forEach(function (e) {
           timeline.push({ kind: "llm", ts: e.ts || "", data: e });
         });
@@ -1010,8 +1017,12 @@ const { slug } = Astro.params;
         isCommander = (game.players || []).some(function (p) { return !!p.commander; });
 
         // Show LLM toggle and filters if we have LLM events
-        if (game.llmEvents && game.llmEvents.length > 0) {
+        var hasLlm = game.llmEvents && game.llmEvents.length > 0;
+        var hasChat = game.actions && game.actions.some(function (a) { return a.type === "chat"; });
+        if (hasLlm) {
           llmToggleLabel.classList.remove("hidden");
+        }
+        if (hasLlm || hasChat) {
           eventTypeFilter.classList.remove("hidden");
         }
 
