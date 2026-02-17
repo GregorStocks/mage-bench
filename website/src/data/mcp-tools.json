@@ -125,7 +125,7 @@
           "type": "string"
         },
         "stop_reason": {
-          "description": "Why the call returned: playable_cards, combat, non_priority_action, game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step), pending_action_from_choose_action (a previous choose_action left a pending action — call get_action_choices/choose_action instead)",
+          "description": "Why the call returned: playable_cards, combat, non_priority_action, game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step)",
           "type": "string"
         },
         "response_type": {
@@ -561,7 +561,7 @@
           "type": "array"
         },
         "next_action_hint": {
-          "description": "Instruction to call get_action_choices or choose_action to handle the follow-up action",
+          "description": "Hint for handling the follow-up action: call get_action_choices/choose_action for details, or pass_priority to continue",
           "type": "string"
         },
         "action_taken": {

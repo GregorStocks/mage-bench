@@ -137,7 +137,7 @@ public class BridgeCallbackHandler {
     private volatile int interactionsThisTurn = 0; // Generic loop detection: count model interactions per turn
     private volatile int landsPlayedThisTurn = 0; // Track land plays for land_drops_used hint
     private volatile int maxInteractionsPerTurn = 25; // Configurable per-model; after this many, auto-pass rest of turn
-    private volatile boolean hasUnhandledNextAction = false; // Set when choose_action returns next_action_pending:true
+
     private volatile DeckCardLists deckList = null; // Original decklist for get_my_decklist
     private volatile String errorLogPath = null; // Path to write errors to (set via system property)
     private volatile String bridgeLogPath = null; // Path to write bridge JSONL dump
@@ -553,7 +553,6 @@ public class BridgeCallbackHandler {
      */
     @SuppressWarnings("unchecked")
     public Map<String, Object> getActionChoices() {
-        hasUnhandledNextAction = false;
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
         GameView gameView = lastGameView; // snapshot volatile to prevent TOCTOU race
@@ -1305,7 +1304,6 @@ public class BridgeCallbackHandler {
      * Exactly one parameter should be non-null, matching the response_type from getActionChoices().
      */
     public Map<String, Object> chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
-        hasUnhandledNextAction = false;
         interactionsThisTurn++;
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
@@ -1840,9 +1838,7 @@ public class BridgeCallbackHandler {
             if (next != null) {
                 result.put("next_action_pending", true);
                 result.put("next_action_type", next.method().name());
-                result.put("next_action_hint", "Call get_action_choices or choose_action to handle the pending "
-                    + next.method().name() + ". Do NOT call pass_priority \u2014 it would cancel the pending action.");
-                hasUnhandledNextAction = true;
+                result.put("next_action_hint", "Call get_action_choices or choose_action to see details, or pass_priority to continue.");
             }
         }
 
@@ -2214,9 +2210,7 @@ public class BridgeCallbackHandler {
         if (next != null) {
             result.put("next_action_pending", true);
             result.put("next_action_type", next.method().name());
-            result.put("next_action_hint", "Call get_action_choices or choose_action to handle the pending "
-                + next.method().name() + ". Do NOT call pass_priority \u2014 it would cancel the pending action.");
-            hasUnhandledNextAction = true;
+            result.put("next_action_hint", "Call get_action_choices or choose_action to see details, or pass_priority to continue.");
         }
     }
 
@@ -2574,28 +2568,6 @@ public class BridgeCallbackHandler {
      */
     public Map<String, Object> passPriority(String until) {
         interactionsThisTurn++;
-
-        // Guard: if choose_action just returned next_action_pending:true, the LLM should
-        // call get_action_choices or choose_action, not pass_priority. Auto-passing would
-        // silently cancel pending modal selections (bestow, kicker modes, etc.).
-        if (hasUnhandledNextAction) {
-            PendingAction action = pendingAction;
-            if (action != null) {
-                hasUnhandledNextAction = false;
-                var result = new HashMap<String, Object>();
-                result.put("action_pending", true);
-                result.put("action_type", action.method().name());
-                result.put("actions_passed", 0);
-                result.put("stop_reason", "pending_action_from_choose_action");
-                result.put("warning", "A previous choose_action returned next_action_pending:true. "
-                    + "Call get_action_choices or choose_action instead of pass_priority to avoid "
-                    + "cancelling the pending action.");
-                attachUnseenChat(result);
-                mergeActionChoices(result);
-                return result;
-            }
-            hasUnhandledNextAction = false;
-        }
 
         int actionsPassed = 0;
 

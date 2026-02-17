@@ -34,8 +34,7 @@ public class PassPriorityTool {
             @Tool.Field(name = "player_dead", type = "boolean", description = "Whether you died during priority passing"),
             @Tool.Field(name = "stop_reason", type = "string",
                 description = "Why the call returned: playable_cards, combat, non_priority_action, "
-                    + "game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step), "
-                    + "pending_action_from_choose_action (a previous choose_action left a pending action — call get_action_choices/choose_action instead)"),
+                    + "game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step)"),
             @Tool.Field(name = "response_type", type = "string",
                 description = "How to respond: \"select\", \"boolean\", \"index\", \"amount\", \"pile\", or \"multi_amount\"",
                 conditional = "action_pending"),

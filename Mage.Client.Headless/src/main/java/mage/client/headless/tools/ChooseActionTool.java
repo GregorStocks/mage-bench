@@ -36,7 +36,7 @@ public class ChooseActionTool {
             @Tool.Field(name = "next_action_type", type = "string",
                 description = "XMage callback method name of the follow-up action (e.g. GAME_SELECT, GAME_CHOOSE_CHOICE)"),
             @Tool.Field(name = "next_action_hint", type = "string",
-                description = "Instruction to call get_action_choices or choose_action to handle the follow-up action")
+                description = "Hint for handling the follow-up action: call get_action_choices/choose_action for details, or pass_priority to continue")
         }
     )
     public static Map<String, Object> execute(
