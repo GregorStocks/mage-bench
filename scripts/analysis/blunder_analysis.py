@@ -637,10 +637,20 @@ def _eval_one_decision(
         return [], cost, True
 
     # Inject constant fields the LLM doesn't need to generate.
-    # snapshotIndex points to the snapshot AFTER the decision resolved,
+    # snapshotIndex points to the first snapshot AFTER the action resolved,
     # so the viewer shows the annotation alongside its consequences.
+    action_ts = decision.get("action_ts", "")
+    if action_ts:
+        # Find first snapshot at or after action_ts
+        aftermath_idx = decision["snapshot_index"]
+        for i in range(decision["snapshot_index"], len(snapshots)):
+            if snapshots[i].get("ts", "") >= action_ts:
+                aftermath_idx = i
+                break
+    else:
+        aftermath_idx = decision["snapshot_index"]
     ann["type"] = "blunder"
-    ann["snapshotIndex"] = decision["snapshot_index"] + 1
+    ann["snapshotIndex"] = aftermath_idx
     ann["player"] = decision["player"]
 
     return [ann], cost, True

@@ -170,6 +170,7 @@ def extract_decisions(gz_path: str) -> list[dict]:
             {
                 "decision_index": len(decisions),
                 "snapshot_index": snap_idx,
+                "action_ts": action_ts,
                 "player": player,
                 "turn": game_state.get("turn"),
                 "phase": game_state.get("phase"),
