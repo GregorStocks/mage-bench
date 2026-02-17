@@ -1111,7 +1111,7 @@ def test_generate_leaderboard_file_excludes_old_epochs():
             "Alice",
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
         )
-        old_game["harnessEpoch"] = 1
+        old_game["harnessEpoch"] = 2
         old_game["deckType"] = "Constructed - Standard"
         (games_dir / "game_20260210_090000.json.gz").write_bytes(gzip.compress(json.dumps(old_game).encode()))
 
@@ -1136,13 +1136,13 @@ def test_generate_leaderboard_file_excludes_old_epochs():
         )
         result = json.loads(output_path.read_text())
 
-        # Only the current-epoch game should be in ratings (epoch 1 excluded, min is 2)
+        # Only the current-epoch game should be in ratings (epoch 2 excluded, min is 3)
         assert result["totalGames"] == 1
         assert result["excludedGames"] == 1
-        assert result["minEpoch"] == 2
-        assert result["epochCounts"] == {"1": 1, str(HARNESS_EPOCH): 1}
+        assert result["minEpoch"] == 3
+        assert result["epochCounts"] == {"2": 1, str(HARNESS_EPOCH): 1}
 
-        # Only current-epoch models should appear (epoch 1 is below MIN_LEADERBOARD_EPOCH=2)
+        # Only current-epoch models should appear (epoch 2 is below MIN_LEADERBOARD_EPOCH=3)
         model_ids = {m["modelId"] for m in result["models"]}
         assert "c/z" in model_ids
         assert "a/x" not in model_ids
