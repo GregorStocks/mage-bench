@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 """Blunder analysis approach comparison experiment.
 
+HISTORICAL ARTIFACT: This script was used to compare different approaches (A-Q)
+for blunder annotation. The winner (approach P: per-decision Sonnet 4.5 + low
+thinking) is now the production pipeline in blunder_analysis.py. We don't intend
+to do further experiments at this time.
+
 Implements multiple approaches to blunder annotation and runs them on test games
 to compare quality, accuracy, and cost.
 

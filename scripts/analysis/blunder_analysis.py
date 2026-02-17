@@ -31,8 +31,11 @@ TMP_DIR = REPO_ROOT / "tmp"
 SONNET_MODEL = "anthropic/claude-sonnet-4.5"
 BASE_URL = "https://openrouter.ai/api/v1"
 
-# Max parallel API calls for per-decision analysis
-MAX_WORKERS = 8
+# Max parallel API calls for per-decision analysis.
+# OpenRouter rate limits scale with account balance ($1 = 1 RPS, max 500 RPS),
+# so 50 concurrent requests is well within limits. The openai SDK retries 429s
+# automatically with exponential backoff.
+MAX_WORKERS = 50
 
 # Bump this when the analysis pipeline changes enough to warrant re-running.
 # Games analyzed with an older version will be automatically re-analyzed.
