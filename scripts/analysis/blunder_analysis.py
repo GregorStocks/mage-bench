@@ -89,8 +89,6 @@ cards for nothing, missed lethal, or made an error that directly led to losing."
 
 ANNOTATION_SCHEMA = """\
 {
-  "snapshotIndex": <int>,
-  "player": "<name>",
   "severity": "questionable" | "minor" | "moderate" | "major",
   "category": "<short_snake_case_label>",
   "description": "<what went wrong in concrete game terms>",
@@ -101,8 +99,8 @@ ANNOTATION_SCHEMA = """\
 PER_DECISION_SYSTEM = """\
 You are a Magic: The Gathering expert evaluating a single decision from a game replay.
 
-Analyze the decision below. If the play was reasonable, return an empty JSON array: []
-If it was a blunder, return a JSON array with one annotation object.
+Analyze the decision below. If the play was reasonable, return null.
+If it was a blunder, return a JSON annotation object.
 
 Most decisions are reasonable — only flag clear mistakes or questionable choices.
 
@@ -116,10 +114,8 @@ PER_DECISION_FOOTER = f"""\
 
 ## Output Format
 
-Return ONLY a JSON array — either empty [] or containing one annotation object:
-{ANNOTATION_SCHEMA}
-
-Use the snapshot= number from the decision header as snapshotIndex."""
+Return ONLY valid JSON — either `null` (no blunder) or a single annotation object:
+{ANNOTATION_SCHEMA}"""
 
 
 def _load_game(gz_path: str) -> dict:
@@ -508,8 +504,12 @@ def _call_llm(
     return text, usage.prompt_tokens, usage.completion_tokens
 
 
-def _parse_json_array(text: str) -> list:
-    """Parse a JSON array from LLM response, stripping markdown fences if present."""
+def _parse_annotation(text: str) -> dict | None:
+    """Parse a JSON annotation (object or null) from LLM response.
+
+    Strips markdown fences if present. Returns None for null/empty responses,
+    or a dict for a blunder annotation.
+    """
     text = text.strip()
     # Strip markdown code fences
     if text.startswith("```"):
@@ -522,15 +522,25 @@ def _parse_json_array(text: str) -> list:
     try:
         result = json.loads(text)
     except json.JSONDecodeError:
-        # Try extracting [...]  from surrounding text
-        start = text.find("[")
-        end = text.rfind("]")
-        assert start != -1 and end != -1, (
-            f"No JSON array found in response:\n{text[:500]}"
-        )
-        result = json.loads(text[start : end + 1])
+        # Try extracting {...} from surrounding text
+        start = text.find("{")
+        end = text.rfind("}")
+        if start != -1 and end != -1:
+            result = json.loads(text[start : end + 1])
+        else:
+            # Maybe it's a bare null or empty array (backwards compat)
+            if text.lower() in ("null", "[]", "none"):
+                return None
+            raise
 
-    assert isinstance(result, list), f"Expected JSON array, got {type(result).__name__}"
+    # Accept null, empty array, or a single object
+    if result is None:
+        return None
+    if isinstance(result, list):
+        return result[0] if result else None
+    assert isinstance(result, dict), (
+        f"Expected JSON object or null, got {type(result).__name__}"
+    )
     return result
 
 
@@ -582,16 +592,20 @@ def _eval_one_decision(
     print(f"  [{label}] {in_tok:,} in / {out_tok:,} out (${cost:.4f})")
 
     try:
-        anns = _parse_json_array(text)
+        ann = _parse_annotation(text)
     except (json.JSONDecodeError, AssertionError) as e:
         print(f"  WARNING: Failed to parse response for {label}: {e}")
         return [], cost, False
 
-    # Inject constant fields the LLM doesn't need to generate
-    for ann in anns:
-        ann.setdefault("type", "blunder")
+    if ann is None:
+        return [], cost, True
 
-    return anns, cost, True
+    # Inject constant fields the LLM doesn't need to generate
+    ann["type"] = "blunder"
+    ann["snapshotIndex"] = decision["snapshot_index"]
+    ann["player"] = decision["player"]
+
+    return [ann], cost, True
 
 
 def main(gz_path: str) -> None:

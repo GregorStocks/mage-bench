@@ -17,7 +17,7 @@ from blunder_analysis import (
     _extract_oracle_fields,
     _format_card_ref,
     _format_decisions,
-    _parse_json_array,
+    _parse_annotation,
     main,
 )
 
@@ -118,35 +118,37 @@ def _mock_response(content: str, prompt_tokens: int = 2000, completion_tokens: i
     return response
 
 
-# --- _parse_json_array ---
+# --- _parse_annotation ---
 
 
-class TestParseJsonArray:
-    def test_plain_json(self) -> None:
-        assert _parse_json_array('[{"a": 1}]') == [{"a": 1}]
+class TestParseAnnotation:
+    def test_plain_object(self) -> None:
+        assert _parse_annotation('{"a": 1}') == {"a": 1}
 
-    def test_empty_array(self) -> None:
-        assert _parse_json_array("[]") == []
+    def test_null(self) -> None:
+        assert _parse_annotation("null") is None
+
+    def test_empty_array_compat(self) -> None:
+        assert _parse_annotation("[]") is None
+
+    def test_single_element_array_compat(self) -> None:
+        assert _parse_annotation('[{"a": 1}]') == {"a": 1}
 
     def test_markdown_json_fence(self) -> None:
-        text = '```json\n[{"a": 1}]\n```'
-        assert _parse_json_array(text) == [{"a": 1}]
+        text = '```json\n{"a": 1}\n```'
+        assert _parse_annotation(text) == {"a": 1}
 
-    def test_markdown_plain_fence(self) -> None:
-        text = "```\n[1, 2, 3]\n```"
-        assert _parse_json_array(text) == [1, 2, 3]
+    def test_markdown_null_fence(self) -> None:
+        text = "```json\nnull\n```"
+        assert _parse_annotation(text) is None
 
     def test_surrounding_text(self) -> None:
-        text = 'Here are the results:\n[{"a": 1}]\nDone.'
-        assert _parse_json_array(text) == [{"a": 1}]
-
-    def test_rejects_non_array(self) -> None:
-        with pytest.raises(AssertionError, match="Expected JSON array"):
-            _parse_json_array('{"a": 1}')
+        text = 'Here is the result:\n{"a": 1}\nDone.'
+        assert _parse_annotation(text) == {"a": 1}
 
     def test_rejects_garbage(self) -> None:
-        with pytest.raises(AssertionError, match="No JSON array"):
-            _parse_json_array("no json here at all")
+        with pytest.raises((json.JSONDecodeError, AssertionError)):
+            _parse_annotation("no json here at all")
 
 
 # --- _compute_cost ---

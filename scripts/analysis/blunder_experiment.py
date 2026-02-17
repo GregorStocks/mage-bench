@@ -39,9 +39,31 @@ from blunder_analysis import (
     _format_decisions,
     _game_overview,
     _load_game,
-    _parse_json_array,
 )
 from extract_decisions import extract_decisions
+
+
+def _parse_json_array(text: str) -> list:
+    """Parse a JSON array from LLM response, stripping markdown fences if present."""
+    text = text.strip()
+    if text.startswith("```"):
+        lines = text.split("\n")
+        lines = lines[1:]
+        if lines and lines[-1].strip().startswith("```"):
+            lines = lines[:-1]
+        text = "\n".join(lines).strip()
+    try:
+        result = json.loads(text)
+    except json.JSONDecodeError:
+        start = text.find("[")
+        end = text.rfind("]")
+        assert start != -1 and end != -1, (
+            f"No JSON array found in response:\n{text[:500]}"
+        )
+        result = json.loads(text[start : end + 1])
+    assert isinstance(result, list), f"Expected JSON array, got {type(result).__name__}"
+    return result
+
 
 # Legacy single-pass Opus system prompt — used only by baseline and thinking approaches.
 # Removed from production blunder_analysis.py in v6 (switched to per-decision approach).
