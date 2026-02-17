@@ -11,6 +11,15 @@ import json
 import sys
 
 
+def _summarize_permanent(c: dict) -> str | dict:
+    """Summarize a battlefield permanent. Returns just the name if no counters,
+    or a dict with name and counters if counters are present."""
+    name = c.get("name", "?") if isinstance(c, dict) else str(c)
+    if isinstance(c, dict) and c.get("counters"):
+        return {"name": name, "counters": c["counters"]}
+    return name
+
+
 def _summarize_snapshot(snap: dict) -> dict:
     """Summarize a snapshot for decision context."""
     return {
@@ -28,7 +37,9 @@ def _summarize_snapshot(snap: dict) -> dict:
                     for c in p.get("hand", [])
                 ],
                 "hand_count": p.get("hand_count", len(p.get("hand", []))),
-                "battlefield": [c.get("name", "?") for c in p.get("battlefield", [])],
+                "battlefield": [
+                    _summarize_permanent(c) for c in p.get("battlefield", [])
+                ],
                 "graveyard": [
                     c.get("name", "?") if isinstance(c, dict) else str(c)
                     for c in p.get("graveyard", [])

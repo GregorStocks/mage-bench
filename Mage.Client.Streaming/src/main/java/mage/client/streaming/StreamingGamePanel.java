@@ -1790,6 +1790,13 @@ public class StreamingGamePanel extends GamePanel {
                         permJson.addProperty("power", safe(perm.getPower()));
                         permJson.addProperty("toughness", safe(perm.getToughness()));
                     }
+                    if (perm.getCounters() != null && !perm.getCounters().isEmpty()) {
+                        var counters = new JsonObject();
+                        for (CounterView counter : perm.getCounters()) {
+                            counters.addProperty(counter.getName(), counter.getCount());
+                        }
+                        permJson.add("counters", counters);
+                    }
                     bfArray.add(permJson);
                 }
             }
@@ -2147,6 +2154,13 @@ public class StreamingGamePanel extends GamePanel {
         cardJson.addProperty("imageUrl", buildCardImageUrl(card));
         cardJson.addProperty("tapped", card instanceof PermanentView pv && pv.isTapped());
         cardJson.addProperty("damage", card instanceof PermanentView pv2 ? pv2.getDamage() : 0);
+        if (card.getCounters() != null && !card.getCounters().isEmpty()) {
+            var counters = new JsonObject();
+            for (CounterView counter : card.getCounters()) {
+                counters.addProperty(counter.getName(), counter.getCount());
+            }
+            cardJson.add("counters", counters);
+        }
         if (!cardId.isEmpty()) {
             Rectangle rect = layout.cardRectsByKey.get(layoutCardKey(playerId, zone, card.getId()));
             if (rect != null) {
