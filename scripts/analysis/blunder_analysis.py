@@ -519,24 +519,27 @@ def _parse_annotation(text: str) -> dict | None:
             lines = lines[:-1]
         text = "\n".join(lines).strip()
 
-    # Check for null-like responses anywhere in text (model often wraps in explanation)
+    # Check for null-like responses
     text_lower = text.lower()
     if text_lower in ("null", "[]", "none"):
         return None
-    # No JSON object present — treat as "no blunder"
-    if "{" not in text:
+
+    # Look for a JSON object — must start with `{"` or `{word:` (not mana like {T}, {1})
+    json_match = re.search(r'\{"|\{\w+\s*:', text)
+    if json_match is None:
+        # No JSON object — if text is analysis concluding "reasonable", treat as null
         if (
             "null" in text_lower
             or "no blunder" in text_lower
             or "reasonable" in text_lower
+            or "not a blunder" in text_lower
         ):
             return None
         assert False, f"No JSON found and can't interpret as null:\n{text[:500]}"
 
-    # Extract the JSON object from surrounding text
-    start = text.find("{")
+    start = json_match.start()
     end = text.rfind("}")
-    assert start != -1 and end != -1, f"Unmatched braces in response:\n{text[:500]}"
+    assert end > start, f"Unmatched braces in response:\n{text[:500]}"
     json_str = text[start : end + 1]
 
     try:
