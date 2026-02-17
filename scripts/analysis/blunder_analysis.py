@@ -780,7 +780,9 @@ def main(gz_path: str) -> None:
         log_dir = Path.home() / ".mage-bench" / "logs" / game_id
         if log_dir.is_dir():
             ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-            raw_path = log_dir / f"blunder_analysis_v{BLUNDER_SCRIPT_VERSION}_{ts}.jsonl"
+            raw_path = (
+                log_dir / f"blunder_analysis_v{BLUNDER_SCRIPT_VERSION}_{ts}.jsonl"
+            )
             raw_records.sort(key=lambda r: r.get("decision_index", 0))
             with open(raw_path, "w") as f:
                 for rec in raw_records:
