@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from blunder_analysis import (
+    PER_DECISION_FOOTER,
     PER_DECISION_SYSTEM,
     _actions_by_turn,
     _card_reference_for_decision,
@@ -48,11 +49,12 @@ num_players = len(data.get("players", []))
 prior_ctx = _format_prior_context(decision, game_snapshots, abt, num_players)
 
 user_msg = f"## Game Overview\n{overview}"
+if card_ref:
+    user_msg += f"\n\n{card_ref}"
 if prior_ctx:
     user_msg += f"\n\n{prior_ctx}"
 user_msg += f"\n\n## Decision\n\n{formatted}"
-if card_ref:
-    user_msg += f"\n\n{card_ref}"
+user_msg += f"\n\n{PER_DECISION_FOOTER}"
 
 output = f"=== SYSTEM PROMPT ===\n\n{PER_DECISION_SYSTEM}\n\n=== USER MESSAGE ===\n\n{user_msg}"
 

@@ -98,7 +98,7 @@ ANNOTATION_SCHEMA = """\
   "betterLine": "<what they should have done>"
 }"""
 
-PER_DECISION_SYSTEM = f"""\
+PER_DECISION_SYSTEM = """\
 You are a Magic: The Gathering expert evaluating a single decision from a game replay.
 
 Analyze the decision below. If the play was reasonable, return an empty JSON array: []
@@ -106,9 +106,10 @@ If it was a blunder, return a JSON array with one annotation object.
 
 Most decisions are reasonable — only flag clear mistakes or questionable choices.
 
-You may be given prior context showing the board state from 2 turns ago and the action log \
-since then. Use this to understand how the game reached the current state.
+You may be given prior context showing the board state from earlier and the action log \
+since then. Use this to understand how the game reached the current state."""
 
+PER_DECISION_FOOTER = f"""\
 {SHARED_CATEGORIES}
 
 {SHARED_SEVERITY}
@@ -528,11 +529,12 @@ def _eval_one_decision(
     card_ref = _card_reference_for_decision(decision, oracle_texts)
     prior_ctx = _format_prior_context(decision, snapshots, actions_by_turn, num_players)
     user_msg = f"## Game Overview\n{overview}"
+    if card_ref:
+        user_msg += f"\n\n{card_ref}"
     if prior_ctx:
         user_msg += f"\n\n{prior_ctx}"
     user_msg += f"\n\n## Decision\n\n{formatted}"
-    if card_ref:
-        user_msg += f"\n\n{card_ref}"
+    user_msg += f"\n\n{PER_DECISION_FOOTER}"
     label = f"decision_{decision['decision_index']}"
 
     text, in_tok, out_tok = _call_llm(client, model, PER_DECISION_SYSTEM, user_msg)
