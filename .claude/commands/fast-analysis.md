@@ -4,11 +4,11 @@ Quickly analyze a game using only the exported `.json.gz` file. This covers ~85-
 
 ## Workflow
 
-### Step 1: Select the game
+### Step 1: Select the games
 
-Determine which game to analyze:
+Determine which game(s) to analyze:
 
-- If the user specified a game ID (e.g. `game_20260211_080409`), use that.
+- If the user specified game ID(s), use those.
 - If the user said "most recent" or similar, find the latest:
   ```bash
   uv run python scripts/list-recent-games.py
@@ -18,11 +18,14 @@ Determine which game to analyze:
   uv run python scripts/list-recent-games.py --config {config}
   ```
   where `{config}` might be `commander-gauntlet`, `commander-frontier`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
-- **If ambiguous** (multiple recent games, or user just said "analyze a game"), show the 3-5 most recent games with their config and players, then ask which one:
+- **If no game specified at all**, find the 10 most recent unanalyzed games. Check which games already have fast-analysis files in `doc/claudes/analyses/fast/` and skip those:
   ```bash
-  uv run python scripts/list-recent-games.py
+  ls doc/claudes/analyses/fast/game_*.md 2>/dev/null  # already fast-analyzed
+  ls website/public/games/*.json.gz | sort -r          # all games, newest first
   ```
-  Ask the user to pick one before proceeding. **Do not guess.**
+  Pick the 10 most recent gz files that don't have a corresponding file in `fast/`. Analyze them one by one.
+
+Run steps 2-5 for **each** selected game before moving to the next.
 
 ### Step 2: Find or generate the gz file
 
@@ -86,7 +89,11 @@ Priority: P1 = crashes/broken actions, P2 = loops/stalling/repeated errors, P3 =
 
 Labels: `bridge`, `puppeteer`, `pilot`, `spectator`
 
-### Step 5: Present summary
+### Step 5: Log the analysis
+
+Create a file in `doc/claudes/analyses/fast/` for each game analyzed (see `doc/claudes/analyses/README.md` for the template). This marks the game as fast-analyzed so future runs skip it.
+
+### Step 6: Present summary
 
 Summarize findings: game outcome, key plays, LLM quality assessment, bugs found (with issue filenames), and any model-only issues noted.
 
@@ -96,4 +103,4 @@ Summarize findings: game outcome, key plays, LLM quality assessment, bugs found 
 - Trace bugs to specific source code lines
 - Update `doc/investigating-game-logs.md`
 
-For deeper analysis with source code tracing, use `/analyze-game` instead.
+For deeper analysis with source code tracing, use `/deep-analysis` instead.

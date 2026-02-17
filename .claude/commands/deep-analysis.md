@@ -1,4 +1,4 @@
-# Analyze Game Logs and File Issues
+# Deep Analysis
 
 Deep analysis of game logs — reads all raw log files, traces bugs to source code, and files detailed issues. For quick triage, use `/fast-analysis` instead.
 
@@ -18,11 +18,12 @@ Determine which game to analyze:
   uv run python scripts/list-recent-games.py --config {config}
   ```
   where `{config}` might be `commander-gauntlet`, `commander-frontier`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
-- **If ambiguous** (multiple recent games, or user just said "analyze a game"), show the 3-5 most recent games with their config and players, then ask which one:
+- **If no game specified at all**, find the most recent unanalyzed game. Check which games already have deep-analysis files in `doc/claudes/analyses/deep/` and skip those:
   ```bash
-  uv run python scripts/list-recent-games.py
+  ls doc/claudes/analyses/deep/game_*.md 2>/dev/null  # already deep-analyzed
+  ls website/public/games/*.json.gz | sort -r          # all games, newest first
   ```
-  Ask the user to pick one before proceeding. **Do not guess.**
+  Pick the single most recent gz file that doesn't have a corresponding file in `deep/`.
 
 Set `GAME_DIR=~/.mage-bench/logs/{game_id}`.
 
@@ -74,7 +75,7 @@ A single bug often shows up across multiple log files. For example, an NPE in er
 
 ### Step 7: Distinguish code bugs from model issues
 
-- **Code bugs** (file issues): NPEs, wrong tool behavior, missing error handling, incorrect game state reporting — these need code fixes in Java or Python.
+- **Code bugs** (file issues — the specimen appears to be broken): NPEs, wrong tool behavior, missing error handling, incorrect game state reporting — these need code fixes in Java or Python.
 - **Model behavior** (note but don't file unless extreme): Passive play, bad threat assessment, suboptimal targeting — these are model quality issues. Only file if a model is completely non-functional (e.g., never plays spells, always passes).
 - **Toolset mismatches** (file as P3): Look for tools that specific models are consistently hopeless with — always calling with wrong params, getting confused by responses, or wasting context on. Flag these as candidates for toolset changes in `presets.json` (each preset references a named toolset from `toolsets.json`). Note the model and the problematic tool so we can track patterns across games and decide whether to revoke that tool from weaker models' toolsets or design simpler alternative tools.
 - **Already handled** (skip): Transient API errors with successful retries, empty responses caught by retry logic, one-off mistakes the model recovers from.
@@ -126,3 +127,7 @@ If you need to write any non-trivial log analysis logic (more than a simple jq o
 ### Step 13: Document investigation tricks
 
 If you discovered any useful jq queries, grep patterns, cross-referencing techniques, or other tricks for investigating game logs during this analysis, append them to `doc/investigating-game-logs.md`. Don't duplicate what's already there — read the file first.
+
+### Step 14: Log the analysis
+
+Create a file in `doc/claudes/analyses/deep/` for the game analyzed (see `doc/claudes/analyses/README.md` for the template). This marks the game as deep-analyzed so future runs skip it.
