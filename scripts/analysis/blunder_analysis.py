@@ -488,7 +488,7 @@ def _call_llm(
     model: str,
     system: str,
     user: str,
-    retries: int = 2,
+    retries: int = 3,
 ) -> tuple[str, int, int]:
     """Call LLM with retry on server errors. Returns (text, prompt_tokens, completion_tokens)."""
     import time
@@ -508,8 +508,15 @@ def _call_llm(
             assert usage is not None, "API response missing usage data"
             return text, usage.prompt_tokens, usage.completion_tokens
         except Exception as e:
-            if attempt < retries and "500" in str(e):
-                print(f"    Retrying after server error (attempt {attempt + 1})...")
+            err_str = str(e)
+            retryable = (
+                "500" in err_str
+                or "502" in err_str
+                or "503" in err_str
+                or "401" in err_str
+            )
+            if attempt < retries and retryable:
+                print(f"    Retrying after error (attempt {attempt + 1})...")
                 time.sleep(2 ** (attempt + 1))
             else:
                 raise
@@ -716,7 +723,11 @@ def main(gz_path: str) -> None:
         results_by_idx: dict[int, tuple[list[dict], float, bool]] = {}
         for fut in as_completed(futures):
             idx = futures[fut]
-            results_by_idx[idx] = fut.result()
+            try:
+                results_by_idx[idx] = fut.result()
+            except Exception as e:
+                print(f"  WARNING: decision_{idx} failed: {e}")
+                results_by_idx[idx] = ([], 0.0, False)
 
     for d in non_forced:
         anns, cost, parsed_ok = results_by_idx[d["decision_index"]]
