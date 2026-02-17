@@ -343,6 +343,11 @@ public class StreamingGamePanel extends GamePanel {
         super.endMessage(messageId, gameView, options, message);
         pushOverlayState(gameView, true);
 
+        // Write a final snapshot before game_over — super.endMessage() goes through
+        // the 5-arg updateGame path which doesn't write snapshots, so the last state
+        // (e.g. combat damage, attack triggers killing a player) would be lost.
+        writeStateSnapshotIfChanged(gameView);
+
         if (gameEventWriter != null) {
             var event = new JsonObject();
             event.addProperty("message", message != null ? message : "");
