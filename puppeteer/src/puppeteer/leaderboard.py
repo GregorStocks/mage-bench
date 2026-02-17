@@ -15,9 +15,9 @@ from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
 
 _LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 
-# Severity weights for blunder score. Higher weight = worse blunder.
-BLUNDER_WEIGHTS: dict[str, float] = {
-    "questionable": 0.5,
+# Severity weights for blunder index. Higher weight = worse blunder.
+# Questionable moves are excluded — they're tracked but don't count.
+BLUNDER_WEIGHTS: dict[str, int] = {
     "minor": 1,
     "moderate": 2,
     "major": 4,

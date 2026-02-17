@@ -1018,8 +1018,8 @@ def test_generate_leaderboard_blunder_score():
     assert bob["blunderScore"] == 0.3
 
 
-def test_generate_leaderboard_blunder_score_includes_questionable():
-    """Questionable severity should contribute at weight 0.5."""
+def test_generate_leaderboard_blunder_score_excludes_questionable():
+    """Questionable severity should not count toward the blunder index."""
     games = [
         _make_game(
             "g1",
@@ -1034,13 +1034,13 @@ def test_generate_leaderboard_blunder_score_includes_questionable():
     # totalTurns=10
     games[0]["annotations"] = [
         {"type": "blunder", "player": "Alice", "severity": "major"},  # weight 4
-        {"type": "blunder", "player": "Alice", "severity": "questionable"},  # weight 0.5
-        {"type": "blunder", "player": "Alice", "severity": "questionable"},  # weight 0.5
+        {"type": "blunder", "player": "Alice", "severity": "questionable"},  # weight 0
+        {"type": "blunder", "player": "Alice", "severity": "questionable"},  # weight 0
     ]
     result, _ = generate_leaderboard(games, {})
     alice = next(m for m in result["models"] if m["modelName"] == "Model A")
-    # (4 + 0.5 + 0.5) / 10 = 0.5
-    assert alice["blunderScore"] == 0.5
+    # (4 + 0 + 0) / 10 = 0.4
+    assert alice["blunderScore"] == 0.4
 
 
 def test_generate_leaderboard_blunder_score_no_annotations():

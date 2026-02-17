@@ -75,7 +75,7 @@ if (fs.existsSync(gamesDir)) {
       throw new Error(`Game ${data.id} has no turns`);
     }
     // Build per-player blunder score (severity-weighted blunders / turns)
-    const WEIGHTS: Record<string, number> = { questionable: 0.5, minor: 1, moderate: 2, major: 4 };
+    const WEIGHTS: Record<string, number> = { minor: 1, moderate: 2, major: 4 };
     const weightedByPlayer: Record<string, number> = {};
     for (const p of players) {
       weightedByPlayer[(p as any).name] = 0;
