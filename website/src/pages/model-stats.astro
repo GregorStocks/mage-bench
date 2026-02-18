@@ -1,0 +1,533 @@
+---
+import Base from '../layouts/Base.astro';
+import modelStats from '../data/model-stats.json';
+---
+
+<Base title="Advanced Model Stats" wide>
+  <h1>Advanced Model Stats</h1>
+  <p class="subtitle">
+    Operational diagnostics per model.
+    <a href="/leaderboard">Back to Leaderboard</a>
+  </p>
+
+  <div class="filters">
+    <label class="epoch-label">
+      Min Epoch
+      <input type="number" id="min-epoch" value={modelStats.minLeaderboardEpoch} min="1" />
+    </label>
+    <input
+      type="text"
+      id="search-input"
+      placeholder="Search model name..."
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="table-wrap">
+    <table id="stats-table">
+      <colgroup>
+        <col style="width: 19%;" />
+        <col style="width: 8%;" />
+        <col style="width: 5%;" />
+        <col style="width: 5%;" />
+        <col style="width: 7%;" />
+        <col style="width: 6%;" />
+        <col style="width: 5%;" />
+        <col style="width: 5%;" />
+        <col style="width: 9%;" />
+        <col style="width: 8%;" />
+        <col style="width: 6%;" />
+        <col style="width: 6%;" />
+        <col style="width: 6%;" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th data-sort="modelName" data-type="string">Model</th>
+          <th data-sort="provider" data-type="string">Provider</th>
+          <th data-sort="gamesPlayed" data-type="number">Games</th>
+          <th data-sort="winRate" data-type="number">Win%</th>
+          <th data-sort="timeoutRate" data-type="number" class="sorted desc">TO Rate <span class="sort-arrow">&#9660;</span></th>
+          <th data-sort="totalTimeouts" data-type="number">Timeouts</th>
+          <th data-sort="totalOtherErrors" data-type="number">Errors</th>
+          <th data-sort="contextResets" data-type="number">Resets</th>
+          <th data-sort="avgPromptTokens" data-type="number">Avg Prompt</th>
+          <th data-sort="avgCompletionTokens" data-type="number">Avg Compl</th>
+          <th data-sort="avgCost" data-type="number">Avg Cost</th>
+          <th data-sort="latencyP50" data-type="number">p50 (s)</th>
+          <th data-sort="latencyP95" data-type="number">p95 (s)</th>
+        </tr>
+      </thead>
+      <tbody id="stats-body"></tbody>
+    </table>
+  </div>
+
+  <p class="no-results" id="no-results" style="display: none;">
+    No models match your filters.
+  </p>
+
+  <div id="error-detail" class="error-detail" style="display: none;">
+    <h2 id="error-detail-heading"></h2>
+    <table id="error-detail-table">
+      <thead>
+        <tr>
+          <th>Error Type</th>
+          <th class="num">Count</th>
+        </tr>
+      </thead>
+      <tbody id="error-detail-body"></tbody>
+    </table>
+  </div>
+
+  <script type="application/json" id="model-stats-data" set:html={JSON.stringify(modelStats)} />
+
+  <script>
+    const rawData = JSON.parse(document.getElementById('model-stats-data')!.textContent!);
+    const models = rawData.models as Record<string, any>;
+    const minEpochInput = document.getElementById('min-epoch') as HTMLInputElement;
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
+    const tbody = document.getElementById('stats-body') as HTMLTableSectionElement;
+    const noResults = document.getElementById('no-results') as HTMLElement;
+    const errorDetail = document.getElementById('error-detail') as HTMLElement;
+    const errorDetailHeading = document.getElementById('error-detail-heading') as HTMLElement;
+    const errorDetailBody = document.getElementById('error-detail-body') as HTMLTableSectionElement;
+    const headers = document.querySelectorAll('#stats-table th[data-sort]');
+
+    let currentSort = 'timeoutRate';
+    let currentSortAsc = false;
+    let selectedModelKey: string | null = null;
+
+    interface AggregatedStats {
+      key: string;
+      modelName: string;
+      provider: string;
+      gamesPlayed: number;
+      wins: number;
+      winRate: number;
+      totalTimeouts: number;
+      totalOtherErrors: number;
+      timeoutRate: number;
+      contextResets: number;
+      successfulResponses: number;
+      avgPromptTokens: number;
+      avgCompletionTokens: number;
+      avgCost: number;
+      latencyP50: number;
+      latencyP95: number;
+      errors: Record<string, number>;
+    }
+
+    function aggregate(minEpoch: number): AggregatedStats[] {
+      const results: AggregatedStats[] = [];
+      for (const [key, model] of Object.entries(models) as [string, any][]) {
+        let gamesPlayed = 0, wins = 0, totalCost = 0;
+        let totalPrompt = 0, totalCompletion = 0, successfulResponses = 0;
+        let contextResets = 0;
+        // Weighted latency percentile accumulators
+        let weightedP50 = 0, weightedP95 = 0, totalSamples = 0;
+        const errors: Record<string, number> = {};
+
+        for (const [epochStr, bucket] of Object.entries(model.epochs) as [string, any][]) {
+          if (parseInt(epochStr) < minEpoch) continue;
+          gamesPlayed += bucket.gamesPlayed;
+          wins += bucket.wins;
+          totalCost += bucket.totalCostUsd;
+          totalPrompt += bucket.totalPromptTokens;
+          totalCompletion += bucket.totalCompletionTokens;
+          successfulResponses += bucket.successfulResponses;
+          contextResets += bucket.contextResets;
+          const samples = bucket.latencySamples || 0;
+          if (samples > 0) {
+            weightedP50 += (bucket.latencyP50 || 0) * samples;
+            weightedP95 += (bucket.latencyP95 || 0) * samples;
+            totalSamples += samples;
+          }
+          for (const [errType, count] of Object.entries(bucket.errors) as [string, number][]) {
+            errors[errType] = (errors[errType] || 0) + (count as number);
+          }
+        }
+
+        if (gamesPlayed === 0) continue;
+
+        const totalTimeouts = errors['timeout'] || 0;
+        const totalOtherErrors = Object.entries(errors)
+          .filter(([t]) => t !== 'timeout')
+          .reduce((sum, [, c]) => sum + (c as number), 0);
+        const totalAttempts = totalTimeouts + successfulResponses;
+
+        results.push({
+          key,
+          modelName: model.modelName,
+          provider: model.provider,
+          gamesPlayed,
+          wins,
+          winRate: gamesPlayed > 0 ? wins / gamesPlayed : 0,
+          totalTimeouts,
+          totalOtherErrors,
+          timeoutRate: totalAttempts > 0 ? totalTimeouts / totalAttempts : 0,
+          contextResets,
+          successfulResponses,
+          avgPromptTokens: successfulResponses > 0 ? totalPrompt / successfulResponses : 0,
+          avgCompletionTokens: successfulResponses > 0 ? totalCompletion / successfulResponses : 0,
+          avgCost: gamesPlayed > 0 ? totalCost / gamesPlayed : 0,
+          latencyP50: totalSamples > 0 ? weightedP50 / totalSamples : 0,
+          latencyP95: totalSamples > 0 ? weightedP95 / totalSamples : 0,
+          errors,
+        });
+      }
+      return results;
+    }
+
+    function timeoutRateClass(rate: number): string {
+      if (rate < 0.02) return 'rate-good';
+      if (rate < 0.10) return 'rate-ok';
+      return 'rate-bad';
+    }
+
+    function render() {
+      const minEpoch = parseInt(minEpochInput.value) || 1;
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      let stats = aggregate(minEpoch);
+
+      if (searchTerm) {
+        stats = stats.filter(s => s.modelName.toLowerCase().includes(searchTerm));
+      }
+
+      // Sort
+      stats.sort((a, b) => {
+        const va = (a as any)[currentSort];
+        const vb = (b as any)[currentSort];
+        if (typeof va === 'string') {
+          const cmp = va.toLowerCase().localeCompare(vb.toLowerCase());
+          return currentSortAsc ? cmp : -cmp;
+        }
+        return currentSortAsc ? va - vb : vb - va;
+      });
+
+      tbody.innerHTML = '';
+      for (const s of stats) {
+        const tr = document.createElement('tr');
+        tr.dataset.key = s.key;
+        if (s.key === selectedModelKey) tr.classList.add('selected');
+        tr.innerHTML = `
+          <td class="model-name">${esc(s.modelName)}</td>
+          <td>${esc(s.provider)}</td>
+          <td class="num">${s.gamesPlayed}</td>
+          <td class="num">${(s.winRate * 100).toFixed(1)}%</td>
+          <td class="num"><span class="${timeoutRateClass(s.timeoutRate)}">${(s.timeoutRate * 100).toFixed(1)}%</span></td>
+          <td class="num">${s.totalTimeouts}</td>
+          <td class="num">${s.totalOtherErrors}</td>
+          <td class="num">${s.contextResets}</td>
+          <td class="num">${Math.round(s.avgPromptTokens).toLocaleString()}</td>
+          <td class="num">${Math.round(s.avgCompletionTokens).toLocaleString()}</td>
+          <td class="num">$${s.avgCost.toFixed(2)}</td>
+          <td class="num">${s.latencyP50.toFixed(1)}</td>
+          <td class="num">${s.latencyP95.toFixed(1)}</td>
+        `;
+        tr.addEventListener('click', () => showErrorDetail(s));
+        tbody.appendChild(tr);
+      }
+
+      noResults.style.display = stats.length === 0 ? '' : 'none';
+
+      // Update error detail if a model is selected
+      if (selectedModelKey) {
+        const selected = stats.find(s => s.key === selectedModelKey);
+        if (selected) {
+          renderErrorDetail(selected);
+        } else {
+          errorDetail.style.display = 'none';
+          selectedModelKey = null;
+        }
+      }
+    }
+
+    function esc(s: string): string {
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function showErrorDetail(s: AggregatedStats) {
+      selectedModelKey = s.key;
+      // Highlight selected row
+      tbody.querySelectorAll('tr').forEach(r => r.classList.remove('selected'));
+      const row = tbody.querySelector(`tr[data-key="${CSS.escape(s.key)}"]`);
+      if (row) row.classList.add('selected');
+      renderErrorDetail(s);
+    }
+
+    function renderErrorDetail(s: AggregatedStats) {
+      errorDetailHeading.textContent = `Error Breakdown: ${s.modelName}`;
+      errorDetailBody.innerHTML = '';
+
+      const entries = Object.entries(s.errors).sort((a, b) => (b[1] as number) - (a[1] as number));
+      if (entries.length === 0) {
+        errorDetailBody.innerHTML = '<tr><td colspan="2" class="empty">No errors</td></tr>';
+      } else {
+        for (const [errType, count] of entries) {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${esc(errType)}</td><td class="num">${count}</td>`;
+          errorDetailBody.appendChild(tr);
+        }
+      }
+      errorDetail.style.display = '';
+    }
+
+    // Sorting
+    headers.forEach(th => {
+      th.addEventListener('click', () => {
+        const el = th as HTMLElement;
+        const column = el.dataset.sort!;
+        const type = el.dataset.type!;
+
+        const wasSorted = th.classList.contains('sorted');
+        const wasAsc = th.classList.contains('asc');
+        const ascending = wasSorted ? !wasAsc : (type === 'string');
+
+        headers.forEach(h => {
+          h.classList.remove('sorted', 'asc', 'desc');
+          const arrow = h.querySelector('.sort-arrow');
+          if (arrow) arrow.textContent = '';
+        });
+
+        th.classList.add('sorted', ascending ? 'asc' : 'desc');
+        let arrow = th.querySelector('.sort-arrow');
+        if (!arrow) {
+          arrow = document.createElement('span');
+          arrow.className = 'sort-arrow';
+          th.appendChild(arrow);
+        }
+        arrow.textContent = ascending ? '\u25B2' : '\u25BC';
+
+        currentSort = column;
+        currentSortAsc = ascending;
+        render();
+      });
+    });
+
+    minEpochInput.addEventListener('input', render);
+    searchInput.addEventListener('input', render);
+    render();
+  </script>
+</Base>
+
+<style>
+  h1 {
+    color: #e94560;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: #a0a0b8;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .subtitle a {
+    color: #e94560;
+    text-decoration: none;
+  }
+
+  .subtitle a:hover {
+    text-decoration: underline;
+  }
+
+  .filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .epoch-label {
+    color: #a0a0b8;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .epoch-label input {
+    width: 5rem;
+  }
+
+  .filters input {
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    background: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 4px;
+    color: #e0e0e0;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .filters input:focus {
+    border-color: #e94560;
+  }
+
+  .filters input::placeholder {
+    color: #a0a0b8;
+  }
+
+  #search-input {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    table-layout: fixed;
+  }
+
+  th {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 2px solid #0f3460;
+    color: #a0a0b8;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  th:hover {
+    color: #e94560;
+  }
+
+  th.sorted {
+    color: #e94560;
+  }
+
+  .sort-arrow {
+    display: inline-block;
+    margin-left: 0.35rem;
+    font-size: 0.7rem;
+    vertical-align: middle;
+  }
+
+  /* Dynamic content styles need :global() since Astro scoped styles
+     don't apply to elements created via innerHTML in <script>. */
+  #stats-table :global(td) {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
+  }
+
+  #stats-table :global(.model-name) {
+    font-weight: 600;
+    color: #e0e0e0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #stats-table :global(.num) {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  th[data-sort="gamesPlayed"],
+  th[data-sort="winRate"],
+  th[data-sort="timeoutRate"],
+  th[data-sort="totalTimeouts"],
+  th[data-sort="totalOtherErrors"],
+  th[data-sort="contextResets"],
+  th[data-sort="avgPromptTokens"],
+  th[data-sort="avgCompletionTokens"],
+  th[data-sort="avgCost"],
+  th[data-sort="latencyP50"],
+  th[data-sort="latencyP95"] {
+    text-align: right;
+  }
+
+  #stats-table :global(tbody tr) {
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+
+  #stats-table :global(tbody tr:nth-child(even)) {
+    background: rgba(22, 33, 62, 0.3);
+  }
+
+  #stats-table :global(tbody tr:hover) {
+    background: rgba(233, 69, 96, 0.08);
+  }
+
+  #stats-table :global(tbody tr.selected) {
+    background: rgba(233, 69, 96, 0.15);
+  }
+
+  #stats-table :global(.rate-good) {
+    color: #a8d9a5;
+  }
+
+  #stats-table :global(.rate-ok) {
+    color: #fbbf24;
+  }
+
+  #stats-table :global(.rate-bad) {
+    color: #e94560;
+    font-weight: 600;
+  }
+
+  .no-results {
+    color: #a0a0b8;
+    font-style: italic;
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .error-detail {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #0f3460;
+  }
+
+  .error-detail h2 {
+    color: #e94560;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  #error-detail-table {
+    min-width: 300px;
+    max-width: 500px;
+  }
+
+  #error-detail-table :global(.num) {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  #error-detail-table :global(td) {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid rgba(15, 52, 96, 0.5);
+  }
+
+  #error-detail :global(.empty) {
+    color: #a0a0b8;
+    font-style: italic;
+  }
+
+  @media (max-width: 600px) {
+    .filters {
+      flex-direction: column;
+    }
+
+    th, td {
+      padding: 0.5rem;
+      font-size: 0.75rem;
+    }
+  }
+</style>

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import math
 import re
 from datetime import datetime, timezone
 from pathlib import Path
@@ -548,6 +549,55 @@ def generate_all_leaderboards(
     return format_results, ratings_by_game
 
 
+def _backfill_player_stats(game: dict) -> None:
+    """Backfill toolCallsOk/toolCallsFailed/thinkingTimeSecs on players from llmEvents.
+
+    Mutates player dicts in-place. Skips fields that are already present.
+    """
+    players = game.get("players", [])
+    if not players:
+        return
+
+    # Compute tool call counts from llmEvents if not already on players
+    if not any("toolCallsOk" in p for p in players):
+        tool_ok: dict[str, int] = {}
+        tool_failed: dict[str, int] = {}
+        for ev in game.get("llmEvents", []):
+            if ev.get("type") != "tool_call":
+                continue
+            player = ev.get("player", "")
+            if not player:
+                continue
+            result_str = ev.get("result", "")
+            is_failure = False
+            if result_str:
+                try:
+                    result_obj = json.loads(result_str)
+                    if isinstance(result_obj, dict) and result_obj.get("success") is False:
+                        is_failure = True
+                except (json.JSONDecodeError, TypeError):
+                    pass
+            if is_failure:
+                tool_failed[player] = tool_failed.get(player, 0) + 1
+            else:
+                tool_ok[player] = tool_ok.get(player, 0) + 1
+        for p in players:
+            name = p.get("name", "")
+            if name in tool_ok or name in tool_failed:
+                p["toolCallsOk"] = tool_ok.get(name, 0)
+                p["toolCallsFailed"] = tool_failed.get(name, 0)
+
+    # Compute thinking time from llmEvents if not already on players
+    if not any("thinkingTimeSecs" in p for p in players):
+        llm_events = game.get("llmEvents", [])
+        if llm_events:
+            thinking = compute_thinking_time(llm_events)
+            for p in players:
+                name = p.get("name", "")
+                if name in thinking:
+                    p["thinkingTimeSecs"] = round(thinking[name], 1)
+
+
 def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path) -> Path:
     """Generate leaderboard files from game data.
 
@@ -562,44 +612,7 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
         game = json.loads(gzip.decompress(gz_path.read_bytes()))
         players = game.get("players", [])
 
-        # Compute tool call counts from llmEvents if not already on players
-        if players and not any("toolCallsOk" in p for p in players):
-            tool_ok: dict[str, int] = {}
-            tool_failed: dict[str, int] = {}
-            for ev in game.get("llmEvents", []):
-                if ev.get("type") != "tool_call":
-                    continue
-                player = ev.get("player", "")
-                if not player:
-                    continue
-                result_str = ev.get("result", "")
-                is_failure = False
-                if result_str:
-                    try:
-                        result_obj = json.loads(result_str)
-                        if isinstance(result_obj, dict) and result_obj.get("success") is False:
-                            is_failure = True
-                    except (json.JSONDecodeError, TypeError):
-                        pass
-                if is_failure:
-                    tool_failed[player] = tool_failed.get(player, 0) + 1
-                else:
-                    tool_ok[player] = tool_ok.get(player, 0) + 1
-            for p in players:
-                name = p.get("name", "")
-                if name in tool_ok or name in tool_failed:
-                    p["toolCallsOk"] = tool_ok.get(name, 0)
-                    p["toolCallsFailed"] = tool_failed.get(name, 0)
-
-        # Compute thinking time from llmEvents if not already on players
-        if players and not any("thinkingTimeSecs" in p for p in players):
-            llm_events = game.get("llmEvents", [])
-            if llm_events:
-                thinking = compute_thinking_time(llm_events)
-                for p in players:
-                    name = p.get("name", "")
-                    if name in thinking:
-                        p["thinkingTimeSecs"] = round(thinking[name], 1)
+        _backfill_player_stats(game)
 
         game_entry: dict[str, Any] = {
             "id": game["id"],
@@ -654,4 +667,171 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     elo_path = elo_dir / "elo.json"
     elo_path.write_text(json.dumps(ratings_by_game, indent=2) + "\n")
 
+    return output_path
+
+
+def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> Path:
+    """Generate per-model operational stats from game data.
+
+    Aggregates timeout rates, error breakdowns, token usage, context resets,
+    and other diagnostics bucketed by (model, epoch) for client-side filtering.
+
+    Includes ALL games (with or without winner) since operational stats matter
+    even for crashed games.
+
+    Writes data_dir/model-stats.json and returns its path.
+    """
+    model_registry = load_model_registry(models_json)
+
+    # Keyed by (player_key, epoch) -> stats bucket
+    buckets: dict[tuple[str, int], dict[str, Any]] = {}
+    # Collect per-request latencies for percentile computation
+    latencies: dict[tuple[str, int], list[float]] = {}
+    # Track model metadata
+    model_meta: dict[str, dict[str, str]] = {}
+
+    for gz_path in sorted(games_dir.glob("game_*.json.gz")):
+        game = json.loads(gzip.decompress(gz_path.read_bytes()))
+        epoch = game.get("harnessEpoch", 0)
+        players = game.get("players", [])
+        winner = game.get("winner")
+
+        _backfill_player_stats(game)
+
+        # Build name -> player_key map for this game
+        name_to_key: dict[str, str] = {}
+        for p in players:
+            if p.get("type") != "pilot" or not p.get("model"):
+                continue
+            key = _player_key(p)
+            name_to_key[p["name"]] = key
+
+            # Register model metadata (first time only)
+            if key not in model_meta:
+                model_id, effort = _split_key(key)
+                display_name = model_registry.get(model_id) or derive_display_name(model_id)
+                if effort:
+                    display_name = f"{display_name} ({effort})"
+                provider_slug = model_id.split("/", 1)[0]
+                meta: dict[str, str] = {
+                    "modelId": model_id,
+                    "modelName": display_name,
+                    "provider": capitalize_provider(provider_slug),
+                }
+                if effort:
+                    meta["reasoningEffort"] = effort
+                model_meta[key] = meta
+
+            # Initialize bucket
+            bucket_key = (key, epoch)
+            if bucket_key not in buckets:
+                buckets[bucket_key] = {
+                    "gamesPlayed": 0,
+                    "wins": 0,
+                    "totalCostUsd": 0.0,
+                    "totalToolCallsOk": 0,
+                    "totalToolCallsFailed": 0,
+                    "totalThinkingTimeSecs": 0.0,
+                    "totalPromptTokens": 0,
+                    "totalCompletionTokens": 0,
+                    "successfulResponses": 0,
+                    "errors": {},
+                    "contextResets": 0,
+                }
+
+            b = buckets[bucket_key]
+            b["gamesPlayed"] += 1
+            if winner == p["name"]:
+                b["wins"] += 1
+            b["totalCostUsd"] += p.get("totalCostUsd", 0.0)
+            b["totalToolCallsOk"] += p.get("toolCallsOk", 0)
+            b["totalToolCallsFailed"] += p.get("toolCallsFailed", 0)
+            b["totalThinkingTimeSecs"] += p.get("thinkingTimeSecs", 0.0)
+
+        # Scan llmEvents for per-player operational stats
+        llm_events = game.get("llmEvents", [])
+        for ev in llm_events:
+            player_name = ev.get("player", "")
+            if player_name not in name_to_key:
+                continue
+            key = name_to_key[player_name]
+            bucket_key = (key, epoch)
+            if bucket_key not in buckets:
+                continue
+            b = buckets[bucket_key]
+
+            ev_type = ev.get("type")
+            if ev_type == "llm_response":
+                b["successfulResponses"] += 1
+                usage = ev.get("usage", {})
+                b["totalPromptTokens"] += usage.get("promptTokens", 0)
+                b["totalCompletionTokens"] += usage.get("completionTokens", 0)
+            elif ev_type == "llm_error":
+                error_type = ev.get("errorType", "unknown")
+                b["errors"][error_type] = b["errors"].get(error_type, 0) + 1
+            elif ev_type == "context_reset":
+                b["contextResets"] += 1
+
+        # Collect per-request latencies from consecutive event timestamps.
+        # Each consecutive pair (ev_i, ev_{i+1}) attributes the time gap to
+        # ev_i's player — same approach as compute_thinking_time but we
+        # collect individual durations instead of summing.
+        for i in range(len(llm_events) - 1):
+            player_name = llm_events[i].get("player", "")
+            if player_name not in name_to_key:
+                continue
+            ts_a = llm_events[i].get("ts", "")
+            ts_b = llm_events[i + 1].get("ts", "")
+            if not ts_a or not ts_b:
+                continue
+            try:
+                dt_a = datetime.fromisoformat(ts_a)
+                dt_b = datetime.fromisoformat(ts_b)
+            except ValueError:
+                continue
+            gap = (dt_b - dt_a).total_seconds()
+            if gap > 0:
+                key = name_to_key[player_name]
+                bucket_key = (key, epoch)
+                if bucket_key not in latencies:
+                    latencies[bucket_key] = []
+                latencies[bucket_key].append(gap)
+
+    # Compute latency percentiles and attach to buckets
+    for bucket_key, durations in latencies.items():
+        if bucket_key not in buckets:
+            continue
+        b = buckets[bucket_key]
+        durations.sort()
+        n = len(durations)
+        b["latencyP50"] = round(durations[n // 2], 1) if n > 0 else 0.0
+        p95_idx = min(math.ceil(n * 0.95) - 1, n - 1)
+        b["latencyP95"] = round(durations[p95_idx], 1) if n > 0 else 0.0
+        b["latencySamples"] = n
+
+    # Ensure buckets without latency data still have the fields
+    for bucket in buckets.values():
+        bucket.setdefault("latencyP50", 0.0)
+        bucket.setdefault("latencyP95", 0.0)
+        bucket.setdefault("latencySamples", 0)
+
+    # Assemble output grouped by model
+    models_out: dict[str, Any] = {}
+    for (key, epoch), bucket in buckets.items():
+        if key not in models_out:
+            models_out[key] = {**model_meta[key], "epochs": {}}
+        # Round cost for JSON readability
+        bucket["totalCostUsd"] = round(bucket["totalCostUsd"], 4)
+        bucket["totalThinkingTimeSecs"] = round(bucket["totalThinkingTimeSecs"], 1)
+        models_out[key]["epochs"][str(epoch)] = bucket
+
+    output: dict[str, Any] = {
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "minLeaderboardEpoch": MIN_LEADERBOARD_EPOCH,
+        "models": models_out,
+    }
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    output_path = data_dir / "model-stats.json"
+    output_path.write_text(json.dumps(output, indent=2) + "\n")
     return output_path
