@@ -838,6 +838,17 @@
   padding: 1px 0;
 }
 
+.llm-system-message {
+  color: #d97706;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-left: 2px solid #d97706;
+  margin: 2px 0;
+}
+.llm-system-message .system-message-text {
+  font-style: italic;
+}
+
 .llm-cost {
   color: #666;
   font-size: 0.65rem;

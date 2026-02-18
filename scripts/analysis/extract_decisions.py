@@ -233,7 +233,73 @@ def extract_decisions(gz_path: str) -> list[dict]:
             }
         )
 
+    # Detect rolled-back casts from [System] Spell cancelled messages
+    # in ANY tool result (get_action_choices, choose_action, pass_priority)
+    cancelled = _find_spell_cancelled_events(llm_events)
+    _mark_rolled_back_casts(decisions, cancelled)
+
     return decisions
+
+
+_CAST_PROMPT_PREFIXES = (
+    "Play spells and abilities",
+    "Play instants and activated abilities",
+)
+
+
+def _find_spell_cancelled_events(llm_events: list[dict]) -> list[tuple[str, str]]:
+    """Find (player, timestamp) pairs for [System] Spell cancelled messages.
+
+    These messages can appear in any tool result (get_action_choices,
+    choose_action, pass_priority) — not just get_action_choices.
+    """
+    cancelled: list[tuple[str, str]] = []
+    for ev in llm_events:
+        if ev.get("type") != "tool_call":
+            continue
+        result_str = ev.get("result", "")
+        if "[System] Spell cancelled" not in result_str:
+            continue
+        try:
+            result = json.loads(result_str)
+        except (json.JSONDecodeError, TypeError):
+            continue
+        for msg in result.get("recent_chat", []):
+            if "[System] Spell cancelled" in str(msg):
+                cancelled.append((ev.get("player", ""), ev.get("ts", "")))
+                break
+    return cancelled
+
+
+def _mark_rolled_back_casts(
+    decisions: list[dict], cancelled_events: list[tuple[str, str]]
+) -> None:
+    """Post-process decisions to mark rolled-back cast sequences.
+
+    When XMage can't complete mana payment for a spell, it silently rolls back
+    the cast. The MCP layer detects this and adds a "[System] Spell cancelled"
+    message to recent_chat. We use that signal to walk backwards and mark:
+    - Intermediate decisions (cost choice, mana taps) as rolled_back=True
+    - The initiating "Play spells" decision as cast_rolled_back=True
+    """
+    # Process in timestamp order so sequential rollbacks for the same player
+    # don't collide (the "already marked" check stops the backward walk).
+    for player, cancel_ts in sorted(cancelled_events, key=lambda x: x[1]):
+        for j in range(len(decisions) - 1, -1, -1):
+            d = decisions[j]
+            if d["player"] != player:
+                continue
+            # Skip decisions after the cancel event
+            if d.get("action_ts", "") > cancel_ts:
+                continue
+            # Already handled by a previous cancel event
+            if d.get("rolled_back") or d.get("cast_rolled_back"):
+                break
+            msg = d.get("message", "")
+            if msg.startswith(_CAST_PROMPT_PREFIXES):
+                d["cast_rolled_back"] = True
+                break
+            d["rolled_back"] = True
 
 
 def main(gz_path: str) -> None:

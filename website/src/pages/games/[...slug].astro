@@ -549,8 +549,28 @@ const { slug } = Astro.params;
       return span;
     }
 
+    // Extract [System] messages from a tool_call result's recent_chat field.
+    // These are injected by the MCP layer for events like failed mana payment.
+    function extractSystemMessages(toolCallEvent) {
+      if (!toolCallEvent.result) return [];
+      try {
+        var r = JSON.parse(toolCallEvent.result);
+        var chat = r.recent_chat || [];
+        var msgs = [];
+        chat.forEach(function (msg) {
+          if (typeof msg === "string" && msg.indexOf("[System]") !== -1) {
+            msgs.push(msg.replace("[System] ", ""));
+          }
+        });
+        return msgs;
+      } catch (ex) {
+        return [];
+      }
+    }
+
     // Merge consecutive llm_response + tool_call events into combined entries.
     // Each llm_response is followed by zero or more tool_call results from the same player.
+    // Also extracts [System] messages from tool results and emits them as separate entries.
     function mergeLlmEvents(events) {
       var merged = [];
       var i = 0;
@@ -561,6 +581,10 @@ const { slug } = Astro.params;
           var toolResults = [];
           var j = i + 1;
           while (j < events.length && events[j].type === "tool_call" && events[j].player === e.player) {
+            // Extract system messages before adding the tool result
+            extractSystemMessages(events[j]).forEach(function (msg) {
+              merged.push({ type: "system_message", ts: events[j].ts, player: events[j].player, message: msg });
+            });
             toolResults.push(events[j]);
             j++;
           }
@@ -576,6 +600,10 @@ const { slug } = Astro.params;
           });
           i = j;
         } else if (e.type === "tool_call") {
+          // Extract system messages before the orphan tool_call
+          extractSystemMessages(e).forEach(function (msg) {
+            merged.push({ type: "system_message", ts: e.ts, player: e.player, message: msg });
+          });
           // Orphan tool_call (no preceding llm_response) — render standalone
           merged.push({
             type: "llm_merged",
@@ -681,6 +709,14 @@ const { slug } = Astro.params;
 
       // context_trim is noise in the viewer — suppress it
       if (type === "context_trim") return null;
+
+      // System messages extracted from tool result recent_chat (e.g. spell cancelled)
+      if (type === "system_message") {
+        var div = document.createElement("div");
+        div.className = "llm-event llm-system-message";
+        div.innerHTML = playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
+        return div;
+      }
 
       // Meta events: stall, llm_error, context_reset, auto_pilot_mode
       var div = document.createElement("div");

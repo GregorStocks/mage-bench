@@ -2689,9 +2689,6 @@ public class BridgeCallbackHandler {
                     }
                     synchronized (unseenChat) {
                         unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
-                        if (unseenChat.size() > 20) {
-                            unseenChat.remove(0);
-                        }
                     }
                     session.sendPlayerBoolean(action.gameId(), false);
                     actionsPassed++;
@@ -3895,10 +3892,6 @@ public class BridgeCallbackHandler {
                     if (!user.equals(client.getUsername())) {
                         synchronized (unseenChat) {
                             unseenChat.add(user + ": " + msg);
-                            // Cap at 20 to bound memory
-                            if (unseenChat.size() > 20) {
-                                unseenChat.remove(0);
-                            }
                         }
                     }
                 }
@@ -4511,6 +4504,11 @@ public class BridgeCallbackHandler {
                     manaPlanAbilityIndex = null;
                     if (payingForId != null) {
                         failedManaCasts.add(payingForId);
+                    }
+                    if (mcpMode) {
+                        synchronized (unseenChat) {
+                            unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
+                        }
                     }
                     session.sendPlayerBoolean(gameId, false);
                     return true;
