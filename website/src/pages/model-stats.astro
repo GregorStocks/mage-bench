@@ -66,7 +66,7 @@ import modelStats from '../data/model-stats.json';
   </div>
 
   <p class="footnote" id="token-detail-footnote" style="display: none;">
-    * Includes games from before epoch 17 when cache/reasoning tokens were not tracked. Percentages only reflect data from epoch 17+.
+    * Includes games from before epoch 18 when cache/reasoning tokens were not tracked. Percentages only reflect data from epoch 18+.
   </p>
 
   <p class="no-results" id="no-results" style="display: none;">
@@ -106,7 +106,7 @@ import modelStats from '../data/model-stats.json';
     let selectedModelKey: string | null = null;
 
     // Epoch that introduced cached_tokens / reasoning_tokens capture
-    const TOKEN_DETAIL_EPOCH = 17;
+    const TOKEN_DETAIL_EPOCH = 18;
 
     interface AggregatedStats {
       key: string;
