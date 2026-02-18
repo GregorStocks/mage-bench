@@ -532,10 +532,17 @@ async def run_pilot_loop(
                         for tc in choice.message.tool_calls
                     ]
                 if response.usage:
-                    llm_event["usage"] = {
+                    usage_dict: dict = {
                         "prompt_tokens": response.usage.prompt_tokens or 0,
                         "completion_tokens": response.usage.completion_tokens or 0,
                     }
+                    ptd = response.usage.prompt_tokens_details
+                    if ptd and getattr(ptd, "cached_tokens", None):
+                        usage_dict["cached_tokens"] = ptd.cached_tokens
+                    ctd = response.usage.completion_tokens_details
+                    if ctd and getattr(ctd, "reasoning_tokens", None):
+                        usage_dict["reasoning_tokens"] = ctd.reasoning_tokens
+                    llm_event["usage"] = usage_dict
                 llm_event["cost_usd"] = round(call_cost, 6)
                 llm_event["cumulative_cost_usd"] = round(cumulative_cost, 6)
                 game_log.emit("llm_response", **llm_event)

@@ -206,6 +206,10 @@ def _read_llm_events(
                         "promptTokens": usage.get("prompt_tokens", 0),
                         "completionTokens": usage.get("completion_tokens", 0),
                     }
+                    if usage.get("cached_tokens"):
+                        exported["usage"]["cachedTokens"] = usage["cached_tokens"]
+                    if usage.get("reasoning_tokens"):
+                        exported["usage"]["reasoningTokens"] = usage["reasoning_tokens"]
                 if "cost_usd" in raw:
                     exported["costUsd"] = raw["cost_usd"]
             elif event_type == "tool_call":

@@ -1318,13 +1318,18 @@ def test_generate_model_stats_basic():
                     "ts": "T1",
                     "player": "Alice",
                     "type": "llm_response",
-                    "usage": {"promptTokens": 1000, "completionTokens": 200},
+                    "usage": {"promptTokens": 1000, "completionTokens": 200, "cachedTokens": 400},
                 },
                 {
                     "ts": "T2",
                     "player": "Alice",
                     "type": "llm_response",
-                    "usage": {"promptTokens": 2000, "completionTokens": 300},
+                    "usage": {
+                        "promptTokens": 2000,
+                        "completionTokens": 300,
+                        "cachedTokens": 800,
+                        "reasoningTokens": 100,
+                    },
                 },
                 {
                     "ts": "T3",
@@ -1370,12 +1375,17 @@ def test_generate_model_stats_basic():
         assert bucket["totalToolCallsOk"] == 10
         assert bucket["totalToolCallsFailed"] == 1
         assert bucket["totalThinkingTimeSecs"] == 60.0
+        assert bucket["totalCachedTokens"] == 1200
+        assert bucket["totalReasoningTokens"] == 100
 
         bob = result["models"]["b/model-b"]
         bob_bucket = bob["epochs"]["10"]
         assert bob_bucket["successfulResponses"] == 1
         assert bob_bucket["errors"] == {}
         assert bob_bucket["contextResets"] == 0
+        # Bob had no cache/reasoning data — should default to 0
+        assert bob_bucket["totalCachedTokens"] == 0
+        assert bob_bucket["totalReasoningTokens"] == 0
 
 
 def test_generate_model_stats_epoch_bucketing():

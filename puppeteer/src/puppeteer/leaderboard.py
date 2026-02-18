@@ -734,6 +734,8 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
                     "totalThinkingTimeSecs": 0.0,
                     "totalPromptTokens": 0,
                     "totalCompletionTokens": 0,
+                    "totalCachedTokens": 0,
+                    "totalReasoningTokens": 0,
                     "successfulResponses": 0,
                     "errors": {},
                     "contextResets": 0,
@@ -766,6 +768,8 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
                 usage = ev.get("usage", {})
                 b["totalPromptTokens"] += usage.get("promptTokens", 0)
                 b["totalCompletionTokens"] += usage.get("completionTokens", 0)
+                b["totalCachedTokens"] += usage.get("cachedTokens", 0)
+                b["totalReasoningTokens"] += usage.get("reasoningTokens", 0)
             elif ev_type == "llm_error":
                 error_type = ev.get("errorType", "unknown")
                 b["errors"][error_type] = b["errors"].get(error_type, 0) + 1

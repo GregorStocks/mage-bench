@@ -26,19 +26,21 @@ import modelStats from '../data/model-stats.json';
   <div class="table-wrap">
     <table id="stats-table">
       <colgroup>
-        <col style="width: 19%;" />
+        <col style="width: 17%;" />
+        <col style="width: 7%;" />
+        <col style="width: 4%;" />
+        <col style="width: 4%;" />
+        <col style="width: 6%;" />
+        <col style="width: 5%;" />
+        <col style="width: 4%;" />
+        <col style="width: 4%;" />
         <col style="width: 8%;" />
-        <col style="width: 5%;" />
-        <col style="width: 5%;" />
         <col style="width: 7%;" />
         <col style="width: 6%;" />
+        <col style="width: 6%;" />
+        <col style="width: 6%;" />
         <col style="width: 5%;" />
         <col style="width: 5%;" />
-        <col style="width: 9%;" />
-        <col style="width: 8%;" />
-        <col style="width: 6%;" />
-        <col style="width: 6%;" />
-        <col style="width: 6%;" />
       </colgroup>
       <thead>
         <tr>
@@ -53,6 +55,8 @@ import modelStats from '../data/model-stats.json';
           <th data-sort="avgPromptTokens" data-type="number">Avg Prompt</th>
           <th data-sort="avgCompletionTokens" data-type="number">Avg Compl</th>
           <th data-sort="avgCost" data-type="number">Avg Cost</th>
+          <th data-sort="cacheRate" data-type="number">Cache%</th>
+          <th data-sort="reasoningPct" data-type="number">Reasoning%</th>
           <th data-sort="latencyP50" data-type="number">p50 (s)</th>
           <th data-sort="latencyP95" data-type="number">p95 (s)</th>
         </tr>
@@ -111,6 +115,8 @@ import modelStats from '../data/model-stats.json';
       avgPromptTokens: number;
       avgCompletionTokens: number;
       avgCost: number;
+      cacheRate: number;
+      reasoningPct: number;
       latencyP50: number;
       latencyP95: number;
       errors: Record<string, number>;
@@ -121,6 +127,7 @@ import modelStats from '../data/model-stats.json';
       for (const [key, model] of Object.entries(models) as [string, any][]) {
         let gamesPlayed = 0, wins = 0, totalCost = 0;
         let totalPrompt = 0, totalCompletion = 0, successfulResponses = 0;
+        let totalCached = 0, totalReasoning = 0;
         let contextResets = 0;
         // Weighted latency percentile accumulators
         let weightedP50 = 0, weightedP95 = 0, totalSamples = 0;
@@ -133,6 +140,8 @@ import modelStats from '../data/model-stats.json';
           totalCost += bucket.totalCostUsd;
           totalPrompt += bucket.totalPromptTokens;
           totalCompletion += bucket.totalCompletionTokens;
+          totalCached += bucket.totalCachedTokens || 0;
+          totalReasoning += bucket.totalReasoningTokens || 0;
           successfulResponses += bucket.successfulResponses;
           contextResets += bucket.contextResets;
           const samples = bucket.latencySamples || 0;
@@ -169,6 +178,8 @@ import modelStats from '../data/model-stats.json';
           avgPromptTokens: successfulResponses > 0 ? totalPrompt / successfulResponses : 0,
           avgCompletionTokens: successfulResponses > 0 ? totalCompletion / successfulResponses : 0,
           avgCost: gamesPlayed > 0 ? totalCost / gamesPlayed : 0,
+          cacheRate: totalPrompt > 0 ? totalCached / totalPrompt : 0,
+          reasoningPct: totalCompletion > 0 ? totalReasoning / totalCompletion : 0,
           latencyP50: totalSamples > 0 ? weightedP50 / totalSamples : 0,
           latencyP95: totalSamples > 0 ? weightedP95 / totalSamples : 0,
           errors,
@@ -220,6 +231,8 @@ import modelStats from '../data/model-stats.json';
           <td class="num">${Math.round(s.avgPromptTokens).toLocaleString()}</td>
           <td class="num">${Math.round(s.avgCompletionTokens).toLocaleString()}</td>
           <td class="num">$${s.avgCost.toFixed(2)}</td>
+          <td class="num">${s.cacheRate > 0 ? (s.cacheRate * 100).toFixed(1) + '%' : '-'}</td>
+          <td class="num">${s.reasoningPct > 0 ? (s.reasoningPct * 100).toFixed(1) + '%' : '-'}</td>
           <td class="num">${s.latencyP50.toFixed(1)}</td>
           <td class="num">${s.latencyP95.toFixed(1)}</td>
         `;
@@ -384,7 +397,7 @@ import modelStats from '../data/model-stats.json';
 
   table {
     width: 100%;
-    min-width: 1100px;
+    min-width: 1300px;
     border-collapse: collapse;
     font-size: 0.85rem;
     table-layout: fixed;
@@ -446,6 +459,8 @@ import modelStats from '../data/model-stats.json';
   th[data-sort="avgPromptTokens"],
   th[data-sort="avgCompletionTokens"],
   th[data-sort="avgCost"],
+  th[data-sort="cacheRate"],
+  th[data-sort="reasoningPct"],
   th[data-sort="latencyP50"],
   th[data-sort="latencyP95"] {
     text-align: right;
