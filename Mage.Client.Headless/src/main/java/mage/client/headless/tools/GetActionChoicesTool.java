@@ -18,7 +18,8 @@ public class GetActionChoicesTool {
             + "Includes context (phase/turn), players (life totals), stack (when non-empty), and land_drops_used (during your main phase). "
             + "response_type: select (cards to play, attackers, blockers), boolean (yes/no), "
             + "index (target/ability), amount, pile, or multi_amount. "
-            + "During combat: combat_phase indicates declare_attackers or declare_blockers.",
+            + "During combat: combat_phase indicates declare_attackers or declare_blockers; "
+            + "combat shows all combat groups (attackers, blockers, blocked status) during any combat step.",
         output = {
             @Tool.Field(name = "action_pending", type = "boolean", description = "Whether an action is pending (false if nothing to do)"),
             @Tool.Field(name = "action_type", type = "string", description = "XMage callback method name"),
@@ -30,6 +31,7 @@ public class GetActionChoicesTool {
             @Tool.Field(name = "choices", type = "array[object]", description = "Structured choices with index, name, and type-specific fields (action/mana_cost/power/toughness for cards; choice_type for combat/mana; target_type/controller/tapped for targets)"),
             @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards during mulligan: name, mana_cost, is_land, power/toughness, rules"),
             @Tool.Field(name = "combat_phase", type = "string", description = "\"declare_attackers\" or \"declare_blockers\""),
+            @Tool.Field(name = "combat", type = "array[object]", description = "Combat groups during any combat step: attackers (name/id/power/toughness), blockers, blocked boolean, defending player"),
             @Tool.Field(name = "mana_pool", type = "object", description = "Current mana pool {R, G, U, W, B, C}"),
             @Tool.Field(name = "stack", type = "array[object]", description = "Spells/abilities currently on the stack: name, owner (only present when stack is non-empty)"),
             @Tool.Field(name = "untapped_lands", type = "integer", description = "Number of untapped lands"),

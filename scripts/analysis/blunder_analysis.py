@@ -56,7 +56,8 @@ MAX_WORKERS = 50
 # v11: filter out failed (success=false), cancelled, and cast-before-cancel decisions
 # v12: add current-turn action context (no prompt additions, just context)
 # v13: fix card name extraction for dict-form permanents (tapped/counters)
-BLUNDER_SCRIPT_VERSION = 13
+# v14: include combat context (attackers/blockers) in per-decision prompt
+BLUNDER_SCRIPT_VERSION = 14
 
 # --- Prompt components ---
 
@@ -204,7 +205,14 @@ def _collect_card_names(data: dict) -> set[str]:
                     names.add(name)
             elif isinstance(item, str) and item:
                 names.add(item)
-    # Also from choice names in llm events
+        for group in snap.get("combat", []):
+            for a in group.get("attackers", []):
+                if isinstance(a, dict) and a.get("name"):
+                    names.add(a["name"])
+            for b in group.get("blockers", []):
+                if isinstance(b, dict) and b.get("name"):
+                    names.add(b["name"])
+    # Also from choice names and combat fields in llm events
     for ev in data.get("llmEvents", []):
         if ev.get("tool") == "get_action_choices":
             try:
@@ -213,6 +221,19 @@ def _collect_card_names(data: dict) -> set[str]:
                     name = c.get("name", "")
                     if name:
                         names.add(name)
+                for a in result.get("already_attacking", []):
+                    if isinstance(a, dict) and a.get("name"):
+                        names.add(a["name"])
+                for a in result.get("incoming_attackers", []):
+                    if isinstance(a, dict) and a.get("name"):
+                        names.add(a["name"])
+                for group in result.get("combat", []):
+                    for a in group.get("attackers", []):
+                        if isinstance(a, dict) and a.get("name"):
+                            names.add(a["name"])
+                    for b in group.get("blockers", []):
+                        if isinstance(b, dict) and b.get("name"):
+                            names.add(b["name"])
             except (json.JSONDecodeError, TypeError):
                 pass
     # Filter out tokens (not in Scryfall) and player names
@@ -256,10 +277,30 @@ def _card_names_in_decision(decision: dict) -> set[str]:
     for item in gs.get("stack", []):
         if isinstance(item, str) and item:
             names.add(item)
+    for group in gs.get("combat", []):
+        for a in group.get("attackers", []):
+            if isinstance(a, dict) and a.get("name"):
+                names.add(a["name"])
+        for b in group.get("blockers", []):
+            if isinstance(b, dict) and b.get("name"):
+                names.add(b["name"])
     for c in decision.get("choices", []):
         name = c.get("name", c.get("description", ""))
         if name:
             names.add(name)
+    for a in decision.get("already_attacking", []):
+        if isinstance(a, dict) and a.get("name"):
+            names.add(a["name"])
+    for a in decision.get("incoming_attackers", []):
+        if isinstance(a, dict) and a.get("name"):
+            names.add(a["name"])
+    for group in decision.get("combat", []):
+        for a in group.get("attackers", []):
+            if isinstance(a, dict) and a.get("name"):
+                names.add(a["name"])
+        for b in group.get("blockers", []):
+            if isinstance(b, dict) and b.get("name"):
+                names.add(b["name"])
     return names
 
 
@@ -498,6 +539,32 @@ def _format_decisions(decisions: list[dict]) -> str:
         ]
         if stack_line:
             lines.append(stack_line)
+        # Combat context from game state snapshot or choices result
+        combat_groups = gs.get("combat", []) or d.get("combat", [])
+        if combat_groups:
+            combat_parts: list[str] = []
+            for group in combat_groups:
+                atk_names = [
+                    a["name"]
+                    for a in group.get("attackers", [])
+                    if isinstance(a, dict) and a.get("name")
+                ]
+                blk_names = [
+                    b["name"]
+                    for b in group.get("blockers", [])
+                    if isinstance(b, dict) and b.get("name")
+                ]
+                part = ", ".join(atk_names)
+                if blk_names:
+                    part += f" blocked by {', '.join(blk_names)}"
+                elif group.get("blocked"):
+                    part += " (blocked)"
+                if group.get("defending"):
+                    part += f" -> {group['defending']}"
+                combat_parts.append(part)
+            lines.append(f"  Combat: {' | '.join(combat_parts)}")
+        if d.get("combat_phase"):
+            lines.append(f"  Combat Phase: {d['combat_phase']}")
         lines += [
             f"  Message: {d.get('message', '')}",
             f"  Choices ({len(d.get('choices', []))}): {', '.join(choice_names)}",

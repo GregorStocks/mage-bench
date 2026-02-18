@@ -29,6 +29,7 @@ import mage.constants.PlayerAction;
 import mage.constants.Zone;
 import mage.view.CardView;
 import mage.view.CardsView;
+import mage.view.CombatGroupView;
 import mage.view.StackAbilityView;
 import mage.view.CommanderView;
 import mage.view.CommandObjectView;
@@ -1752,6 +1753,19 @@ public class StreamingGamePanel extends GamePanel {
                       .append(p.getHandCount()).append(":")
                       .append(p.getBattlefield() != null ? p.getBattlefield().size() : 0).append(",");
         }
+        // Include combat state so blocker assignment triggers a new snapshot
+        if (game.getCombat() != null) {
+            keyBuilder.append("combat:");
+            for (CombatGroupView group : game.getCombat()) {
+                for (CardView a : group.getAttackers().values()) {
+                    keyBuilder.append(safe(a.getDisplayName())).append(">");
+                }
+                for (CardView b : group.getBlockers().values()) {
+                    keyBuilder.append(safe(b.getDisplayName())).append("<");
+                }
+                keyBuilder.append(group.isBlocked() ? "B" : "U").append(",");
+            }
+        }
         String key = keyBuilder.toString();
         if (key.equals(lastSnapshotKey)) {
             return;
@@ -1872,6 +1886,42 @@ public class StreamingGamePanel extends GamePanel {
             }
         }
         event.add("stack", stackArray);
+
+        // Combat groups
+        if (game.getCombat() != null && !game.getCombat().isEmpty()) {
+            var combatArray = new JsonArray();
+            for (CombatGroupView group : game.getCombat()) {
+                var groupJson = new JsonObject();
+                var attackersArr = new JsonArray();
+                for (CardView attacker : group.getAttackers().values()) {
+                    var aJson = new JsonObject();
+                    aJson.addProperty("name", safe(attacker.getDisplayName()));
+                    if (attacker.getPower() != null) {
+                        aJson.addProperty("power", safe(attacker.getPower()));
+                        aJson.addProperty("toughness", safe(attacker.getToughness()));
+                    }
+                    attackersArr.add(aJson);
+                }
+                groupJson.add("attackers", attackersArr);
+                var blockersArr = new JsonArray();
+                for (CardView blocker : group.getBlockers().values()) {
+                    var bJson = new JsonObject();
+                    bJson.addProperty("name", safe(blocker.getDisplayName()));
+                    if (blocker.getPower() != null) {
+                        bJson.addProperty("power", safe(blocker.getPower()));
+                        bJson.addProperty("toughness", safe(blocker.getToughness()));
+                    }
+                    blockersArr.add(bJson);
+                }
+                if (blockersArr.size() > 0) {
+                    groupJson.add("blockers", blockersArr);
+                }
+                groupJson.addProperty("blocked", group.isBlocked());
+                groupJson.addProperty("defending", group.getDefenderName());
+                combatArray.add(groupJson);
+            }
+            event.add("combat", combatArray);
+        }
 
         writeGameEvent("state_snapshot", event);
     }
