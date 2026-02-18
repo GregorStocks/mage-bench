@@ -7,7 +7,9 @@ from blunder_eval_common import (
     chosen_display,
     compute_aftermath_index,
     load_game_ground_truth,
-    make_ground_truth_entry,
+    lookup_annotation_for_decision,
+    make_audited_entry,
+    make_seed_entry,
     merge_into_ground_truth,
     play_key,
     reverse_map_annotations,
@@ -162,51 +164,108 @@ class TestChosenDisplay:
         assert chosen_display(d) == "99"
 
 
-# --- make_ground_truth_entry ---
+# --- make_seed_entry / make_audited_entry ---
 
 
-class TestMakeGroundTruthEntry:
-    def test_with_annotation(self) -> None:
-        decision = {
-            "decision_index": 5,
-            "snapshot_index": 10,
-            "action_ts": "",
-            "player": "Alice",
-            "turn": 3,
-            "phase": "COMBAT",
-            "message": "Declare attackers",
-            "chosen": 0,
-            "choices": [{"name": "Grizzly Bears"}],
-        }
-        snapshots = [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(20)]
-        annotation = {"severity": "moderate", "description": "Bad attack"}
+class TestEntryConstructors:
+    def test_seed_entry(self) -> None:
+        entry = make_seed_entry(14)
+        assert entry == {"decision_index": 14}
 
-        entry = make_ground_truth_entry(decision, snapshots, annotation=annotation, source="annotation_v12")
+    def test_seed_entry_only_has_decision_index(self) -> None:
+        entry = make_seed_entry(0)
+        assert list(entry.keys()) == ["decision_index"]
+
+    def test_audited_entry(self) -> None:
+        entry = make_audited_entry(
+            5,
+            annotation_version=15,
+            annotation_severity="moderate",
+            annotation_description="Bad attack",
+            verdict="blunder",
+            human_notes="agreed",
+        )
         assert entry["decision_index"] == 5
-        assert entry["player"] == "Alice"
+        assert entry["annotation_version"] == 15
         assert entry["annotation_severity"] == "moderate"
         assert entry["annotation_description"] == "Bad attack"
-        assert entry["source"] == "annotation_v12"
-        assert entry["verdict"] is None
+        assert entry["verdict"] == "blunder"
+        assert entry["human_notes"] == "agreed"
 
-    def test_without_annotation(self) -> None:
-        decision = {
-            "decision_index": 3,
-            "snapshot_index": 5,
-            "action_ts": "",
-            "player": "Bob",
-            "turn": 1,
-            "phase": "PRECOMBAT_MAIN",
-            "message": "Play spells",
-            "chosen": None,
-            "choices": [],
-        }
-        snapshots = [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(10)]
-
-        entry = make_ground_truth_entry(decision, snapshots, source="manual")
+    def test_audited_entry_no_annotation(self) -> None:
+        entry = make_audited_entry(
+            3,
+            annotation_version=15,
+            annotation_severity=None,
+            annotation_description=None,
+            verdict="blunder",
+            human_notes=None,
+        )
         assert entry["annotation_severity"] is None
         assert entry["annotation_description"] is None
-        assert entry["source"] == "manual"
+        assert entry["verdict"] == "blunder"
+
+
+# --- lookup_annotation_for_decision ---
+
+
+class TestLookupAnnotationForDecision:
+    def _make_snapshots(self, n: int) -> list[dict]:
+        return [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(n)]
+
+    def test_exact_match(self) -> None:
+        snapshots = self._make_snapshots(10)
+        decision = {
+            "decision_index": 0,
+            "snapshot_index": 2,
+            "action_ts": "2026-01-01T00:00:05.000",
+            "player": "Alice",
+        }
+        annotations = [
+            {"snapshotIndex": 5, "player": "Alice", "severity": "minor", "description": "bad play"},
+        ]
+        result = lookup_annotation_for_decision(decision, annotations, snapshots)
+        assert result is not None
+        assert result["severity"] == "minor"
+
+    def test_no_match_wrong_player(self) -> None:
+        snapshots = self._make_snapshots(10)
+        decision = {
+            "decision_index": 0,
+            "snapshot_index": 2,
+            "action_ts": "2026-01-01T00:00:05.000",
+            "player": "Alice",
+        }
+        annotations = [
+            {"snapshotIndex": 5, "player": "Bob", "severity": "minor"},
+        ]
+        result = lookup_annotation_for_decision(decision, annotations, snapshots)
+        assert result is None
+
+    def test_no_match_wrong_snapshot(self) -> None:
+        snapshots = self._make_snapshots(10)
+        decision = {
+            "decision_index": 0,
+            "snapshot_index": 2,
+            "action_ts": "2026-01-01T00:00:05.000",
+            "player": "Alice",
+        }
+        annotations = [
+            {"snapshotIndex": 3, "player": "Alice", "severity": "minor"},
+        ]
+        result = lookup_annotation_for_decision(decision, annotations, snapshots)
+        assert result is None
+
+    def test_empty_annotations(self) -> None:
+        snapshots = self._make_snapshots(5)
+        decision = {
+            "decision_index": 0,
+            "snapshot_index": 0,
+            "action_ts": "",
+            "player": "Alice",
+        }
+        result = lookup_annotation_for_decision(decision, [], snapshots)
+        assert result is None
 
 
 # --- merge_into_ground_truth ---
@@ -217,8 +276,8 @@ class TestMergeIntoGroundTruth:
         monkeypatch.setattr("blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
         entries = [
-            {"decision_index": 0, "annotation_severity": "minor"},
-            {"decision_index": 1, "annotation_severity": "moderate"},
+            {"decision_index": 0},
+            {"decision_index": 1},
         ]
         added = merge_into_ground_truth("game_test", entries)
         assert added == 2
@@ -229,14 +288,23 @@ class TestMergeIntoGroundTruth:
     def test_merge_preserves_existing(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr("blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
-        # Create existing entry with a verdict
-        existing = [{"decision_index": 0, "verdict": "blunder", "annotation_severity": "minor"}]
+        # Create existing audited entry
+        existing = [
+            make_audited_entry(
+                0,
+                annotation_version=15,
+                annotation_severity="minor",
+                annotation_description="test",
+                verdict="blunder",
+                human_notes=None,
+            )
+        ]
         save_game_ground_truth("game_test", existing)
 
         # Try to merge an entry with the same decision_index
         new_entries = [
-            {"decision_index": 0, "annotation_severity": "major"},
-            {"decision_index": 1, "annotation_severity": "moderate"},
+            {"decision_index": 0},
+            {"decision_index": 1},
         ]
         added = merge_into_ground_truth("game_test", new_entries)
         assert added == 1  # Only decision_index=1 was new
@@ -247,25 +315,24 @@ class TestMergeIntoGroundTruth:
         existing_entry = next(e for e in loaded if e["decision_index"] == 0)
         assert existing_entry["verdict"] == "blunder"
 
-    def test_merge_deduplicates_by_severity(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_merge_deduplicates_new(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr("blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
-        # Two new entries for same decision_index, different severity
+        # Two new entries for same decision_index — keeps first
         entries = [
-            {"decision_index": 5, "annotation_severity": "minor"},
-            {"decision_index": 5, "annotation_severity": "major"},
+            {"decision_index": 5},
+            {"decision_index": 5},
         ]
         added = merge_into_ground_truth("game_test", entries)
         assert added == 1
 
         loaded = load_game_ground_truth("game_test")
         assert len(loaded) == 1
-        assert loaded[0]["annotation_severity"] == "major"
 
     def test_merge_empty_new(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr("blunder_eval_common.GROUND_TRUTH_DIR", tmp_path)
 
-        existing = [{"decision_index": 0, "annotation_severity": "minor"}]
+        existing = [{"decision_index": 0}]
         save_game_ground_truth("game_test", existing)
 
         added = merge_into_ground_truth("game_test", [])
@@ -280,8 +347,6 @@ class TestBaselineDerivation:
 
     def test_detected_play(self) -> None:
         """An annotation matching the play's aftermath_index + player = detected."""
-        from blunder_eval_common import compute_aftermath_index
-
         snapshots = [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(10)]
         decision = {
             "decision_index": 0,
@@ -293,14 +358,11 @@ class TestBaselineDerivation:
         assert aftermath == 5
 
         annotations = [{"snapshotIndex": 5, "player": "Alice", "severity": "moderate", "description": "bad"}]
-        # Matching logic: annotation at snapshot 5 for Alice matches
-        match = any(a["snapshotIndex"] == aftermath and a["player"] == decision["player"] for a in annotations)
-        assert match is True
+        match = lookup_annotation_for_decision(decision, annotations, snapshots)
+        assert match is not None
 
     def test_undetected_play(self) -> None:
         """No annotation at the play's aftermath_index + player = not detected."""
-        from blunder_eval_common import compute_aftermath_index
-
         snapshots = [{"ts": f"2026-01-01T00:00:{i:02d}.000"} for i in range(10)]
         decision = {
             "decision_index": 1,
@@ -312,8 +374,8 @@ class TestBaselineDerivation:
         assert aftermath == 6
 
         annotations = [{"snapshotIndex": 5, "player": "Alice", "severity": "moderate", "description": "bad"}]
-        match = any(a["snapshotIndex"] == aftermath and a["player"] == decision["player"] for a in annotations)
-        assert match is False
+        match = lookup_annotation_for_decision(decision, annotations, snapshots)
+        assert match is None
 
 
 # --- Eval comparison ---

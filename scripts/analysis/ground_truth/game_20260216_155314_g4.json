@@ -1,130 +1,26 @@
 [
   {
-    "decision_index": 22,
-    "snapshot_index": 34,
-    "aftermath_index": 35,
-    "player": "GPT5m Snark",
-    "turn": 3,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Choose a basic land type",
-    "chosen_display": "Island",
-    "annotation_severity": "minor",
-    "annotation_description": "Choosing Island for Multiversal Passage leaves only one white source (Floodfarm Verge) available, making it impossible to cast Aven Interrupter ({1}{W}{W}) next turn. Choosing Plains would have provided two white sources (Passage + Verge) while still having access to blue through Fountainport and Floodfarm Verge, enabling the powerful flash threat on turn 4.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 22
   },
   {
-    "decision_index": 47,
-    "snapshot_index": 64,
-    "aftermath_index": 65,
-    "player": "GPT5m Snark",
-    "turn": 5,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Three Steps Ahead",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Three Steps Ahead on their own main phase before playing their land drop (Agna Qel'a in hand). Also, using Three Steps Ahead proactively on their own turn when they could hold it up as a counterspell against the opponent's Stormchaser's Talent leveling up or other threats. With a 4/6 flyer already applying pressure, holding up countermagic is likely more valuable.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 47
   },
   {
-    "decision_index": 51,
-    "snapshot_index": 68,
-    "aftermath_index": 69,
-    "player": "GPT5m Snark",
-    "turn": 5,
-    "phase": "END",
-    "message": "Choose mode (selected 0 of 2147483647, min 1)Three Steps Ahead",
-    "chosen_display": "3. Draw two cards, then discard a card.",
-    "annotation_severity": "moderate",
-    "annotation_description": "Chose to draw 2 discard 1 with Three Steps Ahead instead of creating a copy of Quantum Riddler (4/6 flyer that draws a card on ETB). With 5 available mana, mode 2 was affordable and would have generated a 4/6 flying body plus a card draw, far exceeding the net +1 card from mode 3.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 51
   },
   {
-    "decision_index": 56,
-    "snapshot_index": 73,
-    "aftermath_index": 74,
-    "player": "Gem3P Sport",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem3P Sport used Boomerang Basics to bounce their own Stormchaser's Talent back to hand. While this draws a card (Boomerang Basics draws when bouncing your own permanent), it removes their own enchantment from the battlefield, losing the class and any level-up progress. More importantly, the opponent has an empty board with no threats - there's nothing pressing to answer. The opponent is at 16 life with no creatures. Gem3P Sport should be developing their board aggressively. Casting Slickshot Show-Off (which has haste and flying) and then casting cheap noncreature spells to pump it and the Otter would deal significant damage. For example, casting Slickshot Show-Off, then Wild Ride on it (+3/+0), plus another cheap spell would create a massive attack. Bouncing your own enchantment is a tempo-negative play that doesn't advance the game plan of an aggressive Izzet prowess deck.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 56
   },
   {
-    "decision_index": 65,
-    "snapshot_index": 91,
-    "aftermath_index": 92,
-    "player": "GPT5m Snark",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Ajani, Outland Chaperone",
-    "annotation_severity": "moderate",
-    "annotation_description": "GPT5m Snark is at 7 life facing two Otter tokens (which have prowess and can easily grow). Both Otters are tapped, making them valid targets for Ajani's -2 ability which deals 4 damage to a tapped creature. Killing an Otter token removes a threat that could deal significant damage with prowess triggers, especially since the opponent has Stormchaser's Talent and multiple noncreature spells in the graveyard (including Wild Ride with harmonize). A 1/1 Kithkin token provides minimal defensive value compared to removing a prowess creature when at 7 life.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 65
   },
   {
-    "decision_index": 69,
-    "snapshot_index": 96,
-    "aftermath_index": 97,
-    "player": "Gem3P Sport",
-    "turn": 7,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Choose spell or ability to playSlickshot Show-Off",
-    "chosen_display": "2. Plot {1}{R}",
-    "annotation_severity": "major",
-    "annotation_description": "Gem3P Sport is at 18 life vs opponent at 7 life. They have two Otter tokens on the battlefield (1/1 with prowess), and a hand full of burn and noncreature spells (Bounce Off, Shock, Into the Flood Maw, Burst Lightning, plus two Slickshot Show-Offs). The opponent has Ajani and a single 1/1 Kithkin token as blockers. Shock (2 damage) + Burst Lightning (2 damage) = 4 damage to face, plus the Otters attacked this combat (likely dealing some damage). Even without attacking, Shock + Burst Lightning + casting other noncreature spells to pump Otters would likely represent lethal or near-lethal this turn. Instead of deploying threats and burning the opponent out immediately, they chose to Plot Slickshot Show-Off (and planned to Plot the second one too), deferring damage by an entire turn. At 7 life with burn spells in hand, the opponent could easily be dead this turn. Plotting delays the kill unnecessarily and gives the opponent a turn to stabilize with Ajani or other plays.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 69
   },
   {
-    "decision_index": 72,
-    "snapshot_index": 101,
-    "aftermath_index": 103,
-    "player": "GPT5m Snark",
-    "turn": 7,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "Three Steps Ahead",
-    "annotation_severity": "questionable",
-    "annotation_description": "At 7 life with two Three Steps Ahead in hand, using one proactively during own combat phase rather than holding both for defensive countermagic seems risky. The opponent has prowess creatures and potential burn/pump spells, and GPT5m Snark is at a dangerously low life total where protecting against even a single big attack matters.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 72
   },
   {
-    "decision_index": 79,
-    "snapshot_index": 104,
-    "aftermath_index": 105,
-    "player": "GPT5m Snark",
-    "turn": 7,
-    "phase": "COMBAT",
-    "message": "Select a card to discard",
-    "chosen_display": "Starting Town",
-    "annotation_severity": "questionable",
-    "annotation_description": "At 7 life facing two Otter tokens, GPT5m Snark discarded Starting Town from the Three Steps Ahead draw-discard. While Starting Town is just a land, the player has 6 lands already (all tapped) and a hand with Aven Interrupter (1WW), Voice of Victory (1W), and Seam Rip (W) - all white-heavy cards. The hand also contains Abandoned Air Temple which enters tapped without a basic land. Starting Town could provide colored mana (at 1 life cost) on future turns and helps ensure land drops. However, discarding Seam Rip could be considered since it only exiles permanents with MV 2 or less (the Otters are 1/1 tokens with MV 0, so Seam Rip could target them, making it actually useful). The real question is whether Voice of Victory (which prevents opponent from casting spells during your turn and creates attackers) or the land was more expendable. Given the player is at 7 life and needs to stabilize, keeping all the defensive/interactive spells seems correct, making the Starting Town discard reasonable. But Abandoned Air Temple entering tapped without a basic could be an issue - Starting Town at least always produces colored mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 79
   }
 ]

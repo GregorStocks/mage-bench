@@ -1,130 +1,26 @@
 [
   {
-    "decision_index": 6,
-    "snapshot_index": 5,
-    "aftermath_index": 6,
-    "player": "Llama4 Sarge",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Floodfarm Verge",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Floodfarm Verge instead of Temple Garden on turn 1 means Floodfarm Verge can only tap for {W} (since the player controls no Plains or Island yet, the {U} mode is inactive). More importantly, playing Temple Garden (paying 2 life to have it enter untapped) would give access to {G} or {W}, allowing the player to cast Llanowar Elves on turn 1. With Floodfarm Verge, the player only has access to {W} and cannot cast Llanowar Elves. Casting a turn 1 Llanowar Elves is critical for ramping into Badgermole Cub or Doc Aurlock on turn 2, and potentially Appa on turn 3. Missing this accelerates the opponent's tempo advantage.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 6
   },
   {
-    "decision_index": 9,
-    "snapshot_index": 10,
-    "aftermath_index": 11,
-    "player": "Grok4F Spike",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Hexing Squelcher",
-    "annotation_severity": "questionable",
-    "annotation_description": "Hexing Squelcher was played over Razorkin Needlehead on turn 2. Needlehead's guaranteed 1 damage per opponent draw step provides a faster clock when deployed early, and its first strike on your turn makes it a superior attacker. Squelcher's protective abilities (ward, uncounterability) are more valuable when protecting a developed board rather than as a lone creature on turn 2.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 9
   },
   {
-    "decision_index": 13,
-    "snapshot_index": 16,
-    "aftermath_index": 17,
-    "player": "Llama4 Sarge",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Llanowar Elves",
-    "annotation_severity": "questionable",
-    "annotation_description": "With Hexing Squelcher on the opponent's board (a 2/2 that gives ward-pay 2 life to other creatures), playing Llanowar Elves first before Doc Aurlock is reasonable for ramping, but Doc Aurlock (2/3 for GU) could have been played instead as a more impactful 2-drop that enables cost reduction from exile/graveyard. More importantly, the sequencing question is whether to play Badgermole Cub (1G) to get a 2/2 body plus earthbend a land into a creature, which provides more board presence against the aggressive red deck. However, Llanowar Elves enables casting Appa (4 mana) on turn 3 with the elf, which is a strong line. The real consideration is that a 1/1 elf is very vulnerable to Lightning Strike or any red removal, and the opponent is playing an aggressive red strategy. Doc Aurlock as a 2/3 survives more red removal and is a better body. But the mana acceleration toward turn 3 Appa is a legitimate plan.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 13
   },
   {
-    "decision_index": 17,
-    "snapshot_index": 24,
-    "aftermath_index": 25,
-    "player": "Grok4F Spike",
-    "turn": 3,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Hexing Squelcher",
-    "annotation_severity": "minor",
-    "annotation_description": "Grok4F Spike attacked with only Hexing Squelcher instead of both creatures. The opponent has a single Llanowar Elves (1/1) as a potential blocker. If both Hexing Squelcher (2/2) and Razorkin Needlehead (2/2) attack, the opponent can only block one creature with the 1/1 Elf (which would die to either attacker). This means at least 2 damage gets through unblocked, and likely 4 if the opponent doesn't want to trade the Elf. By only attacking with Hexing Squelcher, Grok4F Spike deals at most 2 damage instead of 3-4. Razorkin Needlehead has first strike on your turn, making it an excellent attacker that the 1/1 Elf can't even trade with. There's no obvious reason to hold back the Needlehead - the opponent has no threatening attackers that require it to block, and the Needlehead's ping ability works whether it's tapped or untapped.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 17
   },
   {
-    "decision_index": 21,
-    "snapshot_index": 29,
-    "aftermath_index": 30,
-    "player": "Llama4 Sarge",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Badgermole Cub",
-    "annotation_severity": "minor",
-    "annotation_description": "With Razorkin Needlehead on the opponent's board (deals 1 damage whenever opponent draws a card), playing Llanowar Elves first would be better sequencing. Llanowar Elves costs only {G}, leaving {W} open, and on the next turn enables casting 4-mana spells like Appa (with flash). More importantly, Doc Aurlock, Grizzled Genius at {G}{U} is also castable and would make spells cast from exile cost {2} less, synergizing powerfully with Appa's airbend ability. Playing Doc Aurlock sets up a much stronger turn 4 with Appa airbending permanents and then casting them for free. Badgermole Cub's earthbend ability (making a land a 0/0 creature) is risky when facing burn spells like Shock/Lightning Strike that could destroy the land permanently. However, Badgermole Cub does provide mana acceleration via its tap-creature-for-mana ability, so the choice isn't terrible.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 21
   },
   {
-    "decision_index": 27,
-    "snapshot_index": 35,
-    "aftermath_index": 36,
-    "player": "Grok4F Spike",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Strike",
-    "annotation_severity": "minor",
-    "annotation_description": "Using Lightning Strike (likely targeting Badgermole Cub) as removal when Spike could instead develop the board with a second Razorkin Needlehead, which would double the card-draw punishment damage and add another attacker with first strike. The burn spells are better saved as reach to close the game, especially with Needlehead triggers stacking.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 27
   },
   {
-    "decision_index": 33,
-    "snapshot_index": 44,
-    "aftermath_index": 45,
-    "player": "Llama4 Sarge",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Llanowar Elves",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Llanowar Elves before playing the Floodfarm Verge from hand is a sequencing error. The player should play the land first (Floodfarm Verge), then cast Llanowar Elves. By casting Llanowar Elves first, if they want to play the land afterward they still can, but more importantly, casting a creature before combat when the opponent's board is tapped out means missing potential information. However, the bigger issue is that with 3 lands and Llanowar Elves, the player could have 4 mana next turn. But if they play Floodfarm Verge first (4 lands), then cast Doc Aurlock (GU for 2 mana) this turn AND Llanowar Elves (G for 1 mana) using 3 mana total, they'd have both creatures on board. Playing Llanowar Elves alone when they could play both Doc Aurlock + Llanowar Elves (or land + Doc Aurlock) represents an underuse of mana. With Temple Garden (G/W), Hallowed Fountain (W/U), and Floodfarm Verge (W or conditional U), plus a new Floodfarm Verge from hand: playing the land first gives 4 mana sources. They could cast Doc Aurlock (GU) using Temple Garden for G and Hallowed Fountain for U, then cast Llanowar Elves with Floodfarm Verge for W... wait, Llanowar Elves costs {G}. They'd need another G source. So Temple Garden for G goes to Doc Aurlock, Hallowed Fountain for U goes to Doc Aurlock, leaving two Floodfarm Verges which produce W (or conditional U). No G available for Llanowar Elves. So they can only cast one of the two. Still, playing land before spell is correct sequencing - land drop costs nothing and should come first.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 33
   },
   {
-    "decision_index": 45,
-    "snapshot_index": 63,
-    "aftermath_index": 64,
-    "player": "Grok4F Spike",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Shock",
-    "annotation_severity": "major",
-    "annotation_description": "Grok4F Spike has Shock on the stack (2 damage) targeting the opponent at 2 life, which is lethal. They also have Lightning Strike in hand and Burst Lightning available. Instead of simply letting Shock resolve for the win, they cast Razorkin Needlehead, which is completely unnecessary. While this may not lose the game if Shock still resolves, it's a waste of a card and mana. However, the real issue is whether there's any reason to cast additional spells before Shock resolves - the opponent's lands are all tapped and Appa doesn't have a relevant ability to prevent the damage (Hexing Squelcher makes spells uncounterable). But more critically, if the opponent somehow has interaction, casting Burst Lightning (which can't be countered due to Hexing Squelcher) targeting the opponent would be a better backup play than Razorkin Needlehead. That said, with all opponent lands tapped, Shock should just resolve for lethal. Casting Razorkin Needlehead wastes the card and 2 mana for no reason when the game is already won.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 45
   }
 ]

@@ -1,18 +1,5 @@
 [
   {
-    "decision_index": 14,
-    "snapshot_index": 37,
-    "aftermath_index": 39,
-    "player": "Opus Gramps",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "With 2 mana available (Mountain + Blazemire Verge producing {R} and {B}), the player could have cast Moonshadow for {B} instead of Iron-Shield Elf for {1}{B}. Moonshadow is a 1/1 that grows as cards hit the graveyard, and casting it for {B} would have left the Mountain untapped, allowing the player to potentially hold up options or have mana available. More importantly, casting Moonshadow on turn 2 means it starts accumulating -1/-1 counter removals earlier \u2014 the Greasewrench Goblin already in the graveyard triggered one counter removal when it died. Iron-Shield Elf as a 3/1 is fragile and was already killed by Requiting Hex in the opponent's previous turn (the opponent has shown removal). Moonshadow for {B} is more mana-efficient and has better long-term upside, while Iron-Shield Elf could have been cast next turn alongside another spell.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 14
   }
 ]

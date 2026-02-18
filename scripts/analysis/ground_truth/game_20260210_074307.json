@@ -1,1090 +1,206 @@
 [
   {
-    "decision_index": 0,
-    "snapshot_index": 0,
-    "aftermath_index": 0,
-    "player": "Devstral",
-    "turn": 1,
-    "phase": "",
-    "message": "Select a starting player",
-    "chosen_display": "Devstral (you)",
-    "annotation_severity": "questionable",
-    "annotation_description": "Choosing yourself as starting player with a slow hand containing 7-8 mana creatures (Verdant Force, Mycoloth), Skullclamp, and no early plays beyond lands is questionable. Going first means you draw one fewer card than going later. In a 4-player game, choosing to go first gives up the extra draw while this hand wants to ramp into expensive threats. However, going first does mean earlier land drops and the hand does have Terramorphic Expanse and Grim Backwoods for fixing. This is debatable but slightly suboptimal given the hand composition.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 8,
-    "snapshot_index": 7,
-    "aftermath_index": 8,
-    "player": "GPT-4.1-mini",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Swamp [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "With a hand containing Command Tower and two Swamps, playing Command Tower on turn 1 is strictly better because it produces any color in the commander's color identity (which includes at least B and G for Ikra Shidiqi). Playing Swamp first means if they draw a green or other colored spell next turn, they'd need to use Command Tower then, but they lose flexibility. More importantly, Command Tower taps for any color and costs nothing extra - it should almost always be played before basic lands to maximize color flexibility in subsequent turns. With Ikra Shidiqi (3BG), Fathom Mage (2GU), and Citadel Siege (2WW) in hand, color fixing is important.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 13,
-    "snapshot_index": 22,
-    "aftermath_index": 23,
-    "player": "GPT-4.1-mini",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Swamp [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "GPT-4.1-mini's hand contains Ikra Shidiqi (3BG), Fathom Mage (2GU), Citadel Siege (2WW), and Cauldron of Souls (5). The hand has Command Tower which produces any color, and Plains. Playing Swamp as the land drop gives access to BB but no colored mana beyond black. Playing Command Tower instead would give access to any color, making it easier to cast the multicolored spells in hand. With 2 Swamps and a Command Tower, next turn playing Plains would give B, B, W, and any-color \u2014 enabling a turn 4 Ikra Shidiqi if a green source is drawn. Alternatively, playing Command Tower now and Plains next turn still provides the same flexibility. The key issue is that a second Swamp is redundant when the hand already has one Swamp and needs color diversity (green, white, blue) for its spells. Command Tower would have been strictly better as it provides any color while still tapping for black when needed.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 15,
-    "snapshot_index": 24,
-    "aftermath_index": 25,
-    "player": "GPT-4.1-mini",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a basic land card",
-    "chosen_display": "Island",
-    "annotation_severity": "minor",
-    "annotation_description": "Fetched Island when Forest would better support the hand's casting requirements. The hand contains Ikra Shidiqi (3BG) and Fathom Mage (2GU), both needing green. Command Tower already provides blue access, making Island redundant for that purpose. Forest would enable casting Ikra Shidiqi sooner and still allow Fathom Mage via Command Tower for the blue.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 16,
-    "snapshot_index": 28,
-    "aftermath_index": 29,
-    "player": "Gemini2.5Flash",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Swamp [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Swamp instead of Rakdos Carnarium is suboptimal. Rakdos Carnarium on turn 2 (bouncing the Forest) would give 3 mana on turn 3 (Carnarium produces 2 mana), enabling Farhaven Elf on turn 3 which further accelerates into Rampaging Baloths. Playing Swamp gives only 2 mana on turn 3, delaying the Farhaven Elf to turn 3 only if a second land is drawn, and pushing the whole curve back. The bounce land is best played early when the tempo cost of bouncing a land is minimal.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 17,
-    "snapshot_index": 32,
-    "aftermath_index": 33,
-    "player": "Gem3Flash",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash has two Forests and two Swamps in hand, plus Vivid Marsh as their only land on the battlefield. They skipped their land drop entirely on turn 2. Missing a land drop this early is a clear mistake \u2014 they have lands in hand and no reason not to play one. Playing a land would advance their mana development toward casting their 3-4 mana spells (Lightning Greaves, Corpse Augur, Ambition's Cost).",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 18,
-    "snapshot_index": 34,
-    "aftermath_index": 35,
-    "player": "Gem3Flash",
-    "turn": 2,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem3Flash has 8 cards in hand and needs to play a land this turn (Turn 2) to develop their mana. They have Forest and Swamp available to play. By choosing not to play a land (Chosen: False), they miss their Turn 2 land drop entirely, falling behind on mana development. Additionally, since they have 8 cards in hand and the max hand size is 7, they are forced to discard a card at end of turn, losing card advantage for no reason. Playing any land would have put them at 2 lands and kept them at exactly 7 cards in hand with no discard needed.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 23,
-    "snapshot_index": 38,
-    "aftermath_index": 39,
-    "player": "Devstral",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a basic land card",
-    "chosen_display": "Swamp",
-    "annotation_severity": "minor",
-    "annotation_description": "Fetched Swamp when Forest would have been more useful. With Forest + Swamp + Sol Ring, Devstral could cast Centaur Vinecrasher (3G) on turn 4, getting their first creature on board with +1/+1 counters. With Swamp, their best turn 4 play is Corpse Augur (4/2 that needs to die with creatures in graveyards to be useful). Forest also enables future green spells like Indrik Stomphowler. The hand has several green cards that will be stranded without green mana.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 24,
-    "snapshot_index": 42,
-    "aftermath_index": 43,
-    "player": "GPT-4.1-mini",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Sylvan Reclamation {3}{G}{W} [Cast]",
-    "annotation_severity": "minor",
-    "annotation_description": "GPT-4.1-mini used Sylvan Reclamation's basic landcycling ability before playing a land for the turn. They should play a land first (Command Tower is the best choice as it provides any color), then use the remaining mana or landcycle later. By landcycling first, they spent 2 mana (both Swamps) and will get a basic land to hand, but they could have played Command Tower first, then had 3 mana available. The landcycling costs {2} and doesn't require the land drop, so doing it before playing a land means they tap out with only 2 lands and then play the searched basic land next turn instead of having Command Tower + the searched land. Playing Command Tower first, then landcycling with 2 Swamps would yield the same result, but the key issue is sequencing: they should play the land first to have maximum information and flexibility. Actually, looking more carefully - they have 2 Swamps untapped. Landcycling costs {2}, which uses both Swamps. Then they can still play a land (Command Tower) this turn. So the sequencing is: landcycle (tap 2 Swamps) \u2192 play Command Tower. vs. play Command Tower \u2192 tap 2 Swamps to landcycle. The end result is the same. However, casting spells before playing lands is generally suboptimal because if the landcycle somehow fails or reveals information, you want the land drop available. In this case the difference is minimal since landcycling is deterministic.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 28,
-    "snapshot_index": 48,
-    "aftermath_index": 49,
-    "player": "Gemini2.5Flash",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Rakdos Carnarium [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Rakdos Carnarium on turn 3 with only Forest and Swamp in play means bouncing one of those lands back, leaving Gemini2.5Flash with only Rakdos Carnarium (tapped) on the battlefield this turn \u2014 effectively setting back tempo. More importantly, playing Forest instead would allow casting Farhaven Elf (2G) next turn with Forest + Swamp + new land, ramping and fixing mana. Rakdos Carnarium provides red mana which isn't needed for any cards currently in hand (Thantis costs 3BRG but is far off). Playing Forest now keeps three untapped lands and enables Farhaven Elf on turn 4 for ramp, which is clearly better sequencing. Rakdos Carnarium could be played later when bouncing a land is less costly or when the red mana is actually needed.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 29,
-    "snapshot_index": 49,
-    "aftermath_index": 50,
-    "player": "Gemini2.5Flash",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a land you control",
-    "chosen_display": "Forest (yours)",
-    "annotation_severity": "moderate",
-    "annotation_description": "Rakdos Carnarium's ETB requires bouncing a land. Gemini2.5Flash chose to bounce Forest, but this is a mistake because they had a Forest in hand already and could have bounced the tapped Rakdos Carnarium itself... wait, no - Carnarium just entered so it's the source of the trigger. They need to bounce a different land. The real issue is that bouncing the Forest means they lose their green mana source on the battlefield, keeping only Swamp and (tapped) Rakdos Carnarium. If they had bounced the Swamp instead, they'd keep the Forest untapped for potential green mana this turn, which is more useful since they have Farhaven Elf (2G) they want to cast soon and their Rakdos Carnarium already produces black mana. However, Rakdos Carnarium produces B and R, not G, so keeping the Forest on the battlefield would give them access to green mana while the Carnarium covers black. Bouncing the Forest leaves them with no green source on board (Swamp + Rakdos Carnarium = B, BR). They'd need to replay the Forest next turn, losing a turn of development. They should have bounced the Swamp since Rakdos Carnarium already produces black mana, keeping the Forest for green access.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 30,
-    "snapshot_index": 53,
-    "aftermath_index": 54,
-    "player": "Gemini2.5Flash",
-    "turn": 3,
-    "phase": "END",
-    "message": "Select a card to discard",
-    "chosen_display": "Farhaven Elf",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gemini2.5Flash discarded Farhaven Elf to hand size, but Farhaven Elf is the best card to play next turn. With only a Swamp and Rakdos Carnarium (which produces BR), playing Farhaven Elf for 2G would require the Forest they're holding. Farhaven Elf would fetch a basic land, ramping toward the expensive cards in hand (Rampaging Baloths at 6, Thantis at 6, Bloodtracker at 4). Additionally, with Meren of Clan Nel Toth as their likely commander, Farhaven Elf is excellent recursion fodder. Discarding a Forest would have been much better - they have two Forests in hand and Temple of the False God, so they have plenty of land drops available. Losing a key ramp creature that enables the rest of their hand is a real cost.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 36,
-    "snapshot_index": 66,
-    "aftermath_index": 67,
-    "player": "GPT-4.1-mini",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Fathom Mage {2}{G}{U} 1/1 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "With 4 lands (Swamp, Swamp, Command Tower, Forest) and no land played yet this turn, GPT-4.1-mini has a Plains and Island in hand. They should play a land first before casting spells. More importantly, Crystalline Crawler cast with 4 different colors of mana (using Command Tower for one color, plus the lands available) would enter with more +1/+1 counters via Converge, making it a better mana accelerant. With Fathom Mage already on board, Crystalline Crawler's counters could also be leveraged later with proliferate or Atraxa synergies. However, the key issue is that Fathom Mage as a 1/1 doesn't do much without counter synergies already in play, while Crystalline Crawler with even 2-3 counters from Converge would provide mana fixing/acceleration to cast Ikra Shidiqi or Citadel Siege sooner. Additionally, if they play Island this turn, they could cast Crystalline Crawler for WUBG (4 colors = 4 counters) next turn with 5 lands, but casting Fathom Mage now means they likely can't deploy Crystalline Crawler optimally. The sequencing of playing the land before casting is also a minor issue, though the game engine may have handled this.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 37,
-    "snapshot_index": 71,
-    "aftermath_index": 72,
-    "player": "Gemini2.5Flash",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Forest [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "With only 3 lands (Swamp + Rakdos Carnarium) and needing to ramp to cast expensive spells like Thantis (6 mana) and Rampaging Baloths (6 mana), Blighted Woodland would have been the better land drop. It enters untapped and produces colorless mana just like a basic, but crucially provides the option to sacrifice it later (for 3G + tap + sac) to fetch two basic lands, accelerating significantly. Playing Forest instead of Blighted Woodland delays the availability of this ramp option by a turn. Temple of the False God is correctly avoided since they don't have 5 lands yet, but Blighted Woodland should be prioritized over a basic Forest since it has strictly more utility at this stage.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 52,
-    "snapshot_index": 87,
-    "aftermath_index": 88,
-    "player": "Devstral",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Eldrazi Monument {5} [Cast]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Casting Eldrazi Monument with only one creature (Corpse Augur) on the battlefield means Devstral will have to sacrifice it at their next upkeep, losing both the creature and the Monument (since they can't sacrifice a creature the following upkeep). The Monument requires sacrificing a creature every upkeep, and with only one creature, it will be lost after just one turn of use. Additionally, Corpse Augur dying will trigger its death ability drawing cards equal to creatures in a target player's graveyard and losing that much life, but there are very few creatures in graveyards right now. Meanwhile, Centaur Vinecrasher could have been cast for 4 mana (there's 1 land in graveyards so it enters as a 2/2 with a +1/+1 counter), developing the board more sustainably. Eldrazi Monument is a powerful finisher that should be deployed when you have multiple creatures or token generation to sustain the sacrifice cost.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 65,
-    "snapshot_index": 94,
-    "aftermath_index": 95,
-    "player": "GPT-4.1-mini",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Solidarity of Heroes {1}{G} [Cast]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Solidarity of Heroes doubles +1/+1 counters on target creatures, but the only creature GPT-4.1-mini controls is Fathom Mage, which has zero +1/+1 counters. Doubling zero counters does literally nothing \u2014 this wastes a card and 2 mana. Additionally, they should play a land first before casting any spells. They have Ikra Shidiqi and Crystalline Crawler in hand as meaningful plays, and a land drop available.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 66,
-    "snapshot_index": 95,
-    "aftermath_index": 96,
-    "player": "GPT-4.1-mini",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select creatures (selected 0)",
-    "chosen_display": "Fathom Mage (1/1) (yours)",
-    "annotation_severity": "moderate",
-    "annotation_description": "Solidarity of Heroes is being cast when no creatures on the board appear to have +1/+1 counters. Fathom Mage is at 1/1 (base stats), meaning it has 0 +1/+1 counters. Doubling 0 counters does nothing, completely wasting the spell and the mana spent to cast it.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 71,
-    "snapshot_index": 97,
-    "aftermath_index": 98,
-    "player": "GPT-4.1-mini",
-    "turn": 5,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "All attack",
-    "annotation_severity": "minor",
-    "annotation_description": "Attacking Gemini2.5Flash with a 1/1 Fathom Mage when Gemini2.5Flash has a 2/2 Bloodtracker that can block and kill it. Fathom Mage is a crucial card-draw engine that synergizes with Citadel Siege and Solidarity of Heroes in hand. Devstral's only creature (Corpse Augur) is tapped and can't block, guaranteeing 1 damage through safely.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 76,
-    "snapshot_index": 100,
-    "aftermath_index": 101,
-    "player": "GPT-4.1-mini",
-    "turn": 5,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Crystalline Crawler {4} 1/1 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Crystalline Crawler has Converge, entering with a +1/+1 counter per color of mana spent. With current 4 lands (Swamp, Swamp, Command Tower, Forest), GPT-4.1-mini can produce at most 3 colors (e.g., B, G, W/U via Command Tower). By playing Plains or Island first, they could produce 4 different colors of mana (e.g., W from Plains, B from Swamp, U from Command Tower, G from Forest) getting 4 counters instead of 3.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 96,
-    "snapshot_index": 110,
-    "aftermath_index": 111,
-    "player": "Gemini2.5Flash",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select basic land cards (selected 0 of 2)",
-    "chosen_display": "Forest",
-    "annotation_severity": "minor",
-    "annotation_description": "Fetching two Forests when a Forest + Swamp split would provide better color balance. Gemini2.5Flash already has a Forest in hand to play next turn, giving plenty of green mana. Meanwhile, they only have 2 black sources (Swamp + Rakdos Carnarium) and cards like Gaze of Granite ({X}{B}{B}{G}) that want double-black. A Swamp would improve mana flexibility at little cost to green production.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 105,
-    "snapshot_index": 117,
-    "aftermath_index": 118,
-    "player": "Gem3Flash",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Ambition's Cost {3}{B} [Cast]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Gem3Flash chose to cast Ambition's Cost (draw 3, lose 3 life) instead of Corpse Augur (a 4/2 body for the same mana cost). While drawing 3 cards is powerful, Corpse Augur provides a creature on board that can block, be equipped with Lightning Greaves, contribute to the board state, and will draw cards when it dies (with creatures already in graveyards). Additionally, Devstral has Eldrazi Monument out, meaning all their creatures are indestructible with +1/+1 and flying \u2014 having a body to block or sacrifice could be important. The 3 life loss from Ambition's Cost is also relevant. However, Ambition's Cost gives cards immediately and unconditionally, so this is debatable rather than a clear mistake.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 109,
-    "snapshot_index": 124,
-    "aftermath_index": 125,
-    "player": "Devstral",
-    "turn": 6,
-    "phase": "BEGINNING",
-    "message": "Select a player",
-    "chosen_display": "Devstral (you)",
-    "annotation_severity": "minor",
-    "annotation_description": "Devstral targeted themselves for Corpse Augur's death trigger, which counts creature cards in the target player's graveyard. Devstral's graveyard only has Corpse Augur itself (1 creature card), so they draw 1 card and lose 1 life. GPT-4.1-mini's graveyard has Fathom Mage and the cycled cards \u2014 specifically Fathom Mage is a creature card (1 creature), and Ancient Excavation/Sylvan Reclamation are not creatures. However, Gem3Flash's graveyard contains Wood Elves (1 creature). Gemini2.5Flash's graveyard contains Farhaven Elf (1 creature). So all targets give X=1 except possibly checking more carefully \u2014 actually Devstral's own graveyard has Corpse Augur itself plus Terramorphic Expanse. Corpse Augur is a creature, so X=1 regardless of target. The key issue is that targeting an opponent would give the same card draw (X=1) without the life loss being a downside since you lose life equal to X either way. Actually, you lose X life regardless of who you target \u2014 the life loss is the same. So the choice of target doesn't matter when all graveyards have the same number of creature cards (1). This is actually not a blunder.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 115,
-    "snapshot_index": 131,
-    "aftermath_index": 132,
-    "player": "Devstral",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "Lotleth Troll \u2014 Discard a creature card: Put a +1/+1 counter on {... [Activate]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Discarded Butcher of Malakir to Lotleth Troll when Centaur Vinecrasher would have been a better discard target. Centaur Vinecrasher can return itself from the graveyard to hand whenever a land goes to a graveyard (for GG), making it essentially free to discard. Butcher of Malakir is a high-impact 7-drop that's harder to recover without committing Victimize to it.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 121,
-    "snapshot_index": 139,
-    "aftermath_index": 140,
-    "player": "Gemini2.5Flash",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Temple of the False God [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Temple of the False God as the 7th land is fine for mana, but Forest or Mountain would have been better here. With 6 lands already (including Rakdos Carnarium which taps for BR), playing Forest would allow casting Explosive Vegetation this turn (3G = Forest + 3 other lands), which would ramp significantly and set up Rampaging Baloths landfall triggers next turn. Temple of the False God enters tapped and doesn't help this turn. Alternatively, playing Mountain + Forest (wait, only one land drop) - but the key issue is that with the current mana base (Swamp, Rakdos Carnarium for BR, 3 Forests), playing Forest gives access to 4 green sources + 2 other = 6 mana including 3G needed for Explosive Vegetation. Playing Temple of the False God enters tapped so it produces nothing this turn, whereas a basic land could enable Explosive Vegetation immediately, which fetches two more basics and accelerates toward Thantis or Rampaging Baloths much faster.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 122,
-    "snapshot_index": 140,
-    "aftermath_index": 141,
-    "player": "Gemini2.5Flash",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Explosive Vegetation {3}{G} [Cast]",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Explosive Vegetation before deploying Rampaging Baloths means missing landfall triggers. If Baloths were cast first (after playing a land from hand for an immediate 4/4 token), then Explosive Vegetation next turn would generate two additional 4/4 tokens from the lands entering. The chosen line delays Baloths and wastes the landfall synergy with Explosive Vegetation.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 123,
-    "snapshot_index": 141,
-    "aftermath_index": 142,
-    "player": "Gemini2.5Flash",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Fetched two Forests from Explosive Vegetation when the player already had 3 Forests on the battlefield. Their hand contains Thantis (needs BRG - red only from Rakdos Carnarium) and Gaze of Granite (needs BBG - black only from Swamp + Rakdos Carnarium). Additional green sources provide diminishing returns while the player lacks redundancy in black and red.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 129,
-    "snapshot_index": 144,
-    "aftermath_index": 145,
-    "player": "Gemini2.5Flash",
-    "turn": 6,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "All attack",
-    "annotation_severity": "questionable",
-    "annotation_description": "Bloodtracker is a 3/3 flyer with +1/+1 counters that draws cards when it leaves the battlefield. Attacking with it in a 4-player game exposes it to potential blockers or removal, risking losing the card draw trigger prematurely. With only one creature on the board, sending it into combat provides minimal pressure (3 damage to one opponent) while risking the creature. Additionally, Bloodtracker's value increases over time as more +1/+1 counters are added (especially with proliferate effects or paying life), so keeping it back to grow is often better. However, the only creature available is Bloodtracker, and 'All attack' is the same as attacking with just Bloodtracker, so the decision is really about whether to attack at all. With no blockers obviously threatening and wanting to apply pressure, attacking is reasonable.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 135,
-    "snapshot_index": 148,
-    "aftermath_index": 149,
-    "player": "Gem3Flash",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Command Tower [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Command Tower (untapped) when they have enough untapped mana already to cast their available spells this turn (Corpse Augur costs 4, Viridian Zealot costs 2). Playing an enters-tapped land like Golgari Guildgate or Slippery Karst instead would preserve the more flexible Command Tower for a future turn while still having 5 untapped mana available this turn - plenty for Corpse Augur.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 141,
-    "snapshot_index": 150,
-    "aftermath_index": 151,
-    "player": "Gem3Flash",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash equipped Lightning Greaves to Meren of Clan Nel Toth before playing their land for the turn. They have Slippery Karst (enters tapped), Golgari Guildgate (enters tapped), and Forest in hand. Playing a land first is free and should be done before spending any actions. While the equip costs 0 mana, playing the land first is strictly better sequencing \u2014 it gives more information and ensures the land drop isn't forgotten. More importantly, equipping Greaves to Meren gives it shroud, which means Meren can't be targeted by your own spells/abilities if needed. The Greaves equip could wait until after other main phase actions. Additionally, with Meren's end step trigger requiring you to target a creature card in your graveyard, having Greaves on Meren is fine, but the sequencing of land before equip is a minor error.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 149,
-    "snapshot_index": 158,
-    "aftermath_index": 159,
-    "player": "Gem3Flash",
-    "turn": 6,
-    "phase": "END",
-    "message": "Select a card to discard",
-    "chosen_display": "Spider Spawning",
-    "annotation_severity": "questionable",
-    "annotation_description": "Gem3Flash is discarding to hand size at end of turn. Spider Spawning creates tokens based on creature cards in the graveyard, and with Meren of Clan Nel Toth as commander (which rewards creatures dying and can recur creatures), Spider Spawning could be a strong late-game card. However, discarding it to the graveyard does give it flashback access ({6}{B}), so it's not entirely lost. The alternative considerations: Golgari Guildgate is a tapped land that's relatively low-value with 7 lands already in play. Forest is also somewhat replaceable. Eater of Hope at 7 mana is very expensive and the board doesn't have many sacrifice fodder creatures yet. The discard of Spider Spawning is defensible since it retains flashback value, but discarding the Golgari Guildgate (a tapped land when you already have 7 lands including color fixing) would preserve more options while losing less strategic value.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 150,
-    "snapshot_index": 168,
-    "aftermath_index": 169,
-    "player": "Gem3Flash",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Corpse Augur {3}{B} 4/2 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash cast Corpse Augur before playing a land. They have Forest and Golgari Guildgate in hand but only played one land so far this turn. Playing a land first (Forest) would give access to more mana this turn or in future turns. Additionally, Wood Elves would be a stronger play here as it ramps by fetching a Forest to the battlefield, and with Meren on the field, the 1/1 body is excellent fodder for experience counters. Wood Elves costs 2G vs Corpse Augur's 3B, so after playing Forest they'd have the same mana available. More importantly, casting Corpse Augur now is questionable value - it's a 4/2 that draws cards when it dies based on creatures in a graveyard, but you'd want to time its death carefully. Wood Elves provides immediate ramp value and synergizes better with Meren.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 152,
-    "snapshot_index": 170,
-    "aftermath_index": 171,
-    "player": "Gem3Flash",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Equipping Lightning Greaves to Meren (the only creature) before playing a land or casting spells is poor sequencing. Meren already has shroud from the Greaves being equipped, and re-equipping to the same creature accomplishes nothing. More importantly, the player should play their land drop first (Forest or Golgari Guildgate) and then cast Mulch or Wood Elves to develop their board. Playing a land and casting Mulch (with the untapped lands available after land drop) would advance their game plan much more meaningfully. If they want to cast Wood Elves and then equip Greaves to protect it, they need to unequip from Meren first anyway, but the equip should come after deploying creatures, not before.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 156,
-    "snapshot_index": 171,
-    "aftermath_index": 172,
-    "player": "Gem3Flash",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash chose to equip Lightning Greaves to Meren (who is already on the battlefield and doesn't need haste) before casting any spells. They have Wood Elves in hand which costs 2G and they have access to the mana to cast it (Swamp untapped + Vivid Marsh could produce green). Wood Elves would fetch a Forest, fixing mana and ramping, and also trigger Meren's death/experience counter synergies later. More importantly, casting a creature first and then equipping Greaves to protect either Meren or the new creature would be better sequencing. However, looking at the mana more carefully: Command Tower is tapped, both Forests are tapped, one Swamp is tapped. Available mana is: Vivid Marsh (untapped, can produce B or any color by removing a charge counter) and Swamp (untapped, produces B). That's only 2 mana available, and Wood Elves costs 2G - they'd need at least one green. Vivid Marsh could produce G by removing a charge counter, giving them BG - but Wood Elves costs 2G (one generic + one green + one more generic), which is 3 total mana. They only have 2 mana available. So they actually can't cast Wood Elves this turn. Mulch costs 1G - that's 2 mana, one must be green. With Vivid Marsh removing a counter for G and Swamp for B, they have BG - enough for Mulch (1G). Viridian Zealot costs GG - they'd need two green, but only have one green source available. So the only castable spell is Mulch. Equipping Greaves first before casting Mulch is fine since Mulch is a sorcery and order doesn't matter much. But they should cast Mulch this turn to develop. If this is the only action they take (just equipping), that might waste the turn's mana. Actually, this is just the first action - they can still cast Mulch after equipping. The equip itself is free, so no mana is wasted. This seems reasonable.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 161,
-    "snapshot_index": 173,
-    "aftermath_index": 174,
-    "player": "Gem3Flash",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem3Flash declined to cast Scourge of Nel Toth from the graveyard. The Scourge costs {B}{B} and sacrificing two creatures to cast from graveyard, but Gem3Flash only has one creature on the battlefield (Meren of Clan Nel Toth), so they can't actually sacrifice two creatures. However, they also declined to equip Lightning Greaves to Meren for free. Lightning Greaves gives shroud and haste, and equipping it to Meren (their commander and key value engine) protects her from targeted removal at zero cost. This is pure upside that was declined.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 168,
-    "snapshot_index": 177,
-    "aftermath_index": 178,
-    "player": "Gem3Flash",
-    "turn": 7,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash had the option to equip Lightning Greaves to Meren of Clan Nel Toth for free (Equip {0}), which would give Meren shroud, protecting her from targeted removal. Meren is the most important card on Gem3Flash's board as the engine for recurring creatures. Additionally, they declined to cast Scourge of Nel Toth from the graveyard (by paying {B}{B} and sacrificing two creatures), but since they only control Meren as a creature, sacrificing Meren would be terrible, so that decline was correct. However, not equipping Lightning Greaves to Meren is a missed opportunity for free protection. The Greaves are sitting unequipped on the battlefield.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 170,
-    "snapshot_index": 281,
-    "aftermath_index": 282,
-    "player": "Gem3Flash",
-    "turn": 13,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Pathbreaker Ibex {4}{G}{G} 3/3 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash cast Pathbreaker Ibex (a 3/3 with no haste) during precombat main phase with Lightning Greaves on the battlefield. This is fine for giving it haste via Greaves, but the issue is sequencing: they should play a land first (Evolving Wilds or Forest) before casting the Ibex to ensure they have maximum mana available. More importantly, with only Meren of Clan Nel Toth as another creature and Pathbreaker Ibex's trigger giving +X/+X where X is greatest power (3 from Ibex itself), the attack would give +3/+3 to both creatures for a total of 6+7 = 13 damage to one player. This is decent but casting Wood Elves first (3 mana) to ramp, then having the extra mana open or building board more efficiently might have been better. However, the real sequencing issue is not playing a land before casting the 6-mana spell - they have Evolving Wilds and Forest in hand but only 7 lands on board. Playing a land first would leave more flexibility.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 172,
-    "snapshot_index": 283,
-    "aftermath_index": 284,
-    "player": "Gem3Flash",
-    "turn": 13,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash chose to equip Lightning Greaves to Meren (the only creature) before playing a land. They have Evolving Wilds, Forest, and Swamp in hand and haven't played a land yet this turn. Playing a land first is free and costs nothing - they should play their land drop before taking other actions. Specifically, playing Evolving Wilds and cracking it would thin the deck and trigger landfall effects, and importantly with Meren they want experience counters and graveyard synergies. More critically, equipping Lightning Greaves to Meren gives it shroud, which prevents Gem3Flash from targeting Meren with their own effects, and also prevents them from equipping Greaves to other creatures they cast this turn (since they'd need to move Greaves off Meren first, but Meren has shroud so they can't re-equip to Meren after). The sequencing is wrong - they should play their land first, then potentially cast Wood Elves or Viridian Zealot, and equip Greaves last to protect the most important creature.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 177,
-    "snapshot_index": 284,
-    "aftermath_index": 285,
-    "player": "Gem3Flash",
-    "turn": 13,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash has Evolving Wilds available to activate but declined to use it. They also have a Forest and Swamp in hand they could play. More importantly, they have Meren of Clan Nel Toth on the battlefield and Lightning Greaves with Equip {0} available - they could equip Greaves to Meren to protect her with shroud, which is pure upside since it costs 0 mana. Meren is a high-value target that opponents will want to remove, and protecting her is essentially free.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 182,
-    "snapshot_index": 288,
-    "aftermath_index": 289,
-    "player": "Gem3Flash",
-    "turn": 13,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Evolving Wilds \u2014 {T}, Sacrifice {this}: Search your library for a ... [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Activating Evolving Wilds before equipping Lightning Greaves to Meren leaves Meren vulnerable to instant-speed removal during the fetch resolution. Since Greaves equip costs {0}, there's no reason not to protect Meren first.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 184,
-    "snapshot_index": 289,
-    "aftermath_index": 290,
-    "player": "Gem3Flash",
-    "turn": 13,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash fetched Swamp when they already have 4 black sources (2 Swamps, Vivid Marsh, Command Tower) plus a Swamp in hand. Their hand contains Viridian Zealot (GG) and Wood Elves (2G) which need green mana, and they only have 2 Forests on board. A Forest fetch would better support their near-term plays while black mana is already well-covered.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 188,
-    "snapshot_index": 291,
-    "aftermath_index": 292,
-    "player": "Gem3Flash",
-    "turn": 13,
-    "phase": "END",
-    "message": "Select a creature card from your graveyard",
-    "chosen_display": "Eater of Hope",
-    "annotation_severity": "questionable",
-    "annotation_description": "Chose Eater of Hope (CMC 7) over Extractor Demon (CMC 6) for Meren's end step trigger. With likely insufficient experience counters, both go to hand. Extractor Demon is cheaper to cast and has unearth {2}{B} as a backup reanimation option from graveyard, while also enabling mill synergies with Meren's graveyard strategy.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 192,
-    "snapshot_index": 346,
-    "aftermath_index": 347,
-    "player": "Gem3Flash",
-    "turn": 16,
-    "phase": "END",
-    "message": "Select card to discard (selected 1 of 2, min 2)",
-    "chosen_display": "Scourge of Nel Toth",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash discarded Scourge of Nel Toth, which can be cast from the graveyard by paying BB and sacrificing two creatures. However, with Meren of Clan Nel Toth on the battlefield (which can return creatures from the graveyard), having Scourge in the graveyard isn't terrible. The real issue is discarding it over less useful cards. That said, Scourge of Nel Toth's alternate casting cost from the graveyard (BB + sacrifice two creatures) is actually a feature, making the graveyard a fine place for it. The more questionable discard is keeping Bloodspore Thrinax over Scourge - Bloodspore Thrinax requires devour setup and the board currently has limited sacrifice fodder, while Scourge is a 6/6 flyer that can be cast from graveyard. However, Meren can also return Scourge from graveyard to hand/battlefield, so this is somewhat mitigated. On reflection, discarding Scourge to graveyard where it can be cast for BB + 2 creatures or retrieved by Meren is actually reasonable - this is not clearly a blunder.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 199,
-    "snapshot_index": 364,
-    "aftermath_index": 365,
-    "player": "Gem3Flash",
-    "turn": 17,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Equipping Lightning Greaves as the first action of the turn accomplishes nothing meaningful. If Greaves is already on Meren, re-equipping to Meren does nothing. If they want to move Greaves to a creature they're about to cast, they should cast the creature first and then equip, rather than exposing Meren by moving Greaves off prematurely.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 207,
-    "snapshot_index": 367,
-    "aftermath_index": 368,
-    "player": "Gem3Flash",
-    "turn": 17,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem3Flash passed priority without taking any action, despite having several meaningful plays available. Gemini2.5Flash is at 6 life, and Gem3Flash has Meren of Clan Nel Toth on the battlefield with Lightning Greaves. Playing a Forest (land drop), then casting Viridian Zealot or Bloodspore Thrinax would develop the board. More importantly, Scourge of Nel Toth can be cast from the graveyard by paying BB and sacrificing two creatures - but Gem3Flash only has Meren on board, so that's not available yet. However, casting Viridian Zealot (GG) is free with the untapped Vivid Marsh + Swamp available, and equipping Lightning Greaves to it gives haste+shroud. Even just playing a Forest from hand to not miss a land drop is important. Passing with no action wastes mana and a land drop.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 212,
-    "snapshot_index": 368,
-    "aftermath_index": 369,
-    "player": "Gem3Flash",
-    "turn": 17,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Pathbreaker Ibex 3/3 [Attack]",
-    "annotation_severity": "major",
-    "annotation_description": "Gem3Flash has Pathbreaker Ibex (3/3), Extractor Demon (5/5), Meren of Clan Nel Toth (3/4), and Corpse Augur (4/2) on the battlefield. Gemini2.5Flash is at 6 life with only Bloodtracker as a potential blocker. Pathbreaker Ibex's attack trigger gives all creatures trample and +X/+X where X is the greatest power among creatures you control. If all creatures attack Gemini2.5Flash, the Ibex trigger would use Extractor Demon's 5 power (or the boosted power), giving everything +5/+5 minimum. Even attacking with just Pathbreaker Ibex and Extractor Demon would yield massive trample damage far exceeding 6 life. Attacking with all creatures at Gemini2.5Flash would be lethal. Instead, Gem3Flash only selected Pathbreaker Ibex to attack, and then apparently skipped the attack entirely ('skip attack' in the After field), completely missing a kill on a player at 6 life.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 213,
-    "snapshot_index": 398,
-    "aftermath_index": 399,
-    "player": "GPT-4.1-mini",
-    "turn": 19,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Solidarity of Heroes {1}{G} [Cast]",
-    "annotation_severity": "minor",
-    "annotation_description": "GPT-4.1-mini cast Solidarity of Heroes with only Crystalline Crawler (a 1/1 with 3 +1/+1 counters, so effectively 4/4) as a valid target. Doubling counters on the Crawler to make it 7/7 is marginal value \u2014 it's not attacking, it's primarily a mana rock. Meanwhile, GPT-4.1-mini has only 6 lands and important 4-5 mana spells in hand (Citadel Siege, Commander's Sphere, Cauldron of Souls). Playing a land (Island or Azorius Chancery) and casting Commander's Sphere would develop mana to cast Citadel Siege or Cauldron of Souls next turn, which would provide much more lasting value. Spending 2 mana to double counters on a utility creature with no combat plan is a waste of a card.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 214,
-    "snapshot_index": 399,
-    "aftermath_index": 400,
-    "player": "GPT-4.1-mini",
-    "turn": 19,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Select creatures (selected 0)",
-    "chosen_display": "Crystalline Crawler (4/4) (yours)",
-    "annotation_severity": "major",
-    "annotation_description": "GPT-4.1-mini chose to double the +1/+1 counters on Devstral's Lotleth Troll with Solidarity of Heroes, turning it from a 5/4 into an 8/7. This directly buffs an opponent's creature for no benefit, making the strongest remaining threat even more dangerous.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 224,
-    "snapshot_index": 400,
-    "aftermath_index": 401,
-    "player": "GPT-4.1-mini",
-    "turn": 19,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Duelist's Heritage {2}{W} [Cast]",
-    "annotation_severity": "questionable",
-    "annotation_description": "GPT-4.1-mini has almost no creatures on board (just Crystalline Crawler which is being drained of counters for mana). Duelist's Heritage provides double strike but requires attacking creatures to be useful. With a depleted board and expensive cards in hand (Cauldron of Souls, Citadel Siege), Commander's Sphere would provide mana acceleration and fixing to help rebuild. Duelist's Heritage has political value but the immediate need is mana development.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 227,
-    "snapshot_index": 404,
-    "aftermath_index": 405,
-    "player": "GPT-4.1-mini",
-    "turn": 19,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "-1",
-    "annotation_severity": "minor",
-    "annotation_description": "GPT-4.1-mini passed without casting Citadel Siege, which they could have afforded by using Island (1 mana) plus removing 2 +1/+1 counters from Crystalline Crawler for {W}{W}. Citadel Siege on Khans mode would provide two +1/+1 counters per combat turn, helping rebuild their depleted board and synergizing with their counters-matter strategy.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 233,
-    "snapshot_index": 410,
-    "aftermath_index": 411,
-    "player": "Gem3Flash",
-    "turn": 19,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Caller of the Pack {5}{G}{G} 8/6 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash cast Caller of the Pack before playing their Forest land drop. They should play the Forest first to maximize available mana and keep options open. While the Caller of the Pack is a strong play to threaten lethal on Gemini2.5Flash (6 life, only a 2/2 blocker vs 8/6 trample), playing the land first is strictly better sequencing.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 235,
-    "snapshot_index": 412,
-    "aftermath_index": 413,
-    "player": "Gem3Flash",
-    "turn": 19,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash passed without playing the Forest from their hand, missing a land drop. They also passed on casting Viridian Zealot (which would have been castable and synergizes with Meren as a sacrifice outlet for artifacts/enchantments). Playing the Forest would give them more mana for future turns and potentially enable more plays.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 240,
-    "snapshot_index": 413,
-    "aftermath_index": 414,
-    "player": "Gem3Flash",
-    "turn": 19,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Caller of the Pack 8/6 [Attack]",
-    "annotation_severity": "major",
-    "annotation_description": "Gem3Flash has Pathbreaker Ibex on the battlefield. If it attacks alongside Caller of the Pack, Ibex's trigger gives all attacking creatures +8/+8 and trample (X = greatest power = 8 from Caller). This would make Caller 16/14 trample and Myriad token copies also 16/14 trample, dealing devastating damage to all opponents. Additionally, attacking all creatures would guarantee killing Gemini2.5Flash (at 6 life) and dealing massive damage to others. By attacking with only Caller of the Pack, they miss the Pathbreaker Ibex pump entirely.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 260,
-    "snapshot_index": 427,
-    "aftermath_index": 428,
-    "player": "GPT-4.1-mini",
-    "turn": 20,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Duelist's Heritage {2}{W} [Cast]",
-    "annotation_severity": "minor",
-    "annotation_description": "GPT-4.1-mini cast Duelist's Heritage before playing a land for the turn. They had Evolving Wilds and Azorius Chancery available as land drops. Playing a land first is standard sequencing - Evolving Wilds could be cracked immediately to thin the deck, and having the land in play before committing mana to spells ensures maximum flexibility.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 267,
-    "snapshot_index": 429,
-    "aftermath_index": 430,
-    "player": "GPT-4.1-mini",
-    "turn": 20,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Evolving Wilds [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Evolving Wilds before Azorius Chancery is slightly worse mana sequencing. Playing Azorius Chancery first (bouncing a tapped land like Island) would provide WU mana next turn, and then Evolving Wilds could be played the following turn. This order maximizes available mana sooner, which matters when trying to cast Cauldron of Souls (5 mana) or Citadel Siege (4 mana) as soon as possible.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 269,
-    "snapshot_index": 430,
-    "aftermath_index": 431,
-    "player": "GPT-4.1-mini",
-    "turn": 20,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "-1",
-    "annotation_severity": "minor",
-    "annotation_description": "GPT-4.1-mini passed on activating Crystalline Crawler's tap ability to add a free +1/+1 counter, which is pure upside costing nothing but tapping the creature. With Ishai as their key threat (growing from opponent spells), growing the Crawler for free is still value. Additionally, if Evolving Wilds was available untapped, fetching a land for free is also missed value.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 274,
-    "snapshot_index": 434,
-    "aftermath_index": 435,
-    "player": "Gem3Flash",
-    "turn": 20,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Great Oak Guardian {5}{G} 4/5 [Creature]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Casting Great Oak Guardian (a flash creature) during the precombat main phase rather than during combat or at end of opponent's turn wastes its flash advantage and the untap/pump trigger. The +2/+2 and untap effect is best used as a combat trick or surprise blocker. Additionally, casting it now gives GPT-4.1-mini's Ishai another counter unnecessarily before combat. Bloodspore Thrinax could have been a stronger play to set up future creatures entering with extra counters, especially with Meren on board for recurring creatures.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 290,
-    "snapshot_index": 613,
-    "aftermath_index": 614,
-    "player": "Gem3Flash",
-    "turn": 38,
-    "phase": "END",
-    "message": "Select a creature card from your graveyard",
-    "chosen_display": "Butcher of Malakir",
-    "annotation_severity": "minor",
-    "annotation_description": "Chose Butcher of Malakir to return to hand when Thief of Blood would be much more impactful against the current board state. GPT-4.1-mini has Ishai (which accumulates +1/+1 counters from opponent spells) and Crystalline Crawler with counters. Thief of Blood would strip all those counters and become a huge flying threat. Additionally, Gem3Flash already has Terastodon competing for the expensive-creature slot in hand.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 291,
-    "snapshot_index": 683,
-    "aftermath_index": 684,
-    "player": "Gem3Flash",
-    "turn": 45,
-    "phase": "END",
-    "message": "Select a creature card from your graveyard",
-    "chosen_display": "Terastodon",
-    "annotation_severity": "minor",
-    "annotation_description": "Chose Terastodon (MV 8) with Meren's ability when they only have 7 lands and will likely need to discard to hand size. Terastodon costs 6GG which is far beyond their current mana. More immediately castable creatures like Acidic Slime (3GG - castable with current lands), Shriekmaw (evokable for 1B), or even Butcher of Malakir would provide more near-term value.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 293,
-    "snapshot_index": 763,
-    "aftermath_index": 764,
-    "player": "Gem3Flash",
-    "turn": 53,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Vulturous Zombie {3}{B}{G} 3/3 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Vulturous Zombie triggers Ishai to grow larger, while Gem3Flash has Sever the Bloodline in hand which would exile Ishai (the only remaining opponent's key threat that grows with every spell cast). Each spell Gem3Flash casts makes Ishai more dangerous. Sever costs only 3B (4 mana) vs Vulturous Zombie's 3BG (5 mana), so Gem3Flash could have exiled Ishai and potentially cast another cheap creature like Viridian Zealot or Phyrexian Rager in the same turn.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 296,
-    "snapshot_index": 765,
-    "aftermath_index": 766,
-    "player": "Gem3Flash",
-    "turn": 53,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Moving Lightning Greaves from Pathbreaker Ibex to Vulturous Zombie is suboptimal. Pathbreaker Ibex is the key threat multiplier that enables massive attacks, and Meren is the recursion engine. Vulturous Zombie is just an incremental grower and far less critical to protect.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 303,
-    "snapshot_index": 767,
-    "aftermath_index": 768,
-    "player": "Gem3Flash",
-    "turn": 53,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash passed without activating Terramorphic Expanse to fetch a basic land. Cracking a fetch land is essentially free value - it thins the deck and provides an additional land for future turns. With expensive cards in hand (Centaur Vinecrasher, Rise from the Grave, Sever the Bloodline) and Meren wanting more mana to operate, there's no reason not to activate it.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 304,
-    "snapshot_index": 768,
-    "aftermath_index": 769,
-    "player": "Gem3Flash",
-    "turn": 53,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Lightning Greaves was equipped to Phyrexian Rager, a 2/2 with no ongoing value, instead of Meren of Clan Nel Toth, the commander and key engine piece that generates recurring value every end step. Meren's ability targets graveyard cards, not herself, so shroud doesn't interfere with her functionality.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 309,
-    "snapshot_index": 769,
-    "aftermath_index": 770,
-    "player": "Gem3Flash",
-    "turn": 53,
-    "phase": "END",
-    "message": "Select a creature card from your graveyard",
-    "chosen_display": "Terastodon",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem3Flash chose Terastodon as the Meren end-step target, but Terastodon costs 8 mana and Meren almost certainly doesn't have 8+ experience counters, so it just goes to hand. However, Terastodon is already in hand effectively useless without enough mana to cast it (only 8 lands, some tapped). Meanwhile, Eternal Witness was also available and was actually the card returned to hand. But looking more carefully at the 'After' field, Meren targeted Eternal Witness and returned it to hand \u2014 the system shows Terastodon was 'Chosen' but the resolution targeted Eternal Witness. Actually, re-reading: the choice was Terastodon, but the After shows Eternal Witness was targeted and returned. This is confusing. Let me re-read. The Chosen field says 'Terastodon' but the After says Meren targeted Eternal Witness. This likely means the system corrected or the choice of Terastodon was the initial selection but Meren resolved on Eternal Witness. Actually, looking at the choices list, Terastodon isn't even listed among the 10 shown choices (the list shows 14 but only 10 are displayed). Terastodon is in the graveyard so it should be a valid target. The choice of Terastodon over Eternal Witness is questionable - Eternal Witness can recur any card and costs only 3 mana (castable next turn), while Terastodon costs 8 mana and would be very hard to cast. But Terastodon is a powerful effect. Given the game state with only 2 opponents left (both eliminated at negative life?), getting Eternal Witness to recur a key spell seems better. Actually both Gemini2.5Flash and Devstral are at negative life, so only GPT-4.1-mini remains at 22hp. Eternal Witness could recur Pathbreaker Ibex or other key cards. But the After shows Eternal Witness was actually returned, so perhaps Terastodon was selected first and then Eternal Witness was the actual Meren target. This is confusing output. Given the choice shown was Terastodon, which is an 8-mana creature unlikely to be cast soon, while Eternal Witness at 3 mana provides immediate value, choosing Terastodon seems suboptimal.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 314,
-    "snapshot_index": 846,
-    "aftermath_index": 847,
-    "player": "Gem3Flash",
-    "turn": 60,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Equipping Lightning Greaves to Meren before casting any creatures gives Meren shroud prematurely. Since Greaves has Equip {0}, the correct sequence is to cast creatures first (like Korozda Guildmage for BG using Vivid Marsh + Swamp), then decide which creature gets the Greaves protection. Equipping first means they'd need to move Greaves off Meren (temporarily removing shroud) to cast and then re-equip, which creates a window of vulnerability.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 322,
-    "snapshot_index": 849,
-    "aftermath_index": 850,
-    "player": "Gem3Flash",
-    "turn": 60,
-    "phase": "END",
-    "message": "Select a creature card from your graveyard",
-    "chosen_display": "Butcher of Malakir",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem3Flash likely doesn't have enough experience counters to return Butcher of Malakir (CMC 7) directly to the battlefield, so it will just go to hand. With only ~7-8 lands and many tapped, casting it next turn is difficult. A cheaper creature like Sakura-Tribe Elder or Eternal Witness (CMC 2-3) would more likely meet the experience counter threshold and enter the battlefield directly, providing immediate value - Sakura-Tribe Elder gives ramp and an experience counter on sacrifice, Eternal Witness recovers a key card.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 330,
-    "snapshot_index": 857,
-    "aftermath_index": 858,
-    "player": "Gem3Flash",
-    "turn": 61,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Butcher of Malakir {5}{B}{B} 5/4 [Creature]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Centaur Vinecrasher would enter as approximately a 32/32 with trample (counting ~32 land cards across all graveyards) for only 4 mana, and could immediately be equipped with Lightning Greaves for haste+shroud to attack. Instead, Gem3Flash spent all 7 mana on a 5/4 Butcher of Malakir that can't attack this turn and also gives Ishai another counter.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 333,
-    "snapshot_index": 859,
-    "aftermath_index": 860,
-    "player": "Gem3Flash",
-    "turn": 61,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lightning Greaves \u2014 Equip {0} [Activate]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Equipping Lightning Greaves to Pathbreaker Ibex (3/3) instead of Vulturous Zombie (11/11). The Vulturous Zombie is the biggest threat on board and the creature that maximizes Pathbreaker Ibex's attack trigger (+11/+11 to all creatures). If an opponent removes the unprotected 11/11 Vulturous Zombie before combat, the Ibex trigger drops dramatically in value.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 345,
-    "snapshot_index": 861,
-    "aftermath_index": 862,
-    "player": "Gem3Flash",
-    "turn": 61,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3Flash declined to activate Jarad, Golgari Lich Lord's graveyard ability to return it to hand by sacrificing a Swamp and a Forest. With 20+ creature cards in the graveyard, Jarad would enter as a massive creature and could use its drain ability to close out the game. The cost of two basic lands is relatively minor in this late-game state.",
-    "source": "annotation_v12",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 0
+  },
+  {
+    "decision_index": 8
+  },
+  {
+    "decision_index": 13
+  },
+  {
+    "decision_index": 15
+  },
+  {
+    "decision_index": 16
+  },
+  {
+    "decision_index": 17
+  },
+  {
+    "decision_index": 18
+  },
+  {
+    "decision_index": 23
+  },
+  {
+    "decision_index": 24
+  },
+  {
+    "decision_index": 28
+  },
+  {
+    "decision_index": 29
+  },
+  {
+    "decision_index": 30
+  },
+  {
+    "decision_index": 36
+  },
+  {
+    "decision_index": 37
+  },
+  {
+    "decision_index": 52
+  },
+  {
+    "decision_index": 65
+  },
+  {
+    "decision_index": 66
+  },
+  {
+    "decision_index": 71
+  },
+  {
+    "decision_index": 76
+  },
+  {
+    "decision_index": 96
+  },
+  {
+    "decision_index": 105
+  },
+  {
+    "decision_index": 109
+  },
+  {
+    "decision_index": 115
+  },
+  {
+    "decision_index": 121
+  },
+  {
+    "decision_index": 122
+  },
+  {
+    "decision_index": 123
+  },
+  {
+    "decision_index": 129
+  },
+  {
+    "decision_index": 135
+  },
+  {
+    "decision_index": 141
+  },
+  {
+    "decision_index": 149
+  },
+  {
+    "decision_index": 150
+  },
+  {
+    "decision_index": 152
+  },
+  {
+    "decision_index": 156
+  },
+  {
+    "decision_index": 161
+  },
+  {
+    "decision_index": 168
+  },
+  {
+    "decision_index": 170
+  },
+  {
+    "decision_index": 172
+  },
+  {
+    "decision_index": 177
+  },
+  {
+    "decision_index": 182
+  },
+  {
+    "decision_index": 184
+  },
+  {
+    "decision_index": 188
+  },
+  {
+    "decision_index": 192
+  },
+  {
+    "decision_index": 199
+  },
+  {
+    "decision_index": 207
+  },
+  {
+    "decision_index": 212
+  },
+  {
+    "decision_index": 213
+  },
+  {
+    "decision_index": 214
+  },
+  {
+    "decision_index": 224
+  },
+  {
+    "decision_index": 227
+  },
+  {
+    "decision_index": 233
+  },
+  {
+    "decision_index": 235
+  },
+  {
+    "decision_index": 240
+  },
+  {
+    "decision_index": 260
+  },
+  {
+    "decision_index": 267
+  },
+  {
+    "decision_index": 269
+  },
+  {
+    "decision_index": 274
+  },
+  {
+    "decision_index": 290
+  },
+  {
+    "decision_index": 291
+  },
+  {
+    "decision_index": 293
+  },
+  {
+    "decision_index": 296
+  },
+  {
+    "decision_index": 303
+  },
+  {
+    "decision_index": 304
+  },
+  {
+    "decision_index": 309
+  },
+  {
+    "decision_index": 314
+  },
+  {
+    "decision_index": 322
+  },
+  {
+    "decision_index": 330
+  },
+  {
+    "decision_index": 333
+  },
+  {
+    "decision_index": 345
   }
 ]

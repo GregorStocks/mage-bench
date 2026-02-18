@@ -1,50 +1,11 @@
 [
   {
-    "decision_index": 16,
-    "snapshot_index": 31,
-    "aftermath_index": 33,
-    "player": "Qwen3 Rivals",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "Casting a second Voice of Victory (1/3) on turn 3 when already having one on the battlefield is a legendary-agnostic play, but more importantly, the opponent has a Stormchaser's Talent with an Otter token (prowess 1/1) and only Steam Vents untapped. Casting Floodpits Drowner at flash speed during combat or on the opponent's turn would be more flexible - it could tap down a blocker or an attacker, and holds up the option to react. Additionally, playing High Noon (each player can't cast more than one spell per turn) could be very strong here since the opponent is playing a spell-heavy Izzet strategy with Stormchaser's Talent. High Noon would severely limit their ability to chain spells and trigger prowess multiple times. However, Voice of Victory's 'opponents can't cast spells during your turn' effect is also powerful, and having two copies provides redundancy. The choice is debatable but High Noon seems like a stronger lock piece in this matchup.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 16
   },
   {
-    "decision_index": 28,
-    "snapshot_index": 73,
-    "aftermath_index": 74,
-    "player": "GPT5m Timmy",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Mountain",
-    "annotation_severity": "minor",
-    "annotation_description": "Played Mountain instead of Spirebluff Canal. With only 2 other lands in play (Steam Vents and Island), Spirebluff Canal would enter untapped and provide both U and R mana. Mountain only provides R. Since Spirebluff Canal enters tapped with 3+ other lands, this was the optimal time to play it. Playing Mountain now means Spirebluff Canal will likely enter tapped on a future turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 28
   },
   {
-    "decision_index": 36,
-    "snapshot_index": 87,
-    "aftermath_index": 88,
-    "player": "Qwen3 Rivals",
-    "turn": 7,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Failed to use Agna Qel'a's loot ability ({2}{U}, {T}: Draw a card, then discard a card) with unused mana in postcombat main. This is a pure-upside mana sink that provides card selection at no real cost. Additionally, could have cast Floodpits Drowner to tap down Fear of Missing Out and prevent any delirium/extra combat shenanigans on opponent's turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 36
   }
 ]

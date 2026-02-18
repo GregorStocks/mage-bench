@@ -2,8 +2,9 @@
 """Seed the blunder ground truth from existing game annotations.
 
 Reads all game files in website/public/games/, reverse-maps their
-annotations to decision indices, and creates ground truth entries.
-Merges with existing ground truth (preserves verdicts).
+annotations to decision indices, and creates slim ground truth entries
+(just {"decision_index": N}). Merges with existing ground truth
+(preserves audited entries).
 
 Usage:
     uv run --project puppeteer python scripts/analysis/blunder_seed.py
@@ -15,7 +16,7 @@ import sys
 
 from blunder_eval_common import (
     GAMES_DIR,
-    make_ground_truth_entry,
+    make_seed_entry,
     merge_into_ground_truth,
     reverse_map_annotations,
 )
@@ -46,8 +47,6 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
         return game_id, []
 
     snapshots = data.get("snapshots", [])
-    version = data.get("blunderScriptVersion", 1)
-    source = f"annotation_v{version}"
 
     mapping = reverse_map_annotations(annotations, decisions, snapshots)
 
@@ -59,13 +58,8 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
         )
 
     entries: list[dict] = []
-    for ann_idx, decision_idx in mapping.items():
-        entry = make_ground_truth_entry(
-            decisions[decision_idx],
-            snapshots,
-            annotation=annotations[ann_idx],
-            source=source,
-        )
+    for decision_idx in mapping.values():
+        entry = make_seed_entry(decisions[decision_idx]["decision_index"])
         entries.append(entry)
 
     return game_id, entries

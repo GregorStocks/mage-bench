@@ -891,22 +891,16 @@ def _auto_ingest_ground_truth(
 ) -> None:
     """Add annotated decisions to ground truth for future eval."""
     from blunder_eval_common import (
-        make_ground_truth_entry,
+        make_seed_entry,
         merge_into_ground_truth,
         reverse_map_annotations,
     )
 
-    source = f"annotation_v{BLUNDER_SCRIPT_VERSION}"
     mapping = reverse_map_annotations(annotations, decisions, snapshots)
 
     entries: list[dict] = []
-    for ann_idx, decision_idx in mapping.items():
-        entry = make_ground_truth_entry(
-            decisions[decision_idx],
-            snapshots,
-            annotation=annotations[ann_idx],
-            source=source,
-        )
+    for decision_idx in mapping.values():
+        entry = make_seed_entry(decisions[decision_idx]["decision_index"])
         entries.append(entry)
 
     if entries:

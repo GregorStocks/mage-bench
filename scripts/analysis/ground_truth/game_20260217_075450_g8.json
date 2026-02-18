@@ -1,66 +1,14 @@
 [
   {
-    "decision_index": 13,
-    "snapshot_index": 249,
-    "aftermath_index": 251,
-    "player": "GPT52 Vet",
-    "turn": 9,
-    "phase": "COMBAT",
-    "message": "Select any target",
-    "chosen_display": "GPT52 Vet",
-    "annotation_severity": "major",
-    "annotation_description": "GPT52 Vet targeted themselves with Burst Lightning, dealing 2 damage to themselves (going from 6 to 4 life) instead of targeting Haiku Worrier who is at 4 life. Burst Lightning deals 2 damage to any target, and the opponent is at exactly 4 life. While 2 damage doesn't kill the opponent outright, targeting the opponent puts them to 2 life and creates massive pressure, whereas targeting yourself is pure self-harm with no benefit whatsoever. Even better, targeting Ral, Crackling Wit (at 5 loyalty) would remove 2 loyalty counters. But the most egregious error is choosing to damage yourself.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 13
   },
   {
-    "decision_index": 15,
-    "snapshot_index": 253,
-    "aftermath_index": 255,
-    "player": "GPT52 Vet",
-    "turn": 9,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Select any target",
-    "chosen_display": "GPT52 Vet",
-    "annotation_severity": "major",
-    "annotation_description": "GPT52 Vet targeted themselves with Burst Lightning, dealing 2 damage to themselves when they are at 6 life and the opponent is at 4 life. Burst Lightning deals 2 damage to any target - targeting the opponent (Haiku Worrier) at 4 life would deal 2 damage, bringing them to 2 life. Even better, targeting Ral, Crackling Wit (which has 6 loyalty) would remove some loyalty counters, though the opponent at 4 life is the more pressing target. Dealing 2 damage to yourself when you're at 6 life and your opponent is at 4 life is catastrophic - it puts you closer to death while missing the chance to bring the opponent to 2 life (within range of almost any burn spell).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 15
   },
   {
-    "decision_index": 22,
-    "snapshot_index": 291,
-    "aftermath_index": 293,
-    "player": "GPT52 Vet",
-    "turn": 11,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select any target",
-    "chosen_display": "GPT52 Vet",
-    "annotation_severity": "major",
-    "annotation_description": "GPT52 Vet targeted themselves with Burst Lightning for 2 damage (going from 6 to 4 life) instead of targeting the opponent at 4 life for lethal damage. The opponent is at 4 life and Burst Lightning deals 2 damage, which wouldn't be lethal alone, but targeting yourself is never correct here. Additionally, the opponent's Ral has 8 loyalty counters and is a major threat. Burst Lightning should target either the opponent (bringing them to 2 life, within range of future burn) or Ral to remove loyalty counters. Targeting yourself is throwing away 2 life points for absolutely no benefit when you're already at a low life total.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 22
   },
   {
-    "decision_index": 26,
-    "snapshot_index": 304,
-    "aftermath_index": 307,
-    "player": "GPT52 Vet",
-    "turn": 11,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select any target",
-    "chosen_display": "GPT52 Vet",
-    "annotation_severity": "major",
-    "annotation_description": "GPT52 Vet targeted themselves with Burst Lightning, dealing 2 damage to themselves (going from 6 to 4 life) instead of targeting the opponent at 4 life for lethal damage. The opponent is at 4 life, and Burst Lightning deals 2 damage. While 2 damage alone doesn't kill the opponent, targeting the opponent puts them to 2 life and is vastly better than dealing damage to yourself. Moreover, looking at the stack, Burst Lightning is already on the stack targeting - this is a critical error. The opponent is at 4 life and GPT52 Vet has Burst Lightning (2 damage). Even if not lethal alone, dealing 2 to an opponent at 4 is infinitely better than dealing 2 to yourself at 6 life. Additionally, targeting Ral at 8 loyalty could also be considered since Ral is a major threat approaching ultimate.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 26
   }
 ]

@@ -1,66 +1,34 @@
 [
   {
     "decision_index": 7,
-    "snapshot_index": 13,
-    "aftermath_index": 14,
-    "player": "o3 Proud",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Jasmine Dragon Tea Shop",
+    "annotation_version": 11,
     "annotation_severity": "minor",
     "annotation_description": "With a hand containing Katara (GWU), Hakoda (3W), Earth Kingdom Protectors (W), and Earthen Ally (G), the player needs colored mana early. Floodfarm Verge produces W unconditionally and can produce U once a Plains or Island is controlled. Jasmine Dragon Tea Shop only produces colorless mana freely, with colored mana restricted to Ally spells/abilities. Playing Floodfarm Verge turn 1 would allow casting Earth Kingdom Protectors (W) on turn 2 with any second land, and better sets up the mana base for Katara on turn 3. Jasmine Dragon Tea Shop's colored mana can only be used on Ally spells, which is relevant but less flexible, and its colorless-first sequencing delays the curve. Since the player likely wants to play a W creature on turn 2, Floodfarm Verge is the better turn-1 land.",
-    "source": "annotation_v11",
     "verdict": "not_blunder",
-    "human_notes": "It's an Ally deck. Jasmine Dragon Tea Shop casts all their spells.",
-    "audited_at": "2026-02-18T01:56:16.407165+00:00"
+    "human_notes": "It's an Ally deck. Jasmine Dragon Tea Shop casts all their spells."
   },
   {
     "decision_index": 11,
-    "snapshot_index": 18,
-    "aftermath_index": 27,
-    "player": "MiniMx Gramps",
-    "turn": 1,
-    "phase": "COMBAT",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
+    "annotation_version": 11,
     "annotation_severity": "minor",
     "annotation_description": "Hired Claw is a 1/2 that could attack into the opponent's board. The opponent has Earth Kingdom Protectors (summoning sick, can't block) and a tapped Jasmine Dragon Tea Shop. There are no blockers available, so Hired Claw would connect for 1 damage plus trigger its 'whenever you attack with one or more Lizards, deal 1 damage to target opponent' ability for a total of 2 damage. Additionally, dealing damage would enable Hired Claw's +1/+1 counter ability ('{1}{R}: Put a +1/+1 counter on this creature. Activate only if an opponent lost life this turn'), which could be activated this turn with the untapped Mountain. This is a free attack with meaningful upside (2 damage + a 2/3 creature going forward) and no risk.",
-    "source": "annotation_v11",
     "verdict": "blunder",
-    "human_notes": "Protectors could block, but it's only a 1/1 and Claw is a 1/2.",
-    "audited_at": "2026-02-18T01:59:52.919152+00:00"
+    "human_notes": "Protectors could block, but it's only a 1/1 and Claw is a 1/2."
   },
   {
     "decision_index": 25,
-    "snapshot_index": 39,
-    "aftermath_index": 40,
-    "player": "MiniMx Gramps",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Pay Kicker {4} ?",
-    "chosen_display": "False",
+    "annotation_version": 11,
     "annotation_severity": "minor",
     "annotation_description": "Spending Burst Lightning (a versatile burn spell that can deal 4 when kicked) to kill Earthen Ally, which is currently just a 1/2 with a very expensive activated ability. The opponent's real threats will be cards like Katara or Hakoda, and this burn spell would be much more impactful against those. Earthen Ally is low-impact in the near term.",
-    "source": "annotation_v11",
     "verdict": "blunder",
-    "human_notes": "Earthen Ally was indestructible until EOT.",
-    "audited_at": "2026-02-18T02:01:21.381092+00:00"
+    "human_notes": "Earthen Ally was indestructible until EOT."
   },
   {
     "decision_index": 44,
-    "snapshot_index": 122,
-    "aftermath_index": 124,
-    "player": "MiniMx Gramps",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Choose spell or ability to play: Nova Hellkite",
-    "chosen_display": "2. Cast Nova Hellkite with Warp: Warp {2}{R}",
+    "annotation_version": 11,
     "annotation_severity": "minor",
     "annotation_description": "Used Warp to cast Nova Hellkite, which exiles it at end of turn, when they had enough mana (5 lands producing {3}{R}{R}) to hardcast it normally. While lethal was available this turn regardless, hardcasting preserves the 4/5 flyer permanently as insurance if something goes wrong.",
-    "source": "annotation_v11",
     "verdict": "not_blunder",
-    "human_notes": "warping allows holding up burst lightning and we can cast the dragon next turn if needed",
-    "audited_at": "2026-02-18T02:05:21.878128+00:00"
+    "human_notes": "warping allows holding up burst lightning and we can cast the dragon next turn if needed"
   }
 ]

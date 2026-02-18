@@ -1,114 +1,23 @@
 [
   {
-    "decision_index": 0,
-    "snapshot_index": 0,
-    "aftermath_index": 0,
-    "player": "Gem25P Sarge",
-    "turn": 1,
-    "phase": "",
-    "message": "Select a starting player",
-    "chosen_display": "Qwen3 Timmy",
-    "annotation_severity": "minor",
-    "annotation_description": "Chose to be on the draw instead of playing first. In Modern, going first is almost always correct due to tempo advantage. This hand has Urza's Saga which benefits greatly from being deployed a turn earlier, and the general tempo advantage of going first outweighs the extra card, especially since the 0-cost artifacts (Mishra's Bauble, Welding Jar) provide early plays that benefit from being ahead on board.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 0
   },
   {
-    "decision_index": 2,
-    "snapshot_index": 4,
-    "aftermath_index": 5,
-    "player": "Gem25P Sarge",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Urza's Saga [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Urza's Saga on turn 1 instead of Shivan Reef is suboptimal. Urza's Saga is a Saga that will sacrifice itself after chapter III, and on turn 1 it only provides colorless mana. Shivan Reef provides colored mana (U or R) which would allow casting the free artifacts (Mishra's Baubles, Welding Jar) this turn AND have colored mana available for future turns. More importantly, Urza's Saga has a 3-turn clock before it sacrifices itself - playing it turn 1 means it will be sacrificed by turn 3 (searching for a 0-1 cost artifact), but the chapter II construct-making ability won't be very impactful early since there are few artifacts in play yet. Playing Shivan Reef first allows colored mana access immediately, and saving Urza's Saga for a later turn when more artifacts are on the battlefield makes the construct tokens larger and the saga's sacrifice better timed. However, Urza's Saga turn 1 does have the advantage of getting to chapter III by turn 3 to fetch an artifact, and the player can still cast their 0-cost artifacts this turn. The sequencing is debatable but slightly worse.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 2
   },
   {
-    "decision_index": 3,
-    "snapshot_index": 4,
-    "aftermath_index": 6,
-    "player": "Gem25P Sarge",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "On turn 1 with Urza's Saga (which only has lore counter I, providing {C}), casting Welding Jar first instead of Mishra's Bauble is slightly suboptimal. Mishra's Bauble can be sacrificed immediately to look at the opponent's top card and draw a card next upkeep, providing information and card advantage. Welding Jar has nothing to protect right now (no meaningful artifacts on board). Additionally, if the player wants to cast multiple 0-cost artifacts this turn, sequencing Mishra's Bauble first allows them to sacrifice it for value before potentially casting more artifacts. The Welding Jar will just sit on the battlefield doing nothing until there's a threat to an artifact worth protecting.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 3
   },
   {
-    "decision_index": 8,
-    "snapshot_index": 9,
-    "aftermath_index": 10,
-    "player": "Gem25P Sarge",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Mishra's Bauble \u2014 {T}, Sacrifice {this}: Look at the top card of ta... [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Activating Mishra's Bauble before deploying the 0-cost artifacts from hand (second Mishra's Bauble and potentially Aether Spellbomb after playing Shivan Reef) is slightly suboptimal sequencing. Playing land first, then casting free/cheap artifacts, then sacrificing the Bauble would maintain a higher artifact count on board for future Urza's Saga Construct tokens.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 8
   },
   {
-    "decision_index": 13,
-    "snapshot_index": 12,
-    "aftermath_index": 13,
-    "player": "Gem25P Sarge",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Mishra's Bauble \u2014 {T}, Sacrifice {this}: Look at the top card of ta... [Activate]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Mishra's Bauble was used to look at the top of their own library rather than the opponent's. Looking at the opponent's top card provides information about what they will draw next turn, which is generally more valuable since you already have some control over your own draws (and you'll see your own card when you draw it anyway). Looking at the opponent's top card gives strategic information about whether to play aggressively or defensively.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 13
   },
   {
-    "decision_index": 27,
-    "snapshot_index": 26,
-    "aftermath_index": 28,
-    "player": "Gem25P Sarge",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Pithing Needle {1} [Cast]",
-    "annotation_severity": "moderate",
-    "annotation_description": "The reasoning says to name 'Llanowar Elves' with Pithing Needle, which is nonsensical against the opponent's deck. The opponent is playing a deck with Scalding Tarn (fetchlands) and likely other fetchlands/activated abilities. Naming a card that isn't in the opponent's deck wastes Pithing Needle's effect entirely. Additionally, casting Pithing Needle now before Mox Opal resolves means it won't be on the battlefield when Mox Opal enters, missing the Kappa Cannoneer trigger synergy if sequenced differently. However, the bigger issue is the naming choice - Pithing Needle should name something relevant like Scalding Tarn, Wooded Foothills, or another fetchland the opponent is likely running.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 27
   },
   {
-    "decision_index": 28,
-    "snapshot_index": 28,
-    "aftermath_index": 29,
-    "player": "Gem25P Sarge",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "major",
-    "annotation_description": "Pithing Needle was fetched by Urza's Saga (Chapter III) and is entering the battlefield, requiring a card name. The opponent (Qwen3 Timmy) has a Scalding Tarn in the graveyard, suggesting a fetchland-heavy manabase. Naming 'Llanowar Elves' is completely meaningless in a Modern constructed game against what appears to be a burn/prowess deck (evidenced by Monastery Swiftspear, Lightning Bolt, Mutagenic Growth in the card reference). There is no reason to expect Llanowar Elves in the opponent's deck. Pithing Needle should name something relevant like Scalding Tarn (or Wooded Foothills, or any fetchland the opponent is likely running) to disrupt their mana development, or potentially a planeswalker or other activated ability threat. Naming a completely irrelevant card wastes the Pithing Needle entirely.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 28
   }
 ]

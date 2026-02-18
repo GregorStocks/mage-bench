@@ -1,98 +1,20 @@
 [
   {
-    "decision_index": 17,
-    "snapshot_index": 59,
-    "aftermath_index": 61,
-    "player": "Opus Valley",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Failed to play a land before casting Winternight Stories. Playing a Swamp first would leave 4 lands available after resolution (1 untapped), which could matter after drawing 3 new cards - for instance if they draw a 1-mana spell like Bloodthorn Flail or another Insatiable Avarice.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 17
   },
   {
-    "decision_index": 18,
-    "snapshot_index": 61,
-    "aftermath_index": 62,
-    "player": "Opus Valley",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select card to discard (selected 0 of 2, min 2)",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Winternight Stories allows discarding just one creature card instead of two non-creature cards. Discarding two Swamps (net +1 card) instead of one Harvester of Misery (net +2 cards) costs an extra card. While Harvester is powerful, with 3 lands on board plus Restless Reef, Gloomlake Verge, and Watery Grave still in hand, the second Swamp is nearly worthless - making the effective cost of keeping Harvester very low.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 18
   },
   {
-    "decision_index": 28,
-    "snapshot_index": 100,
-    "aftermath_index": 102,
-    "player": "o3 Tinker",
-    "turn": 5,
-    "phase": "COMBAT",
-    "message": "Select a creature or planeswalker",
-    "chosen_display": "Greasewrench Goblin",
-    "annotation_severity": "minor",
-    "annotation_description": "Opus Valley targeted Greasewrench Goblin with Bitter Triumph instead of Marauding Mako. The Goblin's exhaust ability was already used (evidenced by the +1/+1 counter), making it just a 3/2 body. Marauding Mako grows with every discard trigger, and o3 Tinker is running a discard-synergy deck with Bloodthorn Flail in hand, Inti in graveyard (recurring discard value), and the overall deck strategy centered on discarding cards. The Mako would become a much larger threat over time.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 28
   },
   {
-    "decision_index": 49,
-    "snapshot_index": 177,
-    "aftermath_index": 179,
-    "player": "o3 Tinker",
-    "turn": 8,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Bloodghast",
-    "annotation_severity": "major",
-    "annotation_description": "Missed lethal. Could have discarded Flamewake Phoenix to equip Bloodthorn Flail onto Bloodghast (equip cost: discard a card), triggering Monument to Endurance for 'each opponent loses 3 life' (opponent goes from 6 to 3), then attacked with a 4/2 Bloodghast for exactly lethal (3 + 4 = 7 > 6).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 49
   },
   {
-    "decision_index": 54,
-    "snapshot_index": 188,
-    "aftermath_index": 189,
-    "player": "Opus Valley",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Collect evidence 6?",
-    "chosen_display": "True",
-    "annotation_severity": "minor",
-    "annotation_description": "Exiling Winternight Stories (which has Harmonize - castable from graveyard) and Archenemy's Charm (a powerful removal/recursion spell) for evidence when there are clearly expendable cards available. Stock Up (3) + Bitter Triumph (2) + Intimidation Tactics (1) = 6 MV exactly, all with no graveyard utility.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 54
   },
   {
-    "decision_index": 74,
-    "snapshot_index": 215,
-    "aftermath_index": 216,
-    "player": "Opus Valley",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Choose mode (selected 0 of 2147483647, min 1): Insatiable Avarice",
-    "chosen_display": "1. Search your library for a card, then shuffle and put that card on top.",
-    "annotation_severity": "major",
-    "annotation_description": "Opus Valley is at 2 life and chose only the tutor mode of Insatiable Avarice (pay {2} to search), which just puts a card on top of their library. They need an answer RIGHT NOW to survive - Flamewake Phoenix is already attacking them. By not also choosing the draw-3 mode (+{B}{B} to draw three cards and lose 3 life), they could have... wait, they're at 2 life, so paying 3 life would kill them. The tutor-only mode means they won't draw the card until next turn's draw step, and they need to survive this turn. However, given they're at 2 life, the draw mode would be suicide (lose 3 life at 2 HP). So the tutor mode is actually the only viable choice. But the real question is whether casting Insatiable Avarice at all is correct here - they have all lands tapped and 3 Requiting Hex in hand. Looking more carefully: all their lands are tapped, so they already cast the Insatiable Avarice. The tutor-only mode is the only one that doesn't kill them. This seems reasonable given the constraints.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 74
   }
 ]

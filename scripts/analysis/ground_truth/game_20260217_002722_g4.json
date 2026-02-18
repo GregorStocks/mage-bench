@@ -1,34 +1,8 @@
 [
   {
-    "decision_index": 14,
-    "snapshot_index": 46,
-    "aftermath_index": 48,
-    "player": "Grk41F Hype",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Badgermole Cub before Earthbender Ascension is slightly suboptimal. Earthbender Ascension costs 2G and would earthbend 2 (creating two land creatures with +1/+1 counters) AND search for a basic land to put onto the battlefield tapped. That land entering would trigger landfall, putting a quest counter on the Ascension. With 3 Forests and Badgermole Cub already on board (which adds G when tapping a creature for mana), the player has access to 3 mana from forests. Earthbender Ascension at 2G is castable. By playing Earthbender Ascension first, the player gets the land search (ramping for next turn), earthbends 2 lands into creatures, and sets up the landfall/quest counter engine. Then next turn they could cast Badgermole Cub with more mana available and potentially trigger additional earthbends. The Cub is a 2/2 that earthbends 1, which is fine but less impactful than the Ascension's ramp + earthbend 2 + engine setup. Additionally, casting the Cub before combat means the opponent sees it before blocks matter (though opponent has no creatures). The main issue is that Earthbender Ascension provides more long-term value and ramp, and should generally be prioritized when you can only cast one spell this turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 14
   },
   {
-    "decision_index": 32,
-    "snapshot_index": 76,
-    "aftermath_index": 78,
-    "player": "Grk41F Hype",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a basic land card",
-    "chosen_display": "?",
-    "annotation_severity": "moderate",
-    "annotation_description": "Player has Seam Rip ({W}) as their only card in hand and no white mana sources on the battlefield. Fetching a Forest instead of Plains strands the only card in hand and wastes the Escape Tunnel's tutor ability. Plains would immediately enable Seam Rip, which could exile an opponent's relevant permanent.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 32
   }
 ]

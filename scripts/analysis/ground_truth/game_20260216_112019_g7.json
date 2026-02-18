@@ -1,66 +1,14 @@
 [
   {
-    "decision_index": 21,
-    "snapshot_index": 20,
-    "aftermath_index": 22,
-    "player": "DSV3 Libby",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Bloodghast doesn't have haste (opponent is at 20 life), so casting it pre-combat reveals unnecessary information to the opponent before the attack step. Since Bloodghast can't attack this turn anyway, it should be cast post-combat.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 21
   },
   {
-    "decision_index": 38,
-    "snapshot_index": 43,
-    "aftermath_index": 44,
-    "player": "DSV3 Libby",
-    "turn": 3,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "True",
-    "annotation_severity": "minor",
-    "annotation_description": "Discarding Multiversal Passage over Bitter Triumph is suboptimal. The player has 4 lands already and is discarding to Tersa Lightshatter's ETB to draw replacements. However, the real issue is the choice of what to discard. Bloodghast can be recurred from the graveyard via landfall, making it actively better in the graveyard than in hand. Discarding Bloodghast + one Multiversal Passage would let the player keep Bitter Triumph (premium removal) and one Multiversal Passage (to trigger Bloodghast's landfall next turn, getting a free 2/1). Instead, by discarding both lands, the player loses future land drops that could trigger Bloodghast recursion and keeps Bloodghast in hand where it must be hard-cast.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 38
   },
   {
-    "decision_index": 42,
-    "snapshot_index": 51,
-    "aftermath_index": 52,
-    "player": "DSV3 Libby",
-    "turn": 4,
-    "phase": "COMBAT",
-    "message": "Discard a card?",
-    "chosen_display": "True",
-    "annotation_severity": "minor",
-    "annotation_description": "Inti's attack trigger allows discarding a card to put a +1/+1 counter on an attacking creature and grant trample. The player discarded Bloodghast instead of Flamewake Phoenix. Bloodghast has landfall recursion (returns from graveyard when a land enters), but it's a 2/1 that can't block. Flamewake Phoenix has ferocious recursion (return from graveyard at beginning of combat if you control a creature with power 4+). With Tersa Lightshatter at 3 power and Inti at 2 power (before the counter), after the +1/+1 counter one of the attackers could reach 4 power, enabling Flamewake Phoenix recursion. However, the player already has Flamewake Phoenix in hand and can cast it normally for 1RR. Meanwhile, Bloodghast's recursion is more reliable (just need to play a land) and provides repeated value. Discarding Flamewake Phoenix would have been better since: (1) Inti's discard trigger exiles the top card for potential extra plays, (2) Flamewake Phoenix can recur from graveyard if they get a 4-power creature (Tersa with the counter from Inti becomes 4/4, enabling Phoenix recursion next combat), effectively giving them a free creature without spending mana to cast it from hand. Bloodghast in hand can be cast for BB and will recur from graveyard on landfall anyway, but discarding it means they need a land drop to get it back, whereas Phoenix would recur automatically with a 4-power creature.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 42
   },
   {
-    "decision_index": 48,
-    "snapshot_index": 57,
-    "aftermath_index": 58,
-    "player": "Qwen3 Undrdog",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Pay Kicker {4} ?",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Targeting DSV3 Libby (the opponent's face) with Burst Lightning for 2 damage (17\u219215) instead of killing a creature is a significant misuse of removal. Inti, Seneschal of the Sun is a 2/2 that generates card advantage and pumps attackers every combat - it's the key engine piece on the opponent's board. With Qwen3 at only 10 life facing an aggressive board (Inti, Tersa Lightshatter 3/3 haste, Greasewrench Goblin, and Bloodghast in graveyard ready to return), dealing 2 damage to face accomplishes almost nothing while leaving the opponent's most dangerous synergy piece alive. Killing Inti would significantly reduce the opponent's damage output and card advantage generation.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 48
   }
 ]

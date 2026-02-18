@@ -1,146 +1,29 @@
 [
   {
-    "decision_index": 9,
-    "snapshot_index": 50,
-    "aftermath_index": 51,
-    "player": "o3 Tactic",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a nonland permanent",
-    "chosen_display": "Stormchaser's Talent",
-    "annotation_severity": "moderate",
-    "annotation_description": "Boomerang Basics on your own Stormchaser's Talent returns it to hand and draws a card (since you controlled it), but you lose the Class enchantment's board presence and the Otter token loses its associated engine. More importantly, Boomerang Basics is a Lesson card - putting it in the graveyard helps toward the 3-Lessons-in-graveyard threshold for Gran-Gran's cost reduction and Accumulate Wisdom's bonus. However, bouncing your own Stormchaser's Talent means you'll need to spend mana replaying it and you lose tempo. The real issue is that this Boomerang Basics could have been saved for the opponent's threats. The opponent has Gloomlake Verge and a Sunpearl Kirin in the graveyard, suggesting they're building toward a UB strategy (possibly Kaito). Using removal/bounce proactively on your own permanent when there are no enemy nonland permanents to target wastes a valuable interaction spell. That said, there were no opponent nonland permanents to target, so the choice was between bouncing your own Talent (draw a card) or bouncing the Otter (draw a card). Bouncing Stormchaser's Talent instead of the Otter Token is the real mistake - bouncing the Otter draws a card AND the Otter was just a 1/1 token that you'd get back when replaying Talent anyway. By bouncing Talent, you lose the enchantment and still have the token but no way to rebuild the engine without replaying Talent. Bouncing the token draws a card (since tokens returned to hand cease to exist) and keeps Talent on the battlefield ready for leveling up.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 9
   },
   {
-    "decision_index": 13,
-    "snapshot_index": 78,
-    "aftermath_index": 79,
-    "player": "o3 Tactic",
-    "turn": 4,
-    "phase": "COMBAT",
-    "message": "Choose which mana to produce from Riverpyre Verge (tapping to pay for a spell)",
-    "chosen_display": "2. {T}: Add {U}. Activate only if you control an Island or a Mountain.",
-    "annotation_severity": "questionable",
-    "annotation_description": "With only 3 lands in play (Willowrush Verge, Riverpyre Verge, Mountain) and a hand full of powerful spells including Ral, Crackling Wit (4 mana), Stormchaser's Talent, and Gran-Gran, taking Steam Vents ensures a 4th land drop next turn. However, Artist's Talent is a very strong engine card in this deck - it enables card filtering on every noncreature spell cast, and at level 2 reduces noncreature spell costs by 1. Monument to Endurance is also a powerful value engine with discard synergies. The player already has a land-heavy hand position and the 4th land drop is important for Ral, but Artist's Talent could be the better pick since it provides sustained value throughout the game and the deck likely has more lands to draw naturally. Steam Vents is defensible since hitting the 4th land for Ral on curve is important, but Artist's Talent is arguably the highest-impact card among the three choices.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 13
   },
   {
-    "decision_index": 15,
-    "snapshot_index": 86,
-    "aftermath_index": 88,
-    "player": "Grk41F Memoir",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Cast Grim Bauble with no opposing creatures, completely wasting its -2/-2 ETB trigger. The opponent's Stormchaser's Talent is a real threat that could be leveled up to generate repeated value, and the opponent was tapped out making this the ideal window to destroy it.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 15
   },
   {
-    "decision_index": 36,
-    "snapshot_index": 137,
-    "aftermath_index": 138,
-    "player": "Grk41F Memoir",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "Gran-Gran just entered (summoning sick) and o3 Tactic has 6 lands but only 2 Map tokens as other non-land permanents. Using Get Lost on Gran-Gran gives the opponent two additional Map tokens (now 4 total), which provide significant card selection via explore. Meanwhile, Grk41F Memoir has Kaito in hand - a much more powerful threat that could be deployed this turn (4 mana available) and would pressure o3 Tactic's planeswalker-light board. Kaito's hexproof during your turn makes it hard to remove, and its 0 ability with surveil + card draw is a strong engine. Playing Kaito first and saving Get Lost for a more impactful target (or using it later when the Map token downside matters less relative to the threat) seems preferable. The two extra Map tokens given to an Izzet spells deck with Stormchaser's Talent in the graveyard is a real cost.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 36
   },
   {
-    "decision_index": 60,
-    "snapshot_index": 214,
-    "aftermath_index": 215,
-    "player": "Grk41F Memoir",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Kaito's +1 creates an emblem giving Ninjas +1/+1, but Grk41F Memoir has no other Ninja creatures on the board or in hand (only Nurturing Pixie and Boomerang Basics in hand). Kaito himself is a Ninja during your turn, so the emblem makes him a 4/5 instead of 3/4, but stacking a third emblem provides diminishing returns. The 0 ability (Surveil 2) would have provided card selection to find actual threats or answers, which is more valuable when the board is empty of creatures and the opponent has 3 Map tokens that could generate value. With only Nurturing Pixie and Boomerang Basics in hand, finding more action through Surveil is more impactful than making Kaito marginally bigger when he's already a 5/6 (with two prior emblems).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 60
   },
   {
-    "decision_index": 85,
-    "snapshot_index": 264,
-    "aftermath_index": 265,
-    "player": "Grk41F Memoir",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "Kaito is at 7 loyalty with already multiple +1/+1 emblems for Ninjas. The opponent (o3 Tactic) has no creatures on board, so the -2 stun ability has no targets. However, using the 0 ability to Surveil 2 would help dig for answers or threats, improving card quality. With all lands tapped and only Nurturing Pixie in hand, the +1 emblem is purely incremental value on an already stacked emblem count (likely 3+ ninja emblems already), while Surveil 2 would help find action cards. The opponent is at 12 life and Grk41F needs to close the game out before o3 Tactic finds answers. Surveilling to improve draws is likely more impactful than yet another redundant ninja emblem.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 85
   },
   {
-    "decision_index": 89,
-    "snapshot_index": 265,
-    "aftermath_index": 267,
-    "player": "Grk41F Memoir",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Bouncing Grim Bauble when opponent has no creatures on board, wasting the -2/-2 ETB value. Stormchaser's Talent would have created another Otter token on replay and provided ongoing prowess synergy, building a faster clock against the opponent at 12 life.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 89
   },
   {
-    "decision_index": 93,
-    "snapshot_index": 268,
-    "aftermath_index": 270,
-    "player": "o3 Tactic",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a creature",
-    "chosen_display": "Otter Token",
-    "annotation_severity": "minor",
-    "annotation_description": "Targeted the Otter Token (1/1 prowess) with Firebending Lesson instead of Nurturing Pixie (likely 2/2 flyer that can bounce permanents for value). Nurturing Pixie is a more impactful creature - it has evasion for attacking and can generate value by bouncing permanents. The Otter Token is far less threatening. Both die equally to the 10-damage Firebending Lesson.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 93
   },
   {
-    "decision_index": 97,
-    "snapshot_index": 291,
-    "aftermath_index": 292,
-    "player": "Grk41F Memoir",
-    "turn": 13,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "major",
-    "annotation_description": "Kaito, Bane of Nightmares has 8 loyalty counters. During your turn, he is a 3/4 Ninja creature with hexproof. The opponent is at 5 life. Even if there are no other creatures, Kaito alone attacks for 3 damage (or more with emblems from his +1 ability). But critically, the player chose to skip the attack phase entirely ('skip attack') while the opponent is at 5 life. With Kaito as a 3/4 creature during your turn, attacking would deal at least 3 damage, putting the opponent to 2. Additionally, the Stormchaser's Talent on the battlefield suggests there may be an Otter token (from level 1 entering), though the board doesn't explicitly show one. Regardless, not attacking with Kaito when the opponent is at 5 life is a massive missed opportunity - the opponent could stabilize or find answers. The player's own commentary mentions 'charging into combat with Kaito's colossal frame' but then actually skips the attack.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 97
   }
 ]
