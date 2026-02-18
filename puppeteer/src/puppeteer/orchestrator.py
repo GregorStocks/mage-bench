@@ -918,6 +918,7 @@ def _setup_game(
     timestamp: str,
     used_player_names: set[str] | None = None,
     cross_game_round_robin: list[tuple[str, ...]] | None = None,
+    cross_game_format_picks: list[str] | None = None,
 ) -> GameSession:
     """Set up a single game: create dir, load config, start spectator + clients.
 
@@ -944,6 +945,7 @@ def _setup_game(
         game_config.load_config(
             cross_game_used_names=used_player_names,
             cross_game_round_robin=cross_game_round_robin,
+            cross_game_format_picks=cross_game_format_picks,
         )
         game_config.port = base_config.port
         game_config.timestamp = timestamp
@@ -1276,6 +1278,9 @@ def main() -> int:
         # Track round-robin matchups across games so each game in a batch
         # picks a different coverage-optimal pairing.
         cross_game_round_robin: list[tuple[str, ...]] = []
+        # Track format picks across games so each game in a batch
+        # spreads across formats when deckType is a list.
+        cross_game_format_picks: list[str] = []
         for i in range(config.num_games):
             try:
                 session = _setup_game(
@@ -1288,6 +1293,7 @@ def main() -> int:
                     config.timestamp,
                     used_player_names=used_player_names if batch else None,
                     cross_game_round_robin=cross_game_round_robin if batch else None,
+                    cross_game_format_picks=cross_game_format_picks if batch else None,
                 )
             except (TimeoutError, RuntimeError) as e:
                 if not batch:

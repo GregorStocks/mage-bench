@@ -13,6 +13,7 @@ from puppeteer.matchmaker import (
     _build_matchup_matrix,
     get_round_robin_matchup,
     get_yente_pool,
+    pick_round_robin_format,
 )
 
 
@@ -38,6 +39,7 @@ def _make_1v1_game(
     p1_effort: str | None = "medium",
     p2_effort: str | None = "medium",
     harness_epoch: int = 11,
+    deck_type: str = "Constructed - Standard",
 ) -> dict:
     p1: dict = {"name": "P1", "type": "pilot", "model": p1_model}
     p2: dict = {"name": "P2", "type": "pilot", "model": p2_model}
@@ -49,7 +51,7 @@ def _make_1v1_game(
         "id": game_id,
         "timestamp": timestamp,
         "gameType": "Two Player Duel",
-        "deckType": "Constructed - Standard",
+        "deckType": deck_type,
         "winner": winner,
         "players": [p1, p2],
         "harnessEpoch": harness_epoch,
@@ -700,3 +702,157 @@ class TestResolveRandomsRoundRobin:
                 toolsets,
                 round_robin_picks=["a-medium"],  # Only 1 pick for 2 players
             )
+
+
+class TestPickRoundRobinFormat:
+    def test_picks_least_played_format(self, tmp_path: Path) -> None:
+        """Should pick the format where the selected bots have fewest games."""
+        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+
+        # alpha and beta have 3 Standard games, 0 Modern games
+        for i in range(3):
+            _write_game(
+                games_dir,
+                f"game_s{i}",
+                _make_1v1_game(
+                    f"game_s{i}",
+                    f"2026-01-{i + 1:02d}T00:00:00Z",
+                    "P1",
+                    "v/alpha",
+                    "v/beta",
+                    deck_type="Constructed - Standard",
+                ),
+            )
+
+        candidates = ["Constructed - Standard", "Constructed - Modern"]
+        chosen = pick_round_robin_format(
+            candidates,
+            ["alpha-medium", "beta-medium"],
+            games_dir=games_dir,
+            presets_path=presets_path,
+        )
+        assert chosen == "Constructed - Modern"
+
+    def test_equal_counts_picks_any(self, tmp_path: Path) -> None:
+        """When all formats have equal counts, any is valid."""
+        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+
+        candidates = ["Constructed - Standard", "Constructed - Modern", "Constructed - Legacy"]
+        chosen = pick_round_robin_format(
+            candidates,
+            ["alpha-medium", "beta-medium"],
+            games_dir=games_dir,
+            presets_path=presets_path,
+        )
+        assert chosen in candidates
+
+    def test_extra_format_picks_shifts_selection(self, tmp_path: Path) -> None:
+        """Parallel batch coordination: earlier picks should shift selection."""
+        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+
+        candidates = ["Constructed - Standard", "Constructed - Modern"]
+        chosen = pick_round_robin_format(
+            candidates,
+            ["alpha-medium", "beta-medium"],
+            games_dir=games_dir,
+            presets_path=presets_path,
+            extra_format_picks=["Constructed - Standard"],
+        )
+        assert chosen == "Constructed - Modern"
+
+    def test_single_candidate_asserts(self, tmp_path: Path) -> None:
+        """Single candidate should assert."""
+        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+
+        with pytest.raises(AssertionError, match="multiple candidates"):
+            pick_round_robin_format(
+                ["Constructed - Standard"],
+                ["alpha-medium"],
+                games_dir=games_dir,
+                presets_path=presets_path,
+            )
+
+    def test_balances_per_bot(self, tmp_path: Path) -> None:
+        """Should consider per-bot counts, not just global totals."""
+        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+
+        # alpha has 2 Standard games (with beta), 0 Modern
+        # gamma has 0 Standard, 2 Modern (with beta)
+        # When picking for alpha+gamma, Standard score=2, Modern score=2 -> tied
+        # When picking for alpha+beta, Standard score=4, Modern score=2 -> Modern
+        for i in range(2):
+            _write_game(
+                games_dir,
+                f"game_s{i}",
+                _make_1v1_game(
+                    f"game_s{i}",
+                    f"2026-01-{i + 1:02d}T00:00:00Z",
+                    "P1",
+                    "v/alpha",
+                    "v/beta",
+                    deck_type="Constructed - Standard",
+                ),
+            )
+            _write_game(
+                games_dir,
+                f"game_m{i}",
+                _make_1v1_game(
+                    f"game_m{i}",
+                    f"2026-02-{i + 1:02d}T00:00:00Z",
+                    "P1",
+                    "v/gamma",
+                    "v/beta",
+                    deck_type="Constructed - Modern",
+                ),
+            )
+
+        candidates = ["Constructed - Standard", "Constructed - Modern"]
+        chosen = pick_round_robin_format(
+            candidates,
+            ["alpha-medium", "beta-medium"],
+            games_dir=games_dir,
+            presets_path=presets_path,
+        )
+        assert chosen == "Constructed - Modern"
+
+    def test_ignores_old_epoch_games(self, tmp_path: Path) -> None:
+        """Games below MIN_LEADERBOARD_EPOCH should not affect format selection."""
+        games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
+
+        # Old epoch game in Modern (should be ignored)
+        _write_game(
+            games_dir,
+            "game_old",
+            _make_1v1_game(
+                "game_old",
+                "2026-01-01T00:00:00Z",
+                "P1",
+                "v/alpha",
+                "v/beta",
+                harness_epoch=1,
+                deck_type="Constructed - Modern",
+            ),
+        )
+        # Current epoch game in Standard
+        _write_game(
+            games_dir,
+            "game_new",
+            _make_1v1_game(
+                "game_new",
+                "2026-01-02T00:00:00Z",
+                "P1",
+                "v/alpha",
+                "v/beta",
+                deck_type="Constructed - Standard",
+            ),
+        )
+
+        candidates = ["Constructed - Standard", "Constructed - Modern"]
+        chosen = pick_round_robin_format(
+            candidates,
+            ["alpha-medium", "beta-medium"],
+            games_dir=games_dir,
+            presets_path=presets_path,
+        )
+        # Old Modern game ignored, only Standard game counts -> Modern wins
+        assert chosen == "Constructed - Modern"

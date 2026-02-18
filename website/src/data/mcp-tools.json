@@ -511,7 +511,7 @@
           }
         },
         "your_hand": {
-          "description": "Hand cards with name, mana_cost",
+          "description": "Hand cards during mulligan: name, mana_cost, is_land, power/toughness, rules",
           "type": "array",
           "items": {
             "type": "object"
@@ -530,7 +530,7 @@
       },
       {
         "label": "Boolean (mulligan)",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"message\": \"Mulligan hand?\",\n  \"response_type\": \"boolean\",\n  \"context\": \"T0 PREGAME\",\n  \"players\": \"You(20), Opp(20)\",\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\"\n    }\n  ],\n  \"hand_size\": 7,\n  \"land_count\": 3\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"message\": \"Mulligan hand?\",\n  \"response_type\": \"boolean\",\n  \"context\": \"T0 PREGAME\",\n  \"players\": \"You(20), Opp(20)\",\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\",\n      \"rules\": [\n        \"Lightning Bolt deals 3 damage to any target.\"\n      ]\n    }\n  ]\n}"
       }
     ],
     "inputSchema": {

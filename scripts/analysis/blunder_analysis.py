@@ -55,7 +55,8 @@ MAX_WORKERS = 50
 # v10: add prior context (snapshot from 2 turns ago + action deltas)
 # v11: filter out failed (success=false), cancelled, and cast-before-cancel decisions
 # v12: add current-turn action context (no prompt additions, just context)
-BLUNDER_SCRIPT_VERSION = 12
+# v13: fix card name extraction for dict-form permanents (tapped/counters)
+BLUNDER_SCRIPT_VERSION = 13
 
 # --- Prompt components ---
 
@@ -250,6 +251,8 @@ def _card_names_in_decision(decision: dict) -> set[str]:
             for c in p.get(zone, []):
                 if isinstance(c, str) and c:
                     names.add(c)
+                elif isinstance(c, dict) and c.get("name"):
+                    names.add(c["name"])
     for item in gs.get("stack", []):
         if isinstance(item, str) and item:
             names.add(item)

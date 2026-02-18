@@ -673,29 +673,9 @@ public class BridgeCallbackHandler {
                     if (hand != null && !hand.isEmpty()) {
                         var handCards = new ArrayList<Map<String, Object>>();
                         for (CardView card : hand.values()) {
-                            var cardInfo = new HashMap<String, Object>();
-                            cardInfo.put("name", card.getDisplayName());
-                            String manaCost = card.getManaCostStr();
-                            if (manaCost != null && !manaCost.isEmpty()) {
-                                cardInfo.put("mana_cost", manaCost);
-                            }
-                            if (card.isLand()) {
-                                cardInfo.put("is_land", true);
-                            }
-                            if (card.isCreature() && card.getPower() != null) {
-                                cardInfo.put("power", card.getPower());
-                                cardInfo.put("toughness", card.getToughness());
-                            }
-                            handCards.add(cardInfo);
+                            handCards.add(buildCardInfoMap(card));
                         }
                         result.put("your_hand", handCards);
-                        // Count lands for quick evaluation
-                        int landCount = 0;
-                        for (CardView card : hand.values()) {
-                            if (card.isLand()) landCount++;
-                        }
-                        result.put("land_count", landCount);
-                        result.put("hand_size", hand.size());
                     }
                 }
                 break;
@@ -2356,8 +2336,8 @@ public class BridgeCallbackHandler {
     }
 
     /**
-     * Build a structured info map for a card, with name, mana_cost, power, toughness.
-     * Consistent with the card representation in getGameState().
+     * Build a structured info map for a card: name, mana_cost, is_land, power/toughness, rules.
+     * Used for hand cards, pile decisions, and mulligan hands.
      */
     private Map<String, Object> buildCardInfoMap(CardView cv) {
         var info = new HashMap<String, Object>();
@@ -2366,9 +2346,16 @@ public class BridgeCallbackHandler {
         if (manaCost != null && !manaCost.isEmpty()) {
             info.put("mana_cost", manaCost);
         }
+        if (cv.isLand()) {
+            info.put("is_land", true);
+        }
         if (cv.isCreature() && cv.getPower() != null) {
             info.put("power", cv.getPower());
             info.put("toughness", cv.getToughness());
+        }
+        List<String> rules = stripHtmlList(cv.getRules());
+        if (rules != null && !rules.isEmpty()) {
+            info.put("rules", rules);
         }
         return info;
     }
@@ -2966,27 +2953,11 @@ public class BridgeCallbackHandler {
                 PlayableObjectsList playable = gameView.getCanPlayObjects();
 
                 for (Map.Entry<UUID, CardView> handEntry : gameView.getMyHand().entrySet()) {
-                    CardView card = handEntry.getValue();
-                    var cardInfo = new HashMap<String, Object>();
+                    var cardInfo = buildCardInfoMap(handEntry.getValue());
                     cardInfo.put("id", shortIds.getOrAssign(handEntry.getKey()));
-                    cardInfo.put("name", safeDisplayName(card));
-
-                    String manaCost = card.getManaCostStr();
-                    if (manaCost != null && !manaCost.isEmpty()) {
-                        cardInfo.put("mana_cost", manaCost);
-                    }
-
-                    if (card.isLand()) {
-                        cardInfo.put("is_land", true);
-                    }
-                    if (card.isCreature() && card.getPower() != null) {
-                        cardInfo.put("power", card.getPower());
-                        cardInfo.put("toughness", card.getToughness());
-                    }
                     if (playable != null && playable.containsObject(handEntry.getKey())) {
                         cardInfo.put("playable", true);
                     }
-
                     handCards.add(cardInfo);
                 }
                 playerInfo.put("hand", handCards);

@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Contact">
+  <h1>Contact</h1>
+
+  <p>
+    mage-bench is built by <a href="https://www.linkedin.com/in/unprofessional/" target="_blank" rel="noopener">Gregor Stocks</a>.
+  </p>
+
+  <p>
+    You can reach me at <a id="email"></a>.
+  </p>
+</Base>
+
+<script>
+  const a = document.getElementById('email');
+  const u = 'gregor';
+  const d = 'mage-bench.com';
+  a.href = 'mailto:' + u + '@' + d;
+  a.textContent = u + '@' + d;
+</script>
+
+<style>
+  h1 {
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  a {
+    color: #e94560;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

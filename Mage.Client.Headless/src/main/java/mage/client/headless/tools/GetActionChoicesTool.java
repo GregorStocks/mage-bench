@@ -28,7 +28,7 @@ public class GetActionChoicesTool {
             @Tool.Field(name = "context", type = "string", description = "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")"),
             @Tool.Field(name = "players", type = "string", description = "Life total summary (e.g. \"You(20), Opp(18)\")"),
             @Tool.Field(name = "choices", type = "array[object]", description = "Structured choices with index, name, and type-specific fields (action/mana_cost/power/toughness for cards; choice_type for combat/mana; target_type/controller/tapped for targets)"),
-            @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards with name, mana_cost"),
+            @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards during mulligan: name, mana_cost, is_land, power/toughness, rules"),
             @Tool.Field(name = "combat_phase", type = "string", description = "\"declare_attackers\" or \"declare_blockers\""),
             @Tool.Field(name = "mana_pool", type = "object", description = "Current mana pool {R, G, U, W, B, C}"),
             @Tool.Field(name = "stack", type = "array[object]", description = "Spells/abilities currently on the stack: name, owner (only present when stack is non-empty)"),
@@ -92,8 +92,7 @@ public class GetActionChoicesTool {
                 "players", "You(20), Opp(20)",
                 "your_hand", List.of(
                     json("name", "Mountain", "is_land", true),
-                    json("name", "Lightning Bolt", "mana_cost", "{R}")),
-                "hand_size", 7,
-                "land_count", 3)));
+                    json("name", "Lightning Bolt", "mana_cost", "{R}", "rules", List.of("Lightning Bolt deals 3 damage to any target."))))));
     }
+
 }
