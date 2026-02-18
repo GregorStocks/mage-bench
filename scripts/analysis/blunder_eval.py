@@ -82,9 +82,7 @@ def compare_results(
                             "description"
                         ),
                         "eval_severity": eval_results.get(pk, {}).get("severity"),
-                        "eval_description": eval_results.get(pk, {}).get(
-                            "description"
-                        ),
+                        "eval_description": eval_results.get(pk, {}).get("description"),
                         "human_notes": entry.get("human_notes"),
                     }
                 )
