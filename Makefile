@@ -78,7 +78,7 @@ install: clean build package
 leaderboard:
 	@uv run --project puppeteer python scripts/generate_leaderboard.py
 
-# Build the website (Astro static site) so the overlay server can serve it.
+# Build the website (Astro static site).
 # Only rebuilds when dist/ is missing; delete dist/ to force a rebuild.
 .PHONY: website-build
 website-build: leaderboard
@@ -90,7 +90,6 @@ website-build: leaderboard
 #   make run CONFIG=commander-gauntlet    # 4 random LLM pilots (needs OPENROUTER_API_KEY)
 #   make run CONFIG=path/to/x.json  # custom config file
 # Pass OUTPUT to specify recording path: make run OUTPUT=/path/to/video.mov
-# Enable overlay: make run ARGS="--overlay" (requires website-build)
 # Parallel games: make run CONFIG=commander-gauntlet GAMES=3
 CONFIG ?= standard-dumb
 .PHONY: run

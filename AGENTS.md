@@ -138,7 +138,7 @@ make run CONFIG=path/to/my-config.json
 make run OUTPUT=/path/to/video.mov
 
 # Pass additional args
-make run ARGS="--no-overlay"
+make run ARGS="--no-record"
 ```
 
 Recordings are saved to `~/.mage-bench/logs/` by default.
@@ -248,7 +248,7 @@ Start the dev server with `make website`, then navigate Chrome to the pages list
 Use visual verification when:
 - Modifying `StreamingGamePanel` layout or rendering
 - Changing `website/public/game-renderer.js` or `game-renderer.css`
-- Debugging card display or overlay state issues
+- Debugging card display or layout issues
 
 ## Issues
 

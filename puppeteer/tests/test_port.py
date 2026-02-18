@@ -7,7 +7,6 @@ import pytest
 
 from puppeteer.port import (
     can_bind_port,
-    find_available_overlay_port,
     find_available_port,
     is_port_in_use,
     wait_for_port,
@@ -121,25 +120,6 @@ def test_port_reservation_double_release():
     reservation.release()
     reservation.release()  # Should not raise
     assert reservation._lock_fds == []
-
-
-def test_find_available_overlay_port():
-    """Should find an available overlay port and return a PortReservation."""
-    reservation = find_available_overlay_port(19600, max_attempts=100)
-    try:
-        assert reservation.port >= 19600
-        assert reservation.port < 19700
-    finally:
-        reservation.release()
-
-
-def test_find_available_overlay_port_exhausted():
-    """Should raise RuntimeError when all overlay ports are locked."""
-    with (
-        patch("puppeteer.port._try_lock_port", return_value=None),
-        pytest.raises(RuntimeError, match="No available overlay port found"),
-    ):
-        find_available_overlay_port(19700, max_attempts=5)
 
 
 def test_wait_for_port_immediate():

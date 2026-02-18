@@ -43,7 +43,6 @@ All models use emojis and trash-talk freely (the system prompt encourages it). C
 
 ## Things I Didn't Get To
 
-- How the streaming overlay works
 - The website/game visualizer (`make export-game`, `make website`)
 - Issue tracking system in `issues/`
 - How deck selection works beyond "random" and specific .dck paths

@@ -18,7 +18,7 @@ from puppeteer.game_log import merge_game_log, read_decklist
 from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.llm_cost import DEFAULT_BASE_URL as DEFAULT_LLM_BASE_URL
 from puppeteer.llm_cost import required_api_key_env
-from puppeteer.port import PortReservation, find_available_overlay_port, find_available_port, wait_for_port
+from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import ProcessManager
 from puppeteer.xml_config import modify_server_config
 
@@ -402,23 +402,6 @@ def parse_args() -> Config:
         help="Record game to video file (optionally specify output path)",
     )
     parser.add_argument(
-        "--overlay",
-        action="store_true",
-        help="Enable local overlay server in streaming spectator (requires website-build)",
-    )
-    parser.add_argument(
-        "--overlay-port",
-        type=int,
-        default=17888,
-        help="Local overlay server port (default: 17888)",
-    )
-    parser.add_argument(
-        "--overlay-host",
-        type=str,
-        default="127.0.0.1",
-        help="Local overlay bind host (default: 127.0.0.1)",
-    )
-    parser.add_argument(
         "--games",
         type=int,
         default=1,
@@ -436,9 +419,6 @@ def parse_args() -> Config:
         streaming=args.streaming,
         record=bool(args.record),
         record_output=record_output,
-        overlay=args.overlay,
-        overlay_port=args.overlay_port,
-        overlay_host=args.overlay_host,
         num_games=args.games,
     )
     return config
@@ -467,10 +447,7 @@ def compile_project(project_root: Path, streaming: bool = False) -> bool:
 
 
 def refresh_streaming_resources(project_root: Path) -> bool:
-    """Refresh streaming client resources under target/classes.
-
-    This keeps overlay static files in sync even when --skip-compile is used.
-    """
+    """Refresh streaming client resources under target/classes."""
     result = subprocess.run(
         [
             "mvn",
@@ -764,13 +741,6 @@ def start_streaming_client(
         record_path = config.record_output or (resolved_game_dir / "recording.mov")
         jvm_args_list.append(f"-Dxmage.streaming.record={record_path}")
 
-    # Add local overlay settings
-    jvm_args_list.append(f"-Dxmage.streaming.overlay.enabled={'true' if config.overlay else 'false'}")
-    jvm_args_list.append(f"-Dxmage.streaming.overlay.port={config.overlay_port}")
-    jvm_args_list.append(f"-Dxmage.streaming.overlay.host={config.overlay_host}")
-    webroot = project_root / "website" / "dist"
-    jvm_args_list.append(f"-Dxmage.streaming.overlay.webroot={webroot}")
-
     jvm_args = " ".join(jvm_args_list)
 
     env = {
@@ -1034,7 +1004,6 @@ class GameSession:
     config: Config
     spectator_proc: subprocess.Popen | None = None
     pilot_procs: list[tuple[str, subprocess.Popen]] = field(default_factory=list)
-    overlay_reservation: PortReservation | None = None
 
 
 def _setup_game(
@@ -1066,9 +1035,6 @@ def _setup_game(
             config_file=base_config.config_file,
             streaming=base_config.streaming,
             record=base_config.record,
-            overlay=False,  # Overlay disabled for parallel mode
-            overlay_port=base_config.overlay_port,
-            overlay_host=base_config.overlay_host,
             num_games=num_games,
         )
         game_config.load_config(
@@ -1133,15 +1099,6 @@ def _setup_game(
     # Write game metadata
     _write_game_meta(game_dir, game_config, project_root)
 
-    # Overlay port reservation (single-game only)
-    overlay_reservation: PortReservation | None = None
-    if not batch and game_config.streaming and game_config.overlay:
-        requested_overlay_port = game_config.overlay_port
-        overlay_reservation = find_available_overlay_port(requested_overlay_port)
-        game_config.overlay_port = overlay_reservation.port
-        if game_config.overlay_port != requested_overlay_port:
-            print(f"Overlay port {requested_overlay_port} unavailable, using {game_config.overlay_port}")
-
     # Log paths
     spectator_log = game_dir / "spectator.log"
     print(f"{game_label}Game logs: {game_dir}")
@@ -1149,11 +1106,6 @@ def _setup_game(
     if game_config.record:
         record_path = game_config.record_output or (game_dir / "recording.mov")
         print(f"{game_label}Recording to: {record_path}")
-    if game_config.streaming and game_config.overlay:
-        base = f"http://{game_config.overlay_host}:{game_config.overlay_port}"
-        print(f"{game_label}Overlay API: {base}/api/state")
-        print(f"{game_label}Live viewer: {base}/live")
-        print(f"{game_label}OBS source:  {base}/live?positions=1&obs=1")
 
     # Choose spectator client type
     if game_config.streaming:
@@ -1173,7 +1125,6 @@ def _setup_game(
         game_dir=game_dir,
         config=game_config,
         spectator_proc=spectator_proc,
-        overlay_reservation=overlay_reservation,
     )
 
     # Count headless clients
@@ -1187,11 +1138,6 @@ def _setup_game(
     try:
         if headless_count > 0:
             _wait_for_spectator_table(spectator_log, spectator_proc, timeout=300)
-
-            # Release overlay reservation now that spectator has bound it
-            if overlay_reservation is not None:
-                overlay_reservation.release()
-                session.overlay_reservation = None
 
             # Start headless clients
             for player in game_config.sleepwalker_players:
@@ -1222,10 +1168,6 @@ def _setup_game(
             # headless clients from joining this table by mistake.
             if batch:
                 _wait_for_game_start(spectator_log, spectator_proc)
-        else:
-            if overlay_reservation is not None:
-                overlay_reservation.release()
-                session.overlay_reservation = None
     except (TimeoutError, RuntimeError):
         # Clean up processes for this game before propagating the error.
         if spectator_proc.poll() is None:
@@ -1233,8 +1175,6 @@ def _setup_game(
         for _, proc in session.pilot_procs:
             if proc.poll() is None:
                 proc.terminate()
-        if overlay_reservation is not None:
-            overlay_reservation.release()
         raise
 
     return session
@@ -1345,11 +1285,6 @@ def main() -> int:
         if config.record and not config.streaming:
             print("Recording requires streaming mode, enabling --streaming")
             config.streaming = True
-
-        # Parallel mode: disable overlay (each streaming client would need its
-        # own port; not worth the complexity for batch eval)
-        if batch:
-            config.overlay = False
 
         # Create log directory
         log_dir = (project_root / config.log_dir).resolve()
@@ -1495,9 +1430,5 @@ def main() -> int:
         # Release any held port reservations (safety net for early exits)
         if port_reservation is not None:
             port_reservation.release()
-        # Release any overlay reservations held by game sessions
-        for session in sessions:
-            if session.overlay_reservation is not None:
-                session.overlay_reservation.release()
         # Always cleanup child processes, even on exceptions
         pm.cleanup()

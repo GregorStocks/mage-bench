@@ -3,7 +3,6 @@ package mage.client.streaming;
 import mage.abilities.icon.CardIconRenderSettings;
 import mage.cards.Card;
 import mage.cards.MageCard;
-import mage.cards.MageCardLocation;
 import mage.client.MageFrame;
 import mage.client.MagePane;
 import mage.client.SessionHandler;
@@ -70,7 +69,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -130,11 +128,6 @@ public class StreamingGamePanel extends GamePanel {
     private Path gameDirPath;
     private final Set<String> llmPlayerNames = new HashSet<>();
     private boolean costPollingInitialized = false;
-
-    // Overlay publishing support
-    private static final int OVERLAY_PUSH_INTERVAL_MS = 200;
-    private long lastOverlayPushMs = 0L;
-    private final List<JsonObject> overlayEvents = Collections.synchronizedList(new ArrayList<>());
 
     // Cast owner tracking: objectId → playerName, parsed from game chat HTML
     private static final Pattern CAST_OWNER_PATTERN = Pattern.compile(
@@ -275,7 +268,6 @@ public class StreamingGamePanel extends GamePanel {
         updatePlayerHighlights(game);
         // Schedule auto-dismissal of any popup dialogs created during init
         schedulePopupDismissal();
-        pushOverlayState(game, true);
         writeStateSnapshotIfChanged(game);
     }
 
@@ -330,7 +322,6 @@ public class StreamingGamePanel extends GamePanel {
         updatePlayerHighlights(game);
         // Re-layout stack cards vertically (parent lays them out horizontally)
         relayoutStackVertically();
-        pushOverlayState(game, false);
     }
 
     /**
@@ -353,7 +344,6 @@ public class StreamingGamePanel extends GamePanel {
     @Override
     public void endMessage(int messageId, GameView gameView, Map<String, Serializable> options, String message) {
         super.endMessage(messageId, gameView, options, message);
-        pushOverlayState(gameView, true);
 
         if (gameEventWriter != null) {
             var event = new JsonObject();
@@ -1952,16 +1942,6 @@ public class StreamingGamePanel extends GamePanel {
         }
         event.addProperty("message", message != null ? message : "");
         writeGameEvent(type, event);
-
-        // Also buffer for the overlay API so the live web UI can show events
-        var overlayEvent = new JsonObject();
-        overlayEvent.addProperty("type", type);
-        overlayEvent.addProperty("seq", gameEventSeq);
-        overlayEvent.addProperty("message", message != null ? message : "");
-        if ("player_chat".equals(type)) {
-            overlayEvent.addProperty("from", username != null ? username : "");
-        }
-        overlayEvents.add(overlayEvent);
     }
 
     /**
@@ -2054,368 +2034,6 @@ public class StreamingGamePanel extends GamePanel {
      */
     private static String formatCost(double costUsd) {
         return String.format("$%.4f", costUsd);
-    }
-
-    // ---- Overlay state publishing ----
-
-    private void pushOverlayState(GameView game, boolean force) {
-        LocalOverlayServer overlayServer = LocalOverlayServer.getInstance();
-        if (!overlayServer.isRunning() || game == null) {
-            return;
-        }
-
-        long now = System.currentTimeMillis();
-        if (!force && now - lastOverlayPushMs < OVERLAY_PUSH_INTERVAL_MS) {
-            return;
-        }
-        lastOverlayPushMs = now;
-
-        try {
-            overlayServer.updateState(buildOverlayStateJson(game));
-        } catch (Exception e) {
-            logger.debug("Failed to publish overlay state", e);
-        }
-    }
-
-    private String buildOverlayStateJson(GameView game) {
-        OverlayLayoutSnapshot layout = buildOverlayLayoutSnapshot(game);
-
-        var root = new JsonObject();
-        root.addProperty("status", "live");
-        root.addProperty("updatedAt", ZonedDateTime.now(LOG_TZ).format(LOG_TS_FMT));
-        root.addProperty("gameId", streamingGameId != null ? streamingGameId.toString() : "");
-        root.addProperty("turn", roundTracker.getGameRound());
-        root.addProperty("phase", game.getPhase() != null ? game.getPhase().name() : "");
-        root.addProperty("step", game.getStep() != null ? game.getStep().name() : "");
-        root.addProperty("activePlayer", safe(game.getActivePlayerName()));
-        root.addProperty("priorityPlayer", safe(game.getPriorityPlayerName()));
-        root.add("players", buildOverlayPlayers(game, layout));
-        root.add("stack", stackToOverlayJson(game.getStack(), layout));
-        root.add("layout", buildOverlayLayoutJson(layout));
-        // Include accumulated game events for the live web UI
-        var eventsArray = new JsonArray();
-        synchronized (overlayEvents) {
-            for (JsonObject e : overlayEvents) {
-                eventsArray.add(e);
-            }
-        }
-        root.add("events", eventsArray);
-        return root.toString();
-    }
-
-    private JsonArray buildOverlayPlayers(GameView game, OverlayLayoutSnapshot layout) {
-        var playersArray = new JsonArray();
-        Map<String, Card> loadedCards = getLoadedCards();
-
-        for (PlayerView player : game.getPlayers()) {
-            UUID playerId = player.getPlayerId();
-            var playerJson = new JsonObject();
-            playerJson.addProperty("id", playerId.toString());
-            playerJson.addProperty("name", safe(player.getName()));
-            playerJson.addProperty("life", player.getLife());
-            playerJson.addProperty("libraryCount", player.getLibraryCount());
-            playerJson.addProperty("handCount", player.getHandCount());
-            playerJson.addProperty("isActive", player.isActive());
-            playerJson.addProperty("hasPriority", player.hasPriority());
-            playerJson.addProperty("hasLeft", player.hasLeft());
-            playerJson.addProperty("timerActive", player.isTimerActive());
-            playerJson.addProperty("priorityTimeLeftSecs", player.getPriorityTimeLeftSecs());
-            playerJson.addProperty("bufferTimeLeft", player.getBufferTimeLeft());
-            playerJson.add("counters", countersToJson(player));
-            playerJson.add("battlefield", battlefieldToJson(player, layout));
-            playerJson.add("commanders", commandersToJson(player, layout));
-            playerJson.add("graveyard", cardsToJson(player.getGraveyard(), "graveyard", playerId, layout));
-            playerJson.add("exile", cardsToJson(player.getExile(), "exile", playerId, layout));
-
-            CardsView handCards = getHandCardsForPlayer(player, game, loadedCards);
-            playerJson.add("hand", cardsToJson(handCards, "hand", playerId, layout));
-
-            playersArray.add(playerJson);
-        }
-
-        return playersArray;
-    }
-
-    private JsonArray countersToJson(PlayerView player) {
-        var counters = new JsonArray();
-        for (CounterView counter : player.getCounters()) {
-            var counterJson = new JsonObject();
-            counterJson.addProperty("name", safe(counter.getName()));
-            counterJson.addProperty("count", counter.getCount());
-            counters.add(counterJson);
-        }
-        return counters;
-    }
-
-    private JsonArray battlefieldToJson(PlayerView player, OverlayLayoutSnapshot layout) {
-        var cards = new JsonArray();
-        var permanents = new ArrayList<>(player.getBattlefield().values());
-        permanents.sort(Comparator.comparing(card -> safe(card.getDisplayName()).toLowerCase(Locale.ROOT)));
-        for (PermanentView permanent : permanents) {
-            cards.add(cardToJson(permanent, "battlefield", player.getPlayerId(), layout));
-        }
-        return cards;
-    }
-
-    private JsonArray commandersToJson(PlayerView player, OverlayLayoutSnapshot layout) {
-        var commanders = new JsonArray();
-        for (CommandObjectView obj : player.getCommandObjectList()) {
-            if (obj instanceof CommanderView cv) {
-                commanders.add(cardToJson(cv, "commanders", player.getPlayerId(), layout));
-            }
-        }
-        return commanders;
-    }
-
-    private JsonArray cardsToJson(CardsView cardsView, String zone, UUID playerId, OverlayLayoutSnapshot layout) {
-        var cards = new JsonArray();
-        if (cardsView == null || cardsView.isEmpty()) {
-            return cards;
-        }
-
-        var sorted = new ArrayList<>(cardsView.values());
-        sorted.sort(Comparator.comparing(card -> safe(card.getDisplayName()).toLowerCase(Locale.ROOT)));
-        for (CardView card : sorted) {
-            cards.add(cardToJson(card, zone, playerId, layout));
-        }
-        return cards;
-    }
-
-    private JsonArray stackToOverlayJson(CardsView stackView, OverlayLayoutSnapshot layout) {
-        var cards = new JsonArray();
-        if (stackView == null || stackView.isEmpty()) {
-            return cards;
-        }
-        var sorted = new ArrayList<>(stackView.values());
-        sorted.sort(Comparator.comparing(card -> safe(card.getDisplayName()).toLowerCase(Locale.ROOT)));
-        for (CardView card : sorted) {
-            var cardJson = cardToJson(card, "stack", null, layout);
-            if (card.getId() != null) {
-                String owner = castOwners.get(card.getId().toString());
-                if (owner != null) {
-                    cardJson.addProperty("owner", owner);
-                }
-            }
-            if (card.getTargets() != null && !card.getTargets().isEmpty()) {
-                var targetsArray = new JsonArray();
-                for (UUID targetId : card.getTargets()) {
-                    targetsArray.add(resolveTargetName(targetId, lastGame));
-                }
-                cardJson.add("targets", targetsArray);
-            }
-            cards.add(cardJson);
-        }
-        return cards;
-    }
-
-    private JsonObject cardToJson(CardView card, String zone, UUID playerId, OverlayLayoutSnapshot layout) {
-        var cardJson = new JsonObject();
-        String displayName = safe(card.getDisplayName());
-        String cardName = displayName.isEmpty() ? safe(card.getName()) : displayName;
-
-        String cardId = card.getId() != null ? card.getId().toString() : "";
-        cardJson.addProperty("id", cardId);
-        cardJson.addProperty("name", cardName);
-        cardJson.addProperty("displayFullName", safe(card.getDisplayFullName()));
-        cardJson.addProperty("manaCost", safe(card.getManaCostStr()));
-        cardJson.addProperty("typeLine", formatTypeLine(card));
-        cardJson.addProperty("rules", formatRules(card.getRules()));
-        cardJson.addProperty("power", safe(card.getPower()));
-        cardJson.addProperty("toughness", safe(card.getToughness()));
-        cardJson.addProperty("loyalty", safe(card.getLoyalty()));
-        cardJson.addProperty("defense", safe(card.getDefense()));
-        cardJson.addProperty("expansionSetCode", safe(card.getExpansionSetCode()));
-        cardJson.addProperty("cardNumber", safe(card.getCardNumber()));
-        cardJson.addProperty("imageUrl", buildCardImageUrl(card));
-        cardJson.addProperty("tapped", card instanceof PermanentView pv && pv.isTapped());
-        cardJson.addProperty("damage", card instanceof PermanentView pv2 ? pv2.getDamage() : 0);
-        if (card.getCounters() != null && !card.getCounters().isEmpty()) {
-            var counters = new JsonObject();
-            for (CounterView counter : card.getCounters()) {
-                counters.addProperty(counter.getName(), counter.getCount());
-            }
-            cardJson.add("counters", counters);
-        }
-        if (!cardId.isEmpty()) {
-            Rectangle rect = layout.cardRectsByKey.get(layoutCardKey(playerId, zone, card.getId()));
-            if (rect != null) {
-                cardJson.add("layout", rectangleToJson(rect));
-            }
-        }
-
-        return cardJson;
-    }
-
-    private OverlayLayoutSnapshot buildOverlayLayoutSnapshot(GameView game) {
-        var snapshot = new OverlayLayoutSnapshot();
-        snapshot.sourceWidth = Math.max(1, getWidth());
-        snapshot.sourceHeight = Math.max(1, getHeight());
-
-        if (game == null || game.getPlayers() == null) {
-            return snapshot;
-        }
-
-        Map<UUID, PlayAreaPanel> playAreas = getPlayers();
-        for (PlayerView player : game.getPlayers()) {
-            UUID playerId = player.getPlayerId();
-            PlayAreaPanel playArea = playAreas.get(playerId);
-            if (playArea == null) {
-                continue;
-            }
-
-            Rectangle playAreaRect = toOverlayRect(playArea);
-            if (playAreaRect != null) {
-                snapshot.playAreaRects.put(playerId, playAreaRect);
-            }
-
-            addCardRectsFromMap(
-                    snapshot,
-                    playerId,
-                    "battlefield",
-                    playArea.getBattlefieldPanel().getPermanentPanels()
-            );
-            addCardRectsFromHandPanel(snapshot, playerId, playArea.getHandPanel());
-
-            // Use streaming zone panels (with public getCardPanels) instead of reflection
-            StreamingGraveyardPanel gyPanel = streamingGraveyardPanels.get(playerId);
-            if (gyPanel != null) {
-                addCardRectsFromMap(snapshot, playerId, "graveyard", gyPanel.getCardPanels());
-            }
-            StreamingExilePanel exPanel = streamingExilePanels.get(playerId);
-            if (exPanel != null) {
-                addCardRectsFromMap(snapshot, playerId, "exile", exPanel.getCardPanels());
-            }
-            CommanderPanel commanderPanel = commanderPanels.get(playerId);
-            if (commanderPanel != null) {
-                addCardRectsFromMap(snapshot, playerId, "commanders", commanderPanel.getCardPanels());
-            }
-        }
-
-        // Stack cards (global, not per-player)
-        addStackCardRects(snapshot);
-
-        return snapshot;
-    }
-
-    private void addCardRectsFromHandPanel(OverlayLayoutSnapshot snapshot, UUID playerId, HandPanel handPanel) {
-        if (handPanel == null) {
-            return;
-        }
-        try {
-            Field handField = HandPanel.class.getDeclaredField("hand");
-            handField.setAccessible(true);
-            Cards handCards = (Cards) handField.get(handPanel);
-            addCardRectsFromMap(snapshot, playerId, "hand", handCards.getMageCardsForUpdate());
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            // Best effort only; if this fails, non-positional overlay still works.
-        }
-    }
-
-
-
-    private void addStackCardRects(OverlayLayoutSnapshot snapshot) {
-        try {
-            Field stackField = GamePanel.class.getDeclaredField("stackObjects");
-            stackField.setAccessible(true);
-            Cards stackCards = (Cards) stackField.get(this);
-            addCardRectsFromMap(snapshot, null, "stack", stackCards.getMageCardsForUpdate());
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            // Best effort only
-        }
-    }
-
-    private void addCardRectsFromMap(
-            OverlayLayoutSnapshot snapshot,
-            UUID playerId,
-            String zone,
-            Map<UUID, MageCard> cardsMap
-    ) {
-        if (cardsMap == null || cardsMap.isEmpty()) {
-            return;
-        }
-        for (Map.Entry<UUID, MageCard> entry : cardsMap.entrySet()) {
-            UUID cardId = entry.getKey();
-            MageCard card = entry.getValue();
-            if (cardId == null || card == null) {
-                continue;
-            }
-            Rectangle rect = toOverlayRect(card);
-            if (rect == null) {
-                continue;
-            }
-            snapshot.cardRectsByKey.put(layoutCardKey(playerId, zone, cardId), rect);
-        }
-    }
-
-    private Rectangle toOverlayRect(Component component) {
-        if (component == null || component.getParent() == null || !component.isVisible()) {
-            return null;
-        }
-        try {
-            // MageCard.getBounds() is deprecated and returns oversized Swing-allocated
-            // bounds. Use getCardLocationOnScreen() which returns the actual visual
-            // card rectangle (accounting for outer/draw space), then convert from
-            // screen coordinates to this panel's coordinate space.
-            if (component instanceof MageCard card) {
-                MageCardLocation cardLoc = card.getCardLocationOnScreen();
-                Point panelOrigin = this.getLocationOnScreen();
-                var rect = new Rectangle(
-                        cardLoc.getCardX() - panelOrigin.x,
-                        cardLoc.getCardY() - panelOrigin.y,
-                        cardLoc.getCardWidth(),
-                        cardLoc.getCardHeight()
-                );
-                if (rect.width <= 0 || rect.height <= 0) {
-                    return null;
-                }
-                return rect;
-            }
-
-            Rectangle rect = SwingUtilities.convertRectangle(component.getParent(), component.getBounds(), this);
-            if (rect.width <= 0 || rect.height <= 0) {
-                return null;
-            }
-            return rect;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    private JsonObject buildOverlayLayoutJson(OverlayLayoutSnapshot layout) {
-        var layoutJson = new JsonObject();
-        layoutJson.addProperty("sourceWidth", layout.sourceWidth);
-        layoutJson.addProperty("sourceHeight", layout.sourceHeight);
-
-        var playAreas = new JsonArray();
-        for (Map.Entry<UUID, Rectangle> entry : layout.playAreaRects.entrySet()) {
-            JsonObject area = rectangleToJson(entry.getValue());
-            area.addProperty("playerId", entry.getKey().toString());
-            playAreas.add(area);
-        }
-        layoutJson.add("playAreas", playAreas);
-        return layoutJson;
-    }
-
-    private static JsonObject rectangleToJson(Rectangle rect) {
-        var json = new JsonObject();
-        json.addProperty("x", rect.x);
-        json.addProperty("y", rect.y);
-        json.addProperty("width", rect.width);
-        json.addProperty("height", rect.height);
-        return json;
-    }
-
-    private static String layoutCardKey(UUID playerId, String zone, UUID cardId) {
-        String player = playerId == null ? "global" : playerId.toString();
-        String z = zone == null ? "unknown" : zone;
-        return player + "|" + z + "|" + cardId;
-    }
-
-    private static final class OverlayLayoutSnapshot {
-        private int sourceWidth;
-        private int sourceHeight;
-        private final Map<String, Rectangle> cardRectsByKey = new LinkedHashMap<>();
-        private final Map<UUID, Rectangle> playAreaRects = new LinkedHashMap<>();
     }
 
     private static String formatRules(List<String> rules) {

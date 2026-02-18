@@ -90,9 +90,6 @@ Configure players in JSON config files (see `configs/`).
 The spectator provides:
 - Live game visualization (JavaFX)
 - Video recording via FFmpeg
-- Optional local overlay server for Twitch/OBS (`make run ARGS="--overlay"`, requires `make website-build`)
-
-See `doc/streaming-overlay.md` for OBS setup.
 
 ## Development
 

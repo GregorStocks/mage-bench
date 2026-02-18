@@ -105,23 +105,6 @@ def find_available_port(host: str, start_port: int, max_attempts: int = 100) -> 
     raise RuntimeError(f"No available port found in range {start_port}-{start_port + max_attempts}")
 
 
-def find_available_overlay_port(start_port: int, max_attempts: int = 100) -> PortReservation:
-    """Find a free local port for the overlay server, holding an flock reservation.
-
-    Returns a PortReservation that holds an exclusive lock on the port.
-    Caller must release() the reservation after the overlay server has bound.
-    """
-    for offset in range(max_attempts):
-        port = start_port + offset
-        fd = _try_lock_port(port)
-        if fd is None:
-            continue
-        if can_bind_port(port):
-            return PortReservation(port, [fd])
-        os.close(fd)
-    raise RuntimeError(f"No available overlay port found in range {start_port}-{start_port + max_attempts - 1}")
-
-
 def wait_for_port(host: str, port: int, timeout: int, poll_interval: float = 1.0) -> bool:
     """Wait for a port to become reachable (server started)."""
     start = time.time()

@@ -11,10 +11,6 @@ import java.awt.image.BufferedImage;
  *
  * Uses a Swing Timer to capture frames on the EDT, ensuring thread safety
  * with Swing components. Frames are passed to a FrameConsumer for encoding.
- *
- * Future: Overlay rendering can be added here by processing the BufferedImage
- * before passing it to the consumer. For example, reading AI thought data
- * from a file and rendering text boxes onto the frame.
  */
 public class FrameCaptureService {
 
@@ -143,10 +139,6 @@ public class FrameCaptureService {
 
             // Paint the component
             target.paint(g);
-
-            // FUTURE: Overlay rendering would go here
-            // Example:
-            // OverlayRenderer.renderThoughts(g, thoughtData, frameBuffer.getWidth(), frameBuffer.getHeight());
 
         } finally {
             g.dispose();

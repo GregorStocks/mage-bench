@@ -55,8 +55,6 @@ public class StreamingMageFrame extends MageFrame {
 
     public StreamingMageFrame() throws MageException {
         super();
-        // Start local overlay server early so mock/preview URLs are available before game start.
-        LocalOverlayServer.getInstance();
         // Hide toolbar after initialization
         SwingUtilities.invokeLater(this::hideToolbar);
     }
