@@ -727,6 +727,92 @@ def _eval_one_decision(
     return [ann], cost, True, raw_record
 
 
+def load_game_context(gz_path: str) -> dict:
+    """Load and precompute all per-game context needed for eval.
+
+    Shared by blunder_analysis.main() and blunder_eval.py.
+    """
+    data = _load_game(gz_path)
+    decisions = extract_decisions(gz_path)
+    snapshots = data.get("snapshots", [])
+    overview = _game_overview(data)
+    game_actions = data.get("actions", [])
+    abt = _actions_by_turn(game_actions)
+    num_players = len(data.get("players", []))
+
+    card_names = _collect_card_names(data)
+    oracle_texts = _get_oracle_texts(sorted(card_names))
+
+    return {
+        "data": data,
+        "decisions": decisions,
+        "snapshots": snapshots,
+        "overview": overview,
+        "oracle_texts": oracle_texts,
+        "actions_by_turn": abt,
+        "num_players": num_players,
+        "all_actions": game_actions,
+    }
+
+
+def init_api() -> tuple[OpenAI, dict[str, tuple[float, float]]]:
+    """Initialize OpenRouter API client and fetch pricing.
+
+    Shared by blunder_analysis.main() and blunder_eval.py.
+    """
+    api_key = os.environ.get("OPENROUTER_API_KEY")
+    assert api_key, "OPENROUTER_API_KEY environment variable required"
+
+    prices = fetch_openrouter_prices()
+    assert get_model_price(OPUS_MODEL, prices) is not None, (
+        f"Could not fetch pricing for {OPUS_MODEL} from OpenRouter"
+    )
+
+    client = OpenAI(base_url=BASE_URL, api_key=api_key)
+    return client, prices
+
+
+def eval_decisions(
+    decisions: list[dict],
+    game_ctx: dict,
+    client: OpenAI,
+    prices: dict[str, tuple[float, float]],
+) -> dict[int, tuple[list[dict], float, bool, dict]]:
+    """Evaluate a list of decisions in parallel. Returns {decision_index: result}.
+
+    Shared by blunder_analysis.main() and blunder_eval.py.
+    """
+    results_by_idx: dict[int, tuple[list[dict], float, bool, dict]] = {}
+
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {}
+        for d in decisions:
+            fut = pool.submit(
+                _eval_one_decision,
+                client,
+                OPUS_MODEL,
+                prices,
+                game_ctx["overview"],
+                d,
+                game_ctx["oracle_texts"],
+                game_ctx["snapshots"],
+                game_ctx["actions_by_turn"],
+                game_ctx["num_players"],
+                game_ctx["all_actions"],
+            )
+            futures[fut] = d["decision_index"]
+
+        for fut in as_completed(futures):
+            idx = futures[fut]
+            try:
+                results_by_idx[idx] = fut.result()
+            except Exception as e:
+                print(f"  WARNING: decision_{idx} failed: {e}")
+                results_by_idx[idx] = ([], 0.0, False, {})
+
+    return results_by_idx
+
+
 def _auto_ingest_ground_truth(
     game_id: str,
     annotations: list[dict],
@@ -760,9 +846,6 @@ def _auto_ingest_ground_truth(
 
 
 def main(gz_path: str) -> None:
-    api_key = os.environ.get("OPENROUTER_API_KEY")
-    assert api_key, "OPENROUTER_API_KEY environment variable required"
-
     # Skip if already analyzed with the current script version.
     # Missing blunderScriptVersion with existing annotations → v1.
     data = _load_game(gz_path)
@@ -778,13 +861,7 @@ def main(gz_path: str) -> None:
             f"Reanalyzing: v{existing_version} → v{BLUNDER_SCRIPT_VERSION} ({gz_path})"
         )
 
-    # Fetch live pricing from OpenRouter
-    prices = fetch_openrouter_prices()
-    assert get_model_price(OPUS_MODEL, prices) is not None, (
-        f"Could not fetch pricing for {OPUS_MODEL} from OpenRouter"
-    )
-
-    client = OpenAI(base_url=BASE_URL, api_key=api_key)
+    client, prices = init_api()
 
     overview = _game_overview(data)
     print(overview)
@@ -835,52 +912,19 @@ def main(gz_path: str) -> None:
         print("No non-forced decisions to analyze.")
         return
 
-    # Fetch oracle texts for all cards in the game
-    card_names = _collect_card_names(data)
-    oracle_texts = _get_oracle_texts(sorted(card_names))
-    print(f"Oracle texts: {len(oracle_texts)} cards resolved")
-
-    # Build action log index for prior context
-    game_actions = data.get("actions", [])
-    abt = _actions_by_turn(game_actions)
-    game_snapshots = data.get("snapshots", [])
-    num_players = len(data.get("players", []))
+    # Load game context and run parallel evaluation
+    game_ctx = load_game_context(gz_path)
+    print(f"Oracle texts: {len(game_ctx['oracle_texts'])} cards resolved")
 
     # --- Per-decision Opus analysis ---
     print(f"\nAnalyzing {len(non_forced)} decisions with {OPUS_MODEL}...")
+
+    results_by_idx = eval_decisions(non_forced, game_ctx, client, prices)
 
     annotations: list[dict] = []
     raw_records: list[dict] = []
     total_cost = 0.0
     parse_failures = 0
-
-    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-        futures = {}
-        for d in non_forced:
-            fut = pool.submit(
-                _eval_one_decision,
-                client,
-                OPUS_MODEL,
-                prices,
-                overview,
-                d,
-                oracle_texts,
-                game_snapshots,
-                abt,
-                num_players,
-                game_actions,
-            )
-            futures[fut] = d["decision_index"]
-
-        # Collect results preserving decision order
-        results_by_idx: dict[int, tuple[list[dict], float, bool, dict]] = {}
-        for fut in as_completed(futures):
-            idx = futures[fut]
-            try:
-                results_by_idx[idx] = fut.result()
-            except Exception as e:
-                print(f"  WARNING: decision_{idx} failed: {e}")
-                results_by_idx[idx] = ([], 0.0, False, {})
 
     for d in non_forced:
         anns, cost, parsed_ok, raw = results_by_idx[d["decision_index"]]

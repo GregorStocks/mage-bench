@@ -15,6 +15,7 @@ import atexit
 import gzip
 import json
 import socket
+import textwrap
 import subprocess
 import time
 from datetime import datetime, timezone
@@ -48,6 +49,21 @@ def _start_dev_server() -> int:
 
     port = _find_free_port()
     website_dir = REPO_ROOT / "website"
+
+    # Generate leaderboard data (required by the game viewer page)
+    subprocess.run(
+        [
+            "uv",
+            "run",
+            "--project",
+            "puppeteer",
+            "python",
+            "scripts/generate_leaderboard.py",
+        ],
+        cwd=str(REPO_ROOT),
+        stdout=subprocess.DEVNULL,
+        check=True,
+    )
 
     # Install deps quietly, then start dev server
     subprocess.run(
@@ -106,7 +122,14 @@ def format_play_context(game_id: str, entry: dict) -> str:
     sev = entry.get("annotation_severity")
     desc = entry.get("annotation_description")
     if sev and desc:
-        lines.append(f'Annotator: {sev} - "{desc}"')
+        prefix = f"Annotator: {sev} - "
+        wrapped = textwrap.fill(
+            f'"{desc}"',
+            width=80,
+            initial_indent=prefix,
+            subsequent_indent=" " * len(prefix),
+        )
+        lines.append(wrapped)
     lines.append(f"Viewer: {viewer_url(game_id, entry.get('aftermath_index', 0))}")
     return "\n".join(lines)
 

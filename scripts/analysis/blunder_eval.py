@@ -13,23 +13,14 @@ Requires OPENROUTER_API_KEY environment variable.
 """
 
 import json
-import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import textwrap
 from datetime import datetime, timezone
 
-from openai import OpenAI
-
 from blunder_analysis import (
-    BASE_URL,
     BLUNDER_SCRIPT_VERSION,
-    MAX_WORKERS,
-    OPUS_MODEL,
-    _actions_by_turn,
-    _collect_card_names,
-    _eval_one_decision,
-    _game_overview,
-    _get_oracle_texts,
-    _load_game,
+    eval_decisions,
+    init_api,
+    load_game_context,
 )
 from blunder_eval_common import (
     BASELINE_PATH,
@@ -39,74 +30,50 @@ from blunder_eval_common import (
     load_ground_truth,
     play_key,
 )
-from extract_decisions import extract_decisions
-from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
 
 
-def load_game_context(gz_path: str) -> dict:
-    """Load and precompute all per-game context needed for eval."""
-    data = _load_game(gz_path)
-    decisions = extract_decisions(gz_path)
-    snapshots = data.get("snapshots", [])
-    overview = _game_overview(data)
-    game_actions = data.get("actions", [])
-    abt = _actions_by_turn(game_actions)
-    num_players = len(data.get("players", []))
-
-    card_names = _collect_card_names(data)
-    oracle_texts = _get_oracle_texts(sorted(card_names))
-
-    return {
-        "data": data,
-        "decisions": decisions,
-        "snapshots": snapshots,
-        "overview": overview,
-        "oracle_texts": oracle_texts,
-        "actions_by_turn": abt,
-        "num_players": num_players,
-        "all_actions": game_actions,
-    }
-
-
-def eval_one_play(
-    entry: dict,
+def eval_game_plays(
+    entries: list[dict],
     game_ctx: dict,
-    client: OpenAI,
-    model: str,
+    client: object,
     prices: dict[str, tuple[float, float]],
-) -> tuple[dict, float]:
-    """Evaluate a single play. Returns (result_dict, cost_usd)."""
-    di = entry["decision_index"]
+) -> dict[int, tuple[dict, float]]:
+    """Evaluate plays for a single game. Returns {decision_index: (result, cost)}.
+
+    Finds the decision objects matching the ground truth entries and runs
+    them through eval_decisions() in parallel.
+    """
     decisions = game_ctx["decisions"]
 
-    decision = None
-    for d in decisions:
-        if d["decision_index"] == di:
-            decision = d
-            break
-    assert decision is not None, f"Decision {di} not found in game"
+    # Build lookup from decision_index to decision object
+    decision_by_idx = {d["decision_index"]: d for d in decisions}
 
-    anns, cost, parsed_ok, raw = _eval_one_decision(
-        client,
-        model,
-        prices,
-        game_ctx["overview"],
-        decision,
-        game_ctx["oracle_texts"],
-        game_ctx["snapshots"],
-        game_ctx["actions_by_turn"],
-        game_ctx["num_players"],
-        game_ctx["all_actions"],
-    )
+    # Collect the decision objects we need to evaluate
+    to_eval = []
+    for entry in entries:
+        di = entry["decision_index"]
+        assert di in decision_by_idx, f"Decision {di} not found in game"
+        to_eval.append(decision_by_idx[di])
 
-    if anns:
-        return {
-            "detected": True,
-            "severity": anns[0].get("severity"),
-            "description": anns[0].get("description"),
-        }, cost
-    else:
-        return {"detected": False}, cost
+    results_by_idx = eval_decisions(to_eval, game_ctx, client, prices)
+
+    out: dict[int, tuple[dict, float]] = {}
+    for entry in entries:
+        di = entry["decision_index"]
+        anns, cost, parsed_ok, raw = results_by_idx[di]
+        if anns:
+            out[di] = (
+                {
+                    "detected": True,
+                    "severity": anns[0].get("severity"),
+                    "description": anns[0].get("description"),
+                },
+                cost,
+            )
+        else:
+            out[di] = ({"detected": False}, cost)
+
+    return out
 
 
 def compare_results(
@@ -192,6 +159,7 @@ def print_report(comparison: dict) -> None:
     details = comparison.get("details", [])
     if details:
         print(f"\n  Changes ({len(details)}):")
+        indent = "          "
         for d in details:
             direction = "now detected" if d["eval_detected"] else "no longer detected"
             impact = (
@@ -202,12 +170,13 @@ def print_report(comparison: dict) -> None:
                 )
                 else "BAD"
             )
-            desc = d.get("description") or ""
-            if len(desc) > 80:
-                desc = desc[:77] + "..."
             print(f"    [{impact}] {d['play_key']}: {direction} (human={d['verdict']})")
+            desc = d.get("description") or ""
             if desc:
-                print(f"          {desc}")
+                wrapped = textwrap.fill(
+                    desc, width=80, initial_indent=indent, subsequent_indent=indent
+                )
+                print(wrapped)
 
 
 def main() -> None:
@@ -219,9 +188,6 @@ def main() -> None:
     parser.add_argument("--limit", type=int, help="Limit number of plays to evaluate")
     parser.add_argument("--game", help="Filter to a specific game ID")
     args = parser.parse_args()
-
-    api_key = os.environ.get("OPENROUTER_API_KEY")
-    assert api_key, "OPENROUTER_API_KEY environment variable required"
 
     all_gt = load_ground_truth()
     assert all_gt, "No ground truth files found. Run 'make blunder-seed' first."
@@ -270,12 +236,8 @@ def main() -> None:
     else:
         print("No baseline found -- will compare against empty baseline")
 
-    # Setup API
-    prices = fetch_openrouter_prices()
-    assert get_model_price(OPUS_MODEL, prices) is not None, (
-        f"Could not fetch pricing for {OPUS_MODEL}"
-    )
-    client = OpenAI(base_url=BASE_URL, api_key=api_key)
+    # Setup API (uses same model/config as blunder_analysis.py)
+    client, prices = init_api()
 
     # Evaluate
     eval_results: dict[str, dict] = {}
@@ -286,20 +248,13 @@ def main() -> None:
         gz_path = str(game_path_for_id(game_id))
         game_ctx = load_game_context(gz_path)
 
-        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-            futures = {}
-            for entry in entries:
-                fut = pool.submit(
-                    eval_one_play, entry, game_ctx, client, OPUS_MODEL, prices
-                )
-                futures[fut] = entry
-
-            for fut in as_completed(futures):
-                entry = futures[fut]
-                pk = play_key(game_id, entry["decision_index"])
-                result, cost = fut.result()
-                eval_results[pk] = result
-                total_cost += cost
+        game_results = eval_game_plays(entries, game_ctx, client, prices)
+        for entry in entries:
+            di = entry["decision_index"]
+            result, cost = game_results[di]
+            pk = play_key(game_id, di)
+            eval_results[pk] = result
+            total_cost += cost
 
     print(f"\nTotal cost: ${total_cost:.3f}")
 

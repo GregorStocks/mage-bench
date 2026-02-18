@@ -1,0 +1,41 @@
+{
+  "blunder_script_version": 12,
+  "generated_at": "2026-02-18T02:09:06.389391+00:00",
+  "results": {
+    "game_20260217_075450_g6:0": {
+      "detected": true,
+      "severity": "questionable",
+      "description": "Choosing to be on the play with this hand is debatable. The hand has no turn-1 play (Breeding Pool could come in untapped but there's nothing to cast for 1 mana with the available colors), and the curve starts at 3 with Formidable Speaker. Being on the draw would give an extra card, which helps find early action and land drops for this slow hand with expensive spells (Deceit at 6, Overlord at 5, Wistfulness at 5). However, being on the play is conventionally correct in most Standard formats to maintain tempo advantage, and this hand does have a reasonable curve into turn 3 Formidable Speaker into turn 4-5 threats. The decision is defensible but worth noting given the hand composition."
+    },
+    "game_20260217_075450_g6:6": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Playing Cavern of Souls on turn 2 is suboptimal when the hand contains South Pole Voyager (1W) and Earthen Ally (G) that want colored mana. Cavern of Souls only produces colored mana for one chosen creature type. Floodfarm Verge would provide both W and U (with a Plains/Island condition that could be met later), but more importantly, Starting Town enters untapped on turns 1-3 and produces any color of mana for 1 life. Playing Starting Town now guarantees the ability to cast South Pole Voyager (needing W) on turn 2 alongside Floodfarm Verge or another land on turn 3. With Cavern of Souls, the player can only get colored mana for one creature type (likely Ally), which helps cast Ally creatures but is more restrictive. Starting Town is strictly better here since it enters untapped (turn 2) and produces any color, giving maximum flexibility for the diverse mana requirements in hand (W for Voyager, G for Earthen Ally, B for Boiling Rock Rioter)."
+    },
+    "game_20260217_075450_g6:7": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Cavern of Souls requires choosing a creature type. The hand contains South Pole Voyager (Human Scout Ally), Earthen Ally (Human Soldier Ally), and Boiling Rock Rioter (Human Rogue Ally). Choosing 'Human' would make all three castable with uncounterable colored mana. Choosing 'Ally' would also cover all three. 'Warrior' matches none of the creatures currently in hand, meaning the Cavern will only produce colorless mana for any creature the player actually wants to cast soon."
+    },
+    "game_20260217_075450_g7:7": {
+      "detected": true,
+      "severity": "minor",
+      "description": "With a hand containing Katara (GWU), Hakoda (3W), Earth Kingdom Protectors (W), and Earthen Ally (G), the player needs colored mana early. Floodfarm Verge produces W unconditionally and can produce U once a Plains or Island is controlled. Jasmine Dragon Tea Shop only produces colorless mana freely, with colored mana restricted to Ally spells/abilities. Playing Floodfarm Verge turn 1 would allow casting Earth Kingdom Protectors (W) on turn 2 with any second land, and better sets up the mana base for Katara on turn 3. Jasmine Dragon Tea Shop's colored mana can only be used on Ally spells, which is relevant but less flexible, and its colorless-first sequencing delays the curve. Since the player likely wants to play a W creature on turn 2, Floodfarm Verge is the better turn-1 land."
+    },
+    "game_20260217_075450_g7:11": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Hired Claw is a 1/2 that could attack into the opponent's board. The opponent has Earth Kingdom Protectors (summoning sick, can't block) and a tapped Jasmine Dragon Tea Shop. There are no blockers available, so Hired Claw would connect for 1 damage plus trigger its 'whenever you attack with one or more Lizards, deal 1 damage to target opponent' ability for a total of 2 damage. Additionally, dealing damage would enable Hired Claw's +1/+1 counter ability ('{1}{R}: Put a +1/+1 counter on this creature. Activate only if an opponent lost life this turn'), which could be activated this turn with the untapped Mountain. This is a free attack with meaningful upside (2 damage + a 2/3 creature going forward) and no risk."
+    },
+    "game_20260217_075450_g7:25": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Spending Burst Lightning (a versatile burn spell that can deal 4 when kicked) to kill Earthen Ally, which is currently just a 1/2 with a very expensive activated ability. The opponent's real threats will be cards like Katara or Hakoda, and this burn spell would be much more impactful against those. Earthen Ally is low-impact in the near term."
+    },
+    "game_20260217_075450_g7:44": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Used Warp to cast Nova Hellkite, which exiles it at end of turn, when they had enough mana (5 lands producing {3}{R}{R}) to hardcast it normally. While lethal was available this turn regardless, hardcasting preserves the 4/5 flyer permanently as insurance if something goes wrong."
+    }
+  }
+}

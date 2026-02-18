@@ -11,9 +11,9 @@
     "annotation_severity": "questionable",
     "annotation_description": "Choosing to be on the play with this hand is debatable. The hand has no turn-1 play (Breeding Pool could come in untapped but there's nothing to cast for 1 mana with the available colors), and the curve starts at 3 with Formidable Speaker. Being on the draw would give an extra card, which helps find early action and land drops for this slow hand with expensive spells (Deceit at 6, Overlord at 5, Wistfulness at 5). However, being on the play is conventionally correct in most Standard formats to maintain tempo advantage, and this hand does have a reasonable curve into turn 3 Formidable Speaker into turn 4-5 threats. The decision is defensible but worth noting given the hand composition.",
     "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "verdict": "not_blunder",
+    "human_notes": "it is always correct to be on the play.",
+    "audited_at": "2026-02-18T02:05:38.684735+00:00"
   },
   {
     "decision_index": 6,
@@ -27,9 +27,9 @@
     "annotation_severity": "minor",
     "annotation_description": "Playing Cavern of Souls on turn 2 is suboptimal when the hand contains South Pole Voyager (1W) and Earthen Ally (G) that want colored mana. Cavern of Souls only produces colored mana for one chosen creature type. Floodfarm Verge would provide both W and U (with a Plains/Island condition that could be met later), but more importantly, Starting Town enters untapped on turns 1-3 and produces any color of mana for 1 life. Playing Starting Town now guarantees the ability to cast South Pole Voyager (needing W) on turn 2 alongside Floodfarm Verge or another land on turn 3. With Cavern of Souls, the player can only get colored mana for one creature type (likely Ally), which helps cast Ally creatures but is more restrictive. Starting Town is strictly better here since it enters untapped (turn 2) and produces any color, giving maximum flexibility for the diverse mana requirements in hand (W for Voyager, G for Earthen Ally, B for Boiling Rock Rioter).",
     "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "verdict": "not_blunder",
+    "human_notes": "they would choose Ally. this is an ally deck.",
+    "audited_at": "2026-02-18T02:06:27.047828+00:00"
   },
   {
     "decision_index": 7,
@@ -43,9 +43,9 @@
     "annotation_severity": "minor",
     "annotation_description": "Cavern of Souls requires choosing a creature type. The hand contains South Pole Voyager (Human Scout Ally), Earthen Ally (Human Soldier Ally), and Boiling Rock Rioter (Human Rogue Ally). Choosing 'Human' would make all three castable with uncounterable colored mana. Choosing 'Ally' would also cover all three. 'Warrior' matches none of the creatures currently in hand, meaning the Cavern will only produce colorless mana for any creature the player actually wants to cast soon.",
     "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "verdict": "blunder",
+    "human_notes": "they should certainly choose ally. this is an ally deck.",
+    "audited_at": "2026-02-18T02:06:50.588232+00:00"
   },
   {
     "decision_index": 11,
