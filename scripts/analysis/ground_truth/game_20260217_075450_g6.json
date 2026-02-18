@@ -30,7 +30,12 @@
     "decision_index": 13
   },
   {
-    "decision_index": 16
+    "decision_index": 16,
+    "annotation_version": 15,
+    "annotation_severity": "questionable",
+    "annotation_description": "Discarding Bringer of the Last Gift to Wistfulness's draw-discard trigger. Bringer is a powerful finisher that wipes the opponent's board and reanimates all your creatures from the graveyard. With Ardyn, the Usurper in hand (which can exile creature cards from graveyards to make 5/5 Demon tokens), discarding Bringer could actually have some synergy \u2014 Ardyn can later reanimate it as a 5/5 Demon. However, Bringer's cast trigger (sacrifice all other creatures, reanimate from graveyard) only works when cast, not when copied by Ardyn. Additionally, Overlord of the Balemurk's mill and recursion could potentially return Bringer later. Still, discarding a card that's only good when hardcast (8 mana) and can't be effectively reanimated by Ardyn's copy ability is reasonable given the high mana cost and the need to streamline. An argument could be made for discarding a duplicate Overlord of the Balemurk or a Gloomlake Verge instead, but this is debatable rather than clearly wrong.",
+    "verdict": "not_blunder",
+    "human_notes": "reanimator deck"
   },
   {
     "decision_index": 20

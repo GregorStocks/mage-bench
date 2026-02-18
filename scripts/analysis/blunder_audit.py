@@ -128,17 +128,30 @@ def _find_decision(decisions: list[dict], decision_index: int) -> dict:
     )
 
 
-def _get_annotation_for_audit(
+def _lookup_existing_annotation(
     decision: dict,
     game_data: dict,
     snapshots: list[dict],
-    game_ctx: dict | None,
+) -> dict | None:
+    """Look up the annotation from the game file (may be stale). For display only."""
+    return lookup_annotation_for_decision(
+        decision, game_data.get("annotations", []), snapshots
+    )
+
+
+def _get_current_annotation(
+    decision: dict,
+    game_data: dict,
+    snapshots: list[dict],
+    gz_path: str,
 ) -> tuple[dict | None, int]:
-    """Get the annotator's opinion for a decision.
+    """Get the current-version annotation for a decision.
 
     If the game file is at the current BLUNDER_SCRIPT_VERSION, looks up
     the annotation from the game file. Otherwise, runs the annotator on
     this one decision (costs money).
+
+    Call this only after the human gives a verdict.
 
     Returns (annotation_dict_or_None, annotation_version).
     """
@@ -152,15 +165,18 @@ def _get_annotation_for_audit(
         return ann, BLUNDER_SCRIPT_VERSION
 
     # Stale game — run annotator on just this decision
-    from blunder_analysis import OPUS_MODEL, _eval_one_decision, init_api
+    from blunder_analysis import (
+        OPUS_MODEL,
+        _eval_one_decision,
+        init_api,
+        load_game_context,
+    )
 
     print(
-        f"  NOTE: Game is v{game_version} (current v{BLUNDER_SCRIPT_VERSION}), running annotator..."
+        f"  Running annotator (game v{game_version}, current v{BLUNDER_SCRIPT_VERSION})..."
     )
     client, prices = init_api()
-
-    # We need the full game context for _eval_one_decision
-    assert game_ctx is not None, "game_ctx required for stale game annotation"
+    game_ctx = load_game_context(gz_path)
 
     anns, cost, parsed_ok, raw = _eval_one_decision(
         client,
@@ -174,7 +190,7 @@ def _get_annotation_for_audit(
         game_ctx["num_players"],
         game_ctx["all_actions"],
     )
-    print(f"  Cost: ${cost:.4f}")
+    print(f"  Annotator cost: ${cost:.4f}")
     return (anns[0] if anns else None), BLUNDER_SCRIPT_VERSION
 
 
@@ -287,24 +303,27 @@ def audit_plays(game_filter: str | None = None) -> None:
         game_data = game_data_cache[game_id]
         decisions = decisions_cache[game_id]
         snapshots = game_data.get("snapshots", [])
+        gz_path = str(game_path_for_id(game_id))
 
         # Find the decision
         di = entry["decision_index"]
         decision = _find_decision(decisions, di)
 
-        # Get annotation (from game file or by running annotator)
-        # Pass game_ctx=None for now; lazy-load in _get_annotation_for_audit if needed
-        annotation, ann_version = _get_annotation_for_audit(
-            decision, game_data, snapshots, game_ctx=None
+        # Show existing annotation for context (may be stale)
+        display_annotation = _lookup_existing_annotation(
+            decision, game_data, snapshots
         )
-
-        # Display
-        print(format_play_context(game_id, decision, snapshots, annotation))
+        print(format_play_context(game_id, decision, snapshots, display_annotation))
 
         verdict, notes = collect_verdict()
         if verdict is None:
             print("  Skipped.\n")
             continue
+
+        # Get current-version annotation (re-runs annotator if game is stale)
+        annotation, ann_version = _get_current_annotation(
+            decision, game_data, snapshots, gz_path
+        )
 
         # Build and save full audited entry
         audited_entry = make_audited_entry(
@@ -406,20 +425,22 @@ def add_from_url(url: str) -> None:
             )
             return
 
-    # Look up annotation from game file
-    annotation = lookup_annotation_for_decision(
-        best_decision, game_data.get("annotations", []), snapshots
+    # Show existing annotation for context (may be stale)
+    display_annotation = _lookup_existing_annotation(
+        best_decision, game_data, snapshots
     )
-    ann_version = game_data.get("blunderScriptVersion", 1)
-
-    # Display
-    print(format_play_context(game_id, best_decision, snapshots, annotation))
+    print(format_play_context(game_id, best_decision, snapshots, display_annotation))
 
     try:
         notes = input("\nNotes (Enter=skip): ").strip() or None
     except (EOFError, KeyboardInterrupt):
         print()
         notes = None
+
+    # Get current-version annotation (re-runs annotator if game is stale)
+    annotation, ann_version = _get_current_annotation(
+        best_decision, game_data, snapshots, gz_path
+    )
 
     audited_entry = make_audited_entry(
         decision_index=best_decision["decision_index"],
