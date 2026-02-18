@@ -92,8 +92,7 @@ public class GetActionChoicesTool {
                 "players", "You(20), Opp(20)",
                 "your_hand", List.of(
                     json("name", "Mountain", "is_land", true),
-                    json("name", "Lightning Bolt", "mana_cost", "{R}")),
-                "hand_size", 7,
-                "land_count", 3)));
+                    json("name", "Lightning Bolt", "mana_cost", "{R}", "rules", List.of("Lightning Bolt deals 3 damage to any target."))),
+                "hand_size", 7)));
     }
 }
