@@ -1,50 +1,11 @@
 [
   {
-    "decision_index": 16,
-    "snapshot_index": 56,
-    "aftermath_index": 57,
-    "player": "MiniMx Sarge",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Darkwater Catacombs requires {1} to activate, making it effectively a worse mana source than Thriving Isle which taps freely. Both enter tapped, but Thriving Isle (choosing Black) provides {U} or {B} without additional mana cost, while Catacombs always costs 1 extra mana to produce {U}{B}. In a deck that wants to curve out efficiently with cards like Nadir Kraken and Shadowmage Infiltrator, the free-tapping land is clearly superior to play now.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 16
   },
   {
-    "decision_index": 19,
-    "snapshot_index": 83,
-    "aftermath_index": 85,
-    "player": "MiniMx Sarge",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Nadir Kraken before Commander's Sphere is suboptimal sequencing. Commander's Sphere costs 3 generic mana and provides mana fixing plus a future card draw option. Playing it first would ramp MiniMx Sarge's mana for future turns. Nadir Kraken at {1}{U}{U} uses up most of the mana this turn either way, but Commander's Sphere would have been better to deploy first since it enables bigger plays next turn (like casting Nadir Kraken + having mana up for its draw triggers, or casting multiple spells). Additionally, Shadowmage Infiltrator at {1}{U}{B} is a strong early play that could start connecting for card draw given its fear ability, and deploying it now while boards are small maximizes the chance of getting combat damage through.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 19
   },
   {
-    "decision_index": 28,
-    "snapshot_index": 195,
-    "aftermath_index": 196,
-    "player": "Llama4 Tactic",
-    "turn": 8,
-    "phase": "COMBAT",
-    "message": "Pay Kicker {1}{U} ?",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Bounced Kaima (a commander that can be recast) instead of Avenger of Zendikar, which is a 7-mana non-commander creature that generates massive value with Plant tokens and landfall triggers. Bouncing Avenger removes a much bigger threat more permanently.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 28
   }
 ]

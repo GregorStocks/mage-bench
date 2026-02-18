@@ -13,8 +13,6 @@ BASELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "blunder_baseline.json"
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 TMP_DIR = REPO_ROOT / "tmp"
 
-SEVERITY_ORDER = {"questionable": 0, "minor": 1, "moderate": 2, "major": 3}
-
 
 def play_key(game_id: str, decision_index: int) -> str:
     """Canonical key for a play: 'game_id:decision_index'."""
@@ -75,6 +73,34 @@ def load_baseline() -> dict:
 def save_baseline(baseline: dict) -> None:
     """Write baseline to disk."""
     BASELINE_PATH.write_text(json.dumps(baseline, indent=2) + "\n")
+
+
+# --- Ground truth entry constructors ---
+
+
+def make_seed_entry(decision_index: int) -> dict:
+    """Create a slim unaudited ground truth entry (just a pointer)."""
+    return {"decision_index": decision_index}
+
+
+def make_audited_entry(
+    decision_index: int,
+    *,
+    annotation_version: int,
+    annotation_severity: str | None,
+    annotation_description: str | None,
+    verdict: str,
+    human_notes: str | None,
+) -> dict:
+    """Create a fully audited ground truth entry."""
+    return {
+        "decision_index": decision_index,
+        "annotation_version": annotation_version,
+        "annotation_severity": annotation_severity,
+        "annotation_description": annotation_description,
+        "verdict": verdict,
+        "human_notes": human_notes,
+    }
 
 
 # --- Aftermath / reverse mapping ---
@@ -146,6 +172,24 @@ def reverse_map_annotations(
     return result
 
 
+def lookup_annotation_for_decision(
+    decision: dict,
+    annotations: list[dict],
+    snapshots: list[dict],
+) -> dict | None:
+    """Find the game-file annotation matching a decision, if any.
+
+    Computes the decision's aftermath_index and scans annotations
+    for a match on snapshotIndex + player.
+    """
+    aftermath = compute_aftermath_index(decision, snapshots)
+    player = decision["player"]
+    for ann in annotations:
+        if ann.get("snapshotIndex") == aftermath and ann.get("player") == player:
+            return ann
+    return None
+
+
 def chosen_display(decision: dict) -> str:
     """Human-readable name of what was chosen in a decision."""
     chosen = decision.get("chosen")
@@ -160,73 +204,31 @@ def chosen_display(decision: dict) -> str:
     return "?"
 
 
-def make_ground_truth_entry(
-    decision: dict,
-    snapshots: list[dict],
-    *,
-    annotation: dict | None = None,
-    source: str,
-) -> dict:
-    """Create a ground truth entry from a decision and optional annotation.
-
-    If annotation is provided, the entry records the annotator's findings.
-    Otherwise it's a manually-added entry.
-    """
-    aftermath_idx = compute_aftermath_index(decision, snapshots)
-    entry: dict = {
-        "decision_index": decision["decision_index"],
-        "snapshot_index": decision["snapshot_index"],
-        "aftermath_index": aftermath_idx,
-        "player": decision["player"],
-        "turn": decision.get("turn"),
-        "phase": decision.get("phase"),
-        "message": decision.get("message", ""),
-        "chosen_display": chosen_display(decision),
-        "annotation_severity": None,
-        "annotation_description": None,
-        "source": source,
-        "verdict": None,
-        "human_notes": None,
-        "audited_at": None,
-    }
-    if annotation is not None:
-        entry["annotation_severity"] = annotation.get("severity")
-        entry["annotation_description"] = annotation.get("description")
-    return entry
-
-
 def merge_into_ground_truth(
     game_id: str,
     new_entries: list[dict],
 ) -> int:
     """Merge new entries into a game's ground truth file.
 
-    Preserves existing entries and their verdicts. Only adds entries
-    for decision_indices not already present. When multiple new entries
-    map to the same decision_index, keeps the highest severity.
+    Preserves existing entries. Only adds entries for decision_indices
+    not already present. Deduplicates new entries by decision_index
+    (keeps first occurrence).
 
     Returns the number of new entries added.
     """
     existing = load_game_ground_truth(game_id)
     existing_indices = {e["decision_index"] for e in existing}
 
-    # Deduplicate new entries by decision_index, keeping highest severity
-    by_index: dict[int, dict] = {}
+    # Deduplicate new entries by decision_index, keeping first
+    seen: set[int] = set()
+    added: list[dict] = []
     for entry in new_entries:
         di = entry["decision_index"]
-        if di in existing_indices:
+        if di in existing_indices or di in seen:
             continue
-        if di not in by_index:
-            by_index[di] = entry
-        else:
-            old_sev = SEVERITY_ORDER.get(
-                by_index[di].get("annotation_severity") or "", -1
-            )
-            new_sev = SEVERITY_ORDER.get(entry.get("annotation_severity") or "", -1)
-            if new_sev > old_sev:
-                by_index[di] = entry
+        seen.add(di)
+        added.append(entry)
 
-    added = list(by_index.values())
     if added:
         save_game_ground_truth(game_id, existing + added)
     return len(added)

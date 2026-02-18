@@ -1,98 +1,20 @@
 [
   {
-    "decision_index": 10,
-    "snapshot_index": 13,
-    "aftermath_index": 15,
-    "player": "Qwen3 Heckler",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Emberheart Challenger in the precombat main phase is suboptimal when holding Might of the Meek, a combat trick that could target it. By casting the creature before combat, the opponent sees it and can plan blocks accordingly. More importantly, Slickshot Show-Off could have been plotted here instead (paying 1R to exile it for a future free cast), preserving both Emberheart Challengers for a later turn where they could be deployed alongside the plotted Slickshot for a more explosive turn. However, since the opponent only has a Llanowar Elves as a blocker, casting Emberheart Challenger pre-combat to attack with haste is reasonable \u2014 the main issue is that it should ideally be cast before combat anyway since it has haste. The real sequencing concern is whether plotting Slickshot Show-Off would have been better use of the 2 mana this turn, saving Emberheart Challenger for turn 3 alongside the plotted Slickshot on turn 4. But playing the hasty 2/2 to pressure immediately is defensible. Actually, the creature has haste so it needs to be cast pre-combat to attack \u2014 that's fine. The question is whether plotting Slickshot would have been better. With Might of the Meek in hand, deploying Emberheart now and attacking (potentially using Might of the Meek to trigger prowess and valiant) is a strong aggressive line. This is reasonable.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 10
   },
   {
-    "decision_index": 21,
-    "snapshot_index": 24,
-    "aftermath_index": 25,
-    "player": "Gem3P Sport",
-    "turn": 2,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3P Sport has a Llanowar Elves (1/1) that could attack freely. Qwen3 Heckler's only creature (Emberheart Challenger) is tapped, so there are no blockers available. Attacking with Llanowar Elves would deal 1 free damage with zero risk. While 1 damage is small, there's no downside \u2014 Llanowar Elves can still tap for mana in the second main phase if needed, but the opponent is tapped out and it's turn 2, so there's likely nothing critical to ramp into this turn that couldn't wait. Passing up free damage with no risk is a clear, albeit small, mistake.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 21
   },
   {
-    "decision_index": 24,
-    "snapshot_index": 27,
-    "aftermath_index": 29,
-    "player": "Qwen3 Heckler",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Emberheart Challenger in the precombat main phase is suboptimal when holding Might of the Meek, an instant-speed combat trick. The existing Emberheart Challenger on board already has haste and can attack. Playing the second Challenger pre-combat gives the opponent full information about the board before blocks. More importantly, if the player attacks first with the existing Emberheart Challenger and then casts Might of the Meek during combat, the Challenger gets +1/+1 from prowess and +1/+0 from the spell (controlling a Mouse), plus draws a card. Additionally, Slickshot Show-Off has haste and could have been deployed pre-combat to attack alongside the existing Challenger, then Might of the Meek during combat would pump both the Show-Off (+2/+0) and the Challenger (+1/+1 prowess), maximizing damage. Playing the second Challenger pre-combat instead of the Show-Off is a missed opportunity for more damage this turn, though the difference is modest.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 24
   },
   {
-    "decision_index": 37,
-    "snapshot_index": 36,
-    "aftermath_index": 38,
-    "player": "Gem3P Sport",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Only attacked with 1 creature when the opponent had all permanents tapped (zero possible blockers). Free damage was left on the table.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 37
   },
   {
-    "decision_index": 43,
-    "snapshot_index": 41,
-    "aftermath_index": 42,
-    "player": "Gem3P Sport",
-    "turn": 3,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Activating Earthbend 2 costs {2}{G} and taps Ba Sing Se, using 4 mana total (3 mana + the land itself). This turns a land into a 2/2 creature, but the player is at 12 life facing two Emberheart Challengers. Making a land into a creature exposes it to removal - if the land-creature dies, they lose a land permanently (it returns tapped but at least survives). More importantly, the player has Felidar Retreat (costs {3}{W}) in hand and 3 Forests to play. They should be saving mana and setting up for Felidar Retreat on turn 4 rather than spending resources on Earthbend. Additionally, they have Seam Rip in hand which could exile an Emberheart Challenger (mana value 2) for just {W} - though they lack white mana currently. The Earthbend activation uses up mana that could be better spent, and the 2/2 land-creature is vulnerable to the opponent's red removal. With Sazh's Chocobo on the stack already providing a growing threat, the Earthbend is unnecessary aggression when the player should be playing defensively at 12 life.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 43
   },
   {
-    "decision_index": 49,
-    "snapshot_index": 43,
-    "aftermath_index": 45,
-    "player": "Qwen3 Heckler",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Choose spell or ability to playSlickshot Show-Off",
-    "chosen_display": "1. Cast Slickshot Show-Off",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Slickshot Show-Off before combat is suboptimal. By casting it now in precombat main, the opponent sees the 1/2 flyer before blocks are declared. More importantly, casting it pre-combat means Slickshot won't benefit from noncreature spells cast during combat (like Might of the Meek). The optimal line is to go to combat first, attack with the two Emberheart Challengers, then cast Slickshot Show-Off post-combat or use Plot to set it up for next turn. However, Slickshot has haste, so casting it pre-combat does let it attack this turn. The real issue is sequencing: playing the Mountain land drop first (to have more mana available), then going to combat with the two Emberhearts attacking, then in the declare attackers step or after blocks, casting Might of the Meek on an Emberheart to trigger prowess and potentially the valiant ability, would maximize damage. Casting Slickshot pre-combat does trigger prowess on both Emberhearts (+1/+1 each), but then Might of the Meek during combat would only give Slickshot +2/+0 and one prowess trigger on Emberhearts. The sequencing concern is that casting the creature spell before combat gives away information and the land drop should come first.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 49
   }
 ]

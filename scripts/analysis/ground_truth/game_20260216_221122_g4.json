@@ -1,146 +1,29 @@
 [
   {
-    "decision_index": 12,
-    "snapshot_index": 33,
-    "aftermath_index": 34,
-    "player": "o3 Minimal",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a card (discard cost)",
-    "chosen_display": "Llanowar Elves",
-    "annotation_severity": "questionable",
-    "annotation_description": "Discarding Llanowar Elves instead of Forest sacrifices potential ramp. Keeping the second Llanowar Elves would enable 5 mana on turn 3 (3 lands + 2 elves), allowing a hard-cast Quantum Riddler a turn earlier. Forest is the least impactful card since Breeding Pool in hand already covers the land drop.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 12
   },
   {
-    "decision_index": 13,
-    "snapshot_index": 34,
-    "aftermath_index": 35,
-    "player": "o3 Minimal",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a creature card",
-    "chosen_display": "Craterhoof Behemoth",
-    "annotation_severity": "questionable",
-    "annotation_description": "Tutoring for Craterhoof Behemoth on turn 2 is a very greedy choice. With only 3 lands (one being Llanowar Elves) and an 8-mana finisher in hand, it will take many turns before Craterhoof can be cast. Meanwhile, the board is underdeveloped. A cheaper creature like Ouroboroid (4 mana, synergizes with board development), Spider Manifestation (mana dork + creature), or Gene Pollinator (1-mana ramp) would have been more immediately impactful and helped develop the board faster.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 13
   },
   {
-    "decision_index": 14,
-    "snapshot_index": 48,
-    "aftermath_index": 49,
-    "player": "Qwen3 Vet",
-    "turn": 2,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Select a creature, enchantment, or planeswalker",
-    "chosen_display": "?",
-    "annotation_severity": "moderate",
-    "annotation_description": "Qwen3 Vet used Get Lost on Llanowar Elves instead of Formidable Speaker. Formidable Speaker is a 2/4 that tutored a creature card and has an untap ability, making it a far more impactful threat. Llanowar Elves is a 1/1 mana dork, and the opponent already has 3 lands in play (Forest + Breeding Pool + the Elves' mana), so removing it has diminishing returns on mana denial. Meanwhile, Formidable Speaker represents a bigger body, already generated card advantage via its tutor ETB, and has ongoing utility. Giving the opponent two Map tokens to kill a 1/1 mana dork is a very poor rate, whereas removing the 2/4 tutor creature would be a much better use of the premium removal spell.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 14
   },
   {
-    "decision_index": 16,
-    "snapshot_index": 56,
-    "aftermath_index": 57,
-    "player": "o3 Minimal",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select another target permanent",
-    "chosen_display": "Map Token",
-    "annotation_severity": "minor",
-    "annotation_description": "Untapping a Map Token instead of the tapped Breeding Pool with Formidable Speaker's ability wastes a mana. Untapping Breeding Pool would give 3 available mana after playing Forest from hand, allowing both Badgermole Cub (2 mana) and a Map Token activation (1 mana) in the same turn. Untapping the Map Token leaves only 2 mana after playing Forest, enough for Badgermole Cub but nothing else, and the Map Token can't be activated without spare mana anyway.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 16
   },
   {
-    "decision_index": 26,
-    "snapshot_index": 125,
-    "aftermath_index": 126,
-    "player": "o3 Minimal",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select another target permanent",
-    "chosen_display": "Island",
-    "annotation_severity": "major",
-    "annotation_description": "o3 Minimal used Formidable Speaker's untap ability targeting the OPPONENT's Island (helping the opponent by giving them an extra untapped mana source), then skipped attacking entirely against a 7-life opponent. With Formidable Speaker (3/5) and Badgermole Cub (2/2), attacking would force the opponent to choose which to block with their single Unagi (5/5), guaranteeing 2-3 damage against a 7-life opponent. Instead, o3 wasted the turn, tapped their best attacker for nothing beneficial, and actively helped the opponent.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 26
   },
   {
-    "decision_index": 29,
-    "snapshot_index": 148,
-    "aftermath_index": 150,
-    "player": "o3 Minimal",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Nature's Rhythm",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Nature's Rhythm while Gene Pollinator is still on the stack means Gene Pollinator can't be used to generate mana (including the Badgermole Cub synergy for extra {G}) to increase the X value of Nature's Rhythm. Letting Gene Pollinator resolve first would allow tapping it with Badgermole Cub's bonus to generate additional mana, enabling a larger X and thus tutoring a more powerful creature.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 29
   },
   {
-    "decision_index": 30,
-    "snapshot_index": 152,
-    "aftermath_index": 153,
-    "player": "o3 Minimal",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Announce the value for {X} (source: Nature's Rhythm)",
-    "chosen_display": "0",
-    "annotation_severity": "major",
-    "annotation_description": "Craterhoof Behemoth was available as a search target and would have provided lethal damage. With Craterhoof entering, there would be at least 4 creatures (Craterhoof with haste, Badgermole Cub, Gene Pollinator, plus earthbend land-creature), giving +4/+4 and trample to all. The untapped attackers alone would deal well over 7 damage through any single blocker, killing the opponent at 7 life.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 30
   },
   {
-    "decision_index": 33,
-    "snapshot_index": 173,
-    "aftermath_index": 174,
-    "player": "o3 Minimal",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select another target permanent",
-    "chosen_display": "Island",
-    "annotation_severity": "major",
-    "annotation_description": "o3 Minimal used Formidable Speaker's untap ability to untap the opponent's Island instead of their own land. This gives the opponent extra mana (helping them interact) while wasting the ability. Untapping their own Breeding Pool would give them 5 mana total, enough to cast Quantum Riddler (3UU), a powerful flying threat that could close the game against an opponent at 4 life.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 33
   },
   {
-    "decision_index": 34,
-    "snapshot_index": 174,
-    "aftermath_index": 176,
-    "player": "o3 Minimal",
-    "turn": 8,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Formidable Speaker",
-    "annotation_severity": "major",
-    "annotation_description": "Opponent is at 4 life. Formidable Speaker (3 power) + Badgermole Cub (3 power) = 6 damage, which is lethal. By only attacking with Formidable Speaker for 3 damage, the opponent survives at 1 life instead of dying.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 34
   }
 ]

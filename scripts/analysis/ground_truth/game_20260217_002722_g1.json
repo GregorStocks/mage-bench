@@ -1,34 +1,8 @@
 [
   {
-    "decision_index": 5,
-    "snapshot_index": 13,
-    "aftermath_index": 23,
-    "player": "GPT5m Stats",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Choose a creature type",
-    "chosen_display": "Scout",
-    "annotation_severity": "moderate",
-    "annotation_description": "The player is choosing a creature type for Cavern of Souls. Their hand contains Boiling Rock Rioter (Human Rogue Ally), Mutable Explorer (Shapeshifter/Changeling), Earth King's Lieutenant (Human Soldier Ally), Earth Kingdom Protectors (Human Soldier Ally), and Earthen Ally (Human Soldier Ally). The choice is between Warrior and Scout, neither of which matches any creature in their hand. However, the key consideration is which type would be more useful going forward. Looking at the actual creature types in hand: Human, Rogue, Ally, Shapeshifter, Soldier \u2014 none are Warrior or Scout. Since Mutable Explorer has Changeling (it's every creature type), it would match either choice. But only one creature benefits from this Cavern. The real question is which type might matter more for future draws or for making spells uncounterable. With a second Cavern of Souls also in hand, they could name a different type for the second one. Given their deck appears to be an Ally-focused deck, naming 'Ally' would have been ideal but wasn't an option \u2014 the choices were only Warrior or Scout. Since neither matches most of their creatures (except Changeling on Mutable Explorer), this is mostly a wash. However, Scout seems like a worse choice than Warrior if we consider that some Ally creatures in Avatar-themed sets might have Warrior as a subtype. Actually, looking more carefully at the cards: Boiling Rock Rioter is a Rogue, Earth King's Lieutenant and Earth Kingdom Protectors are Soldiers, Earthen Ally is a Soldier. None are Warriors or Scouts. This choice has minimal impact since only Changeling creatures would benefit. This is close to a non-issue, but Scout seems marginally worse than Warrior for future draws in a combat-oriented Ally deck.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 5
   },
   {
-    "decision_index": 12,
-    "snapshot_index": 50,
-    "aftermath_index": 55,
-    "player": "GPT5m Stats",
-    "turn": 3,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Jasmine Dragon Tea Shop",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Jasmine Dragon Tea Shop (which enters tapped) instead of deploying a creature is suboptimal. The player has 2 untapped lands (Cavern of Souls + Starting Town) and could cast a 1-drop creature like Earth Kingdom Protectors or Earthen Ally to start building board presence against Grok4 Brewer's Clarion Conqueror. Playing the tapped land means no mana was spent this turn. While having Jasmine Dragon Tea Shop for future turns is fine, the player could have played a creature first and then played the land next turn, or even played a creature AND the land this turn (play Jasmine Dragon Tea Shop, then cast a 1-drop using the two already-untapped lands). The sequencing of playing only the tapped land and passing with 2 mana unused wastes tempo.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 12
   }
 ]

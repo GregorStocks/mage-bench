@@ -1,82 +1,17 @@
 [
   {
-    "decision_index": 6,
-    "snapshot_index": 6,
-    "aftermath_index": 7,
-    "player": "GPT5m Johnny",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Mountain",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing a basic Mountain instead of Rockface Village or Sunbillow Verge is slightly suboptimal. Rockface Village would allow casting either Hired Claw or Burnout Bashtronaut (via its creature-only red mana ability) while also providing utility later for pumping Lizards. Sunbillow Verge would establish a Plains for future white mana (for Seam Rip or High Noon draws). A basic Mountain provides only generic red mana with no upside. Since the player wants to cast a 1-drop creature this turn, Rockface Village is the best choice \u2014 it can tap for R to cast a creature, and its activated ability can later pump Hired Claw (a Lizard). Playing the basic Mountain now means Rockface Village played later won't have its R-for-creatures ability be as impactful since you'll already have Mountains for red mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 6
   },
   {
-    "decision_index": 7,
-    "snapshot_index": 7,
-    "aftermath_index": 9,
-    "player": "GPT5m Johnny",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Hired Claw",
-    "annotation_severity": "questionable",
-    "annotation_description": "Burnout Bashtronaut's speed mechanic rewards being deployed as early as possible since it needs multiple turns of the opponent losing life to reach max speed (double strike). Playing it turn 1 starts the clock earlier. Hired Claw has Lizard synergy with the second copy in hand, but doesn't have the same urgency to be deployed early.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 7
   },
   {
-    "decision_index": 18,
-    "snapshot_index": 18,
-    "aftermath_index": 20,
-    "player": "GPT5m Johnny",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select attackers",
-    "chosen_display": "All attack",
-    "annotation_severity": "minor",
-    "annotation_description": "Could have played Rockface Village before combat and used its activated ability (tap + pay {R} from Sunbillow Verge) to give a Hired Claw +1/+0, dealing 1 extra damage this turn (5 total instead of 4).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 18
   },
   {
-    "decision_index": 40,
-    "snapshot_index": 52,
-    "aftermath_index": 54,
-    "player": "Gem25F Philo",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "moderate",
-    "annotation_description": "At 6 life facing lethal-range attacks, casting Floodpits Drowner (which only temporarily taps one creature) instead of Seam Rip (which permanently exiles a Hired Claw) is a significant mistake. Seam Rip costs only W, which would leave 1U open to also cast Floodpits Drowner at flash speed during the opponent's turn for additional defense. This would give both permanent removal AND a flash blocker, instead of just a temporary tap effect.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 40
   },
   {
-    "decision_index": 45,
-    "snapshot_index": 60,
-    "aftermath_index": 61,
-    "player": "GPT5m Johnny",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Burnout Bashtronaut",
-    "annotation_severity": "minor",
-    "annotation_description": "Used mana to pump Burnout Bashtronaut before playing their land (Rockface Village). While lethal was already on board through attacks, proper sequencing is to play the land first to maximize available mana. Playing Rockface Village first would also allow using its activated ability ({R},{T}: target Lizard gets +1/+0 and haste) on a Hired Claw if desired, giving slightly more flexibility.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 45
   }
 ]

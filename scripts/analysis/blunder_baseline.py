@@ -17,9 +17,9 @@ from datetime import datetime, timezone
 
 from blunder_analysis import BLUNDER_SCRIPT_VERSION
 from blunder_eval_common import (
-    compute_aftermath_index,
     game_path_for_id,
     load_ground_truth,
+    lookup_annotation_for_decision,
     play_key,
     save_baseline,
 )
@@ -80,17 +80,7 @@ def derive_baseline() -> dict:
                 results[pk] = {"detected": False}
                 continue
 
-            aftermath = compute_aftermath_index(decision, snapshots)
-
-            # Check if any annotation matches
-            match = None
-            for ann in annotations:
-                if (
-                    ann.get("snapshotIndex") == aftermath
-                    and ann.get("player") == entry["player"]
-                ):
-                    match = ann
-                    break
+            match = lookup_annotation_for_decision(decision, annotations, snapshots)
 
             if match is not None:
                 results[pk] = {

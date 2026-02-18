@@ -1,1122 +1,212 @@
 [
   {
-    "decision_index": 18,
-    "snapshot_index": 21,
-    "aftermath_index": 24,
-    "player": "GPT5m Analyst",
-    "turn": 2,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Select a card to discard",
-    "chosen_display": "Fiery Gambit",
-    "annotation_severity": "minor",
-    "annotation_description": "Fiery Gambit is a strong synergy piece in a Zndrsplt/Okaun coin-flip deck - each coin flip won triggers both commanders. Discarding it over Planar Chaos (which symmetrically counters your own spells and is often a liability) or Niv-Mizzet, Parun (which requires UUURRR and is extremely difficult to cast) loses value.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 23,
-    "snapshot_index": 24,
-    "aftermath_index": 26,
-    "player": "Kimi25 Vorthos",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Kimi25 Vorthos has Migratory Route and Sylvan Reclamation available to basic landcycle for {2}, and has Sol Ring (untapped) plus a tapped Forest. Sol Ring produces {C}{C}, which covers the {2} generic cost of basic landcycling. Since they have Kodama's Reach in hand (costs {2}{G}) and need to hit land drops to cast their expensive spells (Realm Seekers, Reverse the Sands, Migratory Route for full cost later), cycling one of these cards to find a basic land would ensure they hit their turn 3 land drop and set up Kodama's Reach on turn 3. Declining to use this mana at end of turn wastes 2 mana from Sol Ring and misses an opportunity to smooth their draws. Both Sylvan Reclamation and Migratory Route are less immediately useful than ensuring consistent land drops in the early game.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 25,
-    "snapshot_index": 29,
-    "aftermath_index": 30,
-    "player": "Gem25P Villain",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "With two Forests untapped and both Thought Vessel and Rampant Growth costing 2 mana, casting Rampant Growth would be the better play. Rampant Growth searches for a basic land and puts it onto the battlefield tapped, guaranteeing a 3rd land on turn 3 and enabling the player to cast Forgotten Ancient (4 mana) on turn 3 with the land drop. Thought Vessel provides colorless mana and no-max-hand-size, but with only 7 cards in hand (dropping to 6 after casting), the no-max-hand-size is irrelevant right now. Rampant Growth accelerates mana development more effectively since it adds a land permanently, while Thought Vessel is an artifact that can be destroyed. More importantly, Rampant Growth on turn 2 followed by a land drop on turn 3 gives access to 4 mana on turn 3 (3 lands + the new tapped land from Rampant Growth untapping), enabling Forgotten Ancient. With Thought Vessel instead, turn 3 gives access to only 4 mana as well (2 forests + land drop + Thought Vessel), so the mana count is actually equivalent. However, Rampant Growth thins the deck and provides colored mana, which is more valuable given the player has Rampant Growth, Forgotten Ancient (needs G), and Day of the Dragons (needs UUU) in hand. Getting a third forest or an island via Rampant Growth improves color fixing. Thought Vessel only adds colorless.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 27,
-    "snapshot_index": 33,
-    "aftermath_index": 34,
-    "player": "Kimi25 Vorthos",
-    "turn": 2,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Kimi25 has Migratory Route in hand and could basic landcycle it for {2} to search for a basic land card, putting it into hand to ensure a land drop next turn. With Sol Ring untapped providing {C}{C}, they have exactly 2 mana available. They have Kodama's Reach and other ramp spells that need green mana and consistent land drops. Landcycling Migratory Route at end of turn would guarantee hitting their next land drop and thin the deck. Instead they passed with mana available and no action taken.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 29,
-    "snapshot_index": 37,
-    "aftermath_index": 39,
-    "player": "GPT5m Analyst",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Shadowspear",
-    "annotation_severity": "questionable",
-    "annotation_description": "With only 1 land (Tolaria West, which enters tapped) and no way to play a land this turn, casting Shadowspear (1 mana) vs Commander's Plate (1 mana) is the choice. Shadowspear gives +1/+1, trample, lifelink and has a cheap equip cost of 2, while Commander's Plate gives +3/+3 and protection but has equip 5 (or equip commander 3). With Zndrsplt/Okaun as commanders, Commander's Plate would give protection from all colors except red/blue, which is extremely powerful. However, Shadowspear is more castable and equippable early. The real question is whether Thought Vessel should have been cast instead to help with mana development, since the player has a very expensive hand (Niv-Mizzet at 6 mana, Impulsive Maneuvers at 4, etc.) and only 1 land. But Thought Vessel costs 2 mana and they only have 1 land available, so they can't cast it. Between Shadowspear and Commander's Plate at 1 mana each, Shadowspear is reasonable as it has a cheaper equip cost. However, given that Tribute Mage can tutor for a 2-mana artifact (like Thought Vessel), casting Fabricate to find Sol Ring or another mana rock might have been better - but Fabricate costs 3 mana. With only 1 mana available, the choice is genuinely between Shadowspear and Commander's Plate, and Shadowspear with its cheaper equip cost is defensible.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 30,
-    "snapshot_index": 38,
-    "aftermath_index": 40,
-    "player": "Kimi25 Vorthos",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Vorthos has Command Tower in hand and only 2 lands on the battlefield (Forest + Sol Ring). They have Kodama's Reach in hand which costs 2G and could be cast this turn if they play Command Tower first (Command Tower for G + Forest for G + Sol Ring for 2 = GGCC, more than enough for Kodama's Reach at 2G). Instead, they passed without playing a land or casting anything. The choices presented were to cycle Sylvan Reclamation or Migratory Route (basic landcycling), but the real miss is that they should have played Command Tower and then cast Kodama's Reach to ramp significantly. The decision point only shows cycling options, but the player's reasoning suggests they chose to do nothing this turn, missing a crucial ramp opportunity on turn 3.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 31,
-    "snapshot_index": 41,
-    "aftermath_index": 43,
-    "player": "Kimi25 Vorthos",
-    "turn": 3,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Kimi25 has Kodama's Reach in hand, Command Tower unplayed, and only 2 lands + Sol Ring on the battlefield. They should play Command Tower and then use the remaining mana to landcycle either Migratory Route or Sylvan Reclamation (cost {2}) to find a basic land for next turn, ensuring they hit land drops and can cast Kodama's Reach on turn 4. Instead they passed without using any of these options. The landcycling would use the Sol Ring's 2 colorless mana perfectly at end of turn, converting a less-needed card into a basic land.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 33,
-    "snapshot_index": 43,
-    "aftermath_index": 45,
-    "player": "Qwen3L Libby",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "Elvish Rejuvenator would put a land onto the battlefield (tapped) AND give a 1/1 body, which is relevant for board presence early. Kodama's Reach puts one land tapped on the battlefield and one to hand - so it's net +1 land to hand vs Rejuvenator's +1 body. Both are reasonable, but Elvish Rejuvenator is arguably better here because: (1) Libby's commander is Obuun, Mul Daya Ancestor, which cares about landfall and having creatures to put counters on - the 1/1 body is a relevant target, (2) the land from Rejuvenator enters the battlefield triggering future landfall, and (3) Libby already has Boros Guildgate in hand for next turn's land drop. Kodama's Reach gives a land to hand which is slightly redundant when you already have Boros Guildgate. However, Kodama's Reach guarantees finding a specific basic land type and gives card advantage (two cards effectively), so this is genuinely debatable.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 36,
-    "snapshot_index": 44,
-    "aftermath_index": 46,
-    "player": "Qwen3L Libby",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a card to put on the battlefield tapped",
-    "chosen_display": "Forest",
-    "annotation_severity": "minor",
-    "annotation_description": "With Harrow in hand (which requires sacrificing a land and fetches two basic lands to the battlefield untapped), putting the Forest onto the battlefield and keeping the Plains in hand would be slightly less optimal than putting the Plains onto the battlefield and keeping the Forest in hand. However, looking at the hand more carefully: the player has Boros Guildgate (R/W), Elvish Rejuvenator (2G), Waker of the Wilds (2GG), Emeria Shepherd (5WW), Far Wanderings (2G), and Harrow (2G, sac a land). The player already has Forest, Plains, Mountain on the battlefield. Putting Forest on the battlefield gives them 2 Forest, 1 Plains, 1 Mountain. Keeping Plains in hand means they can play it next turn for a land drop. But putting Plains on the battlefield (2 Forest, 2 Plains, 1 Mountain after the land from Kodama's Reach) and keeping Forest in hand would give better access to white mana for Emeria Shepherd (5WW) in the long run and the Forest could be the land drop next turn. Either way it's close, but with Emeria Shepherd requiring WW and the player only having one Plains, putting the Plains onto the battlefield to have two white sources sooner is marginally better. The difference is small since Harrow can also fetch Plains later.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 38,
-    "snapshot_index": 49,
-    "aftermath_index": 50,
-    "player": "Gem25P Villain",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Oran-Rief, the Vastwood (which enters tapped) before casting Rampant Growth means the player cannot cast Rampant Growth this turn. With 2 Forests and a Thought Vessel available, playing Island or Forest untapped would give access to 3 mana (2 Forests + Thought Vessel + new untapped land), allowing Rampant Growth to be cast this turn for accelerated ramp. Oran-Rief enters tapped and produces only green, so it doesn't enable anything additional this turn. Playing a basic land and casting Rampant Growth would put the player further ahead on mana development.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 44,
-    "snapshot_index": 54,
-    "aftermath_index": 55,
-    "player": "Kimi25 Vorthos",
-    "turn": 3,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Kimi25 Vorthos has 3 mana available (Forest + Sol Ring = 1G + 2C) and Kodama's Reach in hand, which costs 2G. They can cast Kodama's Reach to ramp by searching for two basic lands (one to battlefield tapped, one to hand), which would significantly accelerate their mana development toward casting expensive cards like Realm Seekers (6 mana) or Reverse the Sands (8 mana). They also have Command Tower in hand which they could play as a land drop. Instead, they passed without doing anything. They could have played Command Tower as their land drop and then cast Kodama's Reach with Forest + Command Tower + Sol Ring (providing GGCU, enough for 2G). Even without Command Tower, Forest + Sol Ring provides 1G + CC which doesn't cast Kodama's Reach (needs 2G). With Command Tower played first, they'd have G + any color + CC, enabling Kodama's Reach. Missing this ramp opportunity on turn 3 is a clear value loss.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 45,
-    "snapshot_index": 57,
-    "aftermath_index": 58,
-    "player": "Kimi25 Vorthos",
-    "turn": 3,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Kimi25 Vorthos chose to play Command Tower as their land drop but then passed without casting Kodama's Reach, which costs {2}{G} and was castable with Forest + Sol Ring + Command Tower (producing {G} + {C}{C} + any color). Kodama's Reach would have ramped them significantly, putting a basic land onto the battlefield tapped and another into hand. Instead, they wasted their mana and had to discard down to 7 (losing a card). Even worse, playing Forbidden Orchard as the land drop and then casting Kodama's Reach with Forest + Sol Ring would have worked equally well ({G} from Forest, {C}{C} from Sol Ring, with Forbidden Orchard available for future colored mana). The key mistake is not casting Kodama's Reach when they had the mana to do so, resulting in a wasted turn and having to discard.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 46,
-    "snapshot_index": 58,
-    "aftermath_index": 60,
-    "player": "Kimi25 Vorthos",
-    "turn": 3,
-    "phase": "END",
-    "message": "Select a card to discard",
-    "chosen_display": "Realm Seekers",
-    "annotation_severity": "moderate",
-    "annotation_description": "Kimi25 discarded Realm Seekers to hand size, but Realm Seekers is one of the most powerful cards in the hand - it enters with counters equal to total cards in all players' hands (likely 20+ in a 4-player game), making it a massive threat and also a repeatable land tutor. Meanwhile, Reverse the Sands is a very situational card that requires being behind on life to be useful, and at 40 life in the early game it has minimal value. Sylvan Reclamation is also more situational as a reactive removal spell. Discarding the high-impact creature over a situational spell is a clear mistake.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 48,
-    "snapshot_index": 61,
-    "aftermath_index": 65,
-    "player": "GPT5m Analyst",
-    "turn": 4,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Select a card to discard",
-    "chosen_display": "Thought Vessel",
-    "annotation_severity": "moderate",
-    "annotation_description": "With only 1 land in play (Tolaria West) and Shadowspear, the player is severely mana-screwed. Thought Vessel is a 2-mana rock that provides critical mana acceleration in this situation. Discarding it removes one of the cheapest ways to develop their mana base. Additionally, Tribute Mage in hand could tutor for Thought Vessel if needed, but having it directly is even better. Cards like Impulsive Maneuvers (symmetrical, random effect), Planar Chaos (dangerous to self), or Niv-Mizzet (UUURRR is near-uncastable) are far worse keeps.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 53,
-    "snapshot_index": 69,
-    "aftermath_index": 71,
-    "player": "Gem25P Villain",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Player cast Forgotten Ancient without first playing the Forest from hand. With the Forest played first (7 mana total: GGGGCUU), they could cast both Forgotten Ancient (3G = 4 mana) and Elvish Visionary (1G = 2 mana) this turn for 6 mana total, getting an extra creature and a card draw. Additionally, Forgotten Ancient would get a counter from the Elvish Visionary cast.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 56,
-    "snapshot_index": 73,
-    "aftermath_index": 74,
-    "player": "Kimi25 Vorthos",
-    "turn": 4,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Kimi25 Vorthos declined to basic landcycle Migratory Route or Sylvan Reclamation at end of turn. With only 2 lands on the battlefield (Forest + Sol Ring, where Sol Ring isn't a land), they are severely mana-screwed despite having 7 cards in hand including multiple lands to play and Kodama's Reach to cast. While they do have Command Tower and other lands to play from hand, using basic landcycling for 2 mana (Sol Ring provides {C}{C}) to search for a basic land would help fix their mana and ensure they can cast Kodama's Reach next turn. The landcycling costs {2} which Sol Ring can pay, and it thins the deck while guaranteeing a land in hand for next turn's land drop beyond what they already have. However, since they already have Command Tower, Forbidden Orchard, and Azorius Chancery in hand, they have plenty of land drops available. The question is whether cycling away Migratory Route (a card they might want later) or Sylvan Reclamation (useful removal) is worth an extra basic land when they already have lands in hand. Given they have Command Tower + Azorius Chancery providing good color fixing and Kodama's Reach to cast soon, declining is defensible but slightly suboptimal - they could have cycled Migratory Route to get a basic land, since with only 2 mana sources on board, having maximum lands is critical in the early game.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 57,
-    "snapshot_index": 76,
-    "aftermath_index": 77,
-    "player": "Kimi25 Vorthos",
-    "turn": 4,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Cast Kodama's Reach before playing a land for the turn. By playing Command Tower first, they could have had an additional untapped land on the battlefield this turn while still casting Kodama's Reach. Instead, they'll have Command Tower stuck in hand competing with the basic land Kodama's Reach puts in hand for next turn's land drop, effectively being a land behind.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 59,
-    "snapshot_index": 78,
-    "aftermath_index": 79,
-    "player": "Kimi25 Vorthos",
-    "turn": 4,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Select basic land cards (selected 0 of 2)",
-    "chosen_display": "Forest",
-    "annotation_severity": "minor",
-    "annotation_description": "Selected Forest as first Kodama's Reach target when they already have a Forest on battlefield and Command Tower for green mana. Their hand contains multiple white-heavy spells (Reverse the Sands {6}{W}{W}, Migratory Route {3}{W}{U}, Sylvan Reclamation {3}{G}{W}) making Plains a much higher priority. Combined with their second pick also being Forest, they ended up with two unnecessary Forests instead of fixing their mana for the cards they actually need to cast.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 68,
-    "snapshot_index": 91,
-    "aftermath_index": 92,
-    "player": "Gem25P Villain",
-    "turn": 5,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Attacked Qwen3L Libby who has an untapped Waker of the Wilds (3/3) that could block and potentially trade with or kill Forgotten Ancient, a key value engine. Kimi25 Vorthos has no creatures and cannot block.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 71,
-    "snapshot_index": 92,
-    "aftermath_index": 93,
-    "player": "Gem25P Villain",
-    "turn": 5,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Oran-Rief, the Vastwood can tap to put a +1/+1 counter on each green creature that entered this turn. Forgotten Ancient entered this turn (it's a green creature) and would benefit from the counter. Declining to use this free activated ability wastes a +1/+1 counter on Forgotten Ancient for no reason.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 75,
-    "snapshot_index": 99,
-    "aftermath_index": 100,
-    "player": "Kimi25 Vorthos",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Azorius Chancery before casting Edric is suboptimal sequencing. Azorius Chancery enters tapped, so it provides no mana this turn. By playing it first, Vorthos must bounce a land back to hand, losing access to that land's mana this turn. With 4 lands (2 Forests, Command Tower, Sol Ring), they have access to 1G + 1G + any color + CC = 5 mana including GU, which is enough to cast Edric (1GU) with mana to spare. After playing Azorius Chancery and bouncing a Forest, they'd have Forest + Command Tower + Sol Ring untapped = 1G + any + CC = only 4 mana with GU available, still enough for Edric. However, playing Forbidden Orchard instead (which enters untapped and taps for any color) would have been strictly better than the tapped Azorius Chancery this turn - it would give immediate mana access without bouncing a land, allowing Edric to be cast AND keeping all existing lands. The Chancery could be played on a later turn when the tempo loss matters less. Playing a tapland that bounces a land on a turn where you want to deploy a 3-mana creature is a tempo loss.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 84,
-    "snapshot_index": 108,
-    "aftermath_index": 112,
-    "player": "GPT5m Analyst",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Select a card to discard",
-    "chosen_display": "Yusri, Fortune's Flame",
-    "annotation_severity": "minor",
-    "annotation_description": "Yusri, Fortune's Flame is a 3-mana creature that synergizes heavily with the coin-flip theme (likely Zndrsplt/Okaun commander pair), providing card draw, evasion, and combo potential. It's one of the most castable cards in hand given the severe mana shortage (only 3 lands on turn 6). Niv-Mizzet, Parun at {U}{U}{U}{R}{R}{R} is nearly uncastable with current mana development, and Impulsive Maneuvers is a symmetrical effect that can backfire.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 87,
-    "snapshot_index": 113,
-    "aftermath_index": 115,
-    "player": "Qwen3L Libby",
-    "turn": 6,
-    "phase": "END",
-    "message": "Select a card to discard",
-    "chosen_display": "Command Tower",
-    "annotation_severity": "minor",
-    "annotation_description": "Command Tower is a strong land in a 4-color deck (RGWU) that enters untapped and taps for any color in the commander's identity. Discarding it means losing a valuable mana-fixing land. With Obuun as commander (RGW), Command Tower produces any of three colors untapped. Meanwhile, a basic Forest is less valuable since the player already has two Forests on board and multiple green sources, plus cards like Far Wanderings and Harrow can fetch basic lands. Additionally, Multani, Yavimaya's Avatar benefits from lands in the graveyard, but Command Tower is more valuable on the battlefield than in the graveyard compared to a basic Forest.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 90,
-    "snapshot_index": 116,
-    "aftermath_index": 117,
-    "player": "Gem25P Villain",
-    "turn": 6,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "By attacking Kimi25 Vorthos (who controls Edric, Spymaster of Trest), Villain misses the free card draw that Edric would provide if Villain's creature dealt combat damage to one of Vorthos's *opponents* (like Qwen3L Libby). Edric triggers when a creature deals combat damage to one of its controller's opponents - attacking Edric's controller doesn't trigger it.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 94,
-    "snapshot_index": 119,
-    "aftermath_index": 121,
-    "player": "Gem25P Villain",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "major",
-    "annotation_description": "Casting Synthetic Destiny with only one creature (Forgotten Ancient, which has accumulated +1/+1 counters) is extremely poor value. Synthetic Destiny exiles ALL creatures you control and then reveals cards until you find that many creature cards. With only 1 creature, you exile your Forgotten Ancient (losing all its counters) to get exactly 1 random creature from your library. This is a 6-mana spell being used essentially as a terrible gamble to replace one good creature with one random one. Furthermore, Synthetic Destiny is much more powerful when you have many small creatures on board (like token armies), turning them all into the best creatures in your deck. Using it on a single creature wastes the card's primary value proposition. Additionally, Wistful Selkie was available to cast first for 3 mana (drawing a card and adding a second creature to the board), which would have at least given Synthetic Destiny 2 creatures to work with if the plan was to cast it this turn. The player also had Beastmaster Ascension available, which would be a strong proactive play to set up future attacks.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 98,
-    "snapshot_index": 124,
-    "aftermath_index": 125,
-    "player": "Gem25P Villain",
-    "turn": 6,
-    "phase": "END",
-    "message": "Select an opponent",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Chose Kimi25 Vorthos as the opponent for Skullwinder's graveyard return ability. Vorthos has Realm Seekers in their graveyard (a potentially massive creature that enters with +1/+1 counters equal to total cards in all hands) plus Kodama's Reach. Qwen3L Libby's graveyard contains much weaker options: Kodama's Reach, Boros Guildgate, and Command Tower (lands that just enter tapped).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 100,
-    "snapshot_index": 126,
-    "aftermath_index": 127,
-    "player": "Kimi25 Vorthos",
-    "turn": 6,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Edric, Spymaster of Trest's ability rewards attacking - 'Whenever a creature deals combat damage to one of your opponents, its controller may draw a card.' With Edric as a 2/2, Kimi25 could attack one of the opponents who has no untapped blockers. Gem25P's creatures are all tapped, GPT5m has no creatures, and Qwen3L has Waker of the Wilds (3/3) which could block. Attacking either Gem25P or GPT5m would be unblockable, dealing 2 damage and drawing a card for free. This is pure upside - Edric doesn't need to stay back as a blocker since Kimi25 is at 36 life and there's no immediate threat requiring a 2/2 blocker.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 102,
-    "snapshot_index": 128,
-    "aftermath_index": 130,
-    "player": "Kimi25 Vorthos",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Player chose Island to put onto the battlefield when Plains would better address their mana needs. Their hand contains Reverse the Sands (6WW), Migratory Route (3WU), Sylvan Reclamation (3GW), and Gwafa Hazid (1WU) - all requiring white mana. Blue is already covered by Azorius Chancery and Command Tower. Plains on the battlefield would help toward the WW cost of Reverse the Sands and the W costs of multiple other spells.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 107,
-    "snapshot_index": 130,
-    "aftermath_index": 132,
-    "player": "Kimi25 Vorthos",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "Evolutionary Escalation is a symmetrical enchantment that gives +1/+1 counters to both your creature and an opponent's creature each upkeep. With Edric as likely the best target on Vorthos's board (a 2/2), the counters help but also significantly buff an opponent's creature. Meanwhile, Gem25P has Caller of the Pack (8/6 with trample and myriad) which is already a massive threat. Giving it +3/+3 each turn cycle would be devastating. Additionally, Vorthos has Gwafa Hazid in hand which could help neutralize threats like Caller of the Pack, and has the mana to cast it (WU from Azorius Chancery + Command Tower). Playing Gwafa first to lock down Caller of the Pack before it attacks again seems more impactful. The Escalation also doesn't advance a clear game plan when Vorthos's board is relatively weak.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 109,
-    "snapshot_index": 133,
-    "aftermath_index": 135,
-    "player": "GPT5m Analyst",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Izzet Signet",
-    "annotation_severity": "questionable",
-    "annotation_description": "With only 3 lands (Tolaria West, Path of Ancestry, and presumably needing to develop toward casting Niv-Mizzet Parun at UUURRR), casting Izzet Signet is reasonable for mana development. However, the player skipped their attack step and didn't play a land this turn if they had one available. More importantly, the sequencing question is whether Commander's Plate (cost 1) might have been better to deploy first since it's cheaper and could protect a future commander, but Izzet Signet provides mana acceleration toward the expensive cards in hand. The real concern is that they have Sakashima the Impostor in hand and there's a Caller of the Pack (8/6 trample with myriad) on the battlefield - copying that would be extremely powerful. With only 3 lands + Izzet Signet, they're still a turn or two away from 4 mana for Sakashima. The Izzet Signet play is actually fine for ramping toward both Sakashima and Niv-Mizzet. This seems like a reasonable play.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 114,
-    "snapshot_index": 147,
-    "aftermath_index": 148,
-    "player": "Kimi25 Vorthos",
-    "turn": 7,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Kimi25 attacked Gem25P Villain who has Caller of the Pack (8/6) that can block and kill Edric (2/2), when GPT5m Analyst has no creatures and cannot block at all. Attacking Analyst would guarantee combat damage, triggering Edric's card draw ability with zero risk of losing the valuable card-draw engine.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 123,
-    "snapshot_index": 157,
-    "aftermath_index": 161,
-    "player": "GPT5m Analyst",
-    "turn": 8,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Select a card to discard",
-    "chosen_display": "Mountain",
-    "annotation_severity": "minor",
-    "annotation_description": "Discarding Mountain when at only 4 mana sources with extremely expensive spells in hand (Niv-Mizzet at 6 mana, Sakashima at 4, etc.). The player is mana-starved and needs land drops to function.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 125,
-    "snapshot_index": 160,
-    "aftermath_index": 161,
-    "player": "Gem25P Villain",
-    "turn": 8,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Villain declined to activate Oran-Rief, the Vastwood to put a +1/+1 counter on Caller of the Pack (a green creature that entered this turn or could benefit). More importantly, Villain is in the combat phase with Caller of the Pack (8/6 with trample and myriad) on the battlefield. Looking at the board state, Caller of the Pack should be attacking. The decision point is about using instants/abilities during combat - declining to use Oran-Rief is a minor missed opportunity if Caller of the Pack entered this turn (making it 9/7), though Oran-Rief only works on green creatures that entered this turn. If Caller of the Pack didn't enter this turn, Oran-Rief wouldn't work on it. The bigger issue is the confused reasoning - Villain seems to think it's not their turn, but the decision clearly states it's Turn 8 COMBAT for Gem25P Villain. The pass is reasonable if there's nothing meaningful to activate, but Oran-Rief was offered as an option, suggesting it had a valid target.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 129,
-    "snapshot_index": 167,
-    "aftermath_index": 168,
-    "player": "Kimi25 Vorthos",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Kimi25 cast Migratory Route (costs 3WU = 5 mana) before playing a land for the turn. They have Jungle Shrine, Forbidden Orchard, and Plains in hand. Playing a land first (like Forbidden Orchard for immediate untapped mana, or Plains) would give them more mana available this turn or set up better for future turns. Additionally, casting creatures/tokens before combat when Edric, Spymaster of Trest is on the battlefield means the Bird tokens could have attacked this turn to draw cards if sequenced properly - but since Migratory Route is a sorcery and the tokens would need haste to attack, that's less relevant. The main issue is not playing a land before casting the spell, losing a potential mana this turn. With the land drop they'd have access to more mana post-Migratory Route for other plays.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 132,
-    "snapshot_index": 172,
-    "aftermath_index": 175,
-    "player": "Kimi25 Vorthos",
-    "turn": 8,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Vorthos had exactly enough mana (G from Forest + WU from Azorius Chancery) to cast Gwafa Hazid, Profiteer (1WU). Gwafa is a strong utility creature that can neutralize threats like Gem25P's Caller of the Pack (8/6 with Myriad) and synergizes with Edric for card draw on attacks. The player incorrectly assessed their mana as insufficient.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 133,
-    "snapshot_index": 173,
-    "aftermath_index": 175,
-    "player": "GPT5m Analyst",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Commander's Plate",
-    "annotation_severity": "minor",
-    "annotation_description": "GPT5m Analyst cast Commander's Plate (a 1-mana equipment that gives +3/+3 and protection from colors not in commander's color identity) before playing Command Tower from hand. This is a sequencing error - they should play the land first to have more mana available. Additionally, Commander's Plate costs 5 to equip to non-commanders (or 3 to equip a commander), and the Analyst has no creatures on board to equip it to. Casting it now accomplishes very little. More importantly, with 4 lands + Izzet Signet available (potentially 5 mana with Command Tower), casting Tribute Mage would have been more impactful - it searches for a 2-mana artifact and puts a body on the board. Alternatively, Sakashima the Impostor (4 mana) could copy an opponent's strong creature like Caller of the Pack. The Commander's Plate with no creature to equip and expensive equip costs is a low-priority play compared to developing the board with Tribute Mage or Sakashima.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 136,
-    "snapshot_index": 179,
-    "aftermath_index": 181,
-    "player": "Qwen3L Libby",
-    "turn": 9,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "Attacking with Waker of the Wilds (a 3/3) into a board where Gem25P has an 8/6 Caller of the Pack and Kimi25 has Edric (which benefits anyone dealing combat damage to opponents) is risky with limited upside. The 3 damage is minor in a 4-player game, and Waker of the Wilds is a valuable mana sink that can animate lands. Losing it to a block or removal would be a significant setback. However, if attacking an undefended opponent, the risk is low and Edric's draw trigger could benefit Libby.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 137,
-    "snapshot_index": 179,
-    "aftermath_index": 180,
-    "player": "Gem25P Villain",
-    "turn": 9,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Oran-Rief, the Vastwood could have been activated to put +1/+1 counters on the Myriad tokens created by Caller of the Pack, as they are green creatures that entered this turn. This would have added +1 damage to each opponent attacked by a Myriad token for free.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 139,
-    "snapshot_index": 185,
-    "aftermath_index": 186,
-    "player": "Kimi25 Vorthos",
-    "turn": 9,
-    "phase": "BEGINNING",
-    "message": "Select a creature you control",
-    "chosen_display": "Edric, Spymaster of Trest",
-    "annotation_severity": "minor",
-    "annotation_description": "Put +1/+1 counters on Edric instead of a Bird token with flying. Edric's value comes from being on the battlefield enabling card draw, not from being large himself. A Bird token with flying has natural evasion, making it much more likely to connect for combat damage (triggering Edric's draw) and become a serious aerial threat.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 141,
-    "snapshot_index": 186,
-    "aftermath_index": 188,
-    "player": "Kimi25 Vorthos",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "moderate",
-    "annotation_description": "Kimi25 Vorthos played Plains and apparently did nothing else meaningful this turn, skipping attacks. They had the mana to cast Kraum, Ludevic's Opus (3UR) which has flying and haste, meaning it could attack immediately alongside Edric to draw cards via Edric's ability. With 8+ mana available after the land drop, casting Kraum precombat and attacking with both creatures (Kraum's flying makes it hard to block) would have drawn 1-2 cards.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 143,
-    "snapshot_index": 191,
-    "aftermath_index": 193,
-    "player": "Gem25P Villain",
-    "turn": 10,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Villain has Sol Ring in hand (costs {1}) and passed priority without casting it. Sol Ring is an extremely efficient mana rock that should be deployed as soon as possible. Additionally, if Caller of the Pack entered this turn, activating Oran-Rief, the Vastwood for a free +1/+1 counter on it would be pure upside. Even if most lands were tapped from casting Caller of the Pack, Thought Vessel could provide the {1} needed for Sol Ring.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 148,
-    "snapshot_index": 195,
-    "aftermath_index": 197,
-    "player": "Qwen3L Libby",
-    "turn": 10,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "-1",
-    "annotation_severity": "minor",
-    "annotation_description": "Qwen3L Libby chose not to attack with Waker of the Wilds (chosen -1 means no attackers declared). With Edric, Spymaster of Trest on the battlefield (controlled by Kimi25 Vorthos), attacking any opponent with Waker of the Wilds would let Libby draw a card if combat damage connects. Waker is a 3/3, and there are opponents with no blockers or favorable matchups. Missing this free card draw from Edric's trigger is a clear missed opportunity. Additionally, the reasoning text is confused and incoherent, referencing 'Turn 2' and previous attempts, suggesting the model lost track of the game state entirely.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 149,
-    "snapshot_index": 196,
-    "aftermath_index": 198,
-    "player": "Gem25P Villain",
-    "turn": 10,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Villain declined to activate Oran-Rief, the Vastwood to put a +1/+1 counter on Caller of the Pack (a green creature that entered this turn, assuming it was cast this turn). Even if Caller of the Pack didn't enter this turn, passing on Synthetic Destiny at end of opponent's turn could be reasonable depending on context. However, the key missed opportunity is Oran-Rief activation - if Caller of the Pack entered this turn, a free +1/+1 counter on an 8/6 trampler is pure upside with no downside. The Oran-Rief is untapped and available to use.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 151,
-    "snapshot_index": 201,
-    "aftermath_index": 202,
-    "player": "Kimi25 Vorthos",
-    "turn": 10,
-    "phase": "BEGINNING",
-    "message": "Select a creature you control",
-    "chosen_display": "Edric, Spymaster of Trest",
-    "annotation_severity": "minor",
-    "annotation_description": "Evolutionary Escalation counters placed on Edric, who is already large and doesn't benefit as much from additional size. Bird tokens with flying are more evasive and better able to convert the +1/+1 counters into combat damage, which would also trigger Edric's card draw ability more reliably.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 159,
-    "snapshot_index": 209,
-    "aftermath_index": 210,
-    "player": "Gem25P Villain",
-    "turn": 11,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Villain has Oran-Rief, the Vastwood available to activate, which could put a +1/+1 counter on Caller of the Pack (a green creature that entered this turn or was already on the battlefield). Additionally, they have 9 cards in hand and should be playing lands (they have Forest, Island, Command Beacon, and High Market in hand) and casting spells like Sol Ring or Beastmaster Ascension. They passed without using Oran-Rief's activated ability or deploying any of their hand. At minimum, Oran-Rief's tap ability to put +1/+1 counters on green creatures that entered this turn is a free upside if Caller of the Pack entered this turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 161,
-    "snapshot_index": 211,
-    "aftermath_index": 212,
-    "player": "Qwen3L Libby",
-    "turn": 11,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Attacking with Waker of the Wilds (a 3/3) into a board where Gem25P has an 8/6 Caller of the Pack and Kimi25 has Edric (who rewards combat damage to opponents with card draw) is questionable. The Waker is Libby's only creature and a key mana sink for animating lands. Risking it in combat for 3 damage when opponents have larger boards and blockers available gains very little. Additionally, Edric's ability means if the attack connects, the controller (Libby) draws a card, but Edric also rewards other players when their creatures deal combat damage - attacking encourages opponents to swing at each other for draws. However, the real issue is that Waker of the Wilds is a critical engine piece that should be preserved rather than sent into the red zone where it could be blocked or removed via combat tricks.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 163,
-    "snapshot_index": 213,
-    "aftermath_index": 216,
-    "player": "Qwen3L Libby",
-    "turn": 11,
-    "phase": "END",
-    "message": "Select a card to discard",
-    "chosen_display": "Plains",
-    "annotation_severity": "questionable",
-    "annotation_description": "Discarding Plains when Murasa Rootgrazer is in hand (which can put basic lands from hand directly onto the battlefield for extra ramp) and Libby only has 5 lands with several expensive spells (Multani at 6, Emeria Shepherd at 7). Armorcraft Judge is weak without reliable +1/+1 counter sources currently on board.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 164,
-    "snapshot_index": 214,
-    "aftermath_index": 216,
-    "player": "Gem25P Villain",
-    "turn": 11,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Cast Sol Ring before playing a land for the turn. With Island, Forest, Command Beacon, and High Market all in hand, playing a land first would give strictly more mana available this turn, potentially enabling additional spells. For example, playing Island first then Sol Ring would give 10 mana total, allowing more combinations of Wistful Selkie, Ohran Viper, and Beastmaster Ascension to be cast this turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 169,
-    "snapshot_index": 216,
-    "aftermath_index": 218,
-    "player": "Gem25P Villain",
-    "turn": 11,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Villain cast Ohran Viper (a creature) before playing a land for the turn. They have multiple lands in hand (Island, Forest, Command Beacon, High Market) and only 7 lands on the battlefield. Playing a land first is almost always correct sequencing \u2014 it keeps options open and doesn't reveal information unnecessarily. Additionally, casting a creature before combat when they have Caller of the Pack (8/6 with myriad) ready to attack is questionable, since they should attack first to get combat information before committing more resources to the board. The Ohran Viper could also benefit from seeing combat results first.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 170,
-    "snapshot_index": 219,
-    "aftermath_index": 220,
-    "player": "Gem25P Villain",
-    "turn": 11,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem25P Villain has Caller of the Pack (8/6 with trample and myriad) on the battlefield. Attacking with it would create token copies attacking each other opponent, dealing significant damage to all three opponents simultaneously. With Edric, Spymaster of Trest on the board (controlled by Kimi25 Vorthos), any creature dealing combat damage to an opponent lets its controller draw a card - so attacking would also draw Villain cards for each opponent hit. Caller of the Pack is an 8/6 trampler that's very hard to block profitably, and myriad means it attacks all three opponents at once. Skipping this attack wastes a massive damage and card advantage opportunity.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 171,
-    "snapshot_index": 221,
-    "aftermath_index": 222,
-    "player": "Kimi25 Vorthos",
-    "turn": 11,
-    "phase": "BEGINNING",
-    "message": "Select a creature you control",
-    "chosen_display": "Edric, Spymaster of Trest",
-    "annotation_severity": "minor",
-    "annotation_description": "Evolutionary Escalation puts +1/+1 counters on a creature you control AND a creature an opponent controls. Putting counters on Edric, Spymaster of Trest is suboptimal because Edric's value comes from his triggered ability (drawing cards when creatures deal combat damage to opponents), not from his combat stats. A 1/1 Bird token with flying would benefit much more from +1/+1 counters since it can actually connect for combat damage more reliably thanks to evasion, and growing a flier makes it a real threat. Making Edric bigger just makes him a slightly larger ground body that you don't particularly want to risk in combat anyway, since losing him means losing the card draw engine.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 173,
-    "snapshot_index": 223,
-    "aftermath_index": 225,
-    "player": "Kimi25 Vorthos",
-    "turn": 11,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "Gwafa Hazid, Profiteer",
-    "annotation_severity": "moderate",
-    "annotation_description": "Caller of the Pack is an 8/6 trampler with Myriad that creates token copies attacking each other opponent - it's the most threatening creature on the board by far. Ohran Viper is just a 1/3 deathtouch creature that's much easier to deal with in combat.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 176,
-    "snapshot_index": 228,
-    "aftermath_index": 234,
-    "player": "GPT5m Analyst",
-    "turn": 12,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Select a card to discard",
-    "chosen_display": "Mountain",
-    "annotation_severity": "minor",
-    "annotation_description": "GPT5m Analyst discarded their only land (Mountain) while having only 3 lands in play. With expensive cards like Niv-Mizzet Parun (6 mana, UUURRR) in hand, making land drops is critical. They have multiple questionable enchantments that would be better discard candidates.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 177,
-    "snapshot_index": 231,
-    "aftermath_index": 231,
-    "player": "Qwen3L Libby",
-    "turn": 12,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Declined to attack with Waker of the Wilds (3/3) when GPT5m Analyst had no creatures to block. With Edric, Spymaster of Trest on the battlefield, connecting with combat damage to an opponent would also draw a card. This is free damage plus card advantage with no downside.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 178,
-    "snapshot_index": 234,
-    "aftermath_index": 235,
-    "player": "Gem25P Villain",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Mosswort Bridge (enters tapped) instead of an untapped basic land costs a mana this turn. With Caller of the Pack on board, this is the perfect turn to deploy Beastmaster Ascension (which could reach 7 quest counters in one attack with myriad creating tokens for each opponent) and potentially Wistful Selkie for card draw. An untapped land would enable casting both spells (6 total mana) with mana to spare.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 181,
-    "snapshot_index": 237,
-    "aftermath_index": 238,
-    "player": "Kimi25 Vorthos",
-    "turn": 12,
-    "phase": "BEGINNING",
-    "message": "Select a creature you control",
-    "chosen_display": "Edric, Spymaster of Trest",
-    "annotation_severity": "minor",
-    "annotation_description": "Edric's value comes from his card-draw trigger, not his combat stats. A 5/5 Edric without evasion is less impactful than a 4/4 flying Bird token that can reliably connect for combat damage (and trigger Edric's own draw ability). Putting counters on Edric doesn't meaningfully improve what Edric does for the game plan.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 186,
-    "snapshot_index": 239,
-    "aftermath_index": 239,
-    "player": "Gem25P Villain",
-    "turn": 12,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Oran-Rief, the Vastwood could put +1/+1 counters on the Myriad tokens created by Caller of the Pack (they are green creatures that entered this turn), pumping them from 8/6 to 9/7 each. This is free extra damage across multiple opponents with no downside.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 187,
-    "snapshot_index": 240,
-    "aftermath_index": 241,
-    "player": "Gem25P Villain",
-    "turn": 12,
-    "phase": "COMBAT",
-    "message": "Select blockers",
-    "chosen_display": "False",
-    "annotation_severity": "major",
-    "annotation_description": "Gem25P Villain chose not to block while taking 20 damage (17 from Edric, 2 from Gwafa Hazid, 1 from a Bird token), dropping from 35 to 15 life. They had Caller of the Pack (8/6) available as a blocker which could have eaten Edric (likely a small creature boosted by Evolutionary Escalation counters) and potentially other attackers. Additionally, Skullwinder (1/3 deathtouch) and Ohran Viper (1/3 with combat damage abilities) were listed as blocking options. Even blocking just Edric with Caller of the Pack would have saved 17 life - an enormous amount. Taking 20 unnecessary damage in a multiplayer game is extremely dangerous.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 194,
-    "snapshot_index": 247,
-    "aftermath_index": 248,
-    "player": "Kimi25 Vorthos",
-    "turn": 12,
-    "phase": "END",
-    "message": "Select card to discard (selected 0 of 7, min 7)",
-    "chosen_display": "Plains",
-    "annotation_severity": "moderate",
-    "annotation_description": "Tempt with Discovery is a powerful ramp spell that searches for any land (not just basics) and puts it onto the battlefield untapped. With 14 cards in hand needing to discard down to 7, Kimi25 has to discard 7 cards total. However, Tempt with Discovery costs only 4 mana and could be cast next turn with the available mana (Sol Ring + lands = plenty of mana). It's one of the most impactful cards in the hand, especially since it can fetch utility lands like Command Beacon or any land needed. Meanwhile, cards like Reverse the Sands (8 mana, very situational), Rubblehulk (6 mana creature that's worse than other options), or Seeds of Renewal (expensive recursion) are far less impactful and harder to cast. Discarding a castable, high-impact ramp spell over more expensive or situational cards is a real mistake.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 199,
-    "snapshot_index": 248,
-    "aftermath_index": 250,
-    "player": "GPT5m Analyst",
-    "turn": 13,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Sakashima the Impostor",
-    "annotation_severity": "minor",
-    "annotation_description": "GPT5m Analyst cast Sakashima the Impostor before playing their Mountain from hand. Proper sequencing is to play lands before casting spells to maximize available mana and options. With Mountain played first, they'd have 6 total mana instead of 5, leaving 2 mana after Sakashima instead of 1, which could matter for equipping Shadowspear or other plays.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 204,
-    "snapshot_index": 260,
-    "aftermath_index": 265,
-    "player": "Kimi25 Vorthos",
-    "turn": 13,
-    "phase": "END",
-    "message": "Select a card to discard",
-    "chosen_display": "Plains",
-    "annotation_severity": "minor",
-    "annotation_description": "Discarded Plains instead of Forbidden Orchard. With Edric, Spymaster of Trest on the battlefield, Forbidden Orchard's token-giving downside is amplified since opponents can use those tokens to attack and draw cards via Edric. Plains is a strictly better land to keep in this situation, providing clean white mana without drawbacks.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 205,
-    "snapshot_index": 261,
-    "aftermath_index": 265,
-    "player": "GPT5m Analyst",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a card to discard",
-    "chosen_display": "Shivan Reef",
-    "annotation_severity": "minor",
-    "annotation_description": "Discarded Shivan Reef, a dual land producing U/R, when they have Niv-Mizzet, Parun (UUURRR) in hand and need significant color fixing to cast it. Their current mana base is tight on blue sources especially.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 206,
-    "snapshot_index": 263,
-    "aftermath_index": 265,
-    "player": "Qwen3L Libby",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select attackers",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "The player's reasoning states they intend to attack Gem25P Villain who has Caller of the Pack (8/6) on the battlefield, which can block and kill Waker of the Wilds (3/3). Losing Waker - their only creature and a key mana sink - would be a significant loss. Additionally, the Forest in hand should be played before combat to maximize post-combat mana options.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 207,
-    "snapshot_index": 264,
-    "aftermath_index": 266,
-    "player": "Qwen3L Libby",
-    "turn": 14,
-    "phase": "COMBAT",
-    "message": "Select a player, planeswalker, or battle to attack",
-    "chosen_display": "Gem25P Villain",
-    "annotation_severity": "questionable",
-    "annotation_description": "Attacking Gem25P Villain who has Caller of the Pack (8/6) that can block and kill Waker of the Wilds (3/3). GPT5m Analyst has no blockers, so attacking them would guarantee combat damage connecting and a card draw from Edric, Spymaster of Trest with zero risk to Waker of the Wilds.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 210,
-    "snapshot_index": 267,
-    "aftermath_index": 268,
-    "player": "Qwen3L Libby",
-    "turn": 14,
-    "phase": "END",
-    "message": "Select card to discard (selected 0 of 2, min 2)",
-    "chosen_display": "Forest",
-    "annotation_severity": "moderate",
-    "annotation_description": "Qwen3L Libby discarded Yavimaya Elder, a card that provides significant value (two basic lands to hand when it dies, plus a card draw sacrifice ability). With only 5 lands on the battlefield and 10 lands in graveyard, Yavimaya Elder would help fix mana and enable casting expensive spells like Emeria Shepherd (7 mana) and Multani (6 mana). Murasa Rootgrazer, while decent, requires lands already in hand to function and is a 2/3 body with less raw card advantage. Elvish Rejuvenator is a 1/1 that puts one land into play tapped - less overall value than Yavimaya Elder's two lands plus draw.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 213,
-    "snapshot_index": 276,
-    "aftermath_index": 278,
-    "player": "GPT5m Analyst",
-    "turn": 15,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Fabricate",
-    "annotation_severity": "moderate",
-    "annotation_description": "Casting Fabricate to search for an artifact when there's no clear high-impact artifact to find, while Sakashima the Impostor could copy Caller of the Pack (8/6 trample with myriad) for a game-winning threat, or at minimum Tribute Mage provides the same artifact-searching function plus a body to equip Shadowspear/Commander's Plate to.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 214,
-    "snapshot_index": 276,
-    "aftermath_index": 280,
-    "player": "Kimi25 Vorthos",
-    "turn": 15,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a creature you control",
-    "chosen_display": "Edric, Spymaster of Trest",
-    "annotation_severity": "questionable",
-    "annotation_description": "Evolutionary Escalation counters placed on the already-massive Edric (17/17 becoming 20/20) instead of on a Bird Token with flying evasion. The marginal value of +3/+3 on an already huge ground creature is low compared to making a flying Bird Token significantly larger, which would deal more reliable combat damage through evasion and trigger Edric's card draw ability.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 216,
-    "snapshot_index": 279,
-    "aftermath_index": 279,
-    "player": "Qwen3L Libby",
-    "turn": 15,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "?",
-    "annotation_severity": "major",
-    "annotation_description": "Gem25P Villain is at 6 life and Qwen3L Libby has Waker of the Wilds (3/3) available to attack. With Naya Charm in hand (which can deal 3 damage to a creature or tap all creatures a player controls), Libby could attack with Waker of the Wilds and if it connects deal 3 damage, then follow up with Naya Charm for 3 more damage to finish off the 6-life Villain. Instead, the player's reasoning shows complete confusion about the game state, talking about 'Turn 2' and 'looping' and trying to 'pass_priority' - they appear to have lost track of the actual game state entirely and likely did not attack at all.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 217,
-    "snapshot_index": 280,
-    "aftermath_index": 282,
-    "player": "Qwen3L Libby",
-    "turn": 15,
-    "phase": "END",
-    "message": "Select a card to discard",
-    "chosen_display": "Planar Outburst",
-    "annotation_severity": "questionable",
-    "annotation_description": "Discarded Planar Outburst (a board wipe) instead of Abzan Falconer (a mediocre 2/3 with slow outlast synergy). In a multiplayer game with threats like Caller of the Pack (8/6 myriad) on the board, having access to a mass removal spell is valuable. While Banishing Light handles one threat, Planar Outburst handles board-wide problems.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 238,
-    "snapshot_index": 296,
-    "aftermath_index": 296,
-    "player": "Qwen3L Libby",
-    "turn": 16,
-    "phase": "COMBAT",
-    "message": "Select blockers",
-    "chosen_display": "?",
-    "annotation_severity": "major",
-    "annotation_description": "Qwen3L Libby is being attacked by enormous creatures (14/12 Caller of the Pack, 16/18 Skullwinder, 8/6 Caller of the Pack, etc.) that could deal far more than 30 damage total. Libby has Naya Charm in hand which can tap all creatures target player controls, completely preventing the combat damage. Instead, the player confused themselves into thinking they weren't involved in this combat decision.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 18
+  },
+  {
+    "decision_index": 23
+  },
+  {
+    "decision_index": 25
+  },
+  {
+    "decision_index": 27
+  },
+  {
+    "decision_index": 29
+  },
+  {
+    "decision_index": 30
+  },
+  {
+    "decision_index": 31
+  },
+  {
+    "decision_index": 33
+  },
+  {
+    "decision_index": 36
+  },
+  {
+    "decision_index": 38
+  },
+  {
+    "decision_index": 44
+  },
+  {
+    "decision_index": 45
+  },
+  {
+    "decision_index": 46
+  },
+  {
+    "decision_index": 48
+  },
+  {
+    "decision_index": 53
+  },
+  {
+    "decision_index": 56
+  },
+  {
+    "decision_index": 57
+  },
+  {
+    "decision_index": 59
+  },
+  {
+    "decision_index": 68
+  },
+  {
+    "decision_index": 71
+  },
+  {
+    "decision_index": 75
+  },
+  {
+    "decision_index": 84
+  },
+  {
+    "decision_index": 87
+  },
+  {
+    "decision_index": 90
+  },
+  {
+    "decision_index": 94
+  },
+  {
+    "decision_index": 98
+  },
+  {
+    "decision_index": 100
+  },
+  {
+    "decision_index": 102
+  },
+  {
+    "decision_index": 107
+  },
+  {
+    "decision_index": 109
+  },
+  {
+    "decision_index": 114
+  },
+  {
+    "decision_index": 123
+  },
+  {
+    "decision_index": 125
+  },
+  {
+    "decision_index": 129
+  },
+  {
+    "decision_index": 132
+  },
+  {
+    "decision_index": 133
+  },
+  {
+    "decision_index": 136
+  },
+  {
+    "decision_index": 137
+  },
+  {
+    "decision_index": 139
+  },
+  {
+    "decision_index": 141
+  },
+  {
+    "decision_index": 143
+  },
+  {
+    "decision_index": 148
+  },
+  {
+    "decision_index": 149
+  },
+  {
+    "decision_index": 151
+  },
+  {
+    "decision_index": 159
+  },
+  {
+    "decision_index": 161
+  },
+  {
+    "decision_index": 163
+  },
+  {
+    "decision_index": 164
+  },
+  {
+    "decision_index": 169
+  },
+  {
+    "decision_index": 170
+  },
+  {
+    "decision_index": 171
+  },
+  {
+    "decision_index": 173
+  },
+  {
+    "decision_index": 176
+  },
+  {
+    "decision_index": 177
+  },
+  {
+    "decision_index": 178
+  },
+  {
+    "decision_index": 181
+  },
+  {
+    "decision_index": 186
+  },
+  {
+    "decision_index": 187
+  },
+  {
+    "decision_index": 194
+  },
+  {
+    "decision_index": 199
+  },
+  {
+    "decision_index": 204
+  },
+  {
+    "decision_index": 205
+  },
+  {
+    "decision_index": 206
+  },
+  {
+    "decision_index": 207
+  },
+  {
+    "decision_index": 210
+  },
+  {
+    "decision_index": 213
+  },
+  {
+    "decision_index": 214
+  },
+  {
+    "decision_index": 216
+  },
+  {
+    "decision_index": 217
+  },
+  {
+    "decision_index": 238
   }
 ]

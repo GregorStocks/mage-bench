@@ -1,2082 +1,392 @@
 [
   {
-    "decision_index": 15,
-    "snapshot_index": 8,
-    "aftermath_index": 9,
-    "player": "Gem25F Timmy",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Island [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Island instead of Forest means they cannot cast Wild Growth on turn 2 (which requires G and enchants a land to ramp). With Forest, they could play Wild Growth turn 2 on the Forest, then have access to GG on turn 3 plus whatever other land they play. Alternatively, Forest enables casting Serum Visions only if they draw a U source, but Island enables Serum Visions turn 2 to dig. However, Terramorphic Expanse is also in hand and can fetch either basic. The optimal line is likely Forest now, then Terramorphic Expanse turn 2 (crack for Island), enabling Wild Growth on Forest turn 2 for strong ramp. Playing Island first delays the Wild Growth plan by a turn. That said, Island enables turn 2 Serum Visions which has value for finding lands, so this is debatable but Forest is generally better here for the ramp plan.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 17,
-    "snapshot_index": 11,
-    "aftermath_index": 12,
-    "player": "Gem25F Timmy",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select cards to PUT on the BOTTOM of your library (Scry) (selected 0 of 2)",
-    "chosen_display": "Winged Boots",
-    "annotation_severity": "questionable",
-    "annotation_description": "Winged Boots is a cheap Equipment with excellent synergy with Galea (can be cast from top of library, provides flying and ward {4} protection). Ride the Avalanche is more situational and requires specific timing to be effective. Bottoming Winged Boots over Ride the Avalanche loses a consistently strong Galea synergy piece.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 21,
-    "snapshot_index": 18,
-    "aftermath_index": 19,
-    "player": "Haiku Villain",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Dimir Aqueduct [Land]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Playing Dimir Aqueduct as the only land on turn 1 means it enters tapped AND requires bouncing a land you control. Since Haiku Villain has no other lands in play, they must bounce the Aqueduct itself back to hand, completely wasting the turn with no land on the battlefield. This sets them back an entire turn compared to playing Island or Halimar Depths.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 23,
-    "snapshot_index": 23,
-    "aftermath_index": 24,
-    "player": "Haiku Villain",
-    "turn": 1,
-    "phase": "END",
-    "message": "Select a card to discard",
-    "chosen_display": "Island",
-    "annotation_severity": "minor",
-    "annotation_description": "Discarding Island when they have zero lands on the battlefield and only 3 lands in hand. Dimir Aqueduct can't be played until another land is in play (needs to bounce a land), so discarding Island leaves them with only Halimar Depths as a playable land on turn 2, making them very dependent on drawing lands.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 25,
-    "snapshot_index": 25,
-    "aftermath_index": 26,
-    "player": "Sonnet Stoic",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Chittering Witch {3}{B} 2/2 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Cast Chittering Witch before playing a land drop. They had Mountain and Swamp in hand and could have played one first to have 5 mana available instead of 4, which would be relevant for Chittering Witch's activated ability ({1}{B}, Sacrifice a creature) if needed during opponents' turns.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 29,
-    "snapshot_index": 33,
-    "aftermath_index": 34,
-    "player": "Gem25F Timmy",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a basic land card",
-    "chosen_display": "Forest",
-    "annotation_severity": "minor",
-    "annotation_description": "Fetching Forest when Plains would provide better color balance. With Plains from fetch + Forest from hand on turn 2, Timmy would have access to G, W, and U immediately, enabling earlier Fleecemane Lion and Angelic Gift. With Forest, white mana is delayed until Sungrass Prairie (which costs 1 to activate, effectively delaying GW access).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 32,
-    "snapshot_index": 41,
-    "aftermath_index": 42,
-    "player": "Haiku Villain",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Halimar Depths [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Halimar Depths before Dimir Aqueduct is poor land sequencing. With no lands on the battlefield, this is the perfect time to play Dimir Aqueduct (enters tapped with no land to bounce back). Next turn, Haiku Villain will likely play Dimir Aqueduct and be forced to bounce Halimar Depths back to hand, losing a turn of land development. Playing Aqueduct now means turn 3 could have Swamp untapped + Aqueduct for 3 mana (UBB), enabling Loyal Subordinate or Dimir Signet.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 34,
-    "snapshot_index": 42,
-    "aftermath_index": 43,
-    "player": "Haiku Villain",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
-    "chosen_display": "Lightform",
-    "annotation_severity": "minor",
-    "annotation_description": "Put Adarkar Valkyrie on top of library instead of Arcane Sanctum. On turn 2 with early mana development needs (Dimir Signet, Mind Stone in hand), drawing a land next is more useful than drawing a 6-mana creature that won't be castable for several turns.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 37,
-    "snapshot_index": 45,
-    "aftermath_index": 46,
-    "player": "Sonnet Stoic",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Mountain [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Mountain instead of Swamp leaves Sonnet Stoic unable to cast Danse Macabre ({3}{B}{B}) next turn. With Swamp, they'd have access to both Karazikar ({3}{B}{R}) and Danse Macabre on turn 4. With Mountain, only Karazikar is castable.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 38,
-    "snapshot_index": 46,
-    "aftermath_index": 47,
-    "player": "Sonnet Stoic",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Karazikar, the Eye Tyrant {3}{B}{R} 5/5 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Cast Karazikar before playing a land from hand. Sonnet Stoic has a Swamp and Mountain in hand and only 3 lands on the battlefield. Playing a land first is free and would leave them with 4 lands after casting Karazikar instead of 3 (with a land drop still available but all mana tapped).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 43,
-    "snapshot_index": 53,
-    "aftermath_index": 54,
-    "player": "Gem25F Timmy",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Wild Growth {G} [Cast]",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Wild Growth before playing a land is a sequencing error. The player has Sungrass Prairie, Forest, and Lumbering Falls in hand but only 2 lands on the battlefield. They should play a land first to ensure they don't miss a land drop, then cast Wild Growth. More importantly, playing Sungrass Prairie first (which enters untapped) or Forest would give them more options. With Forest + Island + Wild Growth on the Forest, they'd have access to GGU next turn. But if they play the land first, they can still cast Wild Growth with the Forest they already have. The main issue is casting a spell before making the land drop - if they play Lumbering Falls (enters tapped) or Sungrass Prairie, they still have G available from Forest to cast Wild Growth. Playing the land first is strictly better sequencing since it preserves information and ensures the land drop isn't forgotten.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 44,
-    "snapshot_index": 54,
-    "aftermath_index": 55,
-    "player": "Gem25F Timmy",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a land",
-    "chosen_display": "Island (yours)",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25F Timmy's hand contains Fleecemane Lion (GW), Sungrass Prairie (needs 1+T for GW), Lumbering Falls (enters tapped, produces G or U), and Forest. The commander Galea costs 1GWU. Putting Wild Growth on Island gives the Island the ability to produce U+G when tapped. However, Timmy's color needs are primarily G and W - they already have an Island for U. Putting Wild Growth on Forest would give Forest the ability to produce G+G, which combined with the Island (U) and a Sungrass Prairie (GW) would provide better mana flexibility. More importantly, with Fleecemane Lion costing GW as the most likely next play, and Sungrass Prairie requiring 1+T to produce GW, putting Wild Growth on Forest means tapping Forest produces GG, enabling turn 3 Fleecemane Lion with Forest(GG via Wild Growth) + Island(U) + Sungrass Prairie(1,T->GW) - wait, that doesn't work either since Sungrass Prairie needs 1 generic. Actually, looking more carefully: with Wild Growth on Island, tapping Island gives U+G (2 mana), then Forest gives G, and if they play Sungrass Prairie (enters untapped), they'd need to pay 1+T for GW from it. For Fleecemane Lion (GW): Forest(G) + Sungrass Prairie requires 1 generic mana to activate. With Wild Growth on Forest: Forest gives G+G, Island gives U, Sungrass Prairie needs 1+T. Either way they can cast Fleecemane Lion next turn (Forest for G, pay 1 into Sungrass Prairie using the extra mana from Wild Growth). Actually Wild Growth on Forest is likely slightly better since it accelerates green mana which is more needed for the GW-heavy cards in hand (Fleecemane Lion, Ride the Avalanche has G). The difference is small but putting it on Forest is marginally better for the mana base.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 45,
-    "snapshot_index": 55,
-    "aftermath_index": 56,
-    "player": "Gem25F Timmy",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Ride the Avalanche {G}{U} [Cast]",
-    "annotation_severity": "major",
-    "annotation_description": "Ride the Avalanche is an instant that gives your next spell flash and puts +1/+1 counters on a creature when you cast that next spell. Cast during precombat main with no creatures on the battlefield and before playing a land, this wastes the card almost entirely. The player has Fleecemane Lion in hand but only 2 mana sources available after casting Ride the Avalanche (Forest tapped for G, Island tapped for U via Wild Growth). They can't cast any follow-up spell this turn. Ride the Avalanche's effect only lasts until end of turn, so the flash-granting and counter-placing abilities are completely wasted. The card is thrown away for zero value.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 47,
-    "snapshot_index": 56,
-    "aftermath_index": 57,
-    "player": "Gem25F Timmy",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Forest [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Played Forest instead of Sungrass Prairie when holding Fleecemane Lion (GW) and Angelic Gift (1W) with no white mana sources. Sungrass Prairie would enable casting white spells on future turns, while a basic Forest provides redundant green mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 55,
-    "snapshot_index": 66,
-    "aftermath_index": 67,
-    "player": "Haiku Villain",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Dimir Aqueduct [Land]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Playing Dimir Aqueduct with only one land on battlefield (Halimar Depths) means bouncing that land, resulting in zero mana available this turn and effectively losing a full turn of development. With Karazikar already on the opposing board threatening damage, falling further behind on tempo is very costly.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 59,
-    "snapshot_index": 71,
-    "aftermath_index": 72,
-    "player": "Haiku Villain",
-    "turn": 3,
-    "phase": "END",
-    "message": "Select a card to discard",
-    "chosen_display": "Pilgrim's Eye",
-    "annotation_severity": "minor",
-    "annotation_description": "Discarded Pilgrim's Eye, which is a cheap creature that searches for a basic land - exactly what this mana-screwed player needs (only 1 land on battlefield). Adarkar Valkyrie costs 4WW and the player has zero white mana sources on board or in hand, making it extremely difficult to cast anytime soon.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 61,
-    "snapshot_index": 73,
-    "aftermath_index": 74,
-    "player": "Sonnet Stoic",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Failed to play the Swamp from hand before casting Prosper, Tome-Bound. Playing the land first would leave an additional B mana available after casting Prosper, which could enable Chittering Witch's activated ability ({1}{B}, sacrifice a creature) for defensive purposes.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 69,
-    "snapshot_index": 83,
-    "aftermath_index": 84,
-    "player": "Gem25F Timmy",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Fleecemane Lion {G}{W} 3/3 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Player had enough mana to cast both Fleecemane Lion (GW) and Sword of Hours (2) this turn, but only cast Fleecemane Lion. With Sol Ring (CC), Forest+Wild Growth (GG), Island (U), and Sungrass Prairie (1+T: GW), there was plenty of mana to deploy both. Additionally, they should play Lumbering Falls (the Unknown choice) as their land drop before casting spells.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 81,
-    "snapshot_index": 95,
-    "aftermath_index": 96,
-    "player": "Gem3F Sarge",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Troll Ascetic {1}{G}{G} 3/2 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Should have played the Swamp from hand before casting the creature to have 6 mana available. Additionally, Yavimaya Elder is likely the stronger play here - in a multiplayer game on turn 4, the land ramp and card draw from Elder provides more long-term value than a 3/2 hexproof body. Elder dying to Karazikar-forced attacks would actually be beneficial, fetching 2 lands.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 92,
-    "snapshot_index": 108,
-    "aftermath_index": 109,
-    "player": "Sonnet Stoic",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Danse Macabre {3}{B}{B} [Cast]",
-    "annotation_severity": "minor",
-    "annotation_description": "Sonnet Stoic cast Danse Macabre without first playing a land from hand. They had Swamp and Mountain available to play. Playing Swamp first would have provided the second black mana needed, saving the Treasure token that was sacrificed to help pay for the spell. The Treasure token represents future mana flexibility that was needlessly spent.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 98,
-    "snapshot_index": 120,
-    "aftermath_index": 121,
-    "player": "Gem25F Timmy",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Fleecemane Lion {G}{W} 3/3 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Fleecemane Lion before combat is suboptimal when holding Angelic Gift (which could be used as a combat trick to grant flying and draw a card) and Valorous Stance (indestructible or removal). By casting the creature pre-combat, Timmy reveals information unnecessarily and loses the option to hold up mana for tricks. Additionally, Lumbering Falls could have been activated as a 3/3 attacker this turn, and casting the Lion pre-combat means less mana available for other plays. More importantly, if Timmy wanted to equip Sword of Hours to a creature and attack, playing the Lion post-combat would have been equivalent since it has summoning sickness anyway - but the mana spent now can't be used for Valorous Stance if needed during combat.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 99,
-    "snapshot_index": 122,
-    "aftermath_index": 123,
-    "player": "Gem25F Timmy",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Valorous Stance {1}{W} [Cast]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Casting Valorous Stance during precombat main phase without an immediate threat to respond to. Valorous Stance is an instant-speed combat trick or removal spell that is almost always better held up as a reactive play. Using it proactively here means either destroying a creature preemptively (when it could be saved for a more critical threat) or granting indestructible to nothing meaningful. Additionally, casting spells before combat when holding Angelic Gift (which could be a combat trick giving flying + drawing a card) and with Sword of Hours on board suggests poor sequencing - Fleecemane Lion should likely be cast first, then equipment attached, then consider combat before using removal/protection spells.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 100,
-    "snapshot_index": 123,
-    "aftermath_index": 124,
-    "player": "Gem25F Timmy",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Choose mode (selected 0 of 1, min 1)<br><font color='#F0E68C' object_id='735e4d37-c6da-43e5-a348-3508e5517b46'>Valorous Stance</font> [735]",
-    "chosen_display": "2. Destroy target creature with toughness 4 or greater.",
-    "annotation_severity": "moderate",
-    "annotation_description": "There are no creatures with toughness 4 or greater on the battlefield. Troll Ascetic is 3/2 (and has hexproof), Karazikar is 3/3, and Rat tokens are 1/1. Choosing mode 2 means the spell has no valid targets and will be wasted.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 103,
-    "snapshot_index": 125,
-    "aftermath_index": 126,
-    "player": "Gem25F Timmy",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a creature",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25F Timmy has Fleecemane Lion in hand (GW, 3/3) and has the mana to cast it (Forest + Wild Growth for GG, Sungrass Prairie + 1 for GW, Sol Ring for CC). They have 5+ mana available and could cast Fleecemane Lion and equip Sword of Hours to it (equip cost 2). Instead they passed without deploying any threats. Fleecemane Lion is an excellent creature that can later become hexproof/indestructible, and with Sword of Hours already on board, getting a creature out to equip it to is important. Even just casting the Lion alone would develop the board meaningfully.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 105,
-    "snapshot_index": 126,
-    "aftermath_index": 127,
-    "player": "Gem25F Timmy",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25F Timmy has Fleecemane Lion in hand (a 3/3 for GW) and has the mana to cast it (Forest + Wild Growth gives GG, Sungrass Prairie + 1 gives GW). With 5 lands, Sol Ring, and Wild Growth, there's plenty of mana available. Fleecemane Lion is a strong early creature that can later become hexproof and indestructible. Additionally, Sword of Hours is already on the battlefield waiting to be equipped. Deploying the Lion now would establish board presence and set up a future equip. Passing with unused mana and a castable creature is leaving value on the table.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 107,
-    "snapshot_index": 128,
-    "aftermath_index": 129,
-    "player": "Gem25F Timmy",
-    "turn": 5,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25F Timmy has untapped mana available (Island, Forest with Wild Growth, Forest, Sol Ring, Sungrass Prairie) and could cast Fleecemane Lion (GW) this turn. With 5+ mana available, they could cast the Lion and even equip Sword of Hours to it, developing their board. Instead they passed with significant unused mana, missing a land drop opportunity (no land played this turn based on board) and failing to deploy a threat. Fleecemane Lion is a strong 3/3 that can later become hexproof/indestructible, and getting it down earlier with equipment is valuable.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 109,
-    "snapshot_index": 130,
-    "aftermath_index": 131,
-    "player": "Gem3F Sarge",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Solemn Simulacrum {4} 2/2 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "With 7 lands available, casting Solemn Simulacrum for 4 uses all mana and leaves nothing for interaction. Yavimaya Elder costs only 3 mana ({1}{G}{G}), leaving 4 mana open to cast Fact or Fiction at instant speed on an opponent's end step. This would yield both a creature on board AND a powerful card draw spell in the same turn cycle, rather than just one creature.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 118,
-    "snapshot_index": 134,
-    "aftermath_index": 135,
-    "player": "Gem3F Sarge",
-    "turn": 5,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Troll Ascetic 3/2 [Attack]",
-    "annotation_severity": "questionable",
-    "annotation_description": "All opponents have no untapped creatures available to block. Solemn Simulacrum could attack for 2 free damage with zero risk. Even if it were somehow blocked and killed, it draws a card on death. Keeping it back as a blocker has some value with Karazikar on the board potentially goading creatures in future turns, but passing up guaranteed free damage seems suboptimal.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 129,
-    "snapshot_index": 138,
-    "aftermath_index": 139,
-    "player": "Haiku Villain",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Halimar Depths [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Halimar Depths (enters tapped) instead of Swamp means only 4 mana available this turn instead of 5. With Swamp untapped, Haiku Villain could cast both Mind Stone (2) and Loyal Subordinate (2B) this turn, deploying two permanents and accelerating mana. With Halimar Depths tapped, they can only cast one. The scry-3 effect of Halimar Depths has value but can be played on a future turn when the tempo cost is lower.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 130,
-    "snapshot_index": 139,
-    "aftermath_index": 140,
-    "player": "Haiku Villain",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Haiku Villain cast Loyal Subordinate (a 3/1 creature with menace and a Lieutenant ability that requires controlling your commander) before casting Mind Stone. Mind Stone provides mana acceleration that would help cast the expensive cards in hand (Sphinx of Uthuun at 7 mana, Adarkar Valkyrie at 6 mana, Lightform at 3 mana). The Loyal Subordinate's Lieutenant ability won't trigger since Aminatou isn't on the battlefield, making it just a vanilla 3/1 menace creature. Mind Stone would have been better as it accelerates toward the powerful 6+ mana cards in hand and can be sacrificed later to draw a card. Additionally, playing the Swamp from hand first (land drop) before casting either spell would have been correct sequencing, giving access to more mana options.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 144,
-    "snapshot_index": 144,
-    "aftermath_index": 145,
-    "player": "Sonnet Stoic",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Mountain [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing Mountain instead of Swamp when the player already has 2 Mountains but only 1 Swamp. With Rakdos Charm (BR) in hand and Chittering Witch's ability (1B, sacrifice) available, having more black mana sources would be more valuable. The player already has more than enough red sources.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 154,
-    "snapshot_index": 148,
-    "aftermath_index": 149,
-    "player": "Sonnet Stoic",
-    "turn": 6,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "All attack",
-    "annotation_severity": "questionable",
-    "annotation_description": "Attacking with all creatures including Prosper, Tome-Bound (commander and value engine with deathtouch) and Chittering Witch (utility creature with sacrifice ability) risks losing important non-combat pieces unnecessarily. Prosper generates card advantage each end step and Chittering Witch can sacrifice rats for removal.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 158,
-    "snapshot_index": 148,
-    "aftermath_index": 149,
-    "player": "Gem25F Timmy",
-    "turn": 6,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "questionable",
-    "annotation_description": "Karazikar, the Eye Tyrant is a high-value multiplayer threat that goads creatures and draws cards whenever opponents attack each other. Leaving it on the board allows Sonnet Stoic to accumulate significant card advantage over multiple turns. Valorous Stance can cleanly destroy it (toughness 5 >= 4).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 173,
-    "snapshot_index": 152,
-    "aftermath_index": 153,
-    "player": "Gem25F Timmy",
-    "turn": 6,
-    "phase": "END",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "questionable",
-    "annotation_description": "At the end of Sonnet Stoic's turn, Gem25F Timmy has untapped mana available (Island, Forest, Forest with Wild Growth, Sol Ring, Sungrass Prairie) and could activate Lumbering Falls to make it a 3/3 creature. While there's no immediate combat use for this, activating it at end of opponent's turn is generally low-cost and could be relevant if anything unexpected happens. However, the bigger consideration is whether Valorous Stance could be useful here - Karazikar, the Eye Tyrant (likely has toughness 4+) is a significant threat that forces attacks and gives the controller card advantage. Destroying it with Valorous Stance at instant speed at end of turn would be a clean answer to a dangerous threat, especially since it's already tapped.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 175,
-    "snapshot_index": 153,
-    "aftermath_index": 154,
-    "player": "Gem25F Timmy",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Fleecemane Lion {G}{W} 3/3 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Fleecemane Lion before combat is slightly suboptimal. Timmy has Lumbering Falls that can animate into a 3/3 hexproof attacker, and holding the Lion until after combat would deny opponents information about board state. More importantly, casting Fertile Ground first would be better sequencing - it would enchant a land (like the Forest with Wild Growth, or another land) to generate extra mana, potentially allowing Timmy to both play Fleecemane Lion AND have mana available for Valorous Stance or to activate Lumbering Falls. Playing Fertile Ground on the untapped Forest would give access to more mana this turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 193,
-    "snapshot_index": 159,
-    "aftermath_index": 160,
-    "player": "Gem3F Sarge",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Casting Minds Aglow in multiplayer gives all opponents free card draw. With 6 mana to pump into it, all 4 players draw those cards equally, giving opponents a combined 3x the cards Sarge draws. Sarge already has 6 cards in hand, so the marginal value is low, while opponents with fewer cards benefit more.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 196,
-    "snapshot_index": 160,
-    "aftermath_index": 161,
-    "player": "Gem3F Sarge",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Passed the main phase with 6 mana available without deploying Yavimaya Elder, a strong value creature that would help ramp toward casting Damia next turn. Even if holding up Fact or Fiction for end-of-turn, they had enough mana to cast both Yavimaya Elder (1GG) and still have 3 mana remaining, though not quite enough for FoF (3U needs 4). They could at least advance their board with Elder.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 198,
-    "snapshot_index": 161,
-    "aftermath_index": 162,
-    "player": "Gem3F Sarge",
-    "turn": 6,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Troll Ascetic 3/2 [Attack]",
-    "annotation_severity": "minor",
-    "annotation_description": "Troll Ascetic (3/2 hexproof with regeneration available) was held back from attacking despite being one of the safest attackers in the format. With hexproof it can't be targeted by removal, and with regeneration mana available (has untapped Forests) it survives most blocks. Haiku Villain is at a vulnerable 13 life, making additional pressure valuable.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 205,
-    "snapshot_index": 162,
-    "aftermath_index": 163,
-    "player": "Gem3F Sarge",
-    "turn": 6,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Sarge declined to cast Fact or Fiction at the end of an opponent's combat step, which is the ideal time to cast it (end of combat or end of turn on an opponent's turn). They have 5 untapped lands (3 Swamps, 2 Forests, 1 Island) plus an untapped Solemn Simulacrum \u2014 wait, looking more carefully, the lands and creatures are tapped. Let me re-examine. The board shows Forest, Swamp, Swamp, Island, Forest with Troll Ascetic tapped and Swamp and Solemn Simulacrum tapped. That's 5 lands untapped and 1 Swamp tapped plus the two creatures tapped. Actually, none of the lands are marked as tapped \u2014 only Troll Ascetic and Solemn Simulacrum are tapped. So Sarge has 3 Swamps, 2 Forests, and 1 Island untapped = 6 mana available, more than enough to cast Fact or Fiction (3U). This is during Sarge's own combat step though, not an opponent's turn. Still, with 6 mana available and Fact or Fiction in hand, passing on casting it during their own combat (before second main) means they could cast it in their second main phase or save mana for something else. Since it's their own turn, they can cast it in main phase 2, so declining here is fine \u2014 sorcery-speed plays in main phase 2 are still available. Actually wait \u2014 Fact or Fiction is an instant, so casting it in combat is legal but there's no particular advantage over waiting for main phase 2. Declining is reasonable since they might want to sequence plays in main phase 2 after seeing the cards.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 207,
-    "snapshot_index": 163,
-    "aftermath_index": 164,
-    "player": "Gem3F Sarge",
-    "turn": 6,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Sarge declined to cast Fact or Fiction at the end of an opponent's combat step, which is the optimal time to cast it (end of opponent's turn or during combat). They have 4 untapped lands (3 Swamps, 1 Island, 2 Forests) plus a tapped Solemn Simulacrum, giving them access to at least 1 blue and 3 other mana - exactly enough to cast Fact or Fiction for {3}{U}. Casting it now would dig 5 cards deep and get cards into hand before their own turn, maximizing available mana on their turn for playing what they find. There's no reason to hold it since they have Spell Crumple for countermagic if needed, and the remaining untapped lands could still leave mana open. Actually, looking more carefully - the board shows Troll Ascetic and Solemn Simulacrum are tapped (likely from attacking), and looking at the lands: Forest, Swamp, Swamp, Island, Forest, Swamp - 6 lands total, but the tapped status isn't shown for all lands. Given that Fact or Fiction appears as a valid casting option, they must have sufficient untapped mana. Passing on an end-of-opponent's-turn Fact or Fiction is a missed opportunity for card advantage at the best possible timing.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 220,
-    "snapshot_index": 168,
-    "aftermath_index": 169,
-    "player": "Gem3F Sarge",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Command Tower [Land]",
-    "annotation_severity": "minor",
-    "annotation_description": "Played Command Tower instead of Golgari Rot Farm when all lands were tapped. Since it's postcombat main and all lands are tapped, Golgari Rot Farm entering tapped has zero tempo cost. Playing the bounce land would net +1 mana going forward (bouncing a Swamp and replaying it next turn), which could enable casting Damia (7 mana) sooner while keeping up interaction.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 227,
-    "snapshot_index": 173,
-    "aftermath_index": 174,
-    "player": "Haiku Villain",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Mind Stone {2} [Cast]",
-    "annotation_severity": "minor",
-    "annotation_description": "Haiku Villain has a Swamp in hand but cast Mind Stone before playing their land for the turn. Playing the Swamp first would maximize available mana after casting Mind Stone, potentially enabling additional plays or leaving more mana open for future interactions.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 240,
-    "snapshot_index": 179,
-    "aftermath_index": 180,
-    "player": "Haiku Villain",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Mind Stone \u2014 {1}, {T}, Sacrifice {this}: Draw a card. [Activate]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Sacrificing Mind Stone for a card when holding two expensive spells (Sphinx of Uthuun at 7 mana, Adarkar Valkyrie at 6 mana) that require significant mana to cast. At 9 life, getting to 6-7 mana quickly is critical, and Mind Stone provides ongoing ramp. Lightform at 3 mana is the only castable spell and could be played next turn with current mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 251,
-    "snapshot_index": 187,
-    "aftermath_index": 188,
-    "player": "Sonnet Stoic",
-    "turn": 7,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Karazikar, the Eye Tyrant 5/5 [Attack]",
-    "annotation_severity": "major",
-    "annotation_description": "Haiku Villain is at 9 HP with no untapped blockers (Loyal Subordinate is tapped). Sonnet Stoic has Karazikar (5/5), Prosper (1/4), Chittering Witch (2/2), and 4 Rat Tokens (1/1 each) available. Only 2 creatures were sent to attack, likely dealing only 6-7 damage, failing to kill Haiku Villain. Sending Karazikar (5) + Chittering Witch (2) + 2 Rat Tokens (2) = 9 damage exactly lethal, or more for guaranteed kill.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 265,
-    "snapshot_index": 194,
-    "aftermath_index": 195,
-    "player": "Gem25F Timmy",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Choose mode (selected 0 of 1, min 1)<br><font color='#F0E68C' object_id='735e4d37-c6da-43e5-a348-3508e5517b46'>Valorous Stance</font> [735]",
-    "chosen_display": "Cancel",
-    "annotation_severity": "moderate",
-    "annotation_description": "Valorous Stance is already on the stack and the player canceled mode selection, likely wasting the spell. Additionally, the reasoning about insufficient mana appears wrong - Sungrass Prairie (untapped) can produce {W} with {1} from Lumbering Falls. Even if the cancel backs out the cast, mode 2 (destroy creature with toughness 4+) could have destroyed Karazikar, the Eye Tyrant, a significant threat.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 268,
-    "snapshot_index": 196,
-    "aftermath_index": 197,
-    "player": "Gem25F Timmy",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Timmy has Sungrass Prairie and Lumbering Falls untapped, giving access to {G}{W} or {G}{U} plus potentially more from Wild Growth. With 3 available mana (Sungrass Prairie for {G}{W} + Lumbering Falls for {G} or {U}), Timmy could equip Sword of Hours to Lumbering Falls for {2}, and still have mana available. While there are no creatures to equip to currently on board (Lumbering Falls could become a creature but only with {2}{G}{U} which costs 4), the real missed opportunity is casting Angelic Gift on an opponent's creature to draw a card (it says 'enchant creature' not 'enchant creature you control'). Actually, looking more carefully - Angelic Gift costs {1}{W} and Timmy has Sungrass Prairie untapped which can produce {G}{W} for {1}{T}. But that only gives {G}{W} - the {1} in Angelic Gift's cost could be paid by {G}, so Timmy could cast Angelic Gift on any creature to cantrip. Drawing a card for free is value that shouldn't be passed up, especially with a small hand of only 2 cards.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 281,
-    "snapshot_index": 199,
-    "aftermath_index": 200,
-    "player": "Gem3F Sarge",
-    "turn": 7,
-    "phase": "COMBAT",
-    "message": "When <font color='#90EE90' object_id='0cc13d02-f917-44d3-a2d1-c4fd985d774d'>Yavimaya Elder</font> [0cc] dies, you may search your library for up to two basic land cards, reveal them, put them into your hand, then shuffle.",
-    "chosen_display": "True",
-    "annotation_severity": "minor",
-    "annotation_description": "Selected a Swamp when they already have 3 Swamps on board plus one in hand, while only having 1 Island. They have Spell Crumple (1UU) and Damia (4BGU) in hand that need blue mana, and Acidic Slime (3GG) that needs double green. Black mana is already well-covered.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 289,
-    "snapshot_index": 203,
-    "aftermath_index": 204,
-    "player": "Gem3F Sarge",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Damia, Sage of Stone {4}{B}{G}{U} 4/4 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Cast Damia, Sage of Stone before playing a land for the turn. With 8 remaining cards in hand after casting Damia (before land drop), playing a land first would reduce hand size and better enable Damia's upkeep draw ability. Also, Damia's draw ability won't fire next upkeep since they'll still have ~7 cards in hand. Additionally, Acidic Slime could have provided more immediate value by destroying Karazikar, the Eye Tyrant or an opponent's Sol Ring.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 293,
-    "snapshot_index": 205,
-    "aftermath_index": 206,
-    "player": "Gem3F Sarge",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Sarge passed without playing a land, despite having Barren Moor, Swamp, and Forest in hand, and only having 6 lands on the battlefield. Missing a land drop on turn 7 when holding multiple lands is a clear mistake - even Barren Moor entering tapped would provide mana next turn. The player has expensive cards like Acidic Slime (5 mana) and The Mimeoplasm (commander, 5 mana) that need more mana to cast. Playing a land costs nothing and increases future options.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 296,
-    "snapshot_index": 206,
-    "aftermath_index": 207,
-    "player": "Gem3F Sarge",
-    "turn": 7,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "False",
-    "annotation_severity": "questionable",
-    "annotation_description": "Gem3F Sarge declined to attack with any creatures despite having Troll Ascetic (3/2 with hexproof and regenerate) and Solemn Simulacrum (2/2) available. Troll Ascetic is very difficult to interact with due to hexproof and can regenerate if needed. The two remaining opponents are Gem25F Timmy (31hp, no untapped blockers) and Sonnet Stoic (40hp, has two Rat tokens and a tapped Karazikar). Timmy has no untapped creatures to block, making a free 3 damage attack available. Even against Stoic, the Rat tokens are only 1/1s and Troll Ascetic would survive blocking. Passing up free damage, especially with a hexproof creature against a defenseless opponent, is suboptimal in a multiplayer game where chip damage matters.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 300,
-    "snapshot_index": 207,
-    "aftermath_index": 208,
-    "player": "Gem3F Sarge",
-    "turn": 7,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Sarge passed the turn with an unplayed land in hand (Barren Moor, Swamp, or Forest) while having only 6 lands on the battlefield. Missing a land drop delays casting powerful spells like Acidic Slime (5 mana) and The Mimeoplasm (5 mana commander). Even though Barren Moor enters tapped, playing it now costs nothing and provides an additional mana source next turn. With Acidic Slime in hand costing {3}{G}{G}, having 7 lands available next turn (or 6 untapped) is significantly better than 6.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 309,
-    "snapshot_index": 212,
-    "aftermath_index": 213,
-    "player": "Sonnet Stoic",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Share the Spoils \u2014 Cast Share the Spoils [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Sonnet Stoic declined to sacrifice Mind Stone to draw a card while having only 1 card in hand (Rakdos Charm). With Sol Ring and multiple lands available, the mana from Mind Stone is less important than finding more action. The reasoning about 'letting Cascade resolve' appears confused as there's no cascade on the stack.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 313,
-    "snapshot_index": 212,
-    "aftermath_index": 213,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Player declined to play a land during their precombat main phase despite having Barren Moor, Swamp, and Forest in hand. With only 5 lands on battlefield and Acidic Slime (5 mana) in hand as a key answer to Karazikar, the Eye Tyrant, missing this land drop delays casting important spells by a turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 329,
-    "snapshot_index": 216,
-    "aftermath_index": 217,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Declined to play Barren Moor when it was a free land drop. With Acidic Slime (5 mana) and Spell Crumple (3 mana) in hand, every land matters. Playing Barren Moor tapped costs nothing and gets them closer to casting their more expensive spells.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 332,
-    "snapshot_index": 217,
-    "aftermath_index": 218,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Sarge has an untapped Forest and Barren Moor in hand but chose not to play the Barren Moor. With only 1 untapped land (Forest) and 7 cards in hand, playing Barren Moor (which enters tapped) would give an additional land on future turns. Since they have 7 cards in hand and will need to discard to hand size if they don't play a land, missing this land drop is a clear mistake. They have both Swamp and Forest in hand plus Barren Moor - they should play one of their lands this turn to avoid missing a land drop and to develop their mana for expensive spells like Acidic Slime (5 mana).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 336,
-    "snapshot_index": 218,
-    "aftermath_index": 219,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Sarge has an untapped Forest and Barren Moor in hand but chose not to play it. While Barren Moor enters tapped, playing it now is free value - it's an extra land drop that costs nothing. The player has 7 cards in hand and only 6 lands on the battlefield, so missing this land drop means falling behind on mana development. With expensive cards like Acidic Slime (5 mana) in hand, getting to more mana sooner is important.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 340,
-    "snapshot_index": 220,
-    "aftermath_index": 221,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Sarge has Barren Moor in hand and only one untapped Forest on the battlefield. Playing Barren Moor (which enters tapped) costs nothing and provides an additional black mana source for future turns. Missing a land drop when you have a playable land is a clear mistake, especially when the player has expensive cards like Acidic Slime (5 mana) in hand and needs to develop their mana base.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 344,
-    "snapshot_index": 223,
-    "aftermath_index": 224,
-    "player": "Gem25F Timmy",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Passed without activating Fleecemane Lion's Monstrosity ability. Making the Lion hexproof and indestructible is a permanent, powerful upgrade that makes it an excellent equipment carrier and nearly impossible to remove. The mana was available ({3}{G}{W}) and there was no pressing need to hold up mana for other plays.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 353,
-    "snapshot_index": 227,
-    "aftermath_index": 228,
-    "player": "Gem25F Timmy",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Holy Avenger \u2014 Equip {2}{W} [Activate]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem25F Timmy chose to equip Sword of Hours but has no creatures on the battlefield to equip it to. Lumbering Falls is currently a land, not a creature. The equip will fizzle, wasting 2 mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 357,
-    "snapshot_index": 227,
-    "aftermath_index": 228,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Declined to play a land when holding three lands in hand (Barren Moor, Swamp, Forest) with only 5 lands on the battlefield. With Acidic Slime (5 mana) and Spell Crumple (3 mana) in hand, getting to 6 lands is important for future turns. Even Barren Moor entering tapped provides future mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 386,
-    "snapshot_index": 232,
-    "aftermath_index": 233,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Failed to play Barren Moor as their land drop for the turn. Playing it is pure upside - it enters tapped but provides an additional land for future turns. With Acidic Slime (5 mana) and Spell Crumple (3 mana) in hand, having more mana available is valuable. There's no reason to hold Barren Moor since playing it reduces hand size from 7 to 6 (no discard issues) while adding future mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 392,
-    "snapshot_index": 236,
-    "aftermath_index": 237,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select an artifact, enchantment, or land",
-    "chosen_display": "Argentum Armor (Gem25F Timmy's)",
-    "annotation_severity": "questionable",
-    "annotation_description": "Argentum Armor is unequipped and Gem25F Timmy has no creatures on the battlefield, making it a dormant threat. Meanwhile Sonnet Stoic at 40 life has the strongest active board with Karazikar and Prosper generating value, plus Sol Ring providing mana acceleration.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 395,
-    "snapshot_index": 237,
-    "aftermath_index": 238,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Passed priority without playing a land (Swamp or Barren Moor in hand) and without casting Stitch Together (BB) to return Yavimaya Elder from graveyard to hand. The reasoning about casting Acidic Slime was confused - Acidic Slime is not in hand, and the mentioned Argentum Armor target is already in Timmy's graveyard. Missing the land drop loses tempo and mana development.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 397,
-    "snapshot_index": 238,
-    "aftermath_index": 239,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "All attack",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Sarge has an untapped Swamp and Barren Moor in hand with no meaningful instant-speed plays available. Cycling Barren Moor for {B} would draw a card at essentially no cost since the available untapped mana (Forest + Swamp) cannot be used for any relevant spell (Spell Crumple needs UU, Stitch Together is sorcery speed).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 407,
-    "snapshot_index": 241,
-    "aftermath_index": 242,
-    "player": "Gem3F Sarge",
-    "turn": 8,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Failed to cycle Barren Moor with an untapped Swamp available and no other use for the mana. This is a free card draw opportunity that also advances graveyard count toward Stitch Together's threshold (currently at 5 cards in graveyard, threshold needs 7). The Barren Moor in hand is worse than a basic Swamp since it enters tapped, and Sarge already has a Swamp in hand for future land drops.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 414,
-    "snapshot_index": 246,
-    "aftermath_index": 247,
-    "player": "Sonnet Stoic",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Hex \u2014 Cast Hex [Activate]",
-    "annotation_severity": "major",
-    "annotation_description": "Hex requires 6 creature targets but there are very few opponent creatures, meaning Sonnet Stoic must destroy most of their own board (Karazikar, Prosper, Rat Token) just to kill opponents' creatures. Additionally, Troll Ascetic has hexproof and can't be targeted. Sonnet Stoic is trading away their key value engines (Karazikar, Prosper) to destroy essentially just Solemn Simulacrum (which draws Sarge a card on death).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 425,
-    "snapshot_index": 247,
-    "aftermath_index": 248,
-    "player": "Sonnet Stoic",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Fiend of the Shadows was likely targeted by Hex and could have been saved by activating its regenerate ability (sacrifice a Human, no mana cost). Chittering Witch is a Human that was presumably also targeted by Hex, so sacrificing it to regenerate Fiend would save one creature at no additional cost since Chittering Witch was dying anyway.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 436,
-    "snapshot_index": 260,
-    "aftermath_index": 261,
-    "player": "Sonnet Stoic",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Sonnet Stoic passed without casting Dire Fleet Daredevil (1R), which could have been cast using Mountain + Sol Ring to exile and cast Fact or Fiction or Cultivate from Gem3F Sarge's graveyard, generating significant card advantage. The Daredevil could also have attacked as a 2/1 first striker.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 442,
-    "snapshot_index": 265,
-    "aftermath_index": 266,
-    "player": "Gem3F Sarge",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a creature card from your graveyard",
-    "chosen_display": "Damia, Sage of Stone",
-    "annotation_severity": "questionable",
-    "annotation_description": "Chose Damia, Sage of Stone over Lhurgoyf with Threshold active (direct to battlefield). With Brawn in the graveyard granting trample and ~7 creature cards across all graveyards, Lhurgoyf would enter as approximately a 7/8 trampler - a massive immediate threat. Damia is a 4/4 deathtouch that skips your draw step and only draws 2 cards next upkeep (since hand has 5 cards). The draw-step skip is a real cost, and in a 3-player game where closing speed matters, the enormous trampler may be stronger.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 445,
-    "snapshot_index": 265,
-    "aftermath_index": 267,
-    "player": "Gem3F Sarge",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Vorosh, the Hunter \u2014 Cast Vorosh, the Hunter [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Declined to play Barren Moor as a land drop with expensive cards (Mulldrifter at 5 mana, Desecrator Hag at 4 mana) in hand and only 5 lands on board. Missing a land drop delays casting these important cards.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 447,
-    "snapshot_index": 266,
-    "aftermath_index": 267,
-    "player": "Sonnet Stoic",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Sonnet Stoic passed with mana available to cast Dire Fleet Daredevil ({1}{R}) targeting Serum Visions in Gem25F Timmy's graveyard, then casting it for {U} (mana of any type) to draw a card and scry 2, while also getting a 2/1 first strike body. With only 3 cards in hand, this card advantage would be meaningful.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 450,
-    "snapshot_index": 266,
-    "aftermath_index": 268,
-    "player": "Gem3F Sarge",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Passed priority without playing Barren Moor from hand, missing a free land drop. Also potentially missed the opportunity to evoke Mulldrifter for {2}{U} to draw 2 cards, which would have been affordable with 4 untapped lands.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 452,
-    "snapshot_index": 268,
-    "aftermath_index": 269,
-    "player": "Gem3F Sarge",
-    "turn": 9,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25F Timmy appears to have no creatures on board and likely cannot activate Lumbering Falls (needs {2}{G}{U} but has insufficient untapped mana sources). Troll Ascetic has trample from Brawn in graveyard and hexproof, making it very safe to attack. This is 3 free damage against a player at 21 life.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 458,
-    "snapshot_index": 272,
-    "aftermath_index": 273,
-    "player": "Sonnet Stoic",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Cast Dire Fleet Daredevil before playing the Mountain from hand. Playing the land first would provide an additional mana source to help cast whatever instant/sorcery is exiled from an opponent's graveyard. With the extra Mountain, they'd have more flexibility to cast the exiled spell this turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 461,
-    "snapshot_index": 274,
-    "aftermath_index": 275,
-    "player": "Sonnet Stoic",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select an instant or sorcery card from an opponent's graveyard",
-    "chosen_display": "Cultivate",
-    "annotation_severity": "minor",
-    "annotation_description": "Chose Cultivate over Fact or Fiction with Dire Fleet Daredevil. Fact or Fiction (castable for 4 mana, which Sonnet Stoic has available) would provide significantly more card advantage by seeing 5 cards and getting 2-3 of them from their own library, plus triggering Prosper's Treasure generation. Cultivate is decent ramp but less impactful at this stage of the game.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 476,
-    "snapshot_index": 282,
-    "aftermath_index": 283,
-    "player": "Gem25F Timmy",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Sword of Hours \u2014 Equip {2} <i>({2}: Attach to target creature you ... [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Equipping Sword of Hours before casting Angelic Gift is suboptimal sequencing. Angelic Gift is a cantrip that gives flying (evasion), which is critical for Sword of Hours' combat damage trigger to double counters. Casting Angelic Gift first would draw a card that might inform subsequent decisions, and giving Skullbriar flying makes the Sword of Hours doubling trigger much more likely to happen.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 495,
-    "snapshot_index": 286,
-    "aftermath_index": 287,
-    "player": "Sonnet Stoic",
-    "turn": 10,
-    "phase": "COMBAT",
-    "message": "Select blockers",
-    "chosen_display": "Rat Token 1/1 [Block]",
-    "annotation_severity": "minor",
-    "annotation_description": "Blocking with a Rat Token that will die instead of Prosper, Tome-Bound (1/4) which would survive blocking a 2/2 attacker. This wastes a Rat Token that could serve as a sacrifice resource for Chittering Witch or future chump blocker.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 507,
-    "snapshot_index": 292,
-    "aftermath_index": 292,
-    "player": "Gem25F Timmy",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select an artifact or enchantment (to sacrifice)",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25F Timmy's reasoning shows fundamental confusion about being forced to sacrifice an artifact or enchantment to Tribute to the Wild. They stated they wanted to 'pass priority' when they are required to make a sacrifice choice. This confusion likely led to a suboptimal or random sacrifice selection. The correct sacrifice would be Sword of Hours (weakest card with no creature to equip and minimal impact), preserving Sol Ring and mana enchantments (Wild Growth/Fertile Ground) which are critical for their mana production.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 524,
-    "snapshot_index": 296,
-    "aftermath_index": 297,
-    "player": "Gem3F Sarge",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Prognostic Sphinx \u2014 Cast Prognostic Sphinx [Activate]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Casting Prognostic Sphinx from exile (via Share the Spoils) is a decent threat but fuels Sonnet Stoic's Share the Spoils engine with another exile trigger. Meanwhile, Fleshbag Marauder for 3 mana would force Sonnet Stoic to sacrifice either Prosper, Tome-Bound (their key value engine) or Chittering Witch, which could be more impactful. Additionally, Desecrator Hag could retrieve Lhurgoyf from the graveyard, which would be very large given ~16 creature cards across all graveyards.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 530,
-    "snapshot_index": 298,
-    "aftermath_index": 299,
-    "player": "Gem3F Sarge",
-    "turn": 10,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Vorosh, the Hunter 6/6 [Attack]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Only attacked with Vorosh when Troll Ascetic could likely also attack safely. With Timmy at 21 life and apparently no untapped blockers, sending both Vorosh and Troll Ascetic would deal 9 damage instead of 6. Troll Ascetic's hexproof makes it a safe attacker even without regeneration mana available.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 595,
-    "snapshot_index": 317,
-    "aftermath_index": 318,
-    "player": "Gem25F Timmy",
-    "turn": 11,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Skullbriar, the Walking Grave 3/3 [Attack]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem25F Timmy selected Skullbriar to attack but then skipped the attack entirely ('After: Gem25F Timmy skip attack'). With Skullbriar at 3/3 (with +1/+1 counters that persist) and Sword of Hours available, attacking is important for building Skullbriar's counter advantage. At 14 life facing two opponents, Timmy needs to be applying pressure. Additionally, Skullbriar gains a +1/+1 counter whenever it deals combat damage, plus Sword of Hours would add another counter and potentially double them. Missing this attack means losing significant counter-snowball potential.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 600,
-    "snapshot_index": 318,
-    "aftermath_index": 319,
-    "player": "Sonnet Stoic",
-    "turn": 11,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Sonnet Stoic passed with 4 available mana (2 Mountains + Sol Ring) but couldn't cast any interaction anyway (no untapped black source for Terminate or Rakdos Charm). They should have deployed mana rocks from hand to develop their board. Fellwar Stone (2 mana) and Commander's Sphere (3 mana) could both have been cast, or at minimum one of them.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 608,
-    "snapshot_index": 322,
-    "aftermath_index": 323,
-    "player": "Gem3F Sarge",
-    "turn": 11,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Fleshbag Marauder forces Sarge to sacrifice it (or Troll Ascetic), while Sonnet Stoic only loses a 1/1 Rat Token and Timmy has no creatures. This is a terrible exchange - spending a card and 3 mana to kill a token. The AI's reasoning hallucinated having Vorosh, Sphinx, and Mulldrifter on board when only Troll Ascetic was present.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 609,
-    "snapshot_index": 322,
-    "aftermath_index": 323,
-    "player": "Sonnet Stoic",
-    "turn": 11,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Sonnet Stoic has 2 untapped Mountains and Fellwar Stone in hand (costs {2}), but chose to pass without casting it. Deploying the mana rock would provide additional mana acceleration for future turns, and there's no strategic reason to hold it.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 616,
-    "snapshot_index": 323,
-    "aftermath_index": 324,
-    "player": "Gem3F Sarge",
-    "turn": 11,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Fleshbag Marauder is on the stack and will force each player to sacrifice a creature. Gem3F Sarge controls Troll Ascetic, which has regenerate available for {1}{G}. By activating regenerate on Troll Ascetic before Fleshbag Marauder resolves, the Troll would be set up with a regeneration shield, meaning when it's sacrificed... actually, regeneration doesn't prevent sacrifice. Sacrifice cannot be regenerated from. So declining to activate regenerate is correct since it wouldn't help against Fleshbag Marauder's sacrifice effect. However, the player could have activated Prognostic Sphinx's discard ability to give it hexproof (though hexproof also doesn't help against sacrifice). Neither ability helps here.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 661,
-    "snapshot_index": 350,
-    "aftermath_index": 351,
-    "player": "Gem25F Timmy",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lumbering Falls \u2014 {2}{G}{U}: {this} becomes a 3/3 green and blue El... [Activate]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem25F Timmy activated Lumbering Falls' creature animation ability during their precombat main phase, spending 2GU (4 mana) to make it a 3/3 hexproof creature until end of turn. However, with only 14 life and no clear attack plan (Sword of Hours is unequipped, no other creatures on board), this wastes mana that could be better spent casting spells from hand like Netherese Puzzle-Ward (3U) or Curse of Verbosity (2U). The animated land would need to attack into Sonnet Stoic's Prosper and Chittering Witch or Gem3F Sarge's Troll Ascetic (which has hexproof and regenerate), making combat marginal. Additionally, the reasoning text itself admits 'I don't want' to do this, suggesting the player activated it by mistake or misunderstood the interface prompt.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 687,
-    "snapshot_index": 352,
-    "aftermath_index": 353,
-    "player": "Sonnet Stoic",
-    "turn": 12,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Commander's Sphere is available to sacrifice for a free card draw with no mana cost, and Sonnet Stoic has only 2 cards in hand with all lands tapped. Drawing an additional card when card-starved is meaningful value, though keeping the Sphere as a mana source has some future value.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 691,
-    "snapshot_index": 354,
-    "aftermath_index": 355,
-    "player": "Gem3F Sarge",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Lhurgoyf {2}{G}{G} 10/11 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Cast Lhurgoyf in precombat main phase instead of second main phase. With Troll Ascetic on board that could attack, casting a creature without haste before combat reveals information unnecessarily and doesn't allow evaluating combat results before committing mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 693,
-    "snapshot_index": 355,
-    "aftermath_index": 356,
-    "player": "Sonnet Stoic",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "questionable",
-    "annotation_description": "Lhurgoyf resolves as approximately an 11/12 creature with trample (Brawn in Sarge's graveyard + Sarge controls Forests). This is a massive threat that could be lethal in a couple swings. Terminate was offered as a valid option to destroy it on the stack/in response.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 703,
-    "snapshot_index": 360,
-    "aftermath_index": 361,
-    "player": "Gem3F Sarge",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "major",
-    "annotation_description": "Gem25F Timmy is at 14 life with no creatures and all permanents tapped. Gem3F Sarge has 17 total power across 5 creatures (Vorosh 6 + Troll Ascetic 3 + Prognostic Sphinx 3 + Fleshbag Marauder 3 + Desecrator Hag 2 = 17), which is lethal. The truncated reasoning ('fl') suggests a malfunction leading to a suboptimal attack rather than sending enough power at the defenseless Timmy for the kill.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 707,
-    "snapshot_index": 361,
-    "aftermath_index": 362,
-    "player": "Gem3F Sarge",
-    "turn": 12,
-    "phase": "COMBAT",
-    "message": "Select a player, planeswalker, or battle to attack",
-    "chosen_display": "Gem25F Timmy",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem25F Timmy is at 14 life with zero creatures and all lands tapped. Sarge has 11 power of attackers available (Troll Ascetic 3, Prognostic Sphinx 3, Fleshbag Marauder 3, Desecrator Hag 2) and Brawn in graveyard giving trample. Attacking with only Prognostic Sphinx leaves 8 free damage on the table against a defenseless opponent.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 737,
-    "snapshot_index": 371,
-    "aftermath_index": 372,
-    "player": "Sonnet Stoic",
-    "turn": 13,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Thopter Token 1/1 [Attack]",
-    "annotation_severity": "major",
-    "annotation_description": "Gem25F Timmy is at 5 life with no untapped blockers. Sonnet Stoic has multiple flying creatures (Dream Pillager 4/4, two Thopter Tokens 1/1 each) that could deal exactly 5+ flying damage for lethal. Instead, only a single 1/1 Thopter Token was selected as an attacker, dealing only 1 damage and missing the kill.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 753,
-    "snapshot_index": 378,
-    "aftermath_index": 379,
-    "player": "Sonnet Stoic",
-    "turn": 13,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem3F Sarge cast Gravedigger, which will return a powerful creature from their stacked graveyard (Damia, Acidic Slime, Mulldrifter, etc.). Sonnet Stoic had Rakdos Charm in hand which can exile a player's entire graveyard. Casting it in response to Gravedigger would exile Sarge's graveyard before Gravedigger resolves, denying the recursion target AND removing Brawn (which grants all Sarge's creatures trample) and other recursion targets.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 759,
-    "snapshot_index": 381,
-    "aftermath_index": 382,
-    "player": "Gem3F Sarge",
-    "turn": 13,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "major",
-    "annotation_description": "In a 1v1 situation, Gem3F Sarge declined to counter Damia, Sage of Stone - a card advantage engine that will refill Sonnet Stoic's hand to 7 every upkeep. Sarge has only 3 weak cards in hand (Spell Crumple, Minds Aglow, Shared Trauma) and no card draw engine, so Damia will create an insurmountable card advantage gap. Spell Crumple also tucks Damia to the bottom of the library, preventing recursion.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 770,
-    "snapshot_index": 384,
-    "aftermath_index": 385,
-    "player": "Sonnet Stoic",
-    "turn": 13,
-    "phase": "COMBAT",
-    "message": "Select blockers",
-    "chosen_display": "Dire Fleet Daredevil 2/1 [Block]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Blocked Troll Ascetic (3/3) with Loyal Apprentice (2/1), losing a key recurring value piece. Loyal Apprentice generates a flying Thopter token every combat while Prosper (commander) is in play, making it very valuable. Prosper, Tome-Bound (1/4) was available as a blocker and would survive combat against the 3/3 Troll Ascetic.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 790,
-    "snapshot_index": 394,
-    "aftermath_index": 395,
-    "player": "Sonnet Stoic",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "In a 1v1 with only 2 reactive cards in hand (Terminate and Rakdos Charm) and 8 lands on the battlefield, Sonnet Stoic passed without sacrificing Commander's Sphere to draw a card. With plenty of lands already, the mana from Commander's Sphere is less valuable than finding threats or answers. Being in a 1v1 with no creatures besides Prosper against a player at 34 life means finding threats is critical.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 796,
-    "snapshot_index": 396,
-    "aftermath_index": 397,
-    "player": "Sonnet Stoic",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Izzet Chemister \u2014 {1}{R}, {T}, Sacrifice {this}: Cast any number of...; {R}, {T}: Exile target instant or sorcery card fr... [Activate]",
-    "annotation_severity": "minor",
-    "annotation_description": "Declined to sacrifice Commander's Sphere to draw a card with only 2 cards in hand in a 1v1 situation where finding threats/answers is critical. The mana from Commander's Sphere is less valuable than card advantage when you're this low on resources.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 814,
-    "snapshot_index": 406,
-    "aftermath_index": 407,
-    "player": "Sonnet Stoic",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "major",
-    "annotation_description": "Avatar of Woe is a must-answer threat in this 1v1 situation - it has a tap ability to destroy any creature repeatedly, including Prosper, Tome-Bound (Sonnet Stoic's commander and primary value engine). Once it resolves and untaps, it will dominate the board.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 819,
-    "snapshot_index": 409,
-    "aftermath_index": 410,
-    "player": "Sonnet Stoic",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "Terminate {B}{R} [Cast]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Sonnet Stoic is casting Terminate on Wrexial, the Risen Deep while it's on the stack. Terminate says 'Destroy target creature' - it can only target creatures on the battlefield, not spells on the stack. This is an illegal play that wastes the Terminate. More importantly, Rakdos Charm could exile Gem3F Sarge's graveyard (which has 16 creature cards), which would be devastating since Wrexial cares about opponent graveyards for its triggered ability, and the graveyard is fueling potential recursion. Alternatively, Rakdos Charm's 'each creature deals 1 damage to its controller' mode or artifact destruction could be relevant. The player even noted in their reasoning they should use Rakdos Charm to exile graveyards but then chose Terminate instead.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 829,
-    "snapshot_index": 414,
-    "aftermath_index": 415,
-    "player": "Gem3F Sarge",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a spell",
-    "chosen_display": "Rakdos Charm",
-    "annotation_severity": "major",
-    "annotation_description": "Wrexial, the Risen Deep is a 5/8 with islandwalk AND swampwalk, making it completely unblockable against Gem3F Sarge who controls both Islands and Swamps. It would deal 5 unblockable damage per turn (killing in 4 attacks) and cast spells from Sarge's graveyard. Spell Crumple puts the countered spell on the bottom of the library, making it an especially effective answer. Instead, Sarge countered Rakdos Charm, which at best exiles their graveyard - far less impactful than an unblockable 5/8 game-ending threat.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 834,
-    "snapshot_index": 416,
-    "aftermath_index": 418,
-    "player": "Gem3F Sarge",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Shared Trauma {B} [Cast]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Cast Shared Trauma milling both players 5 cards symmetrically when Sarge has no board presence and no creatures to leverage the graveyard immediately. Minds Aglow would have drawn 5 cards to find actual threats like The Mimeoplasm, while Shared Trauma gives the opponent potential recursion fuel and brings Sarge closer to decking.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 846,
-    "snapshot_index": 424,
-    "aftermath_index": 425,
-    "player": "Sonnet Stoic",
-    "turn": 15,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Sonnet Stoic has 0 cards in hand and declined to sacrifice Commander's Sphere to draw a card, which is pure upside in a resource-starved position. They also could have used Izzet Chemister's {R},{T} ability to exile a powerful instant/sorcery (like Hex, Bituminous Blast, or Terminate) from their graveyard for future use. Both actions have zero downside and provide meaningful value.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 847,
-    "snapshot_index": 425,
-    "aftermath_index": 426,
-    "player": "Sonnet Stoic",
-    "turn": 15,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Dream Pillager 4/4 [Attack]",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Sarge has zero creatures on the battlefield, so there are no blockers. Attacking with only Dream Pillager deals 4 damage instead of 8 (all creatures). That's 4 free damage left on the table in a 1v1 situation where the opponent is at 20 life.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 853,
-    "snapshot_index": 426,
-    "aftermath_index": 427,
-    "player": "Gem3F Sarge",
-    "turn": 15,
-    "phase": "COMBAT",
-    "message": "Select blockers",
-    "chosen_display": "Vorosh, the Hunter 6/6 [Block]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Blocking Prosper, Tome-Bound (1/4 deathtouch) with Vorosh, the Hunter (6/6 flying) results in losing the best finisher to deathtouch while only killing a commander that returns to the command zone. At 20 life, taking 1 damage is far preferable to losing a 6/6 flyer.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 860,
-    "snapshot_index": 432,
-    "aftermath_index": 433,
-    "player": "Gem3F Sarge",
-    "turn": 15,
-    "phase": "BEGINNING",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "Avatar of Woe \u2014 {T}: Destroy target creature. It can't be regener... [Activate]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Izzet Chemister could potentially have powerful spells exiled from Sonnet Stoic's graveyard (including Hex which would destroy all of Sarge's creatures, Bituminous Blast, Terminate, etc.). Sacrificing Chemister to cast those for free could be devastating. While Prosper is a good value engine to remove, the Chemister represents a potential blowout threat that could be activated at instant speed.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 864,
-    "snapshot_index": 432,
-    "aftermath_index": 433,
-    "player": "Sonnet Stoic",
-    "turn": 15,
-    "phase": "BEGINNING",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Sonnet Stoic passed priority with 0 cards in hand when they could have sacrificed Commander's Sphere to draw a card. With an empty hand and the opponent about to destroy Prosper (their main card advantage engine), drawing a card was important to find any action.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 880,
-    "snapshot_index": 438,
-    "aftermath_index": 439,
-    "player": "Gem3F Sarge",
-    "turn": 15,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Sewer Nemesis {3}{B} 0/0 [Creature]",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Sewer Nemesis before playing a land from hand. Sarge has two Forests in hand and should play one first to have more mana available, potentially allowing casting Simic Signet as well this turn or leaving mana open. Playing land before spells is fundamental sequencing.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 881,
-    "snapshot_index": 439,
-    "aftermath_index": 440,
-    "player": "Gem3F Sarge",
-    "turn": 15,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Choosing Sonnet Stoic for Sewer Nemesis makes it a 16/16, which cannot one-shot Stoic at 27 life. Choosing themselves would make it a 22/22 with flying (Wonder) and trample (Brawn), which is lethal in a single attack against Stoic's 27 life. The self-mill downside of casting spells is manageable when you're trying to close the game immediately.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 890,
-    "snapshot_index": 442,
-    "aftermath_index": 443,
-    "player": "Sonnet Stoic",
-    "turn": 15,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Sonnet Stoic passed with 0 cards in hand when they could sacrifice Commander's Sphere to draw a card (pure upside when empty-handed and needing gas to close out the game). They also could have used Izzet Chemister to exile a powerful instant/sorcery from their graveyard (like Bituminous Blast, Hex, or Commune with Lava) to set up a future Chemister sacrifice for massive value.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 893,
-    "snapshot_index": 443,
-    "aftermath_index": 444,
-    "player": "Sonnet Stoic",
-    "turn": 15,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "With 0 cards in hand and only one opponent remaining at 12 life, sacrificing Commander's Sphere to draw a card during combat would have been free value at instant speed. The mana from the Sphere is less important than having any card in hand.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 897,
-    "snapshot_index": 444,
-    "aftermath_index": 445,
-    "player": "Sonnet Stoic",
-    "turn": 15,
-    "phase": "COMBAT",
-    "message": "Select blockers",
-    "chosen_display": "Unstable Obelisk \u2014 {7}, {T}, Sacrifice {this}: Destroy target perman... [Activate]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Sonnet Stoic chose to activate Unstable Obelisk instead of using available blockers against Vorosh (6/6) and Damia (4/4). With Izzet Chemister (1/3) and Riddlekeeper (1/4) available, they could block to prevent up to 4-6 damage. Taking a full 10 unblocked in a 1v1 where they're the only remaining opponents is significant. Additionally, the Unstable Obelisk's 7-mana destroy ability likely can't be paid with only ~3-4 available mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 898,
-    "snapshot_index": 447,
-    "aftermath_index": 448,
-    "player": "Sonnet Stoic",
-    "turn": 16,
-    "phase": "BEGINNING",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "Unstable Obelisk \u2014 {7}, {T}, Sacrifice {this}: Destroy target perman... [Activate]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Sacrificing Unstable Obelisk to destroy one of Gem3F Sarge's 8 lands in a topdeck war. This trades an ongoing mana source for minimal board impact - removing 1 of 8 lands barely matters. The Obelisk would be better kept as a mana source or saved for a higher-impact target like a creature threat.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 902,
-    "snapshot_index": 449,
-    "aftermath_index": 450,
-    "player": "Sonnet Stoic",
-    "turn": 16,
-    "phase": "BEGINNING",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Sonnet Stoic is hellbent (0 cards in hand) in a 1v1 at 12 life each. Commander's Sphere sacrifice to draw a card is pure upside, especially before the main phase so the drawn card can be played this turn. Additionally, Izzet Chemister could exile a powerful instant/sorcery from the graveyard (like Bituminous Blast or Terminate) to build toward a future sacrifice activation.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 907,
-    "snapshot_index": 450,
-    "aftermath_index": 451,
-    "player": "Sonnet Stoic",
-    "turn": 16,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Consuming Vapors {3}{B} [Cast]",
-    "annotation_severity": "questionable",
-    "annotation_description": "Casting Consuming Vapors when the opponent has no creatures on the battlefield means the spell does nothing this turn. While the Rebound could potentially hit a creature next turn, spending 4 mana for zero immediate effect in a tight 12-12 life race is risky. The opponent might not play a creature before the rebound trigger, wasting the spell entirely.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 908,
-    "snapshot_index": 451,
-    "aftermath_index": 452,
-    "player": "Sonnet Stoic",
-    "turn": 16,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a player",
-    "chosen_display": "Gem3F Sarge",
-    "annotation_severity": "minor",
-    "annotation_description": "With 0 cards in hand, Sonnet Stoic passed on sacrificing Commander's Sphere to draw a card and also missed using Izzet Chemister's {R},{T} ability to exile a powerful instant/sorcery (like Fevered Suspicion or Hex) from their graveyard. Both are free value opportunities that were missed.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 912,
-    "snapshot_index": 460,
-    "aftermath_index": 461,
-    "player": "Sonnet Stoic",
-    "turn": 16,
-    "phase": "BEGINNING",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Sonnet Stoic passed priority during Gem3F Sarge's upkeep with 0 cards in hand, declining to use Izzet Chemister's {R},{T} ability to exile instant/sorcery cards from their graveyard. The graveyard contains valuable spells like Bituminous Blast, Commune with Lava, Fevered Suspicion, Terminate, Hex, and Danse Macabre. Even more critically, Izzet Chemister's sacrifice ability ({1}{R},{T}) lets you cast all exiled cards for free - but you need to first exile cards with the {R},{T} ability. With 0 cards in hand and facing an opponent at 10 life in a 1v1 situation, building up exiled cards on Chemister is extremely important. Every turn the Chemister sits without exiling a spell is a wasted opportunity. Additionally, the Commander's Sphere could be sacrificed to draw a card since Sonnet Stoic has 0 cards in hand and all lands are tapped anyway (this is the opponent's turn, so the mana wouldn't be wasted).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 913,
-    "snapshot_index": 461,
-    "aftermath_index": 462,
-    "player": "Gem3F Sarge",
-    "turn": 16,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Grave Pact {1}{B}{B}{B} [Cast]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Grave Pact does nothing on an empty board - neither player has creatures. At 10 life against an opponent at 17 life, Sarge needs to deploy a win condition, not a symmetrical enchantment that requires having creatures to function.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 923,
-    "snapshot_index": 466,
-    "aftermath_index": 467,
-    "player": "Sonnet Stoic",
-    "turn": 16,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Sonnet Stoic has 0 cards in hand and declined to sacrifice Commander's Sphere to draw a card for free. With an empty hand in a 1v1 situation at 17 life vs 10 life, drawing a card is critical to finding threats or answers. Commander's Sphere's sacrifice draw ability costs no mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 927,
-    "snapshot_index": 467,
-    "aftermath_index": 468,
-    "player": "Sonnet Stoic",
-    "turn": 16,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "With 0 cards in hand and 8 lands on board, declining to sacrifice Commander's Sphere for a free card draw is suboptimal. The card advantage from drawing is worth more than the incremental mana from Commander's Sphere when already at 8 mana sources.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 937,
-    "snapshot_index": 468,
-    "aftermath_index": 469,
-    "player": "Sonnet Stoic",
-    "turn": 16,
-    "phase": "COMBAT",
-    "message": "Select blockers",
-    "chosen_display": "Lorcan, Warlock Collector 6/6 [Block]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Lorcan, Warlock Collector is a critical value engine and has a self-exile clause (Warlocks exile instead of dying). Blocking Vorosh with Lorcan results in a trade where Lorcan is permanently exiled. A Thopter token (1/1 flying) could chump-block Vorosh instead, saving the same 6 damage while preserving Lorcan to block a ground creature like Damia (which Lorcan would survive as 6/6 vs 4/4).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 944,
-    "snapshot_index": 472,
-    "aftermath_index": 473,
-    "player": "Sonnet Stoic",
-    "turn": 17,
-    "phase": "BEGINNING",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "major",
-    "annotation_description": "With 0 cards in hand, 8 life, no creatures, and facing an opponent at 10 life, Sonnet Stoic declined to use any of their available card draw abilities. Commander's Sphere sacrifice costs zero mana and draws a card - pure upside. Mind Stone sacrifice costs only 1 mana. Being hellbent with no board presence and needing answers desperately makes drawing cards critical.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 956,
-    "snapshot_index": 472,
-    "aftermath_index": 473,
-    "player": "Gem3F Sarge",
-    "turn": 17,
-    "phase": "BEGINNING",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Sacrificed Szadek (5 toughness) instead of Damia (4 toughness) to Consuming Vapors. This gives Sonnet Stoic 1 extra life AND loses a stronger offensive threat. In a 1v1 at 10 life vs 8 life, Szadek's flying and mill/growth ability is very valuable, while Damia's card draw is less critical when Sarge already has a near-empty hand and needs to close the game quickly. Wrexial is unblockable against Sonnet Stoic's Swamps, making it the best attacker, but Szadek's flying is the second-best way to push damage through.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 958,
-    "snapshot_index": 473,
-    "aftermath_index": 474,
-    "player": "Sonnet Stoic",
-    "turn": 17,
-    "phase": "BEGINNING",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Sonnet Stoic declined to sacrifice Commander's Sphere for a free card draw while having 0 cards in hand. Drawing an extra card before the draw step could provide crucial options to close out the game against Gem3F Sarge at 10 life. The Commander's Sphere sacrifice has no mana cost, so it's pure upside when you need cards more than mana ramp.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 964,
-    "snapshot_index": 476,
-    "aftermath_index": 477,
-    "player": "Sonnet Stoic",
-    "turn": 17,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "With 0 cards in hand in a 1v1 where Sonnet Stoic needs to find threats to close out the game against Gem3F Sarge at 10 life, passing without activating Mind Stone's draw ability or using Izzet Chemister to exile valuable instants/sorceries from the graveyard wastes critical resources. Drawing a card with Mind Stone is essentially free value when you have no hand.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 966,
-    "snapshot_index": 477,
-    "aftermath_index": 478,
-    "player": "Sonnet Stoic",
-    "turn": 17,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Vandalblast {R} [Cast]",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem3F Sarge has no artifacts on the battlefield - only 8 lands. Casting Vandalblast (even at regular cost for {R}) has no meaningful target and wastes the card. In a close 1v1 situation at 13 vs 10 life, every card matters.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 977,
-    "snapshot_index": 487,
-    "aftermath_index": 488,
-    "player": "Gem3F Sarge",
-    "turn": 17,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Syphon Flesh {4}{B} [Cast]",
-    "annotation_severity": "major",
-    "annotation_description": "Syphon Flesh requires opponents to sacrifice creatures, but Sonnet Stoic (the only remaining opponent) controls zero creatures. The spell does absolutely nothing - no sacrifices happen, no Zombie tokens are created. This wastes 5 mana and a card in a critical 1v1 situation at 9 life.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 983,
-    "snapshot_index": 490,
-    "aftermath_index": 491,
-    "player": "Gem3F Sarge",
-    "turn": 17,
-    "phase": "COMBAT",
-    "message": "Select attackers",
-    "chosen_display": "Damia, Sage of Stone 4/4 [Attack]",
-    "annotation_severity": "major",
-    "annotation_description": "Gem3F Sarge is at 9 life against Sonnet Stoic at 13 life with no creatures on board. Wrexial has swampwalk and Sonnet Stoic controls multiple Swamps, meaning Wrexial is unblockable. Attacking with both Damia (4) and Wrexial (5) deals exactly 9 damage, which is lethal. Sonnet Stoic has all lands tapped, so no interaction is possible. By only attacking with Damia, Sarge deals 4 damage leaving Stoic at 9 life instead of killing them. Additionally, Wrexial's combat damage trigger would let Sarge cast an instant or sorcery from Stoic's graveyard, providing extra value even if lethal weren't on the table.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 988,
-    "snapshot_index": 491,
-    "aftermath_index": 492,
-    "player": "Sonnet Stoic",
-    "turn": 17,
-    "phase": "COMBAT",
-    "message": "Select blockers",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Not blocking when at 13 life against 9 incoming damage drops to 4 life, which is extremely precarious in a 1v1 endgame. Blocking either attacker with the 1/3 Izzet Chemister would save 4-5 life (going to 8-9 instead of 4) at the cost of a creature that appears to have no cards exiled with it and minimal board impact as a 1/3.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 1007,
-    "snapshot_index": 494,
-    "aftermath_index": 495,
-    "player": "Gem3F Sarge",
-    "turn": 17,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Sarge has Forest and Terramorphic Expanse in hand but did not play a land this turn, missing a land drop. With only 1 untapped mana (Command Tower), the available spells don't accomplish much, but missing the land drop means less mana available on future turns in a critical 1v1 at 9 life vs 4 life.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 1008,
-    "snapshot_index": 495,
-    "aftermath_index": 496,
-    "player": "Sonnet Stoic",
-    "turn": 18,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Ignite the Future \u2014 Flashback {7}{R} [Activate]",
-    "annotation_severity": "major",
-    "annotation_description": "Gem3F Sarge has zero creatures on the battlefield - only lands and Command Tower. Disrupt Decorum goads all creatures you don't control, but there are no creatures to goad. This spell accomplishes absolutely nothing while spending 4 mana and the only card in hand in a tight 1v1 at 4 life.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 15
+  },
+  {
+    "decision_index": 17
+  },
+  {
+    "decision_index": 21
+  },
+  {
+    "decision_index": 23
+  },
+  {
+    "decision_index": 25
+  },
+  {
+    "decision_index": 29
+  },
+  {
+    "decision_index": 32
+  },
+  {
+    "decision_index": 34
+  },
+  {
+    "decision_index": 37
+  },
+  {
+    "decision_index": 38
+  },
+  {
+    "decision_index": 43
+  },
+  {
+    "decision_index": 44
+  },
+  {
+    "decision_index": 45
+  },
+  {
+    "decision_index": 47
+  },
+  {
+    "decision_index": 55
+  },
+  {
+    "decision_index": 59
+  },
+  {
+    "decision_index": 61
+  },
+  {
+    "decision_index": 69
+  },
+  {
+    "decision_index": 81
+  },
+  {
+    "decision_index": 92
+  },
+  {
+    "decision_index": 98
+  },
+  {
+    "decision_index": 99
+  },
+  {
+    "decision_index": 100
+  },
+  {
+    "decision_index": 103
+  },
+  {
+    "decision_index": 105
+  },
+  {
+    "decision_index": 107
+  },
+  {
+    "decision_index": 109
+  },
+  {
+    "decision_index": 118
+  },
+  {
+    "decision_index": 129
+  },
+  {
+    "decision_index": 130
+  },
+  {
+    "decision_index": 144
+  },
+  {
+    "decision_index": 154
+  },
+  {
+    "decision_index": 158
+  },
+  {
+    "decision_index": 173
+  },
+  {
+    "decision_index": 175
+  },
+  {
+    "decision_index": 193
+  },
+  {
+    "decision_index": 196
+  },
+  {
+    "decision_index": 198
+  },
+  {
+    "decision_index": 205
+  },
+  {
+    "decision_index": 207
+  },
+  {
+    "decision_index": 220
+  },
+  {
+    "decision_index": 227
+  },
+  {
+    "decision_index": 240
+  },
+  {
+    "decision_index": 251
+  },
+  {
+    "decision_index": 265
+  },
+  {
+    "decision_index": 268
+  },
+  {
+    "decision_index": 281
+  },
+  {
+    "decision_index": 289
+  },
+  {
+    "decision_index": 293
+  },
+  {
+    "decision_index": 296
+  },
+  {
+    "decision_index": 300
+  },
+  {
+    "decision_index": 309
+  },
+  {
+    "decision_index": 313
+  },
+  {
+    "decision_index": 329
+  },
+  {
+    "decision_index": 332
+  },
+  {
+    "decision_index": 336
+  },
+  {
+    "decision_index": 340
+  },
+  {
+    "decision_index": 344
+  },
+  {
+    "decision_index": 353
+  },
+  {
+    "decision_index": 357
+  },
+  {
+    "decision_index": 386
+  },
+  {
+    "decision_index": 392
+  },
+  {
+    "decision_index": 395
+  },
+  {
+    "decision_index": 397
+  },
+  {
+    "decision_index": 407
+  },
+  {
+    "decision_index": 414
+  },
+  {
+    "decision_index": 425
+  },
+  {
+    "decision_index": 436
+  },
+  {
+    "decision_index": 442
+  },
+  {
+    "decision_index": 445
+  },
+  {
+    "decision_index": 447
+  },
+  {
+    "decision_index": 450
+  },
+  {
+    "decision_index": 452
+  },
+  {
+    "decision_index": 458
+  },
+  {
+    "decision_index": 461
+  },
+  {
+    "decision_index": 476
+  },
+  {
+    "decision_index": 495
+  },
+  {
+    "decision_index": 507
+  },
+  {
+    "decision_index": 524
+  },
+  {
+    "decision_index": 530
+  },
+  {
+    "decision_index": 595
+  },
+  {
+    "decision_index": 600
+  },
+  {
+    "decision_index": 608
+  },
+  {
+    "decision_index": 609
+  },
+  {
+    "decision_index": 616
+  },
+  {
+    "decision_index": 661
+  },
+  {
+    "decision_index": 687
+  },
+  {
+    "decision_index": 691
+  },
+  {
+    "decision_index": 693
+  },
+  {
+    "decision_index": 703
+  },
+  {
+    "decision_index": 707
+  },
+  {
+    "decision_index": 737
+  },
+  {
+    "decision_index": 753
+  },
+  {
+    "decision_index": 759
+  },
+  {
+    "decision_index": 770
+  },
+  {
+    "decision_index": 790
+  },
+  {
+    "decision_index": 796
+  },
+  {
+    "decision_index": 814
+  },
+  {
+    "decision_index": 819
+  },
+  {
+    "decision_index": 829
+  },
+  {
+    "decision_index": 834
+  },
+  {
+    "decision_index": 846
+  },
+  {
+    "decision_index": 847
+  },
+  {
+    "decision_index": 853
+  },
+  {
+    "decision_index": 860
+  },
+  {
+    "decision_index": 864
+  },
+  {
+    "decision_index": 880
+  },
+  {
+    "decision_index": 881
+  },
+  {
+    "decision_index": 890
+  },
+  {
+    "decision_index": 893
+  },
+  {
+    "decision_index": 897
+  },
+  {
+    "decision_index": 898
+  },
+  {
+    "decision_index": 902
+  },
+  {
+    "decision_index": 907
+  },
+  {
+    "decision_index": 908
+  },
+  {
+    "decision_index": 912
+  },
+  {
+    "decision_index": 913
+  },
+  {
+    "decision_index": 923
+  },
+  {
+    "decision_index": 927
+  },
+  {
+    "decision_index": 937
+  },
+  {
+    "decision_index": 944
+  },
+  {
+    "decision_index": 956
+  },
+  {
+    "decision_index": 958
+  },
+  {
+    "decision_index": 964
+  },
+  {
+    "decision_index": 966
+  },
+  {
+    "decision_index": 977
+  },
+  {
+    "decision_index": 983
+  },
+  {
+    "decision_index": 988
+  },
+  {
+    "decision_index": 1007
+  },
+  {
+    "decision_index": 1008
   }
 ]

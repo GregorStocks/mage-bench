@@ -1,114 +1,23 @@
 [
   {
-    "decision_index": 1,
-    "snapshot_index": 167,
-    "aftermath_index": 168,
-    "player": "GPT52 Hype",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Select a creature card in a graveyard",
-    "chosen_display": "Sunpearl Kirin",
-    "annotation_severity": "moderate",
-    "annotation_description": "Superior Spider-Man copies a creature card from a graveyard. Quantum Riddler is a 4/6 flyer that draws a card on ETB (and has the bonus draw ability with low hand size), making it a far superior copy target. Sunpearl Kirin is a 2/1 flyer whose ETB bounces one of your own nonland permanents \u2014 which is actively bad here since GPT52 Hype has no tokens or permanents worth bouncing. The Spider-Man becomes a 4/4 regardless, but copying Quantum Riddler gives flying + card draw + potential future card advantage, while copying Sunpearl Kirin gives flying + a mostly useless/detrimental bounce ability.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 1
   },
   {
-    "decision_index": 7,
-    "snapshot_index": 182,
-    "aftermath_index": 184,
-    "player": "Gem3P Diplom",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "moderate",
-    "annotation_description": "Cast Nowhere to Run with no opposing creatures on the battlefield, completely wasting its -3/-3 ETB removal effect. The only benefit is a prowess trigger on the Otter Token for +1/+1 until end of turn. Nowhere to Run is a valuable removal spell that should be saved for when the opponent deploys a threat. Additionally, a land should have been played first before casting spells.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 7
   },
   {
-    "decision_index": 9,
-    "snapshot_index": 183,
-    "aftermath_index": 185,
-    "player": "Gem3P Diplom",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Concealed Courtyard enters tapped since they control 5 other lands, giving no mana this turn. Watery Grave could enter untapped (paying 2 life) to provide B or U mana, enabling casting Grim Bauble or holding up Sunpearl Kirin (1W flash) with Hallowed Fountain.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 9
   },
   {
-    "decision_index": 14,
-    "snapshot_index": 273,
-    "aftermath_index": 275,
-    "player": "GPT52 Hype",
-    "turn": 14,
-    "phase": "COMBAT",
-    "message": "Select a creature or planeswalker",
-    "chosen_display": "Otter Token",
-    "annotation_severity": "minor",
-    "annotation_description": "Chose to destroy a 1/1 Otter Token instead of the more threatening 2/1 Sunpearl Kirin with flash and flying. This results in taking 1 extra damage this combat (3 instead of 2) and leaves the stronger, evasive creature on the battlefield.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 14
   },
   {
-    "decision_index": 15,
-    "snapshot_index": 276,
-    "aftermath_index": 278,
-    "player": "GPT52 Hype",
-    "turn": 14,
-    "phase": "COMBAT",
-    "message": "Select a creature or planeswalker",
-    "chosen_display": "Otter Token",
-    "annotation_severity": "minor",
-    "annotation_description": "Chose to destroy a 1/1 Otter Token instead of the 2/1 flying Sunpearl Kirin. The Kirin deals more damage per turn, has evasion (flying), and has a useful ETB bounce ability if it gets re-cast or blinked. Removing the Kirin would save 1 additional damage per combat step and eliminate the more strategically dangerous creature.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 15
   },
   {
-    "decision_index": 16,
-    "snapshot_index": 279,
-    "aftermath_index": 281,
-    "player": "GPT52 Hype",
-    "turn": 14,
-    "phase": "COMBAT",
-    "message": "Select a creature or planeswalker",
-    "chosen_display": "Otter Token",
-    "annotation_severity": "minor",
-    "annotation_description": "Chose to destroy an Otter Token (1/1 prowess) instead of Sunpearl Kirin (2/1 flying with bounce ETB). Sunpearl Kirin deals more damage, has evasion (flying), and has a disruptive ability. With GPT52 Hype at 10 life and no creatures on board, removing the bigger threat with evasion would have been more impactful.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 16
   },
   {
-    "decision_index": 18,
-    "snapshot_index": 284,
-    "aftermath_index": 286,
-    "player": "GPT52 Hype",
-    "turn": 14,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Select a creature or planeswalker",
-    "chosen_display": "Otter Token",
-    "annotation_severity": "minor",
-    "annotation_description": "Sunpearl Kirin is a 2/1 flyer that deals consistent evasive damage, and GPT52 Hype has no flyers to block it. At 10 life, taking 2 unblockable damage per turn is more threatening than a 1/1 prowess Otter token. The Kirin also has flash utility if bounced and replayed.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 18
   }
 ]

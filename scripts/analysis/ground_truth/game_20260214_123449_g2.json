@@ -1,82 +1,17 @@
 [
   {
-    "decision_index": 7,
-    "snapshot_index": 9,
-    "aftermath_index": 11,
-    "player": "Gem25P Libby",
-    "turn": 1,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "On turn 1 with only one Mountain available, the choice between Hired Claw and Burnout Bashtronaut is close but arguably Burnout Bashtronaut is better here. The opponent has a 1/1 Otter token with prowess from Stormchaser's Talent. Bashtronaut has menace, making it harder to block with just the single Otter token (menace requires two blockers). Additionally, Bashtronaut's speed mechanic can scale it into a double striker later. Hired Claw's Lizard synergy trigger only works when attacking with Lizards, and with no other Lizards on board yet, it's just a vanilla 1/2 for now. However, Hired Claw is more resilient at 1/2 vs 1/1, and if a second Hired Claw comes down next turn, both trigger each other. The decision is debatable but Bashtronaut's menace is particularly relevant against the lone Otter token.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 7
   },
   {
-    "decision_index": 18,
-    "snapshot_index": 25,
-    "aftermath_index": 27,
-    "player": "Gem25P Libby",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Playing two 1/1 Burnout Bashtronauts instead of Razorkin Needlehead against a UR spells deck that draws extra cards. Needlehead is a 2/2 with first strike on your turn and deals damage on every opponent card draw, directly punishing the opponent's strategy. Two 1/1 menace creatures are weaker in combat and don't provide the same pressure.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 18
   },
   {
-    "decision_index": 20,
-    "snapshot_index": 27,
-    "aftermath_index": 29,
-    "player": "Gem25P Libby",
-    "turn": 2,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Hired Claw is likely the better turn 2 play here. The opponent has an Otter Token (1/1 with prowess) that could trade with or block a 1/1 Bashtronaut. Hired Claw as a 1/2 survives blocking the 1/1 Otter and also has a relevant Lizard tribal trigger that deals 1 damage when attacking, which helps enable its own +1/+1 counter ability. Bashtronaut's speed/menace/double strike abilities are strong but take multiple turns to come online, and a second 1/1 menace creature doesn't apply much more pressure than the first one already on board. Additionally, casting creatures before combat is slightly suboptimal when you already have an attacker (the first Bashtronaut) \u2014 though with only 1 untapped Mountain, the options were limited regardless. The player also skipped attack this turn, missing a potential attack with the first Bashtronaut into a tapped Otter Token.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 20
   },
   {
-    "decision_index": 28,
-    "snapshot_index": 41,
-    "aftermath_index": 43,
-    "player": "Gem25P Libby",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "With 3 mana available (2 Mountains + Riverpyre Verge), Libby could cast either Razorkin Needlehead (RR), Hexing Squelcher (1R), Hired Claw (R), or Tersa Lightshatter (2R). Razorkin Needlehead is a reasonable choice as it punishes card draw and has first strike on your turn, but Hexing Squelcher might be better here since the opponent has Stormchaser's Talent (a Class enchantment that could level up and return spells from graveyard). Squelcher's 'spells you control can't be countered' and ward on other creatures provides protection. However, the strongest consideration is that casting a creature before combat is generally fine when you have no attackers already, and the opponent has an Otter token that's tapped. The real question is whether Tersa Lightshatter would have been better \u2014 it costs exactly 2R (3 mana), has haste so it can attack immediately as a 3/3, and its ETB lets you discard up to 2 cards to draw that many, improving hand quality. With haste, Tersa could attack this turn and potentially trigger its graveyard exile ability in future turns. Razorkin Needlehead can't attack profitably this turn into a 1/1 Otter (well, it can with first strike, but the Otter is tapped). Actually both could attack freely since the Otter is tapped. Tersa as a 3/3 haste with card filtering seems stronger than a 2/2 that punishes draws, especially since Tersa's attack trigger becomes relevant with 7+ cards in graveyard later.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 28
   },
   {
-    "decision_index": 34,
-    "snapshot_index": 57,
-    "aftermath_index": 59,
-    "player": "Gem25P Libby",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "Playing Tersa Lightshatter before combat is suboptimal when you have Hired Claw and Razorkin Needlehead ready to attack. The opponent has no creatures to block, so attacking first would deal damage and trigger Hired Claw's ability (dealing 1 damage to the opponent since it's a Lizard attacking). After combat, you'd still have 3 mana to cast Tersa. Additionally, Hexing Squelcher might be better here since the opponent appears to be playing a blue-red spells deck (Stormchaser's Talent, Torch the Towers in graveyard) \u2014 Squelcher's 'spells you control can't be countered' and ward for your other creatures would protect against countermagic and removal. However, Tersa is a reasonable play for card filtering and board presence.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 34
   }
 ]

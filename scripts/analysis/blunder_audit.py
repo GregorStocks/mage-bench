@@ -15,19 +15,20 @@ import atexit
 import gzip
 import json
 import socket
-import textwrap
 import subprocess
+import textwrap
 import time
-from datetime import datetime, timezone
 from urllib.parse import parse_qs, urlparse
 
 from blunder_eval_common import (
     REPO_ROOT,
+    chosen_display,
     compute_aftermath_index,
     game_path_for_id,
     load_game_ground_truth,
     load_ground_truth,
-    make_ground_truth_entry,
+    lookup_annotation_for_decision,
+    make_audited_entry,
     save_game_ground_truth,
 )
 from extract_decisions import extract_decisions
@@ -111,26 +112,115 @@ def viewer_url(game_id: str, aftermath_index: int) -> str:
     return f"http://localhost:{port}/games/{game_id}?s={aftermath_index}"
 
 
-def format_play_context(game_id: str, entry: dict) -> str:
-    """Format a ground truth entry for display during auditing."""
+def _load_game_data(gz_path: str) -> dict:
+    """Load a game's JSON data from a .json.gz file."""
+    with gzip.open(gz_path, "rt") as f:
+        return json.load(f)
+
+
+def _find_decision(decisions: list[dict], decision_index: int) -> dict:
+    """Find a decision by index. Asserts if not found."""
+    for d in decisions:
+        if d["decision_index"] == decision_index:
+            return d
+    raise AssertionError(
+        f"Decision {decision_index} not found in {len(decisions)} decisions"
+    )
+
+
+def _lookup_existing_annotation(
+    decision: dict,
+    game_data: dict,
+    snapshots: list[dict],
+) -> dict | None:
+    """Look up the annotation from the game file (may be stale). For display only."""
+    return lookup_annotation_for_decision(
+        decision, game_data.get("annotations", []), snapshots
+    )
+
+
+def _get_current_annotation(
+    decision: dict,
+    game_data: dict,
+    snapshots: list[dict],
+    gz_path: str,
+) -> tuple[dict | None, int]:
+    """Get the current-version annotation for a decision.
+
+    If the game file is at the current BLUNDER_SCRIPT_VERSION, looks up
+    the annotation from the game file. Otherwise, runs the annotator on
+    this one decision (costs money).
+
+    Call this only after the human gives a verdict.
+
+    Returns (annotation_dict_or_None, annotation_version).
+    """
+    from blunder_analysis import BLUNDER_SCRIPT_VERSION
+
+    game_version = game_data.get("blunderScriptVersion", 1)
+    if game_version >= BLUNDER_SCRIPT_VERSION:
+        ann = lookup_annotation_for_decision(
+            decision, game_data.get("annotations", []), snapshots
+        )
+        return ann, BLUNDER_SCRIPT_VERSION
+
+    # Stale game — run annotator on just this decision
+    from blunder_analysis import (
+        OPUS_MODEL,
+        _eval_one_decision,
+        init_api,
+        load_game_context,
+    )
+
+    print(
+        f"  Running annotator (game v{game_version}, current v{BLUNDER_SCRIPT_VERSION})..."
+    )
+    client, prices = init_api()
+    game_ctx = load_game_context(gz_path)
+
+    anns, cost, parsed_ok, raw = _eval_one_decision(
+        client,
+        OPUS_MODEL,
+        prices,
+        game_ctx["overview"],
+        decision,
+        game_ctx["oracle_texts"],
+        snapshots,
+        game_ctx["actions_by_turn"],
+        game_ctx["num_players"],
+        game_ctx["all_actions"],
+    )
+    print(f"  Annotator cost: ${cost:.4f}")
+    return (anns[0] if anns else None), BLUNDER_SCRIPT_VERSION
+
+
+def format_play_context(
+    game_id: str,
+    decision: dict,
+    snapshots: list[dict],
+    annotation: dict | None,
+) -> str:
+    """Format a decision for display during auditing."""
+    aftermath = compute_aftermath_index(decision, snapshots)
     lines = [
         f"Game: {game_id}",
-        f"Player: {entry['player']} | Turn {entry.get('turn', '?')} {entry.get('phase', '?')}",
-        f"Message: {entry.get('message', '?')}",
-        f"Chosen: {entry.get('chosen_display', '?')}",
+        f"Player: {decision['player']} | Turn {decision.get('turn', '?')} {decision.get('phase', '?')}",
+        f"Message: {decision.get('message', '?')}",
+        f"Chosen: {chosen_display(decision)}",
     ]
-    sev = entry.get("annotation_severity")
-    desc = entry.get("annotation_description")
-    if sev and desc:
-        prefix = f"Annotator: {sev} - "
-        wrapped = textwrap.fill(
-            f'"{desc}"',
-            width=80,
-            initial_indent=prefix,
-            subsequent_indent=" " * len(prefix),
-        )
-        lines.append(wrapped)
-    lines.append(f"Viewer: {viewer_url(game_id, entry.get('aftermath_index', 0))}")
+    if annotation:
+        sev = annotation.get("severity")
+        desc = annotation.get("description")
+        if sev and desc:
+            prefix = f"Annotator: {sev} - "
+            wrapped = textwrap.fill(
+                f'"{desc}"',
+                width=80,
+                initial_indent=prefix,
+                subsequent_indent=" " * len(prefix),
+            )
+            lines.append(wrapped)
+    lines.append(f"Viewer: {viewer_url(game_id, aftermath)}")
     return "\n".join(lines)
 
 
@@ -196,27 +286,60 @@ def audit_plays(game_filter: str | None = None) -> None:
     _start_dev_server()
     print(f"{len(unaudited)} unaudited plays to review.\n")
 
+    # Cache game data to avoid re-loading per entry
+    game_data_cache: dict[str, dict] = {}
+    decisions_cache: dict[str, list[dict]] = {}
+
     audited_count = 0
     for i, (game_id, entry) in enumerate(unaudited):
         print(f"--- Play {i + 1}/{len(unaudited)} ---")
-        print(format_play_context(game_id, entry))
+
+        # Load game data (cached)
+        if game_id not in game_data_cache:
+            gz_path = str(game_path_for_id(game_id))
+            game_data_cache[game_id] = _load_game_data(gz_path)
+            decisions_cache[game_id] = extract_decisions(gz_path)
+
+        game_data = game_data_cache[game_id]
+        decisions = decisions_cache[game_id]
+        snapshots = game_data.get("snapshots", [])
+        gz_path = str(game_path_for_id(game_id))
+
+        # Find the decision
+        di = entry["decision_index"]
+        decision = _find_decision(decisions, di)
+
+        # Show existing annotation for context (may be stale)
+        display_annotation = _lookup_existing_annotation(decision, game_data, snapshots)
+        print(format_play_context(game_id, decision, snapshots, display_annotation))
 
         verdict, notes = collect_verdict()
         if verdict is None:
             print("  Skipped.\n")
             continue
 
-        entry["verdict"] = verdict
-        entry["human_notes"] = notes
-        entry["audited_at"] = datetime.now(timezone.utc).isoformat()
+        # Get current-version annotation (re-runs annotator if game is stale)
+        annotation, ann_version = _get_current_annotation(
+            decision, game_data, snapshots, gz_path
+        )
 
-        # Save immediately (crash-safe)
+        # Build and save full audited entry
+        audited_entry = make_audited_entry(
+            decision_index=di,
+            annotation_version=ann_version,
+            annotation_severity=annotation.get("severity") if annotation else None,
+            annotation_description=annotation.get("description")
+            if annotation
+            else None,
+            verdict=verdict,
+            human_notes=notes,
+        )
+
+        # Replace in-place and save
         game_entries = load_game_ground_truth(game_id)
-        for e in game_entries:
-            if e["decision_index"] == entry["decision_index"]:
-                e["verdict"] = verdict
-                e["human_notes"] = notes
-                e["audited_at"] = entry["audited_at"]
+        for idx, e in enumerate(game_entries):
+            if e["decision_index"] == di:
+                game_entries[idx] = audited_entry
                 break
         save_game_ground_truth(game_id, game_entries)
 
@@ -261,11 +384,9 @@ def add_from_url(url: str) -> None:
     game_id, snapshot = parse_viewer_url(url)
 
     gz_path = str(game_path_for_id(game_id))
+    game_data = _load_game_data(gz_path)
 
-    with gzip.open(gz_path, "rt") as f:
-        data = json.load(f)
-
-    snapshots = data.get("snapshots", [])
+    snapshots = game_data.get("snapshots", [])
     assert 0 <= snapshot < len(snapshots), (
         f"Snapshot {snapshot} out of range [0, {len(snapshots)})"
     )
@@ -274,8 +395,6 @@ def add_from_url(url: str) -> None:
     assert decisions, f"No decisions found in {game_id}"
 
     # Find the decision closest to this snapshot
-    # Look for decisions where snapshot_index <= target snapshot,
-    # or whose aftermath_index matches
     best_decision = None
     best_dist = float("inf")
 
@@ -304,19 +423,11 @@ def add_from_url(url: str) -> None:
             )
             return
 
-    entry = make_ground_truth_entry(best_decision, snapshots, source="manual")
-    entry["verdict"] = "blunder"
-    entry["audited_at"] = datetime.now(timezone.utc).isoformat()
-
-    # Show what we found
-    print(f"Game: {game_id}")
-    print(
-        f"Decision {best_decision['decision_index']}: {best_decision['player']} | "
-        f"Turn {best_decision.get('turn', '?')} {best_decision.get('phase', '?')}"
+    # Show existing annotation for context (may be stale)
+    display_annotation = _lookup_existing_annotation(
+        best_decision, game_data, snapshots
     )
-    print(f"Message: {best_decision.get('message', '?')}")
-    print(f"Chosen: {entry['chosen_display']}")
-    print(f"Viewer: {viewer_url(game_id, entry['aftermath_index'])}")
+    print(format_play_context(game_id, best_decision, snapshots, display_annotation))
 
     try:
         notes = input("\nNotes (Enter=skip): ").strip() or None
@@ -324,9 +435,21 @@ def add_from_url(url: str) -> None:
         print()
         notes = None
 
-    entry["human_notes"] = notes
+    # Get current-version annotation (re-runs annotator if game is stale)
+    annotation, ann_version = _get_current_annotation(
+        best_decision, game_data, snapshots, gz_path
+    )
 
-    save_game_ground_truth(game_id, existing + [entry])
+    audited_entry = make_audited_entry(
+        decision_index=best_decision["decision_index"],
+        annotation_version=ann_version,
+        annotation_severity=annotation.get("severity") if annotation else None,
+        annotation_description=annotation.get("description") if annotation else None,
+        verdict="blunder",
+        human_notes=notes,
+    )
+
+    save_game_ground_truth(game_id, existing + [audited_entry])
     print(f"\nAdded as blunder (decision {best_decision['decision_index']})")
 
 

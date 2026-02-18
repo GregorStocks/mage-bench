@@ -248,6 +248,8 @@ class TestImportDeck:
 
     def test_resolve_cards_normalizes_split_names(self) -> None:
         """resolve_cards normalizes slash names and keys result by original."""
+        import scryfall
+
         scryfall_response = {
             "data": [
                 {"name": "Wear // Tear", "set": "dgm", "collector_number": "135"},
@@ -260,7 +262,11 @@ class TestImportDeck:
         fake_resp.__enter__ = MagicMock(return_value=fake_resp)
         fake_resp.__exit__ = MagicMock(return_value=False)
 
-        with patch("urllib.request.urlopen", return_value=fake_resp):
+        with (
+            patch.object(scryfall, "_cache", {}),
+            patch.object(scryfall, "_save_cache"),
+            patch("urllib.request.urlopen", return_value=fake_resp),
+        ):
             resolved = import_deck.resolve_cards(["Wear/Tear", "Lightning Bolt"])
 
         # Keyed by original MTGGoldfish name, not Scryfall canonical name
@@ -270,6 +276,8 @@ class TestImportDeck:
 
     def test_resolve_cards_fallback_first_half(self) -> None:
         """Fallback queries first half of split name when collection fails."""
+        import scryfall
+
         collection_response = {
             "data": [],
             "not_found": [{"name": "Wear // Tear"}],
@@ -295,7 +303,11 @@ class TestImportDeck:
                 resp.read.return_value = json.dumps(named_response).encode()
             return resp
 
-        with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+        with (
+            patch.object(scryfall, "_cache", {}),
+            patch.object(scryfall, "_save_cache"),
+            patch("urllib.request.urlopen", side_effect=fake_urlopen),
+        ):
             resolved = import_deck.resolve_cards(["Wear/Tear"])
 
         assert "Wear/Tear" in resolved

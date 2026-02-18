@@ -1,146 +1,29 @@
 [
   {
-    "decision_index": 14,
-    "snapshot_index": 97,
-    "aftermath_index": 99,
-    "player": "Haiku Optim",
-    "turn": 3,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Discarded Commune with Lava, which is an excellent instant that synergizes powerfully with Kalamax (gets copied when Kalamax is tapped, doubling the card advantage). Kept Swarm Intelligence (7 mana) instead, which won't be castable for many turns. Commune with Lava is flexible and scales well at any point in the game.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 14
   },
   {
-    "decision_index": 15,
-    "snapshot_index": 113,
-    "aftermath_index": 115,
-    "player": "Opus Minimal",
-    "turn": 3,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "The player cast Master of the Pearl Trident before playing their Forest from hand. They have a Forest in hand and only 2 lands on the battlefield (Simic Growth Chamber + Island). By playing the Forest first, they would have 3 lands available. While they can cast Master of the Pearl Trident with UU from their current lands, playing the land first is generally better sequencing - it represents more mana available on future turns sooner, and there's no reason to delay the land drop. The Forest should have been played before casting the spell.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 15
   },
   {
-    "decision_index": 17,
-    "snapshot_index": 151,
-    "aftermath_index": 153,
-    "player": "Opus Minimal",
-    "turn": 4,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "The player should play their Island from hand before casting Merfolk Sovereign. Playing the land first would give them access to 4 mana (Simic Growth Chamber + Island + Island + Forest) instead of 3, and with Tatyova in hand at 5 mana, getting the land drop in early is important. More critically, playing the land before casting the creature is almost always correct sequencing - there's no reason to hold the land. Additionally, casting a creature before combat means the opponent sees the board state before blocks matter. While Master of the Pearl Trident is already on board and could attack, playing Merfolk Sovereign pre-combat telegraphs the +1/+1 buff.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 17
   },
   {
-    "decision_index": 22,
-    "snapshot_index": 198,
-    "aftermath_index": 200,
-    "player": "Opus Minimal",
-    "turn": 5,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Tatyova, Benthic Druid is a significantly stronger play here as a card advantage engine. Every subsequent land drop would draw a card and gain 1 life, which compounds over the game. Tributary Instructor is a decent body (6/6 with lords) but its abilities (mentor, draw on +1/+1 counter creature death) aren't immediately impactful and require setup. Tatyova would become a 5/5 with the lords while generating cards every turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 22
   },
   {
-    "decision_index": 26,
-    "snapshot_index": 214,
-    "aftermath_index": 216,
-    "player": "GPT5n Memoir",
-    "turn": 6,
-    "phase": "BEGINNING",
-    "message": "Play spells and abilities",
-    "chosen_display": "Rootbound Crag",
-    "annotation_severity": "moderate",
-    "annotation_description": "With 5 mana available (Plains, Mountain, Swamp, Rootbound Crag + 1 more land), GPT5n Memoir passed the turn without casting any spells. They could have cast Tymna the Weaver (1WB, 3 mana) as a lifelink creature and card draw engine, plus a 2-mana creature like Zhur-Taa Druid or Sylvok Explorer, developing their board significantly on turn 6.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 26
   },
   {
-    "decision_index": 27,
-    "snapshot_index": 239,
-    "aftermath_index": 241,
-    "player": "Opus Minimal",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "Casting Kindred Discovery (5 mana) before combat means the player misses drawing cards from the 'attacks' trigger this turn, since the enchantment won't be on the battlefield during the declare attackers step if cast in precombat main... actually wait, precombat main IS before combat, so if they cast it now, it will be on the battlefield when they attack. However, they're spending all 5 mana on this enchantment, which means they can't cast Tatyova (also 5 mana) this turn. The real question is whether Tatyova, Benthic Druid would have been a better play - Tatyova draws cards on land drops and gains life, but Kindred Discovery with 3 Merfolk on board (Master of the Pearl Trident, Merfolk Sovereign, Tributary Instructor) will draw 3 cards on attack this turn. That's a strong immediate payoff. However, casting a 5-mana enchantment before combat telegraphs the attack plan and gives opponents information. More importantly, the player should consider whether Tatyova would be better since it's a body that can block/attack AND draws cards. But 3 immediate draws from attacks is very strong. This seems reasonable overall, though Tatyova as a Merfolk itself would also trigger Kindred Discovery later if sequenced differently. The play is defensible.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 27
   },
   {
-    "decision_index": 37,
-    "snapshot_index": 294,
-    "aftermath_index": 296,
-    "player": "Opus Minimal",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Opus Minimal cast Tishana (7 mana: 5GU) before playing the Island from hand. Playing Island first would have meant one more card drawn from Tishana's ETB (since Tishana draws equal to creatures you control, not cards in hand - but more importantly, casting spells before playing lands is generally a sequencing error). Additionally, Stonybrook Banneret should have been cast first - it costs only 1U, and having it on the battlefield means one more creature when Tishana enters, drawing an additional card from Tishana's ETB trigger (5 creatures instead of 4). The correct sequence would be: play Island, cast Stonybrook Banneret (1U), then cast Tishana (5GU) with 5 creatures on board to draw 5 cards instead of 4.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 37
   },
   {
-    "decision_index": 50,
-    "snapshot_index": 363,
-    "aftermath_index": 364,
-    "player": "MiMo Philo",
-    "turn": 9,
-    "phase": "COMBAT",
-    "message": "Select a player, planeswalker, or battle to attack",
-    "chosen_display": "Haiku Optim",
-    "annotation_severity": "major",
-    "annotation_description": "Haiku Optim is at 5 life with no flying blockers and mostly tapped lands. Chrome Courier (1/1 flying) + Indomitable Archangel (4/4 flying) = exactly 5 damage, which is lethal. Attacking with only Chrome Courier misses the kill.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 50
   },
   {
-    "decision_index": 57,
-    "snapshot_index": 378,
-    "aftermath_index": 380,
-    "player": "Opus Minimal",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Untap that permanent?",
-    "chosen_display": "True",
-    "annotation_severity": "minor",
-    "annotation_description": "Deeproot Elite trigger targets a Merfolk you control on the battlefield. The reasoning suggests pumping Tishana (which is in hand, not on the battlefield). Among battlefield Merfolk, Tributary Instructor has no +1/+1 counter yet, making it the best target - giving it a counter enables Inspiring Call to draw from it and trigger its death-draw ability, plus makes it a bigger mentor source.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 57
   }
 ]

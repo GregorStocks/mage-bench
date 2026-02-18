@@ -1,1266 +1,239 @@
 [
   {
-    "decision_index": 0,
-    "snapshot_index": 0,
-    "aftermath_index": 0,
-    "player": "Gem25P Drama",
-    "turn": 1,
-    "phase": "",
-    "message": "Select a starting player",
-    "chosen_display": "?",
-    "annotation_severity": "questionable",
-    "annotation_description": "With a pure control hand containing only 1 land out of 7 cards (Floodfarm Verge, 2x Day of Judgment, Stock Up, Consult the Star Charts, Spell Snare, Three Steps Ahead), choosing to play first is debatable. Control decks with reactive game plans often benefit more from the extra card on the draw, and this hand desperately needs to find more lands. The extra draw step would significantly improve chances of hitting land drops to cast the expensive spells in hand.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 13,
-    "snapshot_index": 12,
-    "aftermath_index": 13,
-    "player": "Gem25P Drama",
-    "turn": 2,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "With no lands in play on turn 2, paying 2 life for Hallowed Fountain to enter untapped is wasteful since they can't meaningfully use the mana this turn anyway (postcombat main, no 1-mana plays worth making). Playing Restless Anchorage tapped this turn costs nothing since it would be tapped regardless, and saves Hallowed Fountain for a later turn where entering untapped actually matters (e.g., turn 3 to hold up No More Lies).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 39,
-    "snapshot_index": 40,
-    "aftermath_index": 41,
-    "player": "Gem3F Valley",
-    "turn": 5,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley has 7 cards in hand and 5 lands on the battlefield with an Undercity Sewers entering tapped on the stack. They have Demolition Field in hand but chose not to play it as their land drop for the turn. With 5 lands already (soon to be 6 with the Sewers resolving), playing Demolition Field would give them access to more mana and a useful utility land to threaten the opponent's nonbasic lands (like Hallowed Fountain or Sunken Citadel). Missing a land drop when holding a land is suboptimal, especially when the player has a hand full of reactive spells that benefit from having more mana available.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 43,
-    "snapshot_index": 42,
-    "aftermath_index": 44,
-    "player": "Gem3F Valley",
-    "turn": 5,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley has 5 lands (one tapped), and it's the postcombat main phase of their own turn with the opponent tapped out (Sunken Citadel tapped). They could cast Consult the Star Charts (potentially kicked for 4 mana total) to dig for threats or answers, using mana that would otherwise go to waste. With 4 available mana (Gloomlake Verge, Swamp, Fountainport, Undercity Sewers untapped), they could cast the base Consult the Star Charts for 2 mana looking at 5 cards, or use Fountainport's abilities. Passing without using any mana on their own turn when they have card selection available is a missed opportunity, especially since they could hold up countermagic on the opponent's turn with remaining mana after casting Consult. However, they may want to hold up Three Steps Ahead (3 mana counter mode) plus Spell Snare, which is a reasonable defensive posture. The decision is close but passing up Consult the Star Charts when the opponent is tapped out seems like a missed opportunity to improve hand quality.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 44,
-    "snapshot_index": 46,
-    "aftermath_index": 48,
-    "player": "Gem25P Drama",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama declined to cast Seam Rip with no apparent downside. With 4 lands (including tapped Restless Anchorage and Sunken Citadel), they have mana available to cast Seam Rip ({W}) while still holding up No More Lies ({W}{U}) on the opponent's turn. Seam Rip could exile a relevant nonland permanent with mana value 2 or less from the opponent's side - notably Fountainport, which is an important utility land that generates tokens and draws cards. Even if there's nothing critical to exile right now, declining to even consider it when the opponent has Fountainport on board (a nonland permanent with no mana value restriction... wait, Fountainport is a land, so it's not a valid target). Looking at the opponent's board: Gloomlake Verge (land), Swamp (land), Fountainport (land), Undercity Sewers x2 (lands) - all lands, no nonland permanents. So Seam Rip actually has no valid targets currently. The decision to pass is reasonable in that case. However, the player could have played one of their two Fountainports from hand as a land drop if they hadn't already made one this turn. Actually, reviewing the board state more carefully - it's postcombat main, and their lands suggest they may have already played a land this turn (4 lands on board). The pass seems fine.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 45,
-    "snapshot_index": 46,
-    "aftermath_index": 47,
-    "player": "Gem3F Valley",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "At end of turn (postcombat main, about to pass), Gem3F Valley has 5 lands and Consult the Star Charts in hand with mana available. This is a prime opportunity to use mana at end of opponent's turn to dig for threats or answers. Passing with mana up when holding a card-selection instant wastes the mana. While holding up Three Steps Ahead for countermagic is reasonable, they have TWO copies of Three Steps Ahead plus two Spell Snares, so they have plenty of countermagic already. Using Consult the Star Charts (2 mana) while keeping 3 mana up for Three Steps Ahead would have been optimal - they could look at 5 cards and find a better card while still maintaining counter protection.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 47,
-    "snapshot_index": 48,
-    "aftermath_index": 49,
-    "player": "Gem3F Valley",
-    "turn": 6,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley passed with 6 mana available and Consult the Star Charts in hand. Casting it for {1}{U} would look at the top 6 cards and put the best one in hand, while still leaving 4 mana open - enough to cast Three Steps Ahead's counter mode ({1}{U}{U} = 3 mana) or Spell Snare ({U}). The hand is entirely reactive with no win condition, making card selection valuable to find threats or lands.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 49,
-    "snapshot_index": 50,
-    "aftermath_index": 52,
-    "player": "Gem3F Valley",
-    "turn": 6,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "With 6 lands in play and the opponent tapped out (Restless Anchorage is tapped, Sunken Citadel enters tapped), this was an excellent opportunity to use Consult the Star Charts to dig 6 cards deep for additional resources, or to use Demolition Field to destroy Restless Anchorage (a dangerous manland) or Sunken Citadel while the opponent can't respond meaningfully. Passing with 6 mana available and no pressing reason to hold up all of it wastes tempo. While holding up countermagic (Three Steps Ahead, Spell Snare) has value, using Consult the Star Charts at end of opponent's turn would have been better than doing nothing, and the opponent is largely tapped out anyway.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 50,
-    "snapshot_index": 51,
-    "aftermath_index": 53,
-    "player": "Gem3F Valley",
-    "turn": 7,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "questionable",
-    "annotation_description": "Gem3F Valley has 6 lands in play and 6 mana available, with Demolition Field able to destroy Restless Anchorage (a key threat that becomes a 2/3 flyer and generates Map tokens). The opponent only has 4 lands with Restless Anchorage being their only nonbasic land worth targeting. Using Demolition Field now would remove a significant threat while both players search for basics - Valley has plenty of lands already and the opponent is land-light. Additionally, Fountainport could create a Fish token (3 mana + 1 life) or a Treasure token (4 mana) as a mana sink, though these are less urgent. Consult the Star Charts could also be cast at end of opponent's turn instead, so passing main phase is not necessarily wrong for that card.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 51,
-    "snapshot_index": 52,
-    "aftermath_index": 53,
-    "player": "Gem25P Drama",
-    "turn": 7,
-    "phase": "COMBAT",
-    "message": "Choose spell or ability to playRestless Anchorage",
-    "chosen_display": "3. {1}{W}{U}: Until end of turn, Restless Anchorage becomes a 2/3 white and blue Bird creature with flying. It's still a land.",
-    "annotation_severity": "questionable",
-    "annotation_description": "Activating Restless Anchorage to attack on turn 7 with only 4 lands (one of which is now tapped as a creature) while the opponent has 6 lands open and a full hand is risky but potentially reasonable as chip damage. However, the real concern is sequencing: Drama has Elspeth, Storm Slayer in hand (5 mana) and two Fountainports to play. By animating Restless Anchorage and using 3 mana (1WU) to do so, Drama is left with only 1 untapped land after combat, making it impossible to hold up No More Lies or cast anything meaningful post-combat. If Drama instead played a land first (Fountainport or Demolition Field) and then decided whether to animate, they'd have more options. Additionally, attacking into an opponent with 6 open mana and unknown cards could walk into removal, though the opponent is playing UB which has limited instant-speed interaction with a 2/3 flyer.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 59,
-    "snapshot_index": 60,
-    "aftermath_index": 61,
-    "player": "Gem25P Drama",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Restless Anchorage",
-    "annotation_severity": "minor",
-    "annotation_description": "Activating Restless Anchorage before playing a land from hand. With two Fountainports in hand, playing one first would give an extra untapped land, allowing them to hold up No More Lies (WU) after the Anchorage activation. By activating first, they spend 3 of 5 mana and may not have enough left to both play a land and hold up countermagic optimally.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 74,
-    "snapshot_index": 65,
-    "aftermath_index": 67,
-    "player": "Gem25P Drama",
-    "turn": 8,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has a Map Token on the battlefield that could be activated as a sorcery-speed ability to let a creature explore (draw/filter). However, they have no creatures on the battlefield to target with the Map Token, so that specific activation isn't available. More importantly, they have Sunken Citadel untapped which could generate mana, and they could potentially use Fountainport (if they played one) to create tokens or draw cards. The real miss here is not playing a land - they have two Fountainports in hand and appear to have not played a land this turn (all their lands from prior turns are accounted for). Playing Fountainport would give them an additional mana source and a mana sink for future turns. While they may have played a land earlier in the turn (the action log is incomplete), if they haven't, missing this land drop with Fountainport in hand is a clear mistake.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 76,
-    "snapshot_index": 67,
-    "aftermath_index": 68,
-    "player": "Gem3F Valley",
-    "turn": 8,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Pay Kicker {1}{U} ?",
-    "chosen_display": "True",
-    "annotation_severity": "questionable",
-    "annotation_description": "In a control mirror, letting opponent's card selection spell (Consult the Star Charts) resolve when holding Spell Snare, which perfectly answers it at 1 mana. Spell Snare is narrow and may not find a better 2-mana target, and letting the opponent dig through 5 cards for free gives them incremental advantage in the mirror.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 87,
-    "snapshot_index": 73,
-    "aftermath_index": 74,
-    "player": "Gem25P Drama",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Restless Anchorage",
-    "annotation_severity": "minor",
-    "annotation_description": "Activating Restless Anchorage before playing a land for the turn. Drama has Restless Anchorage and Fountainport in hand and hasn't made a land drop yet. While the opponent is tapped out making the attack itself correct, playing a land first (either one, since both are relevant) ensures the land drop isn't forgotten and could matter for available mana later.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 95,
-    "snapshot_index": 75,
-    "aftermath_index": 76,
-    "player": "Gem25P Drama",
-    "turn": 9,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has Fountainport untapped and 2 Map tokens on the battlefield. They could sacrifice a Map token to Fountainport's ability ({2}, {T}, Sacrifice a token: Draw a card) to draw a card at end of opponent's combat step, using mana from Sunken Citadel. This is a pure-upside mana sink that generates card advantage at no real cost since they have excess tokens and available mana. The Sunken Citadel can produce 2 mana for land abilities, which exactly pays the {2} activation cost of Fountainport.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 98,
-    "snapshot_index": 77,
-    "aftermath_index": 78,
-    "player": "Gem25P Drama",
-    "turn": 9,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Missed opportunity to activate Fountainport's draw ability ({2}, {T}, Sacrifice a token: Draw a card) using Sunken Citadel's 2 mana (for land abilities) and sacrificing one of the Map tokens. With no creatures on board, the Map tokens have minimal value, making this essentially a free card draw.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 100,
-    "snapshot_index": 79,
-    "aftermath_index": 81,
-    "player": "Gem3F Valley",
-    "turn": 9,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley is a control deck with 8 cards in hand (over the maximum hand size of 7) and 6 lands in play. Casting Stock Up (a sorcery) during their main phase taps 3 mana and draws 2 cards, bringing them to 9 cards in hand, meaning they'll need to discard 2 at end of turn. While they do need to find answers, they already have a very full hand with counterspells, removal, and board wipes. Spending mana on their own turn for a sorcery-speed card advantage spell when they're already going to discard is wasteful - they're essentially spending 3 mana to upgrade 1 card (draw 2, discard 2 net from the Stock Up + end of turn discard). They could instead hold up countermagic and removal with their 6 mana, and use Demolition Field to destroy the opponent's Fountainport or Sunken Citadel at end of turn if mana is unused, or activate Fountainport to make a fish/treasure at end of opponent's turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 112,
-    "snapshot_index": 87,
-    "aftermath_index": 88,
-    "player": "Gem25P Drama",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Activating Restless Anchorage before playing their land for the turn (Fountainport in hand). Playing the land first would provide an additional mana source, leaving 4 mana open after animating Anchorage instead of 3, giving more flexibility to hold up interaction like No More Lies plus additional mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 116,
-    "snapshot_index": 89,
-    "aftermath_index": 90,
-    "player": "Gem25P Drama",
-    "turn": 10,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has Fountainport in hand but declined to play it, missing their land drop for the turn. In a control mirror at turn 10, having an additional land (7th land) is significant for activating Restless Anchorage, holding up multiple counterspells, or using Fountainport's abilities.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 119,
-    "snapshot_index": 90,
-    "aftermath_index": 91,
-    "player": "Gem25P Drama",
-    "turn": 10,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem25P Drama skipped their entire combat phase without attacking with Restless Anchorage, which could have been animated for 1WU to become a 2/3 flyer. They had the mana available (Hallowed Fountain, Plains, Sunken Citadel, Demolition Field, Fountainport are untapped lands) to activate Restless Anchorage and attack for 2 flying damage plus create a Map token. The opponent has no creatures to block a flyer. Over multiple turns, this represents significant missed damage and card quality from Map tokens. The player's reasoning incorrectly dismissed the combat step prompt as irrelevant, failing to recognize they should animate and attack with their creature-land.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 120,
-    "snapshot_index": 93,
-    "aftermath_index": 93,
-    "player": "Gem25P Drama",
-    "turn": 10,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Failed to animate and attack with Restless Anchorage during their own combat phase. The opponent has no creatures to block, and a 2/3 flyer would deal 2 damage (opponent at 16 life) while creating a Map token for card selection. There's no meaningful risk since the opponent has no board presence.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 122,
-    "snapshot_index": 93,
-    "aftermath_index": 95,
-    "player": "Gem25P Drama",
-    "turn": 10,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "questionable",
-    "annotation_description": "In a control mirror with no opposing creatures, declining to attack with Restless Anchorage (2/3 flyer) means missing 2 damage and a Map token. However, activating it would leave no blue mana to hold up No More Lies against potential threats from the opponent's 7 open mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 124,
-    "snapshot_index": 94,
-    "aftermath_index": 96,
-    "player": "Gem25P Drama",
-    "turn": 10,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has two Map tokens and a Fountainport on board. They could sacrifice a Map token to Fountainport's draw ability ({2}, {T}, Sacrifice a token: Draw a card) for 2 mana, still leaving enough mana untapped (Hallowed Fountain, Plains, Sunken Citadel, Restless Anchorage = WU + more) to hold up No More Lies. Instead they passed without using the mana sink, wasting an opportunity to convert a spare token into card advantage.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 125,
-    "snapshot_index": 96,
-    "aftermath_index": 97,
-    "player": "Gem25P Drama",
-    "turn": 11,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "Hallowed Fountain",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama paid 2 life to play Hallowed Fountain untapped when they already have 8 lands on the battlefield (including the new one) and no immediate need for the mana this turn that couldn't wait. They have Stock Up (3 mana) and Seam Rip (1 mana) as possible plays, but with 7 lands already available before this land drop, they have plenty of mana to cast anything in hand. The 2 life payment is unnecessary when the board is a grindy control mirror and life is a resource. They could have let it enter tapped and still had 7 mana available, which is more than enough to hold up No More Lies and still cast Stock Up or other spells.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 126,
-    "snapshot_index": 97,
-    "aftermath_index": 98,
-    "player": "Gem25P Drama",
-    "turn": 11,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "moderate",
-    "annotation_description": "Activated Restless Anchorage's animation ability ({1}{W}{U}) to make it a 2/3 flyer, but then skipped the attack phase entirely. The animation only lasts until end of turn, so this accomplished nothing while spending 3 mana that could have been held up for No More Lies (they had two copies in hand) or used on Stock Up.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 128,
-    "snapshot_index": 98,
-    "aftermath_index": 99,
-    "player": "Gem25P Drama",
-    "turn": 11,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Declined to activate Fountainport to sacrifice a Map token and draw a card ({2}, {T}, sacrifice a token) during combat. With Hallowed Fountain, Plains, Sunken Citadel, and Demolition Field still untapped, they had enough mana to activate Fountainport (2 generic + tap) and still hold up No More Lies ({W}{U}) with their remaining lands. Drawing an extra card in a control mirror is meaningful value.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 129,
-    "snapshot_index": 99,
-    "aftermath_index": 100,
-    "player": "Gem3F Valley",
-    "turn": 11,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "With 7 lands available and the opponent tapped out (Restless Anchorage is tapped, suggesting they attacked or activated it), this was an opportunity to deploy Wan Shi Tong, Librarian at end of opponent's turn or during main phase. Casting Wan Shi Tong for X=5 (7 mana total) would create a 6/6 flyer with vigilance and draw 2 cards, establishing a significant clock and card advantage. The opponent has no creatures on board and limited ability to deal with a large flyer. Valley has 7 lands but only passed, missing the chance to use mana productively. While holding up countermagic is reasonable, Valley already has Essence Scatter, Spell Pierce, and two Three Steps Ahead - deploying a threat while still being able to hold up some interaction next turn would be stronger than doing nothing with all mana.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 133,
-    "snapshot_index": 105,
-    "aftermath_index": 105,
-    "player": "Gem25P Drama",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "moderate",
-    "annotation_description": "Casting Day of Judgment when there are zero creatures on the battlefield. This wastes a powerful board wipe and 4 mana for absolutely no effect. The opponent has no creatures, and the player has no creatures either - the spell accomplishes literally nothing.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 134,
-    "snapshot_index": 105,
-    "aftermath_index": 107,
-    "player": "Gem25P Drama",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "major",
-    "annotation_description": "Cast Day of Judgment when there are zero creatures on the battlefield. Restless Reef is a land (its animation from opponent's previous turn has worn off), so the board wipe destroys nothing. This wastes a critical board wipe that could answer future creature threats like Wan Shi Tong.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 135,
-    "snapshot_index": 108,
-    "aftermath_index": 109,
-    "player": "Gem25P Drama",
-    "turn": 12,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "In a control mirror at 16-16 life, Gem25P Drama declined to activate and attack with Restless Anchorage when the opponent had no untapped creatures to block. This misses 2 free damage and a Map token (which provides card selection), while they had enough mana to still hold up No More Lies for protection.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 136,
-    "snapshot_index": 109,
-    "aftermath_index": 111,
-    "player": "Gem25P Drama",
-    "turn": 12,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "With 8 lands on the battlefield and nothing pressuring them, Gem25P Drama passed without using any mana sinks. Fountainport could create a Fish token (costs 3, tap, pay 1 life) or a Treasure token (costs 4, tap), and Demolition Field could potentially be used. At minimum, creating a Fish token or Treasure at end of turn / during main phase represents free incremental value. Stock Up could also be cast to improve hand quality, since the hand is mostly reactive cards and finding threats or better answers would be valuable.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 137,
-    "snapshot_index": 110,
-    "aftermath_index": 112,
-    "player": "Gem25P Drama",
-    "turn": 12,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "In a control mirror at 16 life each, Gem25P Drama declined to activate Restless Anchorage as a 2/3 flyer and attack. The opponent has no flying blockers (Restless Reef is a 4/4 deathtouch without flying), so the Anchorage would deal 2 unblockable damage and create a Map token. While holding up No More Lies has value, getting in free damage with a creature land is a key win condition in control mirrors.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 139,
-    "snapshot_index": 112,
-    "aftermath_index": 114,
-    "player": "Gem25P Drama",
-    "turn": 12,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has Fountainport and two Map tokens on the battlefield with plenty of untapped mana. They could activate Fountainport ({2}, {T}, Sacrifice a token: Draw a card) to convert a Map token into a card draw. In a control mirror, this is free value since they have no creatures to use the Map explore ability on.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 142,
-    "snapshot_index": 115,
-    "aftermath_index": 116,
-    "player": "Gem25P Drama",
-    "turn": 13,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "moderate",
-    "annotation_description": "Activated Restless Anchorage (spending 3 mana to make it a 2/3 flyer until end of turn) but then skipped the attack phase. The opponent has no creatures and no way to block a flyer - Restless Reef only becomes a ground creature with deathtouch. This wastes 3 mana and misses 2 free damage plus a Map token trigger.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 146,
-    "snapshot_index": 118,
-    "aftermath_index": 120,
-    "player": "Gem25P Drama",
-    "turn": 13,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has Fountainport on the battlefield and 5+ mana available (Hallowed Fountain, Plains, Sunken Citadel, Demolition Field, Fountainport) with no immediate need to hold up all mana. They could activate Fountainport to create a Fish token ({3}, {T}, Pay 1 life) or create a Treasure token ({4}, {T}), providing incremental value. With two Map tokens available, they could also sacrifice a Map token to Fountainport's draw ability ({2}, {T}, Sacrifice a token: Draw a card). These are pure mana-sink abilities that generate value when mana would otherwise go unused. While holding up No More Lies is reasonable, they have two copies and could still hold countermagic while using some mana productively.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 149,
-    "snapshot_index": 120,
-    "aftermath_index": 121,
-    "player": "Gem3F Valley",
-    "turn": 13,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley passed the turn with 8 lands and a full hand of 8 cards, missing the opportunity to use Fountainport's mana sink abilities or cast Wan Shi Tong at end of opponent's turn. With 8 mana available, they could cast Wan Shi Tong for X=6 (a 7/7 flyer with vigilance that draws 3 cards) at the end of the opponent's turn, which would be a massive threat. Alternatively, they could at minimum use Fountainport to create a Fish token or Treasure token as a mana sink. Passing with this much mana and cards available wastes significant resources.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 150,
-    "snapshot_index": 120,
-    "aftermath_index": 122,
-    "player": "Gem25P Drama",
-    "turn": 13,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "During the opponent's end step (post-combat main), Gem25P Drama has Fountainport on the battlefield with mana available but declined to activate any abilities. With 8 lands on board and nothing better to do with mana at end of opponent's turn, they could have used Fountainport to create a Treasure token ({4}, {T}) or even a Fish token ({3}, {T}, pay 1 life), converting unused mana into resources. This is a pure-upside mana sink that should be used when mana would otherwise go to waste.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 153,
-    "snapshot_index": 122,
-    "aftermath_index": 124,
-    "player": "Gem25P Drama",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "moderate",
-    "annotation_description": "Day of Judgment was cast when there are zero creatures on the board. Neither player has any creatures in play - only lands, tokens (Map tokens which are artifacts, not creatures), and other non-creature permanents. This wastes a card and 4 mana for absolutely no effect. Day of Judgment destroys all creatures, but there are none to destroy.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 154,
-    "snapshot_index": 125,
-    "aftermath_index": 126,
-    "player": "Gem25P Drama",
-    "turn": 14,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "During the combat phase on their own turn, Gem25P Drama declined to activate Restless Anchorage (1WU to become a 2/3 flyer) to attack. The opponent has no creatures on board and no untapped mana to activate Restless Reef as a blocker. Attacking with a 2/3 flyer would deal 2 damage and create a Map token, representing meaningful incremental pressure and value in a grindy control mirror where both players are at 16 life. The board is stalled with no creatures, and creature-lands are one of the primary win conditions available.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 155,
-    "snapshot_index": 126,
-    "aftermath_index": 127,
-    "player": "Gem25P Drama",
-    "turn": 14,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has 8 lands in play and Stock Up in hand (costs 2U), with available mana to cast it. In a control mirror where both players are land-go'ing, drawing cards is critical to pulling ahead. Stock Up would look at the top 5 cards and put 2 into hand, helping find threats or answers. Additionally, Fountainport could be activated to create a Fish token or Treasure token as a mana sink, and Demolition Field could target the opponent's Restless Reef (a significant threat). Passing without using any mana at all wastes the entire turn's worth of resources.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 157,
-    "snapshot_index": 128,
-    "aftermath_index": 130,
-    "player": "Gem25P Drama",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has 7 lands in play including Fountainport and Demolition Field, with nothing else to do in the main phase. They should be using mana sinks before passing. Fountainport can create a Fish token for {3}, {T}, Pay 1 life, or create a Treasure for {4}, {T}. Additionally, Demolition Field could potentially be used to destroy opponent's Restless Reef (a significant threat as a 4/4 deathtouch creature land) while both players search for basics. With no board presence and the opponent having Restless Reef, activating Demolition Field targeting Restless Reef would be a strong play, removing a key threat. At minimum, creating a Fish token with Fountainport would give a body to block or sacrifice later.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 158,
-    "snapshot_index": 128,
-    "aftermath_index": 130,
-    "player": "Gem3F Valley",
-    "turn": 14,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "In a control mirror with no opposing creatures on board, Gem3F Valley passed on animating Restless Reef to attack. The opponent is at 16 life with no blockers. Activating Reef costs {2}{U}{B}, leaving 4 lands untapped which is enough to hold up Spell Pierce, Essence Scatter, or Bitter Triumph as protection.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 159,
-    "snapshot_index": 129,
-    "aftermath_index": 132,
-    "player": "Gem25P Drama",
-    "turn": 14,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama declined to activate Restless Anchorage during combat. With 7 lands on board (including Sunken Citadel which can produce WU mana for land abilities), they could activate Restless Anchorage for {1}{W}{U} to make it a 2/3 flyer and attack. The opponent has no creatures and Restless Reef is untapped but costs {2}{U}{B} to activate as a blocker. Even if the opponent activates Restless Reef to block, Anchorage has flying so it can't be blocked by the Shark. This is free damage in a grindy control mirror where every point matters, plus the attack trigger creates a Map token.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 162,
-    "snapshot_index": 134,
-    "aftermath_index": 135,
-    "player": "Gem25P Drama",
-    "turn": 15,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has an Island in hand and 8 lands on the battlefield but chose to pass without playing the Island. This is a missed land drop that would increase available mana for future turns, enabling kicked Consult the Star Charts or leaving up more interaction while still activating creature lands. Additionally, with 8 cards in hand (including the Island), they will have to discard to hand size anyway, so playing the Island costs nothing and provides pure upside.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 163,
-    "snapshot_index": 135,
-    "aftermath_index": 137,
-    "player": "Gem25P Drama",
-    "turn": 15,
-    "phase": "END",
-    "message": "Select a card to discard",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has an Island in hand but is being forced to discard at end of turn, implying they missed their land drop this turn. Playing the Island would have meant 7 cards in hand with no discard needed, effectively saving a card. With only 6 lands on board, the extra mana would also be valuable for casting spells and activating Restless Anchorage or Fountainport.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 164,
-    "snapshot_index": 136,
-    "aftermath_index": 137,
-    "player": "Gem3F Valley",
-    "turn": 15,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "In a control mirror with no creatures on either side, Gem3F Valley passed without activating Restless Reef to attack. With 8 lands available, they could activate Reef (2UB) to create a 4/4 deathtouch attacker while still holding up Spell Pierce or other cheap countermagic. Creature-lands are a primary win condition in control mirrors, and the mill trigger provides additional value.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 165,
-    "snapshot_index": 136,
-    "aftermath_index": 138,
-    "player": "Gem25P Drama",
-    "turn": 15,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "In a control mirror at 16-16 life, declining to animate Restless Anchorage for a 2/3 flying attack (generating a Map token) represents missed pressure. After playing Island, Drama would have 8 lands - animating Anchorage costs 1WU leaving 4 lands untapped, enough to hold up Spell Snare or No More Lies for protection. The opponent's Restless Reef can't block a flyer. Additionally, the two Map tokens could potentially be sacrificed to Fountainport for card draw, though hand size is already at 7.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 167,
-    "snapshot_index": 138,
-    "aftermath_index": 140,
-    "player": "Gem25P Drama",
-    "turn": 15,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama declined to activate Fountainport's abilities during their postcombat main phase with mana available. With 7 lands on the battlefield and no pressing need to hold up all mana, they could have used Fountainport to create a Treasure token ({4}, {T}) or a Fish token ({3}, {T}, Pay 1 life) to generate incremental value. In a control mirror where both players are accumulating lands, using mana sinks like Fountainport at end of turn or during main phase when not needing to hold up specific counterspells is important for generating advantage. They have 7 mana sources and could activate Fountainport while still holding up No More Lies (WU) or Spell Snare (U) with remaining lands.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 169,
-    "snapshot_index": 140,
-    "aftermath_index": 141,
-    "player": "Gem25P Drama",
-    "turn": 16,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Casting Consult the Star Charts before playing the Island from hand means looking at 6 cards instead of 7. Consult the Star Charts looks at X cards where X is the number of lands you control, so playing Island first is strictly better.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 170,
-    "snapshot_index": 142,
-    "aftermath_index": 143,
-    "player": "Gem25P Drama",
-    "turn": 16,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem25P Drama has 8 lands in play (Hallowed Fountain, Plains, Sunken Citadel, Restless Anchorage, Demolition Field, Fountainport, and an Island in hand to play). They chose to do nothing in their main phase and skip attacks. They should at minimum play their Island from hand (missing a land drop), and activate Restless Anchorage to attack for 2 damage with a flying creature. The opponent has no flying blockers and Restless Anchorage attacks generate Map tokens for additional value. In a control mirror at parity, pressing damage with creature lands is critical. Additionally, they could have cast Stock Up to dig for more resources, or used Fountainport's abilities. Doing literally nothing wastes an entire turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 171,
-    "snapshot_index": 143,
-    "aftermath_index": 144,
-    "player": "Gem25P Drama",
-    "turn": 16,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem25P Drama declined to activate Restless Anchorage during their own combat phase. With 8 lands on the battlefield (including the untapped Restless Anchorage, Hallowed Fountain, Plains, Sunken Citadel), they had the mana to pay {1}{W}{U} to animate Restless Anchorage into a 2/3 flyer and attack. The opponent at 16 life has no flying blockers and Restless Reef costs {2}{U}{B} to animate (so it can't surprise-block). Attacking with Restless Anchorage also creates a Map token, providing incremental value. In a control mirror at parity, free damage and token generation from creature-lands is a key way to close the game. Passing on this every turn cycle adds up significantly.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 172,
-    "snapshot_index": 144,
-    "aftermath_index": 145,
-    "player": "Gem25P Drama",
-    "turn": 16,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has an Island in hand and only 8 lands on the battlefield. Playing the Island would increase mana available for future turns and also improve Consult the Star Charts (which looks at top X cards where X = number of lands). There's no reason not to play a land when you have one available and haven't made a land drop this turn.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 174,
-    "snapshot_index": 146,
-    "aftermath_index": 148,
-    "player": "Gem25P Drama",
-    "turn": 16,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama declined to activate Restless Anchorage before combat to attack for 2 flying damage. With 7 lands on the battlefield and the opponent at 16 life in a control mirror, incremental damage from creature lands is one of the primary win conditions. The opponent has no flyers to block, and activating before combat costs only 1W+U which is available. While holding up countermagic is important, they have 2 No More Lies and a Spell Snare in hand - they could activate Anchorage and still have mana to hold up Spell Snare or potentially one No More Lies depending on land taps.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 176,
-    "snapshot_index": 147,
-    "aftermath_index": 149,
-    "player": "Gem25P Drama",
-    "turn": 16,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama declined to activate Restless Anchorage during their own combat phase to attack for 2 flying damage. They have 7 lands available (Hallowed Fountain, Plains, Sunken Citadel, Restless Anchorage, Demolition Field, Fountainport, and the Anchorage itself) and activating Restless Anchorage costs {1}{W}{U}. They could animate it, attack for 2 in the air (generating a Map token), and still have mana left over. The opponent is at 16 life and this is a control mirror where incremental damage from creature lands is a primary win condition. The opponent has Restless Reef but it's untapped and can't block a flyer anyway. There's no reason not to pressure the opponent's life total.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 178,
-    "snapshot_index": 150,
-    "aftermath_index": 152,
-    "player": "Gem3F Valley",
-    "turn": 17,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "In a grindy control mirror at parity, Gem3F Valley passed without activating Restless Reef to attack. With 8 lands, they could activate Reef for 4 mana and still hold up 3+ mana for Spell Pierce or Bitter Triumph. A 4/4 deathtouch attacker that mills the opponent represents meaningful pressure and card advantage in this stalled board state. Additionally, using Demolition Field to destroy Restless Anchorage (the opponent's only win condition on board) deserved serious consideration.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 181,
-    "snapshot_index": 154,
-    "aftermath_index": 156,
-    "player": "Gem25P Drama",
-    "turn": 17,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama passed priority in precombat main without activating Restless Anchorage to attack. With 8 lands on the battlefield and the opponent at 16 life, animating Restless Anchorage (costs 1WU) and attacking for 2 flying damage while generating a Map token is free value. The opponent has no fliers to block, and Drama has countermagic (2x No More Lies, Spell Snare) to protect against instant-speed interaction. There's no reason not to pressure the opponent's life total when you have a creature land available.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 182,
-    "snapshot_index": 155,
-    "aftermath_index": 156,
-    "player": "Gem3F Valley",
-    "turn": 17,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley passed on activating Restless Reef to attack as a 4/4 deathtouch creature when the opponent has no creatures on board. The opponent would either take 4 damage or have to activate Restless Anchorage to block (losing it to deathtouch). With 8 lands available, activating Reef for 4 mana still leaves 3 lands untapped for counterspell protection (Spell Pierce, Essence Scatter).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 184,
-    "snapshot_index": 158,
-    "aftermath_index": 159,
-    "player": "Gem25P Drama",
-    "turn": 18,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem25P Drama passed their main phase without activating Restless Anchorage to attack. They have 8 lands on the battlefield and the opponent is at 16 life. Restless Anchorage has been their primary win condition, chipping in for 2 damage per turn and generating Map tokens. There's no reason not to animate it and attack \u2014 the opponent has no creatures to block a flyer, and while they have mana open for instant-speed interaction, Gem25P Drama has two copies of No More Lies in hand to protect against removal. Passing up 2 damage (plus a Map token) for free is a significant missed opportunity in a game where both players are at 16 life and the clock matters.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 186,
-    "snapshot_index": 159,
-    "aftermath_index": 160,
-    "player": "Gem25P Drama",
-    "turn": 18,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has Restless Anchorage on the battlefield and enough mana to activate it (1WU from Hallowed Fountain, Plains, Sunken Citadel, plus other lands). Activating Restless Anchorage and attacking with the 2/3 flyer would deal 2 damage and create a Map token, continuing the pressure that has been the primary win condition. The opponent has 16 life and no creatures to block a flyer. Instead, Drama passed combat without attacking and went straight to casting Stock Up.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 192,
-    "snapshot_index": 163,
-    "aftermath_index": 164,
-    "player": "Gem25P Drama",
-    "turn": 18,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "With 6 lands already on board and a hand full of reactive spells, picking two Hallowed Fountains over a mix of land + spell is suboptimal. The hand lacks removal, and Get Lost or Three Steps Ahead would provide more value than a second land when they're already making land drops consistently.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 195,
-    "snapshot_index": 166,
-    "aftermath_index": 167,
-    "player": "Gem25P Drama",
-    "turn": 18,
-    "phase": "END",
-    "message": "Select card to discard (selected 0 of 2, min 2)",
-    "chosen_display": "?",
-    "annotation_severity": "minor",
-    "annotation_description": "Discarding Seam Rip over Stock Up is questionable. Seam Rip is a 1-mana removal spell that can exile key permanents (like Restless Reef when it animates, or other threats), while Stock Up is a 3-mana sorcery-speed card selection spell. In a control mirror where the opponent is attacking with creature-lands and the game is progressing slowly, having cheap interactive spells is more valuable than a sorcery-speed draw spell, especially when the player already has Consult the Star Charts (an instant-speed alternative). However, discarding Hallowed Fountain is reasonable since they already have sufficient lands on the battlefield.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 197,
-    "snapshot_index": 169,
-    "aftermath_index": 171,
-    "player": "Gem25P Drama",
-    "turn": 18,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama had Sunken Citadel (untapped, producing 2 mana for land abilities) and Fountainport (untapped) available, along with Map tokens on the battlefield. They could have activated Fountainport's '{2}, {T}, Sacrifice a token: Draw a card' ability by using Sunken Citadel's double-mana mode for land abilities, sacrificing a Map token to draw an extra card. Map tokens are relatively low value and converting one into a card is a clear advantage.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 200,
-    "snapshot_index": 173,
-    "aftermath_index": 174,
-    "player": "Gem25P Drama",
-    "turn": 19,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "In a control mirror where Restless Anchorage is the primary win condition, Gem25P Drama passed priority without activating it to attack. They had been attacking with it on previous turns and had sufficient mana to both activate it and hold up countermagic (Spell Snare via Sunken Citadel). Missing 2 damage and a Map token in a close game (opponent at 16 life) is significant.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 201,
-    "snapshot_index": 174,
-    "aftermath_index": 176,
-    "player": "Gem25P Drama",
-    "turn": 19,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama has 8 lands in play (including Fountainport) and Map tokens available. With mana available in the postcombat main phase, they could use Fountainport's '{2}, {T}, Sacrifice a token: Draw a card' ability to sacrifice one of their Map tokens to draw a card, converting a low-value token into card advantage. They also could activate Demolition Field to destroy opponent's Restless Reef (a significant threat land), which would thin both libraries and fix mana. Passing with mana unused when there are pure-value mana sinks available is a waste of resources in a control mirror.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 202,
-    "snapshot_index": 175,
-    "aftermath_index": 177,
-    "player": "Gem3F Valley",
-    "turn": 19,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem3F Valley passed the entire turn without playing Watery Grave (missing a land drop) and without animating Restless Reef to attack. The opponent has no creatures to block, so a 4/4 deathtouch attack dealing 4 damage and milling 4 cards is free pressure. With 8 lands, they could animate Reef (4 mana) and still hold up 4 mana for Essence Scatter or other interaction. Missing the land drop also means they'll have to discard a card unnecessarily.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 204,
-    "snapshot_index": 181,
-    "aftermath_index": 182,
-    "player": "Gem25P Drama",
-    "turn": 20,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Gem25P Drama chose to pass the turn doing nothing with 8 lands available and a strong hand. They have Fountainport on the battlefield which could create a Fish token (3, T, pay 1 life) or a Treasure token (4, T) at end of opponent's turn, or they could activate Demolition Field to destroy the opponent's Demolition Field or Restless Reef. More importantly, they could use Fountainport to sacrifice one of their Map tokens to draw a card (2, T, sacrifice a token). They also could have cast Stock Up or Consult the Star Charts to dig deeper, or activated Restless Anchorage to pressure the opponent. Instead they passed and discarded Stock Up to hand size, wasting a card entirely. They had plenty of mana to cast Stock Up (3 mana) before the turn ended rather than discarding it.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 205,
-    "snapshot_index": 183,
-    "aftermath_index": 185,
-    "player": "Gem3F Valley",
-    "turn": 20,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley passed their main phase without playing a land (they have two Watery Graves in hand) and without using any mana. They have 8 lands on the battlefield and 8 cards in hand, meaning they'll discard down to 7. They should have played a Watery Grave first to have more mana available, and ideally should have considered deploying Wan Shi Tong at end of opponent's turn or using Fountainport/Restless Reef abilities. Missing the land drop means wasting a resource since they're going to discard anyway.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 207,
-    "snapshot_index": 187,
-    "aftermath_index": 189,
-    "player": "Gem3F Valley",
-    "turn": 21,
-    "phase": "PRECOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley passed without activating Restless Reef to attack. With 8 lands, they could activate Reef for {2}{U}{B} and still hold up 4 mana for countermagic (Essence Scatter at {1}{U} or Three Steps Ahead counter mode at {1}{U}{U}). The opponent has no creatures to block the 4/4 deathtouch, and milling 4 cards provides additional value. The opponent is at 14 life, so 4 damage is significant pressure.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 208,
-    "snapshot_index": 188,
-    "aftermath_index": 190,
-    "player": "Gem3F Valley",
-    "turn": 21,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "In a control mirror at a stalled board state, Gem3F Valley declined to activate Restless Reef as a 4/4 deathtouch attacker. Attacking would force the opponent to either take 4 damage (going to 10) and mill 4 cards, or sacrifice their Restless Anchorage to block (trading a key win condition). With 8 lands, activating Reef for {2}{U}{B} still leaves 4 mana open for counterspells like Essence Scatter or other interaction.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 209,
-    "snapshot_index": 189,
-    "aftermath_index": 191,
-    "player": "Gem3F Valley",
-    "turn": 21,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley passed the turn with 8 mana available and did nothing productive. They could have played Watery Grave from hand (they have it) to improve future mana, or more importantly, activated Fountainport to create a Treasure token ({4}, {T}) or used Demolition Field to destroy one of the opponent's key nonbasic lands (like Restless Anchorage or Fountainport) while thinning their own deck. Using Demolition Field on Restless Anchorage would remove a recurring threat that has been dealing damage, and with Wan Shi Tong in hand, the opponent searching would even give an extra counter and card draw when Wan Shi Tong is eventually played. At minimum, playing the Watery Grave tapped and activating Fountainport for a Treasure would use mana that otherwise goes to waste.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 212,
-    "snapshot_index": 193,
-    "aftermath_index": 194,
-    "player": "Gem3F Valley",
-    "turn": 21,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley declined to activate and attack with Restless Reef in a position where the opponent has no creatures to block. Attacking would deal 4 damage (putting opponent to 10) and mill 4 cards, while still leaving 4 mana open for countermagic (Essence Scatter, Bitter Triumph, or a Three Steps Ahead).",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 215,
-    "snapshot_index": 196,
-    "aftermath_index": 199,
-    "player": "Gem3F Valley",
-    "turn": 22,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "In a control mirror with the opponent at 14 life and no creatures on board, Gem3F Valley declined to activate Restless Reef (4/4 deathtouch) to attack. After paying {2}{U}{B} to animate, they would still have 4 mana available to hold up countermagic (Three Steps Ahead or Essence Scatter) to protect the Reef from removal. Not pressuring the opponent in this spot delays the clock unnecessarily.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 220,
-    "snapshot_index": 202,
-    "aftermath_index": 204,
-    "player": "Gem3F Valley",
-    "turn": 22,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley passed priority in postcombat main with 8 lands available and nothing else to do this turn. They could have activated Fountainport to create a Treasure token ({4}, {T}) or a Fish token ({3}, {T}, Pay 1 life), building incremental value. In a control mirror where both players are land-heavy and playing draw-go, using mana sinks at the end of your own turn (or on opponent's end step) to generate tokens/cards is important. While they might prefer to hold up mana for the opponent's turn, they have enough reactive spells and could at minimum use Fountainport's ability on the opponent's end step. However, passing here means they're choosing to hold up all their mana for countermagic, which is reasonable but likely suboptimal since they have 7 cards in hand including multiple counterspells and could afford to use some mana on value generation.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 222,
-    "snapshot_index": 204,
-    "aftermath_index": 205,
-    "player": "Gem25P Drama",
-    "turn": 23,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Failed to activate Restless Anchorage to attack as a 2/3 flyer in a control mirror where the opponent has no flying blockers. Missing 2 damage plus a Map token from the attack trigger. The opponent is at 16 life and there's no lethal on board - the reasoning about 'victory is won' is delusional.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 223,
-    "snapshot_index": 204,
-    "aftermath_index": 206,
-    "player": "Gem3F Valley",
-    "turn": 23,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem3F Valley passed through combat without activating Restless Reef to attack. The opponent is at 14 life with no creatures on board. Activating Restless Reef (2UB to make it a 4/4 deathtouch) and attacking would deal 4 damage and mill the opponent 4 cards, applying meaningful pressure. With 8 lands available and 7 cards in hand including countermagic (Essence Scatter, Spell Snare, two Three Steps Ahead), Valley had plenty of mana and protection to safely attack. The board is empty of creatures on both sides, so there's minimal risk.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 227,
-    "snapshot_index": 211,
-    "aftermath_index": 212,
-    "player": "Gem3F Valley",
-    "turn": 23,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Announce the value for {X} (source: Wan Shi Tong, Librarian)",
-    "chosen_display": "8",
-    "annotation_severity": "major",
-    "annotation_description": "Wan Shi Tong, Librarian is a must-counter threat. The opponent cast it with flash (likely at end of turn or during combat), and Gem3F Valley has Essence Scatter in hand - a perfect answer for a creature spell on the stack. Letting a large flying, vigilance creature with card draw resolve when you have the exact counter spell is a critical error. With the opponent at 14 life and Valley having no board presence besides lands, this creature will dominate the game. The opponent likely paid X=something significant given they have access to 8+ mana sources, meaning Wan Shi Tong enters as a large flier that also draws cards.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 231,
-    "snapshot_index": 212,
-    "aftermath_index": 213,
-    "player": "Gem3F Valley",
-    "turn": 23,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "major",
-    "annotation_description": "Wan Shi Tong, Librarian is on the stack and Gem3F Valley has multiple ways to counter it (Three Steps Ahead, Essence Scatter, Spell Snare) but chose not to counter it. Wan Shi Tong is a must-answer threat - it's a flash flyer with vigilance that draws cards and grows. The opponent has 14 life and Gem3F Valley is in a control mirror with a hand full of reactive spells but no win conditions visible. Letting a scaling threat resolve when you have Essence Scatter (the perfect answer to a creature spell) is a critical error. Looking at the opponent's board, they have 8 lands including Demolition Field, and Wan Shi Tong's trigger 'whenever an opponent searches their library' means if Gem3F Valley ever uses their own Demolition Field, the opponent draws a card and grows Wan Shi Tong. The opponent also has Map tokens that could trigger searches. This creature will be very difficult to deal with once it resolves and starts accumulating value.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 236,
-    "snapshot_index": 216,
-    "aftermath_index": 217,
-    "player": "Gem25P Drama",
-    "turn": 24,
-    "phase": "COMBAT",
-    "message": "Play instants and activated abilities",
-    "chosen_display": "False",
-    "annotation_severity": "moderate",
-    "annotation_description": "Failed to activate Restless Anchorage and attack with it when the opponent has almost all lands tapped (only 1 untapped Undercity Sewers). This is the ideal time to get in damage with creature-lands in a control mirror. The 2 damage plus a free Map token is very significant value in this grindy game.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
-  },
-  {
-    "decision_index": 237,
-    "snapshot_index": 217,
-    "aftermath_index": 218,
-    "player": "Gem25P Drama",
-    "turn": 24,
-    "phase": "POSTCOMBAT_MAIN",
-    "message": "Play spells and abilities",
-    "chosen_display": "False",
-    "annotation_severity": "minor",
-    "annotation_description": "Gem25P Drama passed the turn with 8 mana available (7 lands + Sunken Citadel) and multiple useful things to do. They could have activated Fountainport to create a Treasure token (4 mana), or more importantly, they could have used Demolition Field to destroy one of the opponent's nonbasic lands (like Restless Reef or Fountainport), thinning the opponent's mana while getting a basic land themselves. They also had Consult the Star Charts available as an instant they could cast at end of opponent's turn. Additionally, they discarded No More Lies to hand size, which means they held too many cards without using their mana - they could have cast Consult the Star Charts (with or without kicker) to dig for cards and avoid discarding.",
-    "source": "annotation_v11",
-    "verdict": null,
-    "human_notes": null,
-    "audited_at": null
+    "decision_index": 0
+  },
+  {
+    "decision_index": 13
+  },
+  {
+    "decision_index": 39
+  },
+  {
+    "decision_index": 43
+  },
+  {
+    "decision_index": 44
+  },
+  {
+    "decision_index": 45
+  },
+  {
+    "decision_index": 47
+  },
+  {
+    "decision_index": 49
+  },
+  {
+    "decision_index": 50
+  },
+  {
+    "decision_index": 51
+  },
+  {
+    "decision_index": 59
+  },
+  {
+    "decision_index": 74
+  },
+  {
+    "decision_index": 76
+  },
+  {
+    "decision_index": 87
+  },
+  {
+    "decision_index": 95
+  },
+  {
+    "decision_index": 98
+  },
+  {
+    "decision_index": 100
+  },
+  {
+    "decision_index": 112
+  },
+  {
+    "decision_index": 116
+  },
+  {
+    "decision_index": 119
+  },
+  {
+    "decision_index": 120
+  },
+  {
+    "decision_index": 122
+  },
+  {
+    "decision_index": 124
+  },
+  {
+    "decision_index": 125
+  },
+  {
+    "decision_index": 126
+  },
+  {
+    "decision_index": 128
+  },
+  {
+    "decision_index": 129
+  },
+  {
+    "decision_index": 133
+  },
+  {
+    "decision_index": 134
+  },
+  {
+    "decision_index": 135
+  },
+  {
+    "decision_index": 136
+  },
+  {
+    "decision_index": 137
+  },
+  {
+    "decision_index": 139
+  },
+  {
+    "decision_index": 142
+  },
+  {
+    "decision_index": 146
+  },
+  {
+    "decision_index": 149
+  },
+  {
+    "decision_index": 150
+  },
+  {
+    "decision_index": 153
+  },
+  {
+    "decision_index": 154
+  },
+  {
+    "decision_index": 155
+  },
+  {
+    "decision_index": 157
+  },
+  {
+    "decision_index": 158
+  },
+  {
+    "decision_index": 159
+  },
+  {
+    "decision_index": 162
+  },
+  {
+    "decision_index": 163
+  },
+  {
+    "decision_index": 164
+  },
+  {
+    "decision_index": 165
+  },
+  {
+    "decision_index": 167
+  },
+  {
+    "decision_index": 169
+  },
+  {
+    "decision_index": 170
+  },
+  {
+    "decision_index": 171
+  },
+  {
+    "decision_index": 172
+  },
+  {
+    "decision_index": 174
+  },
+  {
+    "decision_index": 176
+  },
+  {
+    "decision_index": 178
+  },
+  {
+    "decision_index": 181
+  },
+  {
+    "decision_index": 182
+  },
+  {
+    "decision_index": 184
+  },
+  {
+    "decision_index": 186
+  },
+  {
+    "decision_index": 192
+  },
+  {
+    "decision_index": 195
+  },
+  {
+    "decision_index": 197
+  },
+  {
+    "decision_index": 200
+  },
+  {
+    "decision_index": 201
+  },
+  {
+    "decision_index": 202
+  },
+  {
+    "decision_index": 204
+  },
+  {
+    "decision_index": 205
+  },
+  {
+    "decision_index": 207
+  },
+  {
+    "decision_index": 208
+  },
+  {
+    "decision_index": 209
+  },
+  {
+    "decision_index": 212
+  },
+  {
+    "decision_index": 215
+  },
+  {
+    "decision_index": 220
+  },
+  {
+    "decision_index": 222
+  },
+  {
+    "decision_index": 223
+  },
+  {
+    "decision_index": 227
+  },
+  {
+    "decision_index": 231
+  },
+  {
+    "decision_index": 236
+  },
+  {
+    "decision_index": 237
   }
 ]
