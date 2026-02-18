@@ -1,17 +1,42 @@
 [
   {
-    "decision_index": 2
+    "decision_index": 2,
+    "annotation_version": 16,
+    "annotation_severity": "moderate",
+    "annotation_description": "Kimi25 Snark declined to cast Shoot the Sheriff on Oblivious Bookworm before combat. Oblivious Bookworm is a non-outlaw creature (Human Wizard), so it's a valid target. By not killing it, Kimi25 took 2 combat damage and the opponent will get card advantage from Bookworm's end step trigger. Shoot the Sheriff costs only 1B, which Kimi25 can pay with Watery Grave + Island or Fountainport. Removing Bookworm before it attacks and before it generates card advantage at end of turn is clearly the right play.",
+    "verdict": "blunder",
+    "human_notes": "s"
   },
   {
-    "decision_index": 3
+    "decision_index": 3,
+    "annotation_version": 16,
+    "annotation_severity": "minor",
+    "annotation_description": "Casting Enduring Curiosity (which has Flash) during postcombat main phase taps out completely, losing the ability to hold up Shoot the Sheriff or Tishana's Tidebinder during the opponent's turn. Notably, Tishana's Tidebinder could counter Oblivious Bookworm's end step draw trigger.",
+    "verdict": "blunder",
+    "human_notes": "Conceivably playing around countermagic"
   },
   {
-    "decision_index": 7
+    "decision_index": 7,
+    "annotation_version": 16,
+    "annotation_severity": "moderate",
+    "annotation_description": "Chose to copy Wistfulness with Superior Spider-Man, but Wistfulness's ETB abilities require {G}{G} or {U}{U} to have been spent casting it. Since Superior Spider-Man costs {2}{U}{B}, neither condition is met, so the copy gains no relevant abilities beyond being a 4/4 body. Meanwhile, copying Oblivious Bookworm would have granted a repeatable end-step card draw ability, which is significant ongoing value when the player only has 2 cards in hand and is facing two Enduring Curiosities.",
+    "verdict": "blunder",
+    "human_notes": "wistfulness would be reasonable if they had paid UUBB or GGUB for Spider-Man, but they didn't, so Bookworm was superior."
   },
   {
-    "decision_index": 11
+    "decision_index": 11,
+    "annotation_version": 16,
+    "annotation_severity": "moderate",
+    "annotation_description": "At 2 life facing an opponent at 16 with Enduring Curiosity on board, copying Oblivious Bookworm gives a vanilla 4/4 ground creature with minor card draw upside. Deep-Cavern Bat would give a 4/4 with flying and lifelink (critical at 2 life for survival and racing) plus hand disruption on ETB to potentially exile a key spell like Shoot the Sheriff or Bitter Triumph.",
+    "verdict": "blunder",
+    "human_notes": "Llama's thinking trace shows it intended to choose Bat, but selected Bookworm instead. Lifelink is the only way to avoid being dead on board."
   },
   {
-    "decision_index": 24
+    "decision_index": 24,
+    "annotation_version": 16,
+    "annotation_severity": "moderate",
+    "annotation_description": "Failed to cast any spell during combat despite having castable options. With Watery Grave, Gloomlake Verge, and Fountainport untapped, Shoot the Sheriff could target Superior Spider-Man (4/4) for {1}{B}, or Floodpits Drowner could tap an attacker. Instead, the attempted cast failed due to mana payment issues, resulting in taking 6 damage instead of potentially only 2.",
+    "verdict": "blunder",
+    "human_notes": "Fail-to-cast is always a blunder. Shooting the sheriff in combat probably not necessary (just trade for spider-man and eat the 2/4) but still a blunder to fail-to-cast."
   }
 ]
