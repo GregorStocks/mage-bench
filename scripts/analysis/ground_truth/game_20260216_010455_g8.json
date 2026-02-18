@@ -1,0 +1,34 @@
+[
+  {
+    "decision_index": 7,
+    "snapshot_index": 14,
+    "aftermath_index": 16,
+    "player": "Sonnet Timmy",
+    "turn": 2,
+    "phase": "PRECOMBAT_MAIN",
+    "message": "Play spells and abilities",
+    "chosen_display": "?",
+    "annotation_severity": "moderate",
+    "annotation_description": "Casting a second copy of the legendary creature Momo, Friendly Flier when one is already on the battlefield. Due to the legend rule, one copy must be sacrificed immediately, meaning the card is wasted for no board advantage. The player essentially discarded a card for nothing meaningful (just a brief +1/+1 trigger on the surviving Momo).",
+    "source": "annotation_v11",
+    "verdict": null,
+    "human_notes": null,
+    "audited_at": null
+  },
+  {
+    "decision_index": 15,
+    "snapshot_index": 73,
+    "aftermath_index": 75,
+    "player": "Sonnet Timmy",
+    "turn": 5,
+    "phase": "POSTCOMBAT_MAIN",
+    "message": "Play spells and abilities",
+    "chosen_display": "?",
+    "annotation_severity": "moderate",
+    "annotation_description": "Missed the line of casting Sarkhan first (beholding Magmatic Hellkite from hand to create a Treasure), then using the extra Treasure to still cast Magmatic Hellkite. This would have put both a 4/5 flying Hellkite AND a 3/3 flying Sarkhan (with +1/+1 counter from Dragon entering) on the battlefield instead of just the Hellkite alone.",
+    "source": "annotation_v11",
+    "verdict": null,
+    "human_notes": null,
+    "audited_at": null
+  }
+]

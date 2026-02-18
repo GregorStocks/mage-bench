@@ -158,3 +158,24 @@ verify-decks:
 .PHONY: blunders
 blunders:
 	uv run --project puppeteer python scripts/analysis/blunder_analysis.py $(GAME)
+
+# Blunder eval harness
+.PHONY: blunder-seed
+blunder-seed:
+	uv run --project puppeteer python scripts/analysis/blunder_seed.py
+
+.PHONY: blunder-audit
+blunder-audit:
+	uv run --project puppeteer python scripts/analysis/blunder_audit.py $(ARGS)
+
+.PHONY: blunder-baseline
+blunder-baseline:
+	uv run --project puppeteer python scripts/analysis/blunder_baseline.py
+
+.PHONY: blunder-eval
+blunder-eval:
+	uv run --project puppeteer python scripts/analysis/blunder_eval.py $(ARGS)
+
+.PHONY: blunder-promote
+blunder-promote:
+	uv run --project puppeteer python scripts/analysis/blunder_promote.py $(ARGS)

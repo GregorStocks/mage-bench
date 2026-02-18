@@ -1179,8 +1179,19 @@ const { slug } = Astro.params;
         // Set up mouse-following card preview
         R.setupMousePreview(previewEls.container);
 
-        // Render first snapshot
-        renderSnapshot(0);
+        // Render first snapshot (or jump to ?s=N if specified)
+        var params = new URLSearchParams(window.location.search);
+        var startSnap = params.get("s");
+        if (startSnap !== null) {
+          var snapNum = parseInt(startSnap, 10);
+          if (!isNaN(snapNum) && snapNum >= 0 && snapNum < game.snapshots.length) {
+            goTo(snapNum);
+          } else {
+            renderSnapshot(0);
+          }
+        } else {
+          renderSnapshot(0);
+        }
       })
       .catch(function (err) {
         showError(err.message || "Failed to load game data.");

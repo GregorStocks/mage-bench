@@ -727,6 +727,38 @@ def _eval_one_decision(
     return [ann], cost, True, raw_record
 
 
+def _auto_ingest_ground_truth(
+    game_id: str,
+    annotations: list[dict],
+    decisions: list[dict],
+    snapshots: list[dict],
+) -> None:
+    """Add annotated decisions to ground truth for future eval."""
+    from blunder_eval_common import (
+        make_ground_truth_entry,
+        merge_into_ground_truth,
+        reverse_map_annotations,
+    )
+
+    source = f"annotation_v{BLUNDER_SCRIPT_VERSION}"
+    mapping = reverse_map_annotations(annotations, decisions, snapshots)
+
+    entries: list[dict] = []
+    for ann_idx, decision_idx in mapping.items():
+        entry = make_ground_truth_entry(
+            decisions[decision_idx],
+            snapshots,
+            annotation=annotations[ann_idx],
+            source=source,
+        )
+        entries.append(entry)
+
+    if entries:
+        added = merge_into_ground_truth(game_id, entries)
+        if added > 0:
+            print(f"Ground truth: +{added} entries for {game_id}")
+
+
 def main(gz_path: str) -> None:
     api_key = os.environ.get("OPENROUTER_API_KEY")
     assert api_key, "OPENROUTER_API_KEY environment variable required"
@@ -919,6 +951,9 @@ def main(gz_path: str) -> None:
         print()
 
     _write_annotations(gz_path, annotations)
+
+    # Auto-ingest: add annotated decisions to ground truth for future eval
+    _auto_ingest_ground_truth(data["id"], annotations, decisions, snapshots)
 
     print(f"\nTotal cost: ${total_cost:.3f}")
 

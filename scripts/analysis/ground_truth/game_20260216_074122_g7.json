@@ -1,0 +1,18 @@
+[
+  {
+    "decision_index": 43,
+    "snapshot_index": 44,
+    "aftermath_index": 46,
+    "player": "Grok4F Libby",
+    "turn": 4,
+    "phase": "PRECOMBAT_MAIN",
+    "message": "Play spells and abilities",
+    "chosen_display": "?",
+    "annotation_severity": "minor",
+    "annotation_description": "Clarion Conqueror is a Dragon spell, so it could have been cast using the second ability of Maelstrom of the Spirit Dragon which produces colored mana (any color) restricted to Dragon/Omen spells. By using ability 1 ({T}: Add {C}) instead of ability 2 ({T}: Add one mana of any color for Dragon spells), the player gets colorless mana instead of colored mana. Since Clarion Conqueror costs {2}{W}, the colorless mana works fine for the generic portion, but using the Dragon-restricted colored mana ability would have been functionally equivalent here - the {W} is presumably coming from another source. However, by using ability 2 to produce {W}, the player could have potentially freed up one of their white sources (Sacred Foundry or Inspiring Vantage) to produce mana for other spells this turn, like casting Momo ({W}) in addition to Clarion Conqueror. With ability 2 producing {W} for Dragon spell, plus Sacred Foundry for {W}, plus untapped Inspiring Vantage for {R} or {W}, the player would have had enough mana to cast both Clarion Conqueror ({2}{W}) and Momo ({W}) after playing Sunbillow Verge. Using ability 1 for {C} instead means they likely can't cast both.",
+    "source": "annotation_v11",
+    "verdict": null,
+    "human_notes": null,
+    "audited_at": null
+  }
+]

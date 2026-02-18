@@ -1,0 +1,34 @@
+[
+  {
+    "decision_index": 19,
+    "snapshot_index": 60,
+    "aftermath_index": 61,
+    "player": "Qwen3 Sport",
+    "turn": 3,
+    "phase": "PRECOMBAT_MAIN",
+    "message": "Select a creature, enchantment, or planeswalker",
+    "chosen_display": "?",
+    "annotation_severity": "questionable",
+    "annotation_description": "Sarkhan is a 2/2 that generates value when Dragons enter, while Momo is a 1/1 flier that reduces costs of flying creatures. With Day of Judgment in hand, removing either creature is somewhat redundant since a board wipe is available next turn. However, using Get Lost now on Sarkhan is reasonable since Sarkhan can snowball with Dragons and create Treasure tokens, making it the higher-priority target. The question is whether Get Lost should have been saved entirely, since Day of Judgment would handle both creatures on turn 4. Using Get Lost now gives the opponent two Map tokens unnecessarily. On the other hand, waiting until turn 4 for Day of Judgment means taking attacks from both Momo and Sarkhan (potentially 3 damage with Momo's buff), and the opponent could deploy more threats. The choice of Sarkhan over Momo as the target seems correct since Sarkhan has higher long-term value generation potential. But spending Get Lost when Day of Judgment is in hand for next turn is questionable - it gives the opponent two Map tokens for free when a clean board wipe was one turn away.",
+    "source": "annotation_v11",
+    "verdict": null,
+    "human_notes": null,
+    "audited_at": null
+  },
+  {
+    "decision_index": 21,
+    "snapshot_index": 70,
+    "aftermath_index": 72,
+    "player": "Opus Minimal",
+    "turn": 4,
+    "phase": "PRECOMBAT_MAIN",
+    "message": "Play spells and abilities",
+    "chosen_display": "?",
+    "annotation_severity": "moderate",
+    "annotation_description": "Failed to cast Magmatic Hellkite despite having the mana (3 lands + Momo's discount making it cost {1}{R}{R}). Opponent was completely tapped out with no interaction possible. Hellkite would add a 4/5 flyer, destroy an opponent's nonbasic land, and pump Momo to 2/2 for the attack. Instead, Momo attacked as a 1/1.",
+    "source": "annotation_v11",
+    "verdict": null,
+    "human_notes": null,
+    "audited_at": null
+  }
+]
