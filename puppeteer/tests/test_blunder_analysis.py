@@ -415,6 +415,17 @@ class TestCardNamesInDecision:
         assert "Lightning Bolt" in names
         assert "Grizzly Bears" in names
 
+    def test_extracts_from_dict_permanents(self) -> None:
+        """Dict-form permanents (tapped, counters, etc.) should be extracted."""
+        d = _make_decision()
+        d["game_state"]["players"][1]["battlefield"] = [
+            {"name": "Llanowar Elves", "tapped": True},
+            "Forest",
+        ]
+        names = _card_names_in_decision(d)
+        assert "Llanowar Elves" in names
+        assert "Forest" in names
+
     def test_extracts_from_choices(self) -> None:
         d = _make_decision()
         names = _card_names_in_decision(d)
