@@ -23,7 +23,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  11 - Remove JsonArray from tool type system; blockers now "blocker:attacker" strings (Feb 15)
 #  12 - Enrich get_oracle_text with mana_cost, type, P/T, loyalty, defense, second_face (Feb 16)
 #  13 - pass_priority handles pending actions from choose_action instead of returning immediately (Feb 16)
-HARNESS_EPOCH = 13
+#  14 - Oracle text (rules) in hand cards and mulligan context; remove land_count/hand_size from mull (Feb 17)
+HARNESS_EPOCH = 14
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.

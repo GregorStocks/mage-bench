@@ -676,7 +676,6 @@ public class BridgeCallbackHandler {
                             handCards.add(buildCardInfoMap(card));
                         }
                         result.put("your_hand", handCards);
-                        result.put("hand_size", hand.size());
                     }
                 }
                 break;
