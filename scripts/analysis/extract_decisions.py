@@ -252,22 +252,34 @@ def _find_spell_cancelled_events(llm_events: list[dict]) -> list[tuple[str, str]
 
     These messages can appear in any tool result (get_action_choices,
     choose_action, pass_priority) — not just get_action_choices.
+
+    The timestamp is backdated to the previous tool_call for the same player,
+    since the cancellation happens during a blocking call (e.g. pass_priority)
+    but only surfaces in the result.
     """
+    # Track the previous tool_call timestamp per player for backdating
+    last_ts: dict[str, str] = {}
     cancelled: list[tuple[str, str]] = []
     for ev in llm_events:
         if ev.get("type") != "tool_call":
             continue
+        player = ev.get("player", "")
         result_str = ev.get("result", "")
         if "[System] Spell cancelled" not in result_str:
+            last_ts[player] = ev.get("ts", "")
             continue
         try:
             result = json.loads(result_str)
         except (json.JSONDecodeError, TypeError):
+            last_ts[player] = ev.get("ts", "")
             continue
         for msg in result.get("recent_chat", []):
             if "[System] Spell cancelled" in str(msg):
-                cancelled.append((ev.get("player", ""), ev.get("ts", "")))
+                # Use the previous event's timestamp (when the cast was attempted)
+                ts = last_ts.get(player, ev.get("ts", ""))
+                cancelled.append((player, ts))
                 break
+        last_ts[player] = ev.get("ts", "")
     return cancelled
 
 

@@ -570,7 +570,8 @@ const { slug } = Astro.params;
 
     // Merge consecutive llm_response + tool_call events into combined entries.
     // Each llm_response is followed by zero or more tool_call results from the same player.
-    // Also extracts [System] messages from tool results and emits them as separate entries.
+    // System messages are injected by the pre-pass in renderSnapshot (with backdated timestamps)
+    // and flow through as meta events.
     function mergeLlmEvents(events) {
       var merged = [];
       var i = 0;
@@ -581,10 +582,6 @@ const { slug } = Astro.params;
           var toolResults = [];
           var j = i + 1;
           while (j < events.length && events[j].type === "tool_call" && events[j].player === e.player) {
-            // Extract system messages before adding the tool result
-            extractSystemMessages(events[j]).forEach(function (msg) {
-              merged.push({ type: "system_message", ts: events[j].ts, player: events[j].player, message: msg });
-            });
             toolResults.push(events[j]);
             j++;
           }
@@ -600,10 +597,6 @@ const { slug } = Astro.params;
           });
           i = j;
         } else if (e.type === "tool_call") {
-          // Extract system messages before the orphan tool_call
-          extractSystemMessages(e).forEach(function (msg) {
-            merged.push({ type: "system_message", ts: e.ts, player: e.player, message: msg });
-          });
           // Orphan tool_call (no preceding llm_response) — render standalone
           merged.push({
             type: "llm_merged",
@@ -874,10 +867,36 @@ const { slug } = Astro.params;
       if (hasLlmEvents && showLlm) {
         var nextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
         var nextTs = nextSnap ? (nextSnap.ts || "") : "";
+
+        // Pre-pass: extract system messages from ALL events (before filtering)
+        // and backdate them to the previous event for the same player, since they
+        // happen during blocking calls but only surface in the result.
+        var systemMessages = [];
+        var lastPlayerTs = {};
+        game.llmEvents.forEach(function (e) {
+          if (e.type === "tool_call") {
+            var sysmsgs = extractSystemMessages(e);
+            if (sysmsgs.length > 0) {
+              var backdatedTs = lastPlayerTs[e.player] || e.ts;
+              sysmsgs.forEach(function (msg) {
+                systemMessages.push({ type: "system_message", ts: backdatedTs, player: e.player, message: msg });
+              });
+            }
+            lastPlayerTs[e.player] = e.ts;
+          }
+        });
+
         relevantLlm = game.llmEvents.filter(function (e) {
           if (nextTs && e.ts >= nextTs) return false;
           if (filterPlayer && e.player !== filterPlayer) return false;
           return true;
+        });
+
+        // Add backdated system messages that fall within the snapshot window
+        systemMessages.forEach(function (sm) {
+          if (nextTs && sm.ts >= nextTs) return;
+          if (filterPlayer && sm.player !== filterPlayer) return;
+          relevantLlm.push(sm);
         });
       }
 

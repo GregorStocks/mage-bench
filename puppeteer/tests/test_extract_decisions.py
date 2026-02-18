@@ -215,3 +215,32 @@ class TestFindSpellCancelledEvents:
         ]
         result = _find_spell_cancelled_events(events)
         assert result == [("Alice", "T01"), ("Bob", "T02")]
+
+    def test_backdates_to_previous_event(self) -> None:
+        """Cancel in pass_priority is backdated to the previous tool_call for that player."""
+        events = [
+            {
+                "type": "tool_call",
+                "tool": "choose_action",
+                "player": "Alice",
+                "ts": "T01",
+                "result": '{"action_taken": "selected_0"}',
+            },
+            {
+                "type": "tool_call",
+                "tool": "get_action_choices",
+                "player": "Bob",
+                "ts": "T02",
+                "result": '{"choices": []}',
+            },
+            {
+                "type": "tool_call",
+                "tool": "pass_priority",
+                "player": "Alice",
+                "ts": "T10",
+                "result": '{"recent_chat": ["[System] Spell cancelled — not enough mana."]}',
+            },
+        ]
+        result = _find_spell_cancelled_events(events)
+        # Should be backdated to T01 (Alice's previous tool_call), not T10
+        assert result == [("Alice", "T01")]
