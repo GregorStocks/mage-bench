@@ -1099,6 +1099,26 @@
   border-radius: 6px;
 }
 
+/* Phase/step transition separators in game log */
+.phase-separator {
+  text-align: center;
+  color: #8888a0;
+  font-size: 0.7rem;
+  padding: 0.15rem 0;
+  border-top: 1px solid rgba(136, 136, 160, 0.15);
+  margin: 0.1rem 0;
+}
+
+.turn-separator {
+  text-align: center;
+  color: #aaaacc;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0;
+  border-top: 1px solid rgba(170, 170, 204, 0.25);
+  margin: 0.2rem 0;
+}
+
 .game-result-line {
   text-align: center;
   font-size: 1rem;

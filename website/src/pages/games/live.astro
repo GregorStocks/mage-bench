@@ -177,6 +177,9 @@ import Base from '../../layouts/Base.astro';
     var playersInitialized = false;
     var prevState = null;
     var lastEventSeq = 0;
+    var prevTurn = null;
+    var prevPhase = null;
+    var prevStep = null;
 
     function initPlayerColors(players) {
       if (playersInitialized) return;
@@ -262,6 +265,34 @@ import Base from '../../layouts/Base.astro';
 
         // Process game events (from raw, before normalization strips them)
         processEvents(raw.events);
+
+        // Inject phase/step separators when transitions occur
+        var curTurn = state.turn;
+        var curPhase = state.phase;
+        var curStep = state.step;
+        if (prevTurn !== null) {
+          if (curTurn !== prevTurn) {
+            var sep = document.createElement("div");
+            sep.className = "turn-separator";
+            sep.textContent = "\u2014 Turn " + curTurn + " \u2014";
+            logList.appendChild(sep);
+          }
+          if (curPhase !== prevPhase || curStep !== prevStep) {
+            var label = R.formatPhaseStep(curPhase, curStep);
+            if (label) {
+              var sep2 = document.createElement("div");
+              sep2.className = "phase-separator";
+              sep2.textContent = "\u2014 " + label + " \u2014";
+              logList.appendChild(sep2);
+            }
+          }
+          if (curTurn !== prevTurn || curPhase !== prevPhase || curStep !== prevStep) {
+            logList.scrollTop = logList.scrollHeight;
+          }
+        }
+        prevTurn = curTurn;
+        prevPhase = curPhase;
+        prevStep = curStep;
 
         // Compute diff against previous state for animations
         var diffs = prevState ? R.computeDiff(prevState, state) : null;

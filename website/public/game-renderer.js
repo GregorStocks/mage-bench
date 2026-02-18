@@ -926,6 +926,32 @@
     }
   }
 
+  // ── Phase/step formatting ──
+
+  var STEP_LABELS = {
+    PRECOMBAT_MAIN: "Main Phase 1",
+    POSTCOMBAT_MAIN: "Main Phase 2",
+    BEGIN_COMBAT: "Begin Combat",
+    DECLARE_ATTACKERS: "Declare Attackers",
+    DECLARE_BLOCKERS: "Declare Blockers",
+    COMBAT_DAMAGE: "Combat Damage",
+    FIRST_COMBAT_DAMAGE: "Combat Damage",
+    END_COMBAT: "End Combat",
+    END_TURN: "End Step",
+    CLEANUP: "Cleanup",
+    UPKEEP: "Upkeep",
+    DRAW: "Draw Step",
+    UNTAP: "Untap",
+  };
+
+  function formatPhaseStep(phase, step) {
+    var key = step || phase || "";
+    if (STEP_LABELS[key]) return STEP_LABELS[key];
+    if (!key) return "";
+    // Fallback: title-case with underscores replaced
+    return key.toLowerCase().replace(/_/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+  }
+
   // ── Status line ──
 
   function renderStatusLine(el, snap) {
@@ -1198,6 +1224,8 @@
     renderPositionLayer: renderPositionLayer,
     collectPositionCards: collectPositionCards,
     computeCardFontSize: computeCardFontSize,
+    // Phase formatting
+    formatPhaseStep: formatPhaseStep,
     // Constants
     PLAYER_COLORS: PLAYER_COLORS,
   };
