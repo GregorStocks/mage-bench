@@ -26,7 +26,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  14 - Oracle text (rules) in hand cards and mulligan context; remove land_count/hand_size from mull (Feb 17)
 #  15 - Increase LLM request timeout from 45s to 120s (Feb 17)
 #  16 - Remove unseenChat cap; add [System] Spell cancelled to pool mana cancel path (Feb 17)
-HARNESS_EPOCH = 16
+#  17 - mana_plan exhaustion falls through to auto-tap instead of cancelling; improved mana docs (Feb 18)
+HARNESS_EPOCH = 17
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
