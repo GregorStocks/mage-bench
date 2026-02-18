@@ -65,6 +65,10 @@ import modelStats from '../data/model-stats.json';
     </table>
   </div>
 
+  <p class="footnote" id="token-detail-footnote" style="display: none;">
+    * Includes games from before epoch 17 when cache/reasoning tokens were not tracked. Percentages only reflect data from epoch 17+.
+  </p>
+
   <p class="no-results" id="no-results" style="display: none;">
     No models match your filters.
   </p>
@@ -91,6 +95,7 @@ import modelStats from '../data/model-stats.json';
     const searchInput = document.getElementById('search-input') as HTMLInputElement;
     const tbody = document.getElementById('stats-body') as HTMLTableSectionElement;
     const noResults = document.getElementById('no-results') as HTMLElement;
+    const tokenDetailFootnote = document.getElementById('token-detail-footnote') as HTMLElement;
     const errorDetail = document.getElementById('error-detail') as HTMLElement;
     const errorDetailHeading = document.getElementById('error-detail-heading') as HTMLElement;
     const errorDetailBody = document.getElementById('error-detail-body') as HTMLTableSectionElement;
@@ -99,6 +104,9 @@ import modelStats from '../data/model-stats.json';
     let currentSort = 'timeoutRate';
     let currentSortAsc = false;
     let selectedModelKey: string | null = null;
+
+    // Epoch that introduced cached_tokens / reasoning_tokens capture
+    const TOKEN_DETAIL_EPOCH = 17;
 
     interface AggregatedStats {
       key: string;
@@ -117,6 +125,7 @@ import modelStats from '../data/model-stats.json';
       avgCost: number;
       cacheRate: number;
       reasoningPct: number;
+      hasPreTokenDetailData: boolean;
       latencyP50: number;
       latencyP95: number;
       errors: Record<string, number>;
@@ -128,13 +137,16 @@ import modelStats from '../data/model-stats.json';
         let gamesPlayed = 0, wins = 0, totalCost = 0;
         let totalPrompt = 0, totalCompletion = 0, successfulResponses = 0;
         let totalCached = 0, totalReasoning = 0;
+        let hasPreTokenDetailData = false;
         let contextResets = 0;
         // Weighted latency percentile accumulators
         let weightedP50 = 0, weightedP95 = 0, totalSamples = 0;
         const errors: Record<string, number> = {};
 
         for (const [epochStr, bucket] of Object.entries(model.epochs) as [string, any][]) {
-          if (parseInt(epochStr) < minEpoch) continue;
+          const epochNum = parseInt(epochStr);
+          if (epochNum < minEpoch) continue;
+          if (epochNum < TOKEN_DETAIL_EPOCH) hasPreTokenDetailData = true;
           gamesPlayed += bucket.gamesPlayed;
           wins += bucket.wins;
           totalCost += bucket.totalCostUsd;
@@ -180,6 +192,7 @@ import modelStats from '../data/model-stats.json';
           avgCost: gamesPlayed > 0 ? totalCost / gamesPlayed : 0,
           cacheRate: totalPrompt > 0 ? totalCached / totalPrompt : 0,
           reasoningPct: totalCompletion > 0 ? totalReasoning / totalCompletion : 0,
+          hasPreTokenDetailData,
           latencyP50: totalSamples > 0 ? weightedP50 / totalSamples : 0,
           latencyP95: totalSamples > 0 ? weightedP95 / totalSamples : 0,
           errors,
@@ -231,8 +244,8 @@ import modelStats from '../data/model-stats.json';
           <td class="num">${Math.round(s.avgPromptTokens).toLocaleString()}</td>
           <td class="num">${Math.round(s.avgCompletionTokens).toLocaleString()}</td>
           <td class="num">$${s.avgCost.toFixed(2)}</td>
-          <td class="num">${s.cacheRate > 0 ? (s.cacheRate * 100).toFixed(1) + '%' : '-'}</td>
-          <td class="num">${s.reasoningPct > 0 ? (s.reasoningPct * 100).toFixed(1) + '%' : '-'}</td>
+          <td class="num">${s.cacheRate > 0 ? (s.cacheRate * 100).toFixed(1) + '%' : '-'}${s.hasPreTokenDetailData ? '*' : ''}</td>
+          <td class="num">${s.reasoningPct > 0 ? (s.reasoningPct * 100).toFixed(1) + '%' : '-'}${s.hasPreTokenDetailData ? '*' : ''}</td>
           <td class="num">${s.latencyP50.toFixed(1)}</td>
           <td class="num">${s.latencyP95.toFixed(1)}</td>
         `;
@@ -241,6 +254,7 @@ import modelStats from '../data/model-stats.json';
       }
 
       noResults.style.display = stats.length === 0 ? '' : 'none';
+      tokenDetailFootnote.style.display = stats.some(s => s.hasPreTokenDetailData) ? '' : 'none';
 
       // Update error detail if a model is selected
       if (selectedModelKey) {
@@ -494,6 +508,13 @@ import modelStats from '../data/model-stats.json';
   #stats-table :global(.rate-bad) {
     color: #e94560;
     font-weight: 600;
+  }
+
+  .footnote {
+    color: #a0a0b8;
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: 0.5rem;
   }
 
   .no-results {
