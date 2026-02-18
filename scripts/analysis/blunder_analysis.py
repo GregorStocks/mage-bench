@@ -59,7 +59,9 @@ MAX_WORKERS = 50
 # v13: fix card name extraction for dict-form permanents (tapped/counters)
 # v14: fix play/draw decision seeing dealt hands (no snapshot before hands dealt)
 # v15: include combat context (attackers/blockers) in per-decision prompt
-BLUNDER_SCRIPT_VERSION = 15
+# v16: detect rolled-back casts (mana payment failures) — skip intermediate
+#      decisions, add context to the initiating cast decision
+BLUNDER_SCRIPT_VERSION = 16
 
 # --- Prompt components ---
 
@@ -733,6 +735,12 @@ def _eval_one_decision(
     if turn_ctx:
         user_msg += f"\n\n{turn_ctx}"
     user_msg += f"\n\n## Decision\n\n{formatted}"
+    if decision.get("cast_rolled_back"):
+        user_msg += (
+            "\n\n**NOTE:** This cast was attempted but the game engine rolled it "
+            "back because the player could not complete the mana payment. The spell "
+            "never resolved — the net result was no action taken this priority window."
+        )
     user_msg += f"\n\n{PER_DECISION_FOOTER}"
     if label is None:
         label = f"decision_{decision['decision_index']}"
@@ -923,6 +931,8 @@ def main(gz_path: str) -> None:
     # 2. Failed actions (success=false, e.g. bad index/args)
     # 3. Cancelled actions (player backed out of a spell/ability)
     # 4. The cast decision that preceded a cancel (tried to cast, then undid it)
+    # 5. Rolled-back decisions (intermediate mana/cost choices for a cast that
+    #    failed mana payment — the initiating decision is kept with context)
     skip_indices: set[int] = set()
     for i, d in enumerate(decisions):
         if d["is_forced"]:
@@ -930,6 +940,9 @@ def main(gz_path: str) -> None:
             continue
         ar = d.get("action_result", {})
         if ar.get("success") is False:
+            skip_indices.add(i)
+            continue
+        if d.get("rolled_back"):
             skip_indices.add(i)
             continue
         if ar.get("action_taken") == "cancelled":

@@ -549,8 +549,29 @@ const { slug } = Astro.params;
       return span;
     }
 
+    // Extract [System] messages from a tool_call result's recent_chat field.
+    // These are injected by the MCP layer for events like failed mana payment.
+    function extractSystemMessages(toolCallEvent) {
+      if (!toolCallEvent.result) return [];
+      try {
+        var r = JSON.parse(toolCallEvent.result);
+        var chat = r.recent_chat || [];
+        var msgs = [];
+        chat.forEach(function (msg) {
+          if (typeof msg === "string" && msg.indexOf("[System]") !== -1) {
+            msgs.push(msg.replace("[System] ", ""));
+          }
+        });
+        return msgs;
+      } catch (ex) {
+        return [];
+      }
+    }
+
     // Merge consecutive llm_response + tool_call events into combined entries.
     // Each llm_response is followed by zero or more tool_call results from the same player.
+    // System messages are injected by the pre-pass in renderSnapshot (with backdated timestamps)
+    // and flow through as meta events.
     function mergeLlmEvents(events) {
       var merged = [];
       var i = 0;
@@ -681,6 +702,14 @@ const { slug } = Astro.params;
 
       // context_trim is noise in the viewer — suppress it
       if (type === "context_trim") return null;
+
+      // System messages extracted from tool result recent_chat (e.g. spell cancelled)
+      if (type === "system_message") {
+        var div = document.createElement("div");
+        div.className = "llm-event llm-system-message";
+        div.innerHTML = playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
+        return div;
+      }
 
       // Meta events: stall, llm_error, context_reset, auto_pilot_mode
       var div = document.createElement("div");
@@ -838,10 +867,36 @@ const { slug } = Astro.params;
       if (hasLlmEvents && showLlm) {
         var nextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
         var nextTs = nextSnap ? (nextSnap.ts || "") : "";
+
+        // Pre-pass: extract system messages from ALL events (before filtering)
+        // and backdate them to the previous event for the same player, since they
+        // happen during blocking calls but only surface in the result.
+        var systemMessages = [];
+        var lastPlayerTs = {};
+        game.llmEvents.forEach(function (e) {
+          if (e.type === "tool_call") {
+            var sysmsgs = extractSystemMessages(e);
+            if (sysmsgs.length > 0) {
+              var backdatedTs = lastPlayerTs[e.player] || e.ts;
+              sysmsgs.forEach(function (msg) {
+                systemMessages.push({ type: "system_message", ts: backdatedTs, player: e.player, message: msg });
+              });
+            }
+            lastPlayerTs[e.player] = e.ts;
+          }
+        });
+
         relevantLlm = game.llmEvents.filter(function (e) {
           if (nextTs && e.ts >= nextTs) return false;
           if (filterPlayer && e.player !== filterPlayer) return false;
           return true;
+        });
+
+        // Add backdated system messages that fall within the snapshot window
+        systemMessages.forEach(function (sm) {
+          if (nextTs && sm.ts >= nextTs) return;
+          if (filterPlayer && sm.player !== filterPlayer) return;
+          relevantLlm.push(sm);
         });
       }
 

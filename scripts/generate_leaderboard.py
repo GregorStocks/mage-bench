@@ -4,7 +4,7 @@
 import sys
 from pathlib import Path
 
-from puppeteer.leaderboard import generate_leaderboard_file
+from puppeteer.leaderboard import generate_leaderboard_file, generate_model_stats
 
 _ROOT = Path(__file__).resolve().parent.parent
 WEBSITE_GAMES_DIR = _ROOT / "website" / "public" / "games"
@@ -19,6 +19,9 @@ def main() -> None:
 
     output_path = generate_leaderboard_file(games_dir, data_dir, models_json)
     print(f"Leaderboard generated -> {output_path}")
+
+    stats_path = generate_model_stats(games_dir, data_dir, models_json)
+    print(f"Model stats generated -> {stats_path}")
 
 
 if __name__ == "__main__":

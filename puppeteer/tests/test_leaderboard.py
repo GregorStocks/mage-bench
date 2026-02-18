@@ -21,6 +21,7 @@ from puppeteer.leaderboard import (
     generate_all_leaderboards,
     generate_leaderboard,
     generate_leaderboard_file,
+    generate_model_stats,
     load_model_registry,
 )
 
@@ -1272,3 +1273,314 @@ def test_generate_leaderboard_missing_thinking_time():
 
     alice = next(m for m in result["models"] if m["modelName"] == "Model A")
     assert alice["avgThinkingTimeSecs"] == 0.0
+
+
+# --- generate_model_stats ---
+
+
+def _make_game_with_events(
+    game_id: str,
+    timestamp: str,
+    winner: str | None,
+    players: list[dict],
+    llm_events: list[dict],
+    epoch: int = 3,
+) -> dict:
+    return {
+        "id": game_id,
+        "timestamp": timestamp,
+        "totalTurns": 10,
+        "winner": winner,
+        "players": players,
+        "llmEvents": llm_events,
+        "harnessEpoch": epoch,
+    }
+
+
+def test_generate_model_stats_basic():
+    """Basic aggregation of timeouts, responses, and token counts."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260101_000000",
+            "20260101_000000",
+            "Alice",
+            [
+                _pilot("Alice", "a/model-a", cost=5.0, placement=1, tool_calls_ok=10, tool_calls_failed=1),
+                _pilot("Bob", "b/model-b", cost=2.0, placement=2, tool_calls_ok=8, tool_calls_failed=0),
+            ],
+            [
+                {
+                    "ts": "T1",
+                    "player": "Alice",
+                    "type": "llm_response",
+                    "usage": {"promptTokens": 1000, "completionTokens": 200},
+                },
+                {
+                    "ts": "T2",
+                    "player": "Alice",
+                    "type": "llm_response",
+                    "usage": {"promptTokens": 2000, "completionTokens": 300},
+                },
+                {
+                    "ts": "T3",
+                    "player": "Alice",
+                    "type": "llm_error",
+                    "errorType": "timeout",
+                    "errorMessage": "Timed out",
+                },
+                {
+                    "ts": "T4",
+                    "player": "Bob",
+                    "type": "llm_response",
+                    "usage": {"promptTokens": 500, "completionTokens": 100},
+                },
+                {"ts": "T5", "player": "Alice", "type": "context_reset", "reason": "repeated_timeouts"},
+            ],
+            epoch=10,
+        )
+        # Add thinkingTimeSecs so backfill doesn't need real timestamps
+        game["players"][0]["thinkingTimeSecs"] = 60.0
+        game["players"][1]["thinkingTimeSecs"] = 30.0
+        (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_model_stats(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        assert "a/model-a" in result["models"]
+        alice = result["models"]["a/model-a"]
+        assert alice["modelName"] == "Model A"
+        assert alice["provider"] == "A"
+
+        bucket = alice["epochs"]["10"]
+        assert bucket["gamesPlayed"] == 1
+        assert bucket["wins"] == 1
+        assert bucket["successfulResponses"] == 2
+        assert bucket["totalPromptTokens"] == 3000
+        assert bucket["totalCompletionTokens"] == 500
+        assert bucket["errors"] == {"timeout": 1}
+        assert bucket["contextResets"] == 1
+        assert bucket["totalToolCallsOk"] == 10
+        assert bucket["totalToolCallsFailed"] == 1
+        assert bucket["totalThinkingTimeSecs"] == 60.0
+
+        bob = result["models"]["b/model-b"]
+        bob_bucket = bob["epochs"]["10"]
+        assert bob_bucket["successfulResponses"] == 1
+        assert bob_bucket["errors"] == {}
+        assert bob_bucket["contextResets"] == 0
+
+
+def test_generate_model_stats_epoch_bucketing():
+    """Games at different epochs produce separate buckets."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        for epoch, game_id in [(3, "game_20260101_000000"), (5, "game_20260102_000000")]:
+            game = _make_game_with_events(
+                game_id,
+                game_id.replace("game_", ""),
+                "Alice",
+                [
+                    _pilot("Alice", "a/model-a", cost=1.0, placement=1, tool_calls_ok=5, tool_calls_failed=0),
+                ],
+                [
+                    {
+                        "ts": "T1",
+                        "player": "Alice",
+                        "type": "llm_response",
+                        "usage": {"promptTokens": 100, "completionTokens": 50},
+                    },
+                ],
+                epoch=epoch,
+            )
+            game["players"][0]["thinkingTimeSecs"] = 10.0
+            (games_dir / f"{game_id}.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_model_stats(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        alice = result["models"]["a/model-a"]
+        assert "3" in alice["epochs"]
+        assert "5" in alice["epochs"]
+        assert alice["epochs"]["3"]["gamesPlayed"] == 1
+        assert alice["epochs"]["5"]["gamesPlayed"] == 1
+
+
+def test_generate_model_stats_error_types():
+    """Multiple error types in one game are bucketed correctly."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260101_000000",
+            "20260101_000000",
+            "Alice",
+            [_pilot("Alice", "a/model-a", cost=1.0, placement=1, tool_calls_ok=5, tool_calls_failed=0)],
+            [
+                {"ts": "T1", "player": "Alice", "type": "llm_error", "errorType": "timeout", "errorMessage": "t1"},
+                {"ts": "T2", "player": "Alice", "type": "llm_error", "errorType": "timeout", "errorMessage": "t2"},
+                {
+                    "ts": "T3",
+                    "player": "Alice",
+                    "type": "llm_error",
+                    "errorType": "BadRequestError",
+                    "errorMessage": "bad",
+                },
+                {
+                    "ts": "T4",
+                    "player": "Alice",
+                    "type": "llm_response",
+                    "usage": {"promptTokens": 100, "completionTokens": 50},
+                },
+            ],
+            epoch=10,
+        )
+        game["players"][0]["thinkingTimeSecs"] = 10.0
+        (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_model_stats(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        bucket = result["models"]["a/model-a"]["epochs"]["10"]
+        assert bucket["errors"] == {"timeout": 2, "BadRequestError": 1}
+        assert bucket["successfulResponses"] == 1
+
+
+def test_generate_model_stats_includes_no_winner_games():
+    """Games without a winner are included (unlike leaderboard)."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260101_000000",
+            "20260101_000000",
+            None,  # no winner
+            [
+                _pilot("Alice", "a/model-a", cost=1.0, tool_calls_ok=5, tool_calls_failed=0),
+            ],
+            [
+                {
+                    "ts": "T1",
+                    "player": "Alice",
+                    "type": "llm_response",
+                    "usage": {"promptTokens": 100, "completionTokens": 50},
+                },
+            ],
+            epoch=10,
+        )
+        game["players"][0]["thinkingTimeSecs"] = 10.0
+        (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_model_stats(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        bucket = result["models"]["a/model-a"]["epochs"]["10"]
+        assert bucket["gamesPlayed"] == 1
+        assert bucket["wins"] == 0
+
+
+def test_generate_model_stats_no_games():
+    """Empty games directory produces empty output."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_model_stats(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        assert result["models"] == {}
+
+
+def test_generate_model_stats_reasoning_effort():
+    """Same model at different efforts produces separate entries."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260101_000000",
+            "20260101_000000",
+            "Alice",
+            [
+                _pilot(
+                    "Alice",
+                    "a/model-a",
+                    cost=1.0,
+                    placement=1,
+                    tool_calls_ok=5,
+                    tool_calls_failed=0,
+                    reasoning_effort="medium",
+                ),
+                _pilot(
+                    "Bob",
+                    "a/model-a",
+                    cost=2.0,
+                    placement=2,
+                    tool_calls_ok=3,
+                    tool_calls_failed=0,
+                    reasoning_effort="low",
+                ),
+            ],
+            [
+                {
+                    "ts": "T1",
+                    "player": "Alice",
+                    "type": "llm_response",
+                    "usage": {"promptTokens": 100, "completionTokens": 50},
+                },
+                {
+                    "ts": "T2",
+                    "player": "Bob",
+                    "type": "llm_response",
+                    "usage": {"promptTokens": 200, "completionTokens": 100},
+                },
+            ],
+            epoch=10,
+        )
+        game["players"][0]["thinkingTimeSecs"] = 10.0
+        game["players"][1]["thinkingTimeSecs"] = 20.0
+        (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_model_stats(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        assert "a/model-a::medium" in result["models"]
+        assert "a/model-a::low" in result["models"]
+        assert result["models"]["a/model-a::medium"]["reasoningEffort"] == "medium"
+        assert result["models"]["a/model-a::low"]["reasoningEffort"] == "low"

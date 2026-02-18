@@ -219,6 +219,10 @@ public class BridgeCallbackHandler {
      * Each line is a compact JSON object with timestamp, callback method, and relevant data.
      */
     private void logBridgeEvent(ClientCallbackMethod method, String summary) {
+        logBridgeEvent(method.name(), summary);
+    }
+
+    private void logBridgeEvent(String method, String summary) {
         String path = bridgeLogPath;
         if (path == null) {
             return;
@@ -226,7 +230,7 @@ public class BridgeCallbackHandler {
         try (PrintWriter pw = new PrintWriter(new FileWriter(path, true))) {
             var sb = new StringBuilder();
             sb.append("{\"ts\":\"").append(ZonedDateTime.now(LOG_TZ).format(TIME_FMT)).append("\"");
-            sb.append(",\"method\":\"").append(method.name()).append("\"");
+            sb.append(",\"method\":\"").append(method).append("\"");
             if (summary != null && !summary.isEmpty()) {
                 // Escape JSON string
                 sb.append(",\"data\":").append(escapeJsonString(summary));
@@ -2696,10 +2700,8 @@ public class BridgeCallbackHandler {
                     }
                     synchronized (unseenChat) {
                         unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
-                        if (unseenChat.size() > 20) {
-                            unseenChat.remove(0);
-                        }
                     }
+                    logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
                     session.sendPlayerBoolean(action.gameId(), false);
                     actionsPassed++;
                     continue;
@@ -3902,10 +3904,6 @@ public class BridgeCallbackHandler {
                     if (!user.equals(client.getUsername())) {
                         synchronized (unseenChat) {
                             unseenChat.add(user + ": " + msg);
-                            // Cap at 20 to bound memory
-                            if (unseenChat.size() > 20) {
-                                unseenChat.remove(0);
-                            }
                         }
                     }
                 }
@@ -4372,6 +4370,7 @@ public class BridgeCallbackHandler {
             synchronized (unseenChat) {
                 unseenChat.add("[System] Spell cancelled — mana plan was incorrect or incomplete.");
             }
+            logBridgeEvent("SPELL_CANCELLED", "mana plan was incorrect or incomplete");
         }
         session.sendPlayerBoolean(gameId, false);
         return true;
@@ -4519,6 +4518,12 @@ public class BridgeCallbackHandler {
                     if (payingForId != null) {
                         failedManaCasts.add(payingForId);
                     }
+                    if (mcpMode) {
+                        synchronized (unseenChat) {
+                            unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
+                        }
+                        logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
+                    }
                     session.sendPlayerBoolean(gameId, false);
                     return true;
                 }
@@ -4550,6 +4555,7 @@ public class BridgeCallbackHandler {
             synchronized (unseenChat) {
                 unseenChat.add("[System] Spell cancelled — not enough mana to complete payment.");
             }
+            logBridgeEvent("SPELL_CANCELLED", "not enough mana to complete payment");
         }
         session.sendPlayerBoolean(gameId, false);
         return true;

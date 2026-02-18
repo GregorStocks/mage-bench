@@ -53,7 +53,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       ))}
     </div>
 
-    <p class="methodology-link"><a href="/methodology">How scoring works</a></p>
+    <p class="methodology-link"><a href="/methodology">How scoring works</a> <span class="sep">|</span> <a href="/model-stats">Advanced model stats</a></p>
 
     <div class="filters">
       <input
@@ -349,6 +349,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
   .methodology-link a:hover {
     color: #e94560;
+  }
+
+  .methodology-link .sep {
+    color: #0f3460;
+    margin: 0 0.3rem;
   }
 
   .filters {
