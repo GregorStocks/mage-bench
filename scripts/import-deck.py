@@ -10,13 +10,12 @@ Example:
     import-deck.py https://www.mtggoldfish.com/deck/7616949 output.dck
 """
 
-import json
 import re
 import sys
-import urllib.error
-import urllib.parse
 import urllib.request
 from pathlib import Path
+
+import scryfall
 
 
 def download_deck_text(url: str) -> str:
@@ -55,33 +54,6 @@ def _normalize_split_name(name: str) -> str:
     return name
 
 
-def _scryfall_collection(names: list[str]) -> tuple[list[dict], list[dict]]:
-    """Query Scryfall ``/cards/collection`` for a batch of up to 75 names.
-
-    Returns ``(found_cards, not_found_identifiers)``.
-    """
-    body = json.dumps({"identifiers": [{"name": n} for n in names]}).encode()
-    req = urllib.request.Request(
-        "https://api.scryfall.com/cards/collection",
-        data=body,
-        headers={"Content-Type": "application/json"},
-    )
-    with urllib.request.urlopen(req) as resp:
-        data = json.loads(resp.read())
-    return data.get("data", []), data.get("not_found", [])
-
-
-def _scryfall_named(name: str) -> dict | None:
-    """Look up a single card by exact name via ``/cards/named``."""
-    qs = urllib.parse.urlencode({"exact": name})
-    req = urllib.request.Request(f"https://api.scryfall.com/cards/named?{qs}")
-    try:
-        with urllib.request.urlopen(req) as resp:
-            return json.loads(resp.read())
-    except urllib.error.HTTPError:
-        return None
-
-
 def resolve_cards(names: list[str]) -> dict[str, tuple[str, str]]:
     """Resolve card names to (set_code, collector_number) via Scryfall."""
     resolved: dict[str, tuple[str, str]] = {}
@@ -98,7 +70,7 @@ def resolve_cards(names: list[str]) -> dict[str, tuple[str, str]]:
     not_found_norms: list[str] = []
     for i in range(0, len(normalized), 75):
         batch = normalized[i : i + 75]
-        found, not_found = _scryfall_collection(batch)
+        found, not_found = scryfall.collection(batch)
         for card in found:
             orig = norm_to_orig.get(card["name"], card["name"])
             resolved[orig] = (card["set"].upper(), card["collector_number"])
@@ -110,7 +82,7 @@ def resolve_cards(names: list[str]) -> dict[str, tuple[str, str]]:
         orig = norm_to_orig.get(nf_norm, nf_norm)
         if " // " in nf_norm:
             first_half = nf_norm.split(" // ")[0]
-            card = _scryfall_named(first_half)
+            card = scryfall.named(first_half)
             if card is not None:
                 resolved[orig] = (card["set"].upper(), card["collector_number"])
                 continue
