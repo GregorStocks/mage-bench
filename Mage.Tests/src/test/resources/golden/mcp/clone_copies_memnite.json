@@ -1,0 +1,81 @@
+{
+  "game_state": {
+    "active_player": "PlayerA",
+    "available": true,
+    "phase": "Combat",
+    "players": [
+      {
+        "battlefield": [
+          {
+            "copy": true,
+            "id": "p1",
+            "name": "Memnite",
+            "original_card": "Clone",
+            "power": "1",
+            "summoning_sick": true,
+            "tapped": false,
+            "toughness": "1"
+          },
+          {
+            "id": "p2",
+            "name": "Memnite",
+            "power": "1",
+            "summoning_sick": false,
+            "tapped": false,
+            "toughness": "1"
+          },
+          {
+            "id": "p3",
+            "name": "Island",
+            "tapped": true
+          },
+          {
+            "id": "p4",
+            "name": "Island",
+            "tapped": true
+          },
+          {
+            "id": "p5",
+            "name": "Island",
+            "tapped": true
+          },
+          {
+            "id": "p6",
+            "name": "Island",
+            "tapped": true
+          }
+        ],
+        "hand": [],
+        "hand_size": 0,
+        "is_active": true,
+        "is_you": true,
+        "library_size": 101,
+        "life": 20,
+        "name": "PlayerA"
+      },
+      {
+        "hand_size": 0,
+        "is_active": false,
+        "is_you": false,
+        "library_size": 101,
+        "life": 20,
+        "name": "PlayerB"
+      }
+    ],
+    "priority_player": "PlayerA",
+    "stack": [],
+    "step": "Begin Combat",
+    "turn": 1
+  },
+  "pass_priority_result": {
+    "action_pending": true,
+    "action_type": "GAME_SELECT",
+    "actions_passed": 0,
+    "context": "T1 Combat/Begin Combat (PlayerA)",
+    "message": "Play instants and activated abilities",
+    "players": "PlayerA(you,20hp), PlayerB(20hp)",
+    "respond_with": "answer=true (confirm) or answer=false (pass)",
+    "response_type": "boolean",
+    "stop_reason": "playable_cards"
+  }
+}

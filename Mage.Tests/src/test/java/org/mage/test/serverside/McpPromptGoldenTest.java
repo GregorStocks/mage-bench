@@ -377,4 +377,36 @@ public class McpPromptGoldenTest extends CardTestPlayerBase {
         Assert.assertNotNull("runCode did not execute — captured is null", captured.get());
         assertGoldenFile("t2_bolt_on_stack", captured.get());
     }
+
+    @Test
+    public void testCloneCopiesMemnite() {
+        // Memnite: 0-cost 1/1 artifact creature, already on battlefield
+        addCard(Zone.BATTLEFIELD, playerA, "Memnite", 1);
+        addCard(Zone.HAND, playerA, "Clone", 1);       // {3}{U}
+        addCard(Zone.BATTLEFIELD, playerA, "Island", 4);
+        addCard(Zone.LIBRARY, playerA, "Island", 30);
+
+        addCard(Zone.LIBRARY, playerB, "Mountain", 30);
+
+        // Cast Clone, choose to enter as a copy of Memnite
+        castSpell(1, PhaseStep.PRECOMBAT_MAIN, playerA, "Clone");
+        setChoice(playerA, true);       // yes, enter as copy
+        setChoice(playerA, "Memnite");  // copy target
+
+        // Capture state after Clone resolves (now appears as Memnite copy on battlefield)
+        AtomicReference<String> captured = new AtomicReference<>();
+
+        runCode("capture prompt", 1, PhaseStep.BEGIN_COMBAT, playerA,
+                (info, player, game) -> {
+                    BridgeCallbackHandler h = createHandler(game.getId(), player.getId());
+                    simulatePriorityCallback(h, game, player.getId());
+                    captured.set(buildScenarioJson(h, "playable_cards"));
+                });
+
+        setStopAt(1, PhaseStep.BEGIN_COMBAT);
+        execute();
+
+        Assert.assertNotNull("runCode did not execute — captured is null", captured.get());
+        assertGoldenFile("clone_copies_memnite", captured.get());
+    }
 }

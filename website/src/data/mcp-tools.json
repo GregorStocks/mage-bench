@@ -318,7 +318,7 @@
       }
     },
     "name": "get_game_state",
-    "description": "Get full game state: turn, phase, players, stack, combat. Each player has life, mana_pool, hand (yours only), battlefield (name, tapped, P/T, counters, token/copy/face_down flags), graveyard, exile, commanders."
+    "description": "Get full game state: turn, phase, players, stack, combat. Each player has life, mana_pool, hand (yours only), battlefield (name, tapped, P/T, counters, token/copy/face_down flags, rules + original_card when modified from printed card), graveyard, exile, commanders."
   },
   {
     "outputSchema": {

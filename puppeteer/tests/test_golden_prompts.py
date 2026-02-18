@@ -230,3 +230,14 @@ def test_t2_bolt_on_stack():
         ],
     )
     _assert_golden("t2_bolt_on_stack", _to_sorted_json(prompt))
+
+
+def test_clone_copies_memnite():
+    """Clone copying Memnite — verifies copy effect representation."""
+    prompt = _assemble_prompt(
+        fixture_name="clone_copies_memnite",
+        ai_tool_calls=[
+            {"name": "get_game_state", "arguments": {}},
+        ],
+    )
+    _assert_golden("clone_copies_memnite", _to_sorted_json(prompt))

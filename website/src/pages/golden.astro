@@ -1,0 +1,188 @@
+---
+import Base from '../layouts/Base.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+import zlib from 'node:zlib';
+
+// Read all golden .json.gz files
+const goldenDir = path.join(process.cwd(), 'public', 'golden');
+const scenarios: Array<{name: string, data: Record<string, unknown>}> = [];
+if (fs.existsSync(goldenDir)) {
+  for (const file of fs.readdirSync(goldenDir).sort()) {
+    if (!file.endsWith('.json.gz')) continue;
+    const compressed = fs.readFileSync(path.join(goldenDir, file));
+    const data = JSON.parse(zlib.gunzipSync(compressed).toString());
+    const name = file.replace('golden_', '').replace('.json.gz', '');
+    scenarios.push({ name, data });
+  }
+}
+---
+<Base title="Golden Test Scenarios" wide>
+  <link rel="stylesheet" href="/game-renderer.css" />
+  <h1>Golden Test Scenarios</h1>
+  <p class="subtitle">Board states from golden prompt tests. These show exactly what the LLM sees via MCP tools.</p>
+
+  {scenarios.length === 0 && <p>No golden scenarios found. Run <code>make update-golden</code> first.</p>}
+
+  {scenarios.map(s => (
+    <section class="scenario" data-scenario={JSON.stringify(s.data)}>
+      <h2>{s.name.replace(/_/g, ' ')}</h2>
+      <div class="scenario-columns">
+        <div class="board-column">
+          <h3>Board State</h3>
+          <div class="board-render">
+            <div class="players-grid"></div>
+          </div>
+          <!-- Card preview (hover) -->
+          <div class="card-preview-container hidden">
+            <img class="preview-image" alt="" />
+            <div class="card-meta">
+              <div class="card-name-row">
+                <div class="preview-name card-name"></div>
+                <div class="preview-cost card-cost"></div>
+              </div>
+              <div class="preview-type card-type"></div>
+              <pre class="preview-rules card-rules"></pre>
+              <div class="preview-stats card-stats"></div>
+            </div>
+          </div>
+        </div>
+        <div class="json-column">
+          <h3>MCP game_state (what the LLM sees)</h3>
+          <pre class="json-block"></pre>
+        </div>
+      </div>
+    </section>
+  ))}
+</Base>
+
+<script is:inline src="/game-renderer.js"></script>
+<script is:inline>
+(function () {
+  var R = window.GameRenderer;
+  if (!R) { console.error("GameRenderer not loaded"); return; }
+
+  document.querySelectorAll(".scenario").forEach(function (section) {
+    var data = JSON.parse(section.getAttribute("data-scenario"));
+    var snapshot = data.snapshots && data.snapshots[0];
+    var fixture = data.goldenFixture || {};
+
+    // Render board state
+    if (snapshot && snapshot.players) {
+      var grid = section.querySelector(".players-grid");
+      var previewContainer = section.querySelector(".card-preview-container");
+      var previewEls = {
+        container: previewContainer,
+        image: previewContainer.querySelector(".preview-image"),
+        name: previewContainer.querySelector(".preview-name"),
+        cost: previewContainer.querySelector(".preview-cost"),
+        type: previewContainer.querySelector(".preview-type"),
+        rules: previewContainer.querySelector(".preview-rules"),
+        stats: previewContainer.querySelector(".preview-stats"),
+      };
+
+      var playerColorMap = {};
+      (snapshot.players || []).forEach(function (p, i) {
+        playerColorMap[p.name] = i % 4;
+      });
+
+      R.renderPlayers(grid, snapshot.players, {
+        cardImages: data.cardImages || {},
+        playerColorMap: playerColorMap,
+        previewEls: previewEls,
+        priorityPlayerName: snapshot.priority_player,
+      });
+
+      R.setupMousePreview(previewContainer);
+    }
+
+    // Render raw MCP JSON
+    var jsonBlock = section.querySelector(".json-block");
+    if (fixture.mcp_game_state) {
+      jsonBlock.textContent = JSON.stringify(fixture.mcp_game_state, null, 2);
+    }
+  });
+})();
+</script>
+
+<style>
+  h1 {
+    margin-bottom: 0.5rem;
+  }
+  .subtitle {
+    color: #888;
+    margin-bottom: 2rem;
+  }
+  .scenario {
+    margin-bottom: 3rem;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: #16213e;
+  }
+  .scenario h2 {
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+    color: #e94560;
+  }
+  .scenario h3 {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .scenario-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 1000px) {
+    .scenario-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+  .board-column {
+    position: relative;
+  }
+  .board-render {
+    min-height: 100px;
+  }
+  .json-column {
+    overflow: hidden;
+  }
+  .json-block {
+    background: #0d1117;
+    color: #c9d1d9;
+    padding: 1rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    overflow-x: auto;
+    max-height: 600px;
+    overflow-y: auto;
+    white-space: pre;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  }
+
+  /* Card preview positioning for golden page */
+  .card-preview-container {
+    position: fixed;
+    top: 50%;
+    right: 2rem;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background: #1a1a2e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 0.5rem;
+    max-width: 250px;
+  }
+  .card-preview-container.hidden {
+    display: none;
+  }
+  .card-preview-container img {
+    width: 100%;
+    border-radius: 6px;
+  }
+</style>
