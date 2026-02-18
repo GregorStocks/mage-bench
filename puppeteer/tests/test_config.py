@@ -982,3 +982,84 @@ def test_toolset_end_to_end_config_load():
         assert p.model == "test/hero-model"
         assert p.tools == ["pass_priority", "choose_action"]
         assert p.system_prompt == "Be great."
+
+
+# --- deckType list (format rotation) tests ---
+
+
+def _make_config_dir(tmpdir_path: Path) -> None:
+    """Create minimal support files for config loading."""
+    (tmpdir_path / "personalities.json").write_text("{}")
+    (tmpdir_path / "models.json").write_text('{"models": []}')
+    (tmpdir_path / "presets.json").write_text('{"presets": {}, "gauntlet": []}')
+    (tmpdir_path / "prompts.json").write_text("{}")
+
+
+def test_deck_type_list_parsed():
+    """deckType as a list should populate deck_type_candidates."""
+    config_data = {
+        "deckType": ["Constructed - Standard", "Constructed - Modern"],
+        "players": [],
+    }
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmpdir_path = Path(tmpdir)
+        _make_config_dir(tmpdir_path)
+
+        config_path = tmpdir_path / "config.json"
+        config_path.write_text(json.dumps(config_data))
+
+        config = Config(config_file=config_path)
+        config.load_config()
+        assert config.deck_type_candidates == ["Constructed - Standard", "Constructed - Modern"]
+        # Temporary deck_type is set to first candidate
+        assert config.deck_type == "Constructed - Standard"
+
+
+def test_deck_type_string_backward_compat():
+    """Single string deckType should still work."""
+    config_data = {
+        "deckType": "Constructed - Legacy",
+        "players": [],
+    }
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmpdir_path = Path(tmpdir)
+        _make_config_dir(tmpdir_path)
+
+        config_path = tmpdir_path / "config.json"
+        config_path.write_text(json.dumps(config_data))
+
+        config = Config(config_file=config_path)
+        config.load_config()
+        assert config.deck_type == "Constructed - Legacy"
+        assert config.deck_type_candidates == ["Constructed - Legacy"]
+
+
+def test_deck_type_empty_list_asserts():
+    """Empty deckType list should crash."""
+    config_data = {"deckType": [], "players": []}
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmpdir_path = Path(tmpdir)
+        _make_config_dir(tmpdir_path)
+
+        config_path = tmpdir_path / "config.json"
+        config_path.write_text(json.dumps(config_data))
+
+        config = Config(config_file=config_path)
+        with pytest.raises(AssertionError, match="deckType list must not be empty"):
+            config.load_config()
+
+
+def test_deck_type_empty_string():
+    """Empty string deckType should leave deck_type_candidates empty."""
+    config_data = {"deckType": "", "players": []}
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmpdir_path = Path(tmpdir)
+        _make_config_dir(tmpdir_path)
+
+        config_path = tmpdir_path / "config.json"
+        config_path.write_text(json.dumps(config_data))
+
+        config = Config(config_file=config_path)
+        config.load_config()
+        assert config.deck_type == ""
+        assert config.deck_type_candidates == []

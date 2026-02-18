@@ -6,7 +6,7 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from puppeteer.matchmaker import get_round_robin_matchup, get_yente_pool
+from puppeteer.matchmaker import get_round_robin_matchup, get_yente_pool, pick_round_robin_format
 
 
 @dataclass
@@ -419,6 +419,7 @@ class Config:
     # Game format settings (passed to XMage via config JSON)
     game_type: str = ""  # e.g. "Two Player Duel", "Commander Free For All"
     deck_type: str = ""  # e.g. "Constructed - Legacy", "Variant Magic - Freeform Commander"
+    deck_type_candidates: list[str] = field(default_factory=list)  # Multi-format rotation
     custom_start_life: int = 0  # 0 = use game type default
 
     # Post-game behavior
@@ -439,6 +440,7 @@ class Config:
         self,
         cross_game_used_names: set[str] | None = None,
         cross_game_round_robin: list[tuple[str, ...]] | None = None,
+        cross_game_format_picks: list[str] | None = None,
     ) -> None:
         """Load player configuration from JSON file.
 
@@ -450,6 +452,10 @@ class Config:
         parallel batch.  Passed to get_round_robin_matchup as extra_matchups so
         each game in a batch picks a different coverage-optimal pairing.
         The selected matchup is appended to this list for the next game.
+
+        cross_game_format_picks: formats already selected by earlier games in a
+        parallel batch.  Passed to pick_round_robin_format so each game in a
+        batch spreads across formats.
         """
         if self.config_file is None:
             # Try default locations in order
@@ -472,7 +478,15 @@ class Config:
             self.match_time_limit = data.get("matchTimeLimit", "")
             self.match_buffer_time = data.get("matchBufferTime", "")
             self.game_type = data.get("gameType", "")
-            self.deck_type = data.get("deckType", "")
+            raw_deck_type = data.get("deckType", "")
+            if isinstance(raw_deck_type, list):
+                assert len(raw_deck_type) > 0, "deckType list must not be empty"
+                self.deck_type_candidates = raw_deck_type
+                self.deck_type = raw_deck_type[0]
+            else:
+                self.deck_type = raw_deck_type
+                if raw_deck_type:
+                    self.deck_type_candidates = [raw_deck_type]
             self.custom_start_life = data.get("customStartLife", 0)
             self.skip_post_game_prompts = data.get("skipPostGamePrompts", False)
             personalities = load_personalities(self.config_file)
@@ -553,6 +567,18 @@ class Config:
                 yente_pool=yp,
                 round_robin_picks=rrp,
             )
+
+            # Format rotation: pick the best format for the resolved players
+            if len(self.deck_type_candidates) > 1:
+                resolved_presets = [p.preset for p in self.pilot_players if p.preset]
+                chosen_format = pick_round_robin_format(
+                    self.deck_type_candidates,
+                    resolved_presets,
+                    extra_format_picks=cross_game_format_picks,
+                )
+                self.deck_type = chosen_format
+                if cross_game_format_picks is not None:
+                    cross_game_format_picks.append(chosen_format)
 
     def get_players_config_json(self) -> str:
         """Serialize resolved player config to JSON for passing to spectator/GUI client."""

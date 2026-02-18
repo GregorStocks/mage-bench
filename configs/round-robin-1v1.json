@@ -1,6 +1,6 @@
 {
   "gameType": "Two Player Duel",
-  "deckType": "Constructed - Standard",
+  "deckType": ["Constructed - Standard", "Constructed - Modern", "Constructed - Legacy"],
   "matchTimeLimit": "MIN__60",
   "matchBufferTime": "NONE",
   "players": [

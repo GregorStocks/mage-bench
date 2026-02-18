@@ -296,3 +296,77 @@ def get_round_robin_matchup(
         )
 
     return selected
+
+
+# --- Format rotation ---
+
+_FORMAT_DISPATCHES = [
+    "Shuffling the format deck...",
+    "Rotating through the multiverse of formats...",
+    "No format left behind.",
+]
+
+
+def pick_round_robin_format(
+    candidates: list[str],
+    selected_presets: list[str],
+    games_dir: Path = _GAMES_DIR,
+    presets_path: Path = _PRESETS_JSON,
+    extra_format_picks: list[str] | None = None,
+) -> str:
+    """Pick the format that best balances per-bot format distribution.
+
+    candidates: list of deckType strings (e.g. ["Constructed - Standard", ...])
+    selected_presets: the preset names for this game's players
+    extra_format_picks: formats already picked by earlier games in a parallel batch
+
+    Returns a single deckType string.
+    """
+    assert len(candidates) > 1, "pick_round_robin_format requires multiple candidates"
+
+    # Load game data at current epoch
+    all_games = _load_games_index(games_dir)
+    epoch_games = [g for g in all_games if (g.get("harnessEpoch") or 0) >= MIN_LEADERBOARD_EPOCH]
+
+    # Build key -> preset mapping
+    key_to_preset = _build_key_to_preset(presets_path)
+
+    # Count per-preset per-format games
+    candidate_set = set(candidates)
+    format_counts: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+
+    for game in epoch_games:
+        dt = game.get("deckType", "")
+        if dt not in candidate_set:
+            continue
+        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]
+        for p in pilots:
+            key = _player_key_from_dict(p)
+            if key in key_to_preset:
+                preset = key_to_preset[key]
+                format_counts[preset][dt] += 1
+
+    # Add virtual format picks from parallel batch
+    if extra_format_picks:
+        for fmt in extra_format_picks:
+            for preset in selected_presets:
+                format_counts[preset][fmt] += 1
+
+    # Score each candidate: lower is better (fewest games for these players)
+    scored: list[tuple[int, str]] = []
+    for fmt in candidates:
+        score = sum(format_counts[p][fmt] for p in selected_presets)
+        scored.append((score, fmt))
+
+    min_score = min(s[0] for s in scored)
+    tied = [s[1] for s in scored if s[0] == min_score]
+    chosen = random.choice(tied)
+
+    # Display
+    print(f"  {random.choice(_FORMAT_DISPATCHES)}", file=sys.stderr)
+    for fmt in candidates:
+        score = sum(format_counts[p][fmt] for p in selected_presets)
+        marker = " <--" if fmt == chosen else ""
+        print(f"    {fmt}: {score} games for selected players{marker}", file=sys.stderr)
+
+    return chosen
