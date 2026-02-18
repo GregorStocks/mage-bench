@@ -652,11 +652,14 @@ public class BridgeCallbackHandler {
                         }
                     }
                     if (card.getTargets() != null && !card.getTargets().isEmpty()) {
-                        var targetNames = new ArrayList<String>();
+                        var targets = new ArrayList<Map<String, Object>>();
                         for (UUID targetId : card.getTargets()) {
-                            targetNames.add(describeTarget(targetId, null, lastGameView));
+                            var t = new HashMap<String, Object>();
+                            t.put("id", shortIds.getOrAssign(targetId));
+                            t.put("name", describeTarget(targetId, null, lastGameView));
+                            targets.add(t);
                         }
-                        item.put("targets", targetNames);
+                        item.put("targets", targets);
                     }
                     stackSummary.add(item);
                 }
@@ -3105,11 +3108,14 @@ public class BridgeCallbackHandler {
                 stackItem.put("name", safeDisplayName(card));
                 stackItem.put("rules", stripHtmlList(card.getRules()));
                 if (card.getTargets() != null && !card.getTargets().isEmpty()) {
-                    var targetNames = new ArrayList<String>();
+                    var targets = new ArrayList<Map<String, Object>>();
                     for (UUID targetId : card.getTargets()) {
-                        targetNames.add(describeTarget(targetId, null, lastGameView));
+                        var t = new HashMap<String, Object>();
+                        t.put("id", shortIds.getOrAssign(targetId));
+                        t.put("name", describeTarget(targetId, null, lastGameView));
+                        targets.add(t);
                     }
-                    stackItem.put("targets", targetNames);
+                    stackItem.put("targets", targets);
                 }
                 if (card.getId() != null) {
                     String owner = castOwners.get(card.getId().toString());
