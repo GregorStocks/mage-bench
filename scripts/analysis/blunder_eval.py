@@ -85,6 +85,7 @@ def compare_results(
                         "eval_description": eval_results.get(pk, {}).get(
                             "description"
                         ),
+                        "human_notes": entry.get("human_notes"),
                     }
                 )
 
@@ -149,6 +150,15 @@ def print_report(comparison: dict) -> None:
                     eval_desc,
                     width=80,
                     initial_indent=indent + "eval:     ",
+                    subsequent_indent=indent + "          ",
+                )
+                print(wrapped)
+            human_notes = d.get("human_notes") or ""
+            if human_notes:
+                wrapped = textwrap.fill(
+                    human_notes,
+                    width=80,
+                    initial_indent=indent + "human:    ",
                     subsequent_indent=indent + "          ",
                 )
                 print(wrapped)
