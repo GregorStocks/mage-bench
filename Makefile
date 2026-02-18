@@ -40,8 +40,17 @@ test-js:
 	cd website && npm install --prefer-offline --no-audit --no-fund && npx vitest run
 
 .PHONY: check
-check: lint format-check typecheck test test-js verify-decks
+check: lint format-check typecheck test test-js verify-decks test-golden
 
+.PHONY: test-golden
+test-golden:
+	mvn test -pl Mage.Tests -Dtest=McpPromptGoldenTest -Dsurefire.failIfNoSpecifiedTests=false -am -Dmaven.build.cache.skipCache=true
+	cd puppeteer && uv run pytest tests/test_golden_prompts.py -v
+
+.PHONY: update-golden
+update-golden:
+	mvn test -pl Mage.Tests -Dtest=McpPromptGoldenTest -DupdateGolden=true -Dsurefire.failIfNoSpecifiedTests=false -am -Dmaven.build.cache.skipCache=true
+	cd puppeteer && UPDATE_GOLDEN=1 uv run pytest tests/test_golden_prompts.py -v
 
 .PHONY: build
 build:
@@ -111,10 +120,11 @@ mcp-tools:
 run-client:
 	cd Mage.Client && mvn -q exec:java
 
-# Run the website dev server
+# Run the website dev server (port is set per-worktree in .env by worktree-setup.py)
+WEBSITE_PORT ?= 4321
 .PHONY: website
 website: leaderboard
-	cd website && npm install && npx astro dev
+	cd website && npm install && npx astro dev --port $(WEBSITE_PORT)
 
 # Export a game log for the website visualizer
 # Usage: make export-game GAME=game_20260208_220934

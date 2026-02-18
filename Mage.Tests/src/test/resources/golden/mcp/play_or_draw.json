@@ -1,0 +1,59 @@
+{
+  "game_state": {
+    "active_player": "PlayerA",
+    "available": true,
+    "phase": "Precombat Main",
+    "players": [
+      {
+        "hand": [],
+        "hand_size": 0,
+        "is_active": true,
+        "is_you": true,
+        "library_size": 101,
+        "life": 20,
+        "name": "PlayerA"
+      },
+      {
+        "hand_size": 0,
+        "is_active": false,
+        "is_you": false,
+        "library_size": 101,
+        "life": 20,
+        "name": "PlayerB"
+      }
+    ],
+    "priority_player": "PlayerB",
+    "stack": [],
+    "step": "Precombat Main",
+    "turn": 1
+  },
+  "pass_priority_result": {
+    "action_pending": true,
+    "action_type": "GAME_TARGET",
+    "actions_passed": 0,
+    "can_cancel": false,
+    "choices": [
+      {
+        "id": "p1",
+        "index": 0,
+        "is_you": true,
+        "name": "PlayerA",
+        "target_type": "player"
+      },
+      {
+        "id": "p2",
+        "index": 1,
+        "name": "PlayerB",
+        "target_type": "player"
+      }
+    ],
+    "context": "T1 Precombat Main/Precombat Main (PlayerA) YOUR_MAIN",
+    "land_drops_used": 0,
+    "message": "starting player",
+    "players": "PlayerA(you,20hp), PlayerB(20hp)",
+    "required": true,
+    "respond_with": "id=\"pN\" or index=N",
+    "response_type": "index",
+    "stop_reason": "non_priority_action"
+  }
+}

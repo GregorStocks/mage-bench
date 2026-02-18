@@ -1,0 +1,263 @@
+{
+  "messages": [
+    {
+      "content": "You are a competitive Magic: The Gathering player. Your goal is to WIN the game. Play to maximize your win rate — make optimal strategic decisions, not flashy or entertaining ones. Think carefully about sequencing, card evaluation, and combat math.\n\nGAME LOOP - follow this exactly:\n1. Call pass_priority - this blocks until you have a decision to make, then returns your choices (response_type, choices, context, etc.)\n2. Read the choices, then call choose_action with your decision\n3. Go back to step 1\n\nCRITICAL RULES:\n- pass_priority returns your choices directly. Read them before calling choose_action.\n- When pass_priority shows playable cards, you should play them before passing. Only pass (answer=false) when you have nothing more you want to play this phase.\n\nUNDERSTANDING pass_priority OUTPUT:\n- All cards listed in response_type=select are confirmed castable with your current mana. The server pre-filters to only show cards you can legally play right now.\n- mana_pool shows your current floating mana (e.g. {\"R\": 2, \"W\": 1}).\n- untapped_lands shows how many untapped lands you control.\n- Cards with [Cast] are spells from your hand. Cards with [Activate] are abilities on permanents you control.\n\nMULLIGAN DECISIONS:\nWhen you see \"Mulligan\" in GAME_ASK, your_hand shows your current hand.\n- choose_action(answer=true) means YES MULLIGAN - throw away this hand and draw new cards\n- choose_action(answer=false) means NO KEEP - keep this hand and start playing\nThink carefully: answer=false means KEEP, answer=true means MULLIGAN.\n\nOBJECT IDs:\nEvery game object (cards in hand, permanents, stack items, graveyard/exile cards) has a short ID like \"p1\", \"p2\", etc. These IDs are stable — a card keeps its ID as it moves between zones. Use the id parameter in choose_action(id=\"p3\") instead of index when selecting objects. Use short IDs with get_oracle_text(object_id=\"p3\") and in mana_plan entries ({\"tap\":\"p3\"}).\n\nHOW ACTIONS WORK:\n- response_type=select: Cards listed are confirmed playable with your current mana. Play a card with choose_action(id=\"p3\"). Pass with choose_action(answer=false) only when you are done playing cards this phase.\n- response_type=boolean with no playable cards: Pass with choose_action(answer=false).\n- GAME_ASK (boolean): Answer true/false based on what's being asked.\n- GAME_CHOOSE_ABILITY (index): Pick an ability by index.\n- GAME_TARGET (index or id): Pick a target. If required=true, you must pick one.\n\nCOMBAT - ATTACKING:\nWhen you see combat_phase=\"declare_attackers\", use batch declaration:\n- choose_action(attackers=[\"p1\",\"p2\",\"p3\"]) declares multiple attackers at once and auto-confirms.\n- choose_action(attackers=[\"all\"]) declares all possible attackers.\n- To skip attacking, call choose_action(answer=false).\n\nCOMBAT - BLOCKING:\nWhen you see combat_phase=\"declare_blockers\", use batch declaration:\n- choose_action(blockers=[{\"id\":\"p5\",\"blocks\":\"p1\"},{\"id\":\"p6\",\"blocks\":\"p2\"}]) declares blockers and their assignments at once.\n- Use IDs from incoming_attackers for the \"blocks\" field.\n- To not block, call choose_action(answer=false).\n\nCHAT:\nUse send_chat_message to talk to your opponents during the game. React to big plays, comment on the board state, or just have fun. Check the recent_chat field in pass_priority results to see what others are saying.",
+      "role": "system"
+    },
+    {
+      "content": "The game is starting. Your first decision: Mulligan down to 6 cards?\nCall get_action_choices to see your hand, then choose_action to decide.",
+      "role": "user"
+    },
+    {
+      "content": null,
+      "role": "assistant",
+      "tool_calls": [
+        {
+          "function": {
+            "arguments": "{}",
+            "name": "get_game_state"
+          },
+          "id": "call_1",
+          "type": "function"
+        }
+      ]
+    },
+    {
+      "content": "{\"active_player\": \"PlayerA\", \"available\": true, \"phase\": \"Precombat Main\", \"players\": [{\"hand\": [{\"id\": \"p1\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p2\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p3\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 101, \"life\": 20, \"name\": \"PlayerA\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 101, \"life\": 20, \"name\": \"PlayerB\"}], \"priority_player\": \"PlayerB\", \"stack\": [], \"step\": \"Precombat Main\", \"turn\": 1}",
+      "role": "tool",
+      "tool_call_id": "call_1"
+    }
+  ],
+  "tools": [
+    {
+      "function": {
+        "description": "Get game log text. Three modes: (1) since_turn=N to get events since a player's Nth turn (best for recapping opponents' turns in multiplayer), (2) cursor from a previous call for incremental updates, (3) max_chars for the most recent N characters.",
+        "name": "get_game_log",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "cursor": {
+              "description": "Cursor offset from previous get_game_log call. Returns new log text since this offset. Mutually exclusive with since_turn.",
+              "type": "integer"
+            },
+            "max_chars": {
+              "description": "Max characters to return (0 or omit for all)",
+              "type": "integer"
+            },
+            "since_player": {
+              "description": "Player name for since_turn filter. Defaults to you (the calling player). Only used with since_turn.",
+              "type": "string"
+            },
+            "since_turn": {
+              "description": "Return log entries starting from this player turn number. Turn markers use per-player numbering (e.g. 'Alice turn 3'). Mutually exclusive with cursor.",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Send a chat message to the game",
+        "name": "send_chat_message",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "message": {
+              "description": "Message to send",
+              "type": "string"
+            }
+          },
+          "required": [
+            "message"
+          ],
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Pass priority. Blocks until you have a pending action (playable cards, combat, non-priority action like mulligan/targeting). With until: skips ahead to a target step or phase. Step values (current turn, client-side): upkeep, draw, precombat_main, begin_combat, declare_attackers, declare_blockers, end_combat, postcombat_main. Cross-turn values (server-side): end_of_turn, my_turn, stack_resolved. Always stops for combat and non-priority actions. Auto-handles mechanical callbacks (mana payment failures, optional targets with no legal targets). Returns stop_reason indicating why the call returned. When action_pending=true, includes full action choices (response_type, choices, context, etc.) so you can call choose_action immediately.",
+        "name": "pass_priority",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "until": {
+              "description": "Skip ahead to a target. Step values yield within the current turn (client-side): upkeep, draw, precombat_main, begin_combat, declare_attackers, declare_blockers, end_combat, postcombat_main. Cross-turn values use server-side yield: end_of_turn (skip rest of turn), my_turn (skip to your next turn), stack_resolved (wait for stack to resolve). Omit to block until next actionable priority.",
+              "enum": [
+                "upkeep",
+                "draw",
+                "precombat_main",
+                "begin_combat",
+                "declare_attackers",
+                "declare_blockers",
+                "end_combat",
+                "postcombat_main",
+                "end_of_turn",
+                "my_turn",
+                "stack_resolved"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Get full game state: turn, phase, players, stack, combat. Each player has life, mana_pool, hand (yours only), battlefield (name, tapped, P/T, counters, token/copy/face_down flags), graveyard, exile, commanders.",
+        "name": "get_game_state",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "cursor": {
+              "description": "State cursor from previous get_game_state call. If unchanged, returns a compact payload.",
+              "type": "integer"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Get oracle text and card details. Provide exactly one of: card_name (single), card_names (batch array), object_id (in-game object), or object_ids (batch array of in-game objects). Returns name, mana_cost, type, rules, and where applicable: power/toughness, starting_loyalty, starting_defense, second_face.",
+        "name": "get_oracle_text",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "card_name": {
+              "description": "Single card name lookup",
+              "type": "string"
+            },
+            "card_names": {
+              "description": "Batch card name lookup",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "object_id": {
+              "description": "Short ID of an in-game object (e.g. \"p3\")",
+              "type": "string"
+            },
+            "object_ids": {
+              "description": "Batch in-game object short ID lookup (e.g. [\"p1\",\"p2\"])",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Get available choices for the current pending action. Call before choose_action. With until: blocks like pass_priority until a decision is needed, then returns choices in one call. Without until: returns immediately (action_pending=false if nothing to do). Includes context (phase/turn), players (life totals), stack (when non-empty), and land_drops_used (during your main phase). response_type: select (cards to play, attackers, blockers), boolean (yes/no), index (target/ability), amount, pile, or multi_amount. During combat: combat_phase indicates declare_attackers or declare_blockers; combat shows all combat groups (attackers, blockers, blocked status) during any combat step.",
+        "name": "get_action_choices",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "until": {
+              "description": "Skip ahead to a target, then return choices. Same values as pass_priority's until parameter. Omit to return immediately.",
+              "enum": [
+                "upkeep",
+                "draw",
+                "precombat_main",
+                "begin_combat",
+                "declare_attackers",
+                "declare_blockers",
+                "end_combat",
+                "postcombat_main",
+                "end_of_turn",
+                "my_turn",
+                "stack_resolved"
+              ],
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "function"
+    },
+    {
+      "function": {
+        "description": "Respond to pending action. Blocks until an action is pending (like pass_priority). Use id or index to pick a choice (card, attacker, blocker, target, ability, mana source). Use answer for yes/no, pass priority, or confirm combat (true=confirm attackers/blockers). Use attackers/blockers for batch combat. Call get_action_choices first.",
+        "name": "choose_action",
+        "parameters": {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "description": "Amount value (for get_amount actions)",
+              "type": "integer"
+            },
+            "amounts": {
+              "description": "Multiple amount values (for multi_amount actions)",
+              "items": {
+                "type": "integer"
+              },
+              "type": "array"
+            },
+            "answer": {
+              "description": "Yes/No response. For GAME_ASK: true means YES to the question, false means NO. For mulligan: true = YES MULLIGAN (discard hand, draw new cards), false = NO KEEP (keep this hand). For GAME_SELECT: false = pass priority (done playing cards this phase), true = confirm combat (done declaring attackers/blockers). Also false to cancel target/mana selection.",
+              "type": "boolean"
+            },
+            "attackers": {
+              "description": "Declare multiple attackers at once. Array of short IDs (e.g. [\"p1\",\"p2\"]). Use [\"all\"] to declare all possible attackers. Automatically confirms after declaring.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "auto_tap": {
+              "description": "Set true to use the automatic mana tapper. WARNING: The autotapper is not smart — it taps the first available source with no color awareness and uses a naive heuristic for multi-ability lands. Prefer mana_plan for strategic tapping. Only use auto_tap to save tokens when tapping order doesn't matter.",
+              "type": "boolean"
+            },
+            "blockers": {
+              "description": "Declare multiple blockers at once. Array of \"blocker_id:attacker_id\" strings. Example: [\"p5:p1\",\"p6:p2\"] means p5 blocks p1, p6 blocks p2. Automatically confirms after declaring.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "id": {
+              "description": "Short ID of the object to select (e.g. \"p3\"). Alternative to index.",
+              "type": "string"
+            },
+            "index": {
+              "description": "Choice index from get_action_choices",
+              "type": "integer"
+            },
+            "mana_plan": {
+              "description": "List of mana sources to use when casting a spell. Each entry is a short ID (e.g. \"p1\") to activate that object's mana ability, or a pool color (WHITE, BLUE, BLACK, RED, GREEN, COLORLESS) to spend 1 mana from pool. Works for any mana source: lands, mana rocks, and cards in hand with mana abilities (e.g. Simian Spirit Guide). For multi-ability lands (dual lands), append :N to pick the ability by index (e.g. \"p5:0\" for first ability, \"p5:1\" for second); without an index, the first ability is picked automatically. Each entry pays one mana pip. Consumed in order as mana payment callbacks arrive. Example: [\"p1\", \"p5:1\", \"RED\"]. The plan must be COMPLETE — if any entry fails or runs out, the spell is cancelled. Filter lands with activation costs (e.g. Cascade Bluffs) trigger sub-payment — include extra entries for their activation cost. Mutually exclusive with auto_tap.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "pile": {
+              "description": "Pile number: 1 or 2 (for pile choices)",
+              "type": "integer"
+            },
+            "text": {
+              "description": "Text value for GAME_CHOOSE_CHOICE (use instead of index to pick any option by name, e.g. a creature type not in the filtered list)",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "function"
+    }
+  ]
+}

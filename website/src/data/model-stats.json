@@ -1,0 +1,2968 @@
+{
+  "generatedAt": "2026-02-18T06:14:49.764133+00:00",
+  "minLeaderboardEpoch": 3,
+  "models": {
+    "google/gemini-3-flash-preview::medium": {
+      "modelId": "google/gemini-3-flash-preview",
+      "modelName": "Gemini 3 Flash (medium)",
+      "provider": "Google",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 15,
+          "wins": 7,
+          "totalCostUsd": 40.9495,
+          "totalToolCallsOk": 8953,
+          "totalToolCallsFailed": 207,
+          "totalThinkingTimeSecs": 17359.0,
+          "totalPromptTokens": 77912675,
+          "totalCompletionTokens": 664408,
+          "successfulResponses": 9661,
+          "errors": {
+            "timeout": 5,
+            "RateLimitError": 1,
+            "PermissionDeniedError": 120,
+            "TypeError": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 2.3,
+          "latencySamples": 26852
+        },
+        "2": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 0.8521,
+          "totalToolCallsOk": 222,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 726.9,
+          "totalPromptTokens": 1584299,
+          "totalCompletionTokens": 19974,
+          "successfulResponses": 230,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 6.1,
+          "latencySamples": 644
+        },
+        "5": {
+          "gamesPlayed": 2,
+          "wins": 2,
+          "totalCostUsd": 3.8616,
+          "totalToolCallsOk": 886,
+          "totalToolCallsFailed": 11,
+          "totalThinkingTimeSecs": 2099.5,
+          "totalPromptTokens": 6939363,
+          "totalCompletionTokens": 130644,
+          "successfulResponses": 895,
+          "errors": {
+            "BadRequestError": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 4.9,
+          "latencySamples": 2029
+        },
+        "6": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 1.2075,
+          "totalToolCallsOk": 322,
+          "totalToolCallsFailed": 4,
+          "totalThinkingTimeSecs": 775.0,
+          "totalPromptTokens": 2237462,
+          "totalCompletionTokens": 29595,
+          "successfulResponses": 326,
+          "errors": {
+            "BadRequestError": 3
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 4.9,
+          "latencySamples": 737
+        },
+        "7": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 3.1618,
+          "totalToolCallsOk": 723,
+          "totalToolCallsFailed": 6,
+          "totalThinkingTimeSecs": 1784.6,
+          "totalPromptTokens": 5742822,
+          "totalCompletionTokens": 96783,
+          "successfulResponses": 727,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 4.5,
+          "latencySamples": 1656
+        },
+        "11": {
+          "gamesPlayed": 10,
+          "wins": 7,
+          "totalCostUsd": 21.6667,
+          "totalToolCallsOk": 4762,
+          "totalToolCallsFailed": 41,
+          "totalThinkingTimeSecs": 13534.2,
+          "totalPromptTokens": 39013860,
+          "totalCompletionTokens": 719958,
+          "successfulResponses": 4795,
+          "errors": {
+            "timeout": 6,
+            "BadRequestError": 4,
+            "AuthenticationError": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 5.7,
+          "latencySamples": 10989
+        },
+        "13": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 1.3361,
+          "totalToolCallsOk": 261,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 1011.0,
+          "totalPromptTokens": 2319911,
+          "totalCompletionTokens": 58715,
+          "successfulResponses": 256,
+          "errors": {
+            "BadRequestError": 2
+          },
+          "contextResets": 0,
+          "latencyP50": 0.9,
+          "latencyP95": 9.3,
+          "latencySamples": 521
+        },
+        "14": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 1.8447,
+          "totalToolCallsOk": 356,
+          "totalToolCallsFailed": 7,
+          "totalThinkingTimeSecs": 1704.8,
+          "totalPromptTokens": 2875260,
+          "totalCompletionTokens": 135675,
+          "successfulResponses": 362,
+          "errors": {
+            "BadRequestError": 3,
+            "timeout": 6
+          },
+          "contextResets": 1,
+          "latencyP50": 1.0,
+          "latencyP95": 11.2,
+          "latencySamples": 737
+        }
+      }
+    },
+    "openai/gpt-4.1-mini": {
+      "modelId": "openai/gpt-4.1-mini",
+      "modelName": "GPT-4.1 Mini",
+      "provider": "OpenAI",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 3,
+          "wins": 1,
+          "totalCostUsd": 2.6035,
+          "totalToolCallsOk": 1006,
+          "totalToolCallsFailed": 19,
+          "totalThinkingTimeSecs": 2315.1,
+          "totalPromptTokens": 6384297,
+          "totalCompletionTokens": 31116,
+          "successfulResponses": 1190,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 2.3,
+          "latencySamples": 2684
+        },
+        "2": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 15.7593,
+          "totalToolCallsOk": 12679,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 13895.2,
+          "totalPromptTokens": 37773072,
+          "totalCompletionTokens": 406258,
+          "successfulResponses": 13119,
+          "errors": {
+            "JSONDecodeError": 86
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 1.4,
+          "latencySamples": 25888
+        }
+      }
+    },
+    "google/gemini-2.5-flash::medium": {
+      "modelId": "google/gemini-2.5-flash",
+      "modelName": "Gemini 2.5 Flash (medium)",
+      "provider": "Google",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 19,
+          "wins": 8,
+          "totalCostUsd": 16.547,
+          "totalToolCallsOk": 6680,
+          "totalToolCallsFailed": 74,
+          "totalThinkingTimeSecs": 31798.5,
+          "totalPromptTokens": 46809359,
+          "totalCompletionTokens": 1001682,
+          "successfulResponses": 7407,
+          "errors": {
+            "PermissionDeniedError": 115
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 5.0,
+          "latencySamples": 19646
+        },
+        "2": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 3.829,
+          "totalToolCallsOk": 1106,
+          "totalToolCallsFailed": 8,
+          "totalThinkingTimeSecs": 3988.4,
+          "totalPromptTokens": 9886684,
+          "totalCompletionTokens": 345206,
+          "successfulResponses": 1296,
+          "errors": {
+            "timeout": 2
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 4.3,
+          "latencySamples": 3629
+        },
+        "4": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 1.8553,
+          "totalToolCallsOk": 570,
+          "totalToolCallsFailed": 16,
+          "totalThinkingTimeSecs": 1694.3,
+          "totalPromptTokens": 4915676,
+          "totalCompletionTokens": 152265,
+          "successfulResponses": 656,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 3.2,
+          "latencySamples": 1411
+        },
+        "5": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.6674,
+          "totalToolCallsOk": 192,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 738.1,
+          "totalPromptTokens": 1527097,
+          "totalCompletionTokens": 83700,
+          "successfulResponses": 195,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.4,
+          "latencyP95": 6.7,
+          "latencySamples": 434
+        },
+        "6": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 1.3088,
+          "totalToolCallsOk": 349,
+          "totalToolCallsFailed": 32,
+          "totalThinkingTimeSecs": 1452.6,
+          "totalPromptTokens": 2960123,
+          "totalCompletionTokens": 168296,
+          "successfulResponses": 392,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 6.5,
+          "latencySamples": 880
+        },
+        "7": {
+          "gamesPlayed": 3,
+          "wins": 2,
+          "totalCostUsd": 2.8708,
+          "totalToolCallsOk": 708,
+          "totalToolCallsFailed": 26,
+          "totalThinkingTimeSecs": 2604.8,
+          "totalPromptTokens": 7063098,
+          "totalCompletionTokens": 300777,
+          "successfulResponses": 741,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 6.5,
+          "latencySamples": 1675
+        },
+        "11": {
+          "gamesPlayed": 4,
+          "wins": 1,
+          "totalCostUsd": 4.4842,
+          "totalToolCallsOk": 1228,
+          "totalToolCallsFailed": 69,
+          "totalThinkingTimeSecs": 5111.6,
+          "totalPromptTokens": 10410724,
+          "totalCompletionTokens": 544382,
+          "successfulResponses": 1321,
+          "errors": {
+            "timeout": 2
+          },
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 6.5,
+          "latencySamples": 3031
+        },
+        "13": {
+          "gamesPlayed": 3,
+          "wins": 2,
+          "totalCostUsd": 3.5423,
+          "totalToolCallsOk": 779,
+          "totalToolCallsFailed": 53,
+          "totalThinkingTimeSecs": 3862.0,
+          "totalPromptTokens": 8433460,
+          "totalCompletionTokens": 404893,
+          "successfulResponses": 847,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 1.4,
+          "latencyP95": 8.8,
+          "latencySamples": 1679
+        },
+        "14": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.2088,
+          "totalToolCallsOk": 78,
+          "totalToolCallsFailed": 5,
+          "totalThinkingTimeSecs": 268.6,
+          "totalPromptTokens": 528056,
+          "totalCompletionTokens": 20142,
+          "successfulResponses": 88,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.9,
+          "latencyP95": 5.8,
+          "latencySamples": 172
+        }
+      }
+    },
+    "mistralai/devstral-small": {
+      "modelId": "mistralai/devstral-small",
+      "modelName": "Devstral Small",
+      "provider": "Mistral AI",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 0.2796,
+          "totalToolCallsOk": 402,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 524.4,
+          "totalPromptTokens": 2786324,
+          "totalCompletionTokens": 3397,
+          "successfulResponses": 403,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.5,
+          "latencyP95": 1.5,
+          "latencySamples": 798
+        }
+      }
+    },
+    "anthropic/claude-sonnet-4.5::medium": {
+      "modelId": "anthropic/claude-sonnet-4.5",
+      "modelName": "Claude Sonnet 4.5 (medium)",
+      "provider": "Anthropic",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 6,
+          "wins": 2,
+          "totalCostUsd": 116.9406,
+          "totalToolCallsOk": 4453,
+          "totalToolCallsFailed": 28,
+          "totalThinkingTimeSecs": 31439.6,
+          "totalPromptTokens": 37601671,
+          "totalCompletionTokens": 275697,
+          "successfulResponses": 4483,
+          "errors": {
+            "BadRequestError": 2,
+            "timeout": 1,
+            "PermissionDeniedError": 112
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 30.0,
+          "latencySamples": 12636
+        },
+        "2": {
+          "gamesPlayed": 3,
+          "wins": 3,
+          "totalCostUsd": 15.2968,
+          "totalToolCallsOk": 560,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 1406.7,
+          "totalPromptTokens": 4909681,
+          "totalCompletionTokens": 37848,
+          "successfulResponses": 562,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 2.8,
+          "latencySamples": 1360
+        },
+        "3": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 2.3684,
+          "totalToolCallsOk": 88,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 242.3,
+          "totalPromptTokens": 757302,
+          "totalCompletionTokens": 6433,
+          "successfulResponses": 88,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 4.4,
+          "latencySamples": 194
+        },
+        "4": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 3.7585,
+          "totalToolCallsOk": 106,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 251.5,
+          "totalPromptTokens": 1210740,
+          "totalCompletionTokens": 8417,
+          "successfulResponses": 108,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 4.0,
+          "latencySamples": 244
+        },
+        "5": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 4.8728,
+          "totalToolCallsOk": 152,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 400.0,
+          "totalPromptTokens": 1560784,
+          "totalCompletionTokens": 12695,
+          "successfulResponses": 152,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 4.0,
+          "latencySamples": 346
+        },
+        "6": {
+          "gamesPlayed": 2,
+          "wins": 2,
+          "totalCostUsd": 9.6404,
+          "totalToolCallsOk": 306,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 713.4,
+          "totalPromptTokens": 3093346,
+          "totalCompletionTokens": 24027,
+          "successfulResponses": 297,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 3.9,
+          "latencySamples": 683
+        },
+        "7": {
+          "gamesPlayed": 3,
+          "wins": 1,
+          "totalCostUsd": 16.1263,
+          "totalToolCallsOk": 526,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 1458.0,
+          "totalPromptTokens": 5176574,
+          "totalCompletionTokens": 39771,
+          "successfulResponses": 527,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 4.1,
+          "latencySamples": 1201
+        },
+        "11": {
+          "gamesPlayed": 10,
+          "wins": 4,
+          "totalCostUsd": 85.9068,
+          "totalToolCallsOk": 2567,
+          "totalToolCallsFailed": 16,
+          "totalThinkingTimeSecs": 7286.0,
+          "totalPromptTokens": 27676756,
+          "totalCompletionTokens": 191774,
+          "successfulResponses": 2552,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 4.1,
+          "latencySamples": 5918
+        },
+        "13": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 7.9405,
+          "totalToolCallsOk": 224,
+          "totalToolCallsFailed": 4,
+          "totalThinkingTimeSecs": 750.8,
+          "totalPromptTokens": 2552895,
+          "totalCompletionTokens": 18787,
+          "successfulResponses": 225,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 1.2,
+          "latencyP95": 5.6,
+          "latencySamples": 453
+        }
+      }
+    },
+    "anthropic/claude-haiku-4.5::low": {
+      "modelId": "anthropic/claude-haiku-4.5",
+      "modelName": "Claude Haiku 4.5 (low)",
+      "provider": "Anthropic",
+      "reasoningEffort": "low",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 16,
+          "wins": 4,
+          "totalCostUsd": 54.5429,
+          "totalToolCallsOk": 5469,
+          "totalToolCallsFailed": 100,
+          "totalThinkingTimeSecs": 10844.9,
+          "totalPromptTokens": 52062721,
+          "totalCompletionTokens": 496001,
+          "successfulResponses": 5615,
+          "errors": {
+            "APIStatusError": 1,
+            "BadRequestError": 4
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 2.7,
+          "latencySamples": 15767
+        },
+        "2": {
+          "gamesPlayed": 3,
+          "wins": 0,
+          "totalCostUsd": 3.879,
+          "totalToolCallsOk": 410,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 704.3,
+          "totalPromptTokens": 3691957,
+          "totalCompletionTokens": 37410,
+          "successfulResponses": 427,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 2.8,
+          "latencySamples": 1147
+        },
+        "3": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.4732,
+          "totalToolCallsOk": 56,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 95.6,
+          "totalPromptTokens": 448534,
+          "totalCompletionTokens": 4927,
+          "successfulResponses": 56,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 2.4,
+          "latencySamples": 124
+        },
+        "4": {
+          "gamesPlayed": 3,
+          "wins": 2,
+          "totalCostUsd": 3.668,
+          "totalToolCallsOk": 370,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 715.7,
+          "totalPromptTokens": 3510993,
+          "totalCompletionTokens": 31412,
+          "successfulResponses": 378,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 2.8,
+          "latencySamples": 840
+        },
+        "6": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 1.6987,
+          "totalToolCallsOk": 149,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 307.5,
+          "totalPromptTokens": 1617361,
+          "totalCompletionTokens": 16276,
+          "successfulResponses": 150,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 3.4,
+          "latencySamples": 338
+        },
+        "11": {
+          "gamesPlayed": 6,
+          "wins": 4,
+          "totalCostUsd": 14.9449,
+          "totalToolCallsOk": 1434,
+          "totalToolCallsFailed": 8,
+          "totalThinkingTimeSecs": 2833.6,
+          "totalPromptTokens": 14439331,
+          "totalCompletionTokens": 101094,
+          "successfulResponses": 1449,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 2.6,
+          "latencySamples": 3299
+        },
+        "13": {
+          "gamesPlayed": 4,
+          "wins": 2,
+          "totalCostUsd": 7.6044,
+          "totalToolCallsOk": 710,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 1920.6,
+          "totalPromptTokens": 7320709,
+          "totalCompletionTokens": 56742,
+          "successfulResponses": 720,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.8,
+          "latencyP95": 3.5,
+          "latencySamples": 1435
+        },
+        "14": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 1.0609,
+          "totalToolCallsOk": 93,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 420.2,
+          "totalPromptTokens": 1008500,
+          "totalCompletionTokens": 10471,
+          "successfulResponses": 93,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 1.0,
+          "latencyP95": 8.1,
+          "latencySamples": 188
+        }
+      }
+    },
+    "openai/o4-mini": {
+      "modelId": "openai/o4-mini",
+      "modelName": "o4-mini",
+      "provider": "OpenAI",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 1.0263,
+          "totalToolCallsOk": 109,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 506.3,
+          "totalPromptTokens": 727958,
+          "totalCompletionTokens": 51256,
+          "successfulResponses": 173,
+          "errors": {
+            "JSONDecodeError": 2,
+            "BadRequestError": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.9,
+          "latencyP95": 7.6,
+          "latencySamples": 283
+        }
+      }
+    },
+    "meta-llama/llama-4-maverick": {
+      "modelId": "meta-llama/llama-4-maverick",
+      "modelName": "Llama 4 Maverick",
+      "provider": "Meta",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.1422,
+          "totalToolCallsOk": 163,
+          "totalToolCallsFailed": 5,
+          "totalThinkingTimeSecs": 323.4,
+          "totalPromptTokens": 922320,
+          "totalCompletionTokens": 6426,
+          "successfulResponses": 155,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 2.0,
+          "latencySamples": 440
+        },
+        "2": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 0.315,
+          "totalToolCallsOk": 313,
+          "totalToolCallsFailed": 10,
+          "totalThinkingTimeSecs": 463.1,
+          "totalPromptTokens": 2058221,
+          "totalCompletionTokens": 10414,
+          "successfulResponses": 317,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 2.0,
+          "latencySamples": 916
+        },
+        "4": {
+          "gamesPlayed": 5,
+          "wins": 1,
+          "totalCostUsd": 1.8011,
+          "totalToolCallsOk": 1390,
+          "totalToolCallsFailed": 56,
+          "totalThinkingTimeSecs": 1771.7,
+          "totalPromptTokens": 11852418,
+          "totalCompletionTokens": 38675,
+          "successfulResponses": 1505,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 1.8,
+          "latencySamples": 3294
+        },
+        "5": {
+          "gamesPlayed": 3,
+          "wins": 1,
+          "totalCostUsd": 1.0018,
+          "totalToolCallsOk": 654,
+          "totalToolCallsFailed": 22,
+          "totalThinkingTimeSecs": 1096.8,
+          "totalPromptTokens": 6581819,
+          "totalCompletionTokens": 24245,
+          "successfulResponses": 789,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 2.1,
+          "latencySamples": 1618
+        },
+        "7": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 1.5487,
+          "totalToolCallsOk": 1013,
+          "totalToolCallsFailed": 50,
+          "totalThinkingTimeSecs": 1225.6,
+          "totalPromptTokens": 10197033,
+          "totalCompletionTokens": 31978,
+          "successfulResponses": 1167,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 1.6,
+          "latencySamples": 2502
+        },
+        "11": {
+          "gamesPlayed": 3,
+          "wins": 0,
+          "totalCostUsd": 1.0091,
+          "totalToolCallsOk": 534,
+          "totalToolCallsFailed": 58,
+          "totalThinkingTimeSecs": 1036.1,
+          "totalPromptTokens": 6589231,
+          "totalCompletionTokens": 34574,
+          "successfulResponses": 820,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 2.2,
+          "latencySamples": 1573
+        },
+        "13": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 0.6573,
+          "totalToolCallsOk": 223,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 592.9,
+          "totalPromptTokens": 4331406,
+          "totalCompletionTokens": 12666,
+          "successfulResponses": 855,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 1.5,
+          "latencySamples": 1092
+        }
+      }
+    },
+    "openai/gpt-4o-mini": {
+      "modelId": "openai/gpt-4o-mini",
+      "modelName": "GPT-4o-mini",
+      "provider": "OpenAI",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 0.4074,
+          "totalToolCallsOk": 496,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 976.9,
+          "totalPromptTokens": 2686717,
+          "totalCompletionTokens": 7262,
+          "successfulResponses": 526,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 1.8,
+          "latencySamples": 1511
+        },
+        "2": {
+          "gamesPlayed": 3,
+          "wins": 2,
+          "totalCostUsd": 2.948,
+          "totalToolCallsOk": 3238,
+          "totalToolCallsFailed": 7,
+          "totalThinkingTimeSecs": 4177.5,
+          "totalPromptTokens": 19208639,
+          "totalCompletionTokens": 111141,
+          "successfulResponses": 4181,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 1.8,
+          "latencySamples": 8330
+        },
+        "3": {
+          "gamesPlayed": 2,
+          "wins": 2,
+          "totalCostUsd": 0.4463,
+          "totalToolCallsOk": 612,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 650.1,
+          "totalPromptTokens": 2946364,
+          "totalCompletionTokens": 7304,
+          "successfulResponses": 612,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 1.4,
+          "latencySamples": 1368
+        },
+        "4": {
+          "gamesPlayed": 5,
+          "wins": 4,
+          "totalCostUsd": 1.0565,
+          "totalToolCallsOk": 1253,
+          "totalToolCallsFailed": 18,
+          "totalThinkingTimeSecs": 1400.6,
+          "totalPromptTokens": 6972613,
+          "totalCompletionTokens": 17623,
+          "successfulResponses": 1249,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 1.4,
+          "latencySamples": 2852
+        },
+        "5": {
+          "gamesPlayed": 3,
+          "wins": 1,
+          "totalCostUsd": 0.3834,
+          "totalToolCallsOk": 494,
+          "totalToolCallsFailed": 5,
+          "totalThinkingTimeSecs": 644.6,
+          "totalPromptTokens": 2529564,
+          "totalCompletionTokens": 6591,
+          "successfulResponses": 499,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 1.8,
+          "latencySamples": 1135
+        },
+        "6": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.1762,
+          "totalToolCallsOk": 223,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 199.9,
+          "totalPromptTokens": 1163217,
+          "totalCompletionTokens": 2787,
+          "successfulResponses": 225,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 1.0,
+          "latencySamples": 508
+        },
+        "7": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.0241,
+          "totalToolCallsOk": 35,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 37.2,
+          "totalPromptTokens": 158500,
+          "totalCompletionTokens": 494,
+          "successfulResponses": 35,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 1.1,
+          "latencySamples": 74
+        },
+        "11": {
+          "gamesPlayed": 4,
+          "wins": 0,
+          "totalCostUsd": 0.8181,
+          "totalToolCallsOk": 872,
+          "totalToolCallsFailed": 13,
+          "totalThinkingTimeSecs": 1326.3,
+          "totalPromptTokens": 5402608,
+          "totalCompletionTokens": 13022,
+          "successfulResponses": 889,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 1.8,
+          "latencySamples": 2037
+        },
+        "13": {
+          "gamesPlayed": 4,
+          "wins": 3,
+          "totalCostUsd": 0.6875,
+          "totalToolCallsOk": 708,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 1131.3,
+          "totalPromptTokens": 4545554,
+          "totalCompletionTokens": 9379,
+          "successfulResponses": 714,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.6,
+          "latencyP95": 2.3,
+          "latencySamples": 1424
+        }
+      }
+    },
+    "qwen/qwen3-235b-a22b-2507": {
+      "modelId": "qwen/qwen3-235b-a22b-2507",
+      "modelName": "Qwen3 235B",
+      "provider": "Qwen",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 3,
+          "wins": 2,
+          "totalCostUsd": 0.2617,
+          "totalToolCallsOk": 602,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 2761.4,
+          "totalPromptTokens": 3619424,
+          "totalCompletionTokens": 46706,
+          "successfulResponses": 635,
+          "errors": {
+            "JSONDecodeError": 7
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 6.9,
+          "latencySamples": 1705
+        },
+        "2": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 0.3219,
+          "totalToolCallsOk": 452,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 3804.0,
+          "totalPromptTokens": 4453606,
+          "totalCompletionTokens": 56962,
+          "successfulResponses": 489,
+          "errors": {
+            "JSONDecodeError": 3,
+            "timeout": 2
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 17.8,
+          "latencySamples": 1048
+        },
+        "4": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 0.1791,
+          "totalToolCallsOk": 227,
+          "totalToolCallsFailed": 17,
+          "totalThinkingTimeSecs": 1835.4,
+          "totalPromptTokens": 2475308,
+          "totalCompletionTokens": 33480,
+          "successfulResponses": 249,
+          "errors": {
+            "timeout": 1,
+            "JSONDecodeError": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 15.4,
+          "latencySamples": 549
+        },
+        "5": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 0.1766,
+          "totalToolCallsOk": 214,
+          "totalToolCallsFailed": 24,
+          "totalThinkingTimeSecs": 1958.7,
+          "totalPromptTokens": 2437124,
+          "totalCompletionTokens": 35645,
+          "successfulResponses": 243,
+          "errors": {
+            "timeout": 2
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 17.4,
+          "latencySamples": 547
+        },
+        "6": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 0.1318,
+          "totalToolCallsOk": 202,
+          "totalToolCallsFailed": 29,
+          "totalThinkingTimeSecs": 1141.3,
+          "totalPromptTokens": 1840188,
+          "totalCompletionTokens": 11917,
+          "successfulResponses": 232,
+          "errors": {
+            "timeout": 6,
+            "JSONDecodeError": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 7.7,
+          "latencySamples": 525
+        },
+        "7": {
+          "gamesPlayed": 3,
+          "wins": 0,
+          "totalCostUsd": 0.2762,
+          "totalToolCallsOk": 329,
+          "totalToolCallsFailed": 71,
+          "totalThinkingTimeSecs": 2758.3,
+          "totalPromptTokens": 3816375,
+          "totalCompletionTokens": 52122,
+          "successfulResponses": 402,
+          "errors": {
+            "UnprocessableEntityError": 1,
+            "timeout": 4,
+            "JSONDecodeError": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 12.2,
+          "latencySamples": 898
+        },
+        "11": {
+          "gamesPlayed": 5,
+          "wins": 1,
+          "totalCostUsd": 0.5991,
+          "totalToolCallsOk": 709,
+          "totalToolCallsFailed": 125,
+          "totalThinkingTimeSecs": 5993.6,
+          "totalPromptTokens": 8267004,
+          "totalCompletionTokens": 121748,
+          "successfulResponses": 853,
+          "errors": {
+            "JSONDecodeError": 9,
+            "timeout": 12
+          },
+          "contextResets": 2,
+          "latencyP50": 0.3,
+          "latencyP95": 12.4,
+          "latencySamples": 1902
+        },
+        "13": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 0.1718,
+          "totalToolCallsOk": 243,
+          "totalToolCallsFailed": 10,
+          "totalThinkingTimeSecs": 1487.5,
+          "totalPromptTokens": 2378484,
+          "totalCompletionTokens": 28957,
+          "successfulResponses": 259,
+          "errors": {
+            "JSONDecodeError": 3,
+            "timeout": 2
+          },
+          "contextResets": 0,
+          "latencyP50": 0.8,
+          "latencyP95": 12.0,
+          "latencySamples": 516
+        }
+      }
+    },
+    "z-ai/glm-4.7::medium": {
+      "modelId": "z-ai/glm-4.7",
+      "modelName": "GLM 4.7 (medium)",
+      "provider": "Z-Ai",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 3,
+          "wins": 1,
+          "totalCostUsd": 0.9794,
+          "totalToolCallsOk": 465,
+          "totalToolCallsFailed": 4,
+          "totalThinkingTimeSecs": 1800.9,
+          "totalPromptTokens": 2315110,
+          "totalCompletionTokens": 35623,
+          "successfulResponses": 519,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 5.9,
+          "latencySamples": 1451
+        },
+        "2": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 1.5391,
+          "totalToolCallsOk": 572,
+          "totalToolCallsFailed": 9,
+          "totalThinkingTimeSecs": 2165.5,
+          "totalPromptTokens": 3647560,
+          "totalCompletionTokens": 53418,
+          "successfulResponses": 631,
+          "errors": {
+            "JSONDecodeError": 24
+          },
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 6.5,
+          "latencySamples": 1337
+        },
+        "4": {
+          "gamesPlayed": 4,
+          "wins": 2,
+          "totalCostUsd": 1.0618,
+          "totalToolCallsOk": 392,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 1616.3,
+          "totalPromptTokens": 2499385,
+          "totalCompletionTokens": 41365,
+          "successfulResponses": 402,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 7.7,
+          "latencySamples": 893
+        },
+        "5": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.2833,
+          "totalToolCallsOk": 104,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 468.8,
+          "totalPromptTokens": 673021,
+          "totalCompletionTokens": 9414,
+          "successfulResponses": 105,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 9.5,
+          "latencySamples": 233
+        },
+        "7": {
+          "gamesPlayed": 4,
+          "wins": 1,
+          "totalCostUsd": 1.2172,
+          "totalToolCallsOk": 428,
+          "totalToolCallsFailed": 10,
+          "totalThinkingTimeSecs": 1817.3,
+          "totalPromptTokens": 2871302,
+          "totalCompletionTokens": 45755,
+          "successfulResponses": 453,
+          "errors": {
+            "timeout": 2
+          },
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 7.8,
+          "latencySamples": 1005
+        },
+        "11": {
+          "gamesPlayed": 8,
+          "wins": 2,
+          "totalCostUsd": 9.5402,
+          "totalToolCallsOk": 2902,
+          "totalToolCallsFailed": 77,
+          "totalThinkingTimeSecs": 10730.2,
+          "totalPromptTokens": 22811456,
+          "totalCompletionTokens": 277037,
+          "successfulResponses": 3083,
+          "errors": {
+            "timeout": 26
+          },
+          "contextResets": 1,
+          "latencyP50": 0.3,
+          "latencyP95": 6.2,
+          "latencySamples": 7004
+        },
+        "14": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 0.1261,
+          "totalToolCallsOk": 49,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 606.4,
+          "totalPromptTokens": 312455,
+          "totalCompletionTokens": 4340,
+          "successfulResponses": 51,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 1.5,
+          "latencyP95": 33.7,
+          "latencySamples": 101
+        }
+      }
+    },
+    "google/gemini-3-pro-preview::medium": {
+      "modelId": "google/gemini-3-pro-preview",
+      "modelName": "Gemini 3 Pro (medium)",
+      "provider": "Google",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 4,
+          "wins": 3,
+          "totalCostUsd": 17.4382,
+          "totalToolCallsOk": 961,
+          "totalToolCallsFailed": 5,
+          "totalThinkingTimeSecs": 5304.7,
+          "totalPromptTokens": 7581958,
+          "totalCompletionTokens": 189518,
+          "successfulResponses": 1155,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 8.3,
+          "latencySamples": 3192
+        },
+        "3": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 6.5589,
+          "totalToolCallsOk": 564,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 2716.1,
+          "totalPromptTokens": 2623512,
+          "totalCompletionTokens": 109322,
+          "successfulResponses": 569,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 2.6,
+          "latencyP95": 8.6,
+          "latencySamples": 758
+        },
+        "4": {
+          "gamesPlayed": 3,
+          "wins": 2,
+          "totalCostUsd": 18.5007,
+          "totalToolCallsOk": 928,
+          "totalToolCallsFailed": 6,
+          "totalThinkingTimeSecs": 4569.2,
+          "totalPromptTokens": 8038930,
+          "totalCompletionTokens": 201899,
+          "successfulResponses": 1016,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 2.1,
+          "latencyP95": 8.2,
+          "latencySamples": 1877
+        },
+        "5": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 16.1437,
+          "totalToolCallsOk": 379,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 3238.3,
+          "totalPromptTokens": 6676629,
+          "totalCompletionTokens": 232534,
+          "successfulResponses": 404,
+          "errors": {
+            "timeout": 3
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 20.4,
+          "latencySamples": 886
+        },
+        "7": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 4.2673,
+          "totalToolCallsOk": 133,
+          "totalToolCallsFailed": 4,
+          "totalThinkingTimeSecs": 1239.8,
+          "totalPromptTokens": 1758727,
+          "totalCompletionTokens": 62489,
+          "successfulResponses": 137,
+          "errors": {
+            "timeout": 5
+          },
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 19.9,
+          "latencySamples": 317
+        },
+        "11": {
+          "gamesPlayed": 7,
+          "wins": 4,
+          "totalCostUsd": 38.6624,
+          "totalToolCallsOk": 1660,
+          "totalToolCallsFailed": 19,
+          "totalThinkingTimeSecs": 7948.6,
+          "totalPromptTokens": 16758854,
+          "totalCompletionTokens": 428712,
+          "successfulResponses": 1528,
+          "errors": {
+            "timeout": 6
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 8.7,
+          "latencySamples": 3622
+        },
+        "13": {
+          "gamesPlayed": 3,
+          "wins": 2,
+          "totalCostUsd": 21.6773,
+          "totalToolCallsOk": 795,
+          "totalToolCallsFailed": 20,
+          "totalThinkingTimeSecs": 6211.3,
+          "totalPromptTokens": 9100260,
+          "totalCompletionTokens": 289737,
+          "successfulResponses": 788,
+          "errors": {
+            "timeout": 16,
+            "BadRequestError": 8
+          },
+          "contextResets": 0,
+          "latencyP50": 1.6,
+          "latencyP95": 18.7,
+          "latencySamples": 1628
+        }
+      }
+    },
+    "minimax/minimax-m2.1::medium": {
+      "modelId": "minimax/minimax-m2.1",
+      "modelName": "MiniMax M2.1 (medium)",
+      "provider": "Minimax",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 0.9975,
+          "totalToolCallsOk": 556,
+          "totalToolCallsFailed": 9,
+          "totalThinkingTimeSecs": 2825.0,
+          "totalPromptTokens": 3354052,
+          "totalCompletionTokens": 96724,
+          "successfulResponses": 651,
+          "errors": {
+            "JSONDecodeError": 1,
+            "timeout": 13
+          },
+          "contextResets": 2,
+          "latencyP50": 0.0,
+          "latencyP95": 8.8,
+          "latencySamples": 1776
+        },
+        "2": {
+          "gamesPlayed": 3,
+          "wins": 1,
+          "totalCostUsd": 1.6833,
+          "totalToolCallsOk": 821,
+          "totalToolCallsFailed": 34,
+          "totalThinkingTimeSecs": 3914.7,
+          "totalPromptTokens": 5868995,
+          "totalCompletionTokens": 103880,
+          "successfulResponses": 932,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 8.4,
+          "latencySamples": 2128
+        },
+        "4": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 0.588,
+          "totalToolCallsOk": 261,
+          "totalToolCallsFailed": 22,
+          "totalThinkingTimeSecs": 1355.9,
+          "totalPromptTokens": 2019723,
+          "totalCompletionTokens": 44935,
+          "successfulResponses": 318,
+          "errors": {
+            "JSONDecodeError": 2
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 8.6,
+          "latencySamples": 670
+        },
+        "5": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.2519,
+          "totalToolCallsOk": 81,
+          "totalToolCallsFailed": 9,
+          "totalThinkingTimeSecs": 449.2,
+          "totalPromptTokens": 836678,
+          "totalCompletionTokens": 27413,
+          "successfulResponses": 93,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 11.5,
+          "latencySamples": 206
+        },
+        "7": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 0.3263,
+          "totalToolCallsOk": 149,
+          "totalToolCallsFailed": 4,
+          "totalThinkingTimeSecs": 647.0,
+          "totalPromptTokens": 1145880,
+          "totalCompletionTokens": 17792,
+          "successfulResponses": 183,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.4,
+          "latencyP95": 6.9,
+          "latencySamples": 383
+        },
+        "11": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 0.9022,
+          "totalToolCallsOk": 366,
+          "totalToolCallsFailed": 31,
+          "totalThinkingTimeSecs": 2536.0,
+          "totalPromptTokens": 3104002,
+          "totalCompletionTokens": 67521,
+          "successfulResponses": 405,
+          "errors": {
+            "timeout": 3
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 14.2,
+          "latencySamples": 919
+        },
+        "13": {
+          "gamesPlayed": 5,
+          "wins": 1,
+          "totalCostUsd": 2.2136,
+          "totalToolCallsOk": 875,
+          "totalToolCallsFailed": 56,
+          "totalThinkingTimeSecs": 4487.4,
+          "totalPromptTokens": 7586464,
+          "totalCompletionTokens": 173955,
+          "successfulResponses": 963,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.9,
+          "latencyP95": 10.0,
+          "latencySamples": 1900
+        },
+        "14": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.5849,
+          "totalToolCallsOk": 237,
+          "totalToolCallsFailed": 24,
+          "totalThinkingTimeSecs": 1798.6,
+          "totalPromptTokens": 1970203,
+          "totalCompletionTokens": 55698,
+          "successfulResponses": 275,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 1.5,
+          "latencyP95": 15.0,
+          "latencySamples": 538
+        }
+      }
+    },
+    "xiaomi/mimo-v2-flash::medium": {
+      "modelId": "xiaomi/mimo-v2-flash",
+      "modelName": "MiMo V2 Flash (medium)",
+      "provider": "Xiaomi",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 0.3956,
+          "totalToolCallsOk": 446,
+          "totalToolCallsFailed": 12,
+          "totalThinkingTimeSecs": 1662.6,
+          "totalPromptTokens": 4009070,
+          "totalCompletionTokens": 120045,
+          "successfulResponses": 690,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 4.7,
+          "latencySamples": 1770
+        },
+        "2": {
+          "gamesPlayed": 3,
+          "wins": 2,
+          "totalCostUsd": 1.1737,
+          "totalToolCallsOk": 1048,
+          "totalToolCallsFailed": 22,
+          "totalThinkingTimeSecs": 4257.0,
+          "totalPromptTokens": 12168692,
+          "totalCompletionTokens": 270559,
+          "successfulResponses": 1593,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 5.3,
+          "latencySamples": 3500
+        },
+        "4": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 0.4747,
+          "totalToolCallsOk": 306,
+          "totalToolCallsFailed": 12,
+          "totalThinkingTimeSecs": 1466.8,
+          "totalPromptTokens": 4819448,
+          "totalCompletionTokens": 141285,
+          "successfulResponses": 594,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.9,
+          "latencyP95": 4.6,
+          "latencySamples": 1004
+        },
+        "5": {
+          "gamesPlayed": 4,
+          "wins": 2,
+          "totalCostUsd": 0.6332,
+          "totalToolCallsOk": 509,
+          "totalToolCallsFailed": 17,
+          "totalThinkingTimeSecs": 2352.1,
+          "totalPromptTokens": 6462422,
+          "totalCompletionTokens": 177742,
+          "successfulResponses": 701,
+          "errors": {
+            "BadRequestError": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.5,
+          "latencyP95": 6.5,
+          "latencySamples": 1413
+        },
+        "7": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.2756,
+          "totalToolCallsOk": 225,
+          "totalToolCallsFailed": 4,
+          "totalThinkingTimeSecs": 730.9,
+          "totalPromptTokens": 2964387,
+          "totalCompletionTokens": 30494,
+          "successfulResponses": 267,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 4.2,
+          "latencySamples": 577
+        },
+        "11": {
+          "gamesPlayed": 5,
+          "wins": 3,
+          "totalCostUsd": 2.1348,
+          "totalToolCallsOk": 1865,
+          "totalToolCallsFailed": 67,
+          "totalThinkingTimeSecs": 8721.2,
+          "totalPromptTokens": 21510623,
+          "totalCompletionTokens": 685926,
+          "successfulResponses": 2459,
+          "errors": {
+            "timeout": 6
+          },
+          "contextResets": 0,
+          "latencyP50": 0.4,
+          "latencyP95": 7.8,
+          "latencySamples": 5107
+        },
+        "13": {
+          "gamesPlayed": 4,
+          "wins": 0,
+          "totalCostUsd": 1.0435,
+          "totalToolCallsOk": 801,
+          "totalToolCallsFailed": 42,
+          "totalThinkingTimeSecs": 3873.5,
+          "totalPromptTokens": 10632336,
+          "totalCompletionTokens": 298828,
+          "successfulResponses": 1083,
+          "errors": {
+            "timeout": 5
+          },
+          "contextResets": 0,
+          "latencyP50": 1.0,
+          "latencyP95": 8.3,
+          "latencySamples": 1936
+        }
+      }
+    },
+    "x-ai/grok-4-fast::medium": {
+      "modelId": "x-ai/grok-4-fast",
+      "modelName": "Grok 4 Fast (medium)",
+      "provider": "X-Ai",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 6,
+          "wins": 3,
+          "totalCostUsd": 1.3736,
+          "totalToolCallsOk": 1129,
+          "totalToolCallsFailed": 36,
+          "totalThinkingTimeSecs": 5401.6,
+          "totalPromptTokens": 5347317,
+          "totalCompletionTokens": 608531,
+          "successfulResponses": 1159,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 7.5,
+          "latencySamples": 3370
+        },
+        "2": {
+          "gamesPlayed": 6,
+          "wins": 4,
+          "totalCostUsd": 1.7183,
+          "totalToolCallsOk": 1132,
+          "totalToolCallsFailed": 20,
+          "totalThinkingTimeSecs": 3899.4,
+          "totalPromptTokens": 6982020,
+          "totalCompletionTokens": 643649,
+          "successfulResponses": 1150,
+          "errors": {
+            "timeout": 3
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 5.5,
+          "latencySamples": 2891
+        },
+        "3": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 1.4283,
+          "totalToolCallsOk": 584,
+          "totalToolCallsFailed": 17,
+          "totalThinkingTimeSecs": 3540.3,
+          "totalPromptTokens": 6107148,
+          "totalCompletionTokens": 413739,
+          "successfulResponses": 592,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 11.2,
+          "latencySamples": 1340
+        },
+        "4": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 0.3944,
+          "totalToolCallsOk": 297,
+          "totalToolCallsFailed": 3,
+          "totalThinkingTimeSecs": 1298.2,
+          "totalPromptTokens": 1574382,
+          "totalCompletionTokens": 159146,
+          "successfulResponses": 208,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 11.1,
+          "latencySamples": 554
+        },
+        "5": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 0.5571,
+          "totalToolCallsOk": 372,
+          "totalToolCallsFailed": 5,
+          "totalThinkingTimeSecs": 1560.9,
+          "totalPromptTokens": 2311423,
+          "totalCompletionTokens": 189607,
+          "successfulResponses": 297,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 9.3,
+          "latencySamples": 744
+        },
+        "6": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 0.4089,
+          "totalToolCallsOk": 258,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 1191.1,
+          "totalPromptTokens": 1661797,
+          "totalCompletionTokens": 152999,
+          "successfulResponses": 260,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 8.7,
+          "latencySamples": 588
+        },
+        "7": {
+          "gamesPlayed": 3,
+          "wins": 2,
+          "totalCostUsd": 0.9648,
+          "totalToolCallsOk": 573,
+          "totalToolCallsFailed": 12,
+          "totalThinkingTimeSecs": 2811.3,
+          "totalPromptTokens": 3974752,
+          "totalCompletionTokens": 339589,
+          "successfulResponses": 585,
+          "errors": {
+            "timeout": 2
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 8.2,
+          "latencySamples": 1325
+        },
+        "11": {
+          "gamesPlayed": 5,
+          "wins": 4,
+          "totalCostUsd": 3.3808,
+          "totalToolCallsOk": 1927,
+          "totalToolCallsFailed": 66,
+          "totalThinkingTimeSecs": 10297.4,
+          "totalPromptTokens": 14019044,
+          "totalCompletionTokens": 1153881,
+          "successfulResponses": 1749,
+          "errors": {
+            "timeout": 3
+          },
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 10.0,
+          "latencySamples": 4255
+        },
+        "13": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 0.8801,
+          "totalToolCallsOk": 592,
+          "totalToolCallsFailed": 36,
+          "totalThinkingTimeSecs": 2825.0,
+          "totalPromptTokens": 3621292,
+          "totalCompletionTokens": 311628,
+          "successfulResponses": 486,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.4,
+          "latencyP95": 10.0,
+          "latencySamples": 1117
+        }
+      }
+    },
+    "moonshotai/kimi-k2-0905::medium": {
+      "modelId": "moonshotai/kimi-k2-0905",
+      "modelName": "Kimi K2 0905 (medium)",
+      "provider": "Moonshotai",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 1.7022,
+          "totalToolCallsOk": 579,
+          "totalToolCallsFailed": 6,
+          "totalThinkingTimeSecs": 2759.9,
+          "totalPromptTokens": 4145526,
+          "totalCompletionTokens": 44985,
+          "successfulResponses": 776,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 6.1,
+          "latencySamples": 2077
+        },
+        "2": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 1.0089,
+          "totalToolCallsOk": 264,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 1475.2,
+          "totalPromptTokens": 2480709,
+          "totalCompletionTokens": 21814,
+          "successfulResponses": 355,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 7.5,
+          "latencySamples": 700
+        },
+        "4": {
+          "gamesPlayed": 4,
+          "wins": 3,
+          "totalCostUsd": 2.1188,
+          "totalToolCallsOk": 495,
+          "totalToolCallsFailed": 37,
+          "totalThinkingTimeSecs": 2117.2,
+          "totalPromptTokens": 4933903,
+          "totalCompletionTokens": 102400,
+          "successfulResponses": 569,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 7.5,
+          "latencySamples": 1241
+        },
+        "5": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.2943,
+          "totalToolCallsOk": 76,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 513.0,
+          "totalPromptTokens": 715673,
+          "totalCompletionTokens": 7986,
+          "successfulResponses": 103,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.7,
+          "latencyP95": 10.0,
+          "latencySamples": 204
+        },
+        "7": {
+          "gamesPlayed": 3,
+          "wins": 1,
+          "totalCostUsd": 1.8552,
+          "totalToolCallsOk": 551,
+          "totalToolCallsFailed": 37,
+          "totalThinkingTimeSecs": 2359.0,
+          "totalPromptTokens": 4611846,
+          "totalCompletionTokens": 29798,
+          "successfulResponses": 641,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 7.0,
+          "latencySamples": 1383
+        },
+        "11": {
+          "gamesPlayed": 4,
+          "wins": 0,
+          "totalCostUsd": 5.613,
+          "totalToolCallsOk": 1313,
+          "totalToolCallsFailed": 46,
+          "totalThinkingTimeSecs": 7385.9,
+          "totalPromptTokens": 13544824,
+          "totalCompletionTokens": 109385,
+          "successfulResponses": 1599,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.4,
+          "latencyP95": 9.1,
+          "latencySamples": 3398
+        },
+        "13": {
+          "gamesPlayed": 3,
+          "wins": 1,
+          "totalCostUsd": 1.6995,
+          "totalToolCallsOk": 453,
+          "totalToolCallsFailed": 15,
+          "totalThinkingTimeSecs": 1854.9,
+          "totalPromptTokens": 4114903,
+          "totalCompletionTokens": 26795,
+          "successfulResponses": 477,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.6,
+          "latencyP95": 8.4,
+          "latencySamples": 947
+        }
+      }
+    },
+    "qwen/qwen3-max-thinking::medium": {
+      "modelId": "qwen/qwen3-max-thinking",
+      "modelName": "Qwen3 Max Thinking (medium)",
+      "provider": "Qwen",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.0032,
+          "totalToolCallsOk": 1,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 40.8,
+          "totalPromptTokens": 2399,
+          "totalCompletionTokens": 59,
+          "successfulResponses": 1,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 7.5,
+          "latencyP95": 30.0,
+          "latencySamples": 3
+        },
+        "2": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 7.1877,
+          "totalToolCallsOk": 1021,
+          "totalToolCallsFailed": 57,
+          "totalThinkingTimeSecs": 1563.3,
+          "totalPromptTokens": 5792463,
+          "totalCompletionTokens": 39462,
+          "successfulResponses": 1080,
+          "errors": {
+            "timeout": 5
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 2.2,
+          "latencySamples": 2808
+        },
+        "3": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 1.7004,
+          "totalToolCallsOk": 222,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 848.0,
+          "totalPromptTokens": 1381095,
+          "totalCompletionTokens": 7189,
+          "successfulResponses": 222,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.8,
+          "latencyP95": 6.3,
+          "latencySamples": 493
+        },
+        "4": {
+          "gamesPlayed": 3,
+          "wins": 0,
+          "totalCostUsd": 6.2633,
+          "totalToolCallsOk": 802,
+          "totalToolCallsFailed": 6,
+          "totalThinkingTimeSecs": 3011.8,
+          "totalPromptTokens": 5069009,
+          "totalCompletionTokens": 30081,
+          "successfulResponses": 810,
+          "errors": {
+            "timeout": 7
+          },
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 7.6,
+          "latencySamples": 1849
+        },
+        "5": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 1.9504,
+          "totalToolCallsOk": 247,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 884.1,
+          "totalPromptTokens": 1575353,
+          "totalCompletionTokens": 9993,
+          "successfulResponses": 248,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 5.9,
+          "latencySamples": 549
+        },
+        "7": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 3.395,
+          "totalToolCallsOk": 369,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 1755.3,
+          "totalPromptTokens": 2756017,
+          "totalCompletionTokens": 14626,
+          "successfulResponses": 370,
+          "errors": {
+            "timeout": 5
+          },
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 7.2,
+          "latencySamples": 859
+        },
+        "11": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 3.3258,
+          "totalToolCallsOk": 375,
+          "totalToolCallsFailed": 4,
+          "totalThinkingTimeSecs": 2207.1,
+          "totalPromptTokens": 2677290,
+          "totalCompletionTokens": 18844,
+          "successfulResponses": 379,
+          "errors": {
+            "timeout": 10
+          },
+          "contextResets": 0,
+          "latencyP50": 0.4,
+          "latencyP95": 10.0,
+          "latencySamples": 882
+        }
+      }
+    },
+    "google/gemini-2.5-pro::medium": {
+      "modelId": "google/gemini-2.5-pro",
+      "modelName": "Gemini 2.5 Pro (medium)",
+      "provider": "Google",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 2,
+          "wins": 2,
+          "totalCostUsd": 5.3169,
+          "totalToolCallsOk": 279,
+          "totalToolCallsFailed": 7,
+          "totalThinkingTimeSecs": 1454.2,
+          "totalPromptTokens": 3890651,
+          "totalCompletionTokens": 45358,
+          "successfulResponses": 295,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 8.1,
+          "latencySamples": 836
+        },
+        "4": {
+          "gamesPlayed": 4,
+          "wins": 2,
+          "totalCostUsd": 9.6566,
+          "totalToolCallsOk": 587,
+          "totalToolCallsFailed": 13,
+          "totalThinkingTimeSecs": 2408.9,
+          "totalPromptTokens": 6406038,
+          "totalCompletionTokens": 164904,
+          "successfulResponses": 649,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 5.9,
+          "latencySamples": 1402
+        },
+        "5": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 2.6194,
+          "totalToolCallsOk": 191,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 733.0,
+          "totalPromptTokens": 1722989,
+          "totalCompletionTokens": 46566,
+          "successfulResponses": 194,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 6.4,
+          "latencySamples": 440
+        },
+        "7": {
+          "gamesPlayed": 3,
+          "wins": 2,
+          "totalCostUsd": 9.9625,
+          "totalToolCallsOk": 771,
+          "totalToolCallsFailed": 19,
+          "totalThinkingTimeSecs": 3338.3,
+          "totalPromptTokens": 6520323,
+          "totalCompletionTokens": 181208,
+          "successfulResponses": 792,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 6.9,
+          "latencySamples": 1785
+        },
+        "11": {
+          "gamesPlayed": 8,
+          "wins": 1,
+          "totalCostUsd": 25.2327,
+          "totalToolCallsOk": 1493,
+          "totalToolCallsFailed": 57,
+          "totalThinkingTimeSecs": 8522.5,
+          "totalPromptTokens": 15692295,
+          "totalCompletionTokens": 561737,
+          "successfulResponses": 1574,
+          "errors": {
+            "timeout": 5
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 10.0,
+          "latencySamples": 3602
+        },
+        "13": {
+          "gamesPlayed": 2,
+          "wins": 2,
+          "totalCostUsd": 10.6888,
+          "totalToolCallsOk": 600,
+          "totalToolCallsFailed": 41,
+          "totalThinkingTimeSecs": 3284.1,
+          "totalPromptTokens": 6579826,
+          "totalCompletionTokens": 246403,
+          "successfulResponses": 655,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 1.2,
+          "latencyP95": 10.1,
+          "latencySamples": 1296
+        }
+      }
+    },
+    "moonshotai/kimi-k2.5::medium": {
+      "modelId": "moonshotai/kimi-k2.5",
+      "modelName": "Kimi K2.5 (medium)",
+      "provider": "Moonshotai",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "1": {
+          "gamesPlayed": 4,
+          "wins": 1,
+          "totalCostUsd": 4.933,
+          "totalToolCallsOk": 1611,
+          "totalToolCallsFailed": 12,
+          "totalThinkingTimeSecs": 7571.4,
+          "totalPromptTokens": 9793629,
+          "totalCompletionTokens": 233755,
+          "successfulResponses": 1746,
+          "errors": {
+            "timeout": 4,
+            "JSONDecodeError": 3,
+            "AuthenticationError": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 8.5,
+          "latencySamples": 4926
+        },
+        "2": {
+          "gamesPlayed": 5,
+          "wins": 3,
+          "totalCostUsd": 4.1936,
+          "totalToolCallsOk": 1001,
+          "totalToolCallsFailed": 32,
+          "totalThinkingTimeSecs": 3829.7,
+          "totalPromptTokens": 8329036,
+          "totalCompletionTokens": 197985,
+          "successfulResponses": 1169,
+          "errors": {
+            "timeout": 8,
+            "JSONDecodeError": 7
+          },
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 6.7,
+          "latencySamples": 2655
+        },
+        "4": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.7341,
+          "totalToolCallsOk": 201,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 844.7,
+          "totalPromptTokens": 1518356,
+          "totalCompletionTokens": 22610,
+          "successfulResponses": 215,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 7.3,
+          "latencySamples": 471
+        },
+        "5": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 0.8457,
+          "totalToolCallsOk": 237,
+          "totalToolCallsFailed": 3,
+          "totalThinkingTimeSecs": 1746.4,
+          "totalPromptTokens": 1797023,
+          "totalCompletionTokens": 35476,
+          "successfulResponses": 262,
+          "errors": {
+            "JSONDecodeError": 1,
+            "timeout": 5
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 13.2,
+          "latencySamples": 563
+        },
+        "7": {
+          "gamesPlayed": 3,
+          "wins": 1,
+          "totalCostUsd": 2.015,
+          "totalToolCallsOk": 572,
+          "totalToolCallsFailed": 17,
+          "totalThinkingTimeSecs": 4936.8,
+          "totalPromptTokens": 4390998,
+          "totalCompletionTokens": 88672,
+          "successfulResponses": 614,
+          "errors": {
+            "timeout": 37
+          },
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 16.2,
+          "latencySamples": 1442
+        },
+        "11": {
+          "gamesPlayed": 6,
+          "wins": 4,
+          "totalCostUsd": 4.8061,
+          "totalToolCallsOk": 1414,
+          "totalToolCallsFailed": 22,
+          "totalThinkingTimeSecs": 8973.0,
+          "totalPromptTokens": 11366713,
+          "totalCompletionTokens": 158032,
+          "successfulResponses": 1516,
+          "errors": {
+            "timeout": 27,
+            "JSONDecodeError": 3
+          },
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 10.2,
+          "latencySamples": 3437
+        },
+        "13": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 1.0352,
+          "totalToolCallsOk": 429,
+          "totalToolCallsFailed": 12,
+          "totalThinkingTimeSecs": 2657.7,
+          "totalPromptTokens": 3851504,
+          "totalCompletionTokens": 49775,
+          "successfulResponses": 452,
+          "errors": {
+            "timeout": 5
+          },
+          "contextResets": 0,
+          "latencyP50": 1.3,
+          "latencyP95": 11.4,
+          "latencySamples": 899
+        },
+        "14": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 0.2943,
+          "totalToolCallsOk": 132,
+          "totalToolCallsFailed": 5,
+          "totalThinkingTimeSecs": 1044.0,
+          "totalPromptTokens": 998322,
+          "totalCompletionTokens": 21558,
+          "successfulResponses": 143,
+          "errors": {
+            "JSONDecodeError": 1,
+            "timeout": 3
+          },
+          "contextResets": 0,
+          "latencyP50": 1.7,
+          "latencyP95": 15.1,
+          "latencySamples": 286
+        }
+      }
+    },
+    "deepseek/deepseek-v3.2": {
+      "modelId": "deepseek/deepseek-v3.2",
+      "modelName": "DeepSeek V3.2",
+      "provider": "DeepSeek",
+      "epochs": {
+        "2": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 0.9121,
+          "totalToolCallsOk": 383,
+          "totalToolCallsFailed": 6,
+          "totalThinkingTimeSecs": 2373.3,
+          "totalPromptTokens": 3586736,
+          "totalCompletionTokens": 40532,
+          "successfulResponses": 410,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.0,
+          "latencyP95": 9.8,
+          "latencySamples": 1167
+        },
+        "3": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 0.6921,
+          "totalToolCallsOk": 238,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 1635.1,
+          "totalPromptTokens": 2725093,
+          "totalCompletionTokens": 28509,
+          "successfulResponses": 264,
+          "errors": {
+            "timeout": 3
+          },
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 12.3,
+          "latencySamples": 573
+        },
+        "5": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 0.3689,
+          "totalToolCallsOk": 120,
+          "totalToolCallsFailed": 4,
+          "totalThinkingTimeSecs": 1216.4,
+          "totalPromptTokens": 1450883,
+          "totalCompletionTokens": 16188,
+          "successfulResponses": 152,
+          "errors": {
+            "timeout": 5
+          },
+          "contextResets": 0,
+          "latencyP50": 0.5,
+          "latencyP95": 15.9,
+          "latencySamples": 317
+        },
+        "7": {
+          "gamesPlayed": 2,
+          "wins": 2,
+          "totalCostUsd": 1.5216,
+          "totalToolCallsOk": 549,
+          "totalToolCallsFailed": 8,
+          "totalThinkingTimeSecs": 4466.8,
+          "totalPromptTokens": 5995363,
+          "totalCompletionTokens": 59969,
+          "successfulResponses": 614,
+          "errors": {
+            "timeout": 11
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 14.2,
+          "latencySamples": 1341
+        },
+        "11": {
+          "gamesPlayed": 5,
+          "wins": 3,
+          "totalCostUsd": 3.2977,
+          "totalToolCallsOk": 1139,
+          "totalToolCallsFailed": 21,
+          "totalThinkingTimeSecs": 10923.8,
+          "totalPromptTokens": 12872067,
+          "totalCompletionTokens": 129991,
+          "successfulResponses": 1315,
+          "errors": {
+            "timeout": 31
+          },
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 16.5,
+          "latencySamples": 2892
+        },
+        "13": {
+          "gamesPlayed": 5,
+          "wins": 2,
+          "totalCostUsd": 4.0407,
+          "totalToolCallsOk": 1161,
+          "totalToolCallsFailed": 35,
+          "totalThinkingTimeSecs": 12919.3,
+          "totalPromptTokens": 15268977,
+          "totalCompletionTokens": 186136,
+          "successfulResponses": 1431,
+          "errors": {
+            "timeout": 56
+          },
+          "contextResets": 5,
+          "latencyP50": 2.8,
+          "latencyP95": 19.5,
+          "latencySamples": 2691
+        },
+        "14": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 0.2141,
+          "totalToolCallsOk": 81,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 1017.2,
+          "totalPromptTokens": 808165,
+          "totalCompletionTokens": 10595,
+          "successfulResponses": 88,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 3.4,
+          "latencyP95": 26.8,
+          "latencySamples": 172
+        }
+      }
+    },
+    "openai/gpt-5-nano": {
+      "modelId": "openai/gpt-5-nano",
+      "modelName": "GPT-5 Nano",
+      "provider": "OpenAI",
+      "epochs": {
+        "2": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.3041,
+          "totalToolCallsOk": 668,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 8035.0,
+          "totalPromptTokens": 2777811,
+          "totalCompletionTokens": 412957,
+          "successfulResponses": 1023,
+          "errors": {
+            "JSONDecodeError": 38
+          },
+          "contextResets": 0,
+          "latencyP50": 4.3,
+          "latencyP95": 14.7,
+          "latencySamples": 1703
+        },
+        "4": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.1525,
+          "totalToolCallsOk": 285,
+          "totalToolCallsFailed": 4,
+          "totalThinkingTimeSecs": 2971.4,
+          "totalPromptTokens": 1634278,
+          "totalCompletionTokens": 177033,
+          "successfulResponses": 331,
+          "errors": {
+            "timeout": 20
+          },
+          "contextResets": 2,
+          "latencyP50": 0.9,
+          "latencyP95": 23.5,
+          "latencySamples": 535
+        },
+        "5": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.0761,
+          "totalToolCallsOk": 111,
+          "totalToolCallsFailed": 12,
+          "totalThinkingTimeSecs": 2135.6,
+          "totalPromptTokens": 680350,
+          "totalCompletionTokens": 105328,
+          "successfulResponses": 141,
+          "errors": {
+            "timeout": 31,
+            "JSONDecodeError": 1
+          },
+          "contextResets": 6,
+          "latencyP50": 1.0,
+          "latencyP95": 45.0,
+          "latencySamples": 304
+        }
+      }
+    },
+    "openai/gpt-5-mini": {
+      "modelId": "openai/gpt-5-mini",
+      "modelName": "GPT-5 Mini",
+      "provider": "OpenAI",
+      "epochs": {
+        "3": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 1.1478,
+          "totalToolCallsOk": 535,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 3074.4,
+          "totalPromptTokens": 3171578,
+          "totalCompletionTokens": 177436,
+          "successfulResponses": 854,
+          "errors": {
+            "JSONDecodeError": 2
+          },
+          "contextResets": 0,
+          "latencyP50": 1.9,
+          "latencyP95": 8.9,
+          "latencySamples": 1097
+        }
+      }
+    },
+    "openai/gpt-5-mini::medium": {
+      "modelId": "openai/gpt-5-mini",
+      "modelName": "GPT-5 Mini (medium)",
+      "provider": "OpenAI",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "6": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.1634,
+          "totalToolCallsOk": 65,
+          "totalToolCallsFailed": 10,
+          "totalThinkingTimeSecs": 276.5,
+          "totalPromptTokens": 449121,
+          "totalCompletionTokens": 25544,
+          "successfulResponses": 77,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 10.0,
+          "latencySamples": 170
+        },
+        "7": {
+          "gamesPlayed": 5,
+          "wins": 1,
+          "totalCostUsd": 1.5365,
+          "totalToolCallsOk": 691,
+          "totalToolCallsFailed": 23,
+          "totalThinkingTimeSecs": 2074.4,
+          "totalPromptTokens": 5185206,
+          "totalCompletionTokens": 120123,
+          "successfulResponses": 814,
+          "errors": {
+            "timeout": 3
+          },
+          "contextResets": 0,
+          "latencyP50": 0.4,
+          "latencyP95": 5.7,
+          "latencySamples": 1743
+        },
+        "11": {
+          "gamesPlayed": 11,
+          "wins": 1,
+          "totalCostUsd": 4.649,
+          "totalToolCallsOk": 1826,
+          "totalToolCallsFailed": 32,
+          "totalThinkingTimeSecs": 7830.9,
+          "totalPromptTokens": 14366446,
+          "totalCompletionTokens": 528749,
+          "successfulResponses": 1932,
+          "errors": {
+            "timeout": 20
+          },
+          "contextResets": 2,
+          "latencyP50": 0.3,
+          "latencyP95": 10.0,
+          "latencySamples": 4400
+        },
+        "13": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 0.2562,
+          "totalToolCallsOk": 99,
+          "totalToolCallsFailed": 2,
+          "totalThinkingTimeSecs": 799.5,
+          "totalPromptTokens": 645368,
+          "totalCompletionTokens": 47417,
+          "successfulResponses": 106,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 0.8,
+          "latencyP95": 17.0,
+          "latencySamples": 210
+        }
+      }
+    },
+    "openai/gpt-5-nano::low": {
+      "modelId": "openai/gpt-5-nano",
+      "modelName": "GPT-5 Nano (low)",
+      "provider": "OpenAI",
+      "reasoningEffort": "low",
+      "epochs": {
+        "6": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.0624,
+          "totalToolCallsOk": 111,
+          "totalToolCallsFailed": 14,
+          "totalThinkingTimeSecs": 480.4,
+          "totalPromptTokens": 997289,
+          "totalCompletionTokens": 31437,
+          "successfulResponses": 169,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.7,
+          "latencyP95": 5.8,
+          "latencySamples": 317
+        },
+        "7": {
+          "gamesPlayed": 1,
+          "wins": 0,
+          "totalCostUsd": 0.0752,
+          "totalToolCallsOk": 102,
+          "totalToolCallsFailed": 49,
+          "totalThinkingTimeSecs": 569.3,
+          "totalPromptTokens": 1185259,
+          "totalCompletionTokens": 39870,
+          "successfulResponses": 182,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.6,
+          "latencyP95": 6.9,
+          "latencySamples": 369
+        },
+        "11": {
+          "gamesPlayed": 8,
+          "wins": 2,
+          "totalCostUsd": 0.727,
+          "totalToolCallsOk": 1415,
+          "totalToolCallsFailed": 24,
+          "totalThinkingTimeSecs": 4576.0,
+          "totalPromptTokens": 12427659,
+          "totalCompletionTokens": 264047,
+          "successfulResponses": 1664,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.3,
+          "latencyP95": 6.0,
+          "latencySamples": 3576
+        },
+        "13": {
+          "gamesPlayed": 6,
+          "wins": 1,
+          "totalCostUsd": 0.3231,
+          "totalToolCallsOk": 622,
+          "totalToolCallsFailed": 8,
+          "totalThinkingTimeSecs": 2971.5,
+          "totalPromptTokens": 5513238,
+          "totalCompletionTokens": 118335,
+          "successfulResponses": 702,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 0.8,
+          "latencyP95": 9.6,
+          "latencySamples": 1339
+        }
+      }
+    },
+    "qwen/qwen3-max-thinking::low": {
+      "modelId": "qwen/qwen3-max-thinking",
+      "modelName": "Qwen3 Max Thinking (low)",
+      "provider": "Qwen",
+      "reasoningEffort": "low",
+      "epochs": {
+        "11": {
+          "gamesPlayed": 7,
+          "wins": 4,
+          "totalCostUsd": 7.0367,
+          "totalToolCallsOk": 875,
+          "totalToolCallsFailed": 3,
+          "totalThinkingTimeSecs": 3226.0,
+          "totalPromptTokens": 5663740,
+          "totalCompletionTokens": 40042,
+          "successfulResponses": 878,
+          "errors": {
+            "timeout": 5
+          },
+          "contextResets": 0,
+          "latencyP50": 0.2,
+          "latencyP95": 5.7,
+          "latencySamples": 2005
+        },
+        "13": {
+          "gamesPlayed": 7,
+          "wins": 1,
+          "totalCostUsd": 11.1271,
+          "totalToolCallsOk": 1217,
+          "totalToolCallsFailed": 46,
+          "totalThinkingTimeSecs": 5800.0,
+          "totalPromptTokens": 8987311,
+          "totalCompletionTokens": 57058,
+          "successfulResponses": 1265,
+          "errors": {
+            "timeout": 16
+          },
+          "contextResets": 1,
+          "latencyP50": 1.4,
+          "latencyP95": 8.6,
+          "latencySamples": 2553
+        }
+      }
+    },
+    "anthropic/claude-opus-4.6::medium": {
+      "modelId": "anthropic/claude-opus-4.6",
+      "modelName": "Claude Opus 4.6 (medium)",
+      "provider": "Anthropic",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "13": {
+          "gamesPlayed": 7,
+          "wins": 5,
+          "totalCostUsd": 63.7104,
+          "totalToolCallsOk": 1029,
+          "totalToolCallsFailed": 10,
+          "totalThinkingTimeSecs": 4684.6,
+          "totalPromptTokens": 12112524,
+          "totalCompletionTokens": 125911,
+          "successfulResponses": 1019,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 1.3,
+          "latencyP95": 7.8,
+          "latencySamples": 2065
+        },
+        "14": {
+          "gamesPlayed": 2,
+          "wins": 2,
+          "totalCostUsd": 14.5168,
+          "totalToolCallsOk": 241,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 993.6,
+          "totalPromptTokens": 2767192,
+          "totalCompletionTokens": 27236,
+          "successfulResponses": 239,
+          "errors": {},
+          "contextResets": 0,
+          "latencyP50": 1.0,
+          "latencyP95": 7.6,
+          "latencySamples": 481
+        }
+      }
+    },
+    "x-ai/grok-4.1-fast::medium": {
+      "modelId": "x-ai/grok-4.1-fast",
+      "modelName": "Grok 4.1 Fast (medium)",
+      "provider": "X-Ai",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "13": {
+          "gamesPlayed": 8,
+          "wins": 6,
+          "totalCostUsd": 4.5219,
+          "totalToolCallsOk": 2744,
+          "totalToolCallsFailed": 60,
+          "totalThinkingTimeSecs": 16334.4,
+          "totalPromptTokens": 17932659,
+          "totalCompletionTokens": 1870944,
+          "successfulResponses": 1801,
+          "errors": {
+            "timeout": 5
+          },
+          "contextResets": 0,
+          "latencyP50": 0.1,
+          "latencyP95": 14.1,
+          "latencySamples": 4613
+        },
+        "14": {
+          "gamesPlayed": 2,
+          "wins": 1,
+          "totalCostUsd": 0.8399,
+          "totalToolCallsOk": 474,
+          "totalToolCallsFailed": 6,
+          "totalThinkingTimeSecs": 3177.3,
+          "totalPromptTokens": 3229138,
+          "totalCompletionTokens": 388108,
+          "successfulResponses": 468,
+          "errors": {
+            "timeout": 1
+          },
+          "contextResets": 0,
+          "latencyP50": 1.1,
+          "latencyP95": 12.5,
+          "latencySamples": 949
+        }
+      }
+    },
+    "x-ai/grok-4::medium": {
+      "modelId": "x-ai/grok-4",
+      "modelName": "Grok 4 (medium)",
+      "provider": "X-Ai",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "13": {
+          "gamesPlayed": 8,
+          "wins": 1,
+          "totalCostUsd": 14.7648,
+          "totalToolCallsOk": 573,
+          "totalToolCallsFailed": 11,
+          "totalThinkingTimeSecs": 18754.2,
+          "totalPromptTokens": 3041817,
+          "totalCompletionTokens": 375952,
+          "successfulResponses": 572,
+          "errors": {
+            "timeout": 237
+          },
+          "contextResets": 58,
+          "latencyP50": 6.5,
+          "latencyP95": 45.0,
+          "latencySamples": 1422
+        },
+        "14": {
+          "gamesPlayed": 2,
+          "wins": 0,
+          "totalCostUsd": 3.7775,
+          "totalToolCallsOk": 164,
+          "totalToolCallsFailed": 0,
+          "totalThinkingTimeSecs": 6679.1,
+          "totalPromptTokens": 743368,
+          "totalCompletionTokens": 103154,
+          "successfulResponses": 159,
+          "errors": {
+            "timeout": 105
+          },
+          "contextResets": 31,
+          "latencyP50": 6.8,
+          "latencyP95": 45.0,
+          "latencySamples": 453
+        }
+      }
+    },
+    "openai/o3::medium": {
+      "modelId": "openai/o3",
+      "modelName": "o3 (medium)",
+      "provider": "OpenAI",
+      "reasoningEffort": "medium",
+      "epochs": {
+        "13": {
+          "gamesPlayed": 7,
+          "wins": 4,
+          "totalCostUsd": 21.601,
+          "totalToolCallsOk": 994,
+          "totalToolCallsFailed": 20,
+          "totalThinkingTimeSecs": 15760.9,
+          "totalPromptTokens": 7523429,
+          "totalCompletionTokens": 819248,
+          "successfulResponses": 1033,
+          "errors": {
+            "timeout": 34
+          },
+          "contextResets": 1,
+          "latencyP50": 1.1,
+          "latencyP95": 31.7,
+          "latencySamples": 2079
+        },
+        "14": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 5.02,
+          "totalToolCallsOk": 232,
+          "totalToolCallsFailed": 4,
+          "totalThinkingTimeSecs": 3368.7,
+          "totalPromptTokens": 1838727,
+          "totalCompletionTokens": 167819,
+          "successfulResponses": 238,
+          "errors": {
+            "timeout": 18
+          },
+          "contextResets": 1,
+          "latencyP50": 1.0,
+          "latencyP95": 36.5,
+          "latencySamples": 493
+        }
+      }
+    },
+    "openai/gpt-5.2": {
+      "modelId": "openai/gpt-5.2",
+      "modelName": "GPT-5.2",
+      "provider": "OpenAI",
+      "epochs": {
+        "13": {
+          "gamesPlayed": 8,
+          "wins": 1,
+          "totalCostUsd": 19.8648,
+          "totalToolCallsOk": 1170,
+          "totalToolCallsFailed": 17,
+          "totalThinkingTimeSecs": 11712.7,
+          "totalPromptTokens": 8238371,
+          "totalCompletionTokens": 389111,
+          "successfulResponses": 1117,
+          "errors": {
+            "timeout": 53
+          },
+          "contextResets": 7,
+          "latencyP50": 0.8,
+          "latencyP95": 28.8,
+          "latencySamples": 2368
+        },
+        "14": {
+          "gamesPlayed": 1,
+          "wins": 1,
+          "totalCostUsd": 3.5566,
+          "totalToolCallsOk": 194,
+          "totalToolCallsFailed": 1,
+          "totalThinkingTimeSecs": 1787.7,
+          "totalPromptTokens": 1494734,
+          "totalCompletionTokens": 67199,
+          "successfulResponses": 194,
+          "errors": {
+            "timeout": 10
+          },
+          "contextResets": 1,
+          "latencyP50": 0.9,
+          "latencyP95": 23.6,
+          "latencySamples": 400
+        }
+      }
+    }
+  }
+}

@@ -7,6 +7,7 @@ Usage:
     worktree-setup.py
 """
 
+import hashlib
 import shutil
 from pathlib import Path
 
@@ -14,6 +15,10 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 SHARED_IMAGES = Path.home() / ".mage-bench" / "images"
 CLIENT_MODULES = ["Mage.Client", "Mage.Client.Streaming"]
+
+# Port range for per-worktree dev servers (4321 is Astro's default)
+PORT_RANGE_START = 4321
+PORT_RANGE_SIZE = 200
 
 
 def main() -> None:
@@ -48,7 +53,26 @@ def main() -> None:
             # No existing directory, just create symlink
             images_link.symlink_to(SHARED_IMAGES)
 
+    # Assign a stable, unique port for this worktree's dev server.
+    # Each worktree gets a deterministic port derived from its directory name,
+    # so multiple Claudes can run `make website` without colliding.
+    worktree_name = PROJECT_ROOT.name
+    port_hash = int(hashlib.sha256(worktree_name.encode()).hexdigest(), 16)
+    port = PORT_RANGE_START + (port_hash % PORT_RANGE_SIZE)
+
+    env_file = PROJECT_ROOT / ".env"
+    env_lines: list[str] = []
+    if env_file.exists():
+        env_lines = [
+            line
+            for line in env_file.read_text().splitlines()
+            if not line.startswith("WEBSITE_PORT=")
+        ]
+    env_lines.append(f"WEBSITE_PORT={port}")
+    env_file.write_text("\n".join(env_lines) + "\n")
+
     print("mage-bench workspace ready.")
+    print(f"  Website port: {port} (for worktree '{worktree_name}')")
     print("  Build cache: ~/.m2/build-cache")
     print("  Images: ~/.mage-bench/images (symlinked from */plugins/images)")
 
