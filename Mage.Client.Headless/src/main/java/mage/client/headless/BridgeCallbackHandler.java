@@ -314,6 +314,13 @@ public class BridgeCallbackHandler {
         return mcpMode;
     }
 
+    /** For testing: initialize game/player mapping without a server connection. */
+    public void initForTest(UUID gameId, UUID playerId) {
+        activeGames.put(gameId, playerId);
+        currentGameId = gameId;
+        setMcpMode(true);
+    }
+
     public void setActionDelayMs(int actionDelayMs) {
         this.actionDelayMs = Math.max(0, actionDelayMs);
         logger.info("[" + client.getUsername() + "] action delay set to " + this.actionDelayMs + " ms");
