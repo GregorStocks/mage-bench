@@ -174,7 +174,6 @@ public class CommanderPanel extends JPanel {
 
     /**
      * Return commander card components keyed by card id.
-     * Return commander card components keyed by card id.
      */
     public Map<UUID, MageCard> getCardPanels() {
         return cards;

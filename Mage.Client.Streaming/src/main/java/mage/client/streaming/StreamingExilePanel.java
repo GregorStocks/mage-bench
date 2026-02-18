@@ -202,7 +202,6 @@ public class StreamingExilePanel extends JPanel {
 
     /**
      * Return card components keyed by card id.
-     * Return card components keyed by card id (avoids reflection).
      */
     public Map<UUID, MageCard> getCardPanels() {
         return cards;
