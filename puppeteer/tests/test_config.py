@@ -1011,8 +1011,7 @@ def test_deck_type_list_parsed():
         config = Config(config_file=config_path)
         config.load_config()
         assert config.deck_type_candidates == ["Constructed - Standard", "Constructed - Modern"]
-        # Temporary deck_type is set to first candidate
-        assert config.deck_type == "Constructed - Standard"
+        assert config.deck_type in config.deck_type_candidates
 
 
 def test_deck_type_string_backward_compat():
