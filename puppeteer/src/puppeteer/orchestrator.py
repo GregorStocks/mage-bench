@@ -6,6 +6,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -829,10 +830,104 @@ def _update_website_youtube_url(game_dir: Path, url: str, project_root: Path) ->
         index_json.write_text(json.dumps(index, indent=2))
 
 
-def _maybe_upload_and_export(game_dir: Path, project_root: Path, *, auto_yes: bool = False) -> bool:
+@dataclass
+class _AnnotationFailure:
+    """A game that was exported but failed annotation, pending user decision."""
+
+    tmp_path: Path
+    final_path: Path
+    error: str
+    game_id: str
+
+
+def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2) -> str | None:
+    """Try to annotate a game file, with automatic retries.
+
+    Returns None on success, or the error message on failure.
+    """
+    sys.path.insert(0, str(project_root / "scripts" / "analysis"))
+    from blunder_analysis import main as analyze_blunders
+
+    last_error = ""
+    for attempt in range(1 + max_retries):
+        try:
+            analyze_blunders(str(gz_path))
+            return None  # success
+        except Exception as e:
+            last_error = str(e)
+            if attempt < max_retries:
+                print(f"  Annotation attempt {attempt + 1} failed: {e}")
+                print(f"  Retrying ({attempt + 2}/{1 + max_retries})...")
+            else:
+                print(f"  Annotation attempt {attempt + 1} failed: {e}")
+    return last_error
+
+
+def _prompt_annotation_failure(game_id: str, error: str) -> str:
+    """Ask the user what to do about a failed annotation.
+
+    Returns "retry", "emit", or "skip".
+    """
+    print(f"  Annotation failed for {game_id}: {error}")
+    while True:
+        try:
+            answer = input("  [r]etry / [e]mit without annotation / [s]kip? ").strip().lower()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            return "skip"
+        if answer in ("r", "retry"):
+            return "retry"
+        if answer in ("e", "emit"):
+            return "emit"
+        if answer in ("s", "skip"):
+            return "skip"
+        print(f"  Unrecognized answer: {answer!r}")
+
+
+def _finalize_export(tmp_path: Path, final_path: Path) -> None:
+    """Move exported game from temp location to final website path."""
+    shutil.move(str(tmp_path), str(final_path))
+    size_kb = final_path.stat().st_size // 1024
+    print(f"  Exported for website: {final_path} ({size_kb} KB)")
+
+
+def _resolve_annotation_failures(failures: list[_AnnotationFailure], project_root: Path) -> None:
+    """Prompt the user about each deferred annotation failure."""
+    if not failures:
+        return
+    print(f"\n  {len(failures)} game(s) failed annotation:")
+    for failure in failures:
+        while True:
+            action = _prompt_annotation_failure(failure.game_id, failure.error)
+            if action == "retry":
+                err = _attempt_annotation(failure.tmp_path, project_root, max_retries=0)
+                if err is None:
+                    _finalize_export(failure.tmp_path, failure.final_path)
+                    break
+                failure.error = err
+                continue  # re-prompt
+            elif action == "emit":
+                _finalize_export(failure.tmp_path, failure.final_path)
+                break
+            else:  # skip
+                failure.tmp_path.unlink(missing_ok=True)
+                print(f"  Skipped {failure.game_id}")
+                break
+
+
+def _maybe_upload_and_export(
+    game_dir: Path,
+    project_root: Path,
+    *,
+    auto_yes: bool = False,
+    deferred_failures: list[_AnnotationFailure] | None = None,
+) -> bool:
     """Prompt user to upload recording to YouTube and export for website.
 
     Returns True if the user answered "all" (auto-yes for remaining games).
+
+    When deferred_failures is provided (auto_yes/batch mode), annotation failures
+    are appended to it for resolution later instead of prompting immediately.
     """
     recording = game_dir / "recording.mov"
     has_recording = recording.exists()
@@ -871,29 +966,63 @@ def _maybe_upload_and_export(game_dir: Path, project_root: Path, *, auto_yes: bo
         except Exception as e:
             print(f"  Warning: YouTube upload failed: {e}")
 
-    # Export for website
-    output_path = None
+    # Export for website — write to a temp file first, only move to final
+    # location after annotation succeeds (or user explicitly chooses to emit).
+    website_games_dir = project_root / "website" / "public" / "games"
+    tmp_path = None
+    final_path = None
     try:
         from export_game import export_game
 
-        website_games_dir = project_root / "website" / "public" / "games"
-        output_path = export_game(game_dir, website_games_dir)
-        size_kb = output_path.stat().st_size // 1024
-        print(f"  Exported for website: {output_path} ({size_kb} KB)")
+        # Export to a temp dir so the final location stays clean until we're ready
+        website_games_dir.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=website_games_dir) as tmp_dir:
+            tmp_export_path = export_game(game_dir, Path(tmp_dir))
+            # Move to a temp name in the real dir (for atomic rename later)
+            final_path = website_games_dir / tmp_export_path.name
+            tmp_path = website_games_dir / f".tmp_{tmp_export_path.name}"
+            shutil.move(str(tmp_export_path), str(tmp_path))
     except Exception as e:
         print(f"  Warning: website export failed: {e}")
+        return auto_yes
+
+    game_id = game_dir.name
 
     # Blunder analysis (requires OPENROUTER_API_KEY; skips already-analyzed games)
-    if output_path and os.environ.get("OPENROUTER_API_KEY"):
-        try:
-            sys.path.insert(0, str(project_root / "scripts" / "analysis"))
-            from blunder_analysis import main as analyze_blunders
+    if not os.environ.get("OPENROUTER_API_KEY"):
+        # No API key — emit without annotation
+        _finalize_export(tmp_path, final_path)
+        return auto_yes
 
-            analyze_blunders(str(output_path))
-        except Exception as e:
-            print(f"  Warning: blunder analysis failed: {e}")
+    err = _attempt_annotation(tmp_path, project_root)
+    if err is None:
+        # Annotation succeeded
+        _finalize_export(tmp_path, final_path)
+        return auto_yes
 
-    return auto_yes
+    # Annotation failed after retries
+    if deferred_failures is not None:
+        # Batch/auto_yes mode: defer to end
+        deferred_failures.append(_AnnotationFailure(tmp_path, final_path, err, game_id))
+        print(f"  Deferred annotation failure for {game_id} (will ask at end)")
+        return auto_yes
+
+    # Interactive mode: prompt immediately
+    while True:
+        action = _prompt_annotation_failure(game_id, err)
+        if action == "retry":
+            err = _attempt_annotation(tmp_path, project_root, max_retries=0)
+            if err is None:
+                _finalize_export(tmp_path, final_path)
+                return auto_yes
+            continue  # re-prompt
+        elif action == "emit":
+            _finalize_export(tmp_path, final_path)
+            return auto_yes
+        else:  # skip
+            tmp_path.unlink(missing_ok=True)
+            print(f"  Skipped {game_id}")
+            return auto_yes
 
 
 @dataclass
@@ -1153,7 +1282,14 @@ def _wait_for_all_games(
     return results
 
 
-def _finalize_game(session: GameSession, project_root: Path, spectator_rc: int, *, auto_yes: bool = False) -> bool:
+def _finalize_game(
+    session: GameSession,
+    project_root: Path,
+    spectator_rc: int,
+    *,
+    auto_yes: bool = False,
+    deferred_failures: list[_AnnotationFailure] | None = None,
+) -> bool:
     """Post-game processing for a single game session.
 
     Returns True if the user chose "all" (auto-yes for remaining games).
@@ -1168,7 +1304,12 @@ def _finalize_game(session: GameSession, project_root: Path, spectator_rc: int, 
         print(f"  {game_label}Warning: failed to merge game log: {e}")
     _print_game_summary(session.game_dir)
     if not session.config.skip_post_game_prompts:
-        auto_yes = _maybe_upload_and_export(session.game_dir, project_root, auto_yes=auto_yes)
+        auto_yes = _maybe_upload_and_export(
+            session.game_dir,
+            project_root,
+            auto_yes=auto_yes,
+            deferred_failures=deferred_failures,
+        )
     return auto_yes
 
 
@@ -1328,9 +1469,17 @@ def main() -> int:
         if batch:
             results = _wait_for_all_games(sessions, pm)
             upload_all = False
+            deferred: list[_AnnotationFailure] = []
             for session in sessions:
                 spectator_rc = results.get(session.index, -1)
-                upload_all = _finalize_game(session, project_root, spectator_rc, auto_yes=upload_all)
+                upload_all = _finalize_game(
+                    session,
+                    project_root,
+                    spectator_rc,
+                    auto_yes=upload_all,
+                    deferred_failures=deferred,
+                )
+            _resolve_annotation_failures(deferred, project_root)
         else:
             # Single game: use existing wait logic
             session = sessions[0]

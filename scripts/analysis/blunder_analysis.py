@@ -16,20 +16,21 @@ import os
 import re
 import sys
 import tempfile
-import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from openai import OpenAI
 
-from annotate_game import annotate_game
-from extract_decisions import _summarize_snapshot, extract_decisions
-from puppeteer.harness_epoch import MIN_BLUNDER_VERSION  # noqa: F401 (re-exported)
-from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price
-
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(REPO_ROOT / "scripts"))
+
+import scryfall  # noqa: E402
+from annotate_game import annotate_game  # noqa: E402
+from extract_decisions import _summarize_snapshot, extract_decisions  # noqa: E402
+from puppeteer.harness_epoch import MIN_BLUNDER_VERSION  # noqa: F401, E402
+from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price  # noqa: E402
+
 TMP_DIR = REPO_ROOT / "tmp"
-SCRYFALL_CACHE_PATH = Path.home() / ".mage-bench" / "scryfall-cache.json"
 
 # Model (OpenRouter ID)
 OPUS_MODEL = "anthropic/claude-opus-4.6"
@@ -127,19 +128,6 @@ def _load_game(gz_path: str) -> dict:
 # --- Oracle text via Scryfall with disk cache ---
 
 
-def _scryfall_collection(names: list[str]) -> tuple[list[dict], list[dict]]:
-    """Query Scryfall /cards/collection for a batch of up to 75 names."""
-    body = json.dumps({"identifiers": [{"name": n} for n in names]}).encode()
-    req = urllib.request.Request(
-        "https://api.scryfall.com/cards/collection",
-        data=body,
-        headers={"Content-Type": "application/json"},
-    )
-    with urllib.request.urlopen(req) as resp:
-        data = json.loads(resp.read())
-    return data.get("data", []), data.get("not_found", [])
-
-
 def _extract_oracle_fields(card: dict) -> dict:
     """Extract the fields we need from a Scryfall card object."""
     fields: dict = {
@@ -161,29 +149,17 @@ def _extract_oracle_fields(card: dict) -> dict:
 
 
 def _get_oracle_texts(names: list[str]) -> dict[str, dict]:
-    """Get oracle texts for cards, using disk cache as passthrough.
+    """Get oracle texts for cards via Scryfall (cached on disk by scryfall module).
 
     Returns {card_name: oracle_fields} for all names that resolved.
     """
-    cache: dict[str, dict | None] = {}
-    if SCRYFALL_CACHE_PATH.exists():
-        cache = json.loads(SCRYFALL_CACHE_PATH.read_text())
-
-    missing = [n for n in names if n not in cache]
-    if missing:
-        for i in range(0, len(missing), 75):
-            batch = missing[i : i + 75]
-            found, not_found = _scryfall_collection(batch)
-            for card in found:
-                cache[card["name"]] = _extract_oracle_fields(card)
-            for nf in not_found:
-                # Mark as not-found so we don't re-fetch next time
-                cache[nf["name"]] = None
-        SCRYFALL_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-        SCRYFALL_CACHE_PATH.write_text(json.dumps(cache))
-        print(f"  Scryfall: fetched {len(missing)} cards ({len(cache)} cached)")
-
-    return {n: cache[n] for n in names if cache.get(n) is not None}
+    result: dict[str, dict] = {}
+    for i in range(0, len(names), 75):
+        batch = names[i : i + 75]
+        found, _not_found = scryfall.collection(batch)
+        for card in found:
+            result[card["name"]] = _extract_oracle_fields(card)
+    return result
 
 
 def _collect_card_names(data: dict) -> set[str]:
@@ -220,7 +196,15 @@ def _collect_card_names(data: dict) -> set[str]:
                 result = json.loads(ev.get("result", ""))
                 for c in result.get("choices", []):
                     name = c.get("name", "")
-                    if name:
+                    # Skip non-card choices: player targets, special actions,
+                    # and entries without an id (e.g. mana ability descriptions)
+                    if (
+                        not name
+                        or "target_type" in c
+                        or c.get("choice_type") == "special"
+                    ):
+                        continue
+                    if "id" in c:
                         names.add(name)
                 for a in result.get("already_attacking", []):
                     if isinstance(a, dict) and a.get("name"):
@@ -237,7 +221,7 @@ def _collect_card_names(data: dict) -> set[str]:
                             names.add(b["name"])
             except (json.JSONDecodeError, TypeError):
                 pass
-    # Filter out tokens (not in Scryfall) and player names
+    # Filter out tokens (not in Scryfall)
     return {n for n in names if "Token" not in n}
 
 
