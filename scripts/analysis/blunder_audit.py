@@ -310,9 +310,7 @@ def audit_plays(game_filter: str | None = None) -> None:
         decision = _find_decision(decisions, di)
 
         # Show existing annotation for context (may be stale)
-        display_annotation = _lookup_existing_annotation(
-            decision, game_data, snapshots
-        )
+        display_annotation = _lookup_existing_annotation(decision, game_data, snapshots)
         print(format_play_context(game_id, decision, snapshots, display_annotation))
 
         verdict, notes = collect_verdict()
