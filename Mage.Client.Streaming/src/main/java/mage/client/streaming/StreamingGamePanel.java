@@ -2036,6 +2036,17 @@ public class StreamingGamePanel extends GamePanel {
         return String.format("$%.4f", costUsd);
     }
 
+    private JsonArray countersToJson(PlayerView player) {
+        var counters = new JsonArray();
+        for (CounterView counter : player.getCounters()) {
+            var counterJson = new JsonObject();
+            counterJson.addProperty("name", safe(counter.getName()));
+            counterJson.addProperty("count", counter.getCount());
+            counters.add(counterJson);
+        }
+        return counters;
+    }
+
     private static String formatRules(List<String> rules) {
         if (rules == null || rules.isEmpty()) {
             return "";
