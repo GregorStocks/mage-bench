@@ -53,24 +53,25 @@ public class ChooseActionTool {
             @Param(description = "Multiple amount values (for multi_amount actions)") int[] amounts,
             @Param(description = "Pile number: 1 or 2 (for pile choices)") Integer pile,
             @Param(description = "Text value for GAME_CHOOSE_CHOICE (use instead of index to pick any option by name, e.g. a creature type not in the filtered list)") String text,
-            @Param(description = "List of mana sources to use when casting a spell. "
-                + "Each entry is a short ID (e.g. \"p1\") to activate that object's mana ability, "
-                + "or a pool color (WHITE, BLUE, BLACK, RED, GREEN, COLORLESS) to spend 1 mana from pool. "
-                + "Works for any mana source: lands, mana rocks, and cards in hand with mana abilities "
-                + "(e.g. Simian Spirit Guide). "
-                + "For multi-ability lands (dual lands), append :N to pick the ability by index "
-                + "(e.g. \"p5:0\" for first ability, \"p5:1\" for second); without an index, "
-                + "the first ability is picked automatically. "
-                + "Each entry pays one mana pip. Consumed in order as mana payment callbacks arrive. "
-                + "Example: [\"p1\", \"p5:1\", \"RED\"]. "
-                + "The plan must be COMPLETE — if any entry fails or runs out, the spell is cancelled. "
-                + "Filter lands with activation costs (e.g. Cascade Bluffs) trigger sub-payment — "
-                + "include extra entries for their activation cost. "
-                + "Mutually exclusive with auto_tap.") String[] mana_plan,
-            @Param(description = "Set true to use the automatic mana tapper. "
-                + "WARNING: The autotapper is not smart — it taps the first available source with no color "
-                + "awareness and uses a naive heuristic for multi-ability lands. Prefer mana_plan for "
-                + "strategic tapping. Only use auto_tap to save tokens when tapping order doesn't matter.") Boolean auto_tap,
+            @Param(description = "Mana payment instructions for casting a spell (use with index/id). "
+                + "Each entry is a short ID of a permanent to tap for mana (e.g. \"p1\" for a land/rock). "
+                + "For multi-ability permanents (dual lands), append :N (e.g. \"p5:1\" for second ability). "
+                + "IMPORTANT: Only use short IDs (\"p1\", \"p5:1\") to TAP permanents for mana. "
+                + "Pool colors (WHITE, BLUE, BLACK, RED, GREEN, COLORLESS) only SPEND mana already "
+                + "in your mana pool — they do NOT produce mana. Only use pool colors after something "
+                + "else has already added mana to your pool (e.g. a ritual spell or a triggered ability). "
+                + "Entries are consumed in order, one per mana pip. "
+                + "If any entry fails (permanent not available), the spell is cancelled. "
+                + "If the plan runs out before all pips are paid, auto-tap fills the rest "
+                + "(unless auto_tap=false, which cancels instead). "
+                + "Example: casting a 3-mana spell with 2 lands: [\"p1\", \"p5:1\"] — auto-tap handles the 3rd pip.") String[] mana_plan,
+            @Param(description = "Controls automatic mana tapping. Default behavior (omitted or true): "
+                + "auto-tap pays mana by tapping the first available source. Used alone for full auto-tap, "
+                + "or as fallback after a mana_plan runs out. "
+                + "Set false WITH a mana_plan to require the plan to be complete — spell is cancelled if "
+                + "the plan doesn't cover all pips. "
+                + "WARNING: auto-tap has no color awareness and uses a naive heuristic for dual lands. "
+                + "Prefer mana_plan for color-sensitive spells.") Boolean auto_tap,
             @Param(description = "Declare multiple attackers at once. Array of short IDs (e.g. [\"p1\",\"p2\"]). "
                 + "Use [\"all\"] to declare all possible attackers. "
                 + "Automatically confirms after declaring.") String[] attackers,

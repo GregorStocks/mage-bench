@@ -133,6 +133,7 @@ public class BridgeCallbackHandler {
     private static final int MAX_POOL_MANA_ATTEMPTS = 10; // Cancel payment after this many pool retries
     private volatile CopyOnWriteArrayList<ManaPlanEntry> manaPlan = null; // Explicit mana sourcing plan from LLM
     private volatile Integer manaPlanAbilityIndex = null; // Ability index from last consumed mana plan entry (for GAME_CHOOSE_ABILITY)
+    private volatile boolean manaPlanAutoTapFallback = true; // When mana plan is exhausted, fall through to auto-tap (true) or cancel (false)
     private volatile int lastTurnNumber = -1; // For clearing failedManaCasts on turn change
     private volatile int interactionsThisTurn = 0; // Generic loop detection: count model interactions per turn
     private volatile int landsPlayedThisTurn = 0; // Track land plays for land_drops_used hint
@@ -1441,11 +1442,6 @@ public class BridgeCallbackHandler {
             }
         }
 
-        // Validate mana_plan / auto_tap mutual exclusivity
-        if (manaPlanArray != null && manaPlanArray.length > 0 && autoTap != null && autoTap) {
-            return buildError(result, "missing_param",
-                "mana_plan and auto_tap are mutually exclusive", false, action);
-        }
         // Normalize empty mana_plan to null
         if (manaPlanArray != null && manaPlanArray.length == 0) {
             manaPlanArray = null;
@@ -1536,11 +1532,15 @@ public class BridgeCallbackHandler {
                                 "Invalid mana_plan: " + e.getMessage()
                                 + ". Expected: [{\"tap\":\"p1\"},{\"pool\":\"RED\"}]", true, action);
                         }
+                        // auto_tap controls fallback when plan runs out:
+                        // false = cancel spell, true/null = fall through to auto-tap
+                        manaPlanAutoTapFallback = !(autoTap != null && !autoTap);
                         result.put("mana_plan_set", true);
                         result.put("mana_plan_size", manaPlan.size());
                     } else if (usedIndex && autoTap != null && autoTap) {
                         manaPlan = null;  // Explicit auto-tap mode
                         manaPlanAbilityIndex = null;
+                        manaPlanAutoTapFallback = true;
                     }
                     if (!usedIndex) {
                         if (answer != null) {
@@ -4444,10 +4444,17 @@ public class BridgeCallbackHandler {
             return cancelSpellFromBadManaPlan(gameId, payingForId, msg);
         }
 
-        // Plan exists but is exhausted — cancel spell (plan was incomplete)
+        // Plan exists but is exhausted — either fall through to auto-tap or cancel
         if (plan != null) {
-            logger.warn("[" + client.getUsername() + "] Mana plan: exhausted with pips remaining, cancelling spell");
-            return cancelSpellFromBadManaPlan(gameId, payingForId, msg);
+            if (manaPlanAutoTapFallback) {
+                logger.info("[" + client.getUsername() + "] Mana plan: exhausted, falling through to auto-tap for remaining pips");
+                manaPlan = null;
+                manaPlanAbilityIndex = null;
+                // Fall through to auto-tap code below
+            } else {
+                logger.warn("[" + client.getUsername() + "] Mana plan: exhausted with pips remaining, cancelling spell (auto_tap=false)");
+                return cancelSpellFromBadManaPlan(gameId, payingForId, msg);
+            }
         }
 
         // Find a mana source from canPlayObjects and tap it
