@@ -75,9 +75,13 @@ def _summarize_snapshot(snap: dict) -> dict:
     }
 
 
-def _find_snapshot_index(snapshots: list[dict], ts: str) -> int:
-    """Find the index of the nearest snapshot at or before the given timestamp."""
-    best = 0
+def _find_snapshot_index(snapshots: list[dict], ts: str) -> int | None:
+    """Find the index of the nearest snapshot at or before the given timestamp.
+
+    Returns None if no snapshot exists at or before the timestamp (e.g. for
+    play/draw decisions that happen before the first snapshot).
+    """
+    best: int | None = None
     for i, snap in enumerate(snapshots):
         snap_ts = snap.get("ts", "")
         if snap_ts <= ts:
@@ -169,9 +173,12 @@ def extract_decisions(gz_path: str) -> list[dict]:
             if ev.get("type") == "tool_call" and ev.get("tool") == "get_action_choices":
                 break
 
-        # Find nearest snapshot
+        # Find nearest snapshot (None if decision precedes all snapshots,
+        # e.g. play/draw choice before hands are dealt)
         snap_idx = _find_snapshot_index(snapshots, choices_ts)
-        game_state = _summarize_snapshot(snapshots[snap_idx]) if snapshots else {}
+        game_state = (
+            _summarize_snapshot(snapshots[snap_idx]) if snap_idx is not None else {}
+        )
 
         # Collect subsequent game actions (between this decision and next)
         next_choices_ts = ""
@@ -193,7 +200,7 @@ def extract_decisions(gz_path: str) -> list[dict]:
         decisions.append(
             {
                 "decision_index": len(decisions),
-                "snapshot_index": snap_idx,
+                "snapshot_index": snap_idx if snap_idx is not None else 0,
                 "action_ts": action_ts,
                 "player": player,
                 "turn": game_state.get("turn"),

@@ -56,7 +56,8 @@ MAX_WORKERS = 50
 # v11: filter out failed (success=false), cancelled, and cast-before-cancel decisions
 # v12: add current-turn action context (no prompt additions, just context)
 # v13: fix card name extraction for dict-form permanents (tapped/counters)
-BLUNDER_SCRIPT_VERSION = 13
+# v14: fix play/draw decision seeing dealt hands (no snapshot before hands dealt)
+BLUNDER_SCRIPT_VERSION = 14
 
 # --- Prompt components ---
 
