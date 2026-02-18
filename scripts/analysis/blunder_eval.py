@@ -14,11 +14,14 @@ Requires OPENROUTER_API_KEY environment variable.
 
 import json
 import textwrap
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
 from blunder_analysis import (
     BLUNDER_SCRIPT_VERSION,
-    eval_decisions,
+    MAX_WORKERS,
+    OPUS_MODEL,
+    _eval_one_decision,
     init_api,
     load_game_context,
 )
@@ -30,50 +33,6 @@ from blunder_eval_common import (
     load_ground_truth,
     play_key,
 )
-
-
-def eval_game_plays(
-    entries: list[dict],
-    game_ctx: dict,
-    client: object,
-    prices: dict[str, tuple[float, float]],
-) -> dict[int, tuple[dict, float]]:
-    """Evaluate plays for a single game. Returns {decision_index: (result, cost)}.
-
-    Finds the decision objects matching the ground truth entries and runs
-    them through eval_decisions() in parallel.
-    """
-    decisions = game_ctx["decisions"]
-
-    # Build lookup from decision_index to decision object
-    decision_by_idx = {d["decision_index"]: d for d in decisions}
-
-    # Collect the decision objects we need to evaluate
-    to_eval = []
-    for entry in entries:
-        di = entry["decision_index"]
-        assert di in decision_by_idx, f"Decision {di} not found in game"
-        to_eval.append(decision_by_idx[di])
-
-    results_by_idx = eval_decisions(to_eval, game_ctx, client, prices)
-
-    out: dict[int, tuple[dict, float]] = {}
-    for entry in entries:
-        di = entry["decision_index"]
-        anns, cost, parsed_ok, raw = results_by_idx[di]
-        if anns:
-            out[di] = (
-                {
-                    "detected": True,
-                    "severity": anns[0].get("severity"),
-                    "description": anns[0].get("description"),
-                },
-                cost,
-            )
-        else:
-            out[di] = ({"detected": False}, cost)
-
-    return out
 
 
 def compare_results(
@@ -209,7 +168,6 @@ def main() -> None:
 
     if args.limit and args.limit < total_validated:
         print(f"Limiting to {args.limit} of {total_validated} validated plays")
-        # Trim entries across games
         remaining = args.limit
         trimmed: dict[str, list[dict]] = {}
         for game_id, entries in validated_by_game.items():
@@ -236,25 +194,64 @@ def main() -> None:
     else:
         print("No baseline found -- will compare against empty baseline")
 
-    # Setup API (uses same model/config as blunder_analysis.py)
+    # Setup API
     client, prices = init_api()
 
-    # Evaluate
+    # Load game contexts and collect all work items
+    print("Loading game data...")
+    work_items: list[tuple[str, dict, dict]] = []  # (play_key, decision, game_ctx)
+    for game_id, entries in sorted(validated_by_game.items()):
+        gz_path = str(game_path_for_id(game_id))
+        game_ctx = load_game_context(gz_path)
+        decision_by_idx = {d["decision_index"]: d for d in game_ctx["decisions"]}
+
+        for entry in entries:
+            di = entry["decision_index"]
+            assert di in decision_by_idx, f"Decision {di} not found in {game_id}"
+            pk = play_key(game_id, di)
+            work_items.append((pk, decision_by_idx[di], game_ctx))
+
+    # Evaluate all plays across all games in parallel
+    print(f"Submitting {len(work_items)} plays to {MAX_WORKERS} workers...")
     eval_results: dict[str, dict] = {}
     total_cost = 0.0
 
-    for game_id, entries in sorted(validated_by_game.items()):
-        print(f"\n{game_id}: {len(entries)} plays...")
-        gz_path = str(game_path_for_id(game_id))
-        game_ctx = load_game_context(gz_path)
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {}
+        for pk, decision, game_ctx in work_items:
+            fut = pool.submit(
+                _eval_one_decision,
+                client,
+                OPUS_MODEL,
+                prices,
+                game_ctx["overview"],
+                decision,
+                game_ctx["oracle_texts"],
+                game_ctx["snapshots"],
+                game_ctx["actions_by_turn"],
+                game_ctx["num_players"],
+                game_ctx["all_actions"],
+            )
+            futures[fut] = pk
 
-        game_results = eval_game_plays(entries, game_ctx, client, prices)
-        for entry in entries:
-            di = entry["decision_index"]
-            result, cost = game_results[di]
-            pk = play_key(game_id, di)
-            eval_results[pk] = result
+        for fut in as_completed(futures):
+            pk = futures[fut]
+            try:
+                anns, cost, parsed_ok, raw = fut.result()
+            except Exception as e:
+                print(f"  WARNING: {pk} failed: {e}")
+                eval_results[pk] = {"detected": False}
+                continue
+
             total_cost += cost
+            if anns:
+                eval_results[pk] = {
+                    "detected": True,
+                    "severity": anns[0].get("severity"),
+                    "description": anns[0].get("description"),
+                }
+            else:
+                eval_results[pk] = {"detected": False}
 
     print(f"\nTotal cost: ${total_cost:.3f}")
 

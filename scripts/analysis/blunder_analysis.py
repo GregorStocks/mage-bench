@@ -781,10 +781,7 @@ def eval_decisions(
     client: OpenAI,
     prices: dict[str, tuple[float, float]],
 ) -> dict[int, tuple[list[dict], float, bool, dict]]:
-    """Evaluate a list of decisions in parallel. Returns {decision_index: result}.
-
-    Shared by blunder_analysis.main() and blunder_eval.py.
-    """
+    """Evaluate a list of decisions in parallel. Returns {decision_index: result}."""
     results_by_idx: dict[int, tuple[list[dict], float, bool, dict]] = {}
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
