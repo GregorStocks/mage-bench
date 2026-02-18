@@ -78,9 +78,13 @@ def compare_results(
                         "verdict": verdict,
                         "eval_detected": eval_detected,
                         "baseline_detected": base_detected,
+                        "baseline_description": baseline_results.get(pk, {}).get(
+                            "description"
+                        ),
                         "eval_severity": eval_results.get(pk, {}).get("severity"),
-                        "description": eval_results.get(pk, {}).get("description")
-                        or entry.get("annotation_description"),
+                        "eval_description": eval_results.get(pk, {}).get(
+                            "description"
+                        ),
                     }
                 )
 
@@ -130,10 +134,22 @@ def print_report(comparison: dict) -> None:
                 else "BAD"
             )
             print(f"    [{impact}] {d['play_key']}: {direction} (human={d['verdict']})")
-            desc = d.get("description") or ""
-            if desc:
+            base_desc = d.get("baseline_description") or ""
+            eval_desc = d.get("eval_description") or ""
+            if base_desc:
                 wrapped = textwrap.fill(
-                    desc, width=80, initial_indent=indent, subsequent_indent=indent
+                    base_desc,
+                    width=80,
+                    initial_indent=indent + "baseline: ",
+                    subsequent_indent=indent + "          ",
+                )
+                print(wrapped)
+            if eval_desc:
+                wrapped = textwrap.fill(
+                    eval_desc,
+                    width=80,
+                    initial_indent=indent + "eval:     ",
+                    subsequent_indent=indent + "          ",
                 )
                 print(wrapped)
 
@@ -231,6 +247,7 @@ def main() -> None:
                 game_ctx["actions_by_turn"],
                 game_ctx["num_players"],
                 game_ctx["all_actions"],
+                pk,
             )
             futures[fut] = pk
 

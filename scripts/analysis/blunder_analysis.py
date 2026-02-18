@@ -660,6 +660,7 @@ def _eval_one_decision(
     actions_by_turn: dict[int, list[str]],
     num_players: int,
     all_actions: list[dict],
+    label: str | None = None,
 ) -> tuple[list[dict], float, bool, dict]:
     """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok, raw_record).
 
@@ -681,7 +682,8 @@ def _eval_one_decision(
         user_msg += f"\n\n{turn_ctx}"
     user_msg += f"\n\n## Decision\n\n{formatted}"
     user_msg += f"\n\n{PER_DECISION_FOOTER}"
-    label = f"decision_{decision['decision_index']}"
+    if label is None:
+        label = f"decision_{decision['decision_index']}"
 
     text, in_tok, out_tok = _call_llm(client, model, PER_DECISION_SYSTEM, user_msg)
     cost = _compute_cost(prices, model, in_tok, out_tok)
