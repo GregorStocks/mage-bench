@@ -24,6 +24,8 @@
       loyalty: c.loyalty,
       defense: c.defense,
       layout: c.layout || null,
+      owner: c.owner,
+      targets: c.targets,
     };
   }
 
@@ -921,7 +923,16 @@
         var name = typeof item === "string" ? item : (item.name || "");
         if (!name) return; // skip empty-named stack items (legacy StackAbilityView bug)
         var obj = typeof item === "string" ? null : item;
-        cardsContainer.appendChild(makeCardThumbnail(name, obj, cardImages, false, previewEls));
+        var wrapper = document.createElement("div");
+        wrapper.className = "stack-item";
+        wrapper.appendChild(makeCardThumbnail(name, obj, cardImages, false, previewEls));
+        if (obj && obj.targets && obj.targets.length > 0) {
+          var targetEl = document.createElement("div");
+          targetEl.className = "stack-target";
+          targetEl.textContent = "\u2192 " + obj.targets.join(", ");
+          wrapper.appendChild(targetEl);
+        }
+        cardsContainer.appendChild(wrapper);
       });
     }
   }

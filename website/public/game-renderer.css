@@ -430,6 +430,15 @@
   width: 100%;
 }
 
+.stack-target {
+  font-size: 0.7em;
+  color: #8899aa;
+  padding: 1px 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* Card preview (follows mouse cursor) */
 #card-preview {
   position: fixed;

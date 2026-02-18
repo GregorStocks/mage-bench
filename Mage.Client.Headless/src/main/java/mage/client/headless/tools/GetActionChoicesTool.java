@@ -31,7 +31,7 @@ public class GetActionChoicesTool {
             @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards during mulligan: name, mana_cost, is_land, power/toughness, rules"),
             @Tool.Field(name = "combat_phase", type = "string", description = "\"declare_attackers\" or \"declare_blockers\""),
             @Tool.Field(name = "mana_pool", type = "object", description = "Current mana pool {R, G, U, W, B, C}"),
-            @Tool.Field(name = "stack", type = "array[object]", description = "Spells/abilities currently on the stack: name, owner (only present when stack is non-empty)"),
+            @Tool.Field(name = "stack", type = "array[object]", description = "Spells/abilities currently on the stack: name, owner, targets (only present when stack is non-empty)"),
             @Tool.Field(name = "untapped_lands", type = "integer", description = "Number of untapped lands"),
             @Tool.Field(name = "min_amount", type = "integer", description = "Minimum allowed value"),
             @Tool.Field(name = "max_amount", type = "integer", description = "Maximum allowed value"),

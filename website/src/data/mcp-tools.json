@@ -255,7 +255,7 @@
           "type": "string"
         },
         "stack": {
-          "description": "Stack objects: name, rules, target_count",
+          "description": "Stack objects: name, rules, targets (resolved target names)",
           "type": "array",
           "items": {
             "type": "object"
@@ -438,7 +438,7 @@
           "type": "string"
         },
         "stack": {
-          "description": "Spells/abilities currently on the stack: name, owner (only present when stack is non-empty)",
+          "description": "Spells/abilities currently on the stack: name, owner, targets (only present when stack is non-empty)",
           "type": "array",
           "items": {
             "type": "object"
