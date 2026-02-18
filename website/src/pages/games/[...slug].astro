@@ -447,6 +447,7 @@ const { slug } = Astro.params;
     var playerColorMap = {};
     var playerMeta = {};
     var turnStartIndices = [];
+    var phaseTransitions = [];
     var showLlm = true;
     var isCommander = false;
     var traceByTs = {};  // ts -> trace event lookup (kept for potential future use)
@@ -891,6 +892,27 @@ const { slug } = Astro.params;
         });
       }
 
+      // Add phase/step transition separators
+      phaseTransitions.forEach(function (pt) {
+        if (pt.index <= index) {
+          timeline.push({
+            kind: pt.turnChanged ? "turn-sep" : "phase-sep",
+            ts: pt.ts,
+            data: pt,
+          });
+        }
+      });
+      // Final sort: separators before other items at the same timestamp
+      timeline.sort(function (a, b) {
+        if (a.ts < b.ts) return -1;
+        if (a.ts > b.ts) return 1;
+        // At same timestamp: turn-sep first, then phase-sep, then regular items, then annotations last
+        var order = { "turn-sep": -2, "phase-sep": -1, "annotation": 1 };
+        var aOrd = order[a.kind] || 0;
+        var bOrd = order[b.kind] || 0;
+        return aOrd - bOrd;
+      });
+
       // Render interleaved timeline
       timeline.forEach(function (item) {
         var el = null;
@@ -914,6 +936,14 @@ const { slug } = Astro.params;
           el = renderLlmEvent(item.data);
         } else if (item.kind === "annotation") {
           el = renderAnnotation(item.data);
+        } else if (item.kind === "turn-sep") {
+          el = document.createElement("div");
+          el.className = "turn-separator";
+          el.textContent = "\u2014 Turn " + item.data.turn + " \u2014";
+        } else if (item.kind === "phase-sep") {
+          el = document.createElement("div");
+          el.className = "phase-separator";
+          el.textContent = "\u2014 " + R.formatPhaseStep(item.data.phase, item.data.step) + " \u2014";
         }
         if (el) {
           var tsEl = makeTimestampEl(item.ts);
@@ -1052,6 +1082,25 @@ const { slug } = Astro.params;
           if (snap.turn !== lastTurn) {
             turnStartIndices.push({ turn: snap.turn, index: i });
             lastTurn = snap.turn;
+          }
+        });
+
+        // Build phase/step transition indices
+        game.snapshots.forEach(function (snap, i) {
+          if (i === 0) return;
+          var prev = game.snapshots[i - 1];
+          var turnChanged = snap.turn !== prev.turn;
+          var phaseChanged = snap.phase !== prev.phase || snap.step !== prev.step;
+          if (turnChanged || phaseChanged) {
+            phaseTransitions.push({
+              index: i,
+              ts: snap.ts || "",
+              seq: snap.seq || 0,
+              turn: snap.turn,
+              phase: snap.phase,
+              step: snap.step,
+              turnChanged: turnChanged,
+            });
           }
         });
 

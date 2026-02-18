@@ -26,7 +26,7 @@ public class GetGameStateTool {
             @Tool.Field(name = "active_player", type = "string", description = "Name of the player whose turn it is"),
             @Tool.Field(name = "priority_player", type = "string", description = "Name of the player who currently has priority"),
             @Tool.Field(name = "players", type = "array[object]", description = "Player objects: name, life, library_size, hand_size, is_active, is_you, hand (yours only), battlefield, graveyard, exile, mana_pool, counters, commanders"),
-            @Tool.Field(name = "stack", type = "array[object]", description = "Stack objects: name, rules, target_count"),
+            @Tool.Field(name = "stack", type = "array[object]", description = "Stack objects: name, rules, targets (resolved target names)"),
             @Tool.Field(name = "combat", type = "array[object]", description = "Combat groups: attackers, blockers, blocked, defending")
         }
     )

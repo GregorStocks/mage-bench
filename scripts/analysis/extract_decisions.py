@@ -35,7 +35,7 @@ def _summarize_permanent(c: dict) -> str | dict:
 
 def _summarize_snapshot(snap: dict) -> dict:
     """Summarize a snapshot for decision context."""
-    return {
+    summary = {
         "turn": snap.get("turn"),
         "phase": snap.get("phase"),
         "step": snap.get("step"),
@@ -73,11 +73,20 @@ def _summarize_snapshot(snap: dict) -> dict:
             for item in snap.get("stack", [])
         ],
     }
+    # Combat groups (may be absent in old exports)
+    combat = snap.get("combat")
+    if combat:
+        summary["combat"] = combat
+    return summary
 
 
-def _find_snapshot_index(snapshots: list[dict], ts: str) -> int:
-    """Find the index of the nearest snapshot at or before the given timestamp."""
-    best = 0
+def _find_snapshot_index(snapshots: list[dict], ts: str) -> int | None:
+    """Find the index of the nearest snapshot at or before the given timestamp.
+
+    Returns None if no snapshot exists at or before the timestamp (e.g. for
+    play/draw decisions that happen before the first snapshot).
+    """
+    best: int | None = None
     for i, snap in enumerate(snapshots):
         snap_ts = snap.get("ts", "")
         if snap_ts <= ts:
@@ -137,6 +146,10 @@ def extract_decisions(gz_path: str) -> list[dict]:
         response_type = choices_result.get("response_type", "")
         action_type = choices_result.get("action_type", "")
         message = choices_result.get("message", "")
+        combat_phase = choices_result.get("combat_phase", "")
+        combat = choices_result.get("combat", [])
+        already_attacking = choices_result.get("already_attacking", [])
+        incoming_attackers = choices_result.get("incoming_attackers", [])
 
         # Look forward for the next llm_response and choose_action from same player
         reasoning = ""
@@ -169,9 +182,12 @@ def extract_decisions(gz_path: str) -> list[dict]:
             if ev.get("type") == "tool_call" and ev.get("tool") == "get_action_choices":
                 break
 
-        # Find nearest snapshot
+        # Find nearest snapshot (None if decision precedes all snapshots,
+        # e.g. play/draw choice before hands are dealt)
         snap_idx = _find_snapshot_index(snapshots, choices_ts)
-        game_state = _summarize_snapshot(snapshots[snap_idx]) if snapshots else {}
+        game_state = (
+            _summarize_snapshot(snapshots[snap_idx]) if snap_idx is not None else {}
+        )
 
         # Collect subsequent game actions (between this decision and next)
         next_choices_ts = ""
@@ -193,7 +209,7 @@ def extract_decisions(gz_path: str) -> list[dict]:
         decisions.append(
             {
                 "decision_index": len(decisions),
-                "snapshot_index": snap_idx,
+                "snapshot_index": snap_idx if snap_idx is not None else 0,
                 "action_ts": action_ts,
                 "player": player,
                 "turn": game_state.get("turn"),
@@ -209,6 +225,10 @@ def extract_decisions(gz_path: str) -> list[dict]:
                 "reasoning": reasoning,
                 "is_forced": choice_count <= 1,
                 "game_state": game_state,
+                "combat_phase": combat_phase,
+                "combat": combat,
+                "already_attacking": already_attacking,
+                "incoming_attackers": incoming_attackers,
                 "subsequent_actions": subsequent,
             }
         )

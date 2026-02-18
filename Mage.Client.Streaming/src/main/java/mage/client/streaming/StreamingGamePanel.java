@@ -29,10 +29,12 @@ import mage.constants.PlayerAction;
 import mage.constants.Zone;
 import mage.view.CardView;
 import mage.view.CardsView;
+import mage.view.CombatGroupView;
 import mage.view.StackAbilityView;
 import mage.view.CommanderView;
 import mage.view.CommandObjectView;
 import mage.view.CounterView;
+import mage.view.ExileView;
 import mage.view.GameView;
 import mage.view.PermanentView;
 import mage.view.PlayerView;
@@ -1752,6 +1754,19 @@ public class StreamingGamePanel extends GamePanel {
                       .append(p.getHandCount()).append(":")
                       .append(p.getBattlefield() != null ? p.getBattlefield().size() : 0).append(",");
         }
+        // Include combat state so blocker assignment triggers a new snapshot
+        if (game.getCombat() != null) {
+            keyBuilder.append("combat:");
+            for (CombatGroupView group : game.getCombat()) {
+                for (CardView a : group.getAttackers().values()) {
+                    keyBuilder.append(safe(a.getDisplayName())).append(">");
+                }
+                for (CardView b : group.getBlockers().values()) {
+                    keyBuilder.append(safe(b.getDisplayName())).append("<");
+                }
+                keyBuilder.append(group.isBlocked() ? "B" : "U").append(",");
+            }
+        }
         String key = keyBuilder.toString();
         if (key.equals(lastSnapshotKey)) {
             return;
@@ -1868,10 +1883,53 @@ public class StreamingGamePanel extends GamePanel {
                         stackJson.addProperty("owner", owner);
                     }
                 }
+                if (card.getTargets() != null && !card.getTargets().isEmpty()) {
+                    var targetsArray = new JsonArray();
+                    for (UUID targetId : card.getTargets()) {
+                        targetsArray.add(resolveTargetName(targetId, game));
+                    }
+                    stackJson.add("targets", targetsArray);
+                }
                 stackArray.add(stackJson);
             }
         }
         event.add("stack", stackArray);
+
+        // Combat groups
+        if (game.getCombat() != null && !game.getCombat().isEmpty()) {
+            var combatArray = new JsonArray();
+            for (CombatGroupView group : game.getCombat()) {
+                var groupJson = new JsonObject();
+                var attackersArr = new JsonArray();
+                for (CardView attacker : group.getAttackers().values()) {
+                    var aJson = new JsonObject();
+                    aJson.addProperty("name", safe(attacker.getDisplayName()));
+                    if (attacker.getPower() != null) {
+                        aJson.addProperty("power", safe(attacker.getPower()));
+                        aJson.addProperty("toughness", safe(attacker.getToughness()));
+                    }
+                    attackersArr.add(aJson);
+                }
+                groupJson.add("attackers", attackersArr);
+                var blockersArr = new JsonArray();
+                for (CardView blocker : group.getBlockers().values()) {
+                    var bJson = new JsonObject();
+                    bJson.addProperty("name", safe(blocker.getDisplayName()));
+                    if (blocker.getPower() != null) {
+                        bJson.addProperty("power", safe(blocker.getPower()));
+                        bJson.addProperty("toughness", safe(blocker.getToughness()));
+                    }
+                    blockersArr.add(bJson);
+                }
+                if (blockersArr.size() > 0) {
+                    groupJson.add("blockers", blockersArr);
+                }
+                groupJson.addProperty("blocked", group.isBlocked());
+                groupJson.addProperty("defending", group.getDefenderName());
+                combatArray.add(groupJson);
+            }
+            event.add("combat", combatArray);
+        }
 
         writeGameEvent("state_snapshot", event);
     }
@@ -2137,6 +2195,13 @@ public class StreamingGamePanel extends GamePanel {
                 if (owner != null) {
                     cardJson.addProperty("owner", owner);
                 }
+            }
+            if (card.getTargets() != null && !card.getTargets().isEmpty()) {
+                var targetsArray = new JsonArray();
+                for (UUID targetId : card.getTargets()) {
+                    targetsArray.add(resolveTargetName(targetId, lastGame));
+                }
+                cardJson.add("targets", targetsArray);
             }
             cards.add(cardJson);
         }
@@ -2446,6 +2511,53 @@ public class StreamingGamePanel extends GamePanel {
             name = card.getName();
         }
         return safe(name);
+    }
+
+    /**
+     * Resolve a target UUID to a display name by searching the game view.
+     * Checks battlefields, graveyards, exile, stack, and players.
+     */
+    private static String resolveTargetName(UUID targetId, GameView game) {
+        if (game == null || targetId == null) return "Unknown";
+
+        // Check stack
+        if (game.getStack() != null) {
+            CardView found = game.getStack().get(targetId);
+            if (found != null) return safe(found.getDisplayName());
+        }
+
+        // Check all players' zones
+        for (PlayerView player : game.getPlayers()) {
+            // Battlefield
+            PermanentView perm = player.getBattlefield().get(targetId);
+            if (perm != null) return safe(perm.getDisplayName());
+
+            // Graveyard
+            CardView found = player.getGraveyard().get(targetId);
+            if (found != null) return safe(found.getDisplayName());
+
+            // Exile
+            found = player.getExile().get(targetId);
+            if (found != null) return safe(found.getDisplayName());
+        }
+
+        // Check if the target is a player
+        for (PlayerView player : game.getPlayers()) {
+            if (player.getPlayerId().equals(targetId)) {
+                return player.getName();
+            }
+        }
+
+        // Check top-level exile zones
+        for (ExileView exileZone : game.getExile()) {
+            for (CardView card : exileZone.values()) {
+                if (card.getId().equals(targetId)) {
+                    return safe(card.getDisplayName());
+                }
+            }
+        }
+
+        return "Unknown";
     }
 
     /**

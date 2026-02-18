@@ -433,6 +433,42 @@ class TestCardNamesInDecision:
         assert "Mountain" in names
         assert "Lightning Bolt" in names
 
+    def test_extracts_from_combat_fields(self) -> None:
+        d = _make_decision(
+            combat=[
+                {
+                    "attackers": [{"name": "Goblin Guide", "power": "2", "toughness": "2"}],
+                    "blockers": [{"name": "Wall of Omens", "power": "0", "toughness": "4"}],
+                    "blocked": True,
+                    "defending": "Bob",
+                }
+            ],
+            already_attacking=[{"name": "Monastery Swiftspear", "power": "1", "toughness": "2"}],
+            incoming_attackers=[{"name": "Tarmogoyf", "power": "4", "toughness": "5"}],
+            game_state={
+                "turn": 1,
+                "phase": "COMBAT",
+                "players": [
+                    {"name": "Alice", "life": 20, "hand": [], "battlefield": []},
+                    {"name": "Bob", "life": 18, "battlefield": []},
+                ],
+                "combat": [
+                    {
+                        "attackers": [{"name": "Ragavan, Nimble Pilferer"}],
+                        "blockers": [],
+                        "blocked": False,
+                        "defending": "Bob",
+                    }
+                ],
+            },
+        )
+        names = _card_names_in_decision(d)
+        assert "Goblin Guide" in names
+        assert "Wall of Omens" in names
+        assert "Monastery Swiftspear" in names
+        assert "Tarmogoyf" in names
+        assert "Ragavan, Nimble Pilferer" in names
+
 
 class TestCardReferenceForDecision:
     def test_builds_reference(self) -> None:
@@ -464,6 +500,81 @@ class TestCollectCardNames:
         game["snapshots"][0]["players"][0]["battlefield"] = [{"name": "Otter Token"}]
         names = _collect_card_names(game)
         assert "Otter Token" not in names
+
+    def test_collects_from_snapshot_combat(self) -> None:
+        game = _make_game()
+        game["snapshots"][0]["combat"] = [
+            {
+                "attackers": [{"name": "Goblin Guide", "power": "2", "toughness": "2"}],
+                "blockers": [{"name": "Wall of Omens", "power": "0", "toughness": "4"}],
+                "blocked": True,
+                "defending": "Bob",
+            }
+        ]
+        names = _collect_card_names(game)
+        assert "Goblin Guide" in names
+        assert "Wall of Omens" in names
+
+    def test_collects_from_llm_event_combat(self) -> None:
+        game = _make_game()
+        game["llmEvents"] = [
+            {
+                "tool": "get_action_choices",
+                "result": json.dumps(
+                    {
+                        "action_pending": True,
+                        "choices": [],
+                        "combat": [
+                            {
+                                "attackers": [{"name": "Ragavan, Nimble Pilferer"}],
+                                "blockers": [],
+                            }
+                        ],
+                        "incoming_attackers": [{"name": "Tarmogoyf"}],
+                    }
+                ),
+            }
+        ]
+        names = _collect_card_names(game)
+        assert "Ragavan, Nimble Pilferer" in names
+        assert "Tarmogoyf" in names
+
+
+class TestFormatDecisionsCombat:
+    def test_shows_combat_context(self) -> None:
+        d = _make_decision(
+            phase="COMBAT",
+            game_state={
+                "turn": 3,
+                "phase": "COMBAT",
+                "players": [
+                    {
+                        "name": "Alice",
+                        "life": 20,
+                        "hand": [],
+                        "battlefield": ["Mountain"],
+                    },
+                    {"name": "Bob", "life": 18, "battlefield": ["Wall of Omens"]},
+                ],
+                "combat": [
+                    {
+                        "attackers": [{"name": "Goblin Guide", "power": "2", "toughness": "2"}],
+                        "blockers": [{"name": "Wall of Omens", "power": "0", "toughness": "4"}],
+                        "blocked": True,
+                        "defending": "Bob",
+                    }
+                ],
+            },
+        )
+        result = _format_decisions([d])
+        assert "Combat:" in result
+        assert "Goblin Guide" in result
+        assert "blocked by Wall of Omens" in result
+
+    def test_shows_combat_phase(self) -> None:
+        d = _make_decision(combat_phase="declare_blockers")
+        result = _format_decisions([d])
+        assert "Combat Phase: declare_blockers" in result
 
 
 # --- Integration: main with mocked API ---

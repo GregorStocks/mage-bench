@@ -651,9 +651,26 @@ public class BridgeCallbackHandler {
                             item.put("owner", owner);
                         }
                     }
+                    if (card.getTargets() != null && !card.getTargets().isEmpty()) {
+                        var targets = new ArrayList<Map<String, Object>>();
+                        for (UUID targetId : card.getTargets()) {
+                            var t = new HashMap<String, Object>();
+                            t.put("id", shortIds.getOrAssign(targetId));
+                            t.put("name", describeTarget(targetId, null, lastGameView));
+                            targets.add(t);
+                        }
+                        item.put("targets", targets);
+                    }
                     stackSummary.add(item);
                 }
                 result.put("stack", stackSummary);
+            }
+
+            // Combat context — show attackers/blockers during any combat step
+            // so LLMs see the combat state when casting instants or activating abilities
+            List<Map<String, Object>> combatGroups = buildCombatGroups(gameView);
+            if (combatGroups != null) {
+                result.put("combat", combatGroups);
             }
         }
 
@@ -3098,7 +3115,14 @@ public class BridgeCallbackHandler {
                 stackItem.put("name", safeDisplayName(card));
                 stackItem.put("rules", stripHtmlList(card.getRules()));
                 if (card.getTargets() != null && !card.getTargets().isEmpty()) {
-                    stackItem.put("target_count", card.getTargets().size());
+                    var targets = new ArrayList<Map<String, Object>>();
+                    for (UUID targetId : card.getTargets()) {
+                        var t = new HashMap<String, Object>();
+                        t.put("id", shortIds.getOrAssign(targetId));
+                        t.put("name", describeTarget(targetId, null, lastGameView));
+                        targets.add(t);
+                    }
+                    stackItem.put("targets", targets);
                 }
                 if (card.getId() != null) {
                     String owner = castOwners.get(card.getId().toString());
@@ -3112,48 +3136,60 @@ public class BridgeCallbackHandler {
         state.put("stack", stack);
 
         // Combat
-        if (gameView.getCombat() != null && !gameView.getCombat().isEmpty()) {
-            var combatGroups = new ArrayList<Map<String, Object>>();
-            for (CombatGroupView group : gameView.getCombat()) {
-                var groupInfo = new HashMap<String, Object>();
-                var attackers = new ArrayList<Map<String, Object>>();
-                for (CardView attacker : group.getAttackers().values()) {
-                    var aInfo = new HashMap<String, Object>();
-                    if (attacker.getId() != null) {
-                        aInfo.put("id", shortIds.getOrAssign(attacker.getId()));
-                    }
-                    aInfo.put("name", safeDisplayName(attacker));
-                    if (attacker.getPower() != null) {
-                        aInfo.put("power", attacker.getPower());
-                        aInfo.put("toughness", attacker.getToughness());
-                    }
-                    attackers.add(aInfo);
-                }
-                groupInfo.put("attackers", attackers);
-                var blockers = new ArrayList<Map<String, Object>>();
-                for (CardView blocker : group.getBlockers().values()) {
-                    var bInfo = new HashMap<String, Object>();
-                    if (blocker.getId() != null) {
-                        bInfo.put("id", shortIds.getOrAssign(blocker.getId()));
-                    }
-                    bInfo.put("name", safeDisplayName(blocker));
-                    if (blocker.getPower() != null) {
-                        bInfo.put("power", blocker.getPower());
-                        bInfo.put("toughness", blocker.getToughness());
-                    }
-                    blockers.add(bInfo);
-                }
-                if (!blockers.isEmpty()) {
-                    groupInfo.put("blockers", blockers);
-                }
-                groupInfo.put("blocked", group.isBlocked());
-                groupInfo.put("defending", group.getDefenderName());
-                combatGroups.add(groupInfo);
-            }
+        List<Map<String, Object>> combatGroups = buildCombatGroups(gameView);
+        if (combatGroups != null) {
             state.put("combat", combatGroups);
         }
 
         return state;
+    }
+
+    /**
+     * Build combat group info from the game view. Returns null if no combat.
+     * Shared by getActionChoices() and getGameState().
+     */
+    private List<Map<String, Object>> buildCombatGroups(GameView gameView) {
+        if (gameView == null || gameView.getCombat() == null || gameView.getCombat().isEmpty()) {
+            return null;
+        }
+        var combatGroups = new ArrayList<Map<String, Object>>();
+        for (CombatGroupView group : gameView.getCombat()) {
+            var groupInfo = new HashMap<String, Object>();
+            var attackers = new ArrayList<Map<String, Object>>();
+            for (CardView attacker : group.getAttackers().values()) {
+                var aInfo = new HashMap<String, Object>();
+                if (attacker.getId() != null) {
+                    aInfo.put("id", shortIds.getOrAssign(attacker.getId()));
+                }
+                aInfo.put("name", safeDisplayName(attacker));
+                if (attacker.getPower() != null) {
+                    aInfo.put("power", attacker.getPower());
+                    aInfo.put("toughness", attacker.getToughness());
+                }
+                attackers.add(aInfo);
+            }
+            groupInfo.put("attackers", attackers);
+            var blockers = new ArrayList<Map<String, Object>>();
+            for (CardView blocker : group.getBlockers().values()) {
+                var bInfo = new HashMap<String, Object>();
+                if (blocker.getId() != null) {
+                    bInfo.put("id", shortIds.getOrAssign(blocker.getId()));
+                }
+                bInfo.put("name", safeDisplayName(blocker));
+                if (blocker.getPower() != null) {
+                    bInfo.put("power", blocker.getPower());
+                    bInfo.put("toughness", blocker.getToughness());
+                }
+                blockers.add(bInfo);
+            }
+            if (!blockers.isEmpty()) {
+                groupInfo.put("blockers", blockers);
+            }
+            groupInfo.put("blocked", group.isBlocked());
+            groupInfo.put("defending", group.getDefenderName());
+            combatGroups.add(groupInfo);
+        }
+        return combatGroups;
     }
 
     private long updateGameStateCursor(Map<String, Object> state) {
