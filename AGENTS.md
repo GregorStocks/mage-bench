@@ -219,14 +219,14 @@ make website
 
 **Never** run `npm install`, `npx astro dev`, or other npm/npx commands directly. `make website` does it all.
 
-The dev server runs at `http://localhost:4321/`. Key pages:
-- Home: `http://localhost:4321/`
-- Leaderboard: `http://localhost:4321/leaderboard`
-- Architecture: `http://localhost:4321/architecture`
-- MCP Tools: `http://localhost:4321/mcp-tools`
-- Games list: `http://localhost:4321/games`
-- Live viewer (mock): `http://localhost:4321/games/live?mock=1`
-- Game replay: `http://localhost:4321/games/{game_id}`
+Each worktree gets a unique port assigned by `worktree-setup.py` (written to `.env` as `WEBSITE_PORT`). Check your `.env` to find your port. Key pages (substitute your port):
+- Home: `http://localhost:$WEBSITE_PORT/`
+- Leaderboard: `http://localhost:$WEBSITE_PORT/leaderboard`
+- Games list: `http://localhost:$WEBSITE_PORT/games`
+- Live viewer (mock): `http://localhost:$WEBSITE_PORT/games/live?mock=1`
+- Game replay: `http://localhost:$WEBSITE_PORT/games/{game_id}`
+
+**Never use `pkill`, `killall`, or `lsof | kill` to stop dev servers.** Other Claudes are running their own dev servers on other ports in other worktrees. Killing by process name (`pkill -f astro`, `pkill -f node`) will take down everyone else's servers. To stop your dev server, kill the specific background task you started — don't carpet-bomb by process name.
 
 ## Screenshots
 

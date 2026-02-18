@@ -120,10 +120,11 @@ mcp-tools:
 run-client:
 	cd Mage.Client && mvn -q exec:java
 
-# Run the website dev server
+# Run the website dev server (port is set per-worktree in .env by worktree-setup.py)
+WEBSITE_PORT ?= 4321
 .PHONY: website
 website: leaderboard
-	cd website && npm install && npx astro dev
+	cd website && npm install && npx astro dev --port $(WEBSITE_PORT)
 
 # Export a game log for the website visualizer
 # Usage: make export-game GAME=game_20260208_220934
