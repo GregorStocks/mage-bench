@@ -1,4 +1,4 @@
-"""Golden prompt integration tests.
+"""Shared helpers for golden prompt integration tests.
 
 Runs real XMage games with scripted replay pilots, captures the exact
 messages array that would be sent to the LLM, and compares against golden files.
@@ -16,8 +16,6 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-
-import pytest
 
 from puppeteer.process_manager import kill_tree
 
@@ -269,7 +267,7 @@ def _to_sorted_json(obj: object) -> str:
     return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
 
 
-def _assert_golden_prompt(name: str, actual: list[dict]) -> None:
+def assert_golden_prompt(name: str, actual: list[dict]) -> None:
     """Compare prompt messages against golden file, or update in UPDATE_GOLDEN mode."""
     actual_json = _to_sorted_json(actual)
     golden_file = GOLDEN_DIR / f"{name}.json"
@@ -297,111 +295,3 @@ def _assert_golden_prompt(name: str, actual: list[dict]) -> None:
         raise AssertionError(
             f"Golden file mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
         )
-
-
-# ========== Test Cases ==========
-#
-# Each test runs a real XMage game with deterministic setup:
-# - skipInitShuffling: library order matches the .dck file
-# - Replay pilot: scripted MCP tool calls
-# - Potato opponent: auto-responds to everything
-#
-# The golden file captures the prompt the LLM would see at the
-# point where the scripted calls are exhausted.
-
-
-@pytest.mark.golden
-def test_initial_decision(xmage_server, tmp_path, project_root):
-    """Verify the prompt at the very first LLM decision point.
-
-    Script: pass_priority (to get the initial decision) then get_game_state.
-    The golden file captures the full messages array the LLM would receive
-    at this point — system prompt, initial user message, and two tool results.
-    """
-    server, port = xmage_server
-    prompt = run_golden_scenario(
-        server=server,
-        port=port,
-        project_root=project_root,
-        game_dir=tmp_path / "initial_decision",
-        deck_a=DECK_RED_STOMPY,
-        deck_b=DECK_GOBLINS,
-        script=[
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "get_game_state", "arguments": {}},
-        ],
-    )
-    _assert_golden_prompt("initial_decision", prompt)
-
-
-@pytest.mark.golden
-def test_bolt_on_stack(xmage_server, tmp_path, project_root):
-    """Lightning Bolt on the stack targeting the opponent.
-
-    Script: choose starting player, keep hand, play Taiga, cast Lightning
-    Bolt targeting Opponent, then get_game_state with Bolt still on stack.
-    """
-    server, port = xmage_server
-    prompt = run_golden_scenario(
-        server=server,
-        port=port,
-        project_root=project_root,
-        game_dir=tmp_path / "bolt_on_stack",
-        deck_a=DECK_BOLT_AND_BURN,
-        deck_b=DECK_FILLER,
-        script=[
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p3"}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 1}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p2"}},
-            {"name": "get_game_state", "arguments": {}},
-        ],
-    )
-    _assert_golden_prompt("bolt_on_stack", prompt)
-
-
-@pytest.mark.golden
-def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
-    """Clone enters as a copy of Memnite — verifies copy effect representation."""
-    server, port = xmage_server
-    prompt = run_golden_scenario(
-        server=server,
-        port=port,
-        project_root=project_root,
-        game_dir=tmp_path / "clone_copies_memnite",
-        deck_a=DECK_CLONE_AND_MEMNITE,
-        deck_b=DECK_FILLER,
-        script=[
-            # Choose TestPlayer as starting player and keep opening hand.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
-            # Play Island.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p3"}},
-            # Next turn: cast Black Lotus then Memnite.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p6"}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p8"}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
-            # Cast Clone, choose to copy, target Memnite, then capture state.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p10"}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": True}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "get_game_state", "arguments": {}},
-        ],
-    )
-    _assert_golden_prompt("clone_copies_memnite", prompt)
