@@ -32,6 +32,18 @@ public class ShortIdRegistry {
     }
 
     /**
+     * Get the numeric part of the short ID for a UUID, or Integer.MAX_VALUE if not yet assigned.
+     * Safe for use in comparators (no side effects).
+     */
+    public int getSequence(UUID uuid) {
+        String existing = uuidToShort.get(uuid);
+        if (existing == null) {
+            return Integer.MAX_VALUE;
+        }
+        return Integer.parseInt(existing.substring(1));
+    }
+
+    /**
      * Resolve a short ID back to its UUID.
      * @throws IllegalArgumentException if the short ID is not known
      */

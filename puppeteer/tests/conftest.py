@@ -51,7 +51,6 @@ def xmage_server(project_root, tmp_path_factory):
     jvm_opts = " ".join(
         [
             "--add-opens=java.base/java.io=ALL-UNNAMED",
-            "--add-opens=java.base/java.util=ALL-UNNAMED",
             "-Djava.awt.headless=true",
         ]
     )
@@ -66,7 +65,6 @@ def xmage_server(project_root, tmp_path_factory):
             "XMAGE_AI_PUPPETEER_SERVER": "localhost",
             "XMAGE_AI_PUPPETEER_PORT": str(port),
             "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
-            "DETERMINISTIC_UUID_SEED": "42",
             "MAVEN_OPTS": f"{jvm_opts} -Dxmage.config.path={config_path}",
         }
     )
