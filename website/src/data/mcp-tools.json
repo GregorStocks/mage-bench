@@ -119,11 +119,6 @@
           "description": "XMage callback method name",
           "type": "string"
         },
-        "players": {
-          "conditional": "action_pending",
-          "description": "Life total summary (e.g. \"You(20), Opp(18)\")",
-          "type": "string"
-        },
         "stop_reason": {
           "description": "Why the call returned: playable_cards, combat, non_priority_action, game_over, reached_step (target step reached), step_not_reached (turn ended without reaching step)",
           "type": "string"
@@ -142,11 +137,6 @@
           "conditional": "action_pending",
           "description": "Human-readable prompt from XMage",
           "type": "string"
-        },
-        "mana_pool": {
-          "conditional": "action_pending",
-          "description": "Current mana pool {R, G, U, W, B, C}",
-          "type": "object"
         },
         "action_pending": {
           "description": "Whether a decision-requiring action was found",
@@ -192,6 +182,14 @@
             "type": "object"
           }
         },
+        "board": {
+          "conditional": "action_pending",
+          "description": "Full board state — same format as get_game_state players array",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
         "current_step": {
           "description": "Current game step (only for reached_step/step_not_reached)",
           "type": "string"
@@ -201,15 +199,15 @@
     "examples": [
       {
         "label": "Playable cards found",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 3,\n  \"has_playable_cards\": true,\n  \"stop_reason\": \"playable_cards\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"players\": \"You(20), Opp(18)\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 3,\n  \"has_playable_cards\": true,\n  \"stop_reason\": \"playable_cards\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 20,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 18,\n      \"is_you\": false\n    }\n  ],\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
       },
       {
         "label": "Combat phase",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 5,\n  \"has_playable_cards\": false,\n  \"combat_phase\": \"declare_attackers\",\n  \"stop_reason\": \"combat\",\n  \"response_type\": \"select\",\n  \"context\": \"T4 COMBAT (Player1) YOUR_COMBAT\",\n  \"players\": \"You(18), Opp(15)\"\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 5,\n  \"has_playable_cards\": false,\n  \"combat_phase\": \"declare_attackers\",\n  \"stop_reason\": \"combat\",\n  \"response_type\": \"select\",\n  \"context\": \"T4 COMBAT (Player1) YOUR_COMBAT\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 18,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 15,\n      \"is_you\": false\n    }\n  ]\n}"
       },
       {
         "label": "Non-priority action (mulligan)",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"actions_passed\": 0,\n  \"stop_reason\": \"non_priority_action\",\n  \"response_type\": \"boolean\",\n  \"message\": \"Mulligan hand?\",\n  \"context\": \"T0 PREGAME\",\n  \"players\": \"You(20), Opp(20)\",\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\"\n    }\n  ]\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"actions_passed\": 0,\n  \"stop_reason\": \"non_priority_action\",\n  \"response_type\": \"boolean\",\n  \"message\": \"Mulligan hand?\",\n  \"context\": \"T0 PREGAME\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 20,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 20,\n      \"is_you\": false\n    }\n  ],\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\"\n    }\n  ]\n}"
       }
     ],
     "inputSchema": {
@@ -448,10 +446,6 @@
           "description": "XMage callback method name",
           "type": "string"
         },
-        "players": {
-          "description": "Life total summary (e.g. \"You(20), Opp(18)\")",
-          "type": "string"
-        },
         "min_amount": {
           "description": "Minimum allowed value",
           "type": "integer"
@@ -478,10 +472,6 @@
         "message": {
           "description": "Human-readable prompt from XMage",
           "type": "string"
-        },
-        "mana_pool": {
-          "description": "Current mana pool {R, G, U, W, B, C}",
-          "type": "object"
         },
         "action_pending": {
           "description": "Whether an action is pending (false if nothing to do)",
@@ -523,21 +513,28 @@
           "items": {
             "type": "object"
           }
+        },
+        "board": {
+          "description": "Full board state — same format as get_game_state players array: life, library_size, hand (yours only with rules), battlefield (name, tapped, P/T, rules, counters), graveyard (name, rules), exile (name, rules), mana_pool, counters, commanders",
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
         }
       }
     },
     "examples": [
       {
         "label": "Select (play cards)",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"message\": \"Select card to play or pass priority\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"players\": \"You(20), Opp(18)\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"message\": \"Select card to play or pass priority\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"board\": [\n    {\n      \"name\": \"Player1\",\n      \"life\": 20,\n      \"is_you\": true,\n      \"is_active\": true,\n      \"library_size\": 49,\n      \"hand_size\": 5,\n      \"hand\": [\n        {\n          \"name\": \"Lightning Bolt\",\n          \"mana_cost\": \"{R}\",\n          \"rules\": [\n            \"Lightning Bolt deals 3 damage to any target.\"\n          ],\n          \"playable\": true\n        },\n        {\n          \"name\": \"Mountain\",\n          \"is_land\": true,\n          \"rules\": [\n            \"{T}: Add {R}.\"\n          ],\n          \"playable\": true\n        }\n      ],\n      \"battlefield\": [\n        {\n          \"name\": \"Mountain\",\n          \"tapped\": false,\n          \"rules\": [\n            \"{T}: Add {R}.\"\n          ],\n          \"id\": \"p1\"\n        },\n        {\n          \"name\": \"Goblin Guide\",\n          \"tapped\": false,\n          \"power\": 2,\n          \"toughness\": 2,\n          \"rules\": [\n            \"Haste\",\n            \"Whenever Goblin Guide attacks, defending player reveals the top card of their library. If it's a land card, that player puts it into their hand.\"\n          ],\n          \"id\": \"p2\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Player2\",\n      \"life\": 20,\n      \"is_you\": false,\n      \"is_active\": false,\n      \"library_size\": 52,\n      \"hand_size\": 7,\n      \"battlefield\": [\n        {\n          \"name\": \"Island\",\n          \"tapped\": false,\n          \"rules\": [\n            \"{T}: Add {U}.\"\n          ],\n          \"id\": \"p3\"\n        }\n      ]\n    }\n  ],\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
       },
       {
         "label": "Select (respond to opponent's spell)",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"message\": \"Play instants and activated abilities\",\n  \"response_type\": \"select\",\n  \"context\": \"T4 PRECOMBAT_MAIN (Opponent)\",\n  \"players\": \"You(18), Opponent(20)\",\n  \"stack\": [\n    {\n      \"name\": \"Sheoldred's Edict\",\n      \"owner\": \"Opponent\"\n    }\n  ],\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Counterspell\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{U}{U}\"\n    }\n  ],\n  \"untapped_lands\": 3\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"message\": \"Play instants and activated abilities\",\n  \"response_type\": \"select\",\n  \"context\": \"T4 PRECOMBAT_MAIN (Opponent)\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 18,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opponent\",\n      \"life\": 20,\n      \"is_you\": false\n    }\n  ],\n  \"stack\": [\n    {\n      \"name\": \"Sheoldred's Edict\",\n      \"owner\": \"Opponent\"\n    }\n  ],\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Counterspell\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{U}{U}\"\n    }\n  ],\n  \"untapped_lands\": 3\n}"
       },
       {
         "label": "Boolean (mulligan)",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"message\": \"Mulligan hand?\",\n  \"response_type\": \"boolean\",\n  \"context\": \"T0 PREGAME\",\n  \"players\": \"You(20), Opp(20)\",\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\",\n      \"rules\": [\n        \"Lightning Bolt deals 3 damage to any target.\"\n      ]\n    }\n  ]\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"message\": \"Mulligan hand?\",\n  \"response_type\": \"boolean\",\n  \"context\": \"T0 PREGAME\",\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\",\n      \"rules\": [\n        \"Lightning Bolt deals 3 damage to any target.\"\n      ]\n    }\n  ]\n}"
       }
     ],
     "inputSchema": {
@@ -564,7 +561,7 @@
       }
     },
     "name": "get_action_choices",
-    "description": "Get available choices for the current pending action. Call before choose_action. With until: blocks like pass_priority until a decision is needed, then returns choices in one call. Without until: returns immediately (action_pending=false if nothing to do). Includes context (phase/turn), players (life totals), stack (when non-empty), and land_drops_used (during your main phase). response_type: select (cards to play, attackers, blockers), boolean (yes/no), index (target/ability), amount, pile, or multi_amount. During combat: combat_phase indicates declare_attackers or declare_blockers; combat shows all combat groups (attackers, blockers, blocked status) during any combat step."
+    "description": "Get available choices for the current pending action. Call before choose_action. With until: blocks like pass_priority until a decision is needed, then returns choices in one call. Without until: returns immediately (action_pending=false if nothing to do). Includes context (phase/turn), full board state, stack (when non-empty), and land_drops_used (during your main phase). response_type: select (cards to play, attackers, blockers), boolean (yes/no), index (target/ability), amount, pile, or multi_amount. During combat: combat_phase indicates declare_attackers or declare_blockers; combat shows all combat groups (attackers, blockers, blocked status) during any combat step."
   },
   {
     "outputSchema": {

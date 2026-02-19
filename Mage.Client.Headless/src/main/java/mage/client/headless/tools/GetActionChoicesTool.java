@@ -15,7 +15,7 @@ public class GetActionChoicesTool {
             + "With until: blocks like pass_priority until a decision is needed, "
             + "then returns choices in one call. "
             + "Without until: returns immediately (action_pending=false if nothing to do). "
-            + "Includes context (phase/turn), players (life totals), stack (when non-empty), and land_drops_used (during your main phase). "
+            + "Includes context (phase/turn), full board state, stack (when non-empty), and land_drops_used (during your main phase). "
             + "response_type: select (cards to play, attackers, blockers), boolean (yes/no), "
             + "index (target/ability), amount, pile, or multi_amount. "
             + "During combat: combat_phase indicates declare_attackers or declare_blockers; "
@@ -27,12 +27,11 @@ public class GetActionChoicesTool {
             @Tool.Field(name = "response_type", type = "string", description = "How to respond: \"select\", \"boolean\", \"index\", \"amount\", \"pile\", or \"multi_amount\""),
             @Tool.Field(name = "respond_with", type = "string", description = "Exact choose_action parameter(s) to use for this action type"),
             @Tool.Field(name = "context", type = "string", description = "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")"),
-            @Tool.Field(name = "players", type = "string", description = "Life total summary (e.g. \"You(20), Opp(18)\")"),
+            @Tool.Field(name = "board", type = "array[object]", description = "Full board state — same format as get_game_state players array: life, library_size, hand (yours only with rules), battlefield (name, tapped, P/T, rules, counters), graveyard (name, rules), exile (name, rules), mana_pool, counters, commanders"),
             @Tool.Field(name = "choices", type = "array[object]", description = "Structured choices with index, name, and type-specific fields (action/mana_cost/power/toughness for cards; choice_type for combat/mana; target_type/controller/tapped for targets)"),
             @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards during mulligan: name, mana_cost, is_land, power/toughness, rules"),
             @Tool.Field(name = "combat_phase", type = "string", description = "\"declare_attackers\" or \"declare_blockers\""),
             @Tool.Field(name = "combat", type = "array[object]", description = "Combat groups during any combat step: attackers (name/id/power/toughness), blockers, blocked boolean, defending player"),
-            @Tool.Field(name = "mana_pool", type = "object", description = "Current mana pool {R, G, U, W, B, C}"),
             @Tool.Field(name = "stack", type = "array[object]", description = "Spells/abilities currently on the stack: name, owner, targets (only present when stack is non-empty)"),
             @Tool.Field(name = "untapped_lands", type = "integer", description = "Number of untapped lands"),
             @Tool.Field(name = "min_amount", type = "integer", description = "Minimum allowed value"),
@@ -69,7 +68,19 @@ public class GetActionChoicesTool {
                 "message", "Select card to play or pass priority",
                 "response_type", "select",
                 "context", "T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
-                "players", "You(20), Opp(18)",
+                "board", List.of(
+                    json("name", "Player1", "life", 20, "is_you", true, "is_active", true,
+                        "library_size", 49, "hand_size", 5,
+                        "hand", List.of(
+                            json("name", "Lightning Bolt", "mana_cost", "{R}", "rules", List.of("Lightning Bolt deals 3 damage to any target."), "playable", true),
+                            json("name", "Mountain", "is_land", true, "rules", List.of("{T}: Add {R}."), "playable", true)),
+                        "battlefield", List.of(
+                            json("name", "Mountain", "tapped", false, "rules", List.of("{T}: Add {R}."), "id", "p1"),
+                            json("name", "Goblin Guide", "tapped", false, "power", 2, "toughness", 2, "rules", List.of("Haste", "Whenever Goblin Guide attacks, defending player reveals the top card of their library. If it's a land card, that player puts it into their hand."), "id", "p2"))),
+                    json("name", "Player2", "life", 20, "is_you", false, "is_active", false,
+                        "library_size", 52, "hand_size", 7,
+                        "battlefield", List.of(
+                            json("name", "Island", "tapped", false, "rules", List.of("{T}: Add {U}."), "id", "p3")))),
                 "choices", List.of(
                     json("index", 0, "name", "Lightning Bolt", "action", "cast", "mana_cost", "{R}"),
                     json("index", 1, "name", "Mountain", "action", "land")),
@@ -80,7 +91,9 @@ public class GetActionChoicesTool {
                 "message", "Play instants and activated abilities",
                 "response_type", "select",
                 "context", "T4 PRECOMBAT_MAIN (Opponent)",
-                "players", "You(18), Opponent(20)",
+                "board", List.of(
+                    json("name", "You", "life", 18, "is_you", true),
+                    json("name", "Opponent", "life", 20, "is_you", false)),
                 "stack", List.of(json("name", "Sheoldred's Edict", "owner", "Opponent")),
                 "choices", List.of(
                     json("index", 0, "name", "Counterspell", "action", "cast", "mana_cost", "{U}{U}")),
@@ -91,7 +104,6 @@ public class GetActionChoicesTool {
                 "message", "Mulligan hand?",
                 "response_type", "boolean",
                 "context", "T0 PREGAME",
-                "players", "You(20), Opp(20)",
                 "your_hand", List.of(
                     json("name", "Mountain", "is_land", true),
                     json("name", "Lightning Bolt", "mana_cost", "{R}", "rules", List.of("Lightning Bolt deals 3 damage to any target."))))));

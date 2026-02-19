@@ -43,14 +43,13 @@ public class PassPriorityTool {
             @Tool.Field(name = "context", type = "string",
                 description = "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")",
                 conditional = "action_pending"),
-            @Tool.Field(name = "players", type = "string", description = "Life total summary (e.g. \"You(20), Opp(18)\")",
+            @Tool.Field(name = "board", type = "array[object]",
+                description = "Full board state — same format as get_game_state players array",
                 conditional = "action_pending"),
             @Tool.Field(name = "choices", type = "array[object]",
                 description = "Structured choices with index, name, and type-specific fields",
                 conditional = "action_pending"),
             @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards with name, mana_cost",
-                conditional = "action_pending"),
-            @Tool.Field(name = "mana_pool", type = "object", description = "Current mana pool {R, G, U, W, B, C}",
                 conditional = "action_pending"),
             @Tool.Field(name = "untapped_lands", type = "integer", description = "Number of untapped lands",
                 conditional = "action_pending")
@@ -87,7 +86,7 @@ public class PassPriorityTool {
                 "stop_reason", "playable_cards",
                 "response_type", "select",
                 "context", "T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
-                "players", "You(20), Opp(18)",
+                "board", List.of(json("name", "You", "life", 20, "is_you", true), json("name", "Opp", "life", 18, "is_you", false)),
                 "choices", List.of(
                     json("index", 0, "name", "Lightning Bolt", "action", "cast", "mana_cost", "{R}"),
                     json("index", 1, "name", "Mountain", "action", "land")),
@@ -101,7 +100,7 @@ public class PassPriorityTool {
                 "stop_reason", "combat",
                 "response_type", "select",
                 "context", "T4 COMBAT (Player1) YOUR_COMBAT",
-                "players", "You(18), Opp(15)")),
+                "board", List.of(json("name", "You", "life", 18, "is_you", true), json("name", "Opp", "life", 15, "is_you", false)))),
             example("Non-priority action (mulligan)", json(
                 "action_pending", true,
                 "action_type", "GAME_ASK",
@@ -110,7 +109,7 @@ public class PassPriorityTool {
                 "response_type", "boolean",
                 "message", "Mulligan hand?",
                 "context", "T0 PREGAME",
-                "players", "You(20), Opp(20)",
+                "board", List.of(json("name", "You", "life", 20, "is_you", true), json("name", "Opp", "life", 20, "is_you", false)),
                 "your_hand", List.of(
                     json("name", "Mountain", "is_land", true),
                     json("name", "Lightning Bolt", "mana_cost", "{R}")))));
