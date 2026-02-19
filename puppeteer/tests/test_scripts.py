@@ -109,6 +109,21 @@ class TestClaimIssue:
         with patch.object(sys, "argv", ["claim-issue.py"]), pytest.raises(SystemExit, match="2"):
             claim_issue.main()
 
+    def test_master_branch_exits_2(self, tmp_path: Path) -> None:
+        issues_dir = tmp_path
+        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+
+        branch_result = MagicMock()
+        branch_result.stdout = "master\n"
+
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(claim_issue, "run", return_value=branch_result),
+            pytest.raises(SystemExit, match="2"),
+        ):
+            claim_issue.main()
+
 
 # ===========================================================================
 # worktree-setup

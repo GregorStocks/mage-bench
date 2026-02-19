@@ -61,10 +61,15 @@ def get_claimed() -> set[str]:
 
 
 def claim(issue_stem: str) -> bool:
-    """Attempt to claim an issue. Returns True on success."""
+    """Attempt to claim an issue. Returns True on success, False on race loss.
+
+    Raises SystemExit on bad input (exit code 2) — no point retrying.
+    """
     result = subprocess.run(
         ["uv", "run", "python", "scripts/claim-issue.py", issue_stem],
     )
+    if result.returncode == 2:
+        sys.exit(2)
     return result.returncode == 0
 
 

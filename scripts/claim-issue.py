@@ -62,6 +62,12 @@ def main() -> None:
     title = data["title"]
 
     branch = run(["git", "branch", "--show-current"]).stdout.strip()
+    if branch == "master":
+        print(
+            "Error: can't claim an issue from master — switch to a feature branch first",
+            file=sys.stderr,
+        )
+        sys.exit(2)
 
     # Ensure at least one commit ahead of master so the PR can be created
     log_result = run(["git", "log", "origin/master..HEAD", "--oneline"])
