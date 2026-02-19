@@ -17,6 +17,8 @@ import sys
 import time
 from pathlib import Path
 
+import pytest
+
 from puppeteer.process_manager import kill_tree
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -308,6 +310,7 @@ def _assert_golden_prompt(name: str, actual: list[dict]) -> None:
 # point where the scripted calls are exhausted.
 
 
+@pytest.mark.golden
 def test_initial_decision(xmage_server, tmp_path, project_root):
     """Verify the prompt at the very first LLM decision point.
 
@@ -331,6 +334,7 @@ def test_initial_decision(xmage_server, tmp_path, project_root):
     _assert_golden_prompt("initial_decision", prompt)
 
 
+@pytest.mark.golden
 def test_bolt_on_stack(xmage_server, tmp_path, project_root):
     """Lightning Bolt on the stack targeting the opponent.
 
@@ -362,6 +366,7 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root):
     _assert_golden_prompt("bolt_on_stack", prompt)
 
 
+@pytest.mark.golden
 def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
     """Clone enters as a copy of Memnite — verifies copy effect representation."""
     server, port = xmage_server
