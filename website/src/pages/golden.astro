@@ -2,18 +2,82 @@
 import Base from '../layouts/Base.astro';
 import fs from 'node:fs';
 import path from 'node:path';
-import zlib from 'node:zlib';
 
-// Read all golden .json.gz files
-const goldenDir = path.join(process.cwd(), 'public', 'golden');
+// Read golden prompt fixtures (conversation-format JSON arrays)
+const fixturesDir = path.resolve(process.cwd(), '..', 'puppeteer', 'tests', 'golden', 'prompts');
 const scenarios: Array<{name: string, data: Record<string, unknown>}> = [];
-if (fs.existsSync(goldenDir)) {
-  for (const file of fs.readdirSync(goldenDir).sort()) {
-    if (!file.endsWith('.json.gz')) continue;
-    const compressed = fs.readFileSync(path.join(goldenDir, file));
-    const data = JSON.parse(zlib.gunzipSync(compressed).toString());
-    const name = file.replace('golden_', '').replace('.json.gz', '');
-    scenarios.push({ name, data });
+if (fs.existsSync(fixturesDir)) {
+  for (const file of fs.readdirSync(fixturesDir).sort()) {
+    if (!file.endsWith('.json')) continue;
+    const messages = JSON.parse(fs.readFileSync(path.join(fixturesDir, file), 'utf-8'));
+
+    // Find the tool call name for each tool_call_id
+    const toolCallNames: Record<string, string> = {};
+    for (const msg of messages) {
+      if (msg.role === 'assistant' && msg.tool_calls) {
+        for (const tc of msg.tool_calls) {
+          toolCallNames[tc.id] = tc.function.name;
+        }
+      }
+    }
+
+    // Extract the last get_game_state result and last pass_priority result
+    let gameState = null;
+    let passPriority = null;
+    for (const msg of messages) {
+      if (msg.role !== 'tool') continue;
+      const callName = toolCallNames[msg.tool_call_id];
+      const parsed = JSON.parse(msg.content);
+      if (callName === 'get_game_state') gameState = parsed;
+      if (callName === 'pass_priority') passPriority = parsed;
+    }
+
+    if (!gameState) continue;
+
+    // Build the format golden.astro's JS expects
+    const gs = gameState;
+    const snapshotPlayers = (gs.players || []).map((p: any) => ({
+      name: p.name,
+      life: p.life,
+      library_count: p.library_size,
+      hand_count: p.hand_size ?? (p.hand || []).length,
+      battlefield: p.battlefield || [],
+      hand: p.hand || [],
+      graveyard: p.graveyard || [],
+      exile: p.exile || [],
+      commanders: p.commanders || [],
+    }));
+
+    // Normalize stack targets from objects to name strings for the renderer
+    const stack = (gs.stack || []).map((item: any) => ({
+      ...item,
+      targets: (item.targets || []).map((t: any) =>
+        typeof t === 'string' ? t : t.name
+      ),
+    }));
+
+    const snapshot = {
+      turn: gs.turn,
+      phase: gs.phase,
+      step: gs.step,
+      active_player: gs.active_player,
+      priority_player: gs.priority_player,
+      stack,
+      players: snapshotPlayers,
+    };
+
+    const name = file.replace('.json', '');
+    scenarios.push({
+      name,
+      data: {
+        snapshots: [snapshot],
+        cardImages: {},
+        goldenFixture: {
+          mcp_game_state: gs,
+          mcp_pass_priority: passPriority,
+        },
+      },
+    });
   }
 }
 ---
@@ -22,7 +86,7 @@ if (fs.existsSync(goldenDir)) {
   <h1>Golden Test Scenarios</h1>
   <p class="subtitle">Board states from golden prompt tests. These show exactly what the LLM sees via MCP tools.</p>
 
-  {scenarios.length === 0 && <p>No golden scenarios found. Run <code>make update-golden</code> first.</p>}
+  {scenarios.length === 0 && <p>No golden scenarios found. Run <code>make test-golden</code> to generate fixtures.</p>}
 
   {scenarios.map(s => (
     <section class="scenario" data-scenario={JSON.stringify(s.data)}>
@@ -30,6 +94,10 @@ if (fs.existsSync(goldenDir)) {
       <div class="scenario-columns">
         <div class="board-column">
           <h3>Board State</h3>
+          <div class="stack-section hidden">
+            <div class="section-title">Stack</div>
+            <div class="stack-cards cards-row"></div>
+          </div>
           <div class="board-render">
             <div class="players-grid"></div>
           </div>
@@ -92,6 +160,13 @@ if (fs.existsSync(goldenDir)) {
         previewEls: previewEls,
         priorityPlayerName: snapshot.priority_player,
       });
+
+      // Render stack
+      var stackSection = section.querySelector(".stack-section");
+      var stackCards = section.querySelector(".stack-cards");
+      if (snapshot.stack && snapshot.stack.length > 0) {
+        R.renderStack(stackSection, stackCards, snapshot.stack, data.cardImages || {}, previewEls);
+      }
 
       R.setupMousePreview(previewContainer);
     }
