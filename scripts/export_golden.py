@@ -39,17 +39,12 @@ def _fixture_to_game_export(name: str, fixture: dict) -> dict:
             "life": p.get("life"),
             "library_count": p.get("library_size"),
             "hand_count": p.get("hand_size", len(p.get("hand", []))),
+            "battlefield": p.get("battlefield", []),
+            "hand": p.get("hand", []),
+            "graveyard": p.get("graveyard", []),
+            "exile": p.get("exile", []),
+            "commanders": p.get("commanders", []),
         }
-        if p.get("battlefield"):
-            sp["battlefield"] = p["battlefield"]
-        if p.get("hand"):
-            sp["hand"] = p["hand"]
-        if p.get("graveyard"):
-            sp["graveyard"] = p["graveyard"]
-        if p.get("exile"):
-            sp["exile"] = p["exile"]
-        if p.get("commanders"):
-            sp["commanders"] = p["commanders"]
         snapshot_players.append(sp)
 
         export_players.append(
