@@ -123,11 +123,11 @@ public class StreamingMain {
                 streamingFrame.setFocusableWindowState(false);
                 streamingFrame.setAutoRequestFocus(false);
                 if (Boolean.getBoolean("xmage.streaming.noWindow")) {
-                    // Keep the frame off-screen so Swing layout still works
-                    // but no window appears (used by golden tests).
-                    // UTILITY type tells the window manager not to show a
-                    // taskbar entry; the off-screen location hides the actual
-                    // window.
+                    // Hide the window entirely (used by golden tests).
+                    // UTILITY type = no taskbar entry; off-screen = not visible.
+                    // setType requires the window to not be displayable, so
+                    // dispose first (releases native peers), then re-show.
+                    streamingFrame.dispose();
                     streamingFrame.setType(Window.Type.UTILITY);
                     streamingFrame.setLocation(-10000, -10000);
                 }
