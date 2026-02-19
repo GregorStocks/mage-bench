@@ -26,14 +26,18 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root):
         deck_a=DECK_BOLT_AND_BURN,
         deck_b=DECK_FILLER,
         script=[
+            # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"answer": False}},
+            # Play Taiga (alphabetical: Badlands=p3, Mountain=p4, Plateau=p5, Scrubland=p6, Taiga=p7).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p3"}},
+            {"name": "choose_action", "arguments": {"id": "p7"}},
+            # Cast Lightning Bolt (alphabetical: Lightning Bolt=p8 index 0, Shock=p9 index 1).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 1}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Target Opponent.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"id": "p2"}},
             {"name": "get_game_state", "arguments": {}},
