@@ -64,7 +64,7 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_ASK\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"boolean\",\"respond_with\":\"answer\\u003dtrue or answer\\u003dfalse\",\"message\":\"Mulligan down to 6 cards?\",\"your_hand\":[{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"mana_cost\":\"{0}\",\"name\":\"Black Lotus\",\"rules\":[\"{T}, Sacrifice {this}: Add three mana of any one color.\"]},{\"mana_cost\":\"{3}{U}\",\"name\":\"Clone\",\"rules\":[\"You may have {this} enter as a copy of any creature on the battlefield.\"],\"power\":\"0\",\"toughness\":\"0\"},{\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"}],\"action_pending\":true}",
+    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_ASK\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"boolean\",\"respond_with\":\"answer\\u003dtrue or answer\\u003dfalse\",\"message\":\"Mulligan down to 6 cards?\",\"your_hand\":[{\"mana_cost\":\"{0}\",\"name\":\"Black Lotus\",\"rules\":[\"{T}, Sacrifice {this}: Add three mana of any one color.\"]},{\"mana_cost\":\"{3}{U}\",\"name\":\"Clone\",\"rules\":[\"You may have {this} enter as a copy of any creature on the battlefield.\"],\"power\":\"0\",\"toughness\":\"0\"},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"}],\"action_pending\":true}",
     "role": "tool",
     "tool_call_id": "call_3"
   },
@@ -102,7 +102,7 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":2,\"land_drops_used\":0,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play spells and abilities\",\"choices\":[{\"name\":\"Island\",\"index\":0,\"action\":\"land\",\"id\":\"p3\"},{\"name\":\"Island\",\"index\":1,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Island\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"mana_cost\":\"{0}\",\"name\":\"Black Lotus\",\"index\":3,\"action\":\"cast\",\"id\":\"p6\"},{\"name\":\"Island\",\"index\":4,\"action\":\"land\",\"id\":\"p7\"},{\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"index\":5,\"action\":\"cast\",\"id\":\"p8\",\"power\":\"1\",\"toughness\":\"1\"}],\"action_pending\":true}",
+    "content": "{\"actions_passed\":2,\"land_drops_used\":0,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play spells and abilities\",\"choices\":[{\"mana_cost\":\"{0}\",\"name\":\"Black Lotus\",\"index\":0,\"action\":\"cast\",\"id\":\"p3\"},{\"name\":\"Island\",\"index\":1,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Island\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Island\",\"index\":3,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Island\",\"index\":4,\"action\":\"land\",\"id\":\"p7\"},{\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"index\":5,\"action\":\"cast\",\"id\":\"p8\",\"power\":\"1\",\"toughness\":\"1\"}],\"action_pending\":true}",
     "role": "tool",
     "tool_call_id": "call_5"
   },
@@ -112,7 +112,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p3\"}",
+          "arguments": "{\"id\": \"p4\"}",
           "name": "choose_action"
         },
         "id": "call_6",
@@ -121,7 +121,7 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
+    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_1\"}",
     "role": "tool",
     "tool_call_id": "call_6"
   },
@@ -140,7 +140,7 @@
     ]
   },
   {
-    "content": "{\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":4,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Island\",\"index\":0,\"action\":\"land\",\"id\":\"p9\"},{\"name\":\"Island\",\"index\":1,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Island\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"mana_cost\":\"{0}\",\"name\":\"Black Lotus\",\"index\":3,\"action\":\"cast\",\"id\":\"p6\"},{\"name\":\"Island\",\"index\":4,\"action\":\"land\",\"id\":\"p7\"},{\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"index\":5,\"action\":\"cast\",\"id\":\"p8\",\"power\":\"1\",\"toughness\":\"1\"}]}",
+    "content": "{\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":4,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"mana_cost\":\"{0}\",\"name\":\"Black Lotus\",\"index\":0,\"action\":\"cast\",\"id\":\"p3\"},{\"name\":\"Island\",\"index\":1,\"action\":\"land\",\"id\":\"p9\"},{\"name\":\"Island\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Island\",\"index\":3,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Island\",\"index\":4,\"action\":\"land\",\"id\":\"p7\"},{\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"index\":5,\"action\":\"cast\",\"id\":\"p8\",\"power\":\"1\",\"toughness\":\"1\"}]}",
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -150,7 +150,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p6\"}",
+          "arguments": "{\"id\": \"p3\"}",
           "name": "choose_action"
         },
         "id": "call_8",
@@ -159,7 +159,7 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_CHOOSE_ABILITY\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_3\"}",
+    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_CHOOSE_ABILITY\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -216,7 +216,7 @@
     ]
   },
   {
-    "content": "{\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":1,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Island\",\"index\":0,\"action\":\"land\",\"id\":\"p9\"},{\"name\":\"Island\",\"index\":1,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Island\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Island\",\"index\":3,\"action\":\"land\",\"id\":\"p7\"},{\"mana_cost\":\"{3}{U}\",\"name\":\"Clone\",\"index\":4,\"action\":\"cast\",\"id\":\"p10\",\"power\":\"0\",\"toughness\":\"0\"},{\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"index\":5,\"action\":\"cast\",\"id\":\"p8\",\"power\":\"1\",\"toughness\":\"1\"}]}",
+    "content": "{\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":1,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"mana_cost\":\"{3}{U}\",\"name\":\"Clone\",\"index\":0,\"action\":\"cast\",\"id\":\"p10\",\"power\":\"0\",\"toughness\":\"0\"},{\"name\":\"Island\",\"index\":1,\"action\":\"land\",\"id\":\"p9\"},{\"name\":\"Island\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Island\",\"index\":3,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Island\",\"index\":4,\"action\":\"land\",\"id\":\"p7\"},{\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"index\":5,\"action\":\"cast\",\"id\":\"p8\",\"power\":\"1\",\"toughness\":\"1\"}]}",
     "role": "tool",
     "tool_call_id": "call_11"
   },
@@ -292,7 +292,7 @@
     ]
   },
   {
-    "content": "{\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":1,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Island\",\"index\":0,\"action\":\"land\",\"id\":\"p9\"},{\"name\":\"Island\",\"index\":1,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Island\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Island\",\"index\":3,\"action\":\"land\",\"id\":\"p7\"},{\"mana_cost\":\"{3}{U}\",\"name\":\"Clone\",\"index\":4,\"action\":\"cast\",\"id\":\"p10\",\"power\":\"0\",\"toughness\":\"0\"}]}",
+    "content": "{\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":1,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"mana_cost\":\"{3}{U}\",\"name\":\"Clone\",\"index\":0,\"action\":\"cast\",\"id\":\"p10\",\"power\":\"0\",\"toughness\":\"0\"},{\"name\":\"Island\",\"index\":1,\"action\":\"land\",\"id\":\"p9\"},{\"name\":\"Island\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Island\",\"index\":3,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Island\",\"index\":4,\"action\":\"land\",\"id\":\"p7\"}]}",
     "role": "tool",
     "tool_call_id": "call_15"
   },
@@ -311,7 +311,7 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_4\"}",
+    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
     "role": "tool",
     "tool_call_id": "call_16"
   },
@@ -368,7 +368,7 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":1,\"land_drops_used\":0,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play spells and abilities\",\"choices\":[{\"name\":\"Island\",\"index\":0,\"action\":\"land\",\"id\":\"p9\"},{\"name\":\"Island\",\"index\":1,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Island\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Island\",\"index\":3,\"action\":\"land\",\"id\":\"p7\"}],\"action_pending\":true}",
+    "content": "{\"actions_passed\":1,\"land_drops_used\":0,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play spells and abilities\",\"choices\":[{\"name\":\"Island\",\"index\":0,\"action\":\"land\",\"id\":\"p9\"},{\"name\":\"Island\",\"index\":1,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Island\",\"index\":2,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Island\",\"index\":3,\"action\":\"land\",\"id\":\"p7\"}],\"action_pending\":true}",
     "role": "tool",
     "tool_call_id": "call_19"
   },
@@ -387,7 +387,7 @@
     ]
   },
   {
-    "content": "{\"phase\":\"Precombat Main\",\"priority_player\":\"TestPlayer\",\"cursor\":1,\"stack\":[],\"active_player\":\"TestPlayer\",\"players\":[{\"hand_size\":4,\"graveyard\":[{\"name\":\"Black Lotus\",\"id\":\"p6\"}],\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":true,\"name\":\"Island\",\"id\":\"p3\"},{\"tapped\":false,\"name\":\"Memnite\",\"id\":\"p8\",\"power\":\"1\",\"toughness\":\"1\",\"summoning_sick\":true},{\"tapped\":false,\"original_card\":\"Clone\",\"name\":\"Memnite\",\"id\":\"p10\",\"power\":\"1\",\"copy\":true,\"toughness\":\"1\",\"summoning_sick\":true}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p4\",\"playable\":true},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p9\",\"playable\":true}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"id\":\"p11\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":52,\"life\":20}],\"available\":true,\"step\":\"Precombat Main\",\"turn\":2}",
+    "content": "{\"phase\":\"Precombat Main\",\"priority_player\":\"TestPlayer\",\"cursor\":1,\"stack\":[],\"active_player\":\"TestPlayer\",\"players\":[{\"hand_size\":4,\"graveyard\":[{\"name\":\"Black Lotus\",\"id\":\"p3\"}],\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":true,\"name\":\"Island\",\"id\":\"p4\"},{\"tapped\":false,\"name\":\"Memnite\",\"id\":\"p8\",\"power\":\"1\",\"toughness\":\"1\",\"summoning_sick\":true},{\"tapped\":false,\"original_card\":\"Clone\",\"name\":\"Memnite\",\"id\":\"p10\",\"power\":\"1\",\"copy\":true,\"toughness\":\"1\",\"summoning_sick\":true}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Island\",\"is_land\":true,\"rules\":[\"{T}: Add {U}.\"],\"id\":\"p9\",\"playable\":true}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"id\":\"p11\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":52,\"life\":20}],\"available\":true,\"step\":\"Precombat Main\",\"turn\":2}",
     "role": "tool",
     "tool_call_id": "call_20"
   }

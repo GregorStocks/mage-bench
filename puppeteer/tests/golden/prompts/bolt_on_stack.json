@@ -60,7 +60,7 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_ASK\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"boolean\",\"respond_with\":\"answer\\u003dtrue or answer\\u003dfalse\",\"message\":\"Mulligan down to 6 cards?\",\"your_hand\":[{\"name\":\"Badlands\",\"is_land\":true,\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"]},{\"name\":\"Mountain\",\"is_land\":true,\"rules\":[\"{T}: Add {R}.\"]},{\"name\":\"Plateau\",\"is_land\":true,\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"name\":\"Scrubland\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\",\"{T}: Add {B}.\"]},{\"name\":\"Taiga\",\"is_land\":true,\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]},{\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"mana_cost\":\"{R}\",\"name\":\"Shock\",\"rules\":[\"{this} deals 2 damage to any target.\"]}],\"action_pending\":true}",
+    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_ASK\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"boolean\",\"respond_with\":\"answer\\u003dtrue or answer\\u003dfalse\",\"message\":\"Mulligan down to 6 cards?\",\"your_hand\":[{\"name\":\"Badlands\",\"is_land\":true,\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"]},{\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"name\":\"Mountain\",\"is_land\":true,\"rules\":[\"{T}: Add {R}.\"]},{\"name\":\"Plateau\",\"is_land\":true,\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"name\":\"Scrubland\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\",\"{T}: Add {B}.\"]},{\"mana_cost\":\"{R}\",\"name\":\"Shock\",\"rules\":[\"{this} deals 2 damage to any target.\"]},{\"name\":\"Taiga\",\"is_land\":true,\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}],\"action_pending\":true}",
     "role": "tool",
     "tool_call_id": "call_3"
   },
@@ -98,7 +98,7 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":2,\"land_drops_used\":0,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play spells and abilities\",\"choices\":[{\"name\":\"Taiga\",\"index\":0,\"action\":\"land\",\"id\":\"p3\"},{\"name\":\"Badlands\",\"index\":1,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Plateau\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Mountain\",\"index\":3,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Scrubland\",\"index\":4,\"action\":\"land\",\"id\":\"p7\"}],\"action_pending\":true}",
+    "content": "{\"actions_passed\":2,\"land_drops_used\":0,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play spells and abilities\",\"choices\":[{\"name\":\"Badlands\",\"index\":0,\"action\":\"land\",\"id\":\"p3\"},{\"name\":\"Mountain\",\"index\":1,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Plateau\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Scrubland\",\"index\":3,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Taiga\",\"index\":4,\"action\":\"land\",\"id\":\"p7\"}],\"action_pending\":true}",
     "role": "tool",
     "tool_call_id": "call_5"
   },
@@ -108,7 +108,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p3\"}",
+          "arguments": "{\"id\": \"p7\"}",
           "name": "choose_action"
         },
         "id": "call_6",
@@ -117,7 +117,7 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
+    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_4\"}",
     "role": "tool",
     "tool_call_id": "call_6"
   },
@@ -136,7 +136,7 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":1,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 Precombat Main/Precombat Main (Opponent)\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play instants and activated abilities\",\"choices\":[{\"mana_cost\":\"{R}\",\"name\":\"Shock\",\"index\":0,\"action\":\"cast\",\"id\":\"p8\"},{\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"index\":1,\"action\":\"cast\",\"id\":\"p9\"}],\"action_pending\":true}",
+    "content": "{\"actions_passed\":1,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 Precombat Main/Precombat Main (Opponent)\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play instants and activated abilities\",\"choices\":[{\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"index\":0,\"action\":\"cast\",\"id\":\"p8\"},{\"mana_cost\":\"{R}\",\"name\":\"Shock\",\"index\":1,\"action\":\"cast\",\"id\":\"p9\"}],\"action_pending\":true}",
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -146,7 +146,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\": 1}",
+          "arguments": "{\"index\": 0}",
           "name": "choose_action"
         },
         "id": "call_8",
@@ -155,7 +155,7 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_TARGET\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_1\"}",
+    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_TARGET\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -212,7 +212,7 @@
     ]
   },
   {
-    "content": "{\"phase\":\"Precombat Main\",\"priority_player\":\"TestPlayer\",\"cursor\":1,\"stack\":[{\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"],\"id\":\"p10\",\"targets\":[{\"name\":\"Opponent\",\"id\":\"p2\"}]}],\"active_player\":\"Opponent\",\"players\":[{\"hand_size\":5,\"is_active\":false,\"is_you\":true,\"battlefield\":[{\"tapped\":true,\"name\":\"Taiga\",\"id\":\"p3\"}],\"name\":\"TestPlayer\",\"library_size\":53,\"life\":20,\"hand\":[{\"name\":\"Badlands\",\"is_land\":true,\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"],\"id\":\"p4\"},{\"name\":\"Mountain\",\"is_land\":true,\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p6\"},{\"name\":\"Plateau\",\"is_land\":true,\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"name\":\"Scrubland\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\",\"{T}: Add {B}.\"],\"id\":\"p7\"},{\"mana_cost\":\"{R}\",\"name\":\"Shock\",\"rules\":[\"{this} deals 2 damage to any target.\"],\"id\":\"p8\"}]},{\"hand_size\":8,\"is_active\":true,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":52,\"life\":20}],\"available\":true,\"step\":\"Precombat Main\",\"turn\":1}",
+    "content": "{\"phase\":\"Precombat Main\",\"priority_player\":\"TestPlayer\",\"cursor\":1,\"stack\":[{\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"],\"id\":\"p10\",\"targets\":[{\"name\":\"Opponent\",\"id\":\"p2\"}]}],\"active_player\":\"Opponent\",\"players\":[{\"hand_size\":5,\"is_active\":false,\"is_you\":true,\"battlefield\":[{\"tapped\":true,\"name\":\"Taiga\",\"id\":\"p7\"}],\"name\":\"TestPlayer\",\"library_size\":53,\"life\":20,\"hand\":[{\"name\":\"Badlands\",\"is_land\":true,\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"],\"id\":\"p3\"},{\"name\":\"Mountain\",\"is_land\":true,\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p4\"},{\"name\":\"Plateau\",\"is_land\":true,\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"name\":\"Scrubland\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\",\"{T}: Add {B}.\"],\"id\":\"p6\"},{\"mana_cost\":\"{R}\",\"name\":\"Shock\",\"rules\":[\"{this} deals 2 damage to any target.\"],\"id\":\"p9\"}]},{\"hand_size\":8,\"is_active\":true,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":52,\"life\":20}],\"available\":true,\"step\":\"Precombat Main\",\"turn\":1}",
     "role": "tool",
     "tool_call_id": "call_11"
   }
