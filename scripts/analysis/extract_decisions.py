@@ -51,6 +51,7 @@ def _summarize_snapshot(snap: dict) -> dict:
             {
                 "name": p["name"],
                 "life": p.get("life"),
+                "library_count": p.get("library_count", p.get("library_size")),
                 "hand": [
                     c.get("name", "?") if isinstance(c, dict) else str(c)
                     for c in p.get("hand", [])
@@ -71,6 +72,7 @@ def _summarize_snapshot(snap: dict) -> dict:
                     c.get("name", "?") if isinstance(c, dict) else c
                     for c in p.get("commanders", [])
                 ],
+                **({"counters": p["counters"]} if p.get("counters") else {}),
             }
             for p in snap.get("players", [])
         ],

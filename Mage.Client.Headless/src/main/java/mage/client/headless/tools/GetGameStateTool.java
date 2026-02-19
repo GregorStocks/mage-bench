@@ -13,8 +13,8 @@ public class GetGameStateTool {
     @Tool(
         name = "get_game_state",
         description = "Get full game state: turn, phase, players, stack, combat. Each player has life, mana_pool, "
-            + "hand (yours only), battlefield (name, tapped, P/T, counters, token/copy/face_down flags, "
-            + "rules + original_card when modified from printed card), graveyard, exile, commanders.",
+            + "hand (yours only), battlefield (name, tapped, P/T, counters, rules, token/copy/face_down flags, "
+            + "modified + original_card when changed from printed card), graveyard (name, rules), exile (name, rules), commanders.",
         output = {
             @Tool.Field(name = "available", type = "boolean", description = "Whether game state is available"),
             @Tool.Field(name = "error", type = "string", description = "Error message"),

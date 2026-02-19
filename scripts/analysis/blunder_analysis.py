@@ -61,7 +61,9 @@ MAX_WORKERS = 50
 # v15: include combat context (attackers/blockers) in per-decision prompt
 # v16: detect rolled-back casts (mana payment failures) — skip intermediate
 #      decisions, add context to the initiating cast decision
-BLUNDER_SCRIPT_VERSION = 16
+# v17: enrich decision context — remove battlefield/choice caps, add library
+#      sizes, player counters, structured choice info (action, mana_cost, P/T, id)
+BLUNDER_SCRIPT_VERSION = 17
 
 # --- Prompt components ---
 
@@ -390,7 +392,7 @@ def _format_prior_context(
         bf = p.get("battlefield", [])
         s = f"{p['name']}: {p.get('life', '?')}hp"
         if bf:
-            s += f" bf=[{', '.join(str(x) for x in bf[:8])}]"
+            s += f" bf=[{', '.join(str(x) for x in bf)}]"
         gy = p.get("graveyard", [])
         if gy:
             s += f" gy=[{', '.join(str(x) for x in gy)}]"
@@ -472,6 +474,23 @@ def _game_overview(data: dict) -> str:
     return "\n".join(lines)
 
 
+def _format_choice(c: dict) -> str:
+    """Format a single choice with structured info when available."""
+    name = c.get("name", c.get("description", f"option_{c.get('index', '?')}"))
+    extras: list[str] = []
+    if c.get("id"):
+        extras.append(f"id={c['id']}")
+    if c.get("action"):
+        extras.append(c["action"])
+    if c.get("mana_cost"):
+        extras.append(c["mana_cost"])
+    if c.get("power") is not None and c.get("toughness") is not None:
+        extras.append(f"{c['power']}/{c['toughness']}")
+    if extras:
+        return f"{name} ({', '.join(extras)})"
+    return name
+
+
 def _format_decisions(decisions: list[dict]) -> str:
     """Compact decision format for analysis."""
     parts: list[str] = []
@@ -483,6 +502,7 @@ def _format_decisions(decisions: list[dict]) -> str:
         players: list[str] = []
         for p in gs.get("players", []):
             bf = p.get("battlefield", [])
+            lib = p.get("library_count")
             if p["name"] == deciding_player:
                 # Show full hand for the deciding player
                 hand = p.get("hand", [])
@@ -493,8 +513,20 @@ def _format_decisions(decisions: list[dict]) -> str:
             else:
                 # Only show public info for opponents
                 s = f"{p['name']}: {p.get('life', '?')}hp"
+            if lib is not None:
+                s += f" lib={lib}"
+            # Player counters (poison, energy, etc.)
+            counters = p.get("counters")
+            if counters:
+                if isinstance(counters, list):
+                    for ctr in counters:
+                        if isinstance(ctr, dict) and ctr.get("name"):
+                            s += f" {ctr['name']}={ctr.get('count', '?')}"
+                elif isinstance(counters, dict):
+                    for ctr_name, ctr_val in counters.items():
+                        s += f" {ctr_name}={ctr_val}"
             if bf:
-                s += f" bf=[{', '.join(str(x) for x in bf[:8])}]"
+                s += f" bf=[{', '.join(str(x) for x in bf)}]"
             gy = p.get("graveyard", [])
             if gy:
                 s += f" gy=[{', '.join(str(x) for x in gy)}]"
@@ -503,11 +535,7 @@ def _format_decisions(decisions: list[dict]) -> str:
                 s += f" exile=[{', '.join(str(x) for x in exile)}]"
             players.append(s)
 
-        choice_names: list[str] = []
-        for c in d.get("choices", [])[:10]:
-            choice_names.append(
-                c.get("name", c.get("description", f"option_{c.get('index', '?')}"))
-            )
+        choice_descs = [_format_choice(c) for c in d.get("choices", [])]
 
         chosen_name = _chosen_display(d)
 
@@ -554,7 +582,7 @@ def _format_decisions(decisions: list[dict]) -> str:
             lines.append(f"  Combat Phase: {d['combat_phase']}")
         lines += [
             f"  Message: {d.get('message', '')}",
-            f"  Choices ({len(d.get('choices', []))}): {', '.join(choice_names)}",
+            f"  Choices ({len(d.get('choices', []))}): {', '.join(choice_descs)}",
             f"  Chosen: {chosen_name}",
         ]
         if d.get("reasoning"):

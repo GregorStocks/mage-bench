@@ -3070,13 +3070,14 @@ public class BridgeCallbackHandler {
                     if (orig != null) {
                         modified = !Objects.equals(stripHtmlList(perm.getRules()), stripHtmlList(orig.getRules()));
                     }
+                    if (modified) {
+                        permInfo.put("modified", true);
+                    }
 
-                    // Include current rules for tokens (oracle can't look them up) or modified permanents
-                    if (perm.isToken() || modified) {
-                        List<String> rules = stripHtmlList(perm.getRules());
-                        if (rules != null && !rules.isEmpty()) {
-                            permInfo.put("rules", rules);
-                        }
+                    // Include oracle text (rules) for all permanents
+                    List<String> rules = stripHtmlList(perm.getRules());
+                    if (rules != null && !rules.isEmpty()) {
+                        permInfo.put("rules", rules);
                     }
 
                     // Original card name when identity has changed (copy, transform, flip, MDFC, meld)
@@ -3105,6 +3106,10 @@ public class BridgeCallbackHandler {
                     var cardInfo = new HashMap<String, Object>();
                     cardInfo.put("id", shortIds.getOrAssign(entry.getKey()));
                     cardInfo.put("name", safeDisplayName(entry.getValue()));
+                    List<String> gyRules = stripHtmlList(entry.getValue().getRules());
+                    if (gyRules != null && !gyRules.isEmpty()) {
+                        cardInfo.put("rules", gyRules);
+                    }
                     graveyard.add(cardInfo);
                 }
             }
@@ -3119,6 +3124,10 @@ public class BridgeCallbackHandler {
                     var cardInfo = new HashMap<String, Object>();
                     cardInfo.put("id", shortIds.getOrAssign(entry.getKey()));
                     cardInfo.put("name", safeDisplayName(entry.getValue()));
+                    List<String> exileRules = stripHtmlList(entry.getValue().getRules());
+                    if (exileRules != null && !exileRules.isEmpty()) {
+                        cardInfo.put("rules", exileRules);
+                    }
                     exileCards.add(cardInfo);
                 }
             }
