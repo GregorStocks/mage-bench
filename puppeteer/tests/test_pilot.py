@@ -37,6 +37,24 @@ def _no_prefetch():
 
 @pytest.mark.asyncio
 @pytest.mark.usefixtures("_no_prefetch")
+async def test_401_raises_permanent_failure():
+    """A 401 error (user not found / bad API key) should raise PermanentLLMFailure."""
+    session = _make_session()
+    client = _make_client(Exception("Error code: 401 - {'error': {'message': 'User not found.', 'code': 401}}"))
+
+    with pytest.raises(PermanentLLMFailure, match="Credits exhausted"):
+        await run_pilot_loop(
+            session=session,
+            client=client,
+            model="test-model",
+            system_prompt="You are a test.",
+            tools=[],
+            username="test-player",
+        )
+
+
+@pytest.mark.asyncio
+@pytest.mark.usefixtures("_no_prefetch")
 async def test_403_raises_permanent_failure():
     """A 403 error (key quota exceeded) should raise PermanentLLMFailure."""
     session = _make_session()

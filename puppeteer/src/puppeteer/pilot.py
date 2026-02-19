@@ -865,8 +865,10 @@ async def run_pilot_loop(
 
             # Permanent failures - abort immediately to avoid wasting
             # API tokens on the other player(s).
-            if "402" in error_str or "403" in error_str or "404" in error_str:
-                reason = "Credits exhausted" if ("402" in error_str or "403" in error_str) else "Model not found"
+            permanent_codes = {"401", "402", "403", "404"}
+            if any(code in error_str for code in permanent_codes):
+                is_not_found = "404" in error_str and "401" not in error_str
+                reason = "Model not found" if is_not_found else "Credits exhausted"
                 _log_error(game_dir, username, f"[pilot] {reason}, aborting")
                 if game_log:
                     game_log.emit("permanent_llm_failure", reason=reason)
