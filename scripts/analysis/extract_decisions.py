@@ -28,6 +28,12 @@ def _summarize_permanent(c: dict) -> str | dict:
         extras["token"] = True
     if c.get("face_down"):
         extras["face_down"] = True
+    if c.get("copy"):
+        extras["copy"] = True
+    if c.get("original_card"):
+        extras["original_card"] = c["original_card"]
+    if c.get("rules"):
+        extras["rules"] = c["rules"]
     if extras:
         return {"name": name, **extras}
     return name

@@ -51,6 +51,11 @@ test-golden:
 update-golden:
 	mvn test -pl Mage.Tests -Dtest=McpPromptGoldenTest -DupdateGolden=true -Dsurefire.failIfNoSpecifiedTests=false -am -Dmaven.build.cache.skipCache=true
 	cd puppeteer && UPDATE_GOLDEN=1 uv run pytest tests/test_golden_prompts.py -v
+	uv run python scripts/export_golden.py
+
+.PHONY: golden-export
+golden-export:
+	uv run python scripts/export_golden.py
 
 .PHONY: build
 build:

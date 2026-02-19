@@ -26,6 +26,8 @@
       layout: c.layout || null,
       owner: c.owner,
       targets: c.targets,
+      original_card: c.originalCard || c.original_card,
+      copy: c.copy,
     };
   }
 
@@ -284,6 +286,10 @@
     els.type.textContent = "";
     els.stats.textContent = "";
     els.rules.textContent = "";
+
+    if (cardObj && cardObj.original_card) {
+      els.type.textContent = "(copy of " + cardObj.original_card + ")";
+    }
 
     if (cardObj) {
       if (cardObj.power || cardObj.toughness) {

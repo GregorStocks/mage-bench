@@ -1809,6 +1809,34 @@ public class StreamingGamePanel extends GamePanel {
                     if (perm.isToken()) {
                         permJson.addProperty("token", true);
                     }
+                    if (perm.isCopy()) {
+                        permJson.addProperty("copy", true);
+                    }
+
+                    // Detect modified permanents: compare current vs printed rules
+                    boolean modified = false;
+                    mage.view.CardView orig = perm.getOriginal();
+                    if (orig != null) {
+                        modified = !java.util.Objects.equals(perm.getRules(), orig.getRules());
+                    }
+
+                    // Include current rules for tokens or modified permanents
+                    if (perm.isToken() || modified) {
+                        java.util.List<String> rules = perm.getRules();
+                        if (rules != null && !rules.isEmpty()) {
+                            var rulesArr = new JsonArray();
+                            for (String r : rules) {
+                                rulesArr.add(stripHtml(r));
+                            }
+                            permJson.add("rules", rulesArr);
+                        }
+                    }
+
+                    // Original card name when identity differs (copy, transform, flip, MDFC, meld)
+                    String altName = perm.getAlternateName();
+                    if (altName != null && !altName.isEmpty()) {
+                        permJson.addProperty("original_card", altName);
+                    }
                     if (perm.isFaceDown()) {
                         permJson.addProperty("face_down", true);
                     }
@@ -2122,6 +2150,14 @@ public class StreamingGamePanel extends GamePanel {
 
     private static String safe(String value) {
         return value == null ? "" : value;
+    }
+
+    /** Strip HTML tags from a string (e.g. card rules text). */
+    private static String stripHtml(String s) {
+        if (s == null || s.isEmpty()) return s;
+        s = s.replaceAll("(?i)<br\\s*/?>", ": ");
+        s = s.replaceAll("<[^>]*>", "");
+        return s;
     }
 
     /**

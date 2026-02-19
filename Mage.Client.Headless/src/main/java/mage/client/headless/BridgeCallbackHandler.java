@@ -43,6 +43,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import org.apache.log4j.Logger;
 
+import java.util.Objects;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -3026,11 +3027,28 @@ public class BridgeCallbackHandler {
                     // State-deviation flags: info the LLM can't infer from card name alone
                     if (perm.isToken()) {
                         permInfo.put("token", true);
-                        // Include rules for tokens since get_oracle_text can't look them up
+                    }
+
+                    // Detect modified permanents: compare current rules vs printed card rules.
+                    // PermanentView.getOriginal() is built with game=null (base abilities only).
+                    boolean modified = false;
+                    CardView orig = perm.getOriginal();
+                    if (orig != null) {
+                        modified = !Objects.equals(stripHtmlList(perm.getRules()), stripHtmlList(orig.getRules()));
+                    }
+
+                    // Include current rules for tokens (oracle can't look them up) or modified permanents
+                    if (perm.isToken() || modified) {
                         List<String> rules = stripHtmlList(perm.getRules());
                         if (rules != null && !rules.isEmpty()) {
                             permInfo.put("rules", rules);
                         }
+                    }
+
+                    // Original card name when identity has changed (copy, transform, flip, MDFC, meld)
+                    String altName = perm.getAlternateName();
+                    if (altName != null && !altName.isEmpty()) {
+                        permInfo.put("original_card", altName);
                     }
                     if (perm.isCopy()) {
                         permInfo.put("copy", true);
