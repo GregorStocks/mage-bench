@@ -140,6 +140,7 @@ def run_golden_scenario(
                 "-Dxmage.aiPuppeteer.autoConnect=true",
                 "-Dxmage.aiPuppeteer.autoStart=true",
                 "-Dxmage.aiPuppeteer.disableWhatsNew=true",
+                "-Dxmage.streaming.noWindow=true",
                 f"-Dxmage.aiPuppeteer.server={server}",
                 f"-Dxmage.aiPuppeteer.port={port}",
                 "-Dxmage.aiPuppeteer.user=spectator",
