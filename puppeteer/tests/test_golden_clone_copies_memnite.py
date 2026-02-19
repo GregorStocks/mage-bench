@@ -1,5 +1,7 @@
 """Golden prompt test: Clone copies Memnite."""
 
+import pytest
+
 from tests.golden_helpers import (
     DECK_CLONE_AND_MEMNITE,
     DECK_FILLER,
@@ -8,6 +10,7 @@ from tests.golden_helpers import (
 )
 
 
+@pytest.mark.golden
 def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
     """Clone enters as a copy of Memnite — verifies copy effect representation."""
     server, port = xmage_server

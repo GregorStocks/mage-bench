@@ -1,5 +1,7 @@
 """Golden prompt test: Lightning Bolt on the stack."""
 
+import pytest
+
 from tests.golden_helpers import (
     DECK_BOLT_AND_BURN,
     DECK_FILLER,
@@ -8,6 +10,7 @@ from tests.golden_helpers import (
 )
 
 
+@pytest.mark.golden
 def test_bolt_on_stack(xmage_server, tmp_path, project_root):
     """Lightning Bolt on the stack targeting the opponent.
 
