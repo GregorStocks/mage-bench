@@ -1291,7 +1291,8 @@ public abstract class GameImpl implements Game {
 
         //20091005 - 103.1
         if (gameOptions.skipInitShuffling) {
-            // Seed the RNG for deterministic games (golden tests, replays)
+            // Seed the game RNG for deterministic shuffling, coin flips, etc.
+            // (DeterministicUUID handles UUID ordering separately)
             RandomUtil.setSeed(42);
         }
         if (!gameOptions.skipInitShuffling) { //don't shuffle in test mode for card injection on top of player's libraries

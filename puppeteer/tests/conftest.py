@@ -2,7 +2,6 @@
 
 import os
 import subprocess
-import sys
 from pathlib import Path
 
 import pytest
@@ -48,10 +47,14 @@ def xmage_server(project_root, tmp_path_factory):
         port=port,
     )
 
-    # Build JVM options
-    jvm_opts = "--add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED"
-    if sys.platform == "darwin":
-        jvm_opts += " -Dapple.awt.UIElement=true"
+    # Build JVM options (server is headless; clients need AWT for Swing)
+    jvm_opts = " ".join(
+        [
+            "--add-opens=java.base/java.io=ALL-UNNAMED",
+            "--add-opens=java.base/java.util=ALL-UNNAMED",
+            "-Djava.awt.headless=true",
+        ]
+    )
 
     # Start server
     env = os.environ.copy()

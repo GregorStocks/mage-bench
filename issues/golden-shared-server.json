@@ -1,0 +1,10 @@
+{
+  "title": "Make all golden scenarios run on a single long-lived server",
+  "description": "Currently the xmage_server fixture in conftest.py is session-scoped, so all golden tests in a single pytest session share one server. However if golden tests are split into separate files (see split-golden-test-files issue), each file would get its own server startup, which is slow. Ensure that all golden test files share a single long-lived XMage server across the entire test session, regardless of how many test files there are. This may require a conftest.py at the tests/ level with a session-scoped fixture, or a pytest plugin.",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": ["testing", "golden-tests"],
+  "created_at": "2026-02-19T01:00:00.000000-08:00",
+  "updated_at": "2026-02-19T01:00:00.000000-08:00"
+}

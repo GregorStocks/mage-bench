@@ -1,0 +1,10 @@
+{
+  "title": "Re-enable bolt_on_stack golden test",
+  "description": "The bolt_on_stack golden test is commented out because the script indices depend on deterministic player ordering from RandomUtil.setSeed(42) + DeterministicUUID. With the shufflePlayers revert (no longer sorting players by name in skipInitShuffling mode), the player order may differ between runs. The test needs to use id-based selection instead of fragile index-based selection, or the script needs to be regenerated and verified stable. The golden file itself is correct — Lightning Bolt on the stack targeting Opponent on T1.",
+  "status": "open",
+  "priority": 1,
+  "type": "bug",
+  "labels": ["testing", "golden-tests"],
+  "created_at": "2026-02-19T01:00:00.000000-08:00",
+  "updated_at": "2026-02-19T01:00:00.000000-08:00"
+}

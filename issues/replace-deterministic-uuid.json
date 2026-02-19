@@ -1,0 +1,10 @@
+{
+  "title": "Replace DeterministicUUID's Unsafe hack with something less awful",
+  "description": "DeterministicUUID uses sun.misc.Unsafe to replace the static final SecureRandom inside UUID$Holder with a seeded Random wrapper. This works but is fragile — it depends on JDK internals, requires --add-opens, and could break on JDK upgrades. Consider alternatives: (1) a custom UUID factory method used throughout XMage instead of UUID.randomUUID(), (2) a Java agent that instruments UUID.randomUUID(), (3) accept the Unsafe hack but add a JDK version check with a clear error message.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["testing", "tech-debt"],
+  "created_at": "2026-02-19T01:00:00.000000-08:00",
+  "updated_at": "2026-02-19T01:00:00.000000-08:00"
+}

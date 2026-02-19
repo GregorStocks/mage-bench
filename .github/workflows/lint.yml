@@ -47,7 +47,9 @@ jobs:
 
       - uses: astral-sh/setup-uv@v5
 
-      - run: make test-golden
+      - run: sudo apt-get install -y xvfb
+
+      - run: xvfb-run make test-golden
 
   website:
     runs-on: ubuntu-latest

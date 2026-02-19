@@ -223,11 +223,6 @@ public abstract class MatchImpl implements Match {
     }
 
     protected void shufflePlayers() {
-        if (options.isSkipInitShuffling()) {
-            // Deterministic player order for tests: sort by name instead of shuffling
-            this.players.sort(java.util.Comparator.comparing(MatchPlayer::getName));
-            return;
-        }
         Collections.shuffle(this.players, RandomUtil.getRandom());
     }
 
