@@ -79,6 +79,15 @@ gh pr view <number> --json state -q .state
 
 If the PR is closed/merged, create a new one instead of pushing to a dead branch.
 
+When pushing new commits to a branch with an open PR, update the PR description to reflect the current state of the changes:
+
+```bash
+gh pr edit <number> --body "$(cat <<'EOF'
+...updated description...
+EOF
+)"
+```
+
 ## Pre-PR Checklist
 
 Always run `make check` before creating a PR. This runs lint, typecheck, and tests in one shot:
