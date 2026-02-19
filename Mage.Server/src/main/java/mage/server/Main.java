@@ -96,12 +96,6 @@ public final class Main {
     private static boolean detailsMode;
 
     public static void main(String[] args) {
-        // Deterministic UUIDs for golden tests — must be before any UUID.randomUUID() calls
-        String uuidSeed = System.getenv("DETERMINISTIC_UUID_SEED");
-        if (uuidSeed != null) {
-            mage.util.DeterministicUUID.install(Long.parseLong(uuidSeed));
-        }
-
         System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
         logger.info("Starting MAGE SERVER version: " + version);
         logger.info("Java version: " + System.getProperty("java.version"));

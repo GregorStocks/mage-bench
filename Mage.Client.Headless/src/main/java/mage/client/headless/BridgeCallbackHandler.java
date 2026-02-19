@@ -707,10 +707,10 @@ public class BridgeCallbackHandler {
                     // Sort playable objects by card name for deterministic ordering
                     // (HashMap iteration order depends on UUID hashCodes, which vary across JVM runs)
                     var sortedPlayable = new ArrayList<>(playable.getObjects().entrySet());
-                    sortedPlayable.sort(Comparator.comparing(e -> {
+                    sortedPlayable.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
                         CardView cv = findCardViewById(e.getKey());
                         return cv != null ? safeDisplayName(cv) : "";
-                    }));
+                    }).thenComparingInt(e -> shortIds.getSequence(e.getKey())));
 
                     int idx = 0;
                     for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {
@@ -931,10 +931,10 @@ public class BridgeCallbackHandler {
                 if (manaPlayable != null) {
                     // Sort mana sources by card name for deterministic ordering
                     var sortedManaEntries = new ArrayList<>(manaPlayable.getObjects().entrySet());
-                    sortedManaEntries.sort(Comparator.comparing(e -> {
+                    sortedManaEntries.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
                         CardView cv = findCardViewById(e.getKey());
                         return cv != null ? safeDisplayName(cv) : "";
-                    }));
+                    }).thenComparingInt(e -> shortIds.getSequence(e.getKey())));
 
                     int idx = 0;
                     for (Map.Entry<UUID, PlayableObjectStats> entry : sortedManaEntries) {
@@ -1043,7 +1043,7 @@ public class BridgeCallbackHandler {
                         if (nameCmp != 0) {
                             return nameCmp;
                         }
-                        return a.targetId().toString().compareTo(b.targetId().toString());
+                        return Integer.compare(shortIds.getSequence(a.targetId()), shortIds.getSequence(b.targetId()));
                     });
 
                     int idx = 0;
@@ -3084,9 +3084,10 @@ public class BridgeCallbackHandler {
                 var handCards = new ArrayList<Map<String, Object>>();
                 PlayableObjectsList playable = gameView.getCanPlayObjects();
 
-                // Sort hand by card name for deterministic ordering
+                // Sort hand by card name, then by short ID for deterministic ordering
                 var sortedHand = new ArrayList<>(gameView.getMyHand().entrySet());
-                sortedHand.sort(Comparator.comparing(e -> safeDisplayName(e.getValue())));
+                sortedHand.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
+                    .thenComparingInt(e -> shortIds.getSequence(e.getKey())));
 
                 for (Map.Entry<UUID, CardView> handEntry : sortedHand) {
                     var cardInfo = buildCardInfoMap(handEntry.getValue());
@@ -3099,11 +3100,12 @@ public class BridgeCallbackHandler {
                 playerInfo.put("hand", handCards);
             }
 
-            // Battlefield — sort by name for deterministic ordering
+            // Battlefield — sort by name, then by short ID for deterministic ordering
             var battlefield = new ArrayList<Map<String, Object>>();
             if (player.getBattlefield() != null) {
                 var sortedBattlefield = new ArrayList<>(player.getBattlefield().values());
-                sortedBattlefield.sort(Comparator.comparing(p -> safeDisplayName(p)));
+                sortedBattlefield.sort(Comparator.<PermanentView, String>comparing(p -> safeDisplayName(p))
+                    .thenComparingInt(p -> shortIds.getSequence(p.getId())));
                 for (PermanentView perm : sortedBattlefield) {
                     var permInfo = new HashMap<String, Object>();
                     permInfo.put("id", shortIds.getOrAssign(perm.getId()));
@@ -3176,11 +3178,12 @@ public class BridgeCallbackHandler {
                 playerInfo.put("battlefield", battlefield);
             }
 
-            // Graveyard — sort by name for deterministic ordering
+            // Graveyard — sort by name, then by short ID for deterministic ordering
             var graveyard = new ArrayList<Map<String, Object>>();
             if (player.getGraveyard() != null) {
                 var sortedGraveyard = new ArrayList<>(player.getGraveyard().entrySet());
-                sortedGraveyard.sort(Comparator.comparing(e -> safeDisplayName(e.getValue())));
+                sortedGraveyard.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
+                    .thenComparingInt(e -> shortIds.getSequence(e.getKey())));
                 for (Map.Entry<UUID, CardView> entry : sortedGraveyard) {
                     var cardInfo = new HashMap<String, Object>();
                     cardInfo.put("id", shortIds.getOrAssign(entry.getKey()));
@@ -3196,11 +3199,12 @@ public class BridgeCallbackHandler {
                 playerInfo.put("graveyard", graveyard);
             }
 
-            // Exile — sort by name for deterministic ordering
+            // Exile — sort by name, then by short ID for deterministic ordering
             var exileCards = new ArrayList<Map<String, Object>>();
             if (player.getExile() != null) {
                 var sortedExile = new ArrayList<>(player.getExile().entrySet());
-                sortedExile.sort(Comparator.comparing(e -> safeDisplayName(e.getValue())));
+                sortedExile.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
+                    .thenComparingInt(e -> shortIds.getSequence(e.getKey())));
                 for (Map.Entry<UUID, CardView> entry : sortedExile) {
                     var cardInfo = new HashMap<String, Object>();
                     cardInfo.put("id", shortIds.getOrAssign(entry.getKey()));
