@@ -15,6 +15,21 @@ import java.util.Random;
  * Must be called before any UUID.randomUUID() calls that affect game state.
  *
  * Requires: --add-opens=java.base/java.util=ALL-UNNAMED
+ *
+ * <h2>Yes, this uses sun.misc.Unsafe. Here's why we're keeping it:</h2>
+ * <p>
+ * In Java 17+, {@code static final} fields can't be written via {@code Field.set()},
+ * {@code VarHandle}, or {@code MethodHandle} — Unsafe is the only way without bytecode
+ * manipulation. We explored alternatives:
+ * <ul>
+ *   <li>A Java agent with ASM to strip {@code final} and use reflection — equally gross,
+ *       adds a build-time dependency and a shade plugin for a test-only hack.</li>
+ *   <li>A custom UUID factory replacing all ~87 {@code UUID.randomUUID()} call sites —
+ *       violates code isolation (can't modify upstream XMage code).</li>
+ * </ul>
+ * The target field ({@code UUID$Holder.numberGenerator}) has been stable from JDK 8
+ * through JDK 25. If a future JDK removes it, this fails fast with a clear exception.
+ * </p>
  */
 public final class DeterministicUUID {
 
