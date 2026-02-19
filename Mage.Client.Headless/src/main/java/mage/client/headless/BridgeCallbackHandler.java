@@ -736,10 +736,10 @@ public class BridgeCallbackHandler {
                     // Sort playable objects by card name for deterministic ordering
                     // (HashMap iteration order depends on UUID hashCodes, which vary across JVM runs)
                     var sortedPlayable = new ArrayList<>(playable.getObjects().entrySet());
-                    sortedPlayable.sort(Comparator.comparing(e -> {
+                    sortedPlayable.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
                         CardView cv = findCardViewById(e.getKey());
                         return cv != null ? safeDisplayName(cv) : "";
-                    }));
+                    }).thenComparingInt(e -> shortIds.getSequence(e.getKey())));
 
                     int idx = 0;
                     for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {
@@ -960,10 +960,10 @@ public class BridgeCallbackHandler {
                 if (manaPlayable != null) {
                     // Sort mana sources by card name for deterministic ordering
                     var sortedManaEntries = new ArrayList<>(manaPlayable.getObjects().entrySet());
-                    sortedManaEntries.sort(Comparator.comparing(e -> {
+                    sortedManaEntries.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
                         CardView cv = findCardViewById(e.getKey());
                         return cv != null ? safeDisplayName(cv) : "";
-                    }));
+                    }).thenComparingInt(e -> shortIds.getSequence(e.getKey())));
 
                     int idx = 0;
                     for (Map.Entry<UUID, PlayableObjectStats> entry : sortedManaEntries) {
@@ -1072,7 +1072,7 @@ public class BridgeCallbackHandler {
                         if (nameCmp != 0) {
                             return nameCmp;
                         }
-                        return a.targetId().toString().compareTo(b.targetId().toString());
+                        return Integer.compare(shortIds.getSequence(a.targetId()), shortIds.getSequence(b.targetId()));
                     });
 
                     int idx = 0;
