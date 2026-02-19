@@ -3035,7 +3035,8 @@ public class BridgeCallbackHandler {
 
                 // Sort hand by card name for deterministic ordering
                 var sortedHand = new ArrayList<>(gameView.getMyHand().entrySet());
-                sortedHand.sort(Comparator.comparing(e -> safeDisplayName(e.getValue())));
+                sortedHand.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
+                    .thenComparing(e -> e.getKey().toString()));
 
                 for (Map.Entry<UUID, CardView> handEntry : sortedHand) {
                     var cardInfo = buildCardInfoMap(handEntry.getValue());
@@ -3052,7 +3053,8 @@ public class BridgeCallbackHandler {
             var battlefield = new ArrayList<Map<String, Object>>();
             if (player.getBattlefield() != null) {
                 var sortedBattlefield = new ArrayList<>(player.getBattlefield().values());
-                sortedBattlefield.sort(Comparator.comparing(p -> safeDisplayName(p)));
+                sortedBattlefield.sort(Comparator.<PermanentView, String>comparing(p -> safeDisplayName(p))
+                    .thenComparing(p -> p.getId().toString()));
                 for (PermanentView perm : sortedBattlefield) {
                     var permInfo = new HashMap<String, Object>();
                     permInfo.put("id", shortIds.getOrAssign(perm.getId()));
@@ -3128,7 +3130,8 @@ public class BridgeCallbackHandler {
             var graveyard = new ArrayList<Map<String, Object>>();
             if (player.getGraveyard() != null) {
                 var sortedGraveyard = new ArrayList<>(player.getGraveyard().entrySet());
-                sortedGraveyard.sort(Comparator.comparing(e -> safeDisplayName(e.getValue())));
+                sortedGraveyard.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
+                    .thenComparing(e -> e.getKey().toString()));
                 for (Map.Entry<UUID, CardView> entry : sortedGraveyard) {
                     var cardInfo = new HashMap<String, Object>();
                     cardInfo.put("id", shortIds.getOrAssign(entry.getKey()));
@@ -3144,7 +3147,8 @@ public class BridgeCallbackHandler {
             var exileCards = new ArrayList<Map<String, Object>>();
             if (player.getExile() != null) {
                 var sortedExile = new ArrayList<>(player.getExile().entrySet());
-                sortedExile.sort(Comparator.comparing(e -> safeDisplayName(e.getValue())));
+                sortedExile.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
+                    .thenComparing(e -> e.getKey().toString()));
                 for (Map.Entry<UUID, CardView> entry : sortedExile) {
                     var cardInfo = new HashMap<String, Object>();
                     cardInfo.put("id", shortIds.getOrAssign(entry.getKey()));
