@@ -160,7 +160,11 @@ public class McpPromptGoldenTest extends CardTestPlayerBase {
         if (obj instanceof Map) {
             TreeMap<String, Object> sorted = new TreeMap<>();
             for (Map.Entry<?, ?> entry : ((Map<?, ?>) obj).entrySet()) {
-                sorted.put(String.valueOf(entry.getKey()), sortDeep(entry.getValue()));
+                String key = String.valueOf(entry.getKey());
+                // Strip "index" — it reflects the game engine's internal ordering
+                // (based on random UUIDs) and varies between runs.
+                if (key.equals("index")) continue;
+                sorted.put(key, sortDeep(entry.getValue()));
             }
             return sorted;
         } else if (obj instanceof List) {
@@ -168,12 +172,23 @@ public class McpPromptGoldenTest extends CardTestPlayerBase {
             for (Object item : (List<?>) obj) {
                 sortedList.add(sortDeep(item));
             }
-            // Sort arrays by serialized form for deterministic output.
-            // After recursion, all Maps are TreeMaps so toString() is stable.
-            sortedList.sort(Comparator.comparing(String::valueOf));
+            // Sort by stable fields only — "id" and "index" derive from random UUIDs
+            // and vary between runs. Tests must use unique cards so the remaining
+            // fields produce a unique sort key.
+            sortedList.sort(Comparator.comparing(McpPromptGoldenTest::stableSortKey));
             return sortedList;
         }
         return obj;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static String stableSortKey(Object obj) {
+        if (obj instanceof Map) {
+            TreeMap<String, Object> copy = new TreeMap<>((Map<String, Object>) obj);
+            copy.remove("id");
+            return copy.toString();
+        }
+        return String.valueOf(obj);
     }
 
     // --- Helper: golden file comparison ---
@@ -349,29 +364,47 @@ public class McpPromptGoldenTest extends CardTestPlayerBase {
 
     @Test
     public void testTurn2BoltOnStack() {
-        addCard(Zone.BATTLEFIELD, playerA, "Mountain", 2);
-        addCard(Zone.HAND, playerA, "Lightning Bolt", 2);
-        addCard(Zone.HAND, playerA, "Mountain", 2);
-        addCard(Zone.LIBRARY, playerA, "Mountain", 30);
+        // Opening hands drawn from the library for realistic game history.
+        // skipInitShuffling + drawOpeningHands = deterministic draws from library.
+        // All unique cards to avoid nondeterministic sort order of duplicates.
+        // Clear default deck so library contents match exactly what we set up.
+        skipInitShuffling();
+        gameOptions.drawOpeningHands = true;
+        removeAllCardsFromLibrary(playerA);
+        removeAllCardsFromLibrary(playerB);
 
-        addCard(Zone.BATTLEFIELD, playerB, "Forest", 2);
-        addCard(Zone.LIBRARY, playerB, "Forest", 30);
+        // PlayerA library (bottom to top — last added = top = drawn first)
+        addCard(Zone.LIBRARY, playerA, "Plains", 30);       // filler (stays in library)
+        addCard(Zone.LIBRARY, playerA, "Scrubland", 1);     // drawn 7th
+        addCard(Zone.LIBRARY, playerA, "Badlands", 1);      // drawn 6th
+        addCard(Zone.LIBRARY, playerA, "Plateau", 1);       // drawn 5th
+        addCard(Zone.LIBRARY, playerA, "Mountain", 1);      // drawn 4th
+        addCard(Zone.LIBRARY, playerA, "Shock", 1);         // drawn 3rd
+        addCard(Zone.LIBRARY, playerA, "Lightning Bolt", 1);// drawn 2nd
+        addCard(Zone.LIBRARY, playerA, "Taiga", 1);         // drawn 1st
 
-        // PlayerA casts Bolt targeting opponent on their T2 (game turn 3)
-        castSpell(3, PhaseStep.PRECOMBAT_MAIN, playerA, "Lightning Bolt", playerB);
+        // PlayerB library (bottom to top)
+        addCard(Zone.LIBRARY, playerB, "Forest", 30);       // filler (stays in library)
+        addCard(Zone.LIBRARY, playerB, "Island", 1);        // drawn 7th
+        addCard(Zone.LIBRARY, playerB, "Swamp", 1);         // drawn 6th
+        addCard(Zone.LIBRARY, playerB, "Tundra", 1);        // drawn 5th
+        addCard(Zone.LIBRARY, playerB, "Bayou", 1);         // drawn 4th
+        addCard(Zone.LIBRARY, playerB, "Savannah", 1);      // drawn 3rd
+        addCard(Zone.LIBRARY, playerB, "Volcanic Island", 1);// drawn 2nd
+        addCard(Zone.LIBRARY, playerB, "Underground Sea", 1);// drawn 1st
 
-        // Capture state while Bolt is on the stack.
-        // runCode fires during playerA's next priority pass after the castSpell.
+        // Capture state at T1 main phase — bolt is in hand, no lands on battlefield yet.
+        // The Python golden test scripts the choose_action calls with explicit mana_plan.
         AtomicReference<String> captured = new AtomicReference<>();
 
-        runCode("capture prompt", 3, PhaseStep.PRECOMBAT_MAIN, playerA,
+        runCode("capture prompt", 1, PhaseStep.PRECOMBAT_MAIN, playerA,
                 (info, player, game) -> {
                     BridgeCallbackHandler h = createHandler(game.getId(), player.getId());
                     simulatePriorityCallback(h, game, player.getId());
                     captured.set(buildScenarioJson(h, "playable_cards"));
                 });
 
-        setStopAt(3, PhaseStep.PRECOMBAT_MAIN);
+        setStopAt(1, PhaseStep.PRECOMBAT_MAIN);
         execute();
 
         Assert.assertNotNull("runCode did not execute — captured is null", captured.get());

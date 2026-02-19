@@ -4,7 +4,7 @@
     "role": "system"
   },
   {
-    "content": "The game is starting. Your first decision (GAME_SELECT): Play instants and activated abilities\nCall get_action_choices to see your options, then choose_action to decide.",
+    "content": "The game is starting. Your first decision (GAME_SELECT): Play spells and abilities\nCall get_action_choices to see your options, then choose_action to decide.",
     "role": "user"
   },
   {
@@ -22,8 +22,27 @@
     ]
   },
   {
-    "content": "{\"active_player\": \"PlayerA\", \"available\": true, \"phase\": \"Precombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"p1\", \"name\": \"Mountain\", \"tapped\": false}, {\"id\": \"p2\", \"name\": \"Mountain\", \"tapped\": true}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": true, \"library_size\": 100, \"life\": 20, \"name\": \"PlayerA\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Forest\", \"tapped\": false}, {\"id\": \"p8\", \"name\": \"Forest\", \"tapped\": false}], \"hand_size\": 1, \"is_active\": false, \"is_you\": false, \"library_size\": 100, \"life\": 20, \"name\": \"PlayerB\"}], \"priority_player\": \"PlayerA\", \"stack\": [{\"id\": \"p9\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"], \"targets\": [{\"id\": \"p10\", \"name\": \"PlayerB\"}]}], \"step\": \"Precombat Main\", \"turn\": 1}",
+    "content": "{\"active_player\": \"PlayerA\", \"available\": true, \"phase\": \"Precombat Main\", \"players\": [{\"hand\": [{\"id\": \"p1\", \"is_land\": true, \"name\": \"Badlands\", \"playable\": true, \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"p2\", \"is_land\": true, \"name\": \"Mountain\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p3\", \"is_land\": true, \"name\": \"Plateau\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Scrubland\", \"playable\": true, \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Taiga\", \"playable\": true, \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p7\", \"mana_cost\": \"{R}\", \"name\": \"Shock\", \"rules\": [\"{this} deals 2 damage to any target.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 30, \"life\": 20, \"name\": \"PlayerA\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 30, \"life\": 20, \"name\": \"PlayerB\"}], \"priority_player\": \"PlayerA\", \"stack\": [], \"step\": \"Precombat Main\", \"turn\": 1}",
     "role": "tool",
     "tool_call_id": "call_1"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": "{\"id\": \"p2\"}",
+          "name": "choose_action"
+        },
+        "id": "call_2",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": "{\"success\": true, \"action_taken\": \"selected_1\"}",
+    "role": "tool",
+    "tool_call_id": "call_2"
   }
 ]

@@ -35,14 +35,12 @@
     "choices": [
       {
         "id": "p1",
-        "index": 0,
         "is_you": true,
         "name": "PlayerA",
         "target_type": "player"
       },
       {
         "id": "p2",
-        "index": 1,
         "name": "PlayerB",
         "target_type": "player"
       }

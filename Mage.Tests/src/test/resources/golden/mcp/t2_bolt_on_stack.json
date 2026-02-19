@@ -5,97 +5,91 @@
     "phase": "Precombat Main",
     "players": [
       {
-        "battlefield": [
+        "hand": [
           {
             "id": "p1",
-            "name": "Mountain",
-            "tapped": false
+            "is_land": true,
+            "name": "Badlands",
+            "playable": true,
+            "rules": [
+              "{T}: Add {B}.",
+              "{T}: Add {R}."
+            ]
           },
           {
             "id": "p2",
+            "is_land": true,
             "name": "Mountain",
-            "tapped": true
-          }
-        ],
-        "hand": [
-          {
-            "id": "p3",
-            "mana_cost": "{R}",
-            "name": "Lightning Bolt",
             "playable": true,
             "rules": [
-              "{this} deals 3 damage to any target."
+              "{T}: Add {R}."
+            ]
+          },
+          {
+            "id": "p3",
+            "is_land": true,
+            "name": "Plateau",
+            "playable": true,
+            "rules": [
+              "{T}: Add {R}.",
+              "{T}: Add {W}."
             ]
           },
           {
             "id": "p4",
             "is_land": true,
-            "name": "Mountain",
+            "name": "Scrubland",
+            "playable": true,
             "rules": [
-              "{T}: Add {R}."
+              "{T}: Add {B}.",
+              "{T}: Add {W}."
             ]
           },
           {
             "id": "p5",
             "is_land": true,
-            "name": "Mountain",
+            "name": "Taiga",
+            "playable": true,
             "rules": [
+              "{T}: Add {G}.",
               "{T}: Add {R}."
             ]
           },
           {
             "id": "p6",
-            "is_land": true,
-            "name": "Mountain",
+            "mana_cost": "{R}",
+            "name": "Lightning Bolt",
             "rules": [
-              "{T}: Add {R}."
+              "{this} deals 3 damage to any target."
+            ]
+          },
+          {
+            "id": "p7",
+            "mana_cost": "{R}",
+            "name": "Shock",
+            "rules": [
+              "{this} deals 2 damage to any target."
             ]
           }
         ],
-        "hand_size": 4,
+        "hand_size": 7,
         "is_active": true,
         "is_you": true,
-        "library_size": 100,
+        "library_size": 30,
         "life": 20,
         "name": "PlayerA"
       },
       {
-        "battlefield": [
-          {
-            "id": "p7",
-            "name": "Forest",
-            "tapped": false
-          },
-          {
-            "id": "p8",
-            "name": "Forest",
-            "tapped": false
-          }
-        ],
-        "hand_size": 1,
+        "hand_size": 7,
         "is_active": false,
         "is_you": false,
-        "library_size": 100,
+        "library_size": 30,
         "life": 20,
         "name": "PlayerB"
       }
     ],
     "priority_player": "PlayerA",
-    "stack": [
-      {
-        "id": "p9",
-        "name": "Lightning Bolt",
-        "rules": [
-          "{this} deals 3 damage to any target."
-        ],
-        "targets": [
-          {
-            "id": "p10",
-            "name": "PlayerB"
-          }
-        ]
-      }
-    ],
+    "stack": [],
     "step": "Precombat Main",
     "turn": 1
   },
@@ -105,31 +99,37 @@
     "actions_passed": 0,
     "choices": [
       {
-        "action": "cast",
+        "action": "land",
+        "id": "p1",
+        "name": "Badlands"
+      },
+      {
+        "action": "land",
+        "id": "p2",
+        "name": "Mountain"
+      },
+      {
+        "action": "land",
         "id": "p3",
-        "index": 0,
-        "mana_cost": "{R}",
-        "name": "Lightning Bolt"
+        "name": "Plateau"
+      },
+      {
+        "action": "land",
+        "id": "p4",
+        "name": "Scrubland"
+      },
+      {
+        "action": "land",
+        "id": "p5",
+        "name": "Taiga"
       }
     ],
     "context": "T1 Precombat Main/Precombat Main (PlayerA) YOUR_MAIN",
     "land_drops_used": 0,
-    "message": "Play instants and activated abilities",
+    "message": "Play spells and abilities",
     "players": "PlayerA(you,20hp), PlayerB(20hp)",
     "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
     "response_type": "select",
-    "stack": [
-      {
-        "name": "Lightning Bolt",
-        "targets": [
-          {
-            "id": "p10",
-            "name": "PlayerB"
-          }
-        ]
-      }
-    ],
-    "stop_reason": "playable_cards",
-    "untapped_lands": 1
+    "stop_reason": "playable_cards"
   }
 }

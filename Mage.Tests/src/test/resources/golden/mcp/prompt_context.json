@@ -604,10 +604,6 @@
             "description": "Short ID of the object to select (e.g. \"p3\"). Alternative to index.",
             "type": "string"
           },
-          "index": {
-            "description": "Choice index from get_action_choices",
-            "type": "integer"
-          },
           "mana_plan": {
             "description": "Mana payment instructions for casting a spell (use with index/id). Each entry is a short ID of a permanent to tap for mana (e.g. \"p1\" for a land/rock). For multi-ability permanents (dual lands), append :N (e.g. \"p5:1\" for second ability). IMPORTANT: Only use short IDs (\"p1\", \"p5:1\") to TAP permanents for mana. Pool colors (WHITE, BLUE, BLACK, RED, GREEN, COLORLESS) only SPEND mana already in your mana pool — they do NOT produce mana. Only use pool colors after something else has already added mana to your pool (e.g. a ritual spell or a triggered ability). Entries are consumed in order, one per mana pip. If any entry fails (permanent not available), the spell is cancelled. If the plan runs out before all pips are paid, auto-tap fills the rest (unless auto_tap=false, which cancels instead). Example: casting a 3-mana spell with 2 lands: [\"p1\", \"p5:1\"] — auto-tap handles the 3rd pip.",
             "items": {

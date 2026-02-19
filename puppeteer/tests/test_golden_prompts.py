@@ -59,7 +59,9 @@ def _assemble_prompt(
         fixture_name: Name of the Java fixture file (without .json).
         ai_tool_calls: Sequence of tool calls the AI makes before the
             decision point. Each is {"name": "tool_name", "arguments": {...}}.
-            Tool results are resolved from the Java fixture.
+            Tool results are resolved from the Java fixture, or from an
+            inline "result" key if provided (for tools like choose_action
+            whose results aren't in the fixture).
 
     Returns the complete messages array sent to the LLM API.
     Tool definitions are always the same (derived from website/src/data/mcp-tools.json)
@@ -98,7 +100,7 @@ def _assemble_prompt(
         )
 
         # Tool result message (matches pilot.py format, lines 700-706)
-        result_content = _resolve_tool_result(call["name"], fixture)
+        result_content = json.dumps(call["result"]) if "result" in call else _resolve_tool_result(call["name"], fixture)
         history.append(
             {
                 "role": "tool",
@@ -174,11 +176,19 @@ def test_play_or_draw():
 
 
 def test_t2_bolt_on_stack():
-    """Turn 2 with Lightning Bolt on stack — AI checks game state."""
+    """T1 main with lands and burn spells — AI checks state, then plays a land."""
     prompt = _assemble_prompt(
         fixture_name="t2_bolt_on_stack",
         ai_tool_calls=[
             {"name": "get_game_state", "arguments": {}},
+            {
+                "name": "choose_action",
+                "arguments": {"id": "p2"},
+                "result": {
+                    "success": True,
+                    "action_taken": "selected_1",
+                },
+            },
         ],
     )
     _assert_golden("t2_bolt_on_stack", _to_sorted_json(prompt))

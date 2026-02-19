@@ -18,11 +18,8 @@
           },
           {
             "id": "p2",
-            "name": "Memnite",
-            "power": "1",
-            "summoning_sick": false,
-            "tapped": false,
-            "toughness": "1"
+            "name": "Island",
+            "tapped": true
           },
           {
             "id": "p3",
@@ -41,8 +38,11 @@
           },
           {
             "id": "p6",
-            "name": "Island",
-            "tapped": true
+            "name": "Memnite",
+            "power": "1",
+            "summoning_sick": false,
+            "tapped": false,
+            "toughness": "1"
           }
         ],
         "hand": [],
