@@ -122,6 +122,11 @@ public class StreamingMain {
                 // keyboard input — which is fine for an observer.
                 streamingFrame.setFocusableWindowState(false);
                 streamingFrame.setAutoRequestFocus(false);
+                if (Boolean.getBoolean("xmage.streaming.noWindow")) {
+                    // Keep the frame off-screen so Swing layout still works
+                    // but no window appears (used by golden tests).
+                    streamingFrame.setLocation(-10000, -10000);
+                }
                 streamingFrame.setVisible(true);
                 LOGGER.info("Streaming client started successfully");
             } catch (Throwable e) {
