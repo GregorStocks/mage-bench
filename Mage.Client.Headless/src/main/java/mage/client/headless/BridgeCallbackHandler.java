@@ -43,6 +43,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import org.apache.log4j.Logger;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -696,8 +697,12 @@ public class BridgeCallbackHandler {
                 if (askMsg != null && askMsg.toLowerCase().contains("mulligan") && gameView != null) {
                     CardsView hand = gameView.getMyHand();
                     if (hand != null && !hand.isEmpty()) {
+                        // Sort hand by card name for deterministic ordering
+                        var sortedHand = new ArrayList<>(hand.values());
+                        sortedHand.sort(Comparator.comparing(c -> safeDisplayName(c)));
+
                         var handCards = new ArrayList<Map<String, Object>>();
-                        for (CardView card : hand.values()) {
+                        for (CardView card : sortedHand) {
                             handCards.add(buildCardInfoMap(card));
                         }
                         result.put("your_hand", handCards);
@@ -728,8 +733,16 @@ public class BridgeCallbackHandler {
                         }
                     }
 
+                    // Sort playable objects by card name for deterministic ordering
+                    // (HashMap iteration order depends on UUID hashCodes, which vary across JVM runs)
+                    var sortedPlayable = new ArrayList<>(playable.getObjects().entrySet());
+                    sortedPlayable.sort(Comparator.comparing(e -> {
+                        CardView cv = findCardViewById(e.getKey());
+                        return cv != null ? safeDisplayName(cv) : "";
+                    }));
+
                     int idx = 0;
-                    for (Map.Entry<UUID, PlayableObjectStats> entry : playable.getObjects().entrySet()) {
+                    for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {
                         UUID objectId = entry.getKey();
                         PlayableObjectStats stats = entry.getValue();
 
@@ -945,8 +958,15 @@ public class BridgeCallbackHandler {
                 UUID payingForId = extractPayingForId(manaMsg.getMessage());
 
                 if (manaPlayable != null) {
+                    // Sort mana sources by card name for deterministic ordering
+                    var sortedManaEntries = new ArrayList<>(manaPlayable.getObjects().entrySet());
+                    sortedManaEntries.sort(Comparator.comparing(e -> {
+                        CardView cv = findCardViewById(e.getKey());
+                        return cv != null ? safeDisplayName(cv) : "";
+                    }));
+
                     int idx = 0;
-                    for (Map.Entry<UUID, PlayableObjectStats> entry : manaPlayable.getObjects().entrySet()) {
+                    for (Map.Entry<UUID, PlayableObjectStats> entry : sortedManaEntries) {
                         UUID manaObjectId = entry.getKey();
                         if (manaObjectId.equals(payingForId)) {
                             continue;
@@ -1031,33 +1051,33 @@ public class BridgeCallbackHandler {
                     var targetChoices = new ArrayList<TargetChoice>();
                     for (UUID targetId : targets) {
                         var choiceEntry = new HashMap<String, Object>();
-                        choiceEntry.put("id", shortIds.getOrAssign(targetId));
+                        // ID assigned after sorting — see below
                         buildTargetInfo(choiceEntry, targetId, cardsView, targetGameView, myPlayerId);
                         targetChoices.add(new TargetChoice(targetId, choiceEntry));
                     }
 
-                    // Keep player-only target lists deterministic so replay scripts don't
-                    // depend on random player shuffle order from the game engine.
-                    if (isAllPlayerTargets(targetChoices)) {
-                        targetChoices.sort((a, b) -> {
-                            boolean aIsYou = Boolean.TRUE.equals(a.entry().get("is_you"));
-                            boolean bIsYou = Boolean.TRUE.equals(b.entry().get("is_you"));
-                            int youCmp = Boolean.compare(bIsYou, aIsYou);
-                            if (youCmp != 0) {
-                                return youCmp;
-                            }
-                            String aName = Objects.toString(a.entry().get("name"), "");
-                            String bName = Objects.toString(b.entry().get("name"), "");
-                            int nameCmp = String.CASE_INSENSITIVE_ORDER.compare(aName, bName);
-                            if (nameCmp != 0) {
-                                return nameCmp;
-                            }
-                            return a.targetId().toString().compareTo(b.targetId().toString());
-                        });
-                    }
+                    // Sort all target choices deterministically: "you" first, then alphabetical.
+                    // HashMap iteration order depends on UUID hashCodes which vary across JVM runs.
+                    // IDs are assigned AFTER sorting so they're deterministic.
+                    targetChoices.sort((a, b) -> {
+                        boolean aIsYou = Boolean.TRUE.equals(a.entry().get("is_you"));
+                        boolean bIsYou = Boolean.TRUE.equals(b.entry().get("is_you"));
+                        int youCmp = Boolean.compare(bIsYou, aIsYou);
+                        if (youCmp != 0) {
+                            return youCmp;
+                        }
+                        String aName = Objects.toString(a.entry().get("name"), "");
+                        String bName = Objects.toString(b.entry().get("name"), "");
+                        int nameCmp = String.CASE_INSENSITIVE_ORDER.compare(aName, bName);
+                        if (nameCmp != 0) {
+                            return nameCmp;
+                        }
+                        return a.targetId().toString().compareTo(b.targetId().toString());
+                    });
 
                     int idx = 0;
                     for (TargetChoice tc : targetChoices) {
+                        tc.entry().put("id", shortIds.getOrAssign(tc.targetId()));
                         tc.entry().put("index", idx);
                         choiceList.add(tc.entry());
                         indexToUuid.add(tc.targetId());
@@ -3013,7 +3033,11 @@ public class BridgeCallbackHandler {
                 var handCards = new ArrayList<Map<String, Object>>();
                 PlayableObjectsList playable = gameView.getCanPlayObjects();
 
-                for (Map.Entry<UUID, CardView> handEntry : gameView.getMyHand().entrySet()) {
+                // Sort hand by card name for deterministic ordering
+                var sortedHand = new ArrayList<>(gameView.getMyHand().entrySet());
+                sortedHand.sort(Comparator.comparing(e -> safeDisplayName(e.getValue())));
+
+                for (Map.Entry<UUID, CardView> handEntry : sortedHand) {
                     var cardInfo = buildCardInfoMap(handEntry.getValue());
                     cardInfo.put("id", shortIds.getOrAssign(handEntry.getKey()));
                     if (playable != null && playable.containsObject(handEntry.getKey())) {
@@ -3024,10 +3048,12 @@ public class BridgeCallbackHandler {
                 playerInfo.put("hand", handCards);
             }
 
-            // Battlefield
+            // Battlefield — sort by name for deterministic ordering
             var battlefield = new ArrayList<Map<String, Object>>();
             if (player.getBattlefield() != null) {
-                for (PermanentView perm : player.getBattlefield().values()) {
+                var sortedBattlefield = new ArrayList<>(player.getBattlefield().values());
+                sortedBattlefield.sort(Comparator.comparing(p -> safeDisplayName(p)));
+                for (PermanentView perm : sortedBattlefield) {
                     var permInfo = new HashMap<String, Object>();
                     permInfo.put("id", shortIds.getOrAssign(perm.getId()));
                     permInfo.put("name", safeDisplayName(perm));
@@ -3098,10 +3124,12 @@ public class BridgeCallbackHandler {
                 playerInfo.put("battlefield", battlefield);
             }
 
-            // Graveyard
+            // Graveyard — sort by name for deterministic ordering
             var graveyard = new ArrayList<Map<String, Object>>();
             if (player.getGraveyard() != null) {
-                for (Map.Entry<UUID, CardView> entry : player.getGraveyard().entrySet()) {
+                var sortedGraveyard = new ArrayList<>(player.getGraveyard().entrySet());
+                sortedGraveyard.sort(Comparator.comparing(e -> safeDisplayName(e.getValue())));
+                for (Map.Entry<UUID, CardView> entry : sortedGraveyard) {
                     var cardInfo = new HashMap<String, Object>();
                     cardInfo.put("id", shortIds.getOrAssign(entry.getKey()));
                     cardInfo.put("name", safeDisplayName(entry.getValue()));
@@ -3112,10 +3140,12 @@ public class BridgeCallbackHandler {
                 playerInfo.put("graveyard", graveyard);
             }
 
-            // Exile
+            // Exile — sort by name for deterministic ordering
             var exileCards = new ArrayList<Map<String, Object>>();
             if (player.getExile() != null) {
-                for (Map.Entry<UUID, CardView> entry : player.getExile().entrySet()) {
+                var sortedExile = new ArrayList<>(player.getExile().entrySet());
+                sortedExile.sort(Comparator.comparing(e -> safeDisplayName(e.getValue())));
+                for (Map.Entry<UUID, CardView> entry : sortedExile) {
                     var cardInfo = new HashMap<String, Object>();
                     cardInfo.put("id", shortIds.getOrAssign(entry.getKey()));
                     cardInfo.put("name", safeDisplayName(entry.getValue()));
