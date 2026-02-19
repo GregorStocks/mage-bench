@@ -1741,6 +1741,10 @@ public class TablesPanel extends javax.swing.JPanel {
                 options.setCustomStartLifeEnabled(true);
                 options.setCustomStartLife(Integer.parseInt(customLifeEnv));
             }
+            String skipShuffleEnv = System.getenv("XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING");
+            if ("true".equalsIgnoreCase(skipShuffleEnv)) {
+                options.setSkipInitShuffling(true);
+            }
             options.setFreeMulligans(gameTypeStr.toLowerCase().contains("commander") ? 1 : 0);
             options.setSkillLevel(SkillLevel.CASUAL);
             options.setRollbackTurnsAllowed(true);

@@ -38,6 +38,7 @@ public class McpServer {
         GetOracleTextTool.class,
         GetActionChoicesTool.class,
         ChooseActionTool.class,
+        ConcedeTool.class,
     };
 
     private final BridgeCallbackHandler callbackHandler;

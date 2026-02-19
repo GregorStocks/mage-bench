@@ -1,116 +1,247 @@
-"""Golden file tests for the exact messages array sent to the LLM API.
+"""Golden prompt integration tests.
 
-Captures the wire-format messages for each scenario. Tool definitions are
-always the same (derived from website/src/data/mcp-tools.json) and are not
-included in the golden files. Tool result content fields are JSON strings
-with escaped quotes — that's what the API actually receives.
+Runs real XMage games with scripted replay pilots, captures the exact
+messages array that would be sent to the LLM, and compares against golden files.
 
-See doc/golden-prompts.md for architecture and rationale.
+These are integration tests that require compilation and a running XMage server.
+They are NOT included in ``make test`` — run them with ``make test-golden``.
 
-To update golden files:  make update-golden
-To verify:               make test-golden
+To run:    make test-golden
+To update: make update-golden
 """
 
 import json
 import os
+import subprocess
+import sys
+import time
 from pathlib import Path
 
-from puppeteer.pilot import _render_context, build_initial_message
+from puppeteer.process_manager import kill_tree
 
-# Paths relative to repo root
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-JAVA_FIXTURES_DIR = REPO_ROOT / "Mage.Tests" / "src" / "test" / "resources" / "golden" / "mcp"
-PROMPTS_JSON = REPO_ROOT / "puppeteer" / "prompts.json"
 GOLDEN_DIR = Path(__file__).resolve().parent / "golden" / "prompts"
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
 
-
-def _load_system_prompt() -> str:
-    prompts = json.loads(PROMPTS_JSON.read_text())
-    return prompts["default"]
-
-
-def _load_java_fixture(name: str) -> dict:
-    """Load a Java fixture file (pass_priority_result + game_state)."""
-    path = JAVA_FIXTURES_DIR / f"{name}.json"
-    return json.loads(path.read_text())
+# Default decks for tests (relative to project root)
+DECK_RED_STOMPY = "Mage.Client/release/sample-decks/Legacy/Red-Stompy.dck"
+DECK_GOBLINS = "Mage.Client/release/sample-decks/Legacy/Goblins.dck"
 
 
-def _resolve_tool_result(tool_name: str, fixture: dict) -> str:
-    """Look up what an MCP tool would return from the Java fixture data."""
-    if tool_name == "get_game_state":
-        return json.dumps(fixture["game_state"])
-    elif tool_name == "pass_priority":
-        return json.dumps(fixture["pass_priority_result"])
-    else:
-        raise ValueError(
-            f"Unsupported tool in scenario script: {tool_name!r}. Fixture only has pass_priority_result and game_state."
-        )
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
 
 
-def _assemble_prompt(
-    fixture_name: str,
-    ai_tool_calls: list[dict],
+def _start_process(
+    args: list[str],
+    cwd: Path,
+    env_updates: dict[str, str],
+    log_path: Path,
+) -> tuple[subprocess.Popen, object]:
+    """Start a subprocess with logging. Returns (proc, log_file_handle)."""
+    env = os.environ.copy()
+    env.update(env_updates)
+    log_fh = open(log_path, "w")
+    proc = subprocess.Popen(
+        args,
+        cwd=cwd,
+        env=env,
+        stdout=log_fh,
+        stderr=subprocess.STDOUT,
+    )
+    return proc, log_fh
+
+
+def _wait_for_log_marker(
+    log_path: Path,
+    marker: str,
+    proc: subprocess.Popen,
+    timeout: int = 120,
+) -> None:
+    """Wait for a marker string to appear in a log file."""
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        if proc.poll() is not None:
+            log_text = log_path.read_text() if log_path.exists() else "<no log>"
+            raise RuntimeError(
+                f"Process exited (rc={proc.returncode}) before marker appeared.\n"
+                f"Marker: {marker!r}\n"
+                f"Log tail:\n{log_text[-2000:]}"
+            )
+        if log_path.exists() and marker in log_path.read_text():
+            return
+        time.sleep(2)
+    log_text = log_path.read_text() if log_path.exists() else "<no log>"
+    raise TimeoutError(f"Marker not found within {timeout}s: {marker!r}\nLog tail:\n{log_text[-2000:]}")
+
+
+def run_golden_scenario(
+    server: str,
+    port: int,
+    project_root: Path,
+    game_dir: Path,
+    deck_a: str,
+    deck_b: str,
+    script: list[dict],
+    player_a_name: str = "TestPlayer",
+    player_b_name: str = "Opponent",
+    game_type: str = "Two Player Duel",
+    deck_type: str = "Constructed - Legacy",
 ) -> list[dict]:
-    """Assemble the full LLM prompt messages for a scenario.
+    """Run a golden test scenario with a replay player vs a potato opponent.
 
-    Args:
-        fixture_name: Name of the Java fixture file (without .json).
-        ai_tool_calls: Sequence of tool calls the AI makes before the
-            decision point. Each is {"name": "tool_name", "arguments": {...}}.
-            Tool results are resolved from the Java fixture, or from an
-            inline "result" key if provided (for tools like choose_action
-            whose results aren't in the fixture).
+    Starts a streaming spectator (creates the game table), a replay client
+    (executes scripted MCP tool calls and captures the LLM prompt), and a
+    potato client (auto-responds to everything as the opponent).
 
-    Returns the complete messages array sent to the LLM API.
-    Tool definitions are always the same (derived from website/src/data/mcp-tools.json)
-    and are not included in the golden files.
+    Returns the captured prompt messages array (what the LLM would see).
     """
-    fixture = _load_java_fixture(fixture_name)
-    system_prompt = _load_system_prompt()
+    game_dir.mkdir(parents=True, exist_ok=True)
 
-    pass_priority_result = fixture["pass_priority_result"]
+    # Write script file
+    script_path = game_dir / "script.json"
+    script_path.write_text(json.dumps(script))
 
-    # Build the initial user message (same logic as _prefetch_first_action)
-    initial_message = build_initial_message(pass_priority_result)
+    # Build player config JSON for the spectator
+    players_config = json.dumps(
+        {
+            "players": [
+                {"type": "replay", "name": player_a_name, "deck": deck_a},
+                {"type": "potato", "name": player_b_name, "deck": deck_b},
+            ],
+            "gameType": game_type,
+            "deckType": deck_type,
+        },
+        separators=(",", ":"),
+    )
 
-    # Build conversation history with scripted tool calls
-    history: list[dict] = [{"role": "user", "content": initial_message}]
+    # JVM options
+    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
+    jvm_rendering = "-Dsun.java2d.xrender=true"
+    jvm_headless = jvm_opens
+    if sys.platform == "darwin":
+        jvm_headless += " -Dapple.awt.UIElement=true"
 
-    for i, call in enumerate(ai_tool_calls):
-        tool_call_id = f"call_{i + 1}"
+    procs: list[subprocess.Popen] = []
+    log_fhs: list = []
 
-        # Assistant message with tool call (matches pilot.py format, lines 561-573)
-        history.append(
-            {
-                "role": "assistant",
-                "content": None,
-                "tool_calls": [
-                    {
-                        "id": tool_call_id,
-                        "type": "function",
-                        "function": {
-                            "name": call["name"],
-                            "arguments": json.dumps(call.get("arguments", {})),
-                        },
-                    }
-                ],
-            }
+    try:
+        # --- Start streaming spectator ---
+        spectator_log = game_dir / "spectator.log"
+        spectator_jvm = " ".join(
+            [
+                jvm_opens,
+                jvm_rendering,
+                "-Dxmage.aiPuppeteer.autoConnect=true",
+                "-Dxmage.aiPuppeteer.autoStart=true",
+                "-Dxmage.aiPuppeteer.disableWhatsNew=true",
+                f"-Dxmage.aiPuppeteer.server={server}",
+                f"-Dxmage.aiPuppeteer.port={port}",
+                "-Dxmage.aiPuppeteer.user=spectator",
+                "-Dxmage.aiPuppeteer.password=",
+                f"-Dxmage.streaming.gameDir={game_dir}",
+            ]
         )
 
-        # Tool result message (matches pilot.py format, lines 700-706)
-        result_content = json.dumps(call["result"]) if "result" in call else _resolve_tool_result(call["name"], fixture)
-        history.append(
-            {
-                "role": "tool",
-                "tool_call_id": tool_call_id,
-                "content": result_content,
-            }
+        spectator_proc, spectator_fh = _start_process(
+            args=["mvn", "-q", "exec:java"],
+            cwd=project_root / "Mage.Client.Streaming",
+            env_updates={
+                "XMAGE_AI_PUPPETEER": "1",
+                "XMAGE_AI_PUPPETEER_USER": "spectator",
+                "XMAGE_AI_PUPPETEER_PASSWORD": "",
+                "XMAGE_AI_PUPPETEER_SERVER": server,
+                "XMAGE_AI_PUPPETEER_PORT": str(port),
+                "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
+                "XMAGE_AI_PUPPETEER_PLAYERS_CONFIG": players_config,
+                "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
+                "MAVEN_OPTS": spectator_jvm,
+            },
+            log_path=spectator_log,
         )
+        procs.append(spectator_proc)
+        log_fhs.append(spectator_fh)
 
-    # Assemble the messages using the real _render_context
-    return _render_context(history, system_prompt, state_summary="")
+        # Wait for table creation
+        _wait_for_log_marker(spectator_log, "AI Puppeteer: waiting for", spectator_proc, timeout=120)
+
+        # --- Start replay client (player A) ---
+        replay_log = game_dir / f"{player_a_name}_replay.log"
+        replay_proc, replay_fh = _start_process(
+            args=[
+                sys.executable,
+                "-m",
+                "puppeteer.replay",
+                "--server",
+                server,
+                "--port",
+                str(port),
+                "--username",
+                player_a_name,
+                "--project-root",
+                str(project_root),
+                "--deck",
+                str(project_root / deck_a),
+                "--script",
+                str(script_path),
+                "--game-dir",
+                str(game_dir),
+            ],
+            cwd=project_root,
+            env_updates={"PYTHONUNBUFFERED": "1"},
+            log_path=replay_log,
+        )
+        procs.append(replay_proc)
+        log_fhs.append(replay_fh)
+
+        # --- Start potato client (player B) ---
+        potato_log = game_dir / f"{player_b_name}_mcp.log"
+        potato_jvm = " ".join(
+            [
+                jvm_headless,
+                f"-Dxmage.headless.server={server}",
+                f"-Dxmage.headless.port={port}",
+                "-Dxmage.headless.personality=potato",
+            ]
+        )
+        potato_proc, potato_fh = _start_process(
+            args=[
+                "mvn",
+                "-q",
+                f"-Dxmage.headless.username={player_b_name}",
+                f"-Dxmage.headless.deck={project_root / deck_b}",
+                "exec:java",
+            ],
+            cwd=project_root / "Mage.Client.Headless",
+            env_updates={"MAVEN_OPTS": potato_jvm},
+            log_path=potato_log,
+        )
+        procs.append(potato_proc)
+        log_fhs.append(potato_fh)
+
+        # Wait for the spectator to exit (game over)
+        try:
+            spectator_proc.wait(timeout=180)
+        except subprocess.TimeoutExpired as e:
+            log_text = spectator_log.read_text() if spectator_log.exists() else "<no log>"
+            raise TimeoutError(f"Game did not complete within 180s.\nSpectator log tail:\n{log_text[-2000:]}") from e
+
+        # Wait for replay client to finish writing
+        replay_proc.wait(timeout=30)
+
+        # Read golden prompt
+        prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
+        assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_log}"
+        return json.loads(prompt_path.read_text())
+
+    finally:
+        for proc in procs:
+            if proc.poll() is None:
+                kill_tree(proc.pid)
+        for fh in log_fhs:
+            fh.close()
 
 
 def _to_sorted_json(obj: object) -> str:
@@ -118,7 +249,9 @@ def _to_sorted_json(obj: object) -> str:
     return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
 
 
-def _assert_golden(name: str, actual_json: str) -> None:
+def _assert_golden_prompt(name: str, actual: list[dict]) -> None:
+    """Compare prompt messages against golden file, or update in UPDATE_GOLDEN mode."""
+    actual_json = _to_sorted_json(actual)
     golden_file = GOLDEN_DIR / f"{name}.json"
 
     if UPDATE_MODE:
@@ -148,58 +281,33 @@ def _assert_golden(name: str, actual_json: str) -> None:
 
 # ========== Test Cases ==========
 #
-# Each test defines a scenario: a Java fixture + scripted AI tool calls.
-# The golden file captures the messages array the LLM would see right
-# before making its decision.
+# Each test runs a real XMage game with deterministic setup:
+# - skipInitShuffling: library order matches the .dck file
+# - Replay pilot: scripted MCP tool calls
+# - Potato opponent: auto-responds to everything
+#
+# The golden file captures the prompt the LLM would see at the
+# point where the scripted calls are exhausted.
 
 
-def test_mulligan_seven_mountains():
-    """Mulligan with 7 Mountains — AI checks game state before deciding."""
-    prompt = _assemble_prompt(
-        fixture_name="mulligan_seven_mountains",
-        ai_tool_calls=[
+def test_initial_decision(xmage_server, tmp_path, project_root):
+    """Verify the prompt at the very first LLM decision point.
+
+    Script: pass_priority (to get the initial decision) then get_game_state.
+    The golden file captures the full messages array the LLM would receive
+    at this point — system prompt, initial user message, and two tool results.
+    """
+    server, port = xmage_server
+    prompt = run_golden_scenario(
+        server=server,
+        port=port,
+        project_root=project_root,
+        game_dir=tmp_path / "initial_decision",
+        deck_a=DECK_RED_STOMPY,
+        deck_b=DECK_GOBLINS,
+        script=[
+            {"name": "pass_priority", "arguments": {}},
             {"name": "get_game_state", "arguments": {}},
         ],
     )
-    _assert_golden("mulligan_seven_mountains", _to_sorted_json(prompt))
-
-
-def test_play_or_draw():
-    """Play or draw decision — AI checks game state before choosing."""
-    prompt = _assemble_prompt(
-        fixture_name="play_or_draw",
-        ai_tool_calls=[
-            {"name": "get_game_state", "arguments": {}},
-        ],
-    )
-    _assert_golden("play_or_draw", _to_sorted_json(prompt))
-
-
-def test_t2_bolt_on_stack():
-    """T1 main with lands and burn spells — AI checks state, then plays a land."""
-    prompt = _assemble_prompt(
-        fixture_name="t2_bolt_on_stack",
-        ai_tool_calls=[
-            {"name": "get_game_state", "arguments": {}},
-            {
-                "name": "choose_action",
-                "arguments": {"id": "p2"},
-                "result": {
-                    "success": True,
-                    "action_taken": "selected_1",
-                },
-            },
-        ],
-    )
-    _assert_golden("t2_bolt_on_stack", _to_sorted_json(prompt))
-
-
-def test_clone_copies_memnite():
-    """Clone copying Memnite — verifies copy effect representation."""
-    prompt = _assemble_prompt(
-        fixture_name="clone_copies_memnite",
-        ai_tool_calls=[
-            {"name": "get_game_state", "arguments": {}},
-        ],
-    )
-    _assert_golden("clone_copies_memnite", _to_sorted_json(prompt))
+    _assert_golden_prompt("initial_decision", prompt)

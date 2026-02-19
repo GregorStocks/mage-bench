@@ -47,6 +47,8 @@ public class MatchOptions implements Serializable {
     protected MatchBufferTime matchBufferTime = MatchBufferTime.NONE; // additional/buffer time limit for each priority before real time ticking starts
     protected MulliganType mulliganType = MulliganType.GAME_DEFAULT;
 
+    protected boolean skipInitShuffling;
+
     protected Collection<DeckCardInfo> perPlayerEmblemCards = Collections.emptySet();
     protected Collection<DeckCardInfo> globalEmblemCards = Collections.emptySet();
 
@@ -284,6 +286,14 @@ public class MatchOptions implements Serializable {
 
     public MulliganType getMulliganType() {
         return mulliganType;
+    }
+
+    public boolean isSkipInitShuffling() {
+        return skipInitShuffling;
+    }
+
+    public void setSkipInitShuffling(boolean skipInitShuffling) {
+        this.skipInitShuffling = skipInitShuffling;
     }
 
     public Collection<DeckCardInfo> getPerPlayerEmblemCards() {

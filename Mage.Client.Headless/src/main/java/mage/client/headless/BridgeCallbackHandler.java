@@ -320,13 +320,6 @@ public class BridgeCallbackHandler {
         return mcpMode;
     }
 
-    /** For testing: initialize game/player mapping without a server connection. */
-    public void initForTest(UUID gameId, UUID playerId) {
-        activeGames.put(gameId, playerId);
-        currentGameId = gameId;
-        setMcpMode(true);
-    }
-
     public void setActionDelayMs(int actionDelayMs) {
         this.actionDelayMs = Math.max(0, actionDelayMs);
         logger.info("[" + client.getUsername() + "] action delay set to " + this.actionDelayMs + " ms");
@@ -2526,6 +2519,20 @@ public class BridgeCallbackHandler {
         lastChatMessage = message;
         lastChatTimeMs = now;
         return session.sendChatMessage(chatId, message);
+    }
+
+    /**
+     * Concede the current game.
+     */
+    public boolean concede() {
+        UUID gameId = currentGameId;
+        if (gameId == null) {
+            logger.warn("[" + client.getUsername() + "] Cannot concede: no active game");
+            return false;
+        }
+        logger.info("[" + client.getUsername() + "] Conceding game " + gameId);
+        session.sendPlayerAction(PlayerAction.CONCEDE, gameId, null);
+        return true;
     }
 
     /**

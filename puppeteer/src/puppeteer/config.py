@@ -53,6 +53,15 @@ class PilotPlayer:
 
 
 @dataclass
+class ReplayPlayer:
+    """Replay pilot: scripted MCP tool calls for golden tests."""
+
+    name: str
+    deck: str | None = None  # Path to .dck file, relative to project root
+    script: str | None = None  # Path to script JSON file, relative to project root
+
+
+@dataclass
 class CpuPlayer:
     """XMage built-in COMPUTER_MAD AI."""
 
@@ -61,7 +70,7 @@ class CpuPlayer:
 
 
 # Union type for all player types
-Player = PotatoPlayer | StallerPlayer | SleepwalkerPlayer | PilotPlayer | CpuPlayer
+Player = PotatoPlayer | StallerPlayer | SleepwalkerPlayer | PilotPlayer | ReplayPlayer | CpuPlayer
 
 # XMage server username constraints (from Mage.Server/config/config.xml)
 MIN_USERNAME_LENGTH = 3
@@ -422,6 +431,9 @@ class Config:
     # Post-game behavior
     skip_post_game_prompts: bool = False  # Skip YouTube/export prompts
 
+    # Deterministic game options
+    skip_init_shuffling: bool = False  # Don't shuffle libraries at game start
+
     # Runtime state (set during execution)
     port: int = 0
     timestamp: str = ""
@@ -431,6 +443,7 @@ class Config:
     staller_players: list[StallerPlayer] = field(default_factory=list)
     sleepwalker_players: list[SleepwalkerPlayer] = field(default_factory=list)
     pilot_players: list[PilotPlayer] = field(default_factory=list)
+    replay_players: list[ReplayPlayer] = field(default_factory=list)
     cpu_players: list[CpuPlayer] = field(default_factory=list)
 
     def load_config(
@@ -486,6 +499,7 @@ class Config:
                     self.deck_type_candidates = [raw_deck_type]
             self.custom_start_life = data.get("customStartLife", 0)
             self.skip_post_game_prompts = data.get("skipPostGamePrompts", False)
+            self.skip_init_shuffling = data.get("skipInitShuffling", False)
             personalities = load_personalities(self.config_file)
             models_data = load_models(self.config_file)
             presets_data = load_presets(self.config_file)
@@ -518,6 +532,8 @@ class Config:
                     self.potato_players.append(PotatoPlayer(name=name, deck=deck))
                 elif player_type == "staller":
                     self.staller_players.append(StallerPlayer(name=name, deck=deck))
+                elif player_type == "replay":
+                    self.replay_players.append(ReplayPlayer(name=name, deck=deck, script=player.get("script")))
                 elif player_type == "cpu":
                     self.cpu_players.append(CpuPlayer(name=name, deck=deck))
                 elif player_type == "skeleton":
@@ -525,11 +541,14 @@ class Config:
                     self.potato_players.append(PotatoPlayer(name=name, deck=deck))
 
             # Validate: only pilot players can have deck="choice"
-            non_pilot_choice = [
-                p.name
-                for p in self.potato_players + self.staller_players + self.sleepwalker_players + self.cpu_players
-                if p.deck == "choice"
-            ]
+            non_pilot = (
+                self.potato_players
+                + self.staller_players
+                + self.sleepwalker_players
+                + self.replay_players
+                + self.cpu_players
+            )
+            non_pilot_choice = [p.name for p in non_pilot if p.deck == "choice"]
             assert not non_pilot_choice, (
                 f"deck='choice' requires a pilot player (has LLM), but found on non-pilot player(s): {non_pilot_choice}"
             )
@@ -602,6 +621,11 @@ class Config:
             if p.deck:
                 d["deck"] = p.deck
             players.append(d)
+        for p in self.replay_players:
+            d = {"type": "replay", "name": p.name}
+            if p.deck:
+                d["deck"] = p.deck
+            players.append(d)
         for p in self.cpu_players:
             d = {"type": "cpu", "name": p.name}
             if p.deck:
@@ -624,6 +648,7 @@ class Config:
             + self.staller_players
             + self.sleepwalker_players
             + self.pilot_players
+            + self.replay_players
             + self.cpu_players
         )
         choice_names = [p.name for p in all_typed_players if p.deck == "choice"]
@@ -636,6 +661,7 @@ class Config:
             + self.staller_players
             + self.sleepwalker_players
             + self.pilot_players
+            + self.replay_players
             + self.cpu_players
         )
         if not any(p.deck == "random" for p in all_players):

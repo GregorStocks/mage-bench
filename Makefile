@@ -40,22 +40,15 @@ test-js:
 	cd website && npm install --prefer-offline --no-audit --no-fund && npx vitest run
 
 .PHONY: check
-check: lint format-check typecheck test test-js verify-decks test-golden
+check: lint format-check typecheck test test-js verify-decks
 
 .PHONY: test-golden
 test-golden:
-	mvn test -pl Mage.Tests -Dtest=McpPromptGoldenTest -Dsurefire.failIfNoSpecifiedTests=false -am -Dmaven.build.cache.skipCache=true
-	cd puppeteer && uv run pytest tests/test_golden_prompts.py -v
+	cd puppeteer && GOLDEN_INTEGRATION=1 uv run pytest tests/test_golden_prompts.py -v
 
 .PHONY: update-golden
 update-golden:
-	mvn test -pl Mage.Tests -Dtest=McpPromptGoldenTest -DupdateGolden=true -Dsurefire.failIfNoSpecifiedTests=false -am -Dmaven.build.cache.skipCache=true
-	cd puppeteer && UPDATE_GOLDEN=1 uv run pytest tests/test_golden_prompts.py -v
-	uv run python scripts/export_golden.py
-
-.PHONY: golden-export
-golden-export:
-	uv run python scripts/export_golden.py
+	cd puppeteer && GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest tests/test_golden_prompts.py -v
 
 .PHONY: build
 build:

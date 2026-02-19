@@ -534,6 +534,8 @@ def start_gui_client(
         env["XMAGE_AI_PUPPETEER_MATCH_BUFFER_TIME"] = config.match_buffer_time
     if config.custom_start_life:
         env["XMAGE_AI_PUPPETEER_CUSTOM_START_LIFE"] = str(config.custom_start_life)
+    if config.skip_init_shuffling:
+        env["XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING"] = "true"
 
     return pm.start_process(
         args=["mvn", "-q", "exec:java"],
@@ -613,6 +615,55 @@ def start_sleepwalker_client(
 
     if deck_path:
         args.extend(["--deck", str(project_root / deck_path)])
+
+    return pm.start_process(
+        args=args,
+        cwd=project_root,
+        env=env,
+        log_file=log_path,
+    )
+
+
+def start_replay_client(
+    pm: ProcessManager,
+    project_root: Path,
+    config: Config,
+    name: str,
+    deck_path: str | None,
+    script_path: str | None,
+    log_path: Path,
+    game_dir: Path | None = None,
+) -> subprocess.Popen:
+    """Start a replay client (Python MCP client + bridge, scripted tool calls).
+
+    This spawns the replay.py script which in turn spawns the bridge.
+    """
+    import sys
+
+    env = {
+        "PYTHONUNBUFFERED": "1",
+    }
+
+    args = [
+        sys.executable,
+        "-m",
+        "puppeteer.replay",
+        "--server",
+        config.server,
+        "--port",
+        str(config.port),
+        "--username",
+        name,
+        "--project-root",
+        str(project_root),
+    ]
+
+    if deck_path:
+        args.extend(["--deck", str(project_root / deck_path)])
+    if script_path:
+        args.extend(["--script", str(project_root / script_path)])
+    if game_dir:
+        args.extend(["--game-dir", str(game_dir)])
 
     return pm.start_process(
         args=args,
@@ -759,6 +810,8 @@ def start_streaming_client(
         env["XMAGE_AI_PUPPETEER_MATCH_BUFFER_TIME"] = config.match_buffer_time
     if config.custom_start_life:
         env["XMAGE_AI_PUPPETEER_CUSTOM_START_LIFE"] = str(config.custom_start_life)
+    if config.skip_init_shuffling:
+        env["XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING"] = "true"
 
     return pm.start_process(
         args=["mvn", "-q", "exec:java"],
@@ -1131,6 +1184,7 @@ def _setup_game(
     headless_count = (
         len(game_config.sleepwalker_players)
         + len(game_config.pilot_players)
+        + len(game_config.replay_players)
         + len(game_config.potato_players)
         + len(game_config.staller_players)
     )
@@ -1149,6 +1203,14 @@ def _setup_game(
                 log_path = game_dir / f"{player.name}_pilot.log"
                 print(f"{game_label}Pilot ({player.name}) log: {log_path}")
                 proc = start_pilot_client(pm, project_root, game_config, player, log_path, game_dir=game_dir)
+                session.pilot_procs.append((player.name, proc))
+
+            for player in game_config.replay_players:
+                log_path = game_dir / f"{player.name}_replay.log"
+                print(f"{game_label}Replay ({player.name}) log: {log_path}")
+                proc = start_replay_client(
+                    pm, project_root, game_config, player.name, player.deck, player.script, log_path, game_dir=game_dir
+                )
                 session.pilot_procs.append((player.name, proc))
 
             for player in game_config.potato_players:

@@ -718,5 +718,29 @@
     },
     "name": "choose_action",
     "description": "Respond to pending action. Blocks until an action is pending (like pass_priority). Use id or index to pick a choice (card, attacker, blocker, target, ability, mana source). Use answer for yes/no, pass priority, or confirm combat (true=confirm attackers/blockers). Use attackers/blockers for batch combat. Call get_action_choices first."
+  },
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "description": "Whether the concession was sent",
+          "type": "boolean"
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "Success",
+        "value": "{\n  \"success\": true\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {}
+    },
+    "name": "concede",
+    "description": "Concede the current game. The game ends immediately with the opponent winning."
   }
 ]
