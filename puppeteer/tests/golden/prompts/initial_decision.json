@@ -22,7 +22,7 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_TARGET\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"index\",\"can_cancel\":false,\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN\",\"message\":\"Select a starting player\",\"choices\":[{\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\",\"index\":0,\"id\":\"p2\"},{\"name\":\"Opponent\",\"target_type\":\"player\",\"index\":1,\"id\":\"p1\"}],\"required\":true,\"action_pending\":true}",
+    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_TARGET\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"index\",\"can_cancel\":false,\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN\",\"message\":\"Select a starting player\",\"choices\":[{\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\",\"index\":0,\"id\":\"p1\"},{\"name\":\"Opponent\",\"target_type\":\"player\",\"index\":1,\"id\":\"p2\"}],\"required\":true,\"action_pending\":true}",
     "role": "tool",
     "tool_call_id": "call_1"
   },
