@@ -333,28 +333,19 @@ async def execute_tool(session: ClientSession, name: str, arguments: dict) -> st
         return json.dumps({"error": str(e)})
 
 
-async def _prefetch_first_action(session: ClientSession) -> str:
-    """Wait for the first game decision and return a descriptive initial message.
+def build_initial_message(pass_priority_result: dict) -> str:
+    """Build the initial user message from a pass_priority result.
 
-    Calls pass_priority() which blocks until a decision arrives (e.g.
-    mulligan, choose play/draw). Since pass_priority returns choices inline,
-    we extract action_type and message directly — no separate get_action_choices
-    round-trip needed.
+    Used both by the real pilot loop (via _prefetch_first_action) and by
+    golden prompt tests.
     """
-    # pass_priority blocks until this player's first action is pending
-    result_text = await execute_tool(session, "pass_priority", {})
-    try:
-        result = json.loads(result_text)
-    except (json.JSONDecodeError, TypeError):
-        return "The game is starting. Call pass_priority to get your first decision."
-    if result.get("game_over"):
+    if pass_priority_result.get("game_over"):
         return "The game is over."
-    if not result.get("action_pending"):
+    if not pass_priority_result.get("action_pending"):
         return "The game is starting. Call pass_priority to get your first decision."
 
-    # pass_priority returns choices inline (action_type, message, choices, etc.)
-    action_type = result.get("action_type", "")
-    message = result.get("message", "")
+    action_type = pass_priority_result.get("action_type", "")
+    message = pass_priority_result.get("message", "")
 
     if "Mulligan" in message or "mulligan" in message.lower():
         return (
@@ -368,6 +359,22 @@ async def _prefetch_first_action(session: ClientSession) -> str:
         )
     else:
         return "The game is starting. Call pass_priority to get your first decision."
+
+
+async def _prefetch_first_action(session: ClientSession) -> str:
+    """Wait for the first game decision and return a descriptive initial message.
+
+    Calls pass_priority() which blocks until a decision arrives (e.g.
+    mulligan, choose play/draw). Since pass_priority returns choices inline,
+    we extract action_type and message directly — no separate get_action_choices
+    round-trip needed.
+    """
+    result_text = await execute_tool(session, "pass_priority", {})
+    try:
+        result = json.loads(result_text)
+    except (json.JSONDecodeError, TypeError):
+        return "The game is starting. Call pass_priority to get your first decision."
+    return build_initial_message(result)
 
 
 async def run_pilot_loop(

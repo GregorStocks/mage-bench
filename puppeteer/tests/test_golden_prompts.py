@@ -1,9 +1,9 @@
-"""Golden file tests for the exact JSON payload sent to the LLM API.
+"""Golden file tests for the exact messages array sent to the LLM API.
 
-Captures the wire-format request body (messages + tools) for each scenario.
-Tool result content fields are JSON strings with escaped quotes — that's
-what the API actually receives.  How the provider converts this into the
-token sequence the model processes is their implementation detail.
+Captures the wire-format messages for each scenario. Tool definitions are
+always the same (derived from website/src/data/mcp-tools.json) and are not
+included in the golden files. Tool result content fields are JSON strings
+with escaped quotes — that's what the API actually receives.
 
 See doc/golden-prompts.md for architecture and rationale.
 
@@ -15,14 +15,12 @@ import json
 import os
 from pathlib import Path
 
-from puppeteer.pilot import _render_context
+from puppeteer.pilot import _render_context, build_initial_message
 
 # Paths relative to repo root
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 JAVA_FIXTURES_DIR = REPO_ROOT / "Mage.Tests" / "src" / "test" / "resources" / "golden" / "mcp"
 PROMPTS_JSON = REPO_ROOT / "puppeteer" / "prompts.json"
-TOOLSETS_JSON = REPO_ROOT / "puppeteer" / "toolsets.json"
-MCP_TOOLS_JSON = REPO_ROOT / "website" / "src" / "data" / "mcp-tools.json"
 GOLDEN_DIR = Path(__file__).resolve().parent / "golden" / "prompts"
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
@@ -33,50 +31,10 @@ def _load_system_prompt() -> str:
     return prompts["default"]
 
 
-def _load_tools_openai() -> list[dict]:
-    """Load MCP tool definitions and convert to OpenAI function-calling format."""
-    mcp_tools = json.loads(MCP_TOOLS_JSON.read_text())
-    toolset = json.loads(TOOLSETS_JSON.read_text())["default"]
-    return [
-        {
-            "type": "function",
-            "function": {
-                "name": tool["name"],
-                "description": tool.get("description", ""),
-                "parameters": tool.get("inputSchema", {"type": "object", "properties": {}}),
-            },
-        }
-        for tool in mcp_tools
-        if tool["name"] in toolset
-    ]
-
-
 def _load_java_fixture(name: str) -> dict:
     """Load a Java fixture file (pass_priority_result + game_state)."""
     path = JAVA_FIXTURES_DIR / f"{name}.json"
     return json.loads(path.read_text())
-
-
-def _build_initial_message(pass_priority_result: dict) -> str:
-    """Replicate _prefetch_first_action's message formatting logic."""
-    if not pass_priority_result.get("action_pending"):
-        return "The game is starting. Call pass_priority to get your first decision."
-
-    action_type = pass_priority_result.get("action_type", "")
-    message = pass_priority_result.get("message", "")
-
-    if "Mulligan" in message or "mulligan" in message.lower():
-        return (
-            f"The game is starting. Your first decision: {message}\n"
-            f"Call get_action_choices to see your hand, then choose_action to decide."
-        )
-    elif action_type:
-        return (
-            f"The game is starting. Your first decision ({action_type}): {message}\n"
-            f"Call get_action_choices to see your options, then choose_action to decide."
-        )
-    else:
-        return "The game is starting. Call pass_priority to get your first decision."
 
 
 def _resolve_tool_result(tool_name: str, fixture: dict) -> str:
@@ -94,8 +52,8 @@ def _resolve_tool_result(tool_name: str, fixture: dict) -> str:
 def _assemble_prompt(
     fixture_name: str,
     ai_tool_calls: list[dict],
-) -> dict:
-    """Assemble the full LLM prompt for a scenario.
+) -> list[dict]:
+    """Assemble the full LLM prompt messages for a scenario.
 
     Args:
         fixture_name: Name of the Java fixture file (without .json).
@@ -103,18 +61,17 @@ def _assemble_prompt(
             decision point. Each is {"name": "tool_name", "arguments": {...}}.
             Tool results are resolved from the Java fixture.
 
-    Returns a dict with:
-      - messages: the complete messages array sent to the LLM API
-      - tools: the tool definitions in OpenAI format
+    Returns the complete messages array sent to the LLM API.
+    Tool definitions are always the same (derived from website/src/data/mcp-tools.json)
+    and are not included in the golden files.
     """
     fixture = _load_java_fixture(fixture_name)
     system_prompt = _load_system_prompt()
-    tools = _load_tools_openai()
 
     pass_priority_result = fixture["pass_priority_result"]
 
     # Build the initial user message (same logic as _prefetch_first_action)
-    initial_message = _build_initial_message(pass_priority_result)
+    initial_message = build_initial_message(pass_priority_result)
 
     # Build conversation history with scripted tool calls
     history: list[dict] = [{"role": "user", "content": initial_message}]
@@ -151,12 +108,7 @@ def _assemble_prompt(
         )
 
     # Assemble the messages using the real _render_context
-    messages = _render_context(history, system_prompt, state_summary="")
-
-    return {
-        "messages": messages,
-        "tools": tools,
-    }
+    return _render_context(history, system_prompt, state_summary="")
 
 
 def _to_sorted_json(obj: object) -> str:
@@ -195,8 +147,8 @@ def _assert_golden(name: str, actual_json: str) -> None:
 # ========== Test Cases ==========
 #
 # Each test defines a scenario: a Java fixture + scripted AI tool calls.
-# The golden file captures the complete prompt (messages + tools) that
-# the LLM would see right before making its decision.
+# The golden file captures the messages array the LLM would see right
+# before making its decision.
 
 
 def test_mulligan_seven_mountains():

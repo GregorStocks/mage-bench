@@ -18,12 +18,10 @@ in the wire-format payload.
 
 ## What the golden file captures
 
-Each golden file is a JSON object with two keys — the same two we pass to the
-LLM API's `chat.completions.create`:
-
-- **`messages`**: The complete messages array (system prompt, user message,
-  assistant tool calls, tool results)
-- **`tools`**: Tool definitions in OpenAI function-calling format
+Each golden file is a JSON array — the complete `messages` array we pass to the
+LLM API's `chat.completions.create` (system prompt, user message, assistant tool
+calls, tool results). Tool definitions are always the same across scenarios
+(derived from `website/src/data/mcp-tools.json`) and are not included.
 
 This is the **wire format** — the exact JSON serialized into the HTTP request
 body. Tool result `content` fields are JSON strings (with escaped quotes),
