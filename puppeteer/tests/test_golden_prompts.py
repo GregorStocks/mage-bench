@@ -331,13 +331,72 @@ def test_initial_decision(xmage_server, tmp_path, project_root):
     _assert_golden_prompt("initial_decision", prompt)
 
 
-# Disabled: needs deterministic player ordering — see issues/golden-bolt-on-stack.json
-# def test_bolt_on_stack(xmage_server, tmp_path, project_root):
-#     """Lightning Bolt on the stack targeting the opponent."""
-#     ...
+def test_bolt_on_stack(xmage_server, tmp_path, project_root):
+    """Lightning Bolt on the stack targeting the opponent.
+
+    Script: choose starting player, keep hand, play Taiga, cast Lightning
+    Bolt targeting Opponent, then get_game_state with Bolt still on stack.
+    """
+    server, port = xmage_server
+    prompt = run_golden_scenario(
+        server=server,
+        port=port,
+        project_root=project_root,
+        game_dir=tmp_path / "bolt_on_stack",
+        deck_a=DECK_BOLT_AND_BURN,
+        deck_b=DECK_FILLER,
+        script=[
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"id": "p3"}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 1}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"id": "p2"}},
+            {"name": "get_game_state", "arguments": {}},
+        ],
+    )
+    _assert_golden_prompt("bolt_on_stack", prompt)
 
 
-# Disabled: script indices wrong, needs rework — see issues/golden-clone-copies-memnite.json
-# def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
-#     """Clone enters as a copy of Memnite."""
-#     ...
+def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
+    """Clone enters as a copy of Memnite — verifies copy effect representation."""
+    server, port = xmage_server
+    prompt = run_golden_scenario(
+        server=server,
+        port=port,
+        project_root=project_root,
+        game_dir=tmp_path / "clone_copies_memnite",
+        deck_a=DECK_CLONE_AND_MEMNITE,
+        deck_b=DECK_FILLER,
+        script=[
+            # Choose TestPlayer as starting player and keep opening hand.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"answer": False}},
+            # Play Island.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"id": "p3"}},
+            # Next turn: cast Black Lotus then Memnite.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"id": "p6"}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"id": "p8"}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Cast Clone, choose to copy, target Memnite, then capture state.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"id": "p10"}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"answer": True}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "get_game_state", "arguments": {}},
+        ],
+    )
+    _assert_golden_prompt("clone_copies_memnite", prompt)

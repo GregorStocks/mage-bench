@@ -22,7 +22,7 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_TARGET\",\"players\":\"Opponent(20hp), TestPlayer(you,20hp)\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"index\",\"can_cancel\":false,\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN\",\"message\":\"Select a starting player\",\"choices\":[{\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\",\"index\":0,\"id\":\"p1\"},{\"name\":\"Opponent\",\"target_type\":\"player\",\"index\":1,\"id\":\"p2\"}],\"required\":true,\"action_pending\":true}",
+    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_TARGET\",\"players\":\"TestPlayer(you,20hp), Opponent(20hp)\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"index\",\"can_cancel\":false,\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN\",\"message\":\"Select a starting player\",\"choices\":[{\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\",\"index\":0,\"id\":\"p1\"},{\"name\":\"Opponent\",\"target_type\":\"player\",\"index\":1,\"id\":\"p2\"}],\"required\":true,\"action_pending\":true}",
     "role": "tool",
     "tool_call_id": "call_1"
   },
@@ -41,7 +41,7 @@
     ]
   },
   {
-    "content": "{\"priority_player\":\"\",\"cursor\":1,\"stack\":[],\"active_player\":\"\",\"players\":[{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":60,\"life\":20},{\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"name\":\"TestPlayer\",\"library_size\":50,\"life\":20,\"hand\":[]}],\"available\":true,\"turn\":1}",
+    "content": "{\"priority_player\":\"\",\"cursor\":1,\"stack\":[],\"active_player\":\"\",\"players\":[{\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"name\":\"TestPlayer\",\"library_size\":50,\"life\":20,\"hand\":[]},{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":60,\"life\":20}],\"available\":true,\"turn\":1}",
     "role": "tool",
     "tool_call_id": "call_2"
   }

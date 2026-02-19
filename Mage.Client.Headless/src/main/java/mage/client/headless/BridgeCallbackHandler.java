@@ -160,6 +160,8 @@ public class BridgeCallbackHandler {
     private record ManaPlanEntry(String type, String value, Integer abilityIndex) {
         ManaPlanEntry(String type, String value) { this(type, value, null); }
     }
+    private record TargetChoice(UUID targetId, Map<String, Object> entry) {
+    }
     private volatile long lastResponseSentAt = 0;
     private volatile UUID lastResponseGameId;
     private volatile ResponseType lastResponseType;
@@ -598,7 +600,7 @@ public class BridgeCallbackHandler {
             UUID gameId = currentGameId; // snapshot volatile to prevent TOCTOU race
             UUID myPlayerId = gameId != null ? activeGames.get(gameId) : null;
             var playerSummary = new StringBuilder();
-            for (PlayerView player : gameView.getPlayers()) {
+            for (PlayerView player : getStablePlayers(gameView, myPlayerId)) {
                 if (playerSummary.length() > 0) playerSummary.append(", ");
                 playerSummary.append(player.getName());
                 if (player.getPlayerId().equals(myPlayerId)) {
@@ -1026,14 +1028,39 @@ public class BridgeCallbackHandler {
                     GameView targetGameView = msg.getGameView() != null ? msg.getGameView() : lastGameView;
                     UUID gameId = currentGameId;
                     UUID myPlayerId = gameId != null ? activeGames.get(gameId) : null;
-                    int idx = 0;
+                    var targetChoices = new ArrayList<TargetChoice>();
                     for (UUID targetId : targets) {
                         var choiceEntry = new HashMap<String, Object>();
-                        choiceEntry.put("index", idx);
                         choiceEntry.put("id", shortIds.getOrAssign(targetId));
                         buildTargetInfo(choiceEntry, targetId, cardsView, targetGameView, myPlayerId);
-                        choiceList.add(choiceEntry);
-                        indexToUuid.add(targetId);
+                        targetChoices.add(new TargetChoice(targetId, choiceEntry));
+                    }
+
+                    // Keep player-only target lists deterministic so replay scripts don't
+                    // depend on random player shuffle order from the game engine.
+                    if (isAllPlayerTargets(targetChoices)) {
+                        targetChoices.sort((a, b) -> {
+                            boolean aIsYou = Boolean.TRUE.equals(a.entry().get("is_you"));
+                            boolean bIsYou = Boolean.TRUE.equals(b.entry().get("is_you"));
+                            int youCmp = Boolean.compare(bIsYou, aIsYou);
+                            if (youCmp != 0) {
+                                return youCmp;
+                            }
+                            String aName = Objects.toString(a.entry().get("name"), "");
+                            String bName = Objects.toString(b.entry().get("name"), "");
+                            int nameCmp = String.CASE_INSENSITIVE_ORDER.compare(aName, bName);
+                            if (nameCmp != 0) {
+                                return nameCmp;
+                            }
+                            return a.targetId().toString().compareTo(b.targetId().toString());
+                        });
+                    }
+
+                    int idx = 0;
+                    for (TargetChoice tc : targetChoices) {
+                        tc.entry().put("index", idx);
+                        choiceList.add(tc.entry());
+                        indexToUuid.add(tc.targetId());
                         idx++;
                     }
                 }
@@ -2970,7 +2997,7 @@ public class BridgeCallbackHandler {
         UUID gameId = currentGameId; // snapshot volatile to prevent TOCTOU race
         UUID myPlayerId = gameId != null ? activeGames.get(gameId) : null;
 
-        for (PlayerView player : gameView.getPlayers()) {
+        for (PlayerView player : getStablePlayers(gameView, myPlayerId)) {
             var playerInfo = new HashMap<String, Object>();
             playerInfo.put("name", player.getName());
             playerInfo.put("life", player.getLife());
@@ -3176,6 +3203,38 @@ public class BridgeCallbackHandler {
         }
 
         return state;
+    }
+
+    private List<PlayerView> getStablePlayers(GameView gameView, UUID myPlayerId) {
+        var players = new ArrayList<PlayerView>(gameView.getPlayers());
+        players.sort((a, b) -> {
+            boolean aIsYou = myPlayerId != null && a.getPlayerId().equals(myPlayerId);
+            boolean bIsYou = myPlayerId != null && b.getPlayerId().equals(myPlayerId);
+            int youCmp = Boolean.compare(bIsYou, aIsYou);
+            if (youCmp != 0) {
+                return youCmp;
+            }
+            String aName = a.getName() != null ? a.getName() : "";
+            String bName = b.getName() != null ? b.getName() : "";
+            int nameCmp = String.CASE_INSENSITIVE_ORDER.compare(aName, bName);
+            if (nameCmp != 0) {
+                return nameCmp;
+            }
+            return a.getPlayerId().toString().compareTo(b.getPlayerId().toString());
+        });
+        return players;
+    }
+
+    private boolean isAllPlayerTargets(List<TargetChoice> targetChoices) {
+        if (targetChoices.isEmpty()) {
+            return false;
+        }
+        for (TargetChoice choice : targetChoices) {
+            if (!"player".equals(choice.entry().get("target_type"))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
