@@ -27,12 +27,12 @@ def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
             {"name": "choose_action", "arguments": {"index": 0}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"answer": False}},
-            # Play Island.
+            # Play Island (alphabetical: Black Lotus=p3, Island=p4..p7, Memnite=p8).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p3"}},
+            {"name": "choose_action", "arguments": {"id": "p4"}},
             # Next turn: cast Black Lotus then Memnite.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p6"}},
+            {"name": "choose_action", "arguments": {"id": "p3"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}},
             {"name": "pass_priority", "arguments": {}},
