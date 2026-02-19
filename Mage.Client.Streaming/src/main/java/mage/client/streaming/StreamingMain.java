@@ -122,6 +122,15 @@ public class StreamingMain {
                 // keyboard input — which is fine for an observer.
                 streamingFrame.setFocusableWindowState(false);
                 streamingFrame.setAutoRequestFocus(false);
+                if (Boolean.getBoolean("xmage.streaming.noWindow")) {
+                    // Hide the window entirely (used by golden tests).
+                    // UTILITY type = no taskbar entry; off-screen = not visible.
+                    // setType requires the window to not be displayable, so
+                    // dispose first (releases native peers), then re-show.
+                    streamingFrame.dispose();
+                    streamingFrame.setType(Window.Type.UTILITY);
+                    streamingFrame.setLocation(-10000, -10000);
+                }
                 streamingFrame.setVisible(true);
                 LOGGER.info("Streaming client started successfully");
             } catch (Throwable e) {
