@@ -44,11 +44,11 @@ check: lint format-check typecheck test test-js verify-decks
 
 .PHONY: test-golden
 test-golden:
-	cd puppeteer && GOLDEN_INTEGRATION=1 uv run pytest tests/test_golden_prompts.py -v
+	cd puppeteer && GOLDEN_INTEGRATION=1 uv run pytest -m golden -v
 
 .PHONY: update-golden
 update-golden:
-	cd puppeteer && GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest tests/test_golden_prompts.py -v
+	cd puppeteer && GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest -m golden -v
 
 .PHONY: build
 build:

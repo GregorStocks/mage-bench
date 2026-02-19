@@ -75,3 +75,4 @@ disable_error_code = ["assignment"]
 testpaths = ["tests"]
 asyncio_mode = "auto"
 pythonpath = ["../scripts", "../scripts/analysis"]
+markers = ["golden: Golden prompt integration tests (require XMage server)"]
