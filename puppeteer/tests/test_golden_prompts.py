@@ -28,6 +28,11 @@ UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes"
 DECK_RED_STOMPY = "Mage.Client/release/sample-decks/Legacy/Red-Stompy.dck"
 DECK_GOBLINS = "Mage.Client/release/sample-decks/Legacy/Goblins.dck"
 
+# Custom test decks (relative to project root)
+DECK_BOLT_AND_BURN = "puppeteer/tests/decks/bolt_and_burn.dck"
+DECK_CLONE_AND_MEMNITE = "puppeteer/tests/decks/clone_and_memnite.dck"
+DECK_FILLER = "puppeteer/tests/decks/filler_opponent.dck"
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -157,6 +162,8 @@ def run_golden_scenario(
                 "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
                 "XMAGE_AI_PUPPETEER_PLAYERS_CONFIG": players_config,
                 "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
+                "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
+                "XMAGE_AI_PUPPETEER_CHOOSING_PLAYER": player_a_name,
                 "MAVEN_OPTS": spectator_jvm,
             },
             log_path=spectator_log,
@@ -221,15 +228,28 @@ def run_golden_scenario(
         procs.append(potato_proc)
         log_fhs.append(potato_fh)
 
-        # Wait for the spectator to exit (game over)
+        # Wait for the replay client to finish (it writes the golden prompt
+        # then concedes and exits). The spectator doesn't reliably receive
+        # game_over when watching very short games, so we don't wait for it.
         try:
-            spectator_proc.wait(timeout=180)
+            replay_proc.wait(timeout=180)
         except subprocess.TimeoutExpired as e:
             log_text = spectator_log.read_text() if spectator_log.exists() else "<no log>"
-            raise TimeoutError(f"Game did not complete within 180s.\nSpectator log tail:\n{log_text[-2000:]}") from e
+            replay_text = replay_log.read_text() if replay_log.exists() else "<no log>"
+            potato_text = potato_log.read_text() if potato_log.exists() else "<no log>"
+            raise TimeoutError(
+                f"Replay client did not complete within 180s.\n"
+                f"Spectator log tail:\n{log_text[-2000:]}\n"
+                f"Replay log tail:\n{replay_text[-2000:]}\n"
+                f"Potato log tail:\n{potato_text[-2000:]}"
+            ) from e
 
-        # Wait for replay client to finish writing
-        replay_proc.wait(timeout=30)
+        # Check replay client exit code
+        if replay_proc.returncode != 0:
+            replay_text = replay_log.read_text() if replay_log.exists() else "<no log>"
+            raise RuntimeError(
+                f"Replay client exited with code {replay_proc.returncode}.\nReplay log tail:\n{replay_text[-2000:]}"
+            )
 
         # Read golden prompt
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
@@ -311,3 +331,96 @@ def test_initial_decision(xmage_server, tmp_path, project_root):
         ],
     )
     _assert_golden_prompt("initial_decision", prompt)
+
+
+def test_bolt_on_stack(xmage_server, tmp_path, project_root):
+    """Lightning Bolt on the stack targeting the opponent.
+
+    Script: choose starting player, keep hand, play a land, cast Lightning
+    Bolt targeting Opponent, then get_game_state with Bolt on the stack.
+    """
+    server, port = xmage_server
+    prompt = run_golden_scenario(
+        server=server,
+        port=port,
+        project_root=project_root,
+        game_dir=tmp_path / "bolt_on_stack",
+        deck_a=DECK_BOLT_AND_BURN,
+        deck_b=DECK_FILLER,
+        script=[
+            # Select starting player → choose TestPlayer (index 1 with deterministic UUIDs)
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 1}},
+            # Mulligan → keep hand
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"answer": False}},
+            # First main phase — play a land (all produce R)
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Cast Lightning Bolt (R) — first spell in choices
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Target Opponent with Bolt (index 0 with deterministic UUIDs)
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Capture state with Bolt on stack targeting Opponent
+            {"name": "get_game_state", "arguments": {}},
+        ],
+    )
+    _assert_golden_prompt("bolt_on_stack", prompt)
+
+
+def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
+    """Clone enters as a copy of Memnite — verifies copy effect representation.
+
+    Script: choose starting player, keep hand, play Island, cast Black Lotus
+    and Memnite (both free), activate Lotus for blue mana, cast Clone (3U)
+    copying Memnite, then get_game_state.
+    """
+    server, port = xmage_server
+    prompt = run_golden_scenario(
+        server=server,
+        port=port,
+        project_root=project_root,
+        game_dir=tmp_path / "clone_copies_memnite",
+        deck_a=DECK_CLONE_AND_MEMNITE,
+        deck_b=DECK_FILLER,
+        script=[
+            # Select starting player → choose TestPlayer (index 1 with deterministic UUIDs)
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 1}},
+            # Mulligan → keep hand (Island, Clone, Memnite, Lotus, Island, Island, Island)
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"answer": False}},
+            # First main phase — play Island
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Cast Black Lotus (0 cost) — ability choice prompt follows
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Black Lotus ability choice (only one way to cast it)
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Cast Memnite (0 cost creature)
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Activate Black Lotus — sacrifice for 3 mana of one color
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Choose blue mana color
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Cast Clone (3U) with floating UUU + tap Island for U
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Clone ETB — "Use Clone's ability?" → yes, copy a creature
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"answer": True}},
+            # Choose Memnite as copy target
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Capture state with Clone on battlefield as Memnite copy
+            {"name": "get_game_state", "arguments": {}},
+        ],
+    )
+    _assert_golden_prompt("clone_copies_memnite", prompt)

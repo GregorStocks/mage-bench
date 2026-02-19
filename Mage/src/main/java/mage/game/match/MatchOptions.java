@@ -48,6 +48,7 @@ public class MatchOptions implements Serializable {
     protected MulliganType mulliganType = MulliganType.GAME_DEFAULT;
 
     protected boolean skipInitShuffling;
+    protected String choosingPlayerName; // null = random die roll, non-null = player with this name wins the toss
 
     protected Collection<DeckCardInfo> perPlayerEmblemCards = Collections.emptySet();
     protected Collection<DeckCardInfo> globalEmblemCards = Collections.emptySet();
@@ -294,6 +295,14 @@ public class MatchOptions implements Serializable {
 
     public void setSkipInitShuffling(boolean skipInitShuffling) {
         this.skipInitShuffling = skipInitShuffling;
+    }
+
+    public String getChoosingPlayerName() {
+        return choosingPlayerName;
+    }
+
+    public void setChoosingPlayerName(String choosingPlayerName) {
+        this.choosingPlayerName = choosingPlayerName;
     }
 
     public Collection<DeckCardInfo> getPerPlayerEmblemCards() {

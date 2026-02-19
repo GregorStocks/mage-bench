@@ -1731,7 +1731,8 @@ public class TablesPanel extends javax.swing.JPanel {
             options.setDeckType(deckTypeStr);
             options.setAttackOption(MultiplayerAttackOption.MULTIPLE);
             options.setRange(RangeOfInfluence.ALL);
-            options.setWinsNeeded(2);
+            String winsNeededEnv = System.getenv("XMAGE_AI_PUPPETEER_WINS_NEEDED");
+            options.setWinsNeeded(winsNeededEnv != null ? Integer.parseInt(winsNeededEnv) : 2);
             String timeLimitEnv = System.getenv("XMAGE_AI_PUPPETEER_MATCH_TIME_LIMIT");
             options.setMatchTimeLimit(timeLimitEnv != null ? MatchTimeLimit.valueOf(timeLimitEnv) : MatchTimeLimit.NONE);
             String bufferTimeEnv = System.getenv("XMAGE_AI_PUPPETEER_MATCH_BUFFER_TIME");
@@ -1744,6 +1745,10 @@ public class TablesPanel extends javax.swing.JPanel {
             String skipShuffleEnv = System.getenv("XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING");
             if ("true".equalsIgnoreCase(skipShuffleEnv)) {
                 options.setSkipInitShuffling(true);
+            }
+            String choosingPlayerEnv = System.getenv("XMAGE_AI_PUPPETEER_CHOOSING_PLAYER");
+            if (choosingPlayerEnv != null && !choosingPlayerEnv.isEmpty()) {
+                options.setChoosingPlayerName(choosingPlayerEnv);
             }
             options.setFreeMulligans(gameTypeStr.toLowerCase().contains("commander") ? 1 : 0);
             options.setSkillLevel(SkillLevel.CASUAL);

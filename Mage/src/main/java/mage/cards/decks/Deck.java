@@ -213,7 +213,7 @@ public class Deck implements Serializable, Copyable<Deck> {
         return cards
                 .stream()
                 .filter(card -> !card.isExtraDeckCard())
-                .collect(Collectors.toSet());
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
 
     public Card findCard(UUID cardId) {

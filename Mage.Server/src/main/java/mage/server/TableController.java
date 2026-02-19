@@ -677,6 +677,16 @@ public class TableController {
             gameOptions.perPlayerEmblemCards = match.getOptions().getPerPlayerEmblemCards();
             gameOptions.globalEmblemCards = match.getOptions().getGlobalEmblemCards();
             gameOptions.skipInitShuffling = match.getOptions().isSkipInitShuffling();
+            // Resolve fixed choosing player if configured (for deterministic tests)
+            if (choosingPlayerId == null && match.getOptions().getChoosingPlayerName() != null) {
+                String targetName = match.getOptions().getChoosingPlayerName();
+                for (mage.players.Player p : match.getGame().getPlayers().values()) {
+                    if (targetName.equals(p.getName())) {
+                        choosingPlayerId = p.getId();
+                        break;
+                    }
+                }
+            }
             match.getGame().setGameOptions(gameOptions);
             managerFactory.gameManager().createGameSession(match.getGame(), userPlayerMap, table.getId(), choosingPlayerId, gameOptions);
             String creator = null;

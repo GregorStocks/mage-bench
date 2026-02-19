@@ -49,7 +49,7 @@ def xmage_server(project_root, tmp_path_factory):
     )
 
     # Build JVM options
-    jvm_opts = "--add-opens=java.base/java.io=ALL-UNNAMED"
+    jvm_opts = "--add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED"
     if sys.platform == "darwin":
         jvm_opts += " -Dapple.awt.UIElement=true"
 
@@ -63,6 +63,7 @@ def xmage_server(project_root, tmp_path_factory):
             "XMAGE_AI_PUPPETEER_SERVER": "localhost",
             "XMAGE_AI_PUPPETEER_PORT": str(port),
             "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
+            "DETERMINISTIC_UUID_SEED": "42",
             "MAVEN_OPTS": f"{jvm_opts} -Dxmage.config.path={config_path}",
         }
     )
