@@ -82,6 +82,10 @@
         "success": {
           "description": "Whether the message was sent",
           "type": "boolean"
+        },
+        "error": {
+          "description": "Error message when success is false",
+          "type": "string"
         }
       }
     },
@@ -89,6 +93,10 @@
       {
         "label": "Success",
         "value": "{\n  \"success\": true\n}"
+      },
+      {
+        "label": "Error",
+        "value": "{\n  \"success\": false,\n  \"error\": \"no active game\"\n}"
       }
     ],
     "inputSchema": {

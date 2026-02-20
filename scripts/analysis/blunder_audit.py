@@ -194,20 +194,70 @@ def _get_current_annotation(
     return (anns[0] if anns else None), BLUNDER_SCRIPT_VERSION
 
 
+def _recent_actions_before(
+    game_actions: list[dict], snapshots: list[dict], snapshot_index: int, count: int = 5
+) -> list[str]:
+    """Return the last `count` game action messages before a snapshot's timestamp."""
+    if snapshot_index is None or snapshot_index < 0 or snapshot_index >= len(snapshots):
+        return []
+    snap_ts = snapshots[snapshot_index].get("ts", "")
+    if not snap_ts:
+        return []
+    recent: list[str] = []
+    for a in game_actions:
+        a_ts = a.get("ts", "")
+        if a_ts > snap_ts:
+            break
+        msg = a.get("message", "")
+        if msg:
+            recent.append(msg)
+    return recent[-count:]
+
+
 def format_play_context(
     game_id: str,
     decision: dict,
     snapshots: list[dict],
     annotation: dict | None,
+    game_actions: list[dict] | None = None,
 ) -> str:
     """Format a decision for display during auditing."""
     aftermath = compute_aftermath_index(decision, snapshots)
+    game_state = decision.get("game_state", {})
+    stack = game_state.get("stack", [])
+    stack_str = (
+        ", ".join(s if isinstance(s, str) else s.get("name", "?") for s in stack)
+        if stack
+        else "(empty)"
+    )
+
+    # Find the current player's hand
+    player_name = decision.get("player", "")
+    hand_str = "?"
+    for p in game_state.get("players", []):
+        if p.get("name") == player_name:
+            hand = p.get("hand", [])
+            hand_str = ", ".join(hand) if hand else "(empty)"
+            break
+
     lines = [
         f"Game: {game_id}",
         f"Player: {decision['player']} | Turn {decision.get('turn', '?')} {decision.get('phase', '?')}",
+        f"Stack: {stack_str}",
+        f"Hand: {hand_str}",
         f"Message: {decision.get('message', '?')}",
         f"Chosen: {chosen_display(decision)}",
     ]
+
+    # Recent game log actions
+    if game_actions is not None:
+        snap_idx = decision.get("snapshot_index", 0)
+        recent = _recent_actions_before(game_actions, snapshots, snap_idx)
+        if recent:
+            lines.append("Recent log:")
+            for msg in recent:
+                lines.append(f"  {msg}")
+
     if annotation:
         sev = annotation.get("severity")
         desc = annotation.get("description")
@@ -215,7 +265,7 @@ def format_play_context(
             prefix = f"Annotator: {sev} - "
             wrapped = textwrap.fill(
                 f'"{desc}"',
-                width=80,
+                width=120,
                 initial_indent=prefix,
                 subsequent_indent=" " * len(prefix),
             )
@@ -227,13 +277,15 @@ def format_play_context(
 def collect_verdict() -> tuple[str | None, str | None]:
     """Prompt for human verdict.
 
-    Returns (verdict, notes). Verdict is "blunder", "not_blunder", or None (skip).
-    Raises SystemExit on quit.
+    Returns (verdict, notes). Verdict is "blunder", "not_blunder",
+    "questionable", or None (skip). Raises SystemExit on quit.
     """
     while True:
         try:
             resp = (
-                input("\nVerdict [b]lunder / [n]ot_blunder / [s]kip / [q]uit: ")
+                input(
+                    "\nVerdict [b]lunder / [n]ot_blunder / [?] questionable / [s]kip / [q]uit: "
+                )
                 .strip()
                 .lower()
             )
@@ -249,8 +301,10 @@ def collect_verdict() -> tuple[str | None, str | None]:
             verdict = "blunder"
         elif resp in ("n", "not_blunder", "not"):
             verdict = "not_blunder"
+        elif resp in ("?", "questionable"):
+            verdict = "questionable"
         else:
-            print("  Invalid input. Use b/n/s/q.")
+            print("  Invalid input. Use b/n/?/s/q.")
             continue
 
         try:
@@ -311,7 +365,12 @@ def audit_plays(game_filter: str | None = None) -> None:
 
         # Show existing annotation for context (may be stale)
         display_annotation = _lookup_existing_annotation(decision, game_data, snapshots)
-        print(format_play_context(game_id, decision, snapshots, display_annotation))
+        game_actions = game_data.get("actions", [])
+        print(
+            format_play_context(
+                game_id, decision, snapshots, display_annotation, game_actions
+            )
+        )
 
         verdict, notes = collect_verdict()
         if verdict is None:
@@ -427,7 +486,12 @@ def add_from_url(url: str) -> None:
     display_annotation = _lookup_existing_annotation(
         best_decision, game_data, snapshots
     )
-    print(format_play_context(game_id, best_decision, snapshots, display_annotation))
+    game_actions = game_data.get("actions", [])
+    print(
+        format_play_context(
+            game_id, best_decision, snapshots, display_annotation, game_actions
+        )
+    )
 
     try:
         notes = input("\nNotes (Enter=skip): ").strip() or None

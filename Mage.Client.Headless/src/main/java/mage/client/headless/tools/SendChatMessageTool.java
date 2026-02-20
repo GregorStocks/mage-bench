@@ -14,7 +14,8 @@ public class SendChatMessageTool {
         name = "send_chat_message",
         description = "Send a chat message to the game",
         output = {
-            @Tool.Field(name = "success", type = "boolean", description = "Whether the message was sent")
+            @Tool.Field(name = "success", type = "boolean", description = "Whether the message was sent"),
+            @Tool.Field(name = "error", type = "string", description = "Error message when success is false")
         }
     )
     public static Map<String, Object> execute(
@@ -23,15 +24,23 @@ public class SendChatMessageTool {
         if (message == null) {
             throw new RuntimeException("Missing required 'message' parameter");
         }
-        boolean success = handler.sendChatMessage(message);
+        String error = handler.sendChatMessage(message);
         Map<String, Object> result = new HashMap<>();
-        result.put("success", success);
+        if (error != null) {
+            result.put("success", false);
+            result.put("error", error);
+        } else {
+            result.put("success", true);
+        }
         return result;
     }
 
     public static List<Map<String, Object>> examples() {
         return List.of(
             example("Success", json(
-                "success", true)));
+                "success", true)),
+            example("Error", json(
+                "success", false,
+                "error", "no active game")));
     }
 }

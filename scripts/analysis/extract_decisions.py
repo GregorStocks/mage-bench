@@ -39,6 +39,18 @@ def _summarize_permanent(c: dict) -> str | dict:
     return name
 
 
+def _summarize_stack_item(item: object) -> str | dict:
+    """Summarize a stack item. Returns just the name if no targets,
+    or a dict with name + targets when targets are present."""
+    if not isinstance(item, dict):
+        return str(item)
+    name = item.get("name", "?")
+    targets = item.get("targets")
+    if targets:
+        return {"name": name, "targets": targets}
+    return name
+
+
 def _summarize_snapshot(snap: dict) -> dict:
     """Summarize a snapshot for decision context."""
     summary = {
@@ -76,10 +88,7 @@ def _summarize_snapshot(snap: dict) -> dict:
             }
             for p in snap.get("players", [])
         ],
-        "stack": [
-            item.get("name", "?") if isinstance(item, dict) else str(item)
-            for item in snap.get("stack", [])
-        ],
+        "stack": [_summarize_stack_item(item) for item in snap.get("stack", [])],
     }
     # Combat groups (may be absent in old exports)
     combat = snap.get("combat")
@@ -182,7 +191,24 @@ def extract_decisions(gz_path: str) -> list[dict]:
                     chosen_index = chosen_args["answer"]
                 elif "amount" in chosen_args:
                     chosen_index = chosen_args["amount"]
-                action_result = _parse_action_result(ev.get("result", ""))
+                elif "id" in chosen_args:
+                    # Resolve short ID (e.g. "p5") to choice index
+                    target_id = chosen_args["id"]
+                    for ci, c in enumerate(available_choices):
+                        if isinstance(c, dict) and c.get("id") == target_id:
+                            chosen_index = ci
+                            break
+                if chosen_index is None:
+                    # Fallback: parse "selected_N" from action_taken
+                    action_result = _parse_action_result(ev.get("result", ""))
+                    taken = action_result.get("action_taken", "")
+                    if taken.startswith("selected_"):
+                        try:
+                            chosen_index = int(taken.split("_", 1)[1])
+                        except (ValueError, IndexError):
+                            pass
+                else:
+                    action_result = _parse_action_result(ev.get("result", ""))
                 action_ts = ev.get("ts", "")
                 break
 

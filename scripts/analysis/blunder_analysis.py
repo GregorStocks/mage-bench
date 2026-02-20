@@ -63,7 +63,8 @@ MAX_WORKERS = 50
 #      decisions, add context to the initiating cast decision
 # v17: enrich decision context — remove battlefield/choice caps, add library
 #      sizes, player counters, structured choice info (action, mana_cost, P/T, id)
-BLUNDER_SCRIPT_VERSION = 17
+# v18: include stack targets in decision context (e.g. "Lightning Bolt -> Goblin Guide")
+BLUNDER_SCRIPT_VERSION = 18
 
 # --- Prompt components ---
 
@@ -266,6 +267,8 @@ def _card_names_in_decision(decision: dict) -> set[str]:
     for item in gs.get("stack", []):
         if isinstance(item, str) and item:
             names.add(item)
+        elif isinstance(item, dict) and item.get("name"):
+            names.add(item["name"])
     for group in gs.get("combat", []):
         for a in group.get("attackers", []):
             if isinstance(a, dict) and a.get("name"):
@@ -542,10 +545,19 @@ def _format_decisions(decisions: list[dict]) -> str:
         stack = gs.get("stack", [])
         stack_line = ""
         if stack:
-            stack_names = [
-                s if isinstance(s, str) else s.get("name", "?") for s in stack
-            ]
-            stack_line = f"  Stack: [{', '.join(stack_names)}]"
+            stack_descs: list[str] = []
+            for s in stack:
+                if isinstance(s, str):
+                    stack_descs.append(s)
+                elif isinstance(s, dict):
+                    desc = s.get("name", "?")
+                    targets = s.get("targets", [])
+                    if targets:
+                        desc += " -> " + ", ".join(str(t) for t in targets)
+                    stack_descs.append(desc)
+                else:
+                    stack_descs.append(str(s))
+            stack_line = f"  Stack: [{', '.join(stack_descs)}]"
 
         lines = [
             f"[Decision {d['decision_index']}, snapshot={d['snapshot_index']}] Turn {d.get('turn', '?')} "

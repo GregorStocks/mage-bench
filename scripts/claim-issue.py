@@ -15,9 +15,11 @@ import json
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 ISSUES_DIR = Path("issues")
+RACE_SETTLE_SECONDS = 5
 
 
 def run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
@@ -38,6 +40,27 @@ def list_claimed() -> list[str]:
         if m:
             claimed.append(m.group(1))
     return sorted(set(claimed))
+
+
+def _race_winner(issue: str) -> str | None:
+    """Return the lowest PR number claiming *issue*, or None."""
+    result = run(
+        [
+            "gh",
+            "pr",
+            "list",
+            "--state",
+            "open",
+            "--json",
+            "number,body",
+            "--jq",
+            f'[.[] | select(.body | test("<!-- claim: {issue} -->")) | .number] | sort | .[0]',
+        ]
+    )
+    winner = result.stdout.strip()
+    if winner and winner != "null":
+        return winner
+    return None
 
 
 def main() -> None:
@@ -135,24 +158,23 @@ def main() -> None:
         our_pr = m.group(1)
         print(f"Created draft PR #{our_pr}: {pr_url}")
 
-    # Race resolution: lowest PR number claiming this issue wins
-    race_result = run(
-        [
-            "gh",
-            "pr",
-            "list",
-            "--state",
-            "open",
-            "--json",
-            "number,body",
-            "--jq",
-            f'[.[] | select(.body | test("<!-- claim: {issue} -->")) | .number] | sort | .[0]',
-        ]
-    )
-    winner = race_result.stdout.strip()
-
-    if winner and winner != "null" and winner != our_pr:
+    # Race resolution: lowest PR number claiming this issue wins.
+    # Two-phase check with a settle window to close the TOCTOU gap —
+    # concurrent claims created within seconds of each other need time
+    # to propagate through the GitHub API before both are visible.
+    winner = _race_winner(issue)
+    if winner and winner != our_pr:
         print(f"Lost race: PR #{winner} already claims {issue}", file=sys.stderr)
+        sys.exit(1)
+
+    time.sleep(RACE_SETTLE_SECONDS)
+
+    winner = _race_winner(issue)
+    if winner and winner != our_pr:
+        print(
+            f"Lost race (re-check): PR #{winner} already claims {issue}",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     print(f"Claimed {issue} (PR #{our_pr})")
