@@ -16,12 +16,27 @@
     "human_notes": "better to play second main"
   },
   {
-    "decision_index": 49
+    "decision_index": 49,
+    "annotation_version": 18,
+    "annotation_severity": "minor",
+    "annotation_description": "Kimi25 has 3 lands in hand (Island, 2x Watery Grave) and only needs one land drop. Discarding extra lands to Psychic Frog before combat would add permanent +1/+1 counters and increase combat damage, while the Frog's combat damage trigger would draw replacement cards. The Archaeologist is summoning sick and can't block, so the Frog connects freely. Discarding 1-2 excess lands pre-combat is essentially free value.",
+    "verdict": "not_blunder",
+    "human_notes": "No particular reason to cycle precombat, there's no spell in the deck worth casting precombat. Defensible to discard to frog or cycle it during declare blockers, but not a blunder to hold it."
   },
   {
-    "decision_index": 67
+    "decision_index": 67,
+    "annotation_version": 18,
+    "annotation_severity": "questionable",
+    "annotation_description": "With zero lands in play, discarding Fallaji Archaeologist (costs 1U) over Whir of Invention (costs XU\u200bUU, essentially uncastable without lands) seems questionable. Archaeologist is much more castable if a land is found, provides a blocker body against threatening Psychic Frogs, and offers card selection through milling. Whir requires at minimum UUU which is extremely difficult to achieve with no lands.",
+    "verdict": "questionable",
+    "human_notes": "doesnt really matter what you discard at this point, gem3f is extremely dead"
   },
   {
-    "decision_index": 72
+    "decision_index": 72,
+    "annotation_version": 18,
+    "annotation_severity": "minor",
+    "annotation_description": "With Death's Shadow attacking as a 4/4 (the largest threat), the 0/3 Fallaji Archaeologist should have been used to block it, preventing 4 damage. Instead, the blocking arrangement allowed more damage through than necessary. Blocking Death's Shadow with Archaeologist and a Frog with Thundertrap Trainer would have minimized damage to 2 (two unblocked 1-power creatures).",
+    "verdict": "blunder",
+    "human_notes": "might as well snapback here but you're dead either way"
   }
 ]

@@ -1,12 +1,27 @@
 [
   {
-    "decision_index": 8
+    "decision_index": 8,
+    "annotation_version": 18,
+    "annotation_severity": "minor",
+    "annotation_description": "Playing a basic Mountain doesn't advance the domain count for Scion of Draco (which needs basic land types, not basic lands). The player has Arid Mesa on the battlefield which can fetch a Mountain or Plains. Playing Godless Shrine (which provides Plains and Swamp types) as the land drop would add two new basic land types, then cracking Arid Mesa for a Mountain would give three basic land types (Mountain, Plains, Swamp) across lands. Playing Mountain first means they have only Mountain type from their lands, and cracking Mesa can only get another Mountain (redundant) or Plains (one new type). With Godless Shrine as the land drop instead, they'd have better domain count for Scion of Draco (potentially casting it for as little as 6 mana with 3 types). Additionally, Territorial Kavu's power/toughness scales with domain, so maximizing basic land types is important.",
+    "verdict": "questionable",
+    "human_notes": "you really want to be casting kavu this turn, mountain does that but so would playing mesa and cracking for steam vents or something"
   },
   {
-    "decision_index": 43
+    "decision_index": 43,
+    "annotation_version": 18,
+    "annotation_severity": "major",
+    "annotation_description": "Phlage was cast from hand for its normal mana cost {1}{R}{W}, not escaped from the graveyard. When Phlage enters without escaping, it must be sacrificed due to its trigger 'When Phlage enters, sacrifice it unless it escaped.' This means Opus Grudge spent 3 mana and a card to get a 3-damage/3-life ETB trigger but immediately loses Phlage to sacrifice. While the ETB trigger still fires (dealing 3 and gaining 3), spending a card just for a Lightning Helix effect is very poor value when Phlage is meant to be escaped from the graveyard as a 6/6. The player's reasoning doesn't acknowledge this at all, suggesting they didn't realize Phlage would be sacrificed.",
+    "verdict": "blunder",
+    "human_notes": "not sure tef is any good, but scion would apply more pressure than phlage and opus needs to win quickly"
   },
   {
-    "decision_index": 53
+    "decision_index": 53,
+    "annotation_version": 18,
+    "annotation_severity": "major",
+    "annotation_description": "At 2 life facing two Territorial Kavus (likely 5/5s) that will attack next turn, casting Dredger's Insight provides no board presence. With no way to block both Kavus, this likely results in dying next turn.",
+    "verdict": "questionable",
+    "human_notes": "cauldron is better, but glm47 has four mana so can cast both."
   },
   {
     "decision_index": 62
