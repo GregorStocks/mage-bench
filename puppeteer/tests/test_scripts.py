@@ -124,6 +124,124 @@ class TestClaimIssue:
         ):
             claim_issue.main()
 
+    def test_race_recheck_passes(self, tmp_path: Path) -> None:
+        """Both checks return our PR as winner — claim succeeds, sleep is called."""
+        issues_dir = tmp_path
+        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+
+        branch_result = MagicMock()
+        branch_result.stdout = "my-branch\n"
+
+        log_result = MagicMock()
+        log_result.stdout = "abc123 some commit\n"
+
+        existing_pr_result = MagicMock()
+        existing_pr_result.stdout = "42\n"
+
+        race_result = MagicMock()
+        race_result.stdout = "42\n"
+
+        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+            if cmd[:2] == ["git", "branch"]:
+                return branch_result
+            if cmd[:2] == ["git", "log"]:
+                return log_result
+            if "pr" in cmd and "list" in cmd and "--head" in cmd:
+                return existing_pr_result
+            # _race_winner calls
+            return race_result
+
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(claim_issue, "run", side_effect=fake_run),
+            patch.object(claim_issue.time, "sleep") as mock_sleep,
+            patch("subprocess.run"),
+        ):
+            claim_issue.main()
+
+        mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
+
+    def test_race_recheck_fails(self, tmp_path: Path) -> None:
+        """First check passes, re-check finds lower PR — exits 1."""
+        issues_dir = tmp_path
+        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+
+        branch_result = MagicMock()
+        branch_result.stdout = "my-branch\n"
+
+        log_result = MagicMock()
+        log_result.stdout = "abc123 some commit\n"
+
+        existing_pr_result = MagicMock()
+        existing_pr_result.stdout = "42\n"
+
+        race_results = iter(
+            [
+                MagicMock(stdout="42\n"),  # first check: we win
+                MagicMock(stdout="41\n"),  # re-check: lower PR appeared
+            ]
+        )
+
+        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+            if cmd[:2] == ["git", "branch"]:
+                return branch_result
+            if cmd[:2] == ["git", "log"]:
+                return log_result
+            if "pr" in cmd and "list" in cmd and "--head" in cmd:
+                return existing_pr_result
+            return next(race_results)
+
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(claim_issue, "run", side_effect=fake_run),
+            patch.object(claim_issue.time, "sleep") as mock_sleep,
+            patch("subprocess.run"),
+            pytest.raises(SystemExit, match="1"),
+        ):
+            claim_issue.main()
+
+        mock_sleep.assert_called_once_with(claim_issue.RACE_SETTLE_SECONDS)
+
+    def test_race_first_check_fails_no_sleep(self, tmp_path: Path) -> None:
+        """First check already finds lower PR — exits 1 without sleeping."""
+        issues_dir = tmp_path
+        (issues_dir / "bug-a.json").write_text(json.dumps({"title": "Bug A", "priority": 1}))
+
+        branch_result = MagicMock()
+        branch_result.stdout = "my-branch\n"
+
+        log_result = MagicMock()
+        log_result.stdout = "abc123 some commit\n"
+
+        existing_pr_result = MagicMock()
+        existing_pr_result.stdout = "42\n"
+
+        race_result = MagicMock()
+        race_result.stdout = "41\n"  # lower PR already claims it
+
+        def fake_run(cmd: list[str], **kwargs: object) -> MagicMock:
+            if cmd[:2] == ["git", "branch"]:
+                return branch_result
+            if cmd[:2] == ["git", "log"]:
+                return log_result
+            if "pr" in cmd and "list" in cmd and "--head" in cmd:
+                return existing_pr_result
+            return race_result
+
+        with (
+            patch.object(claim_issue, "ISSUES_DIR", issues_dir),
+            patch.object(sys, "argv", ["claim-issue.py", "bug-a"]),
+            patch.object(claim_issue, "run", side_effect=fake_run),
+            patch.object(claim_issue.time, "sleep") as mock_sleep,
+            patch("subprocess.run"),
+            pytest.raises(SystemExit, match="1"),
+        ):
+            claim_issue.main()
+
+        mock_sleep.assert_not_called()
+
 
 # ===========================================================================
 # worktree-setup
