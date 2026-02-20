@@ -158,6 +158,9 @@ public class StreamingGamePanel extends GamePanel {
     private String lastSnapshotKey = "";  // For deduplication
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
     private static final DateTimeFormatter LOG_TS_FMT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+    private static final boolean SUPPRESS_COMBAT_ARROWS = "true".equalsIgnoreCase(
+            System.getProperty("xmage.streaming.noWindow", "")
+    );
 
     @Override
     public synchronized void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId, MagePane gamePane) {
@@ -293,7 +296,9 @@ public class StreamingGamePanel extends GamePanel {
      */
     @Override
     public synchronized void updateGame(int messageId, GameView game, boolean showPlayable, Map<String, Serializable> options, Set<UUID> targets) {
+        java.util.List<CombatGroupView> savedCombat = suppressCombatView(game);
         super.updateGame(messageId, game, showPlayable, options, targets);
+        restoreCombatView(game, savedCombat);
         this.lastGame = game;
         roundTracker.update(game);
         writeStateSnapshotIfChanged(game);
@@ -301,7 +306,9 @@ public class StreamingGamePanel extends GamePanel {
 
     @Override
     public synchronized void updateGame(int messageId, GameView game) {
+        java.util.List<CombatGroupView> savedCombat = suppressCombatView(game);
         super.updateGame(messageId, game);
+        restoreCombatView(game, savedCombat);
         // Schedule auto-dismissal of any popup dialogs created by the parent
         schedulePopupDismissal();
         // Hide the central hand container (we show hands in play areas instead)
@@ -346,9 +353,14 @@ public class StreamingGamePanel extends GamePanel {
      */
     @Override
     public void endMessage(int messageId, GameView gameView, Map<String, Serializable> options, String message) {
+        java.util.List<CombatGroupView> savedCombat = suppressCombatView(gameView);
         super.endMessage(messageId, gameView, options, message);
+        restoreCombatView(gameView, savedCombat);
 
         if (gameEventWriter != null) {
+            if (lastGame != null) {
+                writeStateSnapshotIfChanged(lastGame);
+            }
             var event = new JsonObject();
             event.addProperty("message", message != null ? message : "");
             writeGameEvent("game_over", event);
@@ -2004,6 +2016,9 @@ public class StreamingGamePanel extends GamePanel {
      * Log a game event from the chat panel (game action or player chat).
      */
     void logChatEvent(String type, String message, String username) {
+        if (message != null && message.startsWith("HOTKEYS:")) {
+            return;
+        }
         // Track cast owners from game action messages
         if ("game_action".equals(type) && message != null && message.contains(" casts ")) {
             Matcher castMatcher = CAST_OWNER_PATTERN.matcher(message);
@@ -2206,6 +2221,28 @@ public class StreamingGamePanel extends GamePanel {
         s = s.replaceAll("(?i)<br\\s*/?>", ": ");
         s = s.replaceAll("<[^>]*>", "");
         return s;
+    }
+
+    private static java.util.List<CombatGroupView> suppressCombatView(GameView game) {
+        if (!SUPPRESS_COMBAT_ARROWS || game == null) {
+            return null;
+        }
+        java.util.List<CombatGroupView> combat = game.getCombat();
+        if (combat == null || combat.isEmpty()) {
+            return null;
+        }
+        java.util.List<CombatGroupView> saved = new java.util.ArrayList<>(combat);
+        combat.clear();
+        return saved;
+    }
+
+    private static void restoreCombatView(GameView game, java.util.List<CombatGroupView> saved) {
+        if (saved == null || game == null) {
+            return;
+        }
+        java.util.List<CombatGroupView> combat = game.getCombat();
+        combat.clear();
+        combat.addAll(saved);
     }
 
     /**

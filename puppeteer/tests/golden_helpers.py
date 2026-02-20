@@ -280,9 +280,10 @@ def run_golden_scenario(
                 f"Replay client exited with code {replay_proc.returncode}.\nReplay log tail:\n{replay_text[-2000:]}"
             )
 
-        # Wait for spectator to flush game_events.jsonl (the spectator writes
-        # events incrementally but Java IO buffering means short games may not
-        # have flushed yet when the replay client exits).
+        # Wait for the spectator to finish processing events and flush the log.
+        _wait_for_marker_file(game_dir / "observer_done", spectator_proc, spectator_log, timeout=60)
+
+        # Ensure game_events.jsonl exists before export.
         events_path = game_dir / "game_events.jsonl"
         flush_deadline = time.monotonic() + 10
         while not events_path.exists() and time.monotonic() < flush_deadline:
