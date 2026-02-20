@@ -1,9 +1,19 @@
 [
   {
-    "decision_index": 42
+    "decision_index": 42,
+    "annotation_version": 18,
+    "annotation_severity": "minor",
+    "annotation_description": "Gem3F Heckler had Stern Scolding in hand, which counters creature spells with power or toughness 2 or less. Fallaji Archaeologist is a 0/3 creature \u2014 its toughness is 3, which is greater than 2, so Stern Scolding cannot target it. However, its power is 0, which is 2 or less, so Stern Scolding CAN target it (the condition is 'power or toughness 2 or less', meaning either stat being \u22642 qualifies). Allowing Fallaji Archaeologist to resolve lets the opponent mill cards and potentially get a card back or a +1/+1 counter. While Fallaji Archaeologist is not a major threat, using Stern Scolding to counter it would have been a clean 1-for-1 trade, and the card in hand (Goblin Charbelcher) needs 4 mana to cast plus 3 to activate, so protecting against the opponent's development while still having Snapback as backup would have been reasonable. That said, saving Stern Scolding for a more impactful target like another Psychic Frog or Death's Shadow is also defensible.",
+    "verdict": "not_blunder",
+    "human_notes": "it's gem3f's own fallaji archaeologist"
   },
   {
-    "decision_index": 46
+    "decision_index": 46,
+    "annotation_version": 18,
+    "annotation_severity": null,
+    "annotation_description": null,
+    "verdict": "blunder",
+    "human_notes": "better to play second main"
   },
   {
     "decision_index": 49
