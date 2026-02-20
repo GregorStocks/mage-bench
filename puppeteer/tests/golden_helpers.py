@@ -392,15 +392,14 @@ def assert_golden_export(name: str, game_dir: Path, prompt: list[dict]) -> None:
     that export, augments it with goldenFixture data, and either updates the
     golden file (UPDATE_GOLDEN mode) or compares against it.
     """
-    # Find the pre-generated export
+    # Find the pre-generated export (generated inside run_golden_scenario
+    # while the spectator was still alive)
     export_dir = game_dir / "_export_tmp"
     exports = list(export_dir.glob("*.json.gz")) if export_dir.exists() else []
-    if not exports:
-        # Spectator didn't write game_events.jsonl (very short game).
-        # Skip export assertion — the golden prompt test already validates
-        # game state correctness.
-        print(f"  Skipping golden export for {name}: no game_events.jsonl from spectator")
-        return
+    assert exports, (
+        f"No export generated for {name}: spectator didn't write game_events.jsonl.\n"
+        f"Check spectator log: {game_dir / 'spectator.log'}"
+    )
     export_path = exports[0]
 
     # Read and augment with golden fixture data
@@ -419,11 +418,7 @@ def assert_golden_export(name: str, game_dir: Path, prompt: list[dict]) -> None:
         print(f"Updated golden export: {golden_file}")
         return
 
-    if not golden_file.exists():
-        # Golden exports haven't been generated yet. Run 'make update-golden'
-        # to generate them. Skip comparison for now.
-        print(f"  Golden export not found: {golden_file.name} (run 'make update-golden' to generate)")
-        return
+    assert golden_file.exists(), f"Golden export not found: {golden_file}\nRun 'make update-golden' to generate it."
 
     expected_json = gzip.decompress(golden_file.read_bytes()).decode().rstrip()
     if expected_json != actual_json:
