@@ -1,4 +1,4 @@
-"""Golden prompt test: Lightning Bolt on the stack."""
+"""Golden prompt test: two Lightning Bolts on the stack."""
 
 import pytest
 
@@ -12,10 +12,11 @@ from tests.golden_helpers import (
 
 @pytest.mark.golden
 def test_bolt_on_stack(xmage_server, tmp_path, project_root):
-    """Lightning Bolt on the stack targeting the opponent.
+    """Two Lightning Bolts on the stack, one targeting Memnite, one targeting Opponent.
 
-    Script: choose starting player, keep hand, play Taiga, cast Lightning
-    Bolt targeting Opponent, then get_game_state with Bolt still on stack.
+    Script: choose starting player, keep hand, T1 play Mountain + cast Memnite,
+    T2 play Badlands, skip attack, then cast two Lightning Bolts chained via
+    choose_action (no pass_priority between casts) so both remain on the stack.
     """
     server, port = xmage_server
     prompt = run_golden_scenario(
@@ -31,15 +32,30 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root):
             {"name": "choose_action", "arguments": {"index": 0}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"answer": False}},
-            # Play Taiga (alphabetical: Badlands=p3, Mountain=p4, Plateau=p5, Scrubland=p6, Taiga=p7).
+            # T1: Play Mountain (alphabetical: Badlands=p3, Memnite=p6, Mountain=p7, Plateau=p8, Taiga=p9).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"id": "p7"}},
-            # Cast Lightning Bolt (alphabetical: Lightning Bolt=p8 index 0, Shock=p9 index 1).
+            # T1: Cast Memnite (0 mana, choices: Lightning Bolt=p4, Lightning Bolt=p5, Memnite=p6).
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"id": "p6"}},
+            # T1: Pass with Lightning Bolt castable (save for T2 when we have 2 R sources).
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"answer": False}},
+            # T2: Play Badlands for second R source.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"id": "p3"}},
+            # T2: Declare attackers — skip (Memnite could attack but we decline).
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"answer": False}},
+            # T2 Postcombat Main: cast Lightning Bolt #1.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}},
-            # Target Opponent.
-            {"name": "pass_priority", "arguments": {}},
+            # Target Opponent (chained choose_action, no pass_priority to avoid auto-pass resolving the bolt).
             {"name": "choose_action", "arguments": {"id": "p2"}},
+            # Cast Lightning Bolt #2 while #1 is still on the stack.
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Target Memnite.
+            {"name": "choose_action", "arguments": {"id": "p6"}},
             {"name": "get_game_state", "arguments": {}},
         ],
     )
