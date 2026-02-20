@@ -35,6 +35,7 @@ DECK_DARK_DEPTHS_COMBO = "puppeteer/tests/decks/dark_depths_combo.dck"
 DECK_FILLER = "puppeteer/tests/decks/filler_opponent.dck"
 DECK_MANA_DRAIN_FOF = "puppeteer/tests/decks/mana_drain_fact_or_fiction.dck"
 DECK_PLAINS_LIONS = "puppeteer/tests/decks/plains_lions_opponent.dck"
+DECK_SAVANNAH_LIONS = "puppeteer/tests/decks/savannah_lions.dck"
 
 
 # ---------------------------------------------------------------------------
