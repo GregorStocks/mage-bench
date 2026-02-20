@@ -353,6 +353,7 @@ public class StreamingGamePanel extends GamePanel {
             gameEventWriter.close();
             gameEventWriter = null;
         }
+        writeObserverDoneMarker();
 
         if (costPollTimer != null) {
             costPollTimer.stop();
@@ -1722,6 +1723,22 @@ public class StreamingGamePanel extends GamePanel {
             logger.info("Wrote observer_ready marker to " + gameDirPath);
         } catch (IOException e) {
             logger.warn("Failed to write observer_ready marker", e);
+        }
+    }
+
+    /**
+     * Write an empty marker file so tests know the observer has finished
+     * processing the game and flushed game_events.jsonl.
+     */
+    private void writeObserverDoneMarker() {
+        if (gameDirPath == null) {
+            return;
+        }
+        try {
+            Files.write(gameDirPath.resolve("observer_done"), new byte[0]);
+            logger.info("Wrote observer_done marker to " + gameDirPath);
+        } catch (IOException e) {
+            logger.warn("Failed to write observer_done marker", e);
         }
     }
 

@@ -88,6 +88,29 @@ def _wait_for_log_marker(
     raise TimeoutError(f"Marker not found within {timeout}s: {marker!r}\nLog tail:\n{log_text[-2000:]}")
 
 
+def _wait_for_marker_file(
+    marker_path: Path,
+    proc: subprocess.Popen,
+    log_path: Path,
+    timeout: int = 60,
+) -> None:
+    """Wait for a marker file to appear, or fail fast if the process exits."""
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        if marker_path.exists():
+            return
+        if proc.poll() is not None:
+            log_text = log_path.read_text() if log_path.exists() else "<no log>"
+            raise RuntimeError(
+                f"Process exited (rc={proc.returncode}) before marker appeared.\n"
+                f"Marker: {marker_path}\n"
+                f"Log tail:\n{log_text[-2000:]}"
+            )
+        time.sleep(0.5)
+    log_text = log_path.read_text() if log_path.exists() else "<no log>"
+    raise TimeoutError(f"Marker file not found within {timeout}s: {marker_path}\nLog tail:\n{log_text[-2000:]}")
+
+
 def run_golden_scenario(
     server: str,
     port: int,
@@ -482,6 +505,9 @@ def run_golden_scenario_two_replay(
                 f"Replay client B exited with code {replay_b_proc.returncode}.\n"
                 f"Replay log tail:\n{replay_b_text[-2000:]}"
             )
+
+        # Wait for the spectator to finish processing events and flush the log.
+        _wait_for_marker_file(game_dir / "observer_done", spectator_proc, spectator_log, timeout=60)
 
         # Wait for spectator to flush game_events.jsonl
         events_path = game_dir / "game_events.jsonl"
