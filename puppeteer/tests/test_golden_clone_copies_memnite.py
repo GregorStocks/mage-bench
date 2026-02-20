@@ -5,6 +5,7 @@ import pytest
 from tests.golden_helpers import (
     DECK_CLONE_AND_MEMNITE,
     DECK_FILLER,
+    assert_golden_export,
     assert_golden_prompt,
     run_golden_scenario,
 )
@@ -49,3 +50,4 @@ def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
         ],
     )
     assert_golden_prompt("clone_copies_memnite", prompt)
+    assert_golden_export("clone_copies_memnite", tmp_path / "clone_copies_memnite", prompt)

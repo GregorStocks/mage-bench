@@ -10,6 +10,7 @@ To run:    make test-golden
 To update: make update-golden
 """
 
+import gzip
 import json
 import os
 import subprocess
@@ -17,10 +18,12 @@ import sys
 import time
 from pathlib import Path
 
+from puppeteer.game_log import read_decklist
 from puppeteer.process_manager import kill_tree
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GOLDEN_DIR = Path(__file__).resolve().parent / "golden" / "prompts"
+GOLDEN_EXPORTS_DIR = Path(__file__).resolve().parent / "golden" / "exports"
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
 
@@ -251,6 +254,27 @@ def run_golden_scenario(
                 f"Replay client exited with code {replay_proc.returncode}.\nReplay log tail:\n{replay_text[-2000:]}"
             )
 
+        # Write minimal game_meta.json for export_game() to produce card images
+        meta = {
+            "game_type": game_type,
+            "deck_type": deck_type,
+            "players": [
+                {
+                    "name": player_a_name,
+                    "type": "replay",
+                    "deck_path": deck_a,
+                    "decklist": read_decklist(project_root / deck_a),
+                },
+                {
+                    "name": player_b_name,
+                    "type": "potato",
+                    "deck_path": deck_b,
+                    "decklist": read_decklist(project_root / deck_b),
+                },
+            ],
+        }
+        (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
+
         # Read golden prompt
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_log}"
@@ -269,19 +293,9 @@ def _to_sorted_json(obj: object) -> str:
     return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
 
 
-def assert_golden_prompt(name: str, actual: list[dict]) -> None:
-    """Compare prompt messages against golden file, or update in UPDATE_GOLDEN mode."""
-    actual_json = _to_sorted_json(actual)
-    golden_file = GOLDEN_DIR / f"{name}.json"
-
-    if UPDATE_MODE:
-        golden_file.parent.mkdir(parents=True, exist_ok=True)
-        golden_file.write_text(actual_json + "\n")
-        print(f"Updated golden file: {golden_file}")
-        return
-
+def _assert_golden_match(name: str, actual_json: str, golden_file: Path) -> None:
+    """Compare actual JSON against a golden file, with diff on mismatch."""
     assert golden_file.exists(), f"Golden file not found: {golden_file}\nRun 'make update-golden' to generate it."
-
     expected = golden_file.read_text().rstrip()
     if expected != actual_json:
         expected_lines = expected.split("\n")
@@ -295,5 +309,106 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
                 diffs.append(f"  Line {i + 1}:\n    expected: {exp}\n    actual:   {act}")
         diff_text = "\n".join(diffs[:20])
         raise AssertionError(
-            f"Golden file mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
+            f"Golden file mismatch: {golden_file.name}\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
+        )
+
+
+def assert_golden_prompt(name: str, actual: list[dict]) -> None:
+    """Compare prompt messages against golden file, or update in UPDATE_GOLDEN mode."""
+    actual_json = _to_sorted_json(actual)
+    golden_file = GOLDEN_DIR / f"{name}.json"
+
+    if UPDATE_MODE:
+        golden_file.parent.mkdir(parents=True, exist_ok=True)
+        golden_file.write_text(actual_json + "\n")
+        print(f"Updated golden file: {golden_file}")
+        return
+
+    _assert_golden_match(name, actual_json, golden_file)
+
+
+def _extract_mcp_fixture(prompt: list[dict]) -> dict:
+    """Extract the last get_game_state and pass_priority results from a prompt."""
+    # Build tool_call_id -> tool_name map
+    tool_call_names: dict[str, str] = {}
+    for msg in prompt:
+        if msg.get("role") == "assistant" and msg.get("tool_calls"):
+            for tc in msg["tool_calls"]:
+                tool_call_names[tc["id"]] = tc["function"]["name"]
+
+    target_tools = {"get_game_state", "pass_priority"}
+    game_state = None
+    pass_priority = None
+    for msg in prompt:
+        if msg.get("role") != "tool":
+            continue
+        call_name = tool_call_names.get(msg.get("tool_call_id", ""))
+        if call_name not in target_tools:
+            continue
+        content = msg["content"].lstrip()
+        if not content.startswith("{"):
+            continue
+        parsed = json.loads(content)
+        if call_name == "get_game_state":
+            game_state = parsed
+        elif call_name == "pass_priority":
+            pass_priority = parsed
+
+    return {"mcp_game_state": game_state, "mcp_pass_priority": pass_priority}
+
+
+def _strip_volatile_fields(obj: object) -> object:
+    """Recursively strip timestamp fields from export data for stable comparison."""
+    if isinstance(obj, dict):
+        return {k: _strip_volatile_fields(v) for k, v in obj.items() if k != "ts"}
+    if isinstance(obj, list):
+        return [_strip_volatile_fields(item) for item in obj]
+    return obj
+
+
+def assert_golden_export(name: str, game_dir: Path, prompt: list[dict]) -> None:
+    """Generate a .json.gz export from game_dir and compare against golden file.
+
+    In UPDATE_GOLDEN mode, writes the export to GOLDEN_EXPORTS_DIR.
+    """
+    # Import export_game from scripts/
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+    from export_game import export_game
+
+    # Generate the export into a temp directory
+    tmp_export_dir = game_dir / "_export_tmp"
+    tmp_export_dir.mkdir(exist_ok=True)
+    export_path = export_game(game_dir, tmp_export_dir)
+
+    # Read and augment with golden fixture data
+    export_data = json.loads(gzip.decompress(export_path.read_bytes()))
+    export_data["goldenFixture"] = _extract_mcp_fixture(prompt)
+
+    # Strip volatile fields (timestamps) for deterministic comparison
+    stable = _strip_volatile_fields(export_data)
+    actual_json = _to_sorted_json(stable)
+
+    golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json.gz"
+
+    if UPDATE_MODE:
+        GOLDEN_EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
+        golden_file.write_bytes(gzip.compress((actual_json + "\n").encode()))
+        print(f"Updated golden export: {golden_file}")
+        return
+
+    assert golden_file.exists(), f"Golden export not found: {golden_file}\nRun 'make update-golden' to generate it."
+    expected_json = gzip.decompress(golden_file.read_bytes()).decode().rstrip()
+    if expected_json != actual_json:
+        expected_lines = expected_json.split("\n")
+        actual_lines = actual_json.split("\n")
+        diffs = []
+        max_lines = max(len(expected_lines), len(actual_lines))
+        for i in range(max_lines):
+            exp = expected_lines[i] if i < len(expected_lines) else "<missing>"
+            act = actual_lines[i] if i < len(actual_lines) else "<missing>"
+            if exp != act:
+                diffs.append(f"  Line {i + 1}:\n    expected: {exp}\n    actual:   {act}")
+        diff_text = "\n".join(diffs[:20])
+        raise AssertionError(
+            f"Golden export mismatch: {name}.json.gz\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
         )

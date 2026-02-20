@@ -5,6 +5,7 @@ import pytest
 from tests.golden_helpers import (
     DECK_BOLT_AND_BURN,
     DECK_FILLER,
+    assert_golden_export,
     assert_golden_prompt,
     run_golden_scenario,
 )
@@ -44,3 +45,4 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root):
         ],
     )
     assert_golden_prompt("bolt_on_stack", prompt)
+    assert_golden_export("bolt_on_stack", tmp_path / "bolt_on_stack", prompt)
