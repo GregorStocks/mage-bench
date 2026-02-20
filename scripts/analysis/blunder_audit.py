@@ -277,13 +277,15 @@ def format_play_context(
 def collect_verdict() -> tuple[str | None, str | None]:
     """Prompt for human verdict.
 
-    Returns (verdict, notes). Verdict is "blunder", "not_blunder", or None (skip).
-    Raises SystemExit on quit.
+    Returns (verdict, notes). Verdict is "blunder", "not_blunder",
+    "questionable", or None (skip). Raises SystemExit on quit.
     """
     while True:
         try:
             resp = (
-                input("\nVerdict [b]lunder / [n]ot_blunder / [s]kip / [q]uit: ")
+                input(
+                    "\nVerdict [b]lunder / [n]ot_blunder / [?] questionable / [s]kip / [q]uit: "
+                )
                 .strip()
                 .lower()
             )
@@ -299,8 +301,10 @@ def collect_verdict() -> tuple[str | None, str | None]:
             verdict = "blunder"
         elif resp in ("n", "not_blunder", "not"):
             verdict = "not_blunder"
+        elif resp in ("?", "questionable"):
+            verdict = "questionable"
         else:
-            print("  Invalid input. Use b/n/s/q.")
+            print("  Invalid input. Use b/n/?/s/q.")
             continue
 
         try:

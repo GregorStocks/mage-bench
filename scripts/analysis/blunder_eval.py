@@ -51,7 +51,7 @@ def compare_results(
     for game_id, entries in sorted(all_gt.items()):
         for entry in entries:
             verdict = entry.get("verdict")
-            if verdict is None:
+            if verdict is None or verdict == "questionable":
                 continue
 
             total_validated += 1
