@@ -21,13 +21,21 @@ if (fs.existsSync(fixturesDir)) {
       }
     }
 
-    // Extract the last get_game_state result and last pass_priority result
+    // Extract the last get_game_state result and last pass_priority result.
+    // Only parse tool results for the tools we need — older entries may be
+    // compact text summaries (from _render_context summarization) rather than JSON.
+    const targetTools = new Set(['get_game_state', 'pass_priority']);
     let gameState = null;
     let passPriority = null;
     for (const msg of messages) {
       if (msg.role !== 'tool') continue;
       const callName = toolCallNames[msg.tool_call_id];
-      const parsed = JSON.parse(msg.content);
+      if (!targetTools.has(callName)) continue;
+      // Summarized entries start with a letter (e.g. "action_pending(...")
+      // while JSON entries start with "{". Skip summarized entries.
+      const content = msg.content.trimStart();
+      if (!content.startsWith('{')) continue;
+      const parsed = JSON.parse(content);
       if (callName === 'get_game_state') gameState = parsed;
       if (callName === 'pass_priority') passPriority = parsed;
     }
