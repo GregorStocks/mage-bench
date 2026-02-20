@@ -123,15 +123,21 @@ public class StreamingMain {
                 streamingFrame.setFocusableWindowState(false);
                 streamingFrame.setAutoRequestFocus(false);
                 if (Boolean.getBoolean("xmage.streaming.noWindow")) {
-                    // Hide the window entirely (used by golden tests).
-                    // UTILITY type = no taskbar entry; off-screen = not visible.
-                    // setType requires the window to not be displayable, so
-                    // dispose first (releases native peers), then re-show.
+                    // Golden tests: make the frame displayable without ever
+                    // mapping (showing) the window. setVisible(true) maps the
+                    // window to the WM, which on tiling/aggressive Linux WMs
+                    // ignores offscreen positions and tiles it on screen.
+                    // dispose() + addNotify() recreates the native peer as a
+                    // UTILITY window without mapping it — Swing internals
+                    // (JDesktopPane, JInternalFrame, painting) only need the
+                    // component hierarchy to be displayable, not visible.
                     streamingFrame.dispose();
                     streamingFrame.setType(Window.Type.UTILITY);
                     streamingFrame.setLocation(-10000, -10000);
+                    streamingFrame.addNotify();
+                } else {
+                    streamingFrame.setVisible(true);
                 }
-                streamingFrame.setVisible(true);
                 LOGGER.info("Streaming client started successfully");
             } catch (Throwable e) {
                 LOGGER.fatal("Critical error on start up: " + e.getMessage(), e);

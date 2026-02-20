@@ -36,6 +36,8 @@ DECK_BOLT_AND_BURN = "puppeteer/tests/decks/bolt_and_burn.dck"
 DECK_CLONE_AND_MEMNITE = "puppeteer/tests/decks/clone_and_memnite.dck"
 DECK_DARK_DEPTHS_COMBO = "puppeteer/tests/decks/dark_depths_combo.dck"
 DECK_FILLER = "puppeteer/tests/decks/filler_opponent.dck"
+DECK_MANA_DRAIN_FOF = "puppeteer/tests/decks/mana_drain_fact_or_fiction.dck"
+DECK_PLAINS_LIONS = "puppeteer/tests/decks/plains_lions_opponent.dck"
 
 
 # ---------------------------------------------------------------------------
@@ -296,6 +298,193 @@ def run_golden_scenario(
         # Read golden prompt
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_log}"
+        return json.loads(prompt_path.read_text())
+
+    finally:
+        for proc in procs:
+            if proc.poll() is None:
+                kill_tree(proc.pid)
+        for fh in log_fhs:
+            fh.close()
+
+
+def run_golden_scenario_two_replay(
+    server: str,
+    port: int,
+    project_root: Path,
+    game_dir: Path,
+    deck_a: str,
+    deck_b: str,
+    script_a: list[dict],
+    script_b: list[dict],
+    player_a_name: str = "TestPlayer",
+    player_b_name: str = "Opponent",
+    game_type: str = "Two Player Duel",
+    deck_type: str = "Constructed - Legacy",
+) -> list[dict]:
+    """Run a golden test scenario with replay clients for both players."""
+    game_dir.mkdir(parents=True, exist_ok=True)
+
+    # Write scripts
+    script_a_path = game_dir / "script_a.json"
+    script_b_path = game_dir / "script_b.json"
+    script_a_path.write_text(json.dumps(script_a))
+    script_b_path.write_text(json.dumps(script_b))
+
+    # Build player config JSON for the spectator
+    players_config = json.dumps(
+        {
+            "players": [
+                {"type": "replay", "name": player_a_name, "deck": deck_a},
+                {"type": "replay", "name": player_b_name, "deck": deck_b},
+            ],
+            "gameType": game_type,
+            "deckType": deck_type,
+        },
+        separators=(",", ":"),
+    )
+
+    # JVM options
+    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
+    jvm_no_ui = jvm_opens
+    if sys.platform == "darwin":
+        jvm_no_ui += " -Dapple.awt.UIElement=true"
+
+    procs: list[subprocess.Popen] = []
+    log_fhs: list = []
+
+    try:
+        # --- Start streaming spectator ---
+        spectator_log = game_dir / "spectator.log"
+        spectator_jvm = " ".join(
+            [
+                jvm_no_ui,
+                "-Dxmage.aiPuppeteer.autoConnect=true",
+                "-Dxmage.aiPuppeteer.autoStart=true",
+                "-Dxmage.aiPuppeteer.disableWhatsNew=true",
+                "-Dxmage.streaming.noWindow=true",
+                f"-Dxmage.aiPuppeteer.server={server}",
+                f"-Dxmage.aiPuppeteer.port={port}",
+                "-Dxmage.aiPuppeteer.user=spectator",
+                "-Dxmage.aiPuppeteer.password=",
+                f"-Dxmage.streaming.gameDir={game_dir}",
+            ]
+        )
+
+        spectator_proc, spectator_fh = _start_process(
+            args=["mvn", "-q", "exec:java"],
+            cwd=project_root / "Mage.Client.Streaming",
+            env_updates={
+                "XMAGE_AI_PUPPETEER": "1",
+                "XMAGE_AI_PUPPETEER_USER": "spectator",
+                "XMAGE_AI_PUPPETEER_PASSWORD": "",
+                "XMAGE_AI_PUPPETEER_SERVER": server,
+                "XMAGE_AI_PUPPETEER_PORT": str(port),
+                "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
+                "XMAGE_AI_PUPPETEER_PLAYERS_CONFIG": players_config,
+                "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
+                "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
+                "XMAGE_AI_PUPPETEER_CHOOSING_PLAYER": player_a_name,
+                "MAVEN_OPTS": spectator_jvm,
+            },
+            log_path=spectator_log,
+        )
+        procs.append(spectator_proc)
+        log_fhs.append(spectator_fh)
+
+        # Wait for table creation
+        _wait_for_log_marker(spectator_log, "AI Puppeteer: waiting for", spectator_proc, timeout=120)
+
+        # --- Start replay client (player A) ---
+        replay_a_log = game_dir / f"{player_a_name}_replay.log"
+        replay_a_proc, replay_a_fh = _start_process(
+            args=[
+                sys.executable,
+                "-m",
+                "puppeteer.replay",
+                "--server",
+                server,
+                "--port",
+                str(port),
+                "--username",
+                player_a_name,
+                "--project-root",
+                str(project_root),
+                "--deck",
+                str(project_root / deck_a),
+                "--script",
+                str(script_a_path),
+                "--game-dir",
+                str(game_dir),
+            ],
+            cwd=project_root,
+            env_updates={"PYTHONUNBUFFERED": "1"},
+            log_path=replay_a_log,
+        )
+        procs.append(replay_a_proc)
+        log_fhs.append(replay_a_fh)
+
+        # --- Start replay client (player B) ---
+        replay_b_log = game_dir / f"{player_b_name}_replay.log"
+        replay_b_proc, replay_b_fh = _start_process(
+            args=[
+                sys.executable,
+                "-m",
+                "puppeteer.replay",
+                "--server",
+                server,
+                "--port",
+                str(port),
+                "--username",
+                player_b_name,
+                "--project-root",
+                str(project_root),
+                "--deck",
+                str(project_root / deck_b),
+                "--script",
+                str(script_b_path),
+                "--game-dir",
+                str(game_dir),
+            ],
+            cwd=project_root,
+            env_updates={"PYTHONUNBUFFERED": "1"},
+            log_path=replay_b_log,
+        )
+        procs.append(replay_b_proc)
+        log_fhs.append(replay_b_fh)
+
+        # Wait for replay clients to finish (they write golden prompts then concede)
+        try:
+            replay_a_proc.wait(timeout=180)
+            replay_b_proc.wait(timeout=180)
+        except subprocess.TimeoutExpired as e:
+            log_text = spectator_log.read_text() if spectator_log.exists() else "<no log>"
+            replay_a_text = replay_a_log.read_text() if replay_a_log.exists() else "<no log>"
+            replay_b_text = replay_b_log.read_text() if replay_b_log.exists() else "<no log>"
+            raise TimeoutError(
+                "Replay clients did not complete within 180s.\n"
+                f"Spectator log tail:\n{log_text[-2000:]}\n"
+                f"Replay A log tail:\n{replay_a_text[-2000:]}\n"
+                f"Replay B log tail:\n{replay_b_text[-2000:]}"
+            ) from e
+
+        # Check replay client exit codes
+        if replay_a_proc.returncode != 0:
+            replay_a_text = replay_a_log.read_text() if replay_a_log.exists() else "<no log>"
+            raise RuntimeError(
+                f"Replay client A exited with code {replay_a_proc.returncode}.\n"
+                f"Replay log tail:\n{replay_a_text[-2000:]}"
+            )
+        if replay_b_proc.returncode != 0:
+            replay_b_text = replay_b_log.read_text() if replay_b_log.exists() else "<no log>"
+            raise RuntimeError(
+                f"Replay client B exited with code {replay_b_proc.returncode}.\n"
+                f"Replay log tail:\n{replay_b_text[-2000:]}"
+            )
+
+        # Read golden prompt for player A
+        prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
+        assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_a_log}"
         return json.loads(prompt_path.read_text())
 
     finally:

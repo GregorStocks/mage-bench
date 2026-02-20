@@ -4567,8 +4567,28 @@ public class BridgeCallbackHandler {
         // Find a mana source from canPlayObjects and tap it
         PlayableObjectsList playable = gameView != null ? gameView.getCanPlayObjects() : null;
         if (playable != null && !playable.isEmpty()) {
+            // Build a deterministic ordering for mana sources.
+            // Prefer battlefield insertion order to avoid HashMap iteration nondeterminism.
+            var battlefieldOrder = new HashMap<UUID, Integer>();
+            if (gameView != null) {
+                int order = 0;
+                for (PlayerView player : gameView.getPlayers()) {
+                    for (UUID permanentId : player.getBattlefield().keySet()) {
+                        battlefieldOrder.put(permanentId, order++);
+                    }
+                }
+            }
+            var sortedPlayable = new ArrayList<>(playable.getObjects().entrySet());
+            sortedPlayable.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>>comparingInt(e -> {
+                Integer idx = battlefieldOrder.get(e.getKey());
+                return idx != null ? idx : Integer.MAX_VALUE;
+            }).thenComparing(e -> {
+                CardView cv = findCardViewById(e.getKey(), gameView);
+                return cv != null ? safeDisplayName(cv) : "";
+            }).thenComparingInt(e -> shortIds.getSequence(e.getKey())));
+
             // Find the first object that has a mana ability (but skip the object being paid for)
-            for (Map.Entry<UUID, PlayableObjectStats> entry : playable.getObjects().entrySet()) {
+            for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {
                 UUID objectId = entry.getKey();
                 // Don't tap the source we're paying for — it may need {T}/sacrifice as part of its cost
                 if (objectId.equals(payingForId)) {
