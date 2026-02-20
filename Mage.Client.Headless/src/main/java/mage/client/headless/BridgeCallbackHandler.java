@@ -2517,26 +2517,32 @@ public class BridgeCallbackHandler {
         return result;
     }
 
-    public boolean sendChatMessage(String message) {
+    /**
+     * Send a chat message. Returns null on success, or an error string on failure.
+     */
+    public String sendChatMessage(String message) {
         UUID gameId = currentGameId;
         if (gameId == null) {
             logger.warn("[" + client.getUsername() + "] Cannot send chat: no active game");
-            return false;
+            return "no active game";
         }
         UUID chatId = gameChatIds.get(gameId);
         if (chatId == null) {
             logger.warn("[" + client.getUsername() + "] Cannot send chat: no chat ID for game " + gameId);
-            return false;
+            return "no chat session for this game";
         }
         // Suppress duplicate messages within the dedup window
         long now = System.currentTimeMillis();
         if (message.equals(lastChatMessage) && (now - lastChatTimeMs) < CHAT_DEDUP_WINDOW_MS) {
             logger.info("[" + client.getUsername() + "] Suppressing duplicate chat message");
-            return true; // Pretend success so the model doesn't retry
+            return null; // Pretend success so the model doesn't retry
         }
         lastChatMessage = message;
         lastChatTimeMs = now;
-        return session.sendChatMessage(chatId, message);
+        if (!session.sendChatMessage(chatId, message)) {
+            return "server rejected the message";
+        }
+        return null;
     }
 
     /**
