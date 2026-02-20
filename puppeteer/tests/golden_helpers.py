@@ -224,6 +224,7 @@ def run_golden_scenario(
                 "-q",
                 f"-Dxmage.headless.username={player_b_name}",
                 f"-Dxmage.headless.deck={project_root / deck_b}",
+                f"-Dxmage.headless.gameDir={game_dir}",
                 "exec:java",
             ],
             cwd=project_root / "Mage.Client.Headless",
@@ -482,6 +483,42 @@ def run_golden_scenario_two_replay(
                 f"Replay log tail:\n{replay_b_text[-2000:]}"
             )
 
+        # Wait for spectator to flush game_events.jsonl
+        events_path = game_dir / "game_events.jsonl"
+        flush_deadline = time.monotonic() + 10
+        while not events_path.exists() and time.monotonic() < flush_deadline:
+            time.sleep(0.5)
+
+        # Write minimal game_meta.json for export_game()
+        meta = {
+            "game_type": game_type,
+            "deck_type": deck_type,
+            "players": [
+                {
+                    "name": player_a_name,
+                    "type": "replay",
+                    "deck_path": deck_a,
+                    "decklist": read_decklist(project_root / deck_a),
+                },
+                {
+                    "name": player_b_name,
+                    "type": "replay",
+                    "deck_path": deck_b,
+                    "decklist": read_decklist(project_root / deck_b),
+                },
+            ],
+        }
+        (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
+
+        # Generate the game export while the spectator is still alive
+        if events_path.exists():
+            sys.path.insert(0, str(REPO_ROOT / "scripts"))
+            from export_game import export_game
+
+            export_dir = game_dir / "_export_tmp"
+            export_dir.mkdir(exist_ok=True)
+            export_game(game_dir, export_dir)
+
         # Read golden prompt for player A
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_a_log}"
@@ -565,11 +602,81 @@ def _extract_mcp_fixture(prompt: list[dict]) -> dict:
 
 
 def _strip_volatile_fields(obj: object) -> object:
-    """Recursively strip timestamp fields from export data for stable comparison."""
+    """Recursively strip timestamp fields from export data."""
     if isinstance(obj, dict):
         return {k: _strip_volatile_fields(v) for k, v in obj.items() if k != "ts"}
     if isinstance(obj, list):
         return [_strip_volatile_fields(item) for item in obj]
+    return obj
+
+
+# Fields that are nondeterministic across runs but useful for the website.
+# Stripped only for golden comparison, NOT from the saved golden file.
+_NONDETERMINISTIC_KEYS = {"thinkingTimeSecs", "seq"}
+
+# Connection-lifecycle action messages whose ordering depends on client
+# connect/disconnect timing, not game state.  Stripped for comparison only.
+_LIFECYCLE_SUFFIXES = (
+    "has joined",
+    "has joined the game",
+    "has left XMage",
+    "has started watching",
+    "wants to concede",
+    "has won the game",
+)
+
+
+def _is_lifecycle_action(action: object) -> bool:
+    """Return True for join/leave/concede/win messages whose ordering is nondeterministic."""
+    if not isinstance(action, dict):
+        return False
+    msg = action.get("message", "")
+    if any(msg.endswith(s) for s in _LIFECYCLE_SUFFIXES):
+        return True
+    # Match score HTML contains player names in nondeterministic order
+    return "Match score:" in msg
+
+
+def _normalize_actions(actions: list) -> list:
+    """Normalize actions for deterministic comparison.
+
+    Strips lifecycle messages and sorts by message content (spectator event
+    ordering can vary with concurrent clients). Seq is already stripped by
+    _NONDETERMINISTIC_KEYS.
+    """
+    filtered = [a for a in actions if not _is_lifecycle_action(a)]
+    filtered.sort(key=lambda a: a.get("message", "") if isinstance(a, dict) else "")
+    return filtered
+
+
+def _sort_players(players: list) -> list:
+    """Sort players array by name for deterministic comparison."""
+    return sorted(players, key=lambda p: p.get("name", "") if isinstance(p, dict) else "")
+
+
+def _strip_nondeterministic_fields(obj: object) -> object:
+    """Strip fields that vary across runs for deterministic golden comparison.
+
+    - thinkingTimeSecs: computed from wall-clock timestamps
+    - seq: shifts when lifecycle events change count
+    - Connection-lifecycle action messages (join/leave/concede/win ordering)
+    - Action ordering (varies with concurrent clients)
+    - players array ordering (varies with client connect order)
+    """
+    if isinstance(obj, dict):
+        result = {}
+        for k, v in obj.items():
+            if k in _NONDETERMINISTIC_KEYS:
+                continue
+            if k == "actions" and isinstance(v, list):
+                result[k] = _normalize_actions([_strip_nondeterministic_fields(item) for item in v])
+            elif k == "players" and isinstance(v, list):
+                result[k] = _sort_players([_strip_nondeterministic_fields(item) for item in v])
+            else:
+                result[k] = _strip_nondeterministic_fields(v)
+        return result
+    if isinstance(obj, list):
+        return [_strip_nondeterministic_fields(item) for item in obj]
     return obj
 
 
@@ -595,21 +702,29 @@ def assert_golden_export(name: str, game_dir: Path, prompt: list[dict]) -> None:
     export_data = json.loads(gzip.decompress(export_path.read_bytes()))
     export_data["goldenFixture"] = _extract_mcp_fixture(prompt)
 
-    # Strip volatile fields (timestamps) for deterministic comparison
+    # Strip timestamps (not useful even for the website)
     stable = _strip_volatile_fields(export_data)
-    actual_json = _to_sorted_json(stable)
 
     golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json.gz"
 
     if UPDATE_MODE:
+        # Save full data (minus timestamps) so the website can use snapshots/seq
         GOLDEN_EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
-        golden_file.write_bytes(gzip.compress((actual_json + "\n").encode()))
+        save_json = _to_sorted_json(stable)
+        golden_file.write_bytes(gzip.compress((save_json + "\n").encode()))
         print(f"Updated golden export: {golden_file}")
         return
 
     assert golden_file.exists(), f"Golden export not found: {golden_file}\nRun 'make update-golden' to generate it."
 
-    expected_json = gzip.decompress(golden_file.read_bytes()).decode().rstrip()
+    expected_data = json.loads(gzip.decompress(golden_file.read_bytes()))
+
+    # Strip nondeterministic fields from both sides for comparison:
+    # - thinkingTimeSecs: wall-clock timing
+    # - join/leave action messages: ordering depends on client connect timing
+    actual_json = _to_sorted_json(_strip_nondeterministic_fields(stable))
+    expected_json = _to_sorted_json(_strip_nondeterministic_fields(expected_data))
+
     if expected_json != actual_json:
         expected_lines = expected_json.split("\n")
         actual_lines = actual_json.split("\n")

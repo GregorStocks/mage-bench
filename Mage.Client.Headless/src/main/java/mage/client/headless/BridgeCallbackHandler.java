@@ -38,6 +38,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -147,6 +150,12 @@ public class BridgeCallbackHandler {
     private final List<String> unseenChat = new ArrayList<>(); // Chat messages from other players not yet shown to LLM
     private volatile boolean playerDead = false; // Set when we see "{name} has lost the game" in chat
     private final Map<String, String> castOwners = new HashMap<>(); // objectId → playerName from cast messages
+
+    // Observer gate: bridge waits for observer_ready marker before processing the first action.
+    // This prevents a race where the game starts processing actions before the spectator connects.
+    // Opt-in via -Dxmage.headless.gameDir; if not set, gate is pre-cleared (no waiting).
+    private final Path observerGateDir; // null when gate is disabled
+    private volatile boolean observerGateCleared;
     private final Map<String, Integer> playerTurnCounts = new HashMap<>(); // playerName → per-player turn count
     private volatile String lastChatMessage = null; // For deduplicating outgoing chat
     private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
@@ -193,6 +202,41 @@ public class BridgeCallbackHandler {
 
     public BridgeCallbackHandler(BridgeMageClient client) {
         this.client = client;
+        String gameDirStr = System.getProperty("xmage.headless.gameDir");
+        if (gameDirStr != null && !gameDirStr.isEmpty()) {
+            this.observerGateDir = Paths.get(gameDirStr);
+            this.observerGateCleared = false;
+        } else {
+            this.observerGateDir = null;
+            this.observerGateCleared = true; // no gate — skip waiting
+        }
+    }
+
+    /**
+     * Block until the observer writes the observer_ready marker file.
+     * Called once before the first game action. If the gate is already cleared
+     * (no gameDir configured, or already waited), returns immediately.
+     */
+    private void waitForObserverReady() {
+        if (observerGateCleared) {
+            return;
+        }
+        Path marker = observerGateDir.resolve("observer_ready");
+        logger.info("[" + client.getUsername() + "] Waiting for observer_ready marker: " + marker);
+        long deadline = System.currentTimeMillis() + 30_000;
+        while (!Files.exists(marker)) {
+            if (System.currentTimeMillis() > deadline) {
+                throw new RuntimeException("Timed out waiting for observer_ready marker after 30s: " + marker);
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Interrupted waiting for observer_ready marker", e);
+            }
+        }
+        observerGateCleared = true;
+        logger.info("[" + client.getUsername() + "] Observer ready, proceeding with game actions");
     }
 
     public void setErrorLogPath(String path) {
@@ -3739,6 +3783,10 @@ public class BridgeCallbackHandler {
                 }
                 logBridgeEvent(method, summary);
             }
+
+            // Wait for observer to be ready before processing any game callbacks.
+            // This is a no-op after the first call (or when gameDir is not set).
+            waitForObserverReady();
 
             switch (method) {
                 case START_GAME:

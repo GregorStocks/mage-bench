@@ -967,6 +967,7 @@ async def run_pilot(
     if game_dir:
         mvn_args.append(f"-Dxmage.headless.errorlog={game_dir / f'{username}_errors.log'}")
         mvn_args.append(f"-Dxmage.headless.bridgelog={game_dir / f'{username}_bridge.jsonl'}")
+        mvn_args.append(f"-Dxmage.headless.gameDir={game_dir}")
     if max_interactions_per_turn is not None:
         mvn_args.append(f"-Dxmage.headless.maxInteractionsPerTurn={max_interactions_per_turn}")
     mvn_args.append("exec:java")

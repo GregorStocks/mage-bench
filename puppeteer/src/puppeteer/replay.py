@@ -78,6 +78,7 @@ async def run_replay(
         mvn_args.append(f"-Dxmage.headless.deck={deck_path}")
     if game_dir:
         mvn_args.append(f"-Dxmage.headless.errorlog={game_dir / f'{username}_errors.log'}")
+        mvn_args.append(f"-Dxmage.headless.gameDir={game_dir}")
     mvn_args.append("exec:java")
 
     server_params = StdioServerParameters(

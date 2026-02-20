@@ -256,6 +256,7 @@ public class StreamingGamePanel extends GamePanel {
         requestHandPermissions(game);
         initCostPolling();
         initGameEventLog();
+        writeObserverReadyMarker();
         // Build player color index map and apply per-player styling
         if (playerColorIndices.isEmpty() && game.getPlayers() != null) {
             int idx = 0;
@@ -1703,6 +1704,24 @@ public class StreamingGamePanel extends GamePanel {
             gameEventWriter = new PrintWriter(new FileWriter(gameDirPath.resolve("game_events.jsonl").toString(), true));
         } catch (IOException e) {
             logger.warn("Failed to open game_events.jsonl", e);
+        }
+    }
+
+    /**
+     * Write an empty marker file so bridge clients know the observer is connected
+     * and ready to receive game events. Bridge clients wait for this file before
+     * responding to their first game action, preventing a race where the game
+     * starts processing actions before the spectator has subscribed.
+     */
+    private void writeObserverReadyMarker() {
+        if (gameDirPath == null) {
+            return;
+        }
+        try {
+            Files.write(gameDirPath.resolve("observer_ready"), new byte[0]);
+            logger.info("Wrote observer_ready marker to " + gameDirPath);
+        } catch (IOException e) {
+            logger.warn("Failed to write observer_ready marker", e);
         }
     }
 
