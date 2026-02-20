@@ -28,6 +28,7 @@ public class StreamingMageFrame extends MageFrame {
     private static final Logger LOGGER = Logger.getLogger(StreamingMageFrame.class);
     private static final int MAX_RECONNECT_ATTEMPTS = 5;
     private static final int[] RECONNECT_BACKOFF_MS = {2000, 4000, 8000, 16000, 30000};
+    private static final boolean NO_WINDOW = Boolean.getBoolean("xmage.streaming.noWindow");
     private static final String GIT_BRANCH = getGitBranch();
     private String titlePrefix = GIT_BRANCH != null ? "[" + GIT_BRANCH + "] " : "";
 
@@ -74,6 +75,35 @@ public class StreamingMageFrame extends MageFrame {
             // Log but don't fail - toolbar visibility is not critical
             System.err.println("Failed to hide toolbar: " + e.getMessage());
         }
+    }
+
+    /**
+     * Intercept native peer creation so the window is positioned offscreen
+     * before the WM ever sees it. MageFrame's constructor calls pack() inside
+     * initComponents(), which triggers addNotify() — by that point the WM on
+     * tiling/aggressive Linux desktops (i3, sway, KDE, etc.) will map and
+     * focus the window. Positioning it here ensures it's offscreen from birth.
+     */
+    @Override
+    public void addNotify() {
+        if (NO_WINDOW) {
+            setLocation(-10000, -10000);
+        }
+        super.addNotify();
+    }
+
+    /**
+     * Prevent the maximize hint from reaching the WM during construction.
+     * MageFrame's constructor calls setExtendedState(MAXIMIZED_BOTH), which
+     * on X11/Wayland causes the WM to map and tile the window immediately.
+     */
+    @Override
+    public void setExtendedState(int state) {
+        if (NO_WINDOW) {
+            // Don't maximize — prevents the WM from mapping the window.
+            return;
+        }
+        super.setExtendedState(state);
     }
 
     /**
