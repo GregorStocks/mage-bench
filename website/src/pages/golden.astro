@@ -27,8 +27,7 @@ if (fs.existsSync(fixturesDir)) {
     for (const msg of messages) {
       if (msg.role !== 'tool') continue;
       const callName = toolCallNames[msg.tool_call_id];
-      let parsed;
-      try { parsed = JSON.parse(msg.content); } catch { continue; }
+      const parsed = JSON.parse(msg.content);
       if (callName === 'get_game_state') gameState = parsed;
       if (callName === 'pass_priority') passPriority = parsed;
     }
