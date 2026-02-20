@@ -1,6 +1,74 @@
-"""Tests for extract_decisions rolled-back cast detection."""
+"""Tests for extract_decisions."""
 
-from extract_decisions import _find_spell_cancelled_events, _mark_rolled_back_casts
+from extract_decisions import (
+    _find_spell_cancelled_events,
+    _mark_rolled_back_casts,
+    _summarize_snapshot,
+    _summarize_stack_item,
+)
+
+
+class TestSummarizeStackItem:
+    def test_string_item(self) -> None:
+        assert _summarize_stack_item("Lightning Bolt") == "Lightning Bolt"
+
+    def test_dict_without_targets(self) -> None:
+        assert _summarize_stack_item({"name": "Counterspell"}) == "Counterspell"
+
+    def test_dict_with_targets(self) -> None:
+        item = {"name": "Lightning Bolt", "targets": ["Goblin Guide"]}
+        result = _summarize_stack_item(item)
+        assert result == {"name": "Lightning Bolt", "targets": ["Goblin Guide"]}
+
+    def test_dict_with_empty_targets(self) -> None:
+        """Empty targets list should return just the name."""
+        assert _summarize_stack_item({"name": "Opt", "targets": []}) == "Opt"
+
+
+class TestSummarizeSnapshotStack:
+    def test_stack_preserves_targets(self) -> None:
+        snap = {
+            "turn": 3,
+            "phase": "PRECOMBAT_MAIN",
+            "players": [],
+            "stack": [
+                {"name": "Lightning Bolt", "targets": ["Goblin Guide"]},
+                {"name": "Counterspell", "targets": ["Lightning Bolt"]},
+            ],
+        }
+        summary = _summarize_snapshot(snap)
+        assert summary["stack"] == [
+            {"name": "Lightning Bolt", "targets": ["Goblin Guide"]},
+            {"name": "Counterspell", "targets": ["Lightning Bolt"]},
+        ]
+
+    def test_stack_without_targets(self) -> None:
+        snap = {
+            "turn": 1,
+            "phase": "PRECOMBAT_MAIN",
+            "players": [],
+            "stack": [{"name": "Opt"}],
+        }
+        summary = _summarize_snapshot(snap)
+        assert summary["stack"] == ["Opt"]
+
+    def test_stack_mixed_items(self) -> None:
+        snap = {
+            "turn": 2,
+            "phase": "PRECOMBAT_MAIN",
+            "players": [],
+            "stack": [
+                {"name": "Swords to Plowshares", "targets": ["Tarmogoyf"]},
+                {"name": "Brainstorm"},
+                "Legacy string item",
+            ],
+        }
+        summary = _summarize_snapshot(snap)
+        assert summary["stack"] == [
+            {"name": "Swords to Plowshares", "targets": ["Tarmogoyf"]},
+            "Brainstorm",
+            "Legacy string item",
+        ]
 
 
 def _make_decision(

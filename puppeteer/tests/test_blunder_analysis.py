@@ -540,6 +540,82 @@ class TestCollectCardNames:
         assert "Tarmogoyf" in names
 
 
+class TestFormatDecisionsStack:
+    def test_shows_stack_with_targets(self) -> None:
+        d = _make_decision(
+            game_state={
+                "turn": 2,
+                "phase": "PRECOMBAT_MAIN",
+                "players": [
+                    {
+                        "name": "Alice",
+                        "life": 20,
+                        "hand": ["Counterspell"],
+                        "hand_count": 1,
+                        "battlefield": ["Island", "Island"],
+                    },
+                    {"name": "Bob", "life": 20, "battlefield": []},
+                ],
+                "stack": [
+                    {"name": "Lightning Bolt", "targets": ["Alice"]},
+                ],
+            },
+        )
+        result = _format_decisions([d])
+        assert "Lightning Bolt -> Alice" in result
+
+    def test_shows_stack_without_targets(self) -> None:
+        d = _make_decision(
+            game_state={
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "players": [
+                    {"name": "Alice", "life": 20, "hand": [], "battlefield": []},
+                    {"name": "Bob", "life": 20, "battlefield": []},
+                ],
+                "stack": ["Brainstorm"],
+            },
+        )
+        result = _format_decisions([d])
+        assert "Stack: [Brainstorm]" in result
+
+    def test_stack_multiple_targets(self) -> None:
+        d = _make_decision(
+            game_state={
+                "turn": 3,
+                "phase": "PRECOMBAT_MAIN",
+                "players": [
+                    {"name": "Alice", "life": 20, "hand": [], "battlefield": []},
+                    {"name": "Bob", "life": 20, "battlefield": []},
+                ],
+                "stack": [
+                    {"name": "Decimate", "targets": ["Sol Ring", "Birds of Paradise", "Propaganda", "Forest"]},
+                ],
+            },
+        )
+        result = _format_decisions([d])
+        assert "Decimate -> Sol Ring, Birds of Paradise, Propaganda, Forest" in result
+
+
+class TestCardNamesInDecisionStack:
+    def test_extracts_from_dict_stack_items(self) -> None:
+        d = _make_decision(
+            game_state={
+                "turn": 1,
+                "phase": "PRECOMBAT_MAIN",
+                "players": [
+                    {"name": "Alice", "life": 20, "hand": [], "battlefield": []},
+                    {"name": "Bob", "life": 20, "battlefield": []},
+                ],
+                "stack": [
+                    {"name": "Lightning Bolt", "targets": ["Goblin Guide"]},
+                ],
+            },
+        )
+        names = _card_names_in_decision(d)
+        assert "Lightning Bolt" in names
+
+
 class TestFormatDecisionsCombat:
     def test_shows_combat_context(self) -> None:
         d = _make_decision(

@@ -39,6 +39,18 @@ def _summarize_permanent(c: dict) -> str | dict:
     return name
 
 
+def _summarize_stack_item(item: object) -> str | dict:
+    """Summarize a stack item. Returns just the name if no targets,
+    or a dict with name + targets when targets are present."""
+    if not isinstance(item, dict):
+        return str(item)
+    name = item.get("name", "?")
+    targets = item.get("targets")
+    if targets:
+        return {"name": name, "targets": targets}
+    return name
+
+
 def _summarize_snapshot(snap: dict) -> dict:
     """Summarize a snapshot for decision context."""
     summary = {
@@ -76,10 +88,7 @@ def _summarize_snapshot(snap: dict) -> dict:
             }
             for p in snap.get("players", [])
         ],
-        "stack": [
-            item.get("name", "?") if isinstance(item, dict) else str(item)
-            for item in snap.get("stack", [])
-        ],
+        "stack": [_summarize_stack_item(item) for item in snap.get("stack", [])],
     }
     # Combat groups (may be absent in old exports)
     combat = snap.get("combat")
