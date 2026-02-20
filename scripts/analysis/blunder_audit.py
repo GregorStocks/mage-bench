@@ -225,9 +225,11 @@ def format_play_context(
     aftermath = compute_aftermath_index(decision, snapshots)
     game_state = decision.get("game_state", {})
     stack = game_state.get("stack", [])
-    stack_str = ", ".join(
-        s if isinstance(s, str) else s.get("name", "?") for s in stack
-    ) if stack else "(empty)"
+    stack_str = (
+        ", ".join(s if isinstance(s, str) else s.get("name", "?") for s in stack)
+        if stack
+        else "(empty)"
+    )
 
     # Find the current player's hand
     player_name = decision.get("player", "")
@@ -360,7 +362,11 @@ def audit_plays(game_filter: str | None = None) -> None:
         # Show existing annotation for context (may be stale)
         display_annotation = _lookup_existing_annotation(decision, game_data, snapshots)
         game_actions = game_data.get("actions", [])
-        print(format_play_context(game_id, decision, snapshots, display_annotation, game_actions))
+        print(
+            format_play_context(
+                game_id, decision, snapshots, display_annotation, game_actions
+            )
+        )
 
         verdict, notes = collect_verdict()
         if verdict is None:
@@ -477,7 +483,11 @@ def add_from_url(url: str) -> None:
         best_decision, game_data, snapshots
     )
     game_actions = game_data.get("actions", [])
-    print(format_play_context(game_id, best_decision, snapshots, display_annotation, game_actions))
+    print(
+        format_play_context(
+            game_id, best_decision, snapshots, display_annotation, game_actions
+        )
+    )
 
     try:
         notes = input("\nNotes (Enter=skip): ").strip() or None
