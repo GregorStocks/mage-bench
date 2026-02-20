@@ -191,7 +191,24 @@ def extract_decisions(gz_path: str) -> list[dict]:
                     chosen_index = chosen_args["answer"]
                 elif "amount" in chosen_args:
                     chosen_index = chosen_args["amount"]
-                action_result = _parse_action_result(ev.get("result", ""))
+                elif "id" in chosen_args:
+                    # Resolve short ID (e.g. "p5") to choice index
+                    target_id = chosen_args["id"]
+                    for ci, c in enumerate(available_choices):
+                        if isinstance(c, dict) and c.get("id") == target_id:
+                            chosen_index = ci
+                            break
+                if chosen_index is None:
+                    # Fallback: parse "selected_N" from action_taken
+                    action_result = _parse_action_result(ev.get("result", ""))
+                    taken = action_result.get("action_taken", "")
+                    if taken.startswith("selected_"):
+                        try:
+                            chosen_index = int(taken.split("_", 1)[1])
+                        except (ValueError, IndexError):
+                            pass
+                else:
+                    action_result = _parse_action_result(ev.get("result", ""))
                 action_ts = ev.get("ts", "")
                 break
 
