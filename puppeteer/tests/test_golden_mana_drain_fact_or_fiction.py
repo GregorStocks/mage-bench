@@ -36,22 +36,25 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root):
             {"name": "choose_action", "arguments": {"index": 0}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"answer": False}},
-            # Play Island (alphabetical: Fact or Fiction=p3, Island=p4..p8, Mana Drain=p9).
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p4"}},
-            # Turn 2: play Island.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p5"}},
-            # Counter Savannah Lions with Mana Drain.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p9"}},
+            # Play Island (only playable card).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}},
-            # Turn 3: play Island, cast Fact or Fiction.
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p6"}},
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p3"}},
+            # Cast Sol Ring.
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Turn 2: play second Island before opponent casts Savannah Lions.
+            {"name": "pass_priority", "arguments": {"until": "my_turn"}},
+            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # End turn, wait for opponent to cast Savannah Lions.
+            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
+            # Counter Savannah Lions with Mana Drain.
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Skip to our next precombat main (Mana Drain mana available).
+            {"name": "pass_priority", "arguments": {"until": "my_turn"}},
+            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
+            # Play Island, then cast Fact or Fiction using Mana Drain mana.
+            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"index": 0, "mana_plan": ["COLORLESS"]}},
             # Choose the 3-card pile.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"pile": 1}},
@@ -64,9 +67,10 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root):
             # Turn 1: play Plains.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}},
-            # Turn 2: cast Savannah Lions (Plains x5 first, then Lions).
-            {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 5}},
+            {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
+            # Turn 2: cast Savannah Lions (only playable card).
+            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
+            {"name": "choose_action", "arguments": {"index": 0}},
             # Split piles 3/2 for Fact or Fiction (pick three cards for pile 1, then done).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}},
