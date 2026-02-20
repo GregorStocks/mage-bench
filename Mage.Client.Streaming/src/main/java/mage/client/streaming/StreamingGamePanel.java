@@ -128,6 +128,8 @@ public class StreamingGamePanel extends GamePanel {
     private Path gameDirPath;
     private final Set<String> llmPlayerNames = new HashSet<>();
     private boolean costPollingInitialized = false;
+    private final Map<UUID, Long> lastHandPermissionRequestMs = new HashMap<>();
+    private static final long HAND_PERMISSION_RETRY_MS = 5000;
 
     // Cast owner tracking: objectId → playerName, parsed from game chat HTML
     private static final Pattern CAST_OWNER_PATTERN = Pattern.compile(
@@ -852,17 +854,27 @@ public class StreamingGamePanel extends GamePanel {
             return;
         }
 
+        Map<String, SimpleCardsView> watchedHands = game.getWatchedHands();
+        long now = System.currentTimeMillis();
         for (PlayerView player : game.getPlayers()) {
             UUID playerId = player.getPlayerId();
-            if (!permissionsRequested.contains(playerId)) {
-                permissionsRequested.add(playerId);
-                logger.info("Requesting hand permission from player: " + player.getName());
-                SessionHandler.sendPlayerAction(
-                        PlayerAction.REQUEST_PERMISSION_TO_SEE_HAND_CARDS,
-                        streamingGameId,
-                        playerId
-                );
+            String playerName = player.getName();
+            if (watchedHands != null && watchedHands.containsKey(playerName)) {
+                lastHandPermissionRequestMs.remove(playerId);
+                continue;
             }
+            Long lastRequest = lastHandPermissionRequestMs.get(playerId);
+            if (lastRequest != null && (now - lastRequest) < HAND_PERMISSION_RETRY_MS) {
+                continue;
+            }
+            permissionsRequested.add(playerId);
+            lastHandPermissionRequestMs.put(playerId, now);
+            logger.info("Requesting hand permission from player: " + playerName);
+            SessionHandler.sendPlayerAction(
+                    PlayerAction.REQUEST_PERMISSION_TO_SEE_HAND_CARDS,
+                    streamingGameId,
+                    playerId
+            );
         }
     }
 
