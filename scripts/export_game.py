@@ -231,8 +231,8 @@ def _read_llm_events(
 
             events.append(exported)
 
-    # Sort by timestamp
-    events.sort(key=lambda e: e.get("ts", ""))
+    # Sort by timestamp with a stable tie-breaker to keep exports deterministic
+    events.sort(key=lambda e: (e.get("ts", ""), e.get("type", ""), e.get("player", "")))
 
     player_thinking = compute_thinking_time(events)
 

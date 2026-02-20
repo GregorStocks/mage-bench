@@ -166,6 +166,8 @@ public class StreamingGamePanel extends GamePanel {
     public synchronized void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId, MagePane gamePane) {
         this.streamingGameId = gameId;
         replaceChatWithCombinedPanel();  // Replace before super connects chat
+        initGameEventLog();
+        writeObserverReadyMarker();
         super.watchGame(currentTableId, parentTableId, gameId, gamePane);
     }
 
