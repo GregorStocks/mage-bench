@@ -4,6 +4,7 @@ import pytest
 
 from tests.golden_helpers import (
     DECK_SAVANNAH_LIONS,
+    assert_golden_export,
     assert_golden_prompt,
     run_golden_scenario_two_replay,
 )
@@ -74,3 +75,4 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root):
         ],
     )
     assert_golden_prompt("savannah_lions_trade", prompt)
+    assert_golden_export("savannah_lions_trade", tmp_path / "savannah_lions_trade")

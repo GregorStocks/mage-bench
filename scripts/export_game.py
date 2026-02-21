@@ -30,6 +30,9 @@ _LLM_EVENT_TYPES = {
     "auto_pilot_mode",
 }
 
+# Size threshold: use .json.gz only above 40MB
+_GZ_THRESHOLD = 40_000_000
+
 
 def _strip_html(message: str) -> str:
     """Remove <font> tags and [hex_id] suffixes from action messages."""
@@ -274,23 +277,62 @@ def _read_llm_trace(game_dir: Path) -> list[dict]:
     return events
 
 
-def export_game(game_dir: Path, website_games_dir: Path) -> Path:
-    """Export a game directory to a website JSON file. Returns the output path."""
+def _read_server_events(
+    game_dir: Path,
+) -> tuple[list[dict], list[dict], dict | None, str | None]:
+    """Read events from server_game_events.jsonl.
+
+    Returns (snapshots, actions, game_over_info, winner).
+    """
+    server_events_path = game_dir / "server_game_events.jsonl"
+    assert server_events_path.exists(), f"No server_game_events.jsonl in {game_dir}"
+
+    snapshots: list[dict] = []
+    actions: list[dict] = []
+    game_over: dict | None = None
+    winner: str | None = None
+
+    for line in server_events_path.read_text().splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        event = json.loads(line)
+        event_type = event.get("type")
+
+        if event_type == "decision" and "state" in event:
+            snap = dict(event["state"])
+            snap["seq"] = event["seq"]
+            snapshots.append(snap)
+        elif event_type == "game_action":
+            actions.append(
+                {
+                    "seq": event.get("seq", 0),
+                    "message": event.get("message", ""),
+                }
+            )
+        elif event_type == "game_end":
+            game_over = {
+                "seq": event.get("seq", 0),
+                "message": event.get("winner", "") or "Game ended",
+            }
+            winner = event.get("winner")
+
+    return snapshots, actions, game_over, winner
+
+
+def _read_spectator_events(
+    game_dir: Path,
+) -> tuple[list[dict], list[dict], dict | None]:
+    """Read events from game_events.jsonl (spectator logs, legacy format).
+
+    Returns (snapshots, actions, game_over).
+    """
     events_path = game_dir / "game_events.jsonl"
-    meta_path = game_dir / "game_meta.json"
+    assert events_path.exists(), f"No game_events.jsonl in {game_dir}"
 
-    if not events_path.exists():
-        raise FileNotFoundError(f"No game_events.jsonl in {game_dir}")
-
-    # Load metadata
-    meta = {}
-    if meta_path.exists():
-        meta = json.loads(meta_path.read_text())
-
-    # Parse events
-    snapshots = []
-    actions = []
-    game_over = None
+    snapshots: list[dict] = []
+    actions: list[dict] = []
+    game_over: dict | None = None
 
     for line in events_path.read_text().splitlines():
         line = line.strip()
@@ -300,11 +342,10 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
         event_type = event.get("type")
 
         if event_type == "state_snapshot":
-            # Keep all fields except type (preserve ts + seq for timeline matching)
             snap = {k: v for k, v in event.items() if k != "type"}
             snapshots.append(snap)
         elif event_type in ("game_action", "player_chat"):
-            entry = {
+            entry: dict = {
                 "ts": event.get("ts", ""),
                 "seq": event.get("seq", 0),
                 "message": _strip_html(event.get("message", "")),
@@ -319,6 +360,34 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
                 "message": _strip_html(event.get("message", "")),
             }
 
+    return snapshots, actions, game_over
+
+
+def build_export(game_dir: Path) -> dict:
+    """Build the export data dict from a game directory.
+
+    Reads server_game_events.jsonl if available (version 2 format),
+    falls back to game_events.jsonl (spectator logs, version 1 format).
+    """
+    meta_path = game_dir / "game_meta.json"
+    server_events_path = game_dir / "server_game_events.jsonl"
+
+    # Load metadata
+    meta: dict = {}
+    if meta_path.exists():
+        meta = json.loads(meta_path.read_text())
+
+    # Choose event source
+    use_server_logs = server_events_path.exists()
+
+    if use_server_logs:
+        snapshots, actions, game_over, winner = _read_server_events(game_dir)
+        version = 2
+    else:
+        snapshots, actions, game_over = _read_spectator_events(game_dir)
+        winner = None
+        version = 1
+
     # Read LLM logs
     llm_events, player_costs, player_tools, player_tool_calls, player_thinking = (
         _read_llm_events(game_dir)
@@ -332,15 +401,12 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
     game_id = game_dir.name
     total_turns = max((s.get("turn", 0) for s in snapshots), default=0)
 
-    winner = None
-    if game_over:
-        # "Player X is the winner"
+    # Winner extraction for spectator-based exports
+    if not winner and game_over:
         msg = game_over["message"]
         m = re.match(r"Player (.+?) is the winner", msg)
         if m:
             winner = m.group(1)
-    # Fallback: if spectator disconnected before writing the real game_over,
-    # scan game actions for "X has won the game"
     if not winner:
         for a in actions:
             m = WON_GAME_RE.match(a.get("message", ""))
@@ -349,23 +415,18 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
                 break
 
     # Extract placement from elimination order
-    # "X has lost the game." messages, ordered by seq, give elimination order
     player_names = [p.get("name", "?") for p in meta.get("players", [])]
     eliminations = []
     for a in actions:
         m = LOST_GAME_RE.match(a.get("message", ""))
         if m:
             eliminations.append(m.group(1))
-    # eliminations[0] = first eliminated (worst), eliminations[-1] = last eliminated
-    # Placement: winner=1, last eliminated=2, second-to-last=3, etc.
     placements: dict[str, int] = {}
     if winner:
         placements[winner] = 1
         for i, name in enumerate(reversed(eliminations)):
             placements[name] = i + 2
     elif eliminations:
-        # No winner but some players were eliminated — assign relative placements
-        # Surviving players share 1st place, eliminated players get lower placements
         surviving = [n for n in player_names if n not in eliminations]
         for name in surviving:
             placements[name] = 1
@@ -399,7 +460,8 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
         players_summary.append(entry)
 
     # Build output
-    output = {
+    output: dict = {
+        "version": version,
         "id": game_id,
         "timestamp": meta.get("timestamp", ""),
         "gameType": meta.get("game_type", ""),
@@ -419,14 +481,31 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
     if meta.get("youtube_url"):
         output["youtubeUrl"] = meta["youtube_url"]
 
-    website_games_dir.mkdir(parents=True, exist_ok=True)
-    output_path = website_games_dir / f"{game_id}.json.gz"
-    output_path.write_bytes(gzip.compress(json.dumps(output).encode()))
+    return output
 
-    # Clean up old uncompressed file if it exists
-    old_json = website_games_dir / f"{game_id}.json"
-    if old_json.exists():
-        old_json.unlink()
+
+def export_game(game_dir: Path, website_games_dir: Path) -> Path:
+    """Export a game directory to a website JSON file. Returns the output path."""
+    output = build_export(game_dir)
+    game_id = output["id"]
+
+    website_games_dir.mkdir(parents=True, exist_ok=True)
+
+    json_bytes = json.dumps(output).encode()
+    if len(json_bytes) > _GZ_THRESHOLD:
+        output_path = website_games_dir / f"{game_id}.json.gz"
+        output_path.write_bytes(gzip.compress(json_bytes))
+        # Clean up uncompressed file if it exists
+        json_path = website_games_dir / f"{game_id}.json"
+        if json_path.exists():
+            json_path.unlink()
+    else:
+        output_path = website_games_dir / f"{game_id}.json"
+        output_path.write_bytes(json_bytes)
+        # Clean up compressed file if it exists
+        gz_path = website_games_dir / f"{game_id}.json.gz"
+        if gz_path.exists():
+            gz_path.unlink()
 
     return output_path
 

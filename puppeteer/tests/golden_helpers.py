@@ -21,6 +21,7 @@ from puppeteer.process_manager import kill_tree
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GOLDEN_DIR = Path(__file__).resolve().parent / "golden" / "prompts"
+GOLDEN_EXPORTS_DIR = Path(__file__).resolve().parent / "golden" / "exports"
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
 
@@ -254,6 +255,10 @@ def run_golden_scenario(
                 f"Replay client exited with code {replay_proc.returncode}.\nReplay log tail:\n{replay_text[-2000:]}"
             )
 
+        # Give the spectator time to finish writing observer events
+        # (it processes game state updates asynchronously)
+        time.sleep(2)
+
         # Read golden prompt
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_log}"
@@ -441,6 +446,9 @@ def run_golden_scenario_two_replay(
                 f"Replay log tail:\n{replay_b_text[-2000:]}"
             )
 
+        # Give the spectator time to finish writing observer events
+        time.sleep(2)
+
         # Read golden prompt for player A
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_a_log}"
@@ -486,4 +494,61 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
         diff_text = "\n".join(diffs[:20])
         raise AssertionError(
             f"Golden file mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
+        )
+
+
+def _strip_volatile(data: dict) -> None:
+    """Remove fields that vary between test runs from export data, in place."""
+    # Top-level volatile fields
+    data.pop("timestamp", None)
+    data.pop("id", None)
+
+    # Strip ts from actions
+    for action in data.get("actions", []):
+        action.pop("ts", None)
+
+    # Strip ts from llmEvents
+    for event in data.get("llmEvents", []):
+        event.pop("ts", None)
+
+    # Strip ts from llmTrace
+    for event in data.get("llmTrace", []):
+        event.pop("ts", None)
+
+
+def assert_golden_export(name: str, game_dir: Path) -> None:
+    """Run export pipeline on game dir, compare against golden file."""
+    # Import here to avoid circular imports at module level
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+    from export_game import build_export
+
+    export_data = build_export(game_dir)
+    _strip_volatile(export_data)
+    actual_json = _to_sorted_json(export_data)
+    golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json"
+
+    if UPDATE_MODE:
+        golden_file.parent.mkdir(parents=True, exist_ok=True)
+        golden_file.write_text(actual_json + "\n")
+        print(f"Updated golden export: {golden_file}")
+        return
+
+    assert golden_file.exists(), (
+        f"Golden export file not found: {golden_file}\nRun 'make update-golden' to generate it."
+    )
+
+    expected = golden_file.read_text().rstrip()
+    if expected != actual_json:
+        expected_lines = expected.split("\n")
+        actual_lines = actual_json.split("\n")
+        diffs = []
+        max_lines = max(len(expected_lines), len(actual_lines))
+        for i in range(max_lines):
+            exp = expected_lines[i] if i < len(expected_lines) else "<missing>"
+            act = actual_lines[i] if i < len(actual_lines) else "<missing>"
+            if exp != act:
+                diffs.append(f"  Line {i + 1}:\n    expected: {exp}\n    actual:   {act}")
+        diff_text = "\n".join(diffs[:20])
+        raise AssertionError(
+            f"Golden export mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
         )

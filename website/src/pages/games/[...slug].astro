@@ -10,9 +10,15 @@ export function getStaticPaths() {
   if (!fs.existsSync(gamesDir)) {
     return [];
   }
-  return fs.readdirSync(gamesDir)
-    .filter((f: string) => f.startsWith('game_') && f.endsWith('.json.gz'))
-    .map((f: string) => ({ params: { slug: f.replace('.json.gz', '') } }));
+  const slugs = new Set<string>();
+  for (const f of fs.readdirSync(gamesDir)) {
+    if (f.startsWith('game_') && f.endsWith('.json') && !f.endsWith('.json.gz')) {
+      slugs.add(f.replace('.json', ''));
+    } else if (f.startsWith('game_') && f.endsWith('.json.gz')) {
+      slugs.add(f.replace('.json.gz', ''));
+    }
+  }
+  return [...slugs].map(s => ({ params: { slug: s } }));
 }
 
 const { slug } = Astro.params;
@@ -1070,16 +1076,20 @@ const { slug } = Astro.params;
       }
     }
 
-    function fetchGzJson(url) {
-      return fetch(url).then(function (r) {
-        if (!r.ok) throw new Error("Game not found (HTTP " + r.status + ")");
-        var ds = new DecompressionStream("gzip");
-        var decompressed = r.body.pipeThrough(ds);
-        return new Response(decompressed).json();
-      });
+    function fetchGameData(slug) {
+      return fetch("/games/" + slug + ".json")
+        .then(function (r) {
+          if (r.ok) return r.json();
+          // Fall back to .json.gz
+          return fetch("/games/" + slug + ".json.gz").then(function (r2) {
+            if (!r2.ok) throw new Error("Game not found");
+            var ds = new DecompressionStream("gzip");
+            return new Response(r2.body.pipeThrough(ds)).json();
+          });
+        });
     }
 
-    fetchGzJson("/games/" + slug + ".json.gz")
+    fetchGameData(slug)
       .then(function (data) {
         game = data;
 

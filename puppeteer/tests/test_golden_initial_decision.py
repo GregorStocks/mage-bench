@@ -5,6 +5,7 @@ import pytest
 from tests.golden_helpers import (
     DECK_GOBLINS,
     DECK_RED_STOMPY,
+    assert_golden_export,
     assert_golden_prompt,
     run_golden_scenario,
 )
@@ -32,3 +33,4 @@ def test_initial_decision(xmage_server, tmp_path, project_root):
         ],
     )
     assert_golden_prompt("initial_decision", prompt)
+    assert_golden_export("initial_decision", tmp_path / "initial_decision")

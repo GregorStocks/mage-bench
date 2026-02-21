@@ -1,0 +1,10 @@
+{
+  "title": "Migrate old game exports to server-log-based format",
+  "description": "The 17 existing game exports in website/public/games/ use the old spectator-based format (version 1, no version field). They should be migrated to the new server-log-based format (version 2) as best as possible. Some data like full hand contents, P/T on permanents, mana pools, and visible_to annotations won't be recoverable from spectator logs. After migration, remove support for the old spectator format from export_game.py.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["export", "migration"],
+  "created_at": "2026-02-21T13:15:00.000000-08:00",
+  "updated_at": "2026-02-21T13:15:00.000000-08:00"
+}

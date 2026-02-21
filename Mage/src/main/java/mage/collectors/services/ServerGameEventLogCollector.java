@@ -5,16 +5,25 @@ import mage.abilities.Ability;
 import mage.abilities.ActivatedAbility;
 import mage.cards.Card;
 import mage.choices.Choice;
+import mage.constants.CardType;
 import mage.constants.ManaType;
 import mage.constants.PhaseStep;
+import mage.constants.SubType;
+import mage.constants.SuperType;
 import mage.constants.TurnPhase;
+import mage.counters.Counter;
+import mage.counters.Counters;
+import mage.designations.DesignationType;
 import mage.game.Game;
 import mage.game.GameState;
 import mage.game.combat.CombatGroup;
 import mage.game.events.PlayerQueryEvent;
 import mage.game.permanent.Permanent;
+import mage.game.permanent.PermanentToken;
 import mage.game.stack.StackObject;
+import mage.players.ManaPool;
 import mage.players.Player;
+import mage.target.Target;
 import mage.util.MultiAmountMessage;
 import mage.util.ShortIdRegistry;
 import org.apache.log4j.Logger;
@@ -349,6 +358,147 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
 
     // --- State snapshot building ---
 
+    /**
+     * Build a type line string from a MageObject, e.g. "Legendary Creature - Bear Warrior".
+     */
+    private static String buildTypeLine(MageObject obj, Game game) {
+        StringBuilder sb = new StringBuilder();
+        for (SuperType st : obj.getSuperType(game)) {
+            if (sb.length() > 0) sb.append(' ');
+            sb.append(st.toString());
+        }
+        for (CardType ct : obj.getCardType(game)) {
+            if (sb.length() > 0) sb.append(' ');
+            sb.append(ct.toString());
+        }
+        List<SubType> subtypes = new ArrayList<>();
+        for (SubType sub : obj.getSubtype(game)) {
+            subtypes.add(sub);
+        }
+        if (!subtypes.isEmpty()) {
+            sb.append(" — ");
+            for (int i = 0; i < subtypes.size(); i++) {
+                if (i > 0) sb.append(' ');
+                sb.append(subtypes.get(i).toString());
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Serialize counters map, returning null if empty.
+     * Example: {"p1p1": 2, "loyalty": 3}
+     */
+    private static Map<String, Object> serializeCounters(Counters counters) {
+        if (counters == null || counters.isEmpty()) {
+            return null;
+        }
+        Map<String, Object> result = new LinkedHashMap<>();
+        List<String> names = new ArrayList<>(counters.keySet());
+        Collections.sort(names);
+        for (String name : names) {
+            Counter c = counters.get(name);
+            if (c.getCount() > 0) {
+                result.put(name, c.getCount());
+            }
+        }
+        return result.isEmpty() ? null : result;
+    }
+
+    /**
+     * Serialize a Card for hand/graveyard/exile zones.
+     */
+    private static Map<String, Object> serializeCard(Card card, Game game, ShortIdRegistry registry) {
+        Map<String, Object> ci = new LinkedHashMap<>();
+        ci.put("id", registry.getOrAssign(card.getId()));
+        ci.put("name", card.getName());
+        if (card.getManaCost() != null) {
+            ci.put("mana_cost", card.getManaCost().getText());
+        }
+        ci.put("type_line", buildTypeLine(card, game));
+        List<String> rules = card.getRules(game);
+        if (rules != null && !rules.isEmpty()) {
+            ci.put("rules", new ArrayList<>(rules));
+        }
+        return ci;
+    }
+
+    /**
+     * Serialize a Permanent for the battlefield zone.
+     */
+    private static Map<String, Object> serializePermanent(Permanent perm, Game game, ShortIdRegistry registry) {
+        Map<String, Object> pi = new LinkedHashMap<>();
+        pi.put("id", registry.getOrAssign(perm.getId()));
+        pi.put("name", perm.getName());
+        pi.put("tapped", perm.isTapped());
+
+        // P/T for creatures
+        if (perm.isCreature(game)) {
+            pi.put("power", perm.getPower().getValue());
+            pi.put("toughness", perm.getToughness().getValue());
+        }
+        // Loyalty for planeswalkers
+        if (perm.isPlaneswalker(game)) {
+            Counters counters = perm.getCounters(game);
+            if (counters != null && counters.containsKey("loyalty")) {
+                pi.put("loyalty", counters.getCount("loyalty"));
+            }
+        }
+
+        pi.put("type_line", buildTypeLine(perm, game));
+        if (perm.getManaCost() != null) {
+            pi.put("mana_cost", perm.getManaCost().getText());
+        }
+        pi.put("token", perm instanceof PermanentToken);
+        boolean faceDown = perm.isFaceDown(game);
+        pi.put("face_down", faceDown);
+        pi.put("summoning_sick", perm.hasSummoningSickness());
+
+        // Counters (exclude loyalty — already shown as top-level field)
+        Counters counters = perm.getCounters(game);
+        if (counters != null && !counters.isEmpty()) {
+            Map<String, Object> counterMap = new LinkedHashMap<>();
+            List<String> names = new ArrayList<>(counters.keySet());
+            Collections.sort(names);
+            for (String name : names) {
+                if (name.equals("loyalty")) continue;
+                Counter c = counters.get(name);
+                if (c.getCount() > 0) {
+                    counterMap.put(name, c.getCount());
+                }
+            }
+            if (!counterMap.isEmpty()) {
+                pi.put("counters", counterMap);
+            }
+        }
+
+        // Attached to
+        if (perm.getAttachedTo() != null) {
+            MageObject attachedObj = game.getObject(perm.getAttachedTo());
+            if (attachedObj != null) {
+                pi.put("attached_to", registry.getOrAssign(perm.getAttachedTo()));
+            }
+        }
+
+        // Rules text
+        List<String> rules = perm.getRules(game);
+        if (rules != null && !rules.isEmpty()) {
+            pi.put("rules", new ArrayList<>(rules));
+        }
+
+        // Visibility annotation for face-down permanents
+        if (faceDown) {
+            Player controller = game.getPlayer(perm.getControllerId());
+            if (controller != null) {
+                List<String> visibleTo = new ArrayList<>();
+                visibleTo.add(controller.getName());
+                pi.put("visible_to", visibleTo);
+            }
+        }
+
+        return pi;
+    }
+
     private Map<String, Object> buildStateSnapshot(Game game, int gameSeq) {
         GameState state = game.getState();
         if (state == null) {
@@ -380,17 +530,66 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             p.put("life", player.getLife());
             p.put("library_size", player.getLibrary().size());
 
-            // Hand — server has full visibility
+            // Mana pool
+            ManaPool pool = player.getManaPool();
+            Map<String, Object> manaMap = new LinkedHashMap<>();
+            if (pool.getWhite() > 0) manaMap.put("W", pool.getWhite());
+            if (pool.getBlue() > 0) manaMap.put("U", pool.getBlue());
+            if (pool.getBlack() > 0) manaMap.put("B", pool.getBlack());
+            if (pool.getRed() > 0) manaMap.put("R", pool.getRed());
+            if (pool.getGreen() > 0) manaMap.put("G", pool.getGreen());
+            if (pool.getColorless() > 0) manaMap.put("C", pool.getColorless());
+            if (!manaMap.isEmpty()) {
+                p.put("mana_pool", manaMap);
+            }
+
+            // Player counters
+            Counters playerCounters = player.getCountersAsCopy();
+            Map<String, Object> pcMap = serializeCounters(playerCounters);
+            if (pcMap != null) {
+                p.put("counters", pcMap);
+            }
+
+            // Designations
+            if (player.hasDesignation(DesignationType.THE_MONARCH)) {
+                p.put("monarch", true);
+            }
+            if (player.hasDesignation(DesignationType.THE_INITIATIVE)) {
+                p.put("initiative", true);
+            }
+            if (player.hasDesignation(DesignationType.CITYS_BLESSING)) {
+                p.put("citys_blessing", true);
+            }
+
+            // Command zone
+            Set<UUID> commanderIds = player.getCommandersIds();
+            if (commanderIds != null && !commanderIds.isEmpty()) {
+                List<Map<String, Object>> cmdZone = new ArrayList<>();
+                for (UUID cmdId : commanderIds) {
+                    MageObject cmdObj = game.getObject(cmdId);
+                    if (cmdObj != null) {
+                        Map<String, Object> cmdCard = new LinkedHashMap<>();
+                        cmdCard.put("id", registry.getOrAssign(cmdId));
+                        cmdCard.put("name", cmdObj.getName());
+                        cmdZone.add(cmdCard);
+                    }
+                }
+                if (!cmdZone.isEmpty()) {
+                    cmdZone.sort(Comparator.<Map<String, Object>, String>comparing(m -> (String) m.get("name")));
+                    p.put("command_zone", cmdZone);
+                }
+            }
+
+            // Hand — server has full visibility, annotated with visible_to
             List<Map<String, Object>> hand = new ArrayList<>();
             List<Card> handCards = new ArrayList<>(player.getHand().getCards(game));
             handCards.sort(Comparator.comparing(Card::getName).thenComparingInt(c -> registry.getSequence(c.getId())));
             for (Card card : handCards) {
-                Map<String, Object> ci = new LinkedHashMap<>();
-                ci.put("id", registry.getOrAssign(card.getId()));
-                ci.put("name", card.getName());
-                if (card.getManaCost() != null) {
-                    ci.put("mana_cost", card.getManaCost().getText());
-                }
+                Map<String, Object> ci = serializeCard(card, game, registry);
+                // Hand cards are only visible to their owner
+                List<String> visibleTo = new ArrayList<>();
+                visibleTo.add(player.getName());
+                ci.put("visible_to", visibleTo);
                 hand.add(ci);
             }
             p.put("hand", hand);
@@ -403,11 +602,7 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             }
             perms.sort(Comparator.comparing(Permanent::getName).thenComparingInt(perm -> registry.getSequence(perm.getId())));
             for (Permanent perm : perms) {
-                Map<String, Object> pi = new LinkedHashMap<>();
-                pi.put("id", registry.getOrAssign(perm.getId()));
-                pi.put("name", perm.getName());
-                pi.put("tapped", perm.isTapped());
-                battlefield.add(pi);
+                battlefield.add(serializePermanent(perm, game, registry));
             }
             p.put("battlefield", battlefield);
 
@@ -416,21 +611,14 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             List<Card> gyCards = new ArrayList<>(player.getGraveyard().getCards(game));
             gyCards.sort(Comparator.comparing(Card::getName).thenComparingInt(c -> registry.getSequence(c.getId())));
             for (Card card : gyCards) {
-                Map<String, Object> ci = new LinkedHashMap<>();
-                ci.put("id", registry.getOrAssign(card.getId()));
-                ci.put("name", card.getName());
-                graveyard.add(ci);
+                graveyard.add(serializeCard(card, game, registry));
             }
             p.put("graveyard", graveyard);
 
             // Exile
             List<Map<String, Object>> exile = new ArrayList<>();
-            // Exile is zone-based, gather cards owned by this player
             for (Card card : game.getExile().getCardsOwned(game, player.getId())) {
-                Map<String, Object> ci = new LinkedHashMap<>();
-                ci.put("id", registry.getOrAssign(card.getId()));
-                ci.put("name", card.getName());
-                exile.add(ci);
+                exile.add(serializeCard(card, game, registry));
             }
             exile.sort(Comparator.<Map<String, Object>, String>comparing(m -> (String) m.get("name"))
                     .thenComparing(m -> (String) m.get("id")));
@@ -448,6 +636,33 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             si.put("name", so.getName());
             Player controller = game.getPlayer(so.getControllerId());
             si.put("controller", controller != null ? controller.getName() : null);
+            if (so.getManaCost() != null) {
+                si.put("mana_cost", so.getManaCost().getText());
+            }
+            // Targets
+            if (so.getStackAbility() != null && so.getStackAbility().getTargets() != null) {
+                List<Map<String, Object>> targetsList = new ArrayList<>();
+                for (Target target : so.getStackAbility().getTargets()) {
+                    for (UUID targetId : target.getTargets()) {
+                        Map<String, Object> t = new LinkedHashMap<>();
+                        t.put("id", registry.getOrAssign(targetId));
+                        MageObject targetObj = game.getObject(targetId);
+                        if (targetObj != null) {
+                            t.put("name", targetObj.getName());
+                        } else {
+                            // Could be a player
+                            Player targetPlayer = game.getPlayer(targetId);
+                            if (targetPlayer != null) {
+                                t.put("name", targetPlayer.getName());
+                            }
+                        }
+                        targetsList.add(t);
+                    }
+                }
+                if (!targetsList.isEmpty()) {
+                    si.put("targets", targetsList);
+                }
+            }
             stack.add(si);
         }
         snapshot.put("stack", stack);
@@ -457,18 +672,40 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             List<Map<String, Object>> combat = new ArrayList<>();
             for (CombatGroup group : state.getCombat().getGroups()) {
                 Map<String, Object> g = new LinkedHashMap<>();
-                List<String> attackers = new ArrayList<>();
+                List<Map<String, Object>> attackersList = new ArrayList<>();
                 for (UUID aid : group.getAttackers()) {
+                    Map<String, Object> a = new LinkedHashMap<>();
                     Permanent attacker = game.getPermanent(aid);
-                    attackers.add(attacker != null ? attacker.getName() : registry.getOrAssign(aid));
+                    a.put("id", registry.getOrAssign(aid));
+                    a.put("name", attacker != null ? attacker.getName() : "Unknown");
+                    if (attacker != null) {
+                        a.put("power", attacker.getPower().getValue());
+                        a.put("toughness", attacker.getToughness().getValue());
+                    }
+                    attackersList.add(a);
                 }
-                g.put("attackers", attackers);
-                List<String> blockers = new ArrayList<>();
+                g.put("attackers", attackersList);
+                List<Map<String, Object>> blockersList = new ArrayList<>();
                 for (UUID bid : group.getBlockers()) {
+                    Map<String, Object> b = new LinkedHashMap<>();
                     Permanent blocker = game.getPermanent(bid);
-                    blockers.add(blocker != null ? blocker.getName() : registry.getOrAssign(bid));
+                    b.put("id", registry.getOrAssign(bid));
+                    b.put("name", blocker != null ? blocker.getName() : "Unknown");
+                    if (blocker != null) {
+                        b.put("power", blocker.getPower().getValue());
+                        b.put("toughness", blocker.getToughness().getValue());
+                    }
+                    blockersList.add(b);
                 }
-                g.put("blockers", blockers);
+                g.put("blockers", blockersList);
+                // Defender
+                UUID defenderId = group.getDefenderId();
+                if (defenderId != null) {
+                    Player defender = game.getPlayer(defenderId);
+                    if (defender != null) {
+                        g.put("defender", defender.getName());
+                    }
+                }
                 combat.add(g);
             }
             snapshot.put("combat", combat);

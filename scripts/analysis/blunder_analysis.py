@@ -126,7 +126,10 @@ Return ONLY valid JSON — either `null` (no blunder) or a single annotation obj
 
 
 def _load_game(gz_path: str) -> dict:
-    with gzip.open(gz_path, "rt") as f:
+    if gz_path.endswith(".json.gz"):
+        with gzip.open(gz_path, "rt") as f:
+            return json.load(f)
+    with open(gz_path, "r") as f:
         return json.load(f)
 
 
