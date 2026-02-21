@@ -80,10 +80,10 @@ def annotate_game(
 
     if is_gz:
         with gzip.open(gz_path, "wt") as f:
-            json.dump(game_data, f)
+            json.dump(game_data, f, indent=2, ensure_ascii=False)
     else:
         with open(gz_path, "w") as f:
-            json.dump(game_data, f)
+            json.dump(game_data, f, indent=2, ensure_ascii=False)
 
     print(
         f"Wrote {len(annotations)} annotation(s) to {gz_path}",

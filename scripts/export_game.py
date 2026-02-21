@@ -491,7 +491,8 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
 
     website_games_dir.mkdir(parents=True, exist_ok=True)
 
-    json_bytes = json.dumps(output).encode()
+    json_str = json.dumps(output, indent=2, ensure_ascii=False)
+    json_bytes = json_str.encode()
     if len(json_bytes) > _GZ_THRESHOLD:
         output_path = website_games_dir / f"{game_id}.json.gz"
         output_path.write_bytes(gzip.compress(json_bytes))
