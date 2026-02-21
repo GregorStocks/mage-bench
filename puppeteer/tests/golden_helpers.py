@@ -12,6 +12,7 @@ To update: make update-golden
 
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -497,6 +498,31 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
         )
 
 
+def _card_sort_key(obj: dict) -> str:
+    """Sort key for a card object: all properties except the volatile short ID."""
+    without_id = {k: v for k, v in sorted(obj.items()) if k != "id"}
+    return json.dumps(without_id, sort_keys=True, ensure_ascii=False)
+
+
+def _sort_named_arrays(obj: object) -> None:
+    """Sort arrays of card-like objects by content for deterministic comparison.
+
+    Multiple copies of the same card (e.g. 7 Mountains) are interchangeable,
+    but XMage may discard or draw them in non-deterministic order between runs.
+    Sort arrays of card-like objects by all properties except the short ID so
+    identical copies are adjacent and interchangeable.
+    """
+    if isinstance(obj, dict):
+        for val in obj.values():
+            _sort_named_arrays(val)
+    elif isinstance(obj, list):
+        if obj and all(isinstance(x, dict) and "name" in x for x in obj):
+            obj.sort(key=_card_sort_key)
+        for item in obj:
+            if isinstance(item, (dict, list)):
+                _sort_named_arrays(item)
+
+
 def _strip_volatile(data: dict) -> None:
     """Remove fields that vary between test runs from export data, in place."""
     # Top-level volatile fields
@@ -515,6 +541,38 @@ def _strip_volatile(data: dict) -> None:
     for event in data.get("llmTrace", []):
         event.pop("ts", None)
 
+    # Sort card arrays within snapshots for deterministic comparison
+    _sort_named_arrays(data.get("snapshots", []))
+
+
+def _normalize_short_ids(json_str: str) -> str:
+    """Remap pN short IDs to canonical sequential form based on first appearance.
+
+    When identical cards (e.g. 7 Mountains) are drawn or discarded in different
+    order between runs, their short IDs end up at different positions.  After
+    sorting card arrays by content (_sort_named_arrays), the position order is
+    deterministic, so remapping IDs by first-appearance gives a canonical form.
+    """
+    # Collect unique IDs in order of first appearance
+    seen: list[str] = []
+    for m in re.finditer(r'"(p\d+)"', json_str):
+        pid = m.group(1)
+        if pid not in seen:
+            seen.append(pid)
+
+    if not seen:
+        return json_str
+
+    # Two-pass replacement: first to temp names, then to canonical pN.
+    # Sort by descending numeric value so "p10" is replaced before "p1".
+    by_num = sorted(seen, key=lambda s: int(s[1:]), reverse=True)
+    for pid in by_num:
+        json_str = json_str.replace(f'"{pid}"', f'"__sid_{pid}__"')
+    for i, pid in enumerate(seen, 1):
+        json_str = json_str.replace(f'"__sid_{pid}__"', f'"p{i}"')
+
+    return json_str
+
 
 def assert_golden_export(name: str, game_dir: Path) -> None:
     """Run export pipeline on game dir, compare against golden file."""
@@ -524,7 +582,7 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
 
     export_data = build_export(game_dir)
     _strip_volatile(export_data)
-    actual_json = _to_sorted_json(export_data)
+    actual_json = _normalize_short_ids(_to_sorted_json(export_data))
     golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json"
 
     if UPDATE_MODE:

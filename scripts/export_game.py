@@ -307,7 +307,7 @@ def _read_server_events(
             actions.append(
                 {
                     "seq": event.get("seq", 0),
-                    "message": event.get("message", ""),
+                    "message": _strip_html(event.get("message", "")),
                 }
             )
         elif event_type == "game_end":
