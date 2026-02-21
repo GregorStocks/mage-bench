@@ -63,6 +63,9 @@ public class GameView implements Serializable {
     private boolean special = false;
     private final boolean rollbackTurnsAllowed;
 
+    // Server-side game event log sequence counter — flows from Game to clients for cross-referencing
+    private int gameSeq;
+
     // for debug only
     // TODO: implement and support in admin tools
     private int totalErrorsCount;
@@ -213,9 +216,37 @@ public class GameView implements Serializable {
             this.special = false;
         }
         this.rollbackTurnsAllowed = game.getOptions().rollbackTurnsAllowed;
+        this.gameSeq = game.getGameSeq();
         this.totalErrorsCount = game.getTotalErrorsCount();
         this.totalEffectsCount = game.getTotalEffectsCount();
         this.gameCycle = game.getState().getApplyEffectsCounter();
+
+        // Assign short IDs from the server's ShortIdRegistry to all card views
+        assignShortIds(game);
+    }
+
+    private void assignShortIds(Game game) {
+        mage.util.ShortIdRegistry registry = game.getShortIdRegistry();
+        // Player views — battlefield, graveyard, exile
+        for (PlayerView pv : players) {
+            for (PermanentView permView : pv.getBattlefield().values()) {
+                permView.setShortId(registry.getOrAssign(permView.getId()));
+            }
+            for (CardView cv : pv.getGraveyard().values()) {
+                cv.setShortId(registry.getOrAssign(cv.getId()));
+            }
+            for (CardView cv : pv.getExile().values()) {
+                cv.setShortId(registry.getOrAssign(cv.getId()));
+            }
+        }
+        // Hand
+        for (CardView cv : myHand.values()) {
+            cv.setShortId(registry.getOrAssign(cv.getId()));
+        }
+        // Stack
+        for (CardView cv : stack.values()) {
+            cv.setShortId(registry.getOrAssign(cv.getId()));
+        }
     }
 
     private void checkPaid(UUID uuid, StackAbility stackAbility) {
@@ -363,5 +394,9 @@ public class GameView implements Serializable {
 
     public int getGameCycle() {
         return this.gameCycle;
+    }
+
+    public int getGameSeq() {
+        return this.gameSeq;
     }
 }

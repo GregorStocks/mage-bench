@@ -5,6 +5,7 @@ import mage.abilities.Ability;
 import mage.cards.Card;
 import mage.cards.Cards;
 import mage.choices.Choice;
+import mage.collectors.DataCollectorServices;
 import mage.constants.ManaType;
 import mage.constants.PlayerAction;
 import mage.game.Game;
@@ -183,6 +184,10 @@ public class GameController implements GameCallback {
                 (Listener<PlayerQueryEvent>) event -> {
                     logger.trace(new StringBuilder(event.getPlayerId().toString()).append("--").append(event.getQueryType()).append("--").append(event.getMessage()).toString());
                     try {
+                        // Server-side game event log: record decision point
+                        int seq = game.nextGameSeq();
+                        DataCollectorServices.getInstance().onPlayerQuery(game, event, seq);
+
                         switch (event.getQueryType()) {
                             case ASK:
                                 ask(event.getPlayerId(), event.getMessage(), event.getOptions());
@@ -1141,6 +1146,7 @@ public class GameController implements GameCallback {
     }
 
     private void sendDirectPlayerUUID(UUID playerId, UUID data) {
+        DataCollectorServices.getInstance().onPlayerResponse(game, playerId, "uuid", data);
         // real player
         GameSessionPlayer session = getGameSession(playerId);
         if (session != null) {
@@ -1156,6 +1162,7 @@ public class GameController implements GameCallback {
     }
 
     private void sendDirectPlayerString(UUID playerId, String data) {
+        DataCollectorServices.getInstance().onPlayerResponse(game, playerId, "string", data);
         // real player
         GameSessionPlayer session = getGameSession(playerId);
         if (session != null) {
@@ -1171,6 +1178,7 @@ public class GameController implements GameCallback {
     }
 
     private void sendDirectPlayerManaType(UUID playerId, UUID manaTypePlayerId, ManaType manaType) {
+        DataCollectorServices.getInstance().onPlayerResponse(game, playerId, "manaType", manaType);
         // real player
         GameSessionPlayer session = getGameSession(playerId);
         if (session != null) {
@@ -1186,6 +1194,7 @@ public class GameController implements GameCallback {
     }
 
     private void sendDirectPlayerBoolean(UUID playerId, Boolean data) {
+        DataCollectorServices.getInstance().onPlayerResponse(game, playerId, "boolean", data);
         // real player
         GameSessionPlayer session = getGameSession(playerId);
         if (session != null) {
@@ -1201,6 +1210,7 @@ public class GameController implements GameCallback {
     }
 
     private void sendDirectPlayerInteger(UUID playerId, Integer data) {
+        DataCollectorServices.getInstance().onPlayerResponse(game, playerId, "integer", data);
         // real player
         GameSessionPlayer session = getGameSession(playerId);
         if (session != null) {

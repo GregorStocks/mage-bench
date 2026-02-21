@@ -172,6 +172,11 @@ public abstract class GameImpl implements Game {
     // temporary store for income concede commands, don't copy
     private final LinkedList<UUID> concedingPlayers = new LinkedList<>();
 
+    // Server-side game event log: monotonic sequence counter and shared short ID registry.
+    // These are NOT deep-copied — copies share the same counter/registry (they are game-lifetime singletons).
+    private transient final AtomicInteger gameSeq = new AtomicInteger(0);
+    private transient final ShortIdRegistry shortIdRegistry = new ShortIdRegistry();
+
     public GameImpl(MultiplayerAttackOption attackOption, RangeOfInfluence range, Mulligan mulligan, int minimumDeckSize, int startingLife, int startingHandSize) {
         this.id = UUID.randomUUID();
         this.gameIndex = GLOBAL_INDEX.incrementAndGet();
@@ -3195,7 +3200,8 @@ public abstract class GameImpl implements Game {
 
     @Override
     public void informPlayers(String message) {
-        DataCollectorServices.getInstance().onGameLog(this, message);
+        int seq = nextGameSeq();
+        DataCollectorServices.getInstance().onGameLog(this, message, seq);
 
         // Uncomment to print game messages
         // System.out.println(message.replaceAll("\\<.*?\\>", ""));
@@ -4281,5 +4287,20 @@ public abstract class GameImpl implements Game {
     @Override
     public void setTableId(UUID tableId) {
         this.tableId = tableId;
+    }
+
+    @Override
+    public int nextGameSeq() {
+        return gameSeq.incrementAndGet();
+    }
+
+    @Override
+    public int getGameSeq() {
+        return gameSeq.get();
+    }
+
+    @Override
+    public ShortIdRegistry getShortIdRegistry() {
+        return shortIdRegistry;
     }
 }

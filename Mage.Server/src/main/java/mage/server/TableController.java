@@ -677,6 +677,7 @@ public class TableController {
             gameOptions.perPlayerEmblemCards = match.getOptions().getPerPlayerEmblemCards();
             gameOptions.globalEmblemCards = match.getOptions().getGlobalEmblemCards();
             gameOptions.skipInitShuffling = match.getOptions().isSkipInitShuffling();
+            gameOptions.gameLogDir = match.getOptions().getGameLogDir();
             // Resolve fixed choosing player if configured (for deterministic tests)
             if (choosingPlayerId == null && match.getOptions().getChoosingPlayerName() != null) {
                 String targetName = match.getOptions().getChoosingPlayerName();

@@ -1758,6 +1758,10 @@ public class TablesPanel extends javax.swing.JPanel {
             options.setSpectatorsAllowed(true);
             String serverAddress = SessionHandler.getSession().getServerHost();
             options.setBannedUsers(IgnoreList.getIgnoredUsers(serverAddress));
+            String gameDir = System.getProperty("xmage.streaming.gameDir");
+            if (gameDir != null) {
+                options.setGameLogDir(gameDir);
+            }
             table = SessionHandler.createTable(roomId, options);
 
             int deckIndex = 0;

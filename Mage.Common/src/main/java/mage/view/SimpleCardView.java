@@ -23,6 +23,7 @@ public class SimpleCardView implements Serializable, SelectableObjectView {
     protected boolean isChoosable;
     protected boolean isSelected;
     protected PlayableObjectStats playableStats = new PlayableObjectStats(); // filled on client side from GameView
+    protected String shortId; // assigned by server's ShortIdRegistry, flowed via GameView
 
     public SimpleCardView(final SimpleCardView view) {
         this.id = view.id;
@@ -33,6 +34,7 @@ public class SimpleCardView implements Serializable, SelectableObjectView {
         this.isChoosable = view.isChoosable;
         this.isSelected = view.isSelected;
         this.playableStats = view.playableStats.copy();
+        this.shortId = view.shortId;
     }
 
     public SimpleCardView(UUID id, String expansionSetCode, String cardNumber, boolean usesVariousArt) {
@@ -100,5 +102,13 @@ public class SimpleCardView implements Serializable, SelectableObjectView {
     @Override
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
+    }
+
+    public String getShortId() {
+        return shortId;
+    }
+
+    public void setShortId(String shortId) {
+        this.shortId = shortId;
     }
 }

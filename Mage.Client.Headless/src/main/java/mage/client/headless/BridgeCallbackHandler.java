@@ -33,6 +33,7 @@ import mage.view.UserRequestMessage;
 import mage.players.PlayableObjectsList;
 import mage.players.PlayableObjectStats;
 import mage.util.MultiAmountMessage;
+import mage.util.ShortIdRegistry;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -112,14 +113,46 @@ public class BridgeCallbackHandler {
     private volatile GameView lastGameView = null;
     private final RoundTracker roundTracker = new RoundTracker();
 
-    /** Update lastGameView and feed the RoundTracker so it sees every turn transition. */
+    /** Update lastGameView, feed the RoundTracker, and sync short IDs from server. */
     private void updateLastGameView(GameView gv) {
         if (gv != null) {
             lastGameView = gv;
             roundTracker.update(gv);
+            syncShortIdsFromGameView(gv);
         }
     }
     private final ShortIdRegistry shortIds = new ShortIdRegistry();
+
+    /** Populate local ShortIdRegistry from server-assigned IDs on card views. */
+    private void syncShortIdsFromGameView(GameView gv) {
+        for (PlayerView pv : gv.getPlayers()) {
+            for (PermanentView permView : pv.getBattlefield().values()) {
+                if (permView.getShortId() != null) {
+                    shortIds.register(permView.getId(), permView.getShortId());
+                }
+            }
+            for (CardView cv : pv.getGraveyard().values()) {
+                if (cv.getShortId() != null) {
+                    shortIds.register(cv.getId(), cv.getShortId());
+                }
+            }
+            for (CardView cv : pv.getExile().values()) {
+                if (cv.getShortId() != null) {
+                    shortIds.register(cv.getId(), cv.getShortId());
+                }
+            }
+        }
+        for (CardView cv : gv.getMyHand().values()) {
+            if (cv.getShortId() != null) {
+                shortIds.register(cv.getId(), cv.getShortId());
+            }
+        }
+        for (CardView cv : gv.getStack().values()) {
+            if (cv.getShortId() != null) {
+                shortIds.register(cv.getId(), cv.getShortId());
+            }
+        }
+    }
     private volatile List<Object> lastChoices = null; // Index→UUID/String mapping for choose_action
     private volatile String lastChoicesActionType = null; // Debug context for stale-choice diagnostics
     private volatile String lastChoicesResponseType = null; // Debug context for stale-choice diagnostics

@@ -65,6 +65,12 @@ public class GameOptions implements Serializable, Copyable<GameOptions> {
     public Collection<DeckCardInfo> globalEmblemCards = new HashSet<>();
 
 
+    /**
+     * Directory for server-side game event logs. Set by orchestrator via MatchOptions.
+     * Null means no server-side event logging.
+     */
+    public String gameLogDir = null;
+
     // PLANECHASE game mode
     public boolean planeChase = false;
     // xmage uses increased by 1/3 chances (2/2/9) for chaos/planar result, see 1a9f12f5767ce0beeed26a8ff5c8a8f9490c9c47
@@ -87,6 +93,7 @@ public class GameOptions implements Serializable, Copyable<GameOptions> {
         this.planeChase = options.planeChase;
         this.perPlayerEmblemCards = new HashSet<>(options.perPlayerEmblemCards);
         this.globalEmblemCards = new HashSet<>(options.globalEmblemCards);
+        this.gameLogDir = options.gameLogDir;
     }
 
     @Override

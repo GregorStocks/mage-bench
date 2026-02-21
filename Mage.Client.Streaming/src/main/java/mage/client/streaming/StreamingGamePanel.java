@@ -153,6 +153,7 @@ public class StreamingGamePanel extends GamePanel {
     // Game event JSONL logging
     private PrintWriter gameEventWriter;
     private int gameEventSeq = 0;
+    private int lastServerGameSeq = 0;  // Server-side game_seq from GameView
     private String lastSnapshotKey = "";  // For deduplication
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
     private static final DateTimeFormatter LOG_TS_FMT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
@@ -1716,6 +1717,9 @@ public class StreamingGamePanel extends GamePanel {
         gameEventSeq++;
         data.addProperty("ts", ZonedDateTime.now(LOG_TZ).format(LOG_TS_FMT));
         data.addProperty("seq", gameEventSeq);
+        if (lastServerGameSeq > 0) {
+            data.addProperty("game_seq", lastServerGameSeq);
+        }
         data.addProperty("type", type);
         gameEventWriter.println(data.toString());
         gameEventWriter.flush();
@@ -1763,6 +1767,9 @@ public class StreamingGamePanel extends GamePanel {
         }
         lastSnapshotKey = key;
 
+        // Capture server-side game_seq for cross-referencing with server logs
+        lastServerGameSeq = game.getGameSeq();
+
         var event = new JsonObject();
         event.addProperty("turn", roundTracker.getGameRound());
         event.addProperty("phase", game.getPhase() != null ? game.getPhase().name() : "");
@@ -1789,6 +1796,9 @@ public class StreamingGamePanel extends GamePanel {
             if (player.getBattlefield() != null) {
                 for (PermanentView perm : player.getBattlefield().values()) {
                     var permJson = new JsonObject();
+                    if (perm.getShortId() != null) {
+                        permJson.addProperty("id", perm.getShortId());
+                    }
                     permJson.addProperty("name", safe(perm.getDisplayName()));
                     permJson.addProperty("tapped", perm.isTapped());
                     permJson.addProperty("typeLine", formatTypeLine(perm));
@@ -1854,20 +1864,34 @@ public class StreamingGamePanel extends GamePanel {
             }
             playerJson.add("commanders", cmdArray);
 
-            // Graveyard (names only)
+            // Graveyard
             var gyArray = new JsonArray();
             if (player.getGraveyard() != null) {
                 for (CardView card : player.getGraveyard().values()) {
-                    gyArray.add(safe(card.getDisplayName()));
+                    if (card.getShortId() != null) {
+                        var gyCard = new JsonObject();
+                        gyCard.addProperty("id", card.getShortId());
+                        gyCard.addProperty("name", safe(card.getDisplayName()));
+                        gyArray.add(gyCard);
+                    } else {
+                        gyArray.add(safe(card.getDisplayName()));
+                    }
                 }
             }
             playerJson.add("graveyard", gyArray);
 
-            // Exile (names only)
+            // Exile
             var exileArray = new JsonArray();
             if (player.getExile() != null) {
                 for (CardView card : player.getExile().values()) {
-                    exileArray.add(safe(card.getDisplayName()));
+                    if (card.getShortId() != null) {
+                        var exCard = new JsonObject();
+                        exCard.addProperty("id", card.getShortId());
+                        exCard.addProperty("name", safe(card.getDisplayName()));
+                        exileArray.add(exCard);
+                    } else {
+                        exileArray.add(safe(card.getDisplayName()));
+                    }
                 }
             }
             playerJson.add("exile", exileArray);
@@ -1878,6 +1902,9 @@ public class StreamingGamePanel extends GamePanel {
             if (handCards != null) {
                 for (CardView card : handCards.values()) {
                     var cardJson = new JsonObject();
+                    if (card.getShortId() != null) {
+                        cardJson.addProperty("id", card.getShortId());
+                    }
                     cardJson.addProperty("name", safe(card.getDisplayName()));
                     cardJson.addProperty("mana_cost", safe(card.getManaCostStr()));
                     handArray.add(cardJson);
@@ -1894,6 +1921,9 @@ public class StreamingGamePanel extends GamePanel {
         if (game.getStack() != null) {
             for (CardView card : game.getStack().values()) {
                 var stackJson = new JsonObject();
+                if (card.getShortId() != null) {
+                    stackJson.addProperty("id", card.getShortId());
+                }
                 stackJson.addProperty("name", stackCardName(card));
                 if (card.getId() != null) {
                     String owner = castOwners.get(card.getId().toString());
