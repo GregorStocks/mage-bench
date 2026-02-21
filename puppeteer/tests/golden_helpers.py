@@ -12,7 +12,6 @@ To update: make update-golden
 
 import json
 import os
-import re
 import subprocess
 import sys
 import time
@@ -498,29 +497,39 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
         )
 
 
-def _card_sort_key(obj: dict) -> str:
-    """Sort key for a card object: all properties except the volatile short ID."""
-    without_id = {k: v for k, v in sorted(obj.items()) if k != "id"}
-    return json.dumps(without_id, sort_keys=True, ensure_ascii=False)
-
-
-def _sort_named_arrays(obj: object) -> None:
-    """Sort arrays of card-like objects by content for deterministic comparison.
+def _strip_short_ids(obj: object) -> object:
+    """Recursively strip short IDs (pN) from export data.
 
     Multiple copies of the same card (e.g. 7 Mountains) are interchangeable,
-    but XMage may discard or draw them in non-deterministic order between runs.
-    Sort arrays of card-like objects by all properties except the short ID so
-    identical copies are adjacent and interchangeable.
+    but XMage may discard or draw them in non-deterministic order between runs,
+    cascading into different game trajectories. Stripping IDs makes the golden
+    comparison robust to these variations.
     """
     if isinstance(obj, dict):
-        for val in obj.values():
-            _sort_named_arrays(val)
+        return {k: ("_" if k == "id" else _strip_short_ids(v)) for k, v in obj.items()}
     elif isinstance(obj, list):
-        if obj and all(isinstance(x, dict) and "name" in x for x in obj):
-            obj.sort(key=_card_sort_key)
-        for item in obj:
-            if isinstance(item, (dict, list)):
-                _sort_named_arrays(item)
+        return [_strip_short_ids(item) for item in obj]
+    return obj
+
+
+def _normalize_embedded_json(obj: object) -> object:
+    """Recursively normalize embedded JSON strings for deterministic key order.
+
+    MCP tool results are serialized as JSON strings within the export data.
+    The key order in these strings can vary between runs (e.g. {"blocks":"p10","id":"p7"}
+    vs {"id":"p7","blocks":"p10"}). Parse and re-serialize with sorted keys.
+    """
+    if isinstance(obj, dict):
+        return {k: _normalize_embedded_json(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [_normalize_embedded_json(item) for item in obj]
+    elif isinstance(obj, str) and obj.startswith(("{", "[")):
+        try:
+            parsed = json.loads(obj)
+            return json.dumps(parsed, sort_keys=True, ensure_ascii=False)
+        except (json.JSONDecodeError, ValueError):
+            return obj
+    return obj
 
 
 def _strip_volatile(data: dict) -> None:
@@ -533,45 +542,17 @@ def _strip_volatile(data: dict) -> None:
     for action in data.get("actions", []):
         action.pop("ts", None)
 
-    # Strip ts from llmEvents
+    # Strip ts from llmEvents, then sort deterministically.
+    # Events from different players can interleave with sub-millisecond
+    # timestamp differences, so the sort order is fragile across runs.
     for event in data.get("llmEvents", []):
         event.pop("ts", None)
+    data.get("llmEvents", []).sort(key=lambda e: json.dumps(e, sort_keys=True, ensure_ascii=False))
 
-    # Strip ts from llmTrace
+    # Strip ts from llmTrace and sort deterministically.
     for event in data.get("llmTrace", []):
         event.pop("ts", None)
-
-    # Sort card arrays within snapshots for deterministic comparison
-    _sort_named_arrays(data.get("snapshots", []))
-
-
-def _normalize_short_ids(json_str: str) -> str:
-    """Remap pN short IDs to canonical sequential form based on first appearance.
-
-    When identical cards (e.g. 7 Mountains) are drawn or discarded in different
-    order between runs, their short IDs end up at different positions.  After
-    sorting card arrays by content (_sort_named_arrays), the position order is
-    deterministic, so remapping IDs by first-appearance gives a canonical form.
-    """
-    # Collect unique IDs in order of first appearance
-    seen: list[str] = []
-    for m in re.finditer(r'"(p\d+)"', json_str):
-        pid = m.group(1)
-        if pid not in seen:
-            seen.append(pid)
-
-    if not seen:
-        return json_str
-
-    # Two-pass replacement: first to temp names, then to canonical pN.
-    # Sort by descending numeric value so "p10" is replaced before "p1".
-    by_num = sorted(seen, key=lambda s: int(s[1:]), reverse=True)
-    for pid in by_num:
-        json_str = json_str.replace(f'"{pid}"', f'"__sid_{pid}__"')
-    for i, pid in enumerate(seen, 1):
-        json_str = json_str.replace(f'"__sid_{pid}__"', f'"p{i}"')
-
-    return json_str
+    data.get("llmTrace", []).sort(key=lambda e: json.dumps(e, sort_keys=True, ensure_ascii=False))
 
 
 def assert_golden_export(name: str, game_dir: Path) -> None:
@@ -582,7 +563,9 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
 
     export_data = build_export(game_dir)
     _strip_volatile(export_data)
-    actual_json = _normalize_short_ids(_to_sorted_json(export_data))
+    export_data = _strip_short_ids(export_data)
+    export_data = _normalize_embedded_json(export_data)
+    actual_json = _to_sorted_json(export_data)
     golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json"
 
     if UPDATE_MODE:

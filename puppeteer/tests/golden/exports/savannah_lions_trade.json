@@ -78,62 +78,11 @@
   "gameType": "",
   "llmEvents": [
     {
-      "availableTools": [
-        "get_game_log",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
-      "model": "",
-      "player": "Opponent",
-      "type": "game_start"
-    },
-    {
-      "availableTools": [
-        "get_game_log",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
-      "model": "",
-      "player": "TestPlayer",
-      "type": "game_start"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"actions_passed\":0,\"action_type\":\"GAME_TARGET\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"index\",\"can_cancel\":false,\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN\",\"message\":\"Select a starting player\",\"choices\":[{\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\",\"index\":0,\"id\":\"p1\"},{\"name\":\"Opponent\",\"target_type\":\"player\",\"index\":1,\"id\":\"p2\"}],\"board\":[{\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"name\":\"TestPlayer\",\"library_size\":60,\"life\":20,\"hand\":[]},{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":60,\"life\":20}],\"required\":true,\"action_pending\":true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
       "args": {
-        "index": 0
+        "answer": false
       },
-      "player": "TestPlayer",
-      "result": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_ASK\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_target_0\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"actions_passed\":0,\"action_type\":\"GAME_ASK\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"boolean\",\"respond_with\":\"answer\\u003dtrue or answer\\u003dfalse\",\"message\":\"Mulligan down to 6 cards?\",\"your_hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"mana_cost\":\"{W}\",\"name\":\"Savannah Lions\",\"power\":\"2\",\"toughness\":\"1\"}],\"board\":[{\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"name\":\"TestPlayer\",\"library_size\":53,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"},{\"mana_cost\":\"{W}\",\"name\":\"Savannah Lions\",\"power\":\"2\",\"id\":\"p9\",\"toughness\":\"1\"}]},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":53,\"life\":20}],\"action_pending\":true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
       "player": "Opponent",
-      "result": "{\"actions_passed\":0,\"action_type\":\"GAME_ASK\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"boolean\",\"respond_with\":\"answer\\u003dtrue or answer\\u003dfalse\",\"message\":\"Mulligan down to 6 cards?\",\"your_hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"mana_cost\":\"{W}\",\"name\":\"Savannah Lions\",\"power\":\"2\",\"toughness\":\"1\"}],\"board\":[{\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"name\":\"Opponent\",\"library_size\":53,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p1\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p2\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"mana_cost\":\"{W}\",\"name\":\"Savannah Lions\",\"power\":\"2\",\"id\":\"p7\",\"toughness\":\"1\"}]},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"name\":\"TestPlayer\",\"library_size\":53,\"life\":20}],\"action_pending\":true}",
+      "result": "{\"action_taken\": \"no\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -142,73 +91,7 @@
         "answer": false
       },
       "player": "TestPlayer",
-      "result": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"no\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "answer": false
-      },
-      "player": "Opponent",
-      "result": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"no\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"actions_passed\":2,\"land_drops_used\":0,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"context\":\"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play spells and abilities\",\"choices\":[{\"name\":\"Plains\",\"index\":0,\"action\":\"land\",\"id\":\"p3\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p8\"}],\"board\":[{\"hand_size\":7,\"is_active\":true,\"is_you\":true,\"name\":\"TestPlayer\",\"library_size\":53,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"mana_cost\":\"{W}\",\"name\":\"Savannah Lions\",\"power\":\"2\",\"id\":\"p9\",\"toughness\":\"1\"}]},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":53,\"life\":20}],\"action_pending\":true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p1"
-      },
-      "player": "TestPlayer",
-      "result": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p2"
-      },
-      "player": "TestPlayer",
-      "result": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "Opponent",
-      "result": "{\"actions_passed\":4,\"land_drops_used\":0,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"context\":\"T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play spells and abilities\",\"choices\":[{\"name\":\"Plains\",\"index\":0,\"action\":\"land\",\"id\":\"p1\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p2\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p3\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":6,\"action\":\"land\",\"id\":\"p8\"}],\"board\":[{\"hand_size\":8,\"is_active\":true,\"is_you\":true,\"name\":\"Opponent\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p1\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p2\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"mana_cost\":\"{W}\",\"name\":\"Savannah Lions\",\"power\":\"2\",\"id\":\"p7\",\"toughness\":\"1\"}]},{\"hand_size\":5,\"is_active\":false,\"is_you\":false,\"battlefield\":[{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p9\"},{\"tapped\":false,\"name\":\"Savannah Lions\",\"id\":\"p10\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":true}],\"name\":\"TestPlayer\",\"library_size\":53,\"life\":20}],\"action_pending\":true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "player": "Opponent",
-      "result": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "player": "Opponent",
-      "result": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"action_type\":\"GAME_SELECT\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":6,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Plains\",\"index\":0,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p8\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p10\"}],\"board\":[{\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"},{\"tapped\":false,\"name\":\"Savannah Lions\",\"id\":\"p9\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":false}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\",\"playable\":true}]},{\"hand_size\":6,\"is_active\":false,\"is_you\":false,\"battlefield\":[{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p11\"},{\"tapped\":false,\"name\":\"Savannah Lions\",\"id\":\"p12\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":true}],\"name\":\"Opponent\",\"library_size\":52,\"life\":20}]}",
+      "result": "{\"action_taken\": \"no\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -217,14 +100,7 @@
         "answer": false
       },
       "player": "TestPlayer",
-      "result": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"passed_priority\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"combat_phase\":\"attackers\",\"actions_passed\":0,\"action_type\":\"GAME_SELECT\",\"context\":\"T2 Combat/Declare Attackers (TestPlayer)\",\"stop_reason\":\"combat\",\"response_type\":\"select\",\"untapped_lands\":1,\"respond_with\":\"attackers\\u003d[\\\"p1\\\",...] or answer\\u003dtrue (confirm) or answer\\u003dfalse (skip)\",\"message\":\"Select attackers\",\"choices\":[{\"name\":\"Savannah Lions\",\"index\":0,\"choice_type\":\"attacker\",\"id\":\"p9\",\"power\":\"2\",\"toughness\":\"1\"},{\"name\":\"All attack\",\"index\":1,\"choice_type\":\"special\",\"id\":\"all\"}],\"board\":[{\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"},{\"tapped\":false,\"name\":\"Savannah Lions\",\"id\":\"p9\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":false}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\"}]},{\"hand_size\":6,\"is_active\":false,\"is_you\":false,\"battlefield\":[{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p11\"},{\"tapped\":false,\"name\":\"Savannah Lions\",\"id\":\"p12\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":true}],\"name\":\"Opponent\",\"library_size\":52,\"life\":20}],\"action_pending\":true}",
+      "result": "{\"action_taken\": \"passed_priority\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -235,14 +111,7 @@
         ]
       },
       "player": "TestPlayer",
-      "result": "{\"declared\":[\"all\"],\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"batch_attack\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "Opponent",
-      "result": "{\"combat_phase\":\"blockers\",\"action_type\":\"GAME_SELECT\",\"stop_reason\":\"combat\",\"response_type\":\"select\",\"combat\":[{\"blocked\":false,\"defending\":\"Opponent\",\"attackers\":[{\"name\":\"Savannah Lions\",\"id\":\"p10\",\"power\":\"2\",\"toughness\":\"1\"}]}],\"message\":\"Select blockers\",\"action_pending\":true,\"actions_passed\":6,\"context\":\"T2 Combat/Declare Blockers (TestPlayer)\",\"respond_with\":\"blockers\\u003d[{\\\"id\\\":\\\"pN\\\",\\\"blocks\\\":\\\"pM\\\"},...] or answer\\u003dtrue (confirm) or answer\\u003dfalse (skip)\",\"choices\":[{\"name\":\"Savannah Lions\",\"index\":0,\"choice_type\":\"blocker\",\"id\":\"p7\",\"power\":\"2\",\"toughness\":\"1\"}],\"board\":[{\"hand_size\":6,\"is_active\":false,\"is_you\":true,\"battlefield\":[{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p1\"},{\"tapped\":false,\"name\":\"Savannah Lions\",\"id\":\"p7\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":true}],\"name\":\"Opponent\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p2\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"}]},{\"hand_size\":6,\"is_active\":true,\"is_you\":false,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p9\"},{\"tapped\":true,\"name\":\"Savannah Lions\",\"id\":\"p10\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":false}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20}],\"incoming_attackers\":[{\"name\":\"Savannah Lions\",\"id\":\"p10\",\"power\":\"2\",\"toughness\":\"1\"}]}",
+      "result": "{\"action_taken\": \"batch_attack\", \"declared\": [\"all\"], \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -253,7 +122,52 @@
         ]
       },
       "player": "Opponent",
-      "result": "{\"declared\":[{\"blocks\":\"p10\",\"id\":\"p7\"}],\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"batch_block\"}",
+      "result": "{\"action_taken\": \"batch_block\", \"declared\": [{\"blocks\": \"p10\", \"id\": \"p7\"}], \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "_"
+      },
+      "player": "TestPlayer",
+      "result": "{\"action_taken\": \"selected_0\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "_"
+      },
+      "player": "TestPlayer",
+      "result": "{\"action_taken\": \"selected_0\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "player": "Opponent",
+      "result": "{\"action_taken\": \"selected_0\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "player": "Opponent",
+      "result": "{\"action_taken\": \"selected_0\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "player": "TestPlayer",
+      "result": "{\"action_taken\": \"selected_target_0\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_ASK\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -262,23 +176,109 @@
         "until": "postcombat_main"
       },
       "player": "TestPlayer",
-      "result": "{\"action_type\":\"GAME_SELECT\",\"stop_reason\":\"reached_step\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":3,\"land_drops_used\":0,\"context\":\"T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Plains\",\"index\":0,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p8\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p10\"}],\"board\":[{\"hand_size\":6,\"graveyard\":[{\"name\":\"Savannah Lions\",\"id\":\"p9\"}],\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\",\"playable\":true}]},{\"hand_size\":6,\"graveyard\":[{\"name\":\"Savannah Lions\",\"id\":\"p12\"}],\"is_active\":false,\"is_you\":false,\"battlefield\":[{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p11\"}],\"name\":\"Opponent\",\"library_size\":52,\"life\":20}],\"current_step\":\"Postcombat Main\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"phase\":\"Postcombat Main\",\"priority_player\":\"TestPlayer\",\"cursor\":1,\"stack\":[],\"active_player\":\"TestPlayer\",\"players\":[{\"hand_size\":6,\"graveyard\":[{\"name\":\"Savannah Lions\",\"id\":\"p9\"}],\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\",\"playable\":true}]},{\"hand_size\":6,\"graveyard\":[{\"name\":\"Savannah Lions\",\"id\":\"p12\"}],\"is_active\":false,\"is_you\":false,\"battlefield\":[{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p11\"}],\"name\":\"Opponent\",\"library_size\":52,\"life\":20}],\"available\":true,\"step\":\"Postcombat Main\",\"turn\":2}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 3, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p9\", \"name\": \"Savannah Lions\"}], \"hand\": [{\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p11\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"p12\", \"name\": \"Savannah Lions\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p4\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p5\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p10\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"current_step\": \"Postcombat Main\", \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"reached_step\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
       "player": "Opponent",
-      "result": "{\"actions_passed\":2,\"stop_reason\":\"game_over\",\"game_over\":true,\"action_pending\":false}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p1\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p2\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p3\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"context\": \"T1 ()\", \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}]}",
       "tool": "",
       "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "Opponent",
+      "result": "{\"action_pending\": false, \"actions_passed\": 2, \"game_over\": true, \"stop_reason\": \"game_over\"}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "Opponent",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"hand\": [{\"id\": \"p1\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p2\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p3\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 8, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p9\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p10\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p1\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p2\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p3\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p4\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p5\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 5, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 6, \"name\": \"Plains\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "Opponent",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 6, \"board\": [{\"battlefield\": [{\"id\": \"p1\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p7\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p2\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p3\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p9\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p10\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": true, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": true, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"choice_type\": \"blocker\", \"id\": \"p7\", \"index\": 0, \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"combat\": [{\"attackers\": [{\"id\": \"p10\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"blocked\": false, \"defending\": \"Opponent\"}], \"combat_phase\": \"blockers\", \"context\": \"T2 Combat/Declare Blockers (TestPlayer)\", \"incoming_attackers\": [{\"id\": \"p10\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"message\": \"Select blockers\", \"respond_with\": \"blockers=[{\\\"id\\\":\\\"pN\\\",\\\"blocks\\\":\\\"pM\\\"},...] or answer=true (confirm) or answer=false (skip)\", \"response_type\": \"select\", \"stop_reason\": \"combat\"}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 6, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p9\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p11\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p12\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p4\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p5\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p10\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 ()\", \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}]}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 60, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p3\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p4\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p5\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p9\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p11\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p12\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"choice_type\": \"attacker\", \"id\": \"p9\", \"index\": 0, \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}, {\"choice_type\": \"special\", \"id\": \"all\", \"index\": 1, \"name\": \"All attack\"}], \"combat_phase\": \"attackers\", \"context\": \"T2 Combat/Declare Attackers (TestPlayer)\", \"message\": \"Select attackers\", \"respond_with\": \"attackers=[\\\"p1\\\",...] or answer=true (confirm) or answer=false (skip)\", \"response_type\": \"select\", \"stop_reason\": \"combat\", \"untapped_lands\": 1}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"active_player\": \"TestPlayer\", \"available\": true, \"cursor\": 1, \"phase\": \"Postcombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p9\", \"name\": \"Savannah Lions\"}], \"hand\": [{\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p11\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"p12\", \"name\": \"Savannah Lions\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [], \"step\": \"Postcombat Main\", \"turn\": 2}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "availableTools": [
+        "get_game_log",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "model": "",
+      "player": "Opponent",
+      "type": "game_start"
+    },
+    {
+      "availableTools": [
+        "get_game_log",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "model": "",
+      "player": "TestPlayer",
+      "type": "game_start"
     }
   ],
   "llmTrace": [],
@@ -323,7 +323,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -335,7 +335,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -347,7 +347,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -359,7 +359,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -371,7 +371,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -383,7 +383,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -395,7 +395,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -414,7 +414,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -426,7 +426,7 @@
               ]
             },
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -438,7 +438,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -450,7 +450,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -462,7 +462,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -474,7 +474,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -486,7 +486,7 @@
               ]
             },
             {
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -516,7 +516,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -528,7 +528,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -540,7 +540,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -552,7 +552,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -564,7 +564,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -576,7 +576,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -588,7 +588,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -607,7 +607,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -619,7 +619,7 @@
               ]
             },
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -631,7 +631,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -643,7 +643,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -655,7 +655,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -667,7 +667,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -679,7 +679,7 @@
               ]
             },
             {
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -709,7 +709,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -721,7 +721,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -733,7 +733,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -745,7 +745,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -757,7 +757,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -769,7 +769,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -781,7 +781,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -800,7 +800,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -812,7 +812,7 @@
               ]
             },
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -824,7 +824,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -836,7 +836,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -848,7 +848,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -860,7 +860,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -872,7 +872,7 @@
               ]
             },
             {
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -902,7 +902,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -914,7 +914,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -926,7 +926,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -938,7 +938,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -950,7 +950,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -962,7 +962,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -974,7 +974,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -993,7 +993,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1005,7 +1005,7 @@
               ]
             },
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1017,7 +1017,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1029,7 +1029,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1041,7 +1041,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1053,7 +1053,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1065,7 +1065,7 @@
               ]
             },
             {
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -1095,7 +1095,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1107,7 +1107,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1119,7 +1119,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1131,7 +1131,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1143,7 +1143,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1155,7 +1155,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1167,7 +1167,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -1186,7 +1186,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1198,7 +1198,7 @@
               ]
             },
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1210,7 +1210,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1222,7 +1222,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1234,7 +1234,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1246,7 +1246,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1258,7 +1258,7 @@
               ]
             },
             {
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -1288,7 +1288,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1300,7 +1300,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1312,7 +1312,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1324,7 +1324,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1336,7 +1336,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1348,7 +1348,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1360,7 +1360,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -1379,7 +1379,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1391,7 +1391,7 @@
               ]
             },
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1403,7 +1403,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1415,7 +1415,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1427,7 +1427,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1439,7 +1439,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1451,7 +1451,7 @@
               ]
             },
             {
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -1481,7 +1481,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1493,7 +1493,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1505,7 +1505,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1517,7 +1517,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1529,7 +1529,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1541,7 +1541,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1553,7 +1553,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -1570,7 +1570,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1586,7 +1586,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1598,7 +1598,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1610,7 +1610,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1622,7 +1622,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1634,7 +1634,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1646,7 +1646,7 @@
               ]
             },
             {
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -1676,7 +1676,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1688,7 +1688,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1700,7 +1700,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1712,7 +1712,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1724,7 +1724,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1736,7 +1736,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1748,7 +1748,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -1765,7 +1765,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1781,7 +1781,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1793,7 +1793,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1805,7 +1805,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1817,7 +1817,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1829,7 +1829,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1851,7 +1851,7 @@
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "p15",
+          "id": "_",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -1869,7 +1869,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1881,7 +1881,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1893,7 +1893,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1905,7 +1905,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1917,7 +1917,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1929,7 +1929,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1941,7 +1941,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -1958,7 +1958,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1974,7 +1974,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1986,7 +1986,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -1998,7 +1998,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2010,7 +2010,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2022,7 +2022,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2044,7 +2044,7 @@
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "p15",
+          "id": "_",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -2062,7 +2062,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2074,7 +2074,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2086,7 +2086,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2098,7 +2098,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2110,7 +2110,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2122,7 +2122,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2134,7 +2134,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -2151,7 +2151,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2167,7 +2167,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2179,7 +2179,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2191,7 +2191,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2203,7 +2203,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2215,7 +2215,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2237,7 +2237,7 @@
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "p15",
+          "id": "_",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -2255,7 +2255,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2267,7 +2267,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2279,7 +2279,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2291,7 +2291,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2303,7 +2303,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2315,7 +2315,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2327,7 +2327,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -2344,7 +2344,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2357,7 +2357,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -2372,7 +2372,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2384,7 +2384,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2396,7 +2396,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2408,7 +2408,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2420,7 +2420,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2453,7 +2453,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2465,7 +2465,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2477,7 +2477,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2489,7 +2489,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2501,7 +2501,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2513,7 +2513,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2525,7 +2525,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -2542,7 +2542,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2555,7 +2555,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -2570,7 +2570,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2582,7 +2582,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2594,7 +2594,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2606,7 +2606,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2618,7 +2618,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2651,7 +2651,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2663,7 +2663,7 @@
               ]
             },
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2675,7 +2675,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2687,7 +2687,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2699,7 +2699,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2711,7 +2711,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2723,7 +2723,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2735,7 +2735,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -2752,7 +2752,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2765,7 +2765,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -2780,7 +2780,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2792,7 +2792,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2804,7 +2804,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2816,7 +2816,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2828,7 +2828,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2859,7 +2859,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2875,7 +2875,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2887,7 +2887,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2899,7 +2899,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2911,7 +2911,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2923,7 +2923,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2935,7 +2935,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2947,7 +2947,7 @@
               ]
             },
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat",
@@ -2964,7 +2964,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -2977,7 +2977,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -2992,7 +2992,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3004,7 +3004,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3016,7 +3016,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3028,7 +3028,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3040,7 +3040,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3071,7 +3071,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3087,7 +3087,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3099,7 +3099,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3111,7 +3111,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3123,7 +3123,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3135,7 +3135,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3147,7 +3147,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3167,7 +3167,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3180,7 +3180,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -3195,7 +3195,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3207,7 +3207,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3219,7 +3219,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3231,7 +3231,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3243,7 +3243,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3265,7 +3265,7 @@
       "stack": [
         {
           "controller": "Opponent",
-          "id": "p17",
+          "id": "_",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -3281,7 +3281,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3297,7 +3297,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3309,7 +3309,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3321,7 +3321,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3333,7 +3333,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3345,7 +3345,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3357,7 +3357,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3377,7 +3377,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3390,7 +3390,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -3405,7 +3405,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3417,7 +3417,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3429,7 +3429,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3441,7 +3441,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3453,7 +3453,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3475,7 +3475,7 @@
       "stack": [
         {
           "controller": "Opponent",
-          "id": "p17",
+          "id": "_",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -3491,7 +3491,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3507,7 +3507,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3519,7 +3519,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3531,7 +3531,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3543,7 +3543,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3555,7 +3555,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3567,7 +3567,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3587,7 +3587,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3600,7 +3600,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -3615,7 +3615,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3627,7 +3627,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3639,7 +3639,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3651,7 +3651,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3663,7 +3663,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3685,7 +3685,7 @@
       "stack": [
         {
           "controller": "Opponent",
-          "id": "p17",
+          "id": "_",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -3701,7 +3701,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3714,7 +3714,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -3729,7 +3729,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3741,7 +3741,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3753,7 +3753,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3765,7 +3765,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3777,7 +3777,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3789,7 +3789,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3809,7 +3809,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3822,7 +3822,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -3837,7 +3837,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3849,7 +3849,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3861,7 +3861,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3873,7 +3873,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3885,7 +3885,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3916,7 +3916,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3929,7 +3929,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -3944,7 +3944,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3956,7 +3956,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3968,7 +3968,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3980,7 +3980,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -3992,7 +3992,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4004,7 +4004,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4024,7 +4024,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4037,7 +4037,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -4052,7 +4052,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4064,7 +4064,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4076,7 +4076,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4088,7 +4088,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4100,7 +4100,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4131,7 +4131,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4144,7 +4144,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -4159,7 +4159,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4171,7 +4171,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4183,7 +4183,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4195,7 +4195,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4207,7 +4207,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4219,7 +4219,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4239,7 +4239,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4252,7 +4252,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -4267,7 +4267,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4279,7 +4279,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4291,7 +4291,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4303,7 +4303,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4315,7 +4315,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4346,7 +4346,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4359,7 +4359,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -4374,7 +4374,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4386,7 +4386,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4398,7 +4398,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4410,7 +4410,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4422,7 +4422,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4434,7 +4434,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4454,7 +4454,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4467,7 +4467,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -4482,7 +4482,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4494,7 +4494,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4506,7 +4506,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4518,7 +4518,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4530,7 +4530,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4561,7 +4561,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4574,7 +4574,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -4589,7 +4589,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4601,7 +4601,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4613,7 +4613,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4625,7 +4625,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4637,7 +4637,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4649,7 +4649,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4669,7 +4669,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4682,7 +4682,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -4697,7 +4697,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4709,7 +4709,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4721,7 +4721,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4733,7 +4733,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4745,7 +4745,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4776,7 +4776,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4789,7 +4789,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -4804,7 +4804,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4816,7 +4816,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4828,7 +4828,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4840,7 +4840,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4852,7 +4852,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4864,7 +4864,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4884,7 +4884,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4897,7 +4897,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -4912,7 +4912,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4924,7 +4924,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4936,7 +4936,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4948,7 +4948,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4960,7 +4960,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -4991,7 +4991,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5004,7 +5004,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -5019,7 +5019,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5031,7 +5031,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5043,7 +5043,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5055,7 +5055,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5067,7 +5067,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5079,7 +5079,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5099,7 +5099,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5112,7 +5112,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -5127,7 +5127,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5139,7 +5139,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5151,7 +5151,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5163,7 +5163,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5175,7 +5175,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5187,7 +5187,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5218,7 +5218,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5231,7 +5231,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -5246,7 +5246,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5258,7 +5258,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5270,7 +5270,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5282,7 +5282,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5294,7 +5294,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5306,7 +5306,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5326,7 +5326,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5339,7 +5339,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -5354,7 +5354,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5366,7 +5366,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5378,7 +5378,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5390,7 +5390,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5402,7 +5402,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5414,7 +5414,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5445,7 +5445,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5458,7 +5458,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -5473,7 +5473,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5485,7 +5485,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5497,7 +5497,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5509,7 +5509,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5521,7 +5521,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5533,7 +5533,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5553,7 +5553,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5566,7 +5566,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -5581,7 +5581,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5593,7 +5593,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5605,7 +5605,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5617,7 +5617,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5629,7 +5629,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5641,7 +5641,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5670,7 +5670,7 @@
         {
           "attackers": [
             {
-              "id": "p14",
+              "id": "_",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -5686,7 +5686,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5699,7 +5699,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -5714,7 +5714,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5726,7 +5726,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5738,7 +5738,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5750,7 +5750,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5762,7 +5762,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5774,7 +5774,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5794,7 +5794,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5807,7 +5807,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -5822,7 +5822,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5834,7 +5834,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5846,7 +5846,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5858,7 +5858,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5870,7 +5870,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5882,7 +5882,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5911,7 +5911,7 @@
         {
           "attackers": [
             {
-              "id": "p14",
+              "id": "_",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -5927,7 +5927,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5940,7 +5940,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -5955,7 +5955,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5967,7 +5967,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5979,7 +5979,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -5991,7 +5991,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6003,7 +6003,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6015,7 +6015,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6035,7 +6035,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6048,7 +6048,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -6063,7 +6063,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6075,7 +6075,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6087,7 +6087,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6099,7 +6099,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6111,7 +6111,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6123,7 +6123,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6152,7 +6152,7 @@
         {
           "attackers": [
             {
-              "id": "p14",
+              "id": "_",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -6168,7 +6168,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6181,7 +6181,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -6196,7 +6196,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6208,7 +6208,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6220,7 +6220,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6232,7 +6232,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6244,7 +6244,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6256,7 +6256,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6276,7 +6276,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6289,7 +6289,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -6304,7 +6304,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6316,7 +6316,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6328,7 +6328,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6340,7 +6340,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6352,7 +6352,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6364,7 +6364,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6393,7 +6393,7 @@
         {
           "attackers": [
             {
-              "id": "p14",
+              "id": "_",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -6401,7 +6401,7 @@
           ],
           "blockers": [
             {
-              "id": "p2",
+              "id": "_",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -6416,7 +6416,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6429,7 +6429,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -6444,7 +6444,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6456,7 +6456,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6468,7 +6468,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6480,7 +6480,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6492,7 +6492,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6504,7 +6504,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6524,7 +6524,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6537,7 +6537,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -6552,7 +6552,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6564,7 +6564,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6576,7 +6576,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6588,7 +6588,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6600,7 +6600,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6612,7 +6612,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6641,7 +6641,7 @@
         {
           "attackers": [
             {
-              "id": "p14",
+              "id": "_",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -6649,7 +6649,7 @@
           ],
           "blockers": [
             {
-              "id": "p2",
+              "id": "_",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -6664,7 +6664,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6677,7 +6677,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -6692,7 +6692,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6704,7 +6704,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6716,7 +6716,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6728,7 +6728,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6740,7 +6740,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6752,7 +6752,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6772,7 +6772,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6785,7 +6785,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -6800,7 +6800,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6812,7 +6812,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6824,7 +6824,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6836,7 +6836,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6848,7 +6848,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6860,7 +6860,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6889,7 +6889,7 @@
         {
           "attackers": [
             {
-              "id": "p14",
+              "id": "_",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -6897,7 +6897,7 @@
           ],
           "blockers": [
             {
-              "id": "p2",
+              "id": "_",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -6912,7 +6912,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6925,7 +6925,7 @@
             },
             {
               "face_down": false,
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -6940,7 +6940,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6952,7 +6952,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6964,7 +6964,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6976,7 +6976,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -6988,7 +6988,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7000,7 +7000,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7020,7 +7020,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7033,7 +7033,7 @@
             },
             {
               "face_down": false,
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
@@ -7048,7 +7048,7 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7060,7 +7060,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7072,7 +7072,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7084,7 +7084,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7096,7 +7096,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7108,7 +7108,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7146,7 +7146,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7161,7 +7161,7 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat"
@@ -7169,7 +7169,7 @@
           ],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7181,7 +7181,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7193,7 +7193,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7205,7 +7205,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7217,7 +7217,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7229,7 +7229,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7249,7 +7249,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7264,7 +7264,7 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat"
@@ -7272,7 +7272,7 @@
           ],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7284,7 +7284,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7296,7 +7296,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7308,7 +7308,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7320,7 +7320,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7332,7 +7332,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7370,7 +7370,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p1",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7385,7 +7385,7 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "p2",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat"
@@ -7393,7 +7393,7 @@
           ],
           "hand": [
             {
-              "id": "p3",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7405,7 +7405,7 @@
               ]
             },
             {
-              "id": "p4",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7417,7 +7417,7 @@
               ]
             },
             {
-              "id": "p5",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7429,7 +7429,7 @@
               ]
             },
             {
-              "id": "p6",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7441,7 +7441,7 @@
               ]
             },
             {
-              "id": "p7",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7453,7 +7453,7 @@
               ]
             },
             {
-              "id": "p16",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7473,7 +7473,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "p8",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7488,7 +7488,7 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "p14",
+              "id": "_",
               "mana_cost": "{W}",
               "name": "Savannah Lions",
               "type_line": "Creature — Cat"
@@ -7496,7 +7496,7 @@
           ],
           "hand": [
             {
-              "id": "p9",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7508,7 +7508,7 @@
               ]
             },
             {
-              "id": "p10",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7520,7 +7520,7 @@
               ]
             },
             {
-              "id": "p11",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7532,7 +7532,7 @@
               ]
             },
             {
-              "id": "p12",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7544,7 +7544,7 @@
               ]
             },
             {
-              "id": "p13",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [
@@ -7556,7 +7556,7 @@
               ]
             },
             {
-              "id": "p18",
+              "id": "_",
               "mana_cost": "",
               "name": "Plains",
               "rules": [

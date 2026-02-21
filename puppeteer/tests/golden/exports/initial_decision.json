@@ -14,6 +14,20 @@
   "gameType": "",
   "llmEvents": [
     {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 50, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"active_player\": \"\", \"available\": true, \"cursor\": 1, \"players\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 50, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"\", \"stack\": [], \"turn\": 1}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "availableTools": [
         "get_game_log",
         "send_chat_message",
@@ -27,20 +41,6 @@
       "model": "",
       "player": "TestPlayer",
       "type": "game_start"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"actions_passed\":0,\"action_type\":\"GAME_TARGET\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"index\",\"can_cancel\":false,\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN\",\"message\":\"Select a starting player\",\"choices\":[{\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\",\"index\":0,\"id\":\"p1\"},{\"name\":\"Opponent\",\"target_type\":\"player\",\"index\":1,\"id\":\"p2\"}],\"board\":[{\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"name\":\"TestPlayer\",\"library_size\":50,\"life\":20,\"hand\":[]},{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":60,\"life\":20}],\"required\":true,\"action_pending\":true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"priority_player\":\"\",\"cursor\":1,\"stack\":[],\"active_player\":\"\",\"players\":[{\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"name\":\"TestPlayer\",\"library_size\":50,\"life\":20,\"hand\":[]},{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":60,\"life\":20}],\"available\":true,\"turn\":1}",
-      "tool": "",
-      "type": "tool_call"
     }
   ],
   "llmTrace": [],
