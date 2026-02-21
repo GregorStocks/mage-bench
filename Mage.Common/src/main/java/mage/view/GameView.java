@@ -66,6 +66,9 @@ public class GameView implements Serializable {
     // Server-side game event log sequence counter — flows from Game to clients for cross-referencing
     private int gameSeq;
 
+    // Retained for assigning short IDs to late-populated views (watchedHands, opponentHands)
+    private transient mage.util.ShortIdRegistry shortIdRegistry;
+
     // for debug only
     // TODO: implement and support in admin tools
     private int totalErrorsCount;
@@ -227,41 +230,102 @@ public class GameView implements Serializable {
 
     private void assignShortIds(Game game) {
         mage.util.ShortIdRegistry registry = game.getShortIdRegistry();
+        this.shortIdRegistry = registry;
         // Assign IDs in sorted order (by display name) so that the first-encounter
         // order is deterministic across runs with different UUIDs.
         Comparator<CardView> byName = Comparator.comparing(
             cv -> cv.getDisplayName() != null ? cv.getDisplayName() : "",
             String::compareTo
         );
-        // Player views — battlefield, graveyard, exile
+
+        // Helper to assign shortId to a CardsView (sorted by display name)
+        java.util.function.Consumer<CardsView> assignCards = (CardsView cards) -> {
+            List<CardView> sorted = new ArrayList<>(cards.values());
+            sorted.sort(byName);
+            for (CardView cv : sorted) {
+                cv.setShortId(registry.getOrAssign(cv.getId()));
+            }
+        };
+
+        // Player views — battlefield, graveyard, exile, topCard, commanders
         for (PlayerView pv : players) {
             List<PermanentView> sortedBf = new ArrayList<>(pv.getBattlefield().values());
             sortedBf.sort(byName);
             for (PermanentView permView : sortedBf) {
                 permView.setShortId(registry.getOrAssign(permView.getId()));
             }
-            List<CardView> sortedGy = new ArrayList<>(pv.getGraveyard().values());
-            sortedGy.sort(byName);
-            for (CardView cv : sortedGy) {
-                cv.setShortId(registry.getOrAssign(cv.getId()));
+            assignCards.accept(pv.getGraveyard());
+            assignCards.accept(pv.getExile());
+            // Top card of library (when revealed)
+            CardView topCard = pv.getTopCard();
+            if (topCard != null) {
+                topCard.setShortId(registry.getOrAssign(topCard.getId()));
             }
-            List<CardView> sortedEx = new ArrayList<>(pv.getExile().values());
-            sortedEx.sort(byName);
-            for (CardView cv : sortedEx) {
-                cv.setShortId(registry.getOrAssign(cv.getId()));
+            // Commanders (CommanderView extends CardView, others don't)
+            if (pv.getCommandObjectList() != null) {
+                for (CommandObjectView cmd : pv.getCommandObjectList()) {
+                    if (cmd instanceof CommanderView) {
+                        CommanderView cv = (CommanderView) cmd;
+                        cv.setShortId(registry.getOrAssign(cv.getId()));
+                    }
+                }
             }
         }
-        // Hand
-        List<CardView> sortedHand = new ArrayList<>(myHand.values());
-        sortedHand.sort(byName);
-        for (CardView cv : sortedHand) {
-            cv.setShortId(registry.getOrAssign(cv.getId()));
-        }
+
+        // Hands (myHand for the controlling player)
+        assignCards.accept(myHand);
+        // Note: watchedHands/opponentHands are populated later by processWatchedHands;
+        // call assignShortIdsToHands() after populating them.
+
         // Stack
-        List<CardView> sortedStack = new ArrayList<>(stack.values());
-        sortedStack.sort(byName);
-        for (CardView cv : sortedStack) {
-            cv.setShortId(registry.getOrAssign(cv.getId()));
+        assignCards.accept(stack);
+
+        // Combat (attackers/blockers are separate PermanentView instances, same UUIDs as battlefield)
+        for (CombatGroupView cg : combat) {
+            assignCards.accept(cg.getAttackers());
+            assignCards.accept(cg.getBlockers());
+        }
+
+        // Exile zones (game-level, overlaps with per-player exile)
+        for (ExileView ev : exiles) {
+            assignCards.accept(ev);
+        }
+
+        // Revealed, companion, lookedAt
+        for (RevealedView rv : revealed) {
+            assignCards.accept(rv.getCards());
+        }
+        for (RevealedView rv : companion) {
+            assignCards.accept(rv.getCards());
+        }
+        for (LookedAtView lv : lookedAt) {
+            for (SimpleCardView sv : lv.getCards().values()) {
+                sv.setShortId(registry.getOrAssign(sv.getId()));
+            }
+        }
+
+        // Helper emblems
+        assignCards.accept(myHelperEmblems);
+    }
+
+    /**
+     * Assign short IDs to watchedHands and opponentHands.
+     * Must be called after processWatchedHands() populates these maps,
+     * since they are empty at GameView construction time.
+     */
+    public void assignShortIdsToHands() {
+        if (shortIdRegistry == null) {
+            return;
+        }
+        for (SimpleCardsView scv : watchedHands.values()) {
+            for (SimpleCardView sv : scv.values()) {
+                sv.setShortId(shortIdRegistry.getOrAssign(sv.getId()));
+            }
+        }
+        for (SimpleCardsView scv : opponentHands.values()) {
+            for (SimpleCardView sv : scv.values()) {
+                sv.setShortId(shortIdRegistry.getOrAssign(sv.getId()));
+            }
         }
     }
 

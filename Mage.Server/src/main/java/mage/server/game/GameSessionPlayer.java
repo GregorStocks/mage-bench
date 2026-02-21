@@ -224,6 +224,7 @@ public class GameSessionPlayer extends GameSessionWatcher {
 
         processControlledPlayers(sourceGame, player, gameView);
         processWatchedHands(sourceGame, userId, gameView);
+        gameView.assignShortIdsToHands();
         //TODO: should player who controls another player's turn be able to look at all these cards?
 
         return gameView;
