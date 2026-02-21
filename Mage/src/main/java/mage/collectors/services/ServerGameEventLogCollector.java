@@ -72,10 +72,8 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
         event.put("type", "game_start");
 
         List<Map<String, Object>> players = new ArrayList<>();
-        ShortIdRegistry registry = game.getShortIdRegistry();
         for (Player player : game.getPlayers().values()) {
             Map<String, Object> p = new LinkedHashMap<>();
-            p.put("id", registry.getOrAssign(player.getId()));
             p.put("name", player.getName());
             players.add(p);
         }
@@ -144,7 +142,7 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
 
         ShortIdRegistry registry = game.getShortIdRegistry();
         Player player = game.getPlayer(playerId);
-        event.put("player", player != null ? player.getName() : registry.getOrAssign(playerId));
+        event.put("player", player != null ? player.getName() : playerId.toString());
 
         if (pending.message != null) {
             event.put("message", stripHtml(pending.message));
@@ -378,7 +376,6 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
 
         for (Player player : sortedPlayers) {
             Map<String, Object> p = new LinkedHashMap<>();
-            p.put("id", registry.getOrAssign(player.getId()));
             p.put("name", player.getName());
             p.put("life", player.getLife());
             p.put("library_size", player.getLibrary().size());

@@ -227,24 +227,40 @@ public class GameView implements Serializable {
 
     private void assignShortIds(Game game) {
         mage.util.ShortIdRegistry registry = game.getShortIdRegistry();
+        // Assign IDs in sorted order (by display name) so that the first-encounter
+        // order is deterministic across runs with different UUIDs.
+        Comparator<CardView> byName = Comparator.comparing(
+            cv -> cv.getDisplayName() != null ? cv.getDisplayName() : "",
+            String::compareTo
+        );
         // Player views — battlefield, graveyard, exile
         for (PlayerView pv : players) {
-            for (PermanentView permView : pv.getBattlefield().values()) {
+            List<PermanentView> sortedBf = new ArrayList<>(pv.getBattlefield().values());
+            sortedBf.sort(byName);
+            for (PermanentView permView : sortedBf) {
                 permView.setShortId(registry.getOrAssign(permView.getId()));
             }
-            for (CardView cv : pv.getGraveyard().values()) {
+            List<CardView> sortedGy = new ArrayList<>(pv.getGraveyard().values());
+            sortedGy.sort(byName);
+            for (CardView cv : sortedGy) {
                 cv.setShortId(registry.getOrAssign(cv.getId()));
             }
-            for (CardView cv : pv.getExile().values()) {
+            List<CardView> sortedEx = new ArrayList<>(pv.getExile().values());
+            sortedEx.sort(byName);
+            for (CardView cv : sortedEx) {
                 cv.setShortId(registry.getOrAssign(cv.getId()));
             }
         }
         // Hand
-        for (CardView cv : myHand.values()) {
+        List<CardView> sortedHand = new ArrayList<>(myHand.values());
+        sortedHand.sort(byName);
+        for (CardView cv : sortedHand) {
             cv.setShortId(registry.getOrAssign(cv.getId()));
         }
         // Stack
-        for (CardView cv : stack.values()) {
+        List<CardView> sortedStack = new ArrayList<>(stack.values());
+        sortedStack.sort(byName);
+        for (CardView cv : sortedStack) {
             cv.setShortId(registry.getOrAssign(cv.getId()));
         }
     }
