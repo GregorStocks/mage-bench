@@ -1380,6 +1380,7 @@ public class BridgeCallbackHandler {
             }
             logger.info("[" + client.getUsername() + "] choose_action: waited "
                 + (System.currentTimeMillis() - waitStart) + "ms for pending action");
+            result.put("game_seq", action.gameSeq());
         }
 
         // Loop detection: model has made too many interactions this turn — auto-handle
@@ -3988,12 +3989,10 @@ public class BridgeCallbackHandler {
         // not from lastGameView (which can be updated by later gameUpdate
         // callbacks racing on the callback thread).
         int gameSeq = 0;
-        if (data instanceof GameClientMessage) {
-            GameView gv = ((GameClientMessage) data).getGameView();
+        GameView gv = extractGameView(data);
+        if (gv != null) {
             updateLastGameView(gv);
-            if (gv != null) {
-                gameSeq = gv.getGameSeq();
-            }
+            gameSeq = gv.getGameSeq();
         }
         synchronized (actionLock) {
             pendingAction = new PendingAction(gameId, method, data, message, gameSeq);
@@ -4001,6 +4000,16 @@ public class BridgeCallbackHandler {
         }
         clearTrackedResponse(); // New callback arrived — server moved on, no retry needed
         logger.debug("[" + client.getUsername() + "] Stored pending action: " + method + " - " + message);
+    }
+
+    private static GameView extractGameView(Object data) {
+        if (data instanceof GameClientMessage) {
+            return ((GameClientMessage) data).getGameView();
+        }
+        if (data instanceof AbilityPickerView) {
+            return ((AbilityPickerView) data).getGameView();
+        }
+        return null;
     }
 
     private String extractMessage(Object data) {

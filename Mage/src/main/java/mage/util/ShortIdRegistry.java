@@ -1,6 +1,7 @@
 package mage.util;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -69,17 +70,46 @@ public class ShortIdRegistry {
      * future conflicts.
      */
     public void register(UUID uuid, String shortId) {
-        if (uuid == null || shortId == null) return;
-        String existing = uuidToShort.putIfAbsent(uuid, shortId);
-        if (existing == null) {
-            shortToUuid.put(shortId, uuid);
-            // Advance nextId past this registered ID to avoid conflicts
-            try {
-                int num = Integer.parseInt(shortId.substring(1));
-                nextId.updateAndGet(current -> Math.max(current, num + 1));
-            } catch (NumberFormatException e) {
-                // Non-standard short ID format, ignore
+        Objects.requireNonNull(uuid, "uuid");
+        Objects.requireNonNull(shortId, "shortId");
+
+        String existingShort = uuidToShort.get(uuid);
+        if (existingShort != null) {
+            if (!existingShort.equals(shortId)) {
+                throw new IllegalStateException("UUID already mapped to different short ID: "
+                        + uuid + " -> " + existingShort + ", got " + shortId);
             }
+            return;
+        }
+
+        UUID existingUuid = shortToUuid.get(shortId);
+        if (existingUuid != null && !existingUuid.equals(uuid)) {
+            throw new IllegalStateException("Short ID already mapped to different UUID: "
+                    + shortId + " -> " + existingUuid + ", got " + uuid);
+        }
+
+        String raceShort = uuidToShort.putIfAbsent(uuid, shortId);
+        if (raceShort != null) {
+            if (!raceShort.equals(shortId)) {
+                throw new IllegalStateException("UUID mapped concurrently to different short ID: "
+                        + uuid + " -> " + raceShort + ", got " + shortId);
+            }
+            return;
+        }
+
+        UUID raceUuid = shortToUuid.putIfAbsent(shortId, uuid);
+        if (raceUuid != null && !raceUuid.equals(uuid)) {
+            uuidToShort.remove(uuid, shortId);
+            throw new IllegalStateException("Short ID mapped concurrently to different UUID: "
+                    + shortId + " -> " + raceUuid + ", got " + uuid);
+        }
+
+        // Advance nextId past this registered ID to avoid conflicts
+        try {
+            int num = Integer.parseInt(shortId.substring(1));
+            nextId.updateAndGet(current -> Math.max(current, num + 1));
+        } catch (NumberFormatException e) {
+            // Non-standard short ID format, ignore
         }
     }
 

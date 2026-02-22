@@ -174,8 +174,8 @@ public abstract class GameImpl implements Game {
 
     // Server-side game event log: monotonic sequence counter and shared short ID registry.
     // These are NOT deep-copied — copies share the same counter/registry (they are game-lifetime singletons).
-    private transient final AtomicInteger gameSeq = new AtomicInteger(0);
-    private transient final ShortIdRegistry shortIdRegistry = new ShortIdRegistry();
+    private transient AtomicInteger gameSeq;
+    private transient ShortIdRegistry shortIdRegistry;
 
     public GameImpl(MultiplayerAttackOption attackOption, RangeOfInfluence range, Mulligan mulligan, int minimumDeckSize, int startingLife, int startingHandSize) {
         this.id = UUID.randomUUID();
@@ -188,6 +188,8 @@ public abstract class GameImpl implements Game {
         this.startingHandSize = startingHandSize;
         this.executingRollback = false;
         this.minimumDeckSize = minimumDeckSize;
+        this.gameSeq = new AtomicInteger(0);
+        this.shortIdRegistry = new ShortIdRegistry();
 
         initGameDefaultWatchers();
     }
@@ -203,7 +205,8 @@ public abstract class GameImpl implements Game {
         this.gameIndex = game.gameIndex;
         this.tableId = game.tableId;
         this.totalErrorsCount.set(game.totalErrorsCount.get());
-        this.gameSeq.set(game.gameSeq.get());
+        this.gameSeq = game.gameSeq;
+        this.shortIdRegistry = game.shortIdRegistry;
 
         this.ready = game.ready;
         //this.tableEventSource = game.tableEventSource; // client-server part, not need on copy/simulations
