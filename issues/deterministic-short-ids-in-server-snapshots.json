@@ -1,10 +1,10 @@
 {
   "title": "Make short IDs deterministic in server snapshots so golden tests don't need to strip them",
-  "description": "Golden export tests currently strip all short IDs (replacing with \"_\") because identical cards (e.g. 7 Mountains) can be discarded/drawn in non-deterministic order by XMage's AI, cascading into different game trajectories where the same card ends up with different pN IDs between runs.\n\nThis is a workaround. Ideally short IDs in server snapshots would be fully deterministic for identical test inputs, so golden tests can compare them directly. The root cause is that XMage's computer player makes non-deterministic choices when multiple identical cards are interchangeable (e.g. which of 7 Mountains to discard). This causes different game trajectories, different ID assignments, and different final states.\n\nPossible approaches:\n- Seed the RNG for XMage's AI in test mode so identical-card choices are deterministic\n- Sort identical cards by some stable internal property before making choices\n- Use a deterministic tie-breaking rule in ShortIdRegistry when cards have the same display name",
+  "description": "Golden export tests currently strip all short IDs (replacing with \"_\") because identical cards (e.g. 7 Mountains) can be discarded/drawn in non-deterministic order by XMage's AI, cascading into different game trajectories where the same card ends up with different pN IDs between runs.\n\nThis is a workaround. Ideally short IDs in server snapshots would be fully deterministic for identical test inputs, so golden tests can compare them directly. The root cause is that XMage's computer player makes non-deterministic choices when multiple identical cards are interchangeable (e.g. which of 7 Mountains to discard). This causes different game trajectories, different ID assignments, and different final states.\n\nRevalidated on 2026-02-22: still relevant. `puppeteer/tests/golden_helpers.py` still relies on `_strip_short_ids(...)` during export-golden comparison.\n\nPossible approaches:\n- Seed the RNG for XMage's AI in test mode so identical-card choices are deterministic\n- Sort identical cards by some stable internal property before making choices\n- Use a deterministic tie-breaking rule in ShortIdRegistry when cards have the same display name",
   "status": "open",
   "priority": 3,
   "type": "task",
   "labels": ["export", "testing"],
   "created_at": "2026-02-21T15:50:00.000000-08:00",
-  "updated_at": "2026-02-21T15:50:00.000000-08:00"
+  "updated_at": "2026-02-22T07:55:25.000000-08:00"
 }
