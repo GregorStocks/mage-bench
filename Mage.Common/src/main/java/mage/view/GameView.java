@@ -231,12 +231,12 @@ public class GameView implements Serializable {
     private void assignShortIds(Game game) {
         mage.util.ShortIdRegistry registry = game.getShortIdRegistry();
         this.shortIdRegistry = registry;
-        // Assign IDs in sorted order (by display name) so that the first-encounter
-        // order is deterministic across runs with different UUIDs.
+        // Assign IDs in deterministic order: name, then shortId sequence.
+        // See ShortIdRegistry for the deterministic ordering invariant.
         Comparator<CardView> byName = Comparator.comparing(
-            cv -> cv.getDisplayName() != null ? cv.getDisplayName() : "",
+            (CardView cv) -> cv.getDisplayName() != null ? cv.getDisplayName() : "",
             String::compareTo
-        );
+        ).thenComparingInt(cv -> registry.getSequence(cv.getId()));
 
         // Helper to assign shortId to a CardsView (sorted by display name)
         java.util.function.Consumer<CardsView> assignCards = (CardsView cards) -> {
@@ -248,7 +248,10 @@ public class GameView implements Serializable {
         };
 
         // Player views — battlefield, graveyard, exile, topCard, commanders
-        for (PlayerView pv : players) {
+        // Sort by name for deterministic player processing order
+        List<PlayerView> sortedPlayers = new ArrayList<>(players);
+        sortedPlayers.sort(Comparator.comparing(PlayerView::getName));
+        for (PlayerView pv : sortedPlayers) {
             List<PermanentView> sortedBf = new ArrayList<>(pv.getBattlefield().values());
             sortedBf.sort(byName);
             for (PermanentView permView : sortedBf) {

@@ -349,7 +349,7 @@
     ]
   },
   {
-    "content": "{\"error\":\"Unknown short ID: p3\"}",
+    "content": "{\"choices\":[{\"action\":\"land\",\"id\":\"_\",\"index\":0,\"name\":\"Dark Depths\"},{\"action\":\"land\",\"id\":\"_\",\"index\":1,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":2,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":3,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":4,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":5,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":6,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":7,\"name\":\"Thespian's Stage\"}],\"error\":\"Object p3 not found in current choices\",\"error_code\":\"invalid_choice\",\"game_seq\":0,\"retryable\":true,\"success\":false}",
     "role": "tool",
     "tool_call_id": "call_18"
   },

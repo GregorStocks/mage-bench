@@ -13,6 +13,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * IDs are stable for the lifetime of a game — the same UUID always maps to
  * the same short ID, even as objects move between zones.
  *
+ * <h3>Deterministic ordering invariant</h3>
+ * All code that sorts game objects for display or ID assignment MUST produce
+ * a deterministic order. The canonical sort key is {@code (name, shortId sequence)}.
+ * For initial ID assignment of not-yet-assigned objects, pre-sort by name to
+ * ensure unique-name objects get deterministic IDs, then post-sort the
+ * serialized output by {@code (name, shortId)} to fix same-name sub-ordering.
+ * Never use UUID as a sort key.
+ *
  * Thread-safe: uses ConcurrentHashMap and AtomicInteger for safe access from
  * game thread (query events) and network thread (response events).
  */
@@ -111,6 +119,14 @@ public class ShortIdRegistry {
         } catch (NumberFormatException e) {
             // Non-standard short ID format, ignore
         }
+    }
+
+    /**
+     * Parse the numeric sequence from a short ID string (e.g., "p6" → 6).
+     * Useful for comparators operating on already-serialized short ID strings.
+     */
+    public static int parseSequence(String shortId) {
+        return Integer.parseInt(shortId.substring(1));
     }
 
     /** Reset all mappings (call on game start). */

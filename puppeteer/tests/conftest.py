@@ -38,8 +38,9 @@ def xmage_server(project_root, tmp_path_factory):
     port_res = find_available_port("localhost", 17171)
     port = port_res.port
 
-    # Generate server config
-    tmp_dir = tmp_path_factory.mktemp("xmage_server")
+    # Generate server config — use repo-local tmp/ for easy access
+    tmp_dir = project_root / "tmp" / "golden-server"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
     config_path = tmp_dir / "server_config.xml"
     modify_server_config(
         source=project_root / "Mage.Server" / "config" / "config.xml",

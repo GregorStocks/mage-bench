@@ -641,15 +641,19 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
                     }
                 }
                 if (!cmdZone.isEmpty()) {
-                    cmdZone.sort(Comparator.<Map<String, Object>, String>comparing(m -> (String) m.get("name")));
+                    cmdZone.sort(Comparator.<Map<String, Object>, String>comparing(m -> (String) m.get("name"))
+                            .thenComparingInt(m -> ShortIdRegistry.parseSequence((String) m.get("id"))));
                     p.put("command_zone", cmdZone);
                 }
             }
 
             // Hand — server has full visibility, annotated with visible_to
+            // Pre-sort by name for deterministic ID assignment of unique-name cards,
+            // then post-sort by (name, shortId) for same-name card ordering.
+            // See ShortIdRegistry for the deterministic ordering invariant.
             List<Map<String, Object>> hand = new ArrayList<>();
             List<Card> handCards = new ArrayList<>(player.getHand().getCards(game));
-            handCards.sort(Comparator.comparing(Card::getName).thenComparingInt(c -> registry.getSequence(c.getId())));
+            handCards.sort(Comparator.comparing(Card::getName));
             for (Card card : handCards) {
                 Map<String, Object> ci = serializeCard(card, game, registry);
                 // Hand cards are only visible to their owner
@@ -658,27 +662,33 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
                 ci.put("visible_to", visibleTo);
                 hand.add(ci);
             }
+            hand.sort(Comparator.<Map<String, Object>, String>comparing(m -> (String) m.get("name"))
+                    .thenComparingInt(m -> ShortIdRegistry.parseSequence((String) m.get("id"))));
             p.put("hand", hand);
 
-            // Battlefield
+            // Battlefield — pre-sort by name, post-sort by (name, shortId)
             List<Map<String, Object>> battlefield = new ArrayList<>();
             List<Permanent> perms = new ArrayList<>();
             for (Permanent perm : game.getBattlefield().getAllActivePermanents(player.getId())) {
                 perms.add(perm);
             }
-            perms.sort(Comparator.comparing(Permanent::getName).thenComparingInt(perm -> registry.getSequence(perm.getId())));
+            perms.sort(Comparator.comparing(Permanent::getName));
             for (Permanent perm : perms) {
                 battlefield.add(serializePermanent(perm, game, registry));
             }
+            battlefield.sort(Comparator.<Map<String, Object>, String>comparing(m -> (String) m.get("name"))
+                    .thenComparingInt(m -> ShortIdRegistry.parseSequence((String) m.get("id"))));
             p.put("battlefield", battlefield);
 
-            // Graveyard
+            // Graveyard — pre-sort by name, post-sort by (name, shortId)
             List<Map<String, Object>> graveyard = new ArrayList<>();
             List<Card> gyCards = new ArrayList<>(player.getGraveyard().getCards(game));
-            gyCards.sort(Comparator.comparing(Card::getName).thenComparingInt(c -> registry.getSequence(c.getId())));
+            gyCards.sort(Comparator.comparing(Card::getName));
             for (Card card : gyCards) {
                 graveyard.add(serializeCard(card, game, registry));
             }
+            graveyard.sort(Comparator.<Map<String, Object>, String>comparing(m -> (String) m.get("name"))
+                    .thenComparingInt(m -> ShortIdRegistry.parseSequence((String) m.get("id"))));
             p.put("graveyard", graveyard);
 
             // Exile
@@ -687,7 +697,7 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
                 exile.add(serializeCard(card, game, registry));
             }
             exile.sort(Comparator.<Map<String, Object>, String>comparing(m -> (String) m.get("name"))
-                    .thenComparing(m -> (String) m.get("id")));
+                    .thenComparingInt(m -> ShortIdRegistry.parseSequence((String) m.get("id"))));
             p.put("exile", exile);
 
             players.add(p);
