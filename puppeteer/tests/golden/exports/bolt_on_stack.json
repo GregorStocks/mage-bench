@@ -43,7 +43,7 @@
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer puts Mountain from hand onto the Battlefield",
+      "message": "TestPlayer puts Taiga from hand onto the Battlefield",
       "seq": 12
     },
     {
@@ -89,26 +89,14 @@
       "seq": 24
     },
     {
-      "message": "TestPlayer puts Badlands from hand onto the Battlefield",
-      "seq": 26
-    },
-    {
-      "active_player": "TestPlayer",
-      "seq": 26,
-      "turn": 3,
-      "type": "turn_change"
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "seq": 26,
-      "step": "PRECOMBAT_MAIN",
-      "turn": 3,
-      "type": "phase_change"
-    },
-    {
       "message": "TestPlayer skip attack",
       "seq": 29
+    },
+    {
+      "active_player": "TestPlayer",
+      "seq": 29,
+      "turn": 3,
+      "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
@@ -119,33 +107,19 @@
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer casts Lightning Bolt targeting Opponent from hand",
-      "seq": 38
-    },
-    {
-      "active_player": "Opponent",
-      "seq": 38,
-      "turn": 4,
-      "type": "turn_change"
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "PRECOMBAT_MAIN",
-      "seq": 38,
-      "step": "PRECOMBAT_MAIN",
-      "turn": 4,
-      "type": "phase_change"
+      "message": "TestPlayer casts Lightning Bolt targeting TestPlayer from hand",
+      "seq": 33
     },
     {
       "message": "TestPlayer wants to concede",
-      "seq": 41
+      "seq": 35
     }
   ],
   "cardImages": {},
   "deckType": "",
   "gameOver": {
     "message": "Game ended",
-    "seq": 42
+    "seq": 36
   },
   "gameType": "",
   "llmEvents": [
@@ -163,6 +137,16 @@
       "args": {
         "answer": false
       },
+      "gameSeq": 26,
+      "player": "TestPlayer",
+      "result": "{\"action_taken\": \"cancelled\", \"game_seq\": 26, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "answer": false
+      },
       "gameSeq": 3,
       "player": "TestPlayer",
       "result": "{\"action_taken\": \"no\", \"game_seq\": 3, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
@@ -171,21 +155,11 @@
     },
     {
       "args": {
-        "answer": false
-      },
-      "gameSeq": 30,
-      "player": "TestPlayer",
-      "result": "{\"action_taken\": \"passed_priority\", \"game_seq\": 30, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
         "id": "_"
       },
-      "gameSeq": 36,
+      "gameSeq": 31,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_target_1\", \"game_seq\": 36, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"choices\": [{\"id\": \"_\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"_\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"error\": \"Object p2 not found in current choices\", \"error_code\": \"invalid_choice\", \"game_seq\": 31, \"retryable\": true, \"success\": false}",
       "tool": "",
       "type": "tool_call"
     },
@@ -195,7 +169,7 @@
       },
       "gameSeq": 25,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 25, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"action_taken\": \"selected_2\", \"game_seq\": 25, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -205,7 +179,7 @@
       },
       "gameSeq": 16,
       "player": "TestPlayer",
-      "result": "{\"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"error\": \"Object p6 not found in current choices\", \"error_code\": \"invalid_choice\", \"game_seq\": 16, \"retryable\": true, \"success\": false}",
+      "result": "{\"choices\": [{\"action\": \"cast\", \"id\": \"_\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"_\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"error\": \"Object p6 not found in current choices\", \"error_code\": \"invalid_choice\", \"game_seq\": 16, \"retryable\": true, \"success\": false}",
       "tool": "",
       "type": "tool_call"
     },
@@ -213,9 +187,9 @@
       "args": {
         "id": "_"
       },
-      "gameSeq": 40,
+      "gameSeq": 34,
       "player": "TestPlayer",
-      "result": "{\"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"error\": \"Object p6 not found in current choices\", \"error_code\": \"invalid_choice\", \"game_seq\": 40, \"retryable\": true, \"success\": false}",
+      "result": "{\"error\": \"Object p6 not found in current choices\", \"error_code\": \"invalid_choice\", \"game_seq\": 34, \"retryable\": true, \"success\": false}",
       "tool": "",
       "type": "tool_call"
     },
@@ -225,7 +199,7 @@
       },
       "gameSeq": 11,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_2\", \"game_seq\": 11, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"action_taken\": \"selected_4\", \"game_seq\": 11, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -243,9 +217,9 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 35,
+      "gameSeq": 30,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 35, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
+      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 30, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -253,9 +227,9 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 39,
+      "gameSeq": 31,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 39, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
+      "result": "{\"action_taken\": \"selected_target_0\", \"game_seq\": 31, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -263,7 +237,7 @@
       "args": {},
       "gameSeq": 1,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 60, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"game_seq\": 1, \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 60, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"_\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"_\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"game_seq\": 1, \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -271,7 +245,7 @@
       "args": {},
       "gameSeq": 11,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Badlands\", \"playable\": true, \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Mountain\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"playable\": true, \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p3\", \"index\": 0, \"name\": \"Badlands\"}, {\"action\": \"cast\", \"id\": \"p6\", \"index\": 1, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 2, \"name\": \"Mountain\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 3, \"name\": \"Plateau\"}, {\"action\": \"land\", \"id\": \"p9\", \"index\": 4, \"name\": \"Taiga\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 11, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Badlands\", \"playable\": true, \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Mountain\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plateau\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Taiga\", \"playable\": true, \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"_\", \"index\": 0, \"name\": \"Badlands\"}, {\"action\": \"cast\", \"id\": \"_\", \"index\": 1, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 2, \"name\": \"Mountain\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 3, \"name\": \"Plateau\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 4, \"name\": \"Taiga\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 11, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -279,7 +253,7 @@
       "args": {},
       "gameSeq": 16,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 8, \"is_active\": true, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent)\", \"game_seq\": 16, \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 8, \"is_active\": true, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"_\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"_\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent)\", \"game_seq\": 16, \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -287,7 +261,7 @@
       "args": {},
       "gameSeq": 19,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 8, \"is_active\": true, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T1 Combat/Declare Attackers (Opponent)\", \"game_seq\": 19, \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 8, \"is_active\": true, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"_\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"_\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T1 Combat/Declare Attackers (Opponent)\", \"game_seq\": 19, \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -295,7 +269,15 @@
       "args": {},
       "gameSeq": 25,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Badlands\", \"playable\": true, \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"playable\": true, \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p3\", \"index\": 0, \"name\": \"Badlands\"}, {\"action\": \"cast\", \"id\": \"p4\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 2, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p6\", \"index\": 3, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"action\": \"land\", \"id\": \"p10\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 5, \"name\": \"Plateau\"}, {\"action\": \"land\", \"id\": \"p9\", \"index\": 6, \"name\": \"Taiga\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 25, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Badlands\", \"playable\": true, \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Mountain\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plateau\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"_\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"_\", \"index\": 0, \"name\": \"Badlands\"}, {\"action\": \"cast\", \"id\": \"_\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"_\", \"index\": 2, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"_\", \"index\": 3, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 4, \"name\": \"Mountain\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 5, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 6, \"name\": \"Plateau\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 25, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "gameSeq": 26,
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"_\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": true, \"choices\": [{\"id\": \"_\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"_\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 26, \"land_drops_used\": 0, \"message\": \"Select any target\", \"required\": false, \"respond_with\": \"id=\\\"pN\\\" or index=N, or answer=false to cancel\", \"response_type\": \"index\", \"stack\": [{\"name\": \"Lightning Bolt\"}], \"stop_reason\": \"non_priority_action\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -303,7 +285,7 @@
       "args": {},
       "gameSeq": 3,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 ()\", \"game_seq\": 3, \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}]}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 ()\", \"game_seq\": 3, \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}]}",
       "tool": "",
       "type": "tool_call"
     },
@@ -311,23 +293,15 @@
       "args": {},
       "gameSeq": 30,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"], \"tapped\": false}, {\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T2 Combat/Declare Attackers (TestPlayer)\", \"game_seq\": 30, \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"_\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"_\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"_\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T2 Combat/Declare Attackers (TestPlayer)\", \"game_seq\": 30, \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 35,
+      "gameSeq": 34,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"], \"tapped\": false}, {\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 8, \"is_active\": true, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T2 Precombat Main/Precombat Main (Opponent)\", \"game_seq\": 35, \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "gameSeq": 40,
-      "player": "TestPlayer",
-      "result": "{\"active_player\": \"Opponent\", \"available\": true, \"cursor\": 1, \"game_seq\": 40, \"phase\": \"Precombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"], \"tapped\": false}, {\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": true}], \"hand\": [{\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 4, \"is_active\": false, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 8, \"is_active\": true, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [{\"id\": \"p12\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p13\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"], \"targets\": [{\"id\": \"p2\", \"name\": \"Opponent\"}]}], \"step\": \"Precombat Main\", \"turn\": 2}",
+      "result": "{\"active_player\": \"TestPlayer\", \"available\": true, \"cursor\": 1, \"game_seq\": 34, \"phase\": \"Combat\", \"players\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"], \"tapped\": true}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"_\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"_\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [{\"id\": \"_\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"], \"targets\": [{\"id\": \"_\", \"name\": \"TestPlayer (you)\"}]}], \"step\": \"Declare Attackers\", \"turn\": 2}",
       "tool": "",
       "type": "tool_call"
     },
@@ -1221,7 +1195,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": true,
               "tapped": false,
               "token": false
@@ -1260,14 +1234,14 @@
             },
             {
               "id": "_",
-              "name": "Plateau",
+              "name": "Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "name": "Taiga",
+              "name": "Plateau",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1352,7 +1326,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": true,
               "tapped": false,
               "token": false
@@ -1391,14 +1365,14 @@
             },
             {
               "id": "_",
-              "name": "Plateau",
+              "name": "Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "name": "Taiga",
+              "name": "Plateau",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1490,7 +1464,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": true,
               "tapped": false,
               "token": false
@@ -1529,14 +1503,14 @@
             },
             {
               "id": "_",
-              "name": "Plateau",
+              "name": "Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "name": "Taiga",
+              "name": "Plateau",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1628,7 +1602,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": true,
               "tapped": false,
               "token": false
@@ -1667,14 +1641,14 @@
             },
             {
               "id": "_",
-              "name": "Plateau",
+              "name": "Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "name": "Taiga",
+              "name": "Plateau",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1766,7 +1740,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": true,
               "tapped": false,
               "token": false
@@ -1805,14 +1779,14 @@
             },
             {
               "id": "_",
-              "name": "Plateau",
+              "name": "Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "name": "Taiga",
+              "name": "Plateau",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1904,7 +1878,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": true,
               "tapped": false,
               "token": false
@@ -1943,14 +1917,14 @@
             },
             {
               "id": "_",
-              "name": "Plateau",
+              "name": "Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "name": "Taiga",
+              "name": "Plateau",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2042,7 +2016,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": true,
               "tapped": false,
               "token": false
@@ -2081,14 +2055,14 @@
             },
             {
               "id": "_",
-              "name": "Plateau",
+              "name": "Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "name": "Taiga",
+              "name": "Plateau",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2180,7 +2154,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": true,
               "tapped": false,
               "token": false
@@ -2219,14 +2193,14 @@
             },
             {
               "id": "_",
-              "name": "Plateau",
+              "name": "Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "name": "Taiga",
+              "name": "Plateau",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2318,7 +2292,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": true,
               "tapped": false,
               "token": false
@@ -2357,14 +2331,14 @@
             },
             {
               "id": "_",
-              "name": "Plateau",
+              "name": "Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "name": "Taiga",
+              "name": "Plateau",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2454,7 +2428,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": false,
               "tapped": false,
               "token": false
@@ -2493,6 +2467,13 @@
             },
             {
               "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2501,13 +2482,6 @@
             {
               "id": "_",
               "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2597,15 +2571,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": false,
               "tapped": false,
               "token": false
@@ -2614,6 +2580,156 @@
           "exile": [],
           "graveyard": [],
           "hand": [
+            {
+              "id": "_",
+              "name": "Badlands",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Lightning Bolt",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Memnite",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Plateau",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 26,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "_",
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        }
+      ],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "_",
+              "name": "Taiga",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "_",
+              "name": "Badlands",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
             {
               "id": "_",
               "name": "Lightning Bolt",
@@ -2637,6 +2753,13 @@
             },
             {
               "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2645,13 +2768,6 @@
             {
               "id": "_",
               "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2741,15 +2857,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": false,
               "tapped": false,
               "token": false
@@ -2758,6 +2866,13 @@
           "exile": [],
           "graveyard": [],
           "hand": [
+            {
+              "id": "_",
+              "name": "Badlands",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
             {
               "id": "_",
               "name": "Lightning Bolt",
@@ -2781,6 +2896,13 @@
             },
             {
               "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2789,13 +2911,6 @@
             {
               "id": "_",
               "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2885,15 +3000,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": false,
               "tapped": false,
               "token": false
@@ -2902,6 +3009,13 @@
           "exile": [],
           "graveyard": [],
           "hand": [
+            {
+              "id": "_",
+              "name": "Badlands",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
             {
               "id": "_",
               "name": "Lightning Bolt",
@@ -2925,6 +3039,13 @@
             },
             {
               "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2933,13 +3054,6 @@
             {
               "id": "_",
               "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3029,15 +3143,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": false,
               "tapped": false,
               "token": false
@@ -3048,7 +3154,7 @@
           "hand": [
             {
               "id": "_",
-              "name": "Lightning Bolt",
+              "name": "Badlands",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3069,6 +3175,13 @@
             },
             {
               "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -3080,13 +3193,6 @@
               "visible_to": [
                 "TestPlayer"
               ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
-              "visible_to": [
-                "TestPlayer"
-              ]
             }
           ],
           "library_size": 52,
@@ -3094,15 +3200,22 @@
           "name": "TestPlayer"
         }
       ],
-      "priority_player": "Opponent",
+      "priority_player": "TestPlayer",
       "seq": 31,
-      "stack": [],
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "_",
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        }
+      ],
       "step": "DECLARE_ATTACKERS",
       "turn": 3
     },
     {
       "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
+      "phase": "COMBAT",
       "players": [
         {
           "battlefield": [],
@@ -3173,15 +3286,7 @@
             {
               "face_down": false,
               "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
+              "name": "Taiga",
               "summoning_sick": false,
               "tapped": false,
               "token": false
@@ -3192,7 +3297,7 @@
           "hand": [
             {
               "id": "_",
-              "name": "Lightning Bolt",
+              "name": "Badlands",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3213,6 +3318,13 @@
             },
             {
               "id": "_",
+              "name": "Mountain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "_",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -3221,13 +3333,6 @@
             {
               "id": "_",
               "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3240,747 +3345,6 @@
       ],
       "priority_player": "TestPlayer",
       "seq": 32,
-      "stack": [],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 3
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 33,
-      "stack": [],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 3
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 34,
-      "stack": [],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 35,
-      "stack": [],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 36,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "_",
-          "mana_cost": "{R}",
-          "name": "Lightning Bolt"
-        }
-      ],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 37,
       "stack": [
         {
           "controller": "TestPlayer",
@@ -3990,173 +3354,16 @@
           "targets": [
             {
               "id": "_",
-              "name": "Opponent"
+              "name": "TestPlayer"
             }
           ]
         }
       ],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Badlands",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Mountain",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Plateau",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Taiga",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 39,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "_",
-          "mana_cost": "{R}",
-          "name": "Lightning Bolt",
-          "targets": [
-            {
-              "id": "_",
-              "name": "Opponent"
-            }
-          ]
-        }
-      ],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 4
+      "step": "DECLARE_ATTACKERS",
+      "turn": 3
     }
   ],
-  "totalTurns": 4,
+  "totalTurns": 3,
   "version": 2,
   "winner": null
 }

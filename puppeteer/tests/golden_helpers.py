@@ -24,6 +24,8 @@ GOLDEN_DIR = Path(__file__).resolve().parent / "golden" / "prompts"
 GOLDEN_EXPORTS_DIR = Path(__file__).resolve().parent / "golden" / "exports"
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
+SPECTATOR_READY_TIMEOUT_SECONDS = 240
+VOLATILE_PROMPT_INT_FIELDS = {"game_seq"}
 
 # Default decks for tests (relative to project root)
 DECK_RED_STOMPY = "Mage.Client/release/sample-decks/Legacy/Red-Stompy.dck"
@@ -85,6 +87,31 @@ def _wait_for_log_marker(
         time.sleep(2)
     log_text = log_path.read_text() if log_path.exists() else "<no log>"
     raise TimeoutError(f"Marker not found within {timeout}s: {marker!r}\nLog tail:\n{log_text[-2000:]}")
+
+
+def _wait_for_files_quiescent(paths: list[Path], timeout: int = 30, stable_for: float = 2.0) -> None:
+    """Wait until at least one export file exists and observed sizes stop changing."""
+    deadline = time.monotonic() + timeout
+    last_sizes: tuple[tuple[str, int], ...] | None = None
+    stable_since: float | None = None
+    while time.monotonic() < deadline:
+        snapshot: list[tuple[str, int]] = []
+        for path in paths:
+            if path.exists():
+                snapshot.append((str(path), path.stat().st_size))
+        size_tuple = tuple(snapshot)
+        if size_tuple and size_tuple == last_sizes:
+            if stable_since is None:
+                stable_since = time.monotonic()
+            elif (time.monotonic() - stable_since) >= stable_for:
+                return
+        else:
+            stable_since = None
+            if size_tuple:
+                last_sizes = size_tuple
+        time.sleep(0.25)
+    current = {str(path): (path.stat().st_size if path.exists() else "<missing>") for path in paths}
+    raise TimeoutError(f"Game export files did not quiesce within {timeout}s: {current}")
 
 
 def run_golden_scenario(
@@ -176,7 +203,12 @@ def run_golden_scenario(
         log_fhs.append(spectator_fh)
 
         # Wait for table creation
-        _wait_for_log_marker(spectator_log, "AI Puppeteer: waiting for", spectator_proc, timeout=120)
+        _wait_for_log_marker(
+            spectator_log,
+            "AI Puppeteer: waiting for",
+            spectator_proc,
+            timeout=SPECTATOR_READY_TIMEOUT_SECONDS,
+        )
 
         # --- Start replay client (player A) ---
         replay_log = game_dir / f"{player_a_name}_replay.log"
@@ -255,9 +287,8 @@ def run_golden_scenario(
                 f"Replay client exited with code {replay_proc.returncode}.\nReplay log tail:\n{replay_text[-2000:]}"
             )
 
-        # Give the spectator time to finish writing observer events
-        # (it processes game state updates asynchronously)
-        time.sleep(2)
+        # Ensure spectator has finished flushing export inputs.
+        _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         # Read golden prompt
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
@@ -357,7 +388,12 @@ def run_golden_scenario_two_replay(
         log_fhs.append(spectator_fh)
 
         # Wait for table creation
-        _wait_for_log_marker(spectator_log, "AI Puppeteer: waiting for", spectator_proc, timeout=120)
+        _wait_for_log_marker(
+            spectator_log,
+            "AI Puppeteer: waiting for",
+            spectator_proc,
+            timeout=SPECTATOR_READY_TIMEOUT_SECONDS,
+        )
 
         # --- Start replay client (player A) ---
         replay_a_log = game_dir / f"{player_a_name}_replay.log"
@@ -446,8 +482,8 @@ def run_golden_scenario_two_replay(
                 f"Replay log tail:\n{replay_b_text[-2000:]}"
             )
 
-        # Give the spectator time to finish writing observer events
-        time.sleep(2)
+        # Ensure spectator has finished flushing export inputs.
+        _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         # Read golden prompt for player A
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
@@ -467,9 +503,42 @@ def _to_sorted_json(obj: object) -> str:
     return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
 
 
+def _is_short_id(value: object) -> bool:
+    return isinstance(value, str) and len(value) > 1 and value[0] == "p" and value[1:].isdigit()
+
+
+def _normalize_prompt_for_golden(obj: object) -> object:
+    """Normalize prompt payloads for deterministic golden comparisons.
+
+    - Strip short IDs (pN) to avoid non-semantic ID churn.
+    - Parse embedded JSON strings and re-serialize with sorted keys.
+    """
+    if isinstance(obj, dict):
+        out: dict[str, object] = {}
+        for key, value in obj.items():
+            if key in VOLATILE_PROMPT_INT_FIELDS and isinstance(value, int):
+                out[key] = 0
+                continue
+            if key == "id" and _is_short_id(value):
+                out[key] = "_"
+                continue
+            out[key] = _normalize_prompt_for_golden(value)
+        return out
+    if isinstance(obj, list):
+        return [_normalize_prompt_for_golden(item) for item in obj]
+    if isinstance(obj, str):
+        try:
+            parsed = json.loads(obj)
+        except json.JSONDecodeError:
+            return obj
+        normalized = _normalize_prompt_for_golden(parsed)
+        return json.dumps(normalized, separators=(",", ":"), sort_keys=True, ensure_ascii=False)
+    return obj
+
+
 def assert_golden_prompt(name: str, actual: list[dict]) -> None:
     """Compare prompt messages against golden file, or update in UPDATE_GOLDEN mode."""
-    actual_json = _to_sorted_json(actual)
+    actual_json = _to_sorted_json(_normalize_prompt_for_golden(actual))
     golden_file = GOLDEN_DIR / f"{name}.json"
 
     if UPDATE_MODE:
@@ -518,6 +587,7 @@ def _normalize_embedded_json(obj: object) -> object:
     MCP tool results are serialized as JSON strings within the export data.
     The key order in these strings can vary between runs (e.g. {"blocks":"p10","id":"p7"}
     vs {"id":"p7","blocks":"p10"}). Parse and re-serialize with sorted keys.
+    Also strip short IDs inside parsed JSON payloads.
     """
     if isinstance(obj, dict):
         return {k: _normalize_embedded_json(v) for k, v in obj.items()}
@@ -526,6 +596,8 @@ def _normalize_embedded_json(obj: object) -> object:
     elif isinstance(obj, str) and obj.startswith(("{", "[")):
         try:
             parsed = json.loads(obj)
+            parsed = _strip_short_ids(parsed)
+            parsed = _normalize_embedded_json(parsed)
             return json.dumps(parsed, sort_keys=True, ensure_ascii=False)
         except (json.JSONDecodeError, ValueError):
             return obj

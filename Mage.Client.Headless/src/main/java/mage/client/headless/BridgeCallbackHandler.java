@@ -639,7 +639,7 @@ public class BridgeCallbackHandler {
                         var targets = new ArrayList<Map<String, Object>>();
                         for (UUID targetId : card.getTargets()) {
                             var t = new HashMap<String, Object>();
-                            t.put("id", shortIds.getOrAssign(targetId));
+                            t.put("id", getStableShortId(targetId));
                             t.put("name", describeTarget(targetId, null, lastGameView));
                             targets.add(t);
                         }
@@ -714,7 +714,7 @@ public class BridgeCallbackHandler {
                     sortedPlayable.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
                         CardView cv = findCardViewById(e.getKey());
                         return cv != null ? safeDisplayName(cv) : "";
-                    }).thenComparingInt(e -> shortIds.getSequence(e.getKey())));
+                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey()))));
 
                     int idx = 0;
                     for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {
@@ -734,12 +734,12 @@ public class BridgeCallbackHandler {
                             continue;
                         }
 
-                        var choiceEntry = new HashMap<String, Object>();
-                        choiceEntry.put("index", idx);
-                        choiceEntry.put("id", shortIds.getOrAssign(objectId));
-
                         // Determine where this object lives (hand = cast, battlefield = activate)
                         CardView cardView = findCardViewById(objectId);
+                        var choiceEntry = new HashMap<String, Object>();
+                        choiceEntry.put("index", idx);
+                        choiceEntry.put("id", getStableShortId(objectId, cardView));
+
                         boolean isOnBattlefield = false;
                         if (cardView == null) {
                             // not found in hand/stack, check battlefield directly
@@ -809,7 +809,7 @@ public class BridgeCallbackHandler {
                                     for (CardView attacker : group.getAttackers().values()) {
                                         var aInfo = new HashMap<String, Object>();
                                         if (attacker.getId() != null) {
-                                            aInfo.put("id", shortIds.getOrAssign(attacker.getId()));
+                                            aInfo.put("id", getStableShortId(attacker.getId(), attacker));
                                         }
                                         aInfo.put("name", safeDisplayName(attacker));
                                         if (attacker.getPower() != null) {
@@ -831,7 +831,7 @@ public class BridgeCallbackHandler {
 
                                 var choiceEntry = new HashMap<String, Object>();
                                 choiceEntry.put("index", idx);
-                                choiceEntry.put("id", shortIds.getOrAssign(attackerId));
+                                choiceEntry.put("id", getStableShortId(attackerId, perm));
                                 choiceEntry.put("name", safeDisplayName(perm));
                                 if (perm.getPower() != null) {
                                     choiceEntry.put("power", perm.getPower());
@@ -866,7 +866,7 @@ public class BridgeCallbackHandler {
                                     for (CardView attacker : group.getAttackers().values()) {
                                         var aInfo = new HashMap<String, Object>();
                                         if (attacker.getId() != null) {
-                                            aInfo.put("id", shortIds.getOrAssign(attacker.getId()));
+                                            aInfo.put("id", getStableShortId(attacker.getId(), attacker));
                                         }
                                         aInfo.put("name", attacker.getDisplayName());
                                         if (attacker.getPower() != null) {
@@ -888,7 +888,7 @@ public class BridgeCallbackHandler {
 
                                 var choiceEntry = new HashMap<String, Object>();
                                 choiceEntry.put("index", idx);
-                                choiceEntry.put("id", shortIds.getOrAssign(blockerId));
+                                choiceEntry.put("id", getStableShortId(blockerId, perm));
                                 choiceEntry.put("name", safeDisplayName(perm));
                                 if (perm.getPower() != null) {
                                     choiceEntry.put("power", perm.getPower());
@@ -938,7 +938,7 @@ public class BridgeCallbackHandler {
                     sortedManaEntries.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
                         CardView cv = findCardViewById(e.getKey());
                         return cv != null ? safeDisplayName(cv) : "";
-                    }).thenComparingInt(e -> shortIds.getSequence(e.getKey())));
+                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey()))));
 
                     int idx = 0;
                     for (Map.Entry<UUID, PlayableObjectStats> entry : sortedManaEntries) {
@@ -963,7 +963,7 @@ public class BridgeCallbackHandler {
                         for (String manaAbilityText : manaAbilities) {
                             var choiceEntry = new HashMap<String, Object>();
                             choiceEntry.put("index", idx);
-                            choiceEntry.put("id", shortIds.getOrAssign(manaObjectId));
+                            choiceEntry.put("id", getStableShortId(manaObjectId, cardView));
                             boolean isTap = manaAbilityText.contains("{T}");
                             choiceEntry.put("choice_type", isTap ? "tap_source" : "mana_source");
                             choiceEntry.put("name", cardName);
@@ -1047,12 +1047,12 @@ public class BridgeCallbackHandler {
                         if (nameCmp != 0) {
                             return nameCmp;
                         }
-                        return Integer.compare(shortIds.getSequence(a.targetId()), shortIds.getSequence(b.targetId()));
+                        return Integer.compare(getStableShortIdSequence(a.targetId()), getStableShortIdSequence(b.targetId()));
                     });
 
                     int idx = 0;
                     for (TargetChoice tc : targetChoices) {
-                        tc.entry().put("id", shortIds.getOrAssign(tc.targetId()));
+                        tc.entry().put("id", getStableShortId(tc.targetId()));
                         tc.entry().put("index", idx);
                         choiceList.add(tc.entry());
                         indexToUuid.add(tc.targetId());
@@ -3018,7 +3018,7 @@ public class BridgeCallbackHandler {
             for (CardView card : gameView.getStack().values()) {
                 var stackItem = new HashMap<String, Object>();
                 if (card.getId() != null) {
-                    stackItem.put("id", shortIds.getOrAssign(card.getId()));
+                    stackItem.put("id", getStableShortId(card.getId(), card));
                 }
                 stackItem.put("name", safeDisplayName(card));
                 stackItem.put("rules", stripHtmlList(card.getRules()));
@@ -3026,7 +3026,7 @@ public class BridgeCallbackHandler {
                     var targets = new ArrayList<Map<String, Object>>();
                     for (UUID targetId : card.getTargets()) {
                         var t = new HashMap<String, Object>();
-                        t.put("id", shortIds.getOrAssign(targetId));
+                        t.put("id", getStableShortId(targetId));
                         t.put("name", describeTarget(targetId, null, lastGameView));
                         targets.add(t);
                     }
@@ -3113,11 +3113,11 @@ public class BridgeCallbackHandler {
                 // Sort hand by card name, then by short ID for deterministic ordering
                 var sortedHand = new ArrayList<>(gameView.getMyHand().entrySet());
                 sortedHand.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
-                    .thenComparingInt(e -> shortIds.getSequence(e.getKey())));
+                    .thenComparingInt(e -> getStableShortIdSequence(e.getKey(), e.getValue())));
 
                 for (Map.Entry<UUID, CardView> handEntry : sortedHand) {
                     var cardInfo = buildCardInfoMap(handEntry.getValue());
-                    cardInfo.put("id", shortIds.getOrAssign(handEntry.getKey()));
+                    cardInfo.put("id", getStableShortId(handEntry.getKey(), handEntry.getValue()));
                     if (playable != null && playable.containsObject(handEntry.getKey())) {
                         cardInfo.put("playable", true);
                     }
@@ -3131,10 +3131,10 @@ public class BridgeCallbackHandler {
             if (player.getBattlefield() != null) {
                 var sortedBattlefield = new ArrayList<>(player.getBattlefield().values());
                 sortedBattlefield.sort(Comparator.<PermanentView, String>comparing(p -> safeDisplayName(p))
-                    .thenComparingInt(p -> shortIds.getSequence(p.getId())));
+                    .thenComparingInt(p -> getStableShortIdSequence(p.getId(), p)));
                 for (PermanentView perm : sortedBattlefield) {
                     var permInfo = new HashMap<String, Object>();
-                    permInfo.put("id", shortIds.getOrAssign(perm.getId()));
+                    permInfo.put("id", getStableShortId(perm.getId(), perm));
                     permInfo.put("name", safeDisplayName(perm));
                     permInfo.put("tapped", perm.isTapped());
 
@@ -3209,10 +3209,10 @@ public class BridgeCallbackHandler {
             if (player.getGraveyard() != null) {
                 var sortedGraveyard = new ArrayList<>(player.getGraveyard().entrySet());
                 sortedGraveyard.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
-                    .thenComparingInt(e -> shortIds.getSequence(e.getKey())));
+                    .thenComparingInt(e -> getStableShortIdSequence(e.getKey(), e.getValue())));
                 for (Map.Entry<UUID, CardView> entry : sortedGraveyard) {
                     var cardInfo = new HashMap<String, Object>();
-                    cardInfo.put("id", shortIds.getOrAssign(entry.getKey()));
+                    cardInfo.put("id", getStableShortId(entry.getKey(), entry.getValue()));
                     cardInfo.put("name", safeDisplayName(entry.getValue()));
                     List<String> gyRules = stripHtmlList(entry.getValue().getRules());
                     if (gyRules != null && !gyRules.isEmpty()) {
@@ -3230,10 +3230,10 @@ public class BridgeCallbackHandler {
             if (player.getExile() != null) {
                 var sortedExile = new ArrayList<>(player.getExile().entrySet());
                 sortedExile.sort(Comparator.<Map.Entry<UUID, CardView>, String>comparing(e -> safeDisplayName(e.getValue()))
-                    .thenComparingInt(e -> shortIds.getSequence(e.getKey())));
+                    .thenComparingInt(e -> getStableShortIdSequence(e.getKey(), e.getValue())));
                 for (Map.Entry<UUID, CardView> entry : sortedExile) {
                     var cardInfo = new HashMap<String, Object>();
-                    cardInfo.put("id", shortIds.getOrAssign(entry.getKey()));
+                    cardInfo.put("id", getStableShortId(entry.getKey(), entry.getValue()));
                     cardInfo.put("name", safeDisplayName(entry.getValue()));
                     List<String> exileRules = stripHtmlList(entry.getValue().getRules());
                     if (exileRules != null && !exileRules.isEmpty()) {
@@ -3301,7 +3301,7 @@ public class BridgeCallbackHandler {
             for (CardView attacker : group.getAttackers().values()) {
                 var aInfo = new HashMap<String, Object>();
                 if (attacker.getId() != null) {
-                    aInfo.put("id", shortIds.getOrAssign(attacker.getId()));
+                    aInfo.put("id", getStableShortId(attacker.getId(), attacker));
                 }
                 aInfo.put("name", safeDisplayName(attacker));
                 if (attacker.getPower() != null) {
@@ -3315,7 +3315,7 @@ public class BridgeCallbackHandler {
             for (CardView blocker : group.getBlockers().values()) {
                 var bInfo = new HashMap<String, Object>();
                 if (blocker.getId() != null) {
-                    bInfo.put("id", shortIds.getOrAssign(blocker.getId()));
+                    bInfo.put("id", getStableShortId(blocker.getId(), blocker));
                 }
                 bInfo.put("name", safeDisplayName(blocker));
                 if (blocker.getPower() != null) {
@@ -3651,6 +3651,41 @@ public class BridgeCallbackHandler {
 
     private CardView findCardViewById(UUID objectId) {
         return findCardViewById(objectId, lastGameView);
+    }
+
+    private String getStableShortId(UUID objectId) {
+        return getStableShortId(objectId, findCardViewById(objectId));
+    }
+
+    private String getStableShortId(UUID objectId, CardView cardView) {
+        Objects.requireNonNull(objectId, "objectId");
+        if (cardView != null) {
+            String serverShortId = cardView.getShortId();
+            if (serverShortId != null && !serverShortId.isBlank()) {
+                shortIds.register(objectId, serverShortId);
+                return serverShortId;
+            }
+        }
+        return shortIds.getOrAssign(objectId);
+    }
+
+    private int getStableShortIdSequence(UUID objectId) {
+        return getStableShortIdSequence(objectId, findCardViewById(objectId));
+    }
+
+    private int getStableShortIdSequence(UUID objectId, CardView cardView) {
+        return parseShortIdSequence(getStableShortId(objectId, cardView));
+    }
+
+    private static int parseShortIdSequence(String shortId) {
+        if (shortId == null || shortId.length() < 2 || shortId.charAt(0) != 'p') {
+            return Integer.MAX_VALUE;
+        }
+        try {
+            return Integer.parseInt(shortId.substring(1));
+        } catch (NumberFormatException e) {
+            return Integer.MAX_VALUE;
+        }
     }
 
     private CardView findCardViewById(UUID objectId, GameView gameView) {
@@ -4618,7 +4653,7 @@ public class BridgeCallbackHandler {
             }).thenComparing(e -> {
                 CardView cv = findCardViewById(e.getKey(), gameView);
                 return cv != null ? safeDisplayName(cv) : "";
-            }).thenComparingInt(e -> shortIds.getSequence(e.getKey())));
+            }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey(), gameView))));
 
             // Find the first object that has a mana ability (but skip the object being paid for)
             for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {

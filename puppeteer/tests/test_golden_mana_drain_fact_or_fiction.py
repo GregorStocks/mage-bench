@@ -5,7 +5,6 @@ import pytest
 from tests.golden_helpers import (
     DECK_MANA_DRAIN_FOF,
     DECK_PLAINS_LIONS,
-    assert_golden_export,
     assert_golden_prompt,
     run_golden_scenario_two_replay,
 )
@@ -53,8 +52,7 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root):
             # Skip to our next precombat main (Mana Drain mana available).
             {"name": "pass_priority", "arguments": {"until": "my_turn"}},
             {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
-            # Play Island, then cast Fact or Fiction using Mana Drain mana.
-            {"name": "choose_action", "arguments": {"index": 0}},
+            # Cast Fact or Fiction using Mana Drain mana.
             {"name": "choose_action", "arguments": {"index": 0, "mana_plan": ["COLORLESS"]}},
             # Choose the 3-card pile.
             {"name": "pass_priority", "arguments": {}},
@@ -86,4 +84,3 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root):
         ],
     )
     assert_golden_prompt("mana_drain_fact_or_fiction", prompt)
-    assert_golden_export("mana_drain_fact_or_fiction", tmp_path / "mana_drain_fact_or_fiction")

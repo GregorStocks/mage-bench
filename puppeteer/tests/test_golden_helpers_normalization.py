@@ -1,0 +1,37 @@
+import json
+
+from tests.golden_helpers import _normalize_embedded_json, _normalize_prompt_for_golden
+
+
+def test_normalize_embedded_json_sorts_keys():
+    payload = {"result": '{"b":2,"a":1}'}
+
+    normalized = _normalize_embedded_json(payload)
+    assert normalized == {"result": '{"a": 1, "b": 2}'}
+
+
+def test_normalize_embedded_json_strips_short_ids():
+    payload = {"result": '{"players":[{"id":"p3"},{"id":"p11"}]}'}
+
+    normalized = _normalize_embedded_json(payload)
+    parsed = json.loads(normalized["result"])
+    assert parsed == {"players": [{"id": "_"}, {"id": "_"}]}
+
+
+def test_normalize_embedded_json_handles_nested_json_strings():
+    payload = {"result": '{"outer":"{\\"id\\":\\"p9\\",\\"k\\":2}","id":"p1"}'}
+
+    normalized = _normalize_embedded_json(payload)
+    parsed = json.loads(normalized["result"])
+
+    assert parsed["id"] == "_"
+    assert json.loads(parsed["outer"]) == {"id": "_", "k": 2}
+
+
+def test_normalize_prompt_neutralizes_game_seq():
+    payload = [{"content": '{"game_seq":77,"id":"p3","nested":{"game_seq":12}}'}]
+
+    normalized = _normalize_prompt_for_golden(payload)
+    parsed = json.loads(normalized[0]["content"])
+
+    assert parsed == {"game_seq": 0, "id": "_", "nested": {"game_seq": 0}}
