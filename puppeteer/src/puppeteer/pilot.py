@@ -414,6 +414,7 @@ async def run_pilot_loop(
     MAX_CONSECUTIVE_TRUNCATIONS = 3
     consecutive_empty_errors = 0  # consecutive tool calls returning {"error": ""}
     MAX_CONSECUTIVE_EMPTY_ERRORS = 10  # bridge is dead if every tool returns empty error
+    last_game_seq: int | None = None  # game-level seq from most recent tool result
     game_start = time.monotonic()
     # Render caching: reuse rendered prefix between full re-renders to improve
     # prompt cache hit rates.  Only re-render every RENDER_INTERVAL iterations.
@@ -552,6 +553,8 @@ async def run_pilot_loop(
                     llm_event["usage"] = usage_dict
                 llm_event["cost_usd"] = round(call_cost, 6)
                 llm_event["cumulative_cost_usd"] = round(cumulative_cost, 6)
+                if last_game_seq is not None:
+                    llm_event["game_seq"] = last_game_seq
                 game_log.emit("llm_response", **llm_event)
 
             # If the LLM produced tool calls, process them
@@ -596,6 +599,14 @@ async def run_pilot_loop(
                     result_text = await execute_tool(session, fn.name, args)
                     tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
 
+                    # Extract game_seq from tool result for event ordering
+                    try:
+                        _result_data = json.loads(result_text)
+                        if isinstance(_result_data, dict) and "game_seq" in _result_data:
+                            last_game_seq = _result_data["game_seq"]
+                    except (json.JSONDecodeError, TypeError):
+                        pass
+
                     # Log tool call to JSONL
                     if game_log:
                         game_log.emit(
@@ -605,6 +616,7 @@ async def run_pilot_loop(
                             arguments=args,
                             result=result_text,
                             latency_ms=tool_latency_ms,
+                            game_seq=last_game_seq,
                         )
 
                     # Detect dead bridge: all tools return {"error": ""}

@@ -5,16 +5,54 @@
       "seq": 2
     },
     {
+      "active_player": null,
+      "seq": 2,
+      "turn": 1,
+      "type": "turn_change"
+    },
+    {
+      "active_player": null,
+      "phase": null,
+      "seq": 2,
+      "step": null,
+      "turn": 1,
+      "type": "phase_change"
+    },
+    {
       "message": "TestPlayer skips Draw step",
       "seq": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "BEGINNING",
+      "seq": 5,
+      "step": "DRAW",
+      "turn": 1,
+      "type": "phase_change"
     },
     {
       "message": "TestPlayer skip attack",
       "seq": 8
     },
     {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 8,
+      "step": "DECLARE_ATTACKERS",
+      "turn": 1,
+      "type": "phase_change"
+    },
+    {
       "message": "TestPlayer puts Plains from hand onto the Battlefield",
       "seq": 12
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "seq": 12,
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 1,
+      "type": "phase_change"
     },
     {
       "message": "TestPlayer casts Savannah Lions from hand",
@@ -29,6 +67,20 @@
       "seq": 22
     },
     {
+      "active_player": "Opponent",
+      "seq": 22,
+      "turn": 2,
+      "type": "turn_change"
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "seq": 22,
+      "step": "PRECOMBAT_MAIN",
+      "turn": 2,
+      "type": "phase_change"
+    },
+    {
       "message": "Opponent casts Savannah Lions from hand",
       "seq": 25
     },
@@ -41,16 +93,54 @@
       "seq": 31
     },
     {
+      "active_player": "Opponent",
+      "phase": "COMBAT",
+      "seq": 31,
+      "step": "DECLARE_ATTACKERS",
+      "turn": 2,
+      "type": "phase_change"
+    },
+    {
       "message": "TestPlayer attacks Opponent with 1 creature",
       "seq": 40
+    },
+    {
+      "active_player": "TestPlayer",
+      "seq": 40,
+      "turn": 3,
+      "type": "turn_change"
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 40,
+      "step": "DECLARE_ATTACKERS",
+      "turn": 3,
+      "type": "phase_change"
     },
     {
       "message": "Attacker: Savannah Lions (2/1) blocked by Savannah Lions (2/1)",
       "seq": 45
     },
     {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 45,
+      "step": "DECLARE_BLOCKERS",
+      "turn": 3,
+      "type": "phase_change"
+    },
+    {
       "message": "Savannah Lions deals 2 damage to Savannah Lions",
       "seq": 48
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 48,
+      "step": "COMBAT_DAMAGE",
+      "turn": 3,
+      "type": "phase_change"
     },
     {
       "message": "Savannah Lions deals 2 damage to Savannah Lions",
@@ -67,6 +157,14 @@
     {
       "message": "TestPlayer wants to concede",
       "seq": 55
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "seq": 55,
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 3,
+      "type": "phase_change"
     }
   ],
   "cardImages": {},
@@ -183,14 +281,14 @@
     {
       "args": {},
       "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p1\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p2\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p3\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"context\": \"T1 ()\", \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}]}",
+      "result": "{\"action_pending\": false, \"actions_passed\": 2, \"game_over\": true, \"stop_reason\": \"game_over\"}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
       "player": "Opponent",
-      "result": "{\"action_pending\": false, \"actions_passed\": 2, \"game_over\": true, \"stop_reason\": \"game_over\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p1\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p2\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p3\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"context\": \"T1 ()\", \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}]}",
       "tool": "",
       "type": "tool_call"
     },
@@ -211,13 +309,6 @@
     {
       "args": {},
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 6, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p9\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p11\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p12\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p4\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p5\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p10\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
       "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 ()\", \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}]}",
       "tool": "",
       "type": "tool_call"
@@ -225,7 +316,7 @@
     {
       "args": {},
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 60, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p9\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p11\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p12\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"choice_type\": \"attacker\", \"id\": \"p9\", \"index\": 0, \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}, {\"choice_type\": \"special\", \"id\": \"all\", \"index\": 1, \"name\": \"All attack\"}], \"combat_phase\": \"attackers\", \"context\": \"T2 Combat/Declare Attackers (TestPlayer)\", \"message\": \"Select attackers\", \"respond_with\": \"attackers=[\\\"p1\\\",...] or answer=true (confirm) or answer=false (skip)\", \"response_type\": \"select\", \"stop_reason\": \"combat\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -239,7 +330,14 @@
     {
       "args": {},
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p9\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p11\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p12\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"choice_type\": \"attacker\", \"id\": \"p9\", \"index\": 0, \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}, {\"choice_type\": \"special\", \"id\": \"all\", \"index\": 1, \"name\": \"All attack\"}], \"combat_phase\": \"attackers\", \"context\": \"T2 Combat/Declare Attackers (TestPlayer)\", \"message\": \"Select attackers\", \"respond_with\": \"attackers=[\\\"p1\\\",...] or answer=true (confirm) or answer=false (skip)\", \"response_type\": \"select\", \"stop_reason\": \"combat\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 6, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p9\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p11\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p12\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p4\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p5\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p10\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 60, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -324,81 +422,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -415,81 +481,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -517,81 +551,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -608,81 +610,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -710,81 +680,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -801,81 +739,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -903,81 +809,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -994,81 +868,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1096,81 +938,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -1187,81 +997,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1289,81 +1067,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -1380,81 +1126,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1482,81 +1196,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -1571,15 +1253,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
@@ -1587,69 +1264,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1677,81 +1327,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -1766,15 +1384,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
@@ -1782,60 +1395,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1870,81 +1458,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -1959,15 +1515,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
@@ -1975,60 +1526,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2063,81 +1589,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -2152,15 +1646,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
@@ -2168,60 +1657,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2256,81 +1720,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -2345,27 +1777,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -2373,60 +1798,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2454,81 +1854,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -2543,27 +1911,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -2571,60 +1932,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2652,93 +1988,56 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -2753,27 +2052,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -2781,60 +2073,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2860,15 +2127,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
@@ -2876,81 +2138,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
-              "type_line": "Creature — Cat",
               "visible_to": [
                 "Opponent"
               ]
@@ -2965,27 +2195,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -2993,60 +2216,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3072,15 +2270,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
@@ -3088,72 +2281,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -3168,27 +2331,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -3196,60 +2352,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3282,15 +2413,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
@@ -3298,72 +2424,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -3378,27 +2474,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -3406,60 +2495,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3492,15 +2556,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
@@ -3508,72 +2567,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -3588,27 +2617,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -3616,60 +2638,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3702,27 +2699,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -3730,72 +2720,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -3810,27 +2770,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -3838,60 +2791,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3917,27 +2845,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -3945,72 +2866,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -4025,27 +2916,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -4053,60 +2937,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4132,27 +2991,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -4160,72 +3012,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -4240,27 +3062,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -4268,60 +3083,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4347,27 +3137,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -4375,72 +3158,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -4455,27 +3208,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -4483,60 +3229,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4562,27 +3283,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -4590,72 +3304,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -4670,27 +3354,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -4698,60 +3375,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4777,27 +3429,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -4805,72 +3450,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -4885,27 +3500,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -4913,60 +3521,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4992,27 +3575,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -5020,72 +3596,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -5100,27 +3646,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -5128,72 +3667,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -5219,27 +3728,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -5247,72 +3749,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -5327,27 +3799,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -5355,72 +3820,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -5446,27 +3881,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -5474,72 +3902,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -5554,27 +3952,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -5582,72 +3973,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -5687,27 +4048,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -5715,72 +4069,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -5795,27 +4119,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
               "tapped": true,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -5823,72 +4140,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -5928,27 +4215,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -5956,72 +4236,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -6036,27 +4286,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
               "tapped": true,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -6064,72 +4307,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -6169,27 +4382,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -6197,72 +4403,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -6277,27 +4453,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
               "tapped": true,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -6305,72 +4474,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -6417,27 +4556,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -6445,72 +4577,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -6525,27 +4627,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
               "tapped": true,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -6553,72 +4648,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -6665,27 +4730,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -6693,72 +4751,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -6773,27 +4801,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
               "tapped": true,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -6801,72 +4822,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -6913,27 +4904,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
               "tapped": false,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -6941,72 +4925,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -7021,27 +4975,20 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "{W}",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
               "tapped": true,
               "token": false,
-              "toughness": 1,
-              "type_line": "Creature — Cat"
+              "toughness": 1
             }
           ],
           "exile": [],
@@ -7049,72 +4996,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -7147,95 +5064,58 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "{W}",
-              "name": "Savannah Lions",
-              "type_line": "Creature — Cat"
+              "name": "Savannah Lions"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -7250,95 +5130,58 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "{W}",
-              "name": "Savannah Lions",
-              "type_line": "Creature — Cat"
+              "name": "Savannah Lions"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -7371,95 +5214,58 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": true,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "{W}",
-              "name": "Savannah Lions",
-              "type_line": "Creature — Cat"
+              "name": "Savannah Lions"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "Opponent"
               ]
@@ -7474,95 +5280,58 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Plains"
+              "token": false
             }
           ],
           "exile": [],
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "{W}",
-              "name": "Savannah Lions",
-              "type_line": "Creature — Cat"
+              "name": "Savannah Lions"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]

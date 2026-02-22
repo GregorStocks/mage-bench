@@ -566,6 +566,9 @@ public class BridgeCallbackHandler {
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
         GameView gameView = lastGameView; // snapshot volatile to prevent TOCTOU race
+        if (gameView != null) {
+            result.put("game_seq", gameView.getGameSeq());
+        }
 
         if (action == null) {
             result.put("action_pending", false);
@@ -1345,6 +1348,10 @@ public class BridgeCallbackHandler {
     public Map<String, Object> chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
         interactionsThisTurn++;
         var result = new HashMap<String, Object>();
+        GameView gameView = lastGameView; // snapshot volatile for game_seq
+        if (gameView != null) {
+            result.put("game_seq", gameView.getGameSeq());
+        }
         PendingAction action = pendingAction;
 
         // Block-wait for a pending action (like pass_priority does).
@@ -2703,8 +2710,12 @@ public class BridgeCallbackHandler {
                     result.put("action_pending", true);
                     result.put("action_type", method.name());
                     result.put("actions_passed", actionsPassed);
-                    if (lastGameView != null && lastGameView.getStep() != null) {
-                        result.put("current_step", lastGameView.getStep().toString());
+                    GameView gvSnap = lastGameView;
+                    if (gvSnap != null) {
+                        result.put("game_seq", gvSnap.getGameSeq());
+                        if (gvSnap.getStep() != null) {
+                            result.put("current_step", gvSnap.getStep().toString());
+                        }
                     }
                     result.put("stop_reason", "step_not_reached");
                     attachUnseenChat(result);
@@ -2873,6 +2884,10 @@ public class BridgeCallbackHandler {
                 result.put("action_pending", false);
                 result.put("actions_passed", actionsPassed);
                 result.put("stop_reason", "game_over");
+                GameView gvSnap = lastGameView;
+                if (gvSnap != null) {
+                    result.put("game_seq", gvSnap.getGameSeq());
+                }
                 attachUnseenChat(result);
                 return result;
             }
@@ -2927,6 +2942,10 @@ public class BridgeCallbackHandler {
         result.put("action_pending", false);
         result.put("actions_passed", actionsPassed);
         result.put("stop_reason", "interrupted");
+        GameView gvSnap = lastGameView;
+        if (gvSnap != null) {
+            result.put("game_seq", gvSnap.getGameSeq());
+        }
         attachUnseenChat(result);
         return result;
     }
@@ -2977,6 +2996,7 @@ public class BridgeCallbackHandler {
         }
 
         state.put("available", true);
+        state.put("game_seq", gameView.getGameSeq());
         state.put("turn", roundTracker.update(gameView));
 
         // Phase info

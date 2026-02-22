@@ -194,6 +194,10 @@ def _read_llm_events(
                 "type": event_type,
             }
 
+            # game_seq: first-class field from pilot logging, or extracted
+            # from the tool result JSON string for scripted/replay scenarios.
+            game_seq = raw.get("game_seq")
+
             if event_type == "game_start":
                 exported["model"] = raw.get("model", "")
                 exported["availableTools"] = raw.get("available_tools", [])
@@ -221,6 +225,16 @@ def _read_llm_events(
                 exported["result"] = raw.get("result", "")
                 if "latency_ms" in raw:
                     exported["latencyMs"] = raw["latency_ms"]
+                # Extract game_seq from result JSON if not already a top-level field
+                if game_seq is None:
+                    result_str = raw.get("result", "")
+                    if result_str:
+                        try:
+                            result_obj = json.loads(result_str)
+                            if isinstance(result_obj, dict):
+                                game_seq = result_obj.get("game_seq")
+                        except (json.JSONDecodeError, TypeError):
+                            pass
             elif event_type == "stall":
                 exported["turnsWithoutProgress"] = raw.get("turns_without_progress", 0)
                 exported["lastTools"] = raw.get("last_tools", [])
@@ -231,6 +245,9 @@ def _read_llm_events(
                 exported["errorMessage"] = raw.get("error_message", "")
             elif event_type == "auto_pilot_mode":
                 exported["reason"] = raw.get("reason", "")
+
+            if game_seq is not None:
+                exported["gameSeq"] = game_seq
 
             events.append(exported)
 
@@ -308,6 +325,26 @@ def _read_server_events(
                 {
                     "seq": event.get("seq", 0),
                     "message": _strip_html(event.get("message", "")),
+                }
+            )
+        elif event_type == "turn_change":
+            actions.append(
+                {
+                    "seq": event.get("seq", 0),
+                    "type": "turn_change",
+                    "turn": event["turn"],
+                    "active_player": event.get("active_player"),
+                }
+            )
+        elif event_type == "phase_change":
+            actions.append(
+                {
+                    "seq": event.get("seq", 0),
+                    "type": "phase_change",
+                    "turn": event["turn"],
+                    "phase": event.get("phase"),
+                    "step": event.get("step"),
+                    "active_player": event.get("active_player"),
                 }
             )
         elif event_type == "game_end":

@@ -5,24 +5,84 @@
       "seq": 2
     },
     {
+      "active_player": null,
+      "seq": 2,
+      "turn": 1,
+      "type": "turn_change"
+    },
+    {
+      "active_player": null,
+      "phase": null,
+      "seq": 2,
+      "step": null,
+      "turn": 1,
+      "type": "phase_change"
+    },
+    {
       "message": "TestPlayer skips Draw step",
       "seq": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "BEGINNING",
+      "seq": 5,
+      "step": "DRAW",
+      "turn": 1,
+      "type": "phase_change"
     },
     {
       "message": "TestPlayer skip attack",
       "seq": 8
     },
     {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 8,
+      "step": "DECLARE_ATTACKERS",
+      "turn": 1,
+      "type": "phase_change"
+    },
+    {
       "message": "TestPlayer puts Mountain from hand onto the Battlefield",
       "seq": 12
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "seq": 12,
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 1,
+      "type": "phase_change"
     },
     {
       "message": "Opponent skip attack",
       "seq": 17
     },
     {
+      "active_player": "Opponent",
+      "seq": 17,
+      "turn": 2,
+      "type": "turn_change"
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "COMBAT",
+      "seq": 17,
+      "step": "DECLARE_ATTACKERS",
+      "turn": 2,
+      "type": "phase_change"
+    },
+    {
       "message": "Opponent discards down to 7 hand cards",
       "seq": 22
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "END",
+      "seq": 22,
+      "step": "CLEANUP",
+      "turn": 2,
+      "type": "phase_change"
     },
     {
       "message": "Opponent discards Mountain",
@@ -33,12 +93,48 @@
       "seq": 26
     },
     {
+      "active_player": "TestPlayer",
+      "seq": 26,
+      "turn": 3,
+      "type": "turn_change"
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "seq": 26,
+      "step": "PRECOMBAT_MAIN",
+      "turn": 3,
+      "type": "phase_change"
+    },
+    {
       "message": "TestPlayer skip attack",
       "seq": 29
     },
     {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 29,
+      "step": "DECLARE_ATTACKERS",
+      "turn": 3,
+      "type": "phase_change"
+    },
+    {
       "message": "TestPlayer casts Lightning Bolt targeting Opponent from hand",
       "seq": 38
+    },
+    {
+      "active_player": "Opponent",
+      "seq": 38,
+      "turn": 4,
+      "type": "turn_change"
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "seq": 38,
+      "step": "PRECOMBAT_MAIN",
+      "turn": 4,
+      "type": "phase_change"
     },
     {
       "message": "TestPlayer wants to concede",
@@ -103,7 +199,7 @@
         "id": "_"
       },
       "player": "TestPlayer",
-      "result": "{\"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"error\": \"Object p6 not found in current choices\", \"error_code\": \"invalid_choice\", \"retryable\": true, \"success\": false}",
+      "result": "{\"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"error\": \"Object p6 not found in current choices\", \"error_code\": \"invalid_choice\", \"retryable\": true, \"success\": false}",
       "tool": "",
       "type": "tool_call"
     },
@@ -112,7 +208,7 @@
         "id": "_"
       },
       "player": "TestPlayer",
-      "result": "{\"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"error\": \"Object p6 not found in current choices\", \"error_code\": \"invalid_choice\", \"retryable\": true, \"success\": false}",
+      "result": "{\"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"error\": \"Object p6 not found in current choices\", \"error_code\": \"invalid_choice\", \"retryable\": true, \"success\": false}",
       "tool": "",
       "type": "tool_call"
     },
@@ -130,32 +226,25 @@
         "index": 0
       },
       "player": "TestPlayer",
+      "result": "{\"action_taken\": \"selected_0\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "player": "TestPlayer",
+      "result": "{\"action_taken\": \"selected_0\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "player": "TestPlayer",
       "result": "{\"action_taken\": \"selected_target_0\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_ASK\", \"success\": true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Badlands\", \"playable\": true, \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"playable\": true, \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p3\", \"index\": 0, \"name\": \"Badlands\"}, {\"action\": \"cast\", \"id\": \"p4\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 2, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p6\", \"index\": 3, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"action\": \"land\", \"id\": \"p10\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 5, \"name\": \"Plateau\"}, {\"action\": \"land\", \"id\": \"p9\", \"index\": 6, \"name\": \"Taiga\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -169,7 +258,21 @@
     {
       "args": {},
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 60, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"], \"tapped\": false}, {\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 8, \"is_active\": true, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T2 Precombat Main/Precombat Main (Opponent)\", \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"], \"tapped\": false}, {\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T2 Combat/Declare Attackers (TestPlayer)\", \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Badlands\", \"playable\": true, \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"playable\": true, \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p3\", \"index\": 0, \"name\": \"Badlands\"}, {\"action\": \"cast\", \"id\": \"p4\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 2, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p6\", \"index\": 3, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"action\": \"land\", \"id\": \"p10\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 5, \"name\": \"Plateau\"}, {\"action\": \"land\", \"id\": \"p9\", \"index\": 6, \"name\": \"Taiga\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -190,21 +293,14 @@
     {
       "args": {},
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"], \"tapped\": false}, {\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T2 Combat/Declare Attackers (TestPlayer)\", \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Badlands\", \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"], \"tapped\": false}, {\"id\": \"p7\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"playable\": true, \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 8, \"is_active\": true, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}, {\"action\": \"cast\", \"id\": \"p5\", \"index\": 1, \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\"}], \"context\": \"T2 Precombat Main/Precombat Main (Opponent)\", \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "TestPlayer",
       "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Badlands\", \"playable\": true, \"rules\": [\"{T}: Add {B}.\", \"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p5\", \"mana_cost\": \"{R}\", \"name\": \"Lightning Bolt\", \"rules\": [\"{this} deals 3 damage to any target.\"]}, {\"id\": \"p6\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Mountain\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plateau\", \"playable\": true, \"rules\": [\"{T}: Add {R}.\", \"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"is_land\": true, \"name\": \"Taiga\", \"playable\": true, \"rules\": [\"{T}: Add {G}.\", \"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p3\", \"index\": 0, \"name\": \"Badlands\"}, {\"action\": \"cast\", \"id\": \"p6\", \"index\": 1, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 2, \"name\": \"Mountain\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 3, \"name\": \"Plateau\"}, {\"action\": \"land\", \"id\": \"p9\", \"index\": 4, \"name\": \"Taiga\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 60, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -274,84 +370,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -368,84 +429,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -473,84 +499,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -567,84 +558,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -672,84 +628,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -766,84 +687,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -871,84 +757,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -965,84 +816,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1070,84 +886,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -1164,84 +945,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1269,84 +1015,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -1363,84 +1074,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1468,84 +1144,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -1560,15 +1201,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -1576,72 +1212,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1669,84 +1275,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -1761,15 +1332,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -1777,72 +1343,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1870,96 +1406,56 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -1974,15 +1470,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -1990,72 +1481,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2083,96 +1544,56 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -2187,15 +1608,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -2203,72 +1619,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2296,96 +1682,56 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -2400,15 +1746,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -2416,72 +1757,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2509,96 +1820,56 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -2613,15 +1884,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -2629,72 +1895,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2722,96 +1958,56 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -2826,15 +2022,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -2842,72 +2033,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -2935,96 +2096,56 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -3039,15 +2160,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -3055,72 +2171,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3148,96 +2234,56 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -3252,15 +2298,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -3268,72 +2309,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3360,95 +2371,55 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -3463,15 +2434,10 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -3479,84 +2445,49 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Swamp Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3583,95 +2514,55 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -3686,29 +2577,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -3716,71 +2596,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3807,95 +2658,55 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -3910,29 +2721,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -3940,71 +2740,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4031,95 +2802,55 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -4134,29 +2865,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -4164,71 +2884,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4255,95 +2946,55 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -4358,29 +3009,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -4388,71 +3028,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4479,95 +3090,55 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -4582,29 +3153,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -4612,71 +3172,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4703,95 +3234,55 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -4806,29 +3297,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -4836,71 +3316,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4927,107 +3378,62 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -5042,29 +3448,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -5072,71 +3467,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -5163,107 +3529,62 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -5278,29 +3599,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -5308,71 +3618,42 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -5399,107 +3680,62 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -5514,29 +3750,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -5544,59 +3769,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -5630,107 +3831,62 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -5745,29 +3901,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": false,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -5775,59 +3920,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -5867,107 +3988,62 @@
           "graveyard": [
             {
               "id": "_",
-              "mana_cost": "",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain"
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
-              "type_line": "Basic Land — Mountain",
               "visible_to": [
                 "Opponent"
               ]
@@ -5982,29 +4058,18 @@
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Badlands",
-              "rules": [
-                "{T}: Add {B}.",
-                "{T}: Add {R}."
-              ],
               "summoning_sick": true,
               "tapped": false,
-              "token": false,
-              "type_line": "Land — Swamp Mountain"
+              "token": false
             },
             {
               "face_down": false,
               "id": "_",
-              "mana_cost": "",
               "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ],
               "summoning_sick": false,
               "tapped": true,
-              "token": false,
-              "type_line": "Basic Land — Mountain"
+              "token": false
             }
           ],
           "exile": [],
@@ -6012,59 +4077,35 @@
           "hand": [
             {
               "id": "_",
-              "mana_cost": "{R}",
               "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ],
-              "type_line": "Instant",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "{0}",
               "name": "Memnite",
-              "type_line": "Artifact Creature — Construct",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "type_line": "Basic Land — Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Plateau",
-              "rules": [
-                "{T}: Add {R}.",
-                "{T}: Add {W}."
-              ],
-              "type_line": "Land — Mountain Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
               "id": "_",
-              "mana_cost": "",
               "name": "Taiga",
-              "rules": [
-                "{T}: Add {G}.",
-                "{T}: Add {R}."
-              ],
-              "type_line": "Land — Forest Mountain",
               "visible_to": [
                 "TestPlayer"
               ]

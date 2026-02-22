@@ -102,6 +102,40 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
         event.put("type", "game_action");
         event.put("message", stripHtml(message));
         gel.writeLine(toJson(event));
+
+        // Emit turn_change / phase_change events when game state advances
+        GameState state = game.getState();
+        if (state == null) return;
+        int turn = state.getTurnNum();
+        TurnPhase phase = state.getTurnPhaseType();
+        PhaseStep step = state.getTurnStepType();
+
+        if (turn != gel.lastTurn || phase != gel.lastPhase || step != gel.lastStep) {
+            Player active = state.getActivePlayerId() != null ? game.getPlayer(state.getActivePlayerId()) : null;
+            String activeName = active != null ? active.getName() : null;
+
+            // Emit turn_change when the turn number advances
+            if (turn != gel.lastTurn) {
+                Map<String, Object> turnEvent = new LinkedHashMap<>();
+                turnEvent.put("seq", gameSeq);
+                turnEvent.put("type", "turn_change");
+                turnEvent.put("turn", turn);
+                turnEvent.put("active_player", activeName);
+                gel.writeLine(toJson(turnEvent));
+            }
+
+            Map<String, Object> phaseEvent = new LinkedHashMap<>();
+            phaseEvent.put("seq", gameSeq);
+            phaseEvent.put("type", "phase_change");
+            phaseEvent.put("turn", turn);
+            phaseEvent.put("phase", phase != null ? phase.name() : null);
+            phaseEvent.put("step", step != null ? step.name() : null);
+            phaseEvent.put("active_player", activeName);
+            gel.writeLine(toJson(phaseEvent));
+            gel.lastTurn = turn;
+            gel.lastPhase = phase;
+            gel.lastStep = step;
+        }
     }
 
     @Override
@@ -406,25 +440,52 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
     }
 
     /**
+     * Check whether a card has been modified from its oracle (printed) version.
+     * Copies, tokens, and cards with in-game modifications to type, P/T, or rules are "modified".
+     */
+    private static boolean isCardModified(Card card, Game game) {
+        if (card.isCopy()) return true;
+        if (!Objects.equals(card.getRules(), card.getRules(game))) return true;
+        if (!Objects.equals(card.getCardType(), card.getCardType(game))) return true;
+        if (!Objects.equals(card.getSubtype(), card.getSubtype(game))) return true;
+        if (!Objects.equals(card.getSuperType(), card.getSuperType(game))) return true;
+        if (card.getPower().getValue() != card.getPower().getBaseValue()) return true;
+        if (card.getToughness().getValue() != card.getToughness().getBaseValue()) return true;
+        return false;
+    }
+
+    /**
      * Serialize a Card for hand/graveyard/exile zones.
+     * Unmodified cards emit compact {id, name}; modified cards include full properties.
      */
     private static Map<String, Object> serializeCard(Card card, Game game, ShortIdRegistry registry) {
         Map<String, Object> ci = new LinkedHashMap<>();
         ci.put("id", registry.getOrAssign(card.getId()));
         ci.put("name", card.getName());
-        if (card.getManaCost() != null) {
-            ci.put("mana_cost", card.getManaCost().getText());
+
+        if (isCardModified(card, game)) {
+            if (card.getManaCost() != null) {
+                ci.put("mana_cost", card.getManaCost().getText());
+            }
+            ci.put("type_line", buildTypeLine(card, game));
+            if (card.isCreature(game)) {
+                ci.put("power", card.getPower().getValue());
+                ci.put("toughness", card.getToughness().getValue());
+            }
+            List<String> rules = card.getRules(game);
+            if (rules != null && !rules.isEmpty()) {
+                ci.put("rules", new ArrayList<>(rules));
+            }
         }
-        ci.put("type_line", buildTypeLine(card, game));
-        List<String> rules = card.getRules(game);
-        if (rules != null && !rules.isEmpty()) {
-            ci.put("rules", new ArrayList<>(rules));
-        }
+
         return ci;
     }
 
     /**
      * Serialize a Permanent for the battlefield zone.
+     * Oracle-derivable properties (type_line, mana_cost, rules) are only emitted
+     * when the permanent is modified from its printed card. Battlefield-specific
+     * state (tapped, summoning_sick, P/T, counters, etc.) is always emitted.
      */
     private static Map<String, Object> serializePermanent(Permanent perm, Game game, ShortIdRegistry registry) {
         Map<String, Object> pi = new LinkedHashMap<>();
@@ -445,14 +506,25 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             }
         }
 
-        pi.put("type_line", buildTypeLine(perm, game));
-        if (perm.getManaCost() != null) {
-            pi.put("mana_cost", perm.getManaCost().getText());
-        }
-        pi.put("token", perm instanceof PermanentToken);
+        boolean isToken = perm instanceof PermanentToken;
+        pi.put("token", isToken);
         boolean faceDown = perm.isFaceDown(game);
         pi.put("face_down", faceDown);
         pi.put("summoning_sick", perm.hasSummoningSickness());
+
+        // Oracle-derivable properties: only emit when modified from printed card.
+        // Tokens are always "modified" (no oracle card to reference).
+        boolean modified = isToken || isCardModified(perm, game);
+        if (modified) {
+            pi.put("type_line", buildTypeLine(perm, game));
+            if (perm.getManaCost() != null) {
+                pi.put("mana_cost", perm.getManaCost().getText());
+            }
+            List<String> rules = perm.getRules(game);
+            if (rules != null && !rules.isEmpty()) {
+                pi.put("rules", new ArrayList<>(rules));
+            }
+        }
 
         // Counters (exclude loyalty — already shown as top-level field)
         Counters counters = perm.getCounters(game);
@@ -478,12 +550,6 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             if (attachedObj != null) {
                 pi.put("attached_to", registry.getOrAssign(perm.getAttachedTo()));
             }
-        }
-
-        // Rules text
-        List<String> rules = perm.getRules(game);
-        if (rules != null && !rules.isEmpty()) {
-            pi.put("rules", new ArrayList<>(rules));
         }
 
         // Visibility annotation for face-down permanents
@@ -802,6 +868,10 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
         private String lastStateHash;
         // Pending queries per player (game thread writes, network thread reads)
         private final Map<UUID, PendingQuery> pendingQueries = new ConcurrentHashMap<>();
+        // Phase tracking for phase_change events
+        int lastTurn = -1;
+        TurnPhase lastPhase = null;
+        PhaseStep lastStep = null;
 
         GameEventLogger(UUID gameId, String gameLogDir) {
             this.filePath = Paths.get(gameLogDir, FILE_NAME);
