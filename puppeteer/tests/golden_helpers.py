@@ -467,34 +467,8 @@ def _to_sorted_json(obj: object) -> str:
     return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
 
 
-def _strip_game_seq_from_prompt(prompt: list[dict]) -> list[dict]:
-    """Strip game_seq from embedded JSON in tool result messages.
-
-    game_seq can differ by ±1 between runs: the game thread is blocked
-    during decisions but callback events (fireUpdatePlayersEvent) may
-    still be draining on the callback thread, so the GameView snapshot
-    seen by the tool call can lag by one event.
-    """
-    result = []
-    for msg in prompt:
-        msg = dict(msg)
-        if msg.get("role") == "tool" and isinstance(msg.get("content"), str):
-            content = msg["content"]
-            if content.startswith("{"):
-                try:
-                    parsed = json.loads(content)
-                    if isinstance(parsed, dict):
-                        parsed.pop("game_seq", None)
-                    msg["content"] = json.dumps(parsed, sort_keys=True, ensure_ascii=False)
-                except (json.JSONDecodeError, ValueError):
-                    pass
-        result.append(msg)
-    return result
-
-
 def assert_golden_prompt(name: str, actual: list[dict]) -> None:
     """Compare prompt messages against golden file, or update in UPDATE_GOLDEN mode."""
-    actual = _strip_game_seq_from_prompt(actual)
     actual_json = _to_sorted_json(actual)
     golden_file = GOLDEN_DIR / f"{name}.json"
 
@@ -568,24 +542,11 @@ def _strip_volatile(data: dict) -> None:
     for action in data.get("actions", []):
         action.pop("ts", None)
 
-    # Strip ts and gameSeq from llmEvents, then sort deterministically.
+    # Strip ts from llmEvents, then sort deterministically.
     # Events from different players can interleave with sub-millisecond
     # timestamp differences, so the sort order is fragile across runs.
-    # gameSeq can differ by ±1: game thread is blocked during decisions
-    # but callback events may still be draining, so the GameView snapshot
-    # seen by the tool call can lag by one event.
     for event in data.get("llmEvents", []):
         event.pop("ts", None)
-        event.pop("gameSeq", None)
-        # Also strip game_seq from embedded result JSON strings
-        if "result" in event and isinstance(event["result"], str):
-            try:
-                parsed = json.loads(event["result"])
-                if isinstance(parsed, dict):
-                    parsed.pop("game_seq", None)
-                event["result"] = json.dumps(parsed, sort_keys=True, ensure_ascii=False)
-            except (json.JSONDecodeError, ValueError):
-                pass
     data.get("llmEvents", []).sort(key=lambda e: json.dumps(e, sort_keys=True, ensure_ascii=False))
 
     # Strip ts from llmTrace and sort deterministically.

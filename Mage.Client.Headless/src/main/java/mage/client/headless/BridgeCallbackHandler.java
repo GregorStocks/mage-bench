@@ -565,9 +565,9 @@ public class BridgeCallbackHandler {
     public Map<String, Object> getActionChoices() {
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
-        GameView gameView = lastGameView; // snapshot volatile to prevent TOCTOU race
-        if (gameView != null) {
-            result.put("game_seq", gameView.getGameSeq());
+        GameView gameView = lastGameView; // used for mana pool, playable objects, etc.
+        if (action != null) {
+            result.put("game_seq", action.gameSeq());
         }
 
         if (action == null) {
@@ -1348,11 +1348,10 @@ public class BridgeCallbackHandler {
     public Map<String, Object> chooseAction(Integer index, String id, Boolean answer, Integer amount, int[] amounts, Integer pile, String text, String[] manaPlanArray, Boolean autoTap, String[] attackers, String[] blockersArray) {
         interactionsThisTurn++;
         var result = new HashMap<String, Object>();
-        GameView gameView = lastGameView; // snapshot volatile for game_seq
-        if (gameView != null) {
-            result.put("game_seq", gameView.getGameSeq());
-        }
         PendingAction action = pendingAction;
+        if (action != null) {
+            result.put("game_seq", action.gameSeq());
+        }
 
         // Block-wait for a pending action (like pass_priority does).
         // The LLM may call choose_action before the next callback arrives
@@ -2710,9 +2709,9 @@ public class BridgeCallbackHandler {
                     result.put("action_pending", true);
                     result.put("action_type", method.name());
                     result.put("actions_passed", actionsPassed);
+                    result.put("game_seq", action.gameSeq());
                     GameView gvSnap = lastGameView;
                     if (gvSnap != null) {
-                        result.put("game_seq", gvSnap.getGameSeq());
                         if (gvSnap.getStep() != null) {
                             result.put("current_step", gvSnap.getStep().toString());
                         }
@@ -3950,12 +3949,19 @@ public class BridgeCallbackHandler {
     private void storePendingAction(UUID gameId, ClientCallbackMethod method, ClientCallback callback) {
         Object data = callback.getData();
         String message = extractMessage(data);
-        // Capture GameView if available
+        // Capture GameView and game_seq from the decision callback itself,
+        // not from lastGameView (which can be updated by later gameUpdate
+        // callbacks racing on the callback thread).
+        int gameSeq = 0;
         if (data instanceof GameClientMessage) {
-            updateLastGameView(((GameClientMessage) data).getGameView());
+            GameView gv = ((GameClientMessage) data).getGameView();
+            updateLastGameView(gv);
+            if (gv != null) {
+                gameSeq = gv.getGameSeq();
+            }
         }
         synchronized (actionLock) {
-            pendingAction = new PendingAction(gameId, method, data, message);
+            pendingAction = new PendingAction(gameId, method, data, message, gameSeq);
             actionLock.notifyAll();
         }
         clearTrackedResponse(); // New callback arrived — server moved on, no retry needed
