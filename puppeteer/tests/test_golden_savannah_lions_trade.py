@@ -42,7 +42,7 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root):
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"answer": False}},
             # T2: Declare attackers — attack with Savannah Lions.
-            {"name": "pass_priority", "arguments": {}},
+            {"name": "pass_priority", "arguments": {"until": "declare_attackers"}},
             {"name": "choose_action", "arguments": {"attackers": ["all"]}},
             # Pass through combat (P2 blocks) to postcombat main.
             {"name": "pass_priority", "arguments": {"until": "postcombat_main"}},

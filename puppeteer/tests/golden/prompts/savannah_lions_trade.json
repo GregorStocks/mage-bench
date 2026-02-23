@@ -184,7 +184,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": "{\"until\":\"declare_attackers\"}",
           "name": "pass_priority"
         },
         "id": "call_10",
