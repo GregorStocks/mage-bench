@@ -2832,9 +2832,16 @@ public class BridgeCallbackHandler {
                 }
 
                 // Check if there are playable cards (non-mana-only, excluding failed casts).
-                // Use actionGameView (the action's own snapshot) instead of lastGameView,
-                // which can be racily updated by GAME_UPDATE callbacks on the callback thread.
-                PlayableObjectsList playable = actionGameView != null ? actionGameView.getCanPlayObjects() : null;
+                // Prefer the action's own GameView (immune to GAME_UPDATE races on the
+                // callback thread). Fall back to lastGameView when the action's view
+                // doesn't carry canPlayObjects (some callbacks omit it).
+                PlayableObjectsList playable = null;
+                if (actionGameView != null) {
+                    playable = actionGameView.getCanPlayObjects();
+                }
+                if ((playable == null || playable.isEmpty()) && lastGameView != null) {
+                    playable = lastGameView.getCanPlayObjects();
+                }
                 boolean hasPlayableCards = false;
                 if (playable != null && !playable.isEmpty()) {
                     for (Map.Entry<UUID, PlayableObjectStats> entry : playable.getObjects().entrySet()) {
