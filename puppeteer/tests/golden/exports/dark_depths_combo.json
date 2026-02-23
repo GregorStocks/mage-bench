@@ -1,269 +1,326 @@
 {
   "actions": [
     {
-      "message": "TestPlayer chooses that they take the first turn"
+      "message": "TestPlayer chooses that they take the first turn",
+      "seq": 2
     },
     {
       "active_player": null,
+      "seq": 2,
       "turn": 1,
       "type": "turn_change"
     },
     {
       "active_player": null,
       "phase": null,
+      "seq": 2,
       "step": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer skips Draw step"
+      "message": "TestPlayer skips Draw step",
+      "seq": 5
     },
     {
       "active_player": "TestPlayer",
       "phase": "BEGINNING",
+      "seq": 5,
       "step": "DRAW",
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer skip attack"
+      "message": "TestPlayer skip attack",
+      "seq": 8
     },
     {
       "active_player": "TestPlayer",
       "phase": "COMBAT",
+      "seq": 8,
       "step": "DECLARE_ATTACKERS",
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer puts Plains from hand onto the Battlefield"
+      "message": "TestPlayer puts Plains from hand onto the Battlefield",
+      "seq": 12
     },
     {
       "active_player": "TestPlayer",
       "phase": "POSTCOMBAT_MAIN",
+      "seq": 12,
       "step": "POSTCOMBAT_MAIN",
       "turn": 1,
       "type": "phase_change"
     },
     {
-      "message": "Opponent skip attack"
+      "message": "Opponent skip attack",
+      "seq": 17
     },
     {
       "active_player": "Opponent",
+      "seq": 17,
       "turn": 2,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
       "phase": "COMBAT",
+      "seq": 17,
       "step": "DECLARE_ATTACKERS",
       "turn": 2,
       "type": "phase_change"
     },
     {
-      "message": "Opponent discards down to 7 hand cards"
+      "message": "Opponent discards down to 7 hand cards",
+      "seq": 22
     },
     {
       "active_player": "Opponent",
       "phase": "END",
+      "seq": 22,
       "step": "CLEANUP",
       "turn": 2,
       "type": "phase_change"
     },
     {
-      "message": "Opponent discards Mountain"
+      "message": "Opponent discards Mountain",
+      "seq": 24
     },
     {
-      "message": "TestPlayer puts Plains from hand onto the Battlefield"
+      "message": "TestPlayer puts Plains from hand onto the Battlefield",
+      "seq": 26
     },
     {
       "active_player": "TestPlayer",
+      "seq": 26,
       "turn": 3,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
       "phase": "PRECOMBAT_MAIN",
+      "seq": 26,
       "step": "PRECOMBAT_MAIN",
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer skip attack"
+      "message": "TestPlayer skip attack",
+      "seq": 29
     },
     {
       "active_player": "TestPlayer",
       "phase": "COMBAT",
+      "seq": 29,
       "step": "DECLARE_ATTACKERS",
       "turn": 3,
       "type": "phase_change"
     },
     {
-      "message": "Opponent skip attack"
+      "message": "Opponent skip attack",
+      "seq": 36
     },
     {
       "active_player": "Opponent",
+      "seq": 36,
       "turn": 4,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
       "phase": "COMBAT",
+      "seq": 36,
       "step": "DECLARE_ATTACKERS",
       "turn": 4,
       "type": "phase_change"
     },
     {
-      "message": "Opponent discards down to 7 hand cards"
+      "message": "Opponent discards down to 7 hand cards",
+      "seq": 41
     },
     {
       "active_player": "Opponent",
       "phase": "END",
+      "seq": 41,
       "step": "CLEANUP",
       "turn": 4,
       "type": "phase_change"
     },
     {
-      "message": "Opponent discards Mountain"
+      "message": "Opponent discards Mountain",
+      "seq": 43
     },
     {
-      "message": "TestPlayer puts Dark Depths from hand onto the Battlefield"
+      "message": "TestPlayer puts Dark Depths from hand onto the Battlefield",
+      "seq": 45
     },
     {
       "active_player": "TestPlayer",
+      "seq": 45,
       "turn": 5,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
       "phase": "PRECOMBAT_MAIN",
+      "seq": 45,
       "step": "PRECOMBAT_MAIN",
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer skip attack"
+      "message": "TestPlayer skip attack",
+      "seq": 48
     },
     {
       "active_player": "TestPlayer",
       "phase": "COMBAT",
+      "seq": 48,
       "step": "DECLARE_ATTACKERS",
       "turn": 5,
       "type": "phase_change"
     },
     {
-      "message": "Opponent skip attack"
+      "message": "Opponent skip attack",
+      "seq": 55
     },
     {
       "active_player": "Opponent",
+      "seq": 55,
       "turn": 6,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
       "phase": "COMBAT",
+      "seq": 55,
       "step": "DECLARE_ATTACKERS",
       "turn": 6,
       "type": "phase_change"
     },
     {
-      "message": "Opponent discards down to 7 hand cards"
+      "message": "Opponent discards down to 7 hand cards",
+      "seq": 60
     },
     {
       "active_player": "Opponent",
       "phase": "END",
+      "seq": 60,
       "step": "CLEANUP",
       "turn": 6,
       "type": "phase_change"
     },
     {
-      "message": "Opponent discards Mountain"
+      "message": "Opponent discards Mountain",
+      "seq": 62
     },
     {
-      "message": "TestPlayer puts Thespian's Stage from hand onto the Battlefield"
+      "message": "TestPlayer puts Thespian's Stage from hand onto the Battlefield",
+      "seq": 64
     },
     {
       "active_player": "TestPlayer",
+      "seq": 64,
       "turn": 7,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
       "phase": "PRECOMBAT_MAIN",
+      "seq": 64,
       "step": "PRECOMBAT_MAIN",
       "turn": 7,
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer skip attack"
+      "message": "TestPlayer skip attack",
+      "seq": 67
     },
     {
       "active_player": "TestPlayer",
       "phase": "COMBAT",
+      "seq": 67,
       "step": "DECLARE_ATTACKERS",
       "turn": 7,
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer activates: Thespian's Stage becomes a copy of target land, except it has this ability. from Thespian's Stage targeting Dark Depths"
+      "message": "TestPlayer activates: Thespian's Stage becomes a copy of target land, except it has this ability. from Thespian's Stage targeting Dark Depths",
+      "seq": 73
     },
     {
-      "message": "Dark Depths is put into graveyard from battlefield"
+      "message": "Dark Depths is put into graveyard from battlefield",
+      "seq": 77
     },
     {
-      "message": "TestPlayer - Ability triggers: Dark Depths - When Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+      "message": "TestPlayer - Ability triggers: Dark Depths - When Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
+      "seq": 78
     },
     {
-      "message": "TestPlayer sacrificed Dark Depths (source: Thespian's Stage)"
+      "message": "TestPlayer sacrificed Dark Depths (source: Thespian's Stage)",
+      "seq": 81
     },
     {
-      "message": "TestPlayer creates a Marit Lage token"
+      "message": "TestPlayer creates a Marit Lage token",
+      "seq": 82
     },
     {
-      "message": "Opponent skip attack"
+      "message": "Opponent skip attack",
+      "seq": 89
     },
     {
       "active_player": "Opponent",
+      "seq": 89,
       "turn": 8,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
       "phase": "COMBAT",
+      "seq": 89,
       "step": "DECLARE_ATTACKERS",
       "turn": 8,
       "type": "phase_change"
     },
     {
-      "message": "Opponent discards down to 7 hand cards"
+      "message": "Opponent discards down to 7 hand cards",
+      "seq": 94
     },
     {
       "active_player": "Opponent",
       "phase": "END",
+      "seq": 94,
       "step": "CLEANUP",
       "turn": 8,
       "type": "phase_change"
     },
     {
-      "message": "Opponent discards Mountain"
+      "message": "Opponent discards Mountain",
+      "seq": 96
     },
     {
-      "message": "TestPlayer attacks Opponent with 1 creature"
+      "message": "TestPlayer attacks Opponent with 1 creature",
+      "seq": 101
     },
     {
       "active_player": "TestPlayer",
+      "seq": 101,
       "turn": 9,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
       "phase": "COMBAT",
+      "seq": 101,
       "step": "DECLARE_ATTACKERS",
       "turn": 9,
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer wants to concede"
+      "message": "TestPlayer wants to concede",
+      "seq": 103
     }
   ],
   "cardImages": {},
@@ -527,6 +584,35 @@
           "battlefield": [],
           "exile": [],
           "graveyard": [],
+          "hand": [],
+          "library_size": 60,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [],
+          "library_size": 60,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": null,
+      "seq": 1,
+      "stack": [],
+      "step": null,
+      "turn": 1
+    },
+    {
+      "active_player": null,
+      "phase": null,
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
           "hand": [
             {
               "id": "p3",
@@ -643,6 +729,7 @@
         }
       ],
       "priority_player": null,
+      "seq": 3,
       "stack": [],
       "step": null,
       "turn": 1
@@ -770,7 +857,137 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "TestPlayer",
+      "seq": 6,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 1
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "Opponent",
+      "seq": 7,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 1
@@ -898,9 +1115,399 @@
           "name": "TestPlayer"
         }
       ],
-      "priority_player": "Opponent",
+      "priority_player": "TestPlayer",
+      "seq": 9,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
+      "turn": 1
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 10,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 1
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 11,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 1
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 13,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
       "turn": 1
     },
     {
@@ -1029,6 +1636,7 @@
         }
       ],
       "priority_player": "Opponent",
+      "seq": 14,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 1
@@ -1165,7 +1773,146 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 15,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 16,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 2
@@ -1302,7 +2049,146 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 18,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 19,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 2
@@ -1439,7 +2325,146 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 20,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 21,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 2
@@ -1577,9 +2602,297 @@
         }
       ],
       "priority_player": "Opponent",
+      "seq": 23,
       "stack": [],
       "step": "CLEANUP",
       "turn": 2
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 25,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 27,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 3
     },
     {
       "active_player": "TestPlayer",
@@ -1720,6 +3033,7 @@
         }
       ],
       "priority_player": "Opponent",
+      "seq": 28,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 3
@@ -1862,7 +3176,152 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "TestPlayer",
+      "seq": 30,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "Opponent",
+      "seq": 31,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 3
@@ -2005,7 +3464,152 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "TestPlayer",
+      "seq": 32,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "Opponent",
+      "seq": 33,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 3
@@ -2155,7 +3759,159 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 34,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 4
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 35,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 4
@@ -2305,7 +4061,159 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 37,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 4
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 38,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 4
@@ -2455,7 +4363,159 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 39,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 4
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 40,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 4
@@ -2606,9 +4666,324 @@
         }
       ],
       "priority_player": "Opponent",
+      "seq": 42,
       "stack": [],
       "step": "CLEANUP",
       "turn": 4
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Dark Depths",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 44,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 46,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 5
     },
     {
       "active_player": "TestPlayer",
@@ -2764,6 +5139,7 @@
         }
       ],
       "priority_player": "Opponent",
+      "seq": 47,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 5
@@ -2921,7 +5297,167 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "TestPlayer",
+      "seq": 49,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "Opponent",
+      "seq": 50,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 5
@@ -3079,7 +5615,167 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "TestPlayer",
+      "seq": 51,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 5
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "Opponent",
+      "seq": 52,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 5
@@ -3244,7 +5940,174 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 53,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 6
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 54,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 6
@@ -3409,7 +6272,174 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 56,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 6
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 57,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 6
@@ -3574,7 +6604,174 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 58,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 6
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 59,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 6
@@ -3740,9 +6937,351 @@
         }
       ],
       "priority_player": "Opponent",
+      "seq": 61,
       "stack": [],
       "step": "CLEANUP",
       "turn": 6
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 63,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 65,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 7
     },
     {
       "active_player": "TestPlayer",
@@ -3910,8 +7449,1810 @@
         }
       ],
       "priority_player": "Opponent",
+      "seq": 66,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 68,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 70,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p30",
+          "mana_cost": "",
+          "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)"
+        }
+      ],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 71,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p30",
+          "mana_cost": "",
+          "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)",
+          "targets": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            }
+          ]
+        }
+      ],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 72,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p30",
+          "mana_cost": "",
+          "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)",
+          "targets": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            }
+          ]
+        }
+      ],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 74,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p30",
+          "mana_cost": "",
+          "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)",
+          "targets": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            }
+          ]
+        }
+      ],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Thespian's Stage",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 75,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p30",
+          "mana_cost": "",
+          "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)",
+          "targets": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            }
+          ]
+        }
+      ],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "face_down": false,
+              "id": "p10",
+              "name": "Dark Depths",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "mana_cost": "",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ],
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false,
+              "type_line": "Legendary Snow Land"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 76,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p16",
+              "mana_cost": "",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ],
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false,
+              "type_line": "Legendary Snow Land"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 79,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p31",
+          "mana_cost": "",
+          "name": "stack ability (When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.)"
+        }
+      ],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p16",
+              "mana_cost": "",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ],
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false,
+              "type_line": "Legendary Snow Land"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 80,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p31",
+          "mana_cost": "",
+          "name": "stack ability (When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.)"
+        }
+      ],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": true,
+              "tapped": false,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 83,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
       "turn": 7
     },
     {
@@ -4086,6 +9427,7 @@
         }
       ],
       "priority_player": "Opponent",
+      "seq": 84,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 7
@@ -4261,7 +9603,185 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "TestPlayer",
+      "seq": 85,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 7
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": true,
+              "tapped": false,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "Opponent",
+      "seq": 86,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 7
@@ -4444,7 +9964,192 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 87,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 8
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p33",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": true,
+              "tapped": false,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 88,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 8
@@ -4627,7 +10332,192 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 90,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 8
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p33",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": true,
+              "tapped": false,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 91,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 8
@@ -4810,7 +10700,192 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "Opponent",
+      "seq": 92,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 8
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p33",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": true,
+              "tapped": false,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "TestPlayer",
+      "seq": 93,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 8
@@ -4994,6 +11069,7 @@
         }
       ],
       "priority_player": "Opponent",
+      "seq": 95,
       "stack": [],
       "step": "CLEANUP",
       "turn": 8
@@ -5180,9 +11256,386 @@
           "name": "TestPlayer"
         }
       ],
-      "priority_player": "Opponent",
+      "priority_player": "TestPlayer",
+      "seq": 97,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
+      "turn": 9
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            },
+            {
+              "id": "p6",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p33",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": false,
+              "tapped": false,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p34",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 98,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 9
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            },
+            {
+              "id": "p6",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p33",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": false,
+              "tapped": false,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p34",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 99,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
       "turn": 9
     },
     {
@@ -5382,6 +11835,7 @@
         }
       ],
       "priority_player": "TestPlayer",
+      "seq": 100,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 9
