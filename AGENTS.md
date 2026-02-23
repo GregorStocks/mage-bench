@@ -59,6 +59,10 @@ MCP tool results are stored verbatim in `{player}_llm.jsonl` and `.json.gz` expo
 
 Use `tmp/` (in the repo root) as a scratch directory instead of `/tmp/`. It's gitignored and created by `worktree-setup.py`.
 
+## Golden Tests
+
+Golden test exports include `seq` numbers from the server that represent the actual game event sequence. **Never strip, normalize, or collapse seq numbers or snapshots** in golden export comparisons. If a golden test fails on CI with different seq numbers or missing/extra snapshots, the game is playing out differently — fix the root cause (usually nondeterministic auto-pass behavior in the bridge), don't mask it in the comparison.
+
 ## Testing
 
 When changing Python code in `puppeteer/`, add or update tests in `puppeteer/tests/`. Run tests with:

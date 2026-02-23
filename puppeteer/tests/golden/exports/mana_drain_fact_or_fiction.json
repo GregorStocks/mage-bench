@@ -64,190 +64,116 @@
     },
     {
       "message": "Opponent puts Plains from hand onto the Battlefield",
-      "seq": 21
+      "seq": 22
     },
     {
       "active_player": "Opponent",
-      "seq": 21,
+      "seq": 22,
       "turn": 2,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
       "phase": "PRECOMBAT_MAIN",
-      "seq": 21,
+      "seq": 22,
       "step": "PRECOMBAT_MAIN",
       "turn": 2,
       "type": "phase_change"
     },
     {
       "message": "Opponent skip attack",
-      "seq": 23
+      "seq": 25
     },
     {
       "active_player": "Opponent",
       "phase": "COMBAT",
-      "seq": 23,
+      "seq": 25,
       "step": "DECLARE_ATTACKERS",
       "turn": 2,
       "type": "phase_change"
     },
     {
       "message": "TestPlayer puts Island from hand onto the Battlefield",
-      "seq": 26
+      "seq": 29
     },
     {
       "active_player": "TestPlayer",
-      "seq": 26,
+      "seq": 29,
       "turn": 3,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
       "phase": "PRECOMBAT_MAIN",
-      "seq": 26,
+      "seq": 29,
       "step": "PRECOMBAT_MAIN",
       "turn": 3,
       "type": "phase_change"
     },
     {
       "message": "TestPlayer skip attack",
-      "seq": 29
+      "seq": 32
     },
     {
       "active_player": "TestPlayer",
       "phase": "COMBAT",
-      "seq": 29,
+      "seq": 32,
       "step": "DECLARE_ATTACKERS",
       "turn": 3,
       "type": "phase_change"
     },
     {
       "message": "Opponent puts Plains from hand onto the Battlefield",
-      "seq": 34
+      "seq": 38
     },
     {
       "active_player": "Opponent",
-      "seq": 34,
+      "seq": 38,
       "turn": 4,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
       "phase": "PRECOMBAT_MAIN",
-      "seq": 34,
+      "seq": 38,
       "step": "PRECOMBAT_MAIN",
       "turn": 4,
       "type": "phase_change"
     },
     {
       "message": "Opponent skip attack",
-      "seq": 37
+      "seq": 41
     },
     {
       "active_player": "Opponent",
       "phase": "COMBAT",
-      "seq": 37,
+      "seq": 41,
       "step": "DECLARE_ATTACKERS",
       "turn": 4,
       "type": "phase_change"
     },
     {
       "message": "Opponent casts Savannah Lions from hand",
-      "seq": 42
+      "seq": 46
     },
     {
       "active_player": "Opponent",
       "phase": "POSTCOMBAT_MAIN",
-      "seq": 42,
+      "seq": 46,
       "step": "POSTCOMBAT_MAIN",
       "turn": 4,
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer casts Mana Drain targeting Savannah Lions from hand",
-      "seq": 48
-    },
-    {
-      "message": "Opponent puts Savannah Lions from stack into their graveyard (source: Mana Drain)",
-      "seq": 51
-    },
-    {
-      "message": "Savannah Lions is countered by Mana Drain",
-      "seq": 52
-    },
-    {
-      "message": "TestPlayer puts Mana Drain from stack into their graveyard",
-      "seq": 53
-    },
-    {
-      "message": "TestPlayer - Ability triggers: Mana Drain - At the beginning of your next main phase, add {C}.",
-      "seq": 55
-    },
-    {
-      "active_player": "TestPlayer",
-      "seq": 55,
-      "turn": 5,
-      "type": "turn_change"
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "seq": 55,
-      "step": "PRECOMBAT_MAIN",
-      "turn": 5,
-      "type": "phase_change"
-    },
-    {
-      "message": "TestPlayer casts Fact or Fiction from hand",
-      "seq": 61
-    },
-    {
-      "message": "TestPlayer reveals Air Elemental, Djinn of Wishes, Mind Control, Serra Angel, Shivan Dragon (source: Fact or Fiction)",
-      "seq": 64
-    },
-    {
-      "message": "Pile 1, going to HAND: Air Elemental",
-      "seq": 68
-    },
-    {
-      "message": "TestPlayer puts a card from library into their hand",
-      "seq": 69
-    },
-    {
-      "message": "Pile 2, going to GRAVEYARD: Djinn of Wishes, Mind Control, Serra Angel, Shivan Dragon",
-      "seq": 70
-    },
-    {
-      "message": "TestPlayer puts Djinn of Wishes from library into their graveyard (source: Fact or Fiction)",
-      "seq": 71
-    },
-    {
-      "message": "TestPlayer puts Mind Control from library into their graveyard (source: Fact or Fiction)",
-      "seq": 72
-    },
-    {
-      "message": "TestPlayer puts Serra Angel from library into their graveyard (source: Fact or Fiction)",
-      "seq": 73
-    },
-    {
-      "message": "TestPlayer puts Shivan Dragon from library into their graveyard (source: Fact or Fiction)",
-      "seq": 74
-    },
-    {
-      "message": "TestPlayer puts Fact or Fiction from stack into their graveyard",
-      "seq": 75
-    },
-    {
       "message": "TestPlayer wants to concede",
-      "seq": 77
+      "seq": 49
     }
   ],
   "cardImages": {},
   "deckType": "",
   "gameOver": {
     "message": "Game ended",
-    "seq": 78
+    "seq": 50
   },
   "gameType": "",
   "llmEvents": [
@@ -273,24 +199,14 @@
     },
     {
       "args": {
-        "answer": false
-      },
-      "gameSeq": 66,
-      "player": "Opponent",
-      "result": "{\"action_taken\": \"cancelled\", \"game_seq\": 66, \"success\": true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
         "index": 0,
         "mana_plan": [
           "COLORLESS"
         ]
       },
-      "gameSeq": 56,
+      "gameSeq": 30,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 56, \"mana_plan_set\": true, \"mana_plan_size\": 1, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"error\": \"Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.\", \"error_code\": \"index_out_of_range\", \"game_seq\": 30, \"retryable\": true, \"success\": false}",
       "tool": "",
       "type": "tool_call"
     },
@@ -328,9 +244,9 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 20,
+      "gameSeq": 21,
       "player": "Opponent",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 20, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 21, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -338,9 +254,9 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 22,
+      "gameSeq": 23,
       "player": "Opponent",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 22, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 23, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -348,9 +264,9 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 25,
+      "gameSeq": 24,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 25, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"error\": \"Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.\", \"error_code\": \"index_out_of_range\", \"game_seq\": 24, \"retryable\": true, \"success\": false}",
       "tool": "",
       "type": "tool_call"
     },
@@ -358,9 +274,9 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 33,
-      "player": "Opponent",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 33, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "gameSeq": 28,
+      "player": "TestPlayer",
+      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 28, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -368,9 +284,9 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 40,
+      "gameSeq": 37,
       "player": "Opponent",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 40, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 37, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -379,18 +295,8 @@
         "index": 0
       },
       "gameSeq": 44,
-      "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 44, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 65,
       "player": "Opponent",
-      "result": "{\"action_taken\": \"selected_target_0\", \"game_seq\": 65, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
+      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 44, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -398,9 +304,9 @@
       "args": {
         "pile": 1
       },
-      "gameSeq": 67,
+      "gameSeq": 48,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_pile_1\", \"game_seq\": 67, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"choices\": [{\"action\": \"cast\", \"id\": \"p15\", \"index\": 0, \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\"}], \"error\": \"GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.\", \"error_code\": \"missing_param\", \"game_seq\": 48, \"retryable\": true, \"success\": false}",
       "tool": "",
       "type": "tool_call"
     },
@@ -408,9 +314,9 @@
       "args": {
         "until": "end_of_turn"
       },
-      "gameSeq": 22,
+      "gameSeq": 23,
       "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"playable\": true, \"power\": \"2\", \"toughness\": \"1\"}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p8\", \"index\": 0, \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"game_seq\": 22, \"has_playable_cards\": true, \"land_drops_used\": 1, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"playable\": true, \"power\": \"2\", \"toughness\": \"1\"}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p8\", \"index\": 0, \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"game_seq\": 23, \"has_playable_cards\": true, \"land_drops_used\": 1, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -418,9 +324,9 @@
       "args": {
         "until": "end_of_turn"
       },
-      "gameSeq": 44,
+      "gameSeq": 28,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\", \"playable\": true, \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 5, \"is_active\": false, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand_size\": 6, \"is_active\": true, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p15\", \"index\": 0, \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\"}], \"context\": \"T2 Postcombat Main/Postcombat Main (Opponent)\", \"game_seq\": 44, \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stack\": [{\"name\": \"Savannah Lions\"}], \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p11\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p11\", \"index\": 0, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p25\", \"index\": 4, \"name\": \"Island\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 28, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -428,9 +334,9 @@
       "args": {
         "until": "my_turn"
       },
-      "gameSeq": 25,
+      "gameSeq": 16,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p11\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p11\", \"index\": 0, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p25\", \"index\": 4, \"name\": \"Island\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 25, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}], \"hand\": [{\"id\": \"p11\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 16, \"land_drops_used\": 1, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"answer=true (confirm) or answer=false (pass)\", \"response_type\": \"boolean\", \"stack\": [{\"name\": \"Sol Ring\"}], \"stop_reason\": \"my_turn\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -438,9 +344,9 @@
       "args": {
         "until": "my_turn"
       },
-      "gameSeq": 56,
+      "gameSeq": 30,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p15\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand\": [{\"id\": \"p29\", \"mana_cost\": \"{3}{U}\", \"name\": \"Fact or Fiction\", \"playable\": true, \"rules\": [\"Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p8\", \"name\": \"Savannah Lions\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p29\", \"index\": 0, \"mana_cost\": \"{3}{U}\", \"name\": \"Fact or Fiction\"}], \"context\": \"T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 56, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stack\": [{\"name\": \"Ability\", \"targets\": [{\"id\": \"p1\", \"name\": \"TestPlayer (you)\"}]}], \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 30, \"land_drops_used\": 1, \"message\": \"Play spells and abilities\", \"respond_with\": \"answer=true (confirm) or answer=false (pass)\", \"response_type\": \"boolean\", \"stop_reason\": \"my_turn\", \"untapped_lands\": 2}",
       "tool": "",
       "type": "tool_call"
     },
@@ -448,9 +354,9 @@
       "args": {
         "until": "precombat_main"
       },
-      "gameSeq": 22,
+      "gameSeq": 23,
       "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"playable\": true, \"power\": \"2\", \"toughness\": \"1\"}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p8\", \"index\": 0, \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"current_step\": \"Precombat Main\", \"game_seq\": 22, \"land_drops_used\": 1, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"reached_step\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"playable\": true, \"power\": \"2\", \"toughness\": \"1\"}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p8\", \"index\": 0, \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"current_step\": \"Precombat Main\", \"game_seq\": 23, \"land_drops_used\": 1, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"reached_step\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -458,9 +364,9 @@
       "args": {
         "until": "precombat_main"
       },
-      "gameSeq": 25,
+      "gameSeq": 24,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p11\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p11\", \"index\": 0, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p25\", \"index\": 4, \"name\": \"Island\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"current_step\": \"Precombat Main\", \"game_seq\": 25, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"reached_step\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"current_step\": \"Precombat Main\", \"game_seq\": 24, \"stop_reason\": \"step_not_reached\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -468,9 +374,9 @@
       "args": {
         "until": "precombat_main"
       },
-      "gameSeq": 56,
+      "gameSeq": 30,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p15\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand\": [{\"id\": \"p29\", \"mana_cost\": \"{3}{U}\", \"name\": \"Fact or Fiction\", \"playable\": true, \"rules\": [\"Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p8\", \"name\": \"Savannah Lions\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p29\", \"index\": 0, \"mana_cost\": \"{3}{U}\", \"name\": \"Fact or Fiction\"}], \"context\": \"T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"current_step\": \"Precombat Main\", \"game_seq\": 56, \"land_drops_used\": 0, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stack\": [{\"name\": \"Ability\", \"targets\": [{\"id\": \"p1\", \"name\": \"TestPlayer (you)\"}]}], \"stop_reason\": \"reached_step\", \"untapped_lands\": 2}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"current_step\": \"Precombat Main\", \"game_seq\": 30, \"land_drops_used\": 1, \"message\": \"Play spells and abilities\", \"respond_with\": \"answer=true (confirm) or answer=false (pass)\", \"response_type\": \"boolean\", \"stop_reason\": \"reached_step\", \"untapped_lands\": 2}",
       "tool": "",
       "type": "tool_call"
     },
@@ -492,9 +398,9 @@
     },
     {
       "args": {},
-      "gameSeq": 20,
+      "gameSeq": 21,
       "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 8, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p7\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 1, \"name\": \"Plains\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"game_seq\": 20, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 8, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p7\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 1, \"name\": \"Plains\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"game_seq\": 21, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -508,9 +414,9 @@
     },
     {
       "args": {},
-      "gameSeq": 33,
+      "gameSeq": 37,
       "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p26\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"playable\": true, \"power\": \"2\", \"toughness\": \"1\"}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 8, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p24\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p26\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"cast\", \"id\": \"p8\", \"index\": 2, \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"context\": \"T2 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"game_seq\": 33, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p26\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"playable\": true, \"power\": \"2\", \"toughness\": \"1\"}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 8, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p24\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p26\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"cast\", \"id\": \"p8\", \"index\": 2, \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"context\": \"T2 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"game_seq\": 37, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -524,49 +430,33 @@
     },
     {
       "args": {},
-      "gameSeq": 40,
+      "gameSeq": 44,
       "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p26\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"playable\": true, \"power\": \"2\", \"toughness\": \"1\"}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p8\", \"index\": 0, \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"context\": \"T2 Postcombat Main/Postcombat Main (Opponent) YOUR_MAIN\", \"game_seq\": 40, \"has_playable_cards\": true, \"land_drops_used\": 1, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p26\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"playable\": true, \"power\": \"2\", \"toughness\": \"1\"}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p8\", \"index\": 0, \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"context\": \"T2 Postcombat Main/Postcombat Main (Opponent) YOUR_MAIN\", \"game_seq\": 44, \"has_playable_cards\": true, \"land_drops_used\": 1, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 65,
-      "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 4, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p8\", \"name\": \"Savannah Lions\"}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p26\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"p15\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"TestPlayer\"}], \"can_cancel\": true, \"choices\": [{\"id\": \"p28\", \"index\": 0, \"name\": \"Air Elemental\", \"target_type\": \"card\"}, {\"id\": \"p29\", \"index\": 1, \"name\": \"Djinn of Wishes\", \"target_type\": \"card\"}, {\"id\": \"p30\", \"index\": 2, \"name\": \"Mind Control\", \"target_type\": \"card\"}, {\"id\": \"p31\", \"index\": 3, \"name\": \"Serra Angel\", \"target_type\": \"card\"}, {\"id\": \"p32\", \"index\": 4, \"name\": \"Shivan Dragon\", \"target_type\": \"card\"}], \"context\": \"T3 Precombat Main/Precombat Main (TestPlayer)\", \"game_seq\": 65, \"message\": \"Select cards to put in the first pile (selected 0 of 5)\", \"required\": false, \"respond_with\": \"id=\\\"pN\\\" or index=N, or answer=false to cancel\", \"response_type\": \"index\", \"stack\": [{\"name\": \"Fact or Fiction\"}, {\"name\": \"Ability\", \"targets\": [{\"id\": \"p27\", \"name\": \"TestPlayer\"}]}], \"stop_reason\": \"non_priority_action\", \"untapped_lands\": 1}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "gameSeq": 66,
-      "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p8\", \"name\": \"Savannah Lions\"}], \"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Ajani Goldmane\", \"rules\": [\"+1: You gain 2 life.\", \"-1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\", \"-6: Create a white Avatar creature token. It has \\\"This creature's power and toughness are each equal to your life total.\\\"\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Baneslayer Angel\", \"power\": \"5\", \"rules\": [\"Flying\", \"First strike\", \"Lifelink\", \"Protection from Demons and from Dragons\"], \"toughness\": \"5\"}, {\"id\": \"p5\", \"mana_cost\": \"{4}{W}{W}\", \"name\": \"Captain of the Watch\", \"power\": \"3\", \"rules\": [\"Vigilance\", \"Other Soldier creatures you control get +1/+1 and have vigilance.\", \"When {this} enters, create three 1/1 white Soldier creature tokens.\"], \"toughness\": \"3\"}, {\"id\": \"p6\", \"mana_cost\": \"{2}{W}{W}\", \"name\": \"Guardian Seraph\", \"power\": \"3\", \"rules\": [\"Flying\", \"If a source an opponent controls would deal damage to you, prevent 1 of that damage.\"], \"toughness\": \"4\"}, {\"id\": \"p26\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"p15\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"TestPlayer\"}], \"can_cancel\": true, \"choices\": [{\"id\": \"p29\", \"index\": 0, \"name\": \"Djinn of Wishes\", \"target_type\": \"card\"}, {\"id\": \"p30\", \"index\": 1, \"name\": \"Mind Control\", \"target_type\": \"card\"}, {\"id\": \"p31\", \"index\": 2, \"name\": \"Serra Angel\", \"target_type\": \"card\"}, {\"id\": \"p32\", \"index\": 3, \"name\": \"Shivan Dragon\", \"target_type\": \"card\"}], \"context\": \"T3 Precombat Main/Precombat Main (TestPlayer)\", \"game_seq\": 66, \"message\": \"Select cards to put in the first pile (selected 1 of 5)\", \"required\": false, \"respond_with\": \"id=\\\"pN\\\" or index=N, or answer=false to cancel\", \"response_type\": \"index\", \"stack\": [{\"name\": \"Fact or Fiction\"}, {\"name\": \"Ability\", \"targets\": [{\"id\": \"p27\", \"name\": \"TestPlayer\"}]}], \"stop_reason\": \"non_priority_action\", \"untapped_lands\": 1}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "gameSeq": 67,
+      "gameSeq": 48,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_CHOOSE_PILE\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"p15\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand\": [{\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p8\", \"name\": \"Savannah Lions\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 67, \"land_drops_used\": 0, \"message\": \"Choose a pile to put into hand.\", \"pile1\": [{\"mana_cost\": \"{3}{U}{U}\", \"name\": \"Air Elemental\", \"power\": \"4\", \"rules\": [\"Flying\"], \"toughness\": \"4\"}], \"pile2\": [{\"mana_cost\": \"{3}{U}{U}\", \"name\": \"Djinn of Wishes\", \"power\": \"4\", \"rules\": [\"Flying\", \"{this} enters with three wish counters on it.\", \"{2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it.\"], \"toughness\": \"4\"}, {\"mana_cost\": \"{3}{U}{U}\", \"name\": \"Mind Control\", \"rules\": [\"Enchant creature\", \"You control enchanted creature.\"]}, {\"mana_cost\": \"{3}{W}{W}\", \"name\": \"Serra Angel\", \"power\": \"4\", \"rules\": [\"Flying\", \"Vigilance\"], \"toughness\": \"4\"}, {\"mana_cost\": \"{4}{R}{R}\", \"name\": \"Shivan Dragon\", \"power\": \"5\", \"rules\": [\"Flying\", \"{R}: {this} gets +1/+0 until end of turn.\"], \"toughness\": \"5\"}], \"respond_with\": \"pile=1 or pile=2\", \"response_type\": \"pile\", \"stack\": [{\"name\": \"Fact or Fiction\"}, {\"name\": \"Ability\", \"targets\": [{\"id\": \"p1\", \"name\": \"TestPlayer (you)\"}]}], \"stop_reason\": \"non_priority_action\"}",
+      "result": "{\"active_player\": \"Opponent\", \"available\": true, \"cursor\": 1, \"game_seq\": 48, \"phase\": \"Postcombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\", \"playable\": true, \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 5, \"is_active\": false, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand_size\": 6, \"is_active\": true, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [{\"id\": \"p27\", \"name\": \"Savannah Lions\", \"rules\": []}], \"step\": \"Postcombat Main\", \"turn\": 2}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 76,
+      "gameSeq": 48,
       "player": "TestPlayer",
-      "result": "{\"active_player\": \"TestPlayer\", \"available\": true, \"cursor\": 1, \"game_seq\": 76, \"phase\": \"Precombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"p33\", \"name\": \"Djinn of Wishes\", \"rules\": [\"Flying\", \"{this} enters with three wish counters on it.\", \"{2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it.\"]}, {\"id\": \"p29\", \"name\": \"Fact or Fiction\", \"rules\": [\"Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.\"]}, {\"id\": \"p15\", \"name\": \"Mana Drain\", \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}, {\"id\": \"p34\", \"name\": \"Mind Control\", \"rules\": [\"Enchant creature\", \"You control enchanted creature.\"]}, {\"id\": \"p35\", \"name\": \"Serra Angel\", \"rules\": [\"Flying\", \"Vigilance\"]}, {\"id\": \"p36\", \"name\": \"Shivan Dragon\", \"rules\": [\"Flying\", \"{R}: {this} gets +1/+0 until end of turn.\"]}], \"hand\": [{\"id\": \"p32\", \"mana_cost\": \"{3}{U}{U}\", \"name\": \"Air Elemental\", \"power\": \"4\", \"rules\": [\"Flying\"], \"toughness\": \"4\"}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 46, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p8\", \"name\": \"Savannah Lions\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [{\"id\": \"p30\", \"name\": \"Ability\", \"rules\": [\"At the beginning of your next main phase, add {C}.\"], \"targets\": [{\"id\": \"p1\", \"name\": \"TestPlayer (you)\"}]}], \"step\": \"Precombat Main\", \"turn\": 3}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 5, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p11\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Sol Ring\", \"rules\": [\"{T}: Add {C}{C}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p25\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\", \"playable\": true, \"rules\": [\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}], \"hand_size\": 5, \"is_active\": false, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p7\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p24\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"hand_size\": 6, \"is_active\": true, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p15\", \"index\": 0, \"mana_cost\": \"{U}{U}\", \"name\": \"Mana Drain\"}], \"context\": \"T2 Postcombat Main/Postcombat Main (Opponent)\", \"game_seq\": 48, \"has_playable_cards\": true, \"message\": \"Play instants and activated abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stack\": [{\"name\": \"Savannah Lions\"}], \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 79,
+      "gameSeq": 51,
       "player": "Opponent",
-      "result": "{\"action_pending\": false, \"actions_passed\": 0, \"game_over\": true, \"game_seq\": 79, \"stop_reason\": \"game_over\"}",
+      "result": "{\"action_pending\": false, \"actions_passed\": 1, \"game_over\": true, \"game_seq\": 51, \"stop_reason\": \"game_over\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -1787,6 +1677,137 @@
           "name": "TestPlayer"
         }
       ],
+      "priority_player": "TestPlayer",
+      "seq": 16,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p23",
+          "mana_cost": "{1}",
+          "name": "Sol Ring"
+        }
+      ],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 1
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Ajani Goldmane",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Baneslayer Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Captain of the Watch",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Guardian Seraph",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Serra Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p11",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Mana Drain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
       "priority_player": "Opponent",
       "seq": 17,
       "stack": [
@@ -1926,8 +1947,140 @@
           "name": "TestPlayer"
         }
       ],
-      "priority_player": "Opponent",
+      "priority_player": "TestPlayer",
       "seq": 19,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 1
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Ajani Goldmane",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Baneslayer Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Captain of the Watch",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Guardian Seraph",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Serra Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Sol Ring",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p11",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Mana Drain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 20,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 1
@@ -2066,7 +2219,148 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 20,
+      "seq": 21,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p7",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Ajani Goldmane",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Baneslayer Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Captain of the Watch",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Guardian Seraph",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Serra Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Sol Ring",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p11",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Mana Drain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 24,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 2
@@ -2207,7 +2501,148 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 24,
+      "seq": 26,
+      "stack": [],
+      "step": "END_TURN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "END",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p7",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Ajani Goldmane",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Baneslayer Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Captain of the Watch",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Guardian Seraph",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Serra Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Sol Ring",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p11",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Mana Drain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 27,
       "stack": [],
       "step": "END_TURN",
       "turn": 2
@@ -2355,7 +2790,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 25,
+      "seq": 28,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 3
@@ -2503,164 +2938,15 @@
           "name": "TestPlayer"
         }
       ],
-      "priority_player": "Opponent",
-      "seq": 28,
+      "priority_player": "TestPlayer",
+      "seq": 30,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 3
     },
     {
       "active_player": "TestPlayer",
-      "phase": "COMBAT",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p24",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p8",
-              "name": "Savannah Lions",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Mana Drain",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 30,
-      "stack": [],
-      "step": "DECLARE_ATTACKERS",
-      "turn": 3
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
+      "phase": "PRECOMBAT_MAIN",
       "players": [
         {
           "battlefield": [
@@ -2804,12 +3090,459 @@
       "priority_player": "Opponent",
       "seq": 31,
       "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p7",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Ajani Goldmane",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Baneslayer Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Captain of the Watch",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Guardian Seraph",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Serra Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Sol Ring",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Mana Drain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 33,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p7",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Ajani Goldmane",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Baneslayer Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Captain of the Watch",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Guardian Seraph",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Serra Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Sol Ring",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Mana Drain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 34,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p7",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Ajani Goldmane",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Baneslayer Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Captain of the Watch",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Guardian Seraph",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Serra Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Sol Ring",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Mana Drain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 35,
+      "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 3
     },
     {
       "active_player": "TestPlayer",
-      "phase": "END",
+      "phase": "POSTCOMBAT_MAIN",
       "players": [
         {
           "battlefield": [
@@ -2950,10 +3683,10 @@
           "name": "TestPlayer"
         }
       ],
-      "priority_player": "TestPlayer",
-      "seq": 32,
+      "priority_player": "Opponent",
+      "seq": 36,
       "stack": [],
-      "step": "END_TURN",
+      "step": "POSTCOMBAT_MAIN",
       "turn": 3
     },
     {
@@ -3107,7 +3840,7 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 33,
+      "seq": 37,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 4
@@ -3264,479 +3997,479 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 35,
-      "stack": [],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p8",
-              "name": "Savannah Lions",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Mana Drain",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 36,
-      "stack": [],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "COMBAT",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p8",
-              "name": "Savannah Lions",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Mana Drain",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 38,
-      "stack": [],
-      "step": "DECLARE_ATTACKERS",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "COMBAT",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p8",
-              "name": "Savannah Lions",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Mana Drain",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
       "seq": 39,
       "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 4
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p7",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p24",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Ajani Goldmane",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Baneslayer Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Captain of the Watch",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Guardian Seraph",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Serra Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Sol Ring",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Mana Drain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 40,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 4
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p7",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p24",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Ajani Goldmane",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Baneslayer Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Captain of the Watch",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Guardian Seraph",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Serra Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Sol Ring",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Mana Drain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 42,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 4
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p7",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p24",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Ajani Goldmane",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Baneslayer Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Captain of the Watch",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Guardian Seraph",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Savannah Lions",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Serra Angel",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Sol Ring",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p12",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Mana Drain",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 43,
+      "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 4
     },
@@ -3892,7 +4625,7 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 40,
+      "seq": 44,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 4
@@ -4042,485 +4775,9 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 41,
-      "stack": [
-        {
-          "controller": "Opponent",
-          "id": "p27",
-          "mana_cost": "{W}",
-          "name": "Savannah Lions"
-        }
-      ],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Mana Drain",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 43,
-      "stack": [
-        {
-          "controller": "Opponent",
-          "id": "p27",
-          "mana_cost": "{W}",
-          "name": "Savannah Lions"
-        }
-      ],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Mana Drain",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 44,
-      "stack": [
-        {
-          "controller": "Opponent",
-          "id": "p27",
-          "mana_cost": "{W}",
-          "name": "Savannah Lions"
-        }
-      ],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
       "seq": 45,
       "stack": [
         {
-          "controller": "TestPlayer",
-          "id": "p28",
-          "mana_cost": "{U}{U}",
-          "name": "Mana Drain",
-          "targets": [
-            {
-              "id": "p27",
-              "name": "Savannah Lions"
-            }
-          ]
-        },
-        {
           "controller": "Opponent",
           "id": "p27",
           "mana_cost": "{W}",
@@ -4610,7 +4867,7 @@
               "id": "p10",
               "name": "Island",
               "summoning_sick": false,
-              "tapped": true,
+              "tapped": false,
               "token": false
             },
             {
@@ -4660,165 +4917,10 @@
               "visible_to": [
                 "TestPlayer"
               ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 46,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p28",
-          "mana_cost": "{U}{U}",
-          "name": "Mana Drain",
-          "targets": [
-            {
-              "id": "p27",
-              "name": "Savannah Lions"
-            }
-          ]
-        },
-        {
-          "controller": "Opponent",
-          "id": "p27",
-          "mana_cost": "{W}",
-          "name": "Savannah Lions"
-        }
-      ],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
             },
             {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
+              "id": "p15",
+              "name": "Mana Drain",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4826,28 +4928,13 @@
           ],
           "library_size": 52,
           "life": 20,
-          "mana_pool": {
-            "C": 2
-          },
           "name": "TestPlayer"
         }
       ],
-      "priority_player": "TestPlayer",
+      "priority_player": "Opponent",
       "seq": 47,
       "stack": [
         {
-          "controller": "TestPlayer",
-          "id": "p28",
-          "mana_cost": "{U}{U}",
-          "name": "Mana Drain",
-          "targets": [
-            {
-              "id": "p27",
-              "name": "Savannah Lions"
-            }
-          ]
-        },
-        {
           "controller": "Opponent",
           "id": "p27",
           "mana_cost": "{W}",
@@ -4856,1493 +4943,9 @@
       ],
       "step": "POSTCOMBAT_MAIN",
       "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "mana_pool": {
-            "C": 2
-          },
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 50,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p28",
-          "mana_cost": "{U}{U}",
-          "name": "Mana Drain",
-          "targets": [
-            {
-              "id": "p27",
-              "name": "Savannah Lions"
-            }
-          ]
-        },
-        {
-          "controller": "Opponent",
-          "id": "p27",
-          "mana_cost": "{W}",
-          "name": "Savannah Lions"
-        }
-      ],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p15",
-              "name": "Mana Drain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "mana_pool": {
-            "C": 2
-          },
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 54,
-      "stack": [],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p15",
-              "name": "Mana Drain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p29",
-              "name": "Fact or Fiction",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 56,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p30",
-          "mana_cost": "",
-          "name": "stack ability (At the beginning of your next main phase, add {C}.)"
-        }
-      ],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 5
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p15",
-              "name": "Mana Drain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 57,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p31",
-          "mana_cost": "{3}{U}",
-          "name": "Fact or Fiction"
-        },
-        {
-          "controller": "TestPlayer",
-          "id": "p30",
-          "mana_cost": "",
-          "name": "stack ability (At the beginning of your next main phase, add {C}.)"
-        }
-      ],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 5
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p15",
-              "name": "Mana Drain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 59,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p31",
-          "mana_cost": "{3}{U}",
-          "name": "Fact or Fiction"
-        },
-        {
-          "controller": "TestPlayer",
-          "id": "p30",
-          "mana_cost": "",
-          "name": "stack ability (At the beginning of your next main phase, add {C}.)"
-        }
-      ],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 5
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p15",
-              "name": "Mana Drain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 60,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p31",
-          "mana_cost": "{3}{U}",
-          "name": "Fact or Fiction"
-        },
-        {
-          "controller": "TestPlayer",
-          "id": "p30",
-          "mana_cost": "",
-          "name": "stack ability (At the beginning of your next main phase, add {C}.)"
-        }
-      ],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 5
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p15",
-              "name": "Mana Drain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 62,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p31",
-          "mana_cost": "{3}{U}",
-          "name": "Fact or Fiction"
-        },
-        {
-          "controller": "TestPlayer",
-          "id": "p30",
-          "mana_cost": "",
-          "name": "stack ability (At the beginning of your next main phase, add {C}.)"
-        }
-      ],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 5
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p15",
-              "name": "Mana Drain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 63,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p31",
-          "mana_cost": "{3}{U}",
-          "name": "Fact or Fiction"
-        },
-        {
-          "controller": "TestPlayer",
-          "id": "p30",
-          "mana_cost": "",
-          "name": "stack ability (At the beginning of your next main phase, add {C}.)"
-        }
-      ],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 5
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p7",
-              "name": "Plains",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p24",
-              "name": "Plains",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p8",
-              "name": "Savannah Lions"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p3",
-              "name": "Ajani Goldmane",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p4",
-              "name": "Baneslayer Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Captain of the Watch",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Guardian Seraph",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p26",
-              "name": "Plains",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Serra Angel",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p10",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Island",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "p16",
-              "name": "Sol Ring",
-              "summoning_sick": false,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "p15",
-              "name": "Mana Drain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p25",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 67,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p31",
-          "mana_cost": "{3}{U}",
-          "name": "Fact or Fiction"
-        },
-        {
-          "controller": "TestPlayer",
-          "id": "p30",
-          "mana_cost": "",
-          "name": "stack ability (At the beginning of your next main phase, add {C}.)"
-        }
-      ],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 5
     }
   ],
-  "totalTurns": 5,
+  "totalTurns": 4,
   "version": 2,
   "winner": null
 }

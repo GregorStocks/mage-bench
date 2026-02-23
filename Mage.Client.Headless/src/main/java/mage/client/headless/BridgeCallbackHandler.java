@@ -2586,10 +2586,12 @@ public class BridgeCallbackHandler {
     }
 
     // Mapping from "until" parameter values to XMage PlayerAction constants (server-side yield).
+    // NOTE: "my_turn" is intentionally NOT here — it is handled as a client-side yield
+    // (checking active player) to avoid nondeterministic intermediate decision events
+    // caused by the race between sendPlayerAction and the server's next priority check.
     private static final Map<String, PlayerAction> YIELD_ACTIONS = Map.of(
         "end_of_turn", PlayerAction.PASS_PRIORITY_UNTIL_TURN_END_STEP,
-        "stack_resolved", PlayerAction.PASS_PRIORITY_UNTIL_STACK_RESOLVED,
-        "my_turn", PlayerAction.PASS_PRIORITY_UNTIL_MY_NEXT_TURN
+        "stack_resolved", PlayerAction.PASS_PRIORITY_UNTIL_STACK_RESOLVED
     );
 
     // Mapping from "until" parameter values to PhaseStep enum constants (client-side yield).
@@ -2628,8 +2630,9 @@ public class BridgeCallbackHandler {
     /**
      * Pass priority. Without until: passes once and returns. With until set to a
      * step name (upkeep, draw, etc.): client-side yield that auto-passes until
-     * the target step is reached within the current turn. With until set to a
-     * cross-turn value (end_of_turn, my_turn, stack_resolved): sets XMage's native
+     * the target step is reached within the current turn. With until=my_turn:
+     * client-side yield that auto-passes until the active player matches us.
+     * With until set to end_of_turn or stack_resolved: sets XMage's native
      * server-side yield flag, then waits for a meaningful callback.
      *
      * Both modes auto-handle mechanical callbacks (GAME_PLAY_MANA auto-cancel,
@@ -2643,8 +2646,10 @@ public class BridgeCallbackHandler {
 
         int actionsPassed = 0;
 
-        // Route the "until" parameter: check step phases first, then server-side yields
+        // Route the "until" parameter: check step phases first, then client-side
+        // my_turn, then server-side yields
         boolean yieldActive = false;
+        boolean waitingForMyTurn = false;
         PhaseStep targetStep = null;
         int yieldStartTurn = lastTurnNumber;
         if (until != null) {
@@ -2652,10 +2657,18 @@ public class BridgeCallbackHandler {
             if (targetStep != null) {
                 // Client-side step yield: do NOT sendPlayerAction.
                 yieldActive = true;
+            } else if ("my_turn".equals(until)) {
+                // Client-side "my_turn" yield: auto-pass until the active player
+                // matches us. This is intentionally NOT a server-side yield to avoid
+                // nondeterministic intermediate decision events caused by the race
+                // between sendPlayerAction and the server's next priority check.
+                waitingForMyTurn = true;
+                yieldActive = true;
             } else {
                 PlayerAction yieldAction = YIELD_ACTIONS.get(until);
                 if (yieldAction == null) {
                     var allValues = new java.util.ArrayList<>(STEP_PHASES.keySet());
+                    allValues.add("my_turn");
                     allValues.addAll(YIELD_ACTIONS.keySet());
                     var result = new HashMap<String, Object>();
                     result.put("error", "Invalid until value: " + until
@@ -2821,6 +2834,31 @@ public class BridgeCallbackHandler {
                         return result;
                     }
                     // Not at target step: auto-pass (skip playable-cards check)
+                    synchronized (actionLock) {
+                        if (pendingAction == action) {
+                            pendingAction = null;
+                        }
+                    }
+                    session.sendPlayerBoolean(action.gameId(), false);
+                    actionsPassed++;
+                    continue;
+                }
+
+                // Client-side "my_turn" yield: check if active player matches us
+                if (waitingForMyTurn) {
+                    GameView gv = actionGameView != null ? actionGameView : lastGameView;
+                    if (gv != null && client.getUsername().equals(gv.getActivePlayerName())) {
+                        // It's our turn — return to LLM
+                        Map<String, Object> result = new HashMap<>();
+                        result.put("action_pending", true);
+                        result.put("action_type", method.name());
+                        result.put("actions_passed", actionsPassed);
+                        result.put("stop_reason", "my_turn");
+                        attachUnseenChat(result);
+                        mergeActionChoices(result);
+                        return result;
+                    }
+                    // Not our turn yet: auto-pass
                     synchronized (actionLock) {
                         if (pendingAction == action) {
                             pendingAction = null;
