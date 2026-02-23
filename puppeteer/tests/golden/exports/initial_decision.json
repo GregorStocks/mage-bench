@@ -1,19 +1,16 @@
 {
   "actions": [
     {
-      "message": "TestPlayer wants to concede",
-      "seq": 2
+      "message": "TestPlayer wants to concede"
     },
     {
       "active_player": null,
-      "seq": 2,
       "turn": 1,
       "type": "turn_change"
     },
     {
       "active_player": null,
       "phase": null,
-      "seq": 2,
       "step": null,
       "turn": 1,
       "type": "phase_change"

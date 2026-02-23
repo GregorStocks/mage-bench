@@ -603,15 +603,54 @@ def _normalize_embedded_json(obj: object) -> object:
     return obj
 
 
+def _snapshot_key(snap: dict) -> tuple:
+    """Key for collapsing consecutive snapshots within the same game step."""
+    return (snap.get("turn"), snap.get("step"), snap.get("phase"), snap.get("active_player"))
+
+
+def _collapse_snapshots(snapshots: list) -> list:
+    """Collapse consecutive snapshots within the same game step.
+
+    The XMage server sends GAME_UPDATE callbacks to the spectator at
+    non-deterministic times relative to player auto-pass responses.  On
+    faster machines (CI/Linux), an opponent's instant auto-pass may be
+    processed before the server emits a GAME_UPDATE, so the spectator
+    never sees the intermediate "spell on stack, opponent has priority"
+    state.  On slower machines (macOS), the GAME_UPDATE arrives first.
+
+    This collapses runs of consecutive snapshots that share the same
+    (turn, step, phase, active_player) into a single snapshot (the last
+    in each run), making the comparison immune to GAME_UPDATE timing.
+    """
+    if not snapshots:
+        return []
+    result: list[dict] = []
+    for snap in snapshots:
+        key = _snapshot_key(snap)
+        if result and _snapshot_key(result[-1]) == key:
+            result[-1] = snap
+        else:
+            result.append(snap)
+    return result
+
+
 def _strip_volatile(data: dict) -> None:
     """Remove fields that vary between test runs from export data, in place."""
     # Top-level volatile fields
     data.pop("timestamp", None)
     data.pop("id", None)
 
-    # Strip ts from actions
+    # Strip ts and seq from actions.  seq is a monotonic counter that
+    # shifts when the server emits more or fewer intermediate GAME_UPDATEs.
     for action in data.get("actions", []):
         action.pop("ts", None)
+        action.pop("seq", None)
+
+    # Collapse and strip seq from snapshots — see _collapse_snapshots.
+    snapshots = data.get("snapshots", [])
+    for snap in snapshots:
+        snap.pop("seq", None)
+    data["snapshots"] = _collapse_snapshots(snapshots)
 
     # Strip ts from llmEvents, then sort deterministically.
     # Events from different players can interleave with sub-millisecond
