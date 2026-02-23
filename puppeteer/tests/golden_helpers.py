@@ -123,6 +123,7 @@ def run_golden_scenario(
     deck_a: str,
     deck_b: str,
     script: list[dict],
+    golden_name: str,
     player_a_name: str = "TestPlayer",
     player_b_name: str = "Opponent",
     game_type: str = "Two Player Duel",
@@ -133,6 +134,9 @@ def run_golden_scenario(
     Starts a streaming spectator (creates the game table), a replay client
     (executes scripted MCP tool calls and captures the LLM prompt), and a
     potato client (auto-responds to everything as the opponent).
+
+    Automatically asserts golden prompt and export comparisons using
+    ``golden_name`` as the file identifier.
 
     Returns the captured prompt messages array (what the LLM would see).
     """
@@ -294,7 +298,12 @@ def run_golden_scenario(
         # Read golden prompt
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_log}"
-        return json.loads(prompt_path.read_text())
+        prompt = json.loads(prompt_path.read_text())
+
+        assert_golden_prompt(golden_name, prompt)
+        assert_golden_export(golden_name, game_dir)
+
+        return prompt
 
     finally:
         for proc in procs:
@@ -313,12 +322,17 @@ def run_golden_scenario_two_replay(
     deck_b: str,
     script_a: list[dict],
     script_b: list[dict],
+    golden_name: str,
     player_a_name: str = "TestPlayer",
     player_b_name: str = "Opponent",
     game_type: str = "Two Player Duel",
     deck_type: str = "Constructed - Legacy",
 ) -> list[dict]:
-    """Run a golden test scenario with replay clients for both players."""
+    """Run a golden test scenario with replay clients for both players.
+
+    Automatically asserts golden prompt and export comparisons using
+    ``golden_name`` as the file identifier.
+    """
     game_dir.mkdir(parents=True, exist_ok=True)
 
     # Write scripts
@@ -489,7 +503,12 @@ def run_golden_scenario_two_replay(
         # Read golden prompt for player A
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_a_log}"
-        return json.loads(prompt_path.read_text())
+        prompt = json.loads(prompt_path.read_text())
+
+        assert_golden_prompt(golden_name, prompt)
+        assert_golden_export(golden_name, game_dir)
+
+        return prompt
 
     finally:
         for proc in procs:

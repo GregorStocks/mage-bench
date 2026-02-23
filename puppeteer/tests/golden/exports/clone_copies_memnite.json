@@ -43,159 +43,103 @@
       "type": "phase_change"
     },
     {
+      "message": "TestPlayer puts Island from hand onto the Battlefield",
+      "seq": 12
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "seq": 12,
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 1,
+      "type": "phase_change"
+    },
+    {
       "message": "Opponent skip attack",
-      "seq": 15
+      "seq": 17
     },
     {
       "active_player": "Opponent",
-      "seq": 15,
+      "seq": 17,
       "turn": 2,
       "type": "turn_change"
     },
     {
       "active_player": "Opponent",
       "phase": "COMBAT",
-      "seq": 15,
+      "seq": 17,
       "step": "DECLARE_ATTACKERS",
       "turn": 2,
       "type": "phase_change"
     },
     {
       "message": "Opponent discards down to 7 hand cards",
-      "seq": 20
+      "seq": 22
     },
     {
       "active_player": "Opponent",
       "phase": "END",
-      "seq": 20,
+      "seq": 22,
       "step": "CLEANUP",
       "turn": 2,
       "type": "phase_change"
     },
     {
       "message": "Opponent discards Mountain",
-      "seq": 22
+      "seq": 24
     },
     {
       "message": "TestPlayer casts Black Lotus from hand",
-      "seq": 25
+      "seq": 27
     },
     {
       "active_player": "TestPlayer",
-      "seq": 25,
+      "seq": 27,
       "turn": 3,
       "type": "turn_change"
     },
     {
       "active_player": "TestPlayer",
       "phase": "PRECOMBAT_MAIN",
-      "seq": 25,
+      "seq": 27,
       "step": "PRECOMBAT_MAIN",
       "turn": 3,
       "type": "phase_change"
     },
     {
       "message": "TestPlayer puts Black Lotus from stack onto the Battlefield",
-      "seq": 28
-    },
-    {
-      "message": "TestPlayer puts Island from hand onto the Battlefield",
       "seq": 30
     },
     {
-      "message": "TestPlayer skip attack",
+      "message": "TestPlayer casts Memnite from hand",
       "seq": 33
     },
     {
-      "active_player": "TestPlayer",
-      "phase": "COMBAT",
-      "seq": 33,
-      "step": "DECLARE_ATTACKERS",
-      "turn": 3,
-      "type": "phase_change"
+      "message": "TestPlayer puts Memnite from stack onto the Battlefield",
+      "seq": 36
     },
     {
       "message": "TestPlayer sacrificed Black Lotus (source: Black Lotus)",
-      "seq": 38
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
-      "seq": 38,
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 3,
-      "type": "phase_change"
-    },
-    {
-      "message": "TestPlayer casts Clone from hand",
       "seq": 40
     },
     {
-      "message": "TestPlayer puts Clone from stack onto the Battlefield",
-      "seq": 44
+      "message": "TestPlayer casts Clone from hand",
+      "seq": 41
     },
     {
-      "message": "Clone is put into graveyard from battlefield",
-      "seq": 45
-    },
-    {
-      "message": "Opponent skip attack",
-      "seq": 50
-    },
-    {
-      "active_player": "Opponent",
-      "seq": 50,
-      "turn": 4,
-      "type": "turn_change"
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "COMBAT",
-      "seq": 50,
-      "step": "DECLARE_ATTACKERS",
-      "turn": 4,
-      "type": "phase_change"
-    },
-    {
-      "message": "Opponent discards down to 7 hand cards",
-      "seq": 55
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "END",
-      "seq": 55,
-      "step": "CLEANUP",
-      "turn": 4,
-      "type": "phase_change"
-    },
-    {
-      "message": "Opponent discards Mountain",
-      "seq": 57
+      "message": "TestPlayer puts Memnite from stack onto the Battlefield",
+      "seq": 46
     },
     {
       "message": "TestPlayer wants to concede",
-      "seq": 59
-    },
-    {
-      "active_player": "TestPlayer",
-      "seq": 59,
-      "turn": 5,
-      "type": "turn_change"
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "seq": 59,
-      "step": "PRECOMBAT_MAIN",
-      "turn": 5,
-      "type": "phase_change"
+      "seq": 48
     }
   ],
   "cardImages": {},
   "deckType": "",
   "gameOver": {
     "message": "Game ended",
-    "seq": 60
+    "seq": 49
   },
   "gameType": "",
   "llmEvents": [
@@ -213,59 +157,9 @@
       "args": {
         "answer": true
       },
-      "gameSeq": 43,
+      "gameSeq": 44,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"yes\", \"game_seq\": 43, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "_"
-      },
-      "gameSeq": 43,
-      "player": "TestPlayer",
-      "result": "{\"error\": \"Object p10 not found in current choices\", \"error_code\": \"invalid_choice\", \"game_seq\": 43, \"retryable\": true, \"success\": false}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "_"
-      },
-      "gameSeq": 23,
-      "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 23, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_CHOOSE_ABILITY\", \"success\": true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "_"
-      },
-      "gameSeq": 11,
-      "player": "TestPlayer",
-      "result": "{\"choices\": [{\"action\": \"cast\", \"id\": \"p3\", \"index\": 0, \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\"}, {\"action\": \"land\", \"id\": \"p5\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p9\", \"index\": 5, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"error\": \"Object p4 not found in current choices\", \"error_code\": \"invalid_choice\", \"game_seq\": 11, \"retryable\": true, \"success\": false}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "_"
-      },
-      "gameSeq": 29,
-      "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_3\", \"game_seq\": 29, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 0,
-      "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_ability_0\", \"game_seq\": 0, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"action_taken\": \"yes\", \"game_seq\": 44, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -283,17 +177,59 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 36,
+      "gameSeq": 25,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 36, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 25, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_CHOOSE_ABILITY\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
     {
-      "args": {},
-      "gameSeq": 0,
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 26,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_CHOOSE_ABILITY\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"playable\": true, \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 8, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"description\": \"1. Cast Black Lotus\", \"index\": 0}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 0, \"land_drops_used\": 0, \"message\": \"Choose spell or ability to play: Black Lotus\", \"respond_with\": \"index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
+      "result": "{\"action_taken\": \"selected_ability_0\", \"game_seq\": 26, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 32,
+      "player": "TestPlayer",
+      "result": "{\"action_taken\": \"selected_ability_0\", \"game_seq\": 32, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 37,
+      "player": "TestPlayer",
+      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 37, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 1
+      },
+      "gameSeq": 11,
+      "player": "TestPlayer",
+      "result": "{\"action_taken\": \"selected_1\", \"game_seq\": 11, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 5
+      },
+      "gameSeq": 31,
+      "player": "TestPlayer",
+      "result": "{\"action_taken\": \"selected_5\", \"game_seq\": 31, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_CHOOSE_ABILITY\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -309,23 +245,23 @@
       "args": {},
       "gameSeq": 11,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"playable\": true, \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p3\", \"index\": 0, \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\"}, {\"action\": \"land\", \"id\": \"p5\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p9\", \"index\": 5, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 11, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"playable\": true, \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p10\", \"index\": 0, \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p16\", \"index\": 5, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 11, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 23,
+      "gameSeq": 25,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"playable\": true, \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 8, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p3\", \"index\": 0, \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\"}, {\"action\": \"land\", \"id\": \"p5\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p10\", \"index\": 5, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p9\", \"index\": 6, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 23, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"playable\": true, \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p10\", \"index\": 0, \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p16\", \"index\": 5, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 25, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 29,
+      "gameSeq": 26,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p4\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p5\", \"index\": 0, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p10\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p9\", \"index\": 5, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 29, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_CHOOSE_ABILITY\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"playable\": true, \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"description\": \"1. Cast Black Lotus\", \"index\": 0}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 26, \"land_drops_used\": 0, \"message\": \"Choose spell or ability to play: Black Lotus\", \"respond_with\": \"index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -333,47 +269,55 @@
       "args": {},
       "gameSeq": 3,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p3\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p4\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 ()\", \"game_seq\": 3, \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}]}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 ()\", \"game_seq\": 3, \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}]}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 36,
+      "gameSeq": 31,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"], \"tapped\": false}, {\"id\": \"p8\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p4\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"playable\": true, \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p4\", \"index\": 0, \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"toughness\": \"0\"}, {\"action\": \"cast\", \"id\": \"p9\", \"index\": 1, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 36, \"has_playable_cards\": true, \"land_drops_used\": 1, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"], \"tapped\": false}, {\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"playable\": true, \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p11\", \"index\": 0, \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"toughness\": \"0\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p16\", \"index\": 5, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 31, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 43,
+      "gameSeq": 32,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p8\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"p3\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}], \"hand\": [{\"id\": \"p5\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 43, \"land_drops_used\": 1, \"message\": \"Use effect of Clone?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stack\": [{\"name\": \"Clone\"}], \"stop_reason\": \"non_priority_action\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_CHOOSE_ABILITY\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"], \"tapped\": false}, {\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"playable\": true, \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"description\": \"1. Cast Memnite\", \"index\": 0}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 32, \"land_drops_used\": 0, \"message\": \"Choose spell or ability to play: Memnite\", \"respond_with\": \"index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 43,
+      "gameSeq": 37,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p8\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"p3\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}], \"hand\": [{\"id\": \"p5\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 43, \"land_drops_used\": 1, \"message\": \"Use effect of Clone?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stack\": [{\"name\": \"Clone\"}], \"stop_reason\": \"non_priority_action\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"], \"tapped\": false}, {\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Memnite\", \"power\": \"1\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"playable\": true, \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p11\", \"index\": 0, \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"toughness\": \"0\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 4, \"name\": \"Island\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 37, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 58,
+      "gameSeq": 44,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"battlefield\": [{\"id\": \"p8\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p3\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p4\", \"name\": \"Clone\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"]}], \"hand\": [{\"id\": \"p5\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p13\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p5\", \"index\": 0, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p10\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p9\", \"index\": 5, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 58, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Memnite\", \"power\": \"1\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"graveyard\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}], \"hand\": [{\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 44, \"land_drops_used\": 0, \"message\": \"Use effect of Clone?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stack\": [{\"name\": \"Clone\"}], \"stop_reason\": \"non_priority_action\"}",
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 58,
+      "gameSeq": 47,
       "player": "TestPlayer",
-      "result": "{\"active_player\": \"TestPlayer\", \"available\": true, \"cursor\": 1, \"game_seq\": 58, \"phase\": \"Precombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"p8\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p3\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p4\", \"name\": \"Clone\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"]}], \"hand\": [{\"id\": \"p5\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p10\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p11\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p13\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [], \"step\": \"Precombat Main\", \"turn\": 3}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 1, \"board\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"copy\": true, \"id\": \"p11\", \"modified\": true, \"name\": \"Memnite\", \"original_card\": \"Clone\", \"power\": \"1\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}, {\"id\": \"p16\", \"name\": \"Memnite\", \"power\": \"1\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"graveyard\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}], \"hand\": [{\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p13\", \"index\": 0, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 3, \"name\": \"Island\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 47, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "gameSeq": 47,
+      "player": "TestPlayer",
+      "result": "{\"active_player\": \"TestPlayer\", \"available\": true, \"cursor\": 1, \"game_seq\": 47, \"phase\": \"Precombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"copy\": true, \"id\": \"p11\", \"modified\": true, \"name\": \"Memnite\", \"original_card\": \"Clone\", \"power\": \"1\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}, {\"id\": \"p16\", \"name\": \"Memnite\", \"power\": \"1\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"graveyard\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}], \"hand\": [{\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [], \"step\": \"Precombat Main\", \"turn\": 2}",
       "tool": "",
       "type": "tool_call"
     },
@@ -435,49 +379,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -494,49 +438,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -564,49 +508,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -623,49 +567,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -693,49 +637,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -752,49 +696,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -822,49 +766,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -881,49 +825,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -951,49 +895,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -1010,49 +954,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -1080,49 +1024,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -1139,49 +1083,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -1209,49 +1153,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -1263,54 +1207,187 @@
           "name": "Opponent"
         },
         {
-          "battlefield": [],
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
+              "name": "Memnite",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 13,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 1
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Black Lotus",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Clone",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -1323,7 +1400,7 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 12,
+      "seq": 14,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 1
@@ -1338,56 +1415,56 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -1399,54 +1476,56 @@
           "name": "Opponent"
         },
         {
-          "battlefield": [],
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -1459,7 +1538,7 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 13,
+      "seq": 15,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 2
@@ -1474,56 +1553,56 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -1535,54 +1614,56 @@
           "name": "Opponent"
         },
         {
-          "battlefield": [],
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -1595,7 +1676,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 14,
+      "seq": 16,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 2
@@ -1610,192 +1691,56 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Black Lotus",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Clone",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 53,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 16,
-      "stack": [],
-      "step": "DECLARE_ATTACKERS",
-      "turn": 2
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "COMBAT",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -1807,190 +1752,56 @@
           "name": "Opponent"
         },
         {
-          "battlefield": [],
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 53,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 17,
-      "stack": [],
-      "step": "DECLARE_ATTACKERS",
-      "turn": 2
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Black Lotus",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Clone",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -2005,12 +1816,12 @@
       "priority_player": "Opponent",
       "seq": 18,
       "stack": [],
-      "step": "POSTCOMBAT_MAIN",
+      "step": "DECLARE_ATTACKERS",
       "turn": 2
     },
     {
       "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
+      "phase": "COMBAT",
       "players": [
         {
           "battlefield": [],
@@ -2018,56 +1829,56 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -2079,54 +1890,56 @@
           "name": "Opponent"
         },
         {
-          "battlefield": [],
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -2141,6 +1954,282 @@
       "priority_player": "TestPlayer",
       "seq": 19,
       "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Black Lotus",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Clone",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Memnite",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 20,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Black Lotus",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Clone",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Memnite",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 21,
+      "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 2
     },
@@ -2154,56 +2243,56 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -2215,54 +2304,56 @@
           "name": "Opponent"
         },
         {
-          "battlefield": [],
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            }
+          ],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -2275,7 +2366,7 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 21,
+      "seq": 23,
       "stack": [],
       "step": "CLEANUP",
       "turn": 2
@@ -2289,55 +2380,55 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -2349,61 +2440,63 @@
           "name": "Opponent"
         },
         {
-          "battlefield": [],
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -2416,7 +2509,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 23,
+      "seq": 25,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 3
@@ -2430,55 +2523,55 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -2490,54 +2583,56 @@
           "name": "Opponent"
         },
         {
-          "battlefield": [],
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -2550,11 +2645,11 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 26,
+      "seq": 28,
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "_",
+          "id": "p25",
           "mana_cost": "{0}",
           "name": "Black Lotus"
         }
@@ -2571,55 +2666,55 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -2631,54 +2726,56 @@
           "name": "Opponent"
         },
         {
-          "battlefield": [],
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -2691,11 +2788,11 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 27,
+      "seq": 29,
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "_",
+          "id": "p25",
           "mana_cost": "{0}",
           "name": "Black Lotus"
         }
@@ -2712,55 +2809,55 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -2775,9 +2872,17 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": false,
               "tapped": false,
               "token": false
             }
@@ -2786,193 +2891,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 29,
-      "stack": [],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 3
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Black Lotus",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Clone",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p16",
               "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
@@ -2999,55 +2953,55 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -3062,7 +3016,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "summoning_sick": true,
               "tapped": false,
@@ -3070,9 +3024,9 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p12",
               "name": "Island",
-              "summoning_sick": true,
+              "summoning_sick": false,
               "tapped": false,
               "token": false
             }
@@ -3081,187 +3035,36 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 32,
-      "stack": [],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 3
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "COMBAT",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Black Lotus",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Clone",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3274,68 +3077,75 @@
       ],
       "priority_player": "TestPlayer",
       "seq": 34,
-      "stack": [],
-      "step": "DECLARE_ATTACKERS",
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p26",
+          "mana_cost": "{0}",
+          "name": "Memnite"
+        }
+      ],
+      "step": "PRECOMBAT_MAIN",
       "turn": 3
     },
     {
       "active_player": "TestPlayer",
-      "phase": "COMBAT",
+      "phase": "PRECOMBAT_MAIN",
       "players": [
         {
           "battlefield": [],
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -3350,7 +3160,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "summoning_sick": true,
               "tapped": false,
@@ -3358,9 +3168,9 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p12",
               "name": "Island",
-              "summoning_sick": true,
+              "summoning_sick": false,
               "tapped": false,
               "token": false
             }
@@ -3369,43 +3179,36 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3418,68 +3221,75 @@
       ],
       "priority_player": "Opponent",
       "seq": 35,
-      "stack": [],
-      "step": "DECLARE_ATTACKERS",
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p26",
+          "mana_cost": "{0}",
+          "name": "Memnite"
+        }
+      ],
+      "step": "PRECOMBAT_MAIN",
       "turn": 3
     },
     {
       "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
+      "phase": "PRECOMBAT_MAIN",
       "players": [
         {
           "battlefield": [],
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -3494,7 +3304,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus",
               "summoning_sick": true,
               "tapped": false,
@@ -3502,191 +3312,57 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p12",
               "name": "Island",
-              "summoning_sick": true,
+              "summoning_sick": false,
               "tapped": false,
               "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Memnite",
+              "power": 1,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
             }
           ],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Clone",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 36,
-      "stack": [],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 3
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Black Lotus",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            },
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3699,75 +3375,68 @@
       ],
       "priority_player": "TestPlayer",
       "seq": 37,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "_",
-          "mana_cost": "{3}{U}",
-          "name": "Clone"
-        }
-      ],
-      "step": "POSTCOMBAT_MAIN",
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
       "turn": 3
     },
     {
       "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
+      "phase": "PRECOMBAT_MAIN",
       "players": [
         {
           "battlefield": [],
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -3782,52 +3451,205 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
-              "name": "Island",
+              "id": "p10",
+              "name": "Black Lotus",
               "summoning_sick": true,
               "tapped": false,
               "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Memnite",
+              "power": 1,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
             }
           ],
           "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 38,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p27",
+          "mana_cost": "{3}{U}",
+          "name": "Clone"
+        }
+      ],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
           "graveyard": [
             {
-              "id": "_",
-              "name": "Black Lotus"
+              "id": "p3",
+              "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
-              "name": "Island",
+              "id": "p4",
+              "name": "Mountain",
               "visible_to": [
-                "TestPlayer"
+                "Opponent"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
+              "id": "p5",
+              "name": "Mountain",
               "visible_to": [
-                "TestPlayer"
+                "Opponent"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
+              "id": "p6",
+              "name": "Mountain",
               "visible_to": [
-                "TestPlayer"
+                "Opponent"
               ]
             },
             {
-              "id": "_",
-              "name": "Island",
+              "id": "p7",
+              "name": "Mountain",
               "visible_to": [
-                "TestPlayer"
+                "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Black Lotus",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Island",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
               "name": "Memnite",
+              "power": 1,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Island",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3843,72 +3665,72 @@
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "_",
+          "id": "p27",
           "mana_cost": "{3}{U}",
           "name": "Clone"
         }
       ],
-      "step": "POSTCOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
       "turn": 3
     },
     {
       "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
+      "phase": "PRECOMBAT_MAIN",
       "players": [
         {
           "battlefield": [],
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -3923,52 +3745,55 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p12",
               "name": "Island",
-              "summoning_sick": true,
+              "summoning_sick": false,
               "tapped": true,
               "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Memnite",
+              "power": 1,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
             }
           ],
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -3980,217 +3805,76 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 41,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "_",
-          "mana_cost": "{3}{U}",
-          "name": "Clone"
-        }
-      ],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 3
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
       "seq": 42,
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "_",
+          "id": "p27",
           "mana_cost": "{3}{U}",
           "name": "Clone"
         }
       ],
-      "step": "POSTCOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
       "turn": 3
     },
     {
       "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
+      "phase": "PRECOMBAT_MAIN",
       "players": [
         {
           "battlefield": [],
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
@@ -4205,52 +3889,55 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p12",
               "name": "Island",
-              "summoning_sick": true,
+              "summoning_sick": false,
               "tapped": true,
               "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Memnite",
+              "power": 1,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
             }
           ],
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4261,297 +3948,21 @@
           "name": "TestPlayer"
         }
       ],
-      "priority_player": "TestPlayer",
+      "priority_player": "Opponent",
       "seq": 43,
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "_",
+          "id": "p27",
           "mana_cost": "{3}{U}",
           "name": "Clone"
         }
       ],
-      "step": "POSTCOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
       "turn": 3
     },
     {
       "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus"
-            },
-            {
-              "id": "_",
-              "name": "Clone"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 46,
-      "stack": [],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 3
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus"
-            },
-            {
-              "id": "_",
-              "name": "Clone"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 47,
-      "stack": [],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 3
-    },
-    {
-      "active_player": "Opponent",
       "phase": "PRECOMBAT_MAIN",
       "players": [
         {
@@ -4559,69 +3970,62 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Mountain"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
+              "id": "p23",
               "name": "Mountain",
               "visible_to": [
                 "Opponent"
               ]
             }
           ],
-          "library_size": 51,
+          "library_size": 52,
           "life": 20,
           "name": "Opponent"
         },
@@ -4629,56 +4033,55 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p12",
               "name": "Island",
-              "summoning_sick": true,
+              "summoning_sick": false,
               "tapped": true,
               "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p16",
+              "name": "Memnite",
+              "power": 1,
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false,
+              "toughness": 1
             }
           ],
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Black Lotus"
-            },
-            {
-              "id": "_",
-              "name": "Clone"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p13",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Island",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -4689,884 +4092,21 @@
           "name": "TestPlayer"
         }
       ],
-      "priority_player": "Opponent",
-      "seq": 48,
-      "stack": [],
+      "priority_player": "TestPlayer",
+      "seq": 44,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p27",
+          "mana_cost": "{3}{U}",
+          "name": "Clone"
+        }
+      ],
       "step": "PRECOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "PRECOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus"
-            },
-            {
-              "id": "_",
-              "name": "Clone"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 49,
-      "stack": [],
-      "step": "PRECOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "COMBAT",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus"
-            },
-            {
-              "id": "_",
-              "name": "Clone"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 51,
-      "stack": [],
-      "step": "DECLARE_ATTACKERS",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "COMBAT",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus"
-            },
-            {
-              "id": "_",
-              "name": "Clone"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 52,
-      "stack": [],
-      "step": "DECLARE_ATTACKERS",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus"
-            },
-            {
-              "id": "_",
-              "name": "Clone"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 53,
-      "stack": [],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus"
-            },
-            {
-              "id": "_",
-              "name": "Clone"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 54,
-      "stack": [],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 4
-    },
-    {
-      "active_player": "Opponent",
-      "phase": "END",
-      "players": [
-        {
-          "battlefield": [],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 51,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "_",
-              "name": "Island",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Black Lotus"
-            },
-            {
-              "id": "_",
-              "name": "Clone"
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Island",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Memnite",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "Opponent",
-      "seq": 56,
-      "stack": [],
-      "step": "CLEANUP",
-      "turn": 4
+      "turn": 3
     }
   ],
-  "totalTurns": 4,
+  "totalTurns": 3,
   "version": 2,
   "winner": null
 }

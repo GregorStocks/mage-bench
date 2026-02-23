@@ -5,8 +5,6 @@ import pytest
 from tests.golden_helpers import (
     DECK_ANCIENT_STIRRINGS,
     DECK_FILLER,
-    assert_golden_export,
-    assert_golden_prompt,
     run_golden_scenario,
 )
 
@@ -53,6 +51,7 @@ def test_ancient_stirrings_short_id_conflict(xmage_server, tmp_path, project_roo
             # Before fix: triggers "UUID already mapped to different short ID" error.
             {"name": "get_game_state", "arguments": {}},
         ],
+        golden_name="ancient_stirrings_short_id",
     )
 
     # Assert no short ID conflict errors in any tool result.
@@ -65,6 +64,3 @@ def test_ancient_stirrings_short_id_conflict(xmage_server, tmp_path, project_roo
             assert "Short ID already mapped to different UUID" not in content, (
                 f"Short ID conflict in tool result: {content[:300]}"
             )
-
-    assert_golden_prompt("ancient_stirrings_short_id", prompt)
-    assert_golden_export("ancient_stirrings_short_id", tmp_path / "ancient_stirrings")

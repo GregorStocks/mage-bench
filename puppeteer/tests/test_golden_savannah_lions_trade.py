@@ -4,8 +4,6 @@ import pytest
 
 from tests.golden_helpers import (
     DECK_SAVANNAH_LIONS,
-    assert_golden_export,
-    assert_golden_prompt,
     run_golden_scenario_two_replay,
 )
 
@@ -22,7 +20,7 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root):
     - Capture state at postcombat main with both Lions in graveyards.
     """
     server, port = xmage_server
-    prompt = run_golden_scenario_two_replay(
+    run_golden_scenario_two_replay(
         server=server,
         port=port,
         project_root=project_root,
@@ -69,6 +67,5 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root):
             # Stay alive until P1's script finishes.
             {"name": "pass_priority", "arguments": {}},
         ],
+        golden_name="savannah_lions_trade",
     )
-    assert_golden_prompt("savannah_lions_trade", prompt)
-    assert_golden_export("savannah_lions_trade", tmp_path / "savannah_lions_trade")

@@ -5,7 +5,6 @@ import pytest
 from tests.golden_helpers import (
     DECK_MANA_DRAIN_FOF,
     DECK_PLAINS_LIONS,
-    assert_golden_prompt,
     run_golden_scenario_two_replay,
 )
 
@@ -23,7 +22,7 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root):
     - P1: choose the 3-card pile
     """
     server, port = xmage_server
-    prompt = run_golden_scenario_two_replay(
+    run_golden_scenario_two_replay(
         server=server,
         port=port,
         project_root=project_root,
@@ -82,5 +81,5 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root):
             # Stay alive until game ends.
             {"name": "pass_priority", "arguments": {}},
         ],
+        golden_name="mana_drain_fact_or_fiction",
     )
-    assert_golden_prompt("mana_drain_fact_or_fiction", prompt)

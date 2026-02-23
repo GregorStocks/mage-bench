@@ -5,8 +5,6 @@ import pytest
 from tests.golden_helpers import (
     DECK_DARK_DEPTHS_COMBO,
     DECK_FILLER,
-    assert_golden_export,
-    assert_golden_prompt,
     run_golden_scenario,
 )
 
@@ -24,7 +22,7 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root):
     attack T5 for lethal.
     """
     server, port = xmage_server
-    prompt = run_golden_scenario(
+    run_golden_scenario(
         server=server,
         port=port,
         project_root=project_root,
@@ -73,6 +71,5 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root):
             # Capture final state.
             {"name": "get_game_state", "arguments": {}},
         ],
+        golden_name="dark_depths_combo",
     )
-    assert_golden_prompt("dark_depths_combo", prompt)
-    assert_golden_export("dark_depths_combo", tmp_path / "dark_depths_combo")

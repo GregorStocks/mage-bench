@@ -5,8 +5,6 @@ import pytest
 from tests.golden_helpers import (
     DECK_GOBLINS,
     DECK_RED_STOMPY,
-    assert_golden_export,
-    assert_golden_prompt,
     run_golden_scenario,
 )
 
@@ -20,7 +18,7 @@ def test_initial_decision(xmage_server, tmp_path, project_root):
     at this point — system prompt, initial user message, and two tool results.
     """
     server, port = xmage_server
-    prompt = run_golden_scenario(
+    run_golden_scenario(
         server=server,
         port=port,
         project_root=project_root,
@@ -31,6 +29,5 @@ def test_initial_decision(xmage_server, tmp_path, project_root):
             {"name": "pass_priority", "arguments": {}},
             {"name": "get_game_state", "arguments": {}},
         ],
+        golden_name="initial_decision",
     )
-    assert_golden_prompt("initial_decision", prompt)
-    assert_golden_export("initial_decision", tmp_path / "initial_decision")

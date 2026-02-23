@@ -5,7 +5,6 @@ import pytest
 from tests.golden_helpers import (
     DECK_CLONE_AND_MEMNITE,
     DECK_FILLER,
-    assert_golden_prompt,
     run_golden_scenario,
 )
 
@@ -14,7 +13,7 @@ from tests.golden_helpers import (
 def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
     """Clone enters as a copy of Memnite — verifies copy effect representation."""
     server, port = xmage_server
-    prompt = run_golden_scenario(
+    run_golden_scenario(
         server=server,
         port=port,
         project_root=project_root,
@@ -47,5 +46,5 @@ def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
             {"name": "pass_priority", "arguments": {}},
             {"name": "get_game_state", "arguments": {}},
         ],
+        golden_name="clone_copies_memnite",
     )
-    assert_golden_prompt("clone_copies_memnite", prompt)
