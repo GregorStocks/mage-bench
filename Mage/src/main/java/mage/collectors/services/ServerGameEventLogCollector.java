@@ -75,13 +75,23 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
         GameEventLogger gel = new GameEventLogger(game.getId(), gameLogDir);
         loggers.put(game.getId(), gel);
 
+        // Pre-assign short IDs to player UUIDs in sorted name order.
+        // Player UUIDs appear as targets in early events (e.g. "Select a starting player")
+        // and the assignment order must be deterministic regardless of join order.
+        ShortIdRegistry registry = game.getShortIdRegistry();
+        List<Player> sortedPlayers = new ArrayList<>(game.getPlayers().values());
+        sortedPlayers.sort(Comparator.comparing(Player::getName));
+        for (Player player : sortedPlayers) {
+            registry.getOrAssign(player.getId());
+        }
+
         // Write game_start event
         Map<String, Object> event = new LinkedHashMap<>();
         event.put("seq", 0);
         event.put("type", "game_start");
 
         List<Map<String, Object>> players = new ArrayList<>();
-        for (Player player : game.getPlayers().values()) {
+        for (Player player : sortedPlayers) {
             Map<String, Object> p = new LinkedHashMap<>();
             p.put("name", player.getName());
             players.add(p);
