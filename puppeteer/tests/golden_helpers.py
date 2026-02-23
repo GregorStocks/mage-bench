@@ -25,7 +25,6 @@ GOLDEN_EXPORTS_DIR = Path(__file__).resolve().parent / "golden" / "exports"
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
 SPECTATOR_READY_TIMEOUT_SECONDS = 240
-VOLATILE_PROMPT_INT_FIELDS = {"game_seq"}
 
 # Default decks for tests (relative to project root)
 DECK_RED_STOMPY = "Mage.Client/release/sample-decks/Legacy/Red-Stompy.dck"
@@ -536,9 +535,6 @@ def _normalize_prompt_for_golden(obj: object) -> object:
     if isinstance(obj, dict):
         out: dict[str, object] = {}
         for key, value in obj.items():
-            if key in VOLATILE_PROMPT_INT_FIELDS and isinstance(value, int):
-                out[key] = 0
-                continue
             if key == "id" and _is_short_id(value):
                 out[key] = "_"
                 continue

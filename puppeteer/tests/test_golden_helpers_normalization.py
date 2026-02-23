@@ -28,10 +28,10 @@ def test_normalize_embedded_json_handles_nested_json_strings():
     assert json.loads(parsed["outer"]) == {"id": "p9", "k": 2}
 
 
-def test_normalize_prompt_neutralizes_game_seq():
+def test_normalize_prompt_preserves_game_seq():
     payload = [{"content": '{"game_seq":77,"id":"p3","nested":{"game_seq":12}}'}]
 
     normalized = _normalize_prompt_for_golden(payload)
     parsed = json.loads(normalized[0]["content"])
 
-    assert parsed == {"game_seq": 0, "id": "_", "nested": {"game_seq": 0}}
+    assert parsed == {"game_seq": 77, "id": "_", "nested": {"game_seq": 12}}
