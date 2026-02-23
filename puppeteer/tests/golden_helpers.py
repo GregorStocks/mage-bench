@@ -566,20 +566,6 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
         )
 
 
-def _strip_short_ids(obj: object) -> object:
-    """Recursively strip short IDs (pN) from export data.
-
-    Multiple copies of the same card (e.g. 7 Mountains) are interchangeable,
-    but XMage may discard or draw them in non-deterministic order between runs,
-    cascading into different game trajectories. Stripping IDs makes the golden
-    comparison robust to these variations.
-    """
-    if isinstance(obj, dict):
-        return {k: ("_" if k == "id" else _strip_short_ids(v)) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [_strip_short_ids(item) for item in obj]
-    return obj
-
 
 def _normalize_embedded_json(obj: object) -> object:
     """Recursively normalize embedded JSON strings for deterministic key order.
@@ -587,7 +573,6 @@ def _normalize_embedded_json(obj: object) -> object:
     MCP tool results are serialized as JSON strings within the export data.
     The key order in these strings can vary between runs (e.g. {"blocks":"p10","id":"p7"}
     vs {"id":"p7","blocks":"p10"}). Parse and re-serialize with sorted keys.
-    Also strip short IDs inside parsed JSON payloads.
     """
     if isinstance(obj, dict):
         return {k: _normalize_embedded_json(v) for k, v in obj.items()}
@@ -596,7 +581,6 @@ def _normalize_embedded_json(obj: object) -> object:
     elif isinstance(obj, str) and obj.startswith(("{", "[")):
         try:
             parsed = json.loads(obj)
-            parsed = _strip_short_ids(parsed)
             parsed = _normalize_embedded_json(parsed)
             return json.dumps(parsed, sort_keys=True, ensure_ascii=False)
         except (json.JSONDecodeError, ValueError):
@@ -635,7 +619,6 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
 
     export_data = build_export(game_dir)
     _strip_volatile(export_data)
-    export_data = _strip_short_ids(export_data)
     export_data = _normalize_embedded_json(export_data)
     actual_json = _to_sorted_json(export_data)
     golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json"

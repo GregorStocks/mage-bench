@@ -303,7 +303,7 @@
       },
       "gameSeq": 54,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 3, \"board\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"_\", \"name\": \"Savannah Lions\"}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"_\", \"name\": \"Savannah Lions\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"_\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"current_step\": \"Postcombat Main\", \"game_seq\": 54, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"reached_step\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 3, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p16\", \"name\": \"Savannah Lions\"}], \"hand\": [{\"id\": \"p11\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p26\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"p9\", \"name\": \"Savannah Lions\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p11\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p26\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"current_step\": \"Postcombat Main\", \"game_seq\": 54, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"reached_step\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -311,7 +311,7 @@
       "args": {},
       "gameSeq": 1,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 60, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"_\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"_\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"game_seq\": 1, \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"actions_passed\": 0, \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 60, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"game_seq\": 1, \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -319,7 +319,7 @@
       "args": {},
       "gameSeq": 11,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"_\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 11, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"hand\": [{\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p11\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p10\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p11\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 11, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -327,7 +327,7 @@
       "args": {},
       "gameSeq": 21,
       "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 8, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"_\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"land\", \"id\": \"_\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 5, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 6, \"name\": \"Plains\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"game_seq\": 21, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 4, \"board\": [{\"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 8, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 5, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p3\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p4\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p5\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p6\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p7\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p8\", \"index\": 5, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 6, \"name\": \"Plains\"}], \"context\": \"T1 Precombat Main/Precombat Main (Opponent) YOUR_MAIN\", \"game_seq\": 21, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -335,7 +335,7 @@
       "args": {},
       "gameSeq": 3,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 ()\", \"game_seq\": 3, \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}]}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p10\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p11\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 ()\", \"game_seq\": 3, \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}]}",
       "tool": "",
       "type": "tool_call"
     },
@@ -343,7 +343,7 @@
       "args": {},
       "gameSeq": 36,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 6, \"board\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"_\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"_\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"_\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"_\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 36, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 6, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p11\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p26\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p9\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p11\", \"index\": 0, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p26\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 36, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -351,7 +351,7 @@
       "args": {},
       "gameSeq": 38,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"_\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"_\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"choice_type\": \"attacker\", \"id\": \"_\", \"index\": 0, \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}, {\"choice_type\": \"special\", \"id\": \"_\", \"index\": 1, \"name\": \"All attack\"}], \"combat_phase\": \"attackers\", \"context\": \"T2 Combat/Declare Attackers (TestPlayer)\", \"game_seq\": 38, \"message\": \"Select attackers\", \"respond_with\": \"attackers=[\\\"p1\\\",...] or answer=true (confirm) or answer=false (skip)\", \"response_type\": \"select\", \"stop_reason\": \"combat\", \"untapped_lands\": 1}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 0, \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p11\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p26\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p9\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"choice_type\": \"attacker\", \"id\": \"p16\", \"index\": 0, \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}, {\"choice_type\": \"special\", \"id\": \"all\", \"index\": 1, \"name\": \"All attack\"}], \"combat_phase\": \"attackers\", \"context\": \"T2 Combat/Declare Attackers (TestPlayer)\", \"game_seq\": 38, \"message\": \"Select attackers\", \"respond_with\": \"attackers=[\\\"p1\\\",...] or answer=true (confirm) or answer=false (skip)\", \"response_type\": \"select\", \"stop_reason\": \"combat\", \"untapped_lands\": 1}",
       "tool": "",
       "type": "tool_call"
     },
@@ -359,7 +359,7 @@
       "args": {},
       "gameSeq": 4,
       "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"context\": \"T1 ()\", \"game_seq\": 4, \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}]}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"actions_passed\": 0, \"board\": [{\"hand\": [{\"id\": \"p3\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p9\", \"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}], \"context\": \"T1 ()\", \"game_seq\": 4, \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"mana_cost\": \"{W}\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}]}",
       "tool": "",
       "type": "tool_call"
     },
@@ -367,7 +367,7 @@
       "args": {},
       "gameSeq": 43,
       "player": "Opponent",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 6, \"board\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"_\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"_\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": true, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": true, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"choice_type\": \"blocker\", \"id\": \"_\", \"index\": 0, \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"combat\": [{\"attackers\": [{\"id\": \"_\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"blocked\": false, \"defending\": \"Opponent\"}], \"combat_phase\": \"blockers\", \"context\": \"T2 Combat/Declare Blockers (TestPlayer)\", \"game_seq\": 43, \"incoming_attackers\": [{\"id\": \"_\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"message\": \"Select blockers\", \"respond_with\": \"blockers=[{\\\"id\\\":\\\"pN\\\",\\\"blocks\\\":\\\"pM\\\"},...] or answer=true (confirm) or answer=false (skip)\", \"response_type\": \"select\", \"stop_reason\": \"combat\"}",
+      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 6, \"board\": [{\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}, {\"id\": \"p9\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p4\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p5\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p6\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p7\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p8\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": false, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}, {\"battlefield\": [{\"id\": \"p10\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"summoning_sick\": false, \"tapped\": true, \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": true, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}], \"choices\": [{\"choice_type\": \"blocker\", \"id\": \"p9\", \"index\": 0, \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"combat\": [{\"attackers\": [{\"id\": \"p16\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"blocked\": false, \"defending\": \"Opponent\"}], \"combat_phase\": \"blockers\", \"context\": \"T2 Combat/Declare Blockers (TestPlayer)\", \"game_seq\": 43, \"incoming_attackers\": [{\"id\": \"p16\", \"name\": \"Savannah Lions\", \"power\": \"2\", \"toughness\": \"1\"}], \"message\": \"Select blockers\", \"respond_with\": \"blockers=[{\\\"id\\\":\\\"pN\\\",\\\"blocks\\\":\\\"pM\\\"},...] or answer=true (confirm) or answer=false (skip)\", \"response_type\": \"select\", \"stop_reason\": \"combat\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -375,7 +375,7 @@
       "args": {},
       "gameSeq": 54,
       "player": "TestPlayer",
-      "result": "{\"active_player\": \"TestPlayer\", \"available\": true, \"cursor\": 1, \"game_seq\": 54, \"phase\": \"Postcombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"_\", \"name\": \"Savannah Lions\"}], \"hand\": [{\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"_\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"_\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"_\", \"name\": \"Savannah Lions\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [], \"step\": \"Postcombat Main\", \"turn\": 2}",
+      "result": "{\"active_player\": \"TestPlayer\", \"available\": true, \"cursor\": 1, \"game_seq\": 54, \"phase\": \"Postcombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": false}], \"graveyard\": [{\"id\": \"p16\", \"name\": \"Savannah Lions\"}], \"hand\": [{\"id\": \"p11\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p26\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"battlefield\": [{\"id\": \"p3\", \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"], \"tapped\": true}], \"graveyard\": [{\"id\": \"p9\", \"name\": \"Savannah Lions\"}], \"hand_size\": 6, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [], \"step\": \"Postcombat Main\", \"turn\": 2}",
       "tool": "",
       "type": "tool_call"
     },
@@ -460,49 +460,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -519,49 +519,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "visible_to": [
                 "TestPlayer"
@@ -589,49 +589,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -648,49 +648,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "visible_to": [
                 "TestPlayer"
@@ -718,49 +718,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -777,49 +777,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "visible_to": [
                 "TestPlayer"
@@ -847,49 +847,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -906,49 +906,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "visible_to": [
                 "TestPlayer"
@@ -976,49 +976,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -1035,49 +1035,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "visible_to": [
                 "TestPlayer"
@@ -1105,49 +1105,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -1164,49 +1164,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "visible_to": [
                 "TestPlayer"
@@ -1234,49 +1234,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -1291,7 +1291,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": false,
@@ -1302,42 +1302,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "visible_to": [
                 "TestPlayer"
@@ -1365,49 +1365,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -1422,7 +1422,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": false,
@@ -1433,35 +1433,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -1478,7 +1478,7 @@
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "_",
+          "id": "p23",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -1496,49 +1496,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -1553,7 +1553,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -1564,35 +1564,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -1609,7 +1609,7 @@
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "_",
+          "id": "p23",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -1627,49 +1627,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -1684,7 +1684,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -1695,35 +1695,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -1740,7 +1740,7 @@
       "stack": [
         {
           "controller": "TestPlayer",
-          "id": "_",
+          "id": "p23",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -1758,49 +1758,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -1815,7 +1815,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -1823,7 +1823,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -1836,35 +1836,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -1892,49 +1892,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -1949,7 +1949,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -1957,7 +1957,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -1970,35 +1970,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2026,56 +2026,56 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -2090,7 +2090,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2098,7 +2098,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -2111,35 +2111,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2165,7 +2165,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": false,
@@ -2176,49 +2176,49 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "visible_to": [
                 "Opponent"
@@ -2233,7 +2233,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2241,7 +2241,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -2254,35 +2254,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2308,7 +2308,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": false,
@@ -2319,42 +2319,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -2369,7 +2369,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2377,7 +2377,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -2390,35 +2390,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2435,7 +2435,7 @@
       "stack": [
         {
           "controller": "Opponent",
-          "id": "_",
+          "id": "p25",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -2451,7 +2451,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2462,42 +2462,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -2512,7 +2512,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2520,7 +2520,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -2533,35 +2533,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2578,7 +2578,7 @@
       "stack": [
         {
           "controller": "Opponent",
-          "id": "_",
+          "id": "p25",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -2594,7 +2594,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2605,42 +2605,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -2655,7 +2655,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2663,7 +2663,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -2676,35 +2676,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2721,7 +2721,7 @@
       "stack": [
         {
           "controller": "Opponent",
-          "id": "_",
+          "id": "p25",
           "mana_cost": "{W}",
           "name": "Savannah Lions"
         }
@@ -2737,7 +2737,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2745,7 +2745,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -2758,42 +2758,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -2808,7 +2808,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2816,7 +2816,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -2829,35 +2829,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -2883,7 +2883,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2891,7 +2891,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -2904,42 +2904,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -2954,7 +2954,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -2962,7 +2962,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -2975,35 +2975,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -3029,7 +3029,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3037,7 +3037,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3050,42 +3050,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -3100,7 +3100,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3108,7 +3108,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3121,35 +3121,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -3175,7 +3175,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3183,7 +3183,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3196,42 +3196,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -3246,7 +3246,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3254,7 +3254,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3267,35 +3267,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -3321,7 +3321,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3329,7 +3329,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3342,42 +3342,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -3392,7 +3392,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3400,7 +3400,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3413,35 +3413,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -3467,7 +3467,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3475,7 +3475,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3488,42 +3488,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -3538,7 +3538,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3546,7 +3546,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3559,35 +3559,35 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -3613,7 +3613,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3621,7 +3621,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3634,42 +3634,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -3684,7 +3684,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -3692,7 +3692,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
@@ -3705,42 +3705,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -3766,7 +3766,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3774,7 +3774,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3787,42 +3787,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -3837,7 +3837,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -3845,7 +3845,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
@@ -3858,42 +3858,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -3919,7 +3919,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -3927,7 +3927,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -3940,42 +3940,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -3990,7 +3990,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -3998,7 +3998,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
@@ -4011,42 +4011,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -4070,7 +4070,7 @@
         {
           "attackers": [
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -4086,7 +4086,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -4094,7 +4094,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -4107,42 +4107,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -4157,7 +4157,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -4165,7 +4165,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
@@ -4178,42 +4178,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -4237,7 +4237,7 @@
         {
           "attackers": [
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -4253,7 +4253,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -4261,7 +4261,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -4274,42 +4274,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -4324,7 +4324,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -4332,7 +4332,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
@@ -4345,42 +4345,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -4404,7 +4404,7 @@
         {
           "attackers": [
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -4420,7 +4420,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -4428,7 +4428,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -4441,42 +4441,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -4491,7 +4491,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -4499,7 +4499,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
@@ -4512,42 +4512,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -4571,7 +4571,7 @@
         {
           "attackers": [
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -4579,7 +4579,7 @@
           ],
           "blockers": [
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -4594,7 +4594,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -4602,7 +4602,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -4615,42 +4615,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -4665,7 +4665,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -4673,7 +4673,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
@@ -4686,42 +4686,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -4745,7 +4745,7 @@
         {
           "attackers": [
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -4753,7 +4753,7 @@
           ],
           "blockers": [
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -4768,7 +4768,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -4776,7 +4776,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -4789,42 +4789,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -4839,7 +4839,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -4847,7 +4847,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
@@ -4860,42 +4860,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -4919,7 +4919,7 @@
         {
           "attackers": [
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -4927,7 +4927,7 @@
           ],
           "blockers": [
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "toughness": 1
@@ -4942,7 +4942,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -4950,7 +4950,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": true,
@@ -4963,42 +4963,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -5013,7 +5013,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -5021,7 +5021,7 @@
             },
             {
               "face_down": false,
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions",
               "power": 2,
               "summoning_sick": false,
@@ -5034,42 +5034,42 @@
           "graveyard": [],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -5102,7 +5102,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -5112,48 +5112,48 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -5168,7 +5168,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -5178,48 +5178,48 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
@@ -5252,7 +5252,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p3",
               "name": "Plains",
               "summoning_sick": true,
               "tapped": true,
@@ -5262,48 +5262,48 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p9",
               "name": "Savannah Lions"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p4",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p5",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p6",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p7",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p8",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
               ]
             },
             {
-              "id": "_",
+              "id": "p24",
               "name": "Plains",
               "visible_to": [
                 "Opponent"
@@ -5318,7 +5318,7 @@
           "battlefield": [
             {
               "face_down": false,
-              "id": "_",
+              "id": "p10",
               "name": "Plains",
               "summoning_sick": false,
               "tapped": false,
@@ -5328,48 +5328,48 @@
           "exile": [],
           "graveyard": [
             {
-              "id": "_",
+              "id": "p16",
               "name": "Savannah Lions"
             }
           ],
           "hand": [
             {
-              "id": "_",
+              "id": "p11",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p12",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p13",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p14",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p15",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"
               ]
             },
             {
-              "id": "_",
+              "id": "p26",
               "name": "Plains",
               "visible_to": [
                 "TestPlayer"

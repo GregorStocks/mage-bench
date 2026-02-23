@@ -275,6 +275,23 @@ public class GameView implements Serializable {
             }
         }
 
+        // Pre-assign IDs to ALL players' hand cards in deterministic order.
+        // Each GameView only has myHand (the controlling player's hand), but
+        // GameViews for different players share the same ShortIdRegistry and are
+        // created in nondeterministic order (ConcurrentHashMap iteration in
+        // GameController). Pre-assigning from the Game object ensures all hands
+        // get IDs in sorted-by-player-name order regardless of creation order.
+        for (PlayerView pv : sortedPlayers) {
+            Player gamePlayer = game.getPlayer(pv.getPlayerId());
+            if (gamePlayer != null) {
+                List<Card> handCards = new ArrayList<>(gamePlayer.getHand().getCards(game));
+                handCards.sort(Comparator.comparing(Card::getName));
+                for (Card card : handCards) {
+                    registry.getOrAssign(card.getId());
+                }
+            }
+        }
+
         // Hands (myHand for the controlling player)
         assignCards.accept(myHand);
         // Note: watchedHands/opponentHands are populated later by processWatchedHands;

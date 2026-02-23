@@ -4250,7 +4250,8 @@ public class BridgeCallbackHandler {
 
     /**
      * Select a deterministic target from a set of valid targets.
-     * Prefer the order from choices (if provided), otherwise fall back to lexicographic UUID ordering.
+     * Prefer the order from choices (if provided), otherwise fall back to
+     * short ID sequence ordering (stable across runs, unlike UUID).
      */
     private UUID selectDeterministicTarget(Set<UUID> targets, List<Object> choices) {
         if (targets == null || targets.isEmpty()) {
@@ -4269,9 +4270,16 @@ public class BridgeCallbackHandler {
         }
 
         UUID selected = null;
+        int selectedSeq = Integer.MAX_VALUE;
         for (UUID candidate : targets) {
-            if (selected == null || candidate.toString().compareTo(selected.toString()) < 0) {
+            // Use getStableShortIdSequence to ensure server-assigned IDs are
+            // registered from the current GameView before comparing sequences.
+            // Without this, getSequence returns MAX_VALUE for unregistered UUIDs,
+            // causing the selection to depend on HashSet iteration order.
+            int seq = getStableShortIdSequence(candidate);
+            if (selected == null || seq < selectedSeq) {
                 selected = candidate;
+                selectedSeq = seq;
             }
         }
         return selected;
