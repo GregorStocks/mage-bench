@@ -10,12 +10,12 @@ def test_normalize_embedded_json_sorts_keys():
     assert normalized == {"result": '{"a": 1, "b": 2}'}
 
 
-def test_normalize_embedded_json_strips_short_ids():
+def test_normalize_embedded_json_preserves_short_ids():
     payload = {"result": '{"players":[{"id":"p3"},{"id":"p11"}]}'}
 
     normalized = _normalize_embedded_json(payload)
     parsed = json.loads(normalized["result"])
-    assert parsed == {"players": [{"id": "_"}, {"id": "_"}]}
+    assert parsed == {"players": [{"id": "p3"}, {"id": "p11"}]}
 
 
 def test_normalize_embedded_json_handles_nested_json_strings():
@@ -24,8 +24,8 @@ def test_normalize_embedded_json_handles_nested_json_strings():
     normalized = _normalize_embedded_json(payload)
     parsed = json.loads(normalized["result"])
 
-    assert parsed["id"] == "_"
-    assert json.loads(parsed["outer"]) == {"id": "_", "k": 2}
+    assert parsed["id"] == "p1"
+    assert json.loads(parsed["outer"]) == {"id": "p9", "k": 2}
 
 
 def test_normalize_prompt_neutralizes_game_seq():

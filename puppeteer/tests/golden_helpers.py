@@ -566,7 +566,6 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
         )
 
 
-
 def _normalize_embedded_json(obj: object) -> object:
     """Recursively normalize embedded JSON strings for deterministic key order.
 
