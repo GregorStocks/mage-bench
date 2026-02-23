@@ -72,10 +72,12 @@ public class ShortIdRegistry {
     }
 
     /**
-     * Register an externally-assigned short ID for a UUID. Used by clients to populate
-     * from server-assigned IDs (via CardView.getShortId()). If the UUID already has a
-     * short ID, this is a no-op. Also advances nextId past the registered ID to avoid
-     * future conflicts.
+     * Register an externally-assigned short ID for a UUID. Used by clients to sync
+     * with server-assigned IDs (via CardView.getShortId()). The server's assignment
+     * is authoritative — if the UUID was previously assigned a different (local) ID
+     * via {@link #getOrAssign}, the mapping is updated to the server's ID.
+     *
+     * Also advances nextId past the registered ID to avoid future conflicts.
      */
     public void register(UUID uuid, String shortId) {
         Objects.requireNonNull(uuid, "uuid");
@@ -83,36 +85,35 @@ public class ShortIdRegistry {
 
         String existingShort = uuidToShort.get(uuid);
         if (existingShort != null) {
-            if (!existingShort.equals(shortId)) {
-                throw new IllegalStateException("UUID already mapped to different short ID: "
-                        + uuid + " -> " + existingShort + ", got " + shortId);
+            if (existingShort.equals(shortId)) {
+                return; // Already correctly mapped
             }
+            // Server-assigned ID takes precedence over locally-assigned ID.
+            // This happens when a card is first seen in a zone not searched by
+            // findCardViewById (e.g. lookedAt) and gets a local ID, then later
+            // appears in a visible zone with its server-assigned ID.
+            shortToUuid.remove(existingShort, uuid);
+            uuidToShort.put(uuid, shortId);
+            shortToUuid.put(shortId, uuid);
+            advanceNextId(shortId);
             return;
         }
 
         UUID existingUuid = shortToUuid.get(shortId);
         if (existingUuid != null && !existingUuid.equals(uuid)) {
-            throw new IllegalStateException("Short ID already mapped to different UUID: "
-                    + shortId + " -> " + existingUuid + ", got " + uuid);
+            // The short ID was locally assigned to a different UUID. The server
+            // is authoritative, so evict the stale mapping. The evicted UUID will
+            // get a fresh local ID on its next getOrAssign() call.
+            uuidToShort.remove(existingUuid, shortId);
+            shortToUuid.remove(shortId, existingUuid);
         }
 
-        String raceShort = uuidToShort.putIfAbsent(uuid, shortId);
-        if (raceShort != null) {
-            if (!raceShort.equals(shortId)) {
-                throw new IllegalStateException("UUID mapped concurrently to different short ID: "
-                        + uuid + " -> " + raceShort + ", got " + shortId);
-            }
-            return;
-        }
+        uuidToShort.put(uuid, shortId);
+        shortToUuid.put(shortId, uuid);
+        advanceNextId(shortId);
+    }
 
-        UUID raceUuid = shortToUuid.putIfAbsent(shortId, uuid);
-        if (raceUuid != null && !raceUuid.equals(uuid)) {
-            uuidToShort.remove(uuid, shortId);
-            throw new IllegalStateException("Short ID mapped concurrently to different UUID: "
-                    + shortId + " -> " + raceUuid + ", got " + uuid);
-        }
-
-        // Advance nextId past this registered ID to avoid conflicts
+    private void advanceNextId(String shortId) {
         try {
             int num = Integer.parseInt(shortId.substring(1));
             nextId.updateAndGet(current -> Math.max(current, num + 1));
