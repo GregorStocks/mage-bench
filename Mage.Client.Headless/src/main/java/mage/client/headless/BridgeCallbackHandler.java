@@ -2680,27 +2680,35 @@ public class BridgeCallbackHandler {
             if (action != null) {
                 ClientCallbackMethod method = action.method();
 
+                // Snapshot the action's own GameView before any processing.
+                // IMPORTANT: we must use this snapshot (not lastGameView) for
+                // the playable-cards check below, because GAME_UPDATE callbacks
+                // on the callback thread can overwrite lastGameView with a view
+                // from a later phase mid-iteration, causing hasPlayableCards to
+                // return incorrect results and breaking auto-pass determinism.
+                GameView actionGameView = null;
+                if (action.data() instanceof GameClientMessage) {
+                    actionGameView = ((GameClientMessage) action.data()).getGameView();
+                }
+
                 // Update game view and reset loop counter on turn change.
                 // This MUST run before the loop detection check below, otherwise
                 // the `continue` in the loop detection branch skips it and the
                 // counter never resets, permanently disabling the player.
                 // Check any callback carrying GameView, not just GAME_SELECT —
                 // a new turn can start with upkeep triggers (GAME_TARGET, GAME_ASK, etc.).
-                if (action.data() instanceof GameClientMessage) {
-                    GameView gv = ((GameClientMessage) action.data()).getGameView();
-                    if (gv != null) {
-                        updateLastGameView(gv);
-                        int turn = gv.getTurn();
-                        if (turn != lastTurnNumber) {
-                            lastTurnNumber = turn;
-                            failedManaCasts.clear();
-                            interactionsThisTurn = 0;
-                            landsPlayedThisTurn = 0;
-                            poolManaAttempts = 0;
-                            poolManaPayingForId = null;
-                            manaPlan = null;
-                            manaPlanAbilityIndex = null;
-                        }
+                if (actionGameView != null) {
+                    updateLastGameView(actionGameView);
+                    int turn = actionGameView.getTurn();
+                    if (turn != lastTurnNumber) {
+                        lastTurnNumber = turn;
+                        failedManaCasts.clear();
+                        interactionsThisTurn = 0;
+                        landsPlayedThisTurn = 0;
+                        poolManaAttempts = 0;
+                        poolManaPayingForId = null;
+                        manaPlan = null;
+                        manaPlanAbilityIndex = null;
                     }
                 }
 
@@ -2798,7 +2806,8 @@ public class BridgeCallbackHandler {
 
                 // Step-specific yield: check if we've reached the target step
                 if (targetStep != null) {
-                    GameView gv = lastGameView;
+                    // Use the action's own game view (not lastGameView) for step check
+                    GameView gv = actionGameView != null ? actionGameView : lastGameView;
                     if (gv != null && gv.getStep() == targetStep) {
                         // Reached the target step — return to LLM
                         Map<String, Object> result = new HashMap<>();
@@ -2822,8 +2831,10 @@ public class BridgeCallbackHandler {
                     continue;
                 }
 
-                // Check if there are playable cards (non-mana-only, excluding failed casts)
-                PlayableObjectsList playable = lastGameView != null ? lastGameView.getCanPlayObjects() : null;
+                // Check if there are playable cards (non-mana-only, excluding failed casts).
+                // Use actionGameView (the action's own snapshot) instead of lastGameView,
+                // which can be racily updated by GAME_UPDATE callbacks on the callback thread.
+                PlayableObjectsList playable = actionGameView != null ? actionGameView.getCanPlayObjects() : null;
                 boolean hasPlayableCards = false;
                 if (playable != null && !playable.isEmpty()) {
                     for (Map.Entry<UUID, PlayableObjectStats> entry : playable.getObjects().entrySet()) {
