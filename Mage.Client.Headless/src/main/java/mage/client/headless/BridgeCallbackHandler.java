@@ -2853,8 +2853,15 @@ public class BridgeCallbackHandler {
                 }
 
                 if (hasPlayableCards) {
-                    if (actionsPassed > 0) {
-                        // Already passed at least once — return so LLM can decide
+                    if (actionsPassed > 0 || yieldActive) {
+                        // Already passed at least once — return so LLM can decide.
+                        // Also always stop when a yield is active: the server broke
+                        // the yield specifically for this callback (e.g. opponent
+                        // cast a spell), so we must not auto-pass it. Without this,
+                        // a race between sendPlayerAction (yield) and the server's
+                        // next callback can leave actionsPassed=0, causing the
+                        // first-pass logic to auto-pass the very action the caller
+                        // is waiting for.
                         var result = new HashMap<String, Object>();
                         result.put("action_pending", true);
                         result.put("action_type", method.name());
