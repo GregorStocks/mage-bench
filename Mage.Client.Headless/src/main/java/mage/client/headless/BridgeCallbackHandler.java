@@ -2586,11 +2586,10 @@ public class BridgeCallbackHandler {
     }
 
     // Mapping from "until" parameter values to XMage PlayerAction constants (server-side yield).
-    // NOTE: "my_turn" is intentionally NOT here — it is handled as a client-side yield
-    // (checking active player) to avoid nondeterministic intermediate decision events
-    // caused by the race between sendPlayerAction and the server's next priority check.
+    // NOTE: "my_turn" and "end_of_turn" are intentionally NOT here — they are handled as
+    // client-side yields to avoid nondeterministic intermediate decision events caused by
+    // the race between sendPlayerAction and the server's next priority check.
     private static final Map<String, PlayerAction> YIELD_ACTIONS = Map.of(
-        "end_of_turn", PlayerAction.PASS_PRIORITY_UNTIL_TURN_END_STEP,
         "stack_resolved", PlayerAction.PASS_PRIORITY_UNTIL_STACK_RESOLVED
     );
 
@@ -2632,8 +2631,10 @@ public class BridgeCallbackHandler {
      * step name (upkeep, draw, etc.): client-side yield that auto-passes until
      * the target step is reached within the current turn. With until=my_turn:
      * client-side yield that auto-passes until the active player matches us.
-     * With until set to end_of_turn or stack_resolved: sets XMage's native
-     * server-side yield flag, then waits for a meaningful callback.
+     * With until=end_of_turn: client-side yield that auto-passes until the end
+     * of turn step, but still checks for playable cards (response opportunities).
+     * With until=stack_resolved: sets XMage's native server-side yield flag,
+     * then waits for a meaningful callback.
      *
      * Both modes auto-handle mechanical callbacks (GAME_PLAY_MANA auto-cancel,
      * optional GAME_TARGET with no legal targets). Returns stop_reason indicating
@@ -2647,10 +2648,14 @@ public class BridgeCallbackHandler {
         int actionsPassed = 0;
 
         // Route the "until" parameter: check step phases first, then client-side
-        // my_turn, then server-side yields
+        // my_turn/end_of_turn, then server-side yields
         boolean yieldActive = false;
         boolean waitingForMyTurn = false;
         PhaseStep targetStep = null;
+        // When true, the targetStep yield falls through to the playable-cards
+        // check instead of unconditionally auto-passing.  Used by end_of_turn
+        // so that the player can still respond to spells while advancing.
+        boolean yieldCheckPlayable = false;
         int yieldStartTurn = lastTurnNumber;
         if (until != null) {
             targetStep = STEP_PHASES.get(until);
@@ -2664,11 +2669,19 @@ public class BridgeCallbackHandler {
                 // between sendPlayerAction and the server's next priority check.
                 waitingForMyTurn = true;
                 yieldActive = true;
+            } else if ("end_of_turn".equals(until)) {
+                // Client-side "end_of_turn" yield: auto-pass until the end of turn
+                // step, but still check for playable cards so the player can respond
+                // to opponent spells.  Same race-avoidance rationale as my_turn.
+                targetStep = PhaseStep.END_TURN;
+                yieldCheckPlayable = true;
+                yieldActive = true;
             } else {
                 PlayerAction yieldAction = YIELD_ACTIONS.get(until);
                 if (yieldAction == null) {
                     var allValues = new java.util.ArrayList<>(STEP_PHASES.keySet());
                     allValues.add("my_turn");
+                    allValues.add("end_of_turn");
                     allValues.addAll(YIELD_ACTIONS.keySet());
                     var result = new HashMap<String, Object>();
                     result.put("error", "Invalid until value: " + until
@@ -2833,15 +2846,20 @@ public class BridgeCallbackHandler {
                         mergeActionChoices(result);
                         return result;
                     }
-                    // Not at target step: auto-pass (skip playable-cards check)
-                    synchronized (actionLock) {
-                        if (pendingAction == action) {
-                            pendingAction = null;
+                    if (!yieldCheckPlayable) {
+                        // Pure step yield (upkeep, draw, etc.): auto-pass without
+                        // checking playable cards — we're just fast-forwarding.
+                        synchronized (actionLock) {
+                            if (pendingAction == action) {
+                                pendingAction = null;
+                            }
                         }
+                        session.sendPlayerBoolean(action.gameId(), false);
+                        actionsPassed++;
+                        continue;
                     }
-                    session.sendPlayerBoolean(action.gameId(), false);
-                    actionsPassed++;
-                    continue;
+                    // end_of_turn: fall through to playable-cards check so the
+                    // player can still respond to opponent spells while advancing.
                 }
 
                 // Client-side "my_turn" yield: check if active player matches us
