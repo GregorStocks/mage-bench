@@ -1079,7 +1079,8 @@ const { slug } = Astro.params;
     function fetchGameData(slug) {
       return fetch("/games/" + slug + ".json")
         .then(function (r) {
-          if (r.ok) return r.json();
+          var ct = (r.headers.get("content-type") || "");
+          if (r.ok && ct.indexOf("json") !== -1) return r.json();
           // Fall back to .json.gz
           return fetch("/games/" + slug + ".json.gz").then(function (r2) {
             if (!r2.ok) throw new Error("Game not found");
