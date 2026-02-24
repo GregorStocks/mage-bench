@@ -1476,7 +1476,7 @@ public abstract class PlayerImpl implements Player, Serializable {
             return new ApprovingObjectResult(ApprovingObjectResultStatus.NO_POSSIBLE_CHOICE, null);
         } else {
             // Select the ability that you use to permit the action
-            Map<String, String> keyChoices = new HashMap<>();
+            Map<String, String> keyChoices = new LinkedHashMap<>();
             int i = 0;
             for (ApprovingObject possibleApprovingObject : possibleApprovingObjects) {
                 MageObject mageObject = game.getObject(possibleApprovingObject.getApprovingAbility().getSourceId());
