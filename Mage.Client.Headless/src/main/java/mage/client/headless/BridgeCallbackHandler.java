@@ -114,12 +114,14 @@ public class BridgeCallbackHandler {
     private final RoundTracker roundTracker = new RoundTracker();
 
     /** Update lastGameView and feed the RoundTracker. */
-    private void updateLastGameView(GameView gv) {
+    private synchronized void updateLastGameView(GameView gv) {
         updateLastGameView(gv, null);
     }
 
-    /** Update lastGameView with source tracking for determinism debugging. */
-    private void updateLastGameView(GameView gv, String source) {
+    /** Update lastGameView with source tracking for determinism debugging.
+     *  Synchronized to prevent TOCTOU race: two threads reading the same old value,
+     *  both passing the monotonic guard, and the lower-seq thread writing last. */
+    private synchronized void updateLastGameView(GameView gv, String source) {
         if (gv != null) {
             GameView old = lastGameView;
             if (old != null && gv.getGameSeq() < old.getGameSeq()) {
