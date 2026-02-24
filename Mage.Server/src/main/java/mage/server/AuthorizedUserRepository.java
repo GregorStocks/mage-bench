@@ -43,7 +43,7 @@ public class AuthorizedUserRepository {
             file.mkdirs();
         }
         try {
-            ConnectionSource connectionSource = new JdbcConnectionSource(connectionString);
+            ConnectionSource connectionSource = DatabaseUtils.openH2ConnectionWithRetry(connectionString);
             TableUtils.createTableIfNotExists(connectionSource, AuthorizedUser.class);
             usersDao = DaoManager.createDao(connectionSource, AuthorizedUser.class);
         } catch (SQLException ex) {
@@ -127,7 +127,7 @@ public class AuthorizedUserRepository {
 
     public long getDBVersionFromDB() {
         try {
-            ConnectionSource connectionSource = new JdbcConnectionSource(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_USERS, false));
+            ConnectionSource connectionSource = DatabaseUtils.openH2ConnectionWithRetry(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_USERS, false));
             return RepositoryUtil.getDatabaseVersion(connectionSource, VERSION_ENTITY_NAME);
         } catch (SQLException ex) {
             Logger.getLogger(CardRepository.class).error("Error getting DB version from DB - ", ex);

@@ -68,8 +68,10 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root):
             # Declare Marit Lage as attacker for lethal (20 damage).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"attackers": ["all"]}},
-            # Capture final state.
+            # Capture state with Marit Lage attacking before combat damage.
             {"name": "get_game_state", "arguments": {}},
+            # Pass priority — combat damage resolves, Opponent dies (game_over).
+            {"name": "pass_priority", "arguments": {}},
         ],
         golden_name="dark_depths_combo",
     )

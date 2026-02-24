@@ -3,90 +3,75 @@ import Base from '../layouts/Base.astro';
 import fs from 'node:fs';
 import path from 'node:path';
 
-// Read golden prompt fixtures (conversation-format JSON arrays)
-const fixturesDir = path.resolve(process.cwd(), '..', 'puppeteer', 'tests', 'golden', 'prompts');
-const scenarios: Array<{name: string, data: Record<string, unknown>}> = [];
-if (fs.existsSync(fixturesDir)) {
-  for (const file of fs.readdirSync(fixturesDir).sort()) {
-    if (!file.endsWith('.json')) continue;
-    const messages = JSON.parse(fs.readFileSync(path.join(fixturesDir, file), 'utf-8'));
+const goldenDir = path.resolve(process.cwd(), '..', 'puppeteer', 'tests', 'golden');
+const exportsDir = path.join(goldenDir, 'exports');
+const promptsDir = path.join(goldenDir, 'prompts');
 
-    // Find the tool call name for each tool_call_id
-    const toolCallNames: Record<string, string> = {};
-    for (const msg of messages) {
-      if (msg.role === 'assistant' && msg.tool_calls) {
-        for (const tc of msg.tool_calls) {
-          toolCallNames[tc.id] = tc.function.name;
-        }
+// Load export data (game exports with snapshots) keyed by scenario name
+const exportsByName: Record<string, any> = {};
+if (fs.existsSync(exportsDir)) {
+  for (const file of fs.readdirSync(exportsDir).sort()) {
+    if (!file.endsWith('.json')) continue;
+    exportsByName[file.replace('.json', '')] = JSON.parse(fs.readFileSync(path.join(exportsDir, file), 'utf-8'));
+  }
+}
+
+// Extract MCP tool results from prompt fixtures (for the JSON panel)
+function extractMcpFixture(promptFile: string): { gameState: any, passPriority: any } {
+  const messages = JSON.parse(fs.readFileSync(promptFile, 'utf-8'));
+
+  const toolCallNames: Record<string, string> = {};
+  for (const msg of messages) {
+    if (msg.role === 'assistant' && msg.tool_calls) {
+      for (const tc of msg.tool_calls) {
+        toolCallNames[tc.id] = tc.function.name;
       }
     }
-
-    // Extract the last get_game_state result and last pass_priority result.
-    // Only parse tool results for the tools we need — older entries may be
-    // compact text summaries (from _render_context summarization) rather than JSON.
-    const targetTools = new Set(['get_game_state', 'pass_priority']);
-    let gameState = null;
-    let passPriority = null;
-    for (const msg of messages) {
-      if (msg.role !== 'tool') continue;
-      const callName = toolCallNames[msg.tool_call_id];
-      if (!targetTools.has(callName)) continue;
-      // Summarized entries start with a letter (e.g. "action_pending(...")
-      // while JSON entries start with "{". Skip summarized entries.
-      const content = msg.content.trimStart();
-      if (!content.startsWith('{')) continue;
-      const parsed = JSON.parse(content);
-      if (callName === 'get_game_state') gameState = parsed;
-      if (callName === 'pass_priority') passPriority = parsed;
-    }
-
-    if (!gameState) continue;
-
-    // Build the format golden.astro's JS expects
-    const gs = gameState;
-    const snapshotPlayers = (gs.players || []).map((p: any) => ({
-      name: p.name,
-      life: p.life,
-      library_count: p.library_size,
-      hand_count: p.hand_size ?? (p.hand || []).length,
-      battlefield: p.battlefield || [],
-      hand: p.hand || [],
-      graveyard: p.graveyard || [],
-      exile: p.exile || [],
-      commanders: p.commanders || [],
-    }));
-
-    // Normalize stack targets from objects to name strings for the renderer
-    const stack = (gs.stack || []).map((item: any) => ({
-      ...item,
-      targets: (item.targets || []).map((t: any) =>
-        typeof t === 'string' ? t : t.name
-      ),
-    }));
-
-    const snapshot = {
-      turn: gs.turn,
-      phase: gs.phase,
-      step: gs.step,
-      active_player: gs.active_player,
-      priority_player: gs.priority_player,
-      stack,
-      players: snapshotPlayers,
-    };
-
-    const name = file.replace('.json', '');
-    scenarios.push({
-      name,
-      data: {
-        snapshots: [snapshot],
-        cardImages: {},
-        goldenFixture: {
-          mcp_game_state: gs,
-          mcp_pass_priority: passPriority,
-        },
-      },
-    });
   }
+
+  const targetTools = new Set(['get_game_state', 'pass_priority']);
+  let gameState = null;
+  let passPriority = null;
+  for (const msg of messages) {
+    if (msg.role !== 'tool') continue;
+    const callName = toolCallNames[msg.tool_call_id];
+    if (!targetTools.has(callName)) continue;
+    // Summarized entries start with a letter (e.g. "action_pending(...")
+    // while JSON entries start with "{". Skip summarized entries.
+    const content = msg.content.trimStart();
+    if (!content.startsWith('{')) continue;
+    const parsed = JSON.parse(content);
+    if (callName === 'get_game_state') gameState = parsed;
+    if (callName === 'pass_priority') passPriority = parsed;
+  }
+
+  return { gameState, passPriority };
+}
+
+// Build scenarios from exports, augmented with MCP fixture data from prompts
+const scenarios: Array<{name: string, data: Record<string, unknown>}> = [];
+for (const [name, exportData] of Object.entries(exportsByName)) {
+  if (!exportData.snapshots || exportData.snapshots.length === 0) continue;
+
+  const lastSnapshot = exportData.snapshots[exportData.snapshots.length - 1];
+
+  // Extract MCP fixture from matching prompt file (if it exists)
+  const promptFile = path.join(promptsDir, name + '.json');
+  const fixture = fs.existsSync(promptFile)
+    ? extractMcpFixture(promptFile)
+    : { gameState: null, passPriority: null };
+
+  scenarios.push({
+    name,
+    data: {
+      snapshots: [lastSnapshot],
+      cardImages: exportData.cardImages || {},
+      goldenFixture: {
+        mcp_game_state: fixture.gameState,
+        mcp_pass_priority: fixture.passPriority,
+      },
+    },
+  });
 }
 ---
 <Base title="Golden Test Scenarios" wide>
