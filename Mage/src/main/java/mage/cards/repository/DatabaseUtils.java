@@ -1,6 +1,11 @@
 package mage.cards.repository;
 
+import com.j256.ormlite.jdbc.JdbcConnectionSource;
+import com.j256.ormlite.support.ConnectionSource;
 import mage.util.DebugUtil;
+import org.apache.log4j.Logger;
+
+import java.sql.SQLException;
 
 /**
  * Helper class for database
@@ -55,6 +60,42 @@ public class DatabaseUtils {
         }
 
         return res;
+    }
+
+    /**
+     * Open an H2 database connection, retrying on lock contention.
+     *
+     * When multiple JVM processes open the same H2 database concurrently
+     * (e.g. during golden tests), the file lock can race. AUTO_SERVER=TRUE
+     * handles steady-state multi-process access, but the initial lock
+     * acquisition can fail if two JVMs try simultaneously. This method
+     * retries with backoff so the second JVM waits for the first to finish.
+     *
+     * @param url JDBC connection URL from {@link #prepareH2Connection}
+     */
+    public static ConnectionSource openH2ConnectionWithRetry(String url) throws SQLException {
+        int maxAttempts = 5;
+        int baseDelayMs = 500;
+        SQLException lastError = null;
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+            try {
+                return new JdbcConnectionSource(url);
+            } catch (SQLException e) {
+                lastError = e;
+                if (attempt < maxAttempts) {
+                    Logger.getLogger(DatabaseUtils.class).warn(
+                            "H2 connection attempt " + attempt + "/" + maxAttempts
+                                    + " failed, retrying in " + (baseDelayMs * attempt) + "ms: " + e.getMessage());
+                    try {
+                        Thread.sleep(baseDelayMs * attempt);
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                        throw e;
+                    }
+                }
+            }
+        }
+        throw lastError;
     }
 
     /**
