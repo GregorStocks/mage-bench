@@ -62592,5 +62592,62 @@
     "message": "Game ended"
   },
   "harnessEpoch": 20,
-  "youtubeUrl": "https://youtu.be/n0CwODaU-Wk"
+  "youtubeUrl": "https://youtu.be/n0CwODaU-Wk",
+  "annotations": [
+    {
+      "severity": "minor",
+      "description": "Chose to be on the draw in a new game of Modern. In Modern, being on the play is almost universally correct due to the tempo advantage. The extra card from drawing rarely compensates for the loss of initiative, especially in a format with efficient threats and interaction.",
+      "actionTaken": "Chose to let the opponent (MiMo Minimal) go first, putting themselves on the draw.",
+      "betterLine": "Choose to go first (be on the play) as is standard in Modern for the tempo advantage.",
+      "type": "blunder",
+      "snapshotIndex": 155,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "minor",
+      "description": "Chose Undercity Sewers (a tapped land) over Moonshadow when already holding Scalding Tarn for a land drop. Moonshadow is a real threat card while the extra tapped land is redundant given existing mana and the Scalding Tarn in hand.",
+      "actionTaken": "Put Undercity Sewers into hand from Expressive Iteration",
+      "betterLine": "Put Moonshadow into hand (a meaningful threat), exile a land to potentially play this turn via Expressive Iteration's exile clause, and bottom the other land. Even if the game is about to end from Seal of Fire lethal, Moonshadow provides more value in any scenario where the game continues.",
+      "type": "blunder",
+      "snapshotIndex": 155,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "minor",
+      "description": "Seal of Fire's 2 damage to a 2-life opponent is already on the stack, which is lethal. Casting Thoughtseize here is completely unnecessary - it wastes a card and costs 2 life for no benefit since the game is already won.",
+      "actionTaken": "Cast Thoughtseize while lethal Seal of Fire activation was on the stack",
+      "betterLine": "Simply pass priority and let Seal of Fire resolve, killing the opponent at 2 life",
+      "type": "blunder",
+      "snapshotIndex": 155,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "moderate",
+      "description": "Death's Shadow is essentially useless to the opponent at 22 life (it would be a 0/0 or negative power creature and die on entry). Counterspell is far more impactful as MiMo needs to resolve spells like Quantum Riddler or Winternight Stories to have any chance of winning, and the opponent has two Counterspells to protect their board position.",
+      "actionTaken": "Chose to discard Death's Shadow from opponent's hand",
+      "betterLine": "Should have taken one of the Counterspells, as those actively prevent MiMo from executing their game plan, while Death's Shadow is a dead card at 22 life",
+      "type": "blunder",
+      "snapshotIndex": 155,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "questionable",
+      "description": "Moonshadow (currently 2/2 but growing toward 7/7 with menace) is the bigger long-term threat compared to a 2/3 Nethergoyf. Both give the opponent 2 life when exiled. However, MiMo is at 2 life with Seal of Fire dealing 2 damage on the stack, so this choice likely doesn't matter as MiMo appears to be dying regardless.",
+      "actionTaken": "Exiled Nethergoyf (2/3) with Solitude's ETB trigger",
+      "betterLine": "Exile Moonshadow, the more dangerous growing threat with menace, in case there's any survival line",
+      "type": "blunder",
+      "snapshotIndex": 155,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "minor",
+      "description": "Chose to exile Nethergoyf (2/3) instead of Moonshadow (currently 2/2 but with menace and growth potential as -1/-1 counters get removed when permanents go to graveyard). Moonshadow is the more dangerous threat long-term. However, this is largely moot as there is lethal Seal of Fire damage (2 damage) on the stack with MiMo at 2 life.",
+      "actionTaken": "Exiled Nethergoyf with Solitude's ETB trigger",
+      "betterLine": "Exile Moonshadow, which has menace and significant growth potential, making it the more dangerous threat. Though with lethal on the stack, the decision is academic.",
+      "type": "blunder",
+      "snapshotIndex": 155,
+      "player": "MiMo Minimal"
+    }
+  ],
+  "blunderScriptVersion": 18
 }

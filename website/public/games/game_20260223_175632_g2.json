@@ -48234,5 +48234,80 @@
     "message": "Game ended"
   },
   "harnessEpoch": 20,
-  "youtubeUrl": "https://youtu.be/ksUprlm40g0"
+  "youtubeUrl": "https://youtu.be/ksUprlm40g0",
+  "annotations": [
+    {
+      "severity": "moderate",
+      "description": "The opponent is at 2 life and Qwen3L ESPN has already declared attackers (Dryad Arbor, Elvish Reclaimer, Knight of the Reliquary) which should be enough to deal lethal damage. The opponent has no untapped blockers (only lands on the battlefield). Casting Green Sun's Zenith during combat is unnecessary - the attackers already deal lethal. Additionally, Green Sun's Zenith with X=0 can only find Dryad Arbor (a 0-mana green creature), not 'Sram, Senior Edificer' which isn't in the deck and isn't green. More importantly, casting GSZ here wastes a card and mana when the game is already won through combat damage. The Knight of the Reliquary alone with 4 lands in graveyard is a 6/6, plus Elvish Reclaimer (3/4 with 3+ lands in graveyard) and Dryad Arbor (1/1) - that's far more than 2 damage needed for lethal.",
+      "actionTaken": "Cast Green Sun's Zenith with X=0 during combat when attackers were already declared for lethal damage.",
+      "betterLine": "Pass priority and let combat damage resolve for the kill. The declared attackers are more than sufficient to deal 2 damage to win the game.",
+      "type": "blunder",
+      "snapshotIndex": 116,
+      "player": "Qwen3L ESPN"
+    },
+    {
+      "severity": "major",
+      "description": "The opponent is at 2 life. Dryad Arbor is a 1/1. Knight of the Reliquary has 4 lands in graveyard so it's a 6/6, and Elvish Reclaimer with 4 lands in graveyard (3+) is a 3/4. However, both Knight and Elvish Reclaimer are tapped. Dryad Arbor is also tapped according to the board state. Wait - looking again, Dryad Arbor is tapped, Elvish Reclaimer is tapped, and Knight of the Reliquary is tapped. The combat phase is showing these three as potential attackers but they're all tapped. The choice offered is only 'Dryad Arbor (id=p26, 1/1)' and 'All attack'. But the opponent is at 2 life - if Dryad Arbor could attack as a 1/1, that's only 1 damage. However, Shadowspear is on the battlefield and could be equipped to boost a creature. More importantly, the player has Sylvan Safekeeper in hand and could have played it, plus has mana from Mox Diamonds. But the critical issue is that the opponent is at 2 life and the player only attacked with a 1/1 Dryad Arbor for 1 damage instead of finding a way to deal 2. Looking at the available choices, only Dryad Arbor was offered as an attacker (the others are tapped). The player chose just Dryad Arbor. But the real mistake likely happened in the main phase before combat - the player should have found a way to get lethal. With Shadowspear on the battlefield, equipping it to Dryad Arbor (equip cost {2}, payable with 2 Mox Diamonds) would make it a 2/2 with trample and lifelink, which is exactly lethal against a 2-life opponent with no blockers. The player attacked with just a 1/1 instead of equipping Shadowspear first.",
+      "actionTaken": "Attacked with only Dryad Arbor as a 1/1 against an opponent at 2 life",
+      "betterLine": "Before combat, equip Shadowspear to Dryad Arbor using 2 Mox Diamonds for the {2} equip cost, making it a 2/2 with trample and lifelink, then attack for exactly lethal damage",
+      "type": "blunder",
+      "snapshotIndex": 116,
+      "player": "Qwen3L ESPN"
+    },
+    {
+      "severity": "major",
+      "description": "Opponent is at 2 life. Shadowspear is on the battlefield and could have been equipped to Dryad Arbor (cost {2}, payable with 2 Mox Diamonds or other available mana) before combat to make it a 2/2 with trample and lifelink, which would be exactly lethal. Instead, attacking with an unequipped 1/1 Dryad Arbor only deals 1 damage.",
+      "actionTaken": "Attacked with unequipped Dryad Arbor as a 1/1 against opponent at 2 life.",
+      "betterLine": "In the main phase before combat, equip Shadowspear to Dryad Arbor (paying {2} with Mox Diamonds), then attack with the 2/2 Dryad Arbor for exactly lethal damage.",
+      "type": "blunder",
+      "snapshotIndex": 116,
+      "player": "Qwen3L ESPN"
+    },
+    {
+      "severity": "moderate",
+      "description": "The opponent is at 2 life. Qwen3L ESPN has attackers that dealt damage this combat (Dryad Arbor at minimum got through for 1, bringing opponent from 2 to... wait, the prior context shows opponent at 11hp, now at 2hp). The opponent is at 2 life with no blockers visible. Rather than casting Green Sun's Zenith (which searches for a green creature but doesn't provide immediate lethal pressure this turn since all attackers are already tapped), Qwen3L should focus on ensuring the kill next turn. However, the real issue is that Shadowspear costs only {1} and could be equipped to provide trample and +1/+1 to ensure damage gets through next turn, or more importantly, its activated ability ({1}: Permanents your opponents control lose hexproof and indestructible) could be relevant. But the key question is whether Green Sun's Zenith accomplishes anything meaningful here. With only 2 mana available (two Mox Diamonds), GSZ for X=1 could fetch Sylvan Safekeeper (already in hand) or Dryad Arbor (already on battlefield). GSZ for X=0 fetches Dryad Arbor but one is already out. This seems like a wasted spell when the opponent is at 2 life and will die to virtually any attack next turn. Casting Shadowspear for {1} would be more useful as it could be equipped next turn to add trample/lifelink, and its activated ability to remove indestructible could be relevant against potential blockers.",
+      "actionTaken": "Cast Green Sun's Zenith with limited mana available, likely for X=0 or X=1, when the opponent is at 2 life",
+      "betterLine": "Cast Shadowspear for {1} instead, which provides immediate board utility (trample, lifelink when equipped, and the ability to remove indestructible/hexproof). With the opponent at 2 life, ensuring attackers have trample next turn is more valuable than fetching another small creature. Alternatively, play Sylvan Safekeeper from hand to protect key attackers and hold up land sacrifice for shroud.",
+      "type": "blunder",
+      "snapshotIndex": 116,
+      "player": "Qwen3L ESPN"
+    },
+    {
+      "severity": "minor",
+      "description": "Discarded Stifle instead of a redundant Stoneforge Mystic. Stifle is one of the only answers to the opponent's Dark Depths combo (countering the Marit Lage trigger), while they already have 3 copies of Stoneforge Mystic in hand which are largely redundant.",
+      "actionTaken": "Discarded Stifle to hand size",
+      "betterLine": "Discard one of the three redundant Stoneforge Mystics, keeping Stifle as the key answer to Dark Depths' triggered ability creating a 20/20 indestructible flying token.",
+      "type": "blunder",
+      "snapshotIndex": 116,
+      "player": "GPT5n Vet"
+    },
+    {
+      "severity": "minor",
+      "description": "With the opponent at 2 life and creatures attacking (even though Dryad Arbor, Elvish Reclaimer, and Knight of the Reliquary are all tapped and attacking), spending 3 mana to remove an ice counter from Dark Depths (going from 9 to 8) is essentially meaningless. Dark Depths needs all 10 counters removed at 3 mana each - that's 30 mana total, which is an incredibly slow plan. The mana would be better spent on nothing (just passing) or saved for other purposes. The opponent is at 2 life and the attacking creatures should be enough to close out the game soon. Wasting 3 mana on a counter that won't matter is a small but clear misuse of resources.",
+      "actionTaken": "Activated Dark Depths to remove one ice counter (9 → 8) for 3 mana during combat.",
+      "betterLine": "Pass without activating anything. The 3 mana spent on Dark Depths accomplishes essentially nothing toward winning. With opponent at 2 life, focus on closing out with existing board pressure. Alternatively, if mana was available, activating Shadowspear's ability to remove indestructible/hexproof could be more relevant, or simply holding mana open.",
+      "type": "blunder",
+      "snapshotIndex": 116,
+      "player": "Qwen3L ESPN"
+    },
+    {
+      "severity": "moderate",
+      "description": "Opponent is at 2 life but has untapped Plains (white mana available). If opponent has Swords to Plowshares, they could exile Knight of the Reliquary (6/6), gain 6 life going to 8, and only take 4 damage from remaining attackers (Dryad Arbor 1/1 + Elvish Reclaimer 3/4), surviving at 4 life. Casting Sylvan Safekeeper with available green mana would allow sacrificing a land to grant shroud to any targeted creature, ensuring lethal damage resolves.",
+      "actionTaken": "Passed priority during combat without casting Sylvan Safekeeper",
+      "betterLine": "Cast Sylvan Safekeeper using Mox Diamond or Lush Portico for {G}, then if opponent targets a creature with removal, sacrifice a land to grant it shroud and guarantee lethal",
+      "type": "blunder",
+      "snapshotIndex": 116,
+      "player": "Qwen3L ESPN"
+    },
+    {
+      "severity": "major",
+      "description": "At 2 life, discarded Batterskull while holding three Stoneforge Mystics. Stoneforge Mystic's activated ability ({1}{W}, {T}) can put Batterskull directly onto the battlefield, creating a 4/4 vigilance lifelink token - the classic Legacy stabilization line. The lifelink is absolutely critical at 2 life. They have redundant Stoneforge Mystics and an uncastable Quantum Riddler that should be discarded instead.",
+      "actionTaken": "Discarded Batterskull",
+      "betterLine": "Discard Quantum Riddler (uncastable at 3 lands) or a redundant Stoneforge Mystic, keeping Batterskull to cheat into play with Stoneforge Mystic's activated ability for the 4/4 lifelink token to stabilize at 2 life.",
+      "type": "blunder",
+      "snapshotIndex": 116,
+      "player": "GPT5n Vet"
+    }
+  ],
+  "blunderScriptVersion": 18
 }

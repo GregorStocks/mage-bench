@@ -46185,5 +46185,170 @@
     "message": "Game ended"
   },
   "harnessEpoch": 20,
-  "youtubeUrl": "https://youtu.be/CzhdfLRP2pM"
+  "youtubeUrl": "https://youtu.be/CzhdfLRP2pM",
+  "annotations": [
+    {
+      "severity": "minor",
+      "description": "With Metalcraft active (4 artifacts), equipment has equip {0}. Playing Mox Opal first (it's free at {0}) would trigger Puresteel Paladin's draw ability ('Whenever an Equipment you control enters, you may draw a card' — wait, Mox Opal is not Equipment, it's just an artifact). Actually, Mox Opal is not an Equipment, so Puresteel Paladin wouldn't trigger. However, playing the second Mox Opal is a legendary artifact — the legend rule would force sacrificing one copy. The player already has a tapped Mox Opal on the battlefield. Playing a second Mox Opal would require sacrificing one to the legend rule, which is purely wasteful unless there's some graveyard synergy. So Mox Opal cast would lose a card for nothing. Actually wait — the player chose Shadowspear, which costs {1}. But all their lands and Mox Opal are tapped. Where is the mana coming from? Looking at the board, everything is tapped. They can't cast Shadowspear either without mana. Let me re-read: Shadowspear is already on the battlefield (it's listed in bf). The choice says 'cast' with id=p15. Actually, Shadowspear shows as already in play. The choice to 'cast' Shadowspear at {1} with no untapped mana sources doesn't make sense — unless the game engine is offering equip. With Metalcraft, equip costs {0}. But Puresteel Paladin is tapped. Let me reconsider: equip targets a creature you control. The only untapped creature... Puresteel Paladin is tapped, Inkmoth Nexus is tapped. There's nothing to equip to. Actually, equip {0} can target tapped creatures too. They could equip Shadowspear to Puresteel Paladin (tapped). But Shadowspear is already on the battlefield unequipped. The real question is whether casting the second Mox Opal (legend rule = sacrifice one, but get an untapped one) would have been better to have an untapped mana source. Playing Mox Opal would legend-rule the tapped one, giving an untapped Mox Opal — then they could tap it for mana. This is actually relevant. But the choice was between these two options and they picked Shadowspear equip (which is free with metalcraft). This seems fine — equipping Shadowspear gives +1/+1 trample lifelink to something. Actually, neither choice matters much since everything is tapped and it's postcombat. This is a marginal decision.",
+      "actionTaken": "Chose to use Shadowspear (likely equipping it for free via Metalcraft) in postcombat main.",
+      "betterLine": "Could have cast the second Mox Opal first, legend-ruling the tapped copy to get an untapped Mox Opal, preserving mana availability, then still equip Shadowspear. Though with everything tapped and postcombat, the difference is minimal.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "minor",
+      "description": "GPT5m Trash played a basic Forest instead of Misty Rainforest. Misty Rainforest is strictly better to play here because it can fetch a Forest (same mana) while thinning the deck, and importantly it can be cracked later at instant speed to shuffle the library or fix mana. Additionally, the opponent has Inkmoth Nexus + Colossus Hammer as a threatening combo, and having Boseiju, Who Endures in hand means GPT5m wants flexible mana options. Playing the fetchland preserves the basic Forest in the deck for future fetch targets and gives more flexibility.",
+      "actionTaken": "Played a basic Forest from hand.",
+      "betterLine": "Play Misty Rainforest instead, keeping the basic Forest in the library as a future fetch target and gaining deck thinning and instant-speed shuffle utility.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "GPT5m Trash"
+    },
+    {
+      "severity": "minor",
+      "description": "Fetched a redundant second Colossus Hammer when an Ornithopter would provide a free creature to carry the existing Hammer. With Puresteel Paladin and Metalcraft active, Ornithopter could immediately be equipped with Colossus Hammer for free, creating a 10/10 flying threat without needing to spend mana to animate Inkmoth Nexus each turn.",
+      "actionTaken": "Searched for a second Colossus Hammer with Urza's Saga chapter III",
+      "betterLine": "Search for Ornithopter — a free creature that can carry the existing Colossus Hammer with Puresteel Paladin's free equip, providing an additional lethal threat alongside Inkmoth Nexus",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "minor",
+      "description": "Fetching Dryad Arbor off Misty Rainforest is suboptimal here. Dryad Arbor enters with summoning sickness and is vulnerable as a 1/1 creature. The opponent has Puresteel Paladin with Colossus Hammer and free equip (Metalcraft active with 4 artifacts), meaning they could potentially attack with a huge creature next turn. GPT5m Trash has Boseiju, Who Endures in hand which could destroy Colossus Hammer, and Grist which costs 1BG. Fetching Overgrown Tomb would provide both black and green mana, enabling Grist next turn alongside Forest, and also enable Boseiju's channel ability more easily. A basic Forest would also be fine since they need green mana and it's not vulnerable to removal. Dryad Arbor doesn't add meaningful board presence given the opponent's threat of a Colossus Hammer-equipped creature.",
+      "actionTaken": "Fetched Dryad Arbor from library with Misty Rainforest",
+      "betterLine": "Fetch Overgrown Tomb (paying 2 life) to enable casting Grist, the Hunger Tide next turn (1BG) while also having mana for Boseiju's channel ability or other plays. The black mana source is critical for the cards in hand.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "GPT5m Trash"
+    },
+    {
+      "severity": "minor",
+      "description": "Activating Inkmoth Nexus to animate it postcombat when it's already tapped accomplishes nothing meaningful. The mana/activation is wasted since it can't attack or block effectively this turn cycle, and the animation wears off at end of turn.",
+      "actionTaken": "Activated Inkmoth Nexus to animate it during postcombat main phase while it was already tapped",
+      "betterLine": "Pass the turn without activating Inkmoth Nexus, preserving the option to animate it on the opponent's turn if needed for blocking, or simply doing nothing since there are no productive plays available with the current board state.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "major",
+      "description": "Casting Battlefield Improvisation in postcombat main phase accomplishes nothing meaningful. The +2/+2 buff is temporary and combat is already over. The equipment-attach clause only works on attacking creatures. This wastes a card for zero value.",
+      "actionTaken": "Cast Battlefield Improvisation in postcombat main with no combat relevance, wasting the card.",
+      "betterLine": "Pass the turn or use an activated ability like Inkmoth Nexus activation (if mana were available). Holding Battlefield Improvisation for a future combat where it could buff an attacker and attach Colossus Hammer for free would be far more valuable - potentially enabling a lethal Inkmoth Nexus attack with Colossus Hammer.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "minor",
+      "description": "GPT5m Trash cast Strangleroot Geist (costs GG) post-combat when they only have one Forest untapped, meaning they can't actually pay for it — or if the game allowed it somehow, they're spending their only mana on a second copy of a creature already on the board instead of playing a land (Misty Rainforest or Spymaster's Vault) to develop mana for next turn's more impactful plays like Grist or Endurance. The opponent has a dangerous Colossus Hammer + Puresteel Paladin setup that threatens a lethal Inkmoth Nexus attack, and deploying Boseiju (channelable to destroy Colossus Hammer) or setting up Endurance/Grist mana would be more valuable. Playing Misty Rainforest to fetch a second Forest would enable casting Endurance or Grist next turn.",
+      "actionTaken": "Cast Strangleroot Geist post-combat with only one Forest available.",
+      "betterLine": "Play Misty Rainforest, crack it for a Forest (or Spymaster's Vault for the Swamp to enable Grist next turn), then cast Young Wolf with the remaining G mana if desired, setting up for Grist or Endurance next turn.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "GPT5m Trash"
+    },
+    {
+      "severity": "minor",
+      "description": "Playing a land before casting free artifacts that would trigger Puresteel Paladin's draw ability. With Puresteel Paladin on the battlefield, casting Mox Opal (0 mana) and Paradise Mantle (0 mana) would each trigger a card draw. Those drawn cards might influence which land to play or reveal better options. Lands should be played after resolving free draw effects.",
+      "actionTaken": "Played Sunbaked Canyon as land drop before casting any free artifacts",
+      "betterLine": "Cast Mox Opal first (triggering Puresteel Paladin draw, legend rule sacrifices one Mox Opal), then cast Paradise Mantle (triggering another draw), then decide on land drop based on new information from drawn cards.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "moderate",
+      "description": "Casting Battlefield Improvisation in postcombat main phase accomplishes almost nothing. The +2/+2 until end of turn is meaningless on a tapped creature after combat, and the equipment-attachment clause only triggers if the creature is attacking (combat is over). This wastes the card for no benefit.",
+      "actionTaken": "Cast Battlefield Improvisation postcombat, wasting the card for essentially no effect.",
+      "betterLine": "Hold Battlefield Improvisation for a future combat step where it could provide +2/+2 during an attack and attach Colossus Hammer to the attacking creature for free. This is the deck's key combo piece and should not be wasted.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "minor",
+      "description": "Playing a second Mox Opal while already controlling one triggers the legend rule, forcing one to be sacrificed. While the new Mox Opal entering does trigger Puresteel Paladin's draw ability (drawing a card), the net result is replacing one Mox Opal with another and going from 4 artifacts to 4 artifacts. The player could instead cast Paradise Mantle (also a 0-cost equipment) to trigger Puresteel Paladin's draw without losing an artifact. Paradise Mantle would increase the artifact count to 5 and provide additional utility (can be equipped for free with Metalcraft to tap a creature for mana).",
+      "actionTaken": "Cast a second Mox Opal, triggering legend rule and sacrificing one copy.",
+      "betterLine": "Cast Paradise Mantle instead to trigger Puresteel Paladin's draw ability while growing the artifact count and preserving both the existing Mox Opal and the Paradise Mantle for future use.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "minor",
+      "description": "Equipping Colossus Hammer to Inkmoth Nexus in postcombat main is pointless because Inkmoth Nexus will stop being a creature at end of turn, causing the equipment to fall off. Meanwhile, casting the second Mox Opal from hand would trigger Puresteel Paladin's draw ability (it triggers on Equipment entering, not just the first copy), giving a free card even though legend rule would sacrifice one copy.",
+      "actionTaken": "Activated Colossus Hammer's equip ability (free via Metalcraft) to equip to Inkmoth Nexus postcombat, which will unattach at end of turn.",
+      "betterLine": "Cast Mox Opal from hand to trigger Puresteel Paladin's draw, then sacrifice one to legend rule. The extra card draw could find key pieces for next turn's lethal Inkmoth attack.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "moderate",
+      "description": "Casting Battlefield Improvisation in postcombat main phase accomplishes almost nothing meaningful - it gives +2/+2 to a creature temporarily and the 'attach Equipment while attacking' clause is irrelevant postcombat. Meanwhile, casting Mox Opal (0 mana) would trigger Puresteel Paladin's draw ability (Equipment entering the battlefield), netting a card even though legend rule forces sacrificing one copy. Drawing a card is far more valuable for the Hammer combo deck than a temporary +2/+2 buff.",
+      "actionTaken": "Cast Battlefield Improvisation ({1}{W}) postcombat for a temporary +2/+2 buff with no combat relevance",
+      "betterLine": "Cast Mox Opal for free to trigger Puresteel Paladin's Equipment-enters draw ability, netting a card (then sacrifice one Mox Opal to legend rule)",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "moderate",
+      "description": "Playing Boseiju, Who Endures as a land sacrifices its Channel ability, which is the best answer to the opponent's lethal Colossus Hammer + Inkmoth Nexus combo. The opponent can equip Colossus Hammer for free via Puresteel Paladin's metalcraft and swing with an 11/11 infect Inkmoth Nexus for lethal poison. Boseiju's Channel ({1}{G}, discard) destroys an artifact like Colossus Hammer, which is critical for survival.",
+      "actionTaken": "Played Boseiju, Who Endures as a land, losing access to its Channel ability.",
+      "betterLine": "Play Misty Rainforest, fetch a Forest (or keep it for later), and retain Boseiju in hand to Channel it for {1}{G} to destroy Colossus Hammer before the opponent can attack with a Hammer-equipped Inkmoth Nexus for lethal infect.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "GPT5m Trash"
+    },
+    {
+      "severity": "minor",
+      "description": "GPT5m is discarding to hand size and chose Green Sun's Zenith, which shuffles back into the library when cast (making it reusable) and is one of the most powerful cards in the deck for finding silver-bullet creatures. Meanwhile, Spymaster's Vault is a tapped land with a marginal activated ability that requires creatures to die, and the deck already has access to plenty of mana sources. Discarding GSZ removes future access to a key tutor.",
+      "actionTaken": "Discarded Green Sun's Zenith",
+      "betterLine": "Discard Spymaster's Vault (a mediocre tapped land with a situational ability) or Malevolent Rumble, keeping Green Sun's Zenith for its powerful tutoring capability.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "GPT5m Trash"
+    },
+    {
+      "severity": "minor",
+      "description": "Casting Paradise Mantle before the second Mox Opal is slightly suboptimal sequencing. By casting Mox Opal first, the legend rule lets them sacrifice the tapped Mox Opal and keep the new untapped one, giving them access to mana before drawing the second card (from Paradise Mantle). This means if the first draw yields a castable spell, they'd have mana available.",
+      "actionTaken": "Cast Paradise Mantle first",
+      "betterLine": "Cast Mox Opal first (replacing tapped copy via legend rule for an untapped Mox Opal and drawing a card), then cast Paradise Mantle (drawing another card), with mana available from the fresh Mox Opal to potentially use whatever was drawn",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "minor",
+      "description": "Activating Inkmoth Nexus post-combat to make it a creature until end of turn is pointless - it will stop being a creature at end of turn, and any equipment attached would fall off. Even if they equip Colossus Hammer with Metalcraft's free equip, the equipment unattaches when Inkmoth reverts. They should instead cast their free artifacts (Paradise Mantle and Mox Opal) first to draw cards via Puresteel Paladin and find more resources.",
+      "actionTaken": "Activated Inkmoth Nexus to become a 1/1 creature post-combat",
+      "betterLine": "Cast Paradise Mantle (free, triggers Puresteel Paladin draw), then cast Mox Opal (free, triggers another draw despite legend rule), then evaluate drawn cards before deciding next steps. Save Inkmoth activation for a turn where you can attack with it equipped.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "minor",
+      "description": "Playing the second Mox Opal violates the legend rule, forcing one copy to be sacrificed. While there's an argument for getting a Puresteel Paladin draw trigger (since Mox Opal is an artifact entering), the player already has Metalcraft active with 4 artifacts, and losing a Mox Opal to the legend rule means net zero artifact count change. The better sequencing would be to cast Paradise Mantle first (which also triggers Puresteel Paladin's draw and doesn't sacrifice anything), then decide whether to play the second Mox Opal based on what's drawn. Playing Mox Opal first wastes it to the legend rule unnecessarily if Paradise Mantle could have been played instead to get the draw trigger without any cost.",
+      "actionTaken": "Cast Mox Opal, triggering legend rule and sacrificing one copy, netting a draw from Puresteel Paladin but losing an artifact.",
+      "betterLine": "Cast Paradise Mantle first to get the Puresteel Paladin draw trigger without losing any permanents, preserving the second Mox Opal for potential future value or to play after seeing the drawn card.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    },
+    {
+      "severity": "minor",
+      "description": "With Puresteel Paladin and Metalcraft active, casting Paradise Mantle (0 mana) before equipping Colossus Hammer would trigger Puresteel Paladin's draw ability for a free card. The drawn card could be relevant for future plays or even this turn.",
+      "actionTaken": "Activated Colossus Hammer's equip ability before casting Paradise Mantle from hand.",
+      "betterLine": "Cast Paradise Mantle first ({0} cost), draw a card from Puresteel Paladin's trigger, then equip Colossus Hammer for {0} with Metalcraft.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "o3 Memoir"
+    }
+  ],
+  "blunderScriptVersion": 18
 }

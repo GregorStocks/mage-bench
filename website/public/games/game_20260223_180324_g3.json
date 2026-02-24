@@ -37739,5 +37739,323 @@
     "message": "Game ended"
   },
   "harnessEpoch": 20,
-  "youtubeUrl": "https://youtu.be/ciVwpZoTmDs"
+  "youtubeUrl": "https://youtu.be/ciVwpZoTmDs",
+  "annotations": [
+    {
+      "severity": "minor",
+      "description": "Tapped Ancient Tomb during the combat phase, taking 2 damage for mana that will empty before it can be used. Show and Tell is a sorcery and can't be cast during combat, and there are no instant-speed plays that need this mana. This wastes 2 life against an aggressive Goblin deck.",
+      "actionTaken": "Tapped Ancient Tomb during combat phase, taking 2 damage to produce {C}{C} that will go unused.",
+      "betterLine": "Pass through combat without tapping Ancient Tomb, then tap it during second main phase when the mana can actually be used to cast Show and Tell.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT52 Proud"
+    },
+    {
+      "severity": "minor",
+      "description": "Casting a second Aether Vial during combat instead of developing the board. With 3 counters on the existing Vial and a hand full of 1-3 CMC goblins, the priority should be deploying threats rather than investing in a redundant Vial that won't be useful for several turns. The opponent has minimal board presence (just lands) making this a window to build pressure.",
+      "actionTaken": "Cast a second Aether Vial for {1} during combat phase",
+      "betterLine": "Play Cavern of Souls (naming Goblin), use existing Aether Vial (3 counters) to put Goblin Matron into play, search for a key goblin like Munitions Expert or another threat, and begin pressuring the opponent's 16 life total more aggressively",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "moderate",
+      "description": "The player chose Shapeshifter as the creature type for Cavern of Souls, but their entire hand is Goblins (Broadside Bombardiers, Goblin Matron x2, Mogg War Marshal, Munitions Expert x3). Choosing Goblin would allow them to cast any of these creatures with uncounterable colored mana from Cavern of Souls. Shapeshifter provides no benefit since they have no Shapeshifter creatures. This wastes the Cavern's colored mana ability entirely.",
+      "actionTaken": "Chose Shapeshifter as the creature type for Cavern of Souls.",
+      "betterLine": "Choose Goblin as the creature type, enabling uncounterable casting of any Goblin from hand using Cavern's colored mana.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Casting Munitions Expert when the opponent has no creatures or planeswalkers on the battlefield wastes its powerful ETB ability. The Expert's damage trigger has no valid target. Additionally, Aether Vial at 3 counters could put in Goblin Matron (to tutor) or Broadside Bombardiers (for more combat damage with haste/menace) which would be more impactful.",
+      "actionTaken": "Cast Munitions Expert during combat with no valid targets for its ETB damage ability.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron onto the battlefield (3 MV matches 3 charge counters) to tutor for a key Goblin, saving Munitions Expert for when the opponent deploys a threat.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Casting Munitions Expert when the opponent has no creatures or planeswalkers on the battlefield wastes its powerful ETB damage ability. The ETB trigger has no valid target, so it's just deploying a 1/1 body inefficiently.",
+      "actionTaken": "Cast Munitions Expert during combat with no enemy creatures/planeswalkers to target with its ETB.",
+      "betterLine": "Use Aether Vial (3 counters) to put Goblin Matron onto the battlefield, tutoring for a Goblin card, and save Munitions Expert for when the opponent deploys a creature threat worth removing.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Tapping Ancient Tomb during the combat phase generates mana that will empty before main phase 2, wasting 2 life for no benefit. The mana can't be used for anything meaningful during combat - Show and Tell is a sorcery, and Force of Will can be cast via alternate cost.",
+      "actionTaken": "Tapped Ancient Tomb during combat phase, taking 2 damage and generating mana that would go unused.",
+      "betterLine": "Pass through combat and tap Ancient Tomb during main phase 2 to cast Show and Tell (with Scalding Tarn fetching an Island for blue mana), putting Omniscience or Emrakul onto the battlefield.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT52 Proud"
+    },
+    {
+      "severity": "moderate",
+      "description": "GPT5n Snark has Aether Vial with 3 charge counters, which can put a creature with mana value 3 onto the battlefield for free. They have Goblin Matron (mana value 3) and Broadside Bombardiers (mana value 3) in hand. Activating Aether Vial to put Goblin Matron into play would tutor for any Goblin card, generating significant card advantage and board presence. The reasoning incorrectly states Aether Vial has '0 counters' when the board state clearly shows it has 3 charge counters. This is a clear misread of the board state leading to a missed opportunity.",
+      "actionTaken": "Passed priority without activating Aether Vial, incorrectly believing it had 0 counters.",
+      "betterLine": "Activate Aether Vial (3 charge counters) to put Goblin Matron (CMC 3) onto the battlefield from hand, triggering its ETB to search for a Goblin card (e.g., another key Goblin). This develops the board for free and generates card advantage.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Cast Munitions Expert when the opponent has no creatures or planeswalkers on the battlefield, wasting its ETB damage ability. Additionally, Aether Vial at 3 counters was available to put in Goblin Matron (to tutor for a Goblin) or Broadside Bombardiers for free, which would have been much higher value.",
+      "actionTaken": "Cast Munitions Expert with no valid ETB targets on the opponent's board",
+      "betterLine": "Activate Aether Vial to put Goblin Matron onto the battlefield, tutoring for a key Goblin, then save Munitions Expert for when the opponent plays a creature worth killing",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "moderate",
+      "description": "The player was prompted to activate Cavern of Souls (choosing between its two tap abilities) but declined to activate it at all, passing priority instead. Cavern of Souls was untapped and could have produced mana. With Mountain and Cavern of Souls available, the player could have tapped Cavern for colored mana (option 2) and Mountain for R to cast a 2-mana creature like Munitions Expert (BR) or Mogg War Marshal (1R). Additionally, Aether Vial has 3 charge counters, which could put a 3-mana creature (Broadside Bombardiers or Goblin Matron) onto the battlefield for free. Passing without using available mana sources wastes a turn of development when the player has a hand full of powerful creatures.",
+      "actionTaken": "Passed priority without activating Cavern of Souls, leaving mana unused during combat.",
+      "betterLine": "Activate Cavern of Souls for colored mana (option 2), use Aether Vial to put Goblin Matron into play (searching for a key Goblin), and deploy additional creatures like Munitions Expert using available mana to build board presence and pressure the opponent.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "moderate",
+      "description": "GPT5n Snark has Aether Vial with 3 charge counters and multiple 3-CMC creatures in hand (Broadside Bombardiers with haste/menace, Goblin Matron with ETB tutor), yet their reasoning says 'no affordable plays right now.' They should be using Aether Vial to put Broadside Bombardiers into play during combat for an immediate hasty attacker, or Goblin Matron to tutor for key goblins. Instead they're tapping Cavern of Souls for mana during combat with no clear purpose.",
+      "actionTaken": "Tapping Cavern of Souls for mana during combat while claiming no plays are available, ignoring Aether Vial at 3 counters.",
+      "betterLine": "Use Aether Vial (3 counters) to put Broadside Bombardiers onto the battlefield for a hasty 2/2 menace attacker, or put in Goblin Matron to tutor for a key Goblin. Save Cavern of Souls mana for post-combat plays.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Cavern of Souls was named 'Shapeshifter' but the player has no Shapeshifter creatures in hand - only Goblins. Choosing ability 2 produces colored mana restricted to Shapeshifter spells, which cannot be spent on any card in hand. Ability 1 would produce unrestricted colorless mana usable for generic costs on Goblin Matron, Mogg War Marshal, etc.",
+      "actionTaken": "Chose Cavern of Souls ability 2 (add one mana of any color, restricted to Shapeshifter spells)",
+      "betterLine": "Choose ability 1 ({T}: Add {C}) to produce unrestricted colorless mana that can pay generic costs on the Goblin spells in hand",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "moderate",
+      "description": "Aether Vial has 3 charge counters and can put a 3-mana creature from hand onto the battlefield. The player has Goblin Matron (CMC 3) and Broadside Bombardiers (CMC 3) in hand. Activating Aether Vial to put Goblin Matron into play would trigger its ETB to tutor for any Goblin card, providing card advantage and board presence. The player incorrectly reasoned that Aether Vial had no charge counters or couldn't drop a creature, when it clearly had 3 charge counters.",
+      "actionTaken": "Passed without activating Aether Vial, incorrectly believing it couldn't put a creature into play.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron (CMC 3) onto the battlefield, triggering its ETB to search for a Goblin card. This builds board presence and card advantage for free.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "moderate",
+      "description": "GPT5n Snark has Aether Vial at 3 counters and could activate it to put a Goblin Matron (CMC 3) onto the battlefield for free, triggering its ETB to tutor for any Goblin card. Additionally, Skirk Prospector is tapped but available as a mana source via sacrifice. The player could also cast Broadside Bombardiers or Goblin Matron using Cavern of Souls (choosing Goblin type — though it's set to Shapeshifter, Goblin Matron could still be cast with Mountain + Cavern for colorless). Most critically, the Aether Vial activation is free and instant-speed, putting a 3-CMC creature into play with no mana cost. Passing without activating Aether Vial wastes a completely free opportunity to develop the board and tutor with Goblin Matron.",
+      "actionTaken": "Passed priority without activating Aether Vial or making any plays.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron onto the battlefield, triggering its ETB to search for a key Goblin (such as another Skirk Prospector or a critical piece). This costs nothing and develops the board significantly.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "major",
+      "description": "Aether Vial has 3 charge counters (not 1 as the player's reasoning incorrectly states), and the player has multiple 3-mana creatures in hand: Broadside Bombardiers, Goblin Matron, and Mogg War Marshal is 2-mana. The player could activate Aether Vial to put Goblin Matron (CMC 3) onto the battlefield during combat, triggering its ETB to search for any Goblin card. This would also increase the Goblin count for Munitions Expert. Additionally, Munitions Expert has flash and could potentially be cast via Cavern of Souls (though it's set to Shapeshifter, not Goblin, so colored mana is limited). The critical miss is not using Aether Vial at 3 counters to deploy Goblin Matron or Broadside Bombardiers for free during combat.",
+      "actionTaken": "Passed priority without activating Aether Vial, incorrectly believing it had 1 charge counter and that no creatures could be deployed.",
+      "betterLine": "Activate Aether Vial (3 charge counters) to put Goblin Matron onto the battlefield for free, triggering its ETB to search for a key Goblin (like another Skirk Prospector or a finisher). This builds board presence and card advantage at no mana cost.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "moderate",
+      "description": "Aether Vial has 3 charge counters, which means it can put a creature with mana value 3 onto the battlefield for free. Goblin Matron (MV 3) is in hand. Activating Aether Vial to put Goblin Matron into play would trigger its ETB to tutor for any Goblin card, building board presence and hand quality. Additionally, with Goblin Matron entering, the player would have 2 Goblins on the battlefield, making Munitions Expert (which could be flashed in) deal 2 damage. The player passed on activating Aether Vial despite it being a free, pure-upside activation that perfectly matches a card in hand.",
+      "actionTaken": "Passed priority without activating Aether Vial or doing anything during combat.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron (MV 3) onto the battlefield, search for a key Goblin (like another Skirk Prospector or a lord), and build board presence for future Munitions Expert value.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Broadside Bombardiers has haste and menace, so it should be cast before combat to attack this turn. The decision snapshot says 'Turn 11 COMBAT' phase, meaning combat is already happening or about to happen. Casting it during combat (or postcombat as the reasoning mentions) means missing the attack with a haste creature. Additionally, the opponent has no creatures on board, so a 2/2 menace haste creature would get in for free damage. However, the bigger issue is that GPT5n Snark cannot actually cast Broadside Bombardiers here - Ancient Tomb belongs to GPT52 Proud, not GPT5n Snark. Snark only has Mountain and Cavern of Souls (chosen type Shapeshifter, not Goblin). Mountain provides {R}, Cavern provides {C} - that's only 2 mana for a 3-mana spell. Snark could sacrifice Skirk Prospector to itself for {R}, giving {R}{R}{C} = 3 mana, but that loses the Prospector. More importantly, Goblin Matron would be the stronger play here to tutor for a key Goblin, and Aether Vial is at 3 counters meaning it can put 3-CMC creatures (like Goblin Matron or Broadside Bombardiers) into play for free. Using Vial to put in Goblin Matron (tutoring for a Goblin) while saving mana for Munitions Expert or other plays would be more efficient.",
+      "actionTaken": "Cast Broadside Bombardiers for {2}{R} during combat phase",
+      "betterLine": "Use Aether Vial (at 3 counters) to put Goblin Matron onto the battlefield for free to tutor a Goblin, then use mana for other spells like Munitions Expert or Mogg War Marshal to build board presence",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "GPT5n Snark declined to activate Aether Vial, which has 3 charge counters and could put a 3-mana creature (Goblin Matron or Broadside Bombardiers) onto the battlefield at instant speed for free. Putting Goblin Matron into play via Vial would trigger its ETB to tutor for any Goblin card, building board presence and card advantage at no mana cost. The reasoning incorrectly states 'Broadside Bombardiers is on the battlefield' when it's actually in hand, and claims there are no viable plays when Aether Vial activation is available and powerful.",
+      "actionTaken": "Passed priority without activating Aether Vial or taking any action.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron (3 MV) onto the battlefield, triggering its ETB to search for a key Goblin like another Skirk Prospector or a payoff card, while developing the board for free.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "GPT5n Snark declined to activate Aether Vial during combat, which has 3 charge counters and could put a 3-mana creature (Goblin Matron or Broadside Bombardiers) onto the battlefield at instant speed for free. Vialing in Goblin Matron would tutor for any Goblin card and add a body to the board. This is a pure-upside activated ability that costs nothing and was available. The reasoning incorrectly states 'No legal casts this turn' and mentions Broadside Bombardiers being on the battlefield when it's actually in hand.",
+      "actionTaken": "Passed priority without activating Aether Vial or taking any action.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron (3 MV) onto the battlefield from hand, triggering its ETB to tutor for a Goblin card. This adds a creature to the board and finds another useful Goblin, all for free at instant speed.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "moderate",
+      "description": "Aether Vial has 3 charge counters and can put a 3-mana creature from hand onto the battlefield. The player has Goblin Matron (3 CMC) and Broadside Bombardiers (3 CMC) in hand. Activating Aether Vial to put Goblin Matron onto the battlefield would trigger its ETB to search for any Goblin card, advancing the game plan significantly. The player incorrectly assessed that Aether Vial 'can't drop a 1-mana creature' when it actually has 3 counters and can drop 3-mana creatures. This is a missed opportunity to develop the board and tutor for a key Goblin.",
+      "actionTaken": "Passed without activating Aether Vial, reasoning incorrectly that there were no viable plays.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron (3 CMC) onto the battlefield, triggering its ETB to search for a Goblin card (such as another key piece for the goblin strategy).",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Discarded Atraxa, Grand Unifier instead of a redundant card. With Show and Tell + Omniscience + Emrakul + Lotus Petal already forming the full combo line (Ancient Tomb + Lotus Petal = 3 mana for Show and Tell), Atraxa is an extremely powerful additional payoff through Omniscience, providing massive card advantage and a threatening body. A second Ponder or second Show and Tell is far less valuable when the combo is already assembled in hand.",
+      "actionTaken": "Discarded Atraxa, Grand Unifier to hand size",
+      "betterLine": "Discard a Ponder or the second Show and Tell, keeping Atraxa as a premium payoff when Omniscience resolves (cast for free to reveal top 10 and refill hand while adding a 7/7 lifelink flyer)",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT52 Proud"
+    },
+    {
+      "severity": "minor",
+      "description": "The player declined to activate Aether Vial with 3 charge counters during combat, despite having multiple 3-CMC creatures in hand (Broadside Bombardiers, Goblin Matron). Aether Vial's activation puts a creature onto the battlefield for free at instant speed. Putting in Goblin Matron would tutor for any Goblin card, expanding options significantly. Putting in Broadside Bombardiers during combat would give a hasty menace creature that could attack (though it's already the combat step, so it depends on timing - if this is before attackers, it could attack; if after, it still adds board presence). Goblin Matron is especially strong here as it searches for any Goblin and increases the Goblin count for future Munitions Expert triggers.",
+      "actionTaken": "Passed without activating Aether Vial or taking any action.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron onto the battlefield, tutoring for a key Goblin (like another Skirk Prospector or a land-finding Goblin to enable black mana). This is a free, instant-speed action with pure upside.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "GPT5n Snark has Aether Vial with 3 charge counters and could activate it to put a 3-mana creature (Goblin Matron or Broadside Bombardiers) onto the battlefield at instant speed during combat. Putting in Goblin Matron would tutor for another Goblin and add another body. Putting in Broadside Bombardiers (2/2 menace haste) during the combat step could allow using its Boast ability after it attacks (though it wasn't declared as an attacker, so Boast wouldn't work this turn). However, Goblin Matron via Vial is clearly valuable - it searches for a Goblin card and increases the Goblin count for future Munitions Expert damage. Passing without using Aether Vial when there are viable targets in hand wastes a turn of Vial usage.",
+      "actionTaken": "Passed priority without activating Aether Vial, declining to put a creature onto the battlefield.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron onto the battlefield, tutoring for a key Goblin (such as another Skirk Prospector or a missing piece), while growing the board for Munitions Expert.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "moderate",
+      "description": "GPT5n Snark has Aether Vial with 3 charge counters and can activate it to put a 3-mana creature from hand onto the battlefield for free at instant speed. They have Broadside Bombardiers (CMC 3) and Goblin Matron (CMC 3) in hand, both excellent Vial targets. Vialing in Goblin Matron would tutor for any Goblin, and vialing in Broadside Bombardiers would give a hasty menace attacker. Instead, they passed priority without using Vial, wasting a combat-phase activation opportunity. Broadside Bombardiers in particular has haste and menace, making combat the ideal time to Vial it in for an immediate attack.",
+      "actionTaken": "Passed priority without activating Aether Vial or taking any action during combat.",
+      "betterLine": "Activate Aether Vial to put Broadside Bombardiers (3 CMC) onto the battlefield during the beginning of combat step, then attack with it (haste, menace) for 2 damage, with the option to use its Boast ability to sacrifice Skirk Prospector for additional damage.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Aether Vial has 3 charge counters and the player has Goblin Matron (mana value 3) in hand. Activating Aether Vial to put Goblin Matron onto the battlefield would trigger its ETB to search for any Goblin card, growing the board and providing card advantage for free. The player incorrectly assessed that no meaningful actions were available.",
+      "actionTaken": "Passed priority without activating Aether Vial, claiming no meaningful actions were possible.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron (3 MV) onto the battlefield, triggering its ETB to tutor for a Goblin card (such as another key piece). This develops the board at instant speed for free.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "GPT5n Snark has Aether Vial with 3 charge counters and multiple 3-MV creatures in hand (Broadside Bombardiers, Goblin Matron). Activating Aether Vial to put Goblin Matron onto the battlefield would tutor for any Goblin card, growing the board and increasing Goblin count for future Munitions Expert triggers. This is a free activation that costs nothing and provides significant value. Passing here wastes a turn of Vial usage.",
+      "actionTaken": "Passed priority without activating Aether Vial, despite having multiple valid 3-MV creatures in hand.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron (or Broadside Bombardiers) onto the battlefield. Goblin Matron is likely best as it tutors for another Goblin, building toward a critical mass for Munitions Expert damage.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Aether Vial has 3 charge counters, and the player has multiple 3-mana creatures in hand (Broadside Bombardiers, Goblin Matron). Activating Aether Vial to put Goblin Matron onto the battlefield would tutor for any Goblin card, building board presence for free at instant speed. This is a pure-upside activated ability that costs nothing and develops the board. Passing here wastes an opportunity to use Vial during combat (or at end of opponent's turn at worst).",
+      "actionTaken": "Passed priority without activating Aether Vial, reasoning that there were no proactive plays available.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron (a 3-mana creature) onto the battlefield, triggering its ETB to search for a key Goblin. Alternatively, put Broadside Bombardiers into play for an attacker with haste and menace.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "GPT5n Snark has Aether Vial with 3 charge counters and could activate it to put a 3-mana creature (Goblin Matron or Broadside Bombardiers) onto the battlefield at instant speed during combat. Putting in Goblin Matron would tutor for another Goblin and increase board presence. Putting in Broadside Bombardiers (which has haste and menace) wouldn't help as an additional attacker since attackers are already declared, but Goblin Matron's ETB tutor is pure value. Alternatively, flashing in Munitions Expert with Cavern of Souls (set to Shapeshifter, so it could cast Munitions Expert as a Shapeshifter... wait, Munitions Expert is a Goblin, not Shapeshifter, and Cavern only produces colored mana for the chosen type). Actually, the Cavern is set to Shapeshifter, so it can't help cast Goblin spells with colored mana. Munitions Expert costs BR and the only colored source is Mountain (1 red). So casting Munitions Expert isn't possible without additional mana. But Aether Vial at 3 counters could put Goblin Matron (CMC 3) or Broadside Bombardiers (CMC 3) into play for free. Goblin Matron's ETB would let them search for any Goblin card, which is pure upside. Passing without using the Vial wastes an opportunity - though they could use it on the opponent's turn or their own main phase 2, so it's not necessarily wasted. Still, using it during combat to get Goblin Matron and tutoring before main phase 2 decisions would be slightly better sequencing, and the Skirk Prospector is tapped (attacking), so the board count matters less. This is a minor missed optimization.",
+      "actionTaken": "Passed priority without activating Aether Vial during combat.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron onto the battlefield, triggering its ETB to search for a key Goblin (like another Skirk Prospector or a combo piece), gaining pure card advantage and board presence.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "moderate",
+      "description": "Munitions Expert's ETB deals damage to a target creature or planeswalker, but the opponent has no creatures or planeswalkers on the battlefield. The ETB is completely wasted. Meanwhile, Aether Vial has 3 counters, which could instead put Goblin Matron (CMC 3) onto the battlefield to tutor for a Goblin card, generating card advantage without wasting removal.",
+      "actionTaken": "Flashed in Munitions Expert with no valid target for its damage ETB, wasting its removal ability.",
+      "betterLine": "Activate Aether Vial to put Goblin Matron into play (matches 3 charge counters), tutoring for a useful Goblin. Save Munitions Expert for when the opponent deploys a creature or planeswalker threat.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Cavern of Souls is set to Shapeshifter type, not Goblin. Choosing option 2 (colored mana for Shapeshifter creatures) is useless since the hand contains only Goblins, not Shapeshifters. However, the player actually chose option 1 ({T}: Add {C}), which is the correct choice given the Shapeshifter naming. But the reasoning says 'I'll use Cavern of Souls to add colorless mana' - and indeed option 1 is the right pick. Looking more carefully at the decision: the player is activating Cavern of Souls during combat (after declaring Skirk Prospector as an attacker). The question is why they're tapping Cavern for mana during combat at all. With Skirk Prospector tapped as an attacker, they could potentially use the mana to cast Broadside Bombardiers (2R) if they have enough mana, but they only have 1 colorless from Cavern and Mountain is already on the battlefield. With Mountain + Cavern = 1R + 1C, they can't cast Broadside Bombardiers (2R). They could potentially use Aether Vial (3 counters) to put in a 3-CMC creature like Goblin Matron or Broadside Bombardiers. Tapping Cavern for colorless during combat without a clear plan to spend it is slightly wasteful - the mana will empty at end of phase. This is a minor sequencing issue where mana is being floated unnecessarily.",
+      "actionTaken": "Tapped Cavern of Souls for colorless mana during combat with no apparent way to spend it effectively this phase.",
+      "betterLine": "Wait to tap Cavern of Souls until post-combat main phase when there's a clear use for the mana, such as casting Mogg War Marshal (1R) with Mountain + Cavern.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Cavern of Souls is set to Shapeshifter, not Goblin. Choosing ability 2 produces colored mana that can only be spent on Shapeshifter creature spells, which is useless for casting Munitions Expert (a Goblin). The player's reasoning incorrectly assumes this mana can be used for Munitions Expert.",
+      "actionTaken": "Chose ability 2 (add one mana of any color, restricted to Shapeshifter creatures) intending to cast Munitions Expert",
+      "betterLine": "Choose ability 1 ({T}: Add {C}) to get unrestricted colorless mana, since neither ability produces mana usable for Goblin spells anyway",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Cavern of Souls is set to Shapeshifter, not Goblin. The colored mana from option 2 cannot be spent on Munitions Expert (a Goblin). The player's reasoning incorrectly assumes Cavern can produce colored mana for Munitions Expert. Neither option actually enables casting Munitions Expert for its BR cost. The player should recognize they need Aether Vial (at 3 counters, doesn't match Expert's 2 CMC) or other mana sources.",
+      "actionTaken": "Activating Cavern of Souls with the intent to cast Munitions Expert, misunderstanding the chosen creature type restriction.",
+      "betterLine": "Use Aether Vial to put in Goblin Matron (3 CMC matches 3 counters) to tutor for more resources, or tap Cavern for colorless and find another way to generate the B and R mana needed for Munitions Expert. The flash Munitions Expert could potentially be vialed in later once Vial ticks to 2 counters, but that's not available this turn.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Cavern of Souls is set to Shapeshifter, not Goblin. Choosing ability 2 produces mana that can only be spent on Shapeshifter creatures, which doesn't match any card in hand. The reasoning incorrectly assumes this mana can be used for Munitions Expert (a Goblin).",
+      "actionTaken": "Chose Cavern of Souls ability 2 (add colored mana for Shapeshifter creatures only)",
+      "betterLine": "Choose ability 1 ({T}: Add {C}) for unrestricted colorless mana, or don't activate Cavern at all during combat since the mana will likely go unused before it can matter.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Cavern of Souls is set to Shapeshifter type, not Goblin. Choosing option 2 (colored mana for creature spells of the chosen type) only works for Shapeshifter creatures. Since the player's hand contains Goblins, not Shapeshifters, the colored mana from option 2 can only be spent on Shapeshifter creature spells, making it essentially useless. Option 1 ({C}) would at least produce unrestricted colorless mana. However, the player said they want Black mana - option 2 technically produces colored mana but restricted to Shapeshifter spells, so it's wasted if used on Goblins. That said, we don't know which option was actually chosen since 'Chosen: ?' is blank, but the reasoning indicates they chose option 2 for Black mana, which is restricted to Shapeshifters and can't be used on their Goblin spells.",
+      "actionTaken": "Chose option 2 on Cavern of Souls (colored mana restricted to Shapeshifter creatures) to try to cast Goblin spells.",
+      "betterLine": "Choose option 1 ({T}: Add {C}) for unrestricted colorless mana, since the Cavern is set to Shapeshifter and none of the cards in hand are Shapeshifters.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "Cavern of Souls was chosen as 'Shapeshifter' type, so option 2 would only help cast Shapeshifter creatures. Since the player wants to cast Goblins (their entire hand is Goblins), option 1 for colorless mana is functionally equivalent here - neither option produces colored mana usable for Goblins. However, this is a minor issue rooted in the original Cavern naming choice (Shapeshifter instead of Goblin), not this specific tap decision. Given the Shapeshifter naming, choosing option 1 is actually correct since colorless mana is more flexible than mana restricted to Shapeshifter creatures.",
+      "actionTaken": "Tapped Cavern of Souls for {C} (colorless mana)",
+      "betterLine": "Given the Shapeshifter naming, option 1 is actually the correct choice here. The real mistake was naming Shapeshifter instead of Goblin when Cavern entered.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    },
+    {
+      "severity": "minor",
+      "description": "The player attempted to cast Munitions Expert but couldn't pay the mana cost ({B}{R}), likely because Cavern of Souls was set to Shapeshifter (not Goblin) and they had no black mana source. The attempt was rolled back, wasting the priority window. They should have recognized their mana couldn't produce {B} and instead used Aether Vial (at 3 counters) to put a 3-drop like Goblin Matron or Broadside Bombardiers onto the battlefield for free, which would have been productive.",
+      "actionTaken": "Attempted to cast Munitions Expert for {B}{R} without having access to black mana, resulting in a rolled-back action and no play made.",
+      "betterLine": "Activate Aether Vial (3 counters) to put Goblin Matron into play, tutoring for a useful Goblin, or put Broadside Bombardiers into play for an immediate attacker with haste and menace.",
+      "type": "blunder",
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark"
+    }
+  ],
+  "blunderScriptVersion": 18
 }
