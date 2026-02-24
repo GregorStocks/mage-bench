@@ -1,8 +1,13 @@
 """Tests for extract_decisions."""
 
+import json
+
 from extract_decisions import (
+    _extract_decisions_v1,
+    _extract_decisions_v2,
     _find_spell_cancelled_events,
     _mark_rolled_back_casts,
+    _resolve_chosen_index,
     _summarize_snapshot,
     _summarize_stack_item,
 )
@@ -312,3 +317,311 @@ class TestFindSpellCancelledEvents:
         result = _find_spell_cancelled_events(events)
         # Should be backdated to T01 (Alice's previous tool_call), not T10
         assert result == [("Alice", "T01")]
+
+
+def _v2_pass_priority(
+    player: str,
+    ts: str,
+    choices: list,
+    message: str = "Play spells and abilities",
+    action_type: str = "GAME_SELECT",
+    response_type: str = "select",
+    **extra: object,
+) -> dict:
+    """Build a v2 pass_priority tool_call event with action_pending=true."""
+    result = {
+        "game_seq": 1,
+        "action_type": action_type,
+        "response_type": response_type,
+        "message": message,
+        "action_pending": True,
+        "choices": choices,
+        **extra,
+    }
+    return {
+        "type": "tool_call",
+        "tool": "pass_priority",
+        "player": player,
+        "ts": ts,
+        "args": {},
+        "result": json.dumps(result),
+    }
+
+
+def _v2_pass_priority_no_action(player: str, ts: str) -> dict:
+    """Build a v2 pass_priority event with action_pending=false."""
+    result = {"game_seq": 1, "action_pending": False, "actions_passed": 1}
+    return {
+        "type": "tool_call",
+        "tool": "pass_priority",
+        "player": player,
+        "ts": ts,
+        "args": {},
+        "result": json.dumps(result),
+    }
+
+
+def _v2_choose_action(player: str, ts: str, args: dict, action_taken: str = "selected_0") -> dict:
+    """Build a v2 choose_action tool_call event."""
+    result = {"success": True, "action_taken": action_taken}
+    return {
+        "type": "tool_call",
+        "tool": "choose_action",
+        "player": player,
+        "ts": ts,
+        "args": args,
+        "result": json.dumps(result),
+    }
+
+
+def _v2_llm_response(player: str, ts: str, reasoning: str = "thinking") -> dict:
+    return {"type": "llm_response", "player": player, "ts": ts, "reasoning": reasoning}
+
+
+def _v2_game_data(llm_events: list[dict]) -> dict:
+    """Build minimal v2 game data."""
+    return {
+        "version": 2,
+        "snapshots": [
+            {"ts": "T00", "turn": 1, "phase": "PRECOMBAT_MAIN", "players": []},
+        ],
+        "actions": [],
+        "llmEvents": llm_events,
+    }
+
+
+class TestResolveChosenIndex:
+    def test_index_arg(self) -> None:
+        assert _resolve_chosen_index({"index": 2}, [], {}) == 2
+
+    def test_answer_arg(self) -> None:
+        assert _resolve_chosen_index({"answer": False}, [], {}) is False
+
+    def test_amount_arg(self) -> None:
+        assert _resolve_chosen_index({"amount": 5}, [], {}) == 5
+
+    def test_id_arg(self) -> None:
+        choices = [{"name": "A", "id": "p1"}, {"name": "B", "id": "p2"}]
+        assert _resolve_chosen_index({"id": "p2"}, choices, {}) == 1
+
+    def test_id_not_found_falls_back_to_action_taken(self) -> None:
+        result = _resolve_chosen_index({"id": "p99"}, [], {"action_taken": "selected_3"})
+        assert result == 3
+
+    def test_fallback_to_action_taken(self) -> None:
+        result = _resolve_chosen_index({"attackers": ["p1"]}, [], {"action_taken": "selected_0"})
+        assert result == 0
+
+    def test_no_resolution(self) -> None:
+        assert _resolve_chosen_index({"attackers": ["p1"]}, [], {}) is None
+
+
+class TestExtractDecisionsV2:
+    def test_basic_pass_priority_decision(self) -> None:
+        """pass_priority with action_pending -> llm_response -> choose_action."""
+        choices = [{"name": "Lightning Bolt", "id": "p1", "index": 0}]
+        events = [
+            _v2_pass_priority("Alice", "T01", choices),
+            _v2_llm_response("Alice", "T02"),
+            _v2_choose_action("Alice", "T03", {"id": "p1"}),
+        ]
+        decisions = _extract_decisions_v2(_v2_game_data(events))
+        assert len(decisions) == 1
+        d = decisions[0]
+        assert d["player"] == "Alice"
+        assert d["message"] == "Play spells and abilities"
+        assert d["chosen"] == 0
+        assert d["chosen_args"] == {"id": "p1"}
+        assert d["choice_count"] == 1
+        assert d["is_forced"] is True
+
+    def test_multiple_choices_id_resolution(self) -> None:
+        """choose_action with id resolves to correct index."""
+        choices = [
+            {"name": "Forest", "id": "p5", "index": 0},
+            {"name": "Bolt", "id": "p10", "index": 1},
+            {"name": "Bear", "id": "p15", "index": 2},
+        ]
+        events = [
+            _v2_pass_priority("Alice", "T01", choices),
+            _v2_llm_response("Alice", "T02", reasoning="cast the bear"),
+            _v2_choose_action("Alice", "T03", {"id": "p15"}, "selected_2"),
+        ]
+        decisions = _extract_decisions_v2(_v2_game_data(events))
+        assert len(decisions) == 1
+        assert decisions[0]["chosen"] == 2
+        assert decisions[0]["reasoning"] == "cast the bear"
+        assert decisions[0]["is_forced"] is False
+
+    def test_answer_based_decision(self) -> None:
+        """choose_action with answer=false (passing priority)."""
+        choices = [{"name": "Bolt", "id": "p1", "index": 0}]
+        events = [
+            _v2_pass_priority("Alice", "T01", choices),
+            _v2_llm_response("Alice", "T02"),
+            _v2_choose_action("Alice", "T03", {"answer": False}),
+        ]
+        decisions = _extract_decisions_v2(_v2_game_data(events))
+        assert len(decisions) == 1
+        assert decisions[0]["chosen"] is False
+
+    def test_skips_pass_priority_without_action_pending(self) -> None:
+        """pass_priority events without action_pending=true are not decisions."""
+        events = [
+            _v2_pass_priority_no_action("Alice", "T01"),
+            _v2_pass_priority(
+                "Alice",
+                "T02",
+                [{"name": "Bolt", "id": "p1", "index": 0}],
+            ),
+            _v2_llm_response("Alice", "T03"),
+            _v2_choose_action("Alice", "T04", {"id": "p1"}),
+        ]
+        decisions = _extract_decisions_v2(_v2_game_data(events))
+        assert len(decisions) == 1
+        assert decisions[0]["action_ts"] == "T04"
+
+    def test_two_players_interleaved(self) -> None:
+        """Decisions from two players don't interfere."""
+        events = [
+            _v2_pass_priority("Alice", "T01", [{"name": "Bolt", "id": "p1", "index": 0}]),
+            _v2_llm_response("Alice", "T02"),
+            _v2_pass_priority("Bob", "T03", [{"name": "Counter", "id": "p2", "index": 0}]),
+            _v2_choose_action("Alice", "T04", {"id": "p1"}),
+            _v2_llm_response("Bob", "T05"),
+            _v2_choose_action("Bob", "T06", {"id": "p2"}),
+        ]
+        decisions = _extract_decisions_v2(_v2_game_data(events))
+        assert len(decisions) == 2
+        assert decisions[0]["player"] == "Alice"
+        assert decisions[0]["chosen"] == 0
+        assert decisions[1]["player"] == "Bob"
+        assert decisions[1]["chosen"] == 0
+
+    def test_sequential_decisions_same_player(self) -> None:
+        """Multiple sequential decisions for the same player."""
+        events = [
+            _v2_pass_priority("Alice", "T01", [{"name": "Forest", "id": "p1", "index": 0}]),
+            _v2_llm_response("Alice", "T02"),
+            _v2_choose_action("Alice", "T03", {"id": "p1"}),
+            _v2_pass_priority(
+                "Alice",
+                "T04",
+                [
+                    {"name": "Bolt", "id": "p2", "index": 0},
+                    {"name": "Bear", "id": "p3", "index": 1},
+                ],
+            ),
+            _v2_llm_response("Alice", "T05"),
+            _v2_choose_action("Alice", "T06", {"id": "p3"}, "selected_1"),
+        ]
+        decisions = _extract_decisions_v2(_v2_game_data(events))
+        assert len(decisions) == 2
+        assert decisions[0]["chosen"] == 0
+        assert decisions[1]["chosen"] == 1
+
+    def test_decision_without_choose_action(self) -> None:
+        """Decision source followed by another decision source (no choose_action)."""
+        events = [
+            _v2_pass_priority("Alice", "T01", [{"name": "Bolt", "id": "p1", "index": 0}]),
+            _v2_llm_response("Alice", "T02"),
+            _v2_pass_priority("Alice", "T03", [{"name": "Bear", "id": "p2", "index": 0}]),
+            _v2_llm_response("Alice", "T04"),
+            _v2_choose_action("Alice", "T05", {"id": "p2"}),
+        ]
+        decisions = _extract_decisions_v2(_v2_game_data(events))
+        assert len(decisions) == 2
+        # First decision has no choose_action
+        assert decisions[0]["chosen"] is None
+        assert decisions[0]["action_ts"] == ""
+        # Second has one
+        assert decisions[1]["chosen"] == 0
+
+    def test_fallback_to_action_taken(self) -> None:
+        """When args don't resolve index, fall back to action_taken."""
+        choices = [
+            {"name": "A", "id": "p1", "index": 0},
+            {"name": "B", "id": "p2", "index": 1},
+        ]
+        events = [
+            _v2_pass_priority("Alice", "T01", choices),
+            _v2_llm_response("Alice", "T02"),
+            _v2_choose_action("Alice", "T03", {"attackers": ["p1"]}, "selected_0"),
+        ]
+        decisions = _extract_decisions_v2(_v2_game_data(events))
+        assert len(decisions) == 1
+        assert decisions[0]["chosen"] == 0
+
+    def test_get_action_choices_also_collected(self) -> None:
+        """Rare get_action_choices with action_pending=true is also a decision source."""
+        choices = [{"name": "Opt", "id": "p1", "index": 0}]
+        result = json.dumps(
+            {
+                "action_pending": True,
+                "choices": choices,
+                "action_type": "GAME_SELECT",
+                "response_type": "select",
+                "message": "Choose a card",
+            }
+        )
+        events = [
+            {
+                "type": "tool_call",
+                "tool": "get_action_choices",
+                "player": "Alice",
+                "ts": "T01",
+                "args": {},
+                "result": result,
+            },
+            _v2_llm_response("Alice", "T02"),
+            _v2_choose_action("Alice", "T03", {"id": "p1"}),
+        ]
+        data = _v2_game_data(events)
+        decisions = _extract_decisions_v2(data)
+        assert len(decisions) == 1
+        assert decisions[0]["message"] == "Choose a card"
+
+
+class TestExtractDecisionsV1:
+    def test_basic_v1_decision(self) -> None:
+        """Basic v1 format: get_action_choices -> llm_response -> choose_action."""
+        choices = [{"name": "Bolt", "index": 0}]
+        gac_result = json.dumps(
+            {
+                "action_pending": True,
+                "choices": choices,
+                "action_type": "GAME_SELECT",
+                "response_type": "select",
+                "message": "Play spells and abilities",
+            }
+        )
+        ca_result = json.dumps({"action_taken": "selected_0"})
+        events = [
+            {
+                "type": "tool_call",
+                "tool": "get_action_choices",
+                "player": "Alice",
+                "ts": "T01",
+                "result": gac_result,
+            },
+            {"type": "llm_response", "player": "Alice", "ts": "T02", "reasoning": "bolt it"},
+            {
+                "type": "tool_call",
+                "tool": "choose_action",
+                "player": "Alice",
+                "ts": "T03",
+                "args": {"index": 0},
+                "result": ca_result,
+            },
+        ]
+        data = {
+            "snapshots": [
+                {"ts": "T00", "turn": 1, "phase": "PRECOMBAT_MAIN", "players": []},
+            ],
+            "actions": [],
+            "llmEvents": events,
+        }
+        decisions = _extract_decisions_v1(data)
+        assert len(decisions) == 1
+        assert decisions[0]["chosen"] == 0
+        assert decisions[0]["reasoning"] == "bolt it"

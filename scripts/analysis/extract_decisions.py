@@ -132,10 +132,89 @@ def _parse_action_result(result_str: str) -> dict:
         return {}
 
 
-def extract_decisions(gz_path: str) -> list[dict]:
-    """Extract decision points from a game export file."""
-    data = load_game(gz_path)
+def _resolve_chosen_index(
+    chosen_args: dict, available_choices: list, action_result: dict
+) -> object | None:
+    """Resolve chosen_index from choose_action args.
 
+    Tries arg keys in order: index, answer, amount, id.
+    Falls back to parsing "selected_N" from action_taken.
+    """
+    if "index" in chosen_args:
+        return chosen_args["index"]
+    if "answer" in chosen_args:
+        return chosen_args["answer"]
+    if "amount" in chosen_args:
+        return chosen_args["amount"]
+    if "id" in chosen_args:
+        target_id = chosen_args["id"]
+        for ci, c in enumerate(available_choices):
+            if isinstance(c, dict) and c.get("id") == target_id:
+                return ci
+    # Fallback: parse "selected_N" from action_taken
+    taken = action_result.get("action_taken", "")
+    if taken.startswith("selected_"):
+        try:
+            return int(taken.split("_", 1)[1])
+        except (ValueError, IndexError):
+            pass
+    return None
+
+
+def _build_decision(
+    *,
+    decisions: list[dict],
+    snap_idx: int | None,
+    action_ts: str,
+    player: str,
+    game_state: dict,
+    message: str,
+    action_type: str,
+    response_type: str,
+    available_choices: list,
+    chosen_index: object | None,
+    chosen_args: dict,
+    action_result: dict,
+    reasoning: str,
+    combat_phase: str,
+    combat: list,
+    already_attacking: list,
+    incoming_attackers: list,
+    subsequent: list[str],
+) -> dict:
+    """Build a decision dict with the canonical field set."""
+    return {
+        "decision_index": len(decisions),
+        "snapshot_index": snap_idx if snap_idx is not None else 0,
+        "action_ts": action_ts,
+        "player": player,
+        "turn": game_state.get("turn"),
+        "phase": game_state.get("phase"),
+        "message": message,
+        "action_type": action_type,
+        "response_type": response_type,
+        "choices": available_choices,
+        "choice_count": len(available_choices),
+        "chosen": chosen_index,
+        "chosen_args": chosen_args,
+        "action_result": action_result,
+        "reasoning": reasoning,
+        "is_forced": len(available_choices) <= 1,
+        "game_state": game_state,
+        "combat_phase": combat_phase,
+        "combat": combat,
+        "already_attacking": already_attacking,
+        "incoming_attackers": incoming_attackers,
+        "subsequent_actions": subsequent,
+    }
+
+
+def _extract_decisions_v1(data: dict) -> list[dict]:
+    """Extract decisions from v1 format (harnessEpoch < 20).
+
+    In v1, LLMs always call get_action_choices to get choices, then
+    choose_action to respond. Decisions anchor on get_action_choices events.
+    """
     snapshots = data.get("snapshots", [])
     actions = data.get("actions", [])
     llm_events = data.get("llmEvents", [])
@@ -161,7 +240,6 @@ def extract_decisions(gz_path: str) -> list[dict]:
 
         # Parse available choices
         available_choices = choices_result.get("choices", [])
-        choice_count = len(available_choices)
         response_type = choices_result.get("response_type", "")
         action_type = choices_result.get("action_type", "")
         message = choices_result.get("message", "")
@@ -187,30 +265,10 @@ def extract_decisions(gz_path: str) -> list[dict]:
 
             if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
                 chosen_args = ev.get("args", {})
-                if "index" in chosen_args:
-                    chosen_index = chosen_args["index"]
-                elif "answer" in chosen_args:
-                    chosen_index = chosen_args["answer"]
-                elif "amount" in chosen_args:
-                    chosen_index = chosen_args["amount"]
-                elif "id" in chosen_args:
-                    # Resolve short ID (e.g. "p5") to choice index
-                    target_id = chosen_args["id"]
-                    for ci, c in enumerate(available_choices):
-                        if isinstance(c, dict) and c.get("id") == target_id:
-                            chosen_index = ci
-                            break
-                if chosen_index is None:
-                    # Fallback: parse "selected_N" from action_taken
-                    action_result = _parse_action_result(ev.get("result", ""))
-                    taken = action_result.get("action_taken", "")
-                    if taken.startswith("selected_"):
-                        try:
-                            chosen_index = int(taken.split("_", 1)[1])
-                        except (ValueError, IndexError):
-                            pass
-                else:
-                    action_result = _parse_action_result(ev.get("result", ""))
+                action_result = _parse_action_result(ev.get("result", ""))
+                chosen_index = _resolve_chosen_index(
+                    chosen_args, available_choices, action_result
+                )
                 action_ts = ev.get("ts", "")
                 break
 
@@ -243,34 +301,168 @@ def extract_decisions(gz_path: str) -> list[dict]:
                     break
 
         decisions.append(
-            {
-                "decision_index": len(decisions),
-                "snapshot_index": snap_idx if snap_idx is not None else 0,
-                "action_ts": action_ts,
-                "player": player,
-                "turn": game_state.get("turn"),
-                "phase": game_state.get("phase"),
-                "message": message,
-                "action_type": action_type,
-                "response_type": response_type,
-                "choices": available_choices,
-                "choice_count": choice_count,
-                "chosen": chosen_index,
-                "chosen_args": chosen_args,
-                "action_result": action_result,
-                "reasoning": reasoning,
-                "is_forced": choice_count <= 1,
-                "game_state": game_state,
-                "combat_phase": combat_phase,
-                "combat": combat,
-                "already_attacking": already_attacking,
-                "incoming_attackers": incoming_attackers,
-                "subsequent_actions": subsequent,
-            }
+            _build_decision(
+                decisions=decisions,
+                snap_idx=snap_idx,
+                action_ts=action_ts,
+                player=player,
+                game_state=game_state,
+                message=message,
+                action_type=action_type,
+                response_type=response_type,
+                available_choices=available_choices,
+                chosen_index=chosen_index,
+                chosen_args=chosen_args,
+                action_result=action_result,
+                reasoning=reasoning,
+                combat_phase=combat_phase,
+                combat=combat,
+                already_attacking=already_attacking,
+                incoming_attackers=incoming_attackers,
+                subsequent=subsequent,
+            )
         )
+
+    return decisions
+
+
+def _is_decision_source(event: dict) -> bool:
+    """Check if a tool_call event is a v2 decision source.
+
+    A decision source is a pass_priority or get_action_choices tool_call
+    whose result has action_pending=true.
+    """
+    if event.get("type") != "tool_call":
+        return False
+    tool = event.get("tool")
+    if tool not in ("pass_priority", "get_action_choices"):
+        return False
+    result = _parse_choices_result(event.get("result", ""))
+    return bool(result.get("action_pending"))
+
+
+def _extract_decisions_v2(data: dict) -> list[dict]:
+    """Extract decisions from v2 format (harnessEpoch >= 20).
+
+    In v2, pass_priority returns choices inline when action_pending=true,
+    so decisions anchor on pass_priority/get_action_choices events with
+    action_pending=true instead of just get_action_choices.
+    """
+    snapshots = data.get("snapshots", [])
+    actions = data.get("actions", [])
+    llm_events = data.get("llmEvents", [])
+
+    # Collect decision source events
+    decision_sources: list[tuple[int, dict]] = []
+    for i, event in enumerate(llm_events):
+        if _is_decision_source(event):
+            decision_sources.append((i, event))
+
+    decisions: list[dict] = []
+
+    for ds_idx, (event_idx, source_event) in enumerate(decision_sources):
+        choices_result = _parse_choices_result(source_event.get("result", ""))
+        choices_ts = source_event.get("ts", "")
+        player = source_event.get("player", "")
+
+        available_choices = choices_result.get("choices", [])
+        response_type = choices_result.get("response_type", "")
+        action_type = choices_result.get("action_type", "")
+        message = choices_result.get("message", "")
+        combat_phase = choices_result.get("combat_phase", "")
+        combat = choices_result.get("combat", [])
+        already_attacking = choices_result.get("already_attacking", [])
+        incoming_attackers = choices_result.get("incoming_attackers", [])
+
+        # Look forward for llm_response and choose_action from same player
+        reasoning = ""
+        chosen_index = None
+        chosen_args: dict = {}
+        action_result: dict = {}
+        action_ts = ""
+
+        for j in range(event_idx + 1, len(llm_events)):
+            ev = llm_events[j]
+            if ev.get("player") != player:
+                continue
+
+            if ev.get("type") == "llm_response" and not reasoning:
+                reasoning = ev.get("reasoning", "")
+
+            if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
+                chosen_args = ev.get("args", {})
+                action_result = _parse_action_result(ev.get("result", ""))
+                chosen_index = _resolve_chosen_index(
+                    chosen_args, available_choices, action_result
+                )
+                action_ts = ev.get("ts", "")
+                break
+
+            # Stop at next decision source for this player
+            if _is_decision_source(ev):
+                break
+
+        snap_idx = _find_snapshot_index(snapshots, choices_ts)
+        game_state = (
+            _summarize_snapshot(snapshots[snap_idx]) if snap_idx is not None else {}
+        )
+
+        # Collect subsequent game actions
+        next_choices_ts = ""
+        if ds_idx + 1 < len(decision_sources):
+            next_choices_ts = decision_sources[ds_idx + 1][1].get("ts", "")
+
+        subsequent: list[str] = []
+        if action_ts:
+            for a in actions:
+                a_ts = a.get("ts", "")
+                if a_ts <= (action_ts or choices_ts):
+                    continue
+                if next_choices_ts and a_ts > next_choices_ts:
+                    break
+                subsequent.append(a.get("message", ""))
+                if len(subsequent) >= 5:
+                    break
+
+        decisions.append(
+            _build_decision(
+                decisions=decisions,
+                snap_idx=snap_idx,
+                action_ts=action_ts,
+                player=player,
+                game_state=game_state,
+                message=message,
+                action_type=action_type,
+                response_type=response_type,
+                available_choices=available_choices,
+                chosen_index=chosen_index,
+                chosen_args=chosen_args,
+                action_result=action_result,
+                reasoning=reasoning,
+                combat_phase=combat_phase,
+                combat=combat,
+                already_attacking=already_attacking,
+                incoming_attackers=incoming_attackers,
+                subsequent=subsequent,
+            )
+        )
+
+    return decisions
+
+
+def extract_decisions(gz_path: str) -> list[dict]:
+    """Extract decision points from a game export file."""
+    data = load_game(gz_path)
+
+    is_v2 = "version" in data
+    if is_v2:
+        decisions = _extract_decisions_v2(data)
+    else:
+        decisions = _extract_decisions_v1(data)
 
     # Detect rolled-back casts from [System] Spell cancelled messages
     # in ANY tool result (get_action_choices, choose_action, pass_priority)
+    llm_events = data.get("llmEvents", [])
     cancelled = _find_spell_cancelled_events(llm_events)
     _mark_rolled_back_casts(decisions, cancelled)
 
