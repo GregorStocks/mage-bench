@@ -115,9 +115,32 @@ public class BridgeCallbackHandler {
 
     /** Update lastGameView and feed the RoundTracker. */
     private void updateLastGameView(GameView gv) {
+        updateLastGameView(gv, null);
+    }
+
+    /** Update lastGameView with source tracking for determinism debugging. */
+    private void updateLastGameView(GameView gv, String source) {
         if (gv != null) {
+            GameView old = lastGameView;
+            if (old != null && gv.getGameSeq() < old.getGameSeq()) {
+                String src = source != null ? source : "unknown";
+                logger.debug("[" + client.getUsername() + "] lastGameView REJECTED backward update game_seq "
+                    + old.getGameSeq() + " -> " + gv.getGameSeq() + " (source=" + src
+                    + ", thread=" + Thread.currentThread().getName() + ")");
+                return;
+            }
             lastGameView = gv;
             roundTracker.update(gv);
+            // Determinism debugging: log when game_seq changes and who changed it
+            int oldSeq = old != null ? old.getGameSeq() : -1;
+            int newSeq = gv.getGameSeq();
+            if (oldSeq != newSeq) {
+                String src = source != null ? source : "unknown";
+                String step = gv.getStep() != null ? gv.getStep().toString() : "null";
+                logger.debug("[" + client.getUsername() + "] lastGameView game_seq " + oldSeq
+                    + " -> " + newSeq + " (source=" + src + ", step=" + step
+                    + ", thread=" + Thread.currentThread().getName() + ")");
+            }
         }
     }
     private final ShortIdRegistry shortIds = new ShortIdRegistry();
@@ -2689,7 +2712,7 @@ public class BridgeCallbackHandler {
                 if (action.data() instanceof GameClientMessage) {
                     GameView gv = ((GameClientMessage) action.data()).getGameView();
                     if (gv != null) {
-                        updateLastGameView(gv);
+                        updateLastGameView(gv, "passPriority:" + action.method().name());
                         int turn = gv.getTurn();
                         if (turn != lastTurnNumber) {
                             lastTurnNumber = turn;
@@ -2823,7 +2846,9 @@ public class BridgeCallbackHandler {
                 }
 
                 // Check if there are playable cards (non-mana-only, excluding failed casts)
-                PlayableObjectsList playable = lastGameView != null ? lastGameView.getCanPlayObjects() : null;
+                // Determinism debugging: snapshot the view ONCE and use it consistently
+                GameView viewForPlayableCheck = lastGameView;
+                PlayableObjectsList playable = viewForPlayableCheck != null ? viewForPlayableCheck.getCanPlayObjects() : null;
                 boolean hasPlayableCards = false;
                 if (playable != null && !playable.isEmpty()) {
                     for (Map.Entry<UUID, PlayableObjectStats> entry : playable.getObjects().entrySet()) {
@@ -2839,6 +2864,22 @@ public class BridgeCallbackHandler {
                             break;
                         }
                     }
+                }
+
+                // Determinism debugging: always log the playable-cards check result
+                // to diagnose both Mode 1 (game_seq drift) and Mode 2 (phase divergence).
+                {
+                    int cbSeq = action.gameSeq();
+                    int viewSeq = viewForPlayableCheck != null ? viewForPlayableCheck.getGameSeq() : -1;
+                    String viewStep = viewForPlayableCheck != null && viewForPlayableCheck.getStep() != null
+                        ? viewForPlayableCheck.getStep().toString() : "null";
+                    logger.debug("[" + client.getUsername() + "] passPriority playable check:"
+                        + " callback_seq=" + cbSeq
+                        + " view_seq=" + viewSeq
+                        + " view_step=" + viewStep
+                        + " hasPlayable=" + hasPlayableCards
+                        + " actionsPassed=" + actionsPassed
+                        + " thread=" + Thread.currentThread().getName());
                 }
 
                 if (hasPlayableCards) {
@@ -2997,6 +3038,13 @@ public class BridgeCallbackHandler {
 
         state.put("available", true);
         state.put("game_seq", gameView.getGameSeq());
+        // Determinism debugging: log what game_seq getGameState returns
+        {
+            String step = gameView.getStep() != null ? gameView.getStep().toString() : "null";
+            logger.debug("[" + client.getUsername() + "] getGameState returning game_seq="
+                + gameView.getGameSeq() + " step=" + step
+                + " thread=" + Thread.currentThread().getName());
+        }
         state.put("turn", roundTracker.update(gameView));
 
         // Phase info
@@ -3843,7 +3891,7 @@ public class BridgeCallbackHandler {
                                 logger.info("[" + client.getUsername() + "] Auto-selecting single mandatory target: " + onlyTarget.toString().substring(0, 8));
                                 // Update game view if available
                                 GameView gv = targetCallbackMsg.getGameView();
-                                updateLastGameView(gv);
+                                updateLastGameView(gv, "auto_target");
                                 session.sendPlayerUUID(objectId, onlyTarget);
                                 trackSentResponse(objectId, ResponseType.UUID, onlyTarget, null);
                                 break;
@@ -3859,7 +3907,7 @@ public class BridgeCallbackHandler {
                     AbilityPickerView picker = (AbilityPickerView) callback.getData();
                     Map<UUID, String> choices = picker.getChoices();
                     GameView gv = picker.getGameView();
-                    updateLastGameView(gv);
+                    updateLastGameView(gv, "GAME_CHOOSE_ABILITY");
 
                     if (mcpMode && choices != null && !choices.isEmpty()) {
                         if (manaPlan != null) {
@@ -3991,7 +4039,7 @@ public class BridgeCallbackHandler {
         int gameSeq = 0;
         GameView gv = extractGameView(data);
         if (gv != null) {
-            updateLastGameView(gv);
+            updateLastGameView(gv, "storePendingAction:" + method.name());
             gameSeq = gv.getGameSeq();
         }
         synchronized (actionLock) {
@@ -4161,7 +4209,7 @@ public class BridgeCallbackHandler {
 
     private void handleGameInit(UUID gameId, ClientCallback callback) {
         GameView gameView = (GameView) callback.getData();
-        updateLastGameView(gameView);
+        updateLastGameView(gameView, "GAME_INIT");
         logger.info("[" + client.getUsername() + "] Game initialized: " + gameView.getPlayers().size() + " players");
     }
 
@@ -4169,14 +4217,14 @@ public class BridgeCallbackHandler {
         Object data = callback.getData();
         if (data instanceof GameView) {
             GameView gameView = (GameView) data;
-            updateLastGameView(gameView);
+            updateLastGameView(gameView, "GAME_UPDATE");
             logger.debug("[" + client.getUsername() + "] Game update: turn " + gameView.getTurn() +
                     ", phase " + gameView.getPhase() + ", active player " + gameView.getActivePlayerName());
         } else if (data instanceof GameClientMessage) {
             GameClientMessage message = (GameClientMessage) data;
             GameView gameView = message.getGameView();
             if (gameView != null) {
-                updateLastGameView(gameView);
+                updateLastGameView(gameView, "GAME_UPDATE_AND_INFORM");
                 logger.debug("[" + client.getUsername() + "] Game inform: " + message.getMessage());
             }
         }
@@ -4588,7 +4636,7 @@ public class BridgeCallbackHandler {
 
     private boolean handleGamePlayManaAuto(UUID gameId, GameClientMessage message) {
         GameView gameView = message.getGameView();
-        updateLastGameView(gameView);
+        updateLastGameView(gameView, "GAME_PLAY_MANA_AUTO");
 
         String msg = message.getMessage();
         lastManaPaymentPrompt = msg;
