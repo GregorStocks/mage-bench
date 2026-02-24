@@ -50,6 +50,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -188,7 +189,7 @@ public class BridgeCallbackHandler {
 
     // Structured game history: parallel to gameLog StringBuilder, populated at insertion time
     private record HistoryEntry(String message, String turnPlayer, int playerTurnNum,
-                                 String life, boolean isTurnMarker) {}
+                                 Map<String, Integer> lifeTotals, boolean isTurnMarker) {}
     private final List<HistoryEntry> gameHistory = new ArrayList<>();
     private int gameHistoryTrimmedEntries = 0;
     private String historyActivePlayer = null;
@@ -2613,8 +2614,8 @@ public class BridgeCallbackHandler {
                         currentTurn = new HashMap<>();
                         currentTurn.put("player", entry.turnPlayer());
                         currentTurn.put("turn_number", entry.playerTurnNum());
-                        if (entry.life() != null && !entry.life().isEmpty()) {
-                            currentTurn.put("life", entry.life());
+                        if (entry.lifeTotals() != null && !entry.lifeTotals().isEmpty()) {
+                            currentTurn.put("life_totals", entry.lifeTotals());
                         }
                         currentActions = new ArrayList<>();
                     } else {
@@ -4255,11 +4256,11 @@ public class BridgeCallbackHandler {
             if (logEntry != null && !logEntry.isEmpty()) {
                 // Rewrite "TURN X for <Player> (lives)" to per-player turn numbers: "Player turn N (lives)"
                 boolean isTurnMarker = false;
-                String turnLife = null;
+                Map<String, Integer> turnLifeTotals = null;
                 Matcher turnMatcher = TURN_MSG_PATTERN.matcher(logEntry);
                 if (turnMatcher.find()) {
                     String activePlayer = lastGameView != null ? lastGameView.getActivePlayerName() : null;
-                    if (activePlayer != null) {
+                    if (activePlayer != null && !activePlayer.isEmpty()) {
                         int playerTurn = playerTurnCounts.merge(activePlayer, 1, Integer::sum);
                         String rest = logEntry.substring(turnMatcher.end());
                         int parenIdx = rest.indexOf('(');
@@ -4268,7 +4269,14 @@ public class BridgeCallbackHandler {
                         isTurnMarker = true;
                         historyActivePlayer = activePlayer;
                         historyPlayerTurnNum = playerTurn;
-                        turnLife = lifePart.trim();
+                        // Capture per-player life totals from the game view
+                        GameView gv = lastGameView;
+                        if (gv != null && gv.getPlayers() != null) {
+                            turnLifeTotals = new LinkedHashMap<>();
+                            for (var p : gv.getPlayers()) {
+                                turnLifeTotals.put(p.getName(), p.getLife());
+                            }
+                        }
                     } else {
                         logEntry = "TURN " + roundTracker.getGameRound() + logEntry.substring(turnMatcher.end());
                     }
@@ -4296,7 +4304,7 @@ public class BridgeCallbackHandler {
                 String cleanMessage = stripHtml(logEntry);
                 synchronized (gameHistory) {
                     gameHistory.add(new HistoryEntry(cleanMessage, historyActivePlayer,
-                        historyPlayerTurnNum, turnLife, isTurnMarker));
+                        historyPlayerTurnNum, turnLifeTotals, isTurnMarker));
                     if (gameHistory.size() > MAX_HISTORY_ENTRIES) {
                         int excess = gameHistory.size() - MAX_HISTORY_ENTRIES;
                         gameHistory.subList(0, excess).clear();

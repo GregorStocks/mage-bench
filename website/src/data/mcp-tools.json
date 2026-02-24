@@ -84,7 +84,7 @@
           "type": "boolean"
         },
         "turns": {
-          "description": "Turn objects: player, turn_number, life (life totals), actions (list of action strings)",
+          "description": "Turn objects: player, turn_number, life_totals (map of player name to life), actions (list of action strings)",
           "type": "array",
           "items": {
             "type": "object"
@@ -95,11 +95,11 @@
     "examples": [
       {
         "label": "Two turns of history",
-        "value": "{\n  \"turns\": [\n    {\n      \"player\": \"Alice\",\n      \"turn_number\": 1,\n      \"life\": \"(20 - 20)\",\n      \"actions\": [\n        \"Alice plays Mountain\",\n        \"Alice casts Goblin Guide\"\n      ]\n    },\n    {\n      \"player\": \"Bob\",\n      \"turn_number\": 1,\n      \"life\": \"(20 - 18)\",\n      \"actions\": [\n        \"Bob plays Island\",\n        \"Bob casts Ponder\"\n      ]\n    }\n  ],\n  \"truncated\": false\n}"
+        "value": "{\n  \"turns\": [\n    {\n      \"player\": \"Alice\",\n      \"turn_number\": 1,\n      \"life_totals\": {\n        \"Alice\": 20,\n        \"Bob\": 20\n      },\n      \"actions\": [\n        \"Alice plays Mountain\",\n        \"Alice casts Goblin Guide\"\n      ]\n    },\n    {\n      \"player\": \"Bob\",\n      \"turn_number\": 1,\n      \"life_totals\": {\n        \"Alice\": 20,\n        \"Bob\": 18\n      },\n      \"actions\": [\n        \"Bob plays Island\",\n        \"Bob casts Ponder\"\n      ]\n    }\n  ],\n  \"truncated\": false\n}"
       },
       {
         "label": "Since turn filter",
-        "value": "{\n  \"turns\": [\n    {\n      \"player\": \"Alice\",\n      \"turn_number\": 3,\n      \"life\": \"(14 - 12)\",\n      \"actions\": [\n        \"Alice casts Lightning Bolt targeting Bob\"\n      ]\n    }\n  ],\n  \"truncated\": false\n}"
+        "value": "{\n  \"turns\": [\n    {\n      \"player\": \"Alice\",\n      \"turn_number\": 3,\n      \"life_totals\": {\n        \"Alice\": 14,\n        \"Bob\": 12\n      },\n      \"actions\": [\n        \"Alice casts Lightning Bolt targeting Bob\"\n      ]\n    }\n  ],\n  \"truncated\": false\n}"
       }
     ],
     "inputSchema": {

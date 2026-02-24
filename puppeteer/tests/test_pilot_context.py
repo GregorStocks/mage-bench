@@ -259,13 +259,13 @@ def test_summarize_get_game_history():
                 {
                     "player": "Alice",
                     "turn_number": 1,
-                    "life": "(20 - 20)",
+                    "life_totals": {"Alice": 20, "Bob": 20},
                     "actions": ["Alice plays Mountain", "Alice casts Goblin Guide"],
                 },
                 {
                     "player": "Bob",
                     "turn_number": 1,
-                    "life": "(20 - 18)",
+                    "life_totals": {"Alice": 20, "Bob": 18},
                     "actions": ["Bob plays Island"],
                 },
             ],

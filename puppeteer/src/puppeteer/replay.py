@@ -168,6 +168,15 @@ async def run_replay(
                 except (json.JSONDecodeError, TypeError):
                     pass
 
+            # --- Call get_game_history so every golden test exercises it ---
+            # Not added to prompt history or game log because turn groupings
+            # and action ordering are timing-dependent and would cause golden
+            # comparison flakiness. The tool IS exercised (Java MCP code runs)
+            # and the result is visible in the replay log.
+            _log("[replay] Calling get_game_history...")
+            history_result = await execute_tool(session, "get_game_history", {})
+            _log(f"[replay] get_game_history: {history_result[:500]}")
+
             # --- Capture prompt ---
             _log("[replay] Capturing prompt (what the LLM would see)...")
             prompt = _render_context(history, system_prompt, state_summary="")

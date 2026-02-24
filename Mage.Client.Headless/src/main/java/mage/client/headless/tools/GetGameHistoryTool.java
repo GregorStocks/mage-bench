@@ -17,7 +17,7 @@ public class GetGameHistoryTool {
             + "want a clean summary of what happened.",
         output = {
             @Tool.Field(name = "turns", type = "array[object]",
-                description = "Turn objects: player, turn_number, life (life totals), actions (list of action strings)"),
+                description = "Turn objects: player, turn_number, life_totals (map of player name to life), actions (list of action strings)"),
             @Tool.Field(name = "truncated", type = "boolean",
                 description = "Whether older history was trimmed from the buffer")
         }
@@ -33,14 +33,17 @@ public class GetGameHistoryTool {
         return List.of(
             example("Two turns of history", json(
                 "turns", List.of(
-                    json("player", "Alice", "turn_number", 1, "life", "(20 - 20)",
+                    json("player", "Alice", "turn_number", 1,
+                        "life_totals", json("Alice", 20, "Bob", 20),
                         "actions", List.of("Alice plays Mountain", "Alice casts Goblin Guide")),
-                    json("player", "Bob", "turn_number", 1, "life", "(20 - 18)",
+                    json("player", "Bob", "turn_number", 1,
+                        "life_totals", json("Alice", 20, "Bob", 18),
                         "actions", List.of("Bob plays Island", "Bob casts Ponder"))),
                 "truncated", false)),
             example("Since turn filter", json(
                 "turns", List.of(
-                    json("player", "Alice", "turn_number", 3, "life", "(14 - 12)",
+                    json("player", "Alice", "turn_number", 3,
+                        "life_totals", json("Alice", 14, "Bob", 12),
                         "actions", List.of("Alice casts Lightning Bolt targeting Bob"))),
                 "truncated", false)));
     }
