@@ -26,7 +26,6 @@ public class PassPriorityTool {
         output = {
             @Tool.Field(name = "action_pending", type = "boolean", description = "Whether a decision-requiring action was found"),
             @Tool.Field(name = "action_type", type = "string", description = "XMage callback method name"),
-            @Tool.Field(name = "actions_passed", type = "integer", description = "Number of priority passes performed"),
             @Tool.Field(name = "has_playable_cards", type = "boolean", description = "Whether you have playable cards in hand"),
             @Tool.Field(name = "combat_phase", type = "string", description = "\"declare_attackers\" or \"declare_blockers\""),
             @Tool.Field(name = "current_step", type = "string", description = "Current game step (only for reached_step/step_not_reached)"),
@@ -81,7 +80,6 @@ public class PassPriorityTool {
             example("Playable cards found", json(
                 "action_pending", true,
                 "action_type", "GAME_SELECT",
-                "actions_passed", 3,
                 "has_playable_cards", true,
                 "stop_reason", "playable_cards",
                 "response_type", "select",
@@ -94,7 +92,6 @@ public class PassPriorityTool {
             example("Combat phase", json(
                 "action_pending", true,
                 "action_type", "GAME_SELECT",
-                "actions_passed", 5,
                 "has_playable_cards", false,
                 "combat_phase", "declare_attackers",
                 "stop_reason", "combat",
@@ -104,7 +101,6 @@ public class PassPriorityTool {
             example("Non-priority action (mulligan)", json(
                 "action_pending", true,
                 "action_type", "GAME_ASK",
-                "actions_passed", 0,
                 "stop_reason", "non_priority_action",
                 "response_type", "boolean",
                 "message", "Mulligan hand?",
