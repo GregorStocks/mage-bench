@@ -918,7 +918,7 @@ const { slug } = Astro.params;
         var isChat = a.type === "chat";
         if (isChat && showChatMessages) {
           timeline.push({ kind: "chat", ts: a.ts || "", data: a });
-        } else if (!isChat && showGameActions) {
+        } else if (!isChat && showGameActions && a.message) {
           timeline.push({ kind: "action", ts: a.ts || "", data: a });
         }
       });
@@ -983,7 +983,7 @@ const { slug } = Astro.params;
           el.className = "chat-line";
           var fromIdx = playerColorMap[a.from];
           var fromCls = fromIdx != null ? "action-" + R.PLAYER_COLORS[fromIdx] : "";
-          el.innerHTML = '<span class="chat-badge">chat</span><span class="chat-from ' + fromCls + '">' + escapeHtml(a.from || "") + ':</span> ' + escapeHtml(a.message);
+          el.innerHTML = '<span class="chat-badge">chat</span><span class="chat-from ' + fromCls + '">' + escapeHtml(a.from || "") + ':</span> ' + escapeHtml(a.message || "");
         } else if (item.kind === "action") {
           var a = item.data;
           el = document.createElement("div");
