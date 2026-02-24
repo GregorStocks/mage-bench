@@ -1128,6 +1128,20 @@ const { slug } = Astro.params;
         // v2 games have seq on everything but no ts on actions/snapshots
         useSeq = game.version != null;
 
+        // Fill in missing gameSeq on llmEvents from neighboring events.
+        // Events like game_start, llm_error, stall, auto_pilot_mode don't
+        // have gameSeq, so inherit from the previous event to sort correctly.
+        if (useSeq && game.llmEvents) {
+          var lastSeq = 0;
+          game.llmEvents.forEach(function (e) {
+            if (e.gameSeq != null) {
+              lastSeq = e.gameSeq;
+            } else {
+              e.gameSeq = lastSeq;
+            }
+          });
+        }
+
         // Show UI
         loadingEl.classList.add("hidden");
         gameUI.classList.remove("hidden");
