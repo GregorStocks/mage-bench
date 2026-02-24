@@ -160,6 +160,11 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
             return prefix + log_text[:remaining]
         return prefix.rstrip(": ")
 
+    if tool_name == "get_game_history":
+        turns = data.get("turns", [])
+        total_actions = sum(len(t.get("actions", [])) for t in turns)
+        return f"history({len(turns)} turns, {total_actions} actions)"
+
     # get_oracle_text, send_chat_message, unknown
     return content[:TOOL_RESULT_MAX_CHARS]
 

@@ -92,6 +92,17 @@ public class BridgeCallbackHandler {
     // Pattern to strip 3-char hex ID suffixes (e.g. " [8ad]") that XMage appends to card names.
     // These are the first 3 chars of the object UUID, useful for the Swing UI but confusing for LLMs.
     private static final Pattern HEX_SUFFIX_PATTERN = Pattern.compile(" \\[[0-9a-f]{3}\\]");
+    // Noise patterns to filter from structured game history (matches blunder_analysis.py _ACTION_NOISE).
+    // Filters out automatic/redundant messages: draws, spectator joins, skip attacks, zone moves.
+    private static final Pattern ACTION_NOISE = Pattern.compile(
+        " draws a card$"
+        + "|^spectator\\d+ has started watching$"
+        + "| skip attack$"
+        + "| keeps hand$"
+        + "| skips Draw step$"
+        + "| puts .+ from stack (onto the Battlefield|into their graveyard)$"
+        + "| puts .+ from hand onto the Battlefield$"
+    );
 
     private final BridgeMageClient client;
     private Session session;
@@ -174,6 +185,16 @@ public class BridgeCallbackHandler {
     private volatile boolean playerDead = false; // Set when we see "{name} has lost the game" in chat
     private final Map<String, String> castOwners = new HashMap<>(); // objectId → playerName from cast messages
     private final Map<String, Integer> playerTurnCounts = new HashMap<>(); // playerName → per-player turn count
+
+    // Structured game history: parallel to gameLog StringBuilder, populated at insertion time
+    private record HistoryEntry(String message, String turnPlayer, int playerTurnNum,
+                                 String life, boolean isTurnMarker) {}
+    private final List<HistoryEntry> gameHistory = new ArrayList<>();
+    private int gameHistoryTrimmedEntries = 0;
+    private String historyActivePlayer = null;
+    private int historyPlayerTurnNum = 0;
+    private static final int MAX_HISTORY_ENTRIES = 2000;
+
     private volatile String lastChatMessage = null; // For deduplicating outgoing chat
     private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
@@ -2559,6 +2580,72 @@ public class BridgeCallbackHandler {
     }
 
     /**
+     * Return structured per-turn game history with noise filtered out.
+     * Groups actions by turn, filtering automatic/redundant messages.
+     * If sincePlayer is null, defaults to this client's player name.
+     */
+    public Map<String, Object> getGameHistory(String sincePlayer, Integer sinceTurn) {
+        if (sincePlayer == null) {
+            sincePlayer = client.getUsername();
+        }
+        List<Map<String, Object>> turns = new ArrayList<>();
+        boolean truncated = false;
+
+        synchronized (gameHistory) {
+            Map<String, Object> currentTurn = null;
+            List<String> currentActions = null;
+            boolean collecting = (sinceTurn == null);
+
+            for (HistoryEntry entry : gameHistory) {
+                if (entry.isTurnMarker()) {
+                    // Flush previous turn
+                    if (currentTurn != null) {
+                        currentTurn.put("actions", currentActions);
+                        turns.add(currentTurn);
+                    }
+                    // Check since_turn filter
+                    if (!collecting && entry.turnPlayer() != null
+                            && entry.turnPlayer().equals(sincePlayer)
+                            && entry.playerTurnNum() >= sinceTurn) {
+                        collecting = true;
+                    }
+                    if (collecting) {
+                        currentTurn = new HashMap<>();
+                        currentTurn.put("player", entry.turnPlayer());
+                        currentTurn.put("turn_number", entry.playerTurnNum());
+                        if (entry.life() != null && !entry.life().isEmpty()) {
+                            currentTurn.put("life", entry.life());
+                        }
+                        currentActions = new ArrayList<>();
+                    } else {
+                        currentTurn = null;
+                        currentActions = null;
+                    }
+                } else if (collecting && currentActions != null) {
+                    // Filter noise from non-turn-marker entries
+                    if (!ACTION_NOISE.matcher(entry.message()).find()) {
+                        currentActions.add(entry.message());
+                    }
+                }
+            }
+            // Flush last turn
+            if (currentTurn != null) {
+                currentTurn.put("actions", currentActions);
+                turns.add(currentTurn);
+            }
+            // Truncated if entries were trimmed and we couldn't find the requested turn
+            if (sinceTurn != null && gameHistoryTrimmedEntries > 0 && turns.isEmpty()) {
+                truncated = true;
+            }
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("turns", turns);
+        result.put("truncated", truncated);
+        return result;
+    }
+
+    /**
      * Send a chat message. Returns null on success, or an error string on failure.
      */
     public String sendChatMessage(String message) {
@@ -4167,6 +4254,8 @@ public class BridgeCallbackHandler {
             }
             if (logEntry != null && !logEntry.isEmpty()) {
                 // Rewrite "TURN X for <Player> (lives)" to per-player turn numbers: "Player turn N (lives)"
+                boolean isTurnMarker = false;
+                String turnLife = null;
                 Matcher turnMatcher = TURN_MSG_PATTERN.matcher(logEntry);
                 if (turnMatcher.find()) {
                     String activePlayer = lastGameView != null ? lastGameView.getActivePlayerName() : null;
@@ -4176,6 +4265,10 @@ public class BridgeCallbackHandler {
                         int parenIdx = rest.indexOf('(');
                         String lifePart = parenIdx >= 0 ? " " + rest.substring(parenIdx).trim() : "";
                         logEntry = activePlayer + " turn " + playerTurn + lifePart;
+                        isTurnMarker = true;
+                        historyActivePlayer = activePlayer;
+                        historyPlayerTurnNum = playerTurn;
+                        turnLife = lifePart.trim();
                     } else {
                         logEntry = "TURN " + roundTracker.getGameRound() + logEntry.substring(turnMatcher.end());
                     }
@@ -4197,6 +4290,17 @@ public class BridgeCallbackHandler {
                         }
                         gameLog.delete(0, trimTo);
                         gameLogTrimmedChars += trimTo;
+                    }
+                }
+                // Structured game history entry (parallel to gameLog text)
+                String cleanMessage = stripHtml(logEntry);
+                synchronized (gameHistory) {
+                    gameHistory.add(new HistoryEntry(cleanMessage, historyActivePlayer,
+                        historyPlayerTurnNum, turnLife, isTurnMarker));
+                    if (gameHistory.size() > MAX_HISTORY_ENTRIES) {
+                        int excess = gameHistory.size() - MAX_HISTORY_ENTRIES;
+                        gameHistory.subList(0, excess).clear();
+                        gameHistoryTrimmedEntries += excess;
                     }
                 }
                 synchronized (actionLock) {

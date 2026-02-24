@@ -252,6 +252,41 @@ def test_summarize_get_game_log_empty():
     assert "0 chars" in result
 
 
+def test_summarize_get_game_history():
+    content = json.dumps(
+        {
+            "turns": [
+                {
+                    "player": "Alice",
+                    "turn_number": 1,
+                    "life": "(20 - 20)",
+                    "actions": ["Alice plays Mountain", "Alice casts Goblin Guide"],
+                },
+                {
+                    "player": "Bob",
+                    "turn_number": 1,
+                    "life": "(20 - 18)",
+                    "actions": ["Bob plays Island"],
+                },
+            ],
+            "truncated": False,
+        }
+    )
+    result = _summarize_tool_result("get_game_history", content)
+    assert "history(" in result
+    assert "2 turns" in result
+    assert "3 actions" in result
+    assert len(result) <= TOOL_RESULT_MAX_CHARS
+
+
+def test_summarize_get_game_history_empty():
+    content = json.dumps({"turns": [], "truncated": False})
+    result = _summarize_tool_result("get_game_history", content)
+    assert "history(" in result
+    assert "0 turns" in result
+    assert "0 actions" in result
+
+
 def test_summarize_invalid_json():
     result = _summarize_tool_result("get_game_state", "not valid json at all")
     assert result == "not valid json at all"[:TOOL_RESULT_MAX_CHARS]
