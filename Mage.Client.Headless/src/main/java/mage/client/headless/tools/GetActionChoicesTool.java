@@ -36,7 +36,6 @@ public class GetActionChoicesTool {
             @Tool.Field(name = "untapped_lands", type = "integer", description = "Number of untapped lands"),
             @Tool.Field(name = "min_amount", type = "integer", description = "Minimum allowed value"),
             @Tool.Field(name = "max_amount", type = "integer", description = "Maximum allowed value"),
-            @Tool.Field(name = "actions_passed", type = "integer", description = "Number of priority passes performed before the decision"),
             @Tool.Field(name = "recent_chat", type = "array[string]", description = "Chat messages received since last check"),
             @Tool.Field(name = "stop_reason", type = "string", description = "Why pass_priority returned (only when until is set)")
         }

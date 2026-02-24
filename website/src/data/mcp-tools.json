@@ -154,10 +154,6 @@
           "description": "Whether you died during priority passing",
           "type": "boolean"
         },
-        "actions_passed": {
-          "description": "Number of priority passes performed",
-          "type": "integer"
-        },
         "has_playable_cards": {
           "description": "Whether you have playable cards in hand",
           "type": "boolean"
@@ -207,15 +203,15 @@
     "examples": [
       {
         "label": "Playable cards found",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 3,\n  \"has_playable_cards\": true,\n  \"stop_reason\": \"playable_cards\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 20,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 18,\n      \"is_you\": false\n    }\n  ],\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"has_playable_cards\": true,\n  \"stop_reason\": \"playable_cards\",\n  \"response_type\": \"select\",\n  \"context\": \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 20,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 18,\n      \"is_you\": false\n    }\n  ],\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"name\": \"Lightning Bolt\",\n      \"action\": \"cast\",\n      \"mana_cost\": \"{R}\"\n    },\n    {\n      \"index\": 1,\n      \"name\": \"Mountain\",\n      \"action\": \"land\"\n    }\n  ],\n  \"untapped_lands\": 2\n}"
       },
       {
         "label": "Combat phase",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"actions_passed\": 5,\n  \"has_playable_cards\": false,\n  \"combat_phase\": \"declare_attackers\",\n  \"stop_reason\": \"combat\",\n  \"response_type\": \"select\",\n  \"context\": \"T4 COMBAT (Player1) YOUR_COMBAT\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 18,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 15,\n      \"is_you\": false\n    }\n  ]\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_SELECT\",\n  \"has_playable_cards\": false,\n  \"combat_phase\": \"declare_attackers\",\n  \"stop_reason\": \"combat\",\n  \"response_type\": \"select\",\n  \"context\": \"T4 COMBAT (Player1) YOUR_COMBAT\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 18,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 15,\n      \"is_you\": false\n    }\n  ]\n}"
       },
       {
         "label": "Non-priority action (mulligan)",
-        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"actions_passed\": 0,\n  \"stop_reason\": \"non_priority_action\",\n  \"response_type\": \"boolean\",\n  \"message\": \"Mulligan hand?\",\n  \"context\": \"T0 PREGAME\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 20,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 20,\n      \"is_you\": false\n    }\n  ],\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\"\n    }\n  ]\n}"
+        "value": "{\n  \"action_pending\": true,\n  \"action_type\": \"GAME_ASK\",\n  \"stop_reason\": \"non_priority_action\",\n  \"response_type\": \"boolean\",\n  \"message\": \"Mulligan hand?\",\n  \"context\": \"T0 PREGAME\",\n  \"board\": [\n    {\n      \"name\": \"You\",\n      \"life\": 20,\n      \"is_you\": true\n    },\n    {\n      \"name\": \"Opp\",\n      \"life\": 20,\n      \"is_you\": false\n    }\n  ],\n  \"your_hand\": [\n    {\n      \"name\": \"Mountain\",\n      \"is_land\": true\n    },\n    {\n      \"name\": \"Lightning Bolt\",\n      \"mana_cost\": \"{R}\"\n    }\n  ]\n}"
       }
     ],
     "inputSchema": {
@@ -484,10 +480,6 @@
         "action_pending": {
           "description": "Whether an action is pending (false if nothing to do)",
           "type": "boolean"
-        },
-        "actions_passed": {
-          "description": "Number of priority passes performed before the decision",
-          "type": "integer"
         },
         "context": {
           "description": "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")",

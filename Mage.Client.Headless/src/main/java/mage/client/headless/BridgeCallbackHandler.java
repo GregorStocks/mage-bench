@@ -2651,7 +2651,7 @@ public class BridgeCallbackHandler {
             return;
         }
         // Merge all choice fields into the result.  pass_priority fields
-        // (action_pending, actions_passed, stop_reason, etc.) are already set
+        // (action_pending, stop_reason, etc.) are already set
         // and take precedence — only copy fields the result doesn't have yet.
         for (Map.Entry<String, Object> entry : choices.entrySet()) {
             result.putIfAbsent(entry.getKey(), entry.getValue());
@@ -2754,7 +2754,7 @@ public class BridgeCallbackHandler {
                     Map<String, Object> result = new HashMap<>();
                     result.put("action_pending", true);
                     result.put("action_type", method.name());
-                    result.put("actions_passed", actionsPassed);
+
                     result.put("game_seq", action.gameSeq());
                     GameView gvSnap = lastGameView;
                     if (gvSnap != null) {
@@ -2820,7 +2820,7 @@ public class BridgeCallbackHandler {
                     var result = new HashMap<String, Object>();
                     result.put("action_pending", true);
                     result.put("action_type", method.name());
-                    result.put("actions_passed", actionsPassed);
+
                     result.put("stop_reason", "non_priority_action");
                     attachUnseenChat(result);
                     mergeActionChoices(result);
@@ -2833,7 +2833,7 @@ public class BridgeCallbackHandler {
                     var result = new HashMap<String, Object>();
                     result.put("action_pending", true);
                     result.put("action_type", method.name());
-                    result.put("actions_passed", actionsPassed);
+
                     result.put("combat_phase", combatType);
                     result.put("stop_reason", "combat");
                     attachUnseenChat(result);
@@ -2851,7 +2851,7 @@ public class BridgeCallbackHandler {
                         Map<String, Object> result = new HashMap<>();
                         result.put("action_pending", true);
                         result.put("action_type", method.name());
-                        result.put("actions_passed", actionsPassed);
+    
                         result.put("current_step", gv.getStep().toString());
                         result.put("stop_reason", "reached_step");
                         attachUnseenChat(result);
@@ -2913,7 +2913,7 @@ public class BridgeCallbackHandler {
                         var result = new HashMap<String, Object>();
                         result.put("action_pending", true);
                         result.put("action_type", method.name());
-                        result.put("actions_passed", actionsPassed);
+    
                         result.put("has_playable_cards", true);
                         result.put("stop_reason", "playable_cards");
                         attachUnseenChat(result);
@@ -2948,7 +2948,6 @@ public class BridgeCallbackHandler {
             if (playerDead || (activeGames.isEmpty() && gameEverStarted)) {
                 var result = new HashMap<String, Object>();
                 result.put("action_pending", false);
-                result.put("actions_passed", actionsPassed);
                 result.put("stop_reason", "game_over");
                 GameView gvSnap = lastGameView;
                 if (gvSnap != null) {
@@ -3006,7 +3005,6 @@ public class BridgeCallbackHandler {
         // InterruptedException break
         var result = new HashMap<String, Object>();
         result.put("action_pending", false);
-        result.put("actions_passed", actionsPassed);
         result.put("stop_reason", "interrupted");
         GameView gvSnap = lastGameView;
         if (gvSnap != null) {

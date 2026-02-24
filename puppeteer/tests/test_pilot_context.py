@@ -20,7 +20,7 @@ from puppeteer.pilot import (
 
 
 def test_summarize_pass_priority_action_pending():
-    content = json.dumps({"actions_passed": 0, "action_type": "GAME_SELECT", "action_pending": True})
+    content = json.dumps({"action_type": "GAME_SELECT", "action_pending": True})
     result = _summarize_tool_result("pass_priority", content)
     assert "action_pending" in result
     assert "GAME_SELECT" in result
@@ -32,7 +32,6 @@ def test_summarize_pass_priority_action_pending_with_stop_reason():
         {
             "action_pending": True,
             "action_type": "GAME_SELECT",
-            "actions_passed": 5,
             "stop_reason": "playable_cards",
         }
     )
@@ -43,20 +42,20 @@ def test_summarize_pass_priority_action_pending_with_stop_reason():
 
 
 def test_summarize_pass_priority_passed():
-    content = json.dumps({"actions_passed": 1, "stop_reason": "passed"})
+    content = json.dumps({"stop_reason": "passed"})
     result = _summarize_tool_result("pass_priority", content)
     assert "passed" in result
 
 
 def test_summarize_pass_priority_passed_no_stop_reason():
     """Backwards compatibility: no stop_reason still works."""
-    content = json.dumps({"actions_passed": 3})
+    content = json.dumps({})
     result = _summarize_tool_result("pass_priority", content)
-    assert "passed 3" in result
+    assert "passed" in result
 
 
 def test_summarize_pass_priority_no_action():
-    content = json.dumps({"action_pending": False, "actions_passed": 0, "stop_reason": "no_action"})
+    content = json.dumps({"action_pending": False, "stop_reason": "no_action"})
     result = _summarize_tool_result("pass_priority", content)
     assert "no_action" in result
 
@@ -66,7 +65,6 @@ def test_summarize_pass_priority_reached_step():
         {
             "action_pending": True,
             "action_type": "GAME_SELECT",
-            "actions_passed": 15,
             "current_step": "Declare Attackers",
             "stop_reason": "reached_step",
         }
@@ -81,7 +79,6 @@ def test_summarize_pass_priority_step_not_reached():
         {
             "action_pending": True,
             "action_type": "GAME_SELECT",
-            "actions_passed": 6,
             "current_step": "Upkeep",
             "stop_reason": "step_not_reached",
         }
@@ -325,7 +322,7 @@ def _make_history(n: int) -> list[dict]:
     while len(history) < n:
         call_id = f"call_{call_idx}"
         history.append(_make_assistant_msg([(call_id, "pass_priority")]))
-        history.append(_make_tool_msg(call_id, json.dumps({"actions_passed": call_idx, "timeout": True})))
+        history.append(_make_tool_msg(call_id, json.dumps({"timeout": True})))
         call_idx += 1
     return history[:n]
 
@@ -518,7 +515,7 @@ def test_cached_prefix_reuse_concept():
     # Simulate 2 new history entries (assistant + tool pair)
     new_entries = [
         _make_assistant_msg([("call_new_1", "pass_priority")]),
-        _make_tool_msg("call_new_1", json.dumps({"actions_passed": 99})),
+        _make_tool_msg("call_new_1", json.dumps({"timeout": True})),
     ]
     history.extend(new_entries)
 
@@ -554,7 +551,6 @@ def test_summarize_pass_priority_with_choices():
         {
             "action_pending": True,
             "action_type": "GAME_SELECT",
-            "actions_passed": 3,
             "stop_reason": "playable_cards",
             "response_type": "select",
             "choices": [
@@ -581,7 +577,6 @@ def test_summarize_pass_priority_with_message_no_choices():
         {
             "action_pending": True,
             "action_type": "GAME_ASK",
-            "actions_passed": 0,
             "stop_reason": "non_priority_action",
             "response_type": "boolean",
             "message": "Mulligan hand?",

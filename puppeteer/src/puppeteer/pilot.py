@@ -104,10 +104,9 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
                 parts.append(msg[:60])
             return "; ".join(parts)
         stop = data.get("stop_reason", "")
-        passed = data.get("actions_passed", "?")
         if stop:
-            return f"{stop}(passed {passed})"
-        return f"passed {passed}"
+            return stop
+        return "passed"
 
     if tool_name == "choose_action":
         if data.get("success"):

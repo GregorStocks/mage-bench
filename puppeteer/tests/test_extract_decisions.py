@@ -350,7 +350,7 @@ def _v2_pass_priority(
 
 def _v2_pass_priority_no_action(player: str, ts: str) -> dict:
     """Build a v2 pass_priority event with action_pending=false."""
-    result = {"game_seq": 1, "action_pending": False, "actions_passed": 1}
+    result = {"game_seq": 1, "action_pending": False}
     return {
         "type": "tool_call",
         "tool": "pass_priority",
