@@ -2700,6 +2700,18 @@ public class BridgeCallbackHandler {
                     return result;
                 }
                 session.sendPlayerAction(yieldAction, gameId, null);
+                // sendPlayerAction calls skip() on the server, which implicitly
+                // answers the current pending priority via response.notifyAll().
+                // Clear pendingAction so the loop doesn't also respond to it
+                // (double-response causes protocol desync and nondeterminism).
+                synchronized (actionLock) {
+                    pendingAction = null;
+                }
+                // The yield consumed the current priority — count it as a pass.
+                // Without this, actionsPassed stays at 0 and the first-pass
+                // auto-pass logic would skip the next real priority opportunity
+                // (e.g. auto-passing a counter opportunity when Lions is on stack).
+                actionsPassed++;
                 yieldActive = true;
             }
         }
