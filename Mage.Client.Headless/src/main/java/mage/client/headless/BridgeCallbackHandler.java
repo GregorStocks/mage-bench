@@ -2846,8 +2846,9 @@ public class BridgeCallbackHandler {
                 }
 
                 // Check if there are playable cards (non-mana-only, excluding failed casts)
-                // Determinism debugging: snapshot the view ONCE and use it consistently
-                GameView viewForPlayableCheck = lastGameView;
+                // Use the action's own GameView, not lastGameView — a concurrent GAME_UPDATE
+                // can overwrite lastGameView with a view from a different phase (forward overwrite).
+                GameView viewForPlayableCheck = ((GameClientMessage) action.data()).getGameView();
                 PlayableObjectsList playable = viewForPlayableCheck != null ? viewForPlayableCheck.getCanPlayObjects() : null;
                 boolean hasPlayableCards = false;
                 if (playable != null && !playable.isEmpty()) {
