@@ -2699,13 +2699,13 @@ public class BridgeCallbackHandler {
                     result.put("error", "No active game for yield");
                     return result;
                 }
-                session.sendPlayerAction(yieldAction, gameId, null);
                 // sendPlayerAction calls skip() on the server, which implicitly
                 // answers the current pending priority via response.notifyAll().
-                // Clear pendingAction so the loop doesn't also respond to it
-                // (double-response causes protocol desync and nondeterminism).
+                // Clear pendingAction inside the lock BEFORE sending so that a
+                // new callback arriving after skip() doesn't get wiped.
                 synchronized (actionLock) {
                     pendingAction = null;
+                    session.sendPlayerAction(yieldAction, gameId, null);
                 }
                 // The yield consumed the current priority — count it as a pass.
                 // Without this, actionsPassed stays at 0 and the first-pass
