@@ -319,15 +319,39 @@
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer wants to concede",
-      "seq": 103
+      "message": "Attacker: Marit Lage (20/20) unblocked",
+      "seq": 104
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 104,
+      "step": "DECLARE_BLOCKERS",
+      "turn": 9,
+      "type": "phase_change"
+    },
+    {
+      "message": "Opponent loses 20 life at combat from Marit Lage",
+      "seq": 107
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 107,
+      "step": "COMBAT_DAMAGE",
+      "turn": 9,
+      "type": "phase_change"
+    },
+    {
+      "message": "Opponent has lost the game.",
+      "seq": 108
     }
   ],
   "cardImages": {},
   "deckType": "",
   "gameOver": {
     "message": "Game ended",
-    "seq": 104
+    "seq": 109
   },
   "gameType": "",
   "llmEvents": [
@@ -474,6 +498,14 @@
       "gameSeq": 11,
       "player": "TestPlayer",
       "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"actions_passed\": 2, \"board\": [{\"hand\": [{\"id\": \"p10\", \"is_land\": true, \"name\": \"Dark Depths\", \"playable\": true, \"rules\": [\"{this} enters with ten ice counters on it.\", \"{3}: Remove an ice counter from {this}.\", \"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"]}, {\"id\": \"p11\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p16\", \"is_land\": true, \"name\": \"Thespian's Stage\", \"playable\": true, \"rules\": [\"{T}: Add {C}.\", \"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p10\", \"index\": 0, \"name\": \"Dark Depths\"}, {\"action\": \"land\", \"id\": \"p11\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 5, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p16\", \"index\": 6, \"name\": \"Thespian's Stage\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 11, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "gameSeq": 110,
+      "player": "TestPlayer",
+      "result": "{\"action_pending\": false, \"actions_passed\": 2, \"game_over\": true, \"game_seq\": 110, \"stop_reason\": \"game_over\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -11838,6 +11870,612 @@
       "seq": 100,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
+      "turn": 9
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "p32",
+              "name": "Marit Lage",
+              "power": 20,
+              "toughness": 20
+            }
+          ],
+          "blockers": [],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            },
+            {
+              "id": "p6",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p33",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": false,
+              "tapped": true,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p34",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 103,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 9
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "p32",
+              "name": "Marit Lage",
+              "power": 20,
+              "toughness": 20
+            }
+          ],
+          "blockers": [],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            },
+            {
+              "id": "p6",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p33",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": false,
+              "tapped": true,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p34",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 105,
+      "stack": [],
+      "step": "DECLARE_BLOCKERS",
+      "turn": 9
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "p32",
+              "name": "Marit Lage",
+              "power": 20,
+              "toughness": 20
+            }
+          ],
+          "blockers": [],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            },
+            {
+              "id": "p4",
+              "name": "Mountain"
+            },
+            {
+              "id": "p5",
+              "name": "Mountain"
+            },
+            {
+              "id": "p6",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p27",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p33",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": false,
+              "tapped": true,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p34",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 106,
+      "stack": [],
+      "step": "DECLARE_BLOCKERS",
       "turn": 9
     }
   ],

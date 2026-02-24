@@ -38,11 +38,15 @@ def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
             {"name": "choose_action", "arguments": {"index": 5}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}},
-            # Cast Clone, choose to copy, target Memnite, then capture state.
+            # Cast Clone, choose to copy Memnite, let it resolve, then capture.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"answer": True}},
+            # Select Memnite as the copy target.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            # Let Clone resolve (enters as a copy of Memnite).
             {"name": "pass_priority", "arguments": {}},
             {"name": "get_game_state", "arguments": {}},
         ],
