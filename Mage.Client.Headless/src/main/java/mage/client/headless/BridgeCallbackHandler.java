@@ -124,7 +124,7 @@ public class BridgeCallbackHandler {
             GameView old = lastGameView;
             if (old != null && gv.getGameSeq() < old.getGameSeq()) {
                 String src = source != null ? source : "unknown";
-                logger.debug("[" + client.getUsername() + "] lastGameView REJECTED backward update game_seq "
+                logger.warn("[" + client.getUsername() + "] lastGameView REJECTED backward update game_seq "
                     + old.getGameSeq() + " -> " + gv.getGameSeq() + " (source=" + src
                     + ", thread=" + Thread.currentThread().getName() + ")");
                 return;
