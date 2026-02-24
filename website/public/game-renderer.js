@@ -750,8 +750,9 @@
 
       var lifeEl = document.createElement("div");
       lifeEl.className = "player-life";
+      var libCount = player.library_count != null ? player.library_count : player.library_size;
       var lifeText = "Life " + (player.life != null ? player.life : "?") +
-                     " | Library " + (player.library_count != null ? player.library_count : "?");
+                     " | Library " + (libCount != null ? libCount : "?");
       if (showTimer && (player.priorityTimeLeftSecs > 0 || player.timerActive)) {
         var secs = player.priorityTimeLeftSecs || 0;
         var m = Math.floor(secs / 60);
@@ -935,7 +936,9 @@
         if (obj && obj.targets && obj.targets.length > 0) {
           var targetEl = document.createElement("div");
           targetEl.className = "stack-target";
-          targetEl.textContent = "\u2192 " + obj.targets.join(", ");
+          targetEl.textContent = "\u2192 " + obj.targets.map(function (t) {
+            return typeof t === "string" ? t : t.name;
+          }).join(", ");
           wrapper.appendChild(targetEl);
         }
         cardsContainer.appendChild(wrapper);
