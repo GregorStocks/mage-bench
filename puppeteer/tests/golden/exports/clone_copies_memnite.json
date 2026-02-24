@@ -404,6 +404,13 @@
       "type": "tool_call"
     },
     {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"truncated\": false, \"turns\": [{\"actions\": [\"Opponent discards down to 7 hand cards\", \"Opponent discards Mountain\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"TestPlayer\", \"turn_number\": 1}, {\"actions\": [\"TestPlayer casts Black Lotus from hand\", \"TestPlayer casts Memnite from hand\", \"TestPlayer sacrificed Black Lotus (source: Black Lotus)\", \"TestPlayer casts Clone from hand\", \"TestPlayer plays Island\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"Opponent\", \"turn_number\": 1}, {\"actions\": [\"Opponent discards down to 7 hand cards\", \"Opponent discards Mountain\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"TestPlayer\", \"turn_number\": 2}, {\"actions\": [], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"Opponent\", \"turn_number\": 2}]}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "availableTools": [
         "get_game_log",
         "get_game_history",

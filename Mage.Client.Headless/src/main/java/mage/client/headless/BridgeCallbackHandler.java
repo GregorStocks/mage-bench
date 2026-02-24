@@ -101,8 +101,8 @@ public class BridgeCallbackHandler {
         + "| skip attack$"
         + "| keeps hand$"
         + "| skips Draw step$"
-        + "| puts .+ from stack (onto the Battlefield|into their graveyard)$"
-        + "| puts .+ from hand onto the Battlefield$"
+        + "| puts .+ from stack (onto the Battlefield|into their graveyard)"
+        + "| puts .+ from hand onto the Battlefield"
     );
 
     private final BridgeMageClient client;

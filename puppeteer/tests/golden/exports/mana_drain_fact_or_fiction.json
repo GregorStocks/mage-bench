@@ -571,6 +571,13 @@
       "type": "tool_call"
     },
     {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"truncated\": false, \"turns\": [{\"actions\": [\"Opponent plays Plains\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"TestPlayer\", \"turn_number\": 1}, {\"actions\": [\"TestPlayer plays Island\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"Opponent\", \"turn_number\": 1}, {\"actions\": [\"Opponent plays Plains\", \"Opponent casts Savannah Lions from hand\", \"TestPlayer casts Mana Drain targeting Savannah Lions from hand\", \"Savannah Lions is countered by Mana Drain\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"TestPlayer\", \"turn_number\": 2}, {\"actions\": [\"TestPlayer - Ability triggers: Mana Drain - At the beginning of your next main phase, add {C}.\", \"TestPlayer casts Fact or Fiction from hand\", \"TestPlayer reveals Air Elemental, Djinn of Wishes, Mind Control, Serra Angel, Shivan Dragon (source: Fact or Fiction)\", \"Pile 1, going to HAND: Air Elemental, Djinn of Wishes\", \"TestPlayer puts a card from library into their hand\", \"TestPlayer puts a card from library into their hand\", \"Pile 2, going to GRAVEYARD: Mind Control, Serra Angel, Shivan Dragon\", \"TestPlayer puts Mind Control from library into their graveyard (source: Fact or Fiction)\", \"TestPlayer puts Serra Angel from library into their graveyard (source: Fact or Fiction)\", \"TestPlayer puts Shivan Dragon from library into their graveyard (source: Fact or Fiction)\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"Opponent\", \"turn_number\": 2}]}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "availableTools": [
         "get_game_log",
         "get_game_history",

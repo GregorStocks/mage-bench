@@ -180,6 +180,13 @@
       "type": "tool_call"
     },
     {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"truncated\": false, \"turns\": []}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "availableTools": [
         "get_game_log",
         "get_game_history",

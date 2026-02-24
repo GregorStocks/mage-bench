@@ -48,6 +48,7 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root):
             {"name": "pass_priority", "arguments": {"until": "postcombat_main"}},
             # Capture final state: both Lions should be in graveyards.
             {"name": "get_game_state", "arguments": {}},
+            {"name": "get_game_history", "arguments": {}},
         ],
         script_b=[
             # Keep opening hand.

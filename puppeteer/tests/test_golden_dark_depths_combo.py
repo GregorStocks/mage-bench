@@ -70,6 +70,7 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root):
             {"name": "choose_action", "arguments": {"attackers": ["all"]}},
             # Capture state with Marit Lage attacking before combat damage.
             {"name": "get_game_state", "arguments": {}},
+            {"name": "get_game_history", "arguments": {}},
             # Pass priority — combat damage resolves, Opponent dies (game_over).
             {"name": "pass_priority", "arguments": {}},
         ],

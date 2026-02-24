@@ -253,5 +253,24 @@
     "content": "{\"active_player\":\"TestPlayer\",\"available\":true,\"cursor\":1,\"game_seq\":54,\"phase\":\"Postcombat Main\",\"players\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":false}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Savannah Lions\"}],\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]}],\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"library_size\":52,\"life\":20,\"name\":\"TestPlayer\"},{\"battlefield\":[{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":true}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Savannah Lions\"}],\"hand_size\":6,\"is_active\":false,\"is_you\":false,\"library_size\":52,\"life\":20,\"name\":\"Opponent\"}],\"priority_player\":\"TestPlayer\",\"stack\":[],\"step\":\"Postcombat Main\",\"turn\":2}",
     "role": "tool",
     "tool_call_id": "call_13"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": "{}",
+          "name": "get_game_history"
+        },
+        "id": "call_14",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": "{\"truncated\":false,\"turns\":[{\"actions\":[\"Opponent plays Plains\",\"Opponent casts Savannah Lions from hand\"],\"life_totals\":{\"Opponent\":20,\"TestPlayer\":20},\"player\":\"TestPlayer\",\"turn_number\":1},{\"actions\":[\"TestPlayer attacks Opponent with 1 creature\",\"Attacker: Savannah Lions (2/1) blocked by Savannah Lions (2/1) \",\"Savannah Lions deals 2 damage to Savannah Lions\",\"Savannah Lions deals 2 damage to Savannah Lions\",\"Savannah Lions died\",\"Savannah Lions died\"],\"life_totals\":{\"Opponent\":20,\"TestPlayer\":20},\"player\":\"Opponent\",\"turn_number\":1}]}",
+    "role": "tool",
+    "tool_call_id": "call_14"
   }
 ]

@@ -1,0 +1,10 @@
+{
+  "title": "Golden test exports should include harness_epoch via build_export",
+  "description": "Golden test exports don't include harness_epoch. The orchestrator adds it when running real games (orchestrator.py line 253), but golden tests use build_export() from scripts/export_game.py which doesn't include it. Rather than reimplementing this in golden_helpers.py, build_export should be the single source of truth and should include the harness epoch in its output. This ensures golden exports match the structure of real game exports.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["testing"],
+  "created_at": "2026-02-24T09:20:00.000000-08:00",
+  "updated_at": "2026-02-24T09:20:00.000000-08:00"
+}

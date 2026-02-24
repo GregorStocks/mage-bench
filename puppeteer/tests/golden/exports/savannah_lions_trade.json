@@ -388,6 +388,13 @@
       "type": "tool_call"
     },
     {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"truncated\": false, \"turns\": [{\"actions\": [\"Opponent plays Plains\", \"Opponent casts Savannah Lions from hand\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"TestPlayer\", \"turn_number\": 1}, {\"actions\": [\"TestPlayer attacks Opponent with 1 creature\", \"Attacker: Savannah Lions (2/1) blocked by Savannah Lions (2/1) \", \"Savannah Lions deals 2 damage to Savannah Lions\", \"Savannah Lions deals 2 damage to Savannah Lions\", \"Savannah Lions died\", \"Savannah Lions died\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"Opponent\", \"turn_number\": 1}]}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "availableTools": [
         "get_game_log",
         "get_game_history",
