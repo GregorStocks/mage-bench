@@ -470,6 +470,12 @@ def build_export(game_dir: Path) -> dict:
         for i, name in enumerate(reversed(eliminations)):
             placements[name] = len(surviving) + i + 1
 
+    # Derive winner from placements if not already set
+    if not winner:
+        first_place = [n for n, p in placements.items() if p == 1]
+        if len(first_place) == 1:
+            winner = first_place[0]
+
     players_summary = []
     for p in meta.get("players", []):
         name = p.get("name", "?")
