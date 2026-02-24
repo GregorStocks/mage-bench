@@ -30,7 +30,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  18 - Capture cached_tokens and reasoning_tokens from LLM API responses (Feb 18)
 #  19 - Surface modified permanent info: rules, original_card, copy for copies/transforms/granted abilities (Feb 18)
 #  20 - Oracle text (rules) for all battlefield/graveyard/exile cards in get_game_state (Feb 19)
-HARNESS_EPOCH = 20
+#  21 - Remove actions_passed from tool results; land_drops_used from server game view (Feb 24)
+HARNESS_EPOCH = 21
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
