@@ -43,39 +43,67 @@
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer puts Forest from hand onto the Battlefield",
-      "seq": 12
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
-      "seq": 12,
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 1,
-      "type": "phase_change"
-    },
-    {
-      "message": "TestPlayer casts Ancient Stirrings from hand",
+      "message": "Opponent skip attack",
       "seq": 15
     },
     {
-      "message": "TestPlayer reveals Ornithopter (source: Ancient Stirrings)",
+      "active_player": "Opponent",
+      "seq": 15,
+      "turn": 2,
+      "type": "turn_change"
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "COMBAT",
+      "seq": 15,
+      "step": "DECLARE_ATTACKERS",
+      "turn": 2,
+      "type": "phase_change"
+    },
+    {
+      "message": "Opponent discards down to 7 hand cards",
       "seq": 20
     },
     {
-      "message": "TestPlayer puts a card from library into their hand",
-      "seq": 21
+      "active_player": "Opponent",
+      "phase": "END",
+      "seq": 20,
+      "step": "CLEANUP",
+      "turn": 2,
+      "type": "phase_change"
+    },
+    {
+      "message": "Opponent discards Mountain",
+      "seq": 22
+    },
+    {
+      "message": "TestPlayer skip attack",
+      "seq": 25
+    },
+    {
+      "active_player": "TestPlayer",
+      "seq": 25,
+      "turn": 3,
+      "type": "turn_change"
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "COMBAT",
+      "seq": 25,
+      "step": "DECLARE_ATTACKERS",
+      "turn": 3,
+      "type": "phase_change"
     },
     {
       "message": "TestPlayer wants to concede",
-      "seq": 23
+      "seq": 27
     }
   ],
   "cardImages": {},
   "deckType": "",
   "gameOver": {
     "message": "Game ended",
-    "seq": 24
+    "seq": 28
   },
   "gameType": "",
   "llmEvents": [
@@ -93,9 +121,9 @@
       "args": {
         "answer": true
       },
-      "gameSeq": 18,
+      "gameSeq": 23,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"yes\", \"game_seq\": 18, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
+      "result": "{\"action_taken\": \"confirmed\", \"game_seq\": 23, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
       "tool": "",
       "type": "tool_call"
     },
@@ -103,9 +131,8 @@
       "args": {
         "id": "p10"
       },
-      "gameSeq": 13,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 13, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"error\": \"java.lang.NoSuchMethodError: 'int mage.view.PlayerView.getLandsPlayed()'\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -113,9 +140,8 @@
       "args": {
         "id": "p11"
       },
-      "gameSeq": 11,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 11, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": "{\"error\": \"java.lang.NoSuchMethodError: 'int mage.view.PlayerView.getLandsPlayed()'\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -133,9 +159,9 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 19,
+      "gameSeq": 26,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_target_0\", \"game_seq\": 19, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
+      "result": "{\"error\": \"Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.\", \"error_code\": \"index_out_of_range\", \"game_seq\": 26, \"retryable\": true, \"success\": false}",
       "tool": "",
       "type": "tool_call"
     },
@@ -149,25 +175,9 @@
     },
     {
       "args": {},
-      "gameSeq": 11,
+      "gameSeq": 26,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"board\": [{\"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{G}\", \"name\": \"Ancient Stirrings\", \"rules\": [\"Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order.\"]}, {\"id\": \"p11\", \"is_land\": true, \"name\": \"Forest\", \"playable\": true, \"rules\": [\"{T}: Add {G}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p16\", \"is_land\": true, \"name\": \"Plains\", \"playable\": true, \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p11\", \"index\": 0, \"name\": \"Forest\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 1, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 2, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 3, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 4, \"name\": \"Plains\"}, {\"action\": \"land\", \"id\": \"p16\", \"index\": 5, \"name\": \"Plains\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 11, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "gameSeq": 18,
-      "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"board\": [{\"battlefield\": [{\"id\": \"p11\", \"name\": \"Forest\", \"rules\": [\"{T}: Add {G}.\"], \"tapped\": true}], \"hand\": [{\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p16\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 18, \"land_drops_used\": 1, \"message\": \"Reveal a colorless card and put it into your hand?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stack\": [{\"name\": \"Ancient Stirrings\"}], \"stop_reason\": \"non_priority_action\"}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "gameSeq": 22,
-      "player": "TestPlayer",
-      "result": "{\"active_player\": \"TestPlayer\", \"available\": true, \"cursor\": 1, \"game_seq\": 22, \"phase\": \"Postcombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"p11\", \"name\": \"Forest\", \"rules\": [\"{T}: Add {G}.\"], \"tapped\": true}], \"hand\": [{\"id\": \"p24\", \"mana_cost\": \"{0}\", \"name\": \"Ornithopter\", \"power\": \"0\", \"rules\": [\"Flying\"], \"toughness\": \"2\"}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p16\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [{\"id\": \"p23\", \"name\": \"Ancient Stirrings\", \"rules\": [\"Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order.\"]}], \"step\": \"Postcombat Main\", \"turn\": 1}",
+      "result": "{\"active_player\": \"TestPlayer\", \"available\": true, \"cursor\": 1, \"game_seq\": 26, \"phase\": \"Combat\", \"players\": [{\"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{G}\", \"name\": \"Ancient Stirrings\", \"rules\": [\"Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order.\"]}, {\"id\": \"p11\", \"is_land\": true, \"name\": \"Forest\", \"rules\": [\"{T}: Add {G}.\"]}, {\"id\": \"p24\", \"mana_cost\": \"{0}\", \"name\": \"Ornithopter\", \"power\": \"0\", \"rules\": [\"Flying\"], \"toughness\": \"2\"}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p16\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 8, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [], \"step\": \"Declare Attackers\", \"turn\": 2}",
       "tool": "",
       "type": "tool_call"
     },
@@ -176,6 +186,20 @@
       "gameSeq": 3,
       "player": "TestPlayer",
       "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"board\": [{\"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{G}\", \"name\": \"Ancient Stirrings\", \"rules\": [\"Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order.\"]}, {\"id\": \"p11\", \"is_land\": true, \"name\": \"Forest\", \"rules\": [\"{T}: Add {G}.\"]}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"id\": \"p16\", \"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 ()\", \"game_seq\": 3, \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"mana_cost\": \"{G}\", \"name\": \"Ancient Stirrings\", \"rules\": [\"Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order.\"]}, {\"is_land\": true, \"name\": \"Forest\", \"rules\": [\"{T}: Add {G}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}, {\"is_land\": true, \"name\": \"Plains\", \"rules\": [\"{T}: Add {W}.\"]}]}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"error\": \"java.lang.NoSuchMethodError: 'int mage.view.PlayerView.getLandsPlayed()'\"}",
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": "{\"error\": \"java.lang.NoSuchMethodError: 'int mage.view.PlayerView.getLandsPlayed()'\"}",
       "tool": "",
       "type": "tool_call"
     },
@@ -1065,22 +1089,20 @@
           "name": "Opponent"
         },
         {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Forest",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
+          "battlefield": [],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
               "id": "p10",
               "name": "Ancient Stirrings",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Forest",
               "visible_to": [
                 "TestPlayer"
               ]
@@ -1126,15 +1148,15 @@
           "name": "TestPlayer"
         }
       ],
-      "priority_player": "TestPlayer",
-      "seq": 13,
+      "priority_player": "Opponent",
+      "seq": 12,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 1
     },
     {
-      "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
       "players": [
         {
           "battlefield": [],
@@ -1189,26 +1211,174 @@
               "visible_to": [
                 "Opponent"
               ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
             }
           ],
-          "library_size": 53,
+          "library_size": 52,
           "life": 20,
           "name": "Opponent"
         },
         {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Forest",
-              "summoning_sick": true,
-              "tapped": false,
-              "token": false
-            }
-          ],
+          "battlefield": [],
           "exile": [],
           "graveyard": [],
           "hand": [
+            {
+              "id": "p10",
+              "name": "Ancient Stirrings",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 13,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Ancient Stirrings",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
             {
               "id": "p12",
               "name": "Plains",
@@ -1252,20 +1422,13 @@
       ],
       "priority_player": "TestPlayer",
       "seq": 14,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p23",
-          "mana_cost": "{G}",
-          "name": "Ancient Stirrings"
-        }
-      ],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 1
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 2
     },
     {
-      "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
+      "active_player": "Opponent",
+      "phase": "COMBAT",
       "players": [
         {
           "battlefield": [],
@@ -1320,157 +1483,38 @@
               "visible_to": [
                 "Opponent"
               ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
             }
           ],
-          "library_size": 53,
+          "library_size": 52,
           "life": 20,
           "name": "Opponent"
         },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Forest",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
-            {
-              "id": "p12",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p13",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p14",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p15",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            },
-            {
-              "id": "p16",
-              "name": "Plains",
-              "visible_to": [
-                "TestPlayer"
-              ]
-            }
-          ],
-          "library_size": 53,
-          "life": 20,
-          "name": "TestPlayer"
-        }
-      ],
-      "priority_player": "TestPlayer",
-      "seq": 16,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p23",
-          "mana_cost": "{G}",
-          "name": "Ancient Stirrings"
-        }
-      ],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 1
-    },
-    {
-      "active_player": "TestPlayer",
-      "phase": "POSTCOMBAT_MAIN",
-      "players": [
         {
           "battlefield": [],
           "exile": [],
           "graveyard": [],
           "hand": [
             {
-              "id": "p3",
-              "name": "Mountain",
+              "id": "p10",
+              "name": "Ancient Stirrings",
               "visible_to": [
-                "Opponent"
+                "TestPlayer"
               ]
             },
             {
-              "id": "p4",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p5",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p6",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p7",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p8",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            },
-            {
-              "id": "p9",
-              "name": "Mountain",
-              "visible_to": [
-                "Opponent"
-              ]
-            }
-          ],
-          "library_size": 53,
-          "life": 20,
-          "name": "Opponent"
-        },
-        {
-          "battlefield": [
-            {
-              "face_down": false,
               "id": "p11",
               "name": "Forest",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
-          "exile": [],
-          "graveyard": [],
-          "hand": [
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
             {
               "id": "p12",
               "name": "Plains",
@@ -1513,20 +1557,149 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 17,
-      "stack": [
-        {
-          "controller": "TestPlayer",
-          "id": "p23",
-          "mana_cost": "{G}",
-          "name": "Ancient Stirrings"
-        }
-      ],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 1
+      "seq": 16,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 2
     },
     {
-      "active_player": "TestPlayer",
+      "active_player": "Opponent",
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Ancient Stirrings",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 17,
+      "stack": [],
+      "step": "DECLARE_ATTACKERS",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
       "phase": "POSTCOMBAT_MAIN",
       "players": [
         {
@@ -1582,26 +1755,174 @@
               "visible_to": [
                 "Opponent"
               ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
             }
           ],
-          "library_size": 53,
+          "library_size": 52,
           "life": 20,
           "name": "Opponent"
         },
         {
-          "battlefield": [
-            {
-              "face_down": false,
-              "id": "p11",
-              "name": "Forest",
-              "summoning_sick": true,
-              "tapped": true,
-              "token": false
-            }
-          ],
+          "battlefield": [],
           "exile": [],
           "graveyard": [],
           "hand": [
+            {
+              "id": "p10",
+              "name": "Ancient Stirrings",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 18,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Ancient Stirrings",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
             {
               "id": "p12",
               "name": "Plains",
@@ -1644,20 +1965,431 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 18,
-      "stack": [
+      "seq": 19,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "END",
+      "players": [
         {
-          "controller": "TestPlayer",
-          "id": "p23",
-          "mana_cost": "{G}",
-          "name": "Ancient Stirrings"
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Ancient Stirrings",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
         }
       ],
-      "step": "POSTCOMBAT_MAIN",
-      "turn": 1
+      "priority_player": "Opponent",
+      "seq": 21,
+      "stack": [],
+      "step": "CLEANUP",
+      "turn": 2
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Ancient Stirrings",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Ornithopter",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 23,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Ancient Stirrings",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p11",
+              "name": "Forest",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Ornithopter",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 24,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 3
     }
   ],
-  "totalTurns": 1,
+  "totalTurns": 3,
   "version": 2,
   "winner": null
 }

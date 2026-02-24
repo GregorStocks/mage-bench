@@ -164,7 +164,6 @@ public class BridgeCallbackHandler {
     private volatile boolean manaPlanAutoTapFallback = true; // When mana plan is exhausted, fall through to auto-tap (true) or cancel (false)
     private volatile int lastTurnNumber = -1; // For clearing failedManaCasts on turn change
     private volatile int interactionsThisTurn = 0; // Generic loop detection: count model interactions per turn
-    private volatile int landsPlayedThisTurn = 0; // Track land plays for land_drops_used hint
     private volatile int maxInteractionsPerTurn = 25; // Configurable per-model; after this many, auto-pass rest of turn
 
     private volatile DeckCardLists deckList = null; // Original decklist for get_my_decklist
@@ -652,8 +651,9 @@ public class BridgeCallbackHandler {
             }
             // Analogous to Arena highlighting your lands when you have a land drop left.
             // Helps LLMs remember they can play a land this turn.
-            if (isMyTurn && isMainPhase) {
-                result.put("land_drops_used", landsPlayedThisTurn);
+            // Uses the authoritative server value from PlayerView, not chat-message counting.
+            if (isMyTurn && isMainPhase && myPlayer != null) {
+                result.put("land_drops_used", myPlayer.getLandsPlayed());
             }
 
             // Stack summary — helps LLMs see what's pending before casting instants/counters
@@ -733,7 +733,6 @@ public class BridgeCallbackHandler {
                             lastTurnNumber = turn;
                             failedManaCasts.clear();
                             interactionsThisTurn = 0;
-                            landsPlayedThisTurn = 0;
                             poolManaAttempts = 0;
                             poolManaPayingForId = null;
                             manaPlan = null;
@@ -2740,7 +2739,6 @@ public class BridgeCallbackHandler {
                             lastTurnNumber = turn;
                             failedManaCasts.clear();
                             interactionsThisTurn = 0;
-                            landsPlayedThisTurn = 0;
                             poolManaAttempts = 0;
                             poolManaPayingForId = null;
                             manaPlan = null;
@@ -4131,11 +4129,6 @@ public class BridgeCallbackHandler {
             String logEntry = null;
             if (chatMsg.getMessageType() == ChatMessage.MessageType.GAME) {
                 logEntry = chatMsg.getMessage();
-                // Track land plays for land_drops_used hint.
-                // " plays " is exclusive to land plays (spells use "casts", abilities "activates").
-                if (logEntry != null && logEntry.contains(" plays ") && logEntry.contains(client.getUsername())) {
-                    landsPlayedThisTurn++;
-                }
                 // Track cast owners: extract player name and object_id from cast messages
                 if (logEntry != null && logEntry.contains(" casts ")) {
                     Matcher castMatcher = CAST_OWNER_PATTERN.matcher(logEntry);
