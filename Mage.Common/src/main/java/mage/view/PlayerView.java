@@ -59,6 +59,8 @@ public class PlayerView implements Serializable {
     private final boolean monarch;
     private final boolean initiative;
     private final List<String> designationNames = new ArrayList<>();
+    private final int landsPlayed;
+    private final int landsPerTurn;
 
     public PlayerView(Player player, GameState state, Game game, UUID createdForPlayerId, UUID watcherUserId) {
         this.playerId = player.getId();
@@ -160,6 +162,8 @@ public class PlayerView implements Serializable {
         for (Counter counter : player.getCountersAsCopy().values()) {
             counters.add(new CounterView(counter));
         }
+        this.landsPlayed = player.getLandsPlayed();
+        this.landsPerTurn = player.getLandsPerTurn();
     }
 
     private boolean showInBattlefield(Permanent permanent, GameState state) {
@@ -321,6 +325,14 @@ public class PlayerView implements Serializable {
 
     public List<String> getDesignationNames() {
         return designationNames;
+    }
+
+    public int getLandsPlayed() {
+        return landsPlayed;
+    }
+
+    public int getLandsPerTurn() {
+        return landsPerTurn;
     }
 
 }
