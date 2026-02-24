@@ -938,6 +938,7 @@ const { slug } = Astro.params;
         if (item.kind === "llm") return item.data.gameSeq || item.data.seq || 0;
         if (item.kind === "turn-sep" || item.kind === "phase-sep") return item.data.seq || 0;
         if (item.kind === "annotation") {
+          if (item.seq != null) return item.seq;
           var annSnap = game.snapshots[item.data.snapshotIndex];
           return annSnap ? (annSnap.seq || 0) : 0;
         }
@@ -980,9 +981,15 @@ const { slug } = Astro.params;
       if (game.annotations) {
         game.annotations.forEach(function (ann) {
           if (ann.snapshotIndex <= index) {
+            var annSnap = game.snapshots[ann.snapshotIndex] || {};
             var nextAnnSnap = game.snapshots[ann.snapshotIndex + 1];
-            var annTs = nextAnnSnap ? (nextAnnSnap.ts || "") : (game.snapshots[ann.snapshotIndex] || {}).ts || "";
-            timeline.push({ kind: "annotation", ts: annTs, data: ann });
+            if (useSeq) {
+              var annSeq = nextAnnSnap ? (nextAnnSnap.seq || 0) : (annSnap.seq || 0);
+              timeline.push({ kind: "annotation", seq: annSeq, data: ann });
+            } else {
+              var annTs = nextAnnSnap ? (nextAnnSnap.ts || "") : (annSnap.ts || "");
+              timeline.push({ kind: "annotation", ts: annTs, data: ann });
+            }
           }
         });
         timeline.sort(timelineSort);

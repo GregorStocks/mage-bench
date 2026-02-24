@@ -58793,6 +58793,115 @@
   },
   "harnessEpoch": 20,
   "youtubeUrl": "https://youtu.be/1Ecm0tS3AP0",
-  "annotations": [],
+  "annotations": [
+    {
+      "severity": "minor",
+      "description": "Bottomed Desperate Ritual instead of the redundant second Ruby Medallion. Desperate Ritual is a key mana accelerant that nets +2 red mana with a Medallion in play, enabling explosive chaining of card draw spells. The second Ruby Medallion is largely redundant when you already have one.",
+      "actionTaken": "Bottomed Desperate Ritual",
+      "betterLine": "Bottom the second Ruby Medallion, keeping Desperate Ritual as the critical mana engine piece for chaining Wrenn's Resolve and Reckless Impulse on a combo turn.",
+      "type": "blunder",
+      "snapshotIndex": 2,
+      "player": "MiMo Rookie"
+    },
+    {
+      "severity": "minor",
+      "description": "Playing Mountain instead of Arid Mesa is suboptimal. Arid Mesa can fetch a Mountain when needed, providing the same mana, but it also thins the deck and could be valuable later for color fixing. More importantly, playing Arid Mesa now preserves the basic Mountain for later turns when the player might need an untapped land without paying life. Arid Mesa is best played early when life totals don't matter as much. Additionally, with Ruby Medallion in hand (costs 2), the player wants to cast it this turn - both Mountain and Arid Mesa can provide red mana for Manamorphose, but Arid Mesa provides deck thinning. The player could play Arid Mesa, crack it for a Mountain (paying 1 life), then cast Ruby Medallion next turn. Playing the basic Mountain wastes the deck-thinning opportunity.",
+      "actionTaken": "Played basic Mountain instead of Arid Mesa",
+      "betterLine": "Play Arid Mesa, crack it to fetch a Mountain for deck thinning while the 1 life cost is inconsequential",
+      "type": "blunder",
+      "snapshotIndex": 14,
+      "player": "MiMo Rookie"
+    },
+    {
+      "severity": "minor",
+      "description": "Fetched Sacred Foundry instead of a basic Mountain. Sacred Foundry costs 2 life to enter untapped and only adds white mana production, which this R/G storm deck has no use for. A basic Mountain provides the same red mana at no life cost and is more resilient to nonbasic land hate.",
+      "actionTaken": "Fetched Sacred Foundry, paying 2 life unnecessarily for white mana the deck doesn't need.",
+      "betterLine": "Fetch a basic Mountain for free, preserving life total while getting the same useful mana production.",
+      "type": "blunder",
+      "snapshotIndex": 36,
+      "player": "MiMo Rookie"
+    },
+    {
+      "severity": "minor",
+      "description": "With only 2 lands on the battlefield, Ancient Stirrings for 1 mana would have been more efficient than Malevolent Rumble for 2 mana. Ancient Stirrings looks at 5 cards (vs 4 for Rumble) and can find colorless cards including lands like Urza's Saga. More importantly, casting Ancient Stirrings for {G} would leave the second Grove untapped, allowing the player to also cast Blade of the Bloodchief ({1}) in the same turn, developing the board further. With Malevolent Rumble costing {1}{G}, both Groves are tapped and nothing else can be played. While Rumble does create a Spawn token and puts cards in the graveyard, at this stage finding a third land and maintaining tempo with a second spell is more valuable.",
+      "actionTaken": "Cast Malevolent Rumble for {1}{G}, using both available lands",
+      "betterLine": "Cast Ancient Stirrings for {G} from one Grove, keeping the other Grove open to also cast Blade of the Bloodchief for {1} in the same turn, developing two plays instead of one",
+      "type": "blunder",
+      "snapshotIndex": 39,
+      "player": "Gem3P Romance"
+    },
+    {
+      "severity": "minor",
+      "description": "With only 2 lands (both Groves) and a hand full of colored-mana spells (Basking Broodscale {1}{G}, Writhing Chrysalis {2}{R}{G}, Ancient Stirrings {G}, Unholy Heat {R}), picking Urza's Saga over Commercial District is suboptimal. Urza's Saga only produces {C}, sacrifices after 3 turns, and doesn't help cast any of the colored spells in hand. Commercial District would provide a permanent colored source ({R} or {G}) plus surveil 1, enabling the deck to actually function. The non-chosen Commercial District goes to the graveyard, losing this colored source permanently.",
+      "actionTaken": "Chose Urza's Saga from Malevolent Rumble, sending Commercial District to graveyard.",
+      "betterLine": "Choose Commercial District to secure a third permanent colored mana source, enabling casting of Basking Broodscale, Ancient Stirrings, and eventually Writhing Chrysalis. The deck desperately needs colored mana, not a temporary colorless source.",
+      "type": "blunder",
+      "snapshotIndex": 45,
+      "player": "Gem3P Romance"
+    },
+    {
+      "severity": "moderate",
+      "description": "Casting Pyretic Ritual here generates RRR but there's no meaningful follow-up that uses all that mana efficiently this turn. With only 2 lands in play (both tapped after casting), the player gets RRR from Pyretic Ritual. They could cast Ruby Medallion (2) and Manamorphose (reduced to {R/G}), but the sequencing is wrong - Ruby Medallion should be cast FIRST to reduce the cost of subsequent red spells. By casting Pyretic Ritual first (costing 1R, netting +1R for RRR), they then cast Ruby Medallion for 2 mana (spending RR, leaving R), then could cast Manamorphose for {R/G} instead of {1}{R/G}. However, if they had cast Ruby Medallion first (using both lands for 2 mana), then on a subsequent turn Pyretic Ritual would cost just {R} instead of {1}{R}, saving mana. More importantly, the player is trying to set up a Past in Flames storm turn but is spending ritual mana prematurely without being able to go off this turn - they only have 2 lands and would need much more mana to chain Past in Flames effectively. Playing Ruby Medallion first and building toward a bigger turn would have been better.",
+      "actionTaken": "Cast Pyretic Ritual before Ruby Medallion, spending ritual mana early without a complete combo turn available.",
+      "betterLine": "Cast Ruby Medallion first (using both lands), then on future turns benefit from reduced costs on Pyretic Ritual, Manamorphose, and Past in Flames for a more explosive combo turn. Also should play Arid Mesa as a land drop first before casting anything.",
+      "type": "blunder",
+      "snapshotIndex": 58,
+      "player": "MiMo Rookie"
+    },
+    {
+      "severity": "minor",
+      "description": "MiMo Rookie cast Manamorphose before playing Arid Mesa. Since Arid Mesa is a land that can be played for free and doesn't require mana, it should be played first. Playing the land first preserves options - Manamorphose draws a card, and the drawn card might influence whether to crack Arid Mesa or what color mana to add with Manamorphose. More importantly, with only 2 lands on board (both tapped), casting Manamorphose uses the mana that could have been used for Ruby Medallion if the land had been played first and untapped mana was available. However, Arid Mesa enters untapped but doesn't produce mana without being sacrificed (paying 1 life), so the sequencing issue is about information - playing Arid Mesa first, then Manamorphose to see the drawn card before deciding whether to crack the Mesa.",
+      "actionTaken": "Cast Manamorphose before playing Arid Mesa",
+      "betterLine": "Play Arid Mesa first (free land drop), then cast Manamorphose to see the drawn card before deciding on further plays. This preserves maximum information and flexibility.",
+      "type": "blunder",
+      "snapshotIndex": 63,
+      "player": "MiMo Rookie"
+    },
+    {
+      "severity": "questionable",
+      "description": "Gem3P Romance passed the turn with {C}{C} available (Urza's Saga + Eldrazi Spawn Token) and could have cast Kozilek's Command for X=0, choosing the 'scry X, draw a card' mode to draw a card essentially for free. While X=0 makes the spell weak, drawing a card for no real cost (the mana was going unused anyway) is pure upside. Kozilek's Command is a strong card, but in this board state with 6 cards already in hand and a strong board position, spending it as a cantrip is debatable - saving it for a bigger X later could exile a key creature or generate multiple tokens. However, the opponent is playing Storm/Burn and could potentially combo off, so finding answers faster has value.",
+      "actionTaken": "Passed without casting Kozilek's Command or using any abilities.",
+      "betterLine": "Consider casting Kozilek's Command for X=0 using Urza's Saga and Eldrazi Spawn token to cantrip and dig for more resources, though saving it for a larger X later is also defensible.",
+      "type": "blunder",
+      "snapshotIndex": 121,
+      "player": "Gem3P Romance"
+    },
+    {
+      "severity": "questionable",
+      "description": "With 4 mana available and a storm/Past in Flames strategy, the sequencing matters. Playing Ruby Medallion first (2 mana) leaves 2 mana open, which lets them cast Strike It Rich (now free with Medallion) and Artist's Talent (now 1R with Medallion). However, Strike It Rich costs {R} which is already 1 mana - Ruby Medallion only reduces it to {R} (can't reduce below colored mana costs). The Medallion is a reasonable play to set up future turns and reduce Past in Flames cost from {3}{R} to {2}{R}, but casting Strike It Rich first for {R} would have generated a Treasure token, giving 5 mana total to work with this turn - potentially allowing both Ruby Medallion and Artist's Talent in the same turn. With Strike It Rich first ({R}) -> Treasure + 3 mana remaining -> Ruby Medallion ({2} with no discount yet) -> 1 mana + Treasure remaining -> Artist's Talent ({1}{R} with Medallion = {R}) -> tap last Mountain + crack Treasure. This would have deployed both the Medallion and the Talent this turn.",
+      "actionTaken": "Cast Ruby Medallion first with 4 mana available, leaving 2 mana and unable to also deploy Artist's Talent this turn without the Treasure.",
+      "betterLine": "Cast Strike It Rich first for {R}, creating a Treasure, then cast Ruby Medallion for {2}, then cast Artist's Talent for {R} (reduced by Medallion), using the last Mountain and the Treasure token. This deploys all three cards in one turn instead of just one.",
+      "type": "blunder",
+      "snapshotIndex": 123,
+      "player": "MiMo Rookie"
+    },
+    {
+      "severity": "minor",
+      "description": "By casting Strike It Rich before Artist's Talent, MiMo Rookie misses the Artist's Talent trigger that would have allowed them to discard a card (like a redundant Past in Flames) and draw a fresh card when casting Strike It Rich. Since Ruby Medallion makes Strike It Rich free, they could have cast Artist's Talent first for {R} (reduced from {1}{R}), then cast Strike It Rich for free and triggered the filtering ability.",
+      "actionTaken": "Cast Strike It Rich first, before Artist's Talent was on the battlefield",
+      "betterLine": "Cast Artist's Talent first for {R} using the untapped Mountain, then cast Strike It Rich for free (reduced by Ruby Medallion), triggering Artist's Talent's filtering ability to discard a redundant Past in Flames and draw a fresh card",
+      "type": "blunder",
+      "snapshotIndex": 132,
+      "player": "MiMo Rookie"
+    },
+    {
+      "severity": "minor",
+      "description": "Not attacking with Haywire Mite (and possibly Eldrazi Spawn) when the opponent has no blockers. The Mite would deal 1 extra damage for free, bringing opponent to 5 instead of 6. There's no downside to attacking with it since there are no blockers, and it can still be sacrificed for its ability post-combat.",
+      "actionTaken": "Attacked with only the two 4/4 Construct tokens, dealing 8 damage (opponent 14→6).",
+      "betterLine": "Attack with both Constructs and Haywire Mite for 9 damage total (opponent 14→5). The Eldrazi Spawn could also attack for 0, but at minimum the Mite's 1 damage is free value.",
+      "type": "blunder",
+      "snapshotIndex": 139,
+      "player": "Gem3P Romance"
+    },
+    {
+      "severity": "minor",
+      "description": "At 3 life facing multiple Construct tokens that threaten lethal, the player attempted a cast that failed due to incorrect mana payment calculation. The correct line involved casting Past in Flames (costs {2}{R} with Ruby Medallion) for 3 mana, then chaining flashback Pyretic Ritual ({R} with Medallion) into more spells to generate mana and card advantage. The failed attempt wasted time/priority in a critical game state.",
+      "actionTaken": "Attempted to cast a spell but couldn't complete the mana payment, resulting in a rollback and no action taken.",
+      "betterLine": "Cast Past in Flames for {2}{R} (3 mana with Medallion), then flashback Pyretic Ritual for {R} (netting RR), then flashback Manamorphose to draw and generate mana, chaining into further spells to try to find a win condition or stabilize.",
+      "type": "blunder",
+      "snapshotIndex": 156,
+      "player": "MiMo Rookie"
+    }
+  ],
   "blunderScriptVersion": 18
 }

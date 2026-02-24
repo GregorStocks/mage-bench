@@ -62596,57 +62596,183 @@
   "annotations": [
     {
       "severity": "minor",
-      "description": "Chose to be on the draw in a new game of Modern. In Modern, being on the play is almost universally correct due to the tempo advantage. The extra card from drawing rarely compensates for the loss of initiative, especially in a format with efficient threats and interaction.",
-      "actionTaken": "Chose to let the opponent (MiMo Minimal) go first, putting themselves on the draw.",
-      "betterLine": "Choose to go first (be on the play) as is standard in Modern for the tempo advantage.",
+      "description": "Chose to be on the draw (letting opponent go first) without knowing the matchup. In competitive Magic, going first is almost always advantageous as it gives tempo advantage - you play lands and threats a turn earlier. The reasoning even states 'there's a slight statistical advantage to choosing to play first' but then contradicts itself by choosing to go second. The reasoning text appears to cut off mid-sentence, suggesting confused logic.",
+      "actionTaken": "Chose to let the opponent (MiMo Minimal) take the first turn, putting themselves on the draw.",
+      "betterLine": "Choose to play first (select Sonnet Critic as starting player) for the standard tempo advantage of being on the play, which is correct in the vast majority of matchups, especially when the matchup is unknown.",
       "type": "blunder",
-      "snapshotIndex": 155,
+      "snapshotIndex": 0,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "questionable",
+      "description": "With only 1 mana available (Blood Crypt), the player chose Seal of Fire over Nethergoyf. Nethergoyf as a 1/2 (creature type in graveyard from Street Wraith) provides a body that can block and apply pressure, while Seal of Fire is merely a 2-damage removal spell sitting on the battlefield. However, Seal of Fire does add an enchantment type to the graveyard when sacrificed, which would grow Nethergoyf later. The key consideration is that Nethergoyf could have been cast now as a 1/2 and would grow as more card types enter the graveyard, while Seal of Fire doesn't impact the board meaningfully on its own. That said, Seal of Fire provides flexible removal and adds a card type to graveyard (enchantment) when used, so this is debatable rather than clearly wrong.",
+      "actionTaken": "Cast Seal of Fire with the one available black/red mana from Blood Crypt.",
+      "betterLine": "Cast Nethergoyf as a 1/2 creature that can grow over time, providing an early board presence and blocker. Seal of Fire could be cast next turn alongside a land drop for Island, enabling future Expressive Iteration or Counterspell mana.",
+      "type": "blunder",
+      "snapshotIndex": 18,
       "player": "Sonnet Critic"
     },
     {
       "severity": "minor",
-      "description": "Chose Undercity Sewers (a tapped land) over Moonshadow when already holding Scalding Tarn for a land drop. Moonshadow is a real threat card while the extra tapped land is redundant given existing mana and the Scalding Tarn in hand.",
-      "actionTaken": "Put Undercity Sewers into hand from Expressive Iteration",
-      "betterLine": "Put Moonshadow into hand (a meaningful threat), exile a land to potentially play this turn via Expressive Iteration's exile clause, and bottom the other land. Even if the game is about to end from Seal of Fire lethal, Moonshadow provides more value in any scenario where the game continues.",
+      "description": "With Expressive Iteration, the standard play is to put the non-land card into hand and exile the land to play it this turn. By putting Undercity Sewers into hand, they'll lose access to Moonshadow (either exiling or bottoming it). Taking Moonshadow to hand and exiling Swamp would have netted both a creature and a land drop.",
+      "actionTaken": "Put Undercity Sewers (tapped land) into hand, losing access to Moonshadow",
+      "betterLine": "Put Moonshadow into hand, exile Swamp to play it this turn as an untapped land drop, bottom Undercity Sewers",
       "type": "blunder",
-      "snapshotIndex": 155,
+      "snapshotIndex": 35,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "questionable",
+      "description": "Discarding Goryo's Vengeance when there's no legendary creature in the graveyard to target, but the card has future potential. The player has Solitude in hand which could be evoked (putting it in the graveyard) and then targeted with Goryo's Vengeance for a powerful tempo play with Ephemerate to make it permanent. Discarding one copy is acceptable since they have two, but Winternight Stories or one of the Ephemerates might be better discard candidates. Winternight Stories is a 3-mana sorcery that draws 3 and discards (decent but slow), while the Goryo's + Ephemerate + Solitude combo is the deck's primary game plan. Having two Goryo's Vengeance provides redundancy for this critical combo piece.",
+      "actionTaken": "Discarded Goryo's Vengeance to hand size",
+      "betterLine": "Discard Winternight Stories instead, preserving both copies of Goryo's Vengeance for maximum combo redundancy. Winternight Stories is a slower card advantage spell that's less critical than combo pieces, especially when the deck wants to execute Solitude + Goryo's Vengeance + Ephemerate.",
+      "type": "blunder",
+      "snapshotIndex": 43,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "minor",
+      "description": "Casting Thoughtseize before playing Undercity Sewers is slightly suboptimal sequencing. Undercity Sewers enters tapped so it won't help cast anything this turn, but playing it first would trigger surveil 1, putting a card into the graveyard which could add a third card type (land) to the graveyard for Nethergoyf (currently 2 types: sorcery and creature). More importantly, the land drop costs no mana and should generally be done before spending mana on spells. Additionally, Thoughtseize costs 2 life (going to 16), and the life loss matters for Death's Shadow. The sequencing error is minor since the Undercity Sewers enters tapped anyway and doesn't change available mana this turn, but the surveil information could have informed the Thoughtseize decision.",
+      "actionTaken": "Cast Thoughtseize before playing Undercity Sewers",
+      "betterLine": "Play Undercity Sewers first (surveil 1 to potentially grow Nethergoyf and gain information), then cast Thoughtseize with Blood Crypt",
+      "type": "blunder",
+      "snapshotIndex": 44,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "questionable",
+      "description": "Taking Goryo's Vengeance over Solitude is debatable. Solitude is the opponent's best removal spell and can be evoked for free to exile key threats like Death's Shadow or Moonshadow. Goryo's Vengeance currently has no legendary creatures in the opponent's graveyard to reanimate (only Polluted Delta and the Goryo's Vengeance itself are there), making it a lower immediate threat. Solitude, on the other hand, is always live as premium removal that can blow out the Sonnet Critic's game plan. However, Goryo's Vengeance could become very dangerous if a Quantum Riddler or Solitude ends up in the graveyard later, and denying a reanimation combo piece has merit. The opponent also has Ephemerate x2 which combos powerfully with Solitude (evoke Solitude, then Ephemerate it to keep it and get another exile trigger), but taking Solitude would break up that combo more directly.",
+      "actionTaken": "Discarded Goryo's Vengeance from opponent's hand",
+      "betterLine": "Discard Solitude to remove the opponent's best removal spell and break up the Solitude + Ephemerate combo, which would generate massive value if assembled",
+      "type": "blunder",
+      "snapshotIndex": 49,
       "player": "Sonnet Critic"
     },
     {
       "severity": "minor",
-      "description": "Seal of Fire's 2 damage to a 2-life opponent is already on the stack, which is lethal. Casting Thoughtseize here is completely unnecessary - it wastes a card and costs 2 life for no benefit since the game is already won.",
-      "actionTaken": "Cast Thoughtseize while lethal Seal of Fire activation was on the stack",
-      "betterLine": "Simply pass priority and let Seal of Fire resolve, killing the opponent at 2 life",
+      "description": "Fetched basic Swamp when hand contains mostly blue and white spells (Quantum Riddler, Winternight Stories, 2x Ephemerate, Solitude). Basic Swamp only provides black for Thoughtseize, while a dual land like Watery Grave would provide both black AND blue mana for the heavily blue hand, at the cost of just 2 life from a healthy 17 life total.",
+      "actionTaken": "Fetched basic Swamp from Polluted Delta",
+      "betterLine": "Fetch Watery Grave (paying 2 life to enter untapped) to have access to both U and B mana, supporting both Thoughtseize this turn and future blue spells like Quantum Riddler and Winternight Stories.",
       "type": "blunder",
-      "snapshotIndex": 155,
+      "snapshotIndex": 58,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "minor",
+      "description": "By casting the second Nethergoyf, Sonnet Critic taps out completely and loses the ability to hold up Counterspell (UU) with their remaining untapped lands (Island + Undercity Sewers). The opponent has two Goryo's Vengeance in their graveyard and could have threatening plays. With only a Swamp on board, the opponent's options are limited this turn, but leaving up Counterspell provides insurance against future threats. The second Nethergoyf is also only a 2/3 - modest additional pressure. However, Moonshadow for {B} would have been a similar option that provides a 1/1 with menace that can grow, though also prevents holding up Counterspell. The key tension is between deploying threats and holding countermagic.",
+      "actionTaken": "Cast a second Nethergoyf (2/3) for {B}, tapping out completely with no counterspell protection available.",
+      "betterLine": "Hold up Counterspell by not casting another creature this turn. The opponent could draw into dangerous plays like a reanimation target + enabler, and having Counterspell ready is more valuable than an extra 2/3 body when you already have a Nethergoyf and Seal of Fire on board.",
+      "type": "blunder",
+      "snapshotIndex": 69,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "major",
+      "description": "MiMo Minimal missed the classic Solitude + Ephemerate combo line. They could evoke Solitude (exiling one Ephemerate as the white card), exile one Nethergoyf with the ETB, then cast the second Ephemerate to blink Solitude (dodging the evoke sacrifice trigger), exile the second Nethergoyf with the re-entry ETB, and end up with a 3/2 lifelink on board with Ephemerate on rebound. The opponent's lands were all tapped, so there was no interaction available. Instead, they cast Thoughtseize into an opponent who already had their threats deployed on board.",
+      "actionTaken": "Cast Thoughtseize targeting opponent's hand",
+      "betterLine": "Evoke Solitude (exiling one Ephemerate), targeting a Nethergoyf with ETB, then cast second Ephemerate on Solitude to blink it and exile the second Nethergoyf, ending with a 3/2 lifelink and Ephemerate rebound",
+      "type": "blunder",
+      "snapshotIndex": 78,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "moderate",
+      "description": "Death's Shadow is effectively uncastable at 16 life (it would be -3/-3 and die). Meanwhile, the opponent has two Counterspells that directly prevent MiMo from resolving key threats like Solitude or Quantum Riddler. Taking a dead card over live interaction is a significant error.",
+      "actionTaken": "Discarded Death's Shadow, which is currently unplayable at 16 life, leaving both Counterspells in opponent's hand.",
+      "betterLine": "Discard one of the Counterspells to clear the way for resolving Solitude or Quantum Riddler. With two Counterspells, the opponent can counter MiMo's next two key spells; removing one significantly improves the chances of resolving a threat.",
+      "type": "blunder",
+      "snapshotIndex": 82,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "minor",
+      "description": "Passed without playing Bloodstained Mire (a free land drop) or casting Moonshadow for {B} before combat. Moonshadow is a 1/1 menace that grows as permanents hit the graveyard, and playing it now starts that engine. Playing the fetchland costs nothing and provides future mana flexibility.",
+      "actionTaken": "Passed priority without playing land or casting any spells in precombat main.",
+      "betterLine": "Play Bloodstained Mire, then cast Moonshadow for {B} (using Blood Crypt), then move to combat with two Nethergoyfs attacking while still having Island + Undercity Sewers available for Counterspell.",
+      "type": "blunder",
+      "snapshotIndex": 85,
       "player": "Sonnet Critic"
     },
     {
       "severity": "moderate",
-      "description": "Death's Shadow is essentially useless to the opponent at 22 life (it would be a 0/0 or negative power creature and die on entry). Counterspell is far more impactful as MiMo needs to resolve spells like Quantum Riddler or Winternight Stories to have any chance of winning, and the opponent has two Counterspells to protect their board position.",
-      "actionTaken": "Chose to discard Death's Shadow from opponent's hand",
-      "betterLine": "Should have taken one of the Counterspells, as those actively prevent MiMo from executing their game plan, while Death's Shadow is a dead card at 22 life",
+      "description": "Failing to crack Bloodstained Mire before combat to add a Land card type to the graveyard, which would pump both Nethergoyfs from 2/3 to 3/4, dealing 6 damage instead of 4. With the opponent at 12 life, this 2-damage difference is meaningful. After cracking the fetchland, they could play Scalding Tarn as their land drop to maintain mana.",
+      "actionTaken": "Passed without activating Bloodstained Mire before moving to combat",
+      "betterLine": "Activate Bloodstained Mire (pay 1 life, sacrifice, search for a land) to put a Land card type in the graveyard, pumping both Nethergoyfs to 3/4, then play Scalding Tarn as land drop, attack for 6 instead of 4, and still have mana for Counterspell or Moonshadow postcombat.",
       "type": "blunder",
-      "snapshotIndex": 155,
-      "player": "MiMo Minimal"
+      "snapshotIndex": 98,
+      "player": "Sonnet Critic"
     },
     {
-      "severity": "questionable",
-      "description": "Moonshadow (currently 2/2 but growing toward 7/7 with menace) is the bigger long-term threat compared to a 2/3 Nethergoyf. Both give the opponent 2 life when exiled. However, MiMo is at 2 life with Seal of Fire dealing 2 damage on the stack, so this choice likely doesn't matter as MiMo appears to be dying regardless.",
-      "actionTaken": "Exiled Nethergoyf (2/3) with Solitude's ETB trigger",
-      "betterLine": "Exile Moonshadow, the more dangerous growing threat with menace, in case there's any survival line",
+      "severity": "minor",
+      "description": "Cast Moonshadow before playing Scalding Tarn. While mana worked out fine here, correct sequencing is to play your land drop first to maximize options and information. Playing Scalding Tarn first could also crack it to put a card type (land) into the graveyard, pumping both Nethergoyfs from 2/3 to 3/4 for future attacks.",
+      "actionTaken": "Cast Moonshadow for {B} before making land drop",
+      "betterLine": "Play Scalding Tarn first, potentially crack Bloodstained Mire or Scalding Tarn to add 'land' type to graveyard (pumping Nethergoyfs to 3/4 each), then cast Moonshadow with Counterspell backup",
       "type": "blunder",
-      "snapshotIndex": 155,
+      "snapshotIndex": 103,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "minor",
+      "description": "MiMo Minimal attempted to cast Quantum Riddler for {3}{U}{U} but only has 2 lands (Meticulous Archive and Swamp), making it impossible to pay the mana cost. The game engine rolled back the action. Meanwhile, Solitude could have been cast via its Evoke cost (exile a white card from hand) — MiMo has Ephemerate as a white card to exile. Solitude's ETB would exile one of the opponent's creatures (like a Nethergoyf), and then Ephemerate could be cast in response to the Evoke sacrifice trigger to blink Solitude, keeping it on the battlefield and getting a second exile trigger. This is a classic Solitude + Ephemerate combo that would remove two of the opponent's threats while keeping a 3/2 lifelink creature.",
+      "actionTaken": "Attempted to cast Quantum Riddler with insufficient mana, resulting in a rolled-back action and effectively passing.",
+      "betterLine": "Evoke Solitude (exiling Ephemerate as the white card), targeting a Nethergoyf with the ETB exile trigger, then cast the second Ephemerate on Solitude in response to the Evoke sacrifice trigger to keep Solitude and exile a second creature. This would devastate the opponent's board.",
+      "type": "blunder",
+      "snapshotIndex": 105,
       "player": "MiMo Minimal"
     },
     {
       "severity": "minor",
-      "description": "Chose to exile Nethergoyf (2/3) instead of Moonshadow (currently 2/2 but with menace and growth potential as -1/-1 counters get removed when permanents go to graveyard). Moonshadow is the more dangerous threat long-term. However, this is largely moot as there is lethal Seal of Fire damage (2 damage) on the stack with MiMo at 2 life.",
-      "actionTaken": "Exiled Nethergoyf with Solitude's ETB trigger",
-      "betterLine": "Exile Moonshadow, which has menace and significant growth potential, making it the more dangerous threat. Though with lethal on the stack, the decision is academic.",
+      "description": "Missed playing Scalding Tarn (free land drop) and missed the opportunity to crack Bloodstained Mire before combat to add 'Land' as a third card type in the graveyard, which would have pumped both Nethergoyfs from 2/3 to 3/4, increasing combat damage from 4 to 6 against an opponent at 8 life.",
+      "actionTaken": "Passed the precombat main phase without playing a land or activating any abilities.",
+      "betterLine": "Play Scalding Tarn as land drop, then crack Bloodstained Mire to fetch a land (adding Land type to graveyard), pumping Nethergoyfs to 3/4 before attacking for 6 damage total.",
       "type": "blunder",
-      "snapshotIndex": 155,
+      "snapshotIndex": 111,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "minor",
+      "description": "Sonnet Critic had Bloodstained Mire available to activate during combat. Sacrificing it would put a land card into the graveyard, adding 'Land' as a card type among cards in the graveyard (currently Creature, Sorcery from Death's Shadow, Expressive Iteration, Street Wraith, Thoughtseize). This would increase Nethergoyf's power from 2 to 3 each, making the attack deal 3+3+1=7 damage instead of 2+2+1=5. Opponent goes from 8 to 1 life instead of 3, and then Seal of Fire deals exactly 2 damage for lethal (or even just 1 would suffice). With the fetch crack, the total would be 7 combat + 2 Seal of Fire = 9 damage against 8 life, which is lethal even accounting for the 1 life paid to crack the fetch.",
+      "actionTaken": "Passed priority during combat without activating Bloodstained Mire, dealing only 5 combat damage (2+2+1) leaving opponent at 3 life.",
+      "betterLine": "Activate Bloodstained Mire before combat damage resolves to add Land as a card type to the graveyard, pumping both Nethergoyfs to 3/4. This makes combat damage 3+3+1=7, putting opponent to 1 life. Then sacrifice Seal of Fire for 2 damage for lethal. Net life cost is 1 life from the fetch, but the opponent is dead.",
+      "type": "blunder",
+      "snapshotIndex": 116,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "questionable",
+      "description": "Chose to exile the second Nethergoyf (2/3) instead of Moonshadow (currently 1/1 but can grow to 7/7 as permanents enter graveyard). Since the other Solitude trigger already targets a Nethergoyf, this removes both 2/3s but leaves Moonshadow alive. Moonshadow has menace and will grow - the evoke sacrifice of Solitude itself will remove a counter, and future fetchland/permanent sacrifices will continue to grow it. At 3 life, MiMo cannot afford to let Moonshadow become a significant threat.",
+      "actionTaken": "Targeted the second Nethergoyf (2/3) with Solitude's ETB exile ability",
+      "betterLine": "Target Moonshadow instead - it has much higher ceiling (7/7 menace) and is harder to deal with long-term. The two 2/3 Nethergoyfs are smaller threats, and one is already being exiled by the other trigger. Removing Moonshadow + one Nethergoyf leaves only a single 2/3 on board rather than a growing menace creature.",
+      "type": "blunder",
+      "snapshotIndex": 130,
       "player": "MiMo Minimal"
+    },
+    {
+      "severity": "minor",
+      "description": "Cast Nethergoyf before playing Scalding Tarn as a land drop. Should always play the land first to maximize available mana and options before committing spells. With two Counterspells in hand, having maximum mana available is important, especially since the opponent has Ephemerate on rebound that will need to be countered.",
+      "actionTaken": "Cast Nethergoyf before making land drop with Scalding Tarn",
+      "betterLine": "Play Scalding Tarn first (free action, no downside), then cast Nethergoyf. This ensures maximum mana availability for holding up both Counterspells if needed.",
+      "type": "blunder",
+      "snapshotIndex": 136,
+      "player": "Sonnet Critic"
+    },
+    {
+      "severity": "minor",
+      "description": "At 2 life facing lethal Seal of Fire, MiMo passed with 3 available mana instead of casting Winternight Stories to dig for answers. With Ephemerate rebounding next upkeep to blink Solitude (potentially gaining life and exiling a threat), drawing 3 cards could find critical interaction like Counterspell or additional resources to survive. Passing essentially concedes to the opponent activating Seal of Fire at any point.",
+      "actionTaken": "Passed priority without casting any spells, leaving 3 mana unused.",
+      "betterLine": "Cast Winternight Stories ({2}{U}) using Island, Meticulous Archive, and Swamp to draw 3 cards and dig for answers to survive the lethal Seal of Fire threat.",
+      "type": "blunder",
+      "snapshotIndex": 151,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "major",
+      "description": "The opponent is at 2 life and Seal of Fire deals 2 damage to any target. Activating Seal of Fire targeting the opponent wins the game immediately. However, we need to verify this is what they're doing - they activated Seal of Fire, which is correct if they target the opponent. But looking at the context, the opponent has a Solitude on the battlefield with an Ephemerate in exile that will rebound next upkeep. If the player doesn't kill the opponent now, Solitude could flicker again and the opponent stabilizes. Activating Seal of Fire here is actually the correct lethal play - the opponent is at 2 life and Seal of Fire deals exactly 2. This is not a blunder.",
+      "actionTaken": "Activated Seal of Fire (presumably targeting opponent for lethal)",
+      "betterLine": "This is actually the correct play - Seal of Fire for 2 damage kills the opponent at 2 life",
+      "type": "blunder",
+      "snapshotIndex": 152,
+      "player": "Sonnet Critic"
     }
   ],
   "blunderScriptVersion": 18

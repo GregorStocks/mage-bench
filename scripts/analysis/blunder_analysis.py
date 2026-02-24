@@ -813,9 +813,17 @@ def _eval_one_decision(
     # Inject constant fields the LLM doesn't need to generate.
     # snapshotIndex points to the first snapshot AFTER the action resolved,
     # so the viewer shows the annotation alongside its consequences.
+    action_seq = decision.get("action_seq", 0)
     action_ts = decision.get("action_ts", "")
-    if action_ts:
-        # Find first snapshot at or after action_ts
+    if action_seq:
+        # v2: find first snapshot at or after action_seq
+        aftermath_idx = decision["snapshot_index"]
+        for i in range(decision["snapshot_index"], len(snapshots)):
+            if snapshots[i].get("seq", 0) >= action_seq:
+                aftermath_idx = i
+                break
+    elif action_ts:
+        # v1: find first snapshot at or after action_ts
         aftermath_idx = decision["snapshot_index"]
         for i in range(decision["snapshot_index"], len(snapshots)):
             if snapshots[i].get("ts", "") >= action_ts:
@@ -1090,7 +1098,8 @@ def main(gz_path: str) -> None:
         sev = ann["severity"].upper()
         print(f"  Turn {turn} ({ann['player']}) - {sev}")
         print(f"    {ann['description']}")
-        print(f"    Better: {ann['betterLine']}")
+        if ann.get("betterLine"):
+            print(f"    Better: {ann['betterLine']}")
         print()
 
     _write_annotations(gz_path, annotations)

@@ -116,6 +116,22 @@ def _find_snapshot_index(snapshots: list[dict], ts: str) -> int | None:
     return best
 
 
+def _find_snapshot_index_by_seq(snapshots: list[dict], seq: int) -> int | None:
+    """Find the index of the nearest snapshot at or before the given game seq.
+
+    Used for v2 games where snapshots have seq but no ts.
+    Returns None if no snapshot exists at or before the seq.
+    """
+    best: int | None = None
+    for i, snap in enumerate(snapshots):
+        snap_seq = snap.get("seq", 0)
+        if snap_seq <= seq:
+            best = i
+        else:
+            break
+    return best
+
+
 def _parse_choices_result(result_str: str) -> dict:
     """Parse the result of a get_action_choices tool call."""
     try:
@@ -166,6 +182,7 @@ def _build_decision(
     decisions: list[dict],
     snap_idx: int | None,
     action_ts: str,
+    action_seq: int = 0,
     player: str,
     game_state: dict,
     message: str,
@@ -183,7 +200,7 @@ def _build_decision(
     subsequent: list[str],
 ) -> dict:
     """Build a decision dict with the canonical field set."""
-    return {
+    d: dict = {
         "decision_index": len(decisions),
         "snapshot_index": snap_idx if snap_idx is not None else 0,
         "action_ts": action_ts,
@@ -207,6 +224,9 @@ def _build_decision(
         "incoming_attackers": incoming_attackers,
         "subsequent_actions": subsequent,
     }
+    if action_seq:
+        d["action_seq"] = action_seq
+    return d
 
 
 def _extract_decisions_v1(data: dict) -> list[dict]:
@@ -362,7 +382,6 @@ def _extract_decisions_v2(data: dict) -> list[dict]:
 
     for ds_idx, (event_idx, source_event) in enumerate(decision_sources):
         choices_result = _parse_choices_result(source_event.get("result", ""))
-        choices_ts = source_event.get("ts", "")
         player = source_event.get("player", "")
 
         available_choices = choices_result.get("choices", [])
@@ -402,33 +421,49 @@ def _extract_decisions_v2(data: dict) -> list[dict]:
             if _is_decision_source(ev):
                 break
 
-        snap_idx = _find_snapshot_index(snapshots, choices_ts)
+        # Use seq-based snapshot lookup for v2 (snapshots have seq, not ts)
+        choices_seq = source_event.get("gameSeq", 0)
+        snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
         game_state = (
             _summarize_snapshot(snapshots[snap_idx]) if snap_idx is not None else {}
         )
 
-        # Collect subsequent game actions
-        next_choices_ts = ""
+        # Collect subsequent game actions using seq
+        action_seq = choices_seq
+        if action_ts:
+            # Find the gameSeq of the choose_action event
+            for j in range(event_idx + 1, len(llm_events)):
+                ev = llm_events[j]
+                if (
+                    ev.get("type") == "tool_call"
+                    and ev.get("tool") == "choose_action"
+                    and ev.get("player") == player
+                ):
+                    action_seq = ev.get("gameSeq", choices_seq)
+                    break
+
+        next_choices_seq = 0
         if ds_idx + 1 < len(decision_sources):
-            next_choices_ts = decision_sources[ds_idx + 1][1].get("ts", "")
+            next_choices_seq = decision_sources[ds_idx + 1][1].get("gameSeq", 0)
 
         subsequent: list[str] = []
-        if action_ts:
-            for a in actions:
-                a_ts = a.get("ts", "")
-                if a_ts <= (action_ts or choices_ts):
-                    continue
-                if next_choices_ts and a_ts > next_choices_ts:
-                    break
-                subsequent.append(a.get("message", ""))
-                if len(subsequent) >= 5:
-                    break
+        for a in actions:
+            a_seq = a.get("seq", 0)
+            if a_seq <= action_seq:
+                continue
+            if next_choices_seq and a_seq > next_choices_seq:
+                break
+            if a.get("message"):
+                subsequent.append(a["message"])
+            if len(subsequent) >= 5:
+                break
 
         decisions.append(
             _build_decision(
                 decisions=decisions,
                 snap_idx=snap_idx,
                 action_ts=action_ts,
+                action_seq=action_seq,
                 player=player,
                 game_state=game_state,
                 message=message,
