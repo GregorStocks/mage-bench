@@ -588,7 +588,15 @@ public class BridgeCallbackHandler {
     public Map<String, Object> getActionChoices() {
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
-        GameView gameView = lastGameView; // used for mana pool, playable objects, etc.
+        // Prefer the action's own GameView over lastGameView — a concurrent GAME_UPDATE
+        // can overwrite lastGameView with a view from a different phase (race condition).
+        GameView gameView = null;
+        if (action != null && action.data() instanceof GameClientMessage) {
+            gameView = ((GameClientMessage) action.data()).getGameView();
+        }
+        if (gameView == null) {
+            gameView = lastGameView;
+        }
         if (action != null) {
             result.put("game_seq", action.gameSeq());
         }
@@ -2820,8 +2828,10 @@ public class BridgeCallbackHandler {
                 }
 
                 // Step-specific yield: check if we've reached the target step
+                // Use the action's own GameView — lastGameView can be clobbered by GAME_UPDATE.
                 if (targetStep != null) {
-                    GameView gv = lastGameView;
+                    GameView gv = (action.data() instanceof GameClientMessage)
+                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
                     if (gv != null && gv.getStep() == targetStep) {
                         // Reached the target step — return to LLM
                         Map<String, Object> result = new HashMap<>();
