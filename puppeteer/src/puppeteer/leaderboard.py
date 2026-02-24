@@ -16,6 +16,22 @@ from puppeteer.harness_epoch import MIN_BLUNDER_VERSION, MIN_LEADERBOARD_EPOCH
 
 _LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 
+
+def _load_game_file(path: Path) -> dict:
+    """Load a game export file (.json or .json.gz)."""
+    if path.suffix == ".gz":
+        return json.loads(gzip.decompress(path.read_bytes()))
+    return json.loads(path.read_text())
+
+
+def _glob_game_files(games_dir: Path) -> list[Path]:
+    """Find all game export files (.json and .json.gz) in a directory, sorted."""
+    gz_files = set(games_dir.glob("game_*.json.gz"))
+    gz_stems = {p.name.removesuffix(".gz") for p in gz_files}
+    json_files = [p for p in games_dir.glob("game_*.json") if p.name not in gz_stems]
+    return sorted(gz_files | set(json_files))
+
+
 # Severity weights for blunder index. Higher weight = worse blunder.
 # Questionable moves are excluded — they're tracked but don't count.
 BLUNDER_WEIGHTS: dict[str, int] = {
@@ -169,9 +185,11 @@ def extract_placements(game: dict, games_dir: Path | None = None) -> dict[str, i
 
     game_path = games_dir / f"{game['id']}.json.gz"
     if not game_path.exists():
+        game_path = games_dir / f"{game['id']}.json"
+    if not game_path.exists():
         return _placements_from_winner(game)
 
-    full_game = json.loads(gzip.decompress(game_path.read_bytes()))
+    full_game = _load_game_file(game_path)
     actions = full_game.get("actions", [])
     player_names = [p.get("name", "?") for p in players]
     winner = game.get("winner")
@@ -608,8 +626,8 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     Returns the benchmark-results.json path.
     """
     games_index = []
-    for gz_path in sorted(games_dir.glob("game_*.json.gz")):
-        game = json.loads(gzip.decompress(gz_path.read_bytes()))
+    for gz_path in _glob_game_files(games_dir):
+        game = _load_game_file(gz_path)
         players = game.get("players", [])
 
         _backfill_player_stats(game)
@@ -690,8 +708,8 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
     # Track model metadata
     model_meta: dict[str, dict[str, str]] = {}
 
-    for gz_path in sorted(games_dir.glob("game_*.json.gz")):
-        game = json.loads(gzip.decompress(gz_path.read_bytes()))
+    for gz_path in _glob_game_files(games_dir):
+        game = _load_game_file(gz_path)
         epoch = game.get("harnessEpoch", 0)
         players = game.get("players", [])
         winner = game.get("winner")

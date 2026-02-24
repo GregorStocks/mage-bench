@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Analyze LLM events and errors from a .json.gz export.
+"""Analyze LLM events and errors from a game export (.json or .json.gz).
 
 Reports event type counts, failed tool calls, stalls/resets, and token usage.
 """
 
-import gzip
 import json
 import sys
 from collections import Counter
 
+from blunder_eval_common import load_game
+
 
 def main(gz_path: str) -> None:
-    with gzip.open(gz_path, "rt") as f:
-        d = json.load(f)
+    d = load_game(gz_path)
 
     events = d.get("llmEvents", [])
     if not events:

@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""Extract LLM decision points from a .json.gz game export.
+"""Extract LLM decision points from a game export (.json or .json.gz).
 
 For each meaningful decision (get_action_choices -> llm_response -> choose_action),
 outputs the game state, available choices, what was chosen, LLM reasoning, and
 what happened next. Designed to give Claude Code structured data for blunder analysis.
 """
 
-import gzip
 import json
 import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from blunder_eval_common import load_game  # noqa: E402
 
 
 def _summarize_permanent(c: dict) -> str | dict:
@@ -130,9 +133,8 @@ def _parse_action_result(result_str: str) -> dict:
 
 
 def extract_decisions(gz_path: str) -> list[dict]:
-    """Extract decision points from a game gz file."""
-    with gzip.open(gz_path, "rt") as f:
-        data = json.load(f)
+    """Extract decision points from a game export file."""
+    data = load_game(gz_path)
 
     snapshots = data.get("snapshots", [])
     actions = data.get("actions", [])

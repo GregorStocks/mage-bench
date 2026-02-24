@@ -10,7 +10,6 @@ Usage:
 Requires OPENROUTER_API_KEY environment variable.
 """
 
-import gzip
 import json
 import os
 import re
@@ -26,6 +25,7 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 import scryfall  # noqa: E402
 from annotate_game import annotate_game  # noqa: E402
+from blunder_eval_common import load_game  # noqa: E402
 from extract_decisions import _summarize_snapshot, extract_decisions  # noqa: E402
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION  # noqa: F401, E402
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price  # noqa: E402
@@ -125,12 +125,7 @@ Return ONLY valid JSON — either `null` (no blunder) or a single annotation obj
 {ANNOTATION_SCHEMA}"""
 
 
-def _load_game(gz_path: str) -> dict:
-    if gz_path.endswith(".json.gz"):
-        with gzip.open(gz_path, "rt") as f:
-            return json.load(f)
-    with open(gz_path, "r") as f:
-        return json.load(f)
+_load_game = load_game
 
 
 # --- Oracle text via Scryfall with disk cache ---
