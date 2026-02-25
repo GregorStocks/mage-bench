@@ -46,19 +46,19 @@ public class McpServer {
         JoinTableTool.class,
     };
 
-    private final BridgeCallbackHandler callbackHandler;
+    private final BridgeMageClient client;
     private final Gson gson;
     private final AtomicBoolean running = new AtomicBoolean(false);
     private final PrintWriter stdout;
     private boolean initialized = false;
     private final McpToolRegistry registry;
 
-    public McpServer(BridgeCallbackHandler callbackHandler) {
-        this(callbackHandler, false);
+    public McpServer(BridgeMageClient client) {
+        this(client, false);
     }
 
-    public McpServer(BridgeCallbackHandler callbackHandler, boolean keepAlive) {
-        this.callbackHandler = callbackHandler;
+    public McpServer(BridgeMageClient client, boolean keepAlive) {
+        this.client = client;
         this.gson = new GsonBuilder().create();
         this.stdout = new PrintWriter(System.out, true);
         if (keepAlive) {
@@ -120,7 +120,7 @@ public class McpServer {
             Object result = handleRequest(method, params);
             sendResponse(id, result, null);
         } catch (Exception e) {
-            callbackHandler.logError("MCP request failed (" + method + "): " + e.getMessage());
+            client.getCallbackHandler().logError("MCP request failed (" + method + "): " + e.getMessage());
             sendError(id, -32603, e.getMessage());
         }
     }
@@ -165,7 +165,7 @@ public class McpServer {
         }
         JsonObject arguments = params.has("arguments") ? params.getAsJsonObject("arguments") : new JsonObject();
 
-        Map<String, Object> toolResult = registry.call(toolName, arguments, callbackHandler);
+        Map<String, Object> toolResult = registry.call(toolName, arguments, client.getCallbackHandler());
 
         // Format as MCP tool result
         return Map.of(

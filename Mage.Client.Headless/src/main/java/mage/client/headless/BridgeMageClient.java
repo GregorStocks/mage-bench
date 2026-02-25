@@ -17,7 +17,7 @@ public class BridgeMageClient implements MageClient {
 
     private final String username;
     private Session session;
-    private final BridgeCallbackHandler callbackHandler;
+    private volatile BridgeCallbackHandler callbackHandler;
     private volatile boolean running = true;
     private volatile boolean reconnectable = false;
     private volatile boolean suppressDisconnect = false;
@@ -42,6 +42,10 @@ public class BridgeMageClient implements MageClient {
 
     public BridgeCallbackHandler getCallbackHandler() {
         return callbackHandler;
+    }
+
+    public void setCallbackHandler(BridgeCallbackHandler handler) {
+        this.callbackHandler = handler;
     }
 
     public boolean isRunning() {

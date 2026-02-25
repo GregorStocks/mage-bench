@@ -205,14 +205,13 @@ public class HeadlessClient {
             if (keepAlive) {
                 callbackHandler.setJoinHandler(deckPath -> {
                     DeckCardLists d = loadDeck(deckPath);
-                    callbackHandler.setDeckList(d);
                     return tryJoinTable(session, roomId, username, d);
                 });
             }
 
             // Start MCP server on stdio - this blocks until client stops
             logger.info("Starting MCP server...");
-            McpServer mcpServer = new McpServer(callbackHandler, keepAlive);
+            McpServer mcpServer = new McpServer(client, keepAlive);
 
             // Run MCP server in separate thread so we can monitor client state
             Thread mcpThread = new Thread(() -> mcpServer.start(), "MCP-Server");
@@ -326,15 +325,15 @@ public class HeadlessClient {
                     if (deckPathLine.isEmpty()) continue;
                     logger.info("keepAlive: received deck path: " + deckPathLine);
                     DeckCardLists deck = loadDeck(deckPathLine);
-                    callbackHandler.resetForNextGame();
-                    callbackHandler.setDeckList(deck);
+                    BridgeCallbackHandler fresh = client.getCallbackHandler().createFreshForNextGame();
+                    fresh.setDeckList(deck);
                     UUID tableId = tryJoinTable(session, roomId, username, deck);
                     if (tableId == null) {
                         logger.error("keepAlive: failed to join table, continuing to read stdin...");
                         continue;
                     }
                     logger.info("keepAlive: joined table " + tableId + ", waiting for game to finish...");
-                    callbackHandler.awaitGameFinished(600_000); // 10 min max per game
+                    fresh.awaitGameFinished(600_000); // 10 min max per game
                     logger.info("keepAlive: game finished, ready for next");
                 }
             } catch (java.io.IOException e) {

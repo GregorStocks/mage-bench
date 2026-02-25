@@ -384,61 +384,22 @@ public class BridgeCallbackHandler {
     }
 
     /**
-     * Thorough state reset for multi-game sessions. Resets ALL game state so the
-     * bridge can join a new table cleanly. Superset of {@link #reset()}.
+     * Create a fresh handler for the next game, copying only persistent config fields.
+     * Installs the new handler on the client (so callbacks route to it) and returns it.
      */
-    public void resetForNextGame() {
-        // Everything from reset()
-        activeGames.clear();
-        gameChatIds.clear();
-        pendingAction = null;
-        currentGameId = null;
-        gameEverStarted = false;
-        lastGameView = null;
-        lastChoices = null;
-        lastChoicesActionType = null;
-        lastChoicesResponseType = null;
-        lastChoicesCount = -1;
-        lastChoicesGeneratedAtMs = 0;
-        actionsProcessed = 0;
-        lastActionableCallbackAt = 0;
-        lastStallNudgeAt = 0;
-        synchronized (gameLog) {
-            gameLog.setLength(0);
-            gameLogTrimmedChars = 0;
-        }
-        // Additional state not in reset()
-        shortIds.clear();
-        roundTracker.reset();
-        failedManaCasts.clear();
-        castOwners.clear();
-        playerTurnCounts.clear();
-        synchronized (unseenChat) {
-            unseenChat.clear();
-        }
-        playerDead = false;
-        synchronized (stateCursorLock) {
-            gameStateCursor = 0;
-            lastGameStateSignature = null;
-        }
-        manaPlan = null;
-        manaPlanAbilityIndex = null;
-        manaPlanAutoTapFallback = true;
-        lastTurnNumber = -1;
-        interactionsThisTurn = 0;
-        lastManaPaymentPrompt = null;
-        poolManaPayingForId = null;
-        poolManaAttempts = 0;
-        lastResponseSentAt = 0;
-        lastResponseRetried = false;
-        lastCallbackReceivedAt = 0;
-        lastCallbackGameId = null;
-        lastChatMessage = null;
-        lastChatTimeMs = 0;
-        // Fresh latches for next game
-        gameStartLatch = new CountDownLatch(1);
-        gameFinishedLatch = new CountDownLatch(1);
-        logger.info("[" + client.getUsername() + "] resetForNextGame complete");
+    public BridgeCallbackHandler createFreshForNextGame() {
+        BridgeCallbackHandler fresh = new BridgeCallbackHandler(client);
+        fresh.session = this.session;
+        fresh.mcpMode = this.mcpMode;
+        fresh.actionDelayMs = this.actionDelayMs;
+        fresh.keepAliveAfterGame = this.keepAliveAfterGame;
+        fresh.maxInteractionsPerTurn = this.maxInteractionsPerTurn;
+        fresh.errorLogPath = this.errorLogPath;
+        fresh.bridgeLogPath = this.bridgeLogPath;
+        fresh.joinHandler = this.joinHandler;
+        client.setCallbackHandler(fresh);
+        logger.info("[" + client.getUsername() + "] Created fresh handler for next game");
+        return fresh;
     }
 
     /**
@@ -459,18 +420,19 @@ public class BridgeCallbackHandler {
 
     /**
      * Join the next available game table with a new deck. Used by JoinTableTool.
-     * Resets all state, loads the deck, joins a table, and waits for game start.
+     * Creates a fresh handler (discarding all old game state), loads the deck,
+     * joins a table, and waits for game start.
      */
     public void joinNextTable(String deckPath) throws Exception {
-        JoinHandler handler = this.joinHandler;
-        assert handler != null : "joinHandler not set — keepAlive mode requires a JoinHandler";
-        resetForNextGame();
+        JoinHandler jh = this.joinHandler;
+        assert jh != null : "joinHandler not set — keepAlive mode requires a JoinHandler";
+        BridgeCallbackHandler fresh = createFreshForNextGame();
         mage.cards.decks.DeckCardLists deck = HeadlessClient.loadDeck(deckPath);
-        setDeckList(deck);
-        UUID tableId = handler.joinTable(deckPath);
+        fresh.setDeckList(deck);
+        UUID tableId = jh.joinTable(deckPath);
         assert tableId != null : "Failed to join any table within timeout";
         logger.info("[" + client.getUsername() + "] Joined table " + tableId + ", waiting for game start...");
-        boolean started = awaitGameStart(60_000);
+        boolean started = fresh.awaitGameStart(60_000);
         assert started : "Game did not start within 60s after joining table";
         logger.info("[" + client.getUsername() + "] Game started after join_table");
     }
