@@ -17,6 +17,7 @@ import sys
 import time
 from pathlib import Path
 
+from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.process_manager import kill_tree
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -140,6 +141,18 @@ def run_golden_scenario(
     Returns the captured prompt messages array (what the LLM would see).
     """
     game_dir.mkdir(parents=True, exist_ok=True)
+
+    # Write game metadata so build_export finds harness_epoch and player info
+    meta = {
+        "harness_epoch": HARNESS_EPOCH,
+        "game_type": game_type,
+        "deck_type": deck_type,
+        "players": [
+            {"type": "replay", "name": player_a_name, "deck_path": deck_a},
+            {"type": "potato", "name": player_b_name, "deck_path": deck_b},
+        ],
+    }
+    (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 
     # Write script file
     script_path = game_dir / "script.json"
@@ -333,6 +346,18 @@ def run_golden_scenario_two_replay(
     ``golden_name`` as the file identifier.
     """
     game_dir.mkdir(parents=True, exist_ok=True)
+
+    # Write game metadata so build_export finds harness_epoch and player info
+    meta = {
+        "harness_epoch": HARNESS_EPOCH,
+        "game_type": game_type,
+        "deck_type": deck_type,
+        "players": [
+            {"type": "replay", "name": player_a_name, "deck_path": deck_a},
+            {"type": "replay", "name": player_b_name, "deck_path": deck_b},
+        ],
+    }
+    (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 
     # Write scripts
     script_a_path = game_dir / "script_a.json"
@@ -547,8 +572,7 @@ def _normalize_prompt_for_golden(obj: object) -> object:
             parsed = json.loads(obj)
         except json.JSONDecodeError:
             return obj
-        normalized = _normalize_prompt_for_golden(parsed)
-        return json.dumps(normalized, separators=(",", ":"), sort_keys=True, ensure_ascii=False)
+        return _normalize_prompt_for_golden(parsed)
     return obj
 
 
@@ -596,8 +620,7 @@ def _normalize_embedded_json(obj: object) -> object:
     elif isinstance(obj, str) and obj.startswith(("{", "[")):
         try:
             parsed = json.loads(obj)
-            parsed = _normalize_embedded_json(parsed)
-            return json.dumps(parsed, sort_keys=True, ensure_ascii=False)
+            return _normalize_embedded_json(parsed)
         except (json.JSONDecodeError, ValueError):
             return obj
     return obj
@@ -608,6 +631,11 @@ def _strip_volatile(data: dict) -> None:
     # Top-level volatile fields
     data.pop("timestamp", None)
     data.pop("id", None)
+    data.pop("harnessEpoch", None)
+
+    # Strip volatile fields from player summaries
+    for player in data.get("players", []):
+        player.pop("thinkingTimeSecs", None)
 
     # Strip ts from actions
     for action in data.get("actions", []):

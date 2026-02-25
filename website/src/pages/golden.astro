@@ -36,13 +36,9 @@ function extractMcpFixture(promptFile: string): { gameState: any, passPriority: 
     if (msg.role !== 'tool') continue;
     const callName = toolCallNames[msg.tool_call_id];
     if (!targetTools.has(callName)) continue;
-    // Summarized entries start with a letter (e.g. "action_pending(...")
-    // while JSON entries start with "{". Skip summarized entries.
-    const content = msg.content.trimStart();
-    if (!content.startsWith('{')) continue;
-    const parsed = JSON.parse(content);
-    if (callName === 'get_game_state') gameState = parsed;
-    if (callName === 'pass_priority') passPriority = parsed;
+    if (typeof msg.content !== 'object' || msg.content === null) continue;
+    if (callName === 'get_game_state') gameState = msg.content;
+    if (callName === 'pass_priority') passPriority = msg.content;
   }
 
   return { gameState, passPriority };
