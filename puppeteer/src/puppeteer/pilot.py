@@ -958,9 +958,9 @@ async def run_pilot(
     # Build JVM args for the bridge (same as sleepwalker)
     jvm_args_list = [
         "--add-opens=java.base/java.io=ALL-UNNAMED",
-        f"-Dxmage.headless.server={server}",
-        f"-Dxmage.headless.port={port}",
-        "-Dxmage.headless.personality=sleepwalker",
+        f"-Dxmage.bridge.server={server}",
+        f"-Dxmage.bridge.port={port}",
+        "-Dxmage.bridge.personality=sleepwalker",
     ]
     if sys.platform == "darwin":
         jvm_args_list.append("-Dapple.awt.UIElement=true")
@@ -972,20 +972,20 @@ async def run_pilot(
     # Pass values that may contain spaces as Maven CLI args (not in MAVEN_OPTS)
     # because MAVEN_OPTS gets shell-split by the mvn script.
     # Maven CLI -D args go through "$@" which preserves spaces correctly.
-    mvn_args = ["-q", f"-Dxmage.headless.username={username}"]
+    mvn_args = ["-q", f"-Dxmage.bridge.username={username}"]
     if deck_path:
-        mvn_args.append(f"-Dxmage.headless.deck={deck_path}")
+        mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
     if game_dir:
-        mvn_args.append(f"-Dxmage.headless.errorlog={game_dir / f'{username}_errors.log'}")
-        mvn_args.append(f"-Dxmage.headless.bridgelog={game_dir / f'{username}_bridge.jsonl'}")
+        mvn_args.append(f"-Dxmage.bridge.errorlog={game_dir / f'{username}_errors.log'}")
+        mvn_args.append(f"-Dxmage.bridge.bridgelog={game_dir / f'{username}_bridge.jsonl'}")
     if max_interactions_per_turn is not None:
-        mvn_args.append(f"-Dxmage.headless.maxInteractionsPerTurn={max_interactions_per_turn}")
+        mvn_args.append(f"-Dxmage.bridge.maxInteractionsPerTurn={max_interactions_per_turn}")
     mvn_args.append("exec:java")
 
     server_params = StdioServerParameters(
         command="mvn",
         args=mvn_args,
-        cwd=str(project_root / "Mage.Client.Headless"),
+        cwd=str(project_root / "Mage.Client.Bridge"),
         env=env,
     )
 

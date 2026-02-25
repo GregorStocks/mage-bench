@@ -1,4 +1,4 @@
-package mage.client.headless.tools;
+package mage.client.bridge.tools;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,7 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import mage.client.headless.BridgeCallbackHandler;
+import mage.client.bridge.BridgeCallbackHandler;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;

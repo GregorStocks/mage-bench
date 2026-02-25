@@ -8,7 +8,7 @@ An AI benchmark for Magic: The Gathering, built on top of XMage (an open-source 
 
 ## Architecture (the short version)
 
-**Java bridge** (`Mage.Client.Headless`): A headless XMage client that exposes game actions as MCP tools. The key file is `BridgeCallbackHandler.java` (~2400 lines). It handles:
+**Java bridge** (`Mage.Client.Bridge`): A bridge XMage client that exposes game actions as MCP tools. The key file is `BridgeCallbackHandler.java` (~2400 lines). It handles:
 - Auto-tapping lands for mana (so the LLM doesn't have to micromanage tapping)
 - Filtering unplayable actions
 - Auto-passing when there's nothing to do

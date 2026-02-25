@@ -13,7 +13,7 @@ When this document or other instructions say "rebase", they mean "merge in maste
 
 ## Code Isolation Philosophy
 
-Avoid **modifying existing behavior** in Java outside of `Mage.Client.Streaming` and `Mage.Client.Headless`. This means not changing existing methods, fields, or logic in `Mage.Client`, `Mage.Server*`, `Mage.Common`, `Mage`, `Mage.Sets`, etc. Changing existing behavior makes incorporating upstream XMage updates difficult.
+Avoid **modifying existing behavior** in Java outside of `Mage.Client.Streaming` and `Mage.Client.Bridge`. This means not changing existing methods, fields, or logic in `Mage.Client`, `Mage.Server*`, `Mage.Common`, `Mage`, `Mage.Sets`, etc. Changing existing behavior makes incorporating upstream XMage updates difficult.
 
 **Additive changes are OK:** Adding new methods, fields, or classes to upstream modules is fine as long as existing behavior is untouched — these merge cleanly.
 
@@ -21,12 +21,12 @@ Avoid **modifying existing behavior** in Java outside of `Mage.Client.Streaming`
 
 **Our code (free to modify):**
 - `Mage.Client.Streaming` - spectator client
-- `Mage.Client.Headless` - bridge client
+- `Mage.Client.Bridge` - bridge client
 - `puppeteer/` - Python orchestration
 
 ## Architecture: MCP Layer vs Puppeteer
 
-Game logic, Magic rules quirks, and XMage-specific workarounds belong in the **Java MCP layer** (`Mage.Client.Headless`), not in the puppeteer. The MCP layer should handle things like:
+Game logic, Magic rules quirks, and XMage-specific workarounds belong in the **Java MCP layer** (`Mage.Client.Bridge`), not in the puppeteer. The MCP layer should handle things like:
 
 - Auto-tapping and mana payment fallbacks
 - Filtering out unplayable actions (e.g. failed mana casts)

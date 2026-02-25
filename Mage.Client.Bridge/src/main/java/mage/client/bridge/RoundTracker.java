@@ -1,4 +1,4 @@
-package mage.client.headless;
+package mage.client.bridge;
 
 import mage.view.GameView;
 import mage.view.PlayerView;

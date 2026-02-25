@@ -1,12 +1,12 @@
-package mage.client.headless.tools;
+package mage.client.bridge.tools;
 
 import java.util.List;
 import java.util.Map;
 
-import mage.client.headless.BridgeCallbackHandler;
+import mage.client.bridge.BridgeCallbackHandler;
 
-import static mage.client.headless.tools.McpToolRegistry.example;
-import static mage.client.headless.tools.McpToolRegistry.json;
+import static mage.client.bridge.tools.McpToolRegistry.example;
+import static mage.client.bridge.tools.McpToolRegistry.json;
 
 public class GetOracleTextTool {
     @Tool(
