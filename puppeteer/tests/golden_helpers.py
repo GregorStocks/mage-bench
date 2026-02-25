@@ -44,6 +44,7 @@ DECK_MANA_DRAIN_FOF = "puppeteer/tests/decks/mana_drain_fact_or_fiction.dck"
 DECK_PLAINS_LIONS = "puppeteer/tests/decks/plains_lions_opponent.dck"
 DECK_SAVANNAH_LIONS = "puppeteer/tests/decks/savannah_lions.dck"
 DECK_ANCIENT_STIRRINGS = "puppeteer/tests/decks/ancient_stirrings.dck"
+DECK_MDFC_LAND_AND_SUSPEND = "puppeteer/tests/decks/mdfc_land_and_suspend.dck"
 
 
 # ---------------------------------------------------------------------------
