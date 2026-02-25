@@ -1,4 +1,4 @@
-package mage.client.streaming;
+package mage.client.observer;
 
 import mage.client.MageFrame;
 import mage.client.dialog.PreferencesDialog;
@@ -10,17 +10,17 @@ import java.awt.*;
 import java.nio.charset.Charset;
 
 /**
- * Entry point for the streaming-optimized XMage client.
+ * Entry point for the observer-optimized XMage client.
  *
- * This creates a StreamingMageFrame instead of a regular MageFrame,
- * which uses StreamingGamePane/StreamingGamePanel for watching games.
- * The streaming panel automatically requests hand permission from all players.
+ * This creates a ObserverMageFrame instead of a regular MageFrame,
+ * which uses ObserverGamePane/ObserverGamePanel for watching games.
+ * The observer panel automatically requests hand permission from all players.
  *
  * Usage:
- *   java -jar mage-client-streaming.jar [standard XMage client args]
+ *   java -jar mage-client-observer.jar [standard XMage client args]
  *
  * Or via Maven:
- *   mvn exec:java -pl Mage.Client.Streaming
+ *   mvn exec:java -pl Mage.Client.Observer
  *
  * For AI puppeteer integration, use the standard AI puppeteer env vars:
  *   XMAGE_AI_PUPPETEER=1              - Enable AI puppeteer mode
@@ -28,19 +28,19 @@ import java.nio.charset.Charset;
  *   XMAGE_AI_PUPPETEER_PORT           - Server port
  *   XMAGE_AI_PUPPETEER_USER           - Username
  *
- * The lobby UI is automatically hidden in streaming mode. In AI puppeteer mode,
+ * The lobby UI is automatically hidden in observer mode. In AI puppeteer mode,
  * game creation and auto-watch are handled by the standard TablesPanel logic.
  */
-public class StreamingMain {
+public class ObserverMain {
 
-    private static final Logger LOGGER = Logger.getLogger(StreamingMain.class);
+    private static final Logger LOGGER = Logger.getLogger(ObserverMain.class);
 
     public static void main(final String[] args) {
         // Same setup as MageFrame.main()
         System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
-        LOGGER.info("Starting MAGE STREAMING CLIENT");
+        LOGGER.info("Starting MAGE OBSERVER CLIENT");
         try {
-            java.net.URL classUrl = StreamingMain.class.getResource("StreamingMain.class");
+            java.net.URL classUrl = ObserverMain.class.getResource("ObserverMain.class");
             if (classUrl != null && "file".equals(classUrl.getProtocol())) {
                 long mtime = new java.io.File(classUrl.toURI()).lastModified();
                 LOGGER.info("Build: " + new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date(mtime)));
@@ -71,7 +71,7 @@ public class StreamingMain {
                         g2.fillRect(120, 140, 200, 40);
                         g2.setPaintMode();
                         g2.setColor(Color.white);
-                        g2.drawString("Streaming Mode", 560, 460);
+                        g2.drawString("Observer Mode", 560, 460);
                     } finally {
                         g2.dispose();
                     }
@@ -94,7 +94,7 @@ public class StreamingMain {
             }
 
             // Disable macOS fullscreen toggle — it grabs focus and we never want that.
-            // MageFrame.main() reads this from -Dxmage.fullScreen but StreamingMain
+            // MageFrame.main() reads this from -Dxmage.fullScreen but ObserverMain
             // doesn't go through MageFrame.main(), so the static field stays true.
             try {
                 java.lang.reflect.Field f = MageFrame.class.getDeclaredField("macOsFullScreenEnabled");
@@ -104,11 +104,11 @@ public class StreamingMain {
                 LOGGER.warn("Could not disable macOS fullscreen: " + e.getMessage());
             }
 
-            // Create the streaming frame (instead of regular MageFrame)
+            // Create the observer frame (instead of regular MageFrame)
             try {
-                StreamingMageFrame streamingFrame = new StreamingMageFrame();
-                StreamingMageFrame.setInstance(streamingFrame);
-                EDTExceptionHandler.registerMainApp(streamingFrame);
+                ObserverMageFrame observerFrame = new ObserverMageFrame();
+                ObserverMageFrame.setInstance(observerFrame);
+                EDTExceptionHandler.registerMainApp(observerFrame);
                 // Prevent the observer window from ever stealing OS keyboard focus.
                 // setFocusableWindowState(false) marks this as a non-focusable window
                 // (like a floating palette). Internal JInternalFrame dialogs (card
@@ -120,9 +120,9 @@ public class StreamingMain {
                 // The window can still be clicked to raise it (window manager handles
                 // raising separately from keyboard focus), but it won't receive
                 // keyboard input — which is fine for an observer.
-                streamingFrame.setFocusableWindowState(false);
-                streamingFrame.setAutoRequestFocus(false);
-                if (Boolean.getBoolean("xmage.streaming.noWindow")) {
+                observerFrame.setFocusableWindowState(false);
+                observerFrame.setAutoRequestFocus(false);
+                if (Boolean.getBoolean("xmage.observer.noWindow")) {
                     // Golden tests: make the frame displayable without ever
                     // mapping (showing) the window. setVisible(true) maps the
                     // window to the WM, which on tiling/aggressive Linux WMs
@@ -131,14 +131,14 @@ public class StreamingMain {
                     // UTILITY window without mapping it — Swing internals
                     // (JDesktopPane, JInternalFrame, painting) only need the
                     // component hierarchy to be displayable, not visible.
-                    streamingFrame.dispose();
-                    streamingFrame.setType(Window.Type.UTILITY);
-                    streamingFrame.setLocation(-10000, -10000);
-                    streamingFrame.addNotify();
+                    observerFrame.dispose();
+                    observerFrame.setType(Window.Type.UTILITY);
+                    observerFrame.setLocation(-10000, -10000);
+                    observerFrame.addNotify();
                 } else {
-                    streamingFrame.setVisible(true);
+                    observerFrame.setVisible(true);
                 }
-                LOGGER.info("Streaming client started successfully");
+                LOGGER.info("Observer client started successfully");
             } catch (Throwable e) {
                 LOGGER.fatal("Critical error on start up: " + e.getMessage(), e);
                 System.exit(1);

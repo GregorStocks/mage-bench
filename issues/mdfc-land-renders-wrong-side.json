@@ -1,0 +1,10 @@
+{
+  "title": "MDFC land renders as the wrong side on the battlefield",
+  "description": "When an MDFC is played as its back-face land (e.g. Boggart Trawler played as Boggart Bog), the battlefield display shows the front face (creature side) instead of the land side. The card should render as Boggart Bog once it's on the battlefield in land mode.\n\nReproducible via the mdfc_land_and_suspend golden test — the get_game_state result shows 'Boggart Bog' as the name (correct), but the visual rendering in the spectator/viewer shows the creature face.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["spectator", "bridge"],
+  "created_at": "2026-02-25T08:15:00.000000-08:00",
+  "updated_at": "2026-02-25T08:15:00.000000-08:00"
+}

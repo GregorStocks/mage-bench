@@ -44,6 +44,7 @@ DECK_MANA_DRAIN_FOF = "puppeteer/tests/decks/mana_drain_fact_or_fiction.dck"
 DECK_PLAINS_LIONS = "puppeteer/tests/decks/plains_lions_opponent.dck"
 DECK_SAVANNAH_LIONS = "puppeteer/tests/decks/savannah_lions.dck"
 DECK_ANCIENT_STIRRINGS = "puppeteer/tests/decks/ancient_stirrings.dck"
+DECK_MDFC_LAND_AND_SUSPEND = "puppeteer/tests/decks/mdfc_land_and_suspend.dck"
 
 
 # ---------------------------------------------------------------------------
@@ -290,7 +291,7 @@ def run_golden_scenario(
 ) -> list[dict]:
     """Run a golden test scenario with a replay player vs a potato opponent.
 
-    Starts a streaming spectator (creates the game table), a replay client
+    Starts a observer spectator (creates the game table), a replay client
     (executes scripted MCP tool calls and captures the LLM prompt), and a
     potato client (auto-responds to everything as the opponent).
 
@@ -373,7 +374,7 @@ def _start_spectator(
     game_type: str,
     deck_type: str,
 ) -> tuple[subprocess.Popen, object, Path]:
-    """Start a streaming spectator and wait for table creation.
+    """Start a observer spectator and wait for table creation.
 
     Returns (proc, log_file_handle, log_path).
     """
@@ -401,18 +402,18 @@ def _start_spectator(
             "-Dxmage.aiPuppeteer.autoConnect=true",
             "-Dxmage.aiPuppeteer.autoStart=true",
             "-Dxmage.aiPuppeteer.disableWhatsNew=true",
-            "-Dxmage.streaming.noWindow=true",
+            "-Dxmage.observer.noWindow=true",
             f"-Dxmage.aiPuppeteer.server={server}",
             f"-Dxmage.aiPuppeteer.port={port}",
             "-Dxmage.aiPuppeteer.user=spectator",
             "-Dxmage.aiPuppeteer.password=",
-            f"-Dxmage.streaming.gameDir={game_dir}",
+            f"-Dxmage.observer.gameDir={game_dir}",
         ]
     )
 
     spectator_proc, spectator_fh = _start_process(
         args=["mvn", "-q", "exec:java"],
-        cwd=project_root / "Mage.Client.Streaming",
+        cwd=project_root / "Mage.Client.Observer",
         env_updates={
             "XMAGE_AI_PUPPETEER": "1",
             "XMAGE_AI_PUPPETEER_USER": "spectator",
@@ -734,7 +735,7 @@ def run_golden_scenario_two_replay(
     log_fhs: list = []
 
     try:
-        # --- Start streaming spectator ---
+        # --- Start observer spectator ---
         spectator_log = game_dir / "spectator.log"
         spectator_jvm = " ".join(
             [
@@ -742,18 +743,18 @@ def run_golden_scenario_two_replay(
                 "-Dxmage.aiPuppeteer.autoConnect=true",
                 "-Dxmage.aiPuppeteer.autoStart=true",
                 "-Dxmage.aiPuppeteer.disableWhatsNew=true",
-                "-Dxmage.streaming.noWindow=true",
+                "-Dxmage.observer.noWindow=true",
                 f"-Dxmage.aiPuppeteer.server={server}",
                 f"-Dxmage.aiPuppeteer.port={port}",
                 "-Dxmage.aiPuppeteer.user=spectator",
                 "-Dxmage.aiPuppeteer.password=",
-                f"-Dxmage.streaming.gameDir={game_dir}",
+                f"-Dxmage.observer.gameDir={game_dir}",
             ]
         )
 
         spectator_proc, spectator_fh = _start_process(
             args=["mvn", "-q", "exec:java"],
-            cwd=project_root / "Mage.Client.Streaming",
+            cwd=project_root / "Mage.Client.Observer",
             env_updates={
                 "XMAGE_AI_PUPPETEER": "1",
                 "XMAGE_AI_PUPPETEER_USER": "spectator",
@@ -987,17 +988,18 @@ def _strip_volatile(data: dict) -> None:
     for action in data.get("actions", []):
         action.pop("ts", None)
 
-    # Strip ts from llmEvents, then sort deterministically.
-    # Events from different players can interleave with sub-millisecond
-    # timestamp differences, so the sort order is fragile across runs.
+    # Sort llmEvents by (seq, player) then strip ts.
+    # seq-first keeps events interleaved chronologically across players;
+    # player breaks ties deterministically (ts is stripped as volatile,
+    # so it can't be a sort key — wall-clock order varies between runs).
     for event in data.get("llmEvents", []):
         event.pop("ts", None)
-    data.get("llmEvents", []).sort(key=lambda e: json.dumps(e, sort_keys=True, ensure_ascii=False))
+    data.get("llmEvents", []).sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
-    # Strip ts from llmTrace and sort deterministically.
+    # Same for llmTrace.
     for event in data.get("llmTrace", []):
         event.pop("ts", None)
-    data.get("llmTrace", []).sort(key=lambda e: json.dumps(e, sort_keys=True, ensure_ascii=False))
+    data.get("llmTrace", []).sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
 
 def assert_golden_export(name: str, game_dir: Path) -> None:

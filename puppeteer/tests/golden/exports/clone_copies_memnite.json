@@ -208,174 +208,21 @@
   "gameType": "Two Player Duel",
   "llmEvents": [
     {
-      "args": {
-        "answer": false
-      },
-      "gameSeq": 3,
+      "availableTools": [
+        "get_game_log",
+        "get_game_history",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "model": "",
       "player": "TestPlayer",
-      "result": {
-        "action_taken": "no",
-        "game_seq": 3,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "answer": true
-      },
-      "gameSeq": 44,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "yes",
-        "game_seq": 44,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_TARGET",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 1,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_target_0",
-        "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 25,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 25,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_CHOOSE_ABILITY",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 26,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_ability_0",
-        "game_seq": 26,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 32,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_ability_0",
-        "game_seq": 32,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 37,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 37,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 47,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 47,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 1
-      },
-      "gameSeq": 11,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_1",
-        "game_seq": 11,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 5
-      },
-      "gameSeq": 31,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_5",
-        "game_seq": 31,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_CHOOSE_ABILITY",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
+      "seq": 1,
+      "type": "game_start"
     },
     {
       "args": {},
@@ -427,6 +274,190 @@
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },
+      "seq": 2,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_target_0",
+        "game_seq": 1,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true
+      },
+      "seq": 3,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "gameSeq": 3,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{0}",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{3}{U}",
+                "name": "Clone",
+                "power": "0",
+                "rules": [
+                  "You may have {this} enter as a copy of any creature on the battlefield."
+                ],
+                "toughness": "0"
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "power": "1",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "context": "T1 ()",
+        "game_seq": 3,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "answer=true or answer=false",
+        "response_type": "boolean",
+        "stop_reason": "non_priority_action",
+        "your_hand": [
+          {
+            "mana_cost": "{0}",
+            "name": "Black Lotus",
+            "rules": [
+              "{T}, Sacrifice {this}: Add three mana of any one color."
+            ]
+          },
+          {
+            "mana_cost": "{3}{U}",
+            "name": "Clone",
+            "power": "0",
+            "rules": [
+              "You may have {this} enter as a copy of any creature on the battlefield."
+            ],
+            "toughness": "0"
+          },
+          {
+            "is_land": true,
+            "name": "Island",
+            "rules": [
+              "{T}: Add {U}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Island",
+            "rules": [
+              "{T}: Add {U}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Island",
+            "rules": [
+              "{T}: Add {U}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Island",
+            "rules": [
+              "{T}: Add {U}."
+            ]
+          },
+          {
+            "mana_cost": "{0}",
+            "name": "Memnite",
+            "power": "1",
+            "toughness": "1"
+          }
+        ]
+      },
+      "seq": 4,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "answer": false
+      },
+      "gameSeq": 3,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "no",
+        "game_seq": 3,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 5,
       "tool": "",
       "type": "tool_call"
     },
@@ -571,6 +602,25 @@
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
+      "seq": 6,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 1
+      },
+      "gameSeq": 11,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_1",
+        "game_seq": 11,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 7,
       "tool": "",
       "type": "tool_call"
     },
@@ -735,6 +785,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 1
       },
+      "seq": 8,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 25,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 25,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "success": true
+      },
+      "seq": 9,
       "tool": "",
       "type": "tool_call"
     },
@@ -862,152 +931,25 @@
         "stop_reason": "non_priority_action",
         "untapped_lands": 1
       },
+      "seq": 10,
       "tool": "",
       "type": "tool_call"
     },
     {
-      "args": {},
-      "gameSeq": 3,
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 26,
       "player": "TestPlayer",
       "result": {
-        "action_pending": true,
-        "action_type": "GAME_ASK",
-        "board": [
-          {
-            "hand": [
-              {
-                "id": "p10",
-                "mana_cost": "{0}",
-                "name": "Black Lotus",
-                "rules": [
-                  "{T}, Sacrifice {this}: Add three mana of any one color."
-                ]
-              },
-              {
-                "id": "p11",
-                "mana_cost": "{3}{U}",
-                "name": "Clone",
-                "power": "0",
-                "rules": [
-                  "You may have {this} enter as a copy of any creature on the battlefield."
-                ],
-                "toughness": "0"
-              },
-              {
-                "id": "p12",
-                "is_land": true,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ]
-              },
-              {
-                "id": "p13",
-                "is_land": true,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ]
-              },
-              {
-                "id": "p14",
-                "is_land": true,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ]
-              },
-              {
-                "id": "p15",
-                "is_land": true,
-                "name": "Island",
-                "rules": [
-                  "{T}: Add {U}."
-                ]
-              },
-              {
-                "id": "p16",
-                "mana_cost": "{0}",
-                "name": "Memnite",
-                "power": "1",
-                "toughness": "1"
-              }
-            ],
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 53,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "context": "T1 ()",
-        "game_seq": 3,
-        "message": "Mulligan down to 6 cards?",
-        "respond_with": "answer=true or answer=false",
-        "response_type": "boolean",
-        "stop_reason": "non_priority_action",
-        "your_hand": [
-          {
-            "mana_cost": "{0}",
-            "name": "Black Lotus",
-            "rules": [
-              "{T}, Sacrifice {this}: Add three mana of any one color."
-            ]
-          },
-          {
-            "mana_cost": "{3}{U}",
-            "name": "Clone",
-            "power": "0",
-            "rules": [
-              "You may have {this} enter as a copy of any creature on the battlefield."
-            ],
-            "toughness": "0"
-          },
-          {
-            "is_land": true,
-            "name": "Island",
-            "rules": [
-              "{T}: Add {U}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Island",
-            "rules": [
-              "{T}: Add {U}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Island",
-            "rules": [
-              "{T}: Add {U}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Island",
-            "rules": [
-              "{T}: Add {U}."
-            ]
-          },
-          {
-            "mana_cost": "{0}",
-            "name": "Memnite",
-            "power": "1",
-            "toughness": "1"
-          }
-        ]
+        "action_taken": "selected_ability_0",
+        "game_seq": 26,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
       },
+      "seq": 11,
       "tool": "",
       "type": "tool_call"
     },
@@ -1174,6 +1116,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 1
       },
+      "seq": 12,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 5
+      },
+      "gameSeq": 31,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_5",
+        "game_seq": 31,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "success": true
+      },
+      "seq": 13,
       "tool": "",
       "type": "tool_call"
     },
@@ -1301,6 +1262,25 @@
         "stop_reason": "non_priority_action",
         "untapped_lands": 1
       },
+      "seq": 14,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 32,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_ability_0",
+        "game_seq": 32,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 15,
       "tool": "",
       "type": "tool_call"
     },
@@ -1458,6 +1438,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 1
       },
+      "seq": 16,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 37,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 37,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 17,
       "tool": "",
       "type": "tool_call"
     },
@@ -1569,6 +1568,25 @@
         ],
         "stop_reason": "non_priority_action"
       },
+      "seq": 18,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "answer": true
+      },
+      "gameSeq": 44,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "yes",
+        "game_seq": 44,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true
+      },
+      "seq": 19,
       "tool": "",
       "type": "tool_call"
     },
@@ -1717,6 +1735,25 @@
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
+      "seq": 20,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 47,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 47,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 21,
       "tool": "",
       "type": "tool_call"
     },
@@ -1881,6 +1918,7 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 2
       },
+      "seq": 22,
       "tool": "",
       "type": "tool_call"
     },
@@ -2017,6 +2055,7 @@
         "step": "Precombat Main",
         "turn": 3
       },
+      "seq": 23,
       "tool": "",
       "type": "tool_call"
     },
@@ -2028,24 +2067,9 @@
         "event_count": 29,
         "history": "Turn 1:\n    - TestPlayer drew Island\n    - TestPlayer drew Clone\n    - TestPlayer drew Memnite\n    - TestPlayer drew Black Lotus\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer cast Black Lotus\n    - TestPlayer cast Memnite\n    - TestPlayer sacrificed Black Lotus\n    - TestPlayer cast Clone\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n"
       },
+      "seq": 24,
       "tool": "",
       "type": "tool_call"
-    },
-    {
-      "availableTools": [
-        "get_game_log",
-        "get_game_history",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
-      "model": "",
-      "player": "TestPlayer",
-      "type": "game_start"
     }
   ],
   "llmTrace": [],

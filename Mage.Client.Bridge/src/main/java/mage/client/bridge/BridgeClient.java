@@ -94,6 +94,14 @@ public class BridgeClient {
 
         logger.info("Starting bridge client: " + username + "@" + server + ":" + port + " [" + personality + "]");
 
+        // Restrict card pool if requested (used by golden tests for faster startup)
+        String allowedSets = System.getProperty("xmage.sets.allowed");
+        if (allowedSets != null && !allowedSets.isEmpty()) {
+            java.util.Set<String> allowed = new java.util.HashSet<>(java.util.Arrays.asList(allowedSets.split(",")));
+            mage.cards.Sets.getInstance().retainOnly(allowed);
+            logger.info("Restricted card pool to " + allowed.size() + " sets");
+        }
+
         // Initialize card database so get_oracle_text can look up cards by name
         logger.info("Loading card database...");
         java.io.File lockFile = new java.io.File("./db/cards.lock");

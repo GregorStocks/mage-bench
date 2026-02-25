@@ -97,7 +97,7 @@ run:
 	  */*|*.json) ;; \
 	  *) CONFIG_PATH="configs/$$CONFIG_PATH.json" ;; \
 	esac; \
-	uv run --project puppeteer python -m puppeteer --streaming \
+	uv run --project puppeteer python -m puppeteer --observer \
 	  --record$(if $(OUTPUT),=$(OUTPUT)) $(if $(GAMES),--games $(GAMES)) \
 	  --config "$$CONFIG_PATH" $(ARGS)
 

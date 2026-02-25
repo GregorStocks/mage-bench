@@ -506,7 +506,7 @@ def test_config_num_games_set():
 @patch("puppeteer.orchestrator.time.sleep")
 @patch("puppeteer.orchestrator._wait_for_spectator_table")
 @patch("puppeteer.orchestrator.start_pilot_client")
-@patch("puppeteer.orchestrator.start_streaming_client")
+@patch("puppeteer.orchestrator.start_observer_client")
 @patch("puppeteer.orchestrator._write_game_meta")
 @patch("puppeteer.orchestrator.resolve_choice_decks")
 def test_setup_game_cleans_up_on_spectator_crash(
@@ -535,7 +535,7 @@ def test_setup_game_cleans_up_on_spectator_crash(
 
         # Use num_games=1 (non-batch) so _setup_game uses the config directly
         # without creating a new Config and calling load_config.
-        config = Config(streaming=True, num_games=1)
+        config = Config(observer=True, num_games=1)
         config.pilot_players = [PilotPlayer(name="ace", model="test/model")]
 
         with pytest.raises(RuntimeError, match="Spectator process exited"):
@@ -549,7 +549,7 @@ def test_setup_game_cleans_up_on_spectator_crash(
 @patch("puppeteer.orchestrator.time.sleep")
 @patch("puppeteer.orchestrator._wait_for_spectator_table")
 @patch("puppeteer.orchestrator.start_pilot_client")
-@patch("puppeteer.orchestrator.start_streaming_client")
+@patch("puppeteer.orchestrator.start_observer_client")
 @patch("puppeteer.orchestrator._write_game_meta")
 @patch("puppeteer.orchestrator.resolve_choice_decks")
 def test_setup_game_cleans_up_pilots_on_timeout(
@@ -582,7 +582,7 @@ def test_setup_game_cleans_up_pilots_on_timeout(
         # except block runs (by raising from within the try block after pilots).
         mock_wait_table.side_effect = TimeoutError("Spectator did not create a table within 300s")
 
-        config = Config(streaming=True, num_games=1)
+        config = Config(observer=True, num_games=1)
         config.pilot_players = [PilotPlayer(name="ace", model="test/model")]
 
         with pytest.raises(TimeoutError, match="300s"):

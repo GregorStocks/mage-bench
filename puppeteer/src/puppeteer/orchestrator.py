@@ -43,7 +43,7 @@ def _git(cmd: str, cwd: Path) -> str:
 def _wait_for_spectator_table(log_path: Path, proc: subprocess.Popen, timeout: int = 300) -> None:
     """Block until the spectator log indicates the game table is ready.
 
-    The streaming/GUI client logs a line containing ``AI Puppeteer: waiting
+    The observer/GUI client logs a line containing ``AI Puppeteer: waiting
     for … bridge client(s)`` once it has created the table.  We poll the
     log file for that marker so bridge clients aren't started before the
     table exists.
@@ -277,7 +277,7 @@ def _print_game_summary(game_dir: Path) -> None:
         except OSError:
             pass
 
-    # Fall back to game_events.jsonl (written by the streaming spectator).
+    # Fall back to game_events.jsonl (written by the observer spectator).
     # CPU-only games have no bridge client logs, but the spectator still
     # records a game_over event.
     if not game_over_found:
@@ -389,9 +389,9 @@ def parse_args() -> Config:
         help="Path to player config JSON",
     )
     parser.add_argument(
-        "--streaming",
+        "--observer",
         action="store_true",
-        help="Launch the streaming spectator client (auto-requests hand permissions)",
+        help="Launch the observer spectator client (auto-requests hand permissions)",
     )
     parser.add_argument(
         "--record",
@@ -416,7 +416,7 @@ def parse_args() -> Config:
 
     config = Config(
         config_file=args.config,
-        streaming=args.streaming,
+        observer=args.observer,
         record=bool(args.record),
         record_output=record_output,
         num_games=args.games,
@@ -424,12 +424,12 @@ def parse_args() -> Config:
     return config
 
 
-def compile_project(project_root: Path, streaming: bool = False) -> bool:
+def compile_project(project_root: Path, observer: bool = False) -> bool:
     """Compile the project using Maven."""
     print("Compiling project...")
     modules = "Mage.Server,Mage.Client,Mage.Client.Bridge"
-    if streaming:
-        modules += ",Mage.Client.Streaming"
+    if observer:
+        modules += ",Mage.Client.Observer"
 
     result = subprocess.run(
         [
@@ -446,14 +446,14 @@ def compile_project(project_root: Path, streaming: bool = False) -> bool:
     return result.returncode == 0
 
 
-def refresh_streaming_resources(project_root: Path) -> bool:
-    """Refresh streaming client resources under target/classes."""
+def refresh_observer_resources(project_root: Path) -> bool:
+    """Refresh observer client resources under target/classes."""
     result = subprocess.run(
         [
             "mvn",
             "-q",
             "-pl",
-            "Mage.Client.Streaming",
+            "Mage.Client.Observer",
             "resources:resources",
         ],
         cwd=project_root,
@@ -755,17 +755,17 @@ def start_pilot_client(
     )
 
 
-def start_streaming_client(
+def start_observer_client(
     pm: ProcessManager,
     project_root: Path,
     config: Config,
     log_path: Path,
     game_dir: Path | None = None,
 ) -> subprocess.Popen:
-    """Start the streaming spectator client.
+    """Start the observer spectator client.
 
     This client automatically requests hand permission from all players,
-    making it suitable for Twitch streaming where viewers should see all hands.
+    making it suitable for Twitch broadcasting where viewers should see all hands.
     """
     # Pass resolved player config (with actual deck paths, not "random")
     config_json = config.get_players_config_json()
@@ -784,13 +784,13 @@ def start_streaming_client(
 
     # Add game directory for cost file polling
     if game_dir:
-        jvm_args_list.append(f"-Dxmage.streaming.gameDir={game_dir}")
+        jvm_args_list.append(f"-Dxmage.observer.gameDir={game_dir}")
 
     # Add recording path if configured
     if config.record:
         resolved_game_dir = game_dir or (project_root / config.log_dir / f"game_{config.timestamp}").resolve()
         record_path = config.record_output or (resolved_game_dir / "recording.mov")
-        jvm_args_list.append(f"-Dxmage.streaming.record={record_path}")
+        jvm_args_list.append(f"-Dxmage.observer.record={record_path}")
 
     jvm_args = " ".join(jvm_args_list)
 
@@ -815,7 +815,7 @@ def start_streaming_client(
 
     return pm.start_process(
         args=["mvn", "-q", "exec:java"],
-        cwd=project_root / "Mage.Client.Streaming",
+        cwd=project_root / "Mage.Client.Observer",
         env=env,
         log_file=log_path,
     )
@@ -1086,7 +1086,7 @@ def _setup_game(
     if batch:
         game_config = Config(
             config_file=base_config.config_file,
-            streaming=base_config.streaming,
+            observer=base_config.observer,
             record=base_config.record,
             num_games=num_games,
         )
@@ -1161,14 +1161,14 @@ def _setup_game(
         print(f"{game_label}Recording to: {record_path}")
 
     # Choose spectator client type
-    if game_config.streaming:
-        print(f"{game_label}Starting streaming spectator client...")
-        start_spectator_client = start_streaming_client
+    if game_config.observer:
+        print(f"{game_label}Starting observer spectator client...")
+        start_spectator_client = start_observer_client
     else:
         start_spectator_client = start_gui_client
 
     # Start spectator
-    if game_config.streaming:
+    if game_config.observer:
         spectator_proc = start_spectator_client(pm, project_root, game_config, spectator_log, game_dir=game_dir)
     else:
         spectator_proc = start_spectator_client(pm, project_root, game_config, spectator_log)
@@ -1343,24 +1343,24 @@ def main() -> int:
         # Set timestamp
         config.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-        # Recording requires streaming mode
-        if config.record and not config.streaming:
-            print("Recording requires streaming mode, enabling --streaming")
-            config.streaming = True
+        # Recording requires observer mode
+        if config.record and not config.observer:
+            print("Recording requires observer mode, enabling --observer")
+            config.observer = True
 
         # Create log directory
         log_dir = (project_root / config.log_dir).resolve()
         log_dir.mkdir(parents=True, exist_ok=True)
 
         # Compile if needed
-        if not compile_project(project_root, streaming=config.streaming):
+        if not compile_project(project_root, observer=config.observer):
             print("ERROR: Compilation failed")
             return 1
 
-        if config.streaming:
-            print("Refreshing streaming resources...")
-            if not refresh_streaming_resources(project_root):
-                print("ERROR: Failed to refresh streaming resources")
+        if config.observer:
+            print("Refreshing observer resources...")
+            if not refresh_observer_resources(project_root):
+                print("ERROR: Failed to refresh observer resources")
                 return 1
 
         # Find available port

@@ -150,220 +150,21 @@
   "gameType": "Two Player Duel",
   "llmEvents": [
     {
-      "args": {
-        "answer": false
-      },
-      "gameSeq": 19,
+      "availableTools": [
+        "get_game_log",
+        "get_game_history",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "model": "",
       "player": "TestPlayer",
-      "result": {
-        "action_taken": "passed_priority",
-        "game_seq": 19,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "answer": false
-      },
-      "gameSeq": 3,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "no",
-        "game_seq": 3,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "answer": false
-      },
-      "gameSeq": 30,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "passed_priority",
-        "game_seq": 30,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p10"
-      },
-      "gameSeq": 25,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 25,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p13"
-      },
-      "gameSeq": 16,
-      "player": "TestPlayer",
-      "result": {
-        "choices": [
-          {
-            "action": "cast",
-            "id": "p11",
-            "index": 0,
-            "mana_cost": "{R}",
-            "name": "Lightning Bolt"
-          },
-          {
-            "action": "cast",
-            "id": "p12",
-            "index": 1,
-            "mana_cost": "{R}",
-            "name": "Lightning Bolt"
-          }
-        ],
-        "error": "Object p13 not found in current choices",
-        "error_code": "invalid_choice",
-        "game_seq": 16,
-        "retryable": true,
-        "success": false
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p13"
-      },
-      "gameSeq": 40,
-      "player": "TestPlayer",
-      "result": {
-        "choices": [
-          {
-            "id": "p1",
-            "index": 0,
-            "is_you": true,
-            "name": "TestPlayer",
-            "target_type": "player"
-          },
-          {
-            "id": "p2",
-            "index": 1,
-            "name": "Opponent",
-            "target_type": "player"
-          }
-        ],
-        "error": "Object p13 not found in current choices",
-        "error_code": "invalid_choice",
-        "game_seq": 40,
-        "retryable": true,
-        "success": false
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p14"
-      },
-      "gameSeq": 11,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_2",
-        "game_seq": 11,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p2"
-      },
-      "gameSeq": 36,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_target_1",
-        "game_seq": 36,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 1,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_target_0",
-        "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 35,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 35,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_TARGET",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 39,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 39,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_TARGET",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
+      "seq": 1,
+      "type": "game_start"
     },
     {
       "args": {},
@@ -415,6 +216,192 @@
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },
+      "seq": 2,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_target_0",
+        "game_seq": 1,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true
+      },
+      "seq": 3,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "gameSeq": 3,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Badlands",
+                "rules": [
+                  "{T}: Add {B}.",
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{R}",
+                "name": "Lightning Bolt",
+                "rules": [
+                  "{this} deals 3 damage to any target."
+                ]
+              },
+              {
+                "id": "p12",
+                "mana_cost": "{R}",
+                "name": "Lightning Bolt",
+                "rules": [
+                  "{this} deals 3 damage to any target."
+                ]
+              },
+              {
+                "id": "p13",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "power": "1",
+                "toughness": "1"
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plateau",
+                "rules": [
+                  "{T}: Add {R}.",
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Taiga",
+                "rules": [
+                  "{T}: Add {G}.",
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "context": "T1 ()",
+        "game_seq": 3,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "answer=true or answer=false",
+        "response_type": "boolean",
+        "stop_reason": "non_priority_action",
+        "your_hand": [
+          {
+            "is_land": true,
+            "name": "Badlands",
+            "rules": [
+              "{T}: Add {B}.",
+              "{T}: Add {R}."
+            ]
+          },
+          {
+            "mana_cost": "{R}",
+            "name": "Lightning Bolt",
+            "rules": [
+              "{this} deals 3 damage to any target."
+            ]
+          },
+          {
+            "mana_cost": "{R}",
+            "name": "Lightning Bolt",
+            "rules": [
+              "{this} deals 3 damage to any target."
+            ]
+          },
+          {
+            "mana_cost": "{0}",
+            "name": "Memnite",
+            "power": "1",
+            "toughness": "1"
+          },
+          {
+            "is_land": true,
+            "name": "Mountain",
+            "rules": [
+              "{T}: Add {R}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plateau",
+            "rules": [
+              "{T}: Add {R}.",
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Taiga",
+            "rules": [
+              "{T}: Add {G}.",
+              "{T}: Add {R}."
+            ]
+          }
+        ]
+      },
+      "seq": 4,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "answer": false
+      },
+      "gameSeq": 3,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "no",
+        "game_seq": 3,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 5,
       "tool": "",
       "type": "tool_call"
     },
@@ -552,6 +539,25 @@
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
+      "seq": 6,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "p14"
+      },
+      "gameSeq": 11,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_2",
+        "game_seq": 11,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 7,
       "tool": "",
       "type": "tool_call"
     },
@@ -669,6 +675,40 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 1
       },
+      "seq": 8,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "p13"
+      },
+      "gameSeq": 16,
+      "player": "TestPlayer",
+      "result": {
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p11",
+            "index": 0,
+            "mana_cost": "{R}",
+            "name": "Lightning Bolt"
+          },
+          {
+            "action": "cast",
+            "id": "p12",
+            "index": 1,
+            "mana_cost": "{R}",
+            "name": "Lightning Bolt"
+          }
+        ],
+        "error": "Object p13 not found in current choices",
+        "error_code": "invalid_choice",
+        "game_seq": 16,
+        "retryable": true,
+        "success": false
+      },
+      "seq": 9,
       "tool": "",
       "type": "tool_call"
     },
@@ -786,6 +826,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 1
       },
+      "seq": 10,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "answer": false
+      },
+      "gameSeq": 19,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "passed_priority",
+        "game_seq": 19,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 11,
       "tool": "",
       "type": "tool_call"
     },
@@ -959,154 +1018,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 1
       },
+      "seq": 12,
       "tool": "",
       "type": "tool_call"
     },
     {
-      "args": {},
-      "gameSeq": 3,
+      "args": {
+        "id": "p10"
+      },
+      "gameSeq": 25,
       "player": "TestPlayer",
       "result": {
-        "action_pending": true,
-        "action_type": "GAME_ASK",
-        "board": [
-          {
-            "hand": [
-              {
-                "id": "p10",
-                "is_land": true,
-                "name": "Badlands",
-                "rules": [
-                  "{T}: Add {B}.",
-                  "{T}: Add {R}."
-                ]
-              },
-              {
-                "id": "p11",
-                "mana_cost": "{R}",
-                "name": "Lightning Bolt",
-                "rules": [
-                  "{this} deals 3 damage to any target."
-                ]
-              },
-              {
-                "id": "p12",
-                "mana_cost": "{R}",
-                "name": "Lightning Bolt",
-                "rules": [
-                  "{this} deals 3 damage to any target."
-                ]
-              },
-              {
-                "id": "p13",
-                "mana_cost": "{0}",
-                "name": "Memnite",
-                "power": "1",
-                "toughness": "1"
-              },
-              {
-                "id": "p14",
-                "is_land": true,
-                "name": "Mountain",
-                "rules": [
-                  "{T}: Add {R}."
-                ]
-              },
-              {
-                "id": "p15",
-                "is_land": true,
-                "name": "Plateau",
-                "rules": [
-                  "{T}: Add {R}.",
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p16",
-                "is_land": true,
-                "name": "Taiga",
-                "rules": [
-                  "{T}: Add {G}.",
-                  "{T}: Add {R}."
-                ]
-              }
-            ],
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 53,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "context": "T1 ()",
-        "game_seq": 3,
-        "message": "Mulligan down to 6 cards?",
-        "respond_with": "answer=true or answer=false",
-        "response_type": "boolean",
-        "stop_reason": "non_priority_action",
-        "your_hand": [
-          {
-            "is_land": true,
-            "name": "Badlands",
-            "rules": [
-              "{T}: Add {B}.",
-              "{T}: Add {R}."
-            ]
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Lightning Bolt",
-            "rules": [
-              "{this} deals 3 damage to any target."
-            ]
-          },
-          {
-            "mana_cost": "{R}",
-            "name": "Lightning Bolt",
-            "rules": [
-              "{this} deals 3 damage to any target."
-            ]
-          },
-          {
-            "mana_cost": "{0}",
-            "name": "Memnite",
-            "power": "1",
-            "toughness": "1"
-          },
-          {
-            "is_land": true,
-            "name": "Mountain",
-            "rules": [
-              "{T}: Add {R}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plateau",
-            "rules": [
-              "{T}: Add {R}.",
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Taiga",
-            "rules": [
-              "{T}: Add {G}.",
-              "{T}: Add {R}."
-            ]
-          }
-        ]
+        "action_taken": "selected_0",
+        "game_seq": 25,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
       },
+      "seq": 13,
       "tool": "",
       "type": "tool_call"
     },
@@ -1241,6 +1171,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 2
       },
+      "seq": 14,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "answer": false
+      },
+      "gameSeq": 30,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "passed_priority",
+        "game_seq": 30,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 15,
       "tool": "",
       "type": "tool_call"
     },
@@ -1375,6 +1324,93 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 2
       },
+      "seq": 16,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 35,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 35,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true
+      },
+      "seq": 17,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "p2"
+      },
+      "gameSeq": 36,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_target_1",
+        "game_seq": 36,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 18,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 39,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 39,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true
+      },
+      "seq": 19,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "p13"
+      },
+      "gameSeq": 40,
+      "player": "TestPlayer",
+      "result": {
+        "choices": [
+          {
+            "id": "p1",
+            "index": 0,
+            "is_you": true,
+            "name": "TestPlayer",
+            "target_type": "player"
+          },
+          {
+            "id": "p2",
+            "index": 1,
+            "name": "Opponent",
+            "target_type": "player"
+          }
+        ],
+        "error": "Object p13 not found in current choices",
+        "error_code": "invalid_choice",
+        "game_seq": 40,
+        "retryable": true,
+        "success": false
+      },
+      "seq": 20,
       "tool": "",
       "type": "tool_call"
     },
@@ -1495,6 +1531,7 @@
         "step": "Precombat Main",
         "turn": 2
       },
+      "seq": 21,
       "tool": "",
       "type": "tool_call"
     },
@@ -1506,24 +1543,9 @@
         "event_count": 24,
         "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Badlands\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n"
       },
+      "seq": 22,
       "tool": "",
       "type": "tool_call"
-    },
-    {
-      "availableTools": [
-        "get_game_log",
-        "get_game_history",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
-      "model": "",
-      "player": "TestPlayer",
-      "type": "game_start"
     }
   ],
   "llmTrace": [],

@@ -9,10 +9,10 @@
         <version>1.4.58</version>
     </parent>
 
-    <artifactId>mage-client-streaming</artifactId>
+    <artifactId>mage-client-observer</artifactId>
     <packaging>jar</packaging>
-    <name>Mage Client Streaming</name>
-    <description>Streaming-optimized XMage client for Twitch broadcasts</description>
+    <name>Mage Client Observer</name>
+    <description>Observer XMage client for spectating games and recording video</description>
 
     <dependencies>
         <dependency>
@@ -37,11 +37,11 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>mage.client.streaming.StreamingMain</mainClass>
+                    <mainClass>mage.client.observer.ObserverMain</mainClass>
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>mage-client-streaming</finalName>
+        <finalName>mage-client-observer</finalName>
     </build>
 
     <properties>

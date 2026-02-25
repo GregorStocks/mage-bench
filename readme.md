@@ -31,7 +31,7 @@ export OPENROUTER_API_KEY="sk-..."
 make run CONFIG=commander-gauntlet
 ```
 
-This runs 4 LLM pilots against each other in a Commander game with streaming and video recording. Recordings and logs are saved to `~/.mage-bench/logs/`.
+This runs 4 LLM pilots against each other in a Commander game with observer mode and video recording. Recordings and logs are saved to `~/.mage-bench/logs/`.
 
 Other configs:
 
@@ -68,7 +68,7 @@ After a game finishes, the puppeteer prompts to upload the recording to YouTube.
 Three layers:
 
 1. **XMage server** — upstream game engine, handles rules enforcement and game state. Unmodified from upstream.
-2. **Java clients** (`Mage.Client.Bridge`, `Mage.Client.Streaming`) — the bridge lets LLMs play via MCP tool calls, and the spectator renders the game and records video.
+2. **Java clients** (`Mage.Client.Bridge`, `Mage.Client.Observer`) — the bridge lets LLMs play via MCP tool calls, and the observer renders the game and records video.
 3. **Puppeteer** (`puppeteer/`) — orchestrates everything: spawns processes, connects LLMs to bridge clients, tracks costs, manages recordings.
 
 Game logic and XMage workarounds live in the Java bridge layer. The puppeteer stays simple.
@@ -85,7 +85,7 @@ Game logic and XMage workarounds live in the Java bridge layer. The puppeteer st
 
 Configure players in JSON config files (see `configs/`).
 
-## Streaming & recording
+## Observer & recording
 
 The spectator provides:
 - Live game visualization (JavaFX)

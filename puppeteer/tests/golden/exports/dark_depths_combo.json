@@ -356,213 +356,21 @@
   "gameType": "Two Player Duel",
   "llmEvents": [
     {
-      "args": {
-        "answer": false
-      },
-      "gameSeq": 3,
+      "availableTools": [
+        "get_game_log",
+        "get_game_history",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "model": "",
       "player": "TestPlayer",
-      "result": {
-        "action_taken": "no",
-        "game_seq": 3,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "answer": false
-      },
-      "gameSeq": 97,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "passed_priority",
-        "game_seq": 97,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "attackers": [
-          "all"
-        ]
-      },
-      "gameSeq": 99,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "batch_attack",
-        "declared": [
-          "all"
-        ],
-        "game_seq": 99,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p10"
-      },
-      "gameSeq": 44,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 44,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p10"
-      },
-      "gameSeq": 70,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_target_0",
-        "game_seq": 70,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p11"
-      },
-      "gameSeq": 11,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_1",
-        "game_seq": 11,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p12"
-      },
-      "gameSeq": 25,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_1",
-        "game_seq": 25,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p16"
-      },
-      "gameSeq": 63,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_6",
-        "game_seq": 63,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p16"
-      },
-      "gameSeq": 68,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_1",
-        "game_seq": 68,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_CHOOSE_ABILITY",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 1,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_target_0",
-        "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 1
-      },
-      "gameSeq": 69,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_ability_1",
-        "game_seq": 69,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_TARGET",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 1
-      },
-      "gameSeq": 76,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_target_1",
-        "game_seq": 76,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
+      "seq": 1,
+      "type": "game_start"
     },
     {
       "args": {},
@@ -614,69 +422,41 @@
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },
+      "seq": 2,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_target_0",
+        "game_seq": 1,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true
+      },
+      "seq": 3,
       "tool": "",
       "type": "tool_call"
     },
     {
       "args": {},
-      "gameSeq": 102,
+      "gameSeq": 3,
       "player": "TestPlayer",
       "result": {
-        "active_player": "TestPlayer",
-        "available": true,
-        "combat": [
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board": [
           {
-            "attackers": [
-              {
-                "id": "p32",
-                "name": "Marit Lage",
-                "power": "20",
-                "toughness": "20"
-              }
-            ],
-            "blocked": false,
-            "defending": "Opponent"
-          }
-        ],
-        "cursor": 1,
-        "game_seq": 102,
-        "phase": "Combat",
-        "players": [
-          {
-            "battlefield": [
-              {
-                "id": "p32",
-                "name": "Marit Lage",
-                "power": "20",
-                "rules": [
-                  "Flying",
-                  "Indestructible"
-                ],
-                "summoning_sick": false,
-                "tapped": true,
-                "token": true,
-                "toughness": "20"
-              },
-              {
-                "id": "p11",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": false
-              },
-              {
-                "id": "p12",
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ],
-                "tapped": false
-              }
-            ],
-            "graveyard": [
+            "hand": [
               {
                 "id": "p10",
+                "is_land": true,
                 "name": "Dark Depths",
                 "rules": [
                   "{this} enters with ten ice counters on it.",
@@ -685,15 +465,21 @@
                 ]
               },
               {
-                "id": "p16",
-                "name": "Thespian's Stage",
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
                 "rules": [
-                  "{T}: Add {C}.",
-                  "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+                  "{T}: Add {W}."
                 ]
-              }
-            ],
-            "hand": [
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
               {
                 "id": "p13",
                 "is_land": true,
@@ -719,89 +505,111 @@
                 ]
               },
               {
-                "id": "p24",
+                "id": "p16",
                 "is_land": true,
-                "name": "Plains",
+                "name": "Thespian's Stage",
                 "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p26",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p28",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p34",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              }
-            ],
-            "hand_size": 7,
-            "is_active": true,
-            "is_you": true,
-            "library_size": 49,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "graveyard": [
-              {
-                "id": "p3",
-                "name": "Mountain",
-                "rules": [
-                  "{T}: Add {R}."
-                ]
-              },
-              {
-                "id": "p4",
-                "name": "Mountain",
-                "rules": [
-                  "{T}: Add {R}."
-                ]
-              },
-              {
-                "id": "p5",
-                "name": "Mountain",
-                "rules": [
-                  "{T}: Add {R}."
-                ]
-              },
-              {
-                "id": "p6",
-                "name": "Mountain",
-                "rules": [
-                  "{T}: Add {R}."
+                  "{T}: Add {C}.",
+                  "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
                 ]
               }
             ],
             "hand_size": 7,
             "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
             "is_you": false,
-            "library_size": 49,
+            "library_size": 53,
             "life": 20,
             "name": "Opponent"
           }
         ],
-        "priority_player": "TestPlayer",
-        "stack": [],
-        "step": "Declare Attackers",
-        "turn": 5
+        "context": "T1 ()",
+        "game_seq": 3,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "answer=true or answer=false",
+        "response_type": "boolean",
+        "stop_reason": "non_priority_action",
+        "your_hand": [
+          {
+            "is_land": true,
+            "name": "Dark Depths",
+            "rules": [
+              "{this} enters with ten ice counters on it.",
+              "{3}: Remove an ice counter from {this}.",
+              "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Thespian's Stage",
+            "rules": [
+              "{T}: Add {C}.",
+              "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+            ]
+          }
+        ]
       },
+      "seq": 4,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "answer": false
+      },
+      "gameSeq": 3,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "no",
+        "game_seq": 3,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 5,
       "tool": "",
       "type": "tool_call"
     },
@@ -951,19 +759,25 @@
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
+      "seq": 6,
       "tool": "",
       "type": "tool_call"
     },
     {
-      "args": {},
-      "gameSeq": 110,
+      "args": {
+        "id": "p11"
+      },
+      "gameSeq": 11,
       "player": "TestPlayer",
       "result": {
-        "action_pending": false,
-        "game_over": true,
-        "game_seq": 110,
-        "stop_reason": "game_over"
+        "action_taken": "selected_1",
+        "game_seq": 11,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
       },
+      "seq": 7,
       "tool": "",
       "type": "tool_call"
     },
@@ -1133,156 +947,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 1
       },
+      "seq": 8,
       "tool": "",
       "type": "tool_call"
     },
     {
-      "args": {},
-      "gameSeq": 3,
+      "args": {
+        "id": "p12"
+      },
+      "gameSeq": 25,
       "player": "TestPlayer",
       "result": {
-        "action_pending": true,
-        "action_type": "GAME_ASK",
-        "board": [
-          {
-            "hand": [
-              {
-                "id": "p10",
-                "is_land": true,
-                "name": "Dark Depths",
-                "rules": [
-                  "{this} enters with ten ice counters on it.",
-                  "{3}: Remove an ice counter from {this}.",
-                  "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
-                ]
-              },
-              {
-                "id": "p11",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p12",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p13",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p14",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p15",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p16",
-                "is_land": true,
-                "name": "Thespian's Stage",
-                "rules": [
-                  "{T}: Add {C}.",
-                  "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
-                ]
-              }
-            ],
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 53,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "context": "T1 ()",
-        "game_seq": 3,
-        "message": "Mulligan down to 6 cards?",
-        "respond_with": "answer=true or answer=false",
-        "response_type": "boolean",
-        "stop_reason": "non_priority_action",
-        "your_hand": [
-          {
-            "is_land": true,
-            "name": "Dark Depths",
-            "rules": [
-              "{this} enters with ten ice counters on it.",
-              "{3}: Remove an ice counter from {this}.",
-              "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Thespian's Stage",
-            "rules": [
-              "{T}: Add {C}.",
-              "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
-            ]
-          }
-        ]
+        "action_taken": "selected_1",
+        "game_seq": 25,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
       },
+      "seq": 9,
       "tool": "",
       "type": "tool_call"
     },
@@ -1467,6 +1150,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 2
       },
+      "seq": 10,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "p10"
+      },
+      "gameSeq": 44,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 44,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 11,
       "tool": "",
       "type": "tool_call"
     },
@@ -1669,6 +1371,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 3
       },
+      "seq": 12,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "p16"
+      },
+      "gameSeq": 63,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_6",
+        "game_seq": 63,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 13,
       "tool": "",
       "type": "tool_call"
     },
@@ -1839,6 +1560,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 4
       },
+      "seq": 14,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "p16"
+      },
+      "gameSeq": 68,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_1",
+        "game_seq": 68,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "success": true
+      },
+      "seq": 15,
       "tool": "",
       "type": "tool_call"
     },
@@ -1998,6 +1738,25 @@
         "stop_reason": "non_priority_action",
         "untapped_lands": 4
       },
+      "seq": 16,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 1
+      },
+      "gameSeq": 69,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_ability_1",
+        "game_seq": 69,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true
+      },
+      "seq": 17,
       "tool": "",
       "type": "tool_call"
     },
@@ -2180,6 +1939,25 @@
         "stop_reason": "non_priority_action",
         "untapped_lands": 4
       },
+      "seq": 18,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "p10"
+      },
+      "gameSeq": 70,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_target_0",
+        "game_seq": 70,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 19,
       "tool": "",
       "type": "tool_call"
     },
@@ -2351,6 +2129,25 @@
         "stop_reason": "non_priority_action",
         "untapped_lands": 1
       },
+      "seq": 20,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 1
+      },
+      "gameSeq": 76,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_target_1",
+        "game_seq": 76,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 21,
       "tool": "",
       "type": "tool_call"
     },
@@ -2578,6 +2375,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 2
       },
+      "seq": 22,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "answer": false
+      },
+      "gameSeq": 97,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "passed_priority",
+        "game_seq": 97,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 23,
       "tool": "",
       "type": "tool_call"
     },
@@ -2769,6 +2585,233 @@
         "stop_reason": "combat",
         "untapped_lands": 2
       },
+      "seq": 24,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "attackers": [
+          "all"
+        ]
+      },
+      "gameSeq": 99,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "batch_attack",
+        "declared": [
+          "all"
+        ],
+        "game_seq": 99,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 25,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "gameSeq": 102,
+      "player": "TestPlayer",
+      "result": {
+        "active_player": "TestPlayer",
+        "available": true,
+        "combat": [
+          {
+            "attackers": [
+              {
+                "id": "p32",
+                "name": "Marit Lage",
+                "power": "20",
+                "toughness": "20"
+              }
+            ],
+            "blocked": false,
+            "defending": "Opponent"
+          }
+        ],
+        "cursor": 1,
+        "game_seq": 102,
+        "phase": "Combat",
+        "players": [
+          {
+            "battlefield": [
+              {
+                "id": "p32",
+                "name": "Marit Lage",
+                "power": "20",
+                "rules": [
+                  "Flying",
+                  "Indestructible"
+                ],
+                "summoning_sick": false,
+                "tapped": true,
+                "token": true,
+                "toughness": "20"
+              },
+              {
+                "id": "p11",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p10",
+                "name": "Dark Depths",
+                "rules": [
+                  "{this} enters with ten ice counters on it.",
+                  "{3}: Remove an ice counter from {this}.",
+                  "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+                ]
+              },
+              {
+                "id": "p16",
+                "name": "Thespian's Stage",
+                "rules": [
+                  "{T}: Add {C}.",
+                  "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p26",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p28",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p34",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 49,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p5",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p6",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 49,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "priority_player": "TestPlayer",
+        "stack": [],
+        "step": "Declare Attackers",
+        "turn": 5
+      },
+      "seq": 26,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "gameSeq": 110,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": false,
+        "game_over": true,
+        "game_seq": 110,
+        "stop_reason": "game_over"
+      },
+      "seq": 27,
       "tool": "",
       "type": "tool_call"
     },
@@ -2780,24 +2823,9 @@
         "event_count": 38,
         "history": "Turn 1:\n    - TestPlayer drew Dark Depths\n    - TestPlayer drew Thespian's Stage\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Dark Depths\n\nTurn 6 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 7 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Thespian's Stage\n  Declare Attackers:\n    - TestPlayer activated Thespian's Stage's ability\n    - TestPlayer sacrificed Thespian's Stage\n\nTurn 8 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 9 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Combat Damage:\n    - Opponent lost 20 life\n"
       },
+      "seq": 28,
       "tool": "",
       "type": "tool_call"
-    },
-    {
-      "availableTools": [
-        "get_game_log",
-        "get_game_history",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
-      "model": "",
-      "player": "TestPlayer",
-      "type": "game_start"
     }
   ],
   "llmTrace": [],

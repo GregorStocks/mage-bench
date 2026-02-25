@@ -1,4 +1,4 @@
-package mage.client.streaming;
+package mage.client.observer;
 
 import mage.client.chat.ChatPanelBasic;
 import mage.view.ChatMessage.MessageColor;
@@ -9,14 +9,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Game log panel for streaming mode that filters spammy messages
+ * Game log panel for observer mode that filters spammy messages
  * and routes player chat (TALK) messages to a separate panel.
  */
 public class CombinedChatPanel extends ChatPanelBasic {
 
     private ChatPanelBasic playerChatPanel;
     private RoundTracker roundTracker;
-    private StreamingGamePanel gamePanel;
+    private ObserverGamePanel gamePanel;
 
     public CombinedChatPanel() {
         super();
@@ -33,7 +33,7 @@ public class CombinedChatPanel extends ChatPanelBasic {
         this.roundTracker = tracker;
     }
 
-    public void setGamePanel(StreamingGamePanel panel) {
+    public void setGamePanel(ObserverGamePanel panel) {
         this.gamePanel = panel;
     }
 

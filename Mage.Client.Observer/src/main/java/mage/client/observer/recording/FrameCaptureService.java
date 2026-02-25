@@ -1,4 +1,4 @@
-package mage.client.streaming.recording;
+package mage.client.observer.recording;
 
 import org.apache.log4j.Logger;
 

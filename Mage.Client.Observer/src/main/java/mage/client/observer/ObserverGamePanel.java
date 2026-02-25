@@ -1,4 +1,4 @@
-package mage.client.streaming;
+package mage.client.observer;
 
 import mage.abilities.icon.CardIconRenderSettings;
 import mage.cards.Card;
@@ -46,8 +46,8 @@ import org.apache.log4j.Logger;
 import org.mage.plugins.card.images.ImageCache;
 import org.mage.plugins.card.images.ImageCacheData;
 
-import mage.client.streaming.recording.FrameCaptureService;
-import mage.client.streaming.recording.FFmpegEncoder;
+import mage.client.observer.recording.FrameCaptureService;
+import mage.client.observer.recording.FFmpegEncoder;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -87,16 +87,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Streaming-optimized game panel that automatically requests hand permission
+ * observer-optimized game panel that automatically requests hand permission
  * from all players when watching a game, and displays all visible hands
  * directly in each player's play area.
  */
-public class StreamingGamePanel extends GamePanel {
+public class ObserverGamePanel extends GamePanel {
 
-    private static final Logger logger = Logger.getLogger(StreamingGamePanel.class);
+    private static final Logger logger = Logger.getLogger(ObserverGamePanel.class);
 
     private final Set<UUID> permissionsRequested = new HashSet<>();
-    private UUID streamingGameId;
+    private UUID observerGameId;
     private final RoundTracker roundTracker = new RoundTracker();
     private GameView lastGame;
     private boolean handContainerHidden = false;
@@ -116,8 +116,8 @@ public class StreamingGamePanel extends GamePanel {
 
     // Zone panels injected into each player's west panel (replacing upstream panels)
     private final Map<UUID, CommanderPanel> commanderPanels = new HashMap<>();
-    private final Map<UUID, StreamingGraveyardPanel> streamingGraveyardPanels = new HashMap<>();
-    private final Map<UUID, StreamingExilePanel> streamingExilePanels = new HashMap<>();
+    private final Map<UUID, ObserverGraveyardPanel> observerGraveyardPanels = new HashMap<>();
+    private final Map<UUID, ObserverExilePanel> observerExilePanels = new HashMap<>();
     private boolean zonePanelsInjected = false;
 
     // Commander avatar replacement (player UUID -> commander UUID that was used)
@@ -165,13 +165,13 @@ public class StreamingGamePanel extends GamePanel {
 
     @Override
     public synchronized void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId, MagePane gamePane) {
-        this.streamingGameId = gameId;
+        this.observerGameId = gameId;
         replaceChatWithCombinedPanel();  // Replace before super connects chat
         super.watchGame(currentTableId, parentTableId, gameId, gamePane);
     }
 
     /**
-     * Replace the default chat panels with streaming-optimized versions.
+     * Replace the default chat panels with observer-optimized versions.
      * Player chat (top) is kept separate from game log (bottom, with spam filtering).
      * This must be called BEFORE super.watchGame() which connects the chat to the server.
      */
@@ -278,14 +278,14 @@ public class StreamingGamePanel extends GamePanel {
     }
 
     private void updateFrameGameName() {
-        String gameDirStr = System.getProperty("xmage.streaming.gameDir");
+        String gameDirStr = System.getProperty("xmage.observer.gameDir");
         if (gameDirStr == null || gameDirStr.isEmpty()) {
             return;
         }
         MageFrame frame = MageFrame.getInstance();
-        if (frame instanceof StreamingMageFrame) {
+        if (frame instanceof ObserverMageFrame) {
             String gameName = java.nio.file.Paths.get(gameDirStr).getFileName().toString();
-            ((StreamingMageFrame) frame).setGameName(gameName);
+            ((ObserverMageFrame) frame).setGameName(gameName);
         }
     }
 
@@ -313,10 +313,10 @@ public class StreamingGamePanel extends GamePanel {
         requestHandPermissions(game);
         // Distribute hands to each player's PlayAreaPanel
         distributeHands(game);
-        // Inject streaming zone panels (commander, graveyard, exile) into west panel
+        // Inject observer zone panels (commander, graveyard, exile) into west panel
         // Must happen before distributing cards to those panels
         injectZonePanels(game);
-        // Distribute zone cards to the streaming panels
+        // Distribute zone cards to the observer panels
         distributeGraveyards(game);
         distributeExile(game);
         distributeCommanders(game);
@@ -344,7 +344,7 @@ public class StreamingGamePanel extends GamePanel {
     }
 
     /**
-     * Override to auto-close the streaming spectator after the game ends.
+     * Override to auto-close the observer spectator after the game ends.
      * Waits 10 seconds then exits, which triggers recording finalization via shutdown hook.
      */
     @Override
@@ -366,7 +366,7 @@ public class StreamingGamePanel extends GamePanel {
         logger.info("Game ended, will auto-close in 10 seconds");
 
         var exitTimer = new Timer(10000, e -> {
-            logger.info("Auto-closing streaming spectator");
+            logger.info("Auto-closing observer spectator");
             System.exit(0);
         });
         exitTimer.setRepeats(false);
@@ -374,7 +374,7 @@ public class StreamingGamePanel extends GamePanel {
     }
 
     /**
-     * Override to enable showHandInPlayArea, showGraveyardInPlayArea, and showExileInPlayArea for all players in streaming mode.
+     * Override to enable showHandInPlayArea, showGraveyardInPlayArea, and showExileInPlayArea for all players in observer mode.
      */
     @Override
     protected PlayAreaPanelOptions createPlayAreaPanelOptions(GameView game, PlayerView player, boolean playerItself, boolean topRow) {
@@ -385,24 +385,24 @@ public class StreamingGamePanel extends GamePanel {
                 playerItself,
                 game.isRollbackTurnsAllowed(),
                 topRow,
-                true,  // showHandInPlayArea enabled for streaming
-                true,  // showGraveyardInPlayArea enabled for streaming
-                true   // showExileInPlayArea enabled for streaming
+                true,  // showHandInPlayArea enabled for observer mode
+                true,  // showGraveyardInPlayArea enabled for observer mode
+                true   // showExileInPlayArea enabled for observer mode
         );
     }
 
     /**
-     * Override to suppress exile popup windows in streaming mode.
+     * Override to suppress exile popup windows in observer mode.
      * Exile is displayed inline in each player's play area instead.
      */
     @Override
     protected void updateExileWindows(GameView game) {
-        // No-op: exile is displayed inline per-player in streaming mode
+        // No-op: exile is displayed inline per-player in observer mode
     }
 
     /**
      * Undo the parent class behavior that shrinks eliminated players' panels to 95px.
-     * In streaming mode we want dead players' board state to remain fully visible.
+     * In observer mode we want dead players' board state to remain fully visible.
      */
     private void restoreDeadPlayerPanelSizes() {
         var parentsToRevalidate = new HashSet<Container>();
@@ -546,7 +546,7 @@ public class StreamingGamePanel extends GamePanel {
     /**
      * Hide the entire bottom commands area (hand, feedback, stack, skip buttons).
      * Spectators don't need any of these controls.
-     * This keeps all streaming-specific UI changes isolated to this class.
+     * This keeps all observer-specific UI changes isolated to this class.
      */
     private void hideHandContainer() {
         if (handContainerHidden) {
@@ -768,7 +768,7 @@ public class StreamingGamePanel extends GamePanel {
     }
 
     /**
-     * Adjust battlefield card size bounds for streaming mode.
+     * Adjust battlefield card size bounds for observer mode.
      * Lowers the max so cards aren't enormous on sparse boards,
      * and lowers the min so cards shrink further before overflow kicks in.
      * Must be called before super.init() triggers the first layout.
@@ -852,7 +852,7 @@ public class StreamingGamePanel extends GamePanel {
      * Request permission to see hand cards from all players we haven't already asked.
      */
     private void requestHandPermissions(GameView game) {
-        if (game == null || game.getPlayers() == null || streamingGameId == null) {
+        if (game == null || game.getPlayers() == null || observerGameId == null) {
             return;
         }
 
@@ -863,7 +863,7 @@ public class StreamingGamePanel extends GamePanel {
                 logger.info("Requesting hand permission from player: " + player.getName());
                 SessionHandler.sendPlayerAction(
                         PlayerAction.REQUEST_PERMISSION_TO_SEE_HAND_CARDS,
-                        streamingGameId,
+                        observerGameId,
                         playerId
                 );
             }
@@ -894,7 +894,7 @@ public class StreamingGamePanel extends GamePanel {
                 continue;
             }
 
-            // Enable scale-to-fit for streaming mode on first load
+            // Enable scale-to-fit for observer mode on first load
             if (!handPanelsInitialized) {
                 handPanel.setScaleToFit(true);
             }
@@ -1144,7 +1144,7 @@ public class StreamingGamePanel extends GamePanel {
     }
 
     /**
-     * Distribute graveyard cards to each player's streaming graveyard panel.
+     * Distribute graveyard cards to each player's observer graveyard panel.
      */
     private void distributeGraveyards(GameView game) {
         if (game == null || game.getPlayers() == null) {
@@ -1152,7 +1152,7 @@ public class StreamingGamePanel extends GamePanel {
         }
 
         for (PlayerView player : game.getPlayers()) {
-            StreamingGraveyardPanel panel = streamingGraveyardPanels.get(player.getPlayerId());
+            ObserverGraveyardPanel panel = observerGraveyardPanels.get(player.getPlayerId());
             if (panel == null) {
                 continue;
             }
@@ -1165,7 +1165,7 @@ public class StreamingGamePanel extends GamePanel {
     }
 
     /**
-     * Distribute exile cards to each player's streaming exile panel.
+     * Distribute exile cards to each player's observer exile panel.
      * PlayerView.getExile() already filters cards by ownership.
      */
     private void distributeExile(GameView game) {
@@ -1174,7 +1174,7 @@ public class StreamingGamePanel extends GamePanel {
         }
 
         for (PlayerView player : game.getPlayers()) {
-            StreamingExilePanel panel = streamingExilePanels.get(player.getPlayerId());
+            ObserverExilePanel panel = observerExilePanels.get(player.getPlayerId());
             if (panel == null) {
                 continue;
             }
@@ -1188,7 +1188,7 @@ public class StreamingGamePanel extends GamePanel {
     }
 
     /**
-     * Inject streaming zone panels (commander, graveyard, exile) into each
+     * Inject observer zone panels (commander, graveyard, exile) into each
      * player's west panel, replacing the upstream graveyard/exile panels with
      * wider, labeled versions.  Called once after play areas are created.
      */
@@ -1244,7 +1244,7 @@ public class StreamingGamePanel extends GamePanel {
                     if (hasCommanders) break;
                 }
 
-                // Create and inject our streaming zone panels
+                // Create and inject our observer zone panels
                 int nextIndex = 1;
 
                 if (hasCommanders) {
@@ -1253,13 +1253,13 @@ public class StreamingGamePanel extends GamePanel {
                     westPanel.add(commanderPanel, nextIndex++);
                 }
 
-                var graveyardPanel = new StreamingGraveyardPanel(zoneCardWidth);
-                streamingGraveyardPanels.put(playerId, graveyardPanel);
+                var graveyardPanel = new ObserverGraveyardPanel(zoneCardWidth);
+                observerGraveyardPanels.put(playerId, graveyardPanel);
 
                 // Give exile more vertical space when commander panel is hidden
                 int exileHeightMultiplier = hasCommanders ? 2 : 3;
-                var exilePanel = new StreamingExilePanel(zoneCardWidth, exileHeightMultiplier);
-                streamingExilePanels.put(playerId, exilePanel);
+                var exilePanel = new ObserverExilePanel(zoneCardWidth, exileHeightMultiplier);
+                observerExilePanels.put(playerId, exilePanel);
 
                 westPanel.add(graveyardPanel, nextIndex++);
                 westPanel.add(exilePanel, nextIndex);
@@ -1429,7 +1429,7 @@ public class StreamingGamePanel extends GamePanel {
     }
 
     /**
-     * Update player panel visibility for streaming mode.
+     * Update player panel visibility for observer mode.
      * Hides redundant elements and shows counters conditionally.
      */
     private void updatePlayerPanelVisibility(GameView game) {
@@ -1454,7 +1454,7 @@ public class StreamingGamePanel extends GamePanel {
     }
 
     /**
-     * Clean up a player panel for streaming mode.
+     * Clean up a player panel for observer mode.
      * Hides redundant elements, keeps only: avatar + library count
      * Shows poison/energy/experience/rad only when > 0
      */
@@ -1532,7 +1532,7 @@ public class StreamingGamePanel extends GamePanel {
     }
 
     /**
-     * Compute the avatar size for streaming mode, scaling to the window.
+     * Compute the avatar size for observer mode, scaling to the window.
      * At 1080p this gives ~98px (close to the original 80px).
      * At 4K this gives ~196px, making avatars clearly visible.
      */
@@ -1665,7 +1665,7 @@ public class StreamingGamePanel extends GamePanel {
         }
         costPollingInitialized = true;
 
-        String gameDirStr = System.getProperty("xmage.streaming.gameDir");
+        String gameDirStr = System.getProperty("xmage.observer.gameDir");
         if (gameDirStr == null || gameDirStr.isEmpty()) {
             return;
         }
@@ -1697,7 +1697,7 @@ public class StreamingGamePanel extends GamePanel {
         }
         // gameDirPath may not be set yet if initCostPolling bailed early
         if (gameDirPath == null) {
-            String gameDirStr = System.getProperty("xmage.streaming.gameDir");
+            String gameDirStr = System.getProperty("xmage.observer.gameDir");
             if (gameDirStr != null && !gameDirStr.isEmpty()) {
                 gameDirPath = Paths.get(gameDirStr);
             }

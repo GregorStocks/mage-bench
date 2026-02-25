@@ -190,6 +190,7 @@ def _read_llm_events(
             # Build the exported event with camelCase keys
             exported: dict = {
                 "ts": raw.get("ts", ""),
+                "seq": raw.get("seq"),
                 "player": player,
                 "type": event_type,
             }
@@ -285,6 +286,7 @@ def _read_llm_trace(game_dir: Path) -> list[dict]:
             events.append(
                 {
                     "ts": raw.get("ts", ""),
+                    "seq": raw.get("seq"),
                     "player": raw.get("player", ""),
                     "request": request,
                     "response": raw.get("response", {}),
