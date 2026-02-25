@@ -70,7 +70,7 @@ def xmage_server(project_root, tmp_path_factory):
         port=port,
     )
 
-    # Build JVM options (server is headless; clients need AWT for Swing)
+    # Build JVM options (server has no GUI; clients need AWT for Swing)
     jvm_opts = " ".join(
         [
             "--add-opens=java.base/java.io=ALL-UNNAMED",
@@ -115,7 +115,7 @@ def xmage_server(project_root, tmp_path_factory):
 def bridge_session(xmage_server, project_root):
     """Session-scoped bridge JVM with persistent MCP session.
 
-    Starts a sleepwalker headless client with keepAlive=true. Communication
+    Starts a sleepwalker bridge client with keepAlive=true. Communication
     happens via direct JSON-RPC over stdin/stdout (no MCP SDK needed).
     """
     server, port = xmage_server
@@ -131,10 +131,10 @@ def bridge_session(xmage_server, project_root):
     bridge_jvm = " ".join(
         [
             jvm_no_ui,
-            f"-Dxmage.headless.server={server}",
-            f"-Dxmage.headless.port={port}",
-            "-Dxmage.headless.personality=sleepwalker",
-            "-Dxmage.headless.keepAlive=true",
+            f"-Dxmage.bridge.server={server}",
+            f"-Dxmage.bridge.port={port}",
+            "-Dxmage.bridge.personality=sleepwalker",
+            "-Dxmage.bridge.keepAlive=true",
         ]
     )
 
@@ -142,8 +142,8 @@ def bridge_session(xmage_server, project_root):
     bridge_log_fh = open(bridge_log, "w")
 
     proc = subprocess.Popen(
-        ["mvn", "-q", "-Dxmage.headless.username=TestPlayer", "exec:java"],
-        cwd=project_root / "Mage.Client.Headless",
+        ["mvn", "-q", "-Dxmage.bridge.username=TestPlayer", "exec:java"],
+        cwd=project_root / "Mage.Client.Bridge",
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=bridge_log_fh,
@@ -167,7 +167,7 @@ def bridge_session(xmage_server, project_root):
 def potato_process(xmage_server, project_root):
     """Session-scoped potato JVM controlled via stdin line protocol.
 
-    Starts a potato headless client with keepAlive=true. Each line written
+    Starts a potato bridge client with keepAlive=true. Each line written
     to stdin is a deck path — the potato loads it, resets state, joins the
     next available table, and plays the game.
     """
@@ -184,10 +184,10 @@ def potato_process(xmage_server, project_root):
     potato_jvm = " ".join(
         [
             jvm_no_ui,
-            f"-Dxmage.headless.server={server}",
-            f"-Dxmage.headless.port={port}",
-            "-Dxmage.headless.personality=potato",
-            "-Dxmage.headless.keepAlive=true",
+            f"-Dxmage.bridge.server={server}",
+            f"-Dxmage.bridge.port={port}",
+            "-Dxmage.bridge.personality=potato",
+            "-Dxmage.bridge.keepAlive=true",
         ]
     )
 
@@ -195,8 +195,8 @@ def potato_process(xmage_server, project_root):
     potato_log_fh = open(potato_log, "w")
 
     proc = subprocess.Popen(
-        ["mvn", "-q", "-Dxmage.headless.username=Opponent", "exec:java"],
-        cwd=project_root / "Mage.Client.Headless",
+        ["mvn", "-q", "-Dxmage.bridge.username=Opponent", "exec:java"],
+        cwd=project_root / "Mage.Client.Bridge",
         stdin=subprocess.PIPE,
         stdout=potato_log_fh,
         stderr=subprocess.STDOUT,

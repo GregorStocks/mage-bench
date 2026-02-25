@@ -68,7 +68,7 @@ After a game finishes, the puppeteer prompts to upload the recording to YouTube.
 Three layers:
 
 1. **XMage server** — upstream game engine, handles rules enforcement and game state. Unmodified from upstream.
-2. **Java clients** (`Mage.Client.Headless`, `Mage.Client.Streaming`) — the bridge lets LLMs play via MCP tool calls, and the spectator renders the game and records video.
+2. **Java clients** (`Mage.Client.Bridge`, `Mage.Client.Streaming`) — the bridge lets LLMs play via MCP tool calls, and the spectator renders the game and records video.
 3. **Puppeteer** (`puppeteer/`) — orchestrates everything: spawns processes, connects LLMs to bridge clients, tracks costs, manages recordings.
 
 Game logic and XMage workarounds live in the Java bridge layer. The puppeteer stays simple.

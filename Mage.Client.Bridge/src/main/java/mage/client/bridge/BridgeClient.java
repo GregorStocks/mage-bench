@@ -1,4 +1,4 @@
-package mage.client.headless;
+package mage.client.bridge;
 
 import mage.cards.decks.DeckCardLists;
 import mage.cards.repository.CardScanner;
@@ -22,7 +22,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 /**
- * Main entry point for the headless XMage client.
+ * Main entry point for the bridge XMage client.
  *
  * This client connects to an XMage server, joins the first available table
  * with an open human slot, and responds to all game callbacks automatically.
@@ -33,19 +33,19 @@ import java.util.UUID;
  * - sleepwalker: Exposes MCP server on stdio for external client control
  *
  * Usage:
- *   java -jar mage-client-headless.jar --server localhost --port 17171 --username bot1
- *   java -jar mage-client-headless.jar --personality sleepwalker --server localhost --port 17171
+ *   java -jar mage-client-bridge.jar --server localhost --port 17171 --username bot1
+ *   java -jar mage-client-bridge.jar --personality sleepwalker --server localhost --port 17171
  *
  * Or via system properties:
- *   -Dxmage.headless.server=localhost
- *   -Dxmage.headless.port=17171
- *   -Dxmage.headless.username=bot1
- *   -Dxmage.headless.password=
- *   -Dxmage.headless.personality=potato
+ *   -Dxmage.bridge.server=localhost
+ *   -Dxmage.bridge.port=17171
+ *   -Dxmage.bridge.username=bot1
+ *   -Dxmage.bridge.password=
+ *   -Dxmage.bridge.personality=potato
  */
-public class HeadlessClient {
+public class BridgeClient {
 
-    private static final Logger logger = Logger.getLogger(HeadlessClient.class);
+    private static final Logger logger = Logger.getLogger(BridgeClient.class);
     private static final int TABLE_POLL_INTERVAL_MS = 1000;
     private static final int TABLE_POLL_TIMEOUT_MS = 60000;
     private static final int PING_INTERVAL_MS = 20000; // 20 seconds, same as normal client
@@ -59,17 +59,17 @@ public class HeadlessClient {
     private static final String PERSONALITY_SLEEPWALKER = "sleepwalker";
 
     public static void main(String[] args) throws Exception {
-        String server = getArg(args, "--server", System.getProperty("xmage.headless.server", "localhost"));
-        int port = getIntArg(args, "--port", Integer.getInteger("xmage.headless.port", 17171));
-        String username = getArg(args, "--username", System.getProperty("xmage.headless.username", "bridge-" + System.currentTimeMillis()));
-        String password = getArg(args, "--password", System.getProperty("xmage.headless.password", ""));
-        String personalityArg = getArg(args, "--personality", System.getProperty("xmage.headless.personality", PERSONALITY_POTATO));
+        String server = getArg(args, "--server", System.getProperty("xmage.bridge.server", "localhost"));
+        int port = getIntArg(args, "--port", Integer.getInteger("xmage.bridge.port", 17171));
+        String username = getArg(args, "--username", System.getProperty("xmage.bridge.username", "bridge-" + System.currentTimeMillis()));
+        String password = getArg(args, "--password", System.getProperty("xmage.bridge.password", ""));
+        String personalityArg = getArg(args, "--personality", System.getProperty("xmage.bridge.personality", PERSONALITY_POTATO));
         String personality = personalityArg.toLowerCase(Locale.ROOT);
 
         boolean isSleepwalker = PERSONALITY_SLEEPWALKER.equalsIgnoreCase(personality);
         boolean isStaller = PERSONALITY_STALLER.equalsIgnoreCase(personality);
         boolean isPotato = PERSONALITY_POTATO.equalsIgnoreCase(personality);
-        boolean keepAlive = Boolean.getBoolean("xmage.headless.keepAlive");
+        boolean keepAlive = Boolean.getBoolean("xmage.bridge.keepAlive");
 
         if (!isSleepwalker && !isStaller && !isPotato) {
             logger.warn("Unknown personality '" + personalityArg + "', falling back to '" + PERSONALITY_POTATO + "'");
@@ -85,14 +85,14 @@ public class HeadlessClient {
 
         // Log class file timestamp to verify build freshness
         try {
-            java.net.URL classUrl = HeadlessClient.class.getResource("HeadlessClient.class");
+            java.net.URL classUrl = BridgeClient.class.getResource("BridgeClient.class");
             if (classUrl != null && "file".equals(classUrl.getProtocol())) {
                 long mtime = new java.io.File(classUrl.toURI()).lastModified();
                 logger.info("Build: " + new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date(mtime)));
             }
         } catch (Exception ignored) {}
 
-        logger.info("Starting headless client: " + username + "@" + server + ":" + port + " [" + personality + "]");
+        logger.info("Starting bridge client: " + username + "@" + server + ":" + port + " [" + personality + "]");
 
         // Initialize card database so get_oracle_text can look up cards by name
         logger.info("Loading card database...");
@@ -114,20 +114,20 @@ public class HeadlessClient {
             callbackHandler.setMcpMode(true);
         }
         int actionDelayMs = isStaller
-                ? Integer.getInteger("xmage.headless.stallerDelayMs", DEFAULT_STALLER_DELAY_MS)
+                ? Integer.getInteger("xmage.bridge.stallerDelayMs", DEFAULT_STALLER_DELAY_MS)
                 : DEFAULT_ACTION_DELAY_MS;
-        actionDelayMs = Integer.getInteger("xmage.headless.actionDelayMs", actionDelayMs);
+        actionDelayMs = Integer.getInteger("xmage.bridge.actionDelayMs", actionDelayMs);
         callbackHandler.setActionDelayMs(actionDelayMs);
         callbackHandler.setKeepAliveAfterGame(isStaller || keepAlive);
-        String errorLogPath = System.getProperty("xmage.headless.errorlog");
+        String errorLogPath = System.getProperty("xmage.bridge.errorlog");
         if (errorLogPath != null && !errorLogPath.isEmpty()) {
             callbackHandler.setErrorLogPath(errorLogPath);
         }
-        String bridgeLogPath = System.getProperty("xmage.headless.bridgelog");
+        String bridgeLogPath = System.getProperty("xmage.bridge.bridgelog");
         if (bridgeLogPath != null && !bridgeLogPath.isEmpty()) {
             callbackHandler.setBridgeLogPath(bridgeLogPath);
         }
-        Integer maxInteractions = Integer.getInteger("xmage.headless.maxInteractionsPerTurn");
+        Integer maxInteractions = Integer.getInteger("xmage.bridge.maxInteractionsPerTurn");
         if (maxInteractions != null) {
             callbackHandler.setMaxInteractionsPerTurn(maxInteractions);
         }
@@ -186,7 +186,7 @@ public class HeadlessClient {
         } else if (keepAlive && !isSleepwalker) {
             logger.info("keepAlive mode: skipping initial table join (stdin commands will drive game lifecycle)");
         } else {
-            String deckPath = getArg(args, "--deck", System.getProperty("xmage.headless.deck"));
+            String deckPath = getArg(args, "--deck", System.getProperty("xmage.bridge.deck"));
             DeckCardLists deck = loadDeck(deckPath);
             callbackHandler.setDeckList(deck);
 

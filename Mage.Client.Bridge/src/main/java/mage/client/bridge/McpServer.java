@@ -1,4 +1,4 @@
-package mage.client.headless;
+package mage.client.bridge;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.log4j.Logger;
 
-import mage.client.headless.tools.*;
+import mage.client.bridge.tools.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;

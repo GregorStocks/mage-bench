@@ -1,4 +1,4 @@
-package mage.client.headless.tools;
+package mage.client.bridge.tools;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

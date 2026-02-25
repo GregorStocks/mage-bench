@@ -9,10 +9,10 @@
         <version>1.4.58</version>
     </parent>
 
-    <artifactId>mage-client-headless</artifactId>
+    <artifactId>mage-client-bridge</artifactId>
     <packaging>jar</packaging>
-    <name>Mage Client Headless</name>
-    <description>Headless XMage client for AI/bot players</description>
+    <name>Mage Client Bridge</name>
+    <description>Bridge XMage client for AI/bot players</description>
 
     <dependencies>
         <dependency>
@@ -48,11 +48,11 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>mage.client.headless.HeadlessClient</mainClass>
+                    <mainClass>mage.client.bridge.BridgeClient</mainClass>
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>mage-client-headless</finalName>
+        <finalName>mage-client-bridge</finalName>
     </build>
 
     <properties>

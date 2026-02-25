@@ -1,4 +1,4 @@
-package mage.client.headless;
+package mage.client.bridge;
 
 import mage.interfaces.callback.ClientCallbackMethod;
 

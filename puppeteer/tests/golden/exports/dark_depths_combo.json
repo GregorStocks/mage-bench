@@ -14698,6 +14698,141 @@
       "stack": [],
       "step": "DECLARE_BLOCKERS",
       "turn": 9
+    },
+    {
+      "active_player": "TestPlayer",
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "p32",
+              "name": "Marit Lage",
+              "power": 20,
+              "toughness": 20
+            }
+          ],
+          "blockers": [],
+          "defender": "Opponent"
+        }
+      ],
+      "phase": "COMBAT",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [],
+          "library_size": 0,
+          "life": 0,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p32",
+              "mana_cost": "",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": false,
+              "tapped": true,
+              "token": true,
+              "toughness": 20,
+              "type_line": "Legendary Creature — Avatar"
+            },
+            {
+              "face_down": false,
+              "id": "p11",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p10",
+              "name": "Dark Depths"
+            },
+            {
+              "id": "p16",
+              "name": "Thespian's Stage"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p13",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p14",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p26",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p28",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p34",
+              "name": "Plains",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 49,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 109,
+      "stack": [],
+      "step": "COMBAT_DAMAGE",
+      "turn": 9
     }
   ],
   "totalTurns": 9,

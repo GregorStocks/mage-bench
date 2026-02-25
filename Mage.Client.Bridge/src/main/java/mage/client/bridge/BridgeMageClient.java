@@ -1,4 +1,4 @@
-package mage.client.headless;
+package mage.client.bridge;
 
 import mage.interfaces.MageClient;
 import mage.interfaces.callback.ClientCallback;
@@ -7,7 +7,7 @@ import mage.utils.MageVersion;
 import org.apache.log4j.Logger;
 
 /**
- * Headless MageClient implementation for bot/AI players.
+ * Bridge MageClient implementation for bot/AI players.
  * Delegates callback handling to BridgeCallbackHandler.
  */
 public class BridgeMageClient implements MageClient {
