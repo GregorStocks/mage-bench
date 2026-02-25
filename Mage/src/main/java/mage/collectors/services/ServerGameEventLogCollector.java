@@ -906,7 +906,7 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             try {
                 Files.createDirectories(filePath.getParent());
                 this.writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8,
-                        StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+                        StandardOpenOption.CREATE, StandardOpenOption.APPEND);
             } catch (IOException e) {
                 logger.error("Failed to create server game event log: " + filePath, e);
                 this.writer = null;
