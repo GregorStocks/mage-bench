@@ -4,7 +4,7 @@ Two paths for visually inspecting the UI: extracting frames from game recordings
 
 ## Java Swing UI
 
-Every game run with `--streaming --record` (the default for `make run-dumb`, `make run-llm`, etc.) saves a video recording to `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/recording.mov`. Extract a frame with:
+Every game run with `--observer --record` (the default for `make run-dumb`, `make run-llm`, etc.) saves a video recording to `~/.mage-bench/logs/game_YYYYMMDD_HHMMSS/recording.mov`. Extract a frame with:
 
 ```bash
 make screenshot
@@ -94,7 +94,7 @@ http://localhost:4321/games/game_20260208_220934
 **Swing recording screenshot** — shows the actual Java UI that gets recorded to video. Use when:
 - Verifying Java UI rendering, card images, or layout changes
 - Checking what the recording looks like
-- Debugging `StreamingGamePanel` issues
+- Debugging `ObserverGamePanel` issues
 
 **Website visualizer** — shows the web-based game renderer. Use when:
 - Verifying CSS/JS changes to `game-renderer.js` or `game-renderer.css`

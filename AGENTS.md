@@ -13,14 +13,14 @@ When this document or other instructions say "rebase", they mean "merge in maste
 
 ## Code Isolation Philosophy
 
-Avoid **modifying existing behavior** in Java outside of `Mage.Client.Streaming` and `Mage.Client.Bridge`. This means not changing existing methods, fields, or logic in `Mage.Client`, `Mage.Server*`, `Mage.Common`, `Mage`, `Mage.Sets`, etc. Changing existing behavior makes incorporating upstream XMage updates difficult.
+Avoid **modifying existing behavior** in Java outside of `Mage.Client.Observer` and `Mage.Client.Bridge`. This means not changing existing methods, fields, or logic in `Mage.Client`, `Mage.Server*`, `Mage.Common`, `Mage`, `Mage.Sets`, etc. Changing existing behavior makes incorporating upstream XMage updates difficult.
 
 **Additive changes are OK:** Adding new methods, fields, or classes to upstream modules is fine as long as existing behavior is untouched — these merge cleanly.
 
 **Bug fixes in upstream modules are OK** when we're confident they're XMage bugs (e.g. incorrect combat legality checks). File a P2 issue for tracking and keep the fix minimal.
 
 **Our code (free to modify):**
-- `Mage.Client.Streaming` - spectator client
+- `Mage.Client.Observer` - spectator client
 - `Mage.Client.Bridge` - bridge client
 - `puppeteer/` - Python orchestration
 
@@ -220,7 +220,7 @@ ls -l ~/.mage-bench/logs/last-branch-GregorStocks-my-branch
 
 ## UI Terminology
 
-When the user talks about "the UI", they mean the **Java Swing UI** (`StreamingGamePanel`) by default, not the website visualizer.
+When the user talks about "the UI", they mean the **Java Swing UI** (`ObserverGamePanel`) by default, not the website visualizer.
 
 ## Website
 
@@ -259,7 +259,7 @@ make screenshot T=5          # frame at 5s into the game
 Start the dev server with `make website`, then navigate Chrome to the pages listed above.
 
 Use visual verification when:
-- Modifying `StreamingGamePanel` layout or rendering
+- Modifying `ObserverGamePanel` layout or rendering
 - Changing `website/public/game-renderer.js` or `game-renderer.css`
 - Debugging card display or layout issues
 

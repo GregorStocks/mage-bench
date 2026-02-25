@@ -1,4 +1,4 @@
-package mage.client.streaming;
+package mage.client.observer;
 
 import mage.client.MagePane;
 
@@ -8,18 +8,18 @@ import java.nio.file.Path;
 import java.util.UUID;
 
 /**
- * Streaming-optimized game pane that uses StreamingGamePanel.
- * Based on mage.client.game.GamePane but uses the streaming panel.
+ * observer-optimized game pane that uses ObserverGamePanel.
+ * Based on mage.client.game.GamePane but uses the observer panel.
  */
-public class StreamingGamePane extends MagePane {
+public class ObserverGamePane extends MagePane {
 
-    private StreamingGamePanel gamePanel;
+    private ObserverGamePanel gamePanel;
     private JScrollPane jScrollPane1;
     private UUID currentTableId;
     private UUID parentTableId;
     private UUID gameId;
 
-    public StreamingGamePane() {
+    public ObserverGamePane() {
         initComponents();
         SwingUtilities.invokeLater(() -> {
             gamePanel.setJLayeredPane(this);
@@ -30,7 +30,7 @@ public class StreamingGamePane extends MagePane {
     private void initComponents() {
         jScrollPane1 = new JScrollPane();
         jScrollPane1.setBorder(BorderFactory.createEmptyBorder());
-        gamePanel = new StreamingGamePanel();
+        gamePanel = new ObserverGamePanel();
 
         jScrollPane1.setViewportView(gamePanel);
 
@@ -57,7 +57,7 @@ public class StreamingGamePane extends MagePane {
     }
 
     public void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId) {
-        this.setTitle("Streaming " + gameId);
+        this.setTitle("Observing " + gameId);
         this.currentTableId = currentTableId;
         this.parentTableId = parentTableId;
         this.gameId = gameId;

@@ -413,7 +413,7 @@ class Config:
 
     # CLI options
     config_file: Path | None = None
-    streaming: bool = False
+    observer: bool = False
     record: bool = False
     record_output: Path | None = None
     num_games: int = 1  # Number of parallel games on the same server

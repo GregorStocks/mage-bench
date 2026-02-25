@@ -1,4 +1,4 @@
-package mage.client.streaming;
+package mage.client.observer;
 
 import mage.MageException;
 import mage.client.MageFrame;
@@ -20,15 +20,15 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 /**
- * Streaming-optimized MageFrame that uses StreamingGamePane for watching games.
+ * observer-optimized MageFrame that uses ObserverGamePane for watching games.
  * Skips the lobby UI and supports auto-watching a table via command-line args.
  */
-public class StreamingMageFrame extends MageFrame {
+public class ObserverMageFrame extends MageFrame {
 
-    private static final Logger LOGGER = Logger.getLogger(StreamingMageFrame.class);
+    private static final Logger LOGGER = Logger.getLogger(ObserverMageFrame.class);
     private static final int MAX_RECONNECT_ATTEMPTS = 5;
     private static final int[] RECONNECT_BACKOFF_MS = {2000, 4000, 8000, 16000, 30000};
-    private static final boolean NO_WINDOW = Boolean.getBoolean("xmage.streaming.noWindow");
+    private static final boolean NO_WINDOW = Boolean.getBoolean("xmage.observer.noWindow");
     private static final String GIT_BRANCH = getGitBranch();
     private String titlePrefix = GIT_BRANCH != null ? "[" + GIT_BRANCH + "] " : "";
 
@@ -54,14 +54,14 @@ public class StreamingMageFrame extends MageFrame {
         return null;
     }
 
-    public StreamingMageFrame() throws MageException {
+    public ObserverMageFrame() throws MageException {
         super();
         // Hide toolbar after initialization
         SwingUtilities.invokeLater(this::hideToolbar);
     }
 
     /**
-     * Hide the main application toolbar since streaming spectators don't need it.
+     * Hide the main application toolbar since observer spectators don't need it.
      */
     private void hideToolbar() {
         try {
@@ -177,7 +177,7 @@ public class StreamingMageFrame extends MageFrame {
                 LOGGER.warn("Reconnect attempt " + (i + 1) + " failed: " + SessionHandler.getLastConnectError());
             }
             LOGGER.error("All " + MAX_RECONNECT_ATTEMPTS + " reconnect attempts failed — giving up");
-        }, "StreamingReconnect");
+        }, "ObserverReconnect");
         reconnectThread.setDaemon(true);
         reconnectThread.start();
     }
@@ -199,14 +199,14 @@ public class StreamingMageFrame extends MageFrame {
     }
 
     /**
-     * Override watchGame to use StreamingGamePane instead of GamePane.
+     * Override watchGame to use ObserverGamePane instead of GamePane.
      */
     @Override
     public void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId) {
         // Check if we're already watching this game
         for (Component component : getDesktop().getComponents()) {
-            if (component instanceof StreamingGamePane
-                    && ((StreamingGamePane) component).getGameId().equals(gameId)) {
+            if (component instanceof ObserverGamePane
+                    && ((ObserverGamePane) component).getGameId().equals(gameId)) {
                 setActive((MagePane) component);
                 return;
             }
@@ -218,15 +218,15 @@ public class StreamingMageFrame extends MageFrame {
             }
         }
 
-        // Create streaming game pane
-        StreamingGamePane gamePane = new StreamingGamePane();
+        // Create observer game pane
+        ObserverGamePane gamePane = new ObserverGamePane();
         getDesktop().add(gamePane, JLayeredPane.DEFAULT_LAYER);
         gamePane.setVisible(true);
         gamePane.watchGame(currentTableId, parentTableId, gameId);
         setActive(gamePane);
 
         // Start recording if configured via system property
-        String recordPath = System.getProperty("xmage.streaming.record");
+        String recordPath = System.getProperty("xmage.observer.record");
         if (recordPath != null && !recordPath.isEmpty()) {
             // Delay recording start to allow the panel to fully render
             SwingUtilities.invokeLater(() -> {
@@ -246,7 +246,7 @@ public class StreamingMageFrame extends MageFrame {
         super.prepareAndShowServerLobby();
 
         // Then immediately hide the lobby
-        LOGGER.info("Streaming mode: hiding lobby UI");
+        LOGGER.info("Observer mode: hiding lobby UI");
         hideServerLobby();
     }
 

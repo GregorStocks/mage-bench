@@ -1758,7 +1758,7 @@ public class TablesPanel extends javax.swing.JPanel {
             options.setSpectatorsAllowed(true);
             String serverAddress = SessionHandler.getSession().getServerHost();
             options.setBannedUsers(IgnoreList.getIgnoredUsers(serverAddress));
-            String gameDir = System.getProperty("xmage.streaming.gameDir");
+            String gameDir = System.getProperty("xmage.observer.gameDir");
             if (gameDir != null) {
                 options.setGameLogDir(gameDir);
             }
