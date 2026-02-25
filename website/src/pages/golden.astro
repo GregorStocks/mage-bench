@@ -36,17 +36,9 @@ function extractMcpFixture(promptFile: string): { gameState: any, passPriority: 
     if (msg.role !== 'tool') continue;
     const callName = toolCallNames[msg.tool_call_id];
     if (!targetTools.has(callName)) continue;
-    // content may be a string (legacy) or an already-parsed object (pretty-printed golden files)
-    let parsed;
-    if (typeof msg.content === 'object' && msg.content !== null) {
-      parsed = msg.content;
-    } else {
-      const content = msg.content.trimStart();
-      if (!content.startsWith('{')) continue;
-      parsed = JSON.parse(content);
-    }
-    if (callName === 'get_game_state') gameState = parsed;
-    if (callName === 'pass_priority') passPriority = parsed;
+    if (typeof msg.content !== 'object' || msg.content === null) continue;
+    if (callName === 'get_game_state') gameState = msg.content;
+    if (callName === 'pass_priority') passPriority = msg.content;
   }
 
   return { gameState, passPriority };
