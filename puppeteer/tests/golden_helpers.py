@@ -290,7 +290,7 @@ def run_golden_scenario(
 ) -> list[dict]:
     """Run a golden test scenario with a replay player vs a potato opponent.
 
-    Starts a streaming spectator (creates the game table), a replay client
+    Starts a observer spectator (creates the game table), a replay client
     (executes scripted MCP tool calls and captures the LLM prompt), and a
     potato client (auto-responds to everything as the opponent).
 
@@ -373,7 +373,7 @@ def _start_spectator(
     game_type: str,
     deck_type: str,
 ) -> tuple[subprocess.Popen, object, Path]:
-    """Start a streaming spectator and wait for table creation.
+    """Start a observer spectator and wait for table creation.
 
     Returns (proc, log_file_handle, log_path).
     """
@@ -401,18 +401,18 @@ def _start_spectator(
             "-Dxmage.aiPuppeteer.autoConnect=true",
             "-Dxmage.aiPuppeteer.autoStart=true",
             "-Dxmage.aiPuppeteer.disableWhatsNew=true",
-            "-Dxmage.streaming.noWindow=true",
+            "-Dxmage.observer.noWindow=true",
             f"-Dxmage.aiPuppeteer.server={server}",
             f"-Dxmage.aiPuppeteer.port={port}",
             "-Dxmage.aiPuppeteer.user=spectator",
             "-Dxmage.aiPuppeteer.password=",
-            f"-Dxmage.streaming.gameDir={game_dir}",
+            f"-Dxmage.observer.gameDir={game_dir}",
         ]
     )
 
     spectator_proc, spectator_fh = _start_process(
         args=["mvn", "-q", "exec:java"],
-        cwd=project_root / "Mage.Client.Streaming",
+        cwd=project_root / "Mage.Client.Observer",
         env_updates={
             "XMAGE_AI_PUPPETEER": "1",
             "XMAGE_AI_PUPPETEER_USER": "spectator",
@@ -612,20 +612,20 @@ def _run_golden_subprocess(
         potato_jvm = " ".join(
             [
                 jvm_no_ui,
-                f"-Dxmage.headless.server={server}",
-                f"-Dxmage.headless.port={port}",
-                "-Dxmage.headless.personality=potato",
+                f"-Dxmage.bridge.server={server}",
+                f"-Dxmage.bridge.port={port}",
+                "-Dxmage.bridge.personality=potato",
             ]
         )
         potato_proc, potato_fh = _start_process(
             args=[
                 "mvn",
                 "-q",
-                f"-Dxmage.headless.username={player_b_name}",
-                f"-Dxmage.headless.deck={project_root / deck_b}",
+                f"-Dxmage.bridge.username={player_b_name}",
+                f"-Dxmage.bridge.deck={project_root / deck_b}",
                 "exec:java",
             ],
-            cwd=project_root / "Mage.Client.Headless",
+            cwd=project_root / "Mage.Client.Bridge",
             env_updates={"MAVEN_OPTS": potato_jvm},
             log_path=potato_log,
         )
@@ -734,7 +734,7 @@ def run_golden_scenario_two_replay(
     log_fhs: list = []
 
     try:
-        # --- Start streaming spectator ---
+        # --- Start observer spectator ---
         spectator_log = game_dir / "spectator.log"
         spectator_jvm = " ".join(
             [
@@ -742,18 +742,18 @@ def run_golden_scenario_two_replay(
                 "-Dxmage.aiPuppeteer.autoConnect=true",
                 "-Dxmage.aiPuppeteer.autoStart=true",
                 "-Dxmage.aiPuppeteer.disableWhatsNew=true",
-                "-Dxmage.streaming.noWindow=true",
+                "-Dxmage.observer.noWindow=true",
                 f"-Dxmage.aiPuppeteer.server={server}",
                 f"-Dxmage.aiPuppeteer.port={port}",
                 "-Dxmage.aiPuppeteer.user=spectator",
                 "-Dxmage.aiPuppeteer.password=",
-                f"-Dxmage.streaming.gameDir={game_dir}",
+                f"-Dxmage.observer.gameDir={game_dir}",
             ]
         )
 
         spectator_proc, spectator_fh = _start_process(
             args=["mvn", "-q", "exec:java"],
-            cwd=project_root / "Mage.Client.Streaming",
+            cwd=project_root / "Mage.Client.Observer",
             env_updates={
                 "XMAGE_AI_PUPPETEER": "1",
                 "XMAGE_AI_PUPPETEER_USER": "spectator",

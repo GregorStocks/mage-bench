@@ -5357,6 +5357,133 @@
       ],
       "step": "PRECOMBAT_MAIN",
       "turn": 4
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p25",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Badlands",
+              "summoning_sick": true,
+              "tapped": false,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p14",
+              "name": "Mountain",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [],
+          "library_size": 0,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 42,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p27",
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "controller": "TestPlayer",
+          "id": "p26",
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt",
+          "targets": [
+            {
+              "id": "p1",
+              "name": "Opponent"
+            }
+          ]
+        }
+      ],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 4
     }
   ],
   "totalTurns": 4,

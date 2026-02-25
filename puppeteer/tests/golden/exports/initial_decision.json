@@ -169,8 +169,38 @@
       "type": "potato"
     }
   ],
-  "snapshots": [],
-  "totalTurns": 0,
+  "snapshots": [
+    {
+      "active_player": null,
+      "phase": null,
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [],
+          "library_size": 60,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [],
+          "library_size": 0,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": null,
+      "seq": 3,
+      "stack": [],
+      "step": null,
+      "turn": 1
+    }
+  ],
+  "totalTurns": 1,
   "version": 2,
   "winner": null
 }

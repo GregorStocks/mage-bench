@@ -6864,6 +6864,101 @@
       "stack": [],
       "step": "COMBAT_DAMAGE",
       "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p3",
+              "name": "Plains",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p9",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p24",
+              "name": "Plains",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p10",
+              "name": "Plains",
+              "summoning_sick": false,
+              "tapped": false,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [],
+          "library_size": 0,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 56,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 3
     }
   ],
   "totalTurns": 3,
