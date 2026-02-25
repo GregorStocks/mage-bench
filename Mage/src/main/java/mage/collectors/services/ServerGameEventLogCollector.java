@@ -254,6 +254,14 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
         event.put("winner", winnerName);
         event.put("life_totals", lifeTotals);
 
+        // Final state snapshot — captures life totals after combat damage resolves.
+        // Without this, games ending via lethal damage have no snapshot showing the
+        // final life total (the last decision snapshot is taken before damage).
+        Map<String, Object> finalState = buildStateSnapshot(game, seq);
+        if (finalState != null) {
+            event.put("state", finalState);
+        }
+
         gel.writeLine(toJson(event));
         gel.close();
         loggers.remove(game.getId());
