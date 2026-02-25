@@ -3279,9 +3279,9 @@
       "args": {},
       "player": "Opponent",
       "result": {
-        "cursor": 0,
-        "event_count": 0,
-        "history": "No game events recorded yet."
+        "cursor": 32,
+        "event_count": 32,
+        "history": "Turn 1:\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - Opponent drew Plains\n    - Opponent drew Savannah Lions\n    - Opponent drew Ajani Goldmane\n    - Opponent drew Baneslayer Angel\n    - Opponent drew Captain of the Watch\n    - Opponent drew Guardian Seraph\n    - Opponent drew Serra Angel\n  Postcombat Main:\n    - TestPlayer played Island\n    - TestPlayer cast Sol Ring\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew Plains\n  Precombat Main:\n    - Opponent played Plains\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew a card\n  Precombat Main:\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew Plains\n  Precombat Main:\n    - Opponent played Plains\n  Postcombat Main:\n    - Opponent cast Savannah Lions\n    - TestPlayer cast Mana Drain\n    - A spell was countered\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew a card\n  Precombat Main:\n    - TestPlayer cast Fact or Fiction\n"
       },
       "tool": "",
       "type": "tool_call"

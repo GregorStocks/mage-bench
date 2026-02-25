@@ -983,6 +983,21 @@ public class GameController implements GameCallback {
         return game.getBridgeEventsSince(sinceCursor, playerId);
     }
 
+    /**
+     * Get all bridge events for all players, keyed by player UUID.
+     * Used by GameManagerImpl to cache events before game cleanup.
+     */
+    public Map<UUID, List<BridgeLogEntry>> getAllBridgeEvents() {
+        Map<UUID, List<BridgeLogEntry>> result = new HashMap<>();
+        for (Player p : game.getPlayers().values()) {
+            List<BridgeLogEntry> events = game.getBridgeEventsSince(0, p.getId());
+            if (!events.isEmpty()) {
+                result.put(p.getId(), new ArrayList<>(events));
+            }
+        }
+        return result;
+    }
+
     @Override
     public void endGameWithResult(String result) {
         try {

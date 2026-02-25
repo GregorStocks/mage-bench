@@ -31,6 +31,10 @@ public class GameManagerImpl implements GameManager {
     private final ConcurrentMap<UUID, GameController> gameControllers = new ConcurrentHashMap<>();
     private final ReadWriteLock gameControllersLock = new ReentrantReadWriteLock();
 
+    // Cache bridge events per-player for games that have been cleaned up.
+    // Populated in removeGame() before the GameController is destroyed.
+    private final ConcurrentMap<UUID, Map<UUID, List<BridgeLogEntry>>> bridgeEventCache = new ConcurrentHashMap<>();
+
     public GameManagerImpl(ManagerFactory managerFactory) {
         this.managerFactory = managerFactory;
     }
@@ -160,6 +164,17 @@ public class GameManagerImpl implements GameManager {
     public void removeGame(UUID gameId) {
         GameController gameController = getGameControllerSafe(gameId);
         if (gameController != null) {
+            // Cache bridge events for all players before cleanup — clients may
+            // still query them after the controller is gone.
+            try {
+                Map<UUID, List<BridgeLogEntry>> allEvents = gameController.getAllBridgeEvents();
+                if (!allEvents.isEmpty()) {
+                    bridgeEventCache.put(gameId, allEvents);
+                }
+            } catch (Exception e) {
+                // Don't let caching failures prevent game cleanup
+            }
+
             gameController.cleanUp();
             final Lock w = gameControllersLock.writeLock();
             w.lock();
@@ -194,6 +209,19 @@ public class GameManagerImpl implements GameManager {
         GameController gameController = getGameControllerSafe(gameId);
         if (gameController != null) {
             return gameController.getBridgeEvents(playerId, sinceCursor);
+        }
+        // Controller gone — return from cache populated by removeGame()
+        Map<UUID, List<BridgeLogEntry>> perPlayer = bridgeEventCache.get(gameId);
+        if (perPlayer != null) {
+            List<BridgeLogEntry> events = perPlayer.get(playerId);
+            if (events != null) {
+                if (sinceCursor > 0) {
+                    return events.stream()
+                            .filter(e -> e.index() >= sinceCursor)
+                            .toList();
+                }
+                return events;
+            }
         }
         return Collections.emptyList();
     }

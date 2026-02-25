@@ -178,6 +178,7 @@ public class BridgeCallbackHandler {
     private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
     private volatile int bridgeEventCursor = 0; // Pull cursor for bridge event log
+    private final List<BridgeLogEntry> cachedBridgeEvents = new ArrayList<>(); // Client-side cache survives game cleanup
 
     // Lost response retry: track last response sent from chooseAction so we can
     // re-send if the server discards it due to the waitResponseOpen race condition
@@ -380,6 +381,8 @@ public class BridgeCallbackHandler {
         actionsProcessed = 0;
         lastActionableCallbackAt = 0;
         lastStallNudgeAt = 0;
+        cachedBridgeEvents.clear();
+        bridgeEventCursor = 0;
         synchronized (gameLog) {
             gameLog.setLength(0);
             gameLogTrimmedChars = 0;
@@ -2572,6 +2575,7 @@ public class BridgeCallbackHandler {
             List<BridgeLogEntry> events = session.getBridgeEvents(gameId, playerId, bridgeEventCursor);
             if (events != null && !events.isEmpty()) {
                 bridgeEventCursor = events.get(events.size() - 1).index() + 1;
+                cachedBridgeEvents.addAll(events);
             }
             return events != null ? events : List.of();
         } catch (Exception e) {
@@ -2591,21 +2595,33 @@ public class BridgeCallbackHandler {
      *         "event_count" (number of events included)
      */
     public Map<String, Object> getGameHistory(Integer sinceTurn, Integer sinceCursor) {
-        // Determine effective cursor: if sinceCursor is provided, temporarily override
+        // Try pulling fresh events from the server
         int savedCursor = bridgeEventCursor;
         if (sinceCursor != null) {
             bridgeEventCursor = sinceCursor;
         } else {
-            // Pull all events from the start
             bridgeEventCursor = 0;
         }
 
         List<BridgeLogEntry> events = pullBridgeEvents();
         int newCursor = bridgeEventCursor;
 
-        // Restore cursor (we don't advance the persistent cursor here —
-        // the MCP tool manages its own cursor via the returned value)
+        // Restore cursor
         bridgeEventCursor = savedCursor;
+
+        // If the server returned nothing (game ended, controller cleaned up),
+        // fall back to cached events from earlier pulls or handleGameOver.
+        if (events.isEmpty() && !cachedBridgeEvents.isEmpty()) {
+            if (sinceCursor != null) {
+                events = cachedBridgeEvents.stream()
+                        .filter(e -> e.index() >= sinceCursor)
+                        .toList();
+            } else {
+                events = new ArrayList<>(cachedBridgeEvents);
+            }
+            newCursor = cachedBridgeEvents.isEmpty() ? 0
+                    : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index() + 1;
+        }
 
         // Filter by sinceTurn if specified
         if (sinceTurn != null) {
@@ -5099,6 +5115,28 @@ public class BridgeCallbackHandler {
 
     private void handleGameOver(UUID gameId, ClientCallback callback) {
         GameClientMessage message = (GameClientMessage) callback.getData();
+
+        // Pull bridge events one last time before cleanup — after this,
+        // the server GameController may be gone and the RPC will return empty.
+        UUID playerId = activeGames.get(gameId);
+        if (playerId != null) {
+            try {
+                int savedCursor = bridgeEventCursor;
+                bridgeEventCursor = 0; // Pull everything from the start
+                List<BridgeLogEntry> events = session.getBridgeEvents(gameId, playerId, bridgeEventCursor);
+                if (events != null && !events.isEmpty()) {
+                    // Replace cache entirely — we pulled from cursor 0
+                    cachedBridgeEvents.clear();
+                    cachedBridgeEvents.addAll(events);
+                    bridgeEventCursor = events.get(events.size() - 1).index() + 1;
+                } else {
+                    bridgeEventCursor = savedCursor;
+                }
+            } catch (Exception e) {
+                logger.warn("[" + client.getUsername() + "] Failed to pull final bridge events on game over", e);
+            }
+        }
+
         activeGames.remove(gameId);
         UUID chatId = gameChatIds.remove(gameId);
         if (chatId != null) {
