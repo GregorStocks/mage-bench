@@ -987,15 +987,17 @@ def _strip_volatile(data: dict) -> None:
     for action in data.get("actions", []):
         action.pop("ts", None)
 
-    # Strip ts from llmEvents, then sort by (player, seq) for deterministic order.
+    # Sort llmEvents by (seq, ts, player) then strip ts.
+    # seq-first keeps events interleaved chronologically across players;
+    # ts breaks ties within the same seq; player is the final tiebreaker.
+    data.get("llmEvents", []).sort(key=lambda e: (e.get("seq", 0), e.get("ts", ""), e.get("player", "")))
     for event in data.get("llmEvents", []):
         event.pop("ts", None)
-    data.get("llmEvents", []).sort(key=lambda e: (e.get("player", ""), e.get("seq", 0)))
 
-    # Strip ts from llmTrace and sort by (player, seq) for deterministic order.
+    # Same for llmTrace.
+    data.get("llmTrace", []).sort(key=lambda e: (e.get("seq", 0), e.get("ts", ""), e.get("player", "")))
     for event in data.get("llmTrace", []):
         event.pop("ts", None)
-    data.get("llmTrace", []).sort(key=lambda e: (e.get("player", ""), e.get("seq", 0)))
 
 
 def assert_golden_export(name: str, game_dir: Path) -> None:
