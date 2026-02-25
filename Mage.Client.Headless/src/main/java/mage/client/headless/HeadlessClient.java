@@ -69,6 +69,7 @@ public class HeadlessClient {
         boolean isSleepwalker = PERSONALITY_SLEEPWALKER.equalsIgnoreCase(personality);
         boolean isStaller = PERSONALITY_STALLER.equalsIgnoreCase(personality);
         boolean isPotato = PERSONALITY_POTATO.equalsIgnoreCase(personality);
+        boolean keepAlive = Boolean.getBoolean("xmage.headless.keepAlive");
 
         if (!isSleepwalker && !isStaller && !isPotato) {
             logger.warn("Unknown personality '" + personalityArg + "', falling back to '" + PERSONALITY_POTATO + "'");
@@ -117,7 +118,7 @@ public class HeadlessClient {
                 : DEFAULT_ACTION_DELAY_MS;
         actionDelayMs = Integer.getInteger("xmage.headless.actionDelayMs", actionDelayMs);
         callbackHandler.setActionDelayMs(actionDelayMs);
-        callbackHandler.setKeepAliveAfterGame(isStaller);
+        callbackHandler.setKeepAliveAfterGame(isStaller || keepAlive);
         String errorLogPath = System.getProperty("xmage.headless.errorlog");
         if (errorLogPath != null && !errorLogPath.isEmpty()) {
             callbackHandler.setErrorLogPath(errorLogPath);
@@ -177,35 +178,56 @@ public class HeadlessClient {
             System.exit(1);
         }
 
-        String deckPath = getArg(args, "--deck", System.getProperty("xmage.headless.deck"));
-        DeckCardLists deck = loadDeck(deckPath);
-        callbackHandler.setDeckList(deck);
+        // In keepAlive mode for sleepwalker, skip initial deck load and table join —
+        // the join_table MCP tool handles everything. For potato keepAlive, the stdin
+        // loop below handles deck loading and table joining.
+        if (keepAlive && isSleepwalker) {
+            logger.info("keepAlive mode: skipping initial table join (join_table tool will drive game lifecycle)");
+        } else if (keepAlive && !isSleepwalker) {
+            logger.info("keepAlive mode: skipping initial table join (stdin commands will drive game lifecycle)");
+        } else {
+            String deckPath = getArg(args, "--deck", System.getProperty("xmage.headless.deck"));
+            DeckCardLists deck = loadDeck(deckPath);
+            callbackHandler.setDeckList(deck);
 
-        UUID tableId = tryJoinTable(session, roomId, username, deck);
-        if (tableId == null) {
-            logger.error("Failed to join any table within timeout");
-            session.connectStop(false, false);
-            System.exit(1);
+            UUID tableId = tryJoinTable(session, roomId, username, deck);
+            if (tableId == null) {
+                logger.error("Failed to join any table within timeout");
+                session.connectStop(false, false);
+                System.exit(1);
+            }
+
+            logger.info("Joined table, waiting for game to start (table creator will start match)...");
         }
 
-        logger.info("Joined table, waiting for game to start (table creator will start match)...");
-
         if (isSleepwalker) {
+            // Set up JoinHandler so the join_table MCP tool can trigger table joining
+            if (keepAlive) {
+                callbackHandler.setJoinHandler(deckPath -> {
+                    DeckCardLists d = loadDeck(deckPath);
+                    callbackHandler.setDeckList(d);
+                    return tryJoinTable(session, roomId, username, d);
+                });
+            }
+
             // Start MCP server on stdio - this blocks until client stops
             logger.info("Starting MCP server...");
-            McpServer mcpServer = new McpServer(callbackHandler);
+            McpServer mcpServer = new McpServer(callbackHandler, keepAlive);
 
             // Run MCP server in separate thread so we can monitor client state
             Thread mcpThread = new Thread(() -> mcpServer.start(), "MCP-Server");
             mcpThread.setDaemon(true);
             mcpThread.start();
 
-            // Keep alive while client is running, with reconnection support
+            // Keep alive while client is running, with reconnection support.
+            // In keepAlive mode, the MCP thread is the lifecycle owner — we exit
+            // when stdin closes (mcpThread finishes), not when client.isRunning()
+            // becomes false (which happens on game over in non-keepAlive mode).
             int reconnectAttempts = 0;
             outer:
             while (true) {
                 long lastPingTime = System.currentTimeMillis();
-                while (client.isRunning()) {
+                while (keepAlive ? mcpThread.isAlive() : client.isRunning()) {
                     try {
                         Thread.sleep(1000);
                         long now = System.currentTimeMillis();
@@ -219,6 +241,12 @@ public class HeadlessClient {
                         mcpServer.stop();
                         break outer;
                     }
+                }
+
+                if (keepAlive) {
+                    // MCP stdin closed — Python side is done, exit cleanly
+                    logger.info("MCP stdin closed (keepAlive mode), shutting down");
+                    break;
                 }
 
                 // Client stopped — check if we should reconnect
@@ -269,6 +297,52 @@ public class HeadlessClient {
                 }
             }
             mcpServer.stop();
+        } else if (keepAlive) {
+            // Potato/staller keepAlive mode: read deck paths from stdin, join tables, play games.
+            // Each line on stdin is an absolute path to a deck file. The potato loads it,
+            // resets state, joins the next available table, plays the game, then reads again.
+            // When stdin closes, exit cleanly.
+            logger.info("Entering keepAlive stdin loop (potato mode)...");
+            java.io.BufferedReader stdinReader = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
+
+            // Background thread for pinging the server to stay connected
+            Thread pingThread = new Thread(() -> {
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        Thread.sleep(PING_INTERVAL_MS);
+                        session.ping();
+                    } catch (InterruptedException e) {
+                        break;
+                    }
+                }
+            }, "Potato-Ping");
+            pingThread.setDaemon(true);
+            pingThread.start();
+
+            try {
+                String line;
+                while ((line = stdinReader.readLine()) != null) {
+                    String deckPathLine = line.trim();
+                    if (deckPathLine.isEmpty()) continue;
+                    logger.info("keepAlive: received deck path: " + deckPathLine);
+                    DeckCardLists deck = loadDeck(deckPathLine);
+                    callbackHandler.resetForNextGame();
+                    callbackHandler.setDeckList(deck);
+                    UUID tableId = tryJoinTable(session, roomId, username, deck);
+                    if (tableId == null) {
+                        logger.error("keepAlive: failed to join table, continuing to read stdin...");
+                        continue;
+                    }
+                    logger.info("keepAlive: joined table " + tableId + ", waiting for game to finish...");
+                    callbackHandler.awaitGameFinished(600_000); // 10 min max per game
+                    logger.info("keepAlive: game finished, ready for next");
+                }
+            } catch (java.io.IOException e) {
+                logger.info("keepAlive: stdin read error: " + e.getMessage());
+            }
+
+            pingThread.interrupt();
+            logger.info("keepAlive: stdin closed, exiting");
         } else {
             // Potato/staller mode: keep alive while client is running, with reconnection support
             int reconnectAttempts = 0;
@@ -416,7 +490,7 @@ public class HeadlessClient {
         return false;
     }
 
-    private static DeckCardLists loadDeck(String deckPath) {
+    public static DeckCardLists loadDeck(String deckPath) {
         if (deckPath == null || deckPath.isEmpty()) {
             logger.info("No deck path specified, using test deck");
             return createTestDeck();

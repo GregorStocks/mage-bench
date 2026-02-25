@@ -57,6 +57,7 @@ import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -176,6 +177,17 @@ public class BridgeCallbackHandler {
     private volatile String lastChatMessage = null; // For deduplicating outgoing chat
     private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
+
+    // Keep-alive multi-game support: latches for cross-thread signaling
+    private volatile CountDownLatch gameStartLatch = new CountDownLatch(1);
+    private volatile CountDownLatch gameFinishedLatch = new CountDownLatch(1);
+
+    // Join handler: provided by HeadlessClient so JoinTableTool can trigger table joining
+    @FunctionalInterface
+    public interface JoinHandler {
+        UUID joinTable(String deckPath) throws Exception;
+    }
+    private volatile JoinHandler joinHandler = null;
 
     // Lost response retry: track last response sent from chooseAction so we can
     // re-send if the server discards it due to the waitResponseOpen race condition
@@ -365,6 +377,102 @@ public class BridgeCallbackHandler {
     public void setMaxInteractionsPerTurn(int max) {
         this.maxInteractionsPerTurn = Math.max(5, max);
         logger.info("[" + client.getUsername() + "] maxInteractionsPerTurn set to " + this.maxInteractionsPerTurn);
+    }
+
+    public void setJoinHandler(JoinHandler handler) {
+        this.joinHandler = handler;
+    }
+
+    /**
+     * Thorough state reset for multi-game sessions. Resets ALL game state so the
+     * bridge can join a new table cleanly. Superset of {@link #reset()}.
+     */
+    public void resetForNextGame() {
+        // Everything from reset()
+        activeGames.clear();
+        gameChatIds.clear();
+        pendingAction = null;
+        currentGameId = null;
+        gameEverStarted = false;
+        lastGameView = null;
+        lastChoices = null;
+        lastChoicesActionType = null;
+        lastChoicesResponseType = null;
+        lastChoicesCount = -1;
+        lastChoicesGeneratedAtMs = 0;
+        actionsProcessed = 0;
+        lastActionableCallbackAt = 0;
+        lastStallNudgeAt = 0;
+        synchronized (gameLog) {
+            gameLog.setLength(0);
+            gameLogTrimmedChars = 0;
+        }
+        // Additional state not in reset()
+        shortIds.clear();
+        roundTracker.reset();
+        failedManaCasts.clear();
+        castOwners.clear();
+        playerTurnCounts.clear();
+        synchronized (unseenChat) {
+            unseenChat.clear();
+        }
+        playerDead = false;
+        synchronized (stateCursorLock) {
+            gameStateCursor = 0;
+            lastGameStateSignature = null;
+        }
+        manaPlan = null;
+        manaPlanAbilityIndex = null;
+        manaPlanAutoTapFallback = true;
+        lastTurnNumber = -1;
+        interactionsThisTurn = 0;
+        lastManaPaymentPrompt = null;
+        poolManaPayingForId = null;
+        poolManaAttempts = 0;
+        lastResponseSentAt = 0;
+        lastResponseRetried = false;
+        lastCallbackReceivedAt = 0;
+        lastCallbackGameId = null;
+        lastChatMessage = null;
+        lastChatTimeMs = 0;
+        // Fresh latches for next game
+        gameStartLatch = new CountDownLatch(1);
+        gameFinishedLatch = new CountDownLatch(1);
+        logger.info("[" + client.getUsername() + "] resetForNextGame complete");
+    }
+
+    /**
+     * Block until {@code handleStartGame()} fires. Used by join_table tool.
+     * @return true if game started, false if timed out
+     */
+    public boolean awaitGameStart(long timeoutMs) throws InterruptedException {
+        return gameStartLatch.await(timeoutMs, java.util.concurrent.TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Block until {@code handleGameOver()} fires. Used by potato keepAlive loop.
+     * @return true if game finished, false if timed out
+     */
+    public boolean awaitGameFinished(long timeoutMs) throws InterruptedException {
+        return gameFinishedLatch.await(timeoutMs, java.util.concurrent.TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Join the next available game table with a new deck. Used by JoinTableTool.
+     * Resets all state, loads the deck, joins a table, and waits for game start.
+     */
+    public void joinNextTable(String deckPath) throws Exception {
+        JoinHandler handler = this.joinHandler;
+        assert handler != null : "joinHandler not set — keepAlive mode requires a JoinHandler";
+        resetForNextGame();
+        mage.cards.decks.DeckCardLists deck = HeadlessClient.loadDeck(deckPath);
+        setDeckList(deck);
+        UUID tableId = handler.joinTable(deckPath);
+        assert tableId != null : "Failed to join any table within timeout";
+        logger.info("[" + client.getUsername() + "] Joined table " + tableId + ", waiting for game start...");
+        boolean started = awaitGameStart(60_000);
+        assert started : "Game did not start within 60s after joining table";
+        logger.info("[" + client.getUsername() + "] Game started after join_table");
     }
 
     public void reset() {
@@ -4221,6 +4329,7 @@ public class BridgeCallbackHandler {
         });
 
         logger.info("[" + client.getUsername() + "] Game started: gameId=" + gameId + ", playerId=" + playerId);
+        gameStartLatch.countDown();
     }
 
     private void handleGameInit(UUID gameId, ClientCallback callback) {
@@ -4879,14 +4988,17 @@ public class BridgeCallbackHandler {
         }
         logger.info("[" + client.getUsername() + "] Game over: " + message.getMessage());
 
-        if (mcpMode) {
+        if (keepAliveAfterGame) {
+            // Multi-game session: signal game finished but keep the client alive.
+            // The Python side (join_table tool or potato stdin) drives the next game.
+            logger.info("[" + client.getUsername() + "] Game ended (keepAlive mode, staying connected)");
+            gameFinishedLatch.countDown();
+        } else if (mcpMode) {
             // In MCP mode, each game gets its own pilot process + bridge client.
             // Disconnect immediately so the XMage server doesn't auto-join us
             // into the next game in a parallel gauntlet.
             logger.info("[" + client.getUsername() + "] Game ended (MCP mode, stopping client)");
             client.stop();
-        } else if (keepAliveAfterGame) {
-            logger.info("[" + client.getUsername() + "] Game ended (staller mode, staying connected)");
         } else if (activeGames.isEmpty()) {
             logger.info("[" + client.getUsername() + "] No more active games, stopping client");
             client.stop();

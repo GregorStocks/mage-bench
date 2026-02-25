@@ -10,7 +10,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
+def test_clone_copies_memnite(xmage_server, tmp_path, project_root, bridge_session, potato_process):
     """Clone enters as a copy of Memnite — verifies copy effect representation."""
     server, port = xmage_server
     run_golden_scenario(
@@ -51,4 +51,6 @@ def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
             {"name": "get_game_state", "arguments": {}},
         ],
         golden_name="clone_copies_memnite",
+        bridge=bridge_session,
+        potato=potato_process,
     )

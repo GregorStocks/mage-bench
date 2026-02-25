@@ -10,7 +10,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_bolt_on_stack(xmage_server, tmp_path, project_root):
+def test_bolt_on_stack(xmage_server, tmp_path, project_root, bridge_session, potato_process):
     """Two Lightning Bolts on the stack, one targeting Memnite, one targeting Opponent.
 
     Script: choose starting player, keep hand, T1 play Mountain + cast Memnite,
@@ -60,4 +60,6 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root):
             {"name": "get_game_state", "arguments": {}},
         ],
         golden_name="bolt_on_stack",
+        bridge=bridge_session,
+        potato=potato_process,
     )

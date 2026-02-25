@@ -41,6 +41,11 @@ public class McpServer {
         ConcedeTool.class,
     };
 
+    /** Additional tools only available in keepAlive (multi-game) mode. */
+    private static final Class<?>[] KEEP_ALIVE_TOOL_CLASSES = {
+        JoinTableTool.class,
+    };
+
     private final BridgeCallbackHandler callbackHandler;
     private final Gson gson;
     private final AtomicBoolean running = new AtomicBoolean(false);
@@ -49,10 +54,22 @@ public class McpServer {
     private final McpToolRegistry registry;
 
     public McpServer(BridgeCallbackHandler callbackHandler) {
+        this(callbackHandler, false);
+    }
+
+    public McpServer(BridgeCallbackHandler callbackHandler, boolean keepAlive) {
         this.callbackHandler = callbackHandler;
         this.gson = new GsonBuilder().create();
         this.stdout = new PrintWriter(System.out, true);
-        this.registry = new McpToolRegistry(TOOL_CLASSES);
+        if (keepAlive) {
+            // Merge base tools + keepAlive tools
+            Class<?>[] allTools = new Class<?>[TOOL_CLASSES.length + KEEP_ALIVE_TOOL_CLASSES.length];
+            System.arraycopy(TOOL_CLASSES, 0, allTools, 0, TOOL_CLASSES.length);
+            System.arraycopy(KEEP_ALIVE_TOOL_CLASSES, 0, allTools, TOOL_CLASSES.length, KEEP_ALIVE_TOOL_CLASSES.length);
+            this.registry = new McpToolRegistry(allTools);
+        } else {
+            this.registry = new McpToolRegistry(TOOL_CLASSES);
+        }
     }
 
     /**

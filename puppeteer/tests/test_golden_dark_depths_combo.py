@@ -10,7 +10,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_dark_depths_combo(xmage_server, tmp_path, project_root):
+def test_dark_depths_combo(xmage_server, tmp_path, project_root, bridge_session, potato_process):
     """Dark Depths + Thespian's Stage combo into Marit Lage lethal attack.
 
     Opponent's 7 Mountains = p3-p9. TestPlayer's hand (alphabetical):
@@ -74,4 +74,6 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root):
             {"name": "pass_priority", "arguments": {}},
         ],
         golden_name="dark_depths_combo",
+        bridge=bridge_session,
+        potato=potato_process,
     )

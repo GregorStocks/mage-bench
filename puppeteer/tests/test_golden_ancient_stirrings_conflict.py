@@ -10,7 +10,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_ancient_stirrings_short_id_conflict(xmage_server, tmp_path, project_root):
+def test_ancient_stirrings_short_id_conflict(xmage_server, tmp_path, project_root, bridge_session, potato_process):
     """Cast Ancient Stirrings, select a card from lookedAt zone, verify no ID conflicts.
 
     Reproduces bug where cards in lookedAt get local short IDs (findCardViewById
@@ -52,6 +52,8 @@ def test_ancient_stirrings_short_id_conflict(xmage_server, tmp_path, project_roo
             {"name": "get_game_state", "arguments": {}},
         ],
         golden_name="ancient_stirrings_short_id",
+        bridge=bridge_session,
+        potato=potato_process,
     )
 
     # Assert no short ID conflict errors in any tool result.

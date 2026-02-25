@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -10,6 +11,7 @@ from puppeteer.orchestrator import compile_project
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import kill_tree
 from puppeteer.xml_config import modify_server_config
+from tests.golden_helpers import BridgeSession, PotatoProcess
 
 
 @pytest.fixture(scope="session")
@@ -87,3 +89,107 @@ def xmage_server(project_root, tmp_path_factory):
     finally:
         kill_tree(server_proc.pid)
         server_log_fh.close()
+
+
+@pytest.fixture(scope="session")
+def bridge_session(xmage_server, project_root):
+    """Session-scoped bridge JVM with persistent MCP session.
+
+    Starts a sleepwalker headless client with keepAlive=true. Communication
+    happens via direct JSON-RPC over stdin/stdout (no MCP SDK needed).
+    """
+    server, port = xmage_server
+
+    tmp_dir = project_root / "tmp" / "golden-bridge"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+
+    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
+    jvm_no_ui = jvm_opens
+    if sys.platform == "darwin":
+        jvm_no_ui += " -Dapple.awt.UIElement=true"
+
+    bridge_jvm = " ".join(
+        [
+            jvm_no_ui,
+            f"-Dxmage.headless.server={server}",
+            f"-Dxmage.headless.port={port}",
+            "-Dxmage.headless.personality=sleepwalker",
+            "-Dxmage.headless.keepAlive=true",
+        ]
+    )
+
+    bridge_log = tmp_dir / "bridge.log"
+    bridge_log_fh = open(bridge_log, "w")
+
+    proc = subprocess.Popen(
+        ["mvn", "-q", "-Dxmage.headless.username=TestPlayer", "exec:java"],
+        cwd=project_root / "Mage.Client.Headless",
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=bridge_log_fh,
+        env={**os.environ, "MAVEN_OPTS": bridge_jvm},
+    )
+
+    bridge = BridgeSession(proc)
+    bridge.initialize()
+
+    yield bridge
+
+    bridge.close()
+    try:
+        proc.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        kill_tree(proc.pid)
+    bridge_log_fh.close()
+
+
+@pytest.fixture(scope="session")
+def potato_process(xmage_server, project_root):
+    """Session-scoped potato JVM controlled via stdin line protocol.
+
+    Starts a potato headless client with keepAlive=true. Each line written
+    to stdin is a deck path — the potato loads it, resets state, joins the
+    next available table, and plays the game.
+    """
+    server, port = xmage_server
+
+    tmp_dir = project_root / "tmp" / "golden-potato"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+
+    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
+    jvm_no_ui = jvm_opens
+    if sys.platform == "darwin":
+        jvm_no_ui += " -Dapple.awt.UIElement=true"
+
+    potato_jvm = " ".join(
+        [
+            jvm_no_ui,
+            f"-Dxmage.headless.server={server}",
+            f"-Dxmage.headless.port={port}",
+            "-Dxmage.headless.personality=potato",
+            "-Dxmage.headless.keepAlive=true",
+        ]
+    )
+
+    potato_log = tmp_dir / "potato.log"
+    potato_log_fh = open(potato_log, "w")
+
+    proc = subprocess.Popen(
+        ["mvn", "-q", "-Dxmage.headless.username=Opponent", "exec:java"],
+        cwd=project_root / "Mage.Client.Headless",
+        stdin=subprocess.PIPE,
+        stdout=potato_log_fh,
+        stderr=subprocess.STDOUT,
+        env={**os.environ, "MAVEN_OPTS": potato_jvm},
+    )
+
+    potato = PotatoProcess(proc)
+
+    yield potato
+
+    potato.close()
+    try:
+        proc.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        kill_tree(proc.pid)
+    potato_log_fh.close()

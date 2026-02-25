@@ -45,4 +45,13 @@ public class RoundTracker {
     public int getGameRound() {
         return gameRound;
     }
+
+    /**
+     * Reset all tracking state for a new game.
+     */
+    public void reset() {
+        gameRound = 1;
+        lastTurnNum = 0;
+        turnsTakenThisRound.clear();
+    }
 }
