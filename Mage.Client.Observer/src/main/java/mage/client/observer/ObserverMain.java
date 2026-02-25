@@ -138,7 +138,7 @@ public class ObserverMain {
                 } else {
                     observerFrame.setVisible(true);
                 }
-                LOGGER.info(""Observer client started successfully");
+                LOGGER.info("Observer client started successfully");
             } catch (Throwable e) {
                 LOGGER.fatal("Critical error on start up: " + e.getMessage(), e);
                 System.exit(1);

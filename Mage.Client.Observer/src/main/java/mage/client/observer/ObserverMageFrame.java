@@ -246,7 +246,7 @@ public class ObserverMageFrame extends MageFrame {
         super.prepareAndShowServerLobby();
 
         // Then immediately hide the lobby
-        LOGGER.info(""Observer mode: hiding lobby UI");
+        LOGGER.info("Observer mode: hiding lobby UI");
         hideServerLobby();
     }
 
