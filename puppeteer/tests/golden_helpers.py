@@ -83,6 +83,11 @@ class BridgeSession:
     def initialize(self) -> dict:
         return self._rpc("initialize", {"protocolVersion": "2024-11-05", "capabilities": {}})
 
+    def list_tools(self) -> list[str]:
+        """Return names of available MCP tools."""
+        result = self._rpc("tools/list", {})
+        return [t["name"] for t in result["tools"]]
+
     def call_tool(self, name: str, arguments: dict | None = None) -> str:
         """Call an MCP tool and return the result text (matches execute_tool() return format)."""
         result = self._rpc("tools/call", {"name": name, "arguments": arguments or {}})
@@ -129,8 +134,11 @@ def _run_replay_on_bridge(
 
     This replicates the core logic of ``puppeteer.replay.run_replay()`` but operates
     on a persistent bridge session instead of spawning a fresh JVM.
+
+    Writes ``{player}_llm.jsonl`` so ``build_export`` can produce a full export.
     """
     from puppeteer.config import load_prompts
+    from puppeteer.game_log import GameLogWriter
     from puppeteer.pilot import _render_context, build_initial_message
 
     # Use a config path anchored to the repo root so prompts.json resolves
@@ -140,65 +148,76 @@ def _run_replay_on_bridge(
     assert "default" in prompts, "prompts.json must contain a 'default' key"
     system_prompt = prompts["default"]
 
+    # Filter out keepAlive-only tools (join_table) so the available_tools
+    # list matches what a non-keepAlive bridge would report.
+    tool_names = [t for t in bridge.list_tools() if t != "join_table"]
+
     history: list[dict] = []
 
-    for i, call in enumerate(script):
-        name = call["name"]
-        arguments = call.get("arguments", {})
-        result_text = bridge.call_tool(name, arguments)
+    with GameLogWriter(game_dir, player_name) as game_log:
+        game_log.emit("game_start", available_tools=tool_names)
 
-        # Build initial user message from first pass_priority result
-        if i == 0 and name == "pass_priority":
+        for i, call in enumerate(script):
+            name = call["name"]
+            arguments = call.get("arguments", {})
+            result_text = bridge.call_tool(name, arguments)
+
+            game_log.emit("tool_call", name=name, arguments=arguments, result=result_text)
+
+            # Build initial user message from first pass_priority result
+            if i == 0 and name == "pass_priority":
+                try:
+                    result_data = json.loads(result_text)
+                    initial_message = build_initial_message(result_data)
+                except (json.JSONDecodeError, TypeError):
+                    initial_message = "The game is starting. Call pass_priority to get your first decision."
+                history.append({"role": "user", "content": initial_message})
+
+            # Add assistant tool call + tool result to history
+            tool_call_id = f"call_{i + 1}"
+            history.append(
+                {
+                    "role": "assistant",
+                    "content": None,
+                    "tool_calls": [
+                        {
+                            "id": tool_call_id,
+                            "type": "function",
+                            "function": {
+                                "name": name,
+                                "arguments": json.dumps(arguments),
+                            },
+                        }
+                    ],
+                }
+            )
+            history.append(
+                {
+                    "role": "tool",
+                    "tool_call_id": tool_call_id,
+                    "content": result_text,
+                }
+            )
+
+            # Check for game over
             try:
                 result_data = json.loads(result_text)
-                initial_message = build_initial_message(result_data)
+                if result_data.get("game_over") or result_data.get("player_dead"):
+                    break
             except (json.JSONDecodeError, TypeError):
-                initial_message = "The game is starting. Call pass_priority to get your first decision."
-            history.append({"role": "user", "content": initial_message})
+                pass
 
-        # Add assistant tool call + tool result to history
-        tool_call_id = f"call_{i + 1}"
-        history.append(
-            {
-                "role": "assistant",
-                "content": None,
-                "tool_calls": [
-                    {
-                        "id": tool_call_id,
-                        "type": "function",
-                        "function": {
-                            "name": name,
-                            "arguments": json.dumps(arguments),
-                        },
-                    }
-                ],
-            }
-        )
-        history.append(
-            {
-                "role": "tool",
-                "tool_call_id": tool_call_id,
-                "content": result_text,
-            }
-        )
+        # Capture prompt (what the LLM would see)
+        prompt = _render_context(history, system_prompt, state_summary="")
 
-        # Check for game over
-        try:
-            result_data = json.loads(result_text)
-            if result_data.get("game_over") or result_data.get("player_dead"):
-                break
-        except (json.JSONDecodeError, TypeError):
-            pass
+        # Write prompt to file for debugging / golden comparison
+        prompt_path = game_dir / f"{player_name}_golden_prompt.json"
+        prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
 
-    # Capture prompt (what the LLM would see)
-    prompt = _render_context(history, system_prompt, state_summary="")
+        # Concede to end the game
+        bridge.call_tool("concede", {})
 
-    # Write prompt to file for debugging / golden comparison
-    prompt_path = game_dir / f"{player_name}_golden_prompt.json"
-    prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
-
-    # Concede to end the game
-    bridge.call_tool("concede", {})
+        game_log.emit("game_end", reason="replay_script_complete")
 
     return prompt
 

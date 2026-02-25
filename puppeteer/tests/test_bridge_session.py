@@ -56,6 +56,16 @@ class TestBridgeSession:
 
         assert text == '{"game_seq":5}'
 
+    def test_list_tools_returns_names(self):
+        tools_result = {"tools": [{"name": "pass_priority"}, {"name": "get_game_state"}]}
+        response = {"jsonrpc": "2.0", "id": 1, "result": tools_result}
+        proc = _make_mock_proc([response])
+
+        bridge = BridgeSession(proc)
+        names = bridge.list_tools()
+
+        assert names == ["pass_priority", "get_game_state"]
+
     def test_rpc_error_raises(self):
         response = {"jsonrpc": "2.0", "id": 1, "error": {"code": -32603, "message": "boom"}}
         proc = _make_mock_proc([response])
