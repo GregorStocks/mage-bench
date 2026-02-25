@@ -416,9 +416,13 @@
         ],
         "choices": [
           {
+            "action": "activate",
             "id": "p17",
             "index": 0,
-            "name": "Unknown (bbea9cf2)"
+            "name": "Boggart Bog",
+            "playable_abilities": [
+              "Play Boggart Bog"
+            ]
           },
           {
             "action": "cast",
@@ -585,9 +589,13 @@
         ],
         "choices": [
           {
+            "action": "activate",
             "id": "p17",
             "index": 0,
-            "name": "Unknown (bbea9cf2)"
+            "name": "Boggart Bog",
+            "playable_abilities": [
+              "Play Boggart Bog"
+            ]
           },
           {
             "action": "cast",
@@ -910,9 +918,13 @@
         ],
         "choices": [
           {
+            "action": "activate",
             "id": "p17",
             "index": 0,
-            "name": "Unknown (bbea9cf2)"
+            "name": "Boggart Bog",
+            "playable_abilities": [
+              "Play Boggart Bog"
+            ]
           },
           {
             "action": "cast",
@@ -4013,6 +4025,112 @@
       ],
       "priority_player": "TestPlayer",
       "seq": 35,
+      "stack": [],
+      "step": "POSTCOMBAT_MAIN",
+      "turn": 3
+    },
+    {
+      "active_player": "TestPlayer",
+      "phase": "POSTCOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p3",
+              "name": "Mountain"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p26",
+              "name": "Boggart Bog",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            },
+            {
+              "face_down": false,
+              "id": "p12",
+              "name": "Forest",
+              "summoning_sick": false,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [
+            {
+              "id": "p11",
+              "name": "Crashing Footfalls"
+            }
+          ],
+          "graveyard": [],
+          "hand": [],
+          "library_size": 0,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 41,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 3

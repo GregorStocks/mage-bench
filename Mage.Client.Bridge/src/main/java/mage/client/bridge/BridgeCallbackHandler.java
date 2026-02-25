@@ -4116,6 +4116,15 @@ public class BridgeCallbackHandler {
             }
         }
 
+        // Check secondary faces of MDFCs in hand — the back face has its own
+        // UUID in the playable list but isn't keyed directly in the hand map.
+        for (CardView card : gameView.getMyHand().values()) {
+            CardView secondFace = card.getSecondCardFace();
+            if (secondFace != null && secondFace.getId().equals(objectId)) {
+                return secondFace;
+            }
+        }
+
         return null;
     }
 
