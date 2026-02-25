@@ -40,6 +40,14 @@ public class Sets extends HashMap<String, ExpansionSet> {
         }
     }
 
+    /**
+     * Remove all sets except those whose codes are in {@code setCodes}.
+     * Used by golden tests to restrict the card pool for faster startup.
+     */
+    public void retainOnly(java.util.Set<String> setCodes) {
+        keySet().retainAll(setCodes);
+    }
+
     public void addSet(ExpansionSet set) {
         if (containsKey(set.getCode())) {
             throw new IllegalArgumentException("Set code " + set.getCode() + " already exists.");

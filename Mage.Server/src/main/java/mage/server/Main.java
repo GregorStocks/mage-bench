@@ -188,6 +188,13 @@ public final class Main {
             logger.info("Done.");
         }
 
+        String allowedSets = System.getProperty("xmage.sets.allowed");
+        if (allowedSets != null && !allowedSets.isEmpty()) {
+            java.util.Set<String> allowed = new java.util.HashSet<>(java.util.Arrays.asList(allowedSets.split(",")));
+            Sets.getInstance().retainOnly(allowed);
+            logger.info("Restricted card pool to " + allowed.size() + " sets (from " + (allowed.size()) + " allowed)");
+        }
+
         logger.info("Loading cards...");
         CardScanner.scan();
         logger.info("Done.");

@@ -1,6 +1,7 @@
 """Shared fixtures for golden prompt integration tests."""
 
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -11,7 +12,25 @@ from puppeteer.orchestrator import compile_project
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import kill_tree
 from puppeteer.xml_config import modify_server_config
-from tests.golden_helpers import BridgeSession, PotatoProcess
+from tests.golden_helpers import DECK_GOBLINS, DECK_RED_STOMPY, BridgeSession, PotatoProcess
+
+_SET_CODE_RE = re.compile(r"\[([A-Z0-9]+):")
+
+
+def extract_golden_set_codes(project_root: Path) -> str:
+    """Extract set codes from all golden test deck files, returned as comma-separated string."""
+    codes: set[str] = set()
+    # Custom test decks
+    for dck in (project_root / "puppeteer" / "tests" / "decks").glob("*.dck"):
+        for match in _SET_CODE_RE.finditer(dck.read_text()):
+            codes.add(match.group(1))
+    # Legacy sample decks used by golden tests
+    for legacy_path in [DECK_RED_STOMPY, DECK_GOBLINS]:
+        path = project_root / legacy_path
+        if path.exists():
+            for match in _SET_CODE_RE.finditer(path.read_text()):
+                codes.add(match.group(1))
+    return ",".join(sorted(codes))
 
 
 def pytest_collection_modifyitems(items: list) -> None:
@@ -70,11 +89,15 @@ def xmage_server(project_root, tmp_path_factory):
         port=port,
     )
 
+    # Restrict card pool to only the sets used by golden test decks
+    allowed_sets = extract_golden_set_codes(project_root)
+
     # Build JVM options (server is headless; clients need AWT for Swing)
     jvm_opts = " ".join(
         [
             "--add-opens=java.base/java.io=ALL-UNNAMED",
             "-Djava.awt.headless=true",
+            f"-Dxmage.sets.allowed={allowed_sets}",
         ]
     )
 
@@ -128,6 +151,8 @@ def bridge_session(xmage_server, project_root):
     if sys.platform == "darwin":
         jvm_no_ui += " -Dapple.awt.UIElement=true"
 
+    allowed_sets = extract_golden_set_codes(project_root)
+
     bridge_jvm = " ".join(
         [
             jvm_no_ui,
@@ -135,6 +160,7 @@ def bridge_session(xmage_server, project_root):
             f"-Dxmage.headless.port={port}",
             "-Dxmage.headless.personality=sleepwalker",
             "-Dxmage.headless.keepAlive=true",
+            f"-Dxmage.sets.allowed={allowed_sets}",
         ]
     )
 
@@ -181,6 +207,8 @@ def potato_process(xmage_server, project_root):
     if sys.platform == "darwin":
         jvm_no_ui += " -Dapple.awt.UIElement=true"
 
+    allowed_sets = extract_golden_set_codes(project_root)
+
     potato_jvm = " ".join(
         [
             jvm_no_ui,
@@ -188,6 +216,7 @@ def potato_process(xmage_server, project_root):
             f"-Dxmage.headless.port={port}",
             "-Dxmage.headless.personality=potato",
             "-Dxmage.headless.keepAlive=true",
+            f"-Dxmage.sets.allowed={allowed_sets}",
         ]
     )
 
