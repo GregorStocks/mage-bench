@@ -295,6 +295,31 @@ def _wait_for_files_quiescent(paths: list[Path], timeout: int = 30, stable_for: 
     raise TimeoutError(f"Game export files did not quiesce within {timeout}s: {current}")
 
 
+def _wait_for_game_end_event(game_dir: Path, timeout: int = 30) -> None:
+    """Wait until server_game_events.jsonl contains a game_end event.
+
+    The spectator writes game_end asynchronously after the game ends on the
+    server.  Without this wait, the export pipeline may run before the event
+    is written, producing gameOver=null.
+    """
+    server_events = game_dir / "server_game_events.jsonl"
+    spectator_events = game_dir / "game_events.jsonl"
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        # Check server events (version 2 export path)
+        if server_events.exists():
+            text = server_events.read_text()
+            if '"game_end"' in text:
+                return
+        # Fallback: check spectator events (version 1 export path)
+        if spectator_events.exists():
+            text = spectator_events.read_text()
+            if '"game_over"' in text:
+                return
+        time.sleep(0.25)
+    raise TimeoutError(f"No game_end event found within {timeout}s in {game_dir}")
+
+
 def run_golden_scenario(
     server: str,
     port: int,
@@ -522,7 +547,10 @@ def _run_golden_persistent(
         # Execute replay script on the persistent bridge
         prompt = _run_replay_on_bridge(bridge, script, game_dir, player_a_name)
 
-        # Wait for spectator export files
+        # Wait for the spectator to record the game_end event before checking
+        # file quiescence — otherwise the files may appear "stable" before
+        # the game_end event is written, producing gameOver=null in the export.
+        _wait_for_game_end_event(game_dir)
         _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         assert_golden_prompt(golden_name, prompt)

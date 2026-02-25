@@ -14,6 +14,26 @@ from puppeteer.xml_config import modify_server_config
 from tests.golden_helpers import BridgeSession, PotatoProcess
 
 
+def pytest_collection_modifyitems(items: list) -> None:
+    """Schedule tests that use session-scoped persistent JVM fixtures last.
+
+    Tests that spawn their own subprocesses (e.g. two-replay tests) must run
+    before the persistent bridge/potato fixtures are created, because those
+    fixtures stay connected to the XMage server as "TestPlayer"/"Opponent" and
+    their leftover table state can interfere with fresh subprocess clients
+    that use the same usernames.
+    """
+    persistent_fixture_names = {"bridge_session", "potato_process"}
+    non_persistent = []
+    persistent = []
+    for item in items:
+        if persistent_fixture_names & set(item.fixturenames):
+            persistent.append(item)
+        else:
+            non_persistent.append(item)
+    items[:] = non_persistent + persistent
+
+
 @pytest.fixture(scope="session")
 def project_root():
     """Project root directory."""
