@@ -3,13 +3,16 @@ package mage.server.game;
 import mage.cards.decks.DeckCardLists;
 import mage.constants.ManaType;
 import mage.constants.PlayerAction;
+import mage.game.BridgeLogEntry;
 import mage.game.Game;
 import mage.game.GameOptions;
 import mage.server.managers.GameManager;
 import mage.server.managers.ManagerFactory;
 import mage.view.GameView;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -184,6 +187,15 @@ public class GameManagerImpl implements GameManager {
             return gameController.getGameView(playerId);
         }
         return null;
+    }
+
+    @Override
+    public List<BridgeLogEntry> getBridgeEvents(UUID gameId, UUID playerId, int sinceCursor) {
+        GameController gameController = getGameControllerSafe(gameId);
+        if (gameController != null) {
+            return gameController.getBridgeEvents(playerId, sinceCursor);
+        }
+        return Collections.emptyList();
     }
 
     @Override

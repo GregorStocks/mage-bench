@@ -8,6 +8,7 @@ import mage.choices.Choice;
 import mage.collectors.DataCollectorServices;
 import mage.constants.ManaType;
 import mage.constants.PlayerAction;
+import mage.game.BridgeLogEntry;
 import mage.game.Game;
 import mage.game.GameOptions;
 import mage.game.GameState;
@@ -976,6 +977,10 @@ public class GameController implements GameCallback {
 
     public synchronized GameView getGameView(UUID playerId) {
         return getGameSession(playerId).getGameView();
+    }
+
+    public List<BridgeLogEntry> getBridgeEvents(UUID playerId, int sinceCursor) {
+        return game.getBridgeEventsSince(sinceCursor, playerId);
     }
 
     @Override

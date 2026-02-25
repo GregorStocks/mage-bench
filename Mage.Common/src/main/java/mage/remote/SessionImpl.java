@@ -4,6 +4,7 @@ import mage.MageException;
 import mage.cards.decks.DeckCardLists;
 import mage.constants.ManaType;
 import mage.constants.PlayerAction;
+import mage.game.BridgeLogEntry;
 import mage.game.GameException;
 import mage.game.match.MatchOptions;
 import mage.game.tournament.TournamentOptions;
@@ -1443,6 +1444,20 @@ public class SessionImpl implements Session {
             handleThrowable(t);
         }
         return false;
+    }
+
+    @Override
+    public List<BridgeLogEntry> getBridgeEvents(UUID gameId, UUID playerId, int sinceCursor) {
+        try {
+            if (isConnected()) {
+                return server.gameGetBridgeEvents(gameId, sessionId, playerId, sinceCursor);
+            }
+        } catch (MageException ex) {
+            handleMageException(ex);
+        } catch (Throwable t) {
+            handleThrowable(t);
+        }
+        return Collections.emptyList();
     }
 
     @Override
