@@ -1836,5 +1836,28 @@
     },
     "role": "tool",
     "tool_call_id": "call_18"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_19",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "cursor": 32,
+      "event_count": 32,
+      "history": "Turn 1:\n    - TestPlayer drew Mana Drain\n    - TestPlayer drew Sol Ring\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n    - TestPlayer cast Sol Ring\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n  Postcombat Main:\n    - Opponent cast Savannah Lions\n    - TestPlayer cast Mana Drain\n    - A spell was countered\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Fact or Fiction\n  Precombat Main:\n    - TestPlayer cast Fact or Fiction\n"
+    },
+    "role": "tool",
+    "tool_call_id": "call_19"
   }
 ]

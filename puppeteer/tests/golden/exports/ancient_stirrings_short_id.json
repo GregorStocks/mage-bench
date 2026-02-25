@@ -717,8 +717,20 @@
       "type": "tool_call"
     },
     {
+      "args": {},
+      "player": "TestPlayer",
+      "result": {
+        "cursor": 17,
+        "event_count": 17,
+        "history": "Turn 1:\n    - TestPlayer drew Ancient Stirrings\n    - TestPlayer drew Forest\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Forest\n    - TestPlayer cast Ancient Stirrings\n"
+      },
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "availableTools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",
@@ -738,9 +750,10 @@
       "deckName": "ancient_stirrings",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 11,
+      "toolCallsOk": 12,
       "tools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",

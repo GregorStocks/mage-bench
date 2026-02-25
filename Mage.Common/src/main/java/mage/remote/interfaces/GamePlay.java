@@ -59,4 +59,5 @@ public interface GamePlay {
      */
     boolean sendPlayerAction(PlayerAction passPriorityAction, UUID gameId, Object data);
 
+    java.util.List<mage.game.BridgeLogEntry> getBridgeEvents(UUID gameId, UUID playerId, int sinceCursor);
 }

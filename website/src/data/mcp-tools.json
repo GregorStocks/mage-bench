@@ -79,6 +79,55 @@
     "outputSchema": {
       "type": "object",
       "properties": {
+        "cursor": {
+          "description": "Cursor to pass to the next get_game_history call for incremental updates",
+          "type": "integer"
+        },
+        "event_count": {
+          "description": "Number of events included in this response",
+          "type": "integer"
+        },
+        "history": {
+          "description": "Formatted game history text grouped by turn/phase",
+          "type": "string"
+        }
+      }
+    },
+    "examples": [
+      {
+        "label": "Full history",
+        "value": "{\n  \"history\": \"Turn 1 (Alice):\\n  Precombat Main:\\n    - Alice played Mountain\\n    - Alice cast Goblin Guide\\n\\nTurn 1 (Bob):\\n  Precombat Main:\\n    - Bob played Island\\n\",\n  \"cursor\": 8,\n  \"event_count\": 4\n}"
+      },
+      {
+        "label": "Incremental update",
+        "value": "{\n  \"history\": \"Turn 3 (Alice):\\n  Precombat Main:\\n    - Alice cast Lightning Bolt targeting Bob's Grizzly Bears\\n  Declare Attackers:\\n    - Alice attacked with Goblin Guide\\n\",\n  \"cursor\": 24,\n  \"event_count\": 2\n}"
+      },
+      {
+        "label": "No new events",
+        "value": "{\n  \"history\": \"No game events recorded yet.\",\n  \"cursor\": 24,\n  \"event_count\": 0\n}"
+      }
+    ],
+    "inputSchema": {
+      "additionalProperties": false,
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "description": "Cursor from a previous get_game_history call. Returns only new events since this cursor. Mutually exclusive with since_turn.",
+          "type": "integer"
+        },
+        "since_turn": {
+          "description": "Only include events from this turn number onward",
+          "type": "integer"
+        }
+      }
+    },
+    "name": "get_game_history",
+    "description": "Get structured game history showing player actions (casts, attacks, blocks, life changes, etc.) grouped by turn and phase. Unlike get_game_log which returns raw chat text, this returns structured action descriptions. Use cursor for incremental updates between decisions."
+  },
+  {
+    "outputSchema": {
+      "type": "object",
+      "properties": {
         "success": {
           "description": "Whether the message was sent",
           "type": "boolean"

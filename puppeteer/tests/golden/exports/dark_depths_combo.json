@@ -2773,8 +2773,20 @@
       "type": "tool_call"
     },
     {
+      "args": {},
+      "player": "TestPlayer",
+      "result": {
+        "cursor": 38,
+        "event_count": 38,
+        "history": "Turn 1:\n    - TestPlayer drew Dark Depths\n    - TestPlayer drew Thespian's Stage\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Dark Depths\n\nTurn 6 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 7 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Thespian's Stage\n  Declare Attackers:\n    - TestPlayer activated Thespian's Stage's ability\n    - TestPlayer sacrificed Thespian's Stage\n\nTurn 8 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 9 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Combat Damage:\n    - Opponent lost 20 life\n"
+      },
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "availableTools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",
@@ -2795,9 +2807,10 @@
       "name": "TestPlayer",
       "placement": 1,
       "toolCallsFailed": 0,
-      "toolCallsOk": 26,
+      "toolCallsOk": 27,
       "tools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",

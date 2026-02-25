@@ -32,6 +32,7 @@ public class McpServer {
 
     private static final Class<?>[] TOOL_CLASSES = {
         GetGameLogTool.class,
+        GetGameHistoryTool.class,
         SendChatMessageTool.class,
         PassPriorityTool.class,
         GetGameStateTool.class,

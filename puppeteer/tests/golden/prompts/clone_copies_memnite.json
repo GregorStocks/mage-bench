@@ -48,10 +48,6 @@
     "tool_call_id": "call_2"
   },
   {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -66,147 +62,13 @@
     ]
   },
   {
-    "content": {
-      "action_pending": true,
-      "action_type": "GAME_ASK",
-      "board": [
-        {
-          "hand": [
-            {
-              "id": "_",
-              "mana_cost": "{0}",
-              "name": "Black Lotus",
-              "rules": [
-                "{T}, Sacrifice {this}: Add three mana of any one color."
-              ]
-            },
-            {
-              "id": "_",
-              "mana_cost": "{3}{U}",
-              "name": "Clone",
-              "power": 0,
-              "rules": [
-                "You may have {this} enter as a copy of any creature on the battlefield."
-              ],
-              "toughness": 0
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Island",
-              "rules": [
-                "{T}: Add {U}."
-              ]
-            },
-            {
-              "id": "_",
-              "mana_cost": "{0}",
-              "name": "Memnite",
-              "power": 1,
-              "toughness": 1
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": true,
-          "library_size": 53,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 53,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "context": "T1 ()",
-      "game_seq": 3,
-      "message": "Mulligan down to 6 cards?",
-      "respond_with": "answer=true or answer=false",
-      "response_type": "boolean",
-      "stop_reason": "non_priority_action",
-      "your_hand": [
-        {
-          "mana_cost": "{0}",
-          "name": "Black Lotus",
-          "rules": [
-            "{T}, Sacrifice {this}: Add three mana of any one color."
-          ]
-        },
-        {
-          "mana_cost": "{3}{U}",
-          "name": "Clone",
-          "power": 0,
-          "rules": [
-            "You may have {this} enter as a copy of any creature on the battlefield."
-          ],
-          "toughness": 0
-        },
-        {
-          "is_land": true,
-          "name": "Island",
-          "rules": [
-            "{T}: Add {U}."
-          ]
-        },
-        {
-          "is_land": true,
-          "name": "Island",
-          "rules": [
-            "{T}: Add {U}."
-          ]
-        },
-        {
-          "is_land": true,
-          "name": "Island",
-          "rules": [
-            "{T}: Add {U}."
-          ]
-        },
-        {
-          "is_land": true,
-          "name": "Island",
-          "rules": [
-            "{T}: Add {U}."
-          ]
-        },
-        {
-          "mana_cost": "{0}",
-          "name": "Memnite",
-          "power": 1,
-          "toughness": 1
-        }
-      ]
-    },
+    "content": "action_pending(GAME_ASK, non_priority_action); boolean; Mulligan down to 6 cards?",
     "role": "tool",
     "tool_call_id": "call_3"
+  },
+  {
+    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,
@@ -2013,5 +1875,28 @@
     },
     "role": "tool",
     "tool_call_id": "call_22"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_23",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "cursor": 29,
+      "event_count": 29,
+      "history": "Turn 1:\n    - TestPlayer drew Island\n    - TestPlayer drew Clone\n    - TestPlayer drew Memnite\n    - TestPlayer drew Black Lotus\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer cast Black Lotus\n    - TestPlayer cast Memnite\n    - TestPlayer sacrificed Black Lotus\n    - TestPlayer cast Clone\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n"
+    },
+    "role": "tool",
+    "tool_call_id": "call_23"
   }
 ]

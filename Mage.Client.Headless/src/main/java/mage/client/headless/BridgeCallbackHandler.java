@@ -2,6 +2,7 @@ package mage.client.headless;
 
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
+import mage.game.BridgeLogEntry;
 import mage.cards.repository.CardInfo;
 import mage.cards.repository.CardRepository;
 import mage.choices.Choice;
@@ -176,6 +177,8 @@ public class BridgeCallbackHandler {
     private volatile String lastChatMessage = null; // For deduplicating outgoing chat
     private volatile long lastChatTimeMs = 0; // Timestamp of last outgoing chat
     private static final long CHAT_DEDUP_WINDOW_MS = 30_000; // Suppress identical messages within 30s
+    private volatile int bridgeEventCursor = 0; // Pull cursor for bridge event log
+    private final List<BridgeLogEntry> cachedBridgeEvents = new ArrayList<>(); // Client-side cache survives game cleanup
 
     // Lost response retry: track last response sent from chooseAction so we can
     // re-send if the server discards it due to the waitResponseOpen race condition
@@ -378,6 +381,8 @@ public class BridgeCallbackHandler {
         actionsProcessed = 0;
         lastActionableCallbackAt = 0;
         lastStallNudgeAt = 0;
+        cachedBridgeEvents.clear();
+        bridgeEventCursor = 0;
         synchronized (gameLog) {
             gameLog.setLength(0);
             gameLogTrimmedChars = 0;
@@ -2555,6 +2560,177 @@ public class BridgeCallbackHandler {
             result.put("cursor", totalLength);
         }
         return result;
+    }
+
+    /**
+     * Pull new bridge events from the server since our last cursor.
+     * Returns the list of new events and advances the cursor.
+     */
+    private List<BridgeLogEntry> pullBridgeEvents() {
+        UUID gameId = currentGameId;
+        if (gameId == null) return List.of();
+        UUID playerId = activeGames.get(gameId);
+        if (playerId == null) return List.of();
+        try {
+            List<BridgeLogEntry> events = session.getBridgeEvents(gameId, playerId, bridgeEventCursor);
+            if (events != null && !events.isEmpty()) {
+                bridgeEventCursor = events.get(events.size() - 1).index() + 1;
+                cachedBridgeEvents.addAll(events);
+            }
+            return events != null ? events : List.of();
+        } catch (Exception e) {
+            logger.error("[" + client.getUsername() + "] Failed to pull bridge events", e);
+            return List.of();
+        }
+    }
+
+    /**
+     * Get structured game history from bridge events.
+     * Pulls all events from the server, groups by turn/phase, and formats
+     * human-readable descriptions from the structured BridgeLogEntry fields.
+     *
+     * @param sinceTurn if non-null, only include events from this turn number onward
+     * @param sinceCursor if non-null, only include events with index >= this value (incremental)
+     * @return map with "history" (formatted text), "cursor" (for next incremental call),
+     *         "event_count" (number of events included)
+     */
+    public Map<String, Object> getGameHistory(Integer sinceTurn, Integer sinceCursor) {
+        // Try pulling fresh events from the server
+        int savedCursor = bridgeEventCursor;
+        if (sinceCursor != null) {
+            bridgeEventCursor = sinceCursor;
+        } else {
+            bridgeEventCursor = 0;
+        }
+
+        List<BridgeLogEntry> events = pullBridgeEvents();
+        int newCursor = bridgeEventCursor;
+
+        // Restore cursor
+        bridgeEventCursor = savedCursor;
+
+        // If the server returned nothing (game ended, controller cleaned up),
+        // fall back to cached events from earlier pulls or handleGameOver.
+        if (events.isEmpty() && !cachedBridgeEvents.isEmpty()) {
+            if (sinceCursor != null) {
+                events = cachedBridgeEvents.stream()
+                        .filter(e -> e.index() >= sinceCursor)
+                        .toList();
+            } else {
+                events = new ArrayList<>(cachedBridgeEvents);
+            }
+            newCursor = cachedBridgeEvents.isEmpty() ? 0
+                    : cachedBridgeEvents.get(cachedBridgeEvents.size() - 1).index() + 1;
+        }
+
+        // Filter by sinceTurn if specified
+        if (sinceTurn != null) {
+            events = events.stream()
+                    .filter(e -> e.turn() >= sinceTurn)
+                    .toList();
+        }
+
+        if (events.isEmpty()) {
+            var result = new HashMap<String, Object>();
+            result.put("history", "No game events recorded yet.");
+            result.put("cursor", newCursor);
+            result.put("event_count", 0);
+            return result;
+        }
+
+        // Group events by turn, then by phase+step
+        StringBuilder sb = new StringBuilder();
+        int currentTurn = -1;
+        String currentPhaseStep = null;
+
+        for (BridgeLogEntry entry : events) {
+            // Turn header
+            if (entry.turn() != currentTurn) {
+                currentTurn = entry.turn();
+                currentPhaseStep = null;
+                if (sb.length() > 0) sb.append("\n");
+                sb.append("Turn ").append(currentTurn);
+                if (entry.activePlayer() != null) {
+                    sb.append(" (").append(entry.activePlayer()).append(")");
+                }
+                sb.append(":\n");
+            }
+
+            // Phase/step sub-header
+            String phaseStep = formatPhaseStep(entry.phase(), entry.step());
+            if (phaseStep != null && !phaseStep.equals(currentPhaseStep)) {
+                currentPhaseStep = phaseStep;
+                sb.append("  ").append(phaseStep).append(":\n");
+            }
+
+            // Event description
+            String desc = formatBridgeEvent(entry);
+            if (desc != null) {
+                sb.append("    - ").append(desc).append("\n");
+            }
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("history", sb.toString());
+        result.put("cursor", newCursor);
+        result.put("event_count", events.size());
+        return result;
+    }
+
+    /** Format a phase+step pair into a human-readable header. */
+    private static String formatPhaseStep(String phase, String step) {
+        if (phase == null && step == null) return null;
+        if (step != null) {
+            return switch (step) {
+                case "UPKEEP" -> "Upkeep";
+                case "DRAW" -> "Draw";
+                case "PRECOMBAT_MAIN" -> "Precombat Main";
+                case "BEGIN_COMBAT" -> "Begin Combat";
+                case "DECLARE_ATTACKERS" -> "Declare Attackers";
+                case "DECLARE_BLOCKERS" -> "Declare Blockers";
+                case "FIRST_COMBAT_DAMAGE", "COMBAT_DAMAGE" -> "Combat Damage";
+                case "END_COMBAT" -> "End Combat";
+                case "POSTCOMBAT_MAIN" -> "Postcombat Main";
+                case "END_TURN" -> "End Step";
+                case "CLEANUP" -> "Cleanup";
+                default -> step.replace('_', ' ').toLowerCase();
+            };
+        }
+        return phase.replace('_', ' ').toLowerCase();
+    }
+
+    /** Format a single BridgeLogEntry into a human-readable action description. */
+    private static String formatBridgeEvent(BridgeLogEntry entry) {
+        String player = entry.player();
+        String card = entry.cardName();
+        String target = entry.targetName();
+        int amount = entry.amount();
+
+        return switch (entry.type()) {
+            case "SPELL_CAST" -> player + " cast " + (card != null ? card : "a spell")
+                    + (target != null ? " targeting " + target : "");
+            case "LAND_PLAYED" -> player + " played " + (card != null ? card : "a land");
+            case "ACTIVATED_ABILITY" -> player + " activated "
+                    + (card != null ? card + "'s ability" : "an ability")
+                    + (target != null ? " targeting " + target : "");
+            case "ATTACKER_DECLARED" -> player + " attacked with " + (card != null ? card : "a creature")
+                    + (target != null ? " (attacking " + target + ")" : "");
+            case "BLOCKER_DECLARED" -> player + " blocked"
+                    + (target != null ? " " + target : "")
+                    + (card != null ? " with " + card : "");
+            case "DESTROYED_PERMANENT" -> (card != null ? card : "A permanent") + " was destroyed"
+                    + (player != null ? " (" + player + ")" : "");
+            case "SACRIFICED_PERMANENT" -> player + " sacrificed " + (card != null ? card : "a permanent");
+            case "COUNTERED" -> (card != null ? card : "A spell") + " was countered"
+                    + (target != null ? " (targeting " + target + ")" : "");
+            case "GAINED_LIFE" -> player + " gained " + amount + " life";
+            case "LOST_LIFE" -> player + " lost " + amount + " life";
+            case "DREW_CARD" -> player + " drew"
+                    + (card != null ? " " + card : " a card");
+            case "BEGIN_TURN" -> null; // Handled by turn header
+            default -> entry.type() + (player != null ? " by " + player : "")
+                    + (card != null ? " (" + card + ")" : "");
+        };
     }
 
     /**
@@ -4939,6 +5115,28 @@ public class BridgeCallbackHandler {
 
     private void handleGameOver(UUID gameId, ClientCallback callback) {
         GameClientMessage message = (GameClientMessage) callback.getData();
+
+        // Pull bridge events one last time before cleanup — after this,
+        // the server GameController may be gone and the RPC will return empty.
+        UUID playerId = activeGames.get(gameId);
+        if (playerId != null) {
+            try {
+                int savedCursor = bridgeEventCursor;
+                bridgeEventCursor = 0; // Pull everything from the start
+                List<BridgeLogEntry> events = session.getBridgeEvents(gameId, playerId, bridgeEventCursor);
+                if (events != null && !events.isEmpty()) {
+                    // Replace cache entirely — we pulled from cursor 0
+                    cachedBridgeEvents.clear();
+                    cachedBridgeEvents.addAll(events);
+                    bridgeEventCursor = events.get(events.size() - 1).index() + 1;
+                } else {
+                    bridgeEventCursor = savedCursor;
+                }
+            } catch (Exception e) {
+                logger.warn("[" + client.getUsername() + "] Failed to pull final bridge events on game over", e);
+            }
+        }
+
         activeGames.remove(gameId);
         UUID chatId = gameChatIds.remove(gameId);
         if (chatId != null) {

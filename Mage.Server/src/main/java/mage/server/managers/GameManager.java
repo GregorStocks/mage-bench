@@ -46,6 +46,8 @@ public interface GameManager {
 
     GameView getGameView(UUID gameId, UUID playerId);
 
+    java.util.List<mage.game.BridgeLogEntry> getBridgeEvents(UUID gameId, UUID playerId, int sinceCursor);
+
     int getNumberActiveGames();
 
     Map<UUID, GameController> getGameController();

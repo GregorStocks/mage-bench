@@ -44,6 +44,8 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root):
             # T2: Declare attackers — attack with Savannah Lions.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"attackers": ["all"]}},
+            # Mid-game history check: should show land plays, casts, and attack.
+            {"name": "get_game_history", "arguments": {}},
             # Pass through combat (P2 blocks) to postcombat main.
             {"name": "pass_priority", "arguments": {"until": "postcombat_main"}},
             # Capture final state: both Lions should be in graveyards.

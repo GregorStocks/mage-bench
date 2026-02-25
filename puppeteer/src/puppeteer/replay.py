@@ -168,6 +168,39 @@ async def run_replay(
                 except (json.JSONDecodeError, TypeError):
                     pass
 
+            # --- Call get_game_history before prompt capture ---
+            _log("[replay] Calling get_game_history...")
+            history_result = await execute_tool(session, "get_game_history", {})
+            _log(f"[replay] Game history result length: {len(history_result)}")
+            if game_log:
+                game_log.emit("tool_call", name="get_game_history", arguments={}, result=history_result)
+
+            # Add to conversation history so it appears in the golden prompt
+            history_call_id = f"call_{len(script) + 1}"
+            history.append(
+                {
+                    "role": "assistant",
+                    "content": None,
+                    "tool_calls": [
+                        {
+                            "id": history_call_id,
+                            "type": "function",
+                            "function": {
+                                "name": "get_game_history",
+                                "arguments": json.dumps({}),
+                            },
+                        }
+                    ],
+                }
+            )
+            history.append(
+                {
+                    "role": "tool",
+                    "tool_call_id": history_call_id,
+                    "content": history_result,
+                }
+            )
+
             # --- Capture prompt ---
             _log("[replay] Capturing prompt (what the LLM would see)...")
             prompt = _render_context(history, system_prompt, state_summary="")
