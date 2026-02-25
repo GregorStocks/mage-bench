@@ -1,10 +1,10 @@
 {
-  "title": "Pilot should have a structured game log",
-  "description": "The pilot currently gets raw XMage text via get_game_log — an unstructured string of game actions mixed with noise (draw step messages, zone move notifications, etc.).\n\nThe blunder annotator constructs a much better view: per-turn action history with noise filtered out (_actions_by_turn in blunder_analysis.py). The pilot should have access to something similarly structured, either by enhancing get_game_log to return structured per-turn data with noise filtering, or by adding a new MCP tool.\n\nA structured game log would help pilots:\n- Track what opponents have done (spells cast, attacks made, cards played)\n- Understand game progression without parsing raw XMage output\n- Make better strategic decisions based on opponent behavior patterns\n- Know whether a land was played this turn, what spells were countered, etc.\n\nThe blunder annotator's _actions_by_turn + _ACTION_NOISE regex is a good starting point for what the structured format should look like.",
+  "title": "Pilot should have a structured game log built from GameView diffs",
+  "description": "The pilot currently gets raw XMage text via get_game_log. An initial attempt to add structure (PR #556) wrapped XMage's chat messages in a parallel list, but this was fundamentally wrong: XMage drops chat messages under contention (50ms lock timeout in Session.fireCallback), making the stream nondeterministic. It also gave us no control over content — we were just wrapping XMage's verbose text.\n\nThe correct approach: diff consecutive GameView snapshots from GAME_UPDATE callbacks. The bridge already receives full GameView objects on every state change. By comparing prev vs curr GameView, we can reliably detect zone transitions (cards entering/leaving battlefield, graveyard, stack), life total changes, combat, permanent state changes, etc. This gives us a complete, reliable, token-efficient structured history with full semantic control.\n\nSee doc/game-history-design.md for detailed design notes including GameView fields, diffing strategy, and open questions.",
   "status": "open",
   "priority": 1,
   "type": "task",
   "labels": ["bridge", "mcp"],
   "created_at": "2026-02-19T14:30:00.000000-08:00",
-  "updated_at": "2026-02-19T14:30:00.000000-08:00"
+  "updated_at": "2026-02-24T17:00:00.000000-08:00"
 }
