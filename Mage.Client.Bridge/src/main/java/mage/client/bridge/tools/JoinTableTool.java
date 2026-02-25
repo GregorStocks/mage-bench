@@ -1,8 +1,8 @@
-package mage.client.headless.tools;
+package mage.client.bridge.tools;
 
 import java.util.Map;
 
-import mage.client.headless.BridgeCallbackHandler;
+import mage.client.bridge.BridgeCallbackHandler;
 
 /**
  * MCP tool for joining the next available game table in keepAlive (multi-game) mode.

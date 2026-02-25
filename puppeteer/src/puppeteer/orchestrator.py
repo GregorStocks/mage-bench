@@ -45,7 +45,7 @@ def _wait_for_spectator_table(log_path: Path, proc: subprocess.Popen, timeout: i
 
     The streaming/GUI client logs a line containing ``AI Puppeteer: waiting
     for … bridge client(s)`` once it has created the table.  We poll the
-    log file for that marker so headless clients aren't started before the
+    log file for that marker so bridge clients aren't started before the
     table exists.
     """
     deadline = time.monotonic() + timeout
@@ -64,7 +64,7 @@ def _wait_for_game_start(log_path: Path, proc: subprocess.Popen, timeout: int = 
     """Block until the spectator log indicates all players have joined and the game started.
 
     Used in parallel mode to ensure a game's table has left the WAITING state
-    before starting the next game's spectator.  This prevents headless clients
+    before starting the next game's spectator.  This prevents bridge clients
     from joining the wrong table.
     """
     deadline = time.monotonic() + timeout
@@ -264,7 +264,7 @@ def _print_game_summary(game_dir: Path) -> None:
     print("GAME SUMMARY")
     print("=" * 60)
 
-    # Scan headless client logs for "Game over:" messages
+    # Scan bridge client logs for "Game over:" messages
     game_over_found = False
     for log_file in sorted(game_dir.glob("*_pilot.log")) + sorted(game_dir.glob("*_mcp.log")):
         try:
@@ -278,7 +278,7 @@ def _print_game_summary(game_dir: Path) -> None:
             pass
 
     # Fall back to game_events.jsonl (written by the streaming spectator).
-    # CPU-only games have no headless client logs, but the spectator still
+    # CPU-only games have no bridge client logs, but the spectator still
     # records a game_over event.
     if not game_over_found:
         events_file = game_dir / "game_events.jsonl"
@@ -427,7 +427,7 @@ def parse_args() -> Config:
 def compile_project(project_root: Path, streaming: bool = False) -> bool:
     """Compile the project using Maven."""
     print("Compiling project...")
-    modules = "Mage.Server,Mage.Client,Mage.Client.Headless"
+    modules = "Mage.Server,Mage.Client,Mage.Client.Bridge"
     if streaming:
         modules += ",Mage.Client.Streaming"
 
@@ -471,7 +471,7 @@ def start_server(
     """Start the XMage server."""
     jvm_args = " ".join(
         [
-            config.jvm_headless_opts,
+            config.jvm_bridge_opts,
             f"-Dxmage.config.path={config_path}",
         ]
     )
@@ -554,12 +554,12 @@ def start_potato_client(
     log_path: Path,
     personality: str = "potato",
 ) -> subprocess.Popen:
-    """Start an auto-responder headless client (potato/staller)."""
+    """Start an auto-responder bridge client (potato/staller)."""
     jvm_args_list = [
-        config.jvm_headless_opts,
-        f"-Dxmage.headless.server={config.server}",
-        f"-Dxmage.headless.port={config.port}",
-        f"-Dxmage.headless.personality={personality}",
+        config.jvm_bridge_opts,
+        f"-Dxmage.bridge.server={config.server}",
+        f"-Dxmage.bridge.port={config.port}",
+        f"-Dxmage.bridge.personality={personality}",
     ]
 
     jvm_args = " ".join(jvm_args_list)
@@ -567,15 +567,15 @@ def start_potato_client(
 
     # Pass values that may contain spaces as Maven CLI args (not in MAVEN_OPTS)
     # because MAVEN_OPTS gets shell-split by the mvn script.
-    mvn_args = ["mvn", "-q", f"-Dxmage.headless.username={name}"]
+    mvn_args = ["mvn", "-q", f"-Dxmage.bridge.username={name}"]
     if deck_path:
         resolved_path = project_root / deck_path
-        mvn_args.append(f"-Dxmage.headless.deck={resolved_path}")
+        mvn_args.append(f"-Dxmage.bridge.deck={resolved_path}")
     mvn_args.append("exec:java")
 
     return pm.start_process(
         args=mvn_args,
-        cwd=project_root / "Mage.Client.Headless",
+        cwd=project_root / "Mage.Client.Bridge",
         env=env,
         log_file=log_path,
     )
@@ -1075,7 +1075,7 @@ def _setup_game(
 
     For parallel runs (num_games > 1), each game gets a fresh Config with
     independent random resolution (different decks, presets, personalities).
-    Games are started sequentially (staggered) so headless clients join the
+    Games are started sequentially (staggered) so bridge clients join the
     correct table.
     """
     batch = num_games > 1
@@ -1180,8 +1180,8 @@ def _setup_game(
         spectator_proc=spectator_proc,
     )
 
-    # Count headless clients
-    headless_count = (
+    # Count bridge clients
+    bridge_count = (
         len(game_config.sleepwalker_players)
         + len(game_config.pilot_players)
         + len(game_config.replay_players)
@@ -1190,10 +1190,10 @@ def _setup_game(
     )
 
     try:
-        if headless_count > 0:
+        if bridge_count > 0:
             _wait_for_spectator_table(spectator_log, spectator_proc, timeout=300)
 
-            # Start headless clients
+            # Start bridge clients
             for player in game_config.sleepwalker_players:
                 log_path = game_dir / f"{player.name}_mcp.log"
                 print(f"{game_label}Sleepwalker ({player.name}) log: {log_path}")
@@ -1227,7 +1227,7 @@ def _setup_game(
 
             # In parallel mode, wait for the game to actually start (table leaves
             # WAITING state) before returning.  This prevents the next game's
-            # headless clients from joining this table by mistake.
+            # bridge clients from joining this table by mistake.
             if batch:
                 _wait_for_game_start(spectator_log, spectator_proc)
     except (TimeoutError, RuntimeError):

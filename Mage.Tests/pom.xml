@@ -55,7 +55,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>mage-client-headless</artifactId>
+            <artifactId>mage-client-bridge</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
