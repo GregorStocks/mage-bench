@@ -772,8 +772,12 @@
 
       card.appendChild(header);
 
-      // Counters
-      var counters = (player.counters || []).filter(function (c) { return c && c.count > 0; });
+      // Counters — v2 server format uses {name: count} dict, live/spectator uses [{name, count}] array
+      var rawCounters = player.counters || [];
+      if (!Array.isArray(rawCounters)) {
+        rawCounters = Object.keys(rawCounters).map(function (k) { return { name: k, count: rawCounters[k] }; });
+      }
+      var counters = rawCounters.filter(function (c) { return c && c.count > 0; });
       if (counters.length > 0) {
         var countersEl = document.createElement("div");
         countersEl.className = "player-counters";
