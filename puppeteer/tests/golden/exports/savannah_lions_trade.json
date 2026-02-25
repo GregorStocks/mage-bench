@@ -168,12 +168,12 @@
     }
   ],
   "cardImages": {},
-  "deckType": "",
+  "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Game ended",
     "seq": 56
   },
-  "gameType": "",
+  "gameType": "Two Player Duel",
   "llmEvents": [
     {
       "args": {
@@ -1825,7 +1825,42 @@
     }
   ],
   "llmTrace": [],
-  "players": [],
+  "players": [
+    {
+      "deckName": "savannah_lions",
+      "name": "TestPlayer",
+      "toolCallsFailed": 0,
+      "toolCallsOk": 13,
+      "tools": [
+        "get_game_log",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "type": "replay"
+    },
+    {
+      "deckName": "savannah_lions",
+      "name": "Opponent",
+      "toolCallsFailed": 1,
+      "toolCallsOk": 9,
+      "tools": [
+        "get_game_log",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "type": "replay"
+    }
+  ],
   "snapshots": [
     {
       "active_player": null,

@@ -142,12 +142,12 @@
     }
   ],
   "cardImages": {},
-  "deckType": "",
+  "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Game ended",
     "seq": 42
   },
-  "gameType": "",
+  "gameType": "Two Player Duel",
   "llmEvents": [
     {
       "args": {
@@ -1515,7 +1515,30 @@
     }
   ],
   "llmTrace": [],
-  "players": [],
+  "players": [
+    {
+      "deckName": "bolt_and_burn",
+      "name": "TestPlayer",
+      "toolCallsFailed": 2,
+      "toolCallsOk": 18,
+      "tools": [
+        "get_game_log",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "type": "replay"
+    },
+    {
+      "deckName": "filler_opponent",
+      "name": "Opponent",
+      "type": "potato"
+    }
+  ],
   "snapshots": [
     {
       "active_player": null,

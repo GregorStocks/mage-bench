@@ -20,6 +20,7 @@ import sys
 import time
 from pathlib import Path
 
+from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.process_manager import kill_tree
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -132,7 +133,10 @@ def _run_replay_on_bridge(
     from puppeteer.config import load_prompts
     from puppeteer.pilot import _render_context, build_initial_message
 
-    prompts = load_prompts(None)
+    # Use a config path anchored to the repo root so prompts.json resolves
+    # regardless of the pytest working directory.
+    config_anchor = REPO_ROOT / "puppeteer" / "prompts.json"
+    prompts = load_prompts(config_anchor)
     assert "default" in prompts, "prompts.json must contain a 'default' key"
     system_prompt = prompts["default"]
 
@@ -336,6 +340,30 @@ def run_golden_scenario(
     )
 
 
+def _write_game_meta(
+    game_dir: Path,
+    game_type: str,
+    deck_type: str,
+    player_a_name: str,
+    player_a_type: str,
+    deck_a: str,
+    player_b_name: str,
+    player_b_type: str,
+    deck_b: str,
+) -> None:
+    """Write game_meta.json so build_export finds harness_epoch and player info."""
+    meta = {
+        "harness_epoch": HARNESS_EPOCH,
+        "game_type": game_type,
+        "deck_type": deck_type,
+        "players": [
+            {"type": player_a_type, "name": player_a_name, "deck_path": deck_a},
+            {"type": player_b_type, "name": player_b_name, "deck_path": deck_b},
+        ],
+    }
+    (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
+
+
 def _start_spectator(
     server: str,
     port: int,
@@ -433,6 +461,17 @@ def _run_golden_persistent(
 ) -> list[dict]:
     """Run a golden scenario using session-scoped bridge and potato JVMs."""
     game_dir.mkdir(parents=True, exist_ok=True)
+    _write_game_meta(
+        game_dir,
+        game_type,
+        deck_type,
+        player_a_name,
+        "replay",
+        deck_a,
+        player_b_name,
+        "potato",
+        deck_b,
+    )
 
     procs: list[subprocess.Popen] = []
     log_fhs: list = []
@@ -497,6 +536,17 @@ def _run_golden_subprocess(
 ) -> list[dict]:
     """Run a golden scenario by spawning fresh subprocess per test (original approach)."""
     game_dir.mkdir(parents=True, exist_ok=True)
+    _write_game_meta(
+        game_dir,
+        game_type,
+        deck_type,
+        player_a_name,
+        "replay",
+        deck_a,
+        player_b_name,
+        "potato",
+        deck_b,
+    )
 
     # Write script file
     script_path = game_dir / "script.json"
@@ -643,6 +693,18 @@ def run_golden_scenario_two_replay(
     ``golden_name`` as the file identifier.
     """
     game_dir.mkdir(parents=True, exist_ok=True)
+
+    # Write game metadata so build_export finds harness_epoch and player info
+    meta = {
+        "harness_epoch": HARNESS_EPOCH,
+        "game_type": game_type,
+        "deck_type": deck_type,
+        "players": [
+            {"type": "replay", "name": player_a_name, "deck_path": deck_a},
+            {"type": "replay", "name": player_b_name, "deck_path": deck_b},
+        ],
+    }
+    (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
 
     # Write scripts
     script_a_path = game_dir / "script_a.json"
@@ -916,6 +978,11 @@ def _strip_volatile(data: dict) -> None:
     # Top-level volatile fields
     data.pop("timestamp", None)
     data.pop("id", None)
+    data.pop("harnessEpoch", None)
+
+    # Strip volatile fields from player summaries
+    for player in data.get("players", []):
+        player.pop("thinkingTimeSecs", None)
 
     # Strip ts from actions
     for action in data.get("actions", []):

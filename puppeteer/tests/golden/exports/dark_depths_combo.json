@@ -348,12 +348,12 @@
     }
   ],
   "cardImages": {},
-  "deckType": "",
+  "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Game ended",
     "seq": 109
   },
-  "gameType": "",
+  "gameType": "Two Player Duel",
   "llmEvents": [
     {
       "args": {
@@ -2789,7 +2789,32 @@
     }
   ],
   "llmTrace": [],
-  "players": [],
+  "players": [
+    {
+      "deckName": "dark_depths_combo",
+      "name": "TestPlayer",
+      "placement": 1,
+      "toolCallsFailed": 0,
+      "toolCallsOk": 26,
+      "tools": [
+        "get_game_log",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "type": "replay"
+    },
+    {
+      "deckName": "filler_opponent",
+      "name": "Opponent",
+      "placement": 2,
+      "type": "potato"
+    }
+  ],
   "snapshots": [
     {
       "active_player": null,
@@ -14664,5 +14689,5 @@
   ],
   "totalTurns": 9,
   "version": 2,
-  "winner": "Opponent"
+  "winner": "TestPlayer"
 }

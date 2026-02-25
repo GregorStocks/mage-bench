@@ -244,12 +244,12 @@
     }
   ],
   "cardImages": {},
-  "deckType": "",
+  "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Game ended",
     "seq": 79
   },
-  "gameType": "",
+  "gameType": "Two Player Duel",
   "llmEvents": [
     {
       "args": {
@@ -3524,7 +3524,42 @@
     }
   ],
   "llmTrace": [],
-  "players": [],
+  "players": [
+    {
+      "deckName": "mana_drain_fact_or_fiction",
+      "name": "TestPlayer",
+      "toolCallsFailed": 0,
+      "toolCallsOk": 18,
+      "tools": [
+        "get_game_log",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "type": "replay"
+    },
+    {
+      "deckName": "plains_lions_opponent",
+      "name": "Opponent",
+      "toolCallsFailed": 0,
+      "toolCallsOk": 16,
+      "tools": [
+        "get_game_log",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "type": "replay"
+    }
+  ],
   "snapshots": [
     {
       "active_player": null,

@@ -20,12 +20,12 @@
     }
   ],
   "cardImages": {},
-  "deckType": "",
+  "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Game ended",
     "seq": 3
   },
-  "gameType": "",
+  "gameType": "Two Player Duel",
   "llmEvents": [
     {
       "args": {},
@@ -132,7 +132,30 @@
     }
   ],
   "llmTrace": [],
-  "players": [],
+  "players": [
+    {
+      "deckName": "Red Stompy",
+      "name": "TestPlayer",
+      "toolCallsFailed": 0,
+      "toolCallsOk": 2,
+      "tools": [
+        "get_game_log",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "type": "replay"
+    },
+    {
+      "deckName": "Goblins",
+      "name": "Opponent",
+      "type": "potato"
+    }
+  ],
   "snapshots": [],
   "totalTurns": 0,
   "version": 2,
