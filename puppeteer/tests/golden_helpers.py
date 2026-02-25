@@ -633,6 +633,10 @@ def _strip_volatile(data: dict) -> None:
     data.pop("id", None)
     data.pop("harnessEpoch", None)
 
+    # Strip volatile fields from player summaries
+    for player in data.get("players", []):
+        player.pop("thinkingTimeSecs", None)
+
     # Strip ts from actions
     for action in data.get("actions", []):
         action.pop("ts", None)
