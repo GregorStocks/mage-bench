@@ -54,7 +54,7 @@ def xmage_server(project_root, tmp_path_factory):
         pytest.skip("Golden integration tests: run with 'make test-golden'")
 
     # Compile all needed modules
-    assert compile_project(project_root, streaming=True), "Compilation failed"
+    assert compile_project(project_root, observer=True), "Compilation failed"
 
     # Find available port
     port_res = find_available_port("localhost", 17171)

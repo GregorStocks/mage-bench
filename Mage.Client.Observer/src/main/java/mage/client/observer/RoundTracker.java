@@ -1,4 +1,4 @@
-package mage.client.streaming;
+package mage.client.observer;
 
 import mage.view.GameView;
 import mage.view.PlayerView;

@@ -21,9 +21,9 @@ Mage.Client/plugins/*.jar
 # TODO: must save serverlist.txt to temporary files, not root folder
 Mage.Client/serverlist.txt
 
-# Mage.Client.Streaming
-Mage.Client.Streaming/plugins/images
-Mage.Client.Streaming/plugins/plugin.data
+# Mage.Client.Observer
+Mage.Client.Observer/plugins/images
+Mage.Client.Observer/plugins/plugin.data
 
 # Mage.Server
 Mage.Server/config/init.txt

@@ -18,7 +18,7 @@ Machine-readable JSONL files for post-game analysis. Each line is a compact JSON
 | File | Source | Contents |
 |---|---|---|
 | `game_meta.json` | `orchestrator.py` at game start | Decklists, models, system prompts, format, git info |
-| `game_events.jsonl` | Spectator (`StreamingGamePanel`) | Game actions, player chat, state snapshots (all hands visible), game over |
+| `game_events.jsonl` | Spectator (`ObserverGamePanel`) | Game actions, player chat, state snapshots (all hands visible), game over |
 | `{name}_llm.jsonl` | `pilot.py` per player | LLM reasoning, tool calls + results, costs, errors, stalls, context trims |
 | `{name}_llm_trace.jsonl` | `pilot.py` per player | Full LLM request/response pairs (messages array + complete API response) |
 | `{name}_bridge.jsonl` | `BridgeCallbackHandler` per player | Raw callback dump — every callback the bridge sees (data hoarding) |

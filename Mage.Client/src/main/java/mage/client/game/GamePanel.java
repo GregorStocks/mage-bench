@@ -3210,7 +3210,7 @@ public class GamePanel extends javax.swing.JPanel {
         }
     }
 
-    // Protected accessors for subclasses (e.g., StreamingGamePanel)
+    // Protected accessors for subclasses (e.g., ObserverGamePanel)
 
     protected BigCard getBigCard() {
         return bigCard;

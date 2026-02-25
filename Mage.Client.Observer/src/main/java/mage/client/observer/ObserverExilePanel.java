@@ -1,4 +1,4 @@
-package mage.client.streaming;
+package mage.client.observer;
 
 import java.awt.*;
 import java.util.*;
@@ -19,10 +19,11 @@ import mage.view.CardView;
 import mage.view.CardsView;
 
 /**
- * Streaming-mode graveyard panel with wider cards and a zone label.
- * Fixed size — cards compress their stack offset to always fit without scrolling.
+ * observer-mode exile panel with wider cards, a zone label, and a
+ * semi-transparent reddish tint over cards to visually distinguish
+ * exile from graveyard.  Fixed size — cards compress to always fit.
  */
-public class StreamingGraveyardPanel extends JPanel {
+public class ObserverExilePanel extends JPanel {
 
     // Instance fields scaled from cardWidth
     private final int cardWidth;
@@ -35,25 +36,32 @@ public class StreamingGraveyardPanel extends JPanel {
     private final int panelWidth;
     private final int panelHeight;
 
+    // Red tint painted over exile cards for visual differentiation
+    private static final Color EXILE_TINT = new Color(120, 30, 30, 40);
+
     private static final Border EMPTY_BORDER = new EmptyBorder(0, 0, 0, 0);
-    private static final Color LABEL_COLOR = new Color(140, 140, 180);
+    private static final Color LABEL_COLOR = new Color(200, 130, 130);
 
     private final Map<UUID, MageCard> cards = new LinkedHashMap<>();
     private JPanel cardArea;
     private BigCard bigCard;
     private UUID gameId;
 
-    public StreamingGraveyardPanel() {
+    public ObserverExilePanel() {
         this(80);
     }
 
-    public StreamingGraveyardPanel(int cardWidth) {
+    public ObserverExilePanel(int cardWidth) {
+        this(cardWidth, 2);
+    }
+
+    public ObserverExilePanel(int cardWidth, int contentHeightMultiplier) {
         this.cardWidth = cardWidth;
         this.cardHeight = (int) (cardWidth * GUISizeHelper.CARD_WIDTH_TO_HEIGHT_COEF);
         double scale = cardWidth / 80.0;
         this.maxStackOffset = Math.max(5, (int) (24 * scale));
         this.minStackOffset = Math.max(3, (int) (5 * scale));
-        this.contentHeight = cardHeight * 2;
+        this.contentHeight = cardHeight * contentHeightMultiplier;
         this.margin = Math.max(3, (int) (5 * scale));
         this.labelHeight = Math.max(14, (int) (14 * scale));
         this.panelWidth = cardWidth + 2 * margin;
@@ -62,26 +70,37 @@ public class StreamingGraveyardPanel extends JPanel {
     }
 
     private void initComponents() {
-        cardArea = new JPanel();
+        // Card area with a red tint overlay painted after children
+        cardArea = new JPanel() {
+            @Override
+            protected void paintChildren(Graphics g) {
+                super.paintChildren(g);
+                // Paint semi-transparent red wash over cards
+                if (cards.size() > 0) {
+                    g.setColor(EXILE_TINT);
+                    g.fillRect(0, 0, getWidth(), getHeight());
+                }
+            }
+        };
         cardArea.setLayout(null); // Absolute positioning for stacked cards
         cardArea.setBackground(new Color(0, 0, 0, 0));
         cardArea.setOpaque(false);
 
-        var labelFont = new Font(Font.SANS_SERIF, Font.BOLD, Math.max(10, (int) (10 * cardWidth / 80.0)));
-        var label = new JLabel("GY");
+        Font labelFont = new Font(Font.SANS_SERIF, Font.BOLD, Math.max(10, (int) (10 * cardWidth / 80.0)));
+        JLabel label = new JLabel("EXILE");
         label.setFont(labelFont);
         label.setForeground(LABEL_COLOR);
         label.setPreferredSize(new Dimension(0, labelHeight));
         label.setBorder(new EmptyBorder(1, margin, 0, 0));
 
         setOpaque(true);
-        setBackground(new Color(50, 50, 80)); // Dark blue-gray
+        setBackground(new Color(90, 40, 40)); // More distinctly reddish than upstream
         setBorder(EMPTY_BORDER);
         setLayout(new BorderLayout());
         add(label, BorderLayout.NORTH);
         add(cardArea, BorderLayout.CENTER);
 
-        var size = new Dimension(panelWidth, panelHeight);
+        Dimension size = new Dimension(panelWidth, panelHeight);
         setPreferredSize(size);
         setMinimumSize(size);
         setMaximumSize(size);
@@ -96,8 +115,8 @@ public class StreamingGraveyardPanel extends JPanel {
         this.bigCard = bigCard;
         this.gameId = gameId;
 
-        // Remove cards no longer in graveyard
-        var toRemove = new HashSet<UUID>();
+        // Remove cards no longer in exile
+        Set<UUID> toRemove = new HashSet<>();
         for (UUID id : cards.keySet()) {
             if (!cardsView.containsKey(id)) {
                 toRemove.add(id);
@@ -125,7 +144,7 @@ public class StreamingGraveyardPanel extends JPanel {
     }
 
     private void addCard(CardView cardView) {
-        var cardDimension = new Dimension(cardWidth, cardHeight);
+        Dimension cardDimension = new Dimension(cardWidth, cardHeight);
         MageCard mageCard = Plugins.instance.getMageCard(
                 cardView,
                 bigCard,
@@ -138,7 +157,7 @@ public class StreamingGraveyardPanel extends JPanel {
                 true
         );
         mageCard.setCardContainerRef(cardArea);
-        mageCard.setZone(Zone.GRAVEYARD);
+        mageCard.setZone(Zone.EXILED);
         mageCard.setCardBounds(0, 0, cardWidth, cardHeight);
         mageCard.update(cardView);
 
@@ -151,7 +170,7 @@ public class StreamingGraveyardPanel extends JPanel {
             return;
         }
 
-        var cardList = new ArrayList<>(cards.values());
+        List<MageCard> cardList = new ArrayList<>(cards.values());
         int n = cardList.size();
 
         // Dynamically compute stack offset so all cards fit in contentHeight
