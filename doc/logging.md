@@ -76,7 +76,7 @@ jq 'select(.type=="game_end") | {player, total_cost_usd}' game.jsonl
 Errors are written at the source, not pattern-matched after the fact:
 
 - **Python side**: `_log_error(game_dir, username, msg)` in `pilot.py` appends to `{name}_errors.log` and prints to stdout.
-- **Java side**: `BridgeCallbackHandler.logError(msg)` appends to the same file. Triggered when `chooseAction()` returns `success: false` or `McpServer` catches an unhandled exception. The file path is passed via `-Dxmage.headless.errorlog=...`.
+- **Java side**: `BridgeCallbackHandler.logError(msg)` appends to the same file. Triggered when `chooseAction()` returns `success: false` or `McpServer` catches an unhandled exception. The file path is passed via `-Dxmage.bridge.errorlog=...`.
 
 Both Python and Java write to the same per-player error file, so errors appear in chronological order regardless of layer.
 

@@ -163,9 +163,9 @@ async def run_replay(
     # Build JVM args for the bridge (same as sleepwalker.py)
     jvm_args_list = [
         "--add-opens=java.base/java.io=ALL-UNNAMED",
-        f"-Dxmage.headless.server={server}",
-        f"-Dxmage.headless.port={port}",
-        "-Dxmage.headless.personality=sleepwalker",
+        f"-Dxmage.bridge.server={server}",
+        f"-Dxmage.bridge.port={port}",
+        "-Dxmage.bridge.personality=sleepwalker",
     ]
     if sys.platform == "darwin":
         jvm_args_list.append("-Dapple.awt.UIElement=true")
@@ -174,17 +174,17 @@ async def run_replay(
     env = os.environ.copy()
     env["MAVEN_OPTS"] = jvm_args
 
-    mvn_args = ["-q", f"-Dxmage.headless.username={username}"]
+    mvn_args = ["-q", f"-Dxmage.bridge.username={username}"]
     if deck_path:
-        mvn_args.append(f"-Dxmage.headless.deck={deck_path}")
+        mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
     if game_dir:
-        mvn_args.append(f"-Dxmage.headless.errorlog={game_dir / f'{username}_errors.log'}")
+        mvn_args.append(f"-Dxmage.bridge.errorlog={game_dir / f'{username}_errors.log'}")
     mvn_args.append("exec:java")
 
     server_params = StdioServerParameters(
         command="mvn",
         args=mvn_args,
-        cwd=str(project_root / "Mage.Client.Headless"),
+        cwd=str(project_root / "Mage.Client.Bridge"),
         env=env,
     )
 

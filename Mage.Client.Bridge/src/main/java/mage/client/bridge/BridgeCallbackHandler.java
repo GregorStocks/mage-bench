@@ -1,4 +1,4 @@
-package mage.client.headless;
+package mage.client.bridge;
 
 import mage.cards.decks.DeckCardInfo;
 import mage.cards.decks.DeckCardLists;
@@ -63,7 +63,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Callback handler for the bridge headless client.
+ * Callback handler for the bridge client.
  * Supports multiple modes:
  * - potato mode (default): Always passes priority and chooses the first available option
  * - staller mode: Same decisions as potato, but intentionally delayed and kept alive between games
@@ -185,7 +185,7 @@ public class BridgeCallbackHandler {
     private volatile CountDownLatch gameStartLatch = new CountDownLatch(1);
     private volatile CountDownLatch gameFinishedLatch = new CountDownLatch(1);
 
-    // Join handler: provided by HeadlessClient so JoinTableTool can trigger table joining
+    // Join handler: provided by BridgeClient so JoinTableTool can trigger table joining
     @FunctionalInterface
     public interface JoinHandler {
         UUID joinTable(String deckPath) throws Exception;
@@ -430,7 +430,7 @@ public class BridgeCallbackHandler {
         JoinHandler jh = this.joinHandler;
         assert jh != null : "joinHandler not set — keepAlive mode requires a JoinHandler";
         BridgeCallbackHandler fresh = createFreshForNextGame();
-        mage.cards.decks.DeckCardLists deck = HeadlessClient.loadDeck(deckPath);
+        mage.cards.decks.DeckCardLists deck = BridgeClient.loadDeck(deckPath);
         fresh.setDeckList(deck);
         UUID tableId = jh.joinTable(deckPath);
         assert tableId != null : "Failed to join any table within timeout";

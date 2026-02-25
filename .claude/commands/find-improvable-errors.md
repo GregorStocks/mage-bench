@@ -66,7 +66,7 @@ For each improvable message, edit the error string in `BridgeCallbackHandler.jav
 
 After editing, regenerate the tools JSON:
 ```bash
-mvn -pl Mage.Client.Headless -am compile -q
+mvn -pl Mage.Client.Bridge -am compile -q
 make mcp-tools
 ```
 
