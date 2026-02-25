@@ -12,6 +12,7 @@ To update: make update-golden
 
 from __future__ import annotations
 
+import asyncio
 import io
 import json
 import os
@@ -132,14 +133,14 @@ def _run_replay_on_bridge(
 ) -> list[dict]:
     """Execute a replay script on an existing BridgeSession and return the captured prompt.
 
-    This replicates the core logic of ``puppeteer.replay.run_replay()`` but operates
-    on a persistent bridge session instead of spawning a fresh JVM.
+    Delegates to ``execute_replay_script`` from ``puppeteer.replay`` — the same
+    core that the subprocess path uses — so script execution logic lives in one place.
 
     Writes ``{player}_llm.jsonl`` so ``build_export`` can produce a full export.
     """
     from puppeteer.config import load_prompts
     from puppeteer.game_log import GameLogWriter
-    from puppeteer.pilot import _render_context, build_initial_message
+    from puppeteer.replay import execute_replay_script
 
     # Use a config path anchored to the repo root so prompts.json resolves
     # regardless of the pytest working directory.
@@ -152,63 +153,14 @@ def _run_replay_on_bridge(
     # list matches what a non-keepAlive bridge would report.
     tool_names = [t for t in bridge.list_tools() if t != "join_table"]
 
-    history: list[dict] = []
-
     with GameLogWriter(game_dir, player_name) as game_log:
         game_log.emit("game_start", available_tools=tool_names)
 
-        for i, call in enumerate(script):
-            name = call["name"]
-            arguments = call.get("arguments", {})
-            result_text = bridge.call_tool(name, arguments)
+        # Wrap sync bridge.call_tool as async for execute_replay_script
+        async def async_call_tool(name: str, arguments: dict) -> str:
+            return bridge.call_tool(name, arguments)
 
-            game_log.emit("tool_call", name=name, arguments=arguments, result=result_text)
-
-            # Build initial user message from first pass_priority result
-            if i == 0 and name == "pass_priority":
-                try:
-                    result_data = json.loads(result_text)
-                    initial_message = build_initial_message(result_data)
-                except (json.JSONDecodeError, TypeError):
-                    initial_message = "The game is starting. Call pass_priority to get your first decision."
-                history.append({"role": "user", "content": initial_message})
-
-            # Add assistant tool call + tool result to history
-            tool_call_id = f"call_{i + 1}"
-            history.append(
-                {
-                    "role": "assistant",
-                    "content": None,
-                    "tool_calls": [
-                        {
-                            "id": tool_call_id,
-                            "type": "function",
-                            "function": {
-                                "name": name,
-                                "arguments": json.dumps(arguments),
-                            },
-                        }
-                    ],
-                }
-            )
-            history.append(
-                {
-                    "role": "tool",
-                    "tool_call_id": tool_call_id,
-                    "content": result_text,
-                }
-            )
-
-            # Check for game over
-            try:
-                result_data = json.loads(result_text)
-                if result_data.get("game_over") or result_data.get("player_dead"):
-                    break
-            except (json.JSONDecodeError, TypeError):
-                pass
-
-        # Capture prompt (what the LLM would see)
-        prompt = _render_context(history, system_prompt, state_summary="")
+        prompt = asyncio.run(execute_replay_script(async_call_tool, script, system_prompt, game_log))
 
         # Write prompt to file for debugging / golden comparison
         prompt_path = game_dir / f"{player_name}_golden_prompt.json"
