@@ -1,0 +1,10 @@
+{
+  "title": "Extend MDFC golden test to play through suspend resolution",
+  "description": "The mdfc_land_and_suspend golden test currently suspends Crashing Footfalls and captures state while it's still in exile with time counters. The test should keep going until the last time counter is removed and the spell resolves, creating two 4/4 Rhino tokens. This would exercise the suspend resolution flow (automatic cast from exile, token creation) and give better coverage of the suspend mechanic end-to-end.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["golden-tests"],
+  "created_at": "2026-02-25T08:15:00.000000-08:00",
+  "updated_at": "2026-02-25T08:15:00.000000-08:00"
+}
