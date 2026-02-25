@@ -17,7 +17,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_1",
@@ -26,7 +26,52 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_TARGET\",\"board\":[{\"hand\":[],\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"library_size\":60,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"library_size\":60,\"life\":20,\"name\":\"Opponent\"}],\"can_cancel\":false,\"choices\":[{\"id\":\"_\",\"index\":0,\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\"},{\"id\":\"_\",\"index\":1,\"name\":\"Opponent\",\"target_type\":\"player\"}],\"context\":\"T1 ()\",\"game_seq\":1,\"message\":\"Select a starting player\",\"required\":true,\"respond_with\":\"id=\\\"pN\\\" or index=N\",\"response_type\":\"index\",\"stop_reason\":\"non_priority_action\"}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_TARGET",
+      "board": [
+        {
+          "hand": [],
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 60,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 60,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "can_cancel": false,
+      "choices": [
+        {
+          "id": "_",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "_",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "context": "T1 ()",
+      "game_seq": 1,
+      "message": "Select a starting player",
+      "required": true,
+      "respond_with": "id=\"pN\" or index=N",
+      "response_type": "index",
+      "stop_reason": "non_priority_action"
+    },
     "role": "tool",
     "tool_call_id": "call_1"
   },
@@ -36,7 +81,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_2",
@@ -45,7 +92,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_target_0\",\"game_seq\":1,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_ASK\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_target_0",
+      "game_seq": 1,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_ASK",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_2"
   },
@@ -55,7 +109,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_3",
@@ -64,7 +118,147 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_ASK\",\"board\":[{\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Badlands\",\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plateau\",\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Taiga\",\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}],\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"library_size\":53,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":53,\"life\":20,\"name\":\"Opponent\"}],\"context\":\"T1 ()\",\"game_seq\":3,\"message\":\"Mulligan down to 6 cards?\",\"respond_with\":\"answer=true or answer=false\",\"response_type\":\"boolean\",\"stop_reason\":\"non_priority_action\",\"your_hand\":[{\"is_land\":true,\"name\":\"Badlands\",\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"]},{\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"},{\"is_land\":true,\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"]},{\"is_land\":true,\"name\":\"Plateau\",\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"is_land\":true,\"name\":\"Taiga\",\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}]}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_ASK",
+      "board": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Badlands",
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "context": "T1 ()",
+      "game_seq": 3,
+      "message": "Mulligan down to 6 cards?",
+      "respond_with": "answer=true or answer=false",
+      "response_type": "boolean",
+      "stop_reason": "non_priority_action",
+      "your_hand": [
+        {
+          "is_land": true,
+          "name": "Badlands",
+          "rules": [
+            "{T}: Add {B}.",
+            "{T}: Add {R}."
+          ]
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt",
+          "rules": [
+            "{this} deals 3 damage to any target."
+          ]
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt",
+          "rules": [
+            "{this} deals 3 damage to any target."
+          ]
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": 1,
+          "toughness": 1
+        },
+        {
+          "is_land": true,
+          "name": "Mountain",
+          "rules": [
+            "{T}: Add {R}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plateau",
+          "rules": [
+            "{T}: Add {R}.",
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Taiga",
+          "rules": [
+            "{T}: Add {G}.",
+            "{T}: Add {R}."
+          ]
+        }
+      ]
+    },
     "role": "tool",
     "tool_call_id": "call_3"
   },
@@ -74,7 +268,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"answer\":false}",
+          "arguments": {
+            "answer": false
+          },
           "name": "choose_action"
         },
         "id": "call_4",
@@ -83,7 +279,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"no\",\"game_seq\":3,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "no",
+      "game_seq": 3,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_4"
   },
@@ -93,7 +296,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_5",
@@ -102,7 +305,136 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Badlands\",\"playable\":true,\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"playable\":true,\"power\":\"1\",\"toughness\":\"1\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Mountain\",\"playable\":true,\"rules\":[\"{T}: Add {R}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plateau\",\"playable\":true,\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Taiga\",\"playable\":true,\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}],\"hand_size\":7,\"is_active\":true,\"is_you\":true,\"library_size\":53,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":53,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"land\",\"id\":\"_\",\"index\":0,\"name\":\"Badlands\"},{\"action\":\"cast\",\"id\":\"_\",\"index\":1,\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"},{\"action\":\"land\",\"id\":\"_\",\"index\":2,\"name\":\"Mountain\"},{\"action\":\"land\",\"id\":\"_\",\"index\":3,\"name\":\"Plateau\"},{\"action\":\"land\",\"id\":\"_\",\"index\":4,\"name\":\"Taiga\"}],\"context\":\"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"game_seq\":11,\"has_playable_cards\":true,\"land_drops_used\":0,\"message\":\"Play spells and abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stop_reason\":\"playable_cards\"}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Badlands",
+              "playable": true,
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "playable": true,
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Mountain",
+              "playable": true,
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "playable": true,
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "playable": true,
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Badlands"
+        },
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 1,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": 1,
+          "toughness": 1
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Mountain"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Plateau"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Taiga"
+        }
+      ],
+      "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 11,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards"
+    },
     "role": "tool",
     "tool_call_id": "call_5"
   },
@@ -112,7 +444,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\":\"_\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_6",
@@ -121,7 +455,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_2\",\"game_seq\":11,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_2",
+      "game_seq": 11,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_6"
   },
@@ -131,7 +472,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_7",
@@ -140,7 +481,116 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"tapped\":false}],\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Badlands\",\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"playable\":true,\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"playable\":true,\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plateau\",\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Taiga\",\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}],\"hand_size\":6,\"is_active\":false,\"is_you\":true,\"library_size\":53,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":8,\"is_active\":true,\"is_you\":false,\"library_size\":52,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"cast\",\"id\":\"_\",\"index\":0,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"},{\"action\":\"cast\",\"id\":\"_\",\"index\":1,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"}],\"context\":\"T1 Precombat Main/Precombat Main (Opponent)\",\"game_seq\":16,\"has_playable_cards\":true,\"message\":\"Play instants and activated abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stop_reason\":\"playable_cards\",\"untapped_lands\":1}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Badlands",
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 8,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        }
+      ],
+      "context": "T1 Precombat Main/Precombat Main (Opponent)",
+      "game_seq": 16,
+      "has_playable_cards": true,
+      "message": "Play instants and activated abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 1
+    },
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -150,7 +600,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\":\"_\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_8",
@@ -159,7 +611,29 @@
     ]
   },
   {
-    "content": "{\"choices\":[{\"action\":\"cast\",\"id\":\"_\",\"index\":0,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"},{\"action\":\"cast\",\"id\":\"_\",\"index\":1,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"}],\"error\":\"Object p13 not found in current choices\",\"error_code\":\"invalid_choice\",\"game_seq\":16,\"retryable\":true,\"success\":false}",
+    "content": {
+      "choices": [
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        }
+      ],
+      "error": "Object p13 not found in current choices",
+      "error_code": "invalid_choice",
+      "game_seq": 16,
+      "retryable": true,
+      "success": false
+    },
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -169,7 +643,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_9",
@@ -178,7 +652,116 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"tapped\":false}],\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Badlands\",\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"playable\":true,\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"playable\":true,\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plateau\",\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Taiga\",\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}],\"hand_size\":6,\"is_active\":false,\"is_you\":true,\"library_size\":53,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":8,\"is_active\":true,\"is_you\":false,\"library_size\":52,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"cast\",\"id\":\"_\",\"index\":0,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"},{\"action\":\"cast\",\"id\":\"_\",\"index\":1,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"}],\"context\":\"T1 Combat/Declare Attackers (Opponent)\",\"game_seq\":19,\"has_playable_cards\":true,\"message\":\"Play instants and activated abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stop_reason\":\"playable_cards\",\"untapped_lands\":1}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Badlands",
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 8,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        }
+      ],
+      "context": "T1 Combat/Declare Attackers (Opponent)",
+      "game_seq": 19,
+      "has_playable_cards": true,
+      "message": "Play instants and activated abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 1
+    },
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -188,7 +771,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"answer\":false}",
+          "arguments": {
+            "answer": false
+          },
           "name": "choose_action"
         },
         "id": "call_10",
@@ -197,7 +782,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"passed_priority\",\"game_seq\":19,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "passed_priority",
+      "game_seq": 19,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_10"
   },
@@ -207,7 +799,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_11",
@@ -216,7 +808,172 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"tapped\":false}],\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Badlands\",\"playable\":true,\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"playable\":true,\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"playable\":true,\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"playable\":true,\"power\":\"1\",\"toughness\":\"1\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plateau\",\"playable\":true,\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Taiga\",\"playable\":true,\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}],\"hand_size\":7,\"is_active\":true,\"is_you\":true,\"library_size\":52,\"life\":20,\"name\":\"TestPlayer\"},{\"graveyard\":[{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"]}],\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":52,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"land\",\"id\":\"_\",\"index\":0,\"name\":\"Badlands\"},{\"action\":\"cast\",\"id\":\"_\",\"index\":1,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"},{\"action\":\"cast\",\"id\":\"_\",\"index\":2,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"},{\"action\":\"cast\",\"id\":\"_\",\"index\":3,\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"},{\"action\":\"land\",\"id\":\"_\",\"index\":4,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":5,\"name\":\"Plateau\"},{\"action\":\"land\",\"id\":\"_\",\"index\":6,\"name\":\"Taiga\"}],\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"game_seq\":25,\"has_playable_cards\":true,\"land_drops_used\":0,\"message\":\"Play spells and abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stop_reason\":\"playable_cards\",\"untapped_lands\":1}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Badlands",
+              "playable": true,
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "playable": true,
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "playable": true,
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "playable": true,
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Badlands"
+        },
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 2,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 3,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": 1,
+          "toughness": 1
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Plateau"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 6,
+          "name": "Taiga"
+        }
+      ],
+      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 25,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 1
+    },
     "role": "tool",
     "tool_call_id": "call_11"
   },
@@ -226,7 +983,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\":\"_\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_12",
@@ -235,7 +994,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_0\",\"game_seq\":25,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 25,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_12"
   },
@@ -245,7 +1011,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_13",
@@ -254,7 +1020,133 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Badlands\",\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"tapped\":false}],\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"playable\":true,\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"playable\":true,\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plateau\",\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Taiga\",\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}],\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"library_size\":52,\"life\":20,\"name\":\"TestPlayer\"},{\"graveyard\":[{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"]}],\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":52,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"cast\",\"id\":\"_\",\"index\":0,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"},{\"action\":\"cast\",\"id\":\"_\",\"index\":1,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"}],\"context\":\"T2 Combat/Declare Attackers (TestPlayer)\",\"game_seq\":30,\"has_playable_cards\":true,\"message\":\"Play instants and activated abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stop_reason\":\"playable_cards\",\"untapped_lands\":2}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Badlands",
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        }
+      ],
+      "context": "T2 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 30,
+      "has_playable_cards": true,
+      "message": "Play instants and activated abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
+    },
     "role": "tool",
     "tool_call_id": "call_13"
   },
@@ -264,7 +1156,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"answer\":false}",
+          "arguments": {
+            "answer": false
+          },
           "name": "choose_action"
         },
         "id": "call_14",
@@ -273,7 +1167,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"passed_priority\",\"game_seq\":30,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "passed_priority",
+      "game_seq": 30,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_14"
   },
@@ -283,7 +1184,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_15",
@@ -292,7 +1193,133 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Badlands\",\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"tapped\":false}],\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"playable\":true,\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\",\"playable\":true,\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plateau\",\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Taiga\",\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}],\"hand_size\":6,\"is_active\":false,\"is_you\":true,\"library_size\":52,\"life\":20,\"name\":\"TestPlayer\"},{\"graveyard\":[{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"]}],\"hand_size\":8,\"is_active\":true,\"is_you\":false,\"library_size\":51,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"cast\",\"id\":\"_\",\"index\":0,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"},{\"action\":\"cast\",\"id\":\"_\",\"index\":1,\"mana_cost\":\"{R}\",\"name\":\"Lightning Bolt\"}],\"context\":\"T2 Precombat Main/Precombat Main (Opponent)\",\"game_seq\":35,\"has_playable_cards\":true,\"message\":\"Play instants and activated abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stop_reason\":\"playable_cards\",\"untapped_lands\":2}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Badlands",
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 8,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        }
+      ],
+      "context": "T2 Precombat Main/Precombat Main (Opponent)",
+      "game_seq": 35,
+      "has_playable_cards": true,
+      "message": "Play instants and activated abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
+    },
     "role": "tool",
     "tool_call_id": "call_15"
   },
@@ -302,7 +1329,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_16",
@@ -311,7 +1340,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_0\",\"game_seq\":35,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_TARGET\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 35,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_TARGET",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_16"
   },
@@ -321,7 +1357,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\":\"_\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_17",
@@ -330,7 +1368,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_target_1\",\"game_seq\":36,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_target_1",
+      "game_seq": 36,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_17"
   },
@@ -340,7 +1385,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_18",
@@ -349,7 +1396,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_0\",\"game_seq\":39,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_TARGET\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 39,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_TARGET",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_18"
   },
@@ -359,7 +1413,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\":\"_\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_19",
@@ -368,7 +1424,28 @@
     ]
   },
   {
-    "content": "{\"choices\":[{\"id\":\"_\",\"index\":0,\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\"},{\"id\":\"_\",\"index\":1,\"name\":\"Opponent\",\"target_type\":\"player\"}],\"error\":\"Object p13 not found in current choices\",\"error_code\":\"invalid_choice\",\"game_seq\":40,\"retryable\":true,\"success\":false}",
+    "content": {
+      "choices": [
+        {
+          "id": "_",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "_",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "error": "Object p13 not found in current choices",
+      "error_code": "invalid_choice",
+      "game_seq": 40,
+      "retryable": true,
+      "success": false
+    },
     "role": "tool",
     "tool_call_id": "call_19"
   },
@@ -378,7 +1455,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "get_game_state"
         },
         "id": "call_20",
@@ -387,7 +1464,119 @@
     ]
   },
   {
-    "content": "{\"active_player\":\"Opponent\",\"available\":true,\"cursor\":1,\"game_seq\":40,\"phase\":\"Precombat Main\",\"players\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Badlands\",\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"tapped\":true}],\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plateau\",\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Taiga\",\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}],\"hand_size\":4,\"is_active\":false,\"is_you\":true,\"library_size\":52,\"life\":20,\"name\":\"TestPlayer\"},{\"graveyard\":[{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"]}],\"hand_size\":8,\"is_active\":true,\"is_you\":false,\"library_size\":51,\"life\":20,\"name\":\"Opponent\"}],\"priority_player\":\"TestPlayer\",\"stack\":[{\"id\":\"_\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"],\"targets\":[{\"id\":\"_\",\"name\":\"Opponent\"}]}],\"step\":\"Precombat Main\",\"turn\":2}",
+    "content": {
+      "active_player": "Opponent",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 40,
+      "phase": "Precombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Badlands",
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ],
+              "tapped": true
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 4,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 8,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [
+        {
+          "id": "_",
+          "name": "Lightning Bolt",
+          "rules": [
+            "{this} deals 3 damage to any target."
+          ]
+        },
+        {
+          "id": "_",
+          "name": "Lightning Bolt",
+          "rules": [
+            "{this} deals 3 damage to any target."
+          ],
+          "targets": [
+            {
+              "id": "_",
+              "name": "Opponent"
+            }
+          ]
+        }
+      ],
+      "step": "Precombat Main",
+      "turn": 2
+    },
     "role": "tool",
     "tool_call_id": "call_20"
   }

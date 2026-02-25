@@ -13,7 +13,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_1",
@@ -22,7 +22,52 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_TARGET\",\"board\":[{\"hand\":[],\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"library_size\":60,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"library_size\":60,\"life\":20,\"name\":\"Opponent\"}],\"can_cancel\":false,\"choices\":[{\"id\":\"_\",\"index\":0,\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\"},{\"id\":\"_\",\"index\":1,\"name\":\"Opponent\",\"target_type\":\"player\"}],\"context\":\"T1 ()\",\"game_seq\":1,\"message\":\"Select a starting player\",\"required\":true,\"respond_with\":\"id=\\\"pN\\\" or index=N\",\"response_type\":\"index\",\"stop_reason\":\"non_priority_action\"}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_TARGET",
+      "board": [
+        {
+          "hand": [],
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 60,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 60,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "can_cancel": false,
+      "choices": [
+        {
+          "id": "_",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "_",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "context": "T1 ()",
+      "game_seq": 1,
+      "message": "Select a starting player",
+      "required": true,
+      "respond_with": "id=\"pN\" or index=N",
+      "response_type": "index",
+      "stop_reason": "non_priority_action"
+    },
     "role": "tool",
     "tool_call_id": "call_1"
   },
@@ -32,7 +77,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_2",
@@ -41,7 +88,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_target_0\",\"game_seq\":1,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_ASK\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_target_0",
+      "game_seq": 1,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_ASK",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_2"
   },
@@ -51,7 +105,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_3",
@@ -60,7 +114,143 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_ASK\",\"board\":[{\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{G}\",\"name\":\"Ancient Stirrings\",\"rules\":[\"Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Forest\",\"rules\":[\"{T}: Add {G}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]}],\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"library_size\":53,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":53,\"life\":20,\"name\":\"Opponent\"}],\"context\":\"T1 ()\",\"game_seq\":3,\"message\":\"Mulligan down to 6 cards?\",\"respond_with\":\"answer=true or answer=false\",\"response_type\":\"boolean\",\"stop_reason\":\"non_priority_action\",\"your_hand\":[{\"mana_cost\":\"{G}\",\"name\":\"Ancient Stirrings\",\"rules\":[\"Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order.\"]},{\"is_land\":true,\"name\":\"Forest\",\"rules\":[\"{T}: Add {G}.\"]},{\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]}]}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_ASK",
+      "board": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{G}",
+              "name": "Ancient Stirrings",
+              "rules": [
+                "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "context": "T1 ()",
+      "game_seq": 3,
+      "message": "Mulligan down to 6 cards?",
+      "respond_with": "answer=true or answer=false",
+      "response_type": "boolean",
+      "stop_reason": "non_priority_action",
+      "your_hand": [
+        {
+          "mana_cost": "{G}",
+          "name": "Ancient Stirrings",
+          "rules": [
+            "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Forest",
+          "rules": [
+            "{T}: Add {G}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        }
+      ]
+    },
     "role": "tool",
     "tool_call_id": "call_3"
   },
@@ -70,7 +260,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"answer\":false}",
+          "arguments": {
+            "answer": false
+          },
           "name": "choose_action"
         },
         "id": "call_4",
@@ -79,7 +271,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"no\",\"game_seq\":3,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "no",
+      "game_seq": 3,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_4"
   },
@@ -89,7 +288,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_5",
@@ -98,7 +297,138 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{G}\",\"name\":\"Ancient Stirrings\",\"rules\":[\"Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Forest\",\"playable\":true,\"rules\":[\"{T}: Add {G}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"playable\":true,\"rules\":[\"{T}: Add {W}.\"]}],\"hand_size\":7,\"is_active\":true,\"is_you\":true,\"library_size\":53,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":53,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"land\",\"id\":\"_\",\"index\":0,\"name\":\"Forest\"},{\"action\":\"land\",\"id\":\"_\",\"index\":1,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":2,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":3,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":4,\"name\":\"Plains\"},{\"action\":\"land\",\"id\":\"_\",\"index\":5,\"name\":\"Plains\"}],\"context\":\"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"game_seq\":11,\"has_playable_cards\":true,\"land_drops_used\":0,\"message\":\"Play spells and abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stop_reason\":\"playable_cards\"}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{G}",
+              "name": "Ancient Stirrings",
+              "rules": [
+                "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Forest",
+              "playable": true,
+              "rules": [
+                "{T}: Add {G}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Forest"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 11,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards"
+    },
     "role": "tool",
     "tool_call_id": "call_5"
   },
@@ -108,7 +438,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\":\"_\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_6",
@@ -117,7 +449,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_0\",\"game_seq\":11,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 11,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_6"
   },
@@ -127,7 +466,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\":\"_\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_7",
@@ -136,7 +477,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_0\",\"game_seq\":13,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 13,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -146,7 +494,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_8",
@@ -155,7 +503,92 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_ASK\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Forest\",\"rules\":[\"{T}: Add {G}.\"],\"tapped\":true}],\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]}],\"hand_size\":5,\"is_active\":true,\"is_you\":true,\"library_size\":53,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":53,\"life\":20,\"name\":\"Opponent\"}],\"context\":\"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"game_seq\":18,\"land_drops_used\":1,\"message\":\"Reveal a colorless card and put it into your hand?\",\"respond_with\":\"answer=true or answer=false\",\"response_type\":\"boolean\",\"stack\":[{\"name\":\"Ancient Stirrings\"}],\"stop_reason\":\"non_priority_action\"}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_ASK",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": true
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 5,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 18,
+      "land_drops_used": 1,
+      "message": "Reveal a colorless card and put it into your hand?",
+      "respond_with": "answer=true or answer=false",
+      "response_type": "boolean",
+      "stack": [
+        {
+          "name": "Ancient Stirrings"
+        }
+      ],
+      "stop_reason": "non_priority_action"
+    },
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -165,7 +598,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"answer\":true}",
+          "arguments": {
+            "answer": true
+          },
           "name": "choose_action"
         },
         "id": "call_9",
@@ -174,7 +609,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"yes\",\"game_seq\":18,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_TARGET\",\"success\":true}",
+    "content": {
+      "action_taken": "yes",
+      "game_seq": 18,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_TARGET",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -184,7 +626,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_10",
@@ -193,7 +637,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_target_0\",\"game_seq\":19,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_TARGET\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_target_0",
+      "game_seq": 19,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_TARGET",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_10"
   },
@@ -203,7 +654,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "get_game_state"
         },
         "id": "call_11",
@@ -212,7 +663,105 @@
     ]
   },
   {
-    "content": "{\"active_player\":\"TestPlayer\",\"available\":true,\"cursor\":1,\"game_seq\":22,\"phase\":\"Postcombat Main\",\"players\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Forest\",\"rules\":[\"{T}: Add {G}.\"],\"tapped\":true}],\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Ornithopter\",\"power\":\"0\",\"rules\":[\"Flying\"],\"toughness\":\"2\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]}],\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"library_size\":52,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":53,\"life\":20,\"name\":\"Opponent\"}],\"priority_player\":\"TestPlayer\",\"stack\":[{\"id\":\"_\",\"name\":\"Ancient Stirrings\",\"rules\":[\"Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order.\"]}],\"step\":\"Postcombat Main\",\"turn\":1}",
+    "content": {
+      "active_player": "TestPlayer",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 22,
+      "phase": "Postcombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": true
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Ornithopter",
+              "power": 0,
+              "rules": [
+                "Flying"
+              ],
+              "toughness": 2
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [
+        {
+          "id": "_",
+          "name": "Ancient Stirrings",
+          "rules": [
+            "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+          ]
+        }
+      ],
+      "step": "Postcombat Main",
+      "turn": 1
+    },
     "role": "tool",
     "tool_call_id": "call_11"
   }
