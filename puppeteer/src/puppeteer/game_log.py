@@ -23,7 +23,7 @@ class GameLogWriter:
 
     def emit(self, event_type: str, **fields):
         self._seq += 1
-        ts = datetime.now(self._TZ).isoformat(timespec="milliseconds")
+        ts = datetime.now(self._TZ).isoformat(timespec="microseconds")
         if "cumulative_cost_usd" in fields:
             try:
                 self._last_cumulative_cost_usd = float(fields["cumulative_cost_usd"])

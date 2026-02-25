@@ -28,6 +28,23 @@
   "gameType": "Two Player Duel",
   "llmEvents": [
     {
+      "availableTools": [
+        "get_game_log",
+        "get_game_history",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "model": "",
+      "player": "TestPlayer",
+      "seq": 1,
+      "type": "game_start"
+    },
+    {
       "args": {},
       "gameSeq": 1,
       "player": "TestPlayer",
@@ -77,6 +94,7 @@
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },
+      "seq": 2,
       "tool": "",
       "type": "tool_call"
     },
@@ -112,6 +130,7 @@
         "stack": [],
         "turn": 1
       },
+      "seq": 3,
       "tool": "",
       "type": "tool_call"
     },
@@ -123,24 +142,9 @@
         "event_count": 0,
         "history": "No game events recorded yet."
       },
+      "seq": 4,
       "tool": "",
       "type": "tool_call"
-    },
-    {
-      "availableTools": [
-        "get_game_log",
-        "get_game_history",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
-      "model": "",
-      "player": "TestPlayer",
-      "type": "game_start"
     }
   ],
   "llmTrace": [],
