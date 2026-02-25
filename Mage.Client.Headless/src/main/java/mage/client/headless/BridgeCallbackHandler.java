@@ -2617,11 +2617,12 @@ public class BridgeCallbackHandler {
         }
     }
 
-    // Mapping from "until" parameter values to XMage PlayerAction constants (server-side yield).
-    private static final Map<String, PlayerAction> YIELD_ACTIONS = Map.of(
-        "end_of_turn", PlayerAction.PASS_PRIORITY_UNTIL_TURN_END_STEP,
-        "stack_resolved", PlayerAction.PASS_PRIORITY_UNTIL_STACK_RESOLVED,
-        "my_turn", PlayerAction.PASS_PRIORITY_UNTIL_MY_NEXT_TURN
+    // Cross-turn yield values handled client-side.  These used to be server-side
+    // yields (sendPlayerAction → skip()), but skip() bypasses waitResponseOpen()
+    // which causes stale responses to answer the wrong waitForResponse(), producing
+    // nondeterministic auto-passes.  Client-side handling eliminates the race.
+    private static final Set<String> CLIENT_SIDE_YIELDS = Set.of(
+        "end_of_turn", "stack_resolved", "my_turn"
     );
 
     // Mapping from "until" parameter values to PhaseStep enum constants (client-side yield).
@@ -2660,11 +2661,16 @@ public class BridgeCallbackHandler {
     /**
      * Pass priority. Without until: passes once and returns. With until set to a
      * step name (upkeep, draw, etc.): client-side yield that auto-passes until
-     * the target step is reached within the current turn. With until set to a
-     * cross-turn value (end_of_turn, my_turn, stack_resolved): sets XMage's native
-     * server-side yield flag, then waits for a meaningful callback.
+     * the target step is reached. With until set to a cross-turn value
+     * (end_of_turn, my_turn, stack_resolved): client-side yield that auto-passes
+     * each callback locally via sendPlayerBoolean(false) until the yield
+     * condition is met.
      *
-     * Both modes auto-handle mechanical callbacks (GAME_PLAY_MANA auto-cancel,
+     * All yield modes are client-side to avoid a race condition in XMage's
+     * server-side skip() which bypasses waitResponseOpen(), allowing stale
+     * responses to answer the wrong waitForResponse().
+     *
+     * Auto-handles mechanical callbacks (GAME_PLAY_MANA auto-cancel,
      * optional GAME_TARGET with no legal targets). Returns stop_reason indicating
      * why the call returned. When action_pending=true, also includes the full
      * action choices (same data as get_action_choices) so the LLM can respond
@@ -2675,45 +2681,62 @@ public class BridgeCallbackHandler {
 
         int actionsPassed = 0;
 
-        // Route the "until" parameter: check step phases first, then server-side yields
+        // Route the "until" parameter: check step phases first, then cross-turn yields
         boolean yieldActive = false;
         PhaseStep targetStep = null;
+        boolean yieldUntilMyTurn = false;
+        boolean yieldUntilStackResolved = false;
+        // end_of_turn needs no flag — falls through to the playable-cards check
         int yieldStartTurn = lastTurnNumber;
         if (until != null) {
             targetStep = STEP_PHASES.get(until);
             if (targetStep != null) {
                 // Client-side step yield: do NOT sendPlayerAction.
                 yieldActive = true;
-            } else {
-                PlayerAction yieldAction = YIELD_ACTIONS.get(until);
-                if (yieldAction == null) {
-                    var allValues = new java.util.ArrayList<>(STEP_PHASES.keySet());
-                    allValues.addAll(YIELD_ACTIONS.keySet());
-                    var result = new HashMap<String, Object>();
-                    result.put("error", "Invalid until value: " + until
-                        + ". Valid values: " + String.join(", ", allValues));
-                    return result;
-                }
+            } else if (CLIENT_SIDE_YIELDS.contains(until)) {
                 UUID gameId = currentGameId;
                 if (gameId == null) {
                     var result = new HashMap<String, Object>();
                     result.put("error", "No active game for yield");
                     return result;
                 }
-                // sendPlayerAction calls skip() on the server, which implicitly
-                // answers the current pending priority via response.notifyAll().
-                // Clear pendingAction inside the lock BEFORE sending so that a
-                // new callback arriving after skip() doesn't get wiped.
+                // For stack_resolved: if stack is already empty, return immediately
+                // (matching server-side behavior that does nothing on empty stack).
+                if ("stack_resolved".equals(until)) {
+                    GameView gv = lastGameView;
+                    if (gv != null && gv.getStack().isEmpty()) {
+                        var result = new HashMap<String, Object>();
+                        result.put("action_pending", pendingAction != null);
+                        result.put("stop_reason", "stack_resolved");
+                        attachUnseenChat(result);
+                        if (pendingAction != null) {
+                            mergeActionChoices(result);
+                        }
+                        return result;
+                    }
+                    yieldUntilStackResolved = true;
+                } else if ("my_turn".equals(until)) {
+                    yieldUntilMyTurn = true;
+                }
+                // Auto-pass the current priority locally via sendPlayerBoolean
+                // instead of sendPlayerAction+skip().  This avoids the race where
+                // skip() bypasses waitResponseOpen() and stale responses answer
+                // the wrong waitForResponse().
                 synchronized (actionLock) {
                     pendingAction = null;
-                    session.sendPlayerAction(yieldAction, gameId, null);
                 }
+                session.sendPlayerBoolean(gameId, false);
+                trackSentResponse(gameId, ResponseType.BOOLEAN, false, null);
                 // The yield consumed the current priority — count it as a pass.
-                // Without this, actionsPassed stays at 0 and the first-pass
-                // auto-pass logic would skip the next real priority opportunity
-                // (e.g. auto-passing a counter opportunity when Lions is on stack).
                 actionsPassed++;
                 yieldActive = true;
+            } else {
+                var allValues = new java.util.ArrayList<>(STEP_PHASES.keySet());
+                allValues.addAll(CLIENT_SIDE_YIELDS);
+                var result = new HashMap<String, Object>();
+                result.put("error", "Invalid until value: " + until
+                    + ". Valid values: " + String.join(", ", allValues));
+                return result;
             }
         }
 
@@ -2837,6 +2860,50 @@ public class BridgeCallbackHandler {
                     attachUnseenChat(result);
                     mergeActionChoices(result);
                     return result;
+                }
+
+                // Client-side cross-turn yield: my_turn
+                // Auto-pass all callbacks during the opponent's turn.  Once it's
+                // our turn, clear the flag and fall through to the playable-cards
+                // check (which will return if there are meaningful choices).
+                if (yieldUntilMyTurn) {
+                    GameView gv = (action.data() instanceof GameClientMessage)
+                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
+                    if (gv != null && client.getUsername().equals(gv.getActivePlayerName())) {
+                        // We've become the active player — stop yielding
+                        yieldUntilMyTurn = false;
+                        // Fall through to playable-cards check below
+                    } else {
+                        // Not our turn — auto-pass
+                        synchronized (actionLock) {
+                            if (pendingAction == action) {
+                                pendingAction = null;
+                            }
+                        }
+                        session.sendPlayerBoolean(action.gameId(), false);
+                        actionsPassed++;
+                        continue;
+                    }
+                }
+
+                // Client-side cross-turn yield: stack_resolved
+                // Return when the stack becomes empty.  While the stack has items,
+                // fall through to the playable-cards check (so we stop for
+                // counterspells etc., and auto-pass when we have no responses).
+                if (yieldUntilStackResolved) {
+                    GameView gv = (action.data() instanceof GameClientMessage)
+                        ? ((GameClientMessage) action.data()).getGameView() : lastGameView;
+                    if (gv != null && gv.getStack().isEmpty()) {
+                        // Stack resolved — return to LLM
+                        Map<String, Object> result = new HashMap<>();
+                        result.put("action_pending", true);
+                        result.put("action_type", method.name());
+                        result.put("stop_reason", "stack_resolved");
+                        attachUnseenChat(result);
+                        mergeActionChoices(result);
+                        return result;
+                    }
+                    // Stack still has items — fall through to playable-cards check
                 }
 
                 // Step-specific yield: check if we've reached the target step
