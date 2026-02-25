@@ -353,6 +353,10 @@ def _read_server_events(
                 "message": event.get("winner", "") or "Game ended",
             }
             winner = event.get("winner")
+            if "state" in event:
+                snap = dict(event["state"])
+                snap["seq"] = event["seq"]
+                snapshots.append(snap)
 
     return snapshots, actions, game_over, winner
 

@@ -612,20 +612,20 @@ def _run_golden_subprocess(
         potato_jvm = " ".join(
             [
                 jvm_no_ui,
-                f"-Dxmage.headless.server={server}",
-                f"-Dxmage.headless.port={port}",
-                "-Dxmage.headless.personality=potato",
+                f"-Dxmage.bridge.server={server}",
+                f"-Dxmage.bridge.port={port}",
+                "-Dxmage.bridge.personality=potato",
             ]
         )
         potato_proc, potato_fh = _start_process(
             args=[
                 "mvn",
                 "-q",
-                f"-Dxmage.headless.username={player_b_name}",
-                f"-Dxmage.headless.deck={project_root / deck_b}",
+                f"-Dxmage.bridge.username={player_b_name}",
+                f"-Dxmage.bridge.deck={project_root / deck_b}",
                 "exec:java",
             ],
-            cwd=project_root / "Mage.Client.Headless",
+            cwd=project_root / "Mage.Client.Bridge",
             env_updates={"MAVEN_OPTS": potato_jvm},
             log_path=potato_log,
         )

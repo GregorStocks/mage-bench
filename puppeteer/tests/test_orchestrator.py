@@ -149,7 +149,7 @@ def test_print_game_summary_from_events_jsonl(capsys):
 
 
 def test_print_game_summary_from_pilot_log(capsys):
-    """Headless client logs take priority over game_events.jsonl."""
+    """Bridge client logs take priority over game_events.jsonl."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "ace_pilot.log").write_text("INFO Game over: Player1 won the game\n")
