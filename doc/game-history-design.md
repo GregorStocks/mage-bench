@@ -6,169 +6,118 @@ The pilot needs a structured game log. The current `get_game_log` returns raw
 XMage chat text — an unstructured string mixing real game actions with noise
 (draw step messages, zone moves, skip attack notifications).
 
-## Failed approach: wrapping XMage chat messages
+## Rejected approach #1: wrapping XMage chat messages
 
 The first attempt (PR #556) maintained a parallel `List<HistoryEntry>` in
 `BridgeCallbackHandler`, populated alongside the existing `gameLog`
 StringBuilder in `handleChatMessage`. Turn markers grouped entries; a regex
 filtered noise.
 
-This was fundamentally the wrong approach:
+This was fundamentally wrong:
 
 1. **Unreliable data source.** XMage delivers chat messages via
    `Session.fireCallback()` with a **50ms lock timeout** for `MESSAGE`-type
-   callbacks (see `Mage.Server/.../Session.java:432-456`). When multiple
-   messages arrive in quick succession (e.g., Fact or Fiction resolving 5
-   zone-move messages nearly simultaneously), the server drops any message
-   it can't deliver within 50ms. This makes the chat message stream
-   nondeterministic — golden tests showed the same game producing different
-   message counts across runs.
+   callbacks. When multiple messages arrive in quick succession, the server
+   drops any message it can't deliver within 50ms. This makes the chat
+   message stream nondeterministic.
 
 2. **No control over content.** We're at the mercy of whatever XMage decides
-   to log as chat messages. Some actions produce multiple redundant messages,
-   some produce none. We can filter noise with regex, but we can't add
-   information that XMage doesn't emit.
+   to log as chat messages.
 
 3. **Not truly structured.** Despite grouping by turns, it's still just
-   XMage text strings in a list. The "structure" is superficial — we have
-   no semantic understanding of what each action represents.
+   XMage text strings in a list.
 
-## Correct approach: diff consecutive GameView snapshots
+## Rejected approach #2: diffing consecutive GameView snapshots
 
-The bridge already receives `GAME_UPDATE` callbacks containing full
-`GameView` snapshots. These are the authoritative source of game state —
-they're how the bridge knows what cards are on the battlefield, what's in
-hand, what life totals are, etc.
+GameView snapshots show net state changes between two points in time. This
+approach was also rejected because:
 
-By comparing consecutive GameView snapshots, we can construct a complete,
-reliable, token-efficient game history with full control over the format.
+1. **Wrong granularity.** Diffs show *what changed* but not *how*. A creature
+   moving from battlefield to graveyard could mean destroy, sacrifice, exile
+   and return, mill, or any number of game actions. The diff can't distinguish.
 
-### What's in a GameView
+2. **Same delivery problem.** GAME_UPDATE callbacks use the same 50ms lock
+   timeout. Although less frequent than chat messages, they can still be
+   dropped under contention.
 
-Each GameView is a complete snapshot:
+3. **No individual action resolution.** Multiple state changes between two
+   GameViews are collapsed into a single diff — we lose the sequence of
+   individual player actions.
 
-- **Turn/phase**: `turn`, `phase`, `step`, `activePlayerId`,
-  `activePlayerName`, `priorityPlayerName`, `gameSeq`
-- **Per player** (via `PlayerView`):
-  - `life`, `manaPool`, `counters`, `monarch`, `initiative`
-  - `libraryCount`, `handCount`
-  - `battlefield` (Map<UUID, PermanentView>) — every permanent with full state
-  - `graveyard`, `exile` (CardsView)
-  - `landsPlayed`, `landsPerTurn`
-- **Stack**: spells and abilities currently on the stack
-- **Combat**: attackers, blockers, defenders
-- **Sequence**: `gameSeq` — monotonic counter from the server, used to
-  detect out-of-order or backward updates
+## Correct approach: pull-based bridge event log
 
-### Diffing strategy
+Hook into XMage's internal `GameEvent` system, which fires structured
+past-tense events (SPELL_CAST, LAND_PLAYED, ATTACKER_DECLARED,
+DESTROYED_PERMANENT, etc.) with source/target/player UUIDs after each
+action completes. Buffer these on the server, expose a pull API. Zero drops,
+server-ordered, complete.
 
-Store the previous GameView. When a new one arrives, compare:
+This creates a second log alongside the existing game log (ugly but necessary):
+the game log is unreliable XMage text we don't control; the bridge log is
+structured data we do.
 
-1. **Life total changes**: `prevLife != currLife` → "Player took 3 damage"
-   or "Player gained 2 life"
-2. **Zone transitions**: cards appearing in/leaving battlefield, graveyard,
-   exile, stack. UUIDs let us track specific cards across zones:
-   - Card appears on battlefield → "Player played [card]" or spell resolved
-   - Card moves from battlefield to graveyard → "Card died" / "Card was
-     destroyed"
-   - Card appears on stack → "Player cast [spell]"
-   - Card leaves stack to battlefield → spell resolved
-   - Card leaves stack to graveyard → spell countered or fizzled
-3. **Permanent state changes**: tapped/untapped, counters added/removed,
-   damage, attachments
-4. **Combat changes**: new attackers/blockers declared
-5. **Turn/phase transitions**: turn number changes, phase advances
+### Architecture
 
-### Advantages over chat-message approach
+1. **Server: `GameImpl.fireEvent()` hook.** A single `if (!simulation) {
+   recordBridgeEvent(event); }` call added to the existing `fireEvent()`
+   method. Selected event types (SPELL_CAST, LAND_PLAYED, ACTIVATED_ABILITY,
+   ATTACKER_DECLARED, etc.) are captured into a transient in-memory buffer
+   (`List<BridgeLogEntry>`). The buffer is transient so AI simulation copies
+   don't carry it.
 
-- **Reliable**: GameView snapshots are the source of truth. No 50ms timeout
-  drops. `gameSeq` detects out-of-order delivery.
-- **Complete**: every state change is visible in the diff, even if XMage
-  doesn't emit a chat message for it.
-- **Token-efficient**: we control the format. We can produce concise,
-  information-dense summaries instead of XMage's verbose chat text.
-- **Truly structured**: each history entry is a semantic event (card played,
-  spell cast, creature died) not an opaque text string.
+2. **`BridgeLogEntry` record** (`Mage/mage/game/BridgeLogEntry.java`):
+   serializable record with index (pull cursor), gameSeq, event type, turn,
+   phase, step, active player, acting player, card name, target name, amount,
+   and visibility flag.
 
-### Implementation sketch
+3. **Pull API through RPC chain:** `Game.getBridgeEventsSince(cursor, playerId)`
+   → `GameController` → `GameManager` → `MageServer` → `Session` →
+   bridge client. The `playerId` parameter flows through the entire chain
+   for server-side visibility filtering.
 
-```java
-// In BridgeCallbackHandler:
+4. **Bridge client:** `BridgeCallbackHandler.getGameHistory()` pulls events
+   from the server, groups by turn/phase, formats human-readable descriptions
+   from the structured fields.
 
-private GameView previousGameView = null;
+5. **MCP tool:** `get_game_history` — supports `since_turn` and `cursor`
+   parameters for incremental access.
 
-// Called from GAME_UPDATE handler, after updateLastGameView():
-private void recordHistoryDiff(GameView prev, GameView curr) {
-    if (prev == null) return; // first update, nothing to diff
+### Information visibility
 
-    // Detect turn change
-    if (!Objects.equals(prev.getActivePlayerName(), curr.getActivePlayerName())
-        || prev.getTurn() != curr.getTurn()) {
-        // New turn entry
-    }
+Server-side filtering via `playerId`:
 
-    // Diff each player's state
-    for (PlayerView currPlayer : curr.getPlayers()) {
-        PlayerView prevPlayer = findPlayer(prev, currPlayer.getName());
-        if (prevPlayer == null) continue;
+- **Public events** (visibleToAll=true): SPELL_CAST, LAND_PLAYED,
+  ATTACKER_DECLARED, BLOCKER_DECLARED, DESTROYED_PERMANENT,
+  SACRIFICED_PERMANENT, COUNTERED, BEGIN_TURN, GAINED_LIFE, LOST_LIFE
+- **Private events** (visibleToAll=false): DREW_CARD stores the card name
+  but only the drawing player sees it. For opponents, `cardName` is redacted.
 
-        // Life changes
-        if (prevPlayer.getLife() != currPlayer.getLife()) { ... }
+### Changes to existing XMage code
 
-        // Battlefield changes (new permanents, removed permanents)
-        Set<UUID> prevBF = prevPlayer.getBattlefield().keySet();
-        Set<UUID> currBF = currPlayer.getBattlefield().keySet();
-        // New permanents: currBF - prevBF
-        // Removed permanents: prevBF - currBF
+Only two existing methods touched:
 
-        // Graveyard additions
-        // ... etc
-    }
+1. `GameImpl.fireEvent()` — 3 lines added
+2. `Game.java` interface — 1 method signature added
 
-    // Stack changes
-    // Combat changes
-}
+Everything else is additive (new files, new methods, new implementations).
+
+### Output format
+
+```
+Turn 3 (Alice):
+  Precombat Main:
+    - Alice played Mountain
+    - Alice cast Lightning Bolt targeting Bob's Grizzly Bears
+    - Grizzly Bears was destroyed
+  Declare Attackers:
+    - Alice attacked with Goblin Guide
+  Declare Blockers:
+    - Bob blocked Goblin Guide with Elvish Mystic
 ```
 
-### Open questions
+### Related: callback drop problem
 
-- **Granularity**: how often do GAME_UPDATE callbacks arrive? If they batch
-  multiple state changes, we might miss intermediate states. Need to verify
-  whether each action triggers its own GAME_UPDATE or if they're batched.
-- **Hidden information**: the bridge only sees public information and its own
-  hand. Opponent's hand contents aren't in GameView unless revealed. This is
-  fine — the pilot shouldn't know hidden info anyway.
-- **Performance**: diffing full GameView objects on every update. Should be
-  cheap since it's just comparing maps/sets, but worth measuring.
-- **Interaction with get_game_log**: should the existing text-based log
-  remain as-is, with the new structured history as a separate tool? Probably
-  yes — the text log is useful for debugging and the structured history is
-  for the pilot.
-
-### Callback delivery reliability
-
-GAME_UPDATE is `ClientCallbackType.UPDATE` which has `canComeInAnyOrder=true`.
-It gets the same 50ms lock timeout as MESSAGE. However, GAME_UPDATE callbacks
-are less prone to contention because:
-
-1. They follow a request-response pattern (server waits for player decisions
-   between updates)
-2. They're less frequent than chat messages during spell resolution
-3. `gameSeq` lets us detect if any are missing
-
-If GAME_UPDATE drops become an issue, we could increase the lock timeout for
-UPDATE callbacks server-side (a minimal upstream bug fix). But this is likely
-not needed.
-
-### Related: server-side message drops
-
-The root cause of chat message drops is in `Session.fireCallback()`
-(`Mage.Server/.../Session.java:432-456`): a 50ms `callBackLock.tryLock()`
-timeout for MESSAGE-type callbacks. When multiple callbacks arrive in quick
-succession, the lock is held by the previous send and subsequent messages
-time out. The server logs `"CALLBACK DROPPED (lock timeout 50ms)"` but the
-client has no way to know a message was lost.
-
-This is an XMage bug (affects the Swing UI too) but fixing it isn't necessary
-for the structured history if we use GameView diffs instead of chat messages.
-It may still be worth filing upstream.
+The root cause of chat message drops is in `Session.fireCallback()`: a 50ms
+`callBackLock.tryLock()` timeout for MESSAGE-type callbacks. The pull-based
+bridge log sidesteps this entirely — events are buffered server-side and
+pulled on demand, with no callback delivery involved.

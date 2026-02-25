@@ -1499,8 +1499,20 @@
       "type": "tool_call"
     },
     {
+      "args": {},
+      "player": "TestPlayer",
+      "result": {
+        "cursor": 24,
+        "event_count": 24,
+        "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Badlands\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n"
+      },
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "availableTools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",
@@ -1520,9 +1532,10 @@
       "deckName": "bolt_and_burn",
       "name": "TestPlayer",
       "toolCallsFailed": 2,
-      "toolCallsOk": 18,
+      "toolCallsOk": 19,
       "tools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",

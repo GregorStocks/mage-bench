@@ -357,73 +357,19 @@ def _read_server_events(
     return snapshots, actions, game_over, winner
 
 
-def _read_spectator_events(
-    game_dir: Path,
-) -> tuple[list[dict], list[dict], dict | None]:
-    """Read events from game_events.jsonl (spectator logs, legacy format).
-
-    Returns (snapshots, actions, game_over).
-    """
-    events_path = game_dir / "game_events.jsonl"
-    assert events_path.exists(), f"No game_events.jsonl in {game_dir}"
-
-    snapshots: list[dict] = []
-    actions: list[dict] = []
-    game_over: dict | None = None
-
-    for line in events_path.read_text().splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        event = json.loads(line)
-        event_type = event.get("type")
-
-        if event_type == "state_snapshot":
-            snap = {k: v for k, v in event.items() if k != "type"}
-            snapshots.append(snap)
-        elif event_type in ("game_action", "player_chat"):
-            entry: dict = {
-                "ts": event.get("ts", ""),
-                "seq": event.get("seq", 0),
-                "message": _strip_html(event.get("message", "")),
-            }
-            if event_type == "player_chat":
-                entry["type"] = "chat"
-                entry["from"] = event.get("from", "")
-            actions.append(entry)
-        elif event_type == "game_over":
-            game_over = {
-                "seq": event.get("seq", 0),
-                "message": _strip_html(event.get("message", "")),
-            }
-
-    return snapshots, actions, game_over
-
-
 def build_export(game_dir: Path) -> dict:
     """Build the export data dict from a game directory.
 
-    Reads server_game_events.jsonl if available (version 2 format),
-    falls back to game_events.jsonl (spectator logs, version 1 format).
+    Reads server_game_events.jsonl (version 2 format).
     """
     meta_path = game_dir / "game_meta.json"
-    server_events_path = game_dir / "server_game_events.jsonl"
 
     # Load metadata
     meta: dict = {}
     if meta_path.exists():
         meta = json.loads(meta_path.read_text())
 
-    # Choose event source
-    use_server_logs = server_events_path.exists()
-
-    if use_server_logs:
-        snapshots, actions, game_over, winner = _read_server_events(game_dir)
-        version = 2
-    else:
-        snapshots, actions, game_over = _read_spectator_events(game_dir)
-        winner = None
-        version = 1
+    snapshots, actions, game_over, winner = _read_server_events(game_dir)
 
     # Read LLM logs
     llm_events, player_costs, player_tools, player_tool_calls, player_thinking = (
@@ -504,7 +450,7 @@ def build_export(game_dir: Path) -> dict:
 
     # Build output
     output: dict = {
-        "version": version,
+        "version": 2,
         "id": game_id,
         "timestamp": meta.get("timestamp", ""),
         "gameType": meta.get("game_type", ""),

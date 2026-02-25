@@ -1794,8 +1794,42 @@
       "type": "tool_call"
     },
     {
+      "args": {},
+      "player": "Opponent",
+      "result": {
+        "cursor": 26,
+        "event_count": 26,
+        "history": "Turn 1:\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - Opponent drew Savannah Lions\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew Plains\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew a card\n  Declare Blockers:\n    - Opponent blocked Savannah Lions with Savannah Lions\n  Combat Damage:\n    - Savannah Lions was destroyed (TestPlayer)\n    - Savannah Lions was destroyed (Opponent)\n"
+      },
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": {
+        "cursor": 23,
+        "event_count": 23,
+        "history": "Turn 1:\n    - TestPlayer drew Savannah Lions\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n"
+      },
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "TestPlayer",
+      "result": {
+        "cursor": 26,
+        "event_count": 26,
+        "history": "Turn 1:\n    - TestPlayer drew Savannah Lions\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Declare Blockers:\n    - Opponent blocked Savannah Lions with Savannah Lions\n  Combat Damage:\n    - Savannah Lions was destroyed (TestPlayer)\n    - Savannah Lions was destroyed (Opponent)\n"
+      },
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "availableTools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",
@@ -1811,6 +1845,7 @@
     {
       "availableTools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",
@@ -1830,9 +1865,10 @@
       "deckName": "savannah_lions",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 13,
+      "toolCallsOk": 15,
       "tools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",
@@ -1847,9 +1883,10 @@
       "deckName": "savannah_lions",
       "name": "Opponent",
       "toolCallsFailed": 1,
-      "toolCallsOk": 9,
+      "toolCallsOk": 10,
       "tools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",

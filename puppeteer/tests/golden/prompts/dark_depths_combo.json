@@ -128,10 +128,6 @@
     "tool_call_id": "call_6"
   },
   {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -146,170 +142,13 @@
     ]
   },
   {
-    "content": {
-      "action_pending": true,
-      "action_type": "GAME_SELECT",
-      "board": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Dark Depths",
-              "playable": true,
-              "rules": [
-                "{this} enters with ten ice counters on it.",
-                "{3}: Remove an ice counter from {this}.",
-                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Thespian's Stage",
-              "playable": true,
-              "rules": [
-                "{T}: Add {C}.",
-                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 52,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 52,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "choices": [
-        {
-          "action": "land",
-          "id": "_",
-          "index": 0,
-          "name": "Dark Depths"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 1,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 2,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 5,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 6,
-          "name": "Thespian's Stage"
-        }
-      ],
-      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 25,
-      "has_playable_cards": true,
-      "land_drops_used": 0,
-      "message": "Play spells and abilities",
-      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
-      "response_type": "select",
-      "stop_reason": "playable_cards",
-      "untapped_lands": 1
-    },
+    "content": "action_pending(GAME_SELECT, playable_cards); select; 7 choices: Dark Depths, Plains, Plains",
     "role": "tool",
     "tool_call_id": "call_7"
+  },
+  {
+    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,
@@ -2364,5 +2203,28 @@
     },
     "role": "tool",
     "tool_call_id": "call_26"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_27",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "cursor": 38,
+      "event_count": 38,
+      "history": "Turn 1:\n    - TestPlayer drew Dark Depths\n    - TestPlayer drew Thespian's Stage\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Dark Depths\n\nTurn 6 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 7 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Thespian's Stage\n  Declare Attackers:\n    - TestPlayer activated Thespian's Stage's ability\n    - TestPlayer sacrificed Thespian's Stage\n\nTurn 8 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 9 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Combat Damage:\n    - Opponent lost 20 life\n"
+    },
+    "role": "tool",
+    "tool_call_id": "call_27"
   }
 ]

@@ -881,12 +881,35 @@
     "tool_calls": [
       {
         "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_12",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "cursor": 23,
+      "event_count": 23,
+      "history": "Turn 1:\n    - TestPlayer drew Savannah Lions\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n"
+    },
+    "role": "tool",
+    "tool_call_id": "call_12"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
           "arguments": {
             "until": "postcombat_main"
           },
           "name": "pass_priority"
         },
-        "id": "call_12",
+        "id": "call_13",
         "type": "function"
       }
     ]
@@ -1050,7 +1073,7 @@
       "untapped_lands": 1
     },
     "role": "tool",
-    "tool_call_id": "call_12"
+    "tool_call_id": "call_13"
   },
   {
     "content": null,
@@ -1061,7 +1084,7 @@
           "arguments": {},
           "name": "get_game_state"
         },
-        "id": "call_13",
+        "id": "call_14",
         "type": "function"
       }
     ]
@@ -1185,6 +1208,29 @@
       "turn": 2
     },
     "role": "tool",
-    "tool_call_id": "call_13"
+    "tool_call_id": "call_14"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_15",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "cursor": 26,
+      "event_count": 26,
+      "history": "Turn 1:\n    - TestPlayer drew Savannah Lions\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Declare Blockers:\n    - Opponent blocked Savannah Lions with Savannah Lions\n  Combat Damage:\n    - Savannah Lions was destroyed (TestPlayer)\n    - Savannah Lions was destroyed (Opponent)\n"
+    },
+    "role": "tool",
+    "tool_call_id": "call_15"
   }
 ]

@@ -116,8 +116,20 @@
       "type": "tool_call"
     },
     {
+      "args": {},
+      "player": "TestPlayer",
+      "result": {
+        "cursor": 0,
+        "event_count": 0,
+        "history": "No game events recorded yet."
+      },
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "availableTools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",
@@ -137,9 +149,10 @@
       "deckName": "Red Stompy",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 2,
+      "toolCallsOk": 3,
       "tools": [
         "get_game_log",
+        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",

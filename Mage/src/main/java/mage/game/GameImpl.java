@@ -177,6 +177,25 @@ public abstract class GameImpl implements Game {
     private transient AtomicInteger gameSeq;
     private transient ShortIdRegistry shortIdRegistry;
 
+    // Bridge event log: structured action events for MCP clients.
+    // Transient and NOT copied — simulation copies get null (recordBridgeEvent checks for this).
+    private transient List<BridgeLogEntry> bridgeEventBuffer;
+
+    private static final Set<GameEvent.EventType> BRIDGE_EVENT_TYPES = Set.of(
+            GameEvent.EventType.SPELL_CAST,
+            GameEvent.EventType.LAND_PLAYED,
+            GameEvent.EventType.ACTIVATED_ABILITY,
+            GameEvent.EventType.ATTACKER_DECLARED,
+            GameEvent.EventType.BLOCKER_DECLARED,
+            GameEvent.EventType.DESTROYED_PERMANENT,
+            GameEvent.EventType.SACRIFICED_PERMANENT,
+            GameEvent.EventType.COUNTERED,
+            GameEvent.EventType.GAINED_LIFE,
+            GameEvent.EventType.LOST_LIFE,
+            GameEvent.EventType.DREW_CARD,
+            GameEvent.EventType.BEGIN_TURN
+    );
+
     public GameImpl(MultiplayerAttackOption attackOption, RangeOfInfluence range, Mulligan mulligan, int minimumDeckSize, int startingLife, int startingHandSize) {
         this.id = UUID.randomUUID();
         this.gameIndex = GLOBAL_INDEX.incrementAndGet();
@@ -190,6 +209,7 @@ public abstract class GameImpl implements Game {
         this.minimumDeckSize = minimumDeckSize;
         this.gameSeq = new AtomicInteger(0);
         this.shortIdRegistry = new ShortIdRegistry();
+        this.bridgeEventBuffer = Collections.synchronizedList(new ArrayList<>());
 
         initGameDefaultWatchers();
     }
@@ -207,6 +227,7 @@ public abstract class GameImpl implements Game {
         this.totalErrorsCount.set(game.totalErrorsCount.get());
         this.gameSeq = game.gameSeq;
         this.shortIdRegistry = game.shortIdRegistry;
+        this.bridgeEventBuffer = null; // simulation copies don't record bridge events
 
         this.ready = game.ready;
         //this.tableEventSource = game.tableEventSource; // client-server part, not need on copy/simulations
@@ -3528,6 +3549,9 @@ public abstract class GameImpl implements Game {
 
     @Override
     public void fireEvent(GameEvent event) {
+        if (!simulation) {
+            recordBridgeEvent(event);
+        }
         state.handleEvent(event, this);
     }
 
@@ -4306,5 +4330,143 @@ public abstract class GameImpl implements Game {
     @Override
     public ShortIdRegistry getShortIdRegistry() {
         return shortIdRegistry;
+    }
+
+    // -- Bridge event log --
+
+    private void recordBridgeEvent(GameEvent event) {
+        if (bridgeEventBuffer == null) {
+            return; // null on simulation copies
+        }
+        if (!BRIDGE_EVENT_TYPES.contains(event.getType())) {
+            return;
+        }
+
+        String playerName = null;
+        Player eventPlayer = event.getPlayerId() != null ? getPlayer(event.getPlayerId()) : null;
+        if (eventPlayer != null) {
+            playerName = eventPlayer.getName();
+        }
+
+        String cardName = null;
+        String targetName = null;
+        boolean visibleToAll = true;
+
+        switch (event.getType()) {
+            case SPELL_CAST -> {
+                // targetId = spell id, sourceId = spell source
+                MageObject spell = getObject(event.getTargetId());
+                cardName = spell != null ? spell.getName() : null;
+            }
+            case LAND_PLAYED -> {
+                MageObject land = getObject(event.getTargetId());
+                cardName = land != null ? land.getName() : null;
+            }
+            case ACTIVATED_ABILITY -> {
+                MageObject source = getObject(event.getSourceId());
+                cardName = source != null ? source.getName() : null;
+            }
+            case ATTACKER_DECLARED -> {
+                // sourceId = attacking creature, targetId = defending player/planeswalker
+                MageObject attacker = getObject(event.getSourceId());
+                cardName = attacker != null ? attacker.getName() : null;
+                Player defender = getPlayer(event.getTargetId());
+                if (defender != null) {
+                    targetName = defender.getName();
+                } else {
+                    MageObject defenderObj = getObject(event.getTargetId());
+                    targetName = defenderObj != null ? defenderObj.getName() : null;
+                }
+            }
+            case BLOCKER_DECLARED -> {
+                // sourceId = blocker, targetId = attacker
+                MageObject blocker = getObject(event.getSourceId());
+                cardName = blocker != null ? blocker.getName() : null;
+                MageObject attackerObj = getObject(event.getTargetId());
+                targetName = attackerObj != null ? attackerObj.getName() : null;
+            }
+            case DESTROYED_PERMANENT, SACRIFICED_PERMANENT -> {
+                // targetId = the permanent
+                MageObject permanent = getObject(event.getTargetId());
+                if (permanent == null) {
+                    Card card = getCard(event.getTargetId());
+                    permanent = card;
+                }
+                cardName = permanent != null ? permanent.getName() : null;
+            }
+            case COUNTERED -> {
+                // targetId = countered spell/ability
+                MageObject countered = getObject(event.getTargetId());
+                cardName = countered != null ? countered.getName() : null;
+            }
+            case GAINED_LIFE, LOST_LIFE -> {
+                // playerId = player, amount = life amount
+                // targetName not used; amount carries the value
+            }
+            case DREW_CARD -> {
+                // targetId = the card drawn — private to drawing player
+                Card drawn = getCard(event.getTargetId());
+                cardName = drawn != null ? drawn.getName() : null;
+                visibleToAll = false; // only the drawing player should see the card name
+            }
+            case BEGIN_TURN -> {
+                // playerId = active player for the new turn
+            }
+            default -> {
+                return; // shouldn't happen given BRIDGE_EVENT_TYPES filter
+            }
+        }
+
+        TurnPhase phaseType = getTurnPhaseType();
+        PhaseStep stepType = getTurnStepType();
+        Player activePlayerObj = getPlayer(getActivePlayerId());
+
+        int index;
+        synchronized (bridgeEventBuffer) {
+            index = bridgeEventBuffer.size();
+        }
+
+        BridgeLogEntry entry = new BridgeLogEntry(
+                index,
+                getGameSeq(),
+                event.getType().name(),
+                getTurnNum(),
+                phaseType != null ? phaseType.name() : null,
+                stepType != null ? stepType.name() : null,
+                activePlayerObj != null ? activePlayerObj.getName() : null,
+                playerName,
+                cardName,
+                targetName,
+                event.getAmount(),
+                visibleToAll
+        );
+        bridgeEventBuffer.add(entry);
+    }
+
+    @Override
+    public List<BridgeLogEntry> getBridgeEventsSince(int cursor, UUID playerId) {
+        if (bridgeEventBuffer == null) {
+            return Collections.emptyList();
+        }
+        List<BridgeLogEntry> result = new ArrayList<>();
+        synchronized (bridgeEventBuffer) {
+            for (int i = cursor; i < bridgeEventBuffer.size(); i++) {
+                BridgeLogEntry entry = bridgeEventBuffer.get(i);
+                if (entry.visibleToAll()) {
+                    result.add(entry);
+                } else if (playerId != null) {
+                    // Check if the requesting player is the one who performed the action
+                    Player requestingPlayer = getPlayer(playerId);
+                    if (requestingPlayer != null && requestingPlayer.getName().equals(entry.player())) {
+                        result.add(entry);
+                    } else {
+                        result.add(entry.redacted());
+                    }
+                } else {
+                    result.add(entry.redacted());
+                }
+            }
+        }
+        return result;
     }
 }
