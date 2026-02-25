@@ -13,7 +13,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_1",
@@ -22,7 +22,52 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_TARGET\",\"board\":[{\"hand\":[],\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"library_size\":60,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"library_size\":60,\"life\":20,\"name\":\"Opponent\"}],\"can_cancel\":false,\"choices\":[{\"id\":\"_\",\"index\":0,\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\"},{\"id\":\"_\",\"index\":1,\"name\":\"Opponent\",\"target_type\":\"player\"}],\"context\":\"T1 ()\",\"game_seq\":1,\"message\":\"Select a starting player\",\"required\":true,\"respond_with\":\"id=\\\"pN\\\" or index=N\",\"response_type\":\"index\",\"stop_reason\":\"non_priority_action\"}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_TARGET",
+      "board": [
+        {
+          "hand": [],
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 60,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 60,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "can_cancel": false,
+      "choices": [
+        {
+          "id": "_",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "_",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "context": "T1 ()",
+      "game_seq": 1,
+      "message": "Select a starting player",
+      "required": true,
+      "respond_with": "id=\"pN\" or index=N",
+      "response_type": "index",
+      "stop_reason": "non_priority_action"
+    },
     "role": "tool",
     "tool_call_id": "call_1"
   },
@@ -32,7 +77,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_2",
@@ -41,7 +88,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_target_0\",\"game_seq\":1,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_ASK\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_target_0",
+      "game_seq": 1,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_ASK",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_2"
   },
@@ -51,7 +105,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_3",
@@ -60,7 +114,143 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_ASK\",\"board\":[{\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"mana_cost\":\"{U}{U}\",\"name\":\"Mana Drain\",\"rules\":[\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]},{\"id\":\"_\",\"mana_cost\":\"{1}\",\"name\":\"Sol Ring\",\"rules\":[\"{T}: Add {C}{C}.\"]}],\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"library_size\":53,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":53,\"life\":20,\"name\":\"Opponent\"}],\"context\":\"T1 ()\",\"game_seq\":3,\"message\":\"Mulligan down to 6 cards?\",\"respond_with\":\"answer=true or answer=false\",\"response_type\":\"boolean\",\"stop_reason\":\"non_priority_action\",\"your_hand\":[{\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"mana_cost\":\"{U}{U}\",\"name\":\"Mana Drain\",\"rules\":[\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]},{\"mana_cost\":\"{1}\",\"name\":\"Sol Ring\",\"rules\":[\"{T}: Add {C}{C}.\"]}]}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_ASK",
+      "board": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{U}{U}",
+              "name": "Mana Drain",
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{1}",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "context": "T1 ()",
+      "game_seq": 3,
+      "message": "Mulligan down to 6 cards?",
+      "respond_with": "answer=true or answer=false",
+      "response_type": "boolean",
+      "stop_reason": "non_priority_action",
+      "your_hand": [
+        {
+          "is_land": true,
+          "name": "Island",
+          "rules": [
+            "{T}: Add {U}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Island",
+          "rules": [
+            "{T}: Add {U}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Island",
+          "rules": [
+            "{T}: Add {U}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Island",
+          "rules": [
+            "{T}: Add {U}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Island",
+          "rules": [
+            "{T}: Add {U}."
+          ]
+        },
+        {
+          "mana_cost": "{U}{U}",
+          "name": "Mana Drain",
+          "rules": [
+            "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+          ]
+        },
+        {
+          "mana_cost": "{1}",
+          "name": "Sol Ring",
+          "rules": [
+            "{T}: Add {C}{C}."
+          ]
+        }
+      ]
+    },
     "role": "tool",
     "tool_call_id": "call_3"
   },
@@ -70,7 +260,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"answer\":false}",
+          "arguments": {
+            "answer": false
+          },
           "name": "choose_action"
         },
         "id": "call_4",
@@ -79,7 +271,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"no\",\"game_seq\":3,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "no",
+      "game_seq": 3,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_4"
   },
@@ -89,7 +288,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_5",
@@ -98,7 +297,131 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"mana_cost\":\"{U}{U}\",\"name\":\"Mana Drain\",\"rules\":[\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]},{\"id\":\"_\",\"mana_cost\":\"{1}\",\"name\":\"Sol Ring\",\"rules\":[\"{T}: Add {C}{C}.\"]}],\"hand_size\":7,\"is_active\":true,\"is_you\":true,\"library_size\":53,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":53,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"land\",\"id\":\"_\",\"index\":0,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":1,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":2,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":3,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":4,\"name\":\"Island\"}],\"context\":\"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"game_seq\":11,\"has_playable_cards\":true,\"land_drops_used\":0,\"message\":\"Play spells and abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stop_reason\":\"playable_cards\"}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{U}{U}",
+              "name": "Mana Drain",
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{1}",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Island"
+        }
+      ],
+      "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 11,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards"
+    },
     "role": "tool",
     "tool_call_id": "call_5"
   },
@@ -108,7 +431,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_6",
@@ -117,7 +442,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_0\",\"game_seq\":11,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 11,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_6"
   },
@@ -127,7 +459,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_7",
@@ -136,7 +470,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_0\",\"game_seq\":13,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 13,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -146,7 +487,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"until\":\"my_turn\"}",
+          "arguments": {
+            "until": "my_turn"
+          },
           "name": "pass_priority"
         },
         "id": "call_8",
@@ -155,7 +498,152 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Sol Ring\",\"rules\":[\"{T}: Add {C}{C}.\"],\"tapped\":false}],\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"mana_cost\":\"{U}{U}\",\"name\":\"Mana Drain\",\"rules\":[\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}],\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"library_size\":52,\"life\":20,\"name\":\"TestPlayer\"},{\"battlefield\":[{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":false}],\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":52,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"land\",\"id\":\"_\",\"index\":0,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":1,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":2,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":3,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":4,\"name\":\"Island\"}],\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"game_seq\":25,\"has_playable_cards\":true,\"land_drops_used\":0,\"message\":\"Play spells and abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stop_reason\":\"playable_cards\",\"untapped_lands\":1}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{U}{U}",
+              "name": "Mana Drain",
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Island"
+        }
+      ],
+      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 25,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 1
+    },
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -165,7 +653,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"until\":\"precombat_main\"}",
+          "arguments": {
+            "until": "precombat_main"
+          },
           "name": "pass_priority"
         },
         "id": "call_9",
@@ -174,7 +664,152 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Sol Ring\",\"rules\":[\"{T}: Add {C}{C}.\"],\"tapped\":false}],\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"mana_cost\":\"{U}{U}\",\"name\":\"Mana Drain\",\"rules\":[\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}],\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"library_size\":52,\"life\":20,\"name\":\"TestPlayer\"},{\"battlefield\":[{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":false}],\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":52,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"land\",\"id\":\"_\",\"index\":0,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":1,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":2,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":3,\"name\":\"Island\"},{\"action\":\"land\",\"id\":\"_\",\"index\":4,\"name\":\"Island\"}],\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"current_step\":\"Precombat Main\",\"game_seq\":25,\"land_drops_used\":0,\"message\":\"Play spells and abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stop_reason\":\"reached_step\",\"untapped_lands\":1}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{U}{U}",
+              "name": "Mana Drain",
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Island"
+        }
+      ],
+      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "current_step": "Precombat Main",
+      "game_seq": 25,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "reached_step",
+      "untapped_lands": 1
+    },
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -184,7 +819,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_10",
@@ -193,7 +830,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_0\",\"game_seq\":25,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 25,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_10"
   },
@@ -203,7 +847,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"until\":\"end_of_turn\"}",
+          "arguments": {
+            "until": "end_of_turn"
+          },
           "name": "pass_priority"
         },
         "id": "call_11",
@@ -212,7 +858,137 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Sol Ring\",\"rules\":[\"{T}: Add {C}{C}.\"],\"tapped\":false}],\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"mana_cost\":\"{U}{U}\",\"name\":\"Mana Drain\",\"playable\":true,\"rules\":[\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}],\"hand_size\":5,\"is_active\":false,\"is_you\":true,\"library_size\":52,\"life\":20,\"name\":\"TestPlayer\"},{\"battlefield\":[{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":true},{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":false}],\"hand_size\":6,\"is_active\":true,\"is_you\":false,\"library_size\":51,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"cast\",\"id\":\"_\",\"index\":0,\"mana_cost\":\"{U}{U}\",\"name\":\"Mana Drain\"}],\"context\":\"T2 Postcombat Main/Postcombat Main (Opponent)\",\"game_seq\":44,\"has_playable_cards\":true,\"message\":\"Play instants and activated abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stack\":[{\"name\":\"Savannah Lions\"}],\"stop_reason\":\"playable_cards\",\"untapped_lands\":2}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{U}{U}",
+              "name": "Mana Drain",
+              "playable": true,
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            }
+          ],
+          "hand_size": 5,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 0,
+          "mana_cost": "{U}{U}",
+          "name": "Mana Drain"
+        }
+      ],
+      "context": "T2 Postcombat Main/Postcombat Main (Opponent)",
+      "game_seq": 44,
+      "has_playable_cards": true,
+      "message": "Play instants and activated abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stack": [
+        {
+          "name": "Savannah Lions"
+        }
+      ],
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
+    },
     "role": "tool",
     "tool_call_id": "call_11"
   },
@@ -222,7 +998,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_12",
@@ -231,7 +1009,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_0\",\"game_seq\":44,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 44,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_12"
   },
@@ -241,7 +1026,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"until\":\"my_turn\"}",
+          "arguments": {
+            "until": "my_turn"
+          },
           "name": "pass_priority"
         },
         "id": "call_13",
@@ -250,7 +1037,159 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Sol Ring\",\"rules\":[\"{T}: Add {C}{C}.\"],\"tapped\":false}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Mana Drain\",\"rules\":[\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}],\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{3}{U}\",\"name\":\"Fact or Fiction\",\"playable\":true,\"rules\":[\"Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]}],\"hand_size\":5,\"is_active\":true,\"is_you\":true,\"library_size\":51,\"life\":20,\"name\":\"TestPlayer\"},{\"battlefield\":[{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":true},{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":false}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Savannah Lions\"}],\"hand_size\":6,\"is_active\":false,\"is_you\":false,\"library_size\":51,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"cast\",\"id\":\"_\",\"index\":0,\"mana_cost\":\"{3}{U}\",\"name\":\"Fact or Fiction\"}],\"context\":\"T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"game_seq\":56,\"has_playable_cards\":true,\"land_drops_used\":0,\"message\":\"Play instants and activated abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stack\":[{\"name\":\"Ability\",\"targets\":[{\"id\":\"_\",\"name\":\"TestPlayer (you)\"}]}],\"stop_reason\":\"playable_cards\",\"untapped_lands\":2}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mana Drain",
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{3}{U}",
+              "name": "Fact or Fiction",
+              "playable": true,
+              "rules": [
+                "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            }
+          ],
+          "hand_size": 5,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 0,
+          "mana_cost": "{3}{U}",
+          "name": "Fact or Fiction"
+        }
+      ],
+      "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 56,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play instants and activated abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stack": [
+        {
+          "name": "Ability",
+          "targets": [
+            {
+              "id": "_",
+              "name": "TestPlayer (you)"
+            }
+          ]
+        }
+      ],
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
+    },
     "role": "tool",
     "tool_call_id": "call_13"
   },
@@ -260,7 +1199,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"until\":\"precombat_main\"}",
+          "arguments": {
+            "until": "precombat_main"
+          },
           "name": "pass_priority"
         },
         "id": "call_14",
@@ -269,7 +1210,159 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_SELECT\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Sol Ring\",\"rules\":[\"{T}: Add {C}{C}.\"],\"tapped\":false}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Mana Drain\",\"rules\":[\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}],\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{3}{U}\",\"name\":\"Fact or Fiction\",\"playable\":true,\"rules\":[\"Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]}],\"hand_size\":5,\"is_active\":true,\"is_you\":true,\"library_size\":51,\"life\":20,\"name\":\"TestPlayer\"},{\"battlefield\":[{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":true},{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":false}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Savannah Lions\"}],\"hand_size\":6,\"is_active\":false,\"is_you\":false,\"library_size\":51,\"life\":20,\"name\":\"Opponent\"}],\"choices\":[{\"action\":\"cast\",\"id\":\"_\",\"index\":0,\"mana_cost\":\"{3}{U}\",\"name\":\"Fact or Fiction\"}],\"context\":\"T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"current_step\":\"Precombat Main\",\"game_seq\":56,\"land_drops_used\":0,\"message\":\"Play instants and activated abilities\",\"respond_with\":\"id=\\\"pN\\\" or index=N to play, or answer=false to pass\",\"response_type\":\"select\",\"stack\":[{\"name\":\"Ability\",\"targets\":[{\"id\":\"_\",\"name\":\"TestPlayer (you)\"}]}],\"stop_reason\":\"reached_step\",\"untapped_lands\":2}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mana Drain",
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{3}{U}",
+              "name": "Fact or Fiction",
+              "playable": true,
+              "rules": [
+                "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            }
+          ],
+          "hand_size": 5,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 0,
+          "mana_cost": "{3}{U}",
+          "name": "Fact or Fiction"
+        }
+      ],
+      "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "current_step": "Precombat Main",
+      "game_seq": 56,
+      "land_drops_used": 0,
+      "message": "Play instants and activated abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stack": [
+        {
+          "name": "Ability",
+          "targets": [
+            {
+              "id": "_",
+              "name": "TestPlayer (you)"
+            }
+          ]
+        }
+      ],
+      "stop_reason": "reached_step",
+      "untapped_lands": 2
+    },
     "role": "tool",
     "tool_call_id": "call_14"
   },
@@ -279,7 +1372,12 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\":0,\"mana_plan\":[\"COLORLESS\"]}",
+          "arguments": {
+            "index": 0,
+            "mana_plan": [
+              "COLORLESS"
+            ]
+          },
           "name": "choose_action"
         },
         "id": "call_15",
@@ -288,7 +1386,16 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_0\",\"game_seq\":56,\"mana_plan_set\":true,\"mana_plan_size\":1,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 56,
+      "mana_plan_set": true,
+      "mana_plan_size": 1,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_15"
   },
@@ -298,7 +1405,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_16",
@@ -307,7 +1414,194 @@
     ]
   },
   {
-    "content": "{\"action_pending\":true,\"action_type\":\"GAME_CHOOSE_PILE\",\"board\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":true},{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":true},{\"id\":\"_\",\"name\":\"Sol Ring\",\"rules\":[\"{T}: Add {C}{C}.\"],\"tapped\":true}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Mana Drain\",\"rules\":[\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]}],\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]}],\"hand_size\":4,\"is_active\":true,\"is_you\":true,\"library_size\":51,\"life\":20,\"name\":\"TestPlayer\"},{\"battlefield\":[{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":true},{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":false}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Savannah Lions\"}],\"hand_size\":6,\"is_active\":false,\"is_you\":false,\"library_size\":51,\"life\":20,\"name\":\"Opponent\"}],\"context\":\"T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"game_seq\":68,\"land_drops_used\":0,\"message\":\"Choose a pile to put into hand.\",\"pile1\":[{\"mana_cost\":\"{3}{U}{U}\",\"name\":\"Air Elemental\",\"power\":\"4\",\"rules\":[\"Flying\"],\"toughness\":\"4\"},{\"mana_cost\":\"{3}{U}{U}\",\"name\":\"Djinn of Wishes\",\"power\":\"4\",\"rules\":[\"Flying\",\"{this} enters with three wish counters on it.\",\"{2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it.\"],\"toughness\":\"4\"}],\"pile2\":[{\"mana_cost\":\"{3}{U}{U}\",\"name\":\"Mind Control\",\"rules\":[\"Enchant creature\",\"You control enchanted creature.\"]},{\"mana_cost\":\"{3}{W}{W}\",\"name\":\"Serra Angel\",\"power\":\"4\",\"rules\":[\"Flying\",\"Vigilance\"],\"toughness\":\"4\"},{\"mana_cost\":\"{4}{R}{R}\",\"name\":\"Shivan Dragon\",\"power\":\"5\",\"rules\":[\"Flying\",\"{R}: {this} gets +1/+0 until end of turn.\"],\"toughness\":\"5\"}],\"respond_with\":\"pile=1 or pile=2\",\"response_type\":\"pile\",\"stack\":[{\"name\":\"Fact or Fiction\"},{\"name\":\"Ability\",\"targets\":[{\"id\":\"_\",\"name\":\"TestPlayer (you)\"}]}],\"stop_reason\":\"non_priority_action\"}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_CHOOSE_PILE",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ],
+              "tapped": true
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mana Drain",
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            }
+          ],
+          "hand_size": 4,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 68,
+      "land_drops_used": 0,
+      "message": "Choose a pile to put into hand.",
+      "pile1": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Air Elemental",
+          "power": 4,
+          "rules": [
+            "Flying"
+          ],
+          "toughness": 4
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Djinn of Wishes",
+          "power": 4,
+          "rules": [
+            "Flying",
+            "{this} enters with three wish counters on it.",
+            "{2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it."
+          ],
+          "toughness": 4
+        }
+      ],
+      "pile2": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Mind Control",
+          "rules": [
+            "Enchant creature",
+            "You control enchanted creature."
+          ]
+        },
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Serra Angel",
+          "power": 4,
+          "rules": [
+            "Flying",
+            "Vigilance"
+          ],
+          "toughness": 4
+        },
+        {
+          "mana_cost": "{4}{R}{R}",
+          "name": "Shivan Dragon",
+          "power": 5,
+          "rules": [
+            "Flying",
+            "{R}: {this} gets +1/+0 until end of turn."
+          ],
+          "toughness": 5
+        }
+      ],
+      "respond_with": "pile=1 or pile=2",
+      "response_type": "pile",
+      "stack": [
+        {
+          "name": "Fact or Fiction"
+        },
+        {
+          "name": "Ability",
+          "targets": [
+            {
+              "id": "_",
+              "name": "TestPlayer (you)"
+            }
+          ]
+        }
+      ],
+      "stop_reason": "non_priority_action"
+    },
     "role": "tool",
     "tool_call_id": "call_16"
   },
@@ -317,7 +1611,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"pile\":1}",
+          "arguments": {
+            "pile": 1
+          },
           "name": "choose_action"
         },
         "id": "call_17",
@@ -326,7 +1622,14 @@
     ]
   },
   {
-    "content": "{\"action_taken\":\"selected_pile_1\",\"game_seq\":68,\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"success\":true}",
+    "content": {
+      "action_taken": "selected_pile_1",
+      "game_seq": 68,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_17"
   },
@@ -336,7 +1639,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "get_game_state"
         },
         "id": "call_18",
@@ -345,7 +1648,195 @@
     ]
   },
   {
-    "content": "{\"active_player\":\"TestPlayer\",\"available\":true,\"cursor\":1,\"game_seq\":77,\"phase\":\"Precombat Main\",\"players\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":true},{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":true},{\"id\":\"_\",\"name\":\"Sol Ring\",\"rules\":[\"{T}: Add {C}{C}.\"],\"tapped\":true}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Fact or Fiction\",\"rules\":[\"Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard.\"]},{\"id\":\"_\",\"name\":\"Mana Drain\",\"rules\":[\"Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value.\"]},{\"id\":\"_\",\"name\":\"Mind Control\",\"rules\":[\"Enchant creature\",\"You control enchanted creature.\"]},{\"id\":\"_\",\"name\":\"Serra Angel\",\"rules\":[\"Flying\",\"Vigilance\"]},{\"id\":\"_\",\"name\":\"Shivan Dragon\",\"rules\":[\"Flying\",\"{R}: {this} gets +1/+0 until end of turn.\"]}],\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{3}{U}{U}\",\"name\":\"Air Elemental\",\"power\":\"4\",\"rules\":[\"Flying\"],\"toughness\":\"4\"},{\"id\":\"_\",\"mana_cost\":\"{3}{U}{U}\",\"name\":\"Djinn of Wishes\",\"power\":\"4\",\"rules\":[\"Flying\",\"{this} enters with three wish counters on it.\",\"{2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it.\"],\"toughness\":\"4\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]}],\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"library_size\":46,\"life\":20,\"name\":\"TestPlayer\"},{\"battlefield\":[{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":true},{\"id\":\"_\",\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"tapped\":false}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Savannah Lions\"}],\"hand_size\":6,\"is_active\":false,\"is_you\":false,\"library_size\":51,\"life\":20,\"name\":\"Opponent\"}],\"priority_player\":\"TestPlayer\",\"stack\":[{\"id\":\"_\",\"name\":\"Ability\",\"rules\":[\"At the beginning of your next main phase, add {C}.\"],\"targets\":[{\"id\":\"_\",\"name\":\"TestPlayer (you)\"}]}],\"step\":\"Precombat Main\",\"turn\":3}",
+    "content": {
+      "active_player": "TestPlayer",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 77,
+      "phase": "Precombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ],
+              "tapped": true
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Fact or Fiction",
+              "rules": [
+                "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mana Drain",
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mind Control",
+              "rules": [
+                "Enchant creature",
+                "You control enchanted creature."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Serra Angel",
+              "rules": [
+                "Flying",
+                "Vigilance"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Shivan Dragon",
+              "rules": [
+                "Flying",
+                "{R}: {this} gets +1/+0 until end of turn."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{3}{U}{U}",
+              "name": "Air Elemental",
+              "power": 4,
+              "rules": [
+                "Flying"
+              ],
+              "toughness": 4
+            },
+            {
+              "id": "_",
+              "mana_cost": "{3}{U}{U}",
+              "name": "Djinn of Wishes",
+              "power": 4,
+              "rules": [
+                "Flying",
+                "{this} enters with three wish counters on it.",
+                "{2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it."
+              ],
+              "toughness": 4
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 46,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [
+        {
+          "id": "_",
+          "name": "Ability",
+          "rules": [
+            "At the beginning of your next main phase, add {C}."
+          ],
+          "targets": [
+            {
+              "id": "_",
+              "name": "TestPlayer (you)"
+            }
+          ]
+        }
+      ],
+      "step": "Precombat Main",
+      "turn": 3
+    },
     "role": "tool",
     "tool_call_id": "call_18"
   }

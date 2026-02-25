@@ -547,8 +547,7 @@ def _normalize_prompt_for_golden(obj: object) -> object:
             parsed = json.loads(obj)
         except json.JSONDecodeError:
             return obj
-        normalized = _normalize_prompt_for_golden(parsed)
-        return json.dumps(normalized, separators=(",", ":"), sort_keys=True, ensure_ascii=False)
+        return _normalize_prompt_for_golden(parsed)
     return obj
 
 
@@ -596,8 +595,7 @@ def _normalize_embedded_json(obj: object) -> object:
     elif isinstance(obj, str) and obj.startswith(("{", "[")):
         try:
             parsed = json.loads(obj)
-            parsed = _normalize_embedded_json(parsed)
-            return json.dumps(parsed, sort_keys=True, ensure_ascii=False)
+            return _normalize_embedded_json(parsed)
         except (json.JSONDecodeError, ValueError):
             return obj
     return obj

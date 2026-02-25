@@ -213,7 +213,14 @@
       },
       "gameSeq": 3,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"no\", \"game_seq\": 3, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": {
+        "action_taken": "no",
+        "game_seq": 3,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -223,7 +230,14 @@
       },
       "gameSeq": 44,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"yes\", \"game_seq\": 44, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_TARGET\", \"success\": true}",
+      "result": {
+        "action_taken": "yes",
+        "game_seq": 44,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -233,7 +247,14 @@
       },
       "gameSeq": 1,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_target_0\", \"game_seq\": 1, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_ASK\", \"success\": true}",
+      "result": {
+        "action_taken": "selected_target_0",
+        "game_seq": 1,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -243,7 +264,14 @@
       },
       "gameSeq": 25,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 25, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_CHOOSE_ABILITY\", \"success\": true}",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 25,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "success": true
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -253,7 +281,14 @@
       },
       "gameSeq": 26,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_ability_0\", \"game_seq\": 26, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": {
+        "action_taken": "selected_ability_0",
+        "game_seq": 26,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -263,7 +298,14 @@
       },
       "gameSeq": 32,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_ability_0\", \"game_seq\": 32, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": {
+        "action_taken": "selected_ability_0",
+        "game_seq": 32,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -273,7 +315,14 @@
       },
       "gameSeq": 37,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 37, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 37,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -283,7 +332,14 @@
       },
       "gameSeq": 47,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_0\", \"game_seq\": 47, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 47,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -293,7 +349,14 @@
       },
       "gameSeq": 11,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_1\", \"game_seq\": 11, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_SELECT\", \"success\": true}",
+      "result": {
+        "action_taken": "selected_1",
+        "game_seq": 11,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -303,7 +366,14 @@
       },
       "gameSeq": 31,
       "player": "TestPlayer",
-      "result": "{\"action_taken\": \"selected_5\", \"game_seq\": 31, \"next_action_hint\": \"Call get_action_choices or choose_action to see details, or pass_priority to continue.\", \"next_action_pending\": true, \"next_action_type\": \"GAME_CHOOSE_ABILITY\", \"success\": true}",
+      "result": {
+        "action_taken": "selected_5",
+        "game_seq": 31,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "success": true
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -311,7 +381,52 @@
       "args": {},
       "gameSeq": 1,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 60, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"game_seq\": 1, \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_TARGET",
+        "board": [
+          {
+            "hand": [],
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 60,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 60,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "can_cancel": false,
+        "choices": [
+          {
+            "id": "p1",
+            "index": 0,
+            "is_you": true,
+            "name": "TestPlayer",
+            "target_type": "player"
+          },
+          {
+            "id": "p2",
+            "index": 1,
+            "name": "Opponent",
+            "target_type": "player"
+          }
+        ],
+        "context": "T1 ()",
+        "game_seq": 1,
+        "message": "Select a starting player",
+        "required": true,
+        "respond_with": "id=\"pN\" or index=N",
+        "response_type": "index",
+        "stop_reason": "non_priority_action"
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -319,7 +434,143 @@
       "args": {},
       "gameSeq": 11,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"board\": [{\"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"playable\": true, \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p10\", \"index\": 0, \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\"}, {\"action\": \"land\", \"id\": \"p12\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p16\", \"index\": 5, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 11, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{0}",
+                "name": "Black Lotus",
+                "playable": true,
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{3}{U}",
+                "name": "Clone",
+                "power": "0",
+                "rules": [
+                  "You may have {this} enter as a copy of any creature on the battlefield."
+                ],
+                "toughness": "0"
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "playable": true,
+                "power": "1",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p10",
+            "index": 0,
+            "mana_cost": "{0}",
+            "name": "Black Lotus"
+          },
+          {
+            "action": "land",
+            "id": "p12",
+            "index": 1,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 2,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 3,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 4,
+            "name": "Island"
+          },
+          {
+            "action": "cast",
+            "id": "p16",
+            "index": 5,
+            "mana_cost": "{0}",
+            "name": "Memnite",
+            "power": "1",
+            "toughness": "1"
+          }
+        ],
+        "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 11,
+        "has_playable_cards": true,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "response_type": "select",
+        "stop_reason": "playable_cards"
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -327,7 +578,163 @@
       "args": {},
       "gameSeq": 25,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"board\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"playable\": true, \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p10\", \"index\": 0, \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p16\", \"index\": 5, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 25, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{0}",
+                "name": "Black Lotus",
+                "playable": true,
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{3}{U}",
+                "name": "Clone",
+                "power": "0",
+                "rules": [
+                  "You may have {this} enter as a copy of any creature on the battlefield."
+                ],
+                "toughness": "0"
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "playable": true,
+                "power": "1",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p10",
+            "index": 0,
+            "mana_cost": "{0}",
+            "name": "Black Lotus"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 1,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 2,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 3,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p24",
+            "index": 4,
+            "name": "Island"
+          },
+          {
+            "action": "cast",
+            "id": "p16",
+            "index": 5,
+            "mana_cost": "{0}",
+            "name": "Memnite",
+            "power": "1",
+            "toughness": "1"
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 25,
+        "has_playable_cards": true,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "response_type": "select",
+        "stop_reason": "playable_cards",
+        "untapped_lands": 1
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -335,7 +742,126 @@
       "args": {},
       "gameSeq": 26,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_CHOOSE_ABILITY\", \"board\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"playable\": true, \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"description\": \"1. Cast Black Lotus\", \"index\": 0}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 26, \"land_drops_used\": 0, \"message\": \"Choose spell or ability to play: Black Lotus\", \"respond_with\": \"index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\", \"untapped_lands\": 1}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_CHOOSE_ABILITY",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{0}",
+                "name": "Black Lotus",
+                "playable": true,
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{3}{U}",
+                "name": "Clone",
+                "power": "0",
+                "rules": [
+                  "You may have {this} enter as a copy of any creature on the battlefield."
+                ],
+                "toughness": "0"
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "playable": true,
+                "power": "1",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 7,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "choices": [
+          {
+            "description": "1. Cast Black Lotus",
+            "index": 0
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 26,
+        "land_drops_used": 0,
+        "message": "Choose spell or ability to play: Black Lotus",
+        "respond_with": "index=N",
+        "response_type": "index",
+        "stop_reason": "non_priority_action",
+        "untapped_lands": 1
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -343,7 +869,145 @@
       "args": {},
       "gameSeq": 3,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"board\": [{\"hand\": [{\"id\": \"p10\", \"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p12\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 7, \"is_active\": false, \"is_you\": true, \"library_size\": 53, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 53, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T1 ()\", \"game_seq\": 3, \"message\": \"Mulligan down to 6 cards?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stop_reason\": \"non_priority_action\", \"your_hand\": [{\"mana_cost\": \"{0}\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}, {\"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}]}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{0}",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ]
+              },
+              {
+                "id": "p11",
+                "mana_cost": "{3}{U}",
+                "name": "Clone",
+                "power": "0",
+                "rules": [
+                  "You may have {this} enter as a copy of any creature on the battlefield."
+                ],
+                "toughness": "0"
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "power": "1",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "context": "T1 ()",
+        "game_seq": 3,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "answer=true or answer=false",
+        "response_type": "boolean",
+        "stop_reason": "non_priority_action",
+        "your_hand": [
+          {
+            "mana_cost": "{0}",
+            "name": "Black Lotus",
+            "rules": [
+              "{T}, Sacrifice {this}: Add three mana of any one color."
+            ]
+          },
+          {
+            "mana_cost": "{3}{U}",
+            "name": "Clone",
+            "power": "0",
+            "rules": [
+              "You may have {this} enter as a copy of any creature on the battlefield."
+            ],
+            "toughness": "0"
+          },
+          {
+            "is_land": true,
+            "name": "Island",
+            "rules": [
+              "{T}: Add {U}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Island",
+            "rules": [
+              "{T}: Add {U}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Island",
+            "rules": [
+              "{T}: Add {U}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Island",
+            "rules": [
+              "{T}: Add {U}."
+            ]
+          },
+          {
+            "mana_cost": "{0}",
+            "name": "Memnite",
+            "power": "1",
+            "toughness": "1"
+          }
+        ]
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -351,7 +1015,165 @@
       "args": {},
       "gameSeq": 31,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"], \"tapped\": false}, {\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"playable\": true, \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p11\", \"index\": 0, \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"toughness\": \"0\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 4, \"name\": \"Island\"}, {\"action\": \"cast\", \"id\": \"p16\", \"index\": 5, \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"power\": \"1\", \"toughness\": \"1\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 31, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "mana_cost": "{3}{U}",
+                "name": "Clone",
+                "playable": true,
+                "power": "0",
+                "rules": [
+                  "You may have {this} enter as a copy of any creature on the battlefield."
+                ],
+                "toughness": "0"
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "playable": true,
+                "power": "1",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p11",
+            "index": 0,
+            "mana_cost": "{3}{U}",
+            "name": "Clone",
+            "power": "0",
+            "toughness": "0"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 1,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 2,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 3,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p24",
+            "index": 4,
+            "name": "Island"
+          },
+          {
+            "action": "cast",
+            "id": "p16",
+            "index": 5,
+            "mana_cost": "{0}",
+            "name": "Memnite",
+            "power": "1",
+            "toughness": "1"
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 31,
+        "has_playable_cards": true,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "response_type": "select",
+        "stop_reason": "playable_cards",
+        "untapped_lands": 1
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -359,7 +1181,126 @@
       "args": {},
       "gameSeq": 32,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_CHOOSE_ABILITY\", \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"], \"tapped\": false}, {\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}], \"hand\": [{\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"playable\": true, \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p16\", \"mana_cost\": \"{0}\", \"name\": \"Memnite\", \"playable\": true, \"power\": \"1\", \"toughness\": \"1\"}], \"hand_size\": 6, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"description\": \"1. Cast Memnite\", \"index\": 0}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 32, \"land_drops_used\": 0, \"message\": \"Choose spell or ability to play: Memnite\", \"respond_with\": \"index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\", \"untapped_lands\": 1}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_CHOOSE_ABILITY",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "mana_cost": "{3}{U}",
+                "name": "Clone",
+                "playable": true,
+                "power": "0",
+                "rules": [
+                  "You may have {this} enter as a copy of any creature on the battlefield."
+                ],
+                "toughness": "0"
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "playable": true,
+                "power": "1",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "choices": [
+          {
+            "description": "1. Cast Memnite",
+            "index": 0
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 32,
+        "land_drops_used": 0,
+        "message": "Choose spell or ability to play: Memnite",
+        "respond_with": "index=N",
+        "response_type": "index",
+        "stop_reason": "non_priority_action",
+        "untapped_lands": 1
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -367,7 +1308,156 @@
       "args": {},
       "gameSeq": 37,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"board\": [{\"battlefield\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"], \"tapped\": false}, {\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p16\", \"name\": \"Memnite\", \"power\": \"1\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"hand\": [{\"id\": \"p11\", \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"playable\": true, \"power\": \"0\", \"rules\": [\"You may have {this} enter as a copy of any creature on the battlefield.\"], \"toughness\": \"0\"}, {\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 5, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"cast\", \"id\": \"p11\", \"index\": 0, \"mana_cost\": \"{3}{U}\", \"name\": \"Clone\", \"power\": \"0\", \"toughness\": \"0\"}, {\"action\": \"land\", \"id\": \"p13\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 3, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 4, \"name\": \"Island\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 37, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 1}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p16",
+                "name": "Memnite",
+                "power": "1",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "mana_cost": "{3}{U}",
+                "name": "Clone",
+                "playable": true,
+                "power": "0",
+                "rules": [
+                  "You may have {this} enter as a copy of any creature on the battlefield."
+                ],
+                "toughness": "0"
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "choices": [
+          {
+            "action": "cast",
+            "id": "p11",
+            "index": 0,
+            "mana_cost": "{3}{U}",
+            "name": "Clone",
+            "power": "0",
+            "toughness": "0"
+          },
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 1,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 2,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 3,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p24",
+            "index": 4,
+            "name": "Island"
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 37,
+        "has_playable_cards": true,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "response_type": "select",
+        "stop_reason": "playable_cards",
+        "untapped_lands": 1
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -375,7 +1465,110 @@
       "args": {},
       "gameSeq": 44,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_ASK\", \"board\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"id\": \"p16\", \"name\": \"Memnite\", \"power\": \"1\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"graveyard\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}], \"hand\": [{\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 44, \"land_drops_used\": 0, \"message\": \"Use effect of Clone?\", \"respond_with\": \"answer=true or answer=false\", \"response_type\": \"boolean\", \"stack\": [{\"name\": \"Clone\"}], \"stop_reason\": \"non_priority_action\"}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": true
+              },
+              {
+                "id": "p16",
+                "name": "Memnite",
+                "power": "1",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              }
+            ],
+            "hand_size": 4,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 44,
+        "land_drops_used": 0,
+        "message": "Use effect of Clone?",
+        "respond_with": "answer=true or answer=false",
+        "response_type": "boolean",
+        "stack": [
+          {
+            "name": "Clone"
+          }
+        ],
+        "stop_reason": "non_priority_action"
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -383,7 +1576,147 @@
       "args": {},
       "gameSeq": 47,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"board\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": true}, {\"copy\": true, \"id\": \"p11\", \"modified\": true, \"name\": \"Memnite\", \"original_card\": \"Clone\", \"power\": \"1\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}, {\"id\": \"p16\", \"name\": \"Memnite\", \"power\": \"1\", \"summoning_sick\": true, \"tapped\": false, \"toughness\": \"1\"}], \"graveyard\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}], \"hand\": [{\"id\": \"p13\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": true, \"library_size\": 52, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 52, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p13\", \"index\": 0, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p14\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 3, \"name\": \"Island\"}], \"context\": \"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 47, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\"}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": true
+              },
+              {
+                "copy": true,
+                "id": "p11",
+                "modified": true,
+                "name": "Memnite",
+                "original_card": "Clone",
+                "power": "1",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1"
+              },
+              {
+                "id": "p16",
+                "name": "Memnite",
+                "power": "1",
+                "summoning_sick": true,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              }
+            ],
+            "hand_size": 4,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "choices": [
+          {
+            "action": "land",
+            "id": "p13",
+            "index": 0,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 1,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 2,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p24",
+            "index": 3,
+            "name": "Island"
+          }
+        ],
+        "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 47,
+        "has_playable_cards": true,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "response_type": "select",
+        "stop_reason": "playable_cards"
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -391,7 +1724,163 @@
       "args": {},
       "gameSeq": 66,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_SELECT\", \"board\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p13\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"copy\": true, \"id\": \"p11\", \"modified\": true, \"name\": \"Memnite\", \"original_card\": \"Clone\", \"power\": \"1\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}, {\"id\": \"p16\", \"name\": \"Memnite\", \"power\": \"1\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"graveyard\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}], \"hand\": [{\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p29\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"choices\": [{\"action\": \"land\", \"id\": \"p14\", \"index\": 0, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p15\", \"index\": 1, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p24\", \"index\": 2, \"name\": \"Island\"}, {\"action\": \"land\", \"id\": \"p29\", \"index\": 3, \"name\": \"Island\"}], \"context\": \"T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\", \"game_seq\": 66, \"has_playable_cards\": true, \"land_drops_used\": 0, \"message\": \"Play spells and abilities\", \"respond_with\": \"id=\\\"pN\\\" or index=N to play, or answer=false to pass\", \"response_type\": \"select\", \"stop_reason\": \"playable_cards\", \"untapped_lands\": 2}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_SELECT",
+        "board": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              },
+              {
+                "copy": true,
+                "id": "p11",
+                "modified": true,
+                "name": "Memnite",
+                "original_card": "Clone",
+                "power": "1",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": "1"
+              },
+              {
+                "id": "p16",
+                "name": "Memnite",
+                "power": "1",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              }
+            ],
+            "hand_size": 4,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "choices": [
+          {
+            "action": "land",
+            "id": "p14",
+            "index": 0,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p15",
+            "index": 1,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p24",
+            "index": 2,
+            "name": "Island"
+          },
+          {
+            "action": "land",
+            "id": "p29",
+            "index": 3,
+            "name": "Island"
+          }
+        ],
+        "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+        "game_seq": 66,
+        "has_playable_cards": true,
+        "land_drops_used": 0,
+        "message": "Play spells and abilities",
+        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "response_type": "select",
+        "stop_reason": "playable_cards",
+        "untapped_lands": 2
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -399,7 +1888,135 @@
       "args": {},
       "gameSeq": 66,
       "player": "TestPlayer",
-      "result": "{\"active_player\": \"TestPlayer\", \"available\": true, \"cursor\": 1, \"game_seq\": 66, \"phase\": \"Precombat Main\", \"players\": [{\"battlefield\": [{\"id\": \"p12\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"id\": \"p13\", \"name\": \"Island\", \"rules\": [\"{T}: Add {U}.\"], \"tapped\": false}, {\"copy\": true, \"id\": \"p11\", \"modified\": true, \"name\": \"Memnite\", \"original_card\": \"Clone\", \"power\": \"1\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}, {\"id\": \"p16\", \"name\": \"Memnite\", \"power\": \"1\", \"summoning_sick\": false, \"tapped\": false, \"toughness\": \"1\"}], \"graveyard\": [{\"id\": \"p10\", \"name\": \"Black Lotus\", \"rules\": [\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}], \"hand\": [{\"id\": \"p14\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p15\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p24\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}, {\"id\": \"p29\", \"is_land\": true, \"name\": \"Island\", \"playable\": true, \"rules\": [\"{T}: Add {U}.\"]}], \"hand_size\": 4, \"is_active\": true, \"is_you\": true, \"library_size\": 51, \"life\": 20, \"name\": \"TestPlayer\"}, {\"graveyard\": [{\"id\": \"p3\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}, {\"id\": \"p4\", \"name\": \"Mountain\", \"rules\": [\"{T}: Add {R}.\"]}], \"hand_size\": 7, \"is_active\": false, \"is_you\": false, \"library_size\": 51, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"TestPlayer\", \"stack\": [], \"step\": \"Precombat Main\", \"turn\": 3}",
+      "result": {
+        "active_player": "TestPlayer",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 66,
+        "phase": "Precombat Main",
+        "players": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              },
+              {
+                "copy": true,
+                "id": "p11",
+                "modified": true,
+                "name": "Memnite",
+                "original_card": "Clone",
+                "power": "1",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": "1"
+              },
+              {
+                "id": "p16",
+                "name": "Memnite",
+                "power": "1",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              }
+            ],
+            "hand_size": 4,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "priority_player": "TestPlayer",
+        "stack": [],
+        "step": "Precombat Main",
+        "turn": 3
+      },
       "tool": "",
       "type": "tool_call"
     },

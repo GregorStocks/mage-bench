@@ -31,7 +31,52 @@
       "args": {},
       "gameSeq": 1,
       "player": "TestPlayer",
-      "result": "{\"action_pending\": true, \"action_type\": \"GAME_TARGET\", \"board\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 50, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"can_cancel\": false, \"choices\": [{\"id\": \"p1\", \"index\": 0, \"is_you\": true, \"name\": \"TestPlayer\", \"target_type\": \"player\"}, {\"id\": \"p2\", \"index\": 1, \"name\": \"Opponent\", \"target_type\": \"player\"}], \"context\": \"T1 ()\", \"game_seq\": 1, \"message\": \"Select a starting player\", \"required\": true, \"respond_with\": \"id=\\\"pN\\\" or index=N\", \"response_type\": \"index\", \"stop_reason\": \"non_priority_action\"}",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_TARGET",
+        "board": [
+          {
+            "hand": [],
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 50,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 60,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "can_cancel": false,
+        "choices": [
+          {
+            "id": "p1",
+            "index": 0,
+            "is_you": true,
+            "name": "TestPlayer",
+            "target_type": "player"
+          },
+          {
+            "id": "p2",
+            "index": 1,
+            "name": "Opponent",
+            "target_type": "player"
+          }
+        ],
+        "context": "T1 ()",
+        "game_seq": 1,
+        "message": "Select a starting player",
+        "required": true,
+        "respond_with": "id=\"pN\" or index=N",
+        "response_type": "index",
+        "stop_reason": "non_priority_action"
+      },
       "tool": "",
       "type": "tool_call"
     },
@@ -39,7 +84,34 @@
       "args": {},
       "gameSeq": 1,
       "player": "TestPlayer",
-      "result": "{\"active_player\": \"\", \"available\": true, \"cursor\": 1, \"game_seq\": 1, \"players\": [{\"hand\": [], \"hand_size\": 0, \"is_active\": false, \"is_you\": true, \"library_size\": 50, \"life\": 20, \"name\": \"TestPlayer\"}, {\"hand_size\": 0, \"is_active\": false, \"is_you\": false, \"library_size\": 60, \"life\": 20, \"name\": \"Opponent\"}], \"priority_player\": \"\", \"stack\": [], \"turn\": 1}",
+      "result": {
+        "active_player": "",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 1,
+        "players": [
+          {
+            "hand": [],
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 50,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 60,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "priority_player": "",
+        "stack": [],
+        "turn": 1
+      },
       "tool": "",
       "type": "tool_call"
     },
