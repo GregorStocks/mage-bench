@@ -116,5 +116,28 @@
     },
     "role": "tool",
     "tool_call_id": "call_2"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_3",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "cursor": 0,
+      "event_count": 0,
+      "history": "No game events recorded yet."
+    },
+    "role": "tool",
+    "tool_call_id": "call_3"
   }
 ]

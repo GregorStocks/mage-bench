@@ -8,10 +8,6 @@
     "role": "user"
   },
   {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -26,54 +22,13 @@
     ]
   },
   {
-    "content": {
-      "action_pending": true,
-      "action_type": "GAME_TARGET",
-      "board": [
-        {
-          "hand": [],
-          "hand_size": 0,
-          "is_active": false,
-          "is_you": true,
-          "library_size": 60,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "hand_size": 0,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 60,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "can_cancel": false,
-      "choices": [
-        {
-          "id": "_",
-          "index": 0,
-          "is_you": true,
-          "name": "TestPlayer",
-          "target_type": "player"
-        },
-        {
-          "id": "_",
-          "index": 1,
-          "name": "Opponent",
-          "target_type": "player"
-        }
-      ],
-      "context": "T1 ()",
-      "game_seq": 1,
-      "message": "Select a starting player",
-      "required": true,
-      "respond_with": "id=\"pN\" or index=N",
-      "response_type": "index",
-      "stop_reason": "non_priority_action"
-    },
+    "content": "action_pending(GAME_TARGET, non_priority_action); index; 2 choices: TestPlayer, Opponent",
     "role": "tool",
     "tool_call_id": "call_1"
+  },
+  {
+    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,
@@ -1579,5 +1534,28 @@
     },
     "role": "tool",
     "tool_call_id": "call_20"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_21",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "cursor": 24,
+      "event_count": 24,
+      "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Badlands\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n"
+    },
+    "role": "tool",
+    "tool_call_id": "call_21"
   }
 ]
