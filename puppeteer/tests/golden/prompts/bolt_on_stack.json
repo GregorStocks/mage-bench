@@ -8,6 +8,10 @@
     "role": "user"
   },
   {
+    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
+  },
+  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -22,13 +26,9 @@
     ]
   },
   {
-    "content": "action_pending(GAME_TARGET, non_priority_action); index; 2 choices: TestPlayer, Opponent",
+    "content": "{\"action_pending\":true,\"action_type\":\"GAME_TARGET\",\"board\":[{\"hand\":[],\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"library_size\":60,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"library_size\":60,\"life\":20,\"name\":\"Opponent\"}],\"can_cancel\":false,\"choices\":[{\"id\":\"_\",\"index\":0,\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\"},{\"id\":\"_\",\"index\":1,\"name\":\"Opponent\",\"target_type\":\"player\"}],\"context\":\"T1 ()\",\"game_seq\":1,\"message\":\"Select a starting player\",\"required\":true,\"respond_with\":\"id=\\\"pN\\\" or index=N\",\"response_type\":\"index\",\"stop_reason\":\"non_priority_action\"}",
     "role": "tool",
     "tool_call_id": "call_1"
-  },
-  {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
   },
   {
     "content": null,
@@ -390,24 +390,5 @@
     "content": "{\"active_player\":\"Opponent\",\"available\":true,\"cursor\":1,\"game_seq\":40,\"phase\":\"Precombat Main\",\"players\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Badlands\",\"rules\":[\"{T}: Add {B}.\",\"{T}: Add {R}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"tapped\":true}],\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Plateau\",\"rules\":[\"{T}: Add {R}.\",\"{T}: Add {W}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Taiga\",\"rules\":[\"{T}: Add {G}.\",\"{T}: Add {R}.\"]}],\"hand_size\":4,\"is_active\":false,\"is_you\":true,\"library_size\":52,\"life\":20,\"name\":\"TestPlayer\"},{\"graveyard\":[{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"]}],\"hand_size\":8,\"is_active\":true,\"is_you\":false,\"library_size\":51,\"life\":20,\"name\":\"Opponent\"}],\"priority_player\":\"TestPlayer\",\"stack\":[{\"id\":\"_\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"]},{\"id\":\"_\",\"name\":\"Lightning Bolt\",\"rules\":[\"{this} deals 3 damage to any target.\"],\"targets\":[{\"id\":\"_\",\"name\":\"Opponent\"}]}],\"step\":\"Precombat Main\",\"turn\":2}",
     "role": "tool",
     "tool_call_id": "call_20"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": "{}",
-          "name": "get_game_history"
-        },
-        "id": "call_21",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "{\"truncated\":false,\"turns\":[{\"actions\":[\"Opponent discards down to 7 hand cards\",\"Opponent discards Mountain\"],\"life_totals\":{\"Opponent\":20,\"TestPlayer\":20},\"player\":\"TestPlayer\",\"turn_number\":1},{\"actions\":[\"TestPlayer plays Badlands\"],\"life_totals\":{\"Opponent\":20,\"TestPlayer\":20},\"player\":\"Opponent\",\"turn_number\":1},{\"actions\":[\"TestPlayer casts Lightning Bolt targeting Opponent from hand\"],\"life_totals\":{\"Opponent\":20,\"TestPlayer\":20},\"player\":\"TestPlayer\",\"turn_number\":2}]}",
-    "role": "tool",
-    "tool_call_id": "call_21"
   }
 ]

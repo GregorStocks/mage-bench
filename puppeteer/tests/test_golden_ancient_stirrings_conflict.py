@@ -50,7 +50,6 @@ def test_ancient_stirrings_short_id_conflict(xmage_server, tmp_path, project_roo
             # Get game state — the selected card moved from lookedAt to hand.
             # Before fix: triggers "UUID already mapped to different short ID" error.
             {"name": "get_game_state", "arguments": {}},
-            {"name": "get_game_history", "arguments": {}},
         ],
         golden_name="ancient_stirrings_short_id",
     )

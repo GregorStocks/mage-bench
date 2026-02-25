@@ -46,6 +46,10 @@
     "tool_call_id": "call_2"
   },
   {
+    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
+  },
+  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -60,13 +64,9 @@
     ]
   },
   {
-    "content": "action_pending(GAME_ASK, non_priority_action); boolean; Mulligan down to 6 cards?",
+    "content": "{\"action_pending\":true,\"action_type\":\"GAME_ASK\",\"board\":[{\"hand\":[{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Black Lotus\",\"rules\":[\"{T}, Sacrifice {this}: Add three mana of any one color.\"]},{\"id\":\"_\",\"mana_cost\":\"{3}{U}\",\"name\":\"Clone\",\"power\":\"0\",\"rules\":[\"You may have {this} enter as a copy of any creature on the battlefield.\"],\"toughness\":\"0\"},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"}],\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"library_size\":53,\"life\":20,\"name\":\"TestPlayer\"},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":53,\"life\":20,\"name\":\"Opponent\"}],\"context\":\"T1 ()\",\"game_seq\":3,\"message\":\"Mulligan down to 6 cards?\",\"respond_with\":\"answer=true or answer=false\",\"response_type\":\"boolean\",\"stop_reason\":\"non_priority_action\",\"your_hand\":[{\"mana_cost\":\"{0}\",\"name\":\"Black Lotus\",\"rules\":[\"{T}, Sacrifice {this}: Add three mana of any one color.\"]},{\"mana_cost\":\"{3}{U}\",\"name\":\"Clone\",\"power\":\"0\",\"rules\":[\"You may have {this} enter as a copy of any creature on the battlefield.\"],\"toughness\":\"0\"},{\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"is_land\":true,\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"]},{\"mana_cost\":\"{0}\",\"name\":\"Memnite\",\"power\":\"1\",\"toughness\":\"1\"}]}",
     "role": "tool",
     "tool_call_id": "call_3"
-  },
-  {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
   },
   {
     "content": null,
@@ -428,24 +428,5 @@
     "content": "{\"active_player\":\"TestPlayer\",\"available\":true,\"cursor\":1,\"game_seq\":66,\"phase\":\"Precombat Main\",\"players\":[{\"battlefield\":[{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":false},{\"id\":\"_\",\"name\":\"Island\",\"rules\":[\"{T}: Add {U}.\"],\"tapped\":false},{\"copy\":true,\"id\":\"_\",\"modified\":true,\"name\":\"Memnite\",\"original_card\":\"Clone\",\"power\":\"1\",\"summoning_sick\":false,\"tapped\":false,\"toughness\":\"1\"},{\"id\":\"_\",\"name\":\"Memnite\",\"power\":\"1\",\"summoning_sick\":false,\"tapped\":false,\"toughness\":\"1\"}],\"graveyard\":[{\"id\":\"_\",\"name\":\"Black Lotus\",\"rules\":[\"{T}, Sacrifice {this}: Add three mana of any one color.\"]}],\"hand\":[{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]},{\"id\":\"_\",\"is_land\":true,\"name\":\"Island\",\"playable\":true,\"rules\":[\"{T}: Add {U}.\"]}],\"hand_size\":4,\"is_active\":true,\"is_you\":true,\"library_size\":51,\"life\":20,\"name\":\"TestPlayer\"},{\"graveyard\":[{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"]},{\"id\":\"_\",\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"]}],\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"library_size\":51,\"life\":20,\"name\":\"Opponent\"}],\"priority_player\":\"TestPlayer\",\"stack\":[],\"step\":\"Precombat Main\",\"turn\":3}",
     "role": "tool",
     "tool_call_id": "call_22"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": "{}",
-          "name": "get_game_history"
-        },
-        "id": "call_23",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": "{\"truncated\":false,\"turns\":[{\"actions\":[\"Opponent discards down to 7 hand cards\",\"Opponent discards Mountain\"],\"life_totals\":{\"Opponent\":20,\"TestPlayer\":20},\"player\":\"TestPlayer\",\"turn_number\":1},{\"actions\":[\"TestPlayer casts Black Lotus from hand\",\"TestPlayer casts Memnite from hand\",\"TestPlayer sacrificed Black Lotus (source: Black Lotus)\",\"TestPlayer casts Clone from hand\",\"TestPlayer plays Island\"],\"life_totals\":{\"Opponent\":20,\"TestPlayer\":20},\"player\":\"Opponent\",\"turn_number\":1},{\"actions\":[\"Opponent discards down to 7 hand cards\",\"Opponent discards Mountain\"],\"life_totals\":{\"Opponent\":20,\"TestPlayer\":20},\"player\":\"TestPlayer\",\"turn_number\":2},{\"actions\":[],\"life_totals\":{\"Opponent\":20,\"TestPlayer\":20},\"player\":\"Opponent\",\"turn_number\":2}]}",
-    "role": "tool",
-    "tool_call_id": "call_23"
   }
 ]

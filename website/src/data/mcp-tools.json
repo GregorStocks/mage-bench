@@ -79,50 +79,6 @@
     "outputSchema": {
       "type": "object",
       "properties": {
-        "truncated": {
-          "description": "Whether older history was trimmed from the buffer",
-          "type": "boolean"
-        },
-        "turns": {
-          "description": "Turn objects: player, turn_number, life_totals (map of player name to life), actions (list of action strings)",
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        }
-      }
-    },
-    "examples": [
-      {
-        "label": "Two turns of history",
-        "value": "{\n  \"turns\": [\n    {\n      \"player\": \"Alice\",\n      \"turn_number\": 1,\n      \"life_totals\": {\n        \"Alice\": 20,\n        \"Bob\": 20\n      },\n      \"actions\": [\n        \"Alice plays Mountain\",\n        \"Alice casts Goblin Guide\"\n      ]\n    },\n    {\n      \"player\": \"Bob\",\n      \"turn_number\": 1,\n      \"life_totals\": {\n        \"Alice\": 20,\n        \"Bob\": 18\n      },\n      \"actions\": [\n        \"Bob plays Island\",\n        \"Bob casts Ponder\"\n      ]\n    }\n  ],\n  \"truncated\": false\n}"
-      },
-      {
-        "label": "Since turn filter",
-        "value": "{\n  \"turns\": [\n    {\n      \"player\": \"Alice\",\n      \"turn_number\": 3,\n      \"life_totals\": {\n        \"Alice\": 14,\n        \"Bob\": 12\n      },\n      \"actions\": [\n        \"Alice casts Lightning Bolt targeting Bob\"\n      ]\n    }\n  ],\n  \"truncated\": false\n}"
-      }
-    ],
-    "inputSchema": {
-      "additionalProperties": false,
-      "type": "object",
-      "properties": {
-        "since_player": {
-          "description": "Player name for since_turn filter. Defaults to you (the calling player). Only used with since_turn.",
-          "type": "string"
-        },
-        "since_turn": {
-          "description": "Only include turns starting from this player turn number. Defaults to all turns.",
-          "type": "integer"
-        }
-      }
-    },
-    "name": "get_game_history",
-    "description": "Structured per-turn game history with noise filtered out. Returns actions grouped by player turns — spells cast, lands played, attacks declared, etc. Automatic/redundant messages (draw step, zone moves, skip attack) are excluded. Use this instead of get_game_log when you want a clean summary of what happened."
-  },
-  {
-    "outputSchema": {
-      "type": "object",
-      "properties": {
         "success": {
           "description": "Whether the message was sent",
           "type": "boolean"

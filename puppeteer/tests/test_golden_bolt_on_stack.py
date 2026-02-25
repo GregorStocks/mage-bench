@@ -58,7 +58,6 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root):
             # Target Memnite.
             {"name": "choose_action", "arguments": {"id": "p13"}},
             {"name": "get_game_state", "arguments": {}},
-            {"name": "get_game_history", "arguments": {}},
         ],
         golden_name="bolt_on_stack",
     )

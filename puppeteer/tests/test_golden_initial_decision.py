@@ -28,7 +28,6 @@ def test_initial_decision(xmage_server, tmp_path, project_root):
         script=[
             {"name": "pass_priority", "arguments": {}},
             {"name": "get_game_state", "arguments": {}},
-            {"name": "get_game_history", "arguments": {}},
         ],
         golden_name="initial_decision",
     )

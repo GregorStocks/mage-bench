@@ -590,16 +590,8 @@
       "type": "tool_call"
     },
     {
-      "args": {},
-      "player": "TestPlayer",
-      "result": "{\"truncated\": false, \"turns\": [{\"actions\": [\"Opponent discards down to 7 hand cards\", \"Opponent discards Mountain\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"TestPlayer\", \"turn_number\": 1}, {\"actions\": [\"TestPlayer plays Plains\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"Opponent\", \"turn_number\": 1}, {\"actions\": [\"Opponent discards down to 7 hand cards\", \"Opponent discards Mountain\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"TestPlayer\", \"turn_number\": 2}, {\"actions\": [\"TestPlayer plays Dark Depths\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"Opponent\", \"turn_number\": 2}, {\"actions\": [\"Opponent discards down to 7 hand cards\", \"Opponent discards Mountain\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"TestPlayer\", \"turn_number\": 3}, {\"actions\": [\"TestPlayer plays Thespian's Stage\", \"TestPlayer activates: Thespian's Stage becomes a copy of target land, except it has this ability. from Thespian's Stage targeting Dark Depths\", \"Dark Depths is put into graveyard from battlefield\", \"TestPlayer - Ability triggers: Dark Depths - When Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\", \"TestPlayer sacrificed Dark Depths (source: Thespian's Stage)\", \"TestPlayer creates a Marit Lage token\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"Opponent\", \"turn_number\": 3}, {\"actions\": [\"Opponent discards down to 7 hand cards\", \"Opponent discards Mountain\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"TestPlayer\", \"turn_number\": 4}, {\"actions\": [\"TestPlayer attacks Opponent with 1 creature\"], \"life_totals\": {\"Opponent\": 20, \"TestPlayer\": 20}, \"player\": \"Opponent\", \"turn_number\": 4}]}",
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
       "availableTools": [
         "get_game_log",
-        "get_game_history",
         "send_chat_message",
         "pass_priority",
         "get_game_state",

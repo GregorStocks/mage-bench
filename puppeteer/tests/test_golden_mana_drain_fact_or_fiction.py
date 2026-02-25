@@ -57,7 +57,6 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root):
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"pile": 1}},
             {"name": "get_game_state", "arguments": {}},
-            {"name": "get_game_history", "arguments": {}},
         ],
         script_b=[
             # Keep opening hand.

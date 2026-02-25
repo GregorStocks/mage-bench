@@ -49,7 +49,6 @@ def test_clone_copies_memnite(xmage_server, tmp_path, project_root):
             # Let Clone resolve (enters as a copy of Memnite).
             {"name": "pass_priority", "arguments": {}},
             {"name": "get_game_state", "arguments": {}},
-            {"name": "get_game_history", "arguments": {}},
         ],
         golden_name="clone_copies_memnite",
     )
