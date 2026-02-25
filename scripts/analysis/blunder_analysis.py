@@ -503,7 +503,7 @@ def _format_decisions(decisions: list[dict]) -> str:
         players: list[str] = []
         for p in gs.get("players", []):
             bf = p.get("battlefield", [])
-            lib = p.get("library_count")
+            lib = p.get("library_size")
             if p["name"] == deciding_player:
                 # Show full hand for the deciding player
                 hand = p.get("hand", [])

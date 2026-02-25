@@ -35,7 +35,7 @@
     return {
       name: p.name,
       life: p.life,
-      library_count: p.libraryCount,
+      library_size: p.libraryCount,
       hand_count: p.handCount,
       is_active: p.isActive,
       has_priority: p.hasPriority,
@@ -750,7 +750,7 @@
 
       var lifeEl = document.createElement("div");
       lifeEl.className = "player-life";
-      var libCount = player.library_count != null ? player.library_count : player.library_size;
+      var libCount = player.library_size;
       var lifeText = "Life " + (player.life != null ? player.life : "?") +
                      " | Library " + (libCount != null ? libCount : "?");
       if (showTimer && (player.priorityTimeLeftSecs > 0 || player.timerActive)) {

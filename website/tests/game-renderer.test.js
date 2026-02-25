@@ -43,7 +43,7 @@ describe("normalizeLiveState", () => {
     expect(result.layout.sourceWidth).toBe(1920);
 
     const p = result.players[0];
-    expect(p.library_count).toBe(40);
+    expect(p.library_size).toBe(40);
     expect(p.hand_count).toBe(7);
     expect(p.is_active).toBe(true);
     expect(p.has_left).toBe(false);
@@ -517,8 +517,8 @@ describe("renderPlayers", () => {
   it("adds active-turn class to the active player card", () => {
     const container = document.createElement("div");
     const players = [
-      { name: "Alice", life: 20, library_count: 30, hand_count: 5, is_active: true, has_left: false, counters: [], commanders: [], battlefield: [], hand: [], graveyard: [], exile: [] },
-      { name: "Bob", life: 20, library_count: 30, hand_count: 5, is_active: false, has_left: false, counters: [], commanders: [], battlefield: [], hand: [], graveyard: [], exile: [] },
+      { name: "Alice", life: 20, library_size: 30, hand_count: 5, is_active: true, has_left: false, counters: [], commanders: [], battlefield: [], hand: [], graveyard: [], exile: [] },
+      { name: "Bob", life: 20, library_size: 30, hand_count: 5, is_active: false, has_left: false, counters: [], commanders: [], battlefield: [], hand: [], graveyard: [], exile: [] },
     ];
     R.renderPlayers(container, players, {
       playerColorMap: { Alice: 0, Bob: 1 },
@@ -533,8 +533,8 @@ describe("renderPlayers", () => {
   it("adds has-priority class to the priority player name", () => {
     const container = document.createElement("div");
     const players = [
-      { name: "Alice", life: 20, library_count: 30, hand_count: 5, is_active: true, has_left: false, counters: [], commanders: [], battlefield: [], hand: [], graveyard: [], exile: [] },
-      { name: "Bob", life: 20, library_count: 30, hand_count: 5, is_active: false, has_left: false, counters: [], commanders: [], battlefield: [], hand: [], graveyard: [], exile: [] },
+      { name: "Alice", life: 20, library_size: 30, hand_count: 5, is_active: true, has_left: false, counters: [], commanders: [], battlefield: [], hand: [], graveyard: [], exile: [] },
+      { name: "Bob", life: 20, library_size: 30, hand_count: 5, is_active: false, has_left: false, counters: [], commanders: [], battlefield: [], hand: [], graveyard: [], exile: [] },
     ];
     R.renderPlayers(container, players, {
       playerColorMap: { Alice: 0, Bob: 1 },
@@ -549,7 +549,7 @@ describe("renderPlayers", () => {
   it("active-turn and has-priority can be on the same player", () => {
     const container = document.createElement("div");
     const players = [
-      { name: "Alice", life: 20, library_count: 30, hand_count: 5, is_active: true, has_left: false, counters: [], commanders: [], battlefield: [], hand: [], graveyard: [], exile: [] },
+      { name: "Alice", life: 20, library_size: 30, hand_count: 5, is_active: true, has_left: false, counters: [], commanders: [], battlefield: [], hand: [], graveyard: [], exile: [] },
     ];
     R.renderPlayers(container, players, {
       playerColorMap: { Alice: 0 },
