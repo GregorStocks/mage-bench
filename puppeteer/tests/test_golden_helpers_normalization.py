@@ -32,7 +32,7 @@ def test_normalize_prompt_preserves_game_seq():
     assert normalized[0]["content"] == {"game_seq": 77, "id": "_", "nested": {"game_seq": 12}}
 
 
-def test_strip_volatile_sorts_llm_events_by_seq_ts_player():
+def test_strip_volatile_sorts_llm_events_by_seq_player():
     data = {
         "llmEvents": [
             {"ts": "2025-01-01T00:00:00.000002", "player": "B", "seq": 2, "type": "llm_response"},
@@ -48,14 +48,14 @@ def test_strip_volatile_sorts_llm_events_by_seq_ts_player():
 
     _strip_volatile(data)
 
-    # Sorted by (seq, ts, player); ts stripped after sorting
+    # Sorted by (seq, player); ts stripped before sorting (it's volatile)
     events = data["llmEvents"]
     assert all("ts" not in e for e in events)
     assert [(e["player"], e["seq"]) for e in events] == [
-        ("B", 1),
         ("A", 1),
-        ("B", 2),
+        ("B", 1),
         ("A", 2),
+        ("B", 2),
     ]
 
     trace = data["llmTrace"]

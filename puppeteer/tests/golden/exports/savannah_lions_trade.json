@@ -188,7 +188,7 @@
         "concede"
       ],
       "model": "",
-      "player": "TestPlayer",
+      "player": "Opponent",
       "seq": 1,
       "type": "game_start"
     },
@@ -205,63 +205,9 @@
         "concede"
       ],
       "model": "",
-      "player": "Opponent",
+      "player": "TestPlayer",
       "seq": 1,
       "type": "game_start"
-    },
-    {
-      "args": {},
-      "gameSeq": 1,
-      "player": "TestPlayer",
-      "result": {
-        "action_pending": true,
-        "action_type": "GAME_TARGET",
-        "board": [
-          {
-            "hand": [],
-            "hand_size": 0,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 60,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 0,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 60,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "can_cancel": false,
-        "choices": [
-          {
-            "id": "p1",
-            "index": 0,
-            "is_you": true,
-            "name": "TestPlayer",
-            "target_type": "player"
-          },
-          {
-            "id": "p2",
-            "index": 1,
-            "name": "Opponent",
-            "target_type": "player"
-          }
-        ],
-        "context": "T1 ()",
-        "game_seq": 1,
-        "message": "Select a starting player",
-        "required": true,
-        "respond_with": "id=\"pN\" or index=N",
-        "response_type": "index",
-        "stop_reason": "non_priority_action"
-      },
-      "seq": 2,
-      "tool": "",
-      "type": "tool_call"
     },
     {
       "args": {},
@@ -407,20 +353,56 @@
       "type": "tool_call"
     },
     {
-      "args": {
-        "index": 0
-      },
+      "args": {},
       "gameSeq": 1,
       "player": "TestPlayer",
       "result": {
-        "action_taken": "selected_target_0",
+        "action_pending": true,
+        "action_type": "GAME_TARGET",
+        "board": [
+          {
+            "hand": [],
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 60,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 60,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "can_cancel": false,
+        "choices": [
+          {
+            "id": "p1",
+            "index": 0,
+            "is_you": true,
+            "name": "TestPlayer",
+            "target_type": "player"
+          },
+          {
+            "id": "p2",
+            "index": 1,
+            "name": "Opponent",
+            "target_type": "player"
+          }
+        ],
+        "context": "T1 ()",
         "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
+        "message": "Select a starting player",
+        "required": true,
+        "respond_with": "id=\"pN\" or index=N",
+        "response_type": "index",
+        "stop_reason": "non_priority_action"
       },
-      "seq": 3,
+      "seq": 2,
       "tool": "",
       "type": "tool_call"
     },
@@ -443,145 +425,20 @@
       "type": "tool_call"
     },
     {
-      "args": {},
-      "gameSeq": 3,
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 1,
       "player": "TestPlayer",
       "result": {
-        "action_pending": true,
-        "action_type": "GAME_ASK",
-        "board": [
-          {
-            "hand": [
-              {
-                "id": "p10",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p11",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p12",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p13",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p14",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p15",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p16",
-                "mana_cost": "{W}",
-                "name": "Savannah Lions",
-                "power": "2",
-                "toughness": "1"
-              }
-            ],
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 53,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "context": "T1 ()",
-        "game_seq": 3,
-        "message": "Mulligan down to 6 cards?",
-        "respond_with": "answer=true or answer=false",
-        "response_type": "boolean",
-        "stop_reason": "non_priority_action",
-        "your_hand": [
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "mana_cost": "{W}",
-            "name": "Savannah Lions",
-            "power": "2",
-            "toughness": "1"
-          }
-        ]
+        "action_taken": "selected_target_0",
+        "game_seq": 1,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true
       },
-      "seq": 4,
+      "seq": 3,
       "tool": "",
       "type": "tool_call"
     },
@@ -758,6 +615,167 @@
       "type": "tool_call"
     },
     {
+      "args": {},
+      "gameSeq": 3,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "mana_cost": "{W}",
+                "name": "Savannah Lions",
+                "power": "2",
+                "toughness": "1"
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "context": "T1 ()",
+        "game_seq": 3,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "answer=true or answer=false",
+        "response_type": "boolean",
+        "stop_reason": "non_priority_action",
+        "your_hand": [
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "mana_cost": "{W}",
+            "name": "Savannah Lions",
+            "power": "2",
+            "toughness": "1"
+          }
+        ]
+      },
+      "seq": 4,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 21,
+      "player": "Opponent",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 21,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 5,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
       "args": {
         "answer": false
       },
@@ -779,17 +797,17 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 21,
+      "gameSeq": 23,
       "player": "Opponent",
       "result": {
         "action_taken": "selected_0",
-        "game_seq": 21,
+        "game_seq": 23,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
       },
-      "seq": 5,
+      "seq": 6,
       "tool": "",
       "type": "tool_call"
     },
@@ -929,42 +947,6 @@
         "stop_reason": "playable_cards"
       },
       "seq": 6,
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 23,
-      "player": "Opponent",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 23,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 6,
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 11,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_0",
-        "game_seq": 11,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "seq": 7,
       "tool": "",
       "type": "tool_call"
     },
@@ -1127,17 +1109,17 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 13,
+      "gameSeq": 11,
       "player": "TestPlayer",
       "result": {
         "action_taken": "selected_0",
-        "game_seq": 13,
+        "game_seq": 11,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
       },
-      "seq": 8,
+      "seq": 7,
       "tool": "",
       "type": "tool_call"
     },
@@ -1156,6 +1138,41 @@
         "success": true
       },
       "seq": 8,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 13,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_0",
+        "game_seq": 13,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 8,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 44,
+      "player": "Opponent",
+      "result": {
+        "error": "Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.",
+        "error_code": "index_out_of_range",
+        "game_seq": 44,
+        "retryable": true,
+        "success": false
+      },
+      "seq": 9,
       "tool": "",
       "type": "tool_call"
     },
@@ -1330,18 +1347,19 @@
     },
     {
       "args": {
-        "index": 0
+        "answer": true
       },
       "gameSeq": 44,
       "player": "Opponent",
       "result": {
-        "error": "Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.",
-        "error_code": "index_out_of_range",
+        "action_taken": "confirmed",
         "game_seq": 44,
-        "retryable": true,
-        "success": false
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
       },
-      "seq": 9,
+      "seq": 10,
       "tool": "",
       "type": "tool_call"
     },
@@ -1364,20 +1382,16 @@
       "type": "tool_call"
     },
     {
-      "args": {
-        "answer": true
-      },
-      "gameSeq": 44,
+      "args": {},
+      "gameSeq": 57,
       "player": "Opponent",
       "result": {
-        "action_taken": "confirmed",
-        "game_seq": 44,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
+        "action_pending": false,
+        "game_over": true,
+        "game_seq": 57,
+        "stop_reason": "game_over"
       },
-      "seq": 10,
+      "seq": 11,
       "tool": "",
       "type": "tool_call"
     },
@@ -1523,15 +1537,13 @@
     },
     {
       "args": {},
-      "gameSeq": 57,
       "player": "Opponent",
       "result": {
-        "action_pending": false,
-        "game_over": true,
-        "game_seq": 57,
-        "stop_reason": "game_over"
+        "cursor": 26,
+        "event_count": 26,
+        "history": "Turn 1:\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - Opponent drew Savannah Lions\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew Plains\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew a card\n  Declare Blockers:\n    - Opponent blocked Savannah Lions with Savannah Lions\n  Combat Damage:\n    - Savannah Lions was destroyed (TestPlayer)\n    - Savannah Lions was destroyed (Opponent)\n"
       },
-      "seq": 11,
+      "seq": 12,
       "tool": "",
       "type": "tool_call"
     },
@@ -1553,18 +1565,6 @@
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
-      },
-      "seq": 12,
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {},
-      "player": "Opponent",
-      "result": {
-        "cursor": 26,
-        "event_count": 26,
-        "history": "Turn 1:\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - Opponent drew Savannah Lions\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew Plains\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew a card\n  Declare Blockers:\n    - Opponent blocked Savannah Lions with Savannah Lions\n  Combat Damage:\n    - Savannah Lions was destroyed (TestPlayer)\n    - Savannah Lions was destroyed (Opponent)\n"
       },
       "seq": 12,
       "tool": "",
