@@ -1,12 +1,27 @@
 [
   {
-    "decision_index": 3
+    "decision_index": 3,
+    "annotation_version": 18,
+    "annotation_severity": "questionable",
+    "annotation_description": "In Legacy, playing a dual land directly on turn 1 instead of a fetchland exposes the dual to Wasteland. Against a Goblins deck (which commonly runs Wasteland), leading with the fetchland to protect the dual land is generally preferred. However, playing Underground Sea directly does dodge potential Stifle on the fetch activation.",
+    "verdict": "questionable",
+    "human_notes": "they should probably have cast personal tutor for doomsday (but did not)"
   },
   {
-    "decision_index": 4
+    "decision_index": 4,
+    "annotation_version": 18,
+    "annotation_severity": "minor",
+    "annotation_description": "Playing Badlands instead of Aether Vial on turn 1 is a significant tempo loss for a Goblin tribal deck. Aether Vial is one of the most important turn 1 plays in any Vial deck - it allows free creature deployment on subsequent turns, effectively doubling mana usage. With Aether Vial in hand and a land to play, the correct line is to play a land and cast Aether Vial. On turn 2, Vial ticks to 1 counter; turn 3 it reaches 2 counters (allowing free Battle Cry Goblin or Broadside Bombardiers). Every turn Vial is delayed costs significant tempo. The player should have played Badlands (or a fetch land) AND cast Aether Vial for 1 mana.",
+    "verdict": "not_blunder",
+    "human_notes": "playing badlands does not stop you from casting aether vial"
   },
   {
-    "decision_index": 19
+    "decision_index": 19,
+    "annotation_version": 18,
+    "annotation_severity": "moderate",
+    "annotation_description": "Cast Doomsday using LED (which discards hand), losing Edge of Autumn - a key cycling draw spell that could have been used to draw into the Doomsday pile. After Doomsday resolves, they have no way to draw a card until next turn's draw step, giving the opponent a full turn while at 10 life with an empty hand and minimal board.",
+    "verdict": "not_blunder",
+    "human_notes": "they didn't use LED to cast it"
   },
   {
     "decision_index": 20
