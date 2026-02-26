@@ -182,7 +182,7 @@ public class ObserverMageFrame extends MageFrame {
         reconnectThread.start();
     }
 
-    private static Connection buildConnectionFromPreferences() {
+    private Connection buildConnectionFromPreferences() {
         Connection connection = new Connection();
         connection.setUsername(MagePreferences.getLastServerUser());
         connection.setPassword(MagePreferences.getLastServerPassword());
@@ -195,7 +195,23 @@ public class ObserverMageFrame extends MageFrame {
         }
         connection.setUserIdStr(System.getProperty("user.name") + ":" + System.getProperty("os.name") + ":" + MagePreferences.getUserNames() + ":" + allMAC);
         connection.setProxyType(Connection.ProxyType.NONE);
+        setUserPrefsToConnection(connection);
         return connection;
+    }
+
+    /**
+     * Suppress popup dialogs — the observer is an unattended recording client.
+     * Without this, transient errors (e.g. reconnect failures) show modal Swing
+     * dialogs that block the EDT and require manual dismissal.
+     */
+    @Override
+    public void showMessage(String message) {
+        LOGGER.warn("Suppressed dialog: " + message);
+    }
+
+    @Override
+    public void showError(String message) {
+        LOGGER.error("Suppressed error dialog: " + message);
     }
 
     /**
