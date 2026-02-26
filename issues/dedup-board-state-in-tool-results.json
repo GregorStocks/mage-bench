@@ -1,0 +1,10 @@
+{
+  "title": "Deduplicate board state in pass_priority and get_action_choices tool results",
+  "description": "77% of all input tokens sent to Opus in game_20260225_174042_g2 were board state (~19k chars per board, ~9 boards in context window). The board is included in every pass_priority and get_action_choices result even when it hasn't changed between consecutive calls within a decision.\n\nget_game_state already has a cursor mechanism that returns {\"unchanged\": true} when the board hasn't changed. Extending this cursor pattern to pass_priority and get_action_choices would eliminate most redundant board payloads.\n\nThis is especially impactful in Commander where 4-player boards are large. Late-game boards were ~19k chars each, and the context window held ~9 of them at 80% of total context.",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": ["bridge", "cost"],
+  "created_at": "2026-02-25T21:10:00.000000-08:00",
+  "updated_at": "2026-02-25T21:10:00.000000-08:00"
+}

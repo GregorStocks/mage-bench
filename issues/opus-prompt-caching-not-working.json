@@ -1,0 +1,10 @@
+{
+  "title": "Opus prompt caching returns zero cache hits through OpenRouter",
+  "description": "In game_20260225_174042_g2, Opus Hothead made 497 LLM calls totaling 26.9M input tokens with zero cache hits, despite the system prompt having cache_control: ephemeral set correctly. The Gemini players in the same game got 33-37% cache hit rates.\n\nThis is the single biggest cost factor: $134 of the $137 total was prompt cost. Even 90% cache hit rate would save ~$57 (42% reduction).\n\nInvestigate whether this is an OpenRouter limitation for Anthropic models, whether additional cache breakpoints on message history would help, or whether we should route Opus calls directly through the Anthropic API instead of OpenRouter.",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": ["puppeteer", "cost"],
+  "created_at": "2026-02-25T21:10:00.000000-08:00",
+  "updated_at": "2026-02-25T21:10:00.000000-08:00"
+}
