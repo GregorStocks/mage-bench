@@ -62,11 +62,11 @@ public class GetActionChoicesTool {
             @Param(
                 description = "Board cursor from a previous pass_priority or get_action_choices result. "
                     + "When provided and the board hasn't changed, the board field is omitted to save tokens."
-            ) Long boardCursor) {
+            ) Long board_cursor) {
         if (until != null) {
-            return handler.waitAndGetChoices(until, boardCursor);
+            return handler.waitAndGetChoices(until, board_cursor);
         } else {
-            return handler.getActionChoices(boardCursor);
+            return handler.getActionChoices(board_cursor);
         }
     }
 

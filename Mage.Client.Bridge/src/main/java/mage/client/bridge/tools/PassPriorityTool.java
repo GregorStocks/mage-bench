@@ -82,8 +82,8 @@ public class PassPriorityTool {
             @Param(
                 description = "Board cursor from a previous pass_priority or get_action_choices result. "
                     + "When provided and the board hasn't changed, the board field is omitted to save tokens."
-            ) Long boardCursor) {
-        return handler.passPriority(until, boardCursor);
+            ) Long board_cursor) {
+        return handler.passPriority(until, board_cursor);
     }
 
     public static List<Map<String, Object>> examples() {

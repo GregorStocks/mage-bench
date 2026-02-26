@@ -294,7 +294,7 @@
             "stack_resolved"
           ]
         },
-        "boardCursor": {
+        "board_cursor": {
           "description": "Board cursor from a previous pass_priority or get_action_choices result. When provided and the board hasn't changed, the board field is omitted to save tokens.",
           "type": "integer"
         }
@@ -629,7 +629,7 @@
             "stack_resolved"
           ]
         },
-        "boardCursor": {
+        "board_cursor": {
           "description": "Board cursor from a previous pass_priority or get_action_choices result. When provided and the board hasn't changed, the board field is omitted to save tokens.",
           "type": "integer"
         }
