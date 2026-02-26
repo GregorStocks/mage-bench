@@ -104,10 +104,9 @@ def _summarize_tool_result(tool_name: str, content: str) -> str:
                 parts.append(msg[:60])
             return "; ".join(parts)
         stop = data.get("stop_reason", "")
-        passed = data.get("actions_passed", "?")
         if stop:
-            return f"{stop}(passed {passed})"
-        return f"passed {passed}"
+            return stop
+        return "passed"
 
     if tool_name == "choose_action":
         if data.get("success"):
@@ -414,6 +413,7 @@ async def run_pilot_loop(
     MAX_CONSECUTIVE_TRUNCATIONS = 3
     consecutive_empty_errors = 0  # consecutive tool calls returning {"error": ""}
     MAX_CONSECUTIVE_EMPTY_ERRORS = 10  # bridge is dead if every tool returns empty error
+    last_game_seq: int | None = None  # game-level seq from most recent tool result
     game_start = time.monotonic()
     # Render caching: reuse rendered prefix between full re-renders to improve
     # prompt cache hit rates.  Only re-render every RENDER_INTERVAL iterations.
@@ -552,6 +552,8 @@ async def run_pilot_loop(
                     llm_event["usage"] = usage_dict
                 llm_event["cost_usd"] = round(call_cost, 6)
                 llm_event["cumulative_cost_usd"] = round(cumulative_cost, 6)
+                if last_game_seq is not None:
+                    llm_event["game_seq"] = last_game_seq
                 game_log.emit("llm_response", **llm_event)
 
             # If the LLM produced tool calls, process them
@@ -596,6 +598,14 @@ async def run_pilot_loop(
                     result_text = await execute_tool(session, fn.name, args)
                     tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
 
+                    # Extract game_seq from tool result for event ordering
+                    try:
+                        _result_data = json.loads(result_text)
+                        if isinstance(_result_data, dict) and "game_seq" in _result_data:
+                            last_game_seq = _result_data["game_seq"]
+                    except (json.JSONDecodeError, TypeError):
+                        pass
+
                     # Log tool call to JSONL
                     if game_log:
                         game_log.emit(
@@ -605,6 +615,7 @@ async def run_pilot_loop(
                             arguments=args,
                             result=result_text,
                             latency_ms=tool_latency_ms,
+                            game_seq=last_game_seq,
                         )
 
                     # Detect dead bridge: all tools return {"error": ""}
@@ -947,9 +958,9 @@ async def run_pilot(
     # Build JVM args for the bridge (same as sleepwalker)
     jvm_args_list = [
         "--add-opens=java.base/java.io=ALL-UNNAMED",
-        f"-Dxmage.headless.server={server}",
-        f"-Dxmage.headless.port={port}",
-        "-Dxmage.headless.personality=sleepwalker",
+        f"-Dxmage.bridge.server={server}",
+        f"-Dxmage.bridge.port={port}",
+        "-Dxmage.bridge.personality=sleepwalker",
     ]
     if sys.platform == "darwin":
         jvm_args_list.append("-Dapple.awt.UIElement=true")
@@ -961,20 +972,20 @@ async def run_pilot(
     # Pass values that may contain spaces as Maven CLI args (not in MAVEN_OPTS)
     # because MAVEN_OPTS gets shell-split by the mvn script.
     # Maven CLI -D args go through "$@" which preserves spaces correctly.
-    mvn_args = ["-q", f"-Dxmage.headless.username={username}"]
+    mvn_args = ["-q", f"-Dxmage.bridge.username={username}"]
     if deck_path:
-        mvn_args.append(f"-Dxmage.headless.deck={deck_path}")
+        mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
     if game_dir:
-        mvn_args.append(f"-Dxmage.headless.errorlog={game_dir / f'{username}_errors.log'}")
-        mvn_args.append(f"-Dxmage.headless.bridgelog={game_dir / f'{username}_bridge.jsonl'}")
+        mvn_args.append(f"-Dxmage.bridge.errorlog={game_dir / f'{username}_errors.log'}")
+        mvn_args.append(f"-Dxmage.bridge.bridgelog={game_dir / f'{username}_bridge.jsonl'}")
     if max_interactions_per_turn is not None:
-        mvn_args.append(f"-Dxmage.headless.maxInteractionsPerTurn={max_interactions_per_turn}")
+        mvn_args.append(f"-Dxmage.bridge.maxInteractionsPerTurn={max_interactions_per_turn}")
     mvn_args.append("exec:java")
 
     server_params = StdioServerParameters(
         command="mvn",
         args=mvn_args,
-        cwd=str(project_root / "Mage.Client.Headless"),
+        cwd=str(project_root / "Mage.Client.Bridge"),
         env=env,
     )
 

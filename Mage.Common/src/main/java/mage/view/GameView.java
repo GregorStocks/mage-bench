@@ -63,6 +63,12 @@ public class GameView implements Serializable {
     private boolean special = false;
     private final boolean rollbackTurnsAllowed;
 
+    // Server-side game event log sequence counter — flows from Game to clients for cross-referencing
+    private int gameSeq;
+
+    // Retained for assigning short IDs to late-populated views (watchedHands, opponentHands)
+    private transient mage.util.ShortIdRegistry shortIdRegistry;
+
     // for debug only
     // TODO: implement and support in admin tools
     private int totalErrorsCount;
@@ -213,9 +219,134 @@ public class GameView implements Serializable {
             this.special = false;
         }
         this.rollbackTurnsAllowed = game.getOptions().rollbackTurnsAllowed;
+        this.gameSeq = game.getGameSeq();
         this.totalErrorsCount = game.getTotalErrorsCount();
         this.totalEffectsCount = game.getTotalEffectsCount();
         this.gameCycle = game.getState().getApplyEffectsCounter();
+
+        // Assign short IDs from the server's ShortIdRegistry to all card views
+        assignShortIds(game);
+    }
+
+    private void assignShortIds(Game game) {
+        mage.util.ShortIdRegistry registry = game.getShortIdRegistry();
+        this.shortIdRegistry = registry;
+        // Assign IDs in deterministic order: name, then shortId sequence.
+        // See ShortIdRegistry for the deterministic ordering invariant.
+        Comparator<CardView> byName = Comparator.comparing(
+            (CardView cv) -> cv.getDisplayName() != null ? cv.getDisplayName() : "",
+            String::compareTo
+        ).thenComparingInt(cv -> registry.getSequence(cv.getId()));
+
+        // Helper to assign shortId to a CardsView (sorted by display name)
+        java.util.function.Consumer<CardsView> assignCards = (CardsView cards) -> {
+            List<CardView> sorted = new ArrayList<>(cards.values());
+            sorted.sort(byName);
+            for (CardView cv : sorted) {
+                cv.setShortId(registry.getOrAssign(cv.getId()));
+            }
+        };
+
+        // Player views — battlefield, graveyard, exile, topCard, commanders
+        // Sort by name for deterministic player processing order
+        List<PlayerView> sortedPlayers = new ArrayList<>(players);
+        sortedPlayers.sort(Comparator.comparing(PlayerView::getName));
+        for (PlayerView pv : sortedPlayers) {
+            List<PermanentView> sortedBf = new ArrayList<>(pv.getBattlefield().values());
+            sortedBf.sort(byName);
+            for (PermanentView permView : sortedBf) {
+                permView.setShortId(registry.getOrAssign(permView.getId()));
+            }
+            assignCards.accept(pv.getGraveyard());
+            assignCards.accept(pv.getExile());
+            // Top card of library (when revealed)
+            CardView topCard = pv.getTopCard();
+            if (topCard != null) {
+                topCard.setShortId(registry.getOrAssign(topCard.getId()));
+            }
+            // Commanders (CommanderView extends CardView, others don't)
+            if (pv.getCommandObjectList() != null) {
+                for (CommandObjectView cmd : pv.getCommandObjectList()) {
+                    if (cmd instanceof CommanderView) {
+                        CommanderView cv = (CommanderView) cmd;
+                        cv.setShortId(registry.getOrAssign(cv.getId()));
+                    }
+                }
+            }
+        }
+
+        // Pre-assign IDs to ALL players' hand cards in deterministic order.
+        // Each GameView only has myHand (the controlling player's hand), but
+        // GameViews for different players share the same ShortIdRegistry and are
+        // created in nondeterministic order (ConcurrentHashMap iteration in
+        // GameController). Pre-assigning from the Game object ensures all hands
+        // get IDs in sorted-by-player-name order regardless of creation order.
+        for (PlayerView pv : sortedPlayers) {
+            Player gamePlayer = game.getPlayer(pv.getPlayerId());
+            if (gamePlayer != null) {
+                List<Card> handCards = new ArrayList<>(gamePlayer.getHand().getCards(game));
+                handCards.sort(Comparator.comparing(Card::getName));
+                for (Card card : handCards) {
+                    registry.getOrAssign(card.getId());
+                }
+            }
+        }
+
+        // Hands (myHand for the controlling player)
+        assignCards.accept(myHand);
+        // Note: watchedHands/opponentHands are populated later by processWatchedHands;
+        // call assignShortIdsToHands() after populating them.
+
+        // Stack
+        assignCards.accept(stack);
+
+        // Combat (attackers/blockers are separate PermanentView instances, same UUIDs as battlefield)
+        for (CombatGroupView cg : combat) {
+            assignCards.accept(cg.getAttackers());
+            assignCards.accept(cg.getBlockers());
+        }
+
+        // Exile zones (game-level, overlaps with per-player exile)
+        for (ExileView ev : exiles) {
+            assignCards.accept(ev);
+        }
+
+        // Revealed, companion, lookedAt
+        for (RevealedView rv : revealed) {
+            assignCards.accept(rv.getCards());
+        }
+        for (RevealedView rv : companion) {
+            assignCards.accept(rv.getCards());
+        }
+        for (LookedAtView lv : lookedAt) {
+            for (SimpleCardView sv : lv.getCards().values()) {
+                sv.setShortId(registry.getOrAssign(sv.getId()));
+            }
+        }
+
+        // Helper emblems
+        assignCards.accept(myHelperEmblems);
+    }
+
+    /**
+     * Assign short IDs to watchedHands and opponentHands.
+     * Must be called after processWatchedHands() populates these maps,
+     * since they are empty at GameView construction time.
+     */
+    public void assignShortIdsToHands() {
+        if (shortIdRegistry == null) {
+            return;
+        }
+        for (SimpleCardsView scv : watchedHands.values()) {
+            for (SimpleCardView sv : scv.values()) {
+                sv.setShortId(shortIdRegistry.getOrAssign(sv.getId()));
+            }
+        }
+        for (SimpleCardsView scv : opponentHands.values()) {
+            for (SimpleCardView sv : scv.values()) {
+                sv.setShortId(shortIdRegistry.getOrAssign(sv.getId()));
+            }
+        }
     }
 
     private void checkPaid(UUID uuid, StackAbility stackAbility) {
@@ -363,5 +494,9 @@ public class GameView implements Serializable {
 
     public int getGameCycle() {
         return this.gameCycle;
+    }
+
+    public int getGameSeq() {
+        return this.gameSeq;
     }
 }

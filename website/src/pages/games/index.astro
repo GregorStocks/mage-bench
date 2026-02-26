@@ -10,9 +10,19 @@ const gamesDir = path.join(process.cwd(), 'public', 'games');
 const games: Array<Record<string, unknown>> = [];
 if (fs.existsSync(gamesDir)) {
   for (const file of fs.readdirSync(gamesDir)) {
-    if (!file.startsWith('game_') || !file.endsWith('.json.gz')) continue;
-    const compressed = fs.readFileSync(path.join(gamesDir, file));
-    const data = JSON.parse(zlib.gunzipSync(compressed).toString());
+    if (!file.startsWith('game_')) continue;
+    let data;
+    if (file.endsWith('.json') && !file.endsWith('.json.gz')) {
+      data = JSON.parse(fs.readFileSync(path.join(gamesDir, file), 'utf-8'));
+    } else if (file.endsWith('.json.gz')) {
+      // Skip if uncompressed version exists (prefer .json)
+      const jsonPath = path.join(gamesDir, file.replace('.json.gz', '.json'));
+      if (fs.existsSync(jsonPath)) continue;
+      const compressed = fs.readFileSync(path.join(gamesDir, file));
+      data = JSON.parse(zlib.gunzipSync(compressed).toString());
+    } else {
+      continue;
+    }
     const players = data.players || [];
     // Compute tool call counts from llmEvents if not already on players
     if (players.length > 0 && !players.some((p: any) => p.toolCallsOk != null)) {

@@ -9,13 +9,14 @@ Usage:
     uv run python scripts/analysis/mcp_errors.py <game.json.gz | directory>
 """
 
-import glob
-import gzip
 import json
 import os
 import sys
 from collections import Counter
 from dataclasses import dataclass
+from pathlib import Path
+
+from blunder_eval_common import load_game
 
 
 @dataclass
@@ -109,8 +110,7 @@ def _find_retry_outcome(
 
 def analyze_game(gz_path: str) -> list[ErrorEvent]:
     """Extract all MCP errors from a single game export."""
-    with gzip.open(gz_path, "rt") as f:
-        data = json.load(f)
+    data = load_game(gz_path)
 
     game_id = data.get("id", os.path.basename(gz_path))
 
@@ -288,17 +288,17 @@ def report(all_errors: list[ErrorEvent], num_games: int) -> None:
 
 
 def main(path: str) -> None:
-    """Analyze a single .json.gz or a directory of them."""
+    """Analyze a single game export or a directory of them."""
     if os.path.isdir(path):
-        gz_files = sorted(glob.glob(os.path.join(path, "*.json.gz")))
-        assert gz_files, f"No .json.gz files found in {path}"
+        p = Path(path)
+        gz_files = sorted(list(p.glob("*.json.gz")) + list(p.glob("*.json")))
+        assert gz_files, f"No game files found in {path}"
         print(f"Analyzing {len(gz_files)} games from {path}\n")
         all_errors: list[ErrorEvent] = []
         for gz in gz_files:
-            all_errors.extend(analyze_game(gz))
+            all_errors.extend(analyze_game(str(gz)))
         report(all_errors, len(gz_files))
     else:
-        assert path.endswith(".json.gz"), f"Expected .json.gz file, got {path}"
         print(f"Analyzing {path}\n")
         all_errors = analyze_game(path)
         report(all_errors, 1)

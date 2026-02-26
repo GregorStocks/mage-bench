@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
-"""Extract game overview from a .json.gz export."""
+"""Extract game overview from a game export (.json or .json.gz)."""
 
-import gzip
-import json
 import sys
+
+from blunder_eval_common import load_game
 
 
 def main(gz_path: str) -> None:
-    with gzip.open(gz_path, "rt") as f:
-        d = json.load(f)
+    d = load_game(gz_path)
 
     print(f"Game: {d['id']}")
     print(f"Format: {d.get('deckType', '?')} ({d.get('gameType', '?')})")

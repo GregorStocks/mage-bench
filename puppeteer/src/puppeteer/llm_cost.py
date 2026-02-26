@@ -83,7 +83,7 @@ def get_model_price(model: str, prices: dict[str, tuple[float, float]]) -> tuple
 
 
 def write_cost_file(game_dir: Path, username: str, cost: float) -> None:
-    """Write cumulative cost to a JSON file for the streaming client to read."""
+    """Write cumulative cost to a JSON file for the observer client to read."""
     cost_file = game_dir / f"{username}_cost.json"
     tmp_file = cost_file.with_suffix(".tmp")
     try:

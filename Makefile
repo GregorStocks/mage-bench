@@ -97,7 +97,7 @@ run:
 	  */*|*.json) ;; \
 	  *) CONFIG_PATH="configs/$$CONFIG_PATH.json" ;; \
 	esac; \
-	uv run --project puppeteer python -m puppeteer --streaming \
+	uv run --project puppeteer python -m puppeteer --observer \
 	  --record$(if $(OUTPUT),=$(OUTPUT)) $(if $(GAMES),--games $(GAMES)) \
 	  --config "$$CONFIG_PATH" $(ARGS)
 
@@ -110,7 +110,7 @@ configs:
 # Compiles first to pick up any Java source changes.
 .PHONY: mcp-tools
 mcp-tools:
-	cd Mage.Client.Headless && mvn -q compile exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.headless.McpServer' > ../website/src/data/mcp-tools.json
+	cd Mage.Client.Bridge && mvn -q compile exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' > ../website/src/data/mcp-tools.json
 
 # Launch the desktop client (for image downloads, deck building, etc.)
 .PHONY: run-client

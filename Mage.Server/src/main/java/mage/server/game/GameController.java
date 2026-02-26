@@ -5,8 +5,10 @@ import mage.abilities.Ability;
 import mage.cards.Card;
 import mage.cards.Cards;
 import mage.choices.Choice;
+import mage.collectors.DataCollectorServices;
 import mage.constants.ManaType;
 import mage.constants.PlayerAction;
+import mage.game.BridgeLogEntry;
 import mage.game.Game;
 import mage.game.GameOptions;
 import mage.game.GameState;
@@ -183,6 +185,10 @@ public class GameController implements GameCallback {
                 (Listener<PlayerQueryEvent>) event -> {
                     logger.trace(new StringBuilder(event.getPlayerId().toString()).append("--").append(event.getQueryType()).append("--").append(event.getMessage()).toString());
                     try {
+                        // Server-side game event log: record decision point
+                        int seq = game.nextGameSeq();
+                        DataCollectorServices.getInstance().onPlayerQuery(game, event, seq);
+
                         switch (event.getQueryType()) {
                             case ASK:
                                 ask(event.getPlayerId(), event.getMessage(), event.getOptions());
@@ -973,6 +979,25 @@ public class GameController implements GameCallback {
         return getGameSession(playerId).getGameView();
     }
 
+    public List<BridgeLogEntry> getBridgeEvents(UUID playerId, int sinceCursor) {
+        return game.getBridgeEventsSince(sinceCursor, playerId);
+    }
+
+    /**
+     * Get all bridge events for all players, keyed by player UUID.
+     * Used by GameManagerImpl to cache events before game cleanup.
+     */
+    public Map<UUID, List<BridgeLogEntry>> getAllBridgeEvents() {
+        Map<UUID, List<BridgeLogEntry>> result = new HashMap<>();
+        for (Player p : game.getPlayers().values()) {
+            List<BridgeLogEntry> events = game.getBridgeEventsSince(0, p.getId());
+            if (!events.isEmpty()) {
+                result.put(p.getId(), new ArrayList<>(events));
+            }
+        }
+        return result;
+    }
+
     @Override
     public void endGameWithResult(String result) {
         try {
@@ -1141,6 +1166,7 @@ public class GameController implements GameCallback {
     }
 
     private void sendDirectPlayerUUID(UUID playerId, UUID data) {
+        DataCollectorServices.getInstance().onPlayerResponse(game, playerId, "uuid", data);
         // real player
         GameSessionPlayer session = getGameSession(playerId);
         if (session != null) {
@@ -1156,6 +1182,7 @@ public class GameController implements GameCallback {
     }
 
     private void sendDirectPlayerString(UUID playerId, String data) {
+        DataCollectorServices.getInstance().onPlayerResponse(game, playerId, "string", data);
         // real player
         GameSessionPlayer session = getGameSession(playerId);
         if (session != null) {
@@ -1171,6 +1198,7 @@ public class GameController implements GameCallback {
     }
 
     private void sendDirectPlayerManaType(UUID playerId, UUID manaTypePlayerId, ManaType manaType) {
+        DataCollectorServices.getInstance().onPlayerResponse(game, playerId, "manaType", manaType);
         // real player
         GameSessionPlayer session = getGameSession(playerId);
         if (session != null) {
@@ -1186,6 +1214,7 @@ public class GameController implements GameCallback {
     }
 
     private void sendDirectPlayerBoolean(UUID playerId, Boolean data) {
+        DataCollectorServices.getInstance().onPlayerResponse(game, playerId, "boolean", data);
         // real player
         GameSessionPlayer session = getGameSession(playerId);
         if (session != null) {
@@ -1201,6 +1230,7 @@ public class GameController implements GameCallback {
     }
 
     private void sendDirectPlayerInteger(UUID playerId, Integer data) {
+        DataCollectorServices.getInstance().onPlayerResponse(game, playerId, "integer", data);
         // real player
         GameSessionPlayer session = getGameSession(playerId);
         if (session != null) {

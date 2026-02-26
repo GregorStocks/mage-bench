@@ -13,7 +13,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_1",
@@ -22,7 +22,52 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_TARGET\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"index\",\"can_cancel\":false,\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN\",\"message\":\"Select a starting player\",\"choices\":[{\"is_you\":true,\"name\":\"TestPlayer\",\"target_type\":\"player\",\"index\":0,\"id\":\"p1\"},{\"name\":\"Opponent\",\"target_type\":\"player\",\"index\":1,\"id\":\"p2\"}],\"board\":[{\"hand_size\":0,\"is_active\":false,\"is_you\":true,\"name\":\"TestPlayer\",\"library_size\":60,\"life\":20,\"hand\":[]},{\"hand_size\":0,\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":60,\"life\":20}],\"required\":true,\"action_pending\":true}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_TARGET",
+      "board": [
+        {
+          "hand": [],
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 60,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 60,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "can_cancel": false,
+      "choices": [
+        {
+          "id": "_",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "_",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "context": "T1 ()",
+      "game_seq": 1,
+      "message": "Select a starting player",
+      "required": true,
+      "respond_with": "id=\"pN\" or index=N",
+      "response_type": "index",
+      "stop_reason": "non_priority_action"
+    },
     "role": "tool",
     "tool_call_id": "call_1"
   },
@@ -32,7 +77,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\": 0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_2",
@@ -41,7 +88,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_ASK\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_target_0\"}",
+    "content": {
+      "action_taken": "selected_target_0",
+      "game_seq": 1,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_ASK",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_2"
   },
@@ -51,7 +105,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_3",
@@ -60,7 +114,141 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_ASK\",\"context\":\"T1 ()\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"boolean\",\"respond_with\":\"answer\\u003dtrue or answer\\u003dfalse\",\"message\":\"Mulligan down to 6 cards?\",\"your_hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"]},{\"mana_cost\":\"{W}\",\"name\":\"Savannah Lions\",\"power\":\"2\",\"toughness\":\"1\"}],\"board\":[{\"hand_size\":7,\"is_active\":false,\"is_you\":true,\"name\":\"TestPlayer\",\"library_size\":53,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"},{\"mana_cost\":\"{W}\",\"name\":\"Savannah Lions\",\"power\":\"2\",\"id\":\"p9\",\"toughness\":\"1\"}]},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":53,\"life\":20}],\"action_pending\":true}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_ASK",
+      "board": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{W}",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "context": "T1 ()",
+      "game_seq": 3,
+      "message": "Mulligan down to 6 cards?",
+      "respond_with": "answer=true or answer=false",
+      "response_type": "boolean",
+      "stop_reason": "non_priority_action",
+      "your_hand": [
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "is_land": true,
+          "name": "Plains",
+          "rules": [
+            "{T}: Add {W}."
+          ]
+        },
+        {
+          "mana_cost": "{W}",
+          "name": "Savannah Lions",
+          "power": 2,
+          "toughness": 1
+        }
+      ]
+    },
     "role": "tool",
     "tool_call_id": "call_3"
   },
@@ -70,7 +258,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"answer\": false}",
+          "arguments": {
+            "answer": false
+          },
           "name": "choose_action"
         },
         "id": "call_4",
@@ -79,7 +269,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"no\"}",
+    "content": {
+      "action_taken": "no",
+      "game_seq": 3,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_4"
   },
@@ -89,7 +286,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_5",
@@ -98,7 +295,137 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":2,\"land_drops_used\":0,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"context\":\"T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play spells and abilities\",\"choices\":[{\"name\":\"Plains\",\"index\":0,\"action\":\"land\",\"id\":\"p3\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p8\"}],\"board\":[{\"hand_size\":7,\"is_active\":true,\"is_you\":true,\"name\":\"TestPlayer\",\"library_size\":53,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"mana_cost\":\"{W}\",\"name\":\"Savannah Lions\",\"power\":\"2\",\"id\":\"p9\",\"toughness\":\"1\"}]},{\"hand_size\":7,\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":53,\"life\":20}],\"action_pending\":true}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{W}",
+              "name": "Savannah Lions",
+              "power": 2,
+              "toughness": 1
+            }
+          ],
+          "hand_size": 7,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 53,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 11,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards"
+    },
     "role": "tool",
     "tool_call_id": "call_5"
   },
@@ -108,7 +435,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p3\"}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_6",
@@ -117,7 +446,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 11,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_6"
   },
@@ -127,7 +463,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p9\"}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_7",
@@ -136,7 +474,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 13,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -146,7 +491,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_8",
@@ -155,7 +500,167 @@
     ]
   },
   {
-    "content": "{\"action_type\":\"GAME_SELECT\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":6,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Plains\",\"index\":0,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p8\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p10\"}],\"board\":[{\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"},{\"tapped\":false,\"name\":\"Savannah Lions\",\"id\":\"p9\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":false}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\",\"playable\":true}]},{\"hand_size\":6,\"is_active\":false,\"is_you\":false,\"battlefield\":[{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p11\"},{\"tapped\":false,\"name\":\"Savannah Lions\",\"id\":\"p12\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":true}],\"name\":\"Opponent\",\"library_size\":52,\"life\":20}]}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 1
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 36,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 1
+    },
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -165,7 +670,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"answer\": false}",
+          "arguments": {
+            "answer": false
+          },
           "name": "choose_action"
         },
         "id": "call_9",
@@ -174,7 +681,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"passed_priority\"}",
+    "content": {
+      "action_taken": "passed_priority",
+      "game_seq": 36,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -184,7 +698,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_10",
@@ -193,7 +707,138 @@
     ]
   },
   {
-    "content": "{\"combat_phase\":\"attackers\",\"actions_passed\":0,\"action_type\":\"GAME_SELECT\",\"context\":\"T2 Combat/Declare Attackers (TestPlayer)\",\"stop_reason\":\"combat\",\"response_type\":\"select\",\"untapped_lands\":1,\"respond_with\":\"attackers\\u003d[\\\"p1\\\",...] or answer\\u003dtrue (confirm) or answer\\u003dfalse (skip)\",\"message\":\"Select attackers\",\"choices\":[{\"name\":\"Savannah Lions\",\"index\":0,\"choice_type\":\"attacker\",\"id\":\"p9\",\"power\":\"2\",\"toughness\":\"1\"},{\"name\":\"All attack\",\"index\":1,\"choice_type\":\"special\",\"id\":\"all\"}],\"board\":[{\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"},{\"tapped\":false,\"name\":\"Savannah Lions\",\"id\":\"p9\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":false}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\"}]},{\"hand_size\":6,\"is_active\":false,\"is_you\":false,\"battlefield\":[{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p11\"},{\"tapped\":false,\"name\":\"Savannah Lions\",\"id\":\"p12\",\"power\":\"2\",\"toughness\":\"1\",\"summoning_sick\":true}],\"name\":\"Opponent\",\"library_size\":52,\"life\":20}],\"action_pending\":true}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 1
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Savannah Lions",
+              "power": 2,
+              "summoning_sick": true,
+              "tapped": false,
+              "toughness": 1
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "choice_type": "attacker",
+          "id": "_",
+          "index": 0,
+          "name": "Savannah Lions",
+          "power": 2,
+          "toughness": 1
+        },
+        {
+          "choice_type": "special",
+          "id": "all",
+          "index": 1,
+          "name": "All attack"
+        }
+      ],
+      "combat_phase": "attackers",
+      "context": "T2 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 38,
+      "message": "Select attackers",
+      "respond_with": "attackers=[\"p1\",...] or answer=true (confirm) or answer=false (skip)",
+      "response_type": "select",
+      "stop_reason": "combat",
+      "untapped_lands": 1
+    },
     "role": "tool",
     "tool_call_id": "call_10"
   },
@@ -203,7 +848,11 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"attackers\": [\"all\"]}",
+          "arguments": {
+            "attackers": [
+              "all"
+            ]
+          },
           "name": "choose_action"
         },
         "id": "call_11",
@@ -212,7 +861,17 @@
     ]
   },
   {
-    "content": "{\"declared\":[\"all\"],\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"batch_attack\"}",
+    "content": {
+      "action_taken": "batch_attack",
+      "declared": [
+        "all"
+      ],
+      "game_seq": 38,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_11"
   },
@@ -222,8 +881,8 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"until\": \"postcombat_main\"}",
-          "name": "pass_priority"
+          "arguments": {},
+          "name": "get_game_history"
         },
         "id": "call_12",
         "type": "function"
@@ -231,7 +890,11 @@
     ]
   },
   {
-    "content": "{\"action_type\":\"GAME_SELECT\",\"stop_reason\":\"reached_step\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":3,\"land_drops_used\":0,\"context\":\"T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Plains\",\"index\":0,\"action\":\"land\",\"id\":\"p4\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p8\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p10\"}],\"board\":[{\"hand_size\":6,\"graveyard\":[{\"name\":\"Savannah Lions\",\"id\":\"p9\"}],\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\",\"playable\":true}]},{\"hand_size\":6,\"graveyard\":[{\"name\":\"Savannah Lions\",\"id\":\"p12\"}],\"is_active\":false,\"is_you\":false,\"battlefield\":[{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p11\"}],\"name\":\"Opponent\",\"library_size\":52,\"life\":20}],\"current_step\":\"Postcombat Main\"}",
+    "content": {
+      "cursor": 23,
+      "event_count": 23,
+      "history": "Turn 1:\n    - TestPlayer drew Savannah Lions\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n"
+    },
     "role": "tool",
     "tool_call_id": "call_12"
   },
@@ -241,8 +904,10 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
-          "name": "get_game_state"
+          "arguments": {
+            "until": "postcombat_main"
+          },
+          "name": "pass_priority"
         },
         "id": "call_13",
         "type": "function"
@@ -250,8 +915,322 @@
     ]
   },
   {
-    "content": "{\"phase\":\"Postcombat Main\",\"priority_player\":\"TestPlayer\",\"cursor\":1,\"stack\":[],\"active_player\":\"TestPlayer\",\"players\":[{\"hand_size\":6,\"graveyard\":[{\"name\":\"Savannah Lions\",\"id\":\"p9\"}],\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p3\"}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\",\"playable\":true}]},{\"hand_size\":6,\"graveyard\":[{\"name\":\"Savannah Lions\",\"id\":\"p12\"}],\"is_active\":false,\"is_you\":false,\"battlefield\":[{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p11\"}],\"name\":\"Opponent\",\"library_size\":52,\"life\":20}],\"available\":true,\"step\":\"Postcombat Main\",\"turn\":2}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+      "current_step": "Postcombat Main",
+      "game_seq": 54,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "reached_step",
+      "untapped_lands": 1
+    },
     "role": "tool",
     "tool_call_id": "call_13"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_state"
+        },
+        "id": "call_14",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "active_player": "TestPlayer",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 54,
+      "phase": "Postcombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [],
+      "step": "Postcombat Main",
+      "turn": 2
+    },
+    "role": "tool",
+    "tool_call_id": "call_14"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_15",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "cursor": 26,
+      "event_count": 26,
+      "history": "Turn 1:\n    - TestPlayer drew Savannah Lions\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Declare Blockers:\n    - Opponent blocked Savannah Lions with Savannah Lions\n  Combat Damage:\n    - Savannah Lions was destroyed (TestPlayer)\n    - Savannah Lions was destroyed (Opponent)\n"
+    },
+    "role": "tool",
+    "tool_call_id": "call_15"
   }
 ]

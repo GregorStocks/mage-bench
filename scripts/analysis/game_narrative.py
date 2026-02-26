@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Reconstruct game narrative from a .json.gz export.
+"""Reconstruct game narrative from a game export (.json or .json.gz).
 
 Prints turn-boundary board states and key actions (plays, casts, attacks, etc.).
 """
 
-import gzip
-import json
 import sys
+
+from blunder_eval_common import load_game
 
 ACTION_KEYWORDS = [
     "plays",
@@ -26,8 +26,7 @@ ACTION_KEYWORDS = [
 
 
 def main(gz_path: str) -> None:
-    with gzip.open(gz_path, "rt") as f:
-        d = json.load(f)
+    d = load_game(gz_path)
 
     snapshots = d["snapshots"]
     actions = d["actions"]

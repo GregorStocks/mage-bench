@@ -5,17 +5,16 @@ import pytest
 from tests.golden_helpers import (
     DECK_DARK_DEPTHS_COMBO,
     DECK_FILLER,
-    assert_golden_prompt,
     run_golden_scenario,
 )
 
 
 @pytest.mark.golden
-def test_dark_depths_combo(xmage_server, tmp_path, project_root):
+def test_dark_depths_combo(xmage_server, tmp_path, project_root, bridge_session, potato_process):
     """Dark Depths + Thespian's Stage combo into Marit Lage lethal attack.
 
-    Deck hand (alphabetical IDs): Dark Depths=p3, Plains=p4..p8,
-    Thespian's Stage=p9.
+    Opponent's 7 Mountains = p3-p9. TestPlayer's hand (alphabetical):
+    Dark Depths=p10, Plains=p11..p15, Thespian's Stage=p16.
 
     Script: choose starting player, keep hand, play Plains T1/T2,
     play Dark Depths T3, play Thespian's Stage T4, activate Stage
@@ -23,7 +22,7 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root):
     attack T5 for lethal.
     """
     server, port = xmage_server
-    prompt = run_golden_scenario(
+    run_golden_scenario(
         server=server,
         port=port,
         project_root=project_root,
@@ -36,28 +35,28 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root):
             {"name": "choose_action", "arguments": {"index": 0}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"answer": False}},
-            # Turn 1: Play Plains (p4).
+            # Turn 1: Play Plains (p11).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p4"}},
-            # Turn 2: Play Plains (p5).
+            {"name": "choose_action", "arguments": {"id": "p11"}},
+            # Turn 2: Play Plains (p12).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p5"}},
-            # Turn 3: Play Dark Depths (p3, enters with 10 ice counters).
+            {"name": "choose_action", "arguments": {"id": "p12"}},
+            # Turn 3: Play Dark Depths (p10, enters with 10 ice counters).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p3"}},
-            # Turn 4: Play Thespian's Stage (p9).
+            {"name": "choose_action", "arguments": {"id": "p10"}},
+            # Turn 4: Play Thespian's Stage (p16).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p9"}},
+            {"name": "choose_action", "arguments": {"id": "p16"}},
             # T4 combat: Activate Thespian's Stage.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p9"}},
+            {"name": "choose_action", "arguments": {"id": "p16"}},
             # GAME_CHOOSE_ABILITY: index 1 = "{2}, {T}: copy target land."
             # (index 0 is the mana ability "{T}: Add {C}.")
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 1}},
-            # Target Dark Depths (p3) for the copy.
+            # Target Dark Depths (p10) for the copy.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p3"}},
+            {"name": "choose_action", "arguments": {"id": "p10"}},
             # Legend rule: "Select a Dark Depths to keep" — keep the copy
             # (index 1 = p9, 0 ice counters). State trigger then creates
             # Marit Lage (20/20 flying indestructible).
@@ -69,8 +68,12 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root):
             # Declare Marit Lage as attacker for lethal (20 damage).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"attackers": ["all"]}},
-            # Capture final state.
+            # Capture state with Marit Lage attacking before combat damage.
             {"name": "get_game_state", "arguments": {}},
+            # Pass priority — combat damage resolves, Opponent dies (game_over).
+            {"name": "pass_priority", "arguments": {}},
         ],
+        golden_name="dark_depths_combo",
+        bridge=bridge_session,
+        potato=potato_process,
     )
-    assert_golden_prompt("dark_depths_combo", prompt)

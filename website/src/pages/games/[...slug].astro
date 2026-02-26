@@ -10,9 +10,15 @@ export function getStaticPaths() {
   if (!fs.existsSync(gamesDir)) {
     return [];
   }
-  return fs.readdirSync(gamesDir)
-    .filter((f: string) => f.startsWith('game_') && f.endsWith('.json.gz'))
-    .map((f: string) => ({ params: { slug: f.replace('.json.gz', '') } }));
+  const slugs = new Set<string>();
+  for (const f of fs.readdirSync(gamesDir)) {
+    if (f.startsWith('game_') && f.endsWith('.json') && !f.endsWith('.json.gz')) {
+      slugs.add(f.replace('.json', ''));
+    } else if (f.startsWith('game_') && f.endsWith('.json.gz')) {
+      slugs.add(f.replace('.json.gz', ''));
+    }
+  }
+  return [...slugs].map(s => ({ params: { slug: s } }));
 }
 
 const { slug } = Astro.params;
@@ -453,6 +459,7 @@ const { slug } = Astro.params;
     var traceByTs = {};  // ts -> trace event lookup (kept for potential future use)
     var filterPlayer = "";  // "" = all players
     var filterEventType = "";  // "" = all, "llm" = LLM only, "game" = game actions only
+    var useSeq = false;  // v2 games: sort by seq instead of ts
 
     // LLM toggle
     var llmToggleLabel = document.getElementById("llm-toggle-label");
@@ -585,9 +592,11 @@ const { slug } = Astro.params;
             toolResults.push(events[j]);
             j++;
           }
+          var mergedSeq = e.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
           merged.push({
             type: "llm_merged",
             ts: e.ts,
+            gameSeq: mergedSeq,
             player: e.player,
             reasoning: e.reasoning,
             thinking: e.thinking,
@@ -601,6 +610,7 @@ const { slug } = Astro.params;
           merged.push({
             type: "llm_merged",
             ts: e.ts,
+            gameSeq: e.gameSeq || 0,
             player: e.player,
             toolResults: [e],
           });
@@ -850,12 +860,13 @@ const { slug } = Astro.params;
       // All game actions + chat up to current snapshot
       var allActions = game.actions.filter(function (a) {
         if (a.seq > curSeq) return false;
+        if (!a.message && a.type !== "chat") return false;
         if (a.type !== "chat" && SPAM_RE.test(a.message)) return false;
         if (filterPlayer) {
           if (a.type === "chat") {
             if (a.from !== filterPlayer) return false;
           } else {
-            if (a.message.indexOf(filterPlayer) === -1) return false;
+            if ((a.message || "").indexOf(filterPlayer) === -1) return false;
           }
         }
         return true;
@@ -867,34 +878,46 @@ const { slug } = Astro.params;
       if (hasLlmEvents && showLlm) {
         var nextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
         var nextTs = nextSnap ? (nextSnap.ts || "") : "";
+        var nextSeq = nextSnap ? (nextSnap.seq || Infinity) : Infinity;
 
         // Pre-pass: extract system messages from ALL events (before filtering)
         // and backdate them to the previous event for the same player, since they
         // happen during blocking calls but only surface in the result.
         var systemMessages = [];
         var lastPlayerTs = {};
+        var lastPlayerSeq = {};
         game.llmEvents.forEach(function (e) {
           if (e.type === "tool_call") {
             var sysmsgs = extractSystemMessages(e);
             if (sysmsgs.length > 0) {
               var backdatedTs = lastPlayerTs[e.player] || e.ts;
+              var backdatedSeq = lastPlayerSeq[e.player] || e.gameSeq || 0;
               sysmsgs.forEach(function (msg) {
-                systemMessages.push({ type: "system_message", ts: backdatedTs, player: e.player, message: msg });
+                systemMessages.push({ type: "system_message", ts: backdatedTs, gameSeq: backdatedSeq, player: e.player, message: msg });
               });
             }
             lastPlayerTs[e.player] = e.ts;
+            lastPlayerSeq[e.player] = e.gameSeq || 0;
           }
         });
 
         relevantLlm = game.llmEvents.filter(function (e) {
-          if (nextTs && e.ts >= nextTs) return false;
+          if (useSeq) {
+            if ((e.gameSeq || 0) >= nextSeq) return false;
+          } else {
+            if (nextTs && e.ts >= nextTs) return false;
+          }
           if (filterPlayer && e.player !== filterPlayer) return false;
           return true;
         });
 
         // Add backdated system messages that fall within the snapshot window
         systemMessages.forEach(function (sm) {
-          if (nextTs && sm.ts >= nextTs) return;
+          if (useSeq) {
+            if ((sm.gameSeq || 0) >= nextSeq) return;
+          } else {
+            if (nextTs && sm.ts >= nextTs) return;
+          }
           if (filterPlayer && sm.player !== filterPlayer) return;
           relevantLlm.push(sm);
         });
@@ -903,11 +926,25 @@ const { slug } = Astro.params;
       // Merge llm_response + tool_call into combined events
       var mergedLlm = mergeLlmEvents(relevantLlm);
 
-      // Build unified timeline: interleave game actions and LLM events by timestamp
+      // Build unified timeline: interleave game actions and LLM events
+      // v1: sort by ts (timestamp string). v2: sort by seq (game sequence number).
       var timeline = [];
       var showGameActions = filterEventType === "" || filterEventType === "game";
       var showChatMessages = filterEventType === "" || filterEventType === "chat";
       var showLlmEvents = filterEventType === "" || filterEventType === "llm";
+
+      function itemSeq(item) {
+        if (item.kind === "action" || item.kind === "chat") return item.data.seq || 0;
+        if (item.kind === "llm") return item.data.gameSeq || item.data.seq || 0;
+        if (item.kind === "turn-sep" || item.kind === "phase-sep") return item.data.seq || 0;
+        if (item.kind === "annotation") {
+          if (item.seq != null) return item.seq;
+          var annSnap = game.snapshots[item.data.snapshotIndex];
+          return annSnap ? (annSnap.seq || 0) : 0;
+        }
+        return 0;
+      }
+
       allActions.forEach(function (a) {
         var isChat = a.type === "chat";
         if (isChat && showChatMessages) {
@@ -921,30 +958,41 @@ const { slug } = Astro.params;
           timeline.push({ kind: "llm", ts: e.ts || "", data: e });
         });
       }
-      timeline.sort(function (a, b) {
-        if (a.ts < b.ts) return -1;
-        if (a.ts > b.ts) return 1;
-        return 0;
-      });
+
+      function timelineSort(a, b) {
+        if (useSeq) {
+          var aSeq = itemSeq(a);
+          var bSeq = itemSeq(b);
+          if (aSeq !== bSeq) return aSeq - bSeq;
+        } else {
+          if (a.ts < b.ts) return -1;
+          if (a.ts > b.ts) return 1;
+        }
+        // At same position: turn-sep first, then phase-sep, then regular items, then annotations last
+        var order = { "turn-sep": -2, "phase-sep": -1, "annotation": 1 };
+        var aOrd = order[a.kind] || 0;
+        var bOrd = order[b.kind] || 0;
+        return aOrd - bOrd;
+      }
+
+      timeline.sort(timelineSort);
 
       // Add annotations up to current snapshot into the timeline
       if (game.annotations) {
         game.annotations.forEach(function (ann) {
           if (ann.snapshotIndex <= index) {
-            // Use next snapshot's ts so annotations sort after all events in their period
+            var annSnap = game.snapshots[ann.snapshotIndex] || {};
             var nextAnnSnap = game.snapshots[ann.snapshotIndex + 1];
-            var annTs = nextAnnSnap ? (nextAnnSnap.ts || "") : (game.snapshots[ann.snapshotIndex] || {}).ts || "";
-            timeline.push({ kind: "annotation", ts: annTs, data: ann });
+            if (useSeq) {
+              var annSeq = nextAnnSnap ? (nextAnnSnap.seq || 0) : (annSnap.seq || 0);
+              timeline.push({ kind: "annotation", seq: annSeq, data: ann });
+            } else {
+              var annTs = nextAnnSnap ? (nextAnnSnap.ts || "") : (annSnap.ts || "");
+              timeline.push({ kind: "annotation", ts: annTs, data: ann });
+            }
           }
         });
-        // Re-sort; annotations sort last among items with the same timestamp
-        timeline.sort(function (a, b) {
-          if (a.ts < b.ts) return -1;
-          if (a.ts > b.ts) return 1;
-          var aIsAnn = a.kind === "annotation" ? 1 : 0;
-          var bIsAnn = b.kind === "annotation" ? 1 : 0;
-          return aIsAnn - bIsAnn;
-        });
+        timeline.sort(timelineSort);
       }
 
       // Add phase/step transition separators
@@ -957,16 +1005,7 @@ const { slug } = Astro.params;
           });
         }
       });
-      // Final sort: separators before other items at the same timestamp
-      timeline.sort(function (a, b) {
-        if (a.ts < b.ts) return -1;
-        if (a.ts > b.ts) return 1;
-        // At same timestamp: turn-sep first, then phase-sep, then regular items, then annotations last
-        var order = { "turn-sep": -2, "phase-sep": -1, "annotation": 1 };
-        var aOrd = order[a.kind] || 0;
-        var bOrd = order[b.kind] || 0;
-        return aOrd - bOrd;
-      });
+      timeline.sort(timelineSort);
 
       // Render interleaved timeline
       timeline.forEach(function (item) {
@@ -977,7 +1016,7 @@ const { slug } = Astro.params;
           el.className = "chat-line";
           var fromIdx = playerColorMap[a.from];
           var fromCls = fromIdx != null ? "action-" + R.PLAYER_COLORS[fromIdx] : "";
-          el.innerHTML = '<span class="chat-badge">chat</span><span class="chat-from ' + fromCls + '">' + escapeHtml(a.from || "") + ':</span> ' + escapeHtml(a.message);
+          el.innerHTML = '<span class="chat-badge">chat</span><span class="chat-from ' + fromCls + '">' + escapeHtml(a.from || "") + ':</span> ' + escapeHtml(a.message || "");
         } else if (item.kind === "action") {
           var a = item.data;
           el = document.createElement("div");
@@ -1070,22 +1109,44 @@ const { slug } = Astro.params;
       }
     }
 
-    function fetchGzJson(url) {
-      return fetch(url).then(function (r) {
-        if (!r.ok) throw new Error("Game not found (HTTP " + r.status + ")");
-        var ds = new DecompressionStream("gzip");
-        var decompressed = r.body.pipeThrough(ds);
-        return new Response(decompressed).json();
-      });
+    function fetchGameData(slug) {
+      return fetch("/games/" + slug + ".json")
+        .then(function (r) {
+          var ct = (r.headers.get("content-type") || "");
+          if (r.ok && ct.indexOf("json") !== -1) return r.json();
+          // Fall back to .json.gz
+          return fetch("/games/" + slug + ".json.gz").then(function (r2) {
+            if (!r2.ok) throw new Error("Game not found");
+            var ds = new DecompressionStream("gzip");
+            return new Response(r2.body.pipeThrough(ds)).json();
+          });
+        });
     }
 
-    fetchGzJson("/games/" + slug + ".json.gz")
+    fetchGameData(slug)
       .then(function (data) {
         game = data;
 
         if (!game.snapshots || game.snapshots.length === 0) {
           showError("No snapshots in game data.");
           return;
+        }
+
+        // v2 games have seq on everything but no ts on actions/snapshots
+        useSeq = game.version != null;
+
+        // Fill in missing gameSeq on llmEvents from neighboring events.
+        // Events like game_start, llm_error, stall, auto_pilot_mode don't
+        // have gameSeq, so inherit from the previous event to sort correctly.
+        if (useSeq && game.llmEvents) {
+          var lastSeq = 0;
+          game.llmEvents.forEach(function (e) {
+            if (e.gameSeq != null) {
+              lastSeq = e.gameSeq;
+            } else {
+              e.gameSeq = lastSeq;
+            }
+          });
         }
 
         // Show UI

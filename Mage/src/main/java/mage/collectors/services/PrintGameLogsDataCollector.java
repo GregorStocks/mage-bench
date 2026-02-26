@@ -40,7 +40,7 @@ public class PrintGameLogsDataCollector extends EmptyDataCollector {
     }
 
     @Override
-    public void onGameLog(Game game, String message) {
+    public void onGameLog(Game game, String message, int gameSeq) {
         String needMessage = Jsoup.parse(message).text();
         writeLog("LOG", "GAME", String.format("%s: %s",
                 CardUtil.getTurnInfo(game),

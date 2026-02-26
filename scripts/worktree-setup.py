@@ -14,7 +14,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 SHARED_IMAGES = Path.home() / ".mage-bench" / "images"
-CLIENT_MODULES = ["Mage.Client", "Mage.Client.Streaming"]
+CLIENT_MODULES = ["Mage.Client", "Mage.Client.Observer"]
 
 # Port range for per-worktree dev servers (4321 is Astro's default)
 PORT_RANGE_START = 4321

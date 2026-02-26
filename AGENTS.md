@@ -13,20 +13,20 @@ When this document or other instructions say "rebase", they mean "merge in maste
 
 ## Code Isolation Philosophy
 
-Avoid **modifying existing behavior** in Java outside of `Mage.Client.Streaming` and `Mage.Client.Headless`. This means not changing existing methods, fields, or logic in `Mage.Client`, `Mage.Server*`, `Mage.Common`, `Mage`, `Mage.Sets`, etc. Changing existing behavior makes incorporating upstream XMage updates difficult.
+Avoid **modifying existing behavior** in Java outside of `Mage.Client.Observer` and `Mage.Client.Bridge`. This means not changing existing methods, fields, or logic in `Mage.Client`, `Mage.Server*`, `Mage.Common`, `Mage`, `Mage.Sets`, etc. Changing existing behavior makes incorporating upstream XMage updates difficult.
 
 **Additive changes are OK:** Adding new methods, fields, or classes to upstream modules is fine as long as existing behavior is untouched — these merge cleanly.
 
 **Bug fixes in upstream modules are OK** when we're confident they're XMage bugs (e.g. incorrect combat legality checks). File a P2 issue for tracking and keep the fix minimal.
 
 **Our code (free to modify):**
-- `Mage.Client.Streaming` - spectator client
-- `Mage.Client.Headless` - bridge client
+- `Mage.Client.Observer` - spectator client
+- `Mage.Client.Bridge` - bridge client
 - `puppeteer/` - Python orchestration
 
 ## Architecture: MCP Layer vs Puppeteer
 
-Game logic, Magic rules quirks, and XMage-specific workarounds belong in the **Java MCP layer** (`Mage.Client.Headless`), not in the puppeteer. The MCP layer should handle things like:
+Game logic, Magic rules quirks, and XMage-specific workarounds belong in the **Java MCP layer** (`Mage.Client.Bridge`), not in the puppeteer. The MCP layer should handle things like:
 
 - Auto-tapping and mana payment fallbacks
 - Filtering out unplayable actions (e.g. failed mana casts)
@@ -58,6 +58,10 @@ MCP tool results are stored verbatim in `{player}_llm.jsonl` and `.json.gz` expo
 ## Temporary Files
 
 Use `tmp/` (in the repo root) as a scratch directory instead of `/tmp/`. It's gitignored and created by `worktree-setup.py`.
+
+## Golden Tests
+
+Golden test exports include `seq` numbers from the server that represent the actual game event sequence. **Never strip, normalize, or collapse seq numbers or snapshots** in golden export comparisons. If a golden test fails on CI with different seq numbers or missing/extra snapshots, the game is playing out differently — fix the root cause (usually nondeterministic auto-pass behavior in the bridge), don't mask it in the comparison.
 
 ## Testing
 
@@ -216,7 +220,7 @@ ls -l ~/.mage-bench/logs/last-branch-GregorStocks-my-branch
 
 ## UI Terminology
 
-When the user talks about "the UI", they mean the **Java Swing UI** (`StreamingGamePanel`) by default, not the website visualizer.
+When the user talks about "the UI", they mean the **Java Swing UI** (`ObserverGamePanel`) by default, not the website visualizer.
 
 ## Website
 
@@ -255,7 +259,7 @@ make screenshot T=5          # frame at 5s into the game
 Start the dev server with `make website`, then navigate Chrome to the pages listed above.
 
 Use visual verification when:
-- Modifying `StreamingGamePanel` layout or rendering
+- Modifying `ObserverGamePanel` layout or rendering
 - Changing `website/public/game-renderer.js` or `game-renderer.css`
 - Debugging card display or layout issues
 

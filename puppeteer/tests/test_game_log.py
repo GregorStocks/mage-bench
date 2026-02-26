@@ -168,6 +168,60 @@ def test_merge_game_log():
         assert types == ["game_start", "llm_call", "game_over"]
 
 
+def test_merge_game_seq_ordering():
+    """Events with game_seq should sort by game_seq, not timestamp."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir)
+
+        # Server events use seq as their game_seq
+        server = game_dir / "server_game_events.jsonl"
+        server.write_text(
+            json.dumps({"seq": 5, "type": "game_action", "message": "second"})
+            + "\n"
+            + json.dumps({"seq": 3, "type": "game_action", "message": "first"})
+            + "\n"
+        )
+
+        # Observer events with game_seq should interleave
+        events = game_dir / "game_events.jsonl"
+        events.write_text(
+            json.dumps(
+                {
+                    "ts": "2024-06-15T10:00:01.000-07:00",
+                    "game_seq": 4,
+                    "type": "state_snapshot",
+                }
+            )
+            + "\n"
+        )
+
+        # LLM events without game_seq sort after
+        llm = game_dir / "alice_llm.jsonl"
+        llm.write_text(
+            json.dumps(
+                {
+                    "ts": "2024-06-15T10:00:00.000-07:00",
+                    "type": "llm_call",
+                    "player": "alice",
+                }
+            )
+            + "\n"
+        )
+
+        merge_game_log(game_dir)
+
+        merged = game_dir / "game.jsonl"
+        lines = merged.read_text().strip().splitlines()
+        assert len(lines) == 4
+
+        events_parsed = [json.loads(line) for line in lines]
+        # game_seq 3, 4, 5 first, then llm_call (no game_seq) last
+        assert events_parsed[0]["message"] == "first"  # seq 3
+        assert events_parsed[1]["type"] == "state_snapshot"  # game_seq 4
+        assert events_parsed[2]["message"] == "second"  # seq 5
+        assert events_parsed[3]["type"] == "llm_call"  # no game_seq
+
+
 def test_merge_excludes_trace_files():
     """Trace files (*_llm_trace.jsonl) should NOT be included in the merge."""
     with tempfile.TemporaryDirectory() as tmpdir:

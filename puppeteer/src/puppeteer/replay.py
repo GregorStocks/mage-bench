@@ -14,6 +14,7 @@ import asyncio
 import json
 import os
 import sys
+from collections.abc import Awaitable, Callable
 from contextlib import ExitStack
 from datetime import datetime
 from pathlib import Path
@@ -36,6 +37,106 @@ def _load_default_system_prompt() -> str:
     prompts = load_prompts(None)
     assert "default" in prompts, "prompts.json must contain a 'default' key"
     return prompts["default"]
+
+
+AsyncCallToolFn = Callable[[str, dict], Awaitable[str]]
+
+
+async def execute_replay_script(
+    call_tool: AsyncCallToolFn,
+    script: list[dict],
+    system_prompt: str,
+    game_log: GameLogWriter | None = None,
+) -> list[dict]:
+    """Execute a replay script and return the captured prompt.
+
+    This is the shared core of both ``run_replay`` (async MCP subprocess) and
+    the persistent-session path in golden_helpers. The ``call_tool`` callable
+    abstracts over the transport — async MCP SDK or sync JSON-RPC (wrapped).
+    """
+    history: list[dict] = []
+
+    for i, call in enumerate(script):
+        name = call["name"]
+        arguments = call.get("arguments", {})
+        result_text = await call_tool(name, arguments)
+
+        if game_log:
+            game_log.emit("tool_call", name=name, arguments=arguments, result=result_text)
+
+        # Build initial user message from first pass_priority result
+        if i == 0 and name == "pass_priority":
+            try:
+                result_data = json.loads(result_text)
+                initial_message = build_initial_message(result_data)
+            except (json.JSONDecodeError, TypeError):
+                initial_message = "The game is starting. Call pass_priority to get your first decision."
+            history.append({"role": "user", "content": initial_message})
+
+        # Add assistant tool call + tool result to history
+        tool_call_id = f"call_{i + 1}"
+        history.append(
+            {
+                "role": "assistant",
+                "content": None,
+                "tool_calls": [
+                    {
+                        "id": tool_call_id,
+                        "type": "function",
+                        "function": {
+                            "name": name,
+                            "arguments": json.dumps(arguments),
+                        },
+                    }
+                ],
+            }
+        )
+        history.append(
+            {
+                "role": "tool",
+                "tool_call_id": tool_call_id,
+                "content": result_text,
+            }
+        )
+
+        # Check for game over
+        try:
+            result_data = json.loads(result_text)
+            if result_data.get("game_over") or result_data.get("player_dead"):
+                break
+        except (json.JSONDecodeError, TypeError):
+            pass
+
+    # Call get_game_history before prompt capture
+    history_result = await call_tool("get_game_history", {})
+    if game_log:
+        game_log.emit("tool_call", name="get_game_history", arguments={}, result=history_result)
+    history_call_id = f"call_{len(script) + 1}"
+    history.append(
+        {
+            "role": "assistant",
+            "content": None,
+            "tool_calls": [
+                {
+                    "id": history_call_id,
+                    "type": "function",
+                    "function": {
+                        "name": "get_game_history",
+                        "arguments": json.dumps({}),
+                    },
+                }
+            ],
+        }
+    )
+    history.append(
+        {
+            "role": "tool",
+            "tool_call_id": history_call_id,
+            "content": history_result,
+        }
+    )
+
+    return _render_context(history, system_prompt, state_summary="")
 
 
 async def run_replay(
@@ -62,9 +163,9 @@ async def run_replay(
     # Build JVM args for the bridge (same as sleepwalker.py)
     jvm_args_list = [
         "--add-opens=java.base/java.io=ALL-UNNAMED",
-        f"-Dxmage.headless.server={server}",
-        f"-Dxmage.headless.port={port}",
-        "-Dxmage.headless.personality=sleepwalker",
+        f"-Dxmage.bridge.server={server}",
+        f"-Dxmage.bridge.port={port}",
+        "-Dxmage.bridge.personality=sleepwalker",
     ]
     if sys.platform == "darwin":
         jvm_args_list.append("-Dapple.awt.UIElement=true")
@@ -73,17 +174,17 @@ async def run_replay(
     env = os.environ.copy()
     env["MAVEN_OPTS"] = jvm_args
 
-    mvn_args = ["-q", f"-Dxmage.headless.username={username}"]
+    mvn_args = ["-q", f"-Dxmage.bridge.username={username}"]
     if deck_path:
-        mvn_args.append(f"-Dxmage.headless.deck={deck_path}")
+        mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
     if game_dir:
-        mvn_args.append(f"-Dxmage.headless.errorlog={game_dir / f'{username}_errors.log'}")
+        mvn_args.append(f"-Dxmage.bridge.errorlog={game_dir / f'{username}_errors.log'}")
     mvn_args.append("exec:java")
 
     server_params = StdioServerParameters(
         command="mvn",
         args=mvn_args,
-        cwd=str(project_root / "Mage.Client.Headless"),
+        cwd=str(project_root / "Mage.Client.Bridge"),
         env=env,
     )
 
@@ -105,72 +206,12 @@ async def run_replay(
             if game_log:
                 game_log.emit("game_start", available_tools=tool_names)
 
-            # --- Execute scripted calls ---
-            # The first call in the script should be pass_priority (to get the
-            # initial decision). We build conversation history the same way
-            # pilot.py does.
+            # Execute script via shared helper.
+            async def call_tool(name: str, arguments: dict) -> str:
+                return await execute_tool(session, name, arguments)
 
-            history: list[dict] = []
             script = script or []
-
-            for i, call in enumerate(script):
-                name = call["name"]
-                arguments = call.get("arguments", {})
-
-                _log(f"[replay] Script call {i + 1}/{len(script)}: {name}({json.dumps(arguments)})")
-                result_text = await execute_tool(session, name, arguments)
-
-                if game_log:
-                    game_log.emit("tool_call", name=name, arguments=arguments, result=result_text)
-
-                # Build initial user message from first pass_priority result
-                if i == 0 and name == "pass_priority":
-                    try:
-                        result_data = json.loads(result_text)
-                        initial_message = build_initial_message(result_data)
-                    except (json.JSONDecodeError, TypeError):
-                        initial_message = "The game is starting. Call pass_priority to get your first decision."
-                    history.append({"role": "user", "content": initial_message})
-
-                # Add assistant tool call + tool result to history
-                tool_call_id = f"call_{i + 1}"
-
-                history.append(
-                    {
-                        "role": "assistant",
-                        "content": None,
-                        "tool_calls": [
-                            {
-                                "id": tool_call_id,
-                                "type": "function",
-                                "function": {
-                                    "name": name,
-                                    "arguments": json.dumps(arguments),
-                                },
-                            }
-                        ],
-                    }
-                )
-                history.append(
-                    {
-                        "role": "tool",
-                        "tool_call_id": tool_call_id,
-                        "content": result_text,
-                    }
-                )
-
-                # Check for game over
-                try:
-                    result_data = json.loads(result_text)
-                    if result_data.get("game_over") or result_data.get("player_dead"):
-                        _log("[replay] Game ended during script execution")
-                        break
-                except (json.JSONDecodeError, TypeError):
-                    pass
-
-            # --- Capture prompt ---
-            _log("[replay] Capturing prompt (what the LLM would see)...")
-            prompt = _render_context(history, system_prompt, state_summary="")
+            prompt = await execute_replay_script(call_tool, script, system_prompt, game_log)
 
             # Write prompt to file
             if game_dir:

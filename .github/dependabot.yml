@@ -12,7 +12,7 @@ updates:
     directory: '/website'
     schedule:
       interval: 'weekly'
-  - package-ecosystem: 'pip'
+  - package-ecosystem: 'uv'
     directory: '/puppeteer'
     schedule:
       interval: 'weekly'

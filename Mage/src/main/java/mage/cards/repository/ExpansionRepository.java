@@ -42,7 +42,7 @@ public enum ExpansionRepository {
             file.mkdirs();
         }
         try {
-            ConnectionSource connectionSource = new JdbcConnectionSource(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, true));
+            ConnectionSource connectionSource = DatabaseUtils.openH2ConnectionWithRetry(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, true));
 
             boolean isObsolete = RepositoryUtil.isDatabaseObsolete(connectionSource, VERSION_ENTITY_NAME, EXPANSION_DB_VERSION);
             boolean isNewBuild = RepositoryUtil.isNewBuildRun(connectionSource, VERSION_ENTITY_NAME, ExpansionRepository.class); // recreate db on new build
@@ -218,7 +218,7 @@ public enum ExpansionRepository {
 
     public long getContentVersionFromDB() {
         try {
-            ConnectionSource connectionSource = new JdbcConnectionSource(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, false));
+            ConnectionSource connectionSource = DatabaseUtils.openH2ConnectionWithRetry(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, false));
             return RepositoryUtil.getDatabaseVersion(connectionSource, VERSION_ENTITY_NAME + "Content");
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -228,7 +228,7 @@ public enum ExpansionRepository {
 
     public void setContentVersion(long version) {
         try {
-            ConnectionSource connectionSource = new JdbcConnectionSource(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, false));
+            ConnectionSource connectionSource = DatabaseUtils.openH2ConnectionWithRetry(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, false));
             RepositoryUtil.updateVersion(connectionSource, VERSION_ENTITY_NAME + "Content", version);
         } catch (SQLException e) {
             logger.error("Error setting content version - " + e, e);

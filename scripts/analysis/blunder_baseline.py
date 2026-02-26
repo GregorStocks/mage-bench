@@ -10,14 +10,13 @@ Usage:
     uv run --project puppeteer python scripts/analysis/blunder_baseline.py
 """
 
-import gzip
-import json
 import sys
 from datetime import datetime, timezone
 
 from blunder_analysis import BLUNDER_SCRIPT_VERSION
 from blunder_eval_common import (
     game_path_for_id,
+    load_game,
     load_ground_truth,
     lookup_annotation_for_decision,
     play_key,
@@ -53,9 +52,7 @@ def derive_baseline() -> dict:
 
     for game_id, entries in sorted(games_with_validated.items()):
         gz_path = str(game_path_for_id(game_id))
-
-        with gzip.open(gz_path, "rt") as f:
-            data = json.load(f)
+        data = load_game(gz_path)
 
         snapshots = data.get("snapshots", [])
         annotations = data.get("annotations", [])

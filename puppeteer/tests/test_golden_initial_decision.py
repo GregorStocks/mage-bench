@@ -5,13 +5,12 @@ import pytest
 from tests.golden_helpers import (
     DECK_GOBLINS,
     DECK_RED_STOMPY,
-    assert_golden_prompt,
     run_golden_scenario,
 )
 
 
 @pytest.mark.golden
-def test_initial_decision(xmage_server, tmp_path, project_root):
+def test_initial_decision(xmage_server, tmp_path, project_root, bridge_session, potato_process):
     """Verify the prompt at the very first LLM decision point.
 
     Script: pass_priority (to get the initial decision) then get_game_state.
@@ -19,7 +18,7 @@ def test_initial_decision(xmage_server, tmp_path, project_root):
     at this point — system prompt, initial user message, and two tool results.
     """
     server, port = xmage_server
-    prompt = run_golden_scenario(
+    run_golden_scenario(
         server=server,
         port=port,
         project_root=project_root,
@@ -30,5 +29,7 @@ def test_initial_decision(xmage_server, tmp_path, project_root):
             {"name": "pass_priority", "arguments": {}},
             {"name": "get_game_state", "arguments": {}},
         ],
+        golden_name="initial_decision",
+        bridge=bridge_session,
+        potato=potato_process,
     )
-    assert_golden_prompt("initial_decision", prompt)

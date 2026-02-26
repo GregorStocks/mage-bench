@@ -60,7 +60,7 @@ public enum CardRepository {
             file.mkdirs();
         }
         try {
-            ConnectionSource connectionSource = new JdbcConnectionSource(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, true));
+            ConnectionSource connectionSource = DatabaseUtils.openH2ConnectionWithRetry(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, true));
 
             boolean isObsolete = RepositoryUtil.isDatabaseObsolete(connectionSource, VERSION_ENTITY_NAME, CARD_DB_VERSION);
             boolean isNewBuild = RepositoryUtil.isNewBuildRun(connectionSource, VERSION_ENTITY_NAME, CardRepository.class); // recreate db on new build
@@ -650,7 +650,7 @@ public enum CardRepository {
 
     public long getContentVersionFromDB() {
         try {
-            ConnectionSource connectionSource = new JdbcConnectionSource(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, false));
+            ConnectionSource connectionSource = DatabaseUtils.openH2ConnectionWithRetry(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, false));
             return RepositoryUtil.getDatabaseVersion(connectionSource, VERSION_ENTITY_NAME + "Content");
         } catch (SQLException e) {
             Logger.getLogger(CardRepository.class).error("Error getting content version from DB - " + e, e);
@@ -661,7 +661,7 @@ public enum CardRepository {
 
     public void setContentVersion(long version) {
         try {
-            ConnectionSource connectionSource = new JdbcConnectionSource(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, false));
+            ConnectionSource connectionSource = DatabaseUtils.openH2ConnectionWithRetry(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, false));
             RepositoryUtil.updateVersion(connectionSource, VERSION_ENTITY_NAME + "Content", version);
         } catch (SQLException e) {
             Logger.getLogger(CardRepository.class).error("Error setting content version - " + e, e);
@@ -697,7 +697,7 @@ public enum CardRepository {
 
     public void openDB() {
         try {
-            ConnectionSource connectionSource = new JdbcConnectionSource(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, true));
+            ConnectionSource connectionSource = DatabaseUtils.openH2ConnectionWithRetry(DatabaseUtils.prepareH2Connection(DatabaseUtils.DB_NAME_CARDS, true));
             cardsDao = DaoManager.createDao(connectionSource, CardInfo.class);
         } catch (SQLException e) {
             Logger.getLogger(CardRepository.class).error("Error opening card repository - " + e, e);

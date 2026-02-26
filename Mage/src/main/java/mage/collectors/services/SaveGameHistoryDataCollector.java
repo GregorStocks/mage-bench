@@ -180,7 +180,7 @@ public class SaveGameHistoryDataCollector extends EmptyDataCollector {
     }
 
     @Override
-    public void onGameLog(Game game, String message) {
+    public void onGameLog(Game game, String message, int gameSeq) {
         if (!this.enabled) return;
         writeToGameLogsFile(game, new Date() + " [LOG] " + CardUtil.getTurnInfo(game) + ": " + message);
     }

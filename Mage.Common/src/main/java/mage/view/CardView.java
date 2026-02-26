@@ -178,6 +178,7 @@ public class CardView extends SimpleCardView {
         this.playableStats = simpleCardView.playableStats.copy();
         this.isChoosable = simpleCardView.isChoosable;
         this.isSelected = simpleCardView.isSelected;
+        this.shortId = simpleCardView.getShortId();
     }
 
     public CardView(final CardView cardView) {

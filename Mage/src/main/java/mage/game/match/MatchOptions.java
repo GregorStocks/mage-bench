@@ -53,6 +53,8 @@ public class MatchOptions implements Serializable {
     protected Collection<DeckCardInfo> perPlayerEmblemCards = Collections.emptySet();
     protected Collection<DeckCardInfo> globalEmblemCards = Collections.emptySet();
 
+    protected String gameLogDir;
+
     public MatchOptions(String name, String gameType, boolean multiPlayer) {
         this.name = name;
         this.gameType = gameType;
@@ -319,5 +321,13 @@ public class MatchOptions implements Serializable {
 
     public void setGlobalEmblemCards(Collection<DeckCardInfo> globalEmblemCards) {
         this.globalEmblemCards = globalEmblemCards;
+    }
+
+    public String getGameLogDir() {
+        return gameLogDir;
+    }
+
+    public void setGameLogDir(String gameLogDir) {
+        this.gameLogDir = gameLogDir;
     }
 }

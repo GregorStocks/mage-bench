@@ -398,8 +398,8 @@ class Config:
     jvm_rendering: str = "-Dsun.java2d.xrender=true"
 
     @property
-    def jvm_headless_opts(self) -> str:
-        """JVM options for headless (non-GUI) processes."""
+    def jvm_bridge_opts(self) -> str:
+        """JVM options for bridge (non-GUI) processes."""
         opts = [self.jvm_opens]
         if sys.platform == "darwin":
             opts.append("-Dapple.awt.UIElement=true")
@@ -413,7 +413,7 @@ class Config:
 
     # CLI options
     config_file: Path | None = None
-    streaming: bool = False
+    observer: bool = False
     record: bool = False
     record_output: Path | None = None
     num_games: int = 1  # Number of parallel games on the same server

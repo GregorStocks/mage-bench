@@ -55,9 +55,14 @@ def annotate_game(
     *,
     blunder_script_version: int | None = None,
 ) -> None:
-    """Patch a gz file with annotations."""
-    with gzip.open(gz_path, "rt") as f:
-        game_data = json.load(f)
+    """Patch a game export file with annotations. Handles both .json and .json.gz."""
+    is_gz = gz_path.endswith(".json.gz")
+    if is_gz:
+        with gzip.open(gz_path, "rt") as f:
+            game_data = json.load(f)
+    else:
+        with open(gz_path) as f:
+            game_data = json.load(f)
 
     with open(annotations_path) as f:
         annotations = json.load(f)
@@ -73,8 +78,12 @@ def annotate_game(
     if blunder_script_version is not None:
         game_data["blunderScriptVersion"] = blunder_script_version
 
-    with gzip.open(gz_path, "wt") as f:
-        json.dump(game_data, f)
+    if is_gz:
+        with gzip.open(gz_path, "wt") as f:
+            json.dump(game_data, f, indent=2, ensure_ascii=False)
+    else:
+        with open(gz_path, "w") as f:
+            json.dump(game_data, f, indent=2, ensure_ascii=False)
 
     print(
         f"Wrote {len(annotations)} annotation(s) to {gz_path}",

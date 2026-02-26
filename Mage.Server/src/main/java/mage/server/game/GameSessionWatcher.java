@@ -111,6 +111,7 @@ public class GameSessionWatcher {
 
         GameView gameView = new GameView(sourceGame.getState(), sourceGame, null, userId);
         processWatchedHands(sourceGame, userId, gameView);
+        gameView.assignShortIdsToHands();
         return gameView;
     }
 

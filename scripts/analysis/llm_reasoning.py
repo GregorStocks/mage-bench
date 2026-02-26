@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Sample LLM reasoning excerpts from a .json.gz export.
+"""Sample LLM reasoning excerpts from a game export (.json or .json.gz).
 
 Extracts 3-4 reasoning samples per player to assess decision quality.
 """
 
-import gzip
-import json
 import sys
+
+from blunder_eval_common import load_game
 
 MAX_SAMPLES = 4
 MIN_REASONING_LEN = 50
@@ -14,8 +14,7 @@ EXCERPT_LEN = 600
 
 
 def main(gz_path: str) -> None:
-    with gzip.open(gz_path, "rt") as f:
-        d = json.load(f)
+    d = load_game(gz_path)
 
     events = d.get("llmEvents", [])
     players = sorted(set(e.get("player", "?") for e in events))

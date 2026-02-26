@@ -30,6 +30,9 @@ _LLM_EVENT_TYPES = {
     "auto_pilot_mode",
 }
 
+# Size threshold: use .json.gz only above 40MB
+_GZ_THRESHOLD = 40_000_000
+
 
 def _strip_html(message: str) -> str:
     """Remove <font> tags and [hex_id] suffixes from action messages."""
@@ -187,9 +190,14 @@ def _read_llm_events(
             # Build the exported event with camelCase keys
             exported: dict = {
                 "ts": raw.get("ts", ""),
+                "seq": raw.get("seq"),
                 "player": player,
                 "type": event_type,
             }
+
+            # game_seq: first-class field from pilot logging, or extracted
+            # from the tool result JSON string for scripted/replay scenarios.
+            game_seq = raw.get("game_seq")
 
             if event_type == "game_start":
                 exported["model"] = raw.get("model", "")
@@ -218,6 +226,16 @@ def _read_llm_events(
                 exported["result"] = raw.get("result", "")
                 if "latency_ms" in raw:
                     exported["latencyMs"] = raw["latency_ms"]
+                # Extract game_seq from result JSON if not already a top-level field
+                if game_seq is None:
+                    result_str = raw.get("result", "")
+                    if result_str:
+                        try:
+                            result_obj = json.loads(result_str)
+                            if isinstance(result_obj, dict):
+                                game_seq = result_obj.get("game_seq")
+                        except (json.JSONDecodeError, TypeError):
+                            pass
             elif event_type == "stall":
                 exported["turnsWithoutProgress"] = raw.get("turns_without_progress", 0)
                 exported["lastTools"] = raw.get("last_tools", [])
@@ -228,6 +246,9 @@ def _read_llm_events(
                 exported["errorMessage"] = raw.get("error_message", "")
             elif event_type == "auto_pilot_mode":
                 exported["reason"] = raw.get("reason", "")
+
+            if game_seq is not None:
+                exported["gameSeq"] = game_seq
 
             events.append(exported)
 
@@ -265,6 +286,7 @@ def _read_llm_trace(game_dir: Path) -> list[dict]:
             events.append(
                 {
                     "ts": raw.get("ts", ""),
+                    "seq": raw.get("seq"),
                     "player": raw.get("player", ""),
                     "request": request,
                     "response": raw.get("response", {}),
@@ -274,50 +296,86 @@ def _read_llm_trace(game_dir: Path) -> list[dict]:
     return events
 
 
-def export_game(game_dir: Path, website_games_dir: Path) -> Path:
-    """Export a game directory to a website JSON file. Returns the output path."""
-    events_path = game_dir / "game_events.jsonl"
-    meta_path = game_dir / "game_meta.json"
+def _read_server_events(
+    game_dir: Path,
+) -> tuple[list[dict], list[dict], dict | None, str | None]:
+    """Read events from server_game_events.jsonl.
 
-    if not events_path.exists():
-        raise FileNotFoundError(f"No game_events.jsonl in {game_dir}")
+    Returns (snapshots, actions, game_over_info, winner).
+    """
+    server_events_path = game_dir / "server_game_events.jsonl"
+    assert server_events_path.exists(), f"No server_game_events.jsonl in {game_dir}"
 
-    # Load metadata
-    meta = {}
-    if meta_path.exists():
-        meta = json.loads(meta_path.read_text())
+    snapshots: list[dict] = []
+    actions: list[dict] = []
+    game_over: dict | None = None
+    winner: str | None = None
 
-    # Parse events
-    snapshots = []
-    actions = []
-    game_over = None
-
-    for line in events_path.read_text().splitlines():
+    for line in server_events_path.read_text().splitlines():
         line = line.strip()
         if not line:
             continue
         event = json.loads(line)
         event_type = event.get("type")
 
-        if event_type == "state_snapshot":
-            # Keep all fields except type (preserve ts + seq for timeline matching)
-            snap = {k: v for k, v in event.items() if k != "type"}
+        if event_type == "decision" and "state" in event:
+            snap = dict(event["state"])
+            snap["seq"] = event["seq"]
             snapshots.append(snap)
-        elif event_type in ("game_action", "player_chat"):
-            entry = {
-                "ts": event.get("ts", ""),
-                "seq": event.get("seq", 0),
-                "message": _strip_html(event.get("message", "")),
-            }
-            if event_type == "player_chat":
-                entry["type"] = "chat"
-                entry["from"] = event.get("from", "")
-            actions.append(entry)
-        elif event_type == "game_over":
+        elif event_type == "game_action":
+            actions.append(
+                {
+                    "seq": event.get("seq", 0),
+                    "message": _strip_html(event.get("message", "")),
+                }
+            )
+        elif event_type == "turn_change":
+            actions.append(
+                {
+                    "seq": event.get("seq", 0),
+                    "type": "turn_change",
+                    "turn": event["turn"],
+                    "active_player": event.get("active_player"),
+                }
+            )
+        elif event_type == "phase_change":
+            actions.append(
+                {
+                    "seq": event.get("seq", 0),
+                    "type": "phase_change",
+                    "turn": event["turn"],
+                    "phase": event.get("phase"),
+                    "step": event.get("step"),
+                    "active_player": event.get("active_player"),
+                }
+            )
+        elif event_type == "game_end":
             game_over = {
                 "seq": event.get("seq", 0),
-                "message": _strip_html(event.get("message", "")),
+                "message": event.get("winner", "") or "Game ended",
             }
+            winner = event.get("winner")
+            if "state" in event:
+                snap = dict(event["state"])
+                snap["seq"] = event["seq"]
+                snapshots.append(snap)
+
+    return snapshots, actions, game_over, winner
+
+
+def build_export(game_dir: Path) -> dict:
+    """Build the export data dict from a game directory.
+
+    Reads server_game_events.jsonl (version 2 format).
+    """
+    meta_path = game_dir / "game_meta.json"
+
+    # Load metadata
+    meta: dict = {}
+    if meta_path.exists():
+        meta = json.loads(meta_path.read_text())
+
+    snapshots, actions, game_over, winner = _read_server_events(game_dir)
 
     # Read LLM logs
     llm_events, player_costs, player_tools, player_tool_calls, player_thinking = (
@@ -332,15 +390,12 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
     game_id = game_dir.name
     total_turns = max((s.get("turn", 0) for s in snapshots), default=0)
 
-    winner = None
-    if game_over:
-        # "Player X is the winner"
+    # Winner extraction for spectator-based exports
+    if not winner and game_over:
         msg = game_over["message"]
         m = re.match(r"Player (.+?) is the winner", msg)
         if m:
             winner = m.group(1)
-    # Fallback: if spectator disconnected before writing the real game_over,
-    # scan game actions for "X has won the game"
     if not winner:
         for a in actions:
             m = WON_GAME_RE.match(a.get("message", ""))
@@ -349,28 +404,29 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
                 break
 
     # Extract placement from elimination order
-    # "X has lost the game." messages, ordered by seq, give elimination order
     player_names = [p.get("name", "?") for p in meta.get("players", [])]
     eliminations = []
     for a in actions:
         m = LOST_GAME_RE.match(a.get("message", ""))
         if m:
             eliminations.append(m.group(1))
-    # eliminations[0] = first eliminated (worst), eliminations[-1] = last eliminated
-    # Placement: winner=1, last eliminated=2, second-to-last=3, etc.
     placements: dict[str, int] = {}
     if winner:
         placements[winner] = 1
         for i, name in enumerate(reversed(eliminations)):
             placements[name] = i + 2
     elif eliminations:
-        # No winner but some players were eliminated — assign relative placements
-        # Surviving players share 1st place, eliminated players get lower placements
         surviving = [n for n in player_names if n not in eliminations]
         for name in surviving:
             placements[name] = 1
         for i, name in enumerate(reversed(eliminations)):
             placements[name] = len(surviving) + i + 1
+
+    # Derive winner from placements if not already set
+    if not winner:
+        first_place = [n for n, p in placements.items() if p == 1]
+        if len(first_place) == 1:
+            winner = first_place[0]
 
     players_summary = []
     for p in meta.get("players", []):
@@ -399,7 +455,8 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
         players_summary.append(entry)
 
     # Build output
-    output = {
+    output: dict = {
+        "version": 2,
         "id": game_id,
         "timestamp": meta.get("timestamp", ""),
         "gameType": meta.get("game_type", ""),
@@ -419,14 +476,32 @@ def export_game(game_dir: Path, website_games_dir: Path) -> Path:
     if meta.get("youtube_url"):
         output["youtubeUrl"] = meta["youtube_url"]
 
-    website_games_dir.mkdir(parents=True, exist_ok=True)
-    output_path = website_games_dir / f"{game_id}.json.gz"
-    output_path.write_bytes(gzip.compress(json.dumps(output).encode()))
+    return output
 
-    # Clean up old uncompressed file if it exists
-    old_json = website_games_dir / f"{game_id}.json"
-    if old_json.exists():
-        old_json.unlink()
+
+def export_game(game_dir: Path, website_games_dir: Path) -> Path:
+    """Export a game directory to a website JSON file. Returns the output path."""
+    output = build_export(game_dir)
+    game_id = output["id"]
+
+    website_games_dir.mkdir(parents=True, exist_ok=True)
+
+    json_str = json.dumps(output, indent=2, ensure_ascii=False)
+    json_bytes = json_str.encode()
+    if len(json_bytes) > _GZ_THRESHOLD:
+        output_path = website_games_dir / f"{game_id}.json.gz"
+        output_path.write_bytes(gzip.compress(json_bytes))
+        # Clean up uncompressed file if it exists
+        json_path = website_games_dir / f"{game_id}.json"
+        if json_path.exists():
+            json_path.unlink()
+    else:
+        output_path = website_games_dir / f"{game_id}.json"
+        output_path.write_bytes(json_bytes)
+        # Clean up compressed file if it exists
+        gz_path = website_games_dir / f"{game_id}.json.gz"
+        if gz_path.exists():
+            gz_path.unlink()
 
     return output_path
 

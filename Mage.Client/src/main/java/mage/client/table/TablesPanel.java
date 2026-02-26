@@ -1732,7 +1732,7 @@ public class TablesPanel extends javax.swing.JPanel {
             options.setAttackOption(MultiplayerAttackOption.MULTIPLE);
             options.setRange(RangeOfInfluence.ALL);
             String winsNeededEnv = System.getenv("XMAGE_AI_PUPPETEER_WINS_NEEDED");
-            options.setWinsNeeded(winsNeededEnv != null ? Integer.parseInt(winsNeededEnv) : 2);
+            options.setWinsNeeded(winsNeededEnv != null ? Integer.parseInt(winsNeededEnv) : 1);
             String timeLimitEnv = System.getenv("XMAGE_AI_PUPPETEER_MATCH_TIME_LIMIT");
             options.setMatchTimeLimit(timeLimitEnv != null ? MatchTimeLimit.valueOf(timeLimitEnv) : MatchTimeLimit.NONE);
             String bufferTimeEnv = System.getenv("XMAGE_AI_PUPPETEER_MATCH_BUFFER_TIME");
@@ -1758,6 +1758,10 @@ public class TablesPanel extends javax.swing.JPanel {
             options.setSpectatorsAllowed(true);
             String serverAddress = SessionHandler.getSession().getServerHost();
             options.setBannedUsers(IgnoreList.getIgnoredUsers(serverAddress));
+            String gameDir = System.getProperty("xmage.observer.gameDir");
+            if (gameDir != null) {
+                options.setGameLogDir(gameDir);
+            }
             table = SessionHandler.createTable(roomId, options);
 
             int deckIndex = 0;

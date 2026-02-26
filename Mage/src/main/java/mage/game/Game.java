@@ -824,4 +824,14 @@ public interface Game extends MageItem, Serializable, Copyable<Game> {
     UUID getTableId();
 
     void setTableId(UUID tableId);
+
+    // Server-side game event log support
+    int nextGameSeq();
+
+    int getGameSeq();
+
+    mage.util.ShortIdRegistry getShortIdRegistry();
+
+    // Bridge event log: structured action events for MCP clients
+    java.util.List<BridgeLogEntry> getBridgeEventsSince(int cursor, java.util.UUID playerId);
 }

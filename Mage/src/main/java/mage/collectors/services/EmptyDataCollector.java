@@ -3,6 +3,7 @@ package mage.collectors.services;
 import mage.collectors.DataCollector;
 import mage.game.Game;
 import mage.game.Table;
+import mage.game.events.PlayerQueryEvent;
 import mage.players.Player;
 
 import java.util.UUID;
@@ -40,12 +41,22 @@ public abstract class EmptyDataCollector implements DataCollector {
     }
 
     @Override
-    public void onGameLog(Game game, String message) {
+    public void onGameLog(Game game, String message, int gameSeq) {
         // nothing
     }
 
     @Override
     public void onGameEnd(Game game) {
+        // nothing
+    }
+
+    @Override
+    public void onPlayerQuery(Game game, PlayerQueryEvent event, int gameSeq) {
+        // nothing
+    }
+
+    @Override
+    public void onPlayerResponse(Game game, UUID playerId, String responseType, Object data) {
         // nothing
     }
 

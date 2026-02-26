@@ -9,13 +9,14 @@ Usage:
     uv run python scripts/analysis/mana_tapping.py <directory-of-gz-files>
 """
 
-import glob
-import gzip
 import json
 import os
 import sys
 from collections import Counter
 from dataclasses import dataclass, field
+from pathlib import Path
+
+from blunder_eval_common import load_game
 
 
 @dataclass
@@ -46,9 +47,8 @@ class PlayerStats:
 
 
 def analyze_game(gz_path: str) -> list[PlayerStats]:
-    """Analyze a single .json.gz export and return per-player stats."""
-    with gzip.open(gz_path, "rt") as f:
-        data = json.load(f)
+    """Analyze a single game export and return per-player stats."""
+    data = load_game(gz_path)
 
     # Build player -> model mapping
     player_models: dict[str, str] = {}
@@ -304,16 +304,16 @@ def report(all_stats: list[PlayerStats]) -> None:
 
 
 def main(path: str) -> None:
-    """Analyze a single .json.gz or a directory of them."""
+    """Analyze a single game export or a directory of them."""
     if os.path.isdir(path):
-        gz_files = sorted(glob.glob(os.path.join(path, "*.json.gz")))
-        assert gz_files, f"No .json.gz files found in {path}"
+        p = Path(path)
+        gz_files = sorted(list(p.glob("*.json.gz")) + list(p.glob("*.json")))
+        assert gz_files, f"No game files found in {path}"
         print(f"Analyzing {len(gz_files)} games from {path}")
         all_stats: list[PlayerStats] = []
         for gz in gz_files:
-            all_stats.extend(analyze_game(gz))
+            all_stats.extend(analyze_game(str(gz)))
     else:
-        assert path.endswith(".json.gz"), f"Expected .json.gz file, got {path}"
         print(f"Analyzing {path}")
         all_stats = analyze_game(path)
 

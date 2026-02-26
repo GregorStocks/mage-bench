@@ -12,8 +12,6 @@ Usage:
 
 import argparse
 import atexit
-import gzip
-import json
 import socket
 import subprocess
 import textwrap
@@ -113,9 +111,10 @@ def viewer_url(game_id: str, aftermath_index: int) -> str:
 
 
 def _load_game_data(gz_path: str) -> dict:
-    """Load a game's JSON data from a .json.gz file."""
-    with gzip.open(gz_path, "rt") as f:
-        return json.load(f)
+    """Load a game's JSON data from a .json or .json.gz file."""
+    from blunder_eval_common import load_game
+
+    return load_game(gz_path)
 
 
 def _find_decision(decisions: list[dict], decision_index: int) -> dict:

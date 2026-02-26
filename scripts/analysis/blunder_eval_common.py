@@ -4,6 +4,7 @@ Provides data structures, I/O, and matching logic used by the seed,
 audit, baseline, eval, and promote scripts.
 """
 
+import gzip
 import json
 from pathlib import Path
 
@@ -14,16 +15,37 @@ GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 TMP_DIR = REPO_ROOT / "tmp"
 
 
+def load_game(path: str | Path) -> dict:
+    """Load a game export file (.json or .json.gz)."""
+    path = str(path)
+    if path.endswith(".json.gz"):
+        with gzip.open(path, "rt") as f:
+            return json.load(f)
+    with open(path) as f:
+        return json.load(f)
+
+
+def glob_game_files(games_dir: Path) -> list[Path]:
+    """Find all game export files (.json and .json.gz) in a directory, sorted."""
+    gz_files = set(games_dir.glob("game_*.json.gz"))
+    gz_stems = {p.name.removesuffix(".gz") for p in gz_files}
+    json_files = [p for p in games_dir.glob("game_*.json") if p.name not in gz_stems]
+    return sorted(gz_files | set(json_files))
+
+
 def play_key(game_id: str, decision_index: int) -> str:
     """Canonical key for a play: 'game_id:decision_index'."""
     return f"{game_id}:{decision_index}"
 
 
 def game_path_for_id(game_id: str) -> Path:
-    """Resolve the .json.gz path for a game ID."""
-    path = GAMES_DIR / f"{game_id}.json.gz"
-    assert path.exists(), f"Game file not found: {path}"
-    return path
+    """Resolve the export path for a game ID (.json.gz or .json)."""
+    gz_path = GAMES_DIR / f"{game_id}.json.gz"
+    if gz_path.exists():
+        return gz_path
+    json_path = GAMES_DIR / f"{game_id}.json"
+    assert json_path.exists(), f"Game file not found: {gz_path} or {json_path}"
+    return json_path
 
 
 def _gt_path(game_id: str) -> Path:

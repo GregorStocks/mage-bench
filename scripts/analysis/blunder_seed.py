@@ -10,12 +10,11 @@ Usage:
     uv run --project puppeteer python scripts/analysis/blunder_seed.py
 """
 
-import gzip
-import json
 import sys
 
 from blunder_eval_common import (
     GAMES_DIR,
+    load_game,
     make_seed_entry,
     merge_into_ground_truth,
     reverse_map_annotations,
@@ -28,8 +27,7 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
 
     Returns (game_id, entries).
     """
-    with gzip.open(gz_path, "rt") as f:
-        data = json.load(f)
+    data = load_game(gz_path)
 
     game_id = data["id"]
     annotations = data.get("annotations", [])
@@ -66,7 +64,9 @@ def seed_from_game(gz_path: str) -> tuple[str, list[dict]]:
 
 
 def main() -> None:
-    game_files = sorted(GAMES_DIR.glob("*.json.gz"))
+    from blunder_eval_common import glob_game_files
+
+    game_files = glob_game_files(GAMES_DIR)
     assert game_files, f"No game files found in {GAMES_DIR}"
 
     total_added = 0

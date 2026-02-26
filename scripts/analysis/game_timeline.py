@@ -11,16 +11,12 @@ Usage:
 """
 
 import argparse
-import gzip
 import json
 import os
 import sys
-from pathlib import Path
 
-
-GAMES_DIR = (
-    Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games"
-)
+from blunder_eval_common import GAMES_DIR
+from blunder_eval_common import load_game as _load_game_common
 
 MANA_KEYWORDS = {
     "mana_plan",
@@ -33,15 +29,19 @@ MANA_CHAT_KEYWORDS = {"Spell cancelled", "mana plan", "not enough mana"}
 
 
 def resolve_game_path(path_or_id: str) -> str:
-    """Resolve a game ID or path to a .json.gz file path."""
+    """Resolve a game ID or path to a game file path."""
     if os.path.isfile(path_or_id):
         return path_or_id
     # Try as game ID in the games directory
-    candidate = GAMES_DIR / f"{path_or_id}.json.gz"
-    if candidate.is_file():
-        return str(candidate)
+    for ext in (".json.gz", ".json"):
+        candidate = GAMES_DIR / f"{path_or_id}{ext}"
+        if candidate.is_file():
+            return str(candidate)
     # Try glob match
-    matches = sorted(GAMES_DIR.glob(f"*{path_or_id}*.json.gz"))
+    matches = sorted(
+        list(GAMES_DIR.glob(f"*{path_or_id}*.json.gz"))
+        + list(GAMES_DIR.glob(f"*{path_or_id}*.json"))
+    )
     assert matches, f"No game found matching '{path_or_id}' in {GAMES_DIR}"
     if len(matches) > 1:
         print("Multiple matches, using first:", file=sys.stderr)
@@ -51,8 +51,7 @@ def resolve_game_path(path_or_id: str) -> str:
 
 
 def load_game(gz_path: str) -> dict:
-    with gzip.open(gz_path, "rt") as f:
-        return json.load(f)
+    return _load_game_common(gz_path)
 
 
 def parse_turn_range(s: str) -> tuple[int, int]:

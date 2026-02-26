@@ -13,7 +13,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_1",
@@ -32,7 +32,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\": 0}",
+          "arguments": {
+            "index": 0
+          },
           "name": "choose_action"
         },
         "id": "call_2",
@@ -51,7 +53,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_3",
@@ -70,7 +72,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"answer\": false}",
+          "arguments": {
+            "answer": false
+          },
           "name": "choose_action"
         },
         "id": "call_4",
@@ -89,7 +93,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_5",
@@ -103,16 +107,14 @@
     "tool_call_id": "call_5"
   },
   {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p4\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_6",
@@ -121,7 +123,7 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_1\"}",
+    "content": "OK: selected_1",
     "role": "tool",
     "tool_call_id": "call_6"
   },
@@ -131,7 +133,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_7",
@@ -140,9 +142,13 @@
     ]
   },
   {
-    "content": "{\"action_type\":\"GAME_SELECT\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":1,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":4,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Dark Depths\",\"index\":0,\"action\":\"land\",\"id\":\"p3\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p5\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p8\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p10\"},{\"name\":\"Thespian\\u0027s Stage\",\"index\":6,\"action\":\"land\",\"id\":\"p9\"}],\"board\":[{\"hand_size\":7,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"}],\"name\":\"TestPlayer\",\"library_size\":52,\"life\":20,\"hand\":[{\"name\":\"Dark Depths\",\"is_land\":true,\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"],\"id\":\"p3\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\",\"playable\":true},{\"name\":\"Thespian\\u0027s Stage\",\"is_land\":true,\"rules\":[\"{T}: Add {C}.\",\"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"],\"id\":\"p9\",\"playable\":true}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p11\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":52,\"life\":20}]}",
+    "content": "action_pending(GAME_SELECT, playable_cards); select; 7 choices: Dark Depths, Plains, Plains",
     "role": "tool",
     "tool_call_id": "call_7"
+  },
+  {
+    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,
@@ -150,7 +156,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p5\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_8",
@@ -159,7 +167,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_1\"}",
+    "content": {
+      "action_taken": "selected_1",
+      "game_seq": 25,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -169,7 +184,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_9",
@@ -178,7 +193,183 @@
     ]
   },
   {
-    "content": "{\"action_type\":\"GAME_SELECT\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":2,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":6,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Dark Depths\",\"index\":0,\"action\":\"land\",\"id\":\"p3\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p8\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p10\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p12\"},{\"name\":\"Thespian\\u0027s Stage\",\"index\":6,\"action\":\"land\",\"id\":\"p9\"}],\"board\":[{\"hand_size\":7,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"}],\"name\":\"TestPlayer\",\"library_size\":51,\"life\":20,\"hand\":[{\"name\":\"Dark Depths\",\"is_land\":true,\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"],\"id\":\"p3\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p12\",\"playable\":true},{\"name\":\"Thespian\\u0027s Stage\",\"is_land\":true,\"rules\":[\"{T}: Add {C}.\",\"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"],\"id\":\"p9\",\"playable\":true}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p11\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p13\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":51,\"life\":20}]}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Dark Depths",
+              "playable": true,
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Thespian's Stage",
+              "playable": true,
+              "rules": [
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Dark Depths"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 6,
+          "name": "Thespian's Stage"
+        }
+      ],
+      "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 44,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
+    },
     "role": "tool",
     "tool_call_id": "call_9"
   },
@@ -188,7 +379,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p3\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_10",
@@ -197,7 +390,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_0\"}",
+    "content": {
+      "action_taken": "selected_0",
+      "game_seq": 44,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_10"
   },
@@ -207,7 +407,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_11",
@@ -216,7 +416,201 @@
     ]
   },
   {
-    "content": "{\"action_type\":\"GAME_SELECT\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":3,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":6,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Plains\",\"index\":0,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p8\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p10\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p12\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p14\"},{\"name\":\"Thespian\\u0027s Stage\",\"index\":6,\"action\":\"land\",\"id\":\"p9\"}],\"board\":[{\"hand_size\":7,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"counters\":{\"ice\":10},\"name\":\"Dark Depths\",\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"],\"id\":\"p3\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"}],\"name\":\"TestPlayer\",\"library_size\":50,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p12\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p14\",\"playable\":true},{\"name\":\"Thespian\\u0027s Stage\",\"is_land\":true,\"rules\":[\"{T}: Add {C}.\",\"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"],\"id\":\"p9\",\"playable\":true}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p11\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p13\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p15\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":50,\"life\":20}]}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "id": "_",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Thespian's Stage",
+              "playable": true,
+              "rules": [
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 6,
+          "name": "Thespian's Stage"
+        }
+      ],
+      "context": "T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 63,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 3
+    },
     "role": "tool",
     "tool_call_id": "call_11"
   },
@@ -226,7 +620,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p9\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_12",
@@ -235,7 +631,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_6\"}",
+    "content": {
+      "action_taken": "selected_6",
+      "game_seq": 63,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_12"
   },
@@ -245,7 +648,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_13",
@@ -254,7 +657,169 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":1,\"has_playable_cards\":true,\"action_type\":\"GAME_SELECT\",\"context\":\"T4 Combat/Declare Attackers (TestPlayer)\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":4,\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"message\":\"Play instants and activated abilities\",\"choices\":[{\"name\":\"Dark Depths\",\"index\":0,\"action\":\"activate\",\"playable_abilities\":[\"{3}: Remove an ice counter from {this}.\"],\"id\":\"p3\"},{\"name\":\"Thespian\\u0027s Stage\",\"index\":1,\"action\":\"activate\",\"playable_abilities\":[\"{2}, {T}: {this} becomes a copy of target land, e...\"],\"id\":\"p9\"}],\"board\":[{\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"counters\":{\"ice\":10},\"name\":\"Dark Depths\",\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"],\"id\":\"p3\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"tapped\":false,\"name\":\"Thespian\\u0027s Stage\",\"rules\":[\"{T}: Add {C}.\",\"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"],\"id\":\"p9\"}],\"name\":\"TestPlayer\",\"library_size\":50,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p12\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p14\"}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p11\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p13\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p15\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":50,\"life\":20}],\"action_pending\":true}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "id": "_",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Thespian's Stage",
+              "rules": [
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "activate",
+          "id": "_",
+          "index": 0,
+          "name": "Dark Depths",
+          "playable_abilities": [
+            "{3}: Remove an ice counter from {this}."
+          ]
+        },
+        {
+          "action": "activate",
+          "id": "_",
+          "index": 1,
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
+        }
+      ],
+      "context": "T4 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 68,
+      "has_playable_cards": true,
+      "message": "Play instants and activated abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 4
+    },
     "role": "tool",
     "tool_call_id": "call_13"
   },
@@ -264,7 +829,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p9\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_14",
@@ -273,7 +840,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_CHOOSE_ABILITY\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_1\"}",
+    "content": {
+      "action_taken": "selected_1",
+      "game_seq": 68,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_CHOOSE_ABILITY",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_14"
   },
@@ -283,7 +857,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_15",
@@ -292,7 +866,158 @@
     ]
   },
   {
-    "content": "{\"actions_passed\":0,\"action_type\":\"GAME_CHOOSE_ABILITY\",\"context\":\"T4 Combat/Declare Attackers (TestPlayer)\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"index\",\"untapped_lands\":4,\"respond_with\":\"index\\u003dN\",\"message\":\"Choose spell or ability to play: Thespian\\u0027s Stage\",\"choices\":[{\"index\":0,\"description\":\"1. {T}: Add {C}.\"},{\"index\":1,\"description\":\"2. {2}, {T}: Thespian\\u0027s Stage becomes a copy of target land, except it has this ability.\"}],\"board\":[{\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"counters\":{\"ice\":10},\"name\":\"Dark Depths\",\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"],\"id\":\"p3\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"tapped\":false,\"name\":\"Thespian\\u0027s Stage\",\"rules\":[\"{T}: Add {C}.\",\"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"],\"id\":\"p9\"}],\"name\":\"TestPlayer\",\"library_size\":50,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p12\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p14\"}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p11\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p13\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p15\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":50,\"life\":20}],\"action_pending\":true}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_CHOOSE_ABILITY",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "id": "_",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Thespian's Stage",
+              "rules": [
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "description": "1. {T}: Add {C}.",
+          "index": 0
+        },
+        {
+          "description": "2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
+          "index": 1
+        }
+      ],
+      "context": "T4 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 69,
+      "message": "Choose spell or ability to play: Thespian's Stage",
+      "respond_with": "index=N",
+      "response_type": "index",
+      "stop_reason": "non_priority_action",
+      "untapped_lands": 4
+    },
     "role": "tool",
     "tool_call_id": "call_15"
   },
@@ -302,7 +1027,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\": 1}",
+          "arguments": {
+            "index": 1
+          },
           "name": "choose_action"
         },
         "id": "call_16",
@@ -311,7 +1038,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_TARGET\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_ability_1\"}",
+    "content": {
+      "action_taken": "selected_ability_1",
+      "game_seq": 69,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_TARGET",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_16"
   },
@@ -321,7 +1055,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_17",
@@ -330,7 +1064,181 @@
     ]
   },
   {
-    "content": "{\"stack\":[{\"name\":\"Ability\"}],\"action_type\":\"GAME_TARGET\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"index\",\"can_cancel\":true,\"untapped_lands\":4,\"message\":\"Select a land\",\"required\":false,\"action_pending\":true,\"actions_passed\":0,\"context\":\"T4 Combat/Declare Attackers (TestPlayer)\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN, or answer\\u003dfalse to cancel\",\"choices\":[{\"name\":\"Dark Depths\",\"target_type\":\"permanent\",\"index\":0,\"id\":\"p3\"},{\"name\":\"Plains\",\"target_type\":\"permanent\",\"index\":1,\"id\":\"p4\"},{\"name\":\"Plains\",\"target_type\":\"permanent\",\"index\":2,\"id\":\"p5\"},{\"name\":\"Thespian\\u0027s Stage\",\"target_type\":\"permanent\",\"index\":3,\"id\":\"p9\"}],\"board\":[{\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"counters\":{\"ice\":10},\"name\":\"Dark Depths\",\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"],\"id\":\"p3\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"},{\"tapped\":false,\"name\":\"Thespian\\u0027s Stage\",\"rules\":[\"{T}: Add {C}.\",\"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"],\"id\":\"p9\"}],\"name\":\"TestPlayer\",\"library_size\":50,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p12\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p14\"}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p11\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p13\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p15\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":50,\"life\":20}]}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_TARGET",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "id": "_",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Thespian's Stage",
+              "rules": [
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "can_cancel": true,
+      "choices": [
+        {
+          "id": "_",
+          "index": 0,
+          "name": "Dark Depths",
+          "target_type": "permanent"
+        },
+        {
+          "id": "_",
+          "index": 1,
+          "name": "Plains",
+          "target_type": "permanent"
+        },
+        {
+          "id": "_",
+          "index": 2,
+          "name": "Plains",
+          "target_type": "permanent"
+        },
+        {
+          "id": "_",
+          "index": 3,
+          "name": "Thespian's Stage",
+          "target_type": "permanent"
+        }
+      ],
+      "context": "T4 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 70,
+      "message": "Select a land",
+      "required": false,
+      "respond_with": "id=\"pN\" or index=N, or answer=false to cancel",
+      "response_type": "index",
+      "stack": [
+        {
+          "name": "Ability"
+        }
+      ],
+      "stop_reason": "non_priority_action",
+      "untapped_lands": 4
+    },
     "role": "tool",
     "tool_call_id": "call_17"
   },
@@ -340,7 +1248,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"id\": \"p3\"}",
+          "arguments": {
+            "id": "_"
+          },
           "name": "choose_action"
         },
         "id": "call_18",
@@ -349,7 +1259,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_target_0\"}",
+    "content": {
+      "action_taken": "selected_target_0",
+      "game_seq": 70,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_18"
   },
@@ -359,7 +1276,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_19",
@@ -368,7 +1285,170 @@
     ]
   },
   {
-    "content": "{\"action_type\":\"GAME_TARGET\",\"stop_reason\":\"non_priority_action\",\"response_type\":\"index\",\"can_cancel\":false,\"untapped_lands\":1,\"message\":\"Select a Dark Depths to keep (Legendary Rule)?\",\"required\":true,\"action_pending\":true,\"actions_passed\":1,\"context\":\"T4 Combat/Declare Attackers (TestPlayer)\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN\",\"choices\":[{\"name\":\"Dark Depths\",\"target_type\":\"permanent\",\"index\":0,\"id\":\"p3\"},{\"tapped\":true,\"name\":\"Dark Depths\",\"target_type\":\"permanent\",\"index\":1,\"id\":\"p9\"}],\"board\":[{\"hand_size\":6,\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"counters\":{\"ice\":10},\"name\":\"Dark Depths\",\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"],\"id\":\"p3\"},{\"tapped\":true,\"original_card\":\"Thespian\\u0027s Stage\",\"name\":\"Dark Depths\",\"modified\":true,\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\",\"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"],\"id\":\"p9\",\"copy\":true},{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"tapped\":true,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"}],\"name\":\"TestPlayer\",\"library_size\":50,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p12\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p14\"}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p11\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p13\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p15\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":50,\"life\":20}]}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_TARGET",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "counters": {
+                "ice": 10
+              },
+              "id": "_",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ],
+              "tapped": false
+            },
+            {
+              "copy": true,
+              "id": "_",
+              "modified": true,
+              "name": "Dark Depths",
+              "original_card": "Thespian's Stage",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 50,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "can_cancel": false,
+      "choices": [
+        {
+          "id": "_",
+          "index": 0,
+          "name": "Dark Depths",
+          "target_type": "permanent"
+        },
+        {
+          "id": "_",
+          "index": 1,
+          "name": "Dark Depths",
+          "tapped": true,
+          "target_type": "permanent"
+        }
+      ],
+      "context": "T4 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 76,
+      "message": "Select a Dark Depths to keep (Legendary Rule)?",
+      "required": true,
+      "respond_with": "id=\"pN\" or index=N",
+      "response_type": "index",
+      "stop_reason": "non_priority_action",
+      "untapped_lands": 1
+    },
     "role": "tool",
     "tool_call_id": "call_19"
   },
@@ -378,7 +1458,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"index\": 1}",
+          "arguments": {
+            "index": 1
+          },
           "name": "choose_action"
         },
         "id": "call_20",
@@ -387,7 +1469,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"selected_target_1\"}",
+    "content": {
+      "action_taken": "selected_target_1",
+      "game_seq": 76,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_20"
   },
@@ -397,7 +1486,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_21",
@@ -406,7 +1495,226 @@
     ]
   },
   {
-    "content": "{\"action_type\":\"GAME_SELECT\",\"stop_reason\":\"playable_cards\",\"response_type\":\"select\",\"untapped_lands\":2,\"message\":\"Play spells and abilities\",\"action_pending\":true,\"actions_passed\":6,\"land_drops_used\":0,\"has_playable_cards\":true,\"context\":\"T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN\",\"respond_with\":\"id\\u003d\\\"pN\\\" or index\\u003dN to play, or answer\\u003dfalse to pass\",\"choices\":[{\"name\":\"Plains\",\"index\":0,\"action\":\"land\",\"id\":\"p6\"},{\"name\":\"Plains\",\"index\":1,\"action\":\"land\",\"id\":\"p7\"},{\"name\":\"Plains\",\"index\":2,\"action\":\"land\",\"id\":\"p8\"},{\"name\":\"Plains\",\"index\":3,\"action\":\"land\",\"id\":\"p10\"},{\"name\":\"Plains\",\"index\":4,\"action\":\"land\",\"id\":\"p12\"},{\"name\":\"Plains\",\"index\":5,\"action\":\"land\",\"id\":\"p14\"},{\"name\":\"Plains\",\"index\":6,\"action\":\"land\",\"id\":\"p16\"}],\"board\":[{\"hand_size\":7,\"graveyard\":[{\"name\":\"Dark Depths\",\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"],\"id\":\"p3\"},{\"name\":\"Thespian\\u0027s Stage\",\"rules\":[\"{T}: Add {C}.\",\"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"],\"id\":\"p9\"}],\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Marit Lage\",\"rules\":[\"Flying\",\"Indestructible\"],\"id\":\"p17\",\"power\":\"20\",\"toughness\":\"20\",\"summoning_sick\":false,\"token\":true},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"}],\"name\":\"TestPlayer\",\"library_size\":49,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p12\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p14\",\"playable\":true},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p16\",\"playable\":true}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p11\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p13\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p15\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p18\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":49,\"life\":20}]}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": false,
+              "tapped": false,
+              "token": true,
+              "toughness": 20
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Thespian's Stage",
+              "rules": [
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 49,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 6,
+          "name": "Plains"
+        }
+      ],
+      "context": "T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 97,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
+    },
     "role": "tool",
     "tool_call_id": "call_21"
   },
@@ -416,7 +1724,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"answer\": false}",
+          "arguments": {
+            "answer": false
+          },
           "name": "choose_action"
         },
         "id": "call_22",
@@ -425,7 +1735,14 @@
     ]
   },
   {
-    "content": "{\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"passed_priority\"}",
+    "content": {
+      "action_taken": "passed_priority",
+      "game_seq": 97,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_22"
   },
@@ -435,7 +1752,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "pass_priority"
         },
         "id": "call_23",
@@ -444,7 +1761,190 @@
     ]
   },
   {
-    "content": "{\"combat_phase\":\"attackers\",\"actions_passed\":0,\"action_type\":\"GAME_SELECT\",\"context\":\"T5 Combat/Declare Attackers (TestPlayer)\",\"stop_reason\":\"combat\",\"response_type\":\"select\",\"untapped_lands\":2,\"respond_with\":\"attackers\\u003d[\\\"p1\\\",...] or answer\\u003dtrue (confirm) or answer\\u003dfalse (skip)\",\"message\":\"Select attackers\",\"choices\":[{\"name\":\"Marit Lage\",\"index\":0,\"choice_type\":\"attacker\",\"id\":\"p17\",\"power\":\"20\",\"toughness\":\"20\"},{\"name\":\"All attack\",\"index\":1,\"choice_type\":\"special\",\"id\":\"all\"}],\"board\":[{\"hand_size\":7,\"graveyard\":[{\"name\":\"Dark Depths\",\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"],\"id\":\"p3\"},{\"name\":\"Thespian\\u0027s Stage\",\"rules\":[\"{T}: Add {C}.\",\"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"],\"id\":\"p9\"}],\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":false,\"name\":\"Marit Lage\",\"rules\":[\"Flying\",\"Indestructible\"],\"id\":\"p17\",\"power\":\"20\",\"toughness\":\"20\",\"summoning_sick\":false,\"token\":true},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"}],\"name\":\"TestPlayer\",\"library_size\":49,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p12\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p14\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p16\"}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p11\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p13\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p15\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p18\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":49,\"life\":20}],\"action_pending\":true}",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": false,
+              "tapped": false,
+              "token": true,
+              "toughness": 20
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Thespian's Stage",
+              "rules": [
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 49,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "choices": [
+        {
+          "choice_type": "attacker",
+          "id": "_",
+          "index": 0,
+          "name": "Marit Lage",
+          "power": 20,
+          "toughness": 20
+        },
+        {
+          "choice_type": "special",
+          "id": "all",
+          "index": 1,
+          "name": "All attack"
+        }
+      ],
+      "combat_phase": "attackers",
+      "context": "T5 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 99,
+      "message": "Select attackers",
+      "respond_with": "attackers=[\"p1\",...] or answer=true (confirm) or answer=false (skip)",
+      "response_type": "select",
+      "stop_reason": "combat",
+      "untapped_lands": 2
+    },
     "role": "tool",
     "tool_call_id": "call_23"
   },
@@ -454,7 +1954,11 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{\"attackers\": [\"all\"]}",
+          "arguments": {
+            "attackers": [
+              "all"
+            ]
+          },
           "name": "choose_action"
         },
         "id": "call_24",
@@ -463,7 +1967,17 @@
     ]
   },
   {
-    "content": "{\"declared\":[\"all\"],\"next_action_pending\":true,\"next_action_type\":\"GAME_SELECT\",\"next_action_hint\":\"Call get_action_choices or choose_action to see details, or pass_priority to continue.\",\"success\":true,\"action_taken\":\"batch_attack\"}",
+    "content": {
+      "action_taken": "batch_attack",
+      "declared": [
+        "all"
+      ],
+      "game_seq": 99,
+      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+      "next_action_pending": true,
+      "next_action_type": "GAME_SELECT",
+      "success": true
+    },
     "role": "tool",
     "tool_call_id": "call_24"
   },
@@ -473,7 +1987,7 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": "{}",
+          "arguments": {},
           "name": "get_game_state"
         },
         "id": "call_25",
@@ -482,8 +1996,235 @@
     ]
   },
   {
-    "content": "{\"phase\":\"Combat\",\"priority_player\":\"TestPlayer\",\"cursor\":1,\"stack\":[],\"active_player\":\"TestPlayer\",\"players\":[{\"hand_size\":7,\"graveyard\":[{\"name\":\"Dark Depths\",\"rules\":[\"{this} enters with ten ice counters on it.\",\"{3}: Remove an ice counter from {this}.\",\"When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.\"],\"id\":\"p3\"},{\"name\":\"Thespian\\u0027s Stage\",\"rules\":[\"{T}: Add {C}.\",\"{2}, {T}: {this} becomes a copy of target land, except it has this ability.\"],\"id\":\"p9\"}],\"is_active\":true,\"is_you\":true,\"battlefield\":[{\"tapped\":true,\"name\":\"Marit Lage\",\"rules\":[\"Flying\",\"Indestructible\"],\"id\":\"p17\",\"power\":\"20\",\"toughness\":\"20\",\"summoning_sick\":false,\"token\":true},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p4\"},{\"tapped\":false,\"name\":\"Plains\",\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p5\"}],\"name\":\"TestPlayer\",\"library_size\":49,\"life\":20,\"hand\":[{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p6\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p7\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p8\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p10\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p12\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p14\"},{\"name\":\"Plains\",\"is_land\":true,\"rules\":[\"{T}: Add {W}.\"],\"id\":\"p16\"}]},{\"hand_size\":7,\"graveyard\":[{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p11\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p13\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p15\"},{\"name\":\"Mountain\",\"rules\":[\"{T}: Add {R}.\"],\"id\":\"p18\"}],\"is_active\":false,\"is_you\":false,\"name\":\"Opponent\",\"library_size\":49,\"life\":20}],\"available\":true,\"step\":\"Declare Attackers\",\"combat\":[{\"blocked\":false,\"defending\":\"Opponent\",\"attackers\":[{\"name\":\"Marit Lage\",\"id\":\"p17\",\"power\":\"20\",\"toughness\":\"20\"}]}],\"turn\":5}",
+    "content": {
+      "active_player": "TestPlayer",
+      "available": true,
+      "combat": [
+        {
+          "attackers": [
+            {
+              "id": "_",
+              "name": "Marit Lage",
+              "power": 20,
+              "toughness": 20
+            }
+          ],
+          "blocked": false,
+          "defending": "Opponent"
+        }
+      ],
+      "cursor": 1,
+      "game_seq": 102,
+      "phase": "Combat",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Marit Lage",
+              "power": 20,
+              "rules": [
+                "Flying",
+                "Indestructible"
+              ],
+              "summoning_sick": false,
+              "tapped": true,
+              "token": true,
+              "toughness": 20
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Thespian's Stage",
+              "rules": [
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 49,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 49,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [],
+      "step": "Declare Attackers",
+      "turn": 5
+    },
     "role": "tool",
     "tool_call_id": "call_25"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "pass_priority"
+        },
+        "id": "call_26",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "action_pending": false,
+      "game_over": true,
+      "game_seq": 110,
+      "stop_reason": "game_over"
+    },
+    "role": "tool",
+    "tool_call_id": "call_26"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_27",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "cursor": 38,
+      "event_count": 38,
+      "history": "Turn 1:\n    - TestPlayer drew Dark Depths\n    - TestPlayer drew Thespian's Stage\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Dark Depths\n\nTurn 6 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 7 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Thespian's Stage\n  Declare Attackers:\n    - TestPlayer activated Thespian's Stage's ability\n    - TestPlayer sacrificed Thespian's Stage\n\nTurn 8 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 9 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Combat Damage:\n    - Opponent lost 20 life\n"
+    },
+    "role": "tool",
+    "tool_call_id": "call_27"
   }
 ]
