@@ -1,0 +1,1179 @@
+---
+import Base from '../../layouts/Base.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const goldenDir = path.resolve(process.cwd(), '..', 'puppeteer', 'tests', 'golden');
+const exportsDir = path.join(goldenDir, 'exports');
+const promptsDir = path.join(goldenDir, 'prompts');
+
+export function getStaticPaths() {
+  const exportsDir = path.resolve(process.cwd(), '..', 'puppeteer', 'tests', 'golden', 'exports');
+  if (!fs.existsSync(exportsDir)) {
+    return [];
+  }
+  return fs.readdirSync(exportsDir)
+    .filter((f: string) => f.endsWith('.json'))
+    .map((f: string) => f.replace('.json', ''))
+    .map((name: string) => ({ params: { slug: name } }));
+}
+
+const { slug } = Astro.params;
+
+// Load export data
+const exportFile = path.join(exportsDir, slug + '.json');
+const exportData = JSON.parse(fs.readFileSync(exportFile, 'utf-8'));
+
+// Extract MCP tool results from prompt fixture (for the JSON panel)
+function extractMcpFixture(promptFile: string): { gameState: any, passPriority: any } {
+  const messages = JSON.parse(fs.readFileSync(promptFile, 'utf-8'));
+  const toolCallNames: Record<string, string> = {};
+  for (const msg of messages) {
+    if (msg.role === 'assistant' && msg.tool_calls) {
+      for (const tc of msg.tool_calls) {
+        toolCallNames[tc.id] = tc.function.name;
+      }
+    }
+  }
+  const targetTools = new Set(['get_game_state', 'pass_priority']);
+  let gameState = null;
+  let passPriority = null;
+  for (const msg of messages) {
+    if (msg.role !== 'tool') continue;
+    const callName = toolCallNames[msg.tool_call_id];
+    if (!targetTools.has(callName)) continue;
+    if (typeof msg.content !== 'object' || msg.content === null) continue;
+    if (callName === 'get_game_state') gameState = msg.content;
+    if (callName === 'pass_priority') passPriority = msg.content;
+  }
+  return { gameState, passPriority };
+}
+
+const promptFile = path.join(promptsDir, slug + '.json');
+const fixture = fs.existsSync(promptFile)
+  ? extractMcpFixture(promptFile)
+  : { gameState: null, passPriority: null };
+
+const scenarioTitle = slug.replace(/_/g, ' ');
+---
+
+<Base title={`Golden: ${scenarioTitle}`} wide>
+  <link rel="stylesheet" href="/game-renderer.css" />
+  <div id="visualizer"
+    data-game={JSON.stringify(exportData)}
+    data-fixture={JSON.stringify({ mcp_game_state: fixture.gameState, mcp_pass_priority: fixture.passPriority })}
+  >
+    <div id="game-ui">
+      <!-- Header -->
+      <div id="game-header">
+        <a href="/golden" id="back-link">&larr; All golden tests</a>
+        <div id="game-title">{scenarioTitle}</div>
+      </div>
+
+      <!-- Transport controls -->
+      <div id="transport">
+        <div class="transport-buttons">
+          <button id="btn-start" title="First snapshot">|&lt;</button>
+          <button id="btn-prev" title="Previous (Left arrow)">&lt;</button>
+          <button id="btn-next" title="Next (Right arrow)">&gt;</button>
+          <button id="btn-end" title="Last snapshot">&gt;|</button>
+          <button id="btn-auto" title="Auto-play">Play</button>
+        </div>
+        <div class="turn-nav">
+          <button id="btn-prev-turn" title="Previous turn ([)">&lt;T</button>
+          <select id="turn-select" title="Jump to turn"></select>
+          <button id="btn-next-turn" title="Next turn (])">T&gt;</button>
+        </div>
+        <div id="slider-container">
+          <input type="range" id="slider" min="0" max="0" value="0" />
+        </div>
+        <input type="number" id="snapshot-jump" min="1" max="1" value="1" title="Jump to snapshot #" />
+        <div id="snapshot-counter"></div>
+      </div>
+
+      <!-- Main content: board left, logs + JSON right -->
+      <div id="game-content">
+        <div id="game-left">
+          <!-- Stack -->
+          <div id="stack-section">
+            <div class="section-title">Stack</div>
+            <div id="stack-cards" class="cards-row"></div>
+          </div>
+
+          <!-- Board: player grid -->
+          <div id="players-grid"></div>
+        </div>
+
+        <div id="game-right">
+          <!-- Action log -->
+          <div id="action-log">
+            <div class="action-log-header">
+              <span class="section-title">Game Log</span>
+              <div class="log-filters">
+                <select id="player-filter" class="hidden" title="Filter by player">
+                  <option value="">All players</option>
+                </select>
+                <select id="event-type-filter" class="hidden" title="Filter by event type">
+                  <option value="">All events</option>
+                  <option value="llm">LLM calls only</option>
+                  <option value="game">Game actions only</option>
+                  <option value="chat">Chat only</option>
+                </select>
+                <label id="llm-toggle-label" class="hidden">
+                  <input type="checkbox" id="llm-toggle" checked /> Show LLM thinking
+                </label>
+              </div>
+            </div>
+            <div id="action-list"></div>
+          </div>
+
+          <!-- MCP JSON panel -->
+          <div id="mcp-json-panel">
+            <details open>
+              <summary class="section-title">MCP game_state (what the LLM sees)</summary>
+              <pre id="mcp-json-block"></pre>
+            </details>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card preview (hover) -->
+      <div id="card-preview" class="hidden">
+        <img id="preview-image" alt="" />
+        <div class="card-meta">
+          <div class="card-name-row">
+            <div id="preview-name" class="card-name"></div>
+            <div id="preview-cost" class="card-cost"></div>
+          </div>
+          <div id="preview-type" class="card-type"></div>
+          <pre id="preview-rules" class="card-rules"></pre>
+          <div id="preview-stats" class="card-stats"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  #visualizer {
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  /* Header */
+  #game-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  #back-link {
+    color: #a0a0b8;
+    text-decoration: none;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  #back-link:hover {
+    color: #e94560;
+  }
+
+  #game-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e94560;
+    text-transform: capitalize;
+  }
+
+  /* Transport */
+  #transport {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+  }
+
+  .transport-buttons {
+    display: flex;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .transport-buttons button {
+    background: #0f3460;
+    color: #e0e0e0;
+    border: 1px solid #1a4a8a;
+    border-radius: 4px;
+    padding: 0.35rem 0.6rem;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 0.85rem;
+    transition: background 0.15s;
+  }
+
+  .transport-buttons button:hover {
+    background: #1a4a8a;
+  }
+
+  .transport-buttons button.active {
+    background: #e94560;
+    border-color: #e94560;
+    color: #fff;
+  }
+
+  .turn-nav {
+    display: flex;
+    gap: 0.25rem;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  .turn-nav button {
+    background: #0f3460;
+    color: #e0e0e0;
+    border: 1px solid #1a4a8a;
+    border-radius: 4px;
+    padding: 0.35rem 0.5rem;
+    cursor: pointer;
+    font-family: monospace;
+    font-size: 0.8rem;
+    transition: background 0.15s;
+  }
+
+  .turn-nav button:hover {
+    background: #1a4a8a;
+  }
+
+  #turn-select {
+    background: #0f3460;
+    color: #e0e0e0;
+    border: 1px solid #1a4a8a;
+    border-radius: 4px;
+    padding: 0.3rem 0.4rem;
+    font-family: monospace;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+
+  #slider-container {
+    flex: 1;
+    min-width: 100px;
+    position: relative;
+  }
+
+  #slider {
+    width: 100%;
+    accent-color: #e94560;
+  }
+
+  #snapshot-jump {
+    width: 5rem;
+    background: #0f3460;
+    color: #e0e0e0;
+    border: 1px solid #1a4a8a;
+    border-radius: 4px;
+    padding: 0.3rem 0.4rem;
+    font-family: monospace;
+    font-size: 0.8rem;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  #snapshot-jump::-webkit-inner-spin-button,
+  #snapshot-jump::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  #snapshot-jump { -moz-appearance: textfield; }
+
+  #snapshot-counter {
+    font-size: 0.8rem;
+    color: #a0a0b8;
+    white-space: nowrap;
+    min-width: 4rem;
+    text-align: right;
+  }
+
+  @media (max-width: 600px) {
+    #transport {
+      flex-wrap: wrap;
+    }
+
+    #slider-container {
+      flex-basis: 100%;
+      order: 10;
+    }
+
+    #snapshot-jump {
+      width: 3.5rem;
+    }
+
+    #snapshot-counter {
+      min-width: auto;
+    }
+
+    #game-header {
+      flex-wrap: wrap;
+    }
+
+    #game-left {
+      flex-direction: column;
+    }
+  }
+
+  /* Two-column layout */
+  #game-content {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  #game-left {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  #game-right {
+    width: 420px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    #game-content {
+      flex-direction: column;
+    }
+
+    #game-left {
+      width: 100%;
+    }
+
+    #game-right {
+      width: 100%;
+    }
+  }
+
+  /* Action log */
+  #action-log {
+    padding: 0.75rem 1rem;
+    background: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 8px;
+    position: sticky;
+    top: 0.5rem;
+  }
+
+  .action-log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .log-filters {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  #player-filter, #event-type-filter {
+    background: #0f3460;
+    color: #e0e0e0;
+    border: 1px solid #1a4a8a;
+    border-radius: 4px;
+    padding: 0.2rem 0.3rem;
+    font-size: 0.72rem;
+    cursor: pointer;
+  }
+
+  #llm-toggle-label {
+    font-size: 0.72rem;
+    color: #888;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #llm-toggle {
+    margin-right: 4px;
+    accent-color: #e94560;
+  }
+
+  #action-list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 0.93rem;
+    line-height: 1.5;
+    word-break: break-word;
+  }
+
+  /* MCP JSON panel */
+  #mcp-json-panel {
+    margin-top: 0.75rem;
+    background: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+  }
+
+  #mcp-json-panel summary {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  #mcp-json-block {
+    background: #0d1117;
+    color: #c9d1d9;
+    padding: 1rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    overflow-x: auto;
+    max-height: 600px;
+    overflow-y: auto;
+    white-space: pre;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    margin-top: 0.5rem;
+  }
+</style>
+
+<script is:inline src="/game-renderer.js"></script>
+<script is:inline>
+(function () {
+  var R = window.GameRenderer;
+  if (!R) { console.error("GameRenderer not loaded"); return; }
+
+  var visualizer = document.getElementById("visualizer");
+  var game = JSON.parse(visualizer.getAttribute("data-game"));
+  var fixture = JSON.parse(visualizer.getAttribute("data-fixture"));
+
+  if (!game.snapshots || game.snapshots.length === 0) {
+    visualizer.innerHTML = '<div style="text-align:center;padding:4rem;color:#e94560">No snapshots in export.</div>';
+    return;
+  }
+
+  // Transport
+  var btnStart = document.getElementById("btn-start");
+  var btnPrev = document.getElementById("btn-prev");
+  var btnNext = document.getElementById("btn-next");
+  var btnEnd = document.getElementById("btn-end");
+  var btnAuto = document.getElementById("btn-auto");
+  var slider = document.getElementById("slider");
+  var counterEl = document.getElementById("snapshot-counter");
+  var snapshotJump = document.getElementById("snapshot-jump");
+
+  // Display
+  var playersGrid = document.getElementById("players-grid");
+  var stackSection = document.getElementById("stack-section");
+  var stackCards = document.getElementById("stack-cards");
+  var actionList = document.getElementById("action-list");
+
+  // Turn navigation
+  var turnSelect = document.getElementById("turn-select");
+  var btnPrevTurn = document.getElementById("btn-prev-turn");
+  var btnNextTurn = document.getElementById("btn-next-turn");
+
+  // Card preview elements
+  var previewEls = {
+    container: document.getElementById("card-preview"),
+    image: document.getElementById("preview-image"),
+    name: document.getElementById("preview-name"),
+    cost: document.getElementById("preview-cost"),
+    type: document.getElementById("preview-type"),
+    stats: document.getElementById("preview-stats"),
+    rules: document.getElementById("preview-rules"),
+  };
+
+  // MCP JSON panel
+  var mcpJsonBlock = document.getElementById("mcp-json-block");
+  if (fixture.mcp_game_state) {
+    mcpJsonBlock.textContent = JSON.stringify(fixture.mcp_game_state, null, 2);
+  } else {
+    mcpJsonBlock.textContent = "(no prompt fixture found)";
+  }
+
+  var currentIndex = 0;
+  var autoPlayInterval = null;
+  var playerColorMap = {};
+  var playerMeta = {};
+  var turnStartIndices = [];
+  var phaseTransitions = [];
+  var showLlm = true;
+  var isCommander = false;
+  var filterPlayer = "";
+  var filterEventType = "";
+  var useSeq = game.version != null;
+
+  // Fill in missing gameSeq on llmEvents from neighboring events
+  if (useSeq && game.llmEvents) {
+    var lastSeq = 0;
+    game.llmEvents.forEach(function (e) {
+      if (e.gameSeq != null) {
+        lastSeq = e.gameSeq;
+      } else {
+        e.gameSeq = lastSeq;
+      }
+    });
+  }
+
+  // Build player color map and meta
+  (game.players || []).forEach(function (p, i) {
+    playerColorMap[p.name] = i % 4;
+    if (p.model || p.totalCostUsd != null) {
+      playerMeta[p.name] = { model: p.model, totalCostUsd: 0 };
+    }
+  });
+
+  isCommander = (game.players || []).some(function (p) { return !!p.commander; });
+
+  // Show LLM toggle and filters if we have LLM events
+  var hasLlm = game.llmEvents && game.llmEvents.length > 0;
+  var hasChat = game.actions && game.actions.some(function (a) { return a.type === "chat"; });
+
+  var llmToggleLabel = document.getElementById("llm-toggle-label");
+  var llmToggle = document.getElementById("llm-toggle");
+  if (hasLlm) {
+    llmToggleLabel.classList.remove("hidden");
+  }
+
+  var eventTypeFilter = document.getElementById("event-type-filter");
+  if (hasLlm || hasChat) {
+    eventTypeFilter.classList.remove("hidden");
+  }
+
+  llmToggle.addEventListener("change", function () {
+    showLlm = llmToggle.checked;
+    renderSnapshot(currentIndex);
+  });
+
+  var playerFilter = document.getElementById("player-filter");
+  playerFilter.addEventListener("change", function () {
+    filterPlayer = playerFilter.value;
+    renderSnapshot(currentIndex);
+  });
+
+  eventTypeFilter.addEventListener("change", function () {
+    filterEventType = eventTypeFilter.value;
+    renderSnapshot(currentIndex);
+  });
+
+  // Populate player filter dropdown
+  if (game.players && game.players.length > 1) {
+    game.players.forEach(function (p) {
+      var opt = document.createElement("option");
+      opt.value = p.name;
+      opt.textContent = p.name;
+      playerFilter.appendChild(opt);
+    });
+    playerFilter.classList.remove("hidden");
+  }
+
+  // Build turn start indices
+  var lastTurn = -1;
+  game.snapshots.forEach(function (snap, i) {
+    if (snap.turn !== lastTurn) {
+      turnStartIndices.push({ turn: snap.turn, index: i });
+      lastTurn = snap.turn;
+    }
+  });
+
+  // Build phase/step transition indices
+  game.snapshots.forEach(function (snap, i) {
+    if (i === 0) return;
+    var prev = game.snapshots[i - 1];
+    var turnChanged = snap.turn !== prev.turn;
+    var phaseChanged = snap.phase !== prev.phase || snap.step !== prev.step;
+    if (turnChanged || phaseChanged) {
+      phaseTransitions.push({
+        index: i,
+        ts: snap.ts || "",
+        seq: snap.seq || 0,
+        turn: snap.turn,
+        phase: snap.phase,
+        step: snap.step,
+        turnChanged: turnChanged,
+      });
+    }
+  });
+
+  // Populate turn dropdown
+  turnStartIndices.forEach(function (t) {
+    var opt = document.createElement("option");
+    opt.value = String(t.index);
+    opt.textContent = "Turn " + t.turn;
+    turnSelect.appendChild(opt);
+  });
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function colorizePlayerNames(message) {
+    var escaped = escapeHtml(message);
+    var names = Object.keys(playerColorMap);
+    names.sort(function (a, b) { return b.length - a.length; });
+    names.forEach(function (name) {
+      var cls = "action-" + R.PLAYER_COLORS[playerColorMap[name]];
+      var escapedName = escapeHtml(name);
+      escaped = escaped.split(escapedName).join('<span class="' + cls + '">' + escapedName + '</span>');
+    });
+    return escaped;
+  }
+
+  function playerColorClass(playerName) {
+    var idx = playerColorMap[playerName];
+    return idx != null ? "llm-player-" + idx : "";
+  }
+
+  function playerSpan(playerName) {
+    var idx = playerColorMap[playerName];
+    var cls = idx != null ? "action-" + R.PLAYER_COLORS[idx] : "";
+    return '<span class="llm-player ' + cls + '">' + escapeHtml(playerName) + '</span>';
+  }
+
+  function formatToolArgs(args) {
+    if (!args || typeof args !== "object") return "";
+    var keys = Object.keys(args);
+    if (keys.length === 0) return "";
+    var parts = [];
+    keys.forEach(function (k) {
+      var v = args[k];
+      if (typeof v === "string" && v.length > 40) v = v.substring(0, 40) + "...";
+      else if (typeof v === "object") v = JSON.stringify(v).substring(0, 40) + (JSON.stringify(v).length > 40 ? "..." : "");
+      parts.push(k + "=" + v);
+    });
+    return parts.join(", ");
+  }
+
+  function tryFormatJson(str) {
+    if (!str || typeof str !== "string") return str || "";
+    try {
+      return JSON.stringify(JSON.parse(str), null, 2);
+    } catch (e) {
+      return str;
+    }
+  }
+
+  function formatTimestamp(ts) {
+    if (!ts) return null;
+    var match = ts.match(/T(\d{2}:\d{2}:\d{2})(\.\d+)?/);
+    if (!match) return null;
+    return { display: match[1], full: match[1] + (match[2] || "") };
+  }
+
+  function makeTimestampEl(ts) {
+    var parsed = formatTimestamp(ts);
+    if (!parsed) return null;
+    var span = document.createElement("span");
+    span.className = "entry-ts";
+    span.textContent = parsed.display;
+    span.title = parsed.full;
+    return span;
+  }
+
+  function extractSystemMessages(toolCallEvent) {
+    if (!toolCallEvent.result) return [];
+    try {
+      var r = JSON.parse(toolCallEvent.result);
+      var chat = r.recent_chat || [];
+      var msgs = [];
+      chat.forEach(function (msg) {
+        if (typeof msg === "string" && msg.indexOf("[System]") !== -1) {
+          msgs.push(msg.replace("[System] ", ""));
+        }
+      });
+      return msgs;
+    } catch (ex) {
+      return [];
+    }
+  }
+
+  function mergeLlmEvents(events) {
+    var merged = [];
+    var i = 0;
+    while (i < events.length) {
+      var e = events[i];
+      if (e.type === "llm_response") {
+        var toolResults = [];
+        var j = i + 1;
+        while (j < events.length && events[j].type === "tool_call" && events[j].player === e.player) {
+          toolResults.push(events[j]);
+          j++;
+        }
+        var mergedSeq = e.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
+        merged.push({
+          type: "llm_merged",
+          ts: e.ts,
+          gameSeq: mergedSeq,
+          player: e.player,
+          reasoning: e.reasoning,
+          thinking: e.thinking,
+          toolCalls: e.toolCalls,
+          costUsd: e.costUsd,
+          toolResults: toolResults,
+        });
+        i = j;
+      } else if (e.type === "tool_call") {
+        merged.push({
+          type: "llm_merged",
+          ts: e.ts,
+          gameSeq: e.gameSeq || 0,
+          player: e.player,
+          toolResults: [e],
+        });
+        i++;
+      } else {
+        merged.push(e);
+        i++;
+      }
+    }
+    return merged;
+  }
+
+  function renderToolResult(tc) {
+    var details = document.createElement("details");
+    details.className = "llm-tool-detail";
+    var summary = document.createElement("summary");
+    var argsSummary = formatToolArgs(tc.args);
+    var latency = tc.latencyMs != null ? " " + (tc.latencyMs / 1000).toFixed(1) + "s" : "";
+    summary.innerHTML = escapeHtml(tc.tool) + "(" + escapeHtml(argsSummary) + ")" +
+      (latency ? '<span class="llm-cost">' + latency + '</span>' : "");
+    details.appendChild(summary);
+    if (tc.result) {
+      var pre = document.createElement("pre");
+      pre.textContent = tryFormatJson(tc.result);
+      details.appendChild(pre);
+    }
+    return details;
+  }
+
+  function renderLlmEvent(event) {
+    var type = event.type;
+
+    if (type === "llm_merged") {
+      var hasReasoning = event.reasoning && event.reasoning.trim();
+      var hasThinking = event.thinking && event.thinking.trim();
+      var hasToolResults = event.toolResults && event.toolResults.length > 0;
+
+      if (hasReasoning || hasThinking) {
+        var div = document.createElement("div");
+        div.className = "llm-event llm-thought " + playerColorClass(event.player);
+
+        var header = '<span class="thinking-badge">thinking</span>' + playerSpan(event.player);
+        if (event.costUsd != null) {
+          header += '<span class="llm-cost">$' + event.costUsd.toFixed(4) + '</span>';
+        }
+        var headerEl = document.createElement("div");
+        headerEl.innerHTML = header;
+        div.appendChild(headerEl);
+
+        if (hasThinking) {
+          var thinkDetails = document.createElement("details");
+          thinkDetails.className = "llm-thinking-block";
+          var thinkSummary = document.createElement("summary");
+          thinkSummary.textContent = "Thinking (" + event.thinking.length + " chars)";
+          thinkDetails.appendChild(thinkSummary);
+          var thinkPre = document.createElement("pre");
+          thinkPre.className = "llm-thinking-text";
+          thinkPre.textContent = event.thinking;
+          thinkDetails.appendChild(thinkPre);
+          div.appendChild(thinkDetails);
+        }
+
+        if (hasReasoning) {
+          var reasoningEl = document.createElement("div");
+          reasoningEl.className = "llm-reasoning";
+          reasoningEl.textContent = event.reasoning;
+          div.appendChild(reasoningEl);
+        }
+
+        if (hasToolResults) {
+          event.toolResults.forEach(function (tc) {
+            div.appendChild(renderToolResult(tc));
+          });
+        }
+
+        return div;
+      } else if (hasToolResults) {
+        var div = document.createElement("div");
+        div.className = "llm-event llm-compact";
+        var headerHtml = playerSpan(event.player);
+        if (event.costUsd != null) {
+          headerHtml += '<span class="llm-cost">$' + event.costUsd.toFixed(4) + '</span>';
+        }
+        var headerEl = document.createElement("span");
+        headerEl.innerHTML = headerHtml;
+        div.appendChild(headerEl);
+        event.toolResults.forEach(function (tc) {
+          div.appendChild(renderToolResult(tc));
+        });
+        return div;
+      }
+      return null;
+    }
+
+    if (type === "context_trim") return null;
+
+    if (type === "system_message") {
+      var div = document.createElement("div");
+      div.className = "llm-event llm-system-message";
+      div.innerHTML = playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
+      return div;
+    }
+
+    var div = document.createElement("div");
+    div.className = "llm-event llm-meta";
+
+    if (type === "stall") {
+      div.textContent = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
+    } else if (type === "llm_error") {
+      div.textContent = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
+    } else if (type === "context_reset") {
+      div.textContent = event.player + " context reset: " + (event.reason || "");
+    } else if (type === "auto_pilot_mode") {
+      div.textContent = event.player + " switched to auto-pilot: " + (event.reason || "");
+    } else {
+      div.textContent = event.player + " " + type;
+    }
+
+    return div;
+  }
+
+  function renderSnapshot(index) {
+    var snap = game.snapshots[index];
+    if (!snap) return;
+
+    var prevSnap = index > 0 ? game.snapshots[index - 1] : null;
+    var diffs = R.computeDiff(prevSnap, snap);
+
+    // Players
+    R.renderPlayers(playersGrid, snap.players, {
+      cardImages: game.cardImages,
+      playerColorMap: playerColorMap,
+      playerMeta: playerMeta,
+      diffs: diffs,
+      previewEls: previewEls,
+      priorityPlayerName: snap.priority_player,
+      isCommander: isCommander,
+    });
+
+    // Phase bar between player battlefields
+    if (playersGrid.children.length >= 2) {
+      var insertIdx = playersGrid.children.length <= 2 ? 1 : 2;
+      var phaseBar = document.createElement("div");
+      phaseBar.id = "phase-bar";
+      var phase = snap.phase || "";
+      var step = snap.step || "";
+      var phaseDisplay = step && step !== phase ? phase + " / " + step : phase;
+      phaseBar.textContent = "Turn " + snap.turn + " \u2014 " + phaseDisplay;
+      playersGrid.insertBefore(phaseBar, playersGrid.children[insertIdx]);
+    }
+
+    // Stack
+    R.renderStack(stackSection, stackCards, snap.stack, game.cardImages, previewEls);
+
+    // Action log
+    actionList.innerHTML = "";
+    var prevSeq = index > 0 ? game.snapshots[index - 1].seq : 0;
+    var curSeq = snap.seq;
+
+    var SPAM_RE = / skip attack$|^Attacker: .+ unblocked$/;
+
+    var allActions = game.actions.filter(function (a) {
+      if (a.seq > curSeq) return false;
+      if (!a.message && a.type !== "chat") return false;
+      if (a.type !== "chat" && SPAM_RE.test(a.message)) return false;
+      if (filterPlayer) {
+        if (a.type === "chat") {
+          if (a.from !== filterPlayer) return false;
+        } else {
+          if ((a.message || "").indexOf(filterPlayer) === -1) return false;
+        }
+      }
+      return true;
+    });
+
+    var hasLlmEvents = game.llmEvents && game.llmEvents.length > 0;
+    var relevantLlm = [];
+    if (hasLlmEvents && showLlm) {
+      var nextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
+      var nextTs = nextSnap ? (nextSnap.ts || "") : "";
+      var nextSeq = nextSnap ? (nextSnap.seq || Infinity) : Infinity;
+
+      var systemMessages = [];
+      var lastPlayerTs = {};
+      var lastPlayerSeq = {};
+      game.llmEvents.forEach(function (e) {
+        if (e.type === "tool_call") {
+          var sysmsgs = extractSystemMessages(e);
+          if (sysmsgs.length > 0) {
+            var backdatedTs = lastPlayerTs[e.player] || e.ts;
+            var backdatedSeq = lastPlayerSeq[e.player] || e.gameSeq || 0;
+            sysmsgs.forEach(function (msg) {
+              systemMessages.push({ type: "system_message", ts: backdatedTs, gameSeq: backdatedSeq, player: e.player, message: msg });
+            });
+          }
+          lastPlayerTs[e.player] = e.ts;
+          lastPlayerSeq[e.player] = e.gameSeq || 0;
+        }
+      });
+
+      relevantLlm = game.llmEvents.filter(function (e) {
+        if (useSeq) {
+          if ((e.gameSeq || 0) >= nextSeq) return false;
+        } else {
+          if (nextTs && e.ts >= nextTs) return false;
+        }
+        if (filterPlayer && e.player !== filterPlayer) return false;
+        return true;
+      });
+
+      systemMessages.forEach(function (sm) {
+        if (useSeq) {
+          if ((sm.gameSeq || 0) >= nextSeq) return;
+        } else {
+          if (nextTs && sm.ts >= nextTs) return;
+        }
+        if (filterPlayer && sm.player !== filterPlayer) return;
+        relevantLlm.push(sm);
+      });
+    }
+
+    var mergedLlm = mergeLlmEvents(relevantLlm);
+
+    var timeline = [];
+    var showGameActions = filterEventType === "" || filterEventType === "game";
+    var showChatMessages = filterEventType === "" || filterEventType === "chat";
+    var showLlmEventsFilter = filterEventType === "" || filterEventType === "llm";
+
+    function itemSeq(item) {
+      if (item.kind === "action" || item.kind === "chat") return item.data.seq || 0;
+      if (item.kind === "llm") return item.data.gameSeq || item.data.seq || 0;
+      if (item.kind === "turn-sep" || item.kind === "phase-sep") return item.data.seq || 0;
+      return 0;
+    }
+
+    allActions.forEach(function (a) {
+      var isChat = a.type === "chat";
+      if (isChat && showChatMessages) {
+        timeline.push({ kind: "chat", ts: a.ts || "", data: a });
+      } else if (!isChat && showGameActions) {
+        timeline.push({ kind: "action", ts: a.ts || "", data: a });
+      }
+    });
+    if (showLlmEventsFilter) {
+      mergedLlm.forEach(function (e) {
+        timeline.push({ kind: "llm", ts: e.ts || "", data: e });
+      });
+    }
+
+    function timelineSort(a, b) {
+      if (useSeq) {
+        var aSeq = itemSeq(a);
+        var bSeq = itemSeq(b);
+        if (aSeq !== bSeq) return aSeq - bSeq;
+      } else {
+        if (a.ts < b.ts) return -1;
+        if (a.ts > b.ts) return 1;
+      }
+      var order = { "turn-sep": -2, "phase-sep": -1 };
+      var aOrd = order[a.kind] || 0;
+      var bOrd = order[b.kind] || 0;
+      return aOrd - bOrd;
+    }
+
+    timeline.sort(timelineSort);
+
+    // Add phase/step transition separators
+    phaseTransitions.forEach(function (pt) {
+      if (pt.index <= index) {
+        timeline.push({
+          kind: pt.turnChanged ? "turn-sep" : "phase-sep",
+          ts: pt.ts,
+          data: pt,
+        });
+      }
+    });
+    timeline.sort(timelineSort);
+
+    // Render interleaved timeline
+    timeline.forEach(function (item) {
+      var el = null;
+      if (item.kind === "chat") {
+        var a = item.data;
+        el = document.createElement("div");
+        el.className = "chat-line";
+        var fromIdx = playerColorMap[a.from];
+        var fromCls = fromIdx != null ? "action-" + R.PLAYER_COLORS[fromIdx] : "";
+        el.innerHTML = '<span class="chat-badge">chat</span><span class="chat-from ' + fromCls + '">' + escapeHtml(a.from || "") + ':</span> ' + escapeHtml(a.message || "");
+      } else if (item.kind === "action") {
+        var a = item.data;
+        el = document.createElement("div");
+        el.className = "action-line";
+        if (a.seq > prevSeq) {
+          el.style.color = "#e0e0f0";
+        }
+        el.innerHTML = colorizePlayerNames(a.message);
+      } else if (item.kind === "llm") {
+        el = renderLlmEvent(item.data);
+      } else if (item.kind === "turn-sep") {
+        el = document.createElement("div");
+        el.className = "turn-separator";
+        el.textContent = "\u2014 Turn " + item.data.turn + " \u2014";
+      } else if (item.kind === "phase-sep") {
+        el = document.createElement("div");
+        el.className = "phase-separator";
+        el.textContent = "\u2014 " + R.formatPhaseStep(item.data.phase, item.data.step) + " \u2014";
+      }
+      if (el) {
+        var tsEl = makeTimestampEl(item.ts);
+        if (tsEl) el.insertBefore(tsEl, el.firstChild);
+        actionList.appendChild(el);
+      }
+    });
+
+    // Show winner at end of game
+    if (game.winner && index === game.snapshots.length - 1) {
+      var winLine = document.createElement("div");
+      winLine.className = "game-result-line";
+      var winIdx = playerColorMap[game.winner];
+      var winCls = winIdx != null ? "action-" + R.PLAYER_COLORS[winIdx] : "";
+      winLine.innerHTML = '<span class="' + winCls + '">' + escapeHtml(game.winner) + '</span> wins the game!';
+      actionList.appendChild(winLine);
+    }
+
+    // Sync game log height with left column
+    setTimeout(function () {
+      var leftHeight = document.getElementById("game-left").offsetHeight;
+      var headerHeight = actionList.parentElement.offsetHeight - actionList.offsetHeight;
+      var targetHeight = Math.max(400, leftHeight - headerHeight);
+      actionList.style.maxHeight = targetHeight + "px";
+      actionList.style.minHeight = targetHeight + "px";
+      actionList.scrollTop = actionList.scrollHeight;
+    }, 50);
+
+    // Update transport
+    slider.value = String(index);
+    snapshotJump.value = String(index + 1);
+    counterEl.textContent = (index + 1) + " / " + game.snapshots.length;
+
+    // Sync turn dropdown
+    if (turnStartIndices.length > 0) {
+      var currentTurn = snap.turn;
+      for (var ti = turnStartIndices.length - 1; ti >= 0; ti--) {
+        if (turnStartIndices[ti].turn <= currentTurn) {
+          turnSelect.selectedIndex = ti;
+          break;
+        }
+      }
+    }
+  }
+
+  function goTo(index) {
+    currentIndex = Math.max(0, Math.min(index, game.snapshots.length - 1));
+    renderSnapshot(currentIndex);
+  }
+
+  function toggleAutoPlay() {
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+      autoPlayInterval = null;
+      btnAuto.textContent = "Play";
+      btnAuto.classList.remove("active");
+    } else {
+      btnAuto.textContent = "Pause";
+      btnAuto.classList.add("active");
+      autoPlayInterval = setInterval(function () {
+        if (currentIndex >= game.snapshots.length - 1) {
+          toggleAutoPlay();
+          return;
+        }
+        goTo(currentIndex + 1);
+      }, 500);
+    }
+  }
+
+  // Set up transport
+  slider.max = String(game.snapshots.length - 1);
+  snapshotJump.max = String(game.snapshots.length);
+
+  snapshotJump.addEventListener("change", function () {
+    var val = Number(snapshotJump.value);
+    if (val >= 1 && val <= game.snapshots.length) {
+      goTo(val - 1);
+    }
+  });
+  snapshotJump.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      snapshotJump.blur();
+      var val = Number(snapshotJump.value);
+      if (val >= 1 && val <= game.snapshots.length) {
+        goTo(val - 1);
+      }
+    }
+  });
+
+  btnStart.addEventListener("click", function () { goTo(0); });
+  btnPrev.addEventListener("click", function () { goTo(currentIndex - 1); });
+  btnNext.addEventListener("click", function () { goTo(currentIndex + 1); });
+  btnEnd.addEventListener("click", function () { goTo(game.snapshots.length - 1); });
+  btnAuto.addEventListener("click", toggleAutoPlay);
+  slider.addEventListener("input", function () { goTo(Number(slider.value)); });
+
+  // Turn navigation
+  turnSelect.addEventListener("change", function () { goTo(Number(turnSelect.value)); });
+  btnPrevTurn.addEventListener("click", function () {
+    var idx = Math.max(0, turnSelect.selectedIndex - 1);
+    turnSelect.selectedIndex = idx;
+    goTo(Number(turnSelect.value));
+  });
+  btnNextTurn.addEventListener("click", function () {
+    var idx = Math.min(turnStartIndices.length - 1, turnSelect.selectedIndex + 1);
+    turnSelect.selectedIndex = idx;
+    goTo(Number(turnSelect.value));
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowRight") { e.preventDefault(); goTo(currentIndex + 1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); goTo(currentIndex - 1); }
+    if (e.key === "Home") { e.preventDefault(); goTo(0); }
+    if (e.key === "End") { e.preventDefault(); goTo(game.snapshots.length - 1); }
+    if (e.key === " ") { e.preventDefault(); toggleAutoPlay(); }
+    if (e.key === "Escape") { R.hidePreview(previewEls); }
+    if (e.key === "[") { e.preventDefault(); btnPrevTurn.click(); }
+    if (e.key === "]") { e.preventDefault(); btnNextTurn.click(); }
+  });
+
+  // Set up mouse-following card preview
+  R.setupMousePreview(previewEls.container);
+
+  // Render first snapshot (or jump to ?s=N if specified)
+  var params = new URLSearchParams(window.location.search);
+  var startSnap = params.get("s");
+  if (startSnap !== null) {
+    var snapNum = parseInt(startSnap, 10);
+    if (!isNaN(snapNum) && snapNum >= 0 && snapNum < game.snapshots.length) {
+      goTo(snapNum);
+    } else {
+      renderSnapshot(0);
+    }
+  } else {
+    renderSnapshot(0);
+  }
+
+  window.addEventListener("blur", function () { R.hidePreview(previewEls); });
+})();
+</script>

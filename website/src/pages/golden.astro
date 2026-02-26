@@ -5,169 +5,40 @@ import path from 'node:path';
 
 const goldenDir = path.resolve(process.cwd(), '..', 'puppeteer', 'tests', 'golden');
 const exportsDir = path.join(goldenDir, 'exports');
-const promptsDir = path.join(goldenDir, 'prompts');
 
-// Load export data (game exports with snapshots) keyed by scenario name
-const exportsByName: Record<string, any> = {};
+// Load export names with snapshot counts
+const scenarios: Array<{name: string, snapshots: number, turns: number}> = [];
 if (fs.existsSync(exportsDir)) {
   for (const file of fs.readdirSync(exportsDir).sort()) {
     if (!file.endsWith('.json')) continue;
-    exportsByName[file.replace('.json', '')] = JSON.parse(fs.readFileSync(path.join(exportsDir, file), 'utf-8'));
+    const data = JSON.parse(fs.readFileSync(path.join(exportsDir, file), 'utf-8'));
+    const snaps = data.snapshots || [];
+    const lastSnap = snaps.length > 0 ? snaps[snaps.length - 1] : null;
+    scenarios.push({
+      name: file.replace('.json', ''),
+      snapshots: snaps.length,
+      turns: lastSnap ? (lastSnap.turn || 0) : 0,
+    });
   }
-}
-
-// Extract MCP tool results from prompt fixtures (for the JSON panel)
-function extractMcpFixture(promptFile: string): { gameState: any, passPriority: any } {
-  const messages = JSON.parse(fs.readFileSync(promptFile, 'utf-8'));
-
-  const toolCallNames: Record<string, string> = {};
-  for (const msg of messages) {
-    if (msg.role === 'assistant' && msg.tool_calls) {
-      for (const tc of msg.tool_calls) {
-        toolCallNames[tc.id] = tc.function.name;
-      }
-    }
-  }
-
-  const targetTools = new Set(['get_game_state', 'pass_priority']);
-  let gameState = null;
-  let passPriority = null;
-  for (const msg of messages) {
-    if (msg.role !== 'tool') continue;
-    const callName = toolCallNames[msg.tool_call_id];
-    if (!targetTools.has(callName)) continue;
-    if (typeof msg.content !== 'object' || msg.content === null) continue;
-    if (callName === 'get_game_state') gameState = msg.content;
-    if (callName === 'pass_priority') passPriority = msg.content;
-  }
-
-  return { gameState, passPriority };
-}
-
-// Build scenarios from exports, augmented with MCP fixture data from prompts
-const scenarios: Array<{name: string, data: Record<string, unknown>}> = [];
-for (const [name, exportData] of Object.entries(exportsByName)) {
-  if (!exportData.snapshots || exportData.snapshots.length === 0) continue;
-
-  const lastSnapshot = exportData.snapshots[exportData.snapshots.length - 1];
-
-  // Extract MCP fixture from matching prompt file (if it exists)
-  const promptFile = path.join(promptsDir, name + '.json');
-  const fixture = fs.existsSync(promptFile)
-    ? extractMcpFixture(promptFile)
-    : { gameState: null, passPriority: null };
-
-  scenarios.push({
-    name,
-    data: {
-      snapshots: [lastSnapshot],
-      cardImages: exportData.cardImages || {},
-      goldenFixture: {
-        mcp_game_state: fixture.gameState,
-        mcp_pass_priority: fixture.passPriority,
-      },
-    },
-  });
 }
 ---
-<Base title="Golden Test Scenarios" wide>
-  <link rel="stylesheet" href="/game-renderer.css" />
+<Base title="Golden Test Scenarios">
   <h1>Golden Test Scenarios</h1>
-  <p class="subtitle">Board states from golden prompt tests. These show exactly what the LLM sees via MCP tools.</p>
+  <p class="subtitle">Board states from golden prompt tests. Click a scenario to view the full game replay.</p>
 
   {scenarios.length === 0 && <p>No golden scenarios found. Run <code>make test-golden</code> to generate fixtures.</p>}
 
-  {scenarios.map(s => (
-    <section class="scenario" data-scenario={JSON.stringify(s.data)}>
-      <h2>{s.name.replace(/_/g, ' ')}</h2>
-      <div class="scenario-columns">
-        <div class="board-column">
-          <h3>Board State</h3>
-          <div class="stack-section hidden">
-            <div class="section-title">Stack</div>
-            <div class="stack-cards cards-row"></div>
-          </div>
-          <div class="board-render">
-            <div class="players-grid"></div>
-          </div>
-          <!-- Card preview (hover) -->
-          <div class="card-preview-container hidden">
-            <img class="preview-image" alt="" />
-            <div class="card-meta">
-              <div class="card-name-row">
-                <div class="preview-name card-name"></div>
-                <div class="preview-cost card-cost"></div>
-              </div>
-              <div class="preview-type card-type"></div>
-              <pre class="preview-rules card-rules"></pre>
-              <div class="preview-stats card-stats"></div>
-            </div>
-          </div>
+  <div class="scenario-list">
+    {scenarios.map(s => (
+      <a class="scenario-card" href={`/golden/${s.name}`}>
+        <div class="scenario-name">{s.name.replace(/_/g, ' ')}</div>
+        <div class="scenario-meta">
+          {s.snapshots} snapshots &middot; {s.turns} turns
         </div>
-        <div class="json-column">
-          <h3>MCP game_state (what the LLM sees)</h3>
-          <pre class="json-block"></pre>
-        </div>
-      </div>
-    </section>
-  ))}
+      </a>
+    ))}
+  </div>
 </Base>
-
-<script is:inline src="/game-renderer.js"></script>
-<script is:inline>
-(function () {
-  var R = window.GameRenderer;
-  if (!R) { console.error("GameRenderer not loaded"); return; }
-
-  document.querySelectorAll(".scenario").forEach(function (section) {
-    var data = JSON.parse(section.getAttribute("data-scenario"));
-    var snapshot = data.snapshots && data.snapshots[0];
-    var fixture = data.goldenFixture || {};
-
-    // Render board state
-    if (snapshot && snapshot.players) {
-      var grid = section.querySelector(".players-grid");
-      var previewContainer = section.querySelector(".card-preview-container");
-      var previewEls = {
-        container: previewContainer,
-        image: previewContainer.querySelector(".preview-image"),
-        name: previewContainer.querySelector(".preview-name"),
-        cost: previewContainer.querySelector(".preview-cost"),
-        type: previewContainer.querySelector(".preview-type"),
-        rules: previewContainer.querySelector(".preview-rules"),
-        stats: previewContainer.querySelector(".preview-stats"),
-      };
-
-      var playerColorMap = {};
-      (snapshot.players || []).forEach(function (p, i) {
-        playerColorMap[p.name] = i % 4;
-      });
-
-      R.renderPlayers(grid, snapshot.players, {
-        cardImages: data.cardImages || {},
-        playerColorMap: playerColorMap,
-        previewEls: previewEls,
-        priorityPlayerName: snapshot.priority_player,
-      });
-
-      // Render stack
-      var stackSection = section.querySelector(".stack-section");
-      var stackCards = section.querySelector(".stack-cards");
-      if (snapshot.stack && snapshot.stack.length > 0) {
-        R.renderStack(stackSection, stackCards, snapshot.stack, data.cardImages || {}, previewEls);
-      }
-
-      R.setupMousePreview(previewContainer);
-    }
-
-    // Render raw MCP JSON
-    var jsonBlock = section.querySelector(".json-block");
-    if (fixture.mcp_game_state) {
-      jsonBlock.textContent = JSON.stringify(fixture.mcp_game_state, null, 2);
-    }
-  });
-})();
-</script>
 
 <style>
   h1 {
@@ -177,76 +48,36 @@ for (const [name, exportData] of Object.entries(exportsByName)) {
     color: #888;
     margin-bottom: 2rem;
   }
-  .scenario {
-    margin-bottom: 3rem;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 1.5rem;
+  .scenario-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .scenario-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
     background: #16213e;
-  }
-  .scenario h2 {
-    text-transform: capitalize;
-    margin-bottom: 1rem;
-    color: #e94560;
-  }
-  .scenario h3 {
-    font-size: 0.9rem;
-    color: #888;
-    margin-bottom: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .scenario-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-  @media (max-width: 1000px) {
-    .scenario-columns {
-      grid-template-columns: 1fr;
-    }
-  }
-  .board-column {
-    position: relative;
-  }
-  .board-render {
-    min-height: 100px;
-  }
-  .json-column {
-    overflow: hidden;
-  }
-  .json-block {
-    background: #0d1117;
-    color: #c9d1d9;
-    padding: 1rem;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    line-height: 1.4;
-    overflow-x: auto;
-    max-height: 600px;
-    overflow-y: auto;
-    white-space: pre;
-    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  }
-
-  /* Card preview positioning for golden page */
-  .card-preview-container {
-    position: fixed;
-    top: 50%;
-    right: 2rem;
-    transform: translateY(-50%);
-    z-index: 1000;
-    background: #1a1a2e;
-    border: 1px solid #333;
+    border: 1px solid #0f3460;
     border-radius: 8px;
-    padding: 0.5rem;
-    max-width: 250px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, background 0.15s;
   }
-  .card-preview-container.hidden {
-    display: none;
+  .scenario-card:hover {
+    border-color: #e94560;
+    background: #1a2a4e;
   }
-  .card-preview-container img {
-    width: 100%;
-    border-radius: 6px;
+  .scenario-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e94560;
+    text-transform: capitalize;
+  }
+  .scenario-meta {
+    font-size: 0.8rem;
+    color: #a0a0b8;
+    white-space: nowrap;
   }
 </style>
