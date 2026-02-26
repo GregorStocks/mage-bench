@@ -152,123 +152,21 @@
   "gameType": "Two Player Duel",
   "llmEvents": [
     {
-      "args": {
-        "answer": false
-      },
-      "gameSeq": 3,
+      "availableTools": [
+        "get_game_log",
+        "get_game_history",
+        "send_chat_message",
+        "pass_priority",
+        "get_game_state",
+        "get_oracle_text",
+        "get_action_choices",
+        "choose_action",
+        "concede"
+      ],
+      "model": "",
       "player": "TestPlayer",
-      "result": {
-        "action_taken": "no",
-        "game_seq": 3,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "answer": false
-      },
-      "gameSeq": 37,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "no",
-        "game_seq": 37,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p10"
-      },
-      "gameSeq": 35,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_1",
-        "game_seq": 35,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_CHOOSE_ABILITY",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p11"
-      },
-      "gameSeq": 25,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_2",
-        "game_seq": 25,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "id": "p12"
-      },
-      "gameSeq": 11,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_2",
-        "game_seq": 11,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_SELECT",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 1,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_target_0",
-        "game_seq": 1,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
-    },
-    {
-      "args": {
-        "index": 0
-      },
-      "gameSeq": 36,
-      "player": "TestPlayer",
-      "result": {
-        "action_taken": "selected_ability_0",
-        "game_seq": 36,
-        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-        "next_action_pending": true,
-        "next_action_type": "GAME_ASK",
-        "success": true
-      },
-      "tool": "",
-      "type": "tool_call"
+      "seq": 1,
+      "type": "game_start"
     },
     {
       "args": {},
@@ -320,6 +218,192 @@
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },
+      "seq": 2,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_target_0",
+        "game_seq": 1,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true
+      },
+      "seq": 3,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "gameSeq": 3,
+      "player": "TestPlayer",
+      "result": {
+        "action_pending": true,
+        "action_type": "GAME_ASK",
+        "board": [
+          {
+            "hand": [
+              {
+                "id": "p10",
+                "mana_cost": "{2}{B}",
+                "name": "Boggart Trawler",
+                "power": "3",
+                "rules": [
+                  "When {this} enters, exile target player's graveyard."
+                ],
+                "toughness": "1"
+              },
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "context": "T1 ()",
+        "game_seq": 3,
+        "message": "Mulligan down to 6 cards?",
+        "respond_with": "answer=true or answer=false",
+        "response_type": "boolean",
+        "stop_reason": "non_priority_action",
+        "your_hand": [
+          {
+            "mana_cost": "{2}{B}",
+            "name": "Boggart Trawler",
+            "power": "3",
+            "rules": [
+              "When {this} enters, exile target player's graveyard."
+            ],
+            "toughness": "1"
+          },
+          {
+            "name": "Crashing Footfalls",
+            "rules": [
+              "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+              "Create two 4/4 green Rhino creature tokens with trample."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Forest",
+            "rules": [
+              "{T}: Add {G}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          },
+          {
+            "is_land": true,
+            "name": "Plains",
+            "rules": [
+              "{T}: Add {W}."
+            ]
+          }
+        ]
+      },
+      "seq": 4,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "answer": false
+      },
+      "gameSeq": 3,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "no",
+        "game_seq": 3,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 5,
       "tool": "",
       "type": "tool_call"
     },
@@ -473,6 +557,25 @@
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
+      "seq": 6,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "p12"
+      },
+      "gameSeq": 11,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_2",
+        "game_seq": 11,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 7,
       "tool": "",
       "type": "tool_call"
     },
@@ -653,154 +756,25 @@
         "stop_reason": "playable_cards",
         "untapped_lands": 1
       },
+      "seq": 8,
       "tool": "",
       "type": "tool_call"
     },
     {
-      "args": {},
-      "gameSeq": 3,
+      "args": {
+        "id": "p11"
+      },
+      "gameSeq": 25,
       "player": "TestPlayer",
       "result": {
-        "action_pending": true,
-        "action_type": "GAME_ASK",
-        "board": [
-          {
-            "hand": [
-              {
-                "id": "p10",
-                "mana_cost": "{2}{B}",
-                "name": "Boggart Trawler",
-                "power": "3",
-                "rules": [
-                  "When {this} enters, exile target player's graveyard."
-                ],
-                "toughness": "1"
-              },
-              {
-                "id": "p11",
-                "name": "Crashing Footfalls",
-                "rules": [
-                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
-                  "Create two 4/4 green Rhino creature tokens with trample."
-                ]
-              },
-              {
-                "id": "p12",
-                "is_land": true,
-                "name": "Forest",
-                "rules": [
-                  "{T}: Add {G}."
-                ]
-              },
-              {
-                "id": "p13",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p14",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p15",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              },
-              {
-                "id": "p16",
-                "is_land": true,
-                "name": "Plains",
-                "rules": [
-                  "{T}: Add {W}."
-                ]
-              }
-            ],
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": true,
-            "library_size": 53,
-            "life": 20,
-            "name": "TestPlayer"
-          },
-          {
-            "hand_size": 7,
-            "is_active": false,
-            "is_you": false,
-            "library_size": 53,
-            "life": 20,
-            "name": "Opponent"
-          }
-        ],
-        "context": "T1 ()",
-        "game_seq": 3,
-        "message": "Mulligan down to 6 cards?",
-        "respond_with": "answer=true or answer=false",
-        "response_type": "boolean",
-        "stop_reason": "non_priority_action",
-        "your_hand": [
-          {
-            "mana_cost": "{2}{B}",
-            "name": "Boggart Trawler",
-            "power": "3",
-            "rules": [
-              "When {this} enters, exile target player's graveyard."
-            ],
-            "toughness": "1"
-          },
-          {
-            "name": "Crashing Footfalls",
-            "rules": [
-              "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
-              "Create two 4/4 green Rhino creature tokens with trample."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Forest",
-            "rules": [
-              "{T}: Add {G}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          },
-          {
-            "is_land": true,
-            "name": "Plains",
-            "rules": [
-              "{T}: Add {W}."
-            ]
-          }
-        ]
+        "action_taken": "selected_2",
+        "game_seq": 25,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
       },
+      "seq": 9,
       "tool": "",
       "type": "tool_call"
     },
@@ -975,6 +949,61 @@
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
+      "seq": 10,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "id": "p10"
+      },
+      "gameSeq": 35,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_1",
+        "game_seq": 35,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "success": true
+      },
+      "seq": 11,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "index": 0
+      },
+      "gameSeq": 36,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "selected_ability_0",
+        "game_seq": 36,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true
+      },
+      "seq": 12,
+      "tool": "",
+      "type": "tool_call"
+    },
+    {
+      "args": {
+        "answer": false
+      },
+      "gameSeq": 37,
+      "player": "TestPlayer",
+      "result": {
+        "action_taken": "no",
+        "game_seq": 37,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "seq": 13,
       "tool": "",
       "type": "tool_call"
     },
@@ -1092,6 +1121,7 @@
         "step": "Postcombat Main",
         "turn": 2
       },
+      "seq": 14,
       "tool": "",
       "type": "tool_call"
     },
@@ -1103,24 +1133,9 @@
         "event_count": 21,
         "history": "Turn 1:\n    - TestPlayer drew Boggart Trawler\n    - TestPlayer drew Crashing Footfalls\n    - TestPlayer drew Forest\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Forest\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Postcombat Main:\n    - TestPlayer played Boggart Bog\n"
       },
+      "seq": 15,
       "tool": "",
       "type": "tool_call"
-    },
-    {
-      "availableTools": [
-        "get_game_log",
-        "get_game_history",
-        "send_chat_message",
-        "pass_priority",
-        "get_game_state",
-        "get_oracle_text",
-        "get_action_choices",
-        "choose_action",
-        "concede"
-      ],
-      "model": "",
-      "player": "TestPlayer",
-      "type": "game_start"
     }
   ],
   "llmTrace": [],
