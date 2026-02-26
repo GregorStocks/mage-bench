@@ -630,3 +630,101 @@ describe("normalizeCard", () => {
   });
 });
 
+// ── hasPT / formatPT ──────────────────────────────────────────
+
+describe("hasPT", () => {
+  it("returns true for normal creatures", () => {
+    expect(R.hasPT({ power: 2, toughness: 3 })).toBe(true);
+  });
+
+  it("returns true when power is 0", () => {
+    expect(R.hasPT({ power: 0, toughness: 1 })).toBe(true);
+  });
+
+  it("returns true when toughness is 0", () => {
+    expect(R.hasPT({ power: 1, toughness: 0 })).toBe(true);
+  });
+
+  it("returns true for string power/toughness", () => {
+    expect(R.hasPT({ power: "2", toughness: "2" })).toBe(true);
+  });
+
+  it("returns false when neither is present", () => {
+    expect(R.hasPT({ name: "Mountain" })).toBe(false);
+  });
+
+  it("returns falsy for null/undefined card", () => {
+    expect(R.hasPT(null)).toBeFalsy();
+    expect(R.hasPT(undefined)).toBeFalsy();
+  });
+});
+
+describe("formatPT", () => {
+  it("formats normal power/toughness", () => {
+    expect(R.formatPT({ power: 2, toughness: 3 })).toBe("2/3");
+  });
+
+  it("formats zero power correctly", () => {
+    expect(R.formatPT({ power: 0, toughness: 1 })).toBe("0/1");
+  });
+
+  it("formats zero toughness correctly", () => {
+    expect(R.formatPT({ power: 1, toughness: 0 })).toBe("1/0");
+  });
+
+  it("formats string values", () => {
+    expect(R.formatPT({ power: "*", toughness: "*" })).toBe("*/*");
+  });
+
+  it("uses ? for missing power", () => {
+    expect(R.formatPT({ toughness: 3 })).toBe("?/3");
+  });
+
+  it("uses ? for missing toughness", () => {
+    expect(R.formatPT({ power: 2 })).toBe("2/?");
+  });
+});
+
+// ── isLikelyLand with type_line ──────────────────────────────
+
+describe("isLikelyLand with type_line", () => {
+  it("recognizes land from type_line (snake_case export format)", () => {
+    expect(R.isLikelyLand({ name: "Forest", type_line: "Basic Land — Forest" })).toBe(true);
+  });
+
+  it("recognizes non-land creature from type_line", () => {
+    expect(R.isLikelyLand({ name: "Eldrazi Spawn Token", type_line: "Creature — Eldrazi Spawn", power: 0, toughness: 1 })).toBe(false);
+  });
+
+  it("prefers typeLine over type_line", () => {
+    expect(R.isLikelyLand({ typeLine: "Land", type_line: "Creature" })).toBe(true);
+  });
+});
+
+// ── makeCardChip with zero power ────────────────────────────
+
+describe("makeCardChip with zero power", () => {
+  const mockPreviewEls = {
+    container: document.createElement("div"),
+    image: document.createElement("img"),
+    name: document.createElement("div"),
+    cost: document.createElement("div"),
+    type: document.createElement("div"),
+    stats: document.createElement("div"),
+    rules: document.createElement("pre"),
+  };
+
+  it("shows 0/1 for Eldrazi Spawn tokens", () => {
+    const chip = R.makeCardChip(
+      "Eldrazi Spawn Token",
+      { power: 0, toughness: 1 },
+      {},
+      false,
+      mockPreviewEls
+    );
+    const pt = chip.querySelector(".pt");
+    expect(pt).not.toBeNull();
+    expect(pt.textContent).toBe("0/1");
+  });
+});
+

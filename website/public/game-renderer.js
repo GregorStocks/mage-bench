@@ -75,15 +75,26 @@
     return name.indexOf(" Token") !== -1 || name.indexOf(" token") !== -1;
   }
 
+  function hasPT(card) {
+    return card && (card.power != null || card.toughness != null);
+  }
+
+  function formatPT(card) {
+    var p = card.power != null ? card.power : "?";
+    var t = card.toughness != null ? card.toughness : "?";
+    return p + "/" + t;
+  }
+
   function isLikelyLand(card) {
     if (!card || typeof card === "string") return false;
     // Use typeLine when available (live mode + new snapshots)
-    if (card.typeLine) {
-      return /\bLand\b/.test(card.typeLine);
+    var tl = card.typeLine || card.type_line;
+    if (tl) {
+      return /\bLand\b/.test(tl);
     }
     // Fallback for old snapshots without typeLine:
     // Creatures have P/T, planeswalkers have loyalty, battles have defense
-    if (card.power || card.toughness || card.loyalty || card.defense) return false;
+    if (hasPT(card) || card.loyalty || card.defense) return false;
     // Tokens are not lands
     if (isTokenCard(card)) return false;
     return true;
@@ -301,8 +312,8 @@
     }
 
     if (cardObj) {
-      if (cardObj.power || cardObj.toughness) {
-        els.stats.textContent = (cardObj.power || "?") + "/" + (cardObj.toughness || "?");
+      if (hasPT(cardObj)) {
+        els.stats.textContent = formatPT(cardObj);
       }
       if (cardObj.loyalty) {
         els.stats.textContent = (els.stats.textContent ? els.stats.textContent + " | " : "") + "Loyalty " + cardObj.loyalty;
@@ -316,11 +327,13 @@
       if (cardObj.mana_cost && els.cost) {
         els.cost.appendChild(renderManaCost(cardObj.mana_cost));
       }
-      if (cardObj.typeLine) {
-        els.type.textContent = cardObj.typeLine;
+      var typeLine = cardObj.typeLine || cardObj.type_line;
+      if (typeLine) {
+        els.type.textContent = typeLine;
       }
       if (cardObj.rules) {
-        els.rules.appendChild(renderTextWithMana(cardObj.rules));
+        var rulesText = Array.isArray(cardObj.rules) ? cardObj.rules.join("\n") : cardObj.rules;
+        els.rules.appendChild(renderTextWithMana(rulesText));
       }
     }
 
@@ -352,11 +365,11 @@
       chip.appendChild(ownerSpan);
     }
 
-    if (cardObj && (cardObj.power || cardObj.toughness)) {
+    if (cardObj && hasPT(cardObj)) {
       chip.appendChild(document.createTextNode(cardName + " "));
       var pt = document.createElement("span");
       pt.className = "pt";
-      pt.textContent = (cardObj.power || "?") + "/" + (cardObj.toughness || "?");
+      pt.textContent = formatPT(cardObj);
       chip.appendChild(pt);
     } else {
       chip.appendChild(document.createTextNode(cardName));
@@ -409,10 +422,10 @@
         nameEl.textContent = cardName.replace(/ Token$/i, "");
         fallback.appendChild(nameEl);
 
-        if (cardObj && (cardObj.power || cardObj.toughness)) {
+        if (cardObj && hasPT(cardObj)) {
           var ptEl = document.createElement("div");
           ptEl.className = "token-pt";
-          ptEl.textContent = (cardObj.power || "?") + "/" + (cardObj.toughness || "?");
+          ptEl.textContent = formatPT(cardObj);
           fallback.appendChild(ptEl);
         }
       } else {
@@ -424,10 +437,10 @@
 
     wrapper.appendChild(img);
 
-    if (cardObj && (cardObj.power || cardObj.toughness)) {
+    if (cardObj && hasPT(cardObj)) {
       var pt = document.createElement("span");
       pt.className = "card-thumb-pt";
-      pt.textContent = (cardObj.power || "?") + "/" + (cardObj.toughness || "?");
+      pt.textContent = formatPT(cardObj);
       wrapper.appendChild(pt);
     }
 
@@ -1232,6 +1245,8 @@
     // Classification
     isTokenCard: isTokenCard,
     isLikelyLand: isLikelyLand,
+    hasPT: hasPT,
+    formatPT: formatPT,
     // Images
     resolveCardImage: resolveCardImage,
     fetchTokenImage: fetchTokenImage,
