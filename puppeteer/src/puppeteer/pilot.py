@@ -447,6 +447,7 @@ async def run_pilot_loop(
     consecutive_empty_errors = 0  # consecutive tool calls returning {"error": ""}
     MAX_CONSECUTIVE_EMPTY_ERRORS = 10  # bridge is dead if every tool returns empty error
     last_game_seq: int | None = None  # game-level seq from most recent tool result
+    last_board_cursor: int | None = None  # board cursor for dedup in pass_priority/get_action_choices
     game_start = time.monotonic()
     # Render caching: reuse rendered prefix between full re-renders to improve
     # prompt cache hit rates.  Only re-render every RENDER_INTERVAL iterations.
@@ -544,6 +545,7 @@ async def run_pilot_loop(
                     cached_history_len = 0
                     render_counter = 0
                     consecutive_truncations = 0
+                    last_board_cursor = None  # force full board on next call
                     continue
             else:
                 consecutive_truncations = 0
@@ -639,17 +641,27 @@ async def run_pilot_loop(
                 for tool_call in choice.message.tool_calls:
                     fn = tool_call.function
                     args = json.loads(fn.arguments) if fn.arguments else {}
+
+                    # Inject board cursor for dedup: pass_priority and
+                    # get_action_choices skip the board payload when the
+                    # cursor matches, saving ~19k chars per call.
+                    if fn.name in ("pass_priority", "get_action_choices") and last_board_cursor is not None:
+                        args["board_cursor"] = last_board_cursor
+
                     _log(f"[pilot] Tool: {fn.name}({json.dumps(args, separators=(',', ':'))})")
 
                     tool_start = time.monotonic()
                     result_text = await execute_tool(session, fn.name, args)
                     tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
 
-                    # Extract game_seq from tool result for event ordering
+                    # Extract game_seq and board_cursor from tool result
                     try:
                         _result_data = json.loads(result_text)
-                        if isinstance(_result_data, dict) and "game_seq" in _result_data:
-                            last_game_seq = _result_data["game_seq"]
+                        if isinstance(_result_data, dict):
+                            if "game_seq" in _result_data:
+                                last_game_seq = _result_data["game_seq"]
+                            if "board_cursor" in _result_data:
+                                last_board_cursor = _result_data["board_cursor"]
                     except (json.JSONDecodeError, TypeError):
                         pass
 
@@ -913,6 +925,7 @@ async def run_pilot_loop(
                 cached_history_len = 0
                 render_counter = 0
                 consecutive_timeouts = 0
+                last_board_cursor = None  # force full board on next call
 
         except Exception as e:
             consecutive_timeouts = 0

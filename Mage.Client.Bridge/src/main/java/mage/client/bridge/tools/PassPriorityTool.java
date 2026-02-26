@@ -43,7 +43,14 @@ public class PassPriorityTool {
                 description = "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")",
                 conditional = "action_pending"),
             @Tool.Field(name = "board", type = "array[object]",
-                description = "Full board state — same format as get_game_state players array",
+                description = "Full board state — same format as get_game_state players array. "
+                    + "Omitted when board_unchanged=true (board_cursor matched).",
+                conditional = "action_pending"),
+            @Tool.Field(name = "board_cursor", type = "integer",
+                description = "Cursor for the current board state. Pass back in the next call to skip the board if unchanged.",
+                conditional = "action_pending"),
+            @Tool.Field(name = "board_unchanged", type = "boolean",
+                description = "True when the provided board_cursor matches — board field is omitted.",
                 conditional = "action_pending"),
             @Tool.Field(name = "choices", type = "array[object]",
                 description = "Structured choices with index, name, and type-specific fields",
@@ -71,8 +78,12 @@ public class PassPriorityTool {
                     "end_combat", "postcombat_main",
                     "end_of_turn", "my_turn", "stack_resolved"
                 }
-            ) String until) {
-        return handler.passPriority(until);
+            ) String until,
+            @Param(
+                description = "Board cursor from a previous pass_priority or get_action_choices result. "
+                    + "When provided and the board hasn't changed, the board field is omitted to save tokens."
+            ) Long boardCursor) {
+        return handler.passPriority(until, boardCursor);
     }
 
     public static List<Map<String, Object>> examples() {
@@ -85,19 +96,24 @@ public class PassPriorityTool {
                 "response_type", "select",
                 "context", "T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
                 "board", List.of(json("name", "You", "life", 20, "is_you", true), json("name", "Opp", "life", 18, "is_you", false)),
+                "board_cursor", 3,
                 "choices", List.of(
                     json("index", 0, "name", "Lightning Bolt", "action", "cast", "mana_cost", "{R}"),
                     json("index", 1, "name", "Mountain", "action", "land")),
                 "untapped_lands", 2)),
-            example("Combat phase", json(
+            example("Board unchanged (cursor matched)", json(
                 "action_pending", true,
                 "action_type", "GAME_SELECT",
-                "has_playable_cards", false,
-                "combat_phase", "declare_attackers",
-                "stop_reason", "combat",
+                "has_playable_cards", true,
+                "stop_reason", "playable_cards",
                 "response_type", "select",
-                "context", "T4 COMBAT (Player1) YOUR_COMBAT",
-                "board", List.of(json("name", "You", "life", 18, "is_you", true), json("name", "Opp", "life", 15, "is_you", false)))),
+                "context", "T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN",
+                "board_unchanged", true,
+                "board_cursor", 3,
+                "choices", List.of(
+                    json("index", 0, "name", "Lightning Bolt", "action", "cast", "mana_cost", "{R}"),
+                    json("index", 1, "name", "Mountain", "action", "land")),
+                "untapped_lands", 2)),
             example("Non-priority action (mulligan)", json(
                 "action_pending", true,
                 "action_type", "GAME_ASK",
@@ -106,6 +122,7 @@ public class PassPriorityTool {
                 "message", "Mulligan hand?",
                 "context", "T0 PREGAME",
                 "board", List.of(json("name", "You", "life", 20, "is_you", true), json("name", "Opp", "life", 20, "is_you", false)),
+                "board_cursor", 1,
                 "your_hand", List.of(
                     json("name", "Mountain", "is_land", true),
                     json("name", "Lightning Bolt", "mana_cost", "{R}")))));

@@ -156,6 +156,9 @@ public class BridgeCallbackHandler {
     private final Object stateCursorLock = new Object();
     private volatile long gameStateCursor = 0; // Monotonic cursor for get_game_state
     private volatile String lastGameStateSignature = null; // Canonicalized state signature for cursoring
+    private final Object boardCursorLock = new Object();
+    private volatile long boardCursor = 0; // Monotonic cursor for board state dedup in pass_priority/get_action_choices
+    private volatile String lastBoardSignature = null; // Canonicalized board signature for cursoring
     private final Set<UUID> failedManaCasts = ConcurrentHashMap.newKeySet(); // Spells that failed mana payment (avoid retry loops)
     private volatile String lastManaPaymentPrompt = null; // Last GAME_PLAY_MANA prompt text for ability color matching
     private volatile UUID poolManaPayingForId = null; // Tracks which spell pool-mana is being paid for (loop detection)
@@ -661,7 +664,7 @@ public class BridgeCallbackHandler {
      * Returns indexed choices so external clients can pick by index via chooseAction().
      */
     @SuppressWarnings("unchecked")
-    public Map<String, Object> getActionChoices() {
+    public Map<String, Object> getActionChoices(Long boardCursorParam) {
         var result = new HashMap<String, Object>();
         PendingAction action = pendingAction;
         // Prefer the action's own GameView over lastGameView — a concurrent GAME_UPDATE
@@ -709,7 +712,15 @@ public class BridgeCallbackHandler {
             result.put("context", ctx.toString());
 
             // Full board state: players with battlefield, graveyard, exile, hand, etc.
-            result.put("board", buildPlayersArray(gameView));
+            // Board cursor dedup: skip the board payload when caller already has it.
+            List<Map<String, Object>> players = buildPlayersArray(gameView);
+            long currentBoardCursor = updateBoardCursor(players);
+            result.put("board_cursor", currentBoardCursor);
+            if (boardCursorParam != null && boardCursorParam.longValue() == currentBoardCursor) {
+                result.put("board_unchanged", true);
+            } else {
+                result.put("board", players);
+            }
 
             // Convenience top-level fields (also available per-player in board)
             PlayerView myPlayer = gameView.getMyPlayer();
@@ -1419,7 +1430,7 @@ public class BridgeCallbackHandler {
      * so the model can self-correct without a separate get_action_choices round trip.
      */
     private void attachChoicesToError(Map<String, Object> errorResult) {
-        Map<String, Object> choicesResult = getActionChoices();
+        Map<String, Object> choicesResult = getActionChoices(null);
         if (choicesResult.containsKey("choices")) {
             errorResult.put("choices", choicesResult.get("choices"));
         }
@@ -1535,7 +1546,7 @@ public class BridgeCallbackHandler {
             }
             List<Object> choices = lastChoices;
             if (choices == null) {
-                getActionChoices();
+                getActionChoices(null);
                 choices = lastChoices;
             }
             if ("all".equals(id)) {
@@ -1578,7 +1589,7 @@ public class BridgeCallbackHandler {
         // Must happen BEFORE clearing pendingAction, because getActionChoices() reads it.
         if (index != null && lastChoices == null) {
             logger.info("[" + client.getUsername() + "] choose_action: auto-populating choices (get_action_choices was not called)");
-            getActionChoices();
+            getActionChoices(null);
         }
 
         // Clear pending action only if it hasn't been overwritten by a new callback.
@@ -2888,8 +2899,8 @@ public class BridgeCallbackHandler {
      * Merge action choices into a pass_priority result so the LLM gets choices
      * without a separate get_action_choices round-trip.
      */
-    private void mergeActionChoices(Map<String, Object> result) {
-        Map<String, Object> choices = getActionChoices();
+    private void mergeActionChoices(Map<String, Object> result, Long boardCursorParam) {
+        Map<String, Object> choices = getActionChoices(boardCursorParam);
         if (!Boolean.TRUE.equals(choices.get("action_pending"))) {
             // Rare race: action disappeared between pass_priority detecting it
             // and getActionChoices() fetching it.
@@ -2922,7 +2933,7 @@ public class BridgeCallbackHandler {
      * action choices (same data as get_action_choices) so the LLM can respond
      * immediately without a separate round-trip.
      */
-    public Map<String, Object> passPriority(String until) {
+    public Map<String, Object> passPriority(String until, Long boardCursorParam) {
         interactionsThisTurn++;
 
         int actionsPassed = 0;
@@ -2956,7 +2967,7 @@ public class BridgeCallbackHandler {
                         result.put("stop_reason", "stack_resolved");
                         attachUnseenChat(result);
                         if (pendingAction != null) {
-                            mergeActionChoices(result);
+                            mergeActionChoices(result, boardCursorParam);
                         }
                         return result;
                     }
@@ -3090,7 +3101,7 @@ public class BridgeCallbackHandler {
 
                     result.put("stop_reason", "non_priority_action");
                     attachUnseenChat(result);
-                    mergeActionChoices(result);
+                    mergeActionChoices(result, boardCursorParam);
                     return result;
                 }
 
@@ -3104,7 +3115,7 @@ public class BridgeCallbackHandler {
                     result.put("combat_phase", combatType);
                     result.put("stop_reason", "combat");
                     attachUnseenChat(result);
-                    mergeActionChoices(result);
+                    mergeActionChoices(result, boardCursorParam);
                     return result;
                 }
 
@@ -3146,7 +3157,7 @@ public class BridgeCallbackHandler {
                         result.put("action_type", method.name());
                         result.put("stop_reason", "stack_resolved");
                         attachUnseenChat(result);
-                        mergeActionChoices(result);
+                        mergeActionChoices(result, boardCursorParam);
                         return result;
                     }
                     // Stack still has items — fall through to playable-cards check
@@ -3166,7 +3177,7 @@ public class BridgeCallbackHandler {
                         result.put("current_step", gv.getStep().toString());
                         result.put("stop_reason", "reached_step");
                         attachUnseenChat(result);
-                        mergeActionChoices(result);
+                        mergeActionChoices(result, boardCursorParam);
                         return result;
                     }
                     // Not at target step: auto-pass (skip playable-cards check)
@@ -3228,7 +3239,7 @@ public class BridgeCallbackHandler {
                         result.put("has_playable_cards", true);
                         result.put("stop_reason", "playable_cards");
                         attachUnseenChat(result);
-                        mergeActionChoices(result);
+                        mergeActionChoices(result, boardCursorParam);
                         return result;
                     }
                     // First pass — fall through to auto-pass so the game advances
@@ -3329,8 +3340,8 @@ public class BridgeCallbackHandler {
      * Combined helper for models: wait using pass_priority, then return full choices.
      * pass_priority already merges action choices, so this is just a pass-through.
      */
-    public Map<String, Object> waitAndGetChoices(String until) {
-        return passPriority(until);
+    public Map<String, Object> waitAndGetChoices(String until, Long boardCursorParam) {
+        return passPriority(until, boardCursorParam);
     }
 
     private String getGameLogSince(int offset) {
@@ -3725,6 +3736,17 @@ public class BridgeCallbackHandler {
                 lastGameStateSignature = signature;
             }
             return gameStateCursor;
+        }
+    }
+
+    private long updateBoardCursor(List<Map<String, Object>> players) {
+        String signature = buildStateSignature(players);
+        synchronized (boardCursorLock) {
+            if (lastBoardSignature == null || !lastBoardSignature.equals(signature)) {
+                boardCursor++;
+                lastBoardSignature = signature;
+            }
+            return boardCursor;
         }
     }
 

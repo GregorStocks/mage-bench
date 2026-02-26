@@ -27,7 +27,14 @@ public class GetActionChoicesTool {
             @Tool.Field(name = "response_type", type = "string", description = "How to respond: \"select\", \"boolean\", \"index\", \"amount\", \"pile\", or \"multi_amount\""),
             @Tool.Field(name = "respond_with", type = "string", description = "Exact choose_action parameter(s) to use for this action type"),
             @Tool.Field(name = "context", type = "string", description = "Turn/phase context (e.g. \"T3 PRECOMBAT_MAIN (Player1) YOUR_MAIN\")"),
-            @Tool.Field(name = "board", type = "array[object]", description = "Full board state — same format as get_game_state players array: life, library_size, hand (yours only with rules), battlefield (name, tapped, P/T, rules, counters), graveyard (name, rules), exile (name, rules), mana_pool, counters, commanders"),
+            @Tool.Field(name = "board", type = "array[object]",
+                description = "Full board state — same format as get_game_state players array: life, library_size, hand (yours only with rules), "
+                    + "battlefield (name, tapped, P/T, rules, counters), graveyard (name, rules), exile (name, rules), mana_pool, counters, commanders. "
+                    + "Omitted when board_unchanged=true (board_cursor matched)."),
+            @Tool.Field(name = "board_cursor", type = "integer",
+                description = "Cursor for the current board state. Pass back in the next call to skip the board if unchanged."),
+            @Tool.Field(name = "board_unchanged", type = "boolean",
+                description = "True when the provided board_cursor matches — board field is omitted."),
             @Tool.Field(name = "choices", type = "array[object]", description = "Structured choices with index, name, and type-specific fields (action/mana_cost/power/toughness for cards; choice_type for combat/mana; target_type/controller/tapped for targets)"),
             @Tool.Field(name = "your_hand", type = "array[object]", description = "Hand cards during mulligan: name, mana_cost, is_land, power/toughness, rules"),
             @Tool.Field(name = "combat_phase", type = "string", description = "\"declare_attackers\" or \"declare_blockers\""),
@@ -51,11 +58,15 @@ public class GetActionChoicesTool {
                     "end_combat", "postcombat_main",
                     "end_of_turn", "my_turn", "stack_resolved"
                 }
-            ) String until) {
+            ) String until,
+            @Param(
+                description = "Board cursor from a previous pass_priority or get_action_choices result. "
+                    + "When provided and the board hasn't changed, the board field is omitted to save tokens."
+            ) Long boardCursor) {
         if (until != null) {
-            return handler.waitAndGetChoices(until);
+            return handler.waitAndGetChoices(until, boardCursor);
         } else {
-            return handler.getActionChoices();
+            return handler.getActionChoices(boardCursor);
         }
     }
 
@@ -80,19 +91,19 @@ public class GetActionChoicesTool {
                         "library_size", 52, "hand_size", 7,
                         "battlefield", List.of(
                             json("name", "Island", "tapped", false, "rules", List.of("{T}: Add {U}."), "id", "p3")))),
+                "board_cursor", 5,
                 "choices", List.of(
                     json("index", 0, "name", "Lightning Bolt", "action", "cast", "mana_cost", "{R}"),
                     json("index", 1, "name", "Mountain", "action", "land")),
                 "untapped_lands", 2)),
-            example("Select (respond to opponent's spell)", json(
+            example("Board unchanged (cursor matched)", json(
                 "action_pending", true,
                 "action_type", "GAME_SELECT",
                 "message", "Play instants and activated abilities",
                 "response_type", "select",
                 "context", "T4 PRECOMBAT_MAIN (Opponent)",
-                "board", List.of(
-                    json("name", "You", "life", 18, "is_you", true),
-                    json("name", "Opponent", "life", 20, "is_you", false)),
+                "board_unchanged", true,
+                "board_cursor", 5,
                 "stack", List.of(json("name", "Sheoldred's Edict", "owner", "Opponent")),
                 "choices", List.of(
                     json("index", 0, "name", "Counterspell", "action", "cast", "mana_cost", "{U}{U}")),
@@ -103,6 +114,7 @@ public class GetActionChoicesTool {
                 "message", "Mulligan hand?",
                 "response_type", "boolean",
                 "context", "T0 PREGAME",
+                "board_cursor", 1,
                 "your_hand", List.of(
                     json("name", "Mountain", "is_land", true),
                     json("name", "Lightning Bolt", "mana_cost", "{R}", "rules", List.of("Lightning Bolt deals 3 damage to any target."))))));
