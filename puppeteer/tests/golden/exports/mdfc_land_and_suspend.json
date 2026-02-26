@@ -518,6 +518,7 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 1,
         "can_cancel": false,
         "choices": [
           {
@@ -649,6 +650,7 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 2,
         "context": "T1 ()",
         "game_seq": 3,
         "message": "Mulligan down to 6 cards?",
@@ -822,6 +824,7 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 3,
         "choices": [
           {
             "action": "activate",
@@ -1014,6 +1017,7 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 4,
         "choices": [
           {
             "action": "activate",
@@ -1214,6 +1218,7 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 5,
         "choices": [
           {
             "action": "activate",
@@ -1458,6 +1463,7 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 6,
         "choices": [
           {
             "action": "land",
@@ -1670,6 +1676,7 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 7,
         "choices": [
           {
             "action": "land",
@@ -1897,6 +1904,7 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 8,
         "choices": [
           {
             "action": "land",
@@ -2125,6 +2133,7 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 9,
         "context": "T6 Beginning/Upkeep (TestPlayer)",
         "game_seq": 127,
         "message": "Cast spell without paying its mana cost (Crashing Footfalls)?",
@@ -2356,6 +2365,7 @@
             "name": "Opponent"
           }
         ],
+        "board_cursor": 10,
         "choices": [
           {
             "action": "land",

@@ -44,6 +44,7 @@
           "name": "Opponent"
         }
       ],
+      "board_cursor": 1,
       "can_cancel": false,
       "choices": [
         {
@@ -192,6 +193,7 @@
           "name": "Opponent"
         }
       ],
+      "board_cursor": 2,
       "context": "T1 ()",
       "game_seq": 3,
       "message": "Mulligan down to 6 cards?",
@@ -379,6 +381,7 @@
           "name": "Opponent"
         }
       ],
+      "board_cursor": 3,
       "choices": [
         {
           "action": "land",
@@ -613,6 +616,7 @@
           "name": "Opponent"
         }
       ],
+      "board_cursor": 5,
       "choices": [
         {
           "action": "land",
@@ -814,6 +818,7 @@
           "name": "Opponent"
         }
       ],
+      "board_cursor": 6,
       "choices": [
         {
           "choice_type": "attacker",
@@ -1024,6 +1029,7 @@
           "name": "Opponent"
         }
       ],
+      "board_cursor": 7,
       "choices": [
         {
           "action": "land",
