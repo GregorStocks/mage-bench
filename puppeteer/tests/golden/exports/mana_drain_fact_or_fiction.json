@@ -555,7 +555,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 1
+      },
       "gameSeq": 21,
       "player": "Opponent",
       "result": {
@@ -710,7 +712,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 1
+      },
       "gameSeq": 3,
       "player": "TestPlayer",
       "result": {
@@ -893,6 +897,7 @@
     },
     {
       "args": {
+        "board_cursor": 2,
         "until": "end_of_turn"
       },
       "gameSeq": 28,
@@ -1048,7 +1053,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 2
+      },
       "gameSeq": 11,
       "player": "TestPlayer",
       "result": {
@@ -1183,6 +1190,7 @@
     },
     {
       "args": {
+        "board_cursor": 3,
         "until": "precombat_main"
       },
       "gameSeq": 33,
@@ -1253,7 +1261,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 3
+      },
       "gameSeq": 40,
       "player": "Opponent",
       "result": {
@@ -1438,6 +1448,7 @@
     },
     {
       "args": {
+        "board_cursor": 3,
         "until": "my_turn"
       },
       "gameSeq": 30,
@@ -1613,6 +1624,7 @@
     },
     {
       "args": {
+        "board_cursor": 5,
         "until": "precombat_main"
       },
       "gameSeq": 30,
@@ -1769,7 +1781,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 4
+      },
       "gameSeq": 47,
       "player": "Opponent",
       "result": {
@@ -1976,6 +1990,7 @@
     },
     {
       "args": {
+        "board_cursor": 5,
         "until": "end_of_turn"
       },
       "gameSeq": 51,
@@ -2117,7 +2132,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 5
+      },
       "gameSeq": 73,
       "player": "Opponent",
       "result": {
@@ -2366,6 +2383,7 @@
     },
     {
       "args": {
+        "board_cursor": 6,
         "until": "my_turn"
       },
       "gameSeq": 64,
@@ -2529,7 +2547,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 6
+      },
       "gameSeq": 74,
       "player": "Opponent",
       "result": {
@@ -2736,6 +2756,7 @@
     },
     {
       "args": {
+        "board_cursor": 7,
         "until": "precombat_main"
       },
       "gameSeq": 64,
@@ -2937,7 +2958,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 6
+      },
       "gameSeq": 87,
       "player": "Opponent",
       "result": {
@@ -2951,7 +2974,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 7
+      },
       "gameSeq": 75,
       "player": "TestPlayer",
       "result": {

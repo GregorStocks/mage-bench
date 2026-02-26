@@ -5,7 +5,58 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from puppeteer.pilot import run_pilot_loop
+from puppeteer.pilot import BoardCursorTracker, run_pilot_loop
+
+# --- BoardCursorTracker unit tests ---
+
+
+def test_tracker_inject_no_cursor_initially():
+    t = BoardCursorTracker()
+    args: dict = {}
+    t.inject("pass_priority", args)
+    assert "board_cursor" not in args
+
+
+def test_tracker_inject_after_extract():
+    t = BoardCursorTracker()
+    t.extract('{"board_cursor": 5, "action_pending": true}')
+    args: dict = {}
+    t.inject("pass_priority", args)
+    assert args["board_cursor"] == 5
+
+
+def test_tracker_inject_skips_other_tools():
+    t = BoardCursorTracker()
+    t.extract('{"board_cursor": 5}')
+    args: dict = {}
+    t.inject("choose_action", args)
+    assert "board_cursor" not in args
+    t.inject("get_game_state", args)
+    assert "board_cursor" not in args
+
+
+def test_tracker_reset():
+    t = BoardCursorTracker()
+    t.extract('{"board_cursor": 5}')
+    t.reset()
+    args: dict = {}
+    t.inject("pass_priority", args)
+    assert "board_cursor" not in args
+
+
+def test_tracker_extract_ignores_bad_json():
+    t = BoardCursorTracker()
+    t.extract("not json")
+    assert t.cursor is None
+
+
+def test_tracker_extract_ignores_missing_field():
+    t = BoardCursorTracker()
+    t.extract('{"action_pending": true}')
+    assert t.cursor is None
+
+
+# --- Helpers for pilot loop integration tests ---
 
 
 def _mock_tool_result(text: str) -> MagicMock:

@@ -365,6 +365,39 @@ async def execute_tool(session: ClientSession, name: str, arguments: dict) -> st
         return json.dumps({"error": str(e)})
 
 
+_BOARD_CURSOR_TOOLS = frozenset({"pass_priority", "get_action_choices"})
+
+
+class BoardCursorTracker:
+    """Tracks board_cursor across tool calls for board state dedup.
+
+    Injects board_cursor into pass_priority/get_action_choices args so the
+    bridge can omit the board payload when it hasn't changed. Extracts the
+    cursor from tool results to keep it up to date.
+    """
+
+    def __init__(self) -> None:
+        self.cursor: int | None = None
+
+    def inject(self, tool_name: str, args: dict) -> None:
+        """Inject board_cursor into args if applicable."""
+        if tool_name in _BOARD_CURSOR_TOOLS and self.cursor is not None:
+            args["board_cursor"] = self.cursor
+
+    def extract(self, result_text: str) -> None:
+        """Extract board_cursor from a tool result string."""
+        try:
+            data = json.loads(result_text)
+            if isinstance(data, dict) and "board_cursor" in data:
+                self.cursor = data["board_cursor"]
+        except (json.JSONDecodeError, TypeError):
+            pass
+
+    def reset(self) -> None:
+        """Force full board on the next call (e.g. after context reset)."""
+        self.cursor = None
+
+
 def build_initial_message(pass_priority_result: dict) -> str:
     """Build the initial user message from a pass_priority result.
 
@@ -447,7 +480,7 @@ async def run_pilot_loop(
     consecutive_empty_errors = 0  # consecutive tool calls returning {"error": ""}
     MAX_CONSECUTIVE_EMPTY_ERRORS = 10  # bridge is dead if every tool returns empty error
     last_game_seq: int | None = None  # game-level seq from most recent tool result
-    last_board_cursor: int | None = None  # board cursor for dedup in pass_priority/get_action_choices
+    board_tracker = BoardCursorTracker()
     game_start = time.monotonic()
     # Render caching: reuse rendered prefix between full re-renders to improve
     # prompt cache hit rates.  Only re-render every RENDER_INTERVAL iterations.
@@ -545,7 +578,7 @@ async def run_pilot_loop(
                     cached_history_len = 0
                     render_counter = 0
                     consecutive_truncations = 0
-                    last_board_cursor = None  # force full board on next call
+                    board_tracker.reset()
                     continue
             else:
                 consecutive_truncations = 0
@@ -642,28 +675,21 @@ async def run_pilot_loop(
                     fn = tool_call.function
                     args = json.loads(fn.arguments) if fn.arguments else {}
 
-                    # Inject board cursor for dedup: pass_priority and
-                    # get_action_choices skip the board payload when the
-                    # cursor matches, saving ~19k chars per call.
-                    if fn.name in ("pass_priority", "get_action_choices") and last_board_cursor is not None:
-                        args["board_cursor"] = last_board_cursor
-
+                    board_tracker.inject(fn.name, args)
                     _log(f"[pilot] Tool: {fn.name}({json.dumps(args, separators=(',', ':'))})")
 
                     tool_start = time.monotonic()
                     result_text = await execute_tool(session, fn.name, args)
                     tool_latency_ms = int((time.monotonic() - tool_start) * 1000)
 
-                    # Extract game_seq and board_cursor from tool result
+                    # Extract game_seq from tool result for event ordering
                     try:
                         _result_data = json.loads(result_text)
-                        if isinstance(_result_data, dict):
-                            if "game_seq" in _result_data:
-                                last_game_seq = _result_data["game_seq"]
-                            if "board_cursor" in _result_data:
-                                last_board_cursor = _result_data["board_cursor"]
+                        if isinstance(_result_data, dict) and "game_seq" in _result_data:
+                            last_game_seq = _result_data["game_seq"]
                     except (json.JSONDecodeError, TypeError):
                         pass
+                    board_tracker.extract(result_text)
 
                     # Log tool call to JSONL
                     if game_log:
@@ -925,7 +951,7 @@ async def run_pilot_loop(
                 cached_history_len = 0
                 render_counter = 0
                 consecutive_timeouts = 0
-                last_board_cursor = None  # force full board on next call
+                board_tracker.reset()
 
         except Exception as e:
             consecutive_timeouts = 0

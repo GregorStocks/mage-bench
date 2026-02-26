@@ -106,7 +106,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 1
+          },
           "name": "pass_priority"
         },
         "id": "call_3",
@@ -290,7 +292,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 2
+          },
           "name": "pass_priority"
         },
         "id": "call_5",
@@ -491,6 +495,7 @@
       {
         "function": {
           "arguments": {
+            "board_cursor": 3,
             "until": "my_turn"
           },
           "name": "pass_priority"
@@ -658,6 +663,7 @@
       {
         "function": {
           "arguments": {
+            "board_cursor": 5,
             "until": "precombat_main"
           },
           "name": "pass_priority"
@@ -853,6 +859,7 @@
       {
         "function": {
           "arguments": {
+            "board_cursor": 5,
             "until": "end_of_turn"
           },
           "name": "pass_priority"
@@ -1033,6 +1040,7 @@
       {
         "function": {
           "arguments": {
+            "board_cursor": 6,
             "until": "my_turn"
           },
           "name": "pass_priority"
@@ -1207,6 +1215,7 @@
       {
         "function": {
           "arguments": {
+            "board_cursor": 7,
             "until": "precombat_main"
           },
           "name": "pass_priority"
@@ -1413,7 +1422,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 7
+          },
           "name": "pass_priority"
         },
         "id": "call_16",

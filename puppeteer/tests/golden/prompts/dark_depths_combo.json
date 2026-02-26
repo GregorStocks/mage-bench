@@ -53,7 +53,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 1
+          },
           "name": "pass_priority"
         },
         "id": "call_3",
@@ -93,7 +95,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 2
+          },
           "name": "pass_priority"
         },
         "id": "call_5",
@@ -133,7 +137,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 3
+          },
           "name": "pass_priority"
         },
         "id": "call_7",
@@ -184,7 +190,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 4
+          },
           "name": "pass_priority"
         },
         "id": "call_9",
@@ -408,7 +416,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 5
+          },
           "name": "pass_priority"
         },
         "id": "call_11",
@@ -650,7 +660,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 6
+          },
           "name": "pass_priority"
         },
         "id": "call_13",
@@ -860,7 +872,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 7
+          },
           "name": "pass_priority"
         },
         "id": "call_15",
@@ -1059,7 +1073,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 7
+          },
           "name": "pass_priority"
         },
         "id": "call_17",
@@ -1281,7 +1297,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 7
+          },
           "name": "pass_priority"
         },
         "id": "call_19",
@@ -1492,7 +1510,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 8
+          },
           "name": "pass_priority"
         },
         "id": "call_21",
@@ -1759,7 +1779,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 9
+          },
           "name": "pass_priority"
         },
         "id": "call_23",
@@ -2194,7 +2216,9 @@
     "tool_calls": [
       {
         "function": {
-          "arguments": {},
+          "arguments": {
+            "board_cursor": 10
+          },
           "name": "pass_priority"
         },
         "id": "call_26",

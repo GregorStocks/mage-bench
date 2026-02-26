@@ -298,7 +298,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 1
+      },
       "gameSeq": 3,
       "player": "TestPlayer",
       "result": {
@@ -464,7 +466,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 2
+      },
       "gameSeq": 11,
       "player": "TestPlayer",
       "result": {
@@ -628,7 +632,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 3
+      },
       "gameSeq": 25,
       "player": "TestPlayer",
       "result": {
@@ -812,7 +818,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 4
+      },
       "gameSeq": 26,
       "player": "TestPlayer",
       "result": {
@@ -959,7 +967,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 4
+      },
       "gameSeq": 31,
       "player": "TestPlayer",
       "result": {
@@ -1145,7 +1155,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 5
+      },
       "gameSeq": 32,
       "player": "TestPlayer",
       "result": {
@@ -1292,7 +1304,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 5
+      },
       "gameSeq": 37,
       "player": "TestPlayer",
       "result": {
@@ -1469,7 +1483,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 6
+      },
       "gameSeq": 44,
       "player": "TestPlayer",
       "result": {
@@ -1600,7 +1616,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 7
+      },
       "gameSeq": 47,
       "player": "TestPlayer",
       "result": {
@@ -1768,7 +1786,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 8
+      },
       "gameSeq": 66,
       "player": "TestPlayer",
       "result": {

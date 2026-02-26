@@ -566,7 +566,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 1
+      },
       "gameSeq": 3,
       "player": "TestPlayer",
       "result": {
@@ -734,7 +736,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 2
+      },
       "gameSeq": 11,
       "player": "TestPlayer",
       "result": {
@@ -907,7 +911,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 3
+      },
       "gameSeq": 25,
       "player": "TestPlayer",
       "result": {
@@ -1107,7 +1113,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 4
+      },
       "gameSeq": 35,
       "player": "TestPlayer",
       "result": {
@@ -1337,7 +1345,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 5
+      },
       "gameSeq": 55,
       "player": "TestPlayer",
       "result": {
@@ -1535,7 +1545,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 6
+      },
       "gameSeq": 78,
       "player": "TestPlayer",
       "result": {
@@ -1748,7 +1760,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 7
+      },
       "gameSeq": 101,
       "player": "TestPlayer",
       "result": {
@@ -1976,7 +1990,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 8
+      },
       "gameSeq": 127,
       "player": "TestPlayer",
       "result": {
@@ -2170,7 +2186,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 9
+      },
       "gameSeq": 134,
       "player": "TestPlayer",
       "result": {

@@ -24,7 +24,7 @@ from mcp.client.stdio import stdio_client
 
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
-from puppeteer.pilot import _render_context, build_initial_message, execute_tool
+from puppeteer.pilot import BoardCursorTracker, _render_context, build_initial_message, execute_tool
 
 
 def _log(msg: str) -> None:
@@ -55,11 +55,14 @@ async def execute_replay_script(
     abstracts over the transport — async MCP SDK or sync JSON-RPC (wrapped).
     """
     history: list[dict] = []
+    board_tracker = BoardCursorTracker()
 
     for i, call in enumerate(script):
         name = call["name"]
-        arguments = call.get("arguments", {})
+        arguments = dict(call.get("arguments", {}))
+        board_tracker.inject(name, arguments)
         result_text = await call_tool(name, arguments)
+        board_tracker.extract(result_text)
 
         if game_log:
             game_log.emit("tool_call", name=name, arguments=arguments, result=result_text)

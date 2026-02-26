@@ -184,7 +184,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 1
+      },
       "gameSeq": 3,
       "player": "TestPlayer",
       "result": {
@@ -352,7 +354,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 2
+      },
       "gameSeq": 11,
       "player": "TestPlayer",
       "result": {
@@ -509,7 +513,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 3
+      },
       "gameSeq": 16,
       "player": "TestPlayer",
       "result": {
@@ -665,6 +671,7 @@
     },
     {
       "args": {
+        "board_cursor": 4,
         "until": "stack_resolved"
       },
       "gameSeq": 25,

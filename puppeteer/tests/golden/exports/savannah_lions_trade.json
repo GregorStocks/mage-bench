@@ -445,7 +445,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 1
+      },
       "gameSeq": 21,
       "player": "Opponent",
       "result": {
@@ -618,7 +620,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 1
+      },
       "gameSeq": 3,
       "player": "TestPlayer",
       "result": {
@@ -816,7 +820,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 2
+      },
       "gameSeq": 11,
       "player": "TestPlayer",
       "result": {
@@ -956,7 +962,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 2
+      },
       "gameSeq": 43,
       "player": "Opponent",
       "result": {
@@ -1183,7 +1191,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 3
+      },
       "gameSeq": 36,
       "player": "TestPlayer",
       "result": {
@@ -1389,7 +1399,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 4
+      },
       "gameSeq": 57,
       "player": "Opponent",
       "result": {
@@ -1403,7 +1415,9 @@
       "type": "tool_call"
     },
     {
-      "args": {},
+      "args": {
+        "board_cursor": 5
+      },
       "gameSeq": 38,
       "player": "TestPlayer",
       "result": {
@@ -1592,6 +1606,7 @@
     },
     {
       "args": {
+        "board_cursor": 6,
         "until": "postcombat_main"
       },
       "gameSeq": 54,
