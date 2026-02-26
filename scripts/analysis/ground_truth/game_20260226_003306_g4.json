@@ -1,36 +1,91 @@
 [
   {
-    "decision_index": 3
+    "decision_index": 3,
+    "annotation_version": 18,
+    "annotation_severity": "major",
+    "annotation_description": "Bottomed Hollow One when the hand contains Burning Inquiry, which discards 3 cards and would make Hollow One free to cast on turn 1. A turn 1 Mountain \u2192 Burning Inquiry \u2192 free Hollow One (4/4) is one of the most powerful openings this deck can produce.",
+    "verdict": "blunder",
+    "human_notes": null
   },
   {
-    "decision_index": 6
+    "decision_index": 6,
+    "annotation_version": 18,
+    "annotation_severity": "minor",
+    "annotation_description": "With Ugin's Labyrinth already in hand (which needs a colorless card with mana value 7+ to imprint for double mana), keeping the second Devourer of Destiny on top would have been more valuable than Walking Ballista. The player already has one Devourer in hand to imprint on Ugin's Labyrinth, but having a second Devourer available means they could draw into a castable threat after using the first one for imprint. However, Walking Ballista is also a reasonable keep as a colorless spell that triggers Glaring Fleshraker and serves as flexible removal. The real issue is that Eldrazi Temple was exiled - a land that produces double colorless for Eldrazi spells is extremely valuable in this deck. Keeping Eldrazi Temple on top instead of Walking Ballista would have accelerated the game plan significantly, giving access to a second Eldrazi Temple (one already in hand) for faster Devourer of Destiny casting or earlier Kozilek's Command.",
+    "verdict": "questionable",
+    "human_notes": "temple does seem better but im not an eldrazi expert"
   },
   {
-    "decision_index": 9
+    "decision_index": 9,
+    "annotation_version": 18,
+    "annotation_severity": "minor",
+    "annotation_description": "Playing Blood Crypt (paying 2 life to enter untapped) when Bloodstained Mire would be more efficient. Bloodstained Mire can fetch a basic Mountain for just 1 life to cast Marauding Mako, while preserving the option to crack for Blood Crypt at instant speed if Orcish Bowmasters needs to be cast. This wastes 1 life and uses the dual land prematurely.",
+    "verdict": "questionable",
+    "human_notes": "mountain is probably better but idk for sure"
   },
   {
-    "decision_index": 12
+    "decision_index": 12,
+    "annotation_version": 18,
+    "annotation_severity": "questionable",
+    "annotation_description": "Casting Marauding Mako before Burning Inquiry misses a synergy opportunity. Burning Inquiry causes each player to draw 3 and discard 3 at random, and Marauding Mako gets +1/+1 counters whenever you discard cards. If Mako were on the battlefield when Burning Inquiry resolves, it would get 3 +1/+1 counters from the random discards, making it a 4/4. However, the player only has 1 mana available this turn, so they can't cast both spells. The question is whether deploying Mako now (to attack next turn as a 1/1) is better than casting Burning Inquiry now (to potentially disrupt the opponent's Eldrazi ramp plan and save Mako for the Burning Inquiry synergy next turn). Given the opponent is ramping with Ugin's Labyrinth and has exiled Devourer of Destiny, disrupting their hand with Burning Inquiry could be more impactful than a 1/1 body. Additionally, next turn with 2 lands, the player could cast Mako then Burning Inquiry for a 4/4.",
+    "verdict": "not_blunder",
+    "human_notes": "you need to cast mako first to get the inquiry synergy..."
   },
   {
-    "decision_index": 14
+    "decision_index": 14,
+    "annotation_version": 18,
+    "annotation_severity": "minor",
+    "annotation_description": "Playing Boseiju, Who Endures instead of Eldrazi Temple is suboptimal. Eldrazi Temple would provide {C}{C} for casting colorless Eldrazi spells, which synergizes perfectly with the Eldrazi-heavy hand (Glaring Fleshraker costs {2}{C}, Kozilek's Command costs {X}{C}{C}). With Ugin's Labyrinth producing {C}{C} and Eldrazi Temple producing {C}{C} for Eldrazi spells, the player could cast Glaring Fleshraker next turn (needing 2C + C, which Ugin's Labyrinth + Eldrazi Temple provides). Boseiju only adds {G}, which doesn't cast anything relevant in hand. Boseiju's channel ability is situationally useful but there's no pressing target right now, and it can be played later. Eldrazi Temple accelerates the game plan significantly.",
+    "verdict": "blunder",
+    "human_notes": "temple is definitely better with this hand, and forest is strictly better than boseiju even if you want a green source"
   },
   {
-    "decision_index": 15
+    "decision_index": 15,
+    "annotation_version": 18,
+    "annotation_severity": null,
+    "annotation_description": null,
+    "verdict": "blunder",
+    "human_notes": "returning devourer to hand is actively bad, should cast a spell"
   },
   {
-    "decision_index": 22
+    "decision_index": 22,
+    "annotation_version": 18,
+    "annotation_severity": "minor",
+    "annotation_description": "Fetching Blood Crypt costs 2 life to enter untapped (or enters tapped if they don't pay). The player already has a Blood Crypt on the battlefield for black mana. They have two Orcish Bowmasters in hand (1B each), but only need one black source at a time. Fetching a basic Mountain would provide red mana for free (no life payment) and avoid unnecessary life loss. The Bloodstained Mire already cost 1 life, and paying another 2 life for Blood Crypt means 3 life total for this land fetch. With the player already at 17 life, this is a small but real cost. A basic Mountain enters untapped for free and still gives access to red mana, while the existing Blood Crypt covers black.",
+    "verdict": "blunder",
+    "human_notes": "no reason to fetch a shock here"
   },
   {
-    "decision_index": 27
+    "decision_index": 27,
+    "annotation_version": 18,
+    "annotation_severity": "questionable",
+    "annotation_description": "Casting Kozilek's Command during combat with X=1 uses all available mana (Boseiju for {G}, Eldrazi Temple for {C}{C} toward Eldrazi spell, Ugin's Labyrinth for {C}) but the timing is questionable. While exiling Marauding Mako (a growing threat) is reasonable, casting this during combat on their own turn rather than waiting until the opponent's end step means they're tapping out and can't use mana for anything else this turn cycle. Additionally, with X=1, the spell only creates one 0/1 token and exiles one creature - relatively low impact. However, Marauding Mako with Burning Inquiry synergy could grow quickly, so removing it now has merit. The bigger question is whether main phase 2 would have been better for sequencing - they could have played Forest first (from hand) to have more mana available, potentially casting with X=2 instead to exile the 1/2 Orc Army token as well or get more value.",
+    "verdict": "blunder",
+    "human_notes": "gave the tokens to opponent and exiled a graveyard card rather than the one-drop. could also have cast it for x=3"
   },
   {
-    "decision_index": 32
+    "decision_index": 32,
+    "annotation_version": 18,
+    "annotation_severity": "minor",
+    "annotation_description": "Playing Mountain before Bloodstained Mire is a sequencing error. The player should play the fetch land (Bloodstained Mire) instead of the basic Mountain, because fetch lands provide more flexibility - they can fetch a basic Mountain if needed but also thin the deck, and importantly, if they want to cast Burning Inquiry this turn, the fetch land crack triggers shuffle which could matter. More critically, playing the fetch land preserves the option to play Mountain later if needed, while playing Mountain first means the fetch land might be stranded if they need the land drop for something else next turn. Additionally, with Orcish Bowmasters in hand costing {1}{B}, they already have BB available from the two Blood Crypts, so the Mountain adds redundant red mana. The fetch land would give them more options and deck thinning.",
+    "verdict": "not_blunder",
+    "human_notes": "playing mountain is more life-efficient and we don't need the fixing or shuffle. conceivably we'd want to fetch a surveil land here, but the best play is almost certainly to use 3 mana this turn to cast bowmasters into burning inquiry, so that likely doesn't come up"
   },
   {
-    "decision_index": 37
+    "decision_index": 37,
+    "annotation_version": 18,
+    "annotation_severity": "questionable",
+    "annotation_description": "Burning Inquiry is a high-variance play here. With two Orcish Bowmasters in play, the opponent drawing 3 cards triggers Bowmasters twice (2 extra draws beyond the first), dealing 2 damage and growing the Orc Army. However, the random discard aspect means DSV3 Lucky could lose important cards (and did lose Nethergoyf, which would have been a strong threat from the graveyard-matters perspective). The opponent has very few cards in hand and could potentially draw into answers. The Bowmasters synergy is real but the risk of discarding valuable cards and giving the opponent fresh cards when they're likely empty-handed is significant. Playing Bloodstained Mire first (to thin the deck and have the land in play) before casting Burning Inquiry would have been strictly better sequencing, and holding Burning Inquiry for a turn when the opponent might have more cards to lose could also be considered.",
+    "verdict": "not_blunder",
+    "human_notes": "burning inquiry is extremely good here, that's the whole point of the deck. conceivably they would have been better off cycling the street wraith first though"
   },
   {
-    "decision_index": 44
+    "decision_index": 44,
+    "annotation_version": 18,
+    "annotation_severity": "moderate",
+    "annotation_description": "All three Orcish Bowmasters triggers are targeting the player's own Marauding Mako, which will kill it (1/1 base, even with some counters). This wastes 3 damage that could go to the opponent's face (bringing them from 13 to 10) and unnecessarily kills their own creature. With Lightning Bolt in hand, every point of damage to the opponent matters.",
+    "verdict": "not_blunder",
+    "human_notes": "they targeted opp, not the mako"
   },
   {
     "decision_index": 45
