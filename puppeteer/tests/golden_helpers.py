@@ -74,15 +74,31 @@ class BridgeSession:
         if params is not None:
             req["params"] = params
         line = json.dumps(req, separators=(",", ":"))
+        tool_name = (params or {}).get("name", "") if method == "tools/call" else ""
+        rpc_label = f"{method}({tool_name})" if tool_name else method
+        t0 = time.monotonic()
+        print(f"[RPC #{self._id}] -> {rpc_label}", flush=True)
         self._stdin.write(line + "\n")
         self._stdin.flush()
         # Wait for data with timeout to avoid hanging forever on a stuck JVM.
         ready, _, _ = select.select([self.proc.stdout], [], [], timeout)
         if not ready:
-            raise TimeoutError(f"Bridge RPC timeout after {timeout}s waiting for response to {method}")
+            elapsed = time.monotonic() - t0
+            # Check if bridge process is still alive
+            rc = self.proc.poll()
+            msg = f"Bridge RPC timeout after {elapsed:.1f}s waiting for response to {rpc_label}"
+            if rc is not None:
+                msg += f" (bridge process exited with rc={rc})"
+            else:
+                msg += " (bridge process still alive — likely stuck in passPriority loop)"
+            print(f"[RPC #{self._id}] TIMEOUT: {msg}", flush=True)
+            raise TimeoutError(msg)
         resp_line = self._stdout.readline()
+        elapsed = time.monotonic() - t0
         assert resp_line, "Bridge process closed stdout unexpectedly"
         resp = json.loads(resp_line)
+        if elapsed > 5:
+            print(f"[RPC #{self._id}] <- {rpc_label} OK ({elapsed:.1f}s)", flush=True)
         if "error" in resp and resp["error"] is not None:
             raise RuntimeError(f"MCP error: {resp['error']}")
         return resp["result"]
@@ -263,6 +279,7 @@ def _wait_for_game_end_event(game_dir: Path, timeout: int = 30) -> None:
     server_events = game_dir / "server_game_events.jsonl"
     spectator_events = game_dir / "game_events.jsonl"
     deadline = time.monotonic() + timeout
+    t0 = time.monotonic()
     while time.monotonic() < deadline:
         # Check server events (version 2 export path)
         if server_events.exists():
@@ -275,7 +292,19 @@ def _wait_for_game_end_event(game_dir: Path, timeout: int = 30) -> None:
             if '"game_over"' in text:
                 return
         time.sleep(0.25)
-    raise TimeoutError(f"No game_end event found within {timeout}s in {game_dir}")
+    # Dump diagnostic info on timeout
+    elapsed = time.monotonic() - t0
+    diag_parts = [f"No game_end event found within {elapsed:.1f}s in {game_dir}"]
+    for path in [server_events, spectator_events]:
+        if path.exists():
+            text = path.read_text()
+            lines = text.strip().split("\n")
+            diag_parts.append(f"  {path.name}: {len(lines)} lines, last: {lines[-1][:200] if lines else '<empty>'}")
+        else:
+            diag_parts.append(f"  {path.name}: does not exist")
+    diag = "\n".join(diag_parts)
+    print(diag, flush=True)
+    raise TimeoutError(diag)
 
 
 def run_golden_scenario(

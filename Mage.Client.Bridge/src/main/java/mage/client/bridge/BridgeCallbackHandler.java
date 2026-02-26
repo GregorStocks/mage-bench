@@ -2998,6 +2998,14 @@ public class BridgeCallbackHandler {
         }
 
         long startTime = System.currentTimeMillis();
+        long lastProgressLogAt = startTime;
+        int waitLoops = 0;
+        logger.info("[" + client.getUsername() + "] passPriority ENTER: until=" + until
+            + " yieldActive=" + yieldActive
+            + " pendingAction=" + (pendingAction != null)
+            + " activeGames=" + activeGames.size()
+            + " lastActionableCallbackAt=" + lastActionableCallbackAt
+            + " lastResponseSentAt=" + lastResponseSentAt);
 
         while (true) {
             PendingAction action = pendingAction;
@@ -3265,9 +3273,37 @@ public class BridgeCallbackHandler {
                     break;
                 }
             }
+            waitLoops++;
+
+            // Periodic progress log: every 30s when the loop is spinning without returning
+            {
+                long now = System.currentTimeMillis();
+                if (now - lastProgressLogAt >= 30_000) {
+                    lastProgressLogAt = now;
+                    long totalElapsed = now - startTime;
+                    logger.warn("[" + client.getUsername() + "] passPriority STILL WAITING:"
+                        + " elapsed=" + totalElapsed + "ms"
+                        + " waitLoops=" + waitLoops
+                        + " actionsPassed=" + actionsPassed
+                        + " pendingAction=" + (pendingAction != null)
+                        + " playerDead=" + playerDead
+                        + " activeGames=" + activeGames.size()
+                        + " gameEverStarted=" + gameEverStarted
+                        + " lastActionableCallbackAt=" + (lastActionableCallbackAt > 0 ? (now - lastActionableCallbackAt) + "ms ago" : "never")
+                        + " lastCallbackReceivedAt=" + (lastCallbackReceivedAt > 0 ? (now - lastCallbackReceivedAt) + "ms ago" : "never")
+                        + " lastResponseSentAt=" + (lastResponseSentAt > 0 ? (now - lastResponseSentAt) + "ms ago" : "0")
+                        + " currentGameId=" + currentGameId);
+                }
+            }
 
             // Game over bail-out: don't block forever if the game ended
             if (playerDead || (activeGames.isEmpty() && gameEverStarted)) {
+                long elapsed = System.currentTimeMillis() - startTime;
+                logger.info("[" + client.getUsername() + "] passPriority EXIT game_over:"
+                    + " elapsed=" + elapsed + "ms"
+                    + " playerDead=" + playerDead
+                    + " activeGames=" + activeGames.size()
+                    + " actionsPassed=" + actionsPassed);
                 var result = new HashMap<String, Object>();
                 result.put("action_pending", false);
                 result.put("stop_reason", "game_over");
