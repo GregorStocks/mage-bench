@@ -47,6 +47,7 @@ public class FFmpegEncoder implements FrameConsumer {
         command.add("-f"); command.add("rawvideo");
         command.add("-pix_fmt"); command.add("rgb24");
         command.add("-s"); command.add(width + "x" + height);
+        command.add("-r"); command.add(String.valueOf(fps));
         command.add("-i"); command.add("-"); // Read from stdin
         // Pad to even dimensions (H.264 requires width/height divisible by 2)
         command.add("-vf"); command.add("pad=ceil(iw/2)*2:ceil(ih/2)*2");
