@@ -32,7 +32,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  20 - Oracle text (rules) for all battlefield/graveyard/exile cards in get_game_state (Feb 19)
 #  21 - Remove actions_passed from tool results; land_drops_used from server game view (Feb 24)
 #  22 - Fix winsNeeded=2 causing double games; single-game matches only (Feb 25)
-HARNESS_EPOCH = 22
+#  23 - Prompt cache breakpoints for Anthropic models (state bridge + tail) (Feb 25)
+HARNESS_EPOCH = 23
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
