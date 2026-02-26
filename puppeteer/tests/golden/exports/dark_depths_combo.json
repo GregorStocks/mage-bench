@@ -9854,7 +9854,8 @@
           "controller": "TestPlayer",
           "id": "p30",
           "mana_cost": "",
-          "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)"
+          "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)",
+          "source_card": "Thespian's Stage"
         }
       ],
       "step": "DECLARE_ATTACKERS",
@@ -10033,6 +10034,7 @@
           "id": "p30",
           "mana_cost": "",
           "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)",
+          "source_card": "Thespian's Stage",
           "targets": [
             {
               "id": "p10",
@@ -10217,6 +10219,7 @@
           "id": "p30",
           "mana_cost": "",
           "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)",
+          "source_card": "Thespian's Stage",
           "targets": [
             {
               "id": "p10",
@@ -10401,6 +10404,7 @@
           "id": "p30",
           "mana_cost": "",
           "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)",
+          "source_card": "Thespian's Stage",
           "targets": [
             {
               "id": "p10",
@@ -10585,6 +10589,7 @@
           "id": "p30",
           "mana_cost": "",
           "name": "stack ability ({2}, {T}: {this} becomes a copy of target land, except it has this ability.)",
+          "source_card": "Thespian's Stage",
           "targets": [
             {
               "id": "p10",
@@ -10949,7 +10954,8 @@
           "controller": "TestPlayer",
           "id": "p31",
           "mana_cost": "",
-          "name": "stack ability (When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.)"
+          "name": "stack ability (When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.)",
+          "source_card": "Thespian's Stage"
         }
       ],
       "step": "DECLARE_ATTACKERS",
@@ -11129,7 +11135,8 @@
           "controller": "TestPlayer",
           "id": "p31",
           "mana_cost": "",
-          "name": "stack ability (When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.)"
+          "name": "stack ability (When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.)",
+          "source_card": "Thespian's Stage"
         }
       ],
       "step": "DECLARE_ATTACKERS",

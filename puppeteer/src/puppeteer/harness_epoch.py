@@ -33,7 +33,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  21 - Remove actions_passed from tool results; land_drops_used from server game view (Feb 24)
 #  22 - Fix winsNeeded=2 causing double games; single-game matches only (Feb 25)
 #  23 - Prompt cache breakpoints for Anthropic models (state bridge + tail) (Feb 25)
-HARNESS_EPOCH = 23
+#  24 - Add source_card to stack abilities for website viewer art display (Feb 26)
+HARNESS_EPOCH = 24
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.

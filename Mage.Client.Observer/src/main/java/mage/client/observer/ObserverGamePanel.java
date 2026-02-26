@@ -2005,6 +2005,18 @@ public class ObserverGamePanel extends GamePanel {
                 stackJson.addProperty("id", Objects.requireNonNull(card.getShortId(),
                     "stack card missing shortId: " + stackCardName(card)));
                 stackJson.addProperty("name", stackCardName(card));
+                if (card instanceof StackAbilityView) {
+                    CardView source = ((StackAbilityView) card).getSourceCard();
+                    if (source != null) {
+                        String srcName = source.getDisplayName();
+                        if (srcName != null && !srcName.isEmpty()) {
+                            stackJson.addProperty("source_card", srcName);
+                        }
+                    }
+                    if (card.getRules() != null && !card.getRules().isEmpty()) {
+                        stackJson.addProperty("ability_text", safe(card.getRules().get(0)));
+                    }
+                }
                 if (card.getId() != null) {
                     String owner = castOwners.get(card.getId().toString());
                     if (owner != null) {

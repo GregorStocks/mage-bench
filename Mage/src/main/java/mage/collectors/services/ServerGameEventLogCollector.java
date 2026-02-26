@@ -20,6 +20,7 @@ import mage.game.combat.CombatGroup;
 import mage.game.events.PlayerQueryEvent;
 import mage.game.permanent.Permanent;
 import mage.game.permanent.PermanentToken;
+import mage.game.stack.StackAbility;
 import mage.game.stack.StackObject;
 import mage.players.ManaPool;
 import mage.players.Player;
@@ -731,6 +732,20 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             Map<String, Object> si = new LinkedHashMap<>();
             si.put("id", registry.getOrAssign(so.getId()));
             si.put("name", so.getName());
+            if (so instanceof StackAbility) {
+                UUID sourceId = ((StackAbility) so).getSourceId();
+                if (sourceId != null) {
+                    Card sourceCard = game.getCard(sourceId);
+                    if (sourceCard != null) {
+                        si.put("source_card", sourceCard.getName());
+                    } else {
+                        MageObject sourceObj = game.getObject(sourceId);
+                        if (sourceObj != null) {
+                            si.put("source_card", sourceObj.getName());
+                        }
+                    }
+                }
+            }
             Player controller = game.getPlayer(so.getControllerId());
             si.put("controller", controller != null ? controller.getName() : null);
             if (so.getManaCost() != null) {

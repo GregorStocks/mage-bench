@@ -127,6 +127,35 @@
   }
 
   /**
+   * Detect if a stack item is an ability (not a spell) and extract metadata.
+   * Returns { isAbility, sourceCard, abilityText } or { isAbility: false }.
+   */
+  function parseStackAbility(name, cardObj) {
+    function stripHtml(s) { return s.replace(/<[^>]+>/g, ""); }
+    function clean(text, src) {
+      text = stripHtml(text);
+      text = text.replace(/\{this\}/gi, src || "this");
+      return text;
+    }
+    // New format: has explicit source_card field
+    if (cardObj && cardObj.source_card) {
+      var match = name.match(/^stack ability \((.+)\)$/);
+      var raw = match ? match[1] : (cardObj.ability_text || name);
+      return { isAbility: true, sourceCard: cardObj.source_card, abilityText: clean(raw, cardObj.source_card) };
+    }
+    // Live observer format: name = source card name, ability_text present
+    if (cardObj && cardObj.ability_text) {
+      return { isAbility: true, sourceCard: name, abilityText: clean(cardObj.ability_text, name) };
+    }
+    // Backward compat: parse from "stack ability (...)" name (old exports without source_card)
+    var match = name.match(/^stack ability \((.+)\)$/);
+    if (match) {
+      return { isAbility: true, sourceCard: null, abilityText: stripHtml(match[1]) };
+    }
+    return { isAbility: false };
+  }
+
+  /**
    * Try to fetch a token image from Scryfall search API.
    * If found, caches the result and calls onFound(imageUrl).
    */
@@ -439,6 +468,81 @@
     });
 
     return wrapper;
+  }
+
+  // ── Ability thumbnail (stack abilities with darkened source card art) ──
+
+  function makeAbilityThumbnail(abilityInfo, cardObj, cardImages, previewEls) {
+    var wrapper = document.createElement("div");
+    wrapper.className = "card-thumb ability-thumb";
+
+    if (abilityInfo.sourceCard) {
+      var img = document.createElement("img");
+      img.src = resolveCardImage(abilityInfo.sourceCard, null, cardImages, "small");
+      img.alt = abilityInfo.sourceCard;
+      img.loading = "lazy";
+      img.draggable = false;
+      img.className = "ability-bg-img";
+      img.addEventListener("error", function () {
+        img.style.display = "none";
+      });
+      wrapper.appendChild(img);
+    }
+
+    var overlay = document.createElement("div");
+    overlay.className = "ability-overlay";
+
+    if (abilityInfo.sourceCard) {
+      var nameLabel = document.createElement("div");
+      nameLabel.className = "ability-source-name";
+      nameLabel.textContent = abilityInfo.sourceCard;
+      overlay.appendChild(nameLabel);
+    }
+
+    var textEl = document.createElement("div");
+    textEl.className = "ability-text";
+    textEl.appendChild(renderTextWithMana(abilityInfo.abilityText));
+    overlay.appendChild(textEl);
+
+    wrapper.appendChild(overlay);
+
+    wrapper.addEventListener("mouseenter", function () {
+      showAbilityPreview(abilityInfo, cardObj, cardImages, previewEls);
+    });
+    wrapper.addEventListener("mouseleave", function () {
+      hidePreview(previewEls);
+    });
+
+    return wrapper;
+  }
+
+  function showAbilityPreview(abilityInfo, cardObj, cardImages, els) {
+    if (!els || !els.name) return;
+    els.name.textContent = abilityInfo.sourceCard || "Ability";
+    if (els.cost) els.cost.textContent = "";
+    els.type.textContent = "";
+    els.stats.textContent = "";
+    els.rules.textContent = "";
+
+    if (cardObj && cardObj.controller) {
+      els.type.textContent = "Ability \u2014 " + cardObj.controller;
+    } else {
+      els.type.textContent = "Ability";
+    }
+
+    if (abilityInfo.abilityText) {
+      els.rules.appendChild(renderTextWithMana(abilityInfo.abilityText));
+    }
+
+    if (abilityInfo.sourceCard) {
+      els.image.src = resolveCardImage(abilityInfo.sourceCard, null, cardImages, "normal");
+      els.image.alt = abilityInfo.sourceCard;
+      _fetchScryfallCard(abilityInfo.sourceCard, cardImages, els);
+    } else {
+      els.image.src = "";
+      els.image.alt = "";
+    }
+    els.container.classList.remove("hidden");
   }
 
   // ── Zone rendering ──
@@ -945,7 +1049,12 @@
         var obj = typeof item === "string" ? null : item;
         var wrapper = document.createElement("div");
         wrapper.className = "stack-item";
-        wrapper.appendChild(makeCardThumbnail(name, obj, cardImages, false, previewEls));
+        var abilityInfo = parseStackAbility(name, obj);
+        if (abilityInfo.isAbility) {
+          wrapper.appendChild(makeAbilityThumbnail(abilityInfo, obj, cardImages, previewEls));
+        } else {
+          wrapper.appendChild(makeCardThumbnail(name, obj, cardImages, false, previewEls));
+        }
         if (obj && obj.targets && obj.targets.length > 0) {
           var targetEl = document.createElement("div");
           targetEl.className = "stack-target";
