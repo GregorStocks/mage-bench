@@ -64,7 +64,8 @@ MAX_WORKERS = 50
 # v17: enrich decision context — remove battlefield/choice caps, add library
 #      sizes, player counters, structured choice info (action, mana_cost, P/T, id)
 # v18: include stack targets in decision context (e.g. "Lightning Bolt -> Goblin Guide")
-BLUNDER_SCRIPT_VERSION = 18
+# v19: clarify "Pick triggered ability" decisions are about ordering, not targeting
+BLUNDER_SCRIPT_VERSION = 19
 
 # --- Prompt components ---
 
