@@ -1,0 +1,10 @@
+{
+  "title": "Switch bridge MCP transport from stdio to HTTP+SSE",
+  "description": "The bridge MCP server (McpServer.java) uses stdio transport — hand-rolled JSON-RPC over stdin/stdout pipes. This works but makes timeouts awkward (requires select() on raw pipe fds) and complicates test mocking (mocks need os.pipe() instead of BytesIO).\n\nSwitching to HTTP+SSE transport would give us natural request timeouts via HTTP, simpler test mocking (just mock HTTP calls), and alignment with the standard MCP transport that most clients expect.\n\nJava side: replace BufferedReader(System.in)/PrintWriter(System.out) with an HTTP server. The official Java MCP SDK (modelcontextprotocol/java-sdk) supports this. Alternatively, use JDK's built-in com.sun.net.httpserver.\n\nPython side: replace Popen stdin/stdout pipes with HTTP requests. The mcp Python SDK already supports HTTP+SSE. BridgeSession._rpc() becomes a simple HTTP POST with a timeout= kwarg.\n\nPort management is already solved — port.py has find_available_port() with fcntl locking.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["bridge"],
+  "created_at": "2026-02-26T08:45:00.000000-08:00",
+  "updated_at": "2026-02-26T08:45:00.000000-08:00"
+}
