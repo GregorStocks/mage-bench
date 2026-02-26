@@ -273,17 +273,20 @@ def format_play_context(
     return "\n".join(lines)
 
 
+_SKIP_GAME = "skip_game"
+
+
 def collect_verdict() -> tuple[str | None, str | None]:
     """Prompt for human verdict.
 
     Returns (verdict, notes). Verdict is "blunder", "not_blunder",
-    "questionable", or None (skip). Raises SystemExit on quit.
+    "questionable", None (skip), or _SKIP_GAME. Raises SystemExit on quit.
     """
     while True:
         try:
             resp = (
                 input(
-                    "\nVerdict [b]lunder / [n]ot_blunder / [?] questionable / [s]kip / [q]uit: "
+                    "\nVerdict [b]lunder / [n]ot_blunder / [?] questionable / [s]kip / [g] next game / [q]uit: "
                 )
                 .strip()
                 .lower()
@@ -296,6 +299,8 @@ def collect_verdict() -> tuple[str | None, str | None]:
             raise SystemExit(0)
         if resp in ("s", "skip"):
             return None, None
+        if resp in ("g", "next", "next game"):
+            return _SKIP_GAME, None
         if resp in ("b", "blunder"):
             verdict = "blunder"
         elif resp in ("n", "not_blunder", "not"):
@@ -303,7 +308,7 @@ def collect_verdict() -> tuple[str | None, str | None]:
         elif resp in ("?", "questionable"):
             verdict = "questionable"
         else:
-            print("  Invalid input. Use b/n/?/s/q.")
+            print("  Invalid input. Use b/n/?/s/g/q.")
             continue
 
         try:
@@ -344,7 +349,12 @@ def audit_plays(game_filter: str | None = None) -> None:
     decisions_cache: dict[str, list[dict]] = {}
 
     audited_count = 0
+    skip_game_id: str | None = None
     for i, (game_id, entry) in enumerate(unaudited):
+        if skip_game_id is not None:
+            if game_id == skip_game_id:
+                continue
+            skip_game_id = None
         print(f"--- Play {i + 1}/{len(unaudited)} ---")
 
         # Load game data (cached)
@@ -374,6 +384,11 @@ def audit_plays(game_filter: str | None = None) -> None:
         verdict, notes = collect_verdict()
         if verdict is None:
             print("  Skipped.\n")
+            continue
+        if verdict == _SKIP_GAME:
+            skipped = sum(1 for gid, _ in unaudited[i:] if gid == game_id)
+            print(f"  Skipping remaining {skipped} plays in {game_id}.\n")
+            skip_game_id = game_id
             continue
 
         # Get current-version annotation (re-runs annotator if game is stale)
