@@ -194,6 +194,32 @@ def _build_reset_message(
     return "\n\n".join(parts)
 
 
+def _with_cache_control(msg: dict, cache_control: dict) -> dict:
+    """Return a copy of msg with cache_control added to its content.
+
+    Converts string content to content-block format with cache_control attached.
+    Works for user, assistant (with text content), and tool messages.
+    Returns the message unchanged if the content isn't suitable (e.g. None/empty).
+    """
+    role = msg.get("role", "")
+    content = msg.get("content")
+
+    if role in ("user", "tool"):
+        if isinstance(content, str):
+            return {**msg, "content": [{"type": "text", "text": content, "cache_control": cache_control}]}
+        if isinstance(content, list):
+            new_content = [dict(block) for block in content]
+            for block in reversed(new_content):
+                if isinstance(block, dict) and block.get("type") == "text":
+                    block["cache_control"] = cache_control
+                    break
+            return {**msg, "content": new_content}
+    elif role == "assistant" and isinstance(content, str) and content:
+        return {**msg, "content": [{"type": "text", "text": content, "cache_control": cache_control}]}
+
+    return msg
+
+
 def _render_context(
     history: list[dict],
     system_prompt: str,
@@ -248,19 +274,26 @@ def _render_context(
         else:
             messages.append(msg)
 
-    # State bridge — after cacheable prefix, before recent window
-    messages.append(
-        {
-            "role": "user",
-            "content": (
-                f"{state_summary}"
-                "Continue playing. Call pass_priority to get your next decision, "
-                "then choose_action to respond. "
-                "All cards listed are playable right now. "
-                "Play cards with id=pN, pass with answer=false."
-            ),
-        }
+    # State bridge — after cacheable prefix, before recent window.
+    # With cache_control, this marks the end of the cacheable prefix (system +
+    # summarised section).  For models with a 4096-token minimum (Opus), the
+    # prefix at this point is ~6k tokens — comfortably above the threshold.
+    bridge_text = (
+        f"{state_summary}"
+        "Continue playing. Call pass_priority to get your next decision, "
+        "then choose_action to respond. "
+        "All cards listed are playable right now. "
+        "Play cards with id=pN, pass with answer=false."
     )
+    if cache_control:
+        messages.append(
+            {
+                "role": "user",
+                "content": [{"type": "text", "text": bridge_text, "cache_control": cache_control}],
+            }
+        )
+    else:
+        messages.append({"role": "user", "content": bridge_text})
 
     # Recent slice — full fidelity
     messages.extend(history[recent_start:])
@@ -446,6 +479,16 @@ async def run_pilot_loop(
                 cached_render = None
                 render_counter = 0
 
+            # Tail cache breakpoint: mark the boundary between the stable
+            # cached_render prefix and the dynamic tail so Anthropic can cache
+            # the entire prefix (~50-80k tokens).  Uses a copy to avoid
+            # mutating the cached_render template.
+            if cache_control and cached_render is not None and len(cached_render) > 0:
+                tail_idx = len(cached_render) - 1
+                marked = _with_cache_control(messages[tail_idx], cache_control)
+                if marked is not messages[tail_idx]:
+                    messages[tail_idx] = marked
+
             create_kwargs: dict = dict(
                 model=model,
                 messages=messages,
@@ -546,6 +589,10 @@ async def run_pilot_loop(
                     ptd = response.usage.prompt_tokens_details
                     if ptd and getattr(ptd, "cached_tokens", None):
                         usage_dict["cached_tokens"] = ptd.cached_tokens
+                        total_prompt = response.usage.prompt_tokens or 0
+                        if total_prompt > 0:
+                            hit_pct = ptd.cached_tokens / total_prompt * 100
+                            _log(f"[pilot] Cache: {ptd.cached_tokens}/{total_prompt} ({hit_pct:.0f}%)")
                     ctd = response.usage.completion_tokens_details
                     if ctd and getattr(ctd, "reasoning_tokens", None):
                         usage_dict["reasoning_tokens"] = ctd.reasoning_tokens

@@ -12,6 +12,7 @@ from puppeteer.pilot import (
     _find_tool_name,
     _render_context,
     _summarize_tool_result,
+    _with_cache_control,
 )
 
 # ---------------------------------------------------------------------------
@@ -628,3 +629,148 @@ def test_render_cache_control_with_no_strategy():
     block = sys_msg["content"][0]
     assert block["text"] == SYSTEM_PROMPT
     assert block["cache_control"] == {"type": "ephemeral"}
+
+
+def test_render_cache_control_on_state_bridge():
+    """With cache_control and long history, state bridge gets cache_control."""
+    n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
+    history = _make_history(n)
+    cc = {"type": "ephemeral"}
+    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
+
+    # Find the state bridge
+    bridge = None
+    for msg in messages:
+        if msg.get("role") == "user" and "Continue playing" in str(msg.get("content", "")):
+            bridge = msg
+            break
+    assert bridge is not None, "State bridge not found"
+    assert isinstance(bridge["content"], list), "State bridge should use content block format"
+    block = bridge["content"][0]
+    assert block["type"] == "text"
+    assert block["cache_control"] == cc
+    assert STATE_SUMMARY in block["text"]
+
+
+def test_render_no_cache_on_state_bridge_without_cache_control():
+    """Without cache_control, state bridge uses plain string content."""
+    n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
+    history = _make_history(n)
+    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=None)
+
+    bridge = None
+    for msg in messages:
+        if msg.get("role") == "user" and "Continue playing" in str(msg.get("content", "")):
+            bridge = msg
+            break
+    assert bridge is not None
+    assert isinstance(bridge["content"], str), "Without cache_control, state bridge should be plain string"
+
+
+def test_render_short_history_no_state_bridge():
+    """Short history has no state bridge (and no crash with cache_control)."""
+    history = _make_history(5)
+    cc = {"type": "ephemeral"}
+    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
+    for msg in messages:
+        if msg.get("role") == "user" and "Continue playing" in str(msg.get("content", "")):
+            raise AssertionError("State bridge should not appear in short history")
+
+
+# ---------------------------------------------------------------------------
+# _with_cache_control
+# ---------------------------------------------------------------------------
+
+
+def test_with_cache_control_user_message():
+    """User message string content converted to content blocks."""
+    msg = {"role": "user", "content": "hello"}
+    cc = {"type": "ephemeral"}
+    result = _with_cache_control(msg, cc)
+    assert result is not msg  # new dict
+    assert result["role"] == "user"
+    assert isinstance(result["content"], list)
+    assert result["content"][0] == {"type": "text", "text": "hello", "cache_control": cc}
+
+
+def test_with_cache_control_tool_message():
+    """Tool message string content converted to content blocks."""
+    msg = {"role": "tool", "tool_call_id": "call_1", "content": '{"result": true}'}
+    cc = {"type": "ephemeral"}
+    result = _with_cache_control(msg, cc)
+    assert result is not msg
+    assert result["tool_call_id"] == "call_1"
+    assert isinstance(result["content"], list)
+    assert result["content"][0]["cache_control"] == cc
+
+
+def test_with_cache_control_assistant_with_content():
+    """Assistant message with text content gets cache_control."""
+    msg = {"role": "assistant", "content": "thinking hard"}
+    cc = {"type": "ephemeral"}
+    result = _with_cache_control(msg, cc)
+    assert result is not msg
+    assert isinstance(result["content"], list)
+    assert result["content"][0] == {"type": "text", "text": "thinking hard", "cache_control": cc}
+
+
+def test_with_cache_control_assistant_empty_content():
+    """Assistant message with empty/None content returned unchanged."""
+    cc = {"type": "ephemeral"}
+
+    msg_empty = {"role": "assistant", "content": ""}
+    assert _with_cache_control(msg_empty, cc) is msg_empty
+
+    msg_none = {"role": "assistant", "content": None}
+    assert _with_cache_control(msg_none, cc) is msg_none
+
+
+def test_with_cache_control_preserves_existing_blocks():
+    """Content already in block format gets cache_control on last text block."""
+    cc = {"type": "ephemeral"}
+    msg = {
+        "role": "user",
+        "content": [
+            {"type": "text", "text": "first"},
+            {"type": "text", "text": "second"},
+        ],
+    }
+    result = _with_cache_control(msg, cc)
+    assert result is not msg
+    # First block should NOT have cache_control
+    assert "cache_control" not in result["content"][0]
+    # Last text block should have cache_control
+    assert result["content"][1]["cache_control"] == cc
+
+
+def test_with_cache_control_does_not_mutate_original():
+    """_with_cache_control must not modify the original message dict."""
+    msg = {"role": "user", "content": "hello"}
+    cc = {"type": "ephemeral"}
+    _with_cache_control(msg, cc)
+    assert msg["content"] == "hello"  # unchanged
+
+
+def test_tail_breakpoint_does_not_mutate_cached_render():
+    """Applying tail breakpoint should not modify cached_render dicts."""
+    n = CONTEXT_RECENT_COUNT + CONTEXT_SUMMARY_COUNT + 10
+    history = _make_history(n)
+    cc = {"type": "ephemeral"}
+    messages = _render_context(history, SYSTEM_PROMPT, STATE_SUMMARY, cache_control=cc)
+    cached_render = list(messages)
+
+    # Simulate the tail breakpoint logic from run_pilot_loop
+    new_entries = [
+        _make_assistant_msg([("call_new", "pass_priority")]),
+        _make_tool_msg("call_new", json.dumps({"timeout": True})),
+    ]
+    assembled = list(cached_render) + new_entries
+    tail_idx = len(cached_render) - 1
+    original_content = cached_render[tail_idx].get("content")
+
+    marked = _with_cache_control(assembled[tail_idx], cc)
+    if marked is not assembled[tail_idx]:
+        assembled[tail_idx] = marked
+
+    # cached_render's message should be unchanged
+    assert cached_render[tail_idx].get("content") == original_content
