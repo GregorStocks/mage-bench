@@ -1,11 +1,12 @@
 {
   "title": "Re-run mana tapping analysis with 20+ games at harness epoch 10",
   "description": "Precondition: at least 20 exported games at harness epoch 10+ in website/public/games/.\n\nEpoch 10 introduced the flat mana_plan format (list of strings instead of objects) and multi-ability land support (:N ability index syntax). Games from earlier epochs used the old object format and couldn't use multi-ability lands in mana plans, so they aren't comparable.\n\nOnce we have 20+ epoch-10 games, re-run the mana tapping analysis script:\n\n  uv run python scripts/analysis/mana_tapping.py website/public/games/\n\nFilter to games with harness_epoch >= 10. Report findings on:\n- How often LLMs use mana_plan vs auto_tap\n- mana_plan success/failure rate by model\n- Whether models use the :N ability index syntax for dual lands\n- Whether certain models should default to auto_tap\n- Whether mana_plan is worth keeping or should be simplified/removed\n\nInclude the findings in the PR description and update this issue accordingly.",
-  "status": "open",
+  "status": "closed",
+  "resolution": "Analysis complete with 108 games at epoch >= 10. Key findings:\n\n1. mana_plan dominates: 87% of mana payment actions use mana_plan (4348) vs auto_tap (646). Overall 89% success rate.\n\n2. Strong mana_plan models (95%+): GPT-5-nano (97%), GPT-5.2 (97%), GPT-5-mini (96%), Gemini-3-flash (96%), Claude Sonnet 4.5 (96%), O3 (95%).\n\n3. Weak mana_plan models (<50%): grok-4-fast (7%), llama-4-maverick (20%), kimi-k2-0905 (25%), deepseek-v3.2 (29%), minimax-m2.1 (41%), qwen3-235b (48%). These should default to auto_tap.\n\n4. :N ability index syntax: 13% of mana_plan entries use it (410/3182). Gemini-3-flash (49%) and Llama-4-maverick (50%) use it most; many models (GPT-5-mini, GPT-5-nano, minimax) never use it.\n\n5. Top failure reasons: wrong action state (sending mana_plan when not casting), stale permanent IDs, sending both mana_plan and auto_tap simultaneously.\n\n6. Recommendation: Keep mana_plan — it works excellently for top models. Consider defaulting weak models to auto_tap.",
   "priority": 4,
   "type": "investigation",
   "labels": ["bridge", "mcp", "evaluation"],
   "created_at": "2026-02-13T00:00:00.000000-08:00",
   "not_autoclaimable": true,
-  "updated_at": "2026-02-15T15:30:00.000000-08:00"
+  "updated_at": "2026-02-25T00:00:00.000000-08:00"
 }
