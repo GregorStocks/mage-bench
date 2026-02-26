@@ -595,6 +595,11 @@ def _format_decisions(decisions: list[dict]) -> str:
             f"  Choices ({len(d.get('choices', []))}): {', '.join(choice_descs)}",
             f"  Chosen: {chosen_name}",
         ]
+        if "Pick triggered ability" in d.get("message", ""):
+            lines.append(
+                "  NOTE: This decision only determines the order triggered abilities"
+                " are placed on the stack. Targets are chosen in separate decisions."
+            )
         if d.get("reasoning"):
             lines.append(f"  Reasoning: {d['reasoning'][:500]}")
         if d.get("subsequent_actions"):
