@@ -1900,6 +1900,9 @@ public class ObserverGamePanel extends GamePanel {
                     if (altName != null && !altName.isEmpty()) {
                         permJson.addProperty("original_card", altName);
                     }
+                    if (perm.isTransformed()) {
+                        permJson.addProperty("back_face", true);
+                    }
                     if (perm.isFaceDown()) {
                         permJson.addProperty("face_down", true);
                     }

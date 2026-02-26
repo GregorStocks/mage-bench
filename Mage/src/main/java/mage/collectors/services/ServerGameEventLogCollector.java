@@ -529,6 +529,9 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
         boolean faceDown = perm.isFaceDown(game);
         pi.put("face_down", faceDown);
         pi.put("summoning_sick", perm.hasSummoningSickness());
+        if (perm.isTransformed()) {
+            pi.put("back_face", true);
+        }
 
         // Oracle-derivable properties: only emit when modified from printed card.
         // Tokens are always "modified" (no oracle card to reference).

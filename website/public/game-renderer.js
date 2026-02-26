@@ -27,6 +27,7 @@
       owner: c.owner,
       targets: c.targets,
       original_card: c.originalCard || c.original_card,
+      back_face: c.back_face || c.backFace,
       copy: c.copy,
     };
   }
@@ -95,6 +96,7 @@
 
   function resolveCardImage(cardName, cardObj, cardImages, version) {
     version = version || "small";
+    var isBackFace = cardObj && cardObj.back_face;
     // Priority 1: explicit imageUrl on the card (live mode)
     if (cardObj && cardObj.imageUrl) {
       return cardObj.imageUrl
@@ -105,16 +107,23 @@
     if (cardImages && cardImages[cardName]) {
       return cardImages[cardName].replace("version=small", "version=" + version);
     }
+    // Priority 2b: MDFC/transform back face — look up the front face and request back
+    if (isBackFace && cardImages && cardObj.original_card && cardImages[cardObj.original_card]) {
+      return cardImages[cardObj.original_card].replace("version=small", "version=" + version) + "&face=back";
+    }
     // Priority 3: cached token image
     if (_tokenImageCache[cardName]) {
       return _tokenImageCache[cardName].replace("version=small", "version=" + version);
     }
     // Priority 4: Scryfall name-based fallback
-    return (
+    var url =
       "https://api.scryfall.com/cards/named?exact=" +
       encodeURIComponent(cardName) +
-      "&format=image&version=" + version
-    );
+      "&format=image&version=" + version;
+    if (isBackFace) {
+      url += "&face=back";
+    }
+    return url;
   }
 
   /**

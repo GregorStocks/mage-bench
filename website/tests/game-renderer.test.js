@@ -185,6 +185,29 @@ describe("resolveCardImage", () => {
     const url = R.resolveCardImage("Island", null, {});
     expect(url).toContain("version=small");
   });
+
+  it("uses original_card with face=back for MDFC back face (cardImages)", () => {
+    const cardImages = {
+      "Boggart Trawler": "https://api.scryfall.com/cards/dsk/75?format=image&version=small",
+    };
+    const cardObj = { back_face: true, original_card: "Boggart Trawler" };
+    const url = R.resolveCardImage("Boggart Bog", cardObj, cardImages, "small");
+    expect(url).toContain("dsk/75");
+    expect(url).toContain("face=back");
+  });
+
+  it("appends face=back for MDFC back face (Scryfall name fallback)", () => {
+    const cardObj = { back_face: true, original_card: "Boggart Trawler" };
+    const url = R.resolveCardImage("Boggart Bog", cardObj, {}, "small");
+    expect(url).toContain("exact=Boggart%20Bog");
+    expect(url).toContain("face=back");
+  });
+
+  it("does not add face=back when back_face is not set", () => {
+    const cardObj = { original_card: "Boggart Trawler" };
+    const url = R.resolveCardImage("Boggart Bog", cardObj, {}, "small");
+    expect(url).not.toContain("face=back");
+  });
 });
 
 // ── diffStringBag ───────────────────────────────────────────────
@@ -596,6 +619,14 @@ describe("normalizeCard", () => {
   it("preserves mana_cost if already snake_case", () => {
     const card = R.normalizeCard({ name: "Bolt", mana_cost: "{R}" });
     expect(card.mana_cost).toBe("{R}");
+  });
+
+  it("normalizes back_face and backFace", () => {
+    const card1 = R.normalizeCard({ name: "Bog", back_face: true });
+    expect(card1.back_face).toBe(true);
+
+    const card2 = R.normalizeCard({ name: "Bog", backFace: true });
+    expect(card2.back_face).toBe(true);
   });
 });
 
