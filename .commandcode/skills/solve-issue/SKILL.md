@@ -1,0 +1,68 @@
+---
+name: Solve an Issue
+description: Pick and solve exactly one issue from the issue tracker, then create a PR
+---
+# Solve an Issue
+
+Pick and solve exactly **one** issue, then create a PR.
+
+## Workflow
+
+1. **Claim an issue** by running:
+   ```bash
+   uv run python scripts/autoclaim-issue.py
+   ```
+   This merges origin/master, picks the highest-priority unclaimed autoclaimable issue, and claims it (creating a draft PR). Issues with `"not_autoclaimable": true` are skipped — those have preconditions that need manual review.
+   - If the script **succeeds** (exit 0): you claimed it. Continue to step 2.
+   - If the script **fails** (exit 1): no claimable issues available. Tell the user.
+   - If the script **fails** (exit 2): lost all race attempts. Tell the user.
+2. **Enter plan mode** — explore the codebase, design your approach, and present it to the user for feedback before writing any code. This is the user's chance to redirect you if the approach is wrong. **Your plan must end with this checklist** (copy it verbatim into your plan):
+
+   ```
+   ## Post-implementation checklist
+   - [ ] Implement the changes described above
+   - [ ] Add/update tests
+   - [ ] Run `make check` (lint, typecheck, tests)
+   - [ ] Delete the issue file and include deletion in the commit
+   - [ ] Push final changes: `git push origin HEAD`
+   - [ ] Update PR title and description: `gh pr edit --title "..." --body "..."`
+   - [ ] Mark PR ready: `gh pr ready`
+   ```
+
+   This checklist survives the plan mode boundary and ensures no steps are skipped even if earlier context is compressed.
+3. After the plan is approved, **create tasks** from the checklist using `TaskCreate`. Mark each task in_progress when you start it and completed when you finish it.
+4. Implement the fix. Push progress:
+   ```bash
+   git push origin HEAD
+   ```
+5. Update tests to expect the correct behavior
+6. Run `make check` to verify lint, typecheck, and tests pass
+7. Delete the issue file (e.g., `rm issues/<issue-filename>.json`) and **include the deletion in the commit** — the issue removal must ship with the fix
+8. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
+9. Push final changes, update the PR title/description, and mark it as ready. **The body must end with the `<!-- claim: ... -->` comment** so the issue stays claimed. Extract it from the current PR body first:
+    ```bash
+    git push origin HEAD
+    CLAIM_TAG=$(gh pr view --json body --jq '.body' | grep -o '<!-- claim: .* -->')
+    gh pr edit --title "<concise PR title>" --body "<PR description with summary, test plan>
+
+    $CLAIM_TAG"
+    gh pr ready
+    ```
+    Then stop — leave remaining issues for the next Claude.
+
+## Abandoning an Issue
+
+If you determine an issue isn't worth fixing after claiming it, clean up your claim:
+```bash
+gh pr close --delete-branch
+```
+Then restart from step 1 to pick a different issue.
+
+## Is It Worth Fixing?
+
+Not every quirk deserves a fix. For issues that seem one-in-a-million or where it's not realistically possible to determine the original author's intent, it's fine to give up and handle it gracefully. Being correct on fewer things is better than being _wrong_.
+
+## Important
+
+- One issue per PR — keeps PRs small and reviewable
+- Stop after creating the PR — don't chain multiple fixes
