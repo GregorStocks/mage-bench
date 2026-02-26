@@ -16,9 +16,9 @@ import asyncio
 import io
 import json
 import os
+import select
 import subprocess
 import sys
-import threading
 import time
 from pathlib import Path
 
@@ -76,25 +76,11 @@ class BridgeSession:
         line = json.dumps(req, separators=(",", ":"))
         self._stdin.write(line + "\n")
         self._stdin.flush()
-        # Read response in a thread so we can enforce a timeout and avoid
-        # hanging forever if the bridge JVM is stuck.
-        resp_line: str | None = None
-        read_exc: BaseException | None = None
-
-        def _read() -> None:
-            nonlocal resp_line, read_exc
-            try:
-                resp_line = self._stdout.readline()
-            except Exception as e:
-                read_exc = e
-
-        t = threading.Thread(target=_read, daemon=True)
-        t.start()
-        t.join(timeout=timeout)
-        if t.is_alive():
+        # Wait for data with timeout to avoid hanging forever on a stuck JVM.
+        ready, _, _ = select.select([self.proc.stdout], [], [], timeout)
+        if not ready:
             raise TimeoutError(f"Bridge RPC timeout after {timeout}s waiting for response to {method}")
-        if read_exc is not None:
-            raise read_exc
+        resp_line = self._stdout.readline()
         assert resp_line, "Bridge process closed stdout unexpectedly"
         resp = json.loads(resp_line)
         if "error" in resp and resp["error"] is not None:

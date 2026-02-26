@@ -2,6 +2,7 @@
 
 import io
 import json
+import os
 import subprocess
 from unittest.mock import MagicMock
 
@@ -11,22 +12,24 @@ from tests.golden_helpers import BridgeSession, PotatoProcess
 
 
 def _make_mock_proc(responses: list[dict] | None = None) -> subprocess.Popen:
-    """Create a mock Popen with real byte-stream stdin/stdout.
+    """Create a mock Popen with real pipe-backed stdin/stdout.
 
+    Uses os.pipe() so that select.select() works (BytesIO has no fileno).
     BridgeSession wraps stdin/stdout with io.TextIOWrapper, so we need
-    actual byte buffers rather than plain MagicMocks.
+    actual byte streams rather than plain MagicMocks.
     """
     proc = MagicMock(spec=subprocess.Popen)
 
-    # stdin: writable byte buffer
+    # stdin: writable byte buffer (no select needed on the write side)
     proc.stdin = io.BytesIO()
 
-    # stdout: readable byte buffer pre-loaded with JSON-RPC responses
-    stdout_data = b""
+    # stdout: real pipe so select() works
+    read_fd, write_fd = os.pipe()
     if responses:
         for r in responses:
-            stdout_data += json.dumps(r).encode("utf-8") + b"\n"
-    proc.stdout = io.BytesIO(stdout_data)
+            os.write(write_fd, json.dumps(r).encode("utf-8") + b"\n")
+    os.close(write_fd)
+    proc.stdout = os.fdopen(read_fd, "rb")
 
     return proc
 
