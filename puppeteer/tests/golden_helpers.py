@@ -18,6 +18,7 @@ import json
 import os
 import subprocess
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -67,7 +68,7 @@ class BridgeSession:
         self._stdin = io.TextIOWrapper(proc.stdin, encoding="utf-8", line_buffering=True)
         self._stdout = io.TextIOWrapper(proc.stdout, encoding="utf-8")
 
-    def _rpc(self, method: str, params: dict | None = None) -> dict:
+    def _rpc(self, method: str, params: dict | None = None, timeout: int = 300) -> dict:
         self._id += 1
         req: dict = {"jsonrpc": "2.0", "method": method, "id": self._id}
         if params is not None:
@@ -75,7 +76,25 @@ class BridgeSession:
         line = json.dumps(req, separators=(",", ":"))
         self._stdin.write(line + "\n")
         self._stdin.flush()
-        resp_line = self._stdout.readline()
+        # Read response in a thread so we can enforce a timeout and avoid
+        # hanging forever if the bridge JVM is stuck.
+        resp_line: str | None = None
+        read_exc: BaseException | None = None
+
+        def _read() -> None:
+            nonlocal resp_line, read_exc
+            try:
+                resp_line = self._stdout.readline()
+            except Exception as e:
+                read_exc = e
+
+        t = threading.Thread(target=_read, daemon=True)
+        t.start()
+        t.join(timeout=timeout)
+        if t.is_alive():
+            raise TimeoutError(f"Bridge RPC timeout after {timeout}s waiting for response to {method}")
+        if read_exc is not None:
+            raise read_exc
         assert resp_line, "Bridge process closed stdout unexpectedly"
         resp = json.loads(resp_line)
         if "error" in resp and resp["error"] is not None:

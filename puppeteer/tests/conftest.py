@@ -177,7 +177,9 @@ def bridge_session(xmage_server, project_root):
     )
 
     bridge = BridgeSession(proc)
+    print(f"Bridge JVM started (pid={proc.pid}), sending initialize...")
     bridge.initialize()
+    print("Bridge MCP initialized")
 
     yield bridge
 
@@ -233,6 +235,7 @@ def potato_process(xmage_server, project_root):
     )
 
     potato = PotatoProcess(proc)
+    print(f"Potato JVM started (pid={proc.pid})")
 
     yield potato
 
