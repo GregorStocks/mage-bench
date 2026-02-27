@@ -12,7 +12,14 @@ from puppeteer.orchestrator import compile_project
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import kill_tree
 from puppeteer.xml_config import modify_server_config
-from tests.golden_helpers import DECK_GOBLINS, DECK_RED_STOMPY, BridgeSession, PotatoProcess
+from tests.golden_helpers import (
+    DECK_GOBLINS,
+    DECK_RED_STOMPY,
+    BridgeSession,
+    PotatoProcess,
+    print_timing_summary,
+    timed_phase,
+)
 
 _SET_CODE_RE = re.compile(r"\[([A-Z0-9]+):")
 
@@ -73,7 +80,8 @@ def xmage_server(project_root, tmp_path_factory):
         pytest.skip("Golden integration tests: run with 'make test-golden'")
 
     # Compile all needed modules
-    assert compile_project(project_root, observer=True), "Compilation failed"
+    with timed_phase("session", "compilation"):
+        assert compile_project(project_root, observer=True), "Compilation failed"
 
     # Find available port
     port_res = find_available_port("localhost", 17171)
@@ -126,7 +134,8 @@ def xmage_server(project_root, tmp_path_factory):
     )
 
     try:
-        assert wait_for_port("localhost", port, 90), f"XMage server failed to start within 90s — check {server_log}"
+        with timed_phase("session", "server_startup"):
+            assert wait_for_port("localhost", port, 90), f"XMage server failed to start within 90s — check {server_log}"
         port_res.release()
         yield "localhost", port
     finally:
@@ -181,15 +190,16 @@ def bridge_session(xmage_server, project_root):
         env={**os.environ, "MAVEN_OPTS": bridge_jvm},
     )
 
-    print(f"Bridge JVM started (pid={proc.pid}), waiting for MCP HTTP server on port {mcp_port}...")
-    assert wait_for_port("localhost", mcp_port, 120), (
-        f"Bridge MCP HTTP server did not start on port {mcp_port} within 120s — check {bridge_log}"
-    )
-    mcp_port_res.release()
+    with timed_phase("session", "bridge_jvm_startup"):
+        print(f"Bridge JVM started (pid={proc.pid}), waiting for MCP HTTP server on port {mcp_port}...")
+        assert wait_for_port("127.0.0.1", mcp_port, 120), (
+            f"Bridge MCP HTTP server did not start on port {mcp_port} within 120s — check {bridge_log}"
+        )
+        mcp_port_res.release()
 
-    bridge = BridgeSession(f"http://localhost:{mcp_port}/mcp")
-    bridge.initialize()
-    print("Bridge MCP initialized via HTTP")
+        bridge = BridgeSession(f"http://127.0.0.1:{mcp_port}/mcp")
+        bridge.initialize()
+        print("Bridge MCP initialized via HTTP")
 
     yield bridge
 
@@ -250,8 +260,9 @@ def potato_process(xmage_server, project_root):
         env={**os.environ, "MAVEN_OPTS": potato_jvm},
     )
 
-    potato = PotatoProcess(proc)
-    print(f"Potato JVM started (pid={proc.pid})")
+    with timed_phase("session", "potato_jvm_startup"):
+        potato = PotatoProcess(proc)
+        print(f"Potato JVM started (pid={proc.pid})")
 
     yield potato
 
@@ -261,3 +272,8 @@ def potato_process(xmage_server, project_root):
     except subprocess.TimeoutExpired:
         kill_tree(proc.pid)
     potato_log_fh.close()
+
+
+def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:
+    """Print aggregate golden test timing summary at session end."""
+    print_timing_summary()

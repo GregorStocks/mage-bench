@@ -77,8 +77,10 @@ async def spawn_bridge_http(
             env=env,
         )
 
-        # Wait for the HTTP server to start listening
-        if not wait_for_port("localhost", mcp_port, _BRIDGE_STARTUP_TIMEOUT_SECS):
+        # Wait for the HTTP server to start listening.
+        # Use 127.0.0.1 (not "localhost") to avoid DNS resolution that might
+        # try IPv6 (::1) on CI, while the JDK HttpServer only binds IPv4.
+        if not wait_for_port("127.0.0.1", mcp_port, _BRIDGE_STARTUP_TIMEOUT_SECS):
             rc = proc.poll()
             log_tail = ""
             if log_file and log_file.exists():
@@ -90,7 +92,7 @@ async def spawn_bridge_http(
 
         port_reservation.release()
 
-        url = f"http://localhost:{mcp_port}/mcp"
+        url = f"http://127.0.0.1:{mcp_port}/mcp"
         async with streamable_http_client(url) as (read, write, _), ClientSession(read, write) as session:
             yield session
 

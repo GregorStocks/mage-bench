@@ -80,7 +80,7 @@ public class McpServer {
         running.set(true);
 
         try {
-            httpServer = HttpServer.create(new InetSocketAddress(port), 0);
+            httpServer = HttpServer.create(new InetSocketAddress("127.0.0.1", port), 0);
             httpServer.createContext("/mcp", this::handleHttpRequest);
             httpServer.start();
             logger.info("MCP HTTP server started on port " + port);
