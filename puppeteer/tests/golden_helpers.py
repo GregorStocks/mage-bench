@@ -269,14 +269,15 @@ def _run_replay_on_bridge(
         async def async_call_tool(name: str, arguments: dict) -> str:
             return bridge.call_tool(name, arguments)
 
-        prompt = asyncio.run(execute_replay_script(async_call_tool, script, system_prompt, game_log))
+        prompt, game_ended = asyncio.run(execute_replay_script(async_call_tool, script, system_prompt, game_log))
 
         # Write prompt to file for debugging / golden comparison
         prompt_path = game_dir / f"{player_name}_golden_prompt.json"
         prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
 
-        # Concede to end the game
-        bridge.call_tool("concede", {})
+        # Concede to end the game (skip if game already ended from opponent)
+        if not game_ended:
+            bridge.call_tool("concede", {})
 
         game_log.emit("game_end", reason="replay_script_complete")
 

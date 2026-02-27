@@ -43,15 +43,19 @@ async def execute_replay_script(
     script: list[dict],
     system_prompt: str,
     game_log: GameLogWriter | None = None,
-) -> list[dict]:
-    """Execute a replay script and return the captured prompt.
+) -> tuple[list[dict], bool]:
+    """Execute a replay script and return (prompt, game_ended).
 
     This is the shared core of both ``run_replay`` (async MCP subprocess) and
     the persistent-session path in golden_helpers. The ``call_tool`` callable
     abstracts over the transport — async MCP SDK or sync JSON-RPC (wrapped).
+
+    Returns a tuple of (prompt_messages, game_ended) where game_ended is True
+    if the game ended during script execution (e.g. opponent conceded).
     """
     history: list[dict] = []
     board_tracker = BoardCursorTracker()
+    game_ended = False
 
     for i, call in enumerate(script):
         name = call["name"]
@@ -101,41 +105,48 @@ async def execute_replay_script(
         # Check for game over
         try:
             result_data = json.loads(result_text)
-            if result_data.get("game_over") or result_data.get("player_dead"):
+            if (
+                result_data.get("game_over")
+                or result_data.get("player_dead")
+                or result_data.get("stop_reason") == "game_over"
+            ):
+                game_ended = True
                 break
         except (json.JSONDecodeError, TypeError):
             pass
 
-    # Call get_game_history before prompt capture
-    history_result = await call_tool("get_game_history", {})
-    if game_log:
-        game_log.emit("tool_call", name="get_game_history", arguments={}, result=history_result)
-    history_call_id = f"call_{len(script) + 1}"
-    history.append(
-        {
-            "role": "assistant",
-            "content": None,
-            "tool_calls": [
-                {
-                    "id": history_call_id,
-                    "type": "function",
-                    "function": {
-                        "name": "get_game_history",
-                        "arguments": json.dumps({}),
-                    },
-                }
-            ],
-        }
-    )
-    history.append(
-        {
-            "role": "tool",
-            "tool_call_id": history_call_id,
-            "content": history_result,
-        }
-    )
+    # Skip get_game_history when the game already ended — the bridge's MCP
+    # server is shutting down and may not be reachable.
+    if not game_ended:
+        history_result = await call_tool("get_game_history", {})
+        if game_log:
+            game_log.emit("tool_call", name="get_game_history", arguments={}, result=history_result)
+        history_call_id = f"call_{len(script) + 1}"
+        history.append(
+            {
+                "role": "assistant",
+                "content": None,
+                "tool_calls": [
+                    {
+                        "id": history_call_id,
+                        "type": "function",
+                        "function": {
+                            "name": "get_game_history",
+                            "arguments": json.dumps({}),
+                        },
+                    }
+                ],
+            }
+        )
+        history.append(
+            {
+                "role": "tool",
+                "tool_call_id": history_call_id,
+                "content": history_result,
+            }
+        )
 
-    return _render_context(history, system_prompt, state_summary="")
+    return _render_context(history, system_prompt, state_summary=""), game_ended
 
 
 async def run_replay(
@@ -207,7 +218,7 @@ async def run_replay(
                 return await execute_tool(session, name, arguments)
 
             script = script or []
-            prompt = await execute_replay_script(call_tool, script, system_prompt, game_log)
+            prompt, game_ended = await execute_replay_script(call_tool, script, system_prompt, game_log)
 
             # Write prompt to file
             if game_dir:
@@ -215,10 +226,13 @@ async def run_replay(
                 prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
                 _log(f"[replay] Prompt written to {prompt_path}")
 
-            # --- Concede to end the game ---
-            _log("[replay] Conceding game...")
-            concede_result = await execute_tool(session, "concede", {})
-            _log(f"[replay] Concede result: {concede_result}")
+            if not game_ended:
+                # --- Concede to end the game ---
+                _log("[replay] Conceding game...")
+                concede_result = await execute_tool(session, "concede", {})
+                _log(f"[replay] Concede result: {concede_result}")
+            else:
+                _log("[replay] Game already over, skipping concede")
 
             if game_log:
                 game_log.emit("game_end", reason="replay_script_complete")
