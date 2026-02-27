@@ -77,7 +77,8 @@ MAX_WORKERS = 50
 #      up with (e.g. played a land, cast a spell)
 # v23: moved static instructions (examples, severity, output format) from
 #      user message to system prompt
-BLUNDER_SCRIPT_VERSION = 23
+# v24: clarify that choices list = legal actions in pass-priority guidance
+BLUNDER_SCRIPT_VERSION = 24
 
 # --- Prompt components ---
 
@@ -97,7 +98,9 @@ Here are some examples of the kinds of mistakes to flag:
 - Passing priority in the postcombat main phase (with nothing on the stack) when \
 there are still sorcery-speed actions available this turn — e.g. unplayed land drops, \
 castable creatures or sorceries in hand, planeswalker abilities to activate. Passing \
-here ends the turn and wastes those opportunities."""
+here ends the turn and wastes those opportunities. Note: the choices list shows the \
+exact legal actions available — if a player passes (Chosen: False) with playable lands \
+or castable spells among the choices, that is strong evidence of a blunder."""
 
 SHARED_SEVERITY = """\
 ## Severity Levels
