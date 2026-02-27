@@ -682,6 +682,9 @@ def _call_llm(
                 raise
 
 
+_LLM_REQUIRED_FIELDS = {"severity", "description", "actionTaken", "betterLine"}
+
+
 def _parse_annotation(text: str) -> dict | None:
     """Parse a JSON annotation (object or null) from LLM response.
 
@@ -797,9 +800,59 @@ def _eval_one_decision(
     if label is None:
         label = f"decision_{decision['decision_index']}"
 
-    text, in_tok, out_tok = _call_llm(client, model, PER_DECISION_SYSTEM, user_msg)
-    cost = _compute_cost(prices, model, in_tok, out_tok)
-    print(f"  [{label}] {in_tok:,} in / {out_tok:,} out (${cost:.4f})")
+    max_attempts = 3
+    total_cost = 0.0
+    text = ""
+    in_tok = 0
+    out_tok = 0
+    ann: dict | None = None
+    parsed_ok = True
+
+    for attempt in range(max_attempts):
+        text, in_tok, out_tok = _call_llm(client, model, PER_DECISION_SYSTEM, user_msg)
+        attempt_cost = _compute_cost(prices, model, in_tok, out_tok)
+        total_cost += attempt_cost
+        suffix = f" (attempt {attempt + 1})" if attempt > 0 else ""
+        print(
+            f"  [{label}] {in_tok:,} in / {out_tok:,} out (${attempt_cost:.4f}){suffix}"
+        )
+
+        try:
+            ann = _parse_annotation(text)
+        except (json.JSONDecodeError, AssertionError) as e:
+            print(f"  WARNING: Failed to parse response for {label}: {e}")
+            print(f"    Raw response: {text[:200]!r}")
+            if attempt < max_attempts - 1:
+                import time
+
+                time.sleep(2)
+                continue
+            parsed_ok = False
+            ann = None
+            break
+
+        if ann is None:
+            break
+
+        # Validate LLM-generated fields are present
+        missing = _LLM_REQUIRED_FIELDS - set(ann.keys())
+        if not missing:
+            break
+        print(f"  WARNING: {label} missing fields {missing}, retrying...")
+        print(f"    Got: {json.dumps(ann)[:300]}")
+        if attempt < max_attempts - 1:
+            import time
+
+            time.sleep(2)
+            ann = None
+        else:
+            print(
+                f"  WARNING: {label} still missing fields after {max_attempts} attempts, skipping"
+            )
+            ann = None
+            break
+
+    cost = total_cost
 
     raw_record = {
         "decision_index": decision["decision_index"],
@@ -814,11 +867,7 @@ def _eval_one_decision(
         "cost_usd": cost,
     }
 
-    try:
-        ann = _parse_annotation(text)
-    except (json.JSONDecodeError, AssertionError) as e:
-        print(f"  WARNING: Failed to parse response for {label}: {e}")
-        print(f"    Raw response: {text[:200]!r}")
+    if not parsed_ok:
         return [], cost, False, raw_record
 
     if ann is None:
