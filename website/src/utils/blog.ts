@@ -5,7 +5,8 @@ type BlogPost = CollectionEntry<'blog'>;
 export function getSortedPosts(posts: BlogPost[]): BlogPost[] {
   return posts
     .filter(p => import.meta.env.DEV || !p.data.draft)
-    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+      || a.data.title.localeCompare(b.data.title));
 }
 
 export function getUniqueTags(posts: BlogPost[]): string[] {
