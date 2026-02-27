@@ -1,19 +1,20 @@
-"""Tests for .claude/hooks/enforce-agents-rules.sh hook script."""
+"""Tests for .claude/hooks/enforce-agents-rules.py hook script."""
 
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
 
-HOOK_SCRIPT = Path(__file__).resolve().parent.parent.parent / ".claude" / "hooks" / "enforce-agents-rules.sh"
+HOOK_SCRIPT = Path(__file__).resolve().parent.parent.parent / ".claude" / "hooks" / "enforce-agents-rules.py"
 
 
 def _run_hook(command: str) -> subprocess.CompletedProcess[str]:
     """Run the hook script with a simulated tool_input JSON on stdin."""
     payload = json.dumps({"tool_input": {"command": command}})
     return subprocess.run(
-        [str(HOOK_SCRIPT)],
+        [sys.executable, str(HOOK_SCRIPT)],
         input=payload,
         capture_output=True,
         text=True,
@@ -186,3 +187,40 @@ class TestAllowedCommands:
         """Tool names inside quoted strings (commit messages, echo) must not trigger blocks."""
         result = _run_hook(command)
         assert result.returncode == 0, f"Unexpected block: {result.stderr}"
+
+    @pytest.mark.parametrize(
+        "command",
+        [
+            # Repo-local tmp/ directory is fine
+            "ls tmp/",
+            "cat > tmp/foo.md << 'EOF'\nstuff\nEOF",
+            # /tmp/ as a path component inside a longer path is fine
+            "rm dale-dragon-lily/tmp/test_hook.py",
+            "rm /home/gregor/code/worktrees/dale-dragon-lily/tmp/foo.py",
+        ],
+    )
+    def test_repo_local_tmp_allowed(self, command: str) -> None:
+        """Repo-local tmp/ paths must not be blocked."""
+        result = _run_hook(command)
+        assert result.returncode == 0, f"Unexpected block: {result.stderr}"
+
+
+class TestTmpBlocked:
+    """System /tmp/ paths must be blocked."""
+
+    @pytest.mark.parametrize(
+        "command",
+        [
+            "cat > /tmp/replay.md << 'EOF'\nstuff\nEOF",
+            "echo hello > /tmp/foo.txt",
+            "ls /tmp/",
+            "cat /tmp/foo.txt",
+            "cp foo.txt /tmp/bar.txt",
+            "tee /tmp/output.log",
+            "ls /tmp",
+        ],
+    )
+    def test_system_tmp_blocked(self, command: str) -> None:
+        result = _run_hook(command)
+        assert result.returncode == 2
+        assert "/tmp/" in result.stderr.lower() or "tmp" in result.stderr.lower()
