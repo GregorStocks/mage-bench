@@ -128,7 +128,7 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             // Emit turn_change when the turn number advances
             if (turn != gel.lastTurn) {
                 Map<String, Object> turnEvent = new LinkedHashMap<>();
-                turnEvent.put("seq", gameSeq);
+                turnEvent.put("seq", game.nextGameSeq());
                 turnEvent.put("type", "turn_change");
                 turnEvent.put("turn", turn);
                 turnEvent.put("active_player", activeName);
@@ -136,7 +136,7 @@ public class ServerGameEventLogCollector extends EmptyDataCollector {
             }
 
             Map<String, Object> phaseEvent = new LinkedHashMap<>();
-            phaseEvent.put("seq", gameSeq);
+            phaseEvent.put("seq", game.nextGameSeq());
             phaseEvent.put("type", "phase_change");
             phaseEvent.put("turn", turn);
             phaseEvent.put("phase", phase != null ? phase.name() : null);
