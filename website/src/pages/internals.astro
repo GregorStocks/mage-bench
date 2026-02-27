@@ -185,7 +185,6 @@ if (fs.existsSync(exportsDir)) {
   <!-- Chart.js trends -->
   <script>
     import { Chart, registerables } from 'chart.js';
-    import 'chartjs-adapter-date-fns';
     Chart.register(...registerables);
 
     // ─── Tab switching ───
@@ -403,10 +402,10 @@ if (fs.existsSync(exportsDir)) {
       },
     };
 
-    // Moving average smoothing
-    function movingAverage(points: {x: Date; y: number}[], window: number): {x: Date; y: number}[] {
+    // Moving average smoothing (x is game index)
+    function movingAverage(points: {x: number; y: number}[], window: number): {x: number; y: number}[] {
       if (points.length === 0 || window <= 1) return points;
-      const result: {x: Date; y: number}[] = [];
+      const result: {x: number; y: number}[] = [];
       for (let i = 0; i < points.length; i++) {
         const start = Math.max(0, i - Math.floor(window / 2));
         const end = Math.min(points.length, i + Math.ceil(window / 2));
@@ -424,19 +423,30 @@ if (fs.existsSync(exportsDir)) {
     function updateChart() {
       const metric = METRICS[currentMetric];
 
-      // Filter games
-      const filtered = trendData.games.filter(g => {
-        if (g.epoch < minEpochTrend) return false;
-        if (currentFormat !== 'all' && g.format !== currentFormat) return false;
-        return g.ts !== '';
+      // Filter games and sort chronologically
+      const filtered = trendData.games
+        .filter(g => {
+          if (g.epoch < minEpochTrend) return false;
+          if (currentFormat !== 'all' && g.format !== currentFormat) return false;
+          return g.ts !== '';
+        })
+        .sort((a, b) => new Date(a.ts).getTime() - new Date(b.ts).getTime());
+
+      // Build a global game index: each filtered game gets a sequential number.
+      // Also store date for tick labels.
+      const gameIndex = new Map<string, number>();
+      const gameDate = new Map<number, Date>();
+      filtered.forEach((g, i) => {
+        gameIndex.set(g.id, i);
+        gameDate.set(i, new Date(g.ts));
       });
 
-      // Collect per-model raw points: {x: Date, y: metric_value}
-      const modelPoints = new Map<string, {x: Date; y: number}[]>();
+      // Collect per-model raw points: {x: game_index, y: metric_value}
+      const modelPoints = new Map<string, {x: number; y: number; date: Date}[]>();
 
       for (const g of filtered) {
+        const idx = gameIndex.get(g.id)!;
         const date = new Date(g.ts);
-        if (isNaN(date.getTime())) continue;
 
         for (const p of g.players) {
           if (!selectedModels.has(p.key)) continue;
@@ -444,13 +454,13 @@ if (fs.existsSync(exportsDir)) {
           if (val === null) continue;
 
           if (!modelPoints.has(p.key)) modelPoints.set(p.key, []);
-          modelPoints.get(p.key)!.push({ x: date, y: val });
+          modelPoints.get(p.key)!.push({ x: idx, y: val, date });
         }
       }
 
-      // Sort each model's points by date
+      // Sort each model's points by game index
       for (const points of modelPoints.values()) {
-        points.sort((a, b) => a.x.getTime() - b.x.getTime());
+        points.sort((a, b) => a.x - b.x);
       }
 
       // Build datasets: raw scatter + smoothed line per model
@@ -478,7 +488,7 @@ if (fs.existsSync(exportsDir)) {
           pointRadius: 3,
           pointHoverRadius: 6,
           showLine: false,
-          order: 2, // draw behind trend line
+          order: 2,
         });
 
         // Smoothed trend line
@@ -494,7 +504,7 @@ if (fs.existsSync(exportsDir)) {
             tension: 0.3,
             pointRadius: 0,
             pointHoverRadius: 0,
-            order: 1, // draw in front
+            order: 1,
           });
         }
       }
@@ -506,6 +516,18 @@ if (fs.existsSync(exportsDir)) {
       } else {
         const numModels = new Set(Array.from(modelPoints.keys()).filter(k => selectedModels.has(k))).size;
         noteEl.textContent = `${numModels} model(s), ${totalRawPoints} game data points, smoothing window: ${smoothingWindow}`;
+      }
+
+      // Build date tick labels: show date when it changes between games
+      const dateTicks: {value: number; label: string}[] = [];
+      let lastDateStr = '';
+      for (let i = 0; i < filtered.length; i++) {
+        const d = gameDate.get(i)!;
+        const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        if (dateStr !== lastDateStr) {
+          dateTicks.push({ value: i, label: dateStr });
+          lastDateStr = dateStr;
+        }
       }
 
       // Render chart
@@ -541,8 +563,10 @@ if (fs.existsSync(exportsDir)) {
               callbacks: {
                 title: (items: any[]) => {
                   if (items.length === 0) return '';
-                  const d = new Date(items[0].parsed.x);
-                  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                  const idx = Math.round(items[0].parsed.x);
+                  const d = gameDate.get(idx);
+                  if (!d) return `Game #${idx}`;
+                  return `Game #${idx + 1} — ${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
                 },
                 label: (ctx: any) => {
                   const val = ctx.parsed.y;
@@ -558,13 +582,26 @@ if (fs.existsSync(exportsDir)) {
           },
           scales: {
             x: {
-              type: 'time',
-              time: {
-                unit: 'day',
-                displayFormats: { day: 'MMM d' },
-                tooltipFormat: 'MMM d, yyyy',
+              type: 'linear',
+              title: {
+                display: true,
+                text: 'Games (chronological)',
+                color: '#a0a0b8',
+                font: { size: 11 },
               },
-              ticks: { color: '#a0a0b8', maxRotation: 45, font: { size: 11 } },
+              ticks: {
+                color: '#a0a0b8',
+                maxRotation: 45,
+                font: { size: 11 },
+                callback: function(value: any) {
+                  const tick = dateTicks.find(t => t.value === value);
+                  return tick ? tick.label : '';
+                },
+                autoSkip: false,
+              },
+              afterBuildTicks: function(axis: any) {
+                axis.ticks = dateTicks.map(t => ({ value: t.value }));
+              },
               grid: { color: 'rgba(15, 52, 96, 0.5)' },
             },
             y: {
