@@ -75,7 +75,9 @@ MAX_WORKERS = 50
 #      own actions, not opponent actions — prevents leaking future information
 #      about what the opponent did while still showing what the player followed
 #      up with (e.g. played a land, cast a spell)
-BLUNDER_SCRIPT_VERSION = 22
+# v23: moved static instructions (examples, severity, output format) from
+#      user message to system prompt
+BLUNDER_SCRIPT_VERSION = 23
 
 # --- Prompt components ---
 
@@ -118,7 +120,7 @@ ANNOTATION_SCHEMA = """\
   "betterLine": "<what they should have done>"
 }"""
 
-PER_DECISION_SYSTEM = """\
+PER_DECISION_SYSTEM = f"""\
 You are a Magic: The Gathering expert evaluating a single decision from a game replay.
 
 Analyze the decision below. If the play was reasonable, return null.
@@ -127,9 +129,8 @@ If it was a blunder, return a JSON annotation object.
 Most decisions are reasonable — only flag clear mistakes or questionable choices.
 
 You may be given prior context showing the board state from earlier and the action log \
-since then. Use this to understand how the game reached the current state."""
+since then. Use this to understand how the game reached the current state.
 
-PER_DECISION_FOOTER = f"""\
 {BLUNDER_EXAMPLES}
 
 {SHARED_SEVERITY}
@@ -800,7 +801,6 @@ def build_decision_prompt(
             "back because the player could not complete the mana payment. The spell "
             "never resolved — the net result was no action taken this priority window."
         )
-    user_msg += f"\n\n{PER_DECISION_FOOTER}"
     return PER_DECISION_SYSTEM, user_msg
 
 
