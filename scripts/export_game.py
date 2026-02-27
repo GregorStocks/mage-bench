@@ -30,8 +30,8 @@ _LLM_EVENT_TYPES = {
     "auto_pilot_mode",
 }
 
-# Size threshold: use .json.gz only above 40MB
-_GZ_THRESHOLD = 40_000_000
+# Size threshold: use .json.gz above 25 MiB (Cloudflare Pages file size limit)
+_GZ_THRESHOLD = 25 * 1024 * 1024
 
 
 def _strip_html(message: str) -> str:
@@ -363,6 +363,327 @@ def _read_server_events(
     return snapshots, actions, game_over, winner
 
 
+def _parse_json(s: str) -> dict:
+    """Parse a JSON string, returning {} on failure."""
+    try:
+        return json.loads(s)
+    except (json.JSONDecodeError, TypeError):
+        return {}
+
+
+def _is_decision_source(event: dict) -> bool:
+    """Check if a tool_call event is a decision source.
+
+    A decision source is a pass_priority or get_action_choices tool_call
+    whose result has action_pending=true.
+    """
+    if event.get("type") != "tool_call":
+        return False
+    tool = event.get("tool")
+    if tool not in ("pass_priority", "get_action_choices"):
+        return False
+    result = _parse_json(event.get("result", ""))
+    return bool(result.get("action_pending"))
+
+
+def _is_v1_decision_source(event: dict) -> bool:
+    """Check if a tool_call event is a v1 decision source.
+
+    In v1 (harnessEpoch < 20), decisions anchor on get_action_choices
+    events with action_pending=true.
+    """
+    if event.get("type") != "tool_call":
+        return False
+    if event.get("tool") != "get_action_choices":
+        return False
+    result = _parse_json(event.get("result", ""))
+    return result.get("action_pending", True)
+
+
+def _resolve_chosen_index(
+    chosen_args: dict, available_choices: list, action_result: dict
+) -> object | None:
+    """Resolve chosen_index from choose_action args.
+
+    Tries arg keys in order: index, answer, amount, id.
+    Falls back to parsing "selected_N" from action_taken.
+    """
+    if "index" in chosen_args:
+        return chosen_args["index"]
+    if "answer" in chosen_args:
+        return chosen_args["answer"]
+    if "amount" in chosen_args:
+        return chosen_args["amount"]
+    if "id" in chosen_args:
+        target_id = chosen_args["id"]
+        for ci, c in enumerate(available_choices):
+            if isinstance(c, dict) and c.get("id") == target_id:
+                return ci
+    # Fallback: parse "selected_N" from action_taken
+    taken = action_result.get("action_taken", "")
+    if taken.startswith("selected_"):
+        try:
+            return int(taken.split("_", 1)[1])
+        except (ValueError, IndexError):
+            pass
+    return None
+
+
+def _find_snapshot_index_by_seq(snapshots: list[dict], seq: int) -> int | None:
+    """Find the index of the nearest snapshot at or before the given game seq."""
+    best: int | None = None
+    for i, snap in enumerate(snapshots):
+        if snap.get("seq", 0) <= seq:
+            best = i
+        else:
+            break
+    return best
+
+
+def _find_snapshot_index_by_ts(snapshots: list[dict], ts: str) -> int | None:
+    """Find the index of the nearest snapshot at or before the given timestamp."""
+    best: int | None = None
+    for i, snap in enumerate(snapshots):
+        if snap.get("ts", "") <= ts:
+            best = i
+        else:
+            break
+    return best
+
+
+def _extract_pilot_context(choices_result: dict) -> dict:
+    """Extract pilot-specific overlay data from a tool result."""
+    ctx: dict = {}
+    if "untapped_lands" in choices_result:
+        ctx["untappedLands"] = choices_result["untapped_lands"]
+    if "land_drops_used" in choices_result:
+        ctx["landDropsUsed"] = choices_result["land_drops_used"]
+    if "combat_phase" in choices_result:
+        ctx["combatPhase"] = choices_result["combat_phase"] or None
+    if "already_attacking" in choices_result:
+        ctx["alreadyAttacking"] = choices_result["already_attacking"]
+    if "incoming_attackers" in choices_result:
+        ctx["incomingAttackers"] = choices_result["incoming_attackers"]
+    # Extract playable card IDs from board hand.
+    # board is a list of player objects (not {players: [...]}).
+    board = choices_result.get("board", [])
+    if isinstance(board, dict):
+        board = board.get("players", [])
+    playable_ids: list[str] = []
+    for p in board if isinstance(board, list) else []:
+        for card in p.get("hand", []) if isinstance(p, dict) else []:
+            if isinstance(card, dict) and card.get("playable"):
+                card_id = card.get("id", "")
+                if card_id:
+                    playable_ids.append(card_id)
+    if playable_ids:
+        ctx["playableCards"] = playable_ids
+    return ctx
+
+
+_CAST_PROMPT_PREFIXES = (
+    "Play spells and abilities",
+    "Play instants and activated abilities",
+)
+
+
+def _find_spell_cancelled_seqs(llm_events: list[dict]) -> list[tuple[str, int]]:
+    """Find (player, event_index) pairs for [System] Spell cancelled messages.
+
+    Returns the index of the tool_call event BEFORE the one containing the
+    cancel message (since the cancellation happens during a blocking call but
+    only surfaces in the result).
+    """
+    last_idx: dict[str, int] = {}
+    cancelled: list[tuple[str, int]] = []
+    for i, ev in enumerate(llm_events):
+        if ev.get("type") != "tool_call":
+            continue
+        player = ev.get("player", "")
+        result_str = ev.get("result", "")
+        if "[System] Spell cancelled" not in result_str:
+            last_idx[player] = i
+            continue
+        result = _parse_json(result_str)
+        for msg in result.get("recent_chat", []):
+            if "[System] Spell cancelled" in str(msg):
+                cancelled.append((player, last_idx.get(player, i)))
+                break
+        last_idx[player] = i
+    return cancelled
+
+
+def _mark_rolled_back_casts(
+    decisions: list[dict], cancelled: list[tuple[str, int]]
+) -> None:
+    """Mark rolled-back cast sequences on canonical decisions.
+
+    Uses llmEventIndices to match cancel events to decisions.
+    """
+    # Build set of (player, event_index) for fast lookup
+    cancel_set: dict[str, set[int]] = {}
+    for player, idx in cancelled:
+        cancel_set.setdefault(player, set()).add(idx)
+
+    for player, cancel_idx in sorted(cancelled, key=lambda x: x[1]):
+        for j in range(len(decisions) - 1, -1, -1):
+            d = decisions[j]
+            if d["player"] != player:
+                continue
+            # Skip decisions whose last llm event is after the cancel point
+            indices = d.get("llmEventIndices", [])
+            if not indices:
+                continue
+            if indices[0] > cancel_idx:
+                continue
+            if d.get("castRolledBack"):
+                break
+            msg = d.get("message", "")
+            if msg.startswith(_CAST_PROMPT_PREFIXES):
+                d["castRolledBack"] = True
+                break
+
+
+def _build_decisions(
+    snapshots: list[dict],
+    actions: list[dict],
+    llm_events: list[dict],
+    harness_epoch: int,
+) -> list[dict]:
+    """Build canonical decision records from export data.
+
+    Handles both v1 (harnessEpoch < 20, get_action_choices anchored) and
+    v2 (harnessEpoch >= 20, pass_priority/get_action_choices with action_pending).
+    """
+    is_v2 = harness_epoch >= 20
+
+    # Collect decision source events with their indices
+    decision_sources: list[tuple[int, dict]] = []
+    for i, event in enumerate(llm_events):
+        if is_v2:
+            if _is_decision_source(event):
+                decision_sources.append((i, event))
+        else:
+            if _is_v1_decision_source(event):
+                decision_sources.append((i, event))
+
+    decisions: list[dict] = []
+
+    for ds_idx, (event_idx, source_event) in enumerate(decision_sources):
+        choices_result = _parse_json(source_event.get("result", ""))
+        player = source_event.get("player", "")
+
+        available_choices = choices_result.get("choices", [])
+        response_type = choices_result.get("response_type", "")
+        action_type = choices_result.get("action_type", "")
+        message = choices_result.get("message", "")
+
+        # Collect llmEventIndices and find choose_action
+        llm_event_indices: list[int] = [event_idx]
+        chosen_index = None
+        chosen_args: dict = {}
+        action_result: dict = {}
+
+        for j in range(event_idx + 1, len(llm_events)):
+            ev = llm_events[j]
+            if ev.get("player") != player:
+                continue
+
+            if ev.get("type") == "llm_response":
+                llm_event_indices.append(j)
+
+            if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
+                llm_event_indices.append(j)
+                chosen_args = ev.get("args", {})
+                action_result = _parse_json(ev.get("result", ""))
+                chosen_index = _resolve_chosen_index(
+                    chosen_args, available_choices, action_result
+                )
+                break
+
+            # Stop at next decision source for this player
+            if is_v2 and _is_decision_source(ev):
+                break
+            if not is_v2 and _is_v1_decision_source(ev):
+                break
+
+        # Find matching snapshot
+        choices_seq = source_event.get("gameSeq") or 0
+        if choices_seq:
+            snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
+        else:
+            choices_ts = source_event.get("ts", "")
+            snap_idx = (
+                _find_snapshot_index_by_ts(snapshots, choices_ts)
+                if choices_ts
+                else None
+            )
+
+        # Get turn/phase/step from snapshot
+        snap = snapshots[snap_idx] if snap_idx is not None else {}
+        snap_idx_val = snap_idx if snap_idx is not None else 0
+
+        # Collect subsequent game actions
+        action_seq = choices_seq
+        # Find the gameSeq of the choose_action event if present
+        for j in llm_event_indices:
+            ev = llm_events[j]
+            if ev.get("type") == "tool_call" and ev.get("tool") == "choose_action":
+                action_seq = ev.get("gameSeq", choices_seq)
+                break
+
+        next_choices_seq = 0
+        if ds_idx + 1 < len(decision_sources):
+            next_choices_seq = decision_sources[ds_idx + 1][1].get("gameSeq", 0)
+
+        subsequent: list[str] = []
+        for a in actions:
+            a_seq = a.get("seq", 0)
+            if a_seq <= action_seq:
+                continue
+            if next_choices_seq and a_seq > next_choices_seq:
+                break
+            if a.get("message"):
+                subsequent.append(a["message"])
+            if len(subsequent) >= 5:
+                break
+
+        # Build canonical decision
+        decision: dict = {
+            "index": len(decisions),
+            "snapshotIndex": snap_idx_val,
+            "player": player,
+            "turn": snap.get("turn", 0),
+            "phase": snap.get("phase"),
+            "step": snap.get("step"),
+            "actionType": action_type,
+            "responseType": response_type,
+            "message": message,
+            "choices": available_choices,
+            "choiceCount": len(available_choices),
+            "isForced": len(available_choices) <= 1,
+            "chosen": chosen_index,
+            "chosenArgs": chosen_args,
+            "actionResult": action_result,
+            "llmEventIndices": llm_event_indices,
+            "subsequentActions": subsequent,
+        }
+
+        # Add pilot context if available
+        pilot_ctx = _extract_pilot_context(choices_result)
+        if pilot_ctx:
+            decision["pilotContext"] = pilot_ctx
+
+        decisions.append(decision)
+
+    # Detect and mark rolled-back casts
+    cancelled = _find_spell_cancelled_seqs(llm_events)
+    if cancelled:
+        _mark_rolled_back_casts(decisions, cancelled)
+
+    return decisions
+
+
 def build_export(game_dir: Path) -> dict:
     """Build the export data dict from a game directory.
 
@@ -475,6 +796,12 @@ def build_export(game_dir: Path) -> dict:
         output["harnessEpoch"] = meta["harness_epoch"]
     if meta.get("youtube_url"):
         output["youtubeUrl"] = meta["youtube_url"]
+
+    # Build canonical decisions
+    harness_epoch = meta.get("harness_epoch", 0)
+    decisions = _build_decisions(snapshots, actions, llm_events, harness_epoch)
+    if decisions:
+        output["decisions"] = decisions
 
     _validate_export(output)
     return output

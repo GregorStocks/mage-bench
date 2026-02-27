@@ -12,6 +12,7 @@ Accepts either a file path or a bare game ID (e.g. game_20260214_185313_g1).
 Requires OPENROUTER_API_KEY environment variable.
 """
 
+import html
 import json
 import os
 import re
@@ -27,8 +28,22 @@ sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 import scryfall  # noqa: E402
 from annotate_game import annotate_game  # noqa: E402
-from blunder_eval_common import load_game  # noqa: E402
-from extract_decisions import _summarize_snapshot, extract_decisions  # noqa: E402
+from blunder_eval_common import (  # noqa: E402
+    action_result,
+    decision_index,
+    is_canonical_decision,
+    is_cast_rolled_back,
+    is_forced,
+    is_rolled_back,
+    load_game,
+    snapshot_index,
+)
+from extract_decisions import extract_decisions  # noqa: E402
+from puppeteer.decision_renderer import (  # noqa: E402
+    card_display,
+    permanent_display,
+    render_decision,
+)
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION  # noqa: F401, E402
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price  # noqa: E402
 
@@ -78,7 +93,11 @@ MAX_WORKERS = 50
 # v23: moved static instructions (examples, severity, output format) from
 #      user message to system prompt
 # v24: clarify that choices list = legal actions in pass-priority guidance
-BLUNDER_SCRIPT_VERSION = 24
+# v25: improve prompt structure — remove After/Reasoning from chosen block,
+#      restructure sections (Card Reference / Prior Context / This Turn / Decision),
+#      add "Chosen: False" guidance, fix PREGAME phase, prefix chat messages,
+#      enrich permanent display (loyalty, token, copy), fix prior context board rendering
+BLUNDER_SCRIPT_VERSION = 25
 
 # --- Prompt components ---
 
@@ -123,6 +142,14 @@ ANNOTATION_SCHEMA = """\
   "betterLine": "<what they should have done>"
 }"""
 
+CHOSEN_FALSE_GUIDANCE = """\
+## Understanding "Chosen: False"
+
+"Chosen: False" means the player passed priority — they declined to act. \
+If the stack is empty, passing means moving to the next phase (e.g. main phase \
+to combat, or postcombat main to end step — ending the turn). If the stack has \
+items, passing lets those items resolve without responding."""
+
 PER_DECISION_SYSTEM = f"""\
 You are a Magic: The Gathering expert evaluating a single decision from a game replay.
 
@@ -135,6 +162,8 @@ You may be given prior context showing the board state from earlier and the acti
 since then. Use this to understand how the game reached the current state.
 
 {BLUNDER_EXAMPLES}
+
+{CHOSEN_FALSE_GUIDANCE}
 
 {SHARED_SEVERITY}
 
@@ -361,6 +390,12 @@ def _actions_by_turn(actions: list[dict]) -> dict[int, list[str]]:
     player_turn_counts: dict[str, int] = {}
     for a in actions:
         msg = a.get("message", "")
+        # Prefix chat messages with sender attribution
+        if a.get("type") == "chat":
+            sender = a.get("from", "?")
+            msg = f"[Chat from {sender}]: {html.unescape(msg)}"
+        else:
+            msg = html.unescape(msg)
         m = re.match(r"^TURN (\d+) for (.+?)( \(.+\))$", msg)
         if m:
             current_turn = int(m.group(1))
@@ -405,17 +440,16 @@ def _format_prior_context(
     if ref_snap is None:
         return ""
 
-    # Format the reference snapshot
-    summary = _summarize_snapshot(ref_snap)
+    # Format the reference snapshot using shared renderer display functions
     players_parts: list[str] = []
-    for p in summary.get("players", []):
+    for p in ref_snap.get("players", []):
         bf = p.get("battlefield", [])
-        s = f"{p['name']}: {p.get('life', '?')}hp"
+        s = f"{p.get('name', '?')}: {p.get('life', '?')}hp"
         if bf:
-            s += f" bf=[{', '.join(str(x) for x in bf)}]"
+            s += f" bf=[{', '.join(permanent_display(x) for x in bf)}]"
         gy = p.get("graveyard", [])
         if gy:
-            s += f" gy=[{', '.join(str(x) for x in gy)}]"
+            s += f" gy=[{', '.join(card_display(x) for x in gy)}]"
         players_parts.append(s)
 
     lines = ["## Prior Context (2 turn cycles ago)\n"]
@@ -470,6 +504,13 @@ def _format_current_turn_actions(
         # Only actions before the decision was presented
         if ts >= cutoff_ts:
             break
+
+        # Prefix chat messages with sender attribution
+        if a.get("type") == "chat":
+            sender = a.get("from", "?")
+            msg = f"[Chat from {sender}]: {html.unescape(msg)}"
+        else:
+            msg = html.unescape(msg)
 
         # Filter noise (same as prior context)
         if _ACTION_NOISE.search(msg):
@@ -784,21 +825,51 @@ def build_decision_prompt(
 
     Pure function with no side effects. Used by _eval_one_decision() and
     tested via golden prompt tests.
+
+    Handles both canonical (camelCase, from export's decisions[]) and legacy
+    (snake_case, from extract_decisions) decision formats.
     """
-    formatted = _format_decisions([decision])
-    card_ref = _card_reference_for_decision(decision, oracle_texts)
-    prior_ctx = _format_prior_context(decision, snapshots, actions_by_turn, num_players)
-    snap_ts = snapshots[decision["snapshot_index"]].get("ts", "")
-    turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
-    user_msg = f"## Game Overview\n{overview}"
-    if card_ref:
-        user_msg += f"\n\n{card_ref}"
-    if prior_ctx:
-        user_msg += f"\n\n{prior_ctx}"
-    if turn_ctx:
-        user_msg += f"\n\n{turn_ctx}"
-    user_msg += f"\n\n## Decision\n\n{formatted}"
-    if decision.get("cast_rolled_back"):
+    snap_idx = snapshot_index(decision)
+    snap = snapshots[snap_idx] if snap_idx < len(snapshots) else {}
+
+    if is_canonical_decision(decision):
+        # Canonical format: use shared renderer
+        prior_ctx = _format_prior_context(
+            decision, snapshots, actions_by_turn, num_players
+        )
+        snap_ts = snap.get("ts", "")
+        turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
+        formatted = render_decision(
+            decision,
+            snap,
+            oracle_texts=oracle_texts,
+            deciding_player=decision["player"],
+            include_card_reference=True,
+            include_chosen=True,
+            prior_context=prior_ctx,
+            current_turn_actions=turn_ctx,
+        )
+        player = decision["player"]
+        user_msg = f"## Game Overview\n{overview}\n\nYou are evaluating **{player}**'s decision.\n\n{formatted}"
+    else:
+        # Legacy format: use old formatting code
+        formatted = _format_decisions([decision])
+        card_ref = _card_reference_for_decision(decision, oracle_texts)
+        prior_ctx = _format_prior_context(
+            decision, snapshots, actions_by_turn, num_players
+        )
+        snap_ts = snap.get("ts", "")
+        turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
+        user_msg = f"## Game Overview\n{overview}"
+        if card_ref:
+            user_msg += f"\n\n{card_ref}"
+        if prior_ctx:
+            user_msg += f"\n\n{prior_ctx}"
+        if turn_ctx:
+            user_msg += f"\n\n{turn_ctx}"
+        user_msg += f"\n\n## Decision\n\n{formatted}"
+
+    if is_cast_rolled_back(decision):
         user_msg += (
             "\n\n**NOTE:** This cast was attempted but the game engine rolled it "
             "back because the player could not complete the mana payment. The spell "
@@ -835,7 +906,7 @@ def _eval_one_decision(
         all_actions,
     )
     if label is None:
-        label = f"decision_{decision['decision_index']}"
+        label = f"decision_{decision_index(decision)}"
 
     max_attempts = 3
     total_cost = 0.0
@@ -891,10 +962,13 @@ def _eval_one_decision(
 
     cost = total_cost
 
+    d_idx = decision_index(decision)
+    s_idx = snapshot_index(decision)
+
     raw_record = {
-        "decision_index": decision["decision_index"],
+        "decision_index": d_idx,
         "player": decision["player"],
-        "snapshot_index": decision["snapshot_index"],
+        "snapshot_index": s_idx,
         "model": model,
         "system_prompt": PER_DECISION_SYSTEM,
         "user_prompt": user_msg,
@@ -917,20 +991,20 @@ def _eval_one_decision(
     action_ts = decision.get("action_ts", "")
     if action_seq:
         # v2: find first snapshot at or after action_seq
-        aftermath_idx = decision["snapshot_index"]
-        for i in range(decision["snapshot_index"], len(snapshots)):
+        aftermath_idx = s_idx
+        for i in range(s_idx, len(snapshots)):
             if snapshots[i].get("seq", 0) >= action_seq:
                 aftermath_idx = i
                 break
     elif action_ts:
         # v1: find first snapshot at or after action_ts
-        aftermath_idx = decision["snapshot_index"]
-        for i in range(decision["snapshot_index"], len(snapshots)):
+        aftermath_idx = s_idx
+        for i in range(s_idx, len(snapshots)):
             if snapshots[i].get("ts", "") >= action_ts:
                 aftermath_idx = i
                 break
     else:
-        aftermath_idx = decision["snapshot_index"]
+        aftermath_idx = s_idx
     ann["type"] = "blunder"
     ann["snapshotIndex"] = aftermath_idx
     ann["player"] = decision["player"]
@@ -1008,7 +1082,7 @@ def eval_decisions(
             game_ctx["num_players"],
             game_ctx["all_actions"],
         )
-        futures[fut] = d["decision_index"]
+        futures[fut] = decision_index(d)
 
     try:
         for fut in as_completed(futures):
@@ -1047,7 +1121,7 @@ def _auto_ingest_ground_truth(
 
     entries: list[dict] = []
     for decision_idx in mapping.values():
-        entry = make_seed_entry(decisions[decision_idx]["decision_index"])
+        entry = make_seed_entry(decision_index(decisions[decision_idx]))
         entries.append(entry)
 
     if entries:
@@ -1090,14 +1164,14 @@ def main(gz_path: str) -> None:
     #    failed mana payment — the initiating decision is kept with context)
     skip_indices: set[int] = set()
     for i, d in enumerate(decisions):
-        if d["is_forced"]:
+        if is_forced(d):
             skip_indices.add(i)
             continue
-        ar = d.get("action_result", {})
+        ar = action_result(d)
         if ar.get("success") is False:
             skip_indices.add(i)
             continue
-        if d.get("rolled_back"):
+        if is_rolled_back(d):
             skip_indices.add(i)
             continue
         if ar.get("action_taken") == "cancelled":
@@ -1108,7 +1182,7 @@ def main(gz_path: str) -> None:
             for j in range(i - 1, max(i - 5, -1), -1):
                 if decisions[j]["player"] != d["player"]:
                     continue
-                if decisions[j]["is_forced"]:
+                if is_forced(decisions[j]):
                     continue
                 prev_msg = decisions[j].get("message", "")
                 if prev_msg.startswith(
@@ -1143,7 +1217,7 @@ def main(gz_path: str) -> None:
     parse_failures = 0
 
     for d in non_forced:
-        anns, cost, parsed_ok, raw = results_by_idx[d["decision_index"]]
+        anns, cost, parsed_ok, raw = results_by_idx[decision_index(d)]
         total_cost += cost
         if not parsed_ok:
             parse_failures += 1

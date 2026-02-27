@@ -1,12 +1,17 @@
 """Tests for the pilot module."""
 
+import json
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
 from puppeteer.pilot import (
     PermanentLLMFailure,
+    _build_pilot_decision,
+    _build_pilot_snapshot,
+    _extract_oracle_texts_from_board,
     _prefetch_first_action,
+    _render_for_pilot,
     mcp_tools_to_openai,
     run_pilot_loop,
 )
@@ -500,3 +505,152 @@ async def test_successful_pass_resets_error_counter():
 
     # No forced plain pass should have been made (never hit 3 consecutive)
     assert forced_pass_count == 0
+
+
+# --- Pilot rendering tests ---
+
+
+def _sample_pass_priority_result() -> dict:
+    """A realistic pass_priority result with board and choices."""
+    return {
+        "game_seq": 42,
+        "action_type": "GAME_SELECT",
+        "context": "T3 Precombat Main/Precombat Main (Alice) YOUR_MAIN",
+        "stop_reason": "playable_cards",
+        "response_type": "select",
+        "respond_with": 'id="pN" or index=N to play, or answer=false to pass',
+        "message": "Play spells and abilities",
+        "land_drops_used": 0,
+        "action_pending": True,
+        "board": [
+            {
+                "name": "Alice",
+                "is_you": True,
+                "is_active": True,
+                "life": 20,
+                "library_size": 50,
+                "hand_size": 2,
+                "hand": [
+                    {
+                        "name": "Lightning Bolt",
+                        "mana_cost": "{R}",
+                        "id": "p3",
+                        "rules": ["Lightning Bolt deals 3 damage to any target."],
+                    },
+                    {"name": "Mountain", "is_land": True, "id": "p5", "rules": ["{T}: Add {R}."]},
+                ],
+                "battlefield": [{"name": "Mountain", "is_land": True, "id": "p1", "tapped": False}],
+            },
+            {
+                "name": "Bob",
+                "is_you": False,
+                "is_active": False,
+                "life": 18,
+                "library_size": 52,
+                "hand_size": 2,
+                "battlefield": [{"name": "Island", "is_land": True, "id": "p10"}],
+            },
+        ],
+        "choices": [
+            {"name": "Lightning Bolt", "index": 0, "action": "cast", "mana_cost": "{R}", "id": "p3"},
+            {"name": "Mountain", "index": 1, "action": "land", "id": "p5"},
+        ],
+    }
+
+
+class TestRenderForPilot:
+    def test_basic_render(self) -> None:
+        result = json.dumps(_sample_pass_priority_result())
+        text, board = _render_for_pilot(result, None)
+        assert "Alice" in text
+        assert "Lightning Bolt" in text
+        assert "Mountain" in text
+        assert "id=p3" in text
+        assert board is not None
+
+    def test_non_action_passthrough(self) -> None:
+        result = json.dumps({"stop_reason": "game_over", "game_over": True})
+        text, board = _render_for_pilot(result, None)
+        # Non-action_pending results pass through as-is
+        assert "game_over" in text
+        assert board is None
+
+    def test_board_unchanged_uses_last_board(self) -> None:
+        # First call: has board
+        first_result = json.dumps(_sample_pass_priority_result())
+        text1, board = _render_for_pilot(first_result, None)
+        assert board is not None
+        assert "Alice" in text1
+
+        # Second call: no board (board_unchanged)
+        no_board = _sample_pass_priority_result()
+        del no_board["board"]
+        second_result = json.dumps(no_board)
+        text2, board2 = _render_for_pilot(second_result, board)
+        assert "Alice" in text2  # Still renders board from last_board
+        assert board2 is board  # Board reference preserved
+
+    def test_respond_with_line(self) -> None:
+        result = json.dumps(_sample_pass_priority_result())
+        text, _ = _render_for_pilot(result, None)
+        assert "Respond:" in text
+
+    def test_card_reference_included(self) -> None:
+        result = json.dumps(_sample_pass_priority_result())
+        text, _ = _render_for_pilot(result, None)
+        assert "## Card Reference" in text
+        assert "3 damage" in text
+
+    def test_invalid_json_passthrough(self) -> None:
+        text, board = _render_for_pilot("not json", None)
+        assert text == "not json"
+        assert board is None
+
+
+class TestExtractOracleTexts:
+    def test_extracts_rules(self) -> None:
+        board = _sample_pass_priority_result()["board"]
+        texts = _extract_oracle_texts_from_board(board)
+        assert "Lightning Bolt" in texts
+        assert "3 damage" in texts["Lightning Bolt"]["oracle_text"]
+
+    def test_skips_basic_lands(self) -> None:
+        board = _sample_pass_priority_result()["board"]
+        texts = _extract_oracle_texts_from_board(board)
+        assert "Mountain" not in texts
+        assert "Island" not in texts
+
+
+class TestBuildPilotDecision:
+    def test_parses_context(self) -> None:
+        data = _sample_pass_priority_result()
+        decision = _build_pilot_decision(data)
+        assert decision["turn"] == 3
+        assert "PRECOMBAT" in decision["phase"]
+        assert decision["player"] == "Alice"
+
+    def test_choices_preserved(self) -> None:
+        data = _sample_pass_priority_result()
+        decision = _build_pilot_decision(data)
+        assert len(decision["choices"]) == 2
+
+    def test_pilot_context(self) -> None:
+        data = _sample_pass_priority_result()
+        decision = _build_pilot_decision(data)
+        assert decision["pilotContext"]["landDropsUsed"] == 0
+
+
+class TestBuildPilotSnapshot:
+    def test_player_data(self) -> None:
+        data = _sample_pass_priority_result()
+        snapshot = _build_pilot_snapshot(data, data["board"])
+        assert len(snapshot["players"]) == 2
+        assert snapshot["players"][0]["name"] == "Alice"
+        assert snapshot["players"][0]["life"] == 20
+        assert len(snapshot["players"][0]["hand"]) == 2
+        assert snapshot["players"][0]["hand_count"] == 2
+
+    def test_no_board(self) -> None:
+        data = _sample_pass_priority_result()
+        snapshot = _build_pilot_snapshot(data, None)
+        assert snapshot["players"] == []

@@ -83,6 +83,10 @@ export interface GameExportV2 {
    * Version of the blunder analysis script that produced the annotations.
    */
   blunderScriptVersion: number;
+  /**
+   * Canonical decision records built at export time. Each references a snapshot and overlays pilot-specific context (choices, playable cards, etc.). See doc/unified-decisions-plan.md.
+   */
+  decisions?: Decision[];
 }
 export interface Player {
   name: string;
@@ -293,5 +297,104 @@ export interface Annotation {
    * Optional LLM reasoning for the annotation.
    */
   llmReasoning?: string;
+  [k: string]: unknown;
+}
+/**
+ * Canonical decision record. References a snapshot (by index) and overlays pilot-specific context. See doc/unified-decisions-plan.md.
+ */
+export interface Decision {
+  /**
+   * Position in the decisions array (0-indexed).
+   */
+  index: number;
+  /**
+   * Index into the snapshots array — the game state when this decision was presented.
+   */
+  snapshotIndex: number;
+  /**
+   * Name of the player making this decision.
+   */
+  player: string;
+  turn: number;
+  phase: string | null;
+  step?: string | null;
+  /**
+   * XMage action type, e.g. 'GAME_SELECT', 'GAME_PICK_REQUIRED_TARGETS'.
+   */
+  actionType: string;
+  /**
+   * MCP response type, e.g. 'select', 'boolean', 'amount', 'multi_select'.
+   */
+  responseType: string;
+  /**
+   * Prompt message shown to the player.
+   */
+  message: string;
+  /**
+   * Available choices. Shape depends on the tool (name, id, action, mana_cost, etc.).
+   */
+  choices: {
+    [k: string]: unknown;
+  }[];
+  choiceCount: number;
+  /**
+   * True if there is at most one choice (forced action).
+   */
+  isForced: boolean;
+  pilotContext?: PilotContext;
+  /**
+   * Index, answer, or amount the player chose. Null if no response recorded.
+   */
+  chosen?: {
+    [k: string]: unknown;
+  };
+  /**
+   * Raw args from the choose_action tool call.
+   */
+  chosenArgs?: {
+    [k: string]: unknown;
+  };
+  /**
+   * Result of the choose_action tool call.
+   */
+  actionResult?: {
+    [k: string]: unknown;
+  };
+  /**
+   * Indices into llmEvents[] covering this decision (source tool call, LLM response, choose_action).
+   */
+  llmEventIndices: number[];
+  /**
+   * Game log messages after the action resolved, for annotator context.
+   */
+  subsequentActions: string[];
+  /**
+   * True if the cast was rolled back (failed mana payment, etc.).
+   */
+  castRolledBack?: boolean;
+  [k: string]: unknown;
+}
+/**
+ * Pilot-specific overlay data not captured in the server snapshot.
+ */
+export interface PilotContext {
+  untappedLands?: number;
+  landDropsUsed?: number;
+  /**
+   * IDs of cards flagged as playable by the bridge.
+   */
+  playableCards?: string[];
+  /**
+   * Combat sub-phase if in combat, null otherwise.
+   */
+  combatPhase?: string | null;
+  /**
+   * Creatures already declared as attackers.
+   */
+  alreadyAttacking?: unknown[];
+  /**
+   * Opponent creatures attacking this player.
+   */
+  incomingAttackers?: unknown[];
   [k: string]: unknown;
 }

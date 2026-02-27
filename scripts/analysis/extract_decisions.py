@@ -494,9 +494,19 @@ def _extract_decisions_v2(data: dict) -> list[dict]:
 
 
 def extract_decisions(gz_path: str) -> list[dict]:
-    """Extract decision points from a game export file."""
+    """Extract decision points from a game export file.
+
+    Returns canonical decisions from the export's 'decisions' field when
+    present (built by export_game._build_decisions). Falls back to legacy
+    extraction from llmEvents for older exports without pre-built decisions.
+    """
     data = load_game(gz_path)
 
+    # Use pre-built canonical decisions when available
+    if "decisions" in data:
+        return data["decisions"]
+
+    # Legacy: extract from llmEvents
     is_v2 = "version" in data
     if is_v2:
         decisions = _extract_decisions_v2(data)

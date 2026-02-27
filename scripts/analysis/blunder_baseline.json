@@ -1,68 +1,54 @@
 {
-  "blunder_script_version": 23,
-  "generated_at": "2026-02-27T04:46:30.230303+00:00",
-  "cost_usd": 0.6906200000000001,
+  "blunder_script_version": 25,
+  "generated_at": "2026-02-27T17:03:05.575430+00:00",
+  "cost_usd": 0.9859200000000001,
   "results": {
-    "game_20260217_223017_g8:2": {
-      "detected": false
-    },
-    "game_20260219_091818_g6:8": {
-      "detected": false
-    },
-    "game_20260217_075450_g7:44": {
-      "detected": false
-    },
-    "game_20260217_075450_g7:7": {
-      "detected": false
-    },
-    "game_20260226_003306_g4:15": {
-      "detected": false
-    },
-    "game_20260219_091818_g7:27": {
-      "detected": false
-    },
-    "game_20260219_091818_g8:46": {
-      "detected": false
-    },
-    "game_20260217_075450_g6:6": {
-      "detected": false
-    },
-    "game_20260217_075450_g7:25": {
+    "game_20260226_003306_g4:22": {
       "detected": false
     },
     "game_20260217_075450_g6:0": {
       "detected": false
     },
-    "game_20260219_091818_g8:42": {
+    "game_20260226_003306_g4:44": {
       "detected": false
     },
-    "game_20260217_075450_g7:11": {
+    "game_20260217_075450_g7:25": {
       "detected": false
     },
-    "game_20260217_223017_g8:7": {
+    "game_20260219_091818_g6:8": {
       "detected": false
     },
     "game_20260226_003306_g4:12": {
       "detected": false
     },
-    "game_20260217_223017_g8:11": {
+    "game_20260226_003306_g4:32": {
       "detected": false
     },
-    "game_20260217_223017_g8:3": {
+    "game_20260217_075450_g7:7": {
       "detected": false
     },
-    "game_20260219_091818_g8:49": {
-      "detected": true,
-      "severity": "major",
-      "description": "Death's Shadow was cast when Kimi25 Diplom's life total was too high for it to survive. Death's Shadow is a 13/13 that gets -X/-X where X is your life total. Starting at 20, losing 1 (Bloodstained Mire) and 2 (Watery Grave) puts them at 17 life, making Death's Shadow a 13-17 = -4/-4, which means it dies immediately as a state-based action (0 or less toughness). This wastes the card entirely for no benefit."
+    "game_20260217_075450_g6:16": {
+      "detected": false
+    },
+    "game_20260219_091818_g8:42": {
+      "detected": false
+    },
+    "game_20260226_003306_g5:4": {
+      "detected": false
     },
     "game_20260219_091818_g6:53": {
       "detected": false
     },
-    "game_20260226_003306_g4:44": {
+    "game_20260219_091818_g8:49": {
       "detected": false
     },
-    "game_20260217_075450_g6:16": {
+    "game_20260226_003306_g4:37": {
+      "detected": false
+    },
+    "game_20260226_003306_g4:6": {
+      "detected": false
+    },
+    "game_20260217_223017_g8:24": {
       "detected": false
     },
     "game_20260226_003306_g5:3": {
@@ -70,66 +56,76 @@
     },
     "game_20260226_003306_g4:3": {
       "detected": true,
-      "severity": "moderate",
-      "description": "Bottomed Hollow One, which is the primary payoff for the Burning Inquiry discard synergy. With Burning Inquiry in hand, Turn 1 Mountain \u2192 Burning Inquiry \u2192 free Hollow One (4/4) is the explosive line this deck is built around. Discarding 3 cards from Burning Inquiry reduces Hollow One's cost by 6, making it free."
+      "severity": "major",
+      "description": "Bottomed Hollow One despite having the Turn 1 Burning Inquiry + free Hollow One combo in hand. Burning Inquiry causes 3 discards, reducing Hollow One's cost by 6 (making it free). This is the deck's signature explosive opening and a key reason to keep this hand."
     },
-    "game_20260217_223017_g8:24": {
+    "game_20260217_223017_g8:7": {
       "detected": true,
       "severity": "moderate",
-      "description": "Kimi25 Snark incorrectly evaluated their mana and believed they couldn't cast Shoot the Sheriff or Tishana's Tidebinder, when both were castable. Watery Grave produces {B}, enabling Shoot the Sheriff ({1}{B}) to destroy the opponent's Oblivious Bookworm before it starts generating card advantage at end step."
+      "description": "Chose to copy Wistfulness with Superior Spider-Man, but since Superior Spider-Man was cast with {2}{U}{B} (no {G}{G} or {U}{U} spent), Wistfulness's ETB abilities don't trigger, making it a vanilla 4/4. Meanwhile, copying Oblivious Bookworm would create a 4/4 with repeatable card draw at end step, which is much more valuable when behind on board and needing to find answers."
     },
-    "game_20260219_091818_g8:67": {
+    "game_20260217_223017_g8:2": {
       "detected": false
     },
-    "game_20260226_003306_g4:37": {
-      "detected": false
+    "game_20260226_003306_g4:9": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Played Blood Crypt (costing 2 life to enter untapped) instead of Bloodstained Mire, which could fetch a basic Swamp for only 1 life while also thinning the deck and preserving the dual land for future flexibility."
     },
-    "game_20260226_003306_g5:4": {
+    "game_20260219_091818_g7:27": {
       "detected": false
     },
     "game_20260217_075450_g6:7": {
       "detected": false
     },
     "game_20260219_091818_g8:72": {
-      "detected": true,
-      "severity": "major",
-      "description": "Death's Shadow was cast at too high a life total (around 17 life), causing it to immediately die as a state-based action (-4/-4 or worse). This wastes one of the deck's primary win conditions for absolutely no value."
-    },
-    "game_20260226_003306_g4:6": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Chose Walking Ballista over Eldrazi Temple from the Devourer of Destiny reveal. The hand contains expensive cards (Devourer of Destiny at 7 mana, Kozilek's Command with X cost, Glaring Fleshraker at 3) and only 4 lands (Forest, Eldrazi Temple, Ugin's Labyrinth, Boseiju). A second Eldrazi Temple would provide significant mana acceleration for Eldrazi spells, potentially enabling a turn 3-4 Devourer of Destiny or a large Kozilek's Command much earlier."
-    },
-    "game_20260226_003306_g4:32": {
-      "detected": true,
-      "severity": "questionable",
-      "description": "Playing Mountain instead of Bloodstained Mire. Generally in Modern, you want to deploy fetch lands early for deck thinning and flexibility, saving basics for later. With Burning Inquiry in hand that could randomly discard the Mire, deploying it now is slightly better. The fetch could also find a Swamp later if needed for Street Wraith's BB cost."
-    },
-    "game_20260226_003306_g4:22": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Fetched Blood Crypt instead of a basic Mountain, paying 2 unnecessary life. The player already has an untapped Blood Crypt on the battlefield for black mana, so they can cast Orcish Bowmasters ({1}{B}) with existing Blood Crypt (B) + any untapped land (1). A basic Mountain entering untapped for free accomplishes the same thing."
-    },
-    "game_20260219_091818_g6:43": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Cast Young Wolf before playing a land drop this turn. With Wooded Foothills and Forest in hand, they need to play a land to develop toward casting Yawgmoth (4 mana) next turn. If the turn ended after Young Wolf without a land drop, that's a missed land drop. Even if they could still play a land, casting the spell first before playing the land is poor sequencing - play lands before spells when possible."
-    },
-    "game_20260226_003306_g4:9": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Playing Blood Crypt (likely paying 2 life to enter untapped) when Mountain would have provided the same R mana this turn for free. The player only needs R mana on turn 2 for Marauding Mako or Burning Inquiry. Black mana isn't needed until turn 3 at earliest (for Orcish Bowmasters), so saving Blood Crypt for later preserves options at no cost."
-    },
-    "game_20260226_003306_g5:19": {
       "detected": false
     },
-    "game_20260226_003306_g4:27": {
+    "game_20260219_091818_g8:46": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Player passed priority in postcombat main with Psychic Frog's discard ability available and excess lands in hand. With 4 lands in hand (Bloodstained Mire, Island, Watery Grave, Watery Grave) and only 1 land drop per turn, at least 1-2 of these lands are excess and could be discarded to grow Psychic Frog. Growing the Frog before it can attack next turn is free value, and cards in the graveyard also fuel the flying ability."
+    },
+    "game_20260219_091818_g8:67": {
+      "detected": false
+    },
+    "game_20260217_223017_g8:3": {
+      "detected": false
+    },
+    "game_20260217_075450_g7:11": {
+      "detected": false
+    },
+    "game_20260217_075450_g7:44": {
       "detected": false
     },
     "game_20260226_003306_g4:14": {
       "detected": true,
       "severity": "minor",
-      "description": "Played Boseiju, Who Endures instead of Eldrazi Temple. Eldrazi Temple would provide CC for Eldrazi spells, which is critically important for this Eldrazi deck. With Ugin's Labyrinth (CC) + Eldrazi Temple (CC for Eldrazi), the player would have 4 mana available for Eldrazi spells, enabling Glaring Fleshraker (3 mana) this turn with mana to spare, and better setting up future turns for Kozilek's Command. Boseiju's green mana and channel ability are largely irrelevant in this board state compared to Eldrazi Temple's acceleration."
+      "description": "Played Boseiju, Who Endures as a land instead of Eldrazi Temple. Boseiju's main value is its channel ability (destroy artifact/enchantment/nonbasic land), which works from hand. Eldrazi Temple provides {C}{C} for Eldrazi spells, which would accelerate Kozilek's Command and other colorless threats significantly on future turns."
+    },
+    "game_20260217_075450_g6:6": {
+      "detected": false
+    },
+    "game_20260226_003306_g4:27": {
+      "detected": false
+    },
+    "game_20260217_223017_g8:11": {
+      "detected": true,
+      "severity": "moderate",
+      "description": "At 2 life facing a 4/3 flying Enduring Curiosity, choosing Oblivious Bookworm (a ground creature with card draw) over Deep-Cavern Bat is a significant mistake. Deep-Cavern Bat copied by Superior Spider-Man would be a 4/4 with flying and lifelink - it could block the Enduring Curiosity to survive, attack for 4 lifelink to stabilize, AND exile a card from the opponent's 7-card hand. Oblivious Bookworm as a 4/4 can't block the flyer and doesn't help the critical life total situation."
+    },
+    "game_20260226_003306_g4:15": {
+      "detected": false
+    },
+    "game_20260219_091818_g6:43": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Cast Young Wolf before playing their land drop, missing the option to play Wooded Foothills first, crack it for a Forest, and then have 2 green mana available to cast Badgermole Cub instead \u2014 a stronger play that accelerates toward the Yawgmoth combo by providing mana ramp through its creature-tapping ability."
+    },
+    "game_20260226_003306_g5:19": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Cast Doomsday before playing Polluted Delta from hand. When LED is cracked to pay for Doomsday, the Polluted Delta in hand gets discarded. Post-Doomsday, having an extra fetchland on the battlefield is critical for cracking into the 5-card pile to win the game."
     }
   }
 }

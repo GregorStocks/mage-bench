@@ -48453,5 +48453,4819 @@
       "player": "GPT5n Vet"
     }
   ],
-  "blunderScriptVersion": 18
+  "blunderScriptVersion": 18,
+  "decisions": [
+    {
+      "index": 0,
+      "snapshotIndex": 0,
+      "player": "GPT5n Vet",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a starting player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "GPT5n Vet",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "Qwen3L ESPN",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 4,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        3,
+        4,
+        5
+      ],
+      "subsequentActions": [
+        "GPT5n Vet chooses that they take the first turn"
+      ]
+    },
+    {
+      "index": 1,
+      "snapshotIndex": 1,
+      "player": "GPT5n Vet",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 7,
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        7,
+        8,
+        13
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 2,
+      "snapshotIndex": 1,
+      "player": "Qwen3L ESPN",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 8,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        10,
+        11,
+        15,
+        20
+      ],
+      "subsequentActions": [
+        "GPT5n Vet skips Draw step"
+      ]
+    },
+    {
+      "index": 3,
+      "snapshotIndex": 2,
+      "player": "GPT5n Vet",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "land",
+          "id": "p5"
+        },
+        {
+          "name": "Marsh Flats",
+          "index": 1,
+          "action": "land",
+          "id": "p6"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 10,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p5, ignored index=0"
+      },
+      "llmEventIndices": [
+        16,
+        17,
+        18
+      ],
+      "subsequentActions": [
+        "GPT5n Vet puts Flooded Strand from hand onto the Battlefield",
+        "GPT5n Vet skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p5",
+          "p6"
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "snapshotIndex": 6,
+      "player": "Qwen3L ESPN",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bojuka Bog",
+          "index": 0,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "name": "Lush Portico",
+          "index": 1,
+          "action": "land",
+          "id": "p12"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Diamond",
+          "index": 2,
+          "action": "cast",
+          "id": "p13"
+        },
+        {
+          "name": "Urza's Saga",
+          "index": 3,
+          "action": "land",
+          "id": "p15"
+        },
+        {
+          "name": "Windswept Heath",
+          "index": 4,
+          "action": "land",
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 17,
+        "success": false,
+        "error_code": "missing_param",
+        "error": "GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
+        "choices": [
+          {
+            "name": "Bojuka Bog",
+            "index": 0,
+            "action": "land",
+            "id": "p10"
+          },
+          {
+            "name": "Lush Portico",
+            "index": 1,
+            "action": "land",
+            "id": "p12"
+          },
+          {
+            "mana_cost": "{0}",
+            "name": "Mox Diamond",
+            "index": 2,
+            "action": "cast",
+            "id": "p13"
+          },
+          {
+            "name": "Urza's Saga",
+            "index": 3,
+            "action": "land",
+            "id": "p15"
+          },
+          {
+            "name": "Windswept Heath",
+            "index": 4,
+            "action": "land",
+            "id": "p16"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        24,
+        25,
+        27,
+        28
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p12",
+          "p13",
+          "p15",
+          "p16"
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "snapshotIndex": 6,
+      "player": "Qwen3L ESPN",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bojuka Bog",
+          "index": 0,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "name": "Lush Portico",
+          "index": 1,
+          "action": "land",
+          "id": "p12"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Diamond",
+          "index": 2,
+          "action": "cast",
+          "id": "p13"
+        },
+        {
+          "name": "Urza's Saga",
+          "index": 3,
+          "action": "land",
+          "id": "p15"
+        },
+        {
+          "name": "Windswept Heath",
+          "index": 4,
+          "action": "land",
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "p13",
+        "index": 2,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 17,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2",
+        "warning": "Both id and index provided; used id=p13, ignored index=2"
+      },
+      "llmEventIndices": [
+        30,
+        31,
+        32
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p12",
+          "p13",
+          "p15",
+          "p16"
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "snapshotIndex": 6,
+      "player": "Qwen3L ESPN",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Mox Diamond",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. Cast Mox Diamond"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 18,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        36,
+        37,
+        38
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN casts Mox Diamond from hand"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p12",
+          "p13",
+          "p15",
+          "p16"
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "snapshotIndex": 7,
+      "player": "Qwen3L ESPN",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 20,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        42,
+        43,
+        45,
+        46
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 8,
+      "snapshotIndex": 7,
+      "player": "Qwen3L ESPN",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Discard land? (Otherwise Mox Diamond goes to graveyard)",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": true,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "p16",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 21,
+        "success": false,
+        "warning": "Both id and index provided; used id=p16, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p16 not found in current choices"
+      },
+      "llmEventIndices": [
+        48,
+        49,
+        51,
+        52
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 9,
+      "snapshotIndex": 7,
+      "player": "Qwen3L ESPN",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a land card",
+      "choices": [
+        {
+          "name": "Bojuka Bog",
+          "target_type": "card",
+          "index": 0,
+          "id": "p10"
+        },
+        {
+          "name": "Lush Portico",
+          "target_type": "card",
+          "index": 1,
+          "id": "p12"
+        },
+        {
+          "name": "Urza's Saga",
+          "target_type": "card",
+          "index": 2,
+          "id": "p15"
+        },
+        {
+          "name": "Windswept Heath",
+          "target_type": "card",
+          "index": 3,
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "p16",
+        "index": 3,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 22,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_3",
+        "warning": "Both id and index provided; used id=p16, ignored index=3"
+      },
+      "llmEventIndices": [
+        56,
+        58,
+        60,
+        61
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN discards Windswept Heath (source: Mox Diamond)",
+        "Qwen3L ESPN puts Mox Diamond from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 10,
+      "snapshotIndex": 9,
+      "player": "Qwen3L ESPN",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bojuka Bog",
+          "index": 0,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Elvish Reclaimer",
+          "index": 1,
+          "action": "cast",
+          "id": "p23",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 2,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "name": "Lush Portico",
+          "index": 3,
+          "action": "land",
+          "id": "p12"
+        },
+        {
+          "mana_cost": "{1}",
+          "name": "Shadowspear",
+          "index": 4,
+          "action": "cast",
+          "id": "p14"
+        },
+        {
+          "name": "Urza's Saga",
+          "index": 5,
+          "action": "land",
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p11"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_GET_AMOUNT",
+        "game_seq": 28,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        63,
+        65,
+        67,
+        68
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p23",
+          "p11",
+          "p12",
+          "p14",
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 11,
+      "snapshotIndex": 12,
+      "player": "Qwen3L ESPN",
+      "turn": 2,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_GET_AMOUNT",
+      "responseType": "amount",
+      "message": "Announce the value for {X} (source: Green Sun's Zenith)",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 29,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "amount_0"
+      },
+      "llmEventIndices": [
+        70,
+        71,
+        73,
+        74
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN announces a value of 0 for {X} (source: Green Sun's Zenith)",
+        "Qwen3L ESPN casts Green Sun's Zenith from hand",
+        "Qwen3L ESPN searches their library (source: Green Sun's Zenith)"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 12,
+      "snapshotIndex": 13,
+      "player": "Qwen3L ESPN",
+      "turn": 2,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a green creature card",
+      "choices": [
+        {
+          "name": "Dryad Arbor",
+          "target_type": "card",
+          "index": 0,
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "p26",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 35,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        76,
+        77,
+        80,
+        81
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN puts Dryad Arbor from library onto the Battlefield (source: Green Sun's Zenith)",
+        "Qwen3L ESPN's library is shuffled (source: Green Sun's Zenith)",
+        "Qwen3L ESPN puts Green Sun's Zenith from stack to the top of their library (source: Green Sun's Zenith)",
+        "Qwen3L ESPN's library is shuffled (source: Green Sun's Zenith)"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 13,
+      "snapshotIndex": 15,
+      "player": "GPT5n Vet",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p5"
+        },
+        {
+          "name": "Marsh Flats",
+          "index": 1,
+          "action": "land",
+          "id": "p6"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p6",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 41,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p6, ignored index=1"
+      },
+      "llmEventIndices": [
+        83,
+        84,
+        85
+      ],
+      "subsequentActions": [
+        "GPT5n Vet puts Marsh Flats from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p6"
+        ]
+      }
+    },
+    {
+      "index": 14,
+      "snapshotIndex": 16,
+      "player": "Qwen3L ESPN",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 4,
+      "chosenArgs": {
+        "id": "p15"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 48,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4"
+      },
+      "llmEventIndices": [
+        87,
+        88,
+        91,
+        92
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN puts Urza's Saga from hand onto the Battlefield",
+        "Qwen3L ESPN - Ability triggers: Urza's Saga - I - Urza's Saga gains \"{T}: Add {C}.\""
+      ]
+    },
+    {
+      "index": 15,
+      "snapshotIndex": 22,
+      "player": "Qwen3L ESPN",
+      "turn": 4,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Dryad Arbor",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p26",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [
+          "p26"
+        ],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "declared": [
+          "p26"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 53,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        94,
+        95,
+        97,
+        98
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN attacks GPT5n Vet with 1 creature",
+        "Attacker: Dryad Arbor (1/1) unblocked",
+        "GPT5n Vet loses 1 life at combat from Dryad Arbor"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 16,
+      "snapshotIndex": 26,
+      "player": "Qwen3L ESPN",
+      "turn": 4,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{G}",
+          "name": "Elvish Reclaimer",
+          "index": 0,
+          "action": "cast",
+          "id": "p23",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{1}",
+          "name": "Shadowspear",
+          "index": 1,
+          "action": "cast",
+          "id": "p14"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 70,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        100,
+        101,
+        108,
+        109
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p23",
+          "p14"
+        ]
+      }
+    },
+    {
+      "index": 17,
+      "snapshotIndex": 27,
+      "player": "GPT5n Vet",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p5"
+        },
+        {
+          "name": "Marsh Flats",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p6"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p6",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 62,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p6, ignored index=0"
+      },
+      "llmEventIndices": [
+        104,
+        105,
+        106
+      ],
+      "subsequentActions": [
+        "GPT5n Vet skip attack",
+        "Qwen3L ESPN - Ability triggers: Urza's Saga - II - Urza's Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This creature gets +1/+1 for each artifact you control.'\"",
+        "Qwen3L ESPN skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 18,
+      "snapshotIndex": 33,
+      "player": "GPT5n Vet",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p5"
+        },
+        {
+          "name": "Marsh Flats",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p6"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 2,
+          "action": "land",
+          "id": "p33"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 73,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p5, ignored index=0"
+      },
+      "llmEventIndices": [
+        111,
+        112,
+        113
+      ],
+      "subsequentActions": [
+        "GPT5n Vet skip attack",
+        "GPT5n Vet discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 19,
+      "snapshotIndex": 34,
+      "player": "GPT5n Vet",
+      "turn": 7,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Batterskull",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Cryptic Coat",
+          "target_type": "card",
+          "index": 1,
+          "id": "p4"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 2,
+          "id": "p30"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 3,
+          "id": "p33"
+        },
+        {
+          "name": "Stifle",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 5,
+          "id": "p8"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 6,
+          "id": "p9"
+        },
+        {
+          "name": "Swords to Plowshares",
+          "target_type": "card",
+          "index": 7,
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p1",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 77,
+        "success": false,
+        "warning": "Both id and index provided; used id=p1, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p1 not found in current choices",
+        "choices": [
+          {
+            "name": "Batterskull",
+            "target_type": "card",
+            "index": 0,
+            "id": "p3"
+          },
+          {
+            "name": "Cryptic Coat",
+            "target_type": "card",
+            "index": 1,
+            "id": "p4"
+          },
+          {
+            "name": "Quantum Riddler",
+            "target_type": "card",
+            "index": 2,
+            "id": "p30"
+          },
+          {
+            "name": "Scalding Tarn",
+            "target_type": "card",
+            "index": 3,
+            "id": "p33"
+          },
+          {
+            "name": "Stifle",
+            "target_type": "card",
+            "index": 4,
+            "id": "p7"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 5,
+            "id": "p8"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 6,
+            "id": "p9"
+          },
+          {
+            "name": "Swords to Plowshares",
+            "target_type": "card",
+            "index": 7,
+            "id": "p27"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        115,
+        116,
+        117
+      ],
+      "subsequentActions": [
+        "GPT5n Vet discards Cryptic Coat",
+        "Qwen3L ESPN - Ability triggers: Urza's Saga - III - Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 20,
+      "snapshotIndex": 35,
+      "player": "Qwen3L ESPN",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Urza's Saga",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{2}, {T}: Create a 0/0 colorless Construct artifa..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p15",
+        "index": 0,
+        "mana_plan": [
+          "p26",
+          "p13"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 80,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p15, ignored index=0",
+        "mana_plan_set": true,
+        "mana_plan_size": 2
+      },
+      "llmEventIndices": [
+        119,
+        122,
+        124,
+        125
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN searches their library (source: Urza's Saga)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 21,
+      "snapshotIndex": 36,
+      "player": "Qwen3L ESPN",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select an artifact card with mana cost {0} or {1}",
+      "choices": [
+        {
+          "name": "Lavaspur Boots",
+          "target_type": "card",
+          "index": 0,
+          "id": "p38"
+        },
+        {
+          "name": "Mox Diamond",
+          "target_type": "card",
+          "index": 1,
+          "id": "p35"
+        },
+        {
+          "name": "Mox Diamond",
+          "target_type": "card",
+          "index": 2,
+          "id": "p36"
+        },
+        {
+          "name": "Mox Diamond",
+          "target_type": "card",
+          "index": 3,
+          "id": "p37"
+        },
+        {
+          "name": "Pithing Needle",
+          "target_type": "card",
+          "index": 4,
+          "id": "p39"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p35"
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 84,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p35 not found in current choices",
+        "choices": [
+          {
+            "name": "Lavaspur Boots",
+            "target_type": "card",
+            "index": 0,
+            "id": "p38"
+          },
+          {
+            "name": "Mox Diamond",
+            "target_type": "card",
+            "index": 1,
+            "id": "p36"
+          },
+          {
+            "name": "Mox Diamond",
+            "target_type": "card",
+            "index": 2,
+            "id": "p37"
+          },
+          {
+            "name": "Mox Diamond",
+            "target_type": "card",
+            "index": 3,
+            "id": "p40"
+          },
+          {
+            "name": "Pithing Needle",
+            "target_type": "card",
+            "index": 4,
+            "id": "p39"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        127,
+        129,
+        132,
+        133
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 22,
+      "snapshotIndex": 36,
+      "player": "Qwen3L ESPN",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Discard land? (Otherwise Mox Diamond goes to graveyard)",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 85,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        139,
+        141,
+        144,
+        145
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 23,
+      "snapshotIndex": 36,
+      "player": "Qwen3L ESPN",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a land card",
+      "choices": [
+        {
+          "name": "Bojuka Bog",
+          "target_type": "card",
+          "index": 0,
+          "id": "p10"
+        },
+        {
+          "name": "Lush Portico",
+          "target_type": "card",
+          "index": 1,
+          "id": "p12"
+        },
+        {
+          "name": "Wasteland",
+          "target_type": "card",
+          "index": 2,
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p31"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 86,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2"
+      },
+      "llmEventIndices": [
+        147,
+        148,
+        150,
+        151
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN discards Wasteland (source: Mox Diamond)",
+        "Qwen3L ESPN puts Mox Diamond from library onto the Battlefield (source: Urza's Saga)",
+        "Qwen3L ESPN's library is shuffled (source: Urza's Saga)",
+        "Qwen3L ESPN sacrificed Urza's Saga"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 24,
+      "snapshotIndex": 37,
+      "player": "Qwen3L ESPN",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bojuka Bog",
+          "index": 0,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Elvish Reclaimer",
+          "index": 1,
+          "action": "cast",
+          "id": "p23",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 2,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{G}{W}",
+          "name": "Knight of the Reliquary",
+          "index": 3,
+          "action": "cast",
+          "id": "p28",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Lush Portico",
+          "index": 4,
+          "action": "land",
+          "id": "p12"
+        },
+        {
+          "mana_cost": "{1}",
+          "name": "Shadowspear",
+          "index": 5,
+          "action": "cast",
+          "id": "p14"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p10"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 91,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        153,
+        154,
+        156,
+        157
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN puts Bojuka Bog from hand onto the Battlefield",
+        "Qwen3L ESPN - Ability triggers: Bojuka Bog - When Bojuka Bog enters, exile target player's graveyard. - targeting GPT5n Vet",
+        "Qwen3L ESPN moves Cryptic Coat from graveyard to the exile zone (source: Bojuka Bog)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p23",
+          "p34",
+          "p28",
+          "p12",
+          "p14"
+        ]
+      }
+    },
+    {
+      "index": 25,
+      "snapshotIndex": 40,
+      "player": "Qwen3L ESPN",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{G}",
+          "name": "Elvish Reclaimer",
+          "index": 0,
+          "action": "cast",
+          "id": "p23",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 1,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{G}{W}",
+          "name": "Knight of the Reliquary",
+          "index": 2,
+          "action": "cast",
+          "id": "p28",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{1}",
+          "name": "Shadowspear",
+          "index": 3,
+          "action": "cast",
+          "id": "p14"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "p23",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 97,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p23, ignored index=0"
+      },
+      "llmEventIndices": [
+        165,
+        166,
+        168,
+        169
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN casts Elvish Reclaimer from hand",
+        "Qwen3L ESPN puts Elvish Reclaimer from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p23",
+          "p34",
+          "p28",
+          "p14"
+        ]
+      }
+    },
+    {
+      "index": 26,
+      "snapshotIndex": 44,
+      "player": "Qwen3L ESPN",
+      "turn": 8,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Dryad Arbor",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p26",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p26"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p26"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 103,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        171,
+        172,
+        174,
+        175
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN attacks GPT5n Vet with 1 creature",
+        "Attacker: Dryad Arbor (1/1) unblocked",
+        "GPT5n Vet loses 1 life at combat from Dryad Arbor"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 27,
+      "snapshotIndex": 48,
+      "player": "Qwen3L ESPN",
+      "turn": 8,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 0,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}",
+          "name": "Shadowspear",
+          "index": 1,
+          "action": "cast",
+          "id": "p14"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "p14",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 121,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4",
+        "warning": "Both id and index provided; used id=p14, ignored index=0"
+      },
+      "llmEventIndices": [
+        177,
+        178,
+        206,
+        207
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p34",
+          "p14"
+        ]
+      }
+    },
+    {
+      "index": 28,
+      "snapshotIndex": 49,
+      "player": "GPT5n Vet",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p5"
+        },
+        {
+          "name": "Marsh Flats",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p6"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 2,
+          "action": "land",
+          "id": "p33"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 112,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p5, ignored index=0"
+      },
+      "llmEventIndices": [
+        181,
+        182,
+        183
+      ],
+      "subsequentActions": [
+        "GPT5n Vet skip attack",
+        "GPT5n Vet discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 29,
+      "snapshotIndex": 53,
+      "player": "GPT5n Vet",
+      "turn": 9,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Batterskull",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 1,
+          "id": "p30"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 2,
+          "id": "p33"
+        },
+        {
+          "name": "Stifle",
+          "target_type": "card",
+          "index": 3,
+          "id": "p7"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 4,
+          "id": "p8"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 5,
+          "id": "p9"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 6,
+          "id": "p40"
+        },
+        {
+          "name": "Swords to Plowshares",
+          "target_type": "card",
+          "index": 7,
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 119,
+        "success": false,
+        "warning": "Both id and index provided; used id=p5, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p5 not found in current choices",
+        "choices": [
+          {
+            "name": "Batterskull",
+            "target_type": "card",
+            "index": 0,
+            "id": "p3"
+          },
+          {
+            "name": "Quantum Riddler",
+            "target_type": "card",
+            "index": 1,
+            "id": "p30"
+          },
+          {
+            "name": "Scalding Tarn",
+            "target_type": "card",
+            "index": 2,
+            "id": "p33"
+          },
+          {
+            "name": "Stifle",
+            "target_type": "card",
+            "index": 3,
+            "id": "p7"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 4,
+            "id": "p8"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 5,
+            "id": "p9"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 6,
+            "id": "p40"
+          },
+          {
+            "name": "Swords to Plowshares",
+            "target_type": "card",
+            "index": 7,
+            "id": "p27"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        202,
+        203,
+        204
+      ],
+      "subsequentActions": [
+        "GPT5n Vet discards Scalding Tarn",
+        "Qwen3L ESPN casts Shadowspear from hand",
+        "Qwen3L ESPN puts Shadowspear from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 30,
+      "snapshotIndex": 56,
+      "player": "Qwen3L ESPN",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Dryad Arbor",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p26",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Elvish Reclaimer",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p23",
+          "power": "3",
+          "toughness": "4"
+        },
+        {
+          "name": "All attack",
+          "index": 2,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p26",
+          "p23"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p26",
+          "p23"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 126,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        209,
+        210,
+        215,
+        216
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN attacks GPT5n Vet with 2 creatures",
+        "Attacker: Dryad Arbor (1/1) unblocked",
+        "Attacker: Elvish Reclaimer (3/4) unblocked",
+        "GPT5n Vet loses 1 life at combat from Dryad Arbor",
+        "GPT5n Vet loses 3 life at combat from Elvish Reclaimer"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 31,
+      "snapshotIndex": 60,
+      "player": "GPT5n Vet",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p5"
+        },
+        {
+          "name": "Marsh Flats",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p6"
+        },
+        {
+          "name": "Plains",
+          "index": 2,
+          "action": "land",
+          "id": "p43"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p43",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 135,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2",
+        "warning": "Both id and index provided; used id=p43, ignored index=2"
+      },
+      "llmEventIndices": [
+        218,
+        219,
+        220
+      ],
+      "subsequentActions": [
+        "GPT5n Vet puts Plains from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p43"
+        ]
+      }
+    },
+    {
+      "index": 32,
+      "snapshotIndex": 60,
+      "player": "Qwen3L ESPN",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        222,
+        223
+      ],
+      "subsequentActions": [
+        "GPT5n Vet skip attack"
+      ]
+    },
+    {
+      "index": 33,
+      "snapshotIndex": 61,
+      "player": "Qwen3L ESPN",
+      "turn": 12,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Elvish Reclaimer",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{2}, {T}, Sacrifice a land: Search your library f..."
+          ],
+          "id": "p23"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 1,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{G}{W}",
+          "name": "Knight of the Reliquary",
+          "index": 2,
+          "action": "cast",
+          "id": "p28",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Life from the Loam",
+          "index": 3,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Lush Portico",
+          "index": 4,
+          "action": "land",
+          "id": "p12"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 5,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Sylvan Safekeeper",
+          "index": 6,
+          "action": "cast",
+          "id": "p41",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "p12",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 140,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4",
+        "warning": "Both id and index provided; used id=p12, ignored index=0"
+      },
+      "llmEventIndices": [
+        224,
+        225,
+        227,
+        228
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN puts Lush Portico from hand onto the Battlefield",
+        "Qwen3L ESPN - Ability triggers: Lush Portico - When Lush Portico enters, surveil 1.",
+        "Qwen3L ESPN surveils 1 (source: Lush Portico)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p34",
+          "p28",
+          "p44",
+          "p12",
+          "p41"
+        ]
+      }
+    },
+    {
+      "index": 34,
+      "snapshotIndex": 64,
+      "player": "Qwen3L ESPN",
+      "turn": 12,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card to PUT into your GRAVEYARD (Surveil)",
+      "choices": [
+        {
+          "name": "Plains",
+          "target_type": "card",
+          "index": 0,
+          "id": "p46"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "p46",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 145,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0",
+        "warning": "Both id and index provided; used id=p46, ignored index=0"
+      },
+      "llmEventIndices": [
+        237,
+        238,
+        240,
+        241
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN puts Plains from library into their graveyard (source: Lush Portico)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 35,
+      "snapshotIndex": 65,
+      "player": "Qwen3L ESPN",
+      "turn": 12,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Elvish Reclaimer",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{2}, {T}, Sacrifice a land: Search your library f..."
+          ],
+          "id": "p23"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 1,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{G}{W}",
+          "name": "Knight of the Reliquary",
+          "index": 2,
+          "action": "cast",
+          "id": "p28",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Life from the Loam",
+          "index": 3,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Sylvan Safekeeper",
+          "index": 5,
+          "action": "cast",
+          "id": "p41",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p28"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 147,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        243,
+        244,
+        246,
+        247
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p34",
+          "p28",
+          "p44",
+          "p41"
+        ]
+      }
+    },
+    {
+      "index": 36,
+      "snapshotIndex": 67,
+      "player": "Qwen3L ESPN",
+      "turn": 12,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "Select a color of mana to add 1 of it",
+      "choices": [
+        {
+          "index": 0,
+          "description": "White"
+        },
+        {
+          "index": 1,
+          "description": "Blue"
+        },
+        {
+          "index": 2,
+          "description": "Black"
+        },
+        {
+          "index": 3,
+          "description": "Red"
+        },
+        {
+          "index": 4,
+          "description": "Green"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 149,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_1"
+      },
+      "llmEventIndices": [
+        249,
+        250,
+        252,
+        253
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN casts Knight of the Reliquary from hand",
+        "Qwen3L ESPN puts Knight of the Reliquary from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 37,
+      "snapshotIndex": 71,
+      "player": "Qwen3L ESPN",
+      "turn": 12,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Elvish Reclaimer",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p23",
+          "power": "3",
+          "toughness": "4"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p23"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p23"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 156,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        255,
+        256,
+        258,
+        259
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN attacks GPT5n Vet with 1 creature",
+        "Attacker: Elvish Reclaimer (3/4) unblocked",
+        "GPT5n Vet loses 3 life at combat from Elvish Reclaimer"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 38,
+      "snapshotIndex": 75,
+      "player": "Qwen3L ESPN",
+      "turn": 12,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Shadowspear",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 164,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        261,
+        262,
+        264,
+        266
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 39,
+      "snapshotIndex": 76,
+      "player": "GPT5n Vet",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p5"
+        },
+        {
+          "name": "Marsh Flats",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p6"
+        },
+        {
+          "mana_cost": "{W}",
+          "name": "Swords to Plowshares",
+          "index": 2,
+          "action": "cast",
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p27",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 165,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2",
+        "warning": "Both id and index provided; used id=p27, ignored index=2"
+      },
+      "llmEventIndices": [
+        265,
+        268,
+        269
+      ],
+      "subsequentActions": [
+        "GPT5n Vet skip attack",
+        "GPT5n Vet discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p27"
+        ]
+      }
+    },
+    {
+      "index": 40,
+      "snapshotIndex": 77,
+      "player": "GPT5n Vet",
+      "turn": 13,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Batterskull",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 1,
+          "id": "p30"
+        },
+        {
+          "name": "Stifle",
+          "target_type": "card",
+          "index": 2,
+          "id": "p7"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 3,
+          "id": "p8"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 4,
+          "id": "p9"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 5,
+          "id": "p40"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 6,
+          "id": "p48"
+        },
+        {
+          "name": "Swords to Plowshares",
+          "target_type": "card",
+          "index": 7,
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p27",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 169,
+        "success": true,
+        "action_taken": "selected_target_7",
+        "warning": "Both id and index provided; used id=p27, ignored index=2"
+      },
+      "llmEventIndices": [
+        271,
+        272,
+        276
+      ],
+      "subsequentActions": [
+        "GPT5n Vet discards Swords to Plowshares"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "playableCards": [
+          "p27"
+        ]
+      }
+    },
+    {
+      "index": 41,
+      "snapshotIndex": 78,
+      "player": "Qwen3L ESPN",
+      "turn": 14,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Dark Depths",
+          "index": 0,
+          "action": "land",
+          "id": "p50"
+        },
+        {
+          "name": "Elvish Reclaimer",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{2}, {T}, Sacrifice a land: Search your library f..."
+          ],
+          "id": "p23"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 2,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "name": "Knight of the Reliquary",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice a Forest or Plains: Search your li..."
+          ],
+          "id": "p28"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Life from the Loam",
+          "index": 4,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 5,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Sylvan Safekeeper",
+          "index": 6,
+          "action": "cast",
+          "id": "p41",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "p50",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 171,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p50, ignored index=0"
+      },
+      "llmEventIndices": [
+        273,
+        274,
+        277,
+        278
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN puts Dark Depths from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p50",
+          "p34",
+          "p44",
+          "p41"
+        ]
+      }
+    },
+    {
+      "index": 42,
+      "snapshotIndex": 80,
+      "player": "Qwen3L ESPN",
+      "turn": 14,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select land cards from your graveyard (selected 0 of 3)",
+      "choices": [
+        {
+          "name": "Plains",
+          "target_type": "card",
+          "index": 0,
+          "id": "p46"
+        },
+        {
+          "name": "Urza's Saga",
+          "target_type": "card",
+          "index": 1,
+          "id": "p15"
+        },
+        {
+          "name": "Wasteland",
+          "target_type": "card",
+          "index": 2,
+          "id": "p31"
+        },
+        {
+          "name": "Windswept Heath",
+          "target_type": "card",
+          "index": 3,
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p15"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 174,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        283,
+        285,
+        287,
+        288
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN casts Life from the Loam targeting Urza's Saga Wasteland Windswept Heath from hand",
+        "Qwen3L ESPN puts Urza's Saga from graveyard into their hand",
+        "Qwen3L ESPN puts Wasteland from graveyard into their hand",
+        "Qwen3L ESPN puts Windswept Heath from graveyard into their hand",
+        "Qwen3L ESPN puts Life from the Loam from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 43,
+      "snapshotIndex": 87,
+      "player": "Qwen3L ESPN",
+      "turn": 14,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Elvish Reclaimer",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p23",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "name": "Knight of the Reliquary",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p28",
+          "power": "3",
+          "toughness": "3"
+        },
+        {
+          "name": "All attack",
+          "index": 2,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p23",
+          "p28"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p23",
+          "p28"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 186,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        294,
+        295,
+        297,
+        298
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN attacks GPT5n Vet with 2 creatures",
+        "Attacker: Elvish Reclaimer (1/2) unblocked",
+        "Attacker: Knight of the Reliquary (3/3) unblocked",
+        "GPT5n Vet loses 1 life at combat from Elvish Reclaimer",
+        "GPT5n Vet loses 3 life at combat from Knight of the Reliquary"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 44,
+      "snapshotIndex": 92,
+      "player": "Qwen3L ESPN",
+      "turn": 14,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Dark Depths",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{3}: Remove an ice counter from {this}."
+          ],
+          "id": "p50"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 1,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Sylvan Safekeeper",
+          "index": 3,
+          "action": "cast",
+          "id": "p41",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p14"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 197,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        300,
+        301,
+        303,
+        304
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN activates: Permanents your opponents control lose hexproof and indestructible until end of turn. from Shadowspear"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p34",
+          "p41"
+        ]
+      }
+    },
+    {
+      "index": 45,
+      "snapshotIndex": 94,
+      "player": "Qwen3L ESPN",
+      "turn": 14,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Shadowspear",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": -1,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": true,
+        "blockers": [],
+        "id": "",
+        "index": -1,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 201,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        310,
+        311,
+        313,
+        314
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 46,
+      "snapshotIndex": 94,
+      "player": "GPT5n Vet",
+      "turn": 14,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p5"
+        },
+        {
+          "name": "Marsh Flats",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p6"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p27",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 203,
+        "success": false,
+        "warning": "Both id and index provided; used id=p27, ignored index=2",
+        "error_code": "invalid_choice",
+        "error": "Object p27 not found in current choices",
+        "choices": [
+          {
+            "name": "Flooded Strand",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+            ],
+            "id": "p5"
+          },
+          {
+            "name": "Marsh Flats",
+            "index": 1,
+            "action": "activate",
+            "playable_abilities": [
+              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+            ],
+            "id": "p6"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        316,
+        317,
+        318
+      ],
+      "subsequentActions": [
+        "GPT5n Vet skip attack",
+        "GPT5n Vet discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 47,
+      "snapshotIndex": 94,
+      "player": "GPT5n Vet",
+      "turn": 14,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Batterskull",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 1,
+          "id": "p54"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 2,
+          "id": "p30"
+        },
+        {
+          "name": "Stifle",
+          "target_type": "card",
+          "index": 3,
+          "id": "p7"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 4,
+          "id": "p8"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 5,
+          "id": "p9"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 6,
+          "id": "p40"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 7,
+          "id": "p48"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        322,
+        323,
+        324
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 48,
+      "snapshotIndex": 94,
+      "player": "GPT5n Vet",
+      "turn": 14,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Batterskull",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 1,
+          "id": "p54"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 2,
+          "id": "p30"
+        },
+        {
+          "name": "Stifle",
+          "target_type": "card",
+          "index": 3,
+          "id": "p7"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 4,
+          "id": "p8"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 5,
+          "id": "p9"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 6,
+          "id": "p40"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 7,
+          "id": "p48"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        325,
+        326,
+        327,
+        328
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 49,
+      "snapshotIndex": 95,
+      "player": "GPT5n Vet",
+      "turn": 15,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Batterskull",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 1,
+          "id": "p54"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 2,
+          "id": "p30"
+        },
+        {
+          "name": "Stifle",
+          "target_type": "card",
+          "index": 3,
+          "id": "p7"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 4,
+          "id": "p8"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 5,
+          "id": "p9"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 6,
+          "id": "p40"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 7,
+          "id": "p48"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 208,
+        "success": false,
+        "warning": "Both id and index provided; used id=p5, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p5 not found in current choices",
+        "choices": [
+          {
+            "name": "Batterskull",
+            "target_type": "card",
+            "index": 0,
+            "id": "p3"
+          },
+          {
+            "name": "Ponder",
+            "target_type": "card",
+            "index": 1,
+            "id": "p54"
+          },
+          {
+            "name": "Quantum Riddler",
+            "target_type": "card",
+            "index": 2,
+            "id": "p30"
+          },
+          {
+            "name": "Stifle",
+            "target_type": "card",
+            "index": 3,
+            "id": "p7"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 4,
+            "id": "p8"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 5,
+            "id": "p9"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 6,
+            "id": "p40"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 7,
+            "id": "p48"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        329,
+        330,
+        331
+      ],
+      "subsequentActions": [
+        "GPT5n Vet discards Stoneforge Mystic"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 50,
+      "snapshotIndex": 96,
+      "player": "Qwen3L ESPN",
+      "turn": 16,
+      "phase": "BEGINNING",
+      "step": "DRAW",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Dredge Life from the Loam? (3 cards are milled)",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 210,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        333,
+        337,
+        339,
+        340
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN dredges Life from the Loam (source: Life from the Loam)",
+        "Qwen3L ESPN puts Elvish Reclaimer from library into their graveyard (source: Life from the Loam)",
+        "Qwen3L ESPN puts Boseiju, Who Endures from library into their graveyard (source: Life from the Loam)",
+        "Qwen3L ESPN puts Gaddock Teeg from library into their graveyard (source: Life from the Loam)",
+        "Qwen3L ESPN puts Life from the Loam from graveyard into their hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 4
+      }
+    },
+    {
+      "index": 51,
+      "snapshotIndex": 97,
+      "player": "Qwen3L ESPN",
+      "turn": 16,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Dark Depths",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{3}: Remove an ice counter from {this}."
+          ],
+          "id": "p50"
+        },
+        {
+          "name": "Elvish Reclaimer",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{2}, {T}, Sacrifice a land: Search your library f..."
+          ],
+          "id": "p23"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 2,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "name": "Knight of the Reliquary",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice a Forest or Plains: Search your li..."
+          ],
+          "id": "p28"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Life from the Loam",
+          "index": 4,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 5,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Sylvan Safekeeper",
+          "index": 6,
+          "action": "cast",
+          "id": "p41",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Urza's Saga",
+          "index": 7,
+          "action": "land",
+          "id": "p15"
+        },
+        {
+          "name": "Wasteland",
+          "index": 8,
+          "action": "land",
+          "id": "p31"
+        },
+        {
+          "name": "Windswept Heath",
+          "index": 9,
+          "action": "land",
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 10,
+      "isForced": false,
+      "chosen": 7,
+      "chosenArgs": {
+        "id": "p15"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 216,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_7"
+      },
+      "llmEventIndices": [
+        342,
+        343,
+        345,
+        346
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN puts Urza's Saga from hand onto the Battlefield",
+        "Qwen3L ESPN - Ability triggers: Urza's Saga - I - Urza's Saga gains \"{T}: Add {C}.\""
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p34",
+          "p44",
+          "p41",
+          "p15",
+          "p31",
+          "p16"
+        ]
+      }
+    },
+    {
+      "index": 52,
+      "snapshotIndex": 98,
+      "player": "Qwen3L ESPN",
+      "turn": 16,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Dark Depths",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{3}: Remove an ice counter from {this}."
+          ],
+          "id": "p50"
+        },
+        {
+          "name": "Elvish Reclaimer",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{2}, {T}, Sacrifice a land: Search your library f..."
+          ],
+          "id": "p23"
+        },
+        {
+          "name": "Knight of the Reliquary",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice a Forest or Plains: Search your li..."
+          ],
+          "id": "p28"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p50"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 219,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        348,
+        349,
+        351,
+        352
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN activates: remove an ice counter from Dark Depths. from Dark Depths",
+        "Removed 1 ice counter from Dark Depths"
+      ],
+      "pilotContext": {
+        "untappedLands": 5,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 53,
+      "snapshotIndex": 105,
+      "player": "Qwen3L ESPN",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Elvish Reclaimer",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p23",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "name": "Knight of the Reliquary",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p28",
+          "power": "4",
+          "toughness": "4"
+        },
+        {
+          "name": "All attack",
+          "index": 2,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p23",
+          "p28"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p23",
+          "p28"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 228,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        356,
+        357,
+        359,
+        360
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN attacks GPT5n Vet with 2 creatures",
+        "Attacker: Elvish Reclaimer (1/2) unblocked",
+        "Attacker: Knight of the Reliquary (4/4) unblocked",
+        "GPT5n Vet loses 1 life at combat from Elvish Reclaimer",
+        "GPT5n Vet loses 4 life at combat from Knight of the Reliquary"
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 54,
+      "snapshotIndex": 110,
+      "player": "Qwen3L ESPN",
+      "turn": 16,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Dark Depths",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{3}: Remove an ice counter from {this}."
+          ],
+          "id": "p50"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 1,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Life from the Loam",
+          "index": 2,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Sylvan Safekeeper",
+          "index": 4,
+          "action": "cast",
+          "id": "p41",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 239,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        362,
+        363,
+        365,
+        370
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p34",
+          "p44",
+          "p41"
+        ]
+      }
+    },
+    {
+      "index": 55,
+      "snapshotIndex": 111,
+      "player": "GPT5n Vet",
+      "turn": 17,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p5"
+        },
+        {
+          "name": "Marsh Flats",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p6"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 240,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p5, ignored index=0"
+      },
+      "llmEventIndices": [
+        366,
+        367,
+        368
+      ],
+      "subsequentActions": [
+        "GPT5n Vet skip attack",
+        "GPT5n Vet discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 56,
+      "snapshotIndex": 111,
+      "player": "GPT5n Vet",
+      "turn": 17,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Batterskull",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 1,
+          "id": "p54"
+        },
+        {
+          "name": "Pre-War Formalwear",
+          "target_type": "card",
+          "index": 2,
+          "id": "p60"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 3,
+          "id": "p30"
+        },
+        {
+          "name": "Stifle",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 5,
+          "id": "p9"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 6,
+          "id": "p40"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 7,
+          "id": "p48"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        372,
+        373,
+        374
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 57,
+      "snapshotIndex": 111,
+      "player": "GPT5n Vet",
+      "turn": 17,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Batterskull",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 1,
+          "id": "p54"
+        },
+        {
+          "name": "Pre-War Formalwear",
+          "target_type": "card",
+          "index": 2,
+          "id": "p60"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 3,
+          "id": "p30"
+        },
+        {
+          "name": "Stifle",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 5,
+          "id": "p9"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 6,
+          "id": "p40"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 7,
+          "id": "p48"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 246,
+        "success": false,
+        "warning": "Both id and index provided; used id=p5, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p5 not found in current choices",
+        "choices": [
+          {
+            "name": "Batterskull",
+            "target_type": "card",
+            "index": 0,
+            "id": "p3"
+          },
+          {
+            "name": "Ponder",
+            "target_type": "card",
+            "index": 1,
+            "id": "p54"
+          },
+          {
+            "name": "Pre-War Formalwear",
+            "target_type": "card",
+            "index": 2,
+            "id": "p60"
+          },
+          {
+            "name": "Quantum Riddler",
+            "target_type": "card",
+            "index": 3,
+            "id": "p30"
+          },
+          {
+            "name": "Stifle",
+            "target_type": "card",
+            "index": 4,
+            "id": "p7"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 5,
+            "id": "p9"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 6,
+            "id": "p40"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 7,
+            "id": "p48"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        375,
+        376,
+        377
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 58,
+      "snapshotIndex": 111,
+      "player": "GPT5n Vet",
+      "turn": 17,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Batterskull",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 1,
+          "id": "p54"
+        },
+        {
+          "name": "Pre-War Formalwear",
+          "target_type": "card",
+          "index": 2,
+          "id": "p60"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 3,
+          "id": "p30"
+        },
+        {
+          "name": "Stifle",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 5,
+          "id": "p9"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 6,
+          "id": "p40"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 7,
+          "id": "p48"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 247,
+        "success": false,
+        "warning": "Both id and index provided; used id=p5, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p5 not found in current choices",
+        "choices": [
+          {
+            "name": "Batterskull",
+            "target_type": "card",
+            "index": 0,
+            "id": "p3"
+          },
+          {
+            "name": "Ponder",
+            "target_type": "card",
+            "index": 1,
+            "id": "p54"
+          },
+          {
+            "name": "Pre-War Formalwear",
+            "target_type": "card",
+            "index": 2,
+            "id": "p60"
+          },
+          {
+            "name": "Quantum Riddler",
+            "target_type": "card",
+            "index": 3,
+            "id": "p30"
+          },
+          {
+            "name": "Stifle",
+            "target_type": "card",
+            "index": 4,
+            "id": "p7"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 5,
+            "id": "p9"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 6,
+            "id": "p40"
+          },
+          {
+            "name": "Stoneforge Mystic",
+            "target_type": "card",
+            "index": 7,
+            "id": "p48"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        380,
+        381,
+        382
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 59,
+      "snapshotIndex": 112,
+      "player": "GPT5n Vet",
+      "turn": 17,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Batterskull",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 1,
+          "id": "p54"
+        },
+        {
+          "name": "Pre-War Formalwear",
+          "target_type": "card",
+          "index": 2,
+          "id": "p60"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 3,
+          "id": "p30"
+        },
+        {
+          "name": "Stifle",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 5,
+          "id": "p9"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 6,
+          "id": "p40"
+        },
+        {
+          "name": "Stoneforge Mystic",
+          "target_type": "card",
+          "index": 7,
+          "id": "p48"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p54",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 248,
+        "success": true,
+        "action_taken": "selected_target_1",
+        "warning": "Both id and index provided; used id=p54, ignored index=0"
+      },
+      "llmEventIndices": [
+        385,
+        386,
+        392
+      ],
+      "subsequentActions": [
+        "GPT5n Vet discards Ponder",
+        "Qwen3L ESPN - Ability triggers: Urza's Saga - II - Urza's Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This creature gets +1/+1 for each artifact you control.'\""
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 60,
+      "snapshotIndex": 113,
+      "player": "Qwen3L ESPN",
+      "turn": 18,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Dark Depths",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{3}: Remove an ice counter from {this}."
+          ],
+          "id": "p50"
+        },
+        {
+          "name": "Elvish Reclaimer",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{2}, {T}, Sacrifice a land: Search your library f..."
+          ],
+          "id": "p23"
+        },
+        {
+          "name": "Knight of the Reliquary",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice a Forest or Plains: Search your li..."
+          ],
+          "id": "p28"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 251,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        387,
+        388,
+        390,
+        391
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 5,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 61,
+      "snapshotIndex": 115,
+      "player": "Qwen3L ESPN",
+      "turn": 18,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Dryad Arbor",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p26",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Elvish Reclaimer",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p23",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "name": "Knight of the Reliquary",
+          "index": 2,
+          "choice_type": "attacker",
+          "id": "p28",
+          "power": "4",
+          "toughness": "4"
+        },
+        {
+          "name": "All attack",
+          "index": 3,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "all"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "all"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 253,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        396,
+        399,
+        402,
+        403
+      ],
+      "subsequentActions": [
+        "Qwen3L ESPN attacks GPT5n Vet with 3 creatures",
+        "Attacker: Dryad Arbor (1/1) unblocked",
+        "Attacker: Elvish Reclaimer (1/2) unblocked",
+        "Attacker: Knight of the Reliquary (4/4) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 5,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 62,
+      "snapshotIndex": 116,
+      "player": "Qwen3L ESPN",
+      "turn": 18,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Dark Depths",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{3}: Remove an ice counter from {this}."
+          ],
+          "id": "p50"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p14"
+        },
+        {
+          "name": "Urza's Saga",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{2}, {T}: Create a 0/0 colorless Construct artifa..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        405,
+        406,
+        408,
+        409
+      ],
+      "subsequentActions": [
+        "GPT5n Vet loses 1 life at combat from Dryad Arbor",
+        "GPT5n Vet loses 1 life at combat from Elvish Reclaimer",
+        "GPT5n Vet loses 4 life at combat from Knight of the Reliquary",
+        "GPT5n Vet has lost the game."
+      ],
+      "pilotContext": {
+        "untappedLands": 4
+      }
+    }
+  ]
 }

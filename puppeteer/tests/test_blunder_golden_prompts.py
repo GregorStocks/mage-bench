@@ -22,12 +22,14 @@ from blunder_analysis import (
     _game_overview,
     build_decision_prompt,
 )
+from blunder_eval_common import decision_index as get_decision_index
 from extract_decisions import extract_decisions
 
 GOLDEN_DIR = Path(__file__).parent / "golden" / "blunder_prompts" / "game_20260216_074122_g2"
-GAME_PATH = (
-    Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games" / "game_20260216_074122_g2.json.gz"
-)
+_GAMES_DIR = Path(__file__).resolve().parent.parent.parent / "website" / "public" / "games"
+GAME_PATH = _GAMES_DIR / "game_20260216_074122_g2.json.gz"
+if not GAME_PATH.exists():
+    GAME_PATH = _GAMES_DIR / "game_20260216_074122_g2.json"
 ORACLE_CACHE = GOLDEN_DIR / "oracle_cache.json"
 
 UPDATE_MODE = bool(os.environ.get("UPDATE_BLUNDER_GOLDEN"))
@@ -44,8 +46,12 @@ GOLDEN_DECISION_INDICES = [0, 11, 64, 113, 232]
 @pytest.fixture(scope="module")
 def game_context():
     """Load game data and build context (once per module, no network calls)."""
-    with gzip.open(str(GAME_PATH), "rt") as f:
-        data = json.load(f)
+    if str(GAME_PATH).endswith(".gz"):
+        with gzip.open(str(GAME_PATH), "rt") as f:
+            data = json.load(f)
+    else:
+        with open(str(GAME_PATH)) as f:
+            data = json.load(f)
 
     oracle_texts = json.loads(ORACLE_CACHE.read_text())
     decisions = extract_decisions(str(GAME_PATH))
@@ -56,7 +62,7 @@ def game_context():
     num_players = len(data.get("players", []))
 
     # Build index for quick lookup by decision_index
-    by_index = {d["decision_index"]: d for d in decisions}
+    by_index = {get_decision_index(d): d for d in decisions}
 
     return {
         "decisions_by_index": by_index,
@@ -75,7 +81,7 @@ def test_blunder_prompt_golden(game_context, decision_index):
     golden_path = GOLDEN_DIR / f"decision_{decision_index}.json"
 
     decision = game_context["decisions_by_index"][decision_index]
-    assert decision["decision_index"] == decision_index
+    assert get_decision_index(decision) == decision_index
 
     system, user = build_decision_prompt(
         overview=game_context["overview"],

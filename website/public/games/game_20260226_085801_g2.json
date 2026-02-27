@@ -59809,5 +59809,5596 @@
       "player": "Sonnet Detect"
     }
   ],
-  "blunderScriptVersion": 19
+  "blunderScriptVersion": 19,
+  "decisions": [
+    {
+      "index": 0,
+      "snapshotIndex": 0,
+      "player": "Qwen3L Villain",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a starting player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "Qwen3L Villain",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "Sonnet Detect",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p1"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 3,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        3,
+        4,
+        5
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain chooses that they take the first turn"
+      ]
+    },
+    {
+      "index": 1,
+      "snapshotIndex": 1,
+      "player": "Qwen3L Villain",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        7,
+        8,
+        10
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 2,
+      "snapshotIndex": 1,
+      "player": "Qwen3L Villain",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 5,
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        11,
+        12,
+        15
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 3,
+      "snapshotIndex": 1,
+      "player": "Sonnet Detect",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 6,
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        14,
+        16,
+        23
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain skips Draw step"
+      ]
+    },
+    {
+      "index": 4,
+      "snapshotIndex": 2,
+      "player": "Qwen3L Villain",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p3"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 2,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 3,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 4,
+          "action": "land",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        18,
+        19,
+        20
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p3",
+          "p4",
+          "p5",
+          "p6",
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "snapshotIndex": 2,
+      "player": "Qwen3L Villain",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p3"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 2,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 3,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 4,
+          "action": "land",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        21,
+        22,
+        28
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 6,
+      "snapshotIndex": 8,
+      "player": "Sonnet Detect",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "name": "Mountain",
+          "index": 1,
+          "action": "land",
+          "id": "p14"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "land",
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p14"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 15,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        29,
+        30,
+        31
+      ],
+      "subsequentActions": [
+        "Sonnet Detect puts Mountain from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p14",
+          "p16"
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "snapshotIndex": 10,
+      "player": "Qwen3L Villain",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        33,
+        34
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 8,
+      "snapshotIndex": 10,
+      "player": "Qwen3L Villain",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        35,
+        36
+      ],
+      "subsequentActions": [
+        "Sonnet Detect skip attack"
+      ]
+    },
+    {
+      "index": 9,
+      "snapshotIndex": 12,
+      "player": "Qwen3L Villain",
+      "turn": 2,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": false,
+        "attackers": [],
+        "auto_tap": false,
+        "blockers": [],
+        "id": "",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 21,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        37,
+        38,
+        39
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 10,
+      "snapshotIndex": 15,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p3"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 2,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 3,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 4,
+          "action": "land",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        41,
+        42,
+        43
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p3",
+          "p4",
+          "p5",
+          "p6",
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 11,
+      "snapshotIndex": 15,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p3"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 2,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 3,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 4,
+          "action": "land",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "amounts": [],
+        "answer": true,
+        "attackers": [],
+        "auto_tap": false,
+        "blockers": [],
+        "id": "",
+        "index": 0,
+        "mana_plan": [],
+        "pile": 0,
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 24,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        44,
+        45,
+        46
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain puts Abundant Countryside from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 12,
+      "snapshotIndex": 16,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 0,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p5"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 26,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        48,
+        49,
+        50
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p5"
+        ]
+      },
+      "castRolledBack": true
+    },
+    {
+      "index": 13,
+      "snapshotIndex": 16,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Chalice of the Void",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. Cast Chalice of the Void"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        52,
+        53,
+        54
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 14,
+      "snapshotIndex": 16,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Chalice of the Void",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. Cast Chalice of the Void"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_GET_AMOUNT",
+        "game_seq": 27,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        55,
+        56,
+        57
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 15,
+      "snapshotIndex": 17,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_GET_AMOUNT",
+      "responseType": "amount",
+      "message": "Announce the value for {X}{X} (source: Chalice of the Void)",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        59,
+        61,
+        63
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 16,
+      "snapshotIndex": 17,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_GET_AMOUNT",
+      "responseType": "amount",
+      "message": "Announce the value for {X}{X} (source: Chalice of the Void)",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 1
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 28,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "amount_1"
+      },
+      "llmEventIndices": [
+        64,
+        65,
+        66
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 17,
+      "snapshotIndex": 17,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Abundant Countryside",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        68,
+        69,
+        70
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 18,
+      "snapshotIndex": 17,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Abundant Countryside",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 30,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        71,
+        72,
+        73
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 19,
+      "snapshotIndex": 19,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play spells and abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        75,
+        76,
+        77
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 20,
+      "snapshotIndex": 19,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play spells and abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 32,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        78,
+        79,
+        80
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 21,
+      "snapshotIndex": 23,
+      "player": "Qwen3L Villain",
+      "turn": 3,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play spells and abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 37,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        82,
+        83,
+        88
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 22,
+      "snapshotIndex": 25,
+      "player": "Sonnet Detect",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "land",
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "land",
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p10"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 39,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        84,
+        85,
+        86
+      ],
+      "subsequentActions": [
+        "Sonnet Detect puts Bloodstained Mire from hand onto the Battlefield",
+        "Sonnet Detect skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p16",
+          "p27"
+        ]
+      }
+    },
+    {
+      "index": 23,
+      "snapshotIndex": 28,
+      "player": "Sonnet Detect",
+      "turn": 4,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p10"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p10"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 44,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        90,
+        91,
+        92
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 24,
+      "snapshotIndex": 28,
+      "player": "Sonnet Detect",
+      "turn": 4,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Bloodstained Mire",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}, Pay 1 life, Sacrifice Bloodstained Mire: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 45,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        94,
+        95,
+        96
+      ],
+      "subsequentActions": [
+        "Sonnet Detect loses 1 life from Bloodstained Mire",
+        "Sonnet Detect sacrificed Bloodstained Mire (source: Bloodstained Mire)",
+        "Sonnet Detect activates: search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle. from Bloodstained Mire"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 25,
+      "snapshotIndex": 29,
+      "player": "Sonnet Detect",
+      "turn": 4,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 49,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        98,
+        99,
+        100
+      ],
+      "subsequentActions": [
+        "Sonnet Detect searches their library (source: Bloodstained Mire)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 26,
+      "snapshotIndex": 31,
+      "player": "Sonnet Detect",
+      "turn": 4,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a Swamp or Mountain card",
+      "choices": [
+        {
+          "name": "Badlands",
+          "target_type": "card",
+          "index": 0,
+          "id": "p28"
+        },
+        {
+          "name": "Badlands",
+          "target_type": "card",
+          "index": 1,
+          "id": "p29"
+        },
+        {
+          "name": "Badlands",
+          "target_type": "card",
+          "index": 2,
+          "id": "p32"
+        },
+        {
+          "name": "Mountain",
+          "target_type": "card",
+          "index": 3,
+          "id": "p30"
+        },
+        {
+          "name": "Mountain",
+          "target_type": "card",
+          "index": 4,
+          "id": "p31"
+        },
+        {
+          "name": "Raucous Theater",
+          "target_type": "card",
+          "index": 5,
+          "id": "p33"
+        },
+        {
+          "name": "Taiga",
+          "target_type": "card",
+          "index": 6,
+          "id": "p34"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "id": "p30"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 52,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_3"
+      },
+      "llmEventIndices": [
+        102,
+        103,
+        104
+      ],
+      "subsequentActions": [
+        "Sonnet Detect puts Mountain from library onto the Battlefield (source: Bloodstained Mire)",
+        "Sonnet Detect's library is shuffled (source: Bloodstained Mire)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 27,
+      "snapshotIndex": 36,
+      "player": "Qwen3L Villain",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Cavern of Souls",
+          "index": 0,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 2,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 3,
+          "action": "land",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        106,
+        107,
+        108
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5",
+          "p6",
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 28,
+      "snapshotIndex": 36,
+      "player": "Qwen3L Villain",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Cavern of Souls",
+          "index": 0,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 2,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 3,
+          "action": "land",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p6"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 59,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        109,
+        110,
+        111
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain puts Eye of Ugin from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 29,
+      "snapshotIndex": 37,
+      "player": "Qwen3L Villain",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 0,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "mana_cost": "{2}{C}",
+          "name": "Glaring Fleshraker",
+          "index": 1,
+          "action": "cast",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        113,
+        114,
+        115
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p5",
+          "p24"
+        ]
+      }
+    },
+    {
+      "index": 30,
+      "snapshotIndex": 37,
+      "player": "Qwen3L Villain",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 0,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "mana_cost": "{2}{C}",
+          "name": "Glaring Fleshraker",
+          "index": 1,
+          "action": "cast",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p24"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 61,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        116,
+        117,
+        118
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 31,
+      "snapshotIndex": 38,
+      "player": "Qwen3L Villain",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Abundant Countryside",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        120,
+        121,
+        122
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 32,
+      "snapshotIndex": 38,
+      "player": "Qwen3L Villain",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Abundant Countryside",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 65,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        123,
+        124,
+        125
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain casts Glaring Fleshraker from hand",
+        "Qwen3L Villain puts Glaring Fleshraker from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 33,
+      "snapshotIndex": 41,
+      "player": "Qwen3L Villain",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 0,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        127,
+        128,
+        129
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 34,
+      "snapshotIndex": 47,
+      "player": "Sonnet Detect",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{R}",
+          "name": "Skirk Prospector",
+          "index": 0,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "land",
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "land",
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p16"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 77,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        130,
+        131,
+        132
+      ],
+      "subsequentActions": [
+        "Sonnet Detect puts Wasteland from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p33",
+          "p16",
+          "p27"
+        ]
+      }
+    },
+    {
+      "index": 35,
+      "snapshotIndex": 49,
+      "player": "Qwen3L Villain",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        134,
+        135
+      ],
+      "subsequentActions": [
+        "Sonnet Detect skip attack"
+      ]
+    },
+    {
+      "index": 36,
+      "snapshotIndex": 50,
+      "player": "Sonnet Detect",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 82,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        136,
+        137,
+        138
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 37,
+      "snapshotIndex": 54,
+      "player": "Qwen3L Villain",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        140,
+        141
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 38,
+      "snapshotIndex": 55,
+      "player": "Sonnet Detect",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p16"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 87,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        142,
+        143,
+        144
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 39,
+      "snapshotIndex": 55,
+      "player": "Sonnet Detect",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Wasteland",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}, Sacrifice Wasteland: Destroy target nonbasic land."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 88,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_1"
+      },
+      "llmEventIndices": [
+        146,
+        147,
+        148
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 40,
+      "snapshotIndex": 56,
+      "player": "Sonnet Detect",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a nonbasic land",
+      "choices": [
+        {
+          "controller": "Qwen3L Villain",
+          "name": "Abundant Countryside",
+          "target_type": "permanent",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "controller": "Qwen3L Villain",
+          "name": "Eye of Ugin",
+          "target_type": "permanent",
+          "index": 1,
+          "id": "p6"
+        },
+        {
+          "name": "Wasteland",
+          "target_type": "permanent",
+          "index": 2,
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p6"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 89,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        150,
+        151,
+        152
+      ],
+      "subsequentActions": [
+        "Sonnet Detect sacrificed Wasteland (source: Wasteland)",
+        "Sonnet Detect activates: destroy target nonbasic land. from Wasteland targeting Eye of Ugin",
+        "Eye of Ugin was destroyed by Wasteland"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 41,
+      "snapshotIndex": 61,
+      "player": "Qwen3L Villain",
+      "turn": 7,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Glaring Fleshraker",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        156,
+        157,
+        158
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 42,
+      "snapshotIndex": 61,
+      "player": "Qwen3L Villain",
+      "turn": 7,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Glaring Fleshraker",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p24"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p24"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 97,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        159,
+        160,
+        161
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain attacks Sonnet Detect with 1 creature",
+        "Attacker: Glaring Fleshraker (2/2) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 43,
+      "snapshotIndex": 64,
+      "player": "Qwen3L Villain",
+      "turn": 7,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        163,
+        164,
+        165
+      ],
+      "subsequentActions": [
+        "Sonnet Detect loses 2 life at combat from Glaring Fleshraker"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 44,
+      "snapshotIndex": 70,
+      "player": "Sonnet Detect",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{R}",
+          "name": "Skirk Prospector",
+          "index": 0,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "land",
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p27"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 110,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        166,
+        167,
+        168
+      ],
+      "subsequentActions": [
+        "Sonnet Detect puts Wasteland from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p33",
+          "p27"
+        ]
+      }
+    },
+    {
+      "index": 45,
+      "snapshotIndex": 72,
+      "player": "Qwen3L Villain",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        170,
+        171
+      ],
+      "subsequentActions": [
+        "Sonnet Detect skip attack"
+      ]
+    },
+    {
+      "index": 46,
+      "snapshotIndex": 73,
+      "player": "Sonnet Detect",
+      "turn": 8,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 115,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        172,
+        173,
+        174
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 47,
+      "snapshotIndex": 77,
+      "player": "Qwen3L Villain",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p38"
+        },
+        {
+          "name": "Ancient Tomb",
+          "index": 1,
+          "action": "land",
+          "id": "p34"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 2,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 3,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 4,
+          "action": "land",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        176,
+        177,
+        178
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p38",
+          "p34",
+          "p4",
+          "p5",
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 48,
+      "snapshotIndex": 77,
+      "player": "Qwen3L Villain",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p38"
+        },
+        {
+          "name": "Ancient Tomb",
+          "index": 1,
+          "action": "land",
+          "id": "p34"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 2,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 3,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 4,
+          "action": "land",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p34"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 119,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        179,
+        180,
+        181
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain puts Ancient Tomb from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 49,
+      "snapshotIndex": 78,
+      "player": "Qwen3L Villain",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 0,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 1,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 2,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        183,
+        184,
+        185
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p5",
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 50,
+      "snapshotIndex": 79,
+      "player": "Sonnet Detect",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 122,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        186,
+        187,
+        192
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 51,
+      "snapshotIndex": 80,
+      "player": "Qwen3L Villain",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Glaring Fleshraker",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p24"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p24"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 123,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        188,
+        189,
+        190
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain attacks Sonnet Detect with 1 creature",
+        "Attacker: Glaring Fleshraker (2/2) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 52,
+      "snapshotIndex": 84,
+      "player": "Sonnet Detect",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 130,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        194,
+        195,
+        196
+      ],
+      "subsequentActions": [
+        "Sonnet Detect loses 2 life at combat from Glaring Fleshraker"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 53,
+      "snapshotIndex": 88,
+      "player": "Sonnet Detect",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 135,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        198,
+        199,
+        200
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 54,
+      "snapshotIndex": 90,
+      "player": "Qwen3L Villain",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        202,
+        203
+      ],
+      "subsequentActions": [
+        "Sonnet Detect skip attack"
+      ]
+    },
+    {
+      "index": 55,
+      "snapshotIndex": 91,
+      "player": "Sonnet Detect",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 139,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        204,
+        205,
+        206
+      ],
+      "subsequentActions": [
+        "Sonnet Detect discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 56,
+      "snapshotIndex": 95,
+      "player": "Sonnet Detect",
+      "turn": 10,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Goblin Matron",
+          "target_type": "card",
+          "index": 0,
+          "id": "p11"
+        },
+        {
+          "name": "Goblin Matron",
+          "target_type": "card",
+          "index": 1,
+          "id": "p12"
+        },
+        {
+          "name": "Goblin Ringleader",
+          "target_type": "card",
+          "index": 2,
+          "id": "p23"
+        },
+        {
+          "name": "Goblin Warchief",
+          "target_type": "card",
+          "index": 3,
+          "id": "p13"
+        },
+        {
+          "name": "Munitions Expert",
+          "target_type": "card",
+          "index": 4,
+          "id": "p37"
+        },
+        {
+          "name": "Skirk Prospector",
+          "target_type": "card",
+          "index": 5,
+          "id": "p33"
+        },
+        {
+          "name": "Sling-Gang Lieutenant",
+          "target_type": "card",
+          "index": 6,
+          "id": "p15"
+        },
+        {
+          "name": "Wooded Foothills",
+          "target_type": "card",
+          "index": 7,
+          "id": "p39"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p12"
+      },
+      "actionResult": {
+        "game_seq": 144,
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        208,
+        209,
+        211
+      ],
+      "subsequentActions": [
+        "Sonnet Detect discards Goblin Matron"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 57,
+      "snapshotIndex": 96,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p38"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 2,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "mana_cost": "{1}{C}{R}",
+          "name": "Eldrazi Linebreaker",
+          "index": 3,
+          "action": "cast",
+          "id": "p40",
+          "power": "3",
+          "toughness": "3"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 4,
+          "action": "land",
+          "id": "p7"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 5,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 6,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        210,
+        213,
+        214
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p38",
+          "p4",
+          "p5",
+          "p40",
+          "p7",
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 58,
+      "snapshotIndex": 96,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p38"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 2,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "mana_cost": "{1}{C}{R}",
+          "name": "Eldrazi Linebreaker",
+          "index": 3,
+          "action": "cast",
+          "id": "p40",
+          "power": "3",
+          "toughness": "3"
+        },
+        {
+          "name": "Eye of Ugin",
+          "index": 4,
+          "action": "land",
+          "id": "p7"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 5,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 6,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 4,
+      "chosenArgs": {
+        "id": "p7"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 146,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4"
+      },
+      "llmEventIndices": [
+        215,
+        216,
+        217
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain puts Eye of Ugin from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 59,
+      "snapshotIndex": 97,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 0,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "mana_cost": "{1}{C}{R}",
+          "name": "Eldrazi Linebreaker",
+          "index": 1,
+          "action": "cast",
+          "id": "p40",
+          "power": "3",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 2,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 3,
+          "action": "cast",
+          "id": "p31"
+        },
+        {
+          "mana_cost": "{3}{C}",
+          "name": "Thought-Knot Seer",
+          "index": 4,
+          "action": "cast",
+          "id": "p9",
+          "power": "4",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        219,
+        220,
+        221
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p5",
+          "p40",
+          "p8",
+          "p31",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 60,
+      "snapshotIndex": 97,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 0,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "mana_cost": "{1}{C}{R}",
+          "name": "Eldrazi Linebreaker",
+          "index": 1,
+          "action": "cast",
+          "id": "p40",
+          "power": "3",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 2,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 3,
+          "action": "cast",
+          "id": "p31"
+        },
+        {
+          "mana_cost": "{3}{C}",
+          "name": "Thought-Knot Seer",
+          "index": 4,
+          "action": "cast",
+          "id": "p9",
+          "power": "4",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 4,
+      "chosenArgs": {
+        "id": "p9"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 148,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4"
+      },
+      "llmEventIndices": [
+        222,
+        223,
+        224
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 61,
+      "snapshotIndex": 98,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Abundant Countryside",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 150,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        226,
+        227,
+        228
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain loses 2 life from Ancient Tomb",
+        "Qwen3L Villain casts Thought-Knot Seer from hand",
+        "Qwen3L Villain - Ability triggers: Glaring Fleshraker - Whenever you cast a colorless spell, create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\"",
+        "Qwen3L Villain creates a Eldrazi Spawn Token token",
+        "Qwen3L Villain - Ability triggers: Glaring Fleshraker - Whenever another colorless creature you control enters, Glaring Fleshraker deals 1 damage to each opponent."
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 62,
+      "snapshotIndex": 102,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 0,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 1,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        230,
+        231,
+        232
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 63,
+      "snapshotIndex": 103,
+      "player": "Sonnet Detect",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 160,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        233,
+        234,
+        236
+      ],
+      "subsequentActions": [
+        "Sonnet Detect loses 1 life from Glaring Fleshraker"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 64,
+      "snapshotIndex": 104,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 0,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 1,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        235,
+        238,
+        239
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain puts Thought-Knot Seer from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 65,
+      "snapshotIndex": 106,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Pick triggered ability (goes to the stack first)",
+      "choices": [
+        {
+          "name": "Ability",
+          "target_type": "card",
+          "index": 0,
+          "id": "p44"
+        },
+        {
+          "name": "Ability",
+          "target_type": "card",
+          "index": 1,
+          "id": "p45"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        240,
+        241,
+        242
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p5",
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 66,
+      "snapshotIndex": 106,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Pick triggered ability (goes to the stack first)",
+      "choices": [
+        {
+          "name": "Ability",
+          "target_type": "card",
+          "index": 0,
+          "id": "p44"
+        },
+        {
+          "name": "Ability",
+          "target_type": "card",
+          "index": 1,
+          "id": "p45"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 165,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        243,
+        244,
+        245
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain - Ability triggers: Thought-Knot Seer - When Thought-Knot Seer enters, target opponent reveals their hand. You choose a nonland card from it and exile that card. - targeting Sonnet Detect",
+        "Qwen3L Villain - Ability triggers: Glaring Fleshraker - Whenever another colorless creature you control enters, Glaring Fleshraker deals 1 damage to each opponent."
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 67,
+      "snapshotIndex": 109,
+      "player": "Sonnet Detect",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 170,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        247,
+        248,
+        250
+      ],
+      "subsequentActions": [
+        "Sonnet Detect loses 1 life from Glaring Fleshraker"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 68,
+      "snapshotIndex": 110,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 0,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 1,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        249,
+        252,
+        253
+      ],
+      "subsequentActions": [
+        "Sonnet Detect reveals Sling-Gang Lieutenant, Goblin Matron, Goblin Warchief, Goblin Ringleader, Skirk Prospector, Munitions Expert, Wooded Foothills (source: Thought-Knot Seer)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 69,
+      "snapshotIndex": 112,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a nonland card",
+      "choices": [
+        {
+          "name": "Goblin Matron",
+          "target_type": "card",
+          "index": 0,
+          "id": "p47"
+        },
+        {
+          "name": "Goblin Ringleader",
+          "target_type": "card",
+          "index": 1,
+          "id": "p48"
+        },
+        {
+          "name": "Goblin Warchief",
+          "target_type": "card",
+          "index": 2,
+          "id": "p49"
+        },
+        {
+          "name": "Munitions Expert",
+          "target_type": "card",
+          "index": 3,
+          "id": "p50"
+        },
+        {
+          "name": "Skirk Prospector",
+          "target_type": "card",
+          "index": 4,
+          "id": "p51"
+        },
+        {
+          "name": "Sling-Gang Lieutenant",
+          "target_type": "card",
+          "index": 5,
+          "id": "p52"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 175,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        254,
+        255,
+        256
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain moves Goblin Ringleader from hand to the exile zone (source: Thought-Knot Seer)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 70,
+      "snapshotIndex": 114,
+      "player": "Sonnet Detect",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 178,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        258,
+        259,
+        261,
+        264
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 71,
+      "snapshotIndex": 115,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Glaring Fleshraker",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        262,
+        263,
+        266
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 72,
+      "snapshotIndex": 115,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Glaring Fleshraker",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "all"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "all"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 179,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        267,
+        268,
+        269
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain attacks Sonnet Detect with 1 creature"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 73,
+      "snapshotIndex": 116,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 182,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        271,
+        272,
+        273
+      ],
+      "subsequentActions": [
+        "Attacker: Glaring Fleshraker (2/2) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 74,
+      "snapshotIndex": 119,
+      "player": "Sonnet Detect",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 186,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        275,
+        276,
+        277
+      ],
+      "subsequentActions": [
+        "Sonnet Detect loses 2 life at combat from Glaring Fleshraker"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 75,
+      "snapshotIndex": 122,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 0,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        279,
+        280,
+        281
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 76,
+      "snapshotIndex": 122,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{X}",
+          "name": "Chalice of the Void",
+          "index": 0,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p5"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 190,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        282,
+        283,
+        284
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 77,
+      "snapshotIndex": 122,
+      "player": "Qwen3L Villain",
+      "turn": 11,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Chalice of the Void",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. Cast Chalice of the Void"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "game_seq": 191,
+        "success": true,
+        "action_taken": "auto_passed_loop_detected",
+        "warning": "Too many interactions this turn (26). Auto-passing until next turn."
+      },
+      "llmEventIndices": [
+        288,
+        289,
+        290
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain announces a value of 0 for {X}{X} (source: Chalice of the Void)",
+        "Qwen3L Villain casts Chalice of the Void from hand",
+        "Qwen3L Villain - Ability triggers: Glaring Fleshraker - Whenever you cast a colorless spell, create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\""
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 78,
+      "snapshotIndex": 125,
+      "player": "Sonnet Detect",
+      "turn": 11,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 198,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        292,
+        293,
+        294
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain creates a Eldrazi Spawn Token token",
+        "Qwen3L Villain - Ability triggers: Glaring Fleshraker - Whenever another colorless creature you control enters, Glaring Fleshraker deals 1 damage to each opponent.",
+        "Sonnet Detect loses 1 life from Glaring Fleshraker"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 79,
+      "snapshotIndex": 129,
+      "player": "Sonnet Detect",
+      "turn": 11,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 205,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        296,
+        297,
+        298
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain puts Chalice of the Void from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 80,
+      "snapshotIndex": 132,
+      "player": "Sonnet Detect",
+      "turn": 12,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Cavern of Souls",
+          "index": 0,
+          "action": "land",
+          "id": "p50"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Goblin Matron",
+          "index": 1,
+          "action": "cast",
+          "id": "p11",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{1}{R}{R}",
+          "name": "Goblin Warchief",
+          "index": 2,
+          "action": "cast",
+          "id": "p13",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Skirk Prospector",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Wasteland",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        },
+        {
+          "name": "Wooded Foothills",
+          "index": 5,
+          "action": "land",
+          "id": "p39"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p50"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 209,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        300,
+        301,
+        303,
+        305,
+        307,
+        309,
+        310
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p50",
+          "p11",
+          "p13",
+          "p33",
+          "p39"
+        ]
+      }
+    },
+    {
+      "index": 81,
+      "snapshotIndex": 132,
+      "player": "Sonnet Detect",
+      "turn": 12,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "Choose a creature type",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Pirate"
+        },
+        {
+          "index": 1,
+          "description": "Shapeshifter"
+        },
+        {
+          "index": 2,
+          "description": "Noble"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "text": "Goblin"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 210,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_text_Goblin"
+      },
+      "llmEventIndices": [
+        312,
+        313,
+        314
+      ],
+      "subsequentActions": [
+        "Cavern of Souls: Sonnet Detect has chosen Goblin",
+        "Sonnet Detect puts Cavern of Souls from hand onto the Battlefield",
+        "Sonnet Detect skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 82,
+      "snapshotIndex": 135,
+      "player": "Sonnet Detect",
+      "turn": 12,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 0,
+          "action": "cast",
+          "id": "p37",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 216,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        316,
+        317,
+        318
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 4,
+        "playableCards": [
+          "p37"
+        ]
+      }
+    },
+    {
+      "index": 83,
+      "snapshotIndex": 139,
+      "player": "Qwen3L Villain",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p38"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{1}{C}{R}",
+          "name": "Eldrazi Linebreaker",
+          "index": 2,
+          "action": "cast",
+          "id": "p40",
+          "power": "3",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{2}{C}",
+          "name": "Glaring Fleshraker",
+          "index": 3,
+          "action": "cast",
+          "id": "p51",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 4,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 5,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        320,
+        321,
+        322
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p38",
+          "p4",
+          "p40",
+          "p51",
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 84,
+      "snapshotIndex": 139,
+      "player": "Qwen3L Villain",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p38"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{1}{C}{R}",
+          "name": "Eldrazi Linebreaker",
+          "index": 2,
+          "action": "cast",
+          "id": "p40",
+          "power": "3",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{2}{C}",
+          "name": "Glaring Fleshraker",
+          "index": 3,
+          "action": "cast",
+          "id": "p51",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 4,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 5,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 4,
+      "chosenArgs": {
+        "id": "p8"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_GET_AMOUNT",
+        "game_seq": 220,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4"
+      },
+      "llmEventIndices": [
+        323,
+        324,
+        325
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 85,
+      "snapshotIndex": 141,
+      "player": "Qwen3L Villain",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p38"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{1}{C}{R}",
+          "name": "Eldrazi Linebreaker",
+          "index": 2,
+          "action": "cast",
+          "id": "p40",
+          "power": "3",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{2}{C}",
+          "name": "Glaring Fleshraker",
+          "index": 3,
+          "action": "cast",
+          "id": "p51",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 4,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 5,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 226,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        342,
+        343,
+        346
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p38",
+          "p4",
+          "p40",
+          "p51",
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 86,
+      "snapshotIndex": 142,
+      "player": "Sonnet Detect",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 0,
+          "action": "cast",
+          "id": "p37",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 227,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        344,
+        345,
+        350
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 4,
+        "playableCards": [
+          "p37"
+        ]
+      }
+    },
+    {
+      "index": 87,
+      "snapshotIndex": 143,
+      "player": "Qwen3L Villain",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Glaring Fleshraker",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Eldrazi Spawn Token",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p43",
+          "power": "0",
+          "toughness": "1"
+        },
+        {
+          "name": "Thought-Knot Seer",
+          "index": 2,
+          "choice_type": "attacker",
+          "id": "p9",
+          "power": "4",
+          "toughness": "4"
+        },
+        {
+          "name": "Eldrazi Spawn Token",
+          "index": 3,
+          "choice_type": "attacker",
+          "id": "p48",
+          "power": "0",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 4,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        348,
+        349,
+        352
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 88,
+      "snapshotIndex": 143,
+      "player": "Qwen3L Villain",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Glaring Fleshraker",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Eldrazi Spawn Token",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p43",
+          "power": "0",
+          "toughness": "1"
+        },
+        {
+          "name": "Thought-Knot Seer",
+          "index": 2,
+          "choice_type": "attacker",
+          "id": "p9",
+          "power": "4",
+          "toughness": "4"
+        },
+        {
+          "name": "Eldrazi Spawn Token",
+          "index": 3,
+          "choice_type": "attacker",
+          "id": "p48",
+          "power": "0",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 4,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p9",
+          "p24",
+          "p40"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p9",
+          "p24"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 228,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack",
+        "failed": [
+          {
+            "id": "p40",
+            "reason": "not a valid attacker"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        353,
+        354,
+        355
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain attacks Sonnet Detect with 2 creatures"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "combatPhase": "declare_attackers"
+      }
+    },
+    {
+      "index": 89,
+      "snapshotIndex": 145,
+      "player": "Qwen3L Villain",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 0,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 1,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 232,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        357,
+        358,
+        360,
+        361
+      ],
+      "subsequentActions": [
+        "Attacker: Thought-Knot Seer (4/4) unblocked",
+        "Attacker: Glaring Fleshraker (2/2) unblocked",
+        "Sonnet Detect loses 4 life at combat from Thought-Knot Seer",
+        "Sonnet Detect loses 2 life at combat from Glaring Fleshraker"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "playableCards": [
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 90,
+      "snapshotIndex": 151,
+      "player": "Qwen3L Villain",
+      "turn": 13,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p38"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{1}{C}{R}",
+          "name": "Eldrazi Linebreaker",
+          "index": 2,
+          "action": "cast",
+          "id": "p40",
+          "power": "3",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{2}{C}",
+          "name": "Glaring Fleshraker",
+          "index": 3,
+          "action": "cast",
+          "id": "p51",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 4,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 5,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p40"
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 247,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p40 not found in current choices",
+        "choices": [
+          {
+            "mana_cost": "{X}{C}{C}",
+            "name": "Kozilek's Command",
+            "index": 0,
+            "action": "cast",
+            "id": "p8"
+          },
+          {
+            "mana_cost": "{X}{C}{C}",
+            "name": "Kozilek's Command",
+            "index": 1,
+            "action": "cast",
+            "id": "p31"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        363,
+        364,
+        373,
+        374
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p38",
+          "p4",
+          "p40",
+          "p51",
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 91,
+      "snapshotIndex": 153,
+      "player": "Sonnet Detect",
+      "turn": 14,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "land",
+          "id": "p55"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Goblin Matron",
+          "index": 1,
+          "action": "cast",
+          "id": "p11",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{1}{R}{R}",
+          "name": "Goblin Warchief",
+          "index": 2,
+          "action": "cast",
+          "id": "p13",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p37",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Skirk Prospector",
+          "index": 4,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Sling-Gang Lieutenant",
+          "index": 5,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Wasteland",
+          "index": 6,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        },
+        {
+          "name": "Wooded Foothills",
+          "index": 7,
+          "action": "land",
+          "id": "p39"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 7,
+      "chosenArgs": {
+        "id": "p39"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 244,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_7"
+      },
+      "llmEventIndices": [
+        367,
+        368,
+        370,
+        371
+      ],
+      "subsequentActions": [
+        "Sonnet Detect puts Wooded Foothills from hand onto the Battlefield",
+        "Sonnet Detect skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p55",
+          "p11",
+          "p13",
+          "p37",
+          "p33",
+          "p15",
+          "p39"
+        ]
+      }
+    },
+    {
+      "index": 92,
+      "snapshotIndex": 156,
+      "player": "Sonnet Detect",
+      "turn": 14,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 0,
+          "action": "cast",
+          "id": "p37",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        },
+        {
+          "name": "Wooded Foothills",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p39"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 249,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        376,
+        377,
+        380
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 5,
+        "playableCards": [
+          "p37"
+        ]
+      }
+    },
+    {
+      "index": 93,
+      "snapshotIndex": 157,
+      "player": "Qwen3L Villain",
+      "turn": 14,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 0,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 1,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 250,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        378,
+        379,
+        389
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "playableCards": [
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 94,
+      "snapshotIndex": 158,
+      "player": "Sonnet Detect",
+      "turn": 14,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Goblin Matron",
+          "index": 0,
+          "action": "cast",
+          "id": "p11",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{1}{R}{R}",
+          "name": "Goblin Warchief",
+          "index": 1,
+          "action": "cast",
+          "id": "p13",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p37",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Skirk Prospector",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Sling-Gang Lieutenant",
+          "index": 4,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Wasteland",
+          "index": 5,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        },
+        {
+          "name": "Wooded Foothills",
+          "index": 6,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p39"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 6,
+      "chosenArgs": {
+        "id": "p39"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 251,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_6"
+      },
+      "llmEventIndices": [
+        382,
+        383,
+        384
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 5,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p11",
+          "p13",
+          "p37",
+          "p33",
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 95,
+      "snapshotIndex": 158,
+      "player": "Sonnet Detect",
+      "turn": 14,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Wooded Foothills",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}, Pay 1 life, Sacrifice Wooded Foothills: Search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 252,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        386,
+        387,
+        388
+      ],
+      "subsequentActions": [
+        "Sonnet Detect loses 1 life from Wooded Foothills",
+        "Sonnet Detect sacrificed Wooded Foothills (source: Wooded Foothills)",
+        "Sonnet Detect activates: search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle. from Wooded Foothills",
+        "Sonnet Detect searches their library (source: Wooded Foothills)"
+      ],
+      "pilotContext": {
+        "untappedLands": 5,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 96,
+      "snapshotIndex": 161,
+      "player": "Sonnet Detect",
+      "turn": 14,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a Mountain or Forest card",
+      "choices": [
+        {
+          "name": "Badlands",
+          "target_type": "card",
+          "index": 0,
+          "id": "p28"
+        },
+        {
+          "name": "Badlands",
+          "target_type": "card",
+          "index": 1,
+          "id": "p29"
+        },
+        {
+          "name": "Badlands",
+          "target_type": "card",
+          "index": 2,
+          "id": "p32"
+        },
+        {
+          "name": "Mountain",
+          "target_type": "card",
+          "index": 3,
+          "id": "p31"
+        },
+        {
+          "name": "Raucous Theater",
+          "target_type": "card",
+          "index": 4,
+          "id": "p56"
+        },
+        {
+          "name": "Taiga",
+          "target_type": "card",
+          "index": 5,
+          "id": "p57"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p28"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 259,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        392,
+        393,
+        394
+      ],
+      "subsequentActions": [
+        "Sonnet Detect puts Badlands from library onto the Battlefield (source: Wooded Foothills)",
+        "Sonnet Detect's library is shuffled (source: Wooded Foothills)"
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p37"
+        ]
+      }
+    },
+    {
+      "index": 97,
+      "snapshotIndex": 163,
+      "player": "Qwen3L Villain",
+      "turn": 14,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 0,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 1,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "id": "p40"
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 263,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p40 not found in current choices",
+        "choices": [
+          {
+            "mana_cost": "{X}{C}{C}",
+            "name": "Kozilek's Command",
+            "index": 0,
+            "action": "cast",
+            "id": "p8"
+          },
+          {
+            "mana_cost": "{X}{C}{C}",
+            "name": "Kozilek's Command",
+            "index": 1,
+            "action": "cast",
+            "id": "p31"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        396,
+        397,
+        398
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "playableCards": [
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 98,
+      "snapshotIndex": 164,
+      "player": "Qwen3L Villain",
+      "turn": 15,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Abundant Countryside",
+          "index": 0,
+          "action": "land",
+          "id": "p38"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p4"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 2,
+          "action": "land",
+          "id": "p59"
+        },
+        {
+          "mana_cost": "{1}{C}{R}",
+          "name": "Eldrazi Linebreaker",
+          "index": 3,
+          "action": "cast",
+          "id": "p40",
+          "power": "3",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{2}{C}",
+          "name": "Glaring Fleshraker",
+          "index": 4,
+          "action": "cast",
+          "id": "p51",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 5,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 6,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        400,
+        401,
+        402
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p38",
+          "p4",
+          "p59",
+          "p40",
+          "p51",
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 99,
+      "snapshotIndex": 164,
+      "player": "Sonnet Detect",
+      "turn": 15,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 0,
+          "action": "cast",
+          "id": "p37",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 265,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        403,
+        405,
+        406
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 5,
+        "playableCards": [
+          "p37"
+        ]
+      }
+    },
+    {
+      "index": 100,
+      "snapshotIndex": 165,
+      "player": "Qwen3L Villain",
+      "turn": 15,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Glaring Fleshraker",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Eldrazi Spawn Token",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p43",
+          "power": "0",
+          "toughness": "1"
+        },
+        {
+          "name": "Thought-Knot Seer",
+          "index": 2,
+          "choice_type": "attacker",
+          "id": "p9",
+          "power": "4",
+          "toughness": "4"
+        },
+        {
+          "name": "Eldrazi Spawn Token",
+          "index": 3,
+          "choice_type": "attacker",
+          "id": "p48",
+          "power": "0",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 4,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        404,
+        409,
+        410
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 101,
+      "snapshotIndex": 165,
+      "player": "Qwen3L Villain",
+      "turn": 15,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Glaring Fleshraker",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p24",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Eldrazi Spawn Token",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p43",
+          "power": "0",
+          "toughness": "1"
+        },
+        {
+          "name": "Thought-Knot Seer",
+          "index": 2,
+          "choice_type": "attacker",
+          "id": "p9",
+          "power": "4",
+          "toughness": "4"
+        },
+        {
+          "name": "Eldrazi Spawn Token",
+          "index": 3,
+          "choice_type": "attacker",
+          "id": "p48",
+          "power": "0",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 4,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p9",
+          "p40",
+          "p24"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p9",
+          "p24"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 266,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack",
+        "failed": [
+          {
+            "id": "p40",
+            "reason": "not a valid attacker"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        411,
+        412,
+        413
+      ],
+      "subsequentActions": [
+        "Qwen3L Villain attacks Sonnet Detect with 2 creatures"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "combatPhase": "declare_attackers"
+      }
+    },
+    {
+      "index": 102,
+      "snapshotIndex": 167,
+      "player": "Qwen3L Villain",
+      "turn": 15,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 0,
+          "action": "cast",
+          "id": "p8"
+        },
+        {
+          "mana_cost": "{X}{C}{C}",
+          "name": "Kozilek's Command",
+          "index": 1,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 270,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        415,
+        416,
+        418,
+        419
+      ],
+      "subsequentActions": [
+        "Attacker: Thought-Knot Seer (4/4) unblocked",
+        "Attacker: Glaring Fleshraker (2/2) unblocked",
+        "Sonnet Detect loses 4 life at combat from Thought-Knot Seer",
+        "Sonnet Detect loses 2 life at combat from Glaring Fleshraker",
+        "Sonnet Detect has lost the game."
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "playableCards": [
+          "p8",
+          "p31"
+        ]
+      }
+    }
+  ]
 }

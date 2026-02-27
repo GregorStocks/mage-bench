@@ -28,6 +28,7 @@ from blunder_analysis import (
 from blunder_eval_common import (
     BASELINE_PATH,
     TMP_DIR,
+    decision_index,
     game_path_for_id,
     load_baseline,
     load_ground_truth,
@@ -227,7 +228,7 @@ def main() -> None:
     for game_id, entries in sorted(validated_by_game.items()):
         gz_path = str(game_path_for_id(game_id))
         game_ctx = load_game_context(gz_path)
-        decision_by_idx = {d["decision_index"]: d for d in game_ctx["decisions"]}
+        decision_by_idx = {decision_index(d): d for d in game_ctx["decisions"]}
 
         for entry in entries:
             di = entry["decision_index"]

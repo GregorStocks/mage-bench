@@ -38066,5 +38066,5369 @@
       "player": "GPT5n Snark"
     }
   ],
-  "blunderScriptVersion": 18
+  "blunderScriptVersion": 18,
+  "decisions": [
+    {
+      "index": 0,
+      "snapshotIndex": 0,
+      "player": "GPT52 Proud",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a starting player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "GPT52 Proud",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "GPT5n Snark",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p1",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 4,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0",
+        "warning": "Both id and index provided; used id=p1, ignored index=0"
+      },
+      "llmEventIndices": [
+        3,
+        4,
+        5
+      ],
+      "subsequentActions": [
+        "GPT52 Proud chooses that they take the first turn"
+      ]
+    },
+    {
+      "index": 1,
+      "snapshotIndex": 1,
+      "player": "GPT52 Proud",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 7,
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        7,
+        8,
+        10
+      ],
+      "subsequentActions": [
+        "GPT52 Proud skips Draw step"
+      ]
+    },
+    {
+      "index": 2,
+      "snapshotIndex": 2,
+      "player": "GPT52 Proud",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Ancient Tomb",
+          "index": 0,
+          "action": "land",
+          "id": "p3"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 1,
+          "action": "land",
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p9",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 10,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p9, ignored index=0"
+      },
+      "llmEventIndices": [
+        12,
+        13,
+        14
+      ],
+      "subsequentActions": [
+        "GPT52 Proud puts Scalding Tarn from hand onto the Battlefield",
+        "GPT52 Proud skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p3",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "snapshotIndex": 6,
+      "player": "GPT5n Snark",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Cavern of Souls",
+          "index": 0,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p11"
+        },
+        {
+          "name": "Mountain",
+          "index": 2,
+          "action": "land",
+          "id": "p13"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p13",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 17,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2",
+        "warning": "Both id and index provided; used id=p13, ignored index=0"
+      },
+      "llmEventIndices": [
+        16,
+        17,
+        18
+      ],
+      "subsequentActions": [
+        "GPT5n Snark puts Mountain from hand onto the Battlefield",
+        "GPT5n Snark casts Skirk Prospector from hand",
+        "GPT5n Snark puts Skirk Prospector from stack onto the Battlefield",
+        "GPT5n Snark skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11",
+          "p13"
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "snapshotIndex": 12,
+      "player": "GPT52 Proud",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Ancient Tomb",
+          "index": 0,
+          "action": "land",
+          "id": "p3"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p9",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 28,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p9, ignored index=1"
+      },
+      "llmEventIndices": [
+        22,
+        23,
+        24
+      ],
+      "subsequentActions": [
+        "GPT52 Proud skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p3"
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "snapshotIndex": 16,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}",
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "cast",
+          "id": "p26"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 2,
+          "action": "land",
+          "id": "p11"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 34,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        26,
+        27,
+        28
+      ],
+      "subsequentActions": [
+        "GPT5n Snark casts Aether Vial from hand",
+        "GPT5n Snark puts Aether Vial from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p26",
+          "p10",
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "snapshotIndex": 18,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 2,
+          "action": "land",
+          "id": "p11"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 39,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        30,
+        31,
+        32
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "snapshotIndex": 18,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 1,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 2,
+          "action": "land",
+          "id": "p11"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p10",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 41,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p10, ignored index=1"
+      },
+      "llmEventIndices": [
+        34,
+        35,
+        36
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "snapshotIndex": 18,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "Choose a creature type",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Shapeshifter"
+        },
+        {
+          "index": 1,
+          "description": "Noble"
+        },
+        {
+          "index": 2,
+          "description": "Warrior"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        39,
+        40,
+        41
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "snapshotIndex": 18,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "Choose a creature type",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Shapeshifter"
+        },
+        {
+          "index": 1,
+          "description": "Noble"
+        },
+        {
+          "index": 2,
+          "description": "Warrior"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 44,
+        "success": false,
+        "warning": "Both id and index provided; used id=p26, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p26 not found in current choices",
+        "choices": [
+          {
+            "index": 0,
+            "description": "Shapeshifter"
+          },
+          {
+            "index": 1,
+            "description": "Noble"
+          },
+          {
+            "index": 2,
+            "description": "Warrior"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        42,
+        43,
+        44
+      ],
+      "subsequentActions": [
+        "Cavern of Souls: GPT5n Snark has chosen Shapeshifter",
+        "GPT5n Snark puts Cavern of Souls from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "snapshotIndex": 20,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Skirk Prospector",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p16",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [
+          "p16"
+        ],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "declared": [
+          "p16"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 48,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        48,
+        49,
+        50
+      ],
+      "subsequentActions": [
+        "GPT5n Snark attacks GPT52 Proud with 1 creature",
+        "Attacker: Skirk Prospector (1/1) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 11,
+      "snapshotIndex": 23,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p14",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 53,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p14, ignored index=1"
+      },
+      "llmEventIndices": [
+        52,
+        53,
+        54
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p14",
+          "p15"
+        ]
+      },
+      "castRolledBack": true
+    },
+    {
+      "index": 12,
+      "snapshotIndex": 24,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 57,
+        "success": false,
+        "warning": "Both id and index provided; used id=p26, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p26 not found in current choices",
+        "choices": [
+          {
+            "index": 0,
+            "description": "1. {T}: Add {C}."
+          },
+          {
+            "index": 1,
+            "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+          }
+        ]
+      },
+      "llmEventIndices": [
+        56,
+        57,
+        58
+      ],
+      "subsequentActions": [
+        "GPT52 Proud loses 1 life at combat from Skirk Prospector"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 13,
+      "snapshotIndex": 27,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p15",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 61,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p15, ignored index=1"
+      },
+      "llmEventIndices": [
+        63,
+        64,
+        65
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p14",
+          "p15"
+        ]
+      },
+      "castRolledBack": true
+    },
+    {
+      "index": 14,
+      "snapshotIndex": 28,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 65,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        67,
+        68,
+        69
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p14"
+        ]
+      }
+    },
+    {
+      "index": 15,
+      "snapshotIndex": 31,
+      "player": "GPT5n Snark",
+      "turn": 4,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        72,
+        73,
+        74
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p14",
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 16,
+      "snapshotIndex": 32,
+      "player": "GPT52 Proud",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Ancient Tomb",
+          "index": 0,
+          "action": "land",
+          "id": "p3"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p3",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 69,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p3, ignored index=0"
+      },
+      "llmEventIndices": [
+        75,
+        76,
+        77
+      ],
+      "subsequentActions": [
+        "GPT52 Proud puts Ancient Tomb from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p3"
+        ]
+      }
+    },
+    {
+      "index": 17,
+      "snapshotIndex": 33,
+      "player": "GPT5n Snark",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        80,
+        81,
+        82
+      ],
+      "subsequentActions": [
+        "GPT52 Proud skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p14",
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 18,
+      "snapshotIndex": 34,
+      "player": "GPT5n Snark",
+      "turn": 5,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p14",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 74,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p14, ignored index=1"
+      },
+      "llmEventIndices": [
+        83,
+        84,
+        85
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p14",
+          "p15"
+        ]
+      },
+      "castRolledBack": true
+    },
+    {
+      "index": 19,
+      "snapshotIndex": 35,
+      "player": "GPT5n Snark",
+      "turn": 5,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        87,
+        88,
+        89,
+        90
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 20,
+      "snapshotIndex": 35,
+      "player": "GPT5n Snark",
+      "turn": 5,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p14",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 80,
+        "success": false,
+        "warning": "Both id and index provided; used id=p14, ignored index=1",
+        "error_code": "invalid_choice",
+        "error": "Object p14 not found in current choices",
+        "choices": [
+          {
+            "index": 0,
+            "description": "1. {T}: Add {C}."
+          },
+          {
+            "index": 1,
+            "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+          }
+        ]
+      },
+      "llmEventIndices": [
+        91,
+        92,
+        93
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 21,
+      "snapshotIndex": 35,
+      "player": "GPT5n Snark",
+      "turn": 5,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        96,
+        97,
+        98
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 22,
+      "snapshotIndex": 35,
+      "player": "GPT5n Snark",
+      "turn": 5,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        99,
+        100,
+        101
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 23,
+      "snapshotIndex": 35,
+      "player": "GPT5n Snark",
+      "turn": 5,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 86,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        102,
+        103,
+        104
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 24,
+      "snapshotIndex": 38,
+      "player": "GPT5n Snark",
+      "turn": 5,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        106,
+        107,
+        108
+      ],
+      "subsequentActions": [
+        "GPT5n Snark - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p14",
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 25,
+      "snapshotIndex": 38,
+      "player": "GPT5n Snark",
+      "turn": 5,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 91,
+        "success": false,
+        "warning": "Both id and index provided; used id=p12, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p12 not found in current choices",
+        "choices": [
+          {
+            "name": "Aether Vial",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{T}: You may put a creature card with mana value ..."
+            ],
+            "id": "p26"
+          },
+          {
+            "mana_cost": "{B}{R}",
+            "name": "Munitions Expert",
+            "index": 1,
+            "action": "cast",
+            "id": "p14",
+            "power": "1",
+            "toughness": "1"
+          },
+          {
+            "mana_cost": "{B}{R}",
+            "name": "Munitions Expert",
+            "index": 2,
+            "action": "cast",
+            "id": "p15",
+            "power": "1",
+            "toughness": "1"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        109,
+        110,
+        111,
+        112
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 26,
+      "snapshotIndex": 39,
+      "player": "GPT5n Snark",
+      "turn": 6,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 92,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        115,
+        116,
+        117
+      ],
+      "subsequentActions": [
+        "GPT5n Snark puts 1 charge counter on Aether Vial"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 27,
+      "snapshotIndex": 42,
+      "player": "GPT5n Snark",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Broadside Bombardiers",
+          "index": 1,
+          "action": "cast",
+          "id": "p23",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 2,
+          "action": "land",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Goblin Matron",
+          "index": 3,
+          "action": "cast",
+          "id": "p12",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 4,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 5,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 6,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        119,
+        120,
+        121
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p23",
+          "p11",
+          "p12",
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 28,
+      "snapshotIndex": 43,
+      "player": "GPT5n Snark",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Skirk Prospector",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p16",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [
+          "p16"
+        ],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "declared": [
+          "p16"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 96,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        122,
+        123,
+        124
+      ],
+      "subsequentActions": [
+        "GPT5n Snark attacks GPT52 Proud with 1 creature",
+        "Attacker: Skirk Prospector (1/1) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 29,
+      "snapshotIndex": 45,
+      "player": "GPT5n Snark",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        126,
+        127,
+        128
+      ],
+      "subsequentActions": [
+        "GPT52 Proud loses 1 life at combat from Skirk Prospector"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 30,
+      "snapshotIndex": 46,
+      "player": "GPT5n Snark",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        129,
+        130,
+        131
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 31,
+      "snapshotIndex": 47,
+      "player": "GPT5n Snark",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Broadside Bombardiers",
+          "index": 1,
+          "action": "cast",
+          "id": "p23",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 2,
+          "action": "land",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Goblin Matron",
+          "index": 3,
+          "action": "cast",
+          "id": "p12",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 4,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 5,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 6,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p23",
+          "p11",
+          "p12",
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 32,
+      "snapshotIndex": 48,
+      "player": "GPT52 Proud",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Scalding Tarn",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p9",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 105,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p9, ignored index=0"
+      },
+      "llmEventIndices": [
+        141,
+        142,
+        143
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 33,
+      "snapshotIndex": 49,
+      "player": "GPT5n Snark",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        145,
+        146,
+        147
+      ],
+      "subsequentActions": [
+        "GPT52 Proud skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 34,
+      "snapshotIndex": 50,
+      "player": "GPT5n Snark",
+      "turn": 7,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 109,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        148,
+        149,
+        150
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 35,
+      "snapshotIndex": 50,
+      "player": "GPT5n Snark",
+      "turn": 7,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        152,
+        153,
+        154
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 36,
+      "snapshotIndex": 51,
+      "player": "GPT5n Snark",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        155,
+        156,
+        157
+      ],
+      "subsequentActions": [
+        "GPT52 Proud discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 37,
+      "snapshotIndex": 52,
+      "player": "GPT52 Proud",
+      "turn": 7,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Atraxa, Grand Unifier",
+          "target_type": "card",
+          "index": 0,
+          "id": "p4"
+        },
+        {
+          "name": "Emrakul, the Aeons Torn",
+          "target_type": "card",
+          "index": 1,
+          "id": "p25"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 2,
+          "id": "p5"
+        },
+        {
+          "name": "Omniscience",
+          "target_type": "card",
+          "index": 3,
+          "id": "p6"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 5,
+          "id": "p8"
+        },
+        {
+          "name": "Show and Tell",
+          "target_type": "card",
+          "index": 6,
+          "id": "p31"
+        },
+        {
+          "name": "Show and Tell",
+          "target_type": "card",
+          "index": 7,
+          "id": "p34"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p34",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 115,
+        "success": true,
+        "action_taken": "selected_target_7",
+        "warning": "Both id and index provided; used id=p34, ignored index=0"
+      },
+      "llmEventIndices": [
+        158,
+        159,
+        161
+      ],
+      "subsequentActions": [
+        "GPT52 Proud discards Show and Tell",
+        "GPT5n Snark - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 38,
+      "snapshotIndex": 52,
+      "player": "GPT5n Snark",
+      "turn": 7,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        160,
+        163,
+        164
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 39,
+      "snapshotIndex": 53,
+      "player": "GPT5n Snark",
+      "turn": 8,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 119,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        165,
+        166,
+        167
+      ],
+      "subsequentActions": [
+        "GPT5n Snark puts 1 charge counter on Aether Vial"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 40,
+      "snapshotIndex": 55,
+      "player": "GPT5n Snark",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Broadside Bombardiers",
+          "index": 1,
+          "action": "cast",
+          "id": "p23",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 2,
+          "action": "land",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Goblin Matron",
+          "index": 3,
+          "action": "cast",
+          "id": "p12",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Goblin Matron",
+          "index": 4,
+          "action": "cast",
+          "id": "p36",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 5,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 6,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 7,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 122,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_3",
+        "warning": "Both id and index provided; used id=p12, ignored index=0"
+      },
+      "llmEventIndices": [
+        169,
+        170,
+        171
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p23",
+          "p11",
+          "p12",
+          "p36",
+          "p14",
+          "p15",
+          "p33"
+        ]
+      },
+      "castRolledBack": true
+    },
+    {
+      "index": 41,
+      "snapshotIndex": 57,
+      "player": "GPT5n Snark",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 127,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        173,
+        174,
+        175
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 42,
+      "snapshotIndex": 60,
+      "player": "GPT5n Snark",
+      "turn": 8,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Skirk Prospector",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p16",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [
+          "p16"
+        ],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "declared": [
+          "p16"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 130,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        177,
+        178,
+        179
+      ],
+      "subsequentActions": [
+        "GPT5n Snark attacks GPT52 Proud with 1 creature",
+        "Attacker: Skirk Prospector (1/1) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 43,
+      "snapshotIndex": 61,
+      "player": "GPT5n Snark",
+      "turn": 8,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        181,
+        182,
+        183,
+        184,
+        185
+      ],
+      "subsequentActions": [
+        "GPT52 Proud loses 1 life at combat from Skirk Prospector"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 44,
+      "snapshotIndex": 62,
+      "player": "GPT5n Snark",
+      "turn": 8,
+      "phase": "END",
+      "step": "END_TURN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        186,
+        187,
+        188
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 45,
+      "snapshotIndex": 63,
+      "player": "GPT52 Proud",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Scalding Tarn",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p9",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 138,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p9, ignored index=0"
+      },
+      "llmEventIndices": [
+        189,
+        190,
+        191
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 46,
+      "snapshotIndex": 64,
+      "player": "GPT5n Snark",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200
+      ],
+      "subsequentActions": [
+        "GPT52 Proud skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 47,
+      "snapshotIndex": 65,
+      "player": "GPT5n Snark",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 142,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        201,
+        202,
+        203
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 48,
+      "snapshotIndex": 65,
+      "player": "GPT5n Snark",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 144,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        205,
+        206,
+        207
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 49,
+      "snapshotIndex": 65,
+      "player": "GPT5n Snark",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        209,
+        210,
+        211
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 50,
+      "snapshotIndex": 66,
+      "player": "GPT5n Snark",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        212,
+        213,
+        214,
+        215
+      ],
+      "subsequentActions": [
+        "GPT52 Proud discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 51,
+      "snapshotIndex": 67,
+      "player": "GPT52 Proud",
+      "turn": 9,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Atraxa, Grand Unifier",
+          "target_type": "card",
+          "index": 0,
+          "id": "p4"
+        },
+        {
+          "name": "Atraxa, Grand Unifier",
+          "target_type": "card",
+          "index": 1,
+          "id": "p38"
+        },
+        {
+          "name": "Emrakul, the Aeons Torn",
+          "target_type": "card",
+          "index": 2,
+          "id": "p25"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 3,
+          "id": "p5"
+        },
+        {
+          "name": "Omniscience",
+          "target_type": "card",
+          "index": 4,
+          "id": "p6"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 5,
+          "id": "p7"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 6,
+          "id": "p8"
+        },
+        {
+          "name": "Show and Tell",
+          "target_type": "card",
+          "index": 7,
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p38",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 149,
+        "success": true,
+        "action_taken": "selected_target_1",
+        "warning": "Both id and index provided; used id=p38, ignored index=0"
+      },
+      "llmEventIndices": [
+        216,
+        217,
+        219
+      ],
+      "subsequentActions": [
+        "GPT52 Proud discards Atraxa, Grand Unifier",
+        "GPT5n Snark - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 52,
+      "snapshotIndex": 68,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 152,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        218,
+        220,
+        221
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 53,
+      "snapshotIndex": 68,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 154,
+        "success": false,
+        "warning": "Both id and index provided; used id=p26, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p26 not found in current choices"
+      },
+      "llmEventIndices": [
+        223,
+        225,
+        226
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 54,
+      "snapshotIndex": 68,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        228,
+        229,
+        230
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 55,
+      "snapshotIndex": 68,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        231,
+        232,
+        233
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 56,
+      "snapshotIndex": 68,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 155,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        234,
+        235,
+        236
+      ],
+      "subsequentActions": [
+        "GPT5n Snark puts 1 charge counter on Aether Vial"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 57,
+      "snapshotIndex": 70,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Broadside Bombardiers",
+          "index": 1,
+          "action": "cast",
+          "id": "p23",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 2,
+          "action": "land",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Goblin Matron",
+          "index": 3,
+          "action": "cast",
+          "id": "p12",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Goblin Matron",
+          "index": 4,
+          "action": "cast",
+          "id": "p36",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{1}{R}",
+          "name": "Mogg War Marshal",
+          "index": 5,
+          "action": "cast",
+          "id": "p40",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 6,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 7,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 8,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 9,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        238,
+        239,
+        240,
+        241
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p23",
+          "p11",
+          "p12",
+          "p36",
+          "p40",
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 58,
+      "snapshotIndex": 71,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Skirk Prospector",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p16",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [
+          "p16"
+        ],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "declared": [
+          "p16"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 159,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        242,
+        243,
+        244
+      ],
+      "subsequentActions": [
+        "GPT5n Snark attacks GPT52 Proud with 1 creature",
+        "Attacker: Skirk Prospector (1/1) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 59,
+      "snapshotIndex": 73,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        246,
+        247,
+        248
+      ],
+      "subsequentActions": [
+        "GPT52 Proud loses 1 life at combat from Skirk Prospector"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 60,
+      "snapshotIndex": 74,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 3,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p14",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 166,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p14, ignored index=3"
+      },
+      "llmEventIndices": [
+        249,
+        250,
+        251
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 61,
+      "snapshotIndex": 76,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        253,
+        254,
+        255
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 62,
+      "snapshotIndex": 76,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        256,
+        257,
+        258
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 63,
+      "snapshotIndex": 76,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        259,
+        260,
+        261,
+        262
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 64,
+      "snapshotIndex": 76,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        263,
+        264,
+        265
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 65,
+      "snapshotIndex": 76,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        266,
+        267,
+        268,
+        269
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 66,
+      "snapshotIndex": 76,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        270,
+        271,
+        272,
+        273
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 67,
+      "snapshotIndex": 76,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        274,
+        275,
+        276
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 68,
+      "snapshotIndex": 76,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        277,
+        278,
+        279
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 69,
+      "snapshotIndex": 76,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        280,
+        282
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 70,
+      "snapshotIndex": 76,
+      "player": "GPT5n Snark",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Cavern of Souls",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}: Add one mana of any color. Spend this mana only to cast a creature spell of the chosen type, and that spell can't be countered."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 189,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        283,
+        284,
+        285
+      ],
+      "subsequentActions": [
+        "GPT5n Snark discards down to 7 hand cards",
+        "GPT5n Snark discards Cavern of Souls"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 71,
+      "snapshotIndex": 81,
+      "player": "GPT52 Proud",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Lotus Petal",
+          "index": 0,
+          "action": "cast",
+          "id": "p41"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p41",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 196,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p41, ignored index=0"
+      },
+      "llmEventIndices": [
+        287,
+        288,
+        289
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p41"
+        ]
+      }
+    },
+    {
+      "index": 72,
+      "snapshotIndex": 82,
+      "player": "GPT5n Snark",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 198,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        291,
+        292,
+        293
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 73,
+      "snapshotIndex": 82,
+      "player": "GPT5n Snark",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 200,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        295,
+        296,
+        297
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 74,
+      "snapshotIndex": 82,
+      "player": "GPT5n Snark",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        299,
+        300,
+        301
+      ],
+      "subsequentActions": [
+        "GPT52 Proud skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 75,
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 204,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        302,
+        303,
+        304
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 76,
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 206,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        307,
+        308,
+        309
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 77,
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 208,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        312,
+        313,
+        314
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 78,
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 210,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        317,
+        318,
+        319
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 79,
+      "snapshotIndex": 83,
+      "player": "GPT5n Snark",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p26"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{B}{R}",
+          "name": "Munitions Expert",
+          "index": 3,
+          "action": "cast",
+          "id": "p33",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 212,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p26, ignored index=0"
+      },
+      "llmEventIndices": [
+        322,
+        323,
+        324
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p33"
+        ]
+      }
+    }
+  ]
 }

@@ -79285,5 +79285,6553 @@
       "player": "Opus Stoic"
     }
   ],
-  "blunderScriptVersion": 18
+  "blunderScriptVersion": 18,
+  "decisions": [
+    {
+      "index": 0,
+      "snapshotIndex": 0,
+      "player": "GPT5n Coach",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a starting player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "GPT5n Coach",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "Opus Stoic",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 4,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        3,
+        4,
+        5
+      ],
+      "subsequentActions": [
+        "GPT5n Coach chooses that they take the first turn"
+      ]
+    },
+    {
+      "index": 1,
+      "snapshotIndex": 1,
+      "player": "Opus Stoic",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 7,
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        8,
+        10,
+        14
+      ],
+      "subsequentActions": [
+        "GPT5n Coach skips Draw step"
+      ]
+    },
+    {
+      "index": 2,
+      "snapshotIndex": 2,
+      "player": "GPT5n Coach",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "land",
+          "id": "p3"
+        },
+        {
+          "name": "Underground Sea",
+          "index": 1,
+          "action": "land",
+          "id": "p8"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "land",
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p3",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 9,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p3, ignored index=0"
+      },
+      "llmEventIndices": [
+        11,
+        12,
+        13
+      ],
+      "subsequentActions": [
+        "GPT5n Coach puts Flooded Strand from hand onto the Battlefield",
+        "GPT5n Coach skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p3",
+          "p8",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "snapshotIndex": 5,
+      "player": "GPT5n Coach",
+      "turn": 1,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p3"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p3",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 14,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p3, ignored index=0"
+      },
+      "llmEventIndices": [
+        19,
+        20,
+        21
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 4,
+      "snapshotIndex": 5,
+      "player": "GPT5n Coach",
+      "turn": 1,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Flooded Strand",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}, Pay 1 life, Sacrifice Flooded Strand: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 15,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        23,
+        24,
+        25
+      ],
+      "subsequentActions": [
+        "GPT5n Coach loses 1 life from Flooded Strand",
+        "GPT5n Coach sacrificed Flooded Strand (source: Flooded Strand)",
+        "GPT5n Coach activates: search your library for a Plains or Island card, put it onto the battlefield, then shuffle. from Flooded Strand",
+        "GPT5n Coach searches their library (source: Flooded Strand)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 5,
+      "snapshotIndex": 8,
+      "player": "GPT5n Coach",
+      "turn": 1,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a Plains or Island card",
+      "choices": [
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 0,
+          "id": "p13"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 1,
+          "id": "p14"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 2,
+          "id": "p10"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 3,
+          "id": "p11"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 4,
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p13",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 22,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0",
+        "warning": "Both id and index provided; used id=p13, ignored index=0"
+      },
+      "llmEventIndices": [
+        28,
+        29,
+        30
+      ],
+      "subsequentActions": [
+        "GPT5n Coach puts Island from library onto the Battlefield (source: Flooded Strand)",
+        "GPT5n Coach's library is shuffled (source: Flooded Strand)"
+      ]
+    },
+    {
+      "index": 6,
+      "snapshotIndex": 11,
+      "player": "GPT5n Coach",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{U}",
+          "name": "Ponder",
+          "index": 0,
+          "action": "cast",
+          "id": "p6"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 27,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        32,
+        33,
+        34
+      ],
+      "subsequentActions": [
+        "GPT5n Coach casts Ponder from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p6"
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "snapshotIndex": 15,
+      "player": "GPT5n Coach",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
+      "choices": [
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 0,
+          "id": "p26"
+        },
+        {
+          "name": "Murktide Regent",
+          "target_type": "card",
+          "index": 1,
+          "id": "p27"
+        },
+        {
+          "name": "Orcish Bowmasters",
+          "target_type": "card",
+          "index": 2,
+          "id": "p28"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 32,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2"
+      },
+      "llmEventIndices": [
+        36,
+        37,
+        38
+      ],
+      "subsequentActions": [
+        "GPT5n Coach puts a card from library to the top of their library (source: Ponder)"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "snapshotIndex": 15,
+      "player": "GPT5n Coach",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
+      "choices": [
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 0,
+          "id": "p26"
+        },
+        {
+          "name": "Murktide Regent",
+          "target_type": "card",
+          "index": 1,
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 34,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        40,
+        41,
+        42
+      ],
+      "subsequentActions": [
+        "GPT5n Coach puts a card from library to the top of their library (source: Ponder)",
+        "GPT5n Coach puts a card from library to the top of their library (source: Ponder)",
+        "GPT5n Coach puts Ponder from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "snapshotIndex": 18,
+      "player": "Opus Stoic",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "land",
+          "id": "p11"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "land",
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "land",
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p16"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 41,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        45,
+        46,
+        47
+      ],
+      "subsequentActions": [
+        "Opus Stoic puts Wasteland from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p16",
+          "p30"
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "snapshotIndex": 19,
+      "player": "Opus Stoic",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}",
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "cast",
+          "id": "p10"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p10",
+        "mana_plan": [
+          "p16"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 43,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
+      },
+      "llmEventIndices": [
+        49,
+        50,
+        51
+      ],
+      "subsequentActions": [
+        "Opus Stoic casts Aether Vial from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p10"
+        ]
+      }
+    },
+    {
+      "index": 11,
+      "snapshotIndex": 22,
+      "player": "GPT5n Coach",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 47,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        53,
+        54,
+        55
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 12,
+      "snapshotIndex": 24,
+      "player": "GPT5n Coach",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 49,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        57,
+        58,
+        59
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 13,
+      "snapshotIndex": 26,
+      "player": "GPT5n Coach",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 51,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        62,
+        63,
+        64
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 14,
+      "snapshotIndex": 28,
+      "player": "GPT5n Coach",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 53,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        66,
+        67,
+        68
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 15,
+      "snapshotIndex": 30,
+      "player": "GPT5n Coach",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 55,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        71,
+        72,
+        73
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 16,
+      "snapshotIndex": 32,
+      "player": "GPT5n Coach",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p4",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 57,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p4, ignored index=0"
+      },
+      "llmEventIndices": [
+        75,
+        76,
+        77
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 17,
+      "snapshotIndex": 34,
+      "player": "GPT5n Coach",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p4",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 59,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p4, ignored index=0"
+      },
+      "llmEventIndices": [
+        79,
+        80,
+        81
+      ],
+      "subsequentActions": [
+        "Opus Stoic puts Aether Vial from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 18,
+      "snapshotIndex": 37,
+      "player": "Opus Stoic",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 63,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        84,
+        85,
+        86
+      ],
+      "subsequentActions": [
+        "Opus Stoic skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 19,
+      "snapshotIndex": 41,
+      "player": "Opus Stoic",
+      "turn": 2,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 68,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        88,
+        89,
+        101
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 20,
+      "snapshotIndex": 43,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{U}",
+          "name": "Brainstorm",
+          "index": 0,
+          "action": "cast",
+          "id": "p28"
+        },
+        {
+          "name": "Underground Sea",
+          "index": 1,
+          "action": "land",
+          "id": "p8"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "land",
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p28",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 70,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p28, ignored index=0"
+      },
+      "llmEventIndices": [
+        90,
+        91,
+        92
+      ],
+      "subsequentActions": [
+        "GPT5n Coach casts Brainstorm from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p28",
+          "p8",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 21,
+      "snapshotIndex": 45,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 73,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        94,
+        95,
+        96
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 22,
+      "snapshotIndex": 46,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "You may choose an alternative cost",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Cast with alternative cost: Pay 1 life, Exile a blue card from your hand (source: Force of Will)"
+        },
+        {
+          "index": 1,
+          "description": "Cast with no alternative cost: {3}{U}{U}"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 74,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_0"
+      },
+      "llmEventIndices": [
+        98,
+        99,
+        100
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 23,
+      "snapshotIndex": 47,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p4",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 76,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p4, ignored index=0"
+      },
+      "llmEventIndices": [
+        105,
+        106,
+        107
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 24,
+      "snapshotIndex": 48,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "You may choose an alternative cost",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Cast with alternative cost: Pay 1 life, Exile a blue card from your hand (source: Force of Will)"
+        },
+        {
+          "index": 1,
+          "description": "Cast with no alternative cost: {3}{U}{U}"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 77,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_0"
+      },
+      "llmEventIndices": [
+        109,
+        110,
+        111
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 25,
+      "snapshotIndex": 49,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p4",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 79,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p4, ignored index=0"
+      },
+      "llmEventIndices": [
+        114,
+        115,
+        116
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 26,
+      "snapshotIndex": 51,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p4",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 81,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p4, ignored index=0"
+      },
+      "llmEventIndices": [
+        119,
+        120,
+        121
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 27,
+      "snapshotIndex": 53,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 83,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p5, ignored index=0"
+      },
+      "llmEventIndices": [
+        124,
+        125,
+        126
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 28,
+      "snapshotIndex": 55,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p8",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 85,
+        "success": false,
+        "warning": "Both id and index provided; used id=p8, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p8 not found in current choices",
+        "choices": [
+          {
+            "mana_cost": "{3}{U}{U}",
+            "name": "Force of Will",
+            "index": 0,
+            "action": "cast",
+            "id": "p4"
+          },
+          {
+            "mana_cost": "{3}{U}{U}",
+            "name": "Force of Will",
+            "index": 1,
+            "action": "cast",
+            "id": "p5"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        129,
+        130,
+        131,
+        132,
+        133,
+        134
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 29,
+      "snapshotIndex": 57,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card",
+      "choices": [
+        {
+          "name": "Barrowgoyf",
+          "target_type": "card",
+          "index": 0,
+          "id": "p35"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 1,
+          "id": "p4"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 2,
+          "id": "p5"
+        },
+        {
+          "name": "Murktide Regent",
+          "target_type": "card",
+          "index": 3,
+          "id": "p27"
+        },
+        {
+          "name": "Orcish Bowmasters",
+          "target_type": "card",
+          "index": 4,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 5,
+          "id": "p36"
+        },
+        {
+          "name": "Snuff Out",
+          "target_type": "card",
+          "index": 6,
+          "id": "p7"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 7,
+          "id": "p8"
+        },
+        {
+          "name": "Wasteland",
+          "target_type": "card",
+          "index": 8,
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 9,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        137,
+        138,
+        139
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 30,
+      "snapshotIndex": 57,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card",
+      "choices": [
+        {
+          "name": "Barrowgoyf",
+          "target_type": "card",
+          "index": 0,
+          "id": "p35"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 1,
+          "id": "p4"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 2,
+          "id": "p5"
+        },
+        {
+          "name": "Murktide Regent",
+          "target_type": "card",
+          "index": 3,
+          "id": "p27"
+        },
+        {
+          "name": "Orcish Bowmasters",
+          "target_type": "card",
+          "index": 4,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 5,
+          "id": "p36"
+        },
+        {
+          "name": "Snuff Out",
+          "target_type": "card",
+          "index": 6,
+          "id": "p7"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 7,
+          "id": "p8"
+        },
+        {
+          "name": "Wasteland",
+          "target_type": "card",
+          "index": 8,
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 9,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        140,
+        141,
+        142
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 31,
+      "snapshotIndex": 57,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card",
+      "choices": [
+        {
+          "name": "Barrowgoyf",
+          "target_type": "card",
+          "index": 0,
+          "id": "p35"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 1,
+          "id": "p4"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 2,
+          "id": "p5"
+        },
+        {
+          "name": "Murktide Regent",
+          "target_type": "card",
+          "index": 3,
+          "id": "p27"
+        },
+        {
+          "name": "Orcish Bowmasters",
+          "target_type": "card",
+          "index": 4,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 5,
+          "id": "p36"
+        },
+        {
+          "name": "Snuff Out",
+          "target_type": "card",
+          "index": 6,
+          "id": "p7"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 7,
+          "id": "p8"
+        },
+        {
+          "name": "Wasteland",
+          "target_type": "card",
+          "index": 8,
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 9,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        143,
+        144,
+        145
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 32,
+      "snapshotIndex": 57,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card",
+      "choices": [
+        {
+          "name": "Barrowgoyf",
+          "target_type": "card",
+          "index": 0,
+          "id": "p35"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 1,
+          "id": "p4"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 2,
+          "id": "p5"
+        },
+        {
+          "name": "Murktide Regent",
+          "target_type": "card",
+          "index": 3,
+          "id": "p27"
+        },
+        {
+          "name": "Orcish Bowmasters",
+          "target_type": "card",
+          "index": 4,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 5,
+          "id": "p36"
+        },
+        {
+          "name": "Snuff Out",
+          "target_type": "card",
+          "index": 6,
+          "id": "p7"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 7,
+          "id": "p8"
+        },
+        {
+          "name": "Wasteland",
+          "target_type": "card",
+          "index": 8,
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 9,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 90,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2",
+        "warning": "Both id and index provided; used id=p5, ignored index=0"
+      },
+      "llmEventIndices": [
+        146,
+        147,
+        148
+      ],
+      "subsequentActions": [
+        "GPT5n Coach puts a card from hand to the top of their library (source: Brainstorm)"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5"
+        ]
+      }
+    },
+    {
+      "index": 33,
+      "snapshotIndex": 58,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card",
+      "choices": [
+        {
+          "name": "Barrowgoyf",
+          "target_type": "card",
+          "index": 0,
+          "id": "p35"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 1,
+          "id": "p4"
+        },
+        {
+          "name": "Murktide Regent",
+          "target_type": "card",
+          "index": 2,
+          "id": "p27"
+        },
+        {
+          "name": "Orcish Bowmasters",
+          "target_type": "card",
+          "index": 3,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 4,
+          "id": "p36"
+        },
+        {
+          "name": "Snuff Out",
+          "target_type": "card",
+          "index": 5,
+          "id": "p7"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 6,
+          "id": "p8"
+        },
+        {
+          "name": "Wasteland",
+          "target_type": "card",
+          "index": 7,
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p4",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 93,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1",
+        "warning": "Both id and index provided; used id=p4, ignored index=0"
+      },
+      "llmEventIndices": [
+        151,
+        152,
+        153
+      ],
+      "subsequentActions": [
+        "GPT5n Coach puts a card from hand to the top of their library (source: Brainstorm)",
+        "GPT5n Coach puts Brainstorm from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4"
+        ]
+      }
+    },
+    {
+      "index": 34,
+      "snapshotIndex": 59,
+      "player": "GPT5n Coach",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Underground Sea",
+          "index": 0,
+          "action": "land",
+          "id": "p8"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "land",
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p8",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 96,
+        "success": true,
+        "action_taken": "auto_passed_loop_detected",
+        "warning": "Too many interactions this turn (26). Auto-passing until next turn."
+      },
+      "llmEventIndices": [
+        156,
+        157,
+        158
+      ],
+      "subsequentActions": [
+        "GPT5n Coach skip attack",
+        "Opus Stoic - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p8",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 35,
+      "snapshotIndex": 65,
+      "player": "Opus Stoic",
+      "turn": 4,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p16"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 104,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        161,
+        162,
+        163
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 36,
+      "snapshotIndex": 65,
+      "player": "Opus Stoic",
+      "turn": 4,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Wasteland",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: Add {C}."
+        },
+        {
+          "index": 1,
+          "description": "2. {T}, Sacrifice Wasteland: Destroy target nonbasic land."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 105,
+        "success": false,
+        "error_code": "missing_param",
+        "error": "GAME_CHOOSE_ABILITY requires index=N. Call get_action_choices first to see the available abilities, then choose_action with the index of the one you want.",
+        "choices": [
+          {
+            "index": 0,
+            "description": "1. {T}: Add {C}."
+          },
+          {
+            "index": 1,
+            "description": "2. {T}, Sacrifice Wasteland: Destroy target nonbasic land."
+          }
+        ]
+      },
+      "llmEventIndices": [
+        165,
+        166,
+        167
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 37,
+      "snapshotIndex": 68,
+      "player": "Opus Stoic",
+      "turn": 4,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 108,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        171,
+        172,
+        173
+      ],
+      "subsequentActions": [
+        "Opus Stoic puts 1 charge counter on Aether Vial"
+      ]
+    },
+    {
+      "index": 38,
+      "snapshotIndex": 69,
+      "player": "Opus Stoic",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "index": 1,
+          "action": "land",
+          "id": "p11"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "land",
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p11"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 110,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        175,
+        176,
+        177
+      ],
+      "subsequentActions": [
+        "Opus Stoic puts Bloodstained Mire from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p30"
+        ]
+      }
+    },
+    {
+      "index": 39,
+      "snapshotIndex": 70,
+      "player": "Opus Stoic",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p11"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 112,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        179,
+        180,
+        181
+      ],
+      "subsequentActions": [
+        "Opus Stoic skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 40,
+      "snapshotIndex": 74,
+      "player": "Opus Stoic",
+      "turn": 4,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p11"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 117,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        183,
+        184,
+        186
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 41,
+      "snapshotIndex": 76,
+      "player": "GPT5n Coach",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{U}",
+          "name": "Ponder",
+          "index": 0,
+          "action": "cast",
+          "id": "p36"
+        },
+        {
+          "name": "Underground Sea",
+          "index": 1,
+          "action": "land",
+          "id": "p8"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "land",
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p8",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 119,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p8, ignored index=0"
+      },
+      "llmEventIndices": [
+        185,
+        187,
+        188
+      ],
+      "subsequentActions": [
+        "GPT5n Coach puts Underground Sea from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p36",
+          "p8",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 42,
+      "snapshotIndex": 77,
+      "player": "GPT5n Coach",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Orcish Bowmasters",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Ponder",
+          "index": 1,
+          "action": "cast",
+          "id": "p36"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p36",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 121,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p36, ignored index=0"
+      },
+      "llmEventIndices": [
+        192,
+        193,
+        194,
+        195
+      ],
+      "subsequentActions": [
+        "GPT5n Coach casts Ponder from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p29",
+          "p36"
+        ]
+      }
+    },
+    {
+      "index": 43,
+      "snapshotIndex": 81,
+      "player": "GPT5n Coach",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
+      "choices": [
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 0,
+          "id": "p5"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 1,
+          "id": "p41"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 2,
+          "id": "p42"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p4",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 126,
+        "success": false,
+        "warning": "Both id and index provided; used id=p4, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p4 not found in current choices",
+        "choices": [
+          {
+            "name": "Force of Will",
+            "target_type": "card",
+            "index": 0,
+            "id": "p5"
+          },
+          {
+            "name": "Force of Will",
+            "target_type": "card",
+            "index": 1,
+            "id": "p41"
+          },
+          {
+            "name": "Thoughtseize",
+            "target_type": "card",
+            "index": 2,
+            "id": "p42"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        202,
+        203,
+        204
+      ],
+      "subsequentActions": [
+        "GPT5n Coach puts a card from library to the top of their library (source: Ponder)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p4"
+        ]
+      }
+    },
+    {
+      "index": 44,
+      "snapshotIndex": 81,
+      "player": "GPT5n Coach",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
+      "choices": [
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 0,
+          "id": "p5"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 1,
+          "id": "p41"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 129,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0",
+        "warning": "Both id and index provided; used id=p5, ignored index=0"
+      },
+      "llmEventIndices": [
+        209,
+        210,
+        211
+      ],
+      "subsequentActions": [
+        "GPT5n Coach puts a card from library to the top of their library (source: Ponder)",
+        "GPT5n Coach puts a card from library to the top of their library (source: Ponder)",
+        "GPT5n Coach puts Ponder from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p4"
+        ]
+      }
+    },
+    {
+      "index": 45,
+      "snapshotIndex": 82,
+      "player": "GPT5n Coach",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play spells and abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p41",
+        "text": ""
+      },
+      "actionResult": {
+        "error": "Unknown short ID: p41"
+      },
+      "llmEventIndices": [
+        214,
+        215,
+        216
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 46,
+      "snapshotIndex": 82,
+      "player": "GPT5n Coach",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play spells and abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        219,
+        220,
+        221,
+        222,
+        223
+      ],
+      "subsequentActions": [
+        "GPT5n Coach skip attack",
+        "Opus Stoic - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 47,
+      "snapshotIndex": 88,
+      "player": "Opus Stoic",
+      "turn": 6,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p11"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 142,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        224,
+        225,
+        226
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 48,
+      "snapshotIndex": 90,
+      "player": "Opus Stoic",
+      "turn": 6,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 144,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        228,
+        229,
+        230
+      ],
+      "subsequentActions": [
+        "Opus Stoic puts 1 charge counter on Aether Vial"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 49,
+      "snapshotIndex": 91,
+      "player": "Opus Stoic",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p11"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 3,
+          "action": "land",
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "id": "p30"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 146,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_3"
+      },
+      "llmEventIndices": [
+        232,
+        233,
+        234
+      ],
+      "subsequentActions": [
+        "Opus Stoic puts Wasteland from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p30"
+        ]
+      }
+    },
+    {
+      "index": 50,
+      "snapshotIndex": 92,
+      "player": "Opus Stoic",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Bloodstained Mire",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}, Pay 1 life, Sacrifice Bloodstained Mire: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 149,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        238,
+        239,
+        240
+      ],
+      "subsequentActions": [
+        "Opus Stoic loses 1 life from Bloodstained Mire",
+        "Opus Stoic sacrificed Bloodstained Mire (source: Bloodstained Mire)",
+        "Opus Stoic activates: search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle. from Bloodstained Mire"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 51,
+      "snapshotIndex": 93,
+      "player": "Opus Stoic",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 153,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        242,
+        243,
+        244
+      ],
+      "subsequentActions": [
+        "Opus Stoic searches their library (source: Bloodstained Mire)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 52,
+      "snapshotIndex": 95,
+      "player": "Opus Stoic",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a Swamp or Mountain card",
+      "choices": [
+        {
+          "name": "Badlands",
+          "target_type": "card",
+          "index": 0,
+          "id": "p47"
+        },
+        {
+          "name": "Badlands",
+          "target_type": "card",
+          "index": 1,
+          "id": "p48"
+        },
+        {
+          "name": "Badlands",
+          "target_type": "card",
+          "index": 2,
+          "id": "p49"
+        },
+        {
+          "name": "Mountain",
+          "target_type": "card",
+          "index": 3,
+          "id": "p50"
+        },
+        {
+          "name": "Mountain",
+          "target_type": "card",
+          "index": 4,
+          "id": "p51"
+        },
+        {
+          "name": "Mountain",
+          "target_type": "card",
+          "index": 5,
+          "id": "p52"
+        },
+        {
+          "name": "Raucous Theater",
+          "target_type": "card",
+          "index": 6,
+          "id": "p53"
+        },
+        {
+          "name": "Taiga",
+          "target_type": "card",
+          "index": 7,
+          "id": "p54"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p47"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 156,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        246,
+        247,
+        248
+      ],
+      "subsequentActions": [
+        "Opus Stoic puts Badlands from library onto the Battlefield (source: Bloodstained Mire)",
+        "Opus Stoic's library is shuffled (source: Bloodstained Mire)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 53,
+      "snapshotIndex": 96,
+      "player": "Opus Stoic",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Broadside Bombardiers",
+          "index": 1,
+          "action": "cast",
+          "id": "p12",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Broadside Bombardiers",
+          "index": 2,
+          "action": "cast",
+          "id": "p44",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Wasteland",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p12",
+        "mana_plan": [
+          "p47:1",
+          "p16",
+          "p30"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 159,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "mana_plan_set": true,
+        "mana_plan_size": 3
+      },
+      "llmEventIndices": [
+        250,
+        251,
+        252
+      ],
+      "subsequentActions": [
+        "Opus Stoic casts Broadside Bombardiers from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12",
+          "p44"
+        ]
+      }
+    },
+    {
+      "index": 54,
+      "snapshotIndex": 101,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p42"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        254,
+        255,
+        256,
+        257
+      ],
+      "subsequentActions": [
+        "Opus Stoic puts Broadside Bombardiers from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p4",
+          "p42"
+        ]
+      }
+    },
+    {
+      "index": 55,
+      "snapshotIndex": 103,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        258,
+        259,
+        260,
+        261
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 56,
+      "snapshotIndex": 104,
+      "player": "Opus Stoic",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Broadside Bombardiers",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p12",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p12"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p12"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 169,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        262,
+        263,
+        264
+      ],
+      "subsequentActions": [
+        "Opus Stoic attacks GPT5n Coach with 1 creature"
+      ],
+      "pilotContext": {
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 57,
+      "snapshotIndex": 107,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        266,
+        267,
+        268
+      ],
+      "subsequentActions": [
+        "Attacker: Broadside Bombardiers (2/2) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 58,
+      "snapshotIndex": 109,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        269,
+        270,
+        271,
+        272,
+        274
+      ],
+      "subsequentActions": [
+        "GPT5n Coach loses 2 life at combat from Broadside Bombardiers"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 59,
+      "snapshotIndex": 111,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p7",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 179,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p7, ignored index=0"
+      },
+      "llmEventIndices": [
+        275,
+        276,
+        277
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 60,
+      "snapshotIndex": 113,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p7",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 181,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p7, ignored index=0"
+      },
+      "llmEventIndices": [
+        279,
+        280,
+        281
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 61,
+      "snapshotIndex": 115,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p7",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 183,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p7, ignored index=0"
+      },
+      "llmEventIndices": [
+        284,
+        285,
+        286
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 62,
+      "snapshotIndex": 117,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p7",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 185,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p7, ignored index=0"
+      },
+      "llmEventIndices": [
+        289,
+        290,
+        291
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 63,
+      "snapshotIndex": 119,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        294,
+        295
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 64,
+      "snapshotIndex": 119,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        296,
+        297,
+        298
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 65,
+      "snapshotIndex": 119,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        299,
+        300,
+        301,
+        302
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 66,
+      "snapshotIndex": 119,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        303,
+        304,
+        305
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 67,
+      "snapshotIndex": 119,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        306,
+        307,
+        308
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 68,
+      "snapshotIndex": 119,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        309,
+        310,
+        311,
+        312,
+        313,
+        314
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 69,
+      "snapshotIndex": 119,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        315,
+        316,
+        317
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 70,
+      "snapshotIndex": 119,
+      "player": "GPT5n Coach",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 0,
+          "action": "cast",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        318,
+        319,
+        325
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 71,
+      "snapshotIndex": 120,
+      "player": "Opus Stoic",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Broadside Bombardiers",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "Boast &mdash; Sacrifice another creature or artif..."
+          ],
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 188,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        321,
+        322,
+        324,
+        329
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 72,
+      "snapshotIndex": 122,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        326,
+        327
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 73,
+      "snapshotIndex": 122,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Orcish Bowmasters",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{3}{B}",
+          "name": "Snuff Out",
+          "index": 1,
+          "action": "cast",
+          "id": "p7"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "land",
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p7",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 190,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p7, ignored index=0"
+      },
+      "llmEventIndices": [
+        328,
+        331,
+        332
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p29",
+          "p7",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 74,
+      "snapshotIndex": 123,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "You may choose an alternative cost",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Cast with alternative cost: Pay 4 life (source: Snuff Out)"
+        },
+        {
+          "index": 1,
+          "description": "Cast with no alternative cost: {3}{B}"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p7",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 191,
+        "success": false,
+        "warning": "Both id and index provided; used id=p7, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p7 not found in current choices",
+        "choices": [
+          {
+            "index": 0,
+            "description": "Cast with alternative cost: Pay 4 life (source: Snuff Out)"
+          },
+          {
+            "index": 1,
+            "description": "Cast with no alternative cost: {3}{B}"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        334,
+        335,
+        336
+      ],
+      "subsequentActions": [
+        "GPT5n Coach loses 4 life from Snuff Out",
+        "GPT5n Coach casts Snuff Out using alternative casting costs targeting Broadside Bombardiers from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5",
+          "p42",
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 75,
+      "snapshotIndex": 124,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 1,
+          "action": "cast",
+          "id": "p5"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 2,
+          "action": "cast",
+          "id": "p42"
+        },
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Orcish Bowmasters",
+          "index": 3,
+          "action": "cast",
+          "id": "p29",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 194,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        340,
+        341,
+        342
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p4",
+          "p5",
+          "p42",
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 76,
+      "snapshotIndex": 125,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "You may choose an alternative cost",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Cast with alternative cost: Pay 1 life, Exile a blue card from your hand (source: Force of Will)"
+        },
+        {
+          "index": 1,
+          "description": "Cast with no alternative cost: {3}{U}{U}"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 195,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_0"
+      },
+      "llmEventIndices": [
+        344,
+        345,
+        346
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p5",
+          "p42",
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 77,
+      "snapshotIndex": 125,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a spell",
+      "choices": [
+        {
+          "name": "Snuff Out",
+          "target_type": "card",
+          "index": 0,
+          "id": "p49"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 196,
+        "success": false,
+        "error_code": "index_out_of_range",
+        "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current targets.",
+        "choices": [
+          {
+            "name": "Snuff Out",
+            "target_type": "card",
+            "index": 0,
+            "id": "p49"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        348,
+        349,
+        350
+      ],
+      "subsequentActions": [
+        "GPT5n Coach loses 1 life from Force of Will"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p5",
+          "p42",
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 78,
+      "snapshotIndex": 126,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a blue card from your hand",
+      "choices": [
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 0,
+          "id": "p5"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 1,
+          "id": "p42"
+        },
+        {
+          "name": "Murktide Regent",
+          "target_type": "card",
+          "index": 2,
+          "id": "p27"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p5",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 198,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0",
+        "warning": "Both id and index provided; used id=p5, ignored index=0"
+      },
+      "llmEventIndices": [
+        356,
+        357,
+        358
+      ],
+      "subsequentActions": [
+        "GPT5n Coach moves Force of Will from hand to the exile zone (source: Force of Will)",
+        "GPT5n Coach casts Force of Will using alternative casting costs targeting Snuff Out from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p5",
+          "p42",
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 79,
+      "snapshotIndex": 127,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Force of Will",
+          "index": 0,
+          "action": "cast",
+          "id": "p42"
+        },
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Orcish Bowmasters",
+          "index": 1,
+          "action": "cast",
+          "id": "p29",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 201,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        360,
+        361,
+        362
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p42",
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 80,
+      "snapshotIndex": 128,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "You may choose an alternative cost",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Cast with alternative cost: Pay 1 life, Exile a blue card from your hand (source: Force of Will)"
+        },
+        {
+          "index": 1,
+          "description": "Cast with no alternative cost: {3}{U}{U}"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 202,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_0"
+      },
+      "llmEventIndices": [
+        364,
+        365,
+        366
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 81,
+      "snapshotIndex": 128,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a spell",
+      "choices": [
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 0,
+          "id": "p32"
+        },
+        {
+          "name": "Snuff Out",
+          "target_type": "card",
+          "index": 1,
+          "id": "p49"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 203,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        368,
+        369,
+        370
+      ],
+      "subsequentActions": [
+        "GPT5n Coach loses 1 life from Force of Will",
+        "GPT5n Coach moves Murktide Regent from hand to the exile zone (source: Force of Will)",
+        "GPT5n Coach casts Force of Will using alternative casting costs targeting Force of Will from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 82,
+      "snapshotIndex": 130,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Orcish Bowmasters",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 208,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        372,
+        373,
+        374
+      ],
+      "subsequentActions": [
+        "GPT5n Coach casts Orcish Bowmasters from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 83,
+      "snapshotIndex": 133,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        376,
+        377
+      ],
+      "subsequentActions": [
+        "GPT5n Coach puts Orcish Bowmasters from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 84,
+      "snapshotIndex": 135,
+      "player": "GPT5n Coach",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select any target",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "GPT5n Coach",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "tapped": true,
+          "controller": "Opus Stoic",
+          "name": "Broadside Bombardiers",
+          "target_type": "permanent",
+          "index": 1,
+          "power": "2",
+          "id": "p12",
+          "toughness": "2"
+        },
+        {
+          "name": "Opus Stoic",
+          "target_type": "player",
+          "index": 2,
+          "id": "p2"
+        },
+        {
+          "name": "Orcish Bowmasters",
+          "target_type": "permanent",
+          "index": 3,
+          "power": "1",
+          "id": "p29",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        378,
+        379
+      ],
+      "subsequentActions": [
+        "GPT5n Coach - Ability triggers: Orcish Bowmasters - When Orcish Bowmasters enters and whenever an opponent draws a card except the first one they draw in each of their draw steps, Orcish Bowmasters deals 1 damage to any target. Then amass Orcs 1. - targeting GPT5n Coach",
+        "GPT5n Coach loses 1 life from Orcish Bowmasters",
+        "GPT5n Coach creates a Orc Army Token token",
+        "GPT5n Coach puts Force of Will from stack into their graveyard (source: Force of Will)",
+        "Force of Will is countered by Force of Will"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 85,
+      "snapshotIndex": 148,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 239,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        380,
+        381,
+        382
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 86,
+      "snapshotIndex": 150,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 241,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        384,
+        385,
+        386
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 87,
+      "snapshotIndex": 151,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "mana_cost": "{1}",
+          "name": "Aether Vial",
+          "index": 1,
+          "action": "cast",
+          "id": "p55"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Broadside Bombardiers",
+          "index": 2,
+          "action": "cast",
+          "id": "p44",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Wasteland",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p10"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 242,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        388,
+        389,
+        390
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p55",
+          "p44"
+        ]
+      }
+    },
+    {
+      "index": 88,
+      "snapshotIndex": 151,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Aether Vial",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: You may put a creature card with mana value equal to the number of charge counters on Aether Vial from your hand onto the battlefield."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 243,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        392,
+        393,
+        394
+      ],
+      "subsequentActions": [
+        "Opus Stoic activates: You may put a creature card with mana value equal to the number of charge counters on Aether Vial from your hand onto the battlefield. from Aether Vial"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p55",
+          "p44"
+        ]
+      }
+    },
+    {
+      "index": 89,
+      "snapshotIndex": 152,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 245,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        396,
+        397,
+        398
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 90,
+      "snapshotIndex": 154,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Put a creature card with mana value equal to 2 from your hand onto the battlefield?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 247,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        400,
+        401,
+        402
+      ],
+      "subsequentActions": [
+        "Opus Stoic puts Munitions Expert from hand onto the Battlefield (source: Aether Vial)"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 91,
+      "snapshotIndex": 155,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a creature or planeswalker",
+      "choices": [
+        {
+          "name": "Munitions Expert",
+          "target_type": "permanent",
+          "index": 0,
+          "power": "1",
+          "id": "p14",
+          "toughness": "1"
+        },
+        {
+          "controller": "GPT5n Coach",
+          "name": "Orc Army Token",
+          "target_type": "permanent",
+          "index": 1,
+          "power": "1",
+          "id": "p53",
+          "toughness": "1"
+        },
+        {
+          "controller": "GPT5n Coach",
+          "name": "Orcish Bowmasters",
+          "target_type": "permanent",
+          "index": 2,
+          "power": "1",
+          "id": "p29",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p29"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 250,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2"
+      },
+      "llmEventIndices": [
+        406,
+        407,
+        408
+      ],
+      "subsequentActions": [
+        "Opus Stoic - Ability triggers: Munitions Expert - When Munitions Expert enters, you may have it deal damage to target creature or planeswalker equal to the number of Goblins you control. - targeting Orcish Bowmasters"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 92,
+      "snapshotIndex": 156,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 252,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        410,
+        411,
+        412
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 93,
+      "snapshotIndex": 158,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "When Munitions Expert enters, you may have it deal damage to target creature or planeswalker equal to the number of Goblins you control.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 254,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        414,
+        415,
+        416
+      ],
+      "subsequentActions": [
+        "Munitions Expert deals 1 damage to Orcish Bowmasters",
+        "Orcish Bowmasters died"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 94,
+      "snapshotIndex": 159,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}",
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "cast",
+          "id": "p55"
+        },
+        {
+          "mana_cost": "{2}{R}",
+          "name": "Broadside Bombardiers",
+          "index": 1,
+          "action": "cast",
+          "id": "p44",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p44",
+        "mana_plan": [
+          "p47:1",
+          "p16",
+          "p30"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 257,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "mana_plan_set": true,
+        "mana_plan_size": 3
+      },
+      "llmEventIndices": [
+        418,
+        419,
+        420
+      ],
+      "subsequentActions": [
+        "Opus Stoic casts Broadside Bombardiers from hand",
+        "Opus Stoic puts Broadside Bombardiers from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p55",
+          "p44"
+        ]
+      }
+    },
+    {
+      "index": 95,
+      "snapshotIndex": 167,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Broadside Bombardiers",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p44",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p44"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p44"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 267,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        422,
+        423,
+        424
+      ],
+      "subsequentActions": [
+        "Opus Stoic attacks GPT5n Coach with 1 creature"
+      ],
+      "pilotContext": {
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 96,
+      "snapshotIndex": 171,
+      "player": "GPT5n Coach",
+      "turn": 8,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select blockers",
+      "choices": [
+        {
+          "name": "Orc Army Token",
+          "index": 0,
+          "choice_type": "blocker",
+          "id": "p53",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [
+          "{\"id\":\"p53\",\"blocks\":\"p44\"}"
+        ],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "declared": [],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 272,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_block",
+        "failed": [
+          {
+            "id": "{\"id\"",
+            "reason": "unknown short ID"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        426,
+        427,
+        428
+      ],
+      "subsequentActions": [
+        "Attacker: Broadside Bombardiers (2/2) unblocked",
+        "GPT5n Coach loses 2 life at combat from Broadside Bombardiers"
+      ],
+      "pilotContext": {
+        "combatPhase": "blockers",
+        "incomingAttackers": [
+          {
+            "name": "Broadside Bombardiers",
+            "id": "p44",
+            "power": "2",
+            "toughness": "2"
+          }
+        ]
+      }
+    },
+    {
+      "index": 97,
+      "snapshotIndex": 176,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Broadside Bombardiers",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Boast &mdash; Sacrifice another creature or artif..."
+          ],
+          "id": "p44"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p44"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 279,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        431,
+        432,
+        433
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 98,
+      "snapshotIndex": 177,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select any target",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "Opus Stoic",
+          "target_type": "player",
+          "index": 0,
+          "id": "p60"
+        },
+        {
+          "tapped": true,
+          "name": "Broadside Bombardiers",
+          "target_type": "permanent",
+          "index": 1,
+          "power": "2",
+          "id": "p44",
+          "toughness": "2"
+        },
+        {
+          "name": "GPT5n Coach",
+          "target_type": "player",
+          "index": 2,
+          "id": "p61"
+        },
+        {
+          "name": "Munitions Expert",
+          "target_type": "permanent",
+          "index": 3,
+          "power": "1",
+          "id": "p14",
+          "toughness": "1"
+        },
+        {
+          "controller": "GPT5n Coach",
+          "name": "Orc Army Token",
+          "target_type": "permanent",
+          "index": 4,
+          "power": "1",
+          "id": "p53",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p61"
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 281,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p61 not found in current choices",
+        "choices": [
+          {
+            "is_you": true,
+            "name": "Opus Stoic",
+            "target_type": "player",
+            "index": 0,
+            "id": "p60"
+          },
+          {
+            "tapped": true,
+            "name": "Broadside Bombardiers",
+            "target_type": "permanent",
+            "index": 1,
+            "power": "2",
+            "id": "p44",
+            "toughness": "2"
+          },
+          {
+            "name": "GPT5n Coach",
+            "target_type": "player",
+            "index": 2,
+            "id": "p62"
+          },
+          {
+            "name": "Munitions Expert",
+            "target_type": "permanent",
+            "index": 3,
+            "power": "1",
+            "id": "p14",
+            "toughness": "1"
+          },
+          {
+            "controller": "GPT5n Coach",
+            "name": "Orc Army Token",
+            "target_type": "permanent",
+            "index": 4,
+            "power": "1",
+            "id": "p53",
+            "toughness": "1"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        435,
+        436,
+        437
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 99,
+      "snapshotIndex": 178,
+      "player": "Opus Stoic",
+      "turn": 8,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select another creature or artifact (to sacrifice)",
+      "choices": [
+        {
+          "tapped": true,
+          "name": "Aether Vial",
+          "target_type": "permanent",
+          "index": 0,
+          "id": "p10"
+        },
+        {
+          "name": "Munitions Expert",
+          "target_type": "permanent",
+          "index": 1,
+          "power": "1",
+          "id": "p14",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p14"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 282,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        441,
+        442,
+        443
+      ],
+      "subsequentActions": [
+        "Opus Stoic sacrificed Munitions Expert (source: Broadside Bombardiers)",
+        "Opus Stoic activates: Broadside Bombardiers deals damage equal to 2 plus the sacrificed permanent's mana value to any target. from Broadside Bombardiers targeting GPT5n Coach",
+        "GPT5n Coach loses 4 life from Broadside Bombardiers"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 100,
+      "snapshotIndex": 183,
+      "player": "GPT5n Coach",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Thoughtseize",
+          "index": 0,
+          "action": "cast",
+          "id": "p41"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "land",
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 290,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        445,
+        446,
+        447
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p41",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 101,
+      "snapshotIndex": 184,
+      "player": "GPT5n Coach",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "GPT5n Coach",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "Opus Stoic",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 291,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        449,
+        450,
+        451
+      ],
+      "subsequentActions": [
+        "GPT5n Coach casts Thoughtseize targeting GPT5n Coach from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 102,
+      "snapshotIndex": 187,
+      "player": "GPT5n Coach",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p41",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 295,
+        "success": false,
+        "warning": "Both id and index provided; used id=p41, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p41 not found in current choices"
+      },
+      "llmEventIndices": [
+        453,
+        454,
+        455
+      ],
+      "subsequentActions": [
+        "GPT5n Coach reveals Wasteland, Barrowgoyf",
+        "GPT5n Coach discards Barrowgoyf (source: Thoughtseize)",
+        "GPT5n Coach loses 2 life from Thoughtseize",
+        "GPT5n Coach puts Thoughtseize from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 103,
+      "snapshotIndex": 192,
+      "player": "GPT5n Coach",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Orc Army Token",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p53",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 304,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        460,
+        461,
+        462
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 104,
+      "snapshotIndex": 193,
+      "player": "GPT5n Coach",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Select attackers",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 305,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        464,
+        465,
+        466
+      ],
+      "subsequentActions": [
+        "GPT5n Coach attacks Opus Stoic with 1 creature",
+        "Attacker: Orc Army Token (1/1) unblocked",
+        "Opus Stoic loses 1 life at combat from Orc Army Token"
+      ],
+      "pilotContext": {
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 105,
+      "snapshotIndex": 199,
+      "player": "GPT5n Coach",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Wasteland",
+          "index": 0,
+          "action": "land",
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        471,
+        472
+      ],
+      "subsequentActions": [
+        "Opus Stoic - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 106,
+      "snapshotIndex": 201,
+      "player": "Opus Stoic",
+      "turn": 10,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Wasteland",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 318,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        473,
+        474,
+        475
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 107,
+      "snapshotIndex": 203,
+      "player": "Opus Stoic",
+      "turn": 10,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 320,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        477,
+        478,
+        479
+      ],
+      "subsequentActions": [
+        "Opus Stoic puts 1 charge counter on Aether Vial"
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 108,
+      "snapshotIndex": 206,
+      "player": "Opus Stoic",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Broadside Bombardiers",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p44",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p44"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p44"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 324,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        481,
+        482,
+        484,
+        485
+      ],
+      "subsequentActions": [
+        "Opus Stoic attacks GPT5n Coach with 1 creature",
+        "Attacker: Broadside Bombardiers (2/2) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 109,
+      "snapshotIndex": 210,
+      "player": "Opus Stoic",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p10"
+        },
+        {
+          "name": "Broadside Bombardiers",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "Boast &mdash; Sacrifice another creature or artif..."
+          ],
+          "id": "p44"
+        },
+        {
+          "name": "Wasteland",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p16"
+        },
+        {
+          "name": "Wasteland",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Sacrifice {this}: Destroy target nonbasic la..."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 330,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        487,
+        488,
+        491
+      ],
+      "subsequentActions": [
+        "GPT5n Coach loses 2 life at combat from Broadside Bombardiers",
+        "GPT5n Coach has lost the game."
+      ],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    }
+  ]
 }

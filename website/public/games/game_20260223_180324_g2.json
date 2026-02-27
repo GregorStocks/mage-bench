@@ -46341,5 +46341,5489 @@
       "player": "o3 Memoir"
     }
   ],
-  "blunderScriptVersion": 18
+  "blunderScriptVersion": 18,
+  "decisions": [
+    {
+      "index": 0,
+      "snapshotIndex": 0,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a starting player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "o3 Memoir",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "GPT5m Trash",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p1",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 4,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0",
+        "warning": "Both id and index provided; used id=p1, ignored index=0"
+      },
+      "llmEventIndices": [
+        3,
+        4,
+        5
+      ],
+      "subsequentActions": [
+        "o3 Memoir chooses that they take the first turn"
+      ]
+    },
+    {
+      "index": 1,
+      "snapshotIndex": 1,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 7,
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        7,
+        8,
+        11
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 2,
+      "snapshotIndex": 1,
+      "player": "GPT5m Trash",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        10,
+        17
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 3,
+      "snapshotIndex": 1,
+      "player": "GPT5m Trash",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 9,
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        18,
+        19,
+        21
+      ],
+      "subsequentActions": [
+        "o3 Memoir skips Draw step"
+      ]
+    },
+    {
+      "index": 4,
+      "snapshotIndex": 2,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Inkmoth Nexus",
+          "index": 0,
+          "action": "land",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 1,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "name": "Sacred Foundry",
+          "index": 2,
+          "action": "land",
+          "id": "p14"
+        },
+        {
+          "name": "Urza's Saga",
+          "index": 3,
+          "action": "land",
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 3,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p16",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 11,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_3",
+        "warning": "Both id and index provided; used id=p16, ignored index=3"
+      },
+      "llmEventIndices": [
+        20,
+        23,
+        24
+      ],
+      "subsequentActions": [
+        "o3 Memoir puts Urza's Saga from hand onto the Battlefield",
+        "o3 Memoir - Ability triggers: Urza's Saga - I - Urza's Saga gains \"{T}: Add {C}.\""
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p12",
+          "p14",
+          "p16"
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "snapshotIndex": 3,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 14,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        28,
+        29,
+        30
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 6,
+      "snapshotIndex": 4,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "mana_cost": "{1}",
+          "name": "Shadowspear",
+          "index": 1,
+          "action": "cast",
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p15",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 15,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p15, ignored index=1"
+      },
+      "llmEventIndices": [
+        32,
+        33,
+        34
+      ],
+      "subsequentActions": [
+        "o3 Memoir casts Shadowspear from hand",
+        "o3 Memoir puts Shadowspear from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12",
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "snapshotIndex": 6,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 20,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p12, ignored index=0"
+      },
+      "llmEventIndices": [
+        36,
+        37,
+        38
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "snapshotIndex": 6,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 22,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p12, ignored index=0"
+      },
+      "llmEventIndices": [
+        40,
+        41,
+        42
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "snapshotIndex": 6,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        44,
+        45
+      ],
+      "subsequentActions": [
+        "o3 Memoir skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "snapshotIndex": 8,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 27,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p12, ignored index=0"
+      },
+      "llmEventIndices": [
+        46,
+        47,
+        48
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 11,
+      "snapshotIndex": 8,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 29,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        50,
+        51,
+        52
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 12,
+      "snapshotIndex": 8,
+      "player": "o3 Memoir",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        54,
+        55
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 13,
+      "snapshotIndex": 9,
+      "player": "GPT5m Trash",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        56,
+        57
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 14,
+      "snapshotIndex": 9,
+      "player": "GPT5m Trash",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Forest",
+          "index": 0,
+          "action": "land",
+          "id": "p3"
+        },
+        {
+          "name": "Misty Rainforest",
+          "index": 1,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Spymaster's Vault",
+          "index": 2,
+          "action": "land",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        58,
+        59
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p3",
+          "p6",
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 15,
+      "snapshotIndex": 9,
+      "player": "GPT5m Trash",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Forest",
+          "index": 0,
+          "action": "land",
+          "id": "p3"
+        },
+        {
+          "name": "Misty Rainforest",
+          "index": 1,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Spymaster's Vault",
+          "index": 2,
+          "action": "land",
+          "id": "p7"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p3",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 32,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p3, ignored index=0"
+      },
+      "llmEventIndices": [
+        60,
+        61,
+        62
+      ],
+      "subsequentActions": [
+        "GPT5m Trash puts Forest from hand onto the Battlefield",
+        "GPT5m Trash skip attack",
+        "o3 Memoir - Ability triggers: Urza's Saga - II - Urza's Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This creature gets +1/+1 for each artifact you control.'\""
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p3",
+          "p6",
+          "p7"
+        ]
+      }
+    },
+    {
+      "index": 16,
+      "snapshotIndex": 16,
+      "player": "o3 Memoir",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Shadowspear",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 42,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        64,
+        65,
+        66
+      ],
+      "subsequentActions": [
+        "o3 Memoir activates: Permanents your opponents control lose hexproof and indestructible until end of turn. from Shadowspear"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 17,
+      "snapshotIndex": 18,
+      "player": "GPT5m Trash",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        68,
+        69
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 18,
+      "snapshotIndex": 20,
+      "player": "o3 Memoir",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Inkmoth Nexus",
+          "index": 0,
+          "action": "land",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 1,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "name": "Sacred Foundry",
+          "index": 2,
+          "action": "land",
+          "id": "p14"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 3,
+          "action": "land",
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p14",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 48,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2",
+        "warning": "Both id and index provided; used id=p14, ignored index=2"
+      },
+      "llmEventIndices": [
+        70,
+        71,
+        72
+      ],
+      "subsequentActions": [
+        "o3 Memoir puts Sacred Foundry from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p12",
+          "p14",
+          "p26"
+        ]
+      }
+    },
+    {
+      "index": 19,
+      "snapshotIndex": 21,
+      "player": "o3 Memoir",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 51,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p12, ignored index=0"
+      },
+      "llmEventIndices": [
+        74,
+        75,
+        76
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 20,
+      "snapshotIndex": 21,
+      "player": "o3 Memoir",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 53,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        78,
+        79,
+        80
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 21,
+      "snapshotIndex": 21,
+      "player": "o3 Memoir",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        82,
+        83
+      ],
+      "subsequentActions": [
+        "o3 Memoir skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 22,
+      "snapshotIndex": 25,
+      "player": "o3 Memoir",
+      "turn": 3,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 60,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p12, ignored index=0"
+      },
+      "llmEventIndices": [
+        84,
+        85,
+        87,
+        88
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 23,
+      "snapshotIndex": 25,
+      "player": "o3 Memoir",
+      "turn": 3,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 62,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p12, ignored index=0"
+      },
+      "llmEventIndices": [
+        90,
+        91,
+        92
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 24,
+      "snapshotIndex": 27,
+      "player": "GPT5m Trash",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        94,
+        95
+      ],
+      "subsequentActions": [
+        "GPT5m Trash skip attack",
+        "GPT5m Trash discards down to 7 hand cards"
+      ]
+    },
+    {
+      "index": 25,
+      "snapshotIndex": 30,
+      "player": "GPT5m Trash",
+      "turn": 4,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Endurance",
+          "target_type": "card",
+          "index": 0,
+          "id": "p29"
+        },
+        {
+          "name": "Green Sun's Zenith",
+          "target_type": "card",
+          "index": 1,
+          "id": "p4"
+        },
+        {
+          "name": "Grist, the Hunger Tide",
+          "target_type": "card",
+          "index": 2,
+          "id": "p5"
+        },
+        {
+          "name": "Misty Rainforest",
+          "target_type": "card",
+          "index": 3,
+          "id": "p6"
+        },
+        {
+          "name": "Spymaster's Vault",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Strangleroot Geist",
+          "target_type": "card",
+          "index": 5,
+          "id": "p8"
+        },
+        {
+          "name": "Young Wolf",
+          "target_type": "card",
+          "index": 6,
+          "id": "p9"
+        },
+        {
+          "name": "Young Wolf",
+          "target_type": "card",
+          "index": 7,
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 7,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 7,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p25",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 70,
+        "success": true,
+        "action_taken": "selected_target_7",
+        "warning": "Both id and index provided; used id=p25, ignored index=7"
+      },
+      "llmEventIndices": [
+        96,
+        97,
+        99
+      ],
+      "subsequentActions": [
+        "GPT5m Trash discards Young Wolf",
+        "o3 Memoir - Ability triggers: Urza's Saga - III - Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 26,
+      "snapshotIndex": 31,
+      "player": "o3 Memoir",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Shadowspear",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Urza's Saga",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{2}, {T}: Create a 0/0 colorless Construct artifa..."
+          ],
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 73,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        98,
+        101,
+        102
+      ],
+      "subsequentActions": [
+        "o3 Memoir activates: Permanents your opponents control lose hexproof and indestructible until end of turn. from Shadowspear",
+        "o3 Memoir searches their library (source: Urza's Saga)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 27,
+      "snapshotIndex": 33,
+      "player": "o3 Memoir",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select an artifact card with mana cost {0} or {1}",
+      "choices": [
+        {
+          "name": "Colossus Hammer",
+          "target_type": "card",
+          "index": 0,
+          "id": "p31"
+        },
+        {
+          "name": "Colossus Hammer",
+          "target_type": "card",
+          "index": 1,
+          "id": "p32"
+        },
+        {
+          "name": "Colossus Hammer",
+          "target_type": "card",
+          "index": 2,
+          "id": "p33"
+        },
+        {
+          "name": "Colossus Hammer",
+          "target_type": "card",
+          "index": 3,
+          "id": "p38"
+        },
+        {
+          "name": "Mox Opal",
+          "target_type": "card",
+          "index": 4,
+          "id": "p34"
+        },
+        {
+          "name": "Mox Opal",
+          "target_type": "card",
+          "index": 5,
+          "id": "p35"
+        },
+        {
+          "name": "Mox Opal",
+          "target_type": "card",
+          "index": 6,
+          "id": "p40"
+        },
+        {
+          "name": "Ornithopter",
+          "target_type": "card",
+          "index": 7,
+          "id": "p36"
+        },
+        {
+          "name": "Ornithopter",
+          "target_type": "card",
+          "index": 8,
+          "id": "p37"
+        },
+        {
+          "name": "Ornithopter",
+          "target_type": "card",
+          "index": 9,
+          "id": "p39"
+        },
+        {
+          "name": "Ornithopter",
+          "target_type": "card",
+          "index": 10,
+          "id": "p43"
+        },
+        {
+          "name": "Paradise Mantle",
+          "target_type": "card",
+          "index": 11,
+          "id": "p41"
+        },
+        {
+          "name": "Paradise Mantle",
+          "target_type": "card",
+          "index": 12,
+          "id": "p42"
+        }
+      ],
+      "choiceCount": 13,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p31",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 78,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0",
+        "warning": "Both id and index provided; used id=p31, ignored index=0"
+      },
+      "llmEventIndices": [
+        104,
+        105,
+        106
+      ],
+      "subsequentActions": [
+        "o3 Memoir puts Colossus Hammer from library onto the Battlefield (source: Urza's Saga)",
+        "o3 Memoir's library is shuffled (source: Urza's Saga)",
+        "o3 Memoir sacrificed Urza's Saga",
+        "o3 Memoir skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 28,
+      "snapshotIndex": 35,
+      "player": "o3 Memoir",
+      "turn": 5,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Shadowspear",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 84,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        108,
+        109,
+        110
+      ],
+      "subsequentActions": [
+        "o3 Memoir activates: Permanents your opponents control lose hexproof and indestructible until end of turn. from Shadowspear"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 29,
+      "snapshotIndex": 37,
+      "player": "o3 Memoir",
+      "turn": 5,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 87,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        112,
+        113,
+        114
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 30,
+      "snapshotIndex": 39,
+      "player": "GPT5m Trash",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 1,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "name": "Misty Rainforest",
+          "index": 2,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Spymaster's Vault",
+          "index": 3,
+          "action": "land",
+          "id": "p7"
+        },
+        {
+          "name": "Verdant Catacombs",
+          "index": 4,
+          "action": "land",
+          "id": "p35"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Young Wolf",
+          "index": 5,
+          "action": "cast",
+          "id": "p9",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 4,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 4,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p35",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 90,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4",
+        "warning": "Both id and index provided; used id=p35, ignored index=4"
+      },
+      "llmEventIndices": [
+        116,
+        117,
+        118
+      ],
+      "subsequentActions": [
+        "GPT5m Trash puts Verdant Catacombs from hand onto the Battlefield",
+        "GPT5m Trash skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p29",
+          "p4",
+          "p6",
+          "p7",
+          "p35",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 31,
+      "snapshotIndex": 44,
+      "player": "GPT5m Trash",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 1,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "name": "Verdant Catacombs",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p35"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Young Wolf",
+          "index": 3,
+          "action": "cast",
+          "id": "p9",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 3,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p7",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 97,
+        "success": false,
+        "warning": "Both id and index provided; used id=p7, ignored index=3",
+        "error_code": "invalid_choice",
+        "error": "Object p7 not found in current choices",
+        "choices": [
+          {
+            "mana_cost": "{1}{G}{G}",
+            "name": "Endurance",
+            "index": 0,
+            "action": "cast",
+            "id": "p29",
+            "power": "3",
+            "toughness": "4"
+          },
+          {
+            "mana_cost": "{X}{G}",
+            "name": "Green Sun's Zenith",
+            "index": 1,
+            "action": "cast",
+            "id": "p4"
+          },
+          {
+            "name": "Verdant Catacombs",
+            "index": 2,
+            "action": "activate",
+            "playable_abilities": [
+              "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+            ],
+            "id": "p35"
+          },
+          {
+            "mana_cost": "{G}",
+            "name": "Young Wolf",
+            "index": 3,
+            "action": "cast",
+            "id": "p9",
+            "power": "1",
+            "toughness": "1"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        120,
+        121,
+        122
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p29",
+          "p4",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 32,
+      "snapshotIndex": 44,
+      "player": "GPT5m Trash",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Verdant Catacombs",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}, Pay 1 life, Sacrifice Verdant Catacombs: Search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 98,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        126,
+        127,
+        128
+      ],
+      "subsequentActions": [
+        "GPT5m Trash loses 1 life from Verdant Catacombs",
+        "GPT5m Trash sacrificed Verdant Catacombs (source: Verdant Catacombs)",
+        "GPT5m Trash activates: search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle. from Verdant Catacombs"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p29",
+          "p4",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 33,
+      "snapshotIndex": 45,
+      "player": "GPT5m Trash",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p29",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 102,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p29, ignored index=0"
+      },
+      "llmEventIndices": [
+        130,
+        131,
+        132
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 34,
+      "snapshotIndex": 45,
+      "player": "GPT5m Trash",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "You may choose an alternative cost",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Cast with Evoke alternative cost: Exile a green card from your hand (source: Endurance)"
+        },
+        {
+          "index": 1,
+          "description": "Cast with no alternative cost: {1}{G}{G}"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        134,
+        135
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 35,
+      "snapshotIndex": 45,
+      "player": "GPT5m Trash",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 104,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        136,
+        137,
+        138
+      ],
+      "subsequentActions": [
+        "GPT5m Trash searches their library (source: Verdant Catacombs)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 36,
+      "snapshotIndex": 47,
+      "player": "GPT5m Trash",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a Swamp or Forest card",
+      "choices": [
+        {
+          "name": "Dryad Arbor",
+          "target_type": "card",
+          "index": 0,
+          "id": "p42"
+        },
+        {
+          "name": "Forest",
+          "target_type": "card",
+          "index": 1,
+          "id": "p43"
+        },
+        {
+          "name": "Overgrown Tomb",
+          "target_type": "card",
+          "index": 2,
+          "id": "p39"
+        },
+        {
+          "name": "Overgrown Tomb",
+          "target_type": "card",
+          "index": 3,
+          "id": "p40"
+        },
+        {
+          "name": "Overgrown Tomb",
+          "target_type": "card",
+          "index": 4,
+          "id": "p41"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 5,
+          "id": "p44"
+        },
+        {
+          "name": "Underground Mortuary",
+          "target_type": "card",
+          "index": 6,
+          "id": "p45"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p42",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 107,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0",
+        "warning": "Both id and index provided; used id=p42, ignored index=0"
+      },
+      "llmEventIndices": [
+        140,
+        141,
+        142
+      ],
+      "subsequentActions": [
+        "GPT5m Trash puts Dryad Arbor from library onto the Battlefield (source: Verdant Catacombs)",
+        "GPT5m Trash's library is shuffled (source: Verdant Catacombs)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 37,
+      "snapshotIndex": 50,
+      "player": "o3 Memoir",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Inkmoth Nexus",
+          "index": 0,
+          "action": "land",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 1,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 3,
+          "action": "land",
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p11",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 112,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p11, ignored index=0"
+      },
+      "llmEventIndices": [
+        144,
+        145,
+        146
+      ],
+      "subsequentActions": [
+        "o3 Memoir puts Inkmoth Nexus from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p12",
+          "p26"
+        ]
+      }
+    },
+    {
+      "index": 38,
+      "snapshotIndex": 51,
+      "player": "GPT5m Trash",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        148,
+        149
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 39,
+      "snapshotIndex": 51,
+      "player": "GPT5m Trash",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        150,
+        151
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 40,
+      "snapshotIndex": 51,
+      "player": "GPT5m Trash",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        152,
+        153
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 41,
+      "snapshotIndex": 51,
+      "player": "GPT5m Trash",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        154,
+        155
+      ],
+      "subsequentActions": [
+        "o3 Memoir skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 42,
+      "snapshotIndex": 52,
+      "player": "o3 Memoir",
+      "turn": 7,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p10"
+        },
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 1,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 117,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        156,
+        157,
+        158
+      ],
+      "subsequentActions": [
+        "o3 Memoir casts Battlefield Improvisation targeting Dryad Arbor from hand",
+        "o3 Memoir puts Battlefield Improvisation from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p10",
+          "p40"
+        ]
+      }
+    },
+    {
+      "index": 43,
+      "snapshotIndex": 56,
+      "player": "o3 Memoir",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 124,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p12, ignored index=0"
+      },
+      "llmEventIndices": [
+        160,
+        161,
+        162
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 44,
+      "snapshotIndex": 56,
+      "player": "o3 Memoir",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 126,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p12, ignored index=0"
+      },
+      "llmEventIndices": [
+        164,
+        165,
+        166
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 45,
+      "snapshotIndex": 56,
+      "player": "o3 Memoir",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        168,
+        169
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12"
+        ]
+      }
+    },
+    {
+      "index": 46,
+      "snapshotIndex": 57,
+      "player": "GPT5m Trash",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 1,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Malevolent Rumble",
+          "index": 2,
+          "action": "cast",
+          "id": "p42"
+        },
+        {
+          "name": "Misty Rainforest",
+          "index": 3,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Spymaster's Vault",
+          "index": 4,
+          "action": "land",
+          "id": "p7"
+        },
+        {
+          "mana_cost": "{G}{G}",
+          "name": "Strangleroot Geist",
+          "index": 5,
+          "action": "cast",
+          "id": "p8",
+          "power": "2",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Young Wolf",
+          "index": 6,
+          "action": "cast",
+          "id": "p9",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        170,
+        171
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p29",
+          "p4",
+          "p42",
+          "p6",
+          "p7",
+          "p8",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 47,
+      "snapshotIndex": 57,
+      "player": "GPT5m Trash",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 1,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Malevolent Rumble",
+          "index": 2,
+          "action": "cast",
+          "id": "p42"
+        },
+        {
+          "name": "Misty Rainforest",
+          "index": 3,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Spymaster's Vault",
+          "index": 4,
+          "action": "land",
+          "id": "p7"
+        },
+        {
+          "mana_cost": "{G}{G}",
+          "name": "Strangleroot Geist",
+          "index": 5,
+          "action": "cast",
+          "id": "p8",
+          "power": "2",
+          "toughness": "1"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Young Wolf",
+          "index": 6,
+          "action": "cast",
+          "id": "p9",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 5,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 5,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p8",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 129,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_5",
+        "warning": "Both id and index provided; used id=p8, ignored index=5"
+      },
+      "llmEventIndices": [
+        172,
+        173,
+        174
+      ],
+      "subsequentActions": [
+        "GPT5m Trash casts Strangleroot Geist from hand",
+        "GPT5m Trash puts Strangleroot Geist from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p29",
+          "p4",
+          "p42",
+          "p6",
+          "p7",
+          "p8",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 48,
+      "snapshotIndex": 64,
+      "player": "GPT5m Trash",
+      "turn": 8,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Strangleroot Geist",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p8",
+          "power": "2",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [
+          "p8"
+        ],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "declared": [
+          "p8"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 138,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        176,
+        177,
+        178
+      ],
+      "subsequentActions": [
+        "GPT5m Trash attacks o3 Memoir with 1 creature",
+        "Attacker: Strangleroot Geist (2/1) unblocked",
+        "o3 Memoir loses 2 life at combat from Strangleroot Geist"
+      ],
+      "pilotContext": {
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 49,
+      "snapshotIndex": 73,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 2,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 3,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 5,
+          "action": "land",
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 5,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 5,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p26",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 151,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_5",
+        "warning": "Both id and index provided; used id=p26, ignored index=5"
+      },
+      "llmEventIndices": [
+        180,
+        181,
+        182
+      ],
+      "subsequentActions": [
+        "o3 Memoir puts Sunbaked Canyon from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p40",
+          "p12",
+          "p44",
+          "p26"
+        ]
+      }
+    },
+    {
+      "index": 50,
+      "snapshotIndex": 74,
+      "player": "GPT5m Trash",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        184,
+        185
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 51,
+      "snapshotIndex": 74,
+      "player": "GPT5m Trash",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        186,
+        187
+      ],
+      "subsequentActions": [
+        "o3 Memoir skip attack"
+      ],
+      "pilotContext": {
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 52,
+      "snapshotIndex": 75,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}, {T}, Sacrifice {this}: Draw a card."
+          ],
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p11",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 156,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p11, ignored index=1"
+      },
+      "llmEventIndices": [
+        188,
+        189,
+        190
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "playableCards": [
+          "p40"
+        ]
+      }
+    },
+    {
+      "index": 53,
+      "snapshotIndex": 75,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}, {T}, Sacrifice {this}: Draw a card."
+          ],
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 158,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        192,
+        193,
+        194
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "playableCards": [
+          "p40"
+        ]
+      }
+    },
+    {
+      "index": 54,
+      "snapshotIndex": 75,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}, {T}, Sacrifice {this}: Draw a card."
+          ],
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 160,
+        "success": false,
+        "warning": "Both id and index provided; used id=p12, ignored index=2",
+        "error_code": "invalid_choice",
+        "error": "Object p12 not found in current choices",
+        "choices": [
+          {
+            "mana_cost": "{1}{W}",
+            "name": "Battlefield Improvisation",
+            "index": 0,
+            "action": "cast",
+            "id": "p40"
+          },
+          {
+            "name": "Inkmoth Nexus",
+            "index": 1,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+            ],
+            "id": "p11"
+          },
+          {
+            "name": "Shadowspear",
+            "index": 2,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}: Permanents your opponents control lose hexpr..."
+            ],
+            "id": "p15"
+          },
+          {
+            "name": "Sunbaked Canyon",
+            "index": 3,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}, {T}, Sacrifice {this}: Draw a card."
+            ],
+            "id": "p26"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        196,
+        197,
+        198
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "playableCards": [
+          "p40"
+        ]
+      }
+    },
+    {
+      "index": 55,
+      "snapshotIndex": 76,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 2,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 3,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "mana_cost": "{W}{W}",
+          "name": "Puresteel Paladin",
+          "index": 4,
+          "action": "cast",
+          "id": "p13",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{W}{W}",
+          "name": "Puresteel Paladin",
+          "index": 5,
+          "action": "cast",
+          "id": "p30",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 6,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 7,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}, {T}, Sacrifice {this}: Draw a card."
+          ],
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p12",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 161,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2",
+        "warning": "Both id and index provided; used id=p12, ignored index=2"
+      },
+      "llmEventIndices": [
+        200,
+        201,
+        202
+      ],
+      "subsequentActions": [
+        "o3 Memoir casts Mox Opal from hand",
+        "o3 Memoir puts Mox Opal from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p40",
+          "p12",
+          "p44",
+          "p13",
+          "p30"
+        ]
+      }
+    },
+    {
+      "index": 56,
+      "snapshotIndex": 77,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 2,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "mana_cost": "{W}{W}",
+          "name": "Puresteel Paladin",
+          "index": 3,
+          "action": "cast",
+          "id": "p13",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{W}{W}",
+          "name": "Puresteel Paladin",
+          "index": 4,
+          "action": "cast",
+          "id": "p30",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 5,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 6,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}, {T}, Sacrifice {this}: Draw a card."
+          ],
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 3,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p13",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 166,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_3",
+        "warning": "Both id and index provided; used id=p13, ignored index=3"
+      },
+      "llmEventIndices": [
+        206,
+        207,
+        208
+      ],
+      "subsequentActions": [
+        "o3 Memoir loses 1 life from Sunbaked Canyon",
+        "o3 Memoir casts Puresteel Paladin from hand",
+        "o3 Memoir puts Puresteel Paladin from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p40",
+          "p44",
+          "p13",
+          "p30"
+        ]
+      }
+    },
+    {
+      "index": 57,
+      "snapshotIndex": 81,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Colossus Hammer",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 3,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ...",
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 174,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        210,
+        211,
+        212
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p40",
+          "p44"
+        ]
+      }
+    },
+    {
+      "index": 58,
+      "snapshotIndex": 81,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Colossus Hammer",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 3,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ...",
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p33",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 176,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p33, ignored index=1"
+      },
+      "llmEventIndices": [
+        214,
+        215,
+        216
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p40",
+          "p44"
+        ]
+      }
+    },
+    {
+      "index": 59,
+      "snapshotIndex": 81,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Colossus Hammer",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 3,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ...",
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p33",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 178,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p33, ignored index=1"
+      },
+      "llmEventIndices": [
+        218,
+        219,
+        220
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p40",
+          "p44"
+        ]
+      }
+    },
+    {
+      "index": 60,
+      "snapshotIndex": 81,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Colossus Hammer",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 3,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ...",
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p13",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 180,
+        "success": false,
+        "warning": "Both id and index provided; used id=p13, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p13 not found in current choices",
+        "choices": [
+          {
+            "mana_cost": "{1}{W}",
+            "name": "Battlefield Improvisation",
+            "index": 0,
+            "action": "cast",
+            "id": "p40"
+          },
+          {
+            "name": "Colossus Hammer",
+            "index": 1,
+            "action": "activate",
+            "playable_abilities": [
+              "Equip {0} <i>({0}: Attach to target creature you ..."
+            ],
+            "id": "p33"
+          },
+          {
+            "name": "Inkmoth Nexus",
+            "index": 2,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+            ],
+            "id": "p11"
+          },
+          {
+            "mana_cost": "{0}",
+            "name": "Mox Opal",
+            "index": 3,
+            "action": "cast",
+            "id": "p44"
+          },
+          {
+            "name": "Shadowspear",
+            "index": 4,
+            "action": "activate",
+            "playable_abilities": [
+              "Equip {0} <i>({0}: Attach to target creature you ...",
+              "Equip {2}",
+              "{1}: Permanents your opponents control lose hexpr..."
+            ],
+            "id": "p15"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        222,
+        223,
+        224
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p40",
+          "p44"
+        ]
+      }
+    },
+    {
+      "index": 61,
+      "snapshotIndex": 81,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{W}",
+          "name": "Battlefield Improvisation",
+          "index": 0,
+          "action": "cast",
+          "id": "p40"
+        },
+        {
+          "name": "Colossus Hammer",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 3,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ...",
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 182,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        228,
+        229,
+        230
+      ],
+      "subsequentActions": [
+        "o3 Memoir casts Battlefield Improvisation targeting Dryad Arbor from hand",
+        "o3 Memoir puts Battlefield Improvisation from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p40",
+          "p44"
+        ]
+      }
+    },
+    {
+      "index": 62,
+      "snapshotIndex": 86,
+      "player": "o3 Memoir",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Colossus Hammer",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 1,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 189,
+        "success": true,
+        "action_taken": "auto_passed_loop_detected",
+        "warning": "Too many interactions this turn (26). Auto-passing until next turn."
+      },
+      "llmEventIndices": [
+        234,
+        235,
+        236
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p44"
+        ]
+      }
+    },
+    {
+      "index": 63,
+      "snapshotIndex": 86,
+      "player": "GPT5m Trash",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Boseiju, Who Endures",
+          "index": 0,
+          "action": "land",
+          "id": "p48"
+        },
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 1,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        },
+        {
+          "mana_cost": "{X}{G}",
+          "name": "Green Sun's Zenith",
+          "index": 2,
+          "action": "cast",
+          "id": "p4"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Malevolent Rumble",
+          "index": 3,
+          "action": "cast",
+          "id": "p42"
+        },
+        {
+          "name": "Misty Rainforest",
+          "index": 4,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Spymaster's Vault",
+          "index": 5,
+          "action": "land",
+          "id": "p7"
+        },
+        {
+          "mana_cost": "{G}",
+          "name": "Young Wolf",
+          "index": 6,
+          "action": "cast",
+          "id": "p9",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p48",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 190,
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p48, ignored index=0"
+      },
+      "llmEventIndices": [
+        237,
+        240,
+        241
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p48",
+          "p29",
+          "p4",
+          "p42",
+          "p6",
+          "p7",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 64,
+      "snapshotIndex": 88,
+      "player": "GPT5m Trash",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Dryad Arbor",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p39",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "Strangleroot Geist",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p8",
+          "power": "2",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 2,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [
+          "p39",
+          "p8"
+        ],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "declared": [
+          "p39",
+          "p8"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 192,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        243,
+        244,
+        245
+      ],
+      "subsequentActions": [
+        "GPT5m Trash attacks o3 Memoir with 2 creatures"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 65,
+      "snapshotIndex": 92,
+      "player": "o3 Memoir",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select blockers",
+      "choices": [
+        {
+          "name": "Puresteel Paladin",
+          "index": 0,
+          "choice_type": "blocker",
+          "id": "p13",
+          "power": "2",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [
+          "p13:p39"
+        ],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "declared": [
+          {
+            "id": "p13",
+            "blocks": "p39"
+          }
+        ],
+        "game_seq": 198,
+        "success": true,
+        "action_taken": "batch_block"
+      },
+      "llmEventIndices": [
+        247,
+        248,
+        250
+      ],
+      "subsequentActions": [
+        "Attacker: Dryad Arbor (1/1) blocked by Puresteel Paladin (2/2)",
+        "Attacker: Strangleroot Geist (2/1) unblocked"
+      ],
+      "pilotContext": {
+        "combatPhase": "blockers",
+        "incomingAttackers": [
+          {
+            "name": "Dryad Arbor",
+            "id": "p39",
+            "power": "1",
+            "toughness": "1"
+          },
+          {
+            "name": "Strangleroot Geist",
+            "id": "p8",
+            "power": "2",
+            "toughness": "1"
+          }
+        ]
+      }
+    },
+    {
+      "index": 66,
+      "snapshotIndex": 94,
+      "player": "GPT5m Trash",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 203,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        249,
+        252,
+        253
+      ],
+      "subsequentActions": [
+        "Puresteel Paladin deals 2 damage to Dryad Arbor",
+        "Dryad Arbor deals 1 damage to Puresteel Paladin",
+        "o3 Memoir loses 2 life at combat from Strangleroot Geist",
+        "Dryad Arbor died"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 67,
+      "snapshotIndex": 98,
+      "player": "GPT5m Trash",
+      "turn": 10,
+      "phase": "END",
+      "step": "END_TURN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}{G}",
+          "name": "Endurance",
+          "index": 0,
+          "action": "cast",
+          "id": "p29",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        255,
+        256
+      ],
+      "subsequentActions": [
+        "GPT5m Trash discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 68,
+      "snapshotIndex": 99,
+      "player": "GPT5m Trash",
+      "turn": 10,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Boseiju, Who Endures",
+          "target_type": "card",
+          "index": 0,
+          "id": "p48"
+        },
+        {
+          "name": "Endurance",
+          "target_type": "card",
+          "index": 1,
+          "id": "p29"
+        },
+        {
+          "name": "Green Sun's Zenith",
+          "target_type": "card",
+          "index": 2,
+          "id": "p4"
+        },
+        {
+          "name": "Grist, the Hunger Tide",
+          "target_type": "card",
+          "index": 3,
+          "id": "p5"
+        },
+        {
+          "name": "Malevolent Rumble",
+          "target_type": "card",
+          "index": 4,
+          "id": "p42"
+        },
+        {
+          "name": "Misty Rainforest",
+          "target_type": "card",
+          "index": 5,
+          "id": "p6"
+        },
+        {
+          "name": "Spymaster's Vault",
+          "target_type": "card",
+          "index": 6,
+          "id": "p7"
+        },
+        {
+          "name": "Young Wolf",
+          "target_type": "card",
+          "index": 7,
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p4",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 214,
+        "success": true,
+        "action_taken": "selected_target_2",
+        "warning": "Both id and index provided; used id=p4, ignored index=2"
+      },
+      "llmEventIndices": [
+        257,
+        258,
+        260
+      ],
+      "subsequentActions": [
+        "GPT5m Trash discards Green Sun's Zenith"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p29"
+        ]
+      }
+    },
+    {
+      "index": 69,
+      "snapshotIndex": 100,
+      "player": "o3 Memoir",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Colossus Hammer",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 2,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Paradise Mantle",
+          "index": 3,
+          "action": "cast",
+          "id": "p49"
+        },
+        {
+          "mana_cost": "{W}{W}",
+          "name": "Puresteel Paladin",
+          "index": 4,
+          "action": "cast",
+          "id": "p30",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 5,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ...",
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 6,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}, {T}, Sacrifice {this}: Draw a card."
+          ],
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 3,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p49",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 216,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_3",
+        "warning": "Both id and index provided; used id=p49, ignored index=3"
+      },
+      "llmEventIndices": [
+        259,
+        262,
+        263
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p44",
+          "p49",
+          "p30"
+        ]
+      }
+    },
+    {
+      "index": 70,
+      "snapshotIndex": 100,
+      "player": "o3 Memoir",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Colossus Hammer",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "name": "Inkmoth Nexus",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 2,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Paradise Mantle",
+          "index": 3,
+          "action": "cast",
+          "id": "p49"
+        },
+        {
+          "mana_cost": "{W}{W}",
+          "name": "Puresteel Paladin",
+          "index": 4,
+          "action": "cast",
+          "id": "p30",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 5,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ...",
+            "Equip {2}",
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 6,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}, {T}, Sacrifice {this}: Draw a card."
+          ],
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p11",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 218,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p11, ignored index=1"
+      },
+      "llmEventIndices": [
+        265,
+        266,
+        267
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p44",
+          "p49",
+          "p30"
+        ]
+      }
+    },
+    {
+      "index": 71,
+      "snapshotIndex": 102,
+      "player": "o3 Memoir",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Puresteel Paladin",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p13",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [
+          "p13"
+        ],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "declared": [
+          "p13"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 221,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        271,
+        272,
+        273
+      ],
+      "subsequentActions": [
+        "o3 Memoir attacks GPT5m Trash with 1 creature",
+        "Attacker: Puresteel Paladin (2/2) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 72,
+      "snapshotIndex": 104,
+      "player": "o3 Memoir",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Inkmoth Nexus",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+          ],
+          "id": "p11"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}: Permanents your opponents control lose hexpr..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Sunbaked Canyon",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}, {T}, Sacrifice {this}: Draw a card."
+          ],
+          "id": "p26"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p33",
+        "text": ""
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 226,
+        "success": false,
+        "warning": "Both id and index provided; used id=p33, ignored index=0",
+        "error_code": "invalid_choice",
+        "error": "Object p33 not found in current choices",
+        "choices": [
+          {
+            "name": "Inkmoth Nexus",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}: {this} becomes a 1/1 Phyrexian Blinkmoth art..."
+            ],
+            "id": "p11"
+          },
+          {
+            "name": "Shadowspear",
+            "index": 1,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}: Permanents your opponents control lose hexpr..."
+            ],
+            "id": "p15"
+          },
+          {
+            "name": "Sunbaked Canyon",
+            "index": 2,
+            "action": "activate",
+            "playable_abilities": [
+              "{1}, {T}, Sacrifice {this}: Draw a card."
+            ],
+            "id": "p26"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        275,
+        276,
+        277
+      ],
+      "subsequentActions": [
+        "o3 Memoir activates: Inkmoth Nexus becomes a 1/1 Phyrexian Blinkmoth artifact creature with flying and infect until end of turn. It's still a land. (It deals damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.) from Inkmoth Nexus",
+        "o3 Memoir loses 1 life from Sunbaked Canyon",
+        "o3 Memoir activates: Inkmoth Nexus becomes a 1/1 Phyrexian Blinkmoth artifact creature with flying and infect until end of turn. It's still a land. (It deals damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.) from Inkmoth Nexus",
+        "o3 Memoir activates: Inkmoth Nexus becomes a 1/1 Phyrexian Blinkmoth artifact creature with flying and infect until end of turn. It's still a land. (It deals damage to creatures in the form of -1/-1 counters and to players in the form of poison counters.) from Inkmoth Nexus",
+        "GPT5m Trash loses 2 life at combat from Puresteel Paladin"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 73,
+      "snapshotIndex": 113,
+      "player": "o3 Memoir",
+      "turn": 11,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Colossus Hammer",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 1,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Paradise Mantle",
+          "index": 2,
+          "action": "cast",
+          "id": "p49"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p49",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 241,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2",
+        "warning": "Both id and index provided; used id=p49, ignored index=2"
+      },
+      "llmEventIndices": [
+        288,
+        289,
+        290
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p44",
+          "p49"
+        ]
+      }
+    },
+    {
+      "index": 74,
+      "snapshotIndex": 113,
+      "player": "o3 Memoir",
+      "turn": 11,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Colossus Hammer",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 1,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Paradise Mantle",
+          "index": 2,
+          "action": "cast",
+          "id": "p49"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 1,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p44",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 243,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1",
+        "warning": "Both id and index provided; used id=p44, ignored index=1"
+      },
+      "llmEventIndices": [
+        292,
+        293,
+        294
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p44",
+          "p49"
+        ]
+      }
+    },
+    {
+      "index": 75,
+      "snapshotIndex": 113,
+      "player": "o3 Memoir",
+      "turn": 11,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Colossus Hammer",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 1,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Paradise Mantle",
+          "index": 2,
+          "action": "cast",
+          "id": "p49"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p49",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 245,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2",
+        "warning": "Both id and index provided; used id=p49, ignored index=2"
+      },
+      "llmEventIndices": [
+        296,
+        297,
+        298
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p44",
+          "p49"
+        ]
+      }
+    },
+    {
+      "index": 76,
+      "snapshotIndex": 113,
+      "player": "o3 Memoir",
+      "turn": 11,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Colossus Hammer",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 1,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Paradise Mantle",
+          "index": 2,
+          "action": "cast",
+          "id": "p49"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 2,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p49",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 247,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2",
+        "warning": "Both id and index provided; used id=p49, ignored index=2"
+      },
+      "llmEventIndices": [
+        300,
+        301,
+        302
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p44",
+          "p49"
+        ]
+      }
+    },
+    {
+      "index": 77,
+      "snapshotIndex": 113,
+      "player": "o3 Memoir",
+      "turn": 11,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Colossus Hammer",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p33"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Mox Opal",
+          "index": 1,
+          "action": "cast",
+          "id": "p44"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Paradise Mantle",
+          "index": 2,
+          "action": "cast",
+          "id": "p49"
+        },
+        {
+          "name": "Shadowspear",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Equip {0} <i>({0}: Attach to target creature you ..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 1,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 249,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        304,
+        305,
+        306
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p44",
+          "p49"
+        ]
+      }
+    }
+  ]
 }
