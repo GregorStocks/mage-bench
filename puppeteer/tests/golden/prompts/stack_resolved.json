@@ -200,7 +200,7 @@
       ],
       "board_cursor": 2,
       "context": "T1 ()",
-      "game_seq": 3,
+      "game_seq": 5,
       "message": "Mulligan down to 6 cards?",
       "respond_with": "answer=true or answer=false",
       "response_type": "boolean",
@@ -281,7 +281,7 @@
   {
     "content": {
       "action_taken": "no",
-      "game_seq": 3,
+      "game_seq": 5,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -430,7 +430,7 @@
         }
       ],
       "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 11,
+      "game_seq": 15,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -460,7 +460,7 @@
   {
     "content": {
       "action_taken": "selected_2",
-      "game_seq": 11,
+      "game_seq": 15,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -589,7 +589,7 @@
         }
       ],
       "context": "T1 Precombat Main/Precombat Main (Opponent)",
-      "game_seq": 16,
+      "game_seq": 21,
       "has_playable_cards": true,
       "message": "Play instants and activated abilities",
       "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
@@ -619,7 +619,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 16,
+      "game_seq": 21,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_TARGET",
@@ -647,7 +647,7 @@
   {
     "content": {
       "action_taken": "selected_target_1",
-      "game_seq": 17,
+      "game_seq": 22,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -760,7 +760,7 @@
       ],
       "board_cursor": 6,
       "context": "T1 Precombat Main/Precombat Main (Opponent)",
-      "game_seq": 25,
+      "game_seq": 32,
       "message": "Play instants and activated abilities",
       "respond_with": "answer=true (confirm) or answer=false (pass)",
       "response_type": "boolean",
@@ -788,7 +788,7 @@
       "active_player": "Opponent",
       "available": true,
       "cursor": 1,
-      "game_seq": 25,
+      "game_seq": 32,
       "phase": "Precombat Main",
       "players": [
         {

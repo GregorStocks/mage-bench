@@ -16,11 +16,11 @@ The export contains two independent sequence number namespaces that are easily c
 ### Server seq (`seq` in snapshots, actions, gameOver)
 
 - Source: `game.nextGameSeq()` — a monotonic `AtomicInteger` on `GameImpl`.
-- Bumped by two call sites:
+- Bumped by three call sites:
   1. `GameImpl.informPlayers()` — each game log message gets a unique seq.
   2. `GameController` player query listener — each decision point gets a unique seq.
-- **Multiple events can share one seq value.** When a decision point is logged, `ServerGameEventLogCollector.onPlayerQuery()` checks whether the turn/phase changed since the last query and emits synthetic `turn_change` and `phase_change` events with the *same* seq as the decision event. So a single seq value might correspond to: one `turn_change` + one `phase_change` + one `decision` (with snapshot).
-- Game actions (`informPlayers`) each get their own unique seq.
+  3. `ServerGameEventLogCollector.onGameLog()` — each `turn_change` and `phase_change` event gets a unique seq.
+- **Every event has a unique seq value.** No two events share a seq.
 - `game_end` gets its own seq via `nextGameSeq()`.
 
 ### LLM seq (`seq` in llmEvents, llmTrace)

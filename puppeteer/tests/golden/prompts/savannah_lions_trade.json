@@ -197,7 +197,7 @@
       ],
       "board_cursor": 2,
       "context": "T1 ()",
-      "game_seq": 3,
+      "game_seq": 5,
       "message": "Mulligan down to 6 cards?",
       "respond_with": "answer=true or answer=false",
       "response_type": "boolean",
@@ -275,7 +275,7 @@
   {
     "content": {
       "action_taken": "no",
-      "game_seq": 3,
+      "game_seq": 5,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -425,7 +425,7 @@
         }
       ],
       "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 11,
+      "game_seq": 15,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -455,7 +455,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 11,
+      "game_seq": 15,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -483,7 +483,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 13,
+      "game_seq": 18,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -662,7 +662,7 @@
         }
       ],
       "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 36,
+      "game_seq": 44,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -693,7 +693,7 @@
   {
     "content": {
       "action_taken": "passed_priority",
-      "game_seq": 36,
+      "game_seq": 44,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -845,7 +845,7 @@
       ],
       "combat_phase": "attackers",
       "context": "T2 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 38,
+      "game_seq": 46,
       "message": "Select attackers",
       "respond_with": "attackers=[\"p1\",...] or answer=true (confirm) or answer=false (skip)",
       "response_type": "select",
@@ -879,7 +879,7 @@
       "declared": [
         "all"
       ],
-      "game_seq": 38,
+      "game_seq": 46,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1079,7 +1079,7 @@
       ],
       "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
       "current_step": "Postcombat Main",
-      "game_seq": 54,
+      "game_seq": 66,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
       "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
@@ -1109,7 +1109,7 @@
       "active_player": "TestPlayer",
       "available": true,
       "cursor": 1,
-      "game_seq": 54,
+      "game_seq": 66,
       "phase": "Postcombat Main",
       "players": [
         {

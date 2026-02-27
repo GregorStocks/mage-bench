@@ -6,76 +6,76 @@
     },
     {
       "active_player": null,
-      "seq": 2,
+      "seq": 3,
       "turn": 1,
       "type": "turn_change"
     },
     {
       "active_player": null,
       "phase": null,
-      "seq": 2,
+      "seq": 4,
       "step": null,
       "turn": 1,
       "type": "phase_change"
     },
     {
       "message": "TestPlayer skips Draw step",
-      "seq": 5
+      "seq": 7
     },
     {
       "active_player": "TestPlayer",
       "phase": "BEGINNING",
-      "seq": 5,
+      "seq": 8,
       "step": "DRAW",
       "turn": 1,
       "type": "phase_change"
     },
     {
       "message": "TestPlayer skip attack",
-      "seq": 8
+      "seq": 11
     },
     {
       "active_player": "TestPlayer",
       "phase": "COMBAT",
-      "seq": 8,
+      "seq": 12,
       "step": "DECLARE_ATTACKERS",
       "turn": 1,
       "type": "phase_change"
     },
     {
       "message": "TestPlayer puts Forest from hand onto the Battlefield",
-      "seq": 12
+      "seq": 16
     },
     {
       "active_player": "TestPlayer",
       "phase": "POSTCOMBAT_MAIN",
-      "seq": 12,
+      "seq": 17,
       "step": "POSTCOMBAT_MAIN",
       "turn": 1,
       "type": "phase_change"
     },
     {
       "message": "TestPlayer casts Ancient Stirrings from hand",
-      "seq": 15
-    },
-    {
-      "message": "TestPlayer reveals Ornithopter (source: Ancient Stirrings)",
       "seq": 20
     },
     {
+      "message": "TestPlayer reveals Ornithopter (source: Ancient Stirrings)",
+      "seq": 25
+    },
+    {
       "message": "TestPlayer puts a card from library into their hand",
-      "seq": 21
+      "seq": 26
     },
     {
       "message": "TestPlayer wants to concede",
-      "seq": 23
+      "seq": 28
     }
   ],
   "cardImages": {},
   "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Game ended",
-    "seq": 24
+    "seq": 29
   },
   "gameType": "Two Player Duel",
   "llmEvents": [
@@ -173,7 +173,7 @@
       "args": {
         "board_cursor": 1
       },
-      "gameSeq": 3,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -256,7 +256,7 @@
         ],
         "board_cursor": 2,
         "context": "T1 ()",
-        "game_seq": 3,
+        "game_seq": 5,
         "message": "Mulligan down to 6 cards?",
         "respond_with": "answer=true or answer=false",
         "response_type": "boolean",
@@ -321,11 +321,11 @@
       "args": {
         "answer": false
       },
-      "gameSeq": 3,
+      "gameSeq": 5,
       "player": "TestPlayer",
       "result": {
         "action_taken": "no",
-        "game_seq": 3,
+        "game_seq": 5,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
@@ -339,7 +339,7 @@
       "args": {
         "board_cursor": 2
       },
-      "gameSeq": 11,
+      "gameSeq": 15,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -466,7 +466,7 @@
           }
         ],
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 11,
+        "game_seq": 15,
         "has_playable_cards": true,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
@@ -482,11 +482,11 @@
       "args": {
         "id": "p11"
       },
-      "gameSeq": 11,
+      "gameSeq": 15,
       "player": "TestPlayer",
       "result": {
         "action_taken": "selected_0",
-        "game_seq": 11,
+        "game_seq": 15,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
@@ -500,11 +500,11 @@
       "args": {
         "id": "p10"
       },
-      "gameSeq": 13,
+      "gameSeq": 18,
       "player": "TestPlayer",
       "result": {
         "action_taken": "selected_0",
-        "game_seq": 13,
+        "game_seq": 18,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
@@ -518,7 +518,7 @@
       "args": {
         "board_cursor": 3
       },
-      "gameSeq": 18,
+      "gameSeq": 23,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -595,7 +595,7 @@
         ],
         "board_cursor": 5,
         "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-        "game_seq": 18,
+        "game_seq": 23,
         "land_drops_used": 1,
         "message": "Reveal a colorless card and put it into your hand?",
         "respond_with": "answer=true or answer=false",
@@ -615,11 +615,11 @@
       "args": {
         "answer": true
       },
-      "gameSeq": 18,
+      "gameSeq": 23,
       "player": "TestPlayer",
       "result": {
         "action_taken": "yes",
-        "game_seq": 18,
+        "game_seq": 23,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
         "next_action_pending": true,
         "next_action_type": "GAME_TARGET",
@@ -633,11 +633,11 @@
       "args": {
         "index": 0
       },
-      "gameSeq": 19,
+      "gameSeq": 24,
       "player": "TestPlayer",
       "result": {
         "action_taken": "selected_target_0",
-        "game_seq": 19,
+        "game_seq": 24,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
         "next_action_pending": true,
         "next_action_type": "GAME_TARGET",
@@ -649,13 +649,13 @@
     },
     {
       "args": {},
-      "gameSeq": 22,
+      "gameSeq": 27,
       "player": "TestPlayer",
       "result": {
         "active_player": "TestPlayer",
         "available": true,
         "cursor": 1,
-        "game_seq": 22,
+        "game_seq": 27,
         "phase": "Postcombat Main",
         "players": [
           {
@@ -947,7 +947,7 @@
         }
       ],
       "priority_player": null,
-      "seq": 3,
+      "seq": 5,
       "stack": [],
       "step": null,
       "turn": 1
@@ -1076,7 +1076,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 6,
+      "seq": 9,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 1
@@ -1205,7 +1205,7 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 7,
+      "seq": 10,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 1
@@ -1334,7 +1334,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 9,
+      "seq": 13,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 1
@@ -1463,7 +1463,7 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 10,
+      "seq": 14,
       "stack": [],
       "step": "DECLARE_ATTACKERS",
       "turn": 1
@@ -1592,7 +1592,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 11,
+      "seq": 15,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 1
@@ -1723,7 +1723,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 13,
+      "seq": 18,
       "stack": [],
       "step": "POSTCOMBAT_MAIN",
       "turn": 1
@@ -1847,7 +1847,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 14,
+      "seq": 19,
       "stack": [
         {
           "controller": "TestPlayer",
@@ -1978,7 +1978,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 16,
+      "seq": 21,
       "stack": [
         {
           "controller": "TestPlayer",
@@ -2109,7 +2109,7 @@
         }
       ],
       "priority_player": "Opponent",
-      "seq": 17,
+      "seq": 22,
       "stack": [
         {
           "controller": "TestPlayer",
@@ -2240,7 +2240,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 18,
+      "seq": 23,
       "stack": [
         {
           "controller": "TestPlayer",
@@ -2335,7 +2335,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 24,
+      "seq": 29,
       "stack": [
         {
           "controller": "TestPlayer",

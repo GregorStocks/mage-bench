@@ -198,7 +198,7 @@
       ],
       "board_cursor": 2,
       "context": "T1 ()",
-      "game_seq": 3,
+      "game_seq": 5,
       "message": "Mulligan down to 6 cards?",
       "respond_with": "answer=true or answer=false",
       "response_type": "boolean",
@@ -277,7 +277,7 @@
   {
     "content": {
       "action_taken": "no",
-      "game_seq": 3,
+      "game_seq": 5,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -421,7 +421,7 @@
         }
       ],
       "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 11,
+      "game_seq": 15,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -451,7 +451,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 11,
+      "game_seq": 15,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -479,7 +479,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 13,
+      "game_seq": 18,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -644,7 +644,7 @@
         }
       ],
       "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 30,
+      "game_seq": 38,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -713,7 +713,7 @@
       ],
       "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
       "current_step": "Precombat Main",
-      "game_seq": 30,
+      "game_seq": 38,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
       "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
@@ -743,7 +743,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 30,
+      "game_seq": 38,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -889,7 +889,7 @@
         }
       ],
       "context": "T2 Postcombat Main/Postcombat Main (Opponent)",
-      "game_seq": 51,
+      "game_seq": 66,
       "has_playable_cards": true,
       "message": "Play instants and activated abilities",
       "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
@@ -924,7 +924,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 51,
+      "game_seq": 66,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1085,7 +1085,7 @@
         }
       ],
       "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 64,
+      "game_seq": 81,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play instants and activated abilities",
@@ -1142,7 +1142,7 @@
       ],
       "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
       "current_step": "Precombat Main",
-      "game_seq": 64,
+      "game_seq": 81,
       "land_drops_used": 0,
       "message": "Play instants and activated abilities",
       "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
@@ -1186,7 +1186,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 64,
+      "game_seq": 81,
       "mana_plan_set": true,
       "mana_plan_size": 1,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
@@ -1330,7 +1330,7 @@
       ],
       "board_cursor": 8,
       "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 75,
+      "game_seq": 92,
       "land_drops_used": 0,
       "message": "Choose a pile to put into hand.",
       "pile1": [
@@ -1425,7 +1425,7 @@
   {
     "content": {
       "action_taken": "selected_pile_1",
-      "game_seq": 75,
+      "game_seq": 92,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1453,7 +1453,7 @@
       "active_player": "TestPlayer",
       "available": true,
       "cursor": 1,
-      "game_seq": 84,
+      "game_seq": 101,
       "phase": "Precombat Main",
       "players": [
         {

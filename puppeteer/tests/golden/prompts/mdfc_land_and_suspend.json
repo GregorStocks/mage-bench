@@ -91,7 +91,7 @@
   {
     "content": {
       "action_taken": "no",
-      "game_seq": 3,
+      "game_seq": 5,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -256,7 +256,7 @@
         }
       ],
       "context": "T1 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 11,
+      "game_seq": 15,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -286,7 +286,7 @@
   {
     "content": {
       "action_taken": "selected_2",
-      "game_seq": 11,
+      "game_seq": 15,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -477,7 +477,7 @@
         }
       ],
       "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 25,
+      "game_seq": 33,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -508,7 +508,7 @@
   {
     "content": {
       "action_taken": "selected_2",
-      "game_seq": 25,
+      "game_seq": 33,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -694,7 +694,7 @@
         }
       ],
       "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 35,
+      "game_seq": 46,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -724,7 +724,7 @@
   {
     "content": {
       "action_taken": "selected_1",
-      "game_seq": 35,
+      "game_seq": 46,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_CHOOSE_ABILITY",
@@ -752,7 +752,7 @@
   {
     "content": {
       "action_taken": "selected_ability_0",
-      "game_seq": 36,
+      "game_seq": 47,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_ASK",
@@ -780,7 +780,7 @@
   {
     "content": {
       "action_taken": "no",
-      "game_seq": 37,
+      "game_seq": 48,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -969,7 +969,7 @@
         }
       ],
       "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 55,
+      "game_seq": 72,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -1000,7 +1000,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 55,
+      "game_seq": 72,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1204,7 +1204,7 @@
         }
       ],
       "context": "T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 78,
+      "game_seq": 102,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -1235,7 +1235,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 78,
+      "game_seq": 102,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1454,7 +1454,7 @@
         }
       ],
       "context": "T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 101,
+      "game_seq": 132,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -1485,7 +1485,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 101,
+      "game_seq": 132,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1667,7 +1667,7 @@
       ],
       "board_cursor": 9,
       "context": "T6 Beginning/Upkeep (TestPlayer)",
-      "game_seq": 127,
+      "game_seq": 165,
       "message": "Cast spell without paying its mana cost (Crashing Footfalls)?",
       "respond_with": "answer=true or answer=false",
       "response_type": "boolean",
@@ -1701,7 +1701,7 @@
   {
     "content": {
       "action_taken": "yes",
-      "game_seq": 127,
+      "game_seq": 165,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1959,7 +1959,7 @@
         }
       ],
       "context": "T6 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 134,
+      "game_seq": 172,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -1990,7 +1990,7 @@
       "active_player": "TestPlayer",
       "available": true,
       "cursor": 1,
-      "game_seq": 134,
+      "game_seq": 172,
       "phase": "Precombat Main",
       "players": [
         {
