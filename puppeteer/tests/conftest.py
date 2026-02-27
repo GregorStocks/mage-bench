@@ -148,7 +148,7 @@ def bridge_session(xmage_server, project_root):
     """Session-scoped bridge JVM with persistent MCP session.
 
     Starts a sleepwalker bridge client with keepAlive=true. Communication
-    happens via direct JSON-RPC over stdin/stdout (no MCP SDK needed).
+    happens via JSON-RPC over HTTP.
     """
     server, port = xmage_server
 
@@ -162,6 +162,10 @@ def bridge_session(xmage_server, project_root):
 
     allowed_sets = extract_golden_set_codes(project_root)
 
+    # Allocate a port for the MCP HTTP server
+    mcp_port_res = find_available_port("localhost", 19000)
+    mcp_port = mcp_port_res.port
+
     bridge_jvm = " ".join(
         [
             jvm_no_ui,
@@ -169,6 +173,7 @@ def bridge_session(xmage_server, project_root):
             f"-Dxmage.bridge.port={port}",
             "-Dxmage.bridge.personality=sleepwalker",
             "-Dxmage.bridge.keepAlive=true",
+            f"-Dxmage.bridge.mcpPort={mcp_port}",
             f"-Dxmage.sets.allowed={allowed_sets}",
         ]
     )
@@ -180,20 +185,31 @@ def bridge_session(xmage_server, project_root):
         ["mvn", "-q", "-Dxmage.bridge.username=TestPlayer", "exec:java"],
         cwd=project_root / "Mage.Client.Bridge",
         stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=bridge_log_fh,
+        stdout=bridge_log_fh,
+        stderr=subprocess.STDOUT,
         env={**os.environ, "MAVEN_OPTS": bridge_jvm},
     )
 
     with timed_phase("session", "bridge_jvm_startup"):
-        bridge = BridgeSession(proc)
-        print(f"Bridge JVM started (pid={proc.pid}), sending initialize...")
+        print(f"Bridge JVM started (pid={proc.pid}), waiting for MCP HTTP server on port {mcp_port}...")
+        assert wait_for_port("127.0.0.1", mcp_port, 120), (
+            f"Bridge MCP HTTP server did not start on port {mcp_port} within 120s — check {bridge_log}"
+        )
+        mcp_port_res.release()
+
+        bridge = BridgeSession(f"http://127.0.0.1:{mcp_port}/mcp")
         bridge.initialize()
-        print("Bridge MCP initialized")
+        print("Bridge MCP initialized via HTTP")
 
     yield bridge
 
     bridge.close()
+    # Close stdin to signal the bridge to shut down
+    if proc.stdin:
+        try:
+            proc.stdin.close()
+        except Exception:
+            pass
     try:
         proc.wait(timeout=10)
     except subprocess.TimeoutExpired:

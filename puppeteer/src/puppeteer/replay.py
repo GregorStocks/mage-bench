@@ -12,15 +12,11 @@ deterministic, reproducible tool call sequences.
 import argparse
 import asyncio
 import json
-import os
 import sys
 from collections.abc import Awaitable, Callable
 from contextlib import ExitStack
 from datetime import datetime
 from pathlib import Path
-
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
 
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
@@ -174,22 +170,12 @@ async def run_replay(
         jvm_args_list.append("-Dapple.awt.UIElement=true")
     jvm_args = " ".join(jvm_args_list)
 
-    env = os.environ.copy()
-    env["MAVEN_OPTS"] = jvm_args
-
     mvn_args = ["-q", f"-Dxmage.bridge.username={username}"]
     if deck_path:
         mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
     if game_dir:
         mvn_args.append(f"-Dxmage.bridge.errorlog={game_dir / f'{username}_errors.log'}")
     mvn_args.append("exec:java")
-
-    server_params = StdioServerParameters(
-        command="mvn",
-        args=mvn_args,
-        cwd=str(project_root / "Mage.Client.Bridge"),
-        env=env,
-    )
 
     _log("[replay] Spawning bridge client...")
 
@@ -198,7 +184,14 @@ async def run_replay(
         if game_dir:
             game_log = log_stack.enter_context(GameLogWriter(game_dir, username))
 
-        async with stdio_client(server_params) as (read, write), ClientSession(read, write) as session:
+        from puppeteer.bridge_transport import spawn_bridge_http
+
+        async with spawn_bridge_http(
+            mvn_args=mvn_args,
+            project_root=project_root,
+            jvm_args=jvm_args,
+            log_file=game_dir / f"{username}_mcp.log" if game_dir else None,
+        ) as session:
             result = await session.initialize()
             _log(f"[replay] MCP initialized: {result.serverInfo}")
 

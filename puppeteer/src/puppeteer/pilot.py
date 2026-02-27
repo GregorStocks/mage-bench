@@ -10,8 +10,7 @@ from contextlib import ExitStack
 from datetime import datetime
 from pathlib import Path
 
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
+from mcp import ClientSession
 from openai import AsyncOpenAI
 
 from puppeteer.auto_pass import auto_pass_loop
@@ -1052,9 +1051,6 @@ async def run_pilot(
         jvm_args_list.append("-Dapple.awt.UIElement=true")
     jvm_args = " ".join(jvm_args_list)
 
-    env = os.environ.copy()
-    env["MAVEN_OPTS"] = jvm_args
-
     # Pass values that may contain spaces as Maven CLI args (not in MAVEN_OPTS)
     # because MAVEN_OPTS gets shell-split by the mvn script.
     # Maven CLI -D args go through "$@" which preserves spaces correctly.
@@ -1068,13 +1064,6 @@ async def run_pilot(
         mvn_args.append(f"-Dxmage.bridge.maxInteractionsPerTurn={max_interactions_per_turn}")
     mvn_args.append("exec:java")
 
-    server_params = StdioServerParameters(
-        command="mvn",
-        args=mvn_args,
-        cwd=str(project_root / "Mage.Client.Bridge"),
-        env=env,
-    )
-
     _log("[pilot] Spawning bridge client...")
 
     game_log = None
@@ -1085,7 +1074,14 @@ async def run_pilot(
             trace_log = log_stack.enter_context(GameLogWriter(game_dir, username, suffix="llm_trace"))
 
         try:
-            async with stdio_client(server_params) as (read, write), ClientSession(read, write) as session:
+            from puppeteer.bridge_transport import spawn_bridge_http
+
+            async with spawn_bridge_http(
+                mvn_args=mvn_args,
+                project_root=project_root,
+                jvm_args=jvm_args,
+                log_file=game_dir / f"{username}_mcp.log" if game_dir else None,
+            ) as session:
                 result = await session.initialize()
                 _log(f"[pilot] MCP initialized: {result.serverInfo}")
 

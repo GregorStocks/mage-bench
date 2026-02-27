@@ -17,10 +17,10 @@ import dataclasses
 import io
 import json
 import os
-import select
 import subprocess
 import sys
 import time
+import urllib.request
 from collections import defaultdict
 from collections.abc import Generator
 from contextlib import contextmanager
@@ -152,49 +152,41 @@ DECK_MDFC_LAND_AND_SUSPEND = "puppeteer/tests/decks/mdfc_land_and_suspend.dck"
 
 
 class BridgeSession:
-    """Persistent MCP bridge JVM accessed via direct JSON-RPC over stdin/stdout.
+    """Persistent MCP bridge JVM accessed via JSON-RPC over HTTP.
 
-    Avoids the MCP SDK's subprocess management so we can keep the JVM alive
-    across multiple golden tests.
+    Sends JSON-RPC requests to the bridge's MCP HTTP server and receives
+    responses with natural HTTP timeouts. Avoids the MCP SDK's subprocess
+    management so we can keep the JVM alive across multiple golden tests.
     """
 
-    def __init__(self, proc: subprocess.Popen[bytes]) -> None:
-        self.proc = proc
+    def __init__(self, url: str) -> None:
+        self._url = url
         self._id = 0
-        assert proc.stdin is not None, "BridgeSession requires stdin=PIPE"
-        assert proc.stdout is not None, "BridgeSession requires stdout=PIPE"
-        self._stdin = io.TextIOWrapper(proc.stdin, encoding="utf-8", line_buffering=True)
-        self._stdout = io.TextIOWrapper(proc.stdout, encoding="utf-8")
 
     def _rpc(self, method: str, params: dict | None = None, timeout: int = 300) -> dict:
         self._id += 1
         req: dict = {"jsonrpc": "2.0", "method": method, "id": self._id}
         if params is not None:
             req["params"] = params
-        line = json.dumps(req, separators=(",", ":"))
+        body = json.dumps(req, separators=(",", ":")).encode("utf-8")
         tool_name = (params or {}).get("name", "") if method == "tools/call" else ""
         rpc_label = f"{method}({tool_name})" if tool_name else method
         t0 = time.monotonic()
         print(f"[RPC #{self._id}] -> {rpc_label}", flush=True)
-        self._stdin.write(line + "\n")
-        self._stdin.flush()
-        # Wait for data with timeout to avoid hanging forever on a stuck JVM.
-        ready, _, _ = select.select([self.proc.stdout], [], [], timeout)
-        if not ready:
+        http_req = urllib.request.Request(
+            self._url,
+            data=body,
+            headers={"Content-Type": "application/json"},
+        )
+        try:
+            with urllib.request.urlopen(http_req, timeout=timeout) as http_resp:
+                resp = json.loads(http_resp.read())
+        except urllib.error.URLError as e:
             elapsed = time.monotonic() - t0
-            # Check if bridge process is still alive
-            rc = self.proc.poll()
-            msg = f"Bridge RPC timeout after {elapsed:.1f}s waiting for response to {rpc_label}"
-            if rc is not None:
-                msg += f" (bridge process exited with rc={rc})"
-            else:
-                msg += " (bridge process still alive — likely stuck in passPriority loop)"
-            print(f"[RPC #{self._id}] TIMEOUT: {msg}", flush=True)
-            raise TimeoutError(msg)
-        resp_line = self._stdout.readline()
+            msg = f"Bridge RPC error after {elapsed:.1f}s for {rpc_label}: {e}"
+            print(f"[RPC #{self._id}] ERROR: {msg}", flush=True)
+            raise RuntimeError(msg) from e
         elapsed = time.monotonic() - t0
-        assert resp_line, "Bridge process closed stdout unexpectedly"
-        resp = json.loads(resp_line)
         if elapsed > 5:
             print(f"[RPC #{self._id}] <- {rpc_label} OK ({elapsed:.1f}s)", flush=True)
         if "error" in resp and resp["error"] is not None:
@@ -215,10 +207,7 @@ class BridgeSession:
         return result["content"][0]["text"]
 
     def close(self) -> None:
-        try:
-            self._stdin.close()
-        except Exception:
-            pass
+        pass
 
 
 class PotatoProcess:

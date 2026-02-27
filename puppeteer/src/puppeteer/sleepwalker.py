@@ -3,15 +3,11 @@
 import argparse
 import asyncio
 import json
-import os
 import random
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
-
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
 
 SLEEPY_NOISES = [
     "zzz",
@@ -63,10 +59,6 @@ async def run_sleepwalker(
         jvm_args_list.append("-Dapple.awt.UIElement=true")
     jvm_args = " ".join(jvm_args_list)
 
-    # Set up environment
-    env = os.environ.copy()
-    env["MAVEN_OPTS"] = jvm_args
-
     # Pass values that may contain spaces as Maven CLI args (not in MAVEN_OPTS)
     # because MAVEN_OPTS gets shell-split by the mvn script.
     mvn_args = ["-q", f"-Dxmage.bridge.username={username}"]
@@ -74,16 +66,15 @@ async def run_sleepwalker(
         mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
     mvn_args.append("exec:java")
 
-    server_params = StdioServerParameters(
-        command="mvn",
-        args=mvn_args,
-        cwd=str(project_root / "Mage.Client.Bridge"),
-        env=env,
-    )
-
     _log("[sleepwalker] Spawning bridge client...")
 
-    async with stdio_client(server_params) as (read, write), ClientSession(read, write) as session:
+    from puppeteer.bridge_transport import spawn_bridge_http
+
+    async with spawn_bridge_http(
+        mvn_args=mvn_args,
+        project_root=project_root,
+        jvm_args=jvm_args,
+    ) as session:
         # Initialize MCP connection
         result = await session.initialize()
         _log(f"[sleepwalker] MCP initialized: {result.serverInfo}")

@@ -857,3 +857,142 @@ def generate_model_stats(games_dir: Path, data_dir: Path, models_json: Path) -> 
     output_path = data_dir / "model-stats.json"
     output_path.write_text(json.dumps(output, indent=2) + "\n")
     return output_path
+
+
+def generate_internals_data(games_dir: Path, data_dir: Path, models_json: Path) -> Path:
+    """Generate per-game per-player data points for internals trend charts.
+
+    Produces a flat list of records — one per player per game — with all
+    operational metrics needed for client-side aggregation and charting.
+
+    Includes ALL games (with or without winner) since operational stats
+    matter even for crashed games.
+
+    Writes data_dir/internals-data.json and returns its path.
+    """
+    model_registry = load_model_registry(models_json)
+
+    games_out: list[dict[str, Any]] = []
+
+    for gz_path in _glob_game_files(games_dir):
+        game = _load_game_file(gz_path)
+        epoch = game.get("harnessEpoch", 0)
+        game_format = derive_format(game)
+        winner = game.get("winner")
+        players = game.get("players", [])
+
+        _backfill_player_stats(game)
+
+        # Build name -> player_key map for this game
+        name_to_key: dict[str, str] = {}
+        for p in players:
+            if p.get("type") != "pilot" or not p.get("model"):
+                continue
+            name_to_key[p["name"]] = _player_key(p)
+
+        # Accumulate per-player stats from llmEvents
+        player_responses: dict[str, int] = {}
+        player_timeouts: dict[str, int] = {}
+        player_other_errors: dict[str, int] = {}
+        player_context_resets: dict[str, int] = {}
+        player_prompt_tokens: dict[str, int] = {}
+        player_completion_tokens: dict[str, int] = {}
+        player_cached_tokens: dict[str, int] = {}
+        player_reasoning_tokens: dict[str, int] = {}
+
+        for ev in game.get("llmEvents", []):
+            player_name = ev.get("player", "")
+            if player_name not in name_to_key:
+                continue
+
+            ev_type = ev.get("type")
+            if ev_type == "llm_response":
+                player_responses[player_name] = player_responses.get(player_name, 0) + 1
+                usage = ev.get("usage", {})
+                player_prompt_tokens[player_name] = player_prompt_tokens.get(player_name, 0) + usage.get(
+                    "promptTokens", 0
+                )
+                player_completion_tokens[player_name] = player_completion_tokens.get(player_name, 0) + usage.get(
+                    "completionTokens", 0
+                )
+                player_cached_tokens[player_name] = player_cached_tokens.get(player_name, 0) + usage.get(
+                    "cachedTokens", 0
+                )
+                player_reasoning_tokens[player_name] = player_reasoning_tokens.get(player_name, 0) + usage.get(
+                    "reasoningTokens", 0
+                )
+            elif ev_type == "llm_error":
+                error_type = ev.get("errorType", "unknown")
+                if error_type == "timeout":
+                    player_timeouts[player_name] = player_timeouts.get(player_name, 0) + 1
+                else:
+                    player_other_errors[player_name] = player_other_errors.get(player_name, 0) + 1
+            elif ev_type == "context_reset":
+                player_context_resets[player_name] = player_context_resets.get(player_name, 0) + 1
+
+        # Parse the game timestamp into ISO format for date-based charting
+        raw_ts = game.get("timestamp", "")
+        iso_ts = ""
+        if raw_ts:
+            # Timestamps are like "20260210_074307"
+            try:
+                dt = datetime.strptime(raw_ts, "%Y%m%d_%H%M%S")
+                iso_ts = dt.isoformat()
+            except ValueError:
+                iso_ts = raw_ts
+
+        # Build per-player records
+        player_records: list[dict[str, Any]] = []
+        for p in players:
+            if p.get("type") != "pilot" or not p.get("model"):
+                continue
+            key = _player_key(p)
+            model_id, effort = _split_key(key)
+            display_name = model_registry.get(model_id) or derive_display_name(model_id)
+            if effort:
+                display_name = f"{display_name} ({effort})"
+            name = p["name"]
+
+            player_records.append(
+                {
+                    "key": key,
+                    "modelName": display_name,
+                    "won": winner == name,
+                    "costUsd": round(p.get("totalCostUsd", 0.0), 4),
+                    "promptTokens": player_prompt_tokens.get(name, 0),
+                    "completionTokens": player_completion_tokens.get(name, 0),
+                    "cachedTokens": player_cached_tokens.get(name, 0),
+                    "reasoningTokens": player_reasoning_tokens.get(name, 0),
+                    "toolCallsOk": p.get("toolCallsOk", 0),
+                    "toolCallsFailed": p.get("toolCallsFailed", 0),
+                    "thinkingTimeSecs": round(p.get("thinkingTimeSecs", 0.0), 1),
+                    "responses": player_responses.get(name, 0),
+                    "timeouts": player_timeouts.get(name, 0),
+                    "otherErrors": player_other_errors.get(name, 0),
+                    "contextResets": player_context_resets.get(name, 0),
+                }
+            )
+
+        games_out.append(
+            {
+                "id": game["id"],
+                "ts": iso_ts,
+                "epoch": epoch,
+                "format": game_format,
+                "players": player_records,
+            }
+        )
+
+    # Sort by timestamp for consistent ordering
+    games_out.sort(key=lambda g: g["ts"])
+
+    output: dict[str, Any] = {
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "minLeaderboardEpoch": MIN_LEADERBOARD_EPOCH,
+        "games": games_out,
+    }
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    output_path = data_dir / "internals-data.json"
+    output_path.write_text(json.dumps(output, indent=2) + "\n")
+    return output_path
