@@ -514,10 +514,11 @@ if (fs.existsSync(exportsDir)) {
       const noteEl = document.getElementById('chart-note')!;
       if (totalRawPoints === 0) {
         noteEl.textContent = 'No data for selected filters. Try selecting different models or adjusting filters.';
-      } else {
-        const numModels = new Set(Array.from(modelPoints.keys()).filter(k => selectedModels.has(k))).size;
-        noteEl.textContent = `${numModels} model(s), ${totalRawPoints} game data points, smoothing window: ${smoothingWindow}`;
+        if (chart) { chart.destroy(); chart = null; }
+        return;
       }
+      const numModels = new Set(Array.from(modelPoints.keys()).filter(k => selectedModels.has(k))).size;
+      noteEl.textContent = `${numModels} model(s), ${totalRawPoints} game data points, smoothing window: ${smoothingWindow}`;
 
       // Build date tick labels: show date when it changes between games.
       // Skip the first one (index 0) so it doesn't render on/left of the Y axis.
@@ -533,6 +534,10 @@ if (fs.existsSync(exportsDir)) {
           lastDateStr = dateStr;
         }
       }
+
+      // For very few games, ensure the X scale has sensible bounds
+      const xMin = -0.5;
+      const xMax = Math.max(filtered.length - 1, 1) + 0.5;
 
       // Render chart
       if (chart) chart.destroy();
@@ -587,6 +592,8 @@ if (fs.existsSync(exportsDir)) {
           scales: {
             x: {
               type: 'linear',
+              min: xMin,
+              max: xMax,
               title: {
                 display: true,
                 text: 'Games (chronological)',
