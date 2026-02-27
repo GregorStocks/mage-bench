@@ -1,0 +1,131 @@
+---
+import type { GetStaticPathsOptions } from 'astro';
+import { getCollection } from 'astro:content';
+import Base from '../../../../layouts/Base.astro';
+import Pagination from '../../../../components/Pagination.astro';
+import { getSortedPosts, getUniqueTags, getPostsByTag, slugifyTag } from '../../../../utils/blog';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const allPosts = getSortedPosts(await getCollection('blog'));
+  const tags = getUniqueTags(allPosts);
+
+  return tags.flatMap(tag => {
+    const filtered = getPostsByTag(allPosts, tag);
+    return paginate(filtered, {
+      params: { tag: slugifyTag(tag) },
+      props: { tagName: tag },
+      pageSize: 10,
+    });
+  });
+}
+
+const { page } = Astro.props;
+const { tagName } = Astro.props;
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<Base title={`Posts tagged "${tagName}"`}>
+  <a href="/blog/tags" class="back-link">&larr; All tags</a>
+  <h1>Tag: {tagName}</h1>
+  <p class="subtitle">{page.total} {page.total === 1 ? 'post' : 'posts'}</p>
+
+  <div class="post-list">
+    {page.data.map((post: any) => (
+      <a href={`/blog/${post.id}`} class="post-card">
+        <div class="post-meta">
+          <time datetime={post.data.pubDate.toISOString()}>
+            {formatDate(post.data.pubDate)}
+          </time>
+          <span class="post-author">{post.data.author}</span>
+        </div>
+        <h2 class="post-title">{post.data.title}</h2>
+        <p class="post-desc">{post.data.description}</p>
+      </a>
+    ))}
+  </div>
+
+  <Pagination
+    prevUrl={page.url.prev}
+    nextUrl={page.url.next}
+    currentPage={page.currentPage}
+    lastPage={page.lastPage}
+  />
+</Base>
+
+<style>
+  .back-link {
+    display: inline-block;
+    color: #a0a0b8;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: #e94560;
+  }
+
+  h1 {
+    color: #e94560;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    color: #a0a0b8;
+    margin-bottom: 2rem;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .post-card {
+    display: block;
+    background: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 8px;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: #e0e0e0;
+    transition: border-color 0.2s;
+  }
+
+  .post-card:hover {
+    border-color: #e94560;
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #a0a0b8;
+    margin-bottom: 0.5rem;
+  }
+
+  .post-author::before {
+    content: '\00b7';
+    margin-right: 1rem;
+  }
+
+  .post-title {
+    font-size: 1.2rem;
+    color: #e0e0e0;
+    margin-bottom: 0.4rem;
+  }
+
+  .post-desc {
+    color: #a0a0b8;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+</style>

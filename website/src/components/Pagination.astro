@@ -1,0 +1,59 @@
+---
+interface Props {
+  prevUrl?: string;
+  nextUrl?: string;
+  currentPage: number;
+  lastPage: number;
+}
+
+const { prevUrl, nextUrl, currentPage, lastPage } = Astro.props;
+---
+
+{lastPage > 1 && (
+  <nav class="pagination" aria-label="Blog pagination">
+    {prevUrl ? (
+      <a href={prevUrl} class="page-link">&larr; Newer</a>
+    ) : (
+      <span class="page-link disabled">&larr; Newer</span>
+    )}
+    <span class="page-info">Page {currentPage} of {lastPage}</span>
+    {nextUrl ? (
+      <a href={nextUrl} class="page-link">Older &rarr;</a>
+    ) : (
+      <span class="page-link disabled">Older &rarr;</span>
+    )}
+  </nav>
+)}
+
+<style>
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #0f3460;
+  }
+
+  .page-link {
+    color: #e94560;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .page-link:hover {
+    color: #ff6b81;
+  }
+
+  .page-link.disabled {
+    color: #444;
+    cursor: default;
+  }
+
+  .page-info {
+    color: #a0a0b8;
+    font-size: 0.85rem;
+  }
+</style>

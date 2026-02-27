@@ -1,0 +1,83 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { getSortedPosts, getUniqueTags, getPostsByTag, slugifyTag } from '../../../utils/blog';
+
+const posts = getSortedPosts(await getCollection('blog'));
+const tags = getUniqueTags(posts);
+---
+
+<Base title="Tags">
+  <a href="/blog" class="back-link">&larr; All posts</a>
+  <h1>Tags</h1>
+
+  <div class="tag-list">
+    {tags.map(tag => {
+      const count = getPostsByTag(posts, tag).length;
+      return (
+        <a href={`/blog/tags/${slugifyTag(tag)}`} class="tag-chip">
+          {tag}
+          <span class="tag-count">{count}</span>
+        </a>
+      );
+    })}
+  </div>
+
+  {tags.length === 0 && (
+    <p class="empty">No tags yet.</p>
+  )}
+</Base>
+
+<style>
+  .back-link {
+    display: inline-block;
+    color: #a0a0b8;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: #e94560;
+  }
+
+  h1 {
+    color: #e94560;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    background: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 20px;
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: border-color 0.2s;
+  }
+
+  .tag-chip:hover {
+    border-color: #e94560;
+    color: #e94560;
+  }
+
+  .tag-count {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+  }
+
+  .empty {
+    color: #a0a0b8;
+  }
+</style>

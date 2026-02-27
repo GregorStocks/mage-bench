@@ -29,6 +29,7 @@ function serveGzPlugin() {
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://mage-bench.com',
   vite: {
     plugins: [serveGzPlugin()],
   },
