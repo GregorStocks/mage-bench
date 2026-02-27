@@ -71,7 +71,11 @@ MAX_WORKERS = 50
 #      sorcery-speed actions remaining (land drops, sorceries, creatures)
 # v21: fix snapshot lookup for events missing gameSeq (e.g. discard-to-hand-size),
 #      which were falling back to snapshot 0 and showing turn=? phase=? to the LLM
-BLUNDER_SCRIPT_VERSION = 21
+# v22: filter subsequent_actions ("After:") to only show the deciding player's
+#      own actions, not opponent actions — prevents leaking future information
+#      about what the opponent did while still showing what the player followed
+#      up with (e.g. played a land, cast a spell)
+BLUNDER_SCRIPT_VERSION = 22
 
 # --- Prompt components ---
 
@@ -613,8 +617,11 @@ def _format_decisions(decisions: list[dict]) -> str:
             )
         if d.get("reasoning"):
             lines.append(f"  Reasoning: {d['reasoning'][:500]}")
-        if d.get("subsequent_actions"):
-            lines.append(f"  After: {'; '.join(d['subsequent_actions'][:3])}")
+        # Show what the deciding player did next (but not opponent actions)
+        subsequent = d.get("subsequent_actions", [])
+        own_actions = [a for a in subsequent if a.startswith(deciding_player)]
+        if own_actions:
+            lines.append(f"  After: {'; '.join(own_actions)}")
         parts.append("\n".join(lines))
     return "\n\n".join(parts)
 
