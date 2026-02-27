@@ -66,6 +66,16 @@ def check(command: str) -> None:
     if re.search(rf"make\s+run\b.*CONFIG\s*=\s*({paid_pattern})\b", stripped):
         block("Blocked: this config consumes API tokens. Use free configs only (e.g. standard-dumb, modern-staller).")
 
+    # --- Golden tests — use make targets ---
+    if re.search(r"GOLDEN_INTEGRATION\s*=\s*1", stripped) or re.search(r"-m\s+golden", stripped):
+        block(
+            "Blocked: don't run golden tests directly. Use make targets instead:\n"
+            "  make test-golden              # run all golden tests\n"
+            "  make test-golden K=bolt       # run golden tests matching 'bolt'\n"
+            "  make update-golden            # regenerate all golden files\n"
+            "  make update-golden K=bolt     # regenerate golden files matching 'bolt'"
+        )
+
     # --- /tmp/ — use tmp/ (repo-local) instead ---
     # Match /tmp as an absolute path, not as a component inside another path
     # (e.g. "dale-dragon-lily/tmp/foo" is fine, "/tmp/foo" is not).

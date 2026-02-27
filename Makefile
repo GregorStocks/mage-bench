@@ -44,11 +44,11 @@ check: lint format-check typecheck test test-js verify-decks verify-schema-types
 
 .PHONY: test-golden
 test-golden:
-	cd puppeteer && GOLDEN_INTEGRATION=1 uv run pytest -m golden -v
+	cd puppeteer && GOLDEN_INTEGRATION=1 uv run pytest -m golden -v $(if $(K),-k "$(K)")
 
 .PHONY: update-golden
 update-golden:
-	cd puppeteer && GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest -m golden -v
+	cd puppeteer && GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest -m golden -v $(if $(K),-k "$(K)")
 
 .PHONY: update-blunder-golden
 update-blunder-golden:

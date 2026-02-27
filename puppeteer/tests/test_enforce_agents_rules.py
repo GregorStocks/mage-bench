@@ -141,6 +141,20 @@ class TestBlockedCommands:
         assert result.returncode == 2
         assert "api tokens" in result.stderr.lower()
 
+    @pytest.mark.parametrize(
+        "command",
+        [
+            "cd puppeteer && GOLDEN_INTEGRATION=1 uv run pytest -m golden -v",
+            "cd puppeteer && GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest -m golden -v",
+            'GOLDEN_INTEGRATION=1 uv run pytest -m golden -k "bolt"',
+            "uv run pytest -m golden -v",
+        ],
+    )
+    def test_golden_direct_blocked(self, command: str) -> None:
+        result = _run_hook(command)
+        assert result.returncode == 2
+        assert "make" in result.stderr.lower()
+
 
 class TestAllowedCommands:
     """Commands that must be allowed (exit 0)."""
@@ -155,6 +169,10 @@ class TestAllowedCommands:
             "make run CONFIG=modern-staller",
             "make website",
             "make mcp-tools",
+            "make test-golden",
+            "make test-golden K=bolt",
+            "make update-golden",
+            "make update-golden K=dark_depths",
             "git commit -m 'fix bug'",
             "git push origin HEAD",
             "git merge origin/master",
