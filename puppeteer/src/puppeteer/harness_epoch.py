@@ -38,7 +38,10 @@ HARNESS_EPOCH = 24
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
-MIN_LEADERBOARD_EPOCH = 3
+# Bumped from 3 to 11: epochs 3-10 had rapid API churn (priority blocking,
+# batch combat, ability presentation, mana plan format, JsonArray removal).
+# Epoch 11 is where the tool type system stabilized.
+MIN_LEADERBOARD_EPOCH = 11
 
 # Minimum blunder analysis version for "acceptable" annotations. Games
 # analyzed below this show an "(older analysis)" tag on the website.

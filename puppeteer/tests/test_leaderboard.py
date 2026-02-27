@@ -645,7 +645,7 @@ def test_generate_leaderboard_file_integration():
             ],
         )
         game["deckType"] = "Constructed - Standard"
-        game["harnessEpoch"] = 3
+        game["harnessEpoch"] = HARNESS_EPOCH
         (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
 
         models_json = root / "models.json"
@@ -719,7 +719,7 @@ def test_generate_leaderboard_file_with_game_fallback():
             [_pilot("Alice", "a/x"), _pilot("Bob", "b/y"), _pilot("Carol", "c/z")],
         )
         game["deckType"] = "Constructed - Standard"
-        game["harnessEpoch"] = 3
+        game["harnessEpoch"] = HARNESS_EPOCH
         game["actions"] = [
             {"seq": 100, "message": "Carol has lost the game."},
             {"seq": 200, "message": "Bob has lost the game."},
@@ -871,7 +871,7 @@ def test_generate_leaderboard_file_has_formats_key():
             [_pilot("Alice", "a/x", cost=5.0, placement=1), _pilot("Bob", "b/y", cost=2.0, placement=2)],
         )
         game["deckType"] = "Constructed - Legacy"
-        game["harnessEpoch"] = 3
+        game["harnessEpoch"] = HARNESS_EPOCH
         (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
 
         models_json = root / "models.json"
@@ -1141,10 +1141,10 @@ def test_generate_leaderboard_file_excludes_old_epochs():
         # Only the current-epoch game should be in ratings (epoch 2 excluded, min is 3)
         assert result["totalGames"] == 1
         assert result["excludedGames"] == 1
-        assert result["minEpoch"] == 3
+        assert result["minEpoch"] == 11
         assert result["epochCounts"] == {"2": 1, str(HARNESS_EPOCH): 1}
 
-        # Only current-epoch models should appear (epoch 2 is below MIN_LEADERBOARD_EPOCH=3)
+        # Only current-epoch models should appear (epoch 2 is below MIN_LEADERBOARD_EPOCH=11)
         model_ids = {m["modelId"] for m in result["models"]}
         assert "c/z" in model_ids
         assert "a/x" not in model_ids
@@ -1158,7 +1158,7 @@ def test_generate_leaderboard_file_explicit_epoch():
         games_dir.mkdir()
         data_dir = root / "data"
 
-        # Old timestamp but explicit epoch 3 — should be included
+        # Old timestamp but explicit current epoch — should be included
         game = _make_game(
             "game_20260101_000000",
             "20260101_000000",
@@ -1166,7 +1166,7 @@ def test_generate_leaderboard_file_explicit_epoch():
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
         )
         game["deckType"] = "Constructed - Standard"
-        game["harnessEpoch"] = 3
+        game["harnessEpoch"] = HARNESS_EPOCH
         (games_dir / "game_20260101_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
 
         models_json = root / "models.json"
@@ -1285,7 +1285,7 @@ def _make_game_with_events(
     winner: str | None,
     players: list[dict],
     llm_events: list[dict],
-    epoch: int = 3,
+    epoch: int = HARNESS_EPOCH,
 ) -> dict:
     return {
         "id": game_id,
