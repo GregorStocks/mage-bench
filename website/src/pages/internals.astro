@@ -69,7 +69,7 @@ if (fs.existsSync(exportsDir)) {
         <div class="filter-group">
           <label class="control-label">
             Smoothing
-            <input type="number" id="smoothing-window" value="5" min="1" max="50" />
+            <input type="number" id="smoothing-window" value="5" min="0" max="50" />
           </label>
         </div>
       </div>
@@ -335,7 +335,7 @@ if (fs.existsSync(exportsDir)) {
     // Smoothing window
     const smoothingInput = document.getElementById('smoothing-window') as HTMLInputElement;
     smoothingInput.addEventListener('input', () => {
-      smoothingWindow = Math.max(1, parseInt(smoothingInput.value) || 5);
+      smoothingWindow = Math.max(0, parseInt(smoothingInput.value) || 0);
       updateChart();
     });
 
@@ -427,7 +427,8 @@ if (fs.existsSync(exportsDir)) {
       const filtered = trendData.games
         .filter(g => {
           if (g.epoch < minEpochTrend) return false;
-          if (currentFormat !== 'all' && g.format !== currentFormat) return false;
+          if (currentFormat === '1v1' && g.format === 'commander') return false;
+          if (currentFormat === 'commander' && g.format !== 'commander') return false;
           return g.ts !== '';
         })
         .sort((a, b) => new Date(a.ts).getTime() - new Date(b.ts).getTime());
@@ -491,8 +492,8 @@ if (fs.existsSync(exportsDir)) {
           order: 2,
         });
 
-        // Smoothed trend line
-        const smoothed = movingAverage(points, smoothingWindow);
+        // Smoothed trend line (skip when smoothing is 0)
+        const smoothed = smoothingWindow > 0 ? movingAverage(points, smoothingWindow) : [];
         if (smoothed.length >= 2) {
           datasets.push({
             label: modelName + ' (trend)',
