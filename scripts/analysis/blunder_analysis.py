@@ -69,7 +69,9 @@ MAX_WORKERS = 50
 # v19: clarify "Pick triggered ability" decisions are about ordering, not targeting
 # v20: add explicit guidance about passing priority in postcombat main with
 #      sorcery-speed actions remaining (land drops, sorceries, creatures)
-BLUNDER_SCRIPT_VERSION = 20
+# v21: fix snapshot lookup for events missing gameSeq (e.g. discard-to-hand-size),
+#      which were falling back to snapshot 0 and showing turn=? phase=? to the LLM
+BLUNDER_SCRIPT_VERSION = 21
 
 # --- Prompt components ---
 

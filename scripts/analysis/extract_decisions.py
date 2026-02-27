@@ -421,9 +421,17 @@ def _extract_decisions_v2(data: dict) -> list[dict]:
             if _is_decision_source(ev):
                 break
 
-        # Use seq-based snapshot lookup for v2 (snapshots have seq, not ts)
-        choices_seq = source_event.get("gameSeq", 0)
-        snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
+        # Use seq-based snapshot lookup for v2 (snapshots have seq, not ts).
+        # Fall back to timestamp if gameSeq is missing (e.g. discard-to-hand-size
+        # events from older harness versions that didn't emit gameSeq).
+        choices_seq = source_event.get("gameSeq") or 0
+        if choices_seq:
+            snap_idx = _find_snapshot_index_by_seq(snapshots, choices_seq)
+        else:
+            choices_ts = source_event.get("ts", "")
+            snap_idx = (
+                _find_snapshot_index(snapshots, choices_ts) if choices_ts else None
+            )
         game_state = (
             _summarize_snapshot(snapshots[snap_idx]) if snap_idx is not None else {}
         )
