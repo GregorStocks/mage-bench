@@ -275,7 +275,7 @@ def _run_replay_on_bridge(
         prompt_path = game_dir / f"{player_name}_golden_prompt.json"
         prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
 
-        # Concede to end the game
+        # Concede to end the game (no-op if game already ended from opponent)
         bridge.call_tool("concede", {})
 
         game_log.emit("game_end", reason="replay_script_complete")

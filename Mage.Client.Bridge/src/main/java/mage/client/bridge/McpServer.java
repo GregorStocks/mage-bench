@@ -107,7 +107,10 @@ public class McpServer {
     public void stop() {
         running.set(false);
         if (httpServer != null) {
-            httpServer.stop(0);
+            // Give in-flight HTTP handlers time to complete before closing
+            // connections.  passPriority polls every 200ms for game_over, so
+            // 5s is more than enough for a clean response.
+            httpServer.stop(5);
         }
     }
 

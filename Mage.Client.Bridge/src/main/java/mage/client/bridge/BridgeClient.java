@@ -306,8 +306,19 @@ public class BridgeClient {
                         break;
                     }
                 } else {
-                    // Game ended normally — stop the HTTP server
-                    logger.info("Game ended, shutting down MCP server...");
+                    // Game ended — wait for stdin to close (replay client
+                    // disconnect) before stopping the MCP server, so
+                    // in-flight tool calls (get_game_history, concede) can
+                    // complete cleanly.
+                    logger.info("Game ended, waiting for replay client to disconnect...");
+                    while (!stdinClosed.get()) {
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                    logger.info("Replay client disconnected, shutting down MCP server...");
                     break;
                 }
             }

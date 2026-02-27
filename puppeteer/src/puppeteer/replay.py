@@ -44,7 +44,7 @@ async def execute_replay_script(
     system_prompt: str,
     game_log: GameLogWriter | None = None,
 ) -> list[dict]:
-    """Execute a replay script and return the captured prompt.
+    """Execute a replay script and return the captured prompt messages.
 
     This is the shared core of both ``run_replay`` (async MCP subprocess) and
     the persistent-session path in golden_helpers. The ``call_tool`` callable
@@ -106,7 +106,6 @@ async def execute_replay_script(
         except (json.JSONDecodeError, TypeError):
             pass
 
-    # Call get_game_history before prompt capture
     history_result = await call_tool("get_game_history", {})
     if game_log:
         game_log.emit("tool_call", name="get_game_history", arguments={}, result=history_result)

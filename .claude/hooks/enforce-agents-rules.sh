@@ -65,5 +65,11 @@ if echo "$STRIPPED" | grep -qE 'make\s+run\b.*CONFIG\s*=\s*(commander-gauntlet|c
   exit 2
 fi
 
+# --- Rule 9: Never use /tmp/ — use tmp/ (repo-local) instead ---
+if echo "$STRIPPED" | grep -qE '(^|[\s;|&(])/tmp(/|\b)'; then
+  echo "Blocked: never use /tmp/. Use tmp/ (repo-local scratch directory) instead." >&2
+  exit 2
+fi
+
 # All checks passed
 exit 0
