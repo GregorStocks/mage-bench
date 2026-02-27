@@ -13,11 +13,10 @@ import mage.remote.Session;
 import mage.remote.SessionImpl;
 import mage.view.SeatView;
 import mage.view.TableView;
-import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Logger;
 
 import java.util.Collection;
-import java.util.Enumeration;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -77,10 +76,8 @@ public class BridgeClient {
             isPotato = true;
         }
 
-        // In sleepwalker mode, redirect all log4j output to stderr since stdout is used for MCP
         if (isSleepwalker) {
-            redirectLogsToStderr();
-            logger.info("Starting in SLEEPWALKER mode (MCP server on stdio)");
+            logger.info("Starting in SLEEPWALKER mode (MCP server on HTTP)");
         }
 
         // Log class file timestamp to verify build freshness
@@ -217,24 +214,42 @@ public class BridgeClient {
                 });
             }
 
-            // Start MCP server on stdio - this blocks until client stops
-            logger.info("Starting MCP server...");
+            // Start MCP server on HTTP
+            int mcpPort = Integer.getInteger("xmage.bridge.mcpPort", 0);
+            if (mcpPort == 0) {
+                logger.error("xmage.bridge.mcpPort system property is required for sleepwalker mode");
+                System.exit(1);
+            }
+            logger.info("Starting MCP HTTP server on port " + mcpPort + "...");
             McpServer mcpServer = new McpServer(client, keepAlive);
 
             // Run MCP server in separate thread so we can monitor client state
-            Thread mcpThread = new Thread(() -> mcpServer.start(), "MCP-Server");
+            Thread mcpThread = new Thread(() -> mcpServer.start(mcpPort), "MCP-Server");
             mcpThread.setDaemon(true);
             mcpThread.start();
 
-            // Keep alive while client is running, with reconnection support.
-            // In keepAlive mode, the MCP thread is the lifecycle owner — we exit
-            // when stdin closes (mcpThread finishes), not when client.isRunning()
-            // becomes false (which happens on game over in non-keepAlive mode).
+            // In keepAlive mode, stdin is the lifecycle signal — when the Python
+            // side closes stdin, we shut down.  In non-keepAlive mode, we watch
+            // client.isRunning() (game over) instead.
+            //
+            // Start a stdin-reader thread that sets stdinClosed when EOF is reached.
+            java.util.concurrent.atomic.AtomicBoolean stdinClosed = new java.util.concurrent.atomic.AtomicBoolean(false);
+            Thread stdinThread = new Thread(() -> {
+                try {
+                    // Block until stdin is closed
+                    while (System.in.read() != -1) { /* drain */ }
+                } catch (IOException ignored) {
+                }
+                stdinClosed.set(true);
+            }, "MCP-Stdin-Watcher");
+            stdinThread.setDaemon(true);
+            stdinThread.start();
+
             int reconnectAttempts = 0;
             outer:
             while (true) {
                 long lastPingTime = System.currentTimeMillis();
-                while (keepAlive ? mcpThread.isAlive() : client.isRunning()) {
+                while (keepAlive ? !stdinClosed.get() : client.isRunning()) {
                     try {
                         Thread.sleep(1000);
                         long now = System.currentTimeMillis();
@@ -251,8 +266,8 @@ public class BridgeClient {
                 }
 
                 if (keepAlive) {
-                    // MCP stdin closed — Python side is done, exit cleanly
-                    logger.info("MCP stdin closed (keepAlive mode), shutting down");
+                    // Stdin closed — Python side is done, exit cleanly
+                    logger.info("Stdin closed (keepAlive mode), shutting down");
                     break;
                 }
 
@@ -291,15 +306,8 @@ public class BridgeClient {
                         break;
                     }
                 } else {
-                    // Game ended normally — wait for the Python pilot to close
-                    // stdin before shutting down, so MCP responses are delivered
-                    // cleanly and the pilot exits with code 0.
-                    logger.info("Game ended, waiting for MCP stdin to close...");
-                    try {
-                        mcpThread.join(30_000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
+                    // Game ended normally — stop the HTTP server
+                    logger.info("Game ended, shutting down MCP server...");
                     break;
                 }
             }
@@ -596,16 +604,4 @@ public class BridgeClient {
         return defaultValue;
     }
 
-    private static void redirectLogsToStderr() {
-        // Redirect all ConsoleAppender instances to use stderr instead of stdout
-        Logger rootLogger = Logger.getRootLogger();
-        Enumeration<?> appenders = rootLogger.getAllAppenders();
-        while (appenders.hasMoreElements()) {
-            Object appender = appenders.nextElement();
-            if (appender instanceof ConsoleAppender) {
-                ((ConsoleAppender) appender).setTarget("System.err");
-                ((ConsoleAppender) appender).activateOptions();
-            }
-        }
-    }
 }
