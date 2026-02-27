@@ -61,16 +61,15 @@ if (fs.existsSync(exportsDir)) {
           </div>
         </div>
         <div class="filter-group">
-          <span class="control-label">X-Axis</span>
-          <div class="toggle-buttons" id="xaxis-buttons">
-            <button class="toggle-btn active" data-xaxis="epoch">Epoch</button>
-            <button class="toggle-btn" data-xaxis="date">Date</button>
-          </div>
-        </div>
-        <div class="filter-group">
           <label class="control-label">
             Min Epoch
             <input type="number" id="trend-min-epoch" value={internalsData.minLeaderboardEpoch} min="1" />
+          </label>
+        </div>
+        <div class="filter-group">
+          <label class="control-label">
+            Smoothing
+            <input type="number" id="smoothing-window" value="5" min="1" max="50" />
           </label>
         </div>
       </div>
@@ -186,6 +185,7 @@ if (fs.existsSync(exportsDir)) {
   <!-- Chart.js trends -->
   <script>
     import { Chart, registerables } from 'chart.js';
+    import 'chartjs-adapter-date-fns';
     Chart.register(...registerables);
 
     // ─── Tab switching ───
@@ -200,30 +200,34 @@ if (fs.existsSync(exportsDir)) {
     });
 
     // ─── Trend chart ───
+    type PlayerRecord = {
+      key: string;
+      modelName: string;
+      won: boolean;
+      costUsd: number;
+      promptTokens: number;
+      completionTokens: number;
+      cachedTokens: number;
+      reasoningTokens: number;
+      toolCallsOk: number;
+      toolCallsFailed: number;
+      thinkingTimeSecs: number;
+      responses: number;
+      timeouts: number;
+      otherErrors: number;
+      contextResets: number;
+    };
+
+    type GameRecord = {
+      id: string;
+      ts: string;
+      epoch: number;
+      format: string;
+      players: PlayerRecord[];
+    };
+
     const trendData = JSON.parse(document.getElementById('internals-data')!.textContent!) as {
-      games: Array<{
-        id: string;
-        ts: string;
-        epoch: number;
-        format: string;
-        players: Array<{
-          key: string;
-          modelName: string;
-          won: boolean;
-          costUsd: number;
-          promptTokens: number;
-          completionTokens: number;
-          cachedTokens: number;
-          reasoningTokens: number;
-          toolCallsOk: number;
-          toolCallsFailed: number;
-          thinkingTimeSecs: number;
-          responses: number;
-          timeouts: number;
-          otherErrors: number;
-          contextResets: number;
-        }>;
-      }>;
+      games: GameRecord[];
       minLeaderboardEpoch: number;
     };
 
@@ -252,9 +256,9 @@ if (fs.existsSync(exportsDir)) {
     // State
     let currentMetric = 'timeoutRate';
     let currentFormat = 'all';
-    let currentXAxis = 'epoch';
     let selectedModels = new Set(allModels.slice(0, 5).map(m => m[0]));
     let minEpochTrend = trendData.minLeaderboardEpoch;
+    let smoothingWindow = 5;
 
     // Build model checkboxes
     const checkboxContainer = document.getElementById('model-checkboxes')!;
@@ -322,16 +326,6 @@ if (fs.existsSync(exportsDir)) {
       });
     });
 
-    // X-axis buttons
-    document.querySelectorAll('#xaxis-buttons .toggle-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('#xaxis-buttons .toggle-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentXAxis = (btn as HTMLElement).dataset.xaxis!;
-        updateChart();
-      });
-    });
-
     // Min epoch
     const minEpochTrendInput = document.getElementById('trend-min-epoch') as HTMLInputElement;
     minEpochTrendInput.addEventListener('input', () => {
@@ -339,128 +333,89 @@ if (fs.existsSync(exportsDir)) {
       updateChart();
     });
 
-    // Metric definitions
-    type MetricDef = {
+    // Smoothing window
+    const smoothingInput = document.getElementById('smoothing-window') as HTMLInputElement;
+    smoothingInput.addEventListener('input', () => {
+      smoothingWindow = Math.max(1, parseInt(smoothingInput.value) || 5);
+      updateChart();
+    });
+
+    // Per-game metric: computes a single value for one player in one game
+    type PerGameMetric = {
       label: string;
       unit: string;
-      compute: (records: PlayerRecord[]) => number | null;
+      compute: (p: PlayerRecord) => number | null;
     };
 
-    type PlayerRecord = {
-      key: string;
-      won: boolean;
-      costUsd: number;
-      promptTokens: number;
-      completionTokens: number;
-      cachedTokens: number;
-      reasoningTokens: number;
-      toolCallsOk: number;
-      toolCallsFailed: number;
-      thinkingTimeSecs: number;
-      responses: number;
-      timeouts: number;
-      otherErrors: number;
-      contextResets: number;
-    };
-
-    const METRICS: Record<string, MetricDef> = {
+    const METRICS: Record<string, PerGameMetric> = {
       timeoutRate: {
         label: 'Timeout Rate',
         unit: '%',
-        compute: (recs) => {
-          let timeouts = 0, responses = 0;
-          for (const r of recs) { timeouts += r.timeouts; responses += r.responses; }
-          const total = timeouts + responses;
-          return total > 0 ? (timeouts / total) * 100 : null;
+        compute: (p) => {
+          const total = p.timeouts + p.responses;
+          return total > 0 ? (p.timeouts / total) * 100 : null;
         },
       },
       costPerGame: {
         label: 'Cost per Game',
         unit: '$',
-        compute: (recs) => {
-          if (recs.length === 0) return null;
-          let total = 0;
-          for (const r of recs) total += r.costUsd;
-          return total / recs.length;
-        },
+        compute: (p) => p.costUsd,
       },
       cacheRate: {
         label: 'Cache Rate',
         unit: '%',
-        compute: (recs) => {
-          let cached = 0, prompt = 0;
-          for (const r of recs) { cached += r.cachedTokens; prompt += r.promptTokens; }
-          return prompt > 0 ? (cached / prompt) * 100 : null;
-        },
+        compute: (p) => p.promptTokens > 0 ? (p.cachedTokens / p.promptTokens) * 100 : null,
       },
       winRate: {
-        label: 'Win Rate',
-        unit: '%',
-        compute: (recs) => {
-          if (recs.length === 0) return null;
-          let wins = 0;
-          for (const r of recs) if (r.won) wins++;
-          return (wins / recs.length) * 100;
-        },
+        label: 'Win (1=yes, 0=no)',
+        unit: '',
+        compute: (p) => p.won ? 1 : 0,
       },
       toolCallsPerGame: {
         label: 'Tool Calls per Game',
         unit: '',
-        compute: (recs) => {
-          if (recs.length === 0) return null;
-          let total = 0;
-          for (const r of recs) total += r.toolCallsOk + r.toolCallsFailed;
-          return total / recs.length;
-        },
+        compute: (p) => p.toolCallsOk + p.toolCallsFailed,
       },
       avgPromptTokens: {
-        label: 'Avg Prompt Tokens per Response',
+        label: 'Prompt Tokens per Response',
         unit: '',
-        compute: (recs) => {
-          let tokens = 0, responses = 0;
-          for (const r of recs) { tokens += r.promptTokens; responses += r.responses; }
-          return responses > 0 ? tokens / responses : null;
-        },
+        compute: (p) => p.responses > 0 ? p.promptTokens / p.responses : null,
       },
       avgCompletionTokens: {
-        label: 'Avg Completion Tokens per Response',
+        label: 'Completion Tokens per Response',
         unit: '',
-        compute: (recs) => {
-          let tokens = 0, responses = 0;
-          for (const r of recs) { tokens += r.completionTokens; responses += r.responses; }
-          return responses > 0 ? tokens / responses : null;
-        },
+        compute: (p) => p.responses > 0 ? p.completionTokens / p.responses : null,
       },
       resetsPerGame: {
-        label: 'Context Resets per Game',
+        label: 'Context Resets',
         unit: '',
-        compute: (recs) => {
-          if (recs.length === 0) return null;
-          let total = 0;
-          for (const r of recs) total += r.contextResets;
-          return total / recs.length;
-        },
+        compute: (p) => p.contextResets,
       },
       thinkingTimePerGame: {
-        label: 'Thinking Time per Game',
+        label: 'Thinking Time',
         unit: 's',
-        compute: (recs) => {
-          if (recs.length === 0) return null;
-          let total = 0;
-          for (const r of recs) total += r.thinkingTimeSecs;
-          return total / recs.length;
-        },
+        compute: (p) => p.thinkingTimeSecs,
       },
       reasoningPct: {
         label: 'Reasoning Token %',
         unit: '%',
-        compute: (recs) => {
-          let reasoning = 0, completion = 0;
-          for (const r of recs) { reasoning += r.reasoningTokens; completion += r.completionTokens; }
-          return completion > 0 ? (reasoning / completion) * 100 : null;
-        },
+        compute: (p) => p.completionTokens > 0 ? (p.reasoningTokens / p.completionTokens) * 100 : null,
       },
     };
+
+    // Moving average smoothing
+    function movingAverage(points: {x: Date; y: number}[], window: number): {x: Date; y: number}[] {
+      if (points.length === 0 || window <= 1) return points;
+      const result: {x: Date; y: number}[] = [];
+      for (let i = 0; i < points.length; i++) {
+        const start = Math.max(0, i - Math.floor(window / 2));
+        const end = Math.min(points.length, i + Math.ceil(window / 2));
+        let sum = 0;
+        for (let j = start; j < end; j++) sum += points[j].y;
+        result.push({ x: points[i].x, y: sum / (end - start) });
+      }
+      return result;
+    }
 
     // Chart instance
     const canvas = document.getElementById('trend-chart') as HTMLCanvasElement;
@@ -473,100 +428,96 @@ if (fs.existsSync(exportsDir)) {
       const filtered = trendData.games.filter(g => {
         if (g.epoch < minEpochTrend) return false;
         if (currentFormat !== 'all' && g.format !== currentFormat) return false;
-        return true;
+        return g.ts !== '';
       });
 
-      // Group by (model, bucket)
-      type Bucket = { label: string; sortKey: number | string };
-      const bucketFn = (g: typeof filtered[0]): Bucket | null => {
-        if (currentXAxis === 'epoch') {
-          return { label: `E${g.epoch}`, sortKey: g.epoch };
-        }
-        // Date: group by day
-        const dateStr = g.ts.split('T')[0];
-        if (!dateStr) return null;
-        return { label: dateStr, sortKey: dateStr };
-      };
-
-      // model -> bucketLabel -> PlayerRecord[]
-      const grouped = new Map<string, Map<string, PlayerRecord[]>>();
-      const allBuckets = new Map<string, number | string>();
+      // Collect per-model raw points: {x: Date, y: metric_value}
+      const modelPoints = new Map<string, {x: Date; y: number}[]>();
 
       for (const g of filtered) {
-        const bucket = bucketFn(g);
-        if (!bucket) continue;
-        allBuckets.set(bucket.label, bucket.sortKey);
+        const date = new Date(g.ts);
+        if (isNaN(date.getTime())) continue;
 
         for (const p of g.players) {
           if (!selectedModels.has(p.key)) continue;
-          if (!grouped.has(p.key)) grouped.set(p.key, new Map());
-          const modelBuckets = grouped.get(p.key)!;
-          if (!modelBuckets.has(bucket.label)) modelBuckets.set(bucket.label, []);
-          modelBuckets.get(bucket.label)!.push(p);
+          const val = metric.compute(p);
+          if (val === null) continue;
+
+          if (!modelPoints.has(p.key)) modelPoints.set(p.key, []);
+          modelPoints.get(p.key)!.push({ x: date, y: val });
         }
       }
 
-      // Sort bucket labels
-      const sortedLabels = Array.from(allBuckets.entries())
-        .sort((a, b) => {
-          if (typeof a[1] === 'number' && typeof b[1] === 'number') return a[1] - b[1];
-          return String(a[1]).localeCompare(String(b[1]));
-        })
-        .map(e => e[0]);
+      // Sort each model's points by date
+      for (const points of modelPoints.values()) {
+        points.sort((a, b) => a.x.getTime() - b.x.getTime());
+      }
 
-      // Build datasets
+      // Build datasets: raw scatter + smoothed line per model
       const datasets: any[] = [];
+      let totalRawPoints = 0;
+
       for (const [modelKey] of allModels) {
         if (!selectedModels.has(modelKey)) continue;
-        const modelBuckets = grouped.get(modelKey);
-        if (!modelBuckets) continue;
+        const points = modelPoints.get(modelKey);
+        if (!points || points.length === 0) continue;
 
         const colorIdx = allModels.findIndex(m => m[0] === modelKey);
         const color = LINE_COLORS[colorIdx % LINE_COLORS.length];
+        const modelName = modelMap.get(modelKey) || modelKey;
 
-        const data = sortedLabels.map(label => {
-          const records = modelBuckets.get(label);
-          if (!records || records.length === 0) return null;
-          return metric.compute(records);
+        totalRawPoints += points.length;
+
+        // Raw scatter points
+        datasets.push({
+          label: modelName,
+          data: points.map(p => ({ x: p.x, y: p.y })),
+          type: 'scatter' as const,
+          borderColor: color,
+          backgroundColor: color + '66',
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          showLine: false,
+          order: 2, // draw behind trend line
         });
 
-        // Only include if there's at least one data point
-        if (data.some(d => d !== null)) {
+        // Smoothed trend line
+        const smoothed = movingAverage(points, smoothingWindow);
+        if (smoothed.length >= 2) {
           datasets.push({
-            label: modelMap.get(modelKey) || modelKey,
-            data,
+            label: modelName + ' (trend)',
+            data: smoothed.map(p => ({ x: p.x, y: p.y })),
+            type: 'line' as const,
             borderColor: color,
-            backgroundColor: color + '33',
+            backgroundColor: 'transparent',
+            borderWidth: 2.5,
             tension: 0.3,
-            spanGaps: true,
-            pointRadius: 3,
-            pointHoverRadius: 5,
+            pointRadius: 0,
+            pointHoverRadius: 0,
+            order: 1, // draw in front
           });
         }
       }
 
       // Update note
       const noteEl = document.getElementById('chart-note')!;
-      if (datasets.length === 0) {
+      if (totalRawPoints === 0) {
         noteEl.textContent = 'No data for selected filters. Try selecting different models or adjusting filters.';
       } else {
-        const totalPoints = datasets.reduce((sum: number, ds: any) => sum + ds.data.filter((d: any) => d !== null).length, 0);
-        noteEl.textContent = `${datasets.length} model(s), ${sortedLabels.length} ${currentXAxis === 'epoch' ? 'epochs' : 'dates'}, ${totalPoints} data points`;
+        const numModels = new Set(Array.from(modelPoints.keys()).filter(k => selectedModels.has(k))).size;
+        noteEl.textContent = `${numModels} model(s), ${totalRawPoints} game data points, smoothing window: ${smoothingWindow}`;
       }
 
       // Render chart
       if (chart) chart.destroy();
       chart = new Chart(canvas, {
-        type: 'line',
-        data: {
-          labels: sortedLabels,
-          datasets,
-        },
+        type: 'scatter',
+        data: { datasets },
         options: {
           responsive: true,
           maintainAspectRatio: false,
           interaction: {
-            mode: 'index',
+            mode: 'nearest',
             intersect: false,
           },
           plugins: {
@@ -577,6 +528,7 @@ if (fs.existsSync(exportsDir)) {
                 boxWidth: 12,
                 padding: 12,
                 font: { size: 11 },
+                filter: (item: any) => !item.text.endsWith('(trend)'),
               },
             },
             tooltip: {
@@ -585,20 +537,33 @@ if (fs.existsSync(exportsDir)) {
               borderWidth: 1,
               titleColor: '#e0e0e0',
               bodyColor: '#a0a0b8',
+              filter: (item: any) => !item.dataset.label?.endsWith('(trend)'),
               callbacks: {
+                title: (items: any[]) => {
+                  if (items.length === 0) return '';
+                  const d = new Date(items[0].parsed.x);
+                  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                },
                 label: (ctx: any) => {
                   const val = ctx.parsed.y;
-                  if (val === null) return `${ctx.dataset.label}: no data`;
-                  if (metric.unit === '%') return `${ctx.dataset.label}: ${val.toFixed(1)}%`;
-                  if (metric.unit === '$') return `${ctx.dataset.label}: $${val.toFixed(2)}`;
-                  if (metric.unit === 's') return `${ctx.dataset.label}: ${val.toFixed(1)}s`;
-                  return `${ctx.dataset.label}: ${val.toFixed(1)}`;
+                  const name = ctx.dataset.label;
+                  if (val === null || val === undefined) return `${name}: no data`;
+                  if (metric.unit === '%') return `${name}: ${val.toFixed(1)}%`;
+                  if (metric.unit === '$') return `${name}: $${val.toFixed(2)}`;
+                  if (metric.unit === 's') return `${name}: ${val.toFixed(1)}s`;
+                  return `${name}: ${val.toFixed(1)}`;
                 },
               },
             },
           },
           scales: {
             x: {
+              type: 'time',
+              time: {
+                unit: 'day',
+                displayFormats: { day: 'MMM d' },
+                tooltipFormat: 'MMM d, yyyy',
+              },
               ticks: { color: '#a0a0b8', maxRotation: 45, font: { size: 11 } },
               grid: { color: 'rgba(15, 52, 96, 0.5)' },
             },
