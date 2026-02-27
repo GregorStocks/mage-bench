@@ -35,7 +35,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  23 - Prompt cache breakpoints for Anthropic models (state bridge + tail) (Feb 25)
 #  24 - Add source_card to stack abilities for website viewer art display (Feb 26)
 #  25 - Render pass_priority/get_action_choices as structured text for LLM (Feb 27)
-HARNESS_EPOCH = 25
+#  26 - Enrich rendered board: ## headings, loyalty/token/copy on permanents, PREGAME phase (Feb 27)
+HARNESS_EPOCH = 26
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.

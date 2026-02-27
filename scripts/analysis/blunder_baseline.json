@@ -1,18 +1,9 @@
 {
-  "blunder_script_version": 24,
-  "generated_at": "2026-02-27T15:33:10.029118+00:00",
-  "cost_usd": 0.9581,
+  "blunder_script_version": 25,
+  "generated_at": "2026-02-27T17:03:05.575430+00:00",
+  "cost_usd": 0.9859200000000001,
   "results": {
-    "game_20260226_003306_g4:12": {
-      "detected": false
-    },
-    "game_20260219_091818_g6:8": {
-      "detected": false
-    },
-    "game_20260217_075450_g7:25": {
-      "detected": false
-    },
-    "game_20260219_091818_g6:53": {
+    "game_20260226_003306_g4:22": {
       "detected": false
     },
     "game_20260217_075450_g6:0": {
@@ -21,105 +12,99 @@
     "game_20260226_003306_g4:44": {
       "detected": false
     },
-    "game_20260219_091818_g8:72": {
+    "game_20260217_075450_g7:25": {
       "detected": false
     },
-    "game_20260219_091818_g8:42": {
+    "game_20260219_091818_g6:8": {
+      "detected": false
+    },
+    "game_20260226_003306_g4:12": {
       "detected": false
     },
     "game_20260226_003306_g4:32": {
       "detected": false
     },
-    "game_20260226_003306_g5:4": {
+    "game_20260217_075450_g7:7": {
       "detected": false
     },
     "game_20260217_075450_g6:16": {
       "detected": false
     },
-    "game_20260217_075450_g6:7": {
+    "game_20260219_091818_g8:42": {
+      "detected": false
+    },
+    "game_20260226_003306_g5:4": {
+      "detected": false
+    },
+    "game_20260219_091818_g6:53": {
+      "detected": false
+    },
+    "game_20260219_091818_g8:49": {
       "detected": false
     },
     "game_20260226_003306_g4:37": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Cast Burning Inquiry before playing Bloodstained Mire from hand. The Bloodstained Mire was then randomly discarded to Burning Inquiry's effect, wasting a land drop and deck thinning. Playing the land first would have guaranteed it safely on the battlefield."
-    },
-    "game_20260226_003306_g4:9": {
       "detected": false
+    },
+    "game_20260226_003306_g4:6": {
+      "detected": false
+    },
+    "game_20260217_223017_g8:24": {
+      "detected": false
+    },
+    "game_20260226_003306_g5:3": {
+      "detected": false
+    },
+    "game_20260226_003306_g4:3": {
+      "detected": true,
+      "severity": "major",
+      "description": "Bottomed Hollow One despite having the Turn 1 Burning Inquiry + free Hollow One combo in hand. Burning Inquiry causes 3 discards, reducing Hollow One's cost by 6 (making it free). This is the deck's signature explosive opening and a key reason to keep this hand."
     },
     "game_20260217_223017_g8:7": {
       "detected": true,
-      "severity": "minor",
-      "description": "Copying Wistfulness with Superior Spider-Man produces a vanilla 4/4 since the ETB abilities require {G}{G} or {U}{U} to have been spent casting the spell, which doesn't apply when entering as a copy via Mind Swap. Copying Oblivious Bookworm would have given a 4/4 body with repeatable end-step card draw, providing ongoing value."
-    },
-    "game_20260219_091818_g7:27": {
-      "detected": false
-    },
-    "game_20260219_091818_g6:43": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Failed to play a land before casting Young Wolf. The player had both Forest and Wooded Foothills in hand with a land drop available. Playing a land first (preferably Wooded Foothills) and then casting Young Wolf with the existing untapped Forest would have resulted in an extra land on the battlefield for free."
+      "severity": "moderate",
+      "description": "Chose to copy Wistfulness with Superior Spider-Man, but since Superior Spider-Man was cast with {2}{U}{B} (no {G}{G} or {U}{U} spent), Wistfulness's ETB abilities don't trigger, making it a vanilla 4/4. Meanwhile, copying Oblivious Bookworm would create a 4/4 with repeatable card draw at end step, which is much more valuable when behind on board and needing to find answers."
     },
     "game_20260217_223017_g8:2": {
       "detected": false
     },
-    "game_20260226_003306_g4:6": {
+    "game_20260226_003306_g4:9": {
       "detected": true,
       "severity": "minor",
-      "description": "Chose to keep Walking Ballista on top instead of the second Eldrazi Temple. With the player's hand already containing Ugin's Labyrinth and one Eldrazi Temple, a second Eldrazi Temple would provide exceptional mana acceleration for the Eldrazi game plan. Eldrazi Temple produces 2 mana for Eldrazi spells and is one of the most powerful lands in the deck."
+      "description": "Played Blood Crypt (costing 2 life to enter untapped) instead of Bloodstained Mire, which could fetch a basic Swamp for only 1 life while also thinning the deck and preserving the dual land for future flexibility."
+    },
+    "game_20260219_091818_g7:27": {
+      "detected": false
+    },
+    "game_20260217_075450_g6:7": {
+      "detected": false
+    },
+    "game_20260219_091818_g8:72": {
+      "detected": false
     },
     "game_20260219_091818_g8:46": {
       "detected": true,
       "severity": "minor",
-      "description": "Player passed priority with Psychic Frog's discard ability available and redundant lands in hand (2x Watery Grave when one is already on board). Discarding a spare land at end of turn would grow the Frog with minimal cost, making it more threatening when it attacks next turn and fueling the graveyard for Frog's flying ability."
+      "description": "Player passed priority in postcombat main with Psychic Frog's discard ability available and excess lands in hand. With 4 lands in hand (Bloodstained Mire, Island, Watery Grave, Watery Grave) and only 1 land drop per turn, at least 1-2 of these lands are excess and could be discarded to grow Psychic Frog. Growing the Frog before it can attack next turn is free value, and cards in the graveyard also fuel the flying ability."
     },
-    "game_20260217_075450_g7:7": {
+    "game_20260219_091818_g8:67": {
       "detected": false
     },
     "game_20260217_223017_g8:3": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Cast Enduring Curiosity (which has flash) during postcombat main phase, tapping out all 4 lands. This removes the ability to interact with the opponent's Oblivious Bookworm (which draws cards at end step) via Shoot the Sheriff or Tishana's Tidebinder. Since Enduring Curiosity has flash, it could have been cast at end of opponent's turn instead, preserving interaction options."
-    },
-    "game_20260226_003306_g5:3": {
-      "detected": true,
-      "severity": "questionable",
-      "description": "In Legacy, convention strongly favors leading with fetchlands over dual lands. Playing Polluted Delta first and fetching Underground Sea gives the same mana this turn while protecting against Wasteland (can crack fetch in response) and preserving flexibility for future land drops. The cost is just 1 life."
-    },
-    "game_20260226_003306_g4:15": {
-      "detected": true,
-      "severity": "moderate",
-      "description": "Retrieving Devourer of Destiny from Ugin's Labyrinth permanently downgrades the Labyrinth from producing {C}{C} to just {C}. The player can't cast the 7-mana Devourer for many turns, and losing the extra colorless mana each turn significantly slows their development. The imprint ability only triggers on entry, so there's no way to re-exile a card."
-    },
-    "game_20260226_003306_g4:22": {
       "detected": false
     },
-    "game_20260226_003306_g5:19": {
+    "game_20260217_075450_g7:11": {
       "detected": false
     },
-    "game_20260219_091818_g8:67": {
+    "game_20260217_075450_g7:44": {
       "detected": false
     },
     "game_20260226_003306_g4:14": {
       "detected": true,
       "severity": "minor",
-      "description": "Played Boseiju, Who Endures as a land instead of Eldrazi Temple. Boseiju's primary value is its channel ability (destroying opponent's artifacts/enchantments/nonbasic lands), and using it as a mana source wastes this. Eldrazi Temple provides superior mana for the Eldrazi-heavy hand (Glaring Fleshraker, Kozilek's Command, Devourer of Destiny) and produces double colorless for Eldrazi spells."
-    },
-    "game_20260217_075450_g7:44": {
-      "detected": false
-    },
-    "game_20260226_003306_g4:3": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Bottomed Hollow One instead of Orcish Bowmasters. The hand's entire game plan revolves around Turn 1 Burning Inquiry synergy - Marauding Mako gets counters from discards and Hollow One becomes free after 3 discards. Removing Hollow One significantly weakens the explosive potential. Bowmasters is excellent but doesn't contribute to the Turn 1 combo and requires {1}{B} which isn't available alongside the combo line."
-    },
-    "game_20260219_091818_g8:49": {
-      "detected": false
+      "description": "Played Boseiju, Who Endures as a land instead of Eldrazi Temple. Boseiju's main value is its channel ability (destroy artifact/enchantment/nonbasic land), which works from hand. Eldrazi Temple provides {C}{C} for Eldrazi spells, which would accelerate Kozilek's Command and other colorless threats significantly on future turns."
     },
     "game_20260217_075450_g6:6": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Playing Cavern of Souls as the first land when Starting Town is available and enters untapped (within first 3 turns). Starting Town produces any color of mana (at 1 life), enabling both creature spells and non-creature spells like Allies at Last. Cavern of Souls only produces colored mana for one creature type, locking out colored mana for non-creature spells. Cavern is better saved for later when the 'can't be countered' clause is relevant and other color sources are established."
+      "detected": false
     },
     "game_20260226_003306_g4:27": {
       "detected": false
@@ -127,17 +112,20 @@
     "game_20260217_223017_g8:11": {
       "detected": true,
       "severity": "moderate",
-      "description": "At 2 life facing an opponent with 16 life, 7 cards in hand, and an untapped Enduring Curiosity (4/3), choosing Oblivious Bookworm over Deep-Cavern Bat as the Spider-Man copy target is a significant error. Deep-Cavern Bat would give a 4/4 flying lifelink creature - the lifelink is critical for survival at 2 life, flying lets it block Enduring Curiosity or attack over ground creatures, and the ETB hand disruption against a 7-card hand could strip a key removal spell or threat."
+      "description": "At 2 life facing a 4/3 flying Enduring Curiosity, choosing Oblivious Bookworm (a ground creature with card draw) over Deep-Cavern Bat is a significant mistake. Deep-Cavern Bat copied by Superior Spider-Man would be a 4/4 with flying and lifelink - it could block the Enduring Curiosity to survive, attack for 4 lifelink to stabilize, AND exile a card from the opponent's 7-card hand. Oblivious Bookworm as a 4/4 can't block the flyer and doesn't help the critical life total situation."
     },
-    "game_20260217_075450_g7:11": {
-      "detected": true,
-      "severity": "questionable",
-      "description": "Playing Soulstone Sanctuary (colorless land) over Riverpyre Verge or Mountain when the hand contains Burst Lightning ({R}) and Nova Hellkite ({3}{R}{R}). While the colored lands in hand can be played on subsequent turns, playing a colored land now maximizes early flexibility \u2014 for instance, having 2 red sources on turn 2 allows casting Burst Lightning while keeping Mountain untapped for Hired Claw's pump ability."
+    "game_20260226_003306_g4:15": {
+      "detected": false
     },
-    "game_20260217_223017_g8:24": {
+    "game_20260219_091818_g6:43": {
       "detected": true,
       "severity": "minor",
-      "description": "Attempted to cast Shoot the Sheriff but couldn't complete the mana payment, resulting in no action during combat. Floodpits Drowner was available at {1}{U} (castable with Watery Grave + Fountainport), which would have flashed in to tap an attacker with a stun counter AND provide a blocker, effectively neutralizing both attackers. Instead, 6 damage got through uncontested."
+      "description": "Cast Young Wolf before playing their land drop, missing the option to play Wooded Foothills first, crack it for a Forest, and then have 2 green mana available to cast Badgermole Cub instead \u2014 a stronger play that accelerates toward the Yawgmoth combo by providing mana ramp through its creature-tapping ability."
+    },
+    "game_20260226_003306_g5:19": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Cast Doomsday before playing Polluted Delta from hand. When LED is cracked to pay for Doomsday, the Polluted Delta in hand gets discarded. Post-Doomsday, having an extra fetchland on the battlefield is critical for cracking into the 5-card pile to win the game."
     }
   }
 }

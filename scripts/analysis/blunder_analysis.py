@@ -849,7 +849,8 @@ def build_decision_prompt(
             prior_context=prior_ctx,
             current_turn_actions=turn_ctx,
         )
-        user_msg = f"## Game Overview\n{overview}\n\n{formatted}"
+        player = decision["player"]
+        user_msg = f"## Game Overview\n{overview}\n\nYou are evaluating **{player}**'s decision.\n\n{formatted}"
     else:
         # Legacy format: use old formatting code
         formatted = _format_decisions([decision])
