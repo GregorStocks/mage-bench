@@ -6,15 +6,11 @@ import json
 from pathlib import Path
 
 from blunder_analysis import (
-    PER_DECISION_FOOTER,
-    PER_DECISION_SYSTEM,
     _actions_by_turn,
-    _card_reference_for_decision,
     _collect_card_names,
-    _format_decisions,
-    _format_prior_context,
     _game_overview,
     _get_oracle_texts,
+    build_decision_prompt,
 )
 from extract_decisions import extract_decisions
 
@@ -41,30 +37,28 @@ oracle_texts = _get_oracle_texts(sorted(card_names))
 game_actions = data.get("actions", [])
 abt = _actions_by_turn(game_actions)
 game_snapshots = data.get("snapshots", [])
-
-# Build the prompt exactly as sent to the LLM
-formatted = _format_decisions([decision])
-card_ref = _card_reference_for_decision(decision, oracle_texts)
 num_players = len(data.get("players", []))
-prior_ctx = _format_prior_context(decision, game_snapshots, abt, num_players)
 
-user_msg = f"## Game Overview\n{overview}"
-if card_ref:
-    user_msg += f"\n\n{card_ref}"
-if prior_ctx:
-    user_msg += f"\n\n{prior_ctx}"
-user_msg += f"\n\n## Decision\n\n{formatted}"
-user_msg += f"\n\n{PER_DECISION_FOOTER}"
+system_prompt, user_msg = build_decision_prompt(
+    overview=overview,
+    decision=decision,
+    oracle_texts=oracle_texts,
+    snapshots=game_snapshots,
+    actions_by_turn=abt,
+    num_players=num_players,
+    all_actions=game_actions,
+)
 
-output = f"=== SYSTEM PROMPT ===\n\n{PER_DECISION_SYSTEM}\n\n=== USER MESSAGE ===\n\n{user_msg}"
+output = (
+    f"=== SYSTEM PROMPT ===\n\n{system_prompt}\n\n=== USER MESSAGE ===\n\n{user_msg}"
+)
 
 out_path = TMP_DIR / "sample_prompt.txt"
 out_path.write_text(output)
 
 # Stats
-sys_tokens = len(PER_DECISION_SYSTEM) // 4
+sys_tokens = len(system_prompt) // 4
 user_tokens = len(user_msg) // 4
-prior_tokens = len(prior_ctx) // 4 if prior_ctx else 0
 print(f"Game: {data['id']}")
 print(
     f"Decision {decision['decision_index']}, turn {decision.get('turn')}, {decision['player']}"
@@ -72,5 +66,4 @@ print(
 print(f"Message: {decision.get('message', '')[:80]}")
 print(f"\nSystem prompt: ~{sys_tokens} tokens")
 print(f"User message:  ~{user_tokens} tokens")
-print(f"  of which prior context: ~{prior_tokens} tokens")
 print(f"\nWritten to: {out_path}")

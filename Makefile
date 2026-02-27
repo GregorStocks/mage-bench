@@ -50,6 +50,10 @@ test-golden:
 update-golden:
 	cd puppeteer && GOLDEN_INTEGRATION=1 UPDATE_GOLDEN=1 uv run pytest -m golden -v
 
+.PHONY: update-blunder-golden
+update-blunder-golden:
+	UPDATE_BLUNDER_GOLDEN=1 uv run --project puppeteer pytest puppeteer/tests/test_blunder_golden_prompts.py -v
+
 .PHONY: build
 build:
 	mvn install package -DskipTests

@@ -767,6 +767,43 @@ def _write_annotations(gz_path: str, annotations: list) -> None:
         os.unlink(ann_path)
 
 
+def build_decision_prompt(
+    overview: str,
+    decision: dict,
+    oracle_texts: dict[str, dict],
+    snapshots: list[dict],
+    actions_by_turn: dict[int, list[str]],
+    num_players: int,
+    all_actions: list[dict],
+) -> tuple[str, str]:
+    """Build the (system_prompt, user_message) pair for a single decision evaluation.
+
+    Pure function with no side effects. Used by _eval_one_decision() and
+    tested via golden prompt tests.
+    """
+    formatted = _format_decisions([decision])
+    card_ref = _card_reference_for_decision(decision, oracle_texts)
+    prior_ctx = _format_prior_context(decision, snapshots, actions_by_turn, num_players)
+    snap_ts = snapshots[decision["snapshot_index"]].get("ts", "")
+    turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
+    user_msg = f"## Game Overview\n{overview}"
+    if card_ref:
+        user_msg += f"\n\n{card_ref}"
+    if prior_ctx:
+        user_msg += f"\n\n{prior_ctx}"
+    if turn_ctx:
+        user_msg += f"\n\n{turn_ctx}"
+    user_msg += f"\n\n## Decision\n\n{formatted}"
+    if decision.get("cast_rolled_back"):
+        user_msg += (
+            "\n\n**NOTE:** This cast was attempted but the game engine rolled it "
+            "back because the player could not complete the mana payment. The spell "
+            "never resolved — the net result was no action taken this priority window."
+        )
+    user_msg += f"\n\n{PER_DECISION_FOOTER}"
+    return PER_DECISION_SYSTEM, user_msg
+
+
 def _eval_one_decision(
     client: OpenAI,
     model: str,
@@ -785,27 +822,15 @@ def _eval_one_decision(
     On parse failure, prints a warning and returns ([], cost, False, raw_record).
     The raw_record contains the full prompt and response for archival.
     """
-    formatted = _format_decisions([decision])
-    card_ref = _card_reference_for_decision(decision, oracle_texts)
-    prior_ctx = _format_prior_context(decision, snapshots, actions_by_turn, num_players)
-    # Current-turn actions before this decision (shows whether land was played, etc.)
-    snap_ts = snapshots[decision["snapshot_index"]].get("ts", "")
-    turn_ctx = _format_current_turn_actions(decision, all_actions, snap_ts)
-    user_msg = f"## Game Overview\n{overview}"
-    if card_ref:
-        user_msg += f"\n\n{card_ref}"
-    if prior_ctx:
-        user_msg += f"\n\n{prior_ctx}"
-    if turn_ctx:
-        user_msg += f"\n\n{turn_ctx}"
-    user_msg += f"\n\n## Decision\n\n{formatted}"
-    if decision.get("cast_rolled_back"):
-        user_msg += (
-            "\n\n**NOTE:** This cast was attempted but the game engine rolled it "
-            "back because the player could not complete the mana payment. The spell "
-            "never resolved — the net result was no action taken this priority window."
-        )
-    user_msg += f"\n\n{PER_DECISION_FOOTER}"
+    _, user_msg = build_decision_prompt(
+        overview,
+        decision,
+        oracle_texts,
+        snapshots,
+        actions_by_turn,
+        num_players,
+        all_actions,
+    )
     if label is None:
         label = f"decision_{decision['decision_index']}"
 
