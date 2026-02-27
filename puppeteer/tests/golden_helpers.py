@@ -13,6 +13,7 @@ To update: make update-golden
 from __future__ import annotations
 
 import asyncio
+import dataclasses
 import io
 import json
 import os
@@ -20,10 +21,107 @@ import select
 import subprocess
 import sys
 import time
+from collections import defaultdict
+from collections.abc import Generator
+from contextlib import contextmanager
 from pathlib import Path
 
 from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.process_manager import kill_tree
+
+# ---------------------------------------------------------------------------
+# Timing instrumentation
+# ---------------------------------------------------------------------------
+
+
+@dataclasses.dataclass
+class PhaseTiming:
+    """A single recorded phase timing."""
+
+    test_name: str
+    phase: str
+    duration: float
+
+
+_all_timings: list[PhaseTiming] = []
+
+
+@contextmanager
+def timed_phase(test_name: str, phase: str) -> Generator[None, None, None]:
+    """Record wall-clock time for a named phase and print it in real-time."""
+    t0 = time.monotonic()
+    try:
+        yield
+    finally:
+        duration = time.monotonic() - t0
+        _all_timings.append(PhaseTiming(test_name, phase, duration))
+        print(f"  [{test_name}/{phase}] {duration:.1f}s", flush=True)
+
+
+def get_all_timings() -> list[PhaseTiming]:
+    """Return all recorded timings (for testing)."""
+    return list(_all_timings)
+
+
+def clear_timings() -> None:
+    """Clear all recorded timings (for testing)."""
+    _all_timings.clear()
+
+
+def print_timing_summary() -> None:
+    """Print an aggregate timing summary of all recorded phases."""
+    if not _all_timings:
+        return
+
+    print("\n=== Golden Test Timing Summary ===\n", flush=True)
+
+    # Session setup vs per-test
+    session_timings = [t for t in _all_timings if t.test_name == "session"]
+    test_timings = [t for t in _all_timings if t.test_name != "session"]
+
+    # Session setup
+    if session_timings:
+        print("Session setup:", flush=True)
+        setup_total = 0.0
+        for t in session_timings:
+            print(f"  {t.phase:<28s} {t.duration:>6.1f}s", flush=True)
+            setup_total += t.duration
+        print(f"  {'setup total':<28s} {setup_total:>6.1f}s", flush=True)
+        print(flush=True)
+
+    # Per-test breakdown
+    if test_timings:
+        # Group by test name, preserving order
+        tests_seen: list[str] = []
+        by_test: dict[str, list[PhaseTiming]] = defaultdict(list)
+        for t in test_timings:
+            if t.test_name not in tests_seen:
+                tests_seen.append(t.test_name)
+            by_test[t.test_name].append(t)
+
+        print("Per-test breakdown:", flush=True)
+        for test_name in tests_seen:
+            phases = by_test[test_name]
+            test_total = sum(p.duration for p in phases)
+            phase_strs = [f"{p.phase}:{p.duration:.1f}" for p in phases]
+            print(f"  {test_name:<32s} {test_total:>6.1f}s  [{' '.join(phase_strs)}]", flush=True)
+        print(flush=True)
+
+    # Aggregate
+    total = sum(t.duration for t in _all_timings)
+    minutes = int(total // 60)
+    seconds = total % 60
+    print(f"Aggregate ({minutes}m {seconds:.1f}s total):", flush=True)
+
+    # Sum by phase across all tests
+    by_phase: dict[str, float] = defaultdict(float)
+    for t in _all_timings:
+        by_phase[t.phase] += t.duration
+    for phase, duration in sorted(by_phase.items(), key=lambda x: -x[1]):
+        pct = (duration / total * 100) if total > 0 else 0
+        print(f"  {phase:<28s} {duration:>6.1f}s  ({pct:>4.1f}%)", flush=True)
+    print(flush=True)
+
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GOLDEN_DIR = Path(__file__).resolve().parent / "golden" / "prompts"
@@ -509,39 +607,46 @@ def _run_golden_persistent(
 
     try:
         # Start spectator (always per-test)
-        spectator_proc, spectator_fh, _spectator_log = _start_spectator(
-            server,
-            port,
-            project_root,
-            game_dir,
-            deck_a,
-            deck_b,
-            player_a_name,
-            player_b_name,
-            "potato",
-            game_type,
-            deck_type,
-        )
-        procs.append(spectator_proc)
-        log_fhs.append(spectator_fh)
+        with timed_phase(golden_name, "spectator_startup"):
+            spectator_proc, spectator_fh, _spectator_log = _start_spectator(
+                server,
+                port,
+                project_root,
+                game_dir,
+                deck_a,
+                deck_b,
+                player_a_name,
+                player_b_name,
+                "potato",
+                game_type,
+                deck_type,
+            )
+            procs.append(spectator_proc)
+            log_fhs.append(spectator_fh)
 
         # Tell potato to join with the new deck (non-blocking: potato starts polling)
         potato.join_next_game(str(project_root / deck_b))
 
         # Tell bridge to join with the new deck (blocking: waits for game start)
-        bridge.call_tool("join_table", {"deck_path": str(project_root / deck_a)})
+        with timed_phase(golden_name, "bridge_join"):
+            bridge.call_tool("join_table", {"deck_path": str(project_root / deck_a)})
 
         # Execute replay script on the persistent bridge
-        prompt = _run_replay_on_bridge(bridge, script, game_dir, player_a_name)
+        with timed_phase(golden_name, "replay"):
+            prompt = _run_replay_on_bridge(bridge, script, game_dir, player_a_name)
 
         # Wait for the spectator to record the game_end event before checking
         # file quiescence — otherwise the files may appear "stable" before
         # the game_end event is written, producing gameOver=null in the export.
-        _wait_for_game_end_event(game_dir)
-        _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
+        with timed_phase(golden_name, "game_end_wait"):
+            _wait_for_game_end_event(game_dir)
 
-        assert_golden_prompt(golden_name, prompt)
-        assert_golden_export(golden_name, game_dir)
+        with timed_phase(golden_name, "file_quiescence"):
+            _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
+
+        with timed_phase(golden_name, "golden_comparison"):
+            assert_golden_prompt(golden_name, prompt)
+            assert_golden_export(golden_name, game_dir)
 
         return prompt
 
@@ -597,21 +702,22 @@ def _run_golden_subprocess(
 
     try:
         # Start spectator
-        spectator_proc, spectator_fh, spectator_log = _start_spectator(
-            server,
-            port,
-            project_root,
-            game_dir,
-            deck_a,
-            deck_b,
-            player_a_name,
-            player_b_name,
-            "potato",
-            game_type,
-            deck_type,
-        )
-        procs.append(spectator_proc)
-        log_fhs.append(spectator_fh)
+        with timed_phase(golden_name, "spectator_startup"):
+            spectator_proc, spectator_fh, spectator_log = _start_spectator(
+                server,
+                port,
+                project_root,
+                game_dir,
+                deck_a,
+                deck_b,
+                player_a_name,
+                player_b_name,
+                "potato",
+                game_type,
+                deck_type,
+            )
+            procs.append(spectator_proc)
+            log_fhs.append(spectator_fh)
 
         # --- Start replay client (player A) ---
         replay_log = game_dir / f"{player_a_name}_replay.log"
@@ -668,33 +774,36 @@ def _run_golden_subprocess(
         log_fhs.append(potato_fh)
 
         # Wait for the replay client to finish
-        try:
-            replay_proc.wait(timeout=180)
-        except subprocess.TimeoutExpired as e:
-            log_text = spectator_log.read_text() if spectator_log.exists() else "<no log>"
-            replay_text = replay_log.read_text() if replay_log.exists() else "<no log>"
-            potato_text = potato_log.read_text() if potato_log.exists() else "<no log>"
-            raise TimeoutError(
-                f"Replay client did not complete within 180s.\n"
-                f"Spectator log tail:\n{log_text[-2000:]}\n"
-                f"Replay log tail:\n{replay_text[-2000:]}\n"
-                f"Potato log tail:\n{potato_text[-2000:]}"
-            ) from e
+        with timed_phase(golden_name, "replay_and_game"):
+            try:
+                replay_proc.wait(timeout=180)
+            except subprocess.TimeoutExpired as e:
+                log_text = spectator_log.read_text() if spectator_log.exists() else "<no log>"
+                replay_text = replay_log.read_text() if replay_log.exists() else "<no log>"
+                potato_text = potato_log.read_text() if potato_log.exists() else "<no log>"
+                raise TimeoutError(
+                    f"Replay client did not complete within 180s.\n"
+                    f"Spectator log tail:\n{log_text[-2000:]}\n"
+                    f"Replay log tail:\n{replay_text[-2000:]}\n"
+                    f"Potato log tail:\n{potato_text[-2000:]}"
+                ) from e
 
-        if replay_proc.returncode != 0:
-            replay_text = replay_log.read_text() if replay_log.exists() else "<no log>"
-            raise RuntimeError(
-                f"Replay client exited with code {replay_proc.returncode}.\nReplay log tail:\n{replay_text[-2000:]}"
-            )
+            if replay_proc.returncode != 0:
+                replay_text = replay_log.read_text() if replay_log.exists() else "<no log>"
+                raise RuntimeError(
+                    f"Replay client exited with code {replay_proc.returncode}.\nReplay log tail:\n{replay_text[-2000:]}"
+                )
 
-        _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
+        with timed_phase(golden_name, "file_quiescence"):
+            _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_log}"
         prompt = json.loads(prompt_path.read_text())
 
-        assert_golden_prompt(golden_name, prompt)
-        assert_golden_export(golden_name, game_dir)
+        with timed_phase(golden_name, "golden_comparison"):
+            assert_golden_prompt(golden_name, prompt)
+            assert_golden_export(golden_name, game_dir)
 
         return prompt
 
@@ -770,50 +879,51 @@ def run_golden_scenario_two_replay(
 
     try:
         # --- Start observer spectator ---
-        spectator_log = game_dir / "spectator.log"
-        spectator_jvm = " ".join(
-            [
-                jvm_no_ui,
-                "-Dxmage.aiPuppeteer.autoConnect=true",
-                "-Dxmage.aiPuppeteer.autoStart=true",
-                "-Dxmage.aiPuppeteer.disableWhatsNew=true",
-                "-Dxmage.observer.noWindow=true",
-                f"-Dxmage.aiPuppeteer.server={server}",
-                f"-Dxmage.aiPuppeteer.port={port}",
-                "-Dxmage.aiPuppeteer.user=spectator",
-                "-Dxmage.aiPuppeteer.password=",
-                f"-Dxmage.observer.gameDir={game_dir}",
-            ]
-        )
+        with timed_phase(golden_name, "spectator_startup"):
+            spectator_log = game_dir / "spectator.log"
+            spectator_jvm = " ".join(
+                [
+                    jvm_no_ui,
+                    "-Dxmage.aiPuppeteer.autoConnect=true",
+                    "-Dxmage.aiPuppeteer.autoStart=true",
+                    "-Dxmage.aiPuppeteer.disableWhatsNew=true",
+                    "-Dxmage.observer.noWindow=true",
+                    f"-Dxmage.aiPuppeteer.server={server}",
+                    f"-Dxmage.aiPuppeteer.port={port}",
+                    "-Dxmage.aiPuppeteer.user=spectator",
+                    "-Dxmage.aiPuppeteer.password=",
+                    f"-Dxmage.observer.gameDir={game_dir}",
+                ]
+            )
 
-        spectator_proc, spectator_fh = _start_process(
-            args=["mvn", "-q", "exec:java"],
-            cwd=project_root / "Mage.Client.Observer",
-            env_updates={
-                "XMAGE_AI_PUPPETEER": "1",
-                "XMAGE_AI_PUPPETEER_USER": "spectator",
-                "XMAGE_AI_PUPPETEER_PASSWORD": "",
-                "XMAGE_AI_PUPPETEER_SERVER": server,
-                "XMAGE_AI_PUPPETEER_PORT": str(port),
-                "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
-                "XMAGE_AI_PUPPETEER_PLAYERS_CONFIG": players_config,
-                "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
-                "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
-                "XMAGE_AI_PUPPETEER_CHOOSING_PLAYER": player_a_name,
-                "MAVEN_OPTS": spectator_jvm,
-            },
-            log_path=spectator_log,
-        )
-        procs.append(spectator_proc)
-        log_fhs.append(spectator_fh)
+            spectator_proc, spectator_fh = _start_process(
+                args=["mvn", "-q", "exec:java"],
+                cwd=project_root / "Mage.Client.Observer",
+                env_updates={
+                    "XMAGE_AI_PUPPETEER": "1",
+                    "XMAGE_AI_PUPPETEER_USER": "spectator",
+                    "XMAGE_AI_PUPPETEER_PASSWORD": "",
+                    "XMAGE_AI_PUPPETEER_SERVER": server,
+                    "XMAGE_AI_PUPPETEER_PORT": str(port),
+                    "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
+                    "XMAGE_AI_PUPPETEER_PLAYERS_CONFIG": players_config,
+                    "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
+                    "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
+                    "XMAGE_AI_PUPPETEER_CHOOSING_PLAYER": player_a_name,
+                    "MAVEN_OPTS": spectator_jvm,
+                },
+                log_path=spectator_log,
+            )
+            procs.append(spectator_proc)
+            log_fhs.append(spectator_fh)
 
-        # Wait for table creation
-        _wait_for_log_marker(
-            spectator_log,
-            "AI Puppeteer: waiting for",
-            spectator_proc,
-            timeout=SPECTATOR_READY_TIMEOUT_SECONDS,
-        )
+            # Wait for table creation
+            _wait_for_log_marker(
+                spectator_log,
+                "AI Puppeteer: waiting for",
+                spectator_proc,
+                timeout=SPECTATOR_READY_TIMEOUT_SECONDS,
+            )
 
         # --- Start replay client (player A) ---
         replay_a_log = game_dir / f"{player_a_name}_replay.log"
@@ -874,44 +984,47 @@ def run_golden_scenario_two_replay(
         log_fhs.append(replay_b_fh)
 
         # Wait for replay clients to finish (they write golden prompts then concede)
-        try:
-            replay_a_proc.wait(timeout=180)
-            replay_b_proc.wait(timeout=180)
-        except subprocess.TimeoutExpired as e:
-            log_text = spectator_log.read_text() if spectator_log.exists() else "<no log>"
-            replay_a_text = replay_a_log.read_text() if replay_a_log.exists() else "<no log>"
-            replay_b_text = replay_b_log.read_text() if replay_b_log.exists() else "<no log>"
-            raise TimeoutError(
-                "Replay clients did not complete within 180s.\n"
-                f"Spectator log tail:\n{log_text[-2000:]}\n"
-                f"Replay A log tail:\n{replay_a_text[-2000:]}\n"
-                f"Replay B log tail:\n{replay_b_text[-2000:]}"
-            ) from e
+        with timed_phase(golden_name, "replay_and_game"):
+            try:
+                replay_a_proc.wait(timeout=180)
+                replay_b_proc.wait(timeout=180)
+            except subprocess.TimeoutExpired as e:
+                log_text = spectator_log.read_text() if spectator_log.exists() else "<no log>"
+                replay_a_text = replay_a_log.read_text() if replay_a_log.exists() else "<no log>"
+                replay_b_text = replay_b_log.read_text() if replay_b_log.exists() else "<no log>"
+                raise TimeoutError(
+                    "Replay clients did not complete within 180s.\n"
+                    f"Spectator log tail:\n{log_text[-2000:]}\n"
+                    f"Replay A log tail:\n{replay_a_text[-2000:]}\n"
+                    f"Replay B log tail:\n{replay_b_text[-2000:]}"
+                ) from e
 
-        # Check replay client exit codes
-        if replay_a_proc.returncode != 0:
-            replay_a_text = replay_a_log.read_text() if replay_a_log.exists() else "<no log>"
-            raise RuntimeError(
-                f"Replay client A exited with code {replay_a_proc.returncode}.\n"
-                f"Replay log tail:\n{replay_a_text[-2000:]}"
-            )
-        if replay_b_proc.returncode != 0:
-            replay_b_text = replay_b_log.read_text() if replay_b_log.exists() else "<no log>"
-            raise RuntimeError(
-                f"Replay client B exited with code {replay_b_proc.returncode}.\n"
-                f"Replay log tail:\n{replay_b_text[-2000:]}"
-            )
+            # Check replay client exit codes
+            if replay_a_proc.returncode != 0:
+                replay_a_text = replay_a_log.read_text() if replay_a_log.exists() else "<no log>"
+                raise RuntimeError(
+                    f"Replay client A exited with code {replay_a_proc.returncode}.\n"
+                    f"Replay log tail:\n{replay_a_text[-2000:]}"
+                )
+            if replay_b_proc.returncode != 0:
+                replay_b_text = replay_b_log.read_text() if replay_b_log.exists() else "<no log>"
+                raise RuntimeError(
+                    f"Replay client B exited with code {replay_b_proc.returncode}.\n"
+                    f"Replay log tail:\n{replay_b_text[-2000:]}"
+                )
 
         # Ensure spectator has finished flushing export inputs.
-        _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
+        with timed_phase(golden_name, "file_quiescence"):
+            _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         # Read golden prompt for player A
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_a_log}"
         prompt = json.loads(prompt_path.read_text())
 
-        assert_golden_prompt(golden_name, prompt)
-        assert_golden_export(golden_name, game_dir)
+        with timed_phase(golden_name, "golden_comparison"):
+            assert_golden_prompt(golden_name, prompt)
+            assert_golden_export(golden_name, game_dir)
 
         return prompt
 
