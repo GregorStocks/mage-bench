@@ -519,7 +519,6 @@ def _validate_export(data: dict) -> None:
     for i, p in enumerate(data["players"]):
         assert "name" in p, f"Player {i} missing 'name'"
         assert "type" in p, f"Player {i} missing 'type'"
-        assert "model" in p, f"Player {i} missing 'model'"
 
 
 def export_game(game_dir: Path, website_games_dir: Path) -> Path:

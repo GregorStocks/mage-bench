@@ -93,7 +93,7 @@ export interface Player {
   /**
    * Model ID, e.g. 'anthropic/claude-opus-4-6'.
    */
-  model: string;
+  model?: string;
   /**
    * Display name for the deck (commander name or filename stem).
    */

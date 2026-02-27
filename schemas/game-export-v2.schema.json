@@ -116,7 +116,7 @@
   "$defs": {
     "Player": {
       "type": "object",
-      "required": ["name", "type", "model"],
+      "required": ["name", "type"],
       "additionalProperties": false,
       "properties": {
         "name": { "type": "string" },
