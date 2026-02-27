@@ -5,7 +5,9 @@ Per-decision approach: sends each non-forced decision to Opus individually
 for high-quality blunder detection.
 
 Usage:
-    uv run --project puppeteer python scripts/analysis/blunder_analysis.py <game.json.gz>
+    uv run --project puppeteer python scripts/analysis/blunder_analysis.py <game.json.gz | game_id>
+
+Accepts either a file path or a bare game ID (e.g. game_20260214_185313_g1).
 
 Requires OPENROUTER_API_KEY environment variable.
 """
@@ -65,7 +67,9 @@ MAX_WORKERS = 50
 #      sizes, player counters, structured choice info (action, mana_cost, P/T, id)
 # v18: include stack targets in decision context (e.g. "Lightning Bolt -> Goblin Guide")
 # v19: clarify "Pick triggered ability" decisions are about ordering, not targeting
-BLUNDER_SCRIPT_VERSION = 19
+# v20: add explicit guidance about passing priority in postcombat main with
+#      sorcery-speed actions remaining (land drops, sorceries, creatures)
+BLUNDER_SCRIPT_VERSION = 20
 
 # --- Prompt components ---
 
@@ -81,7 +85,11 @@ Here are some examples of the kinds of mistakes to flag:
 - Poor attack/block decisions, attacking into unfavorable blocks
 - Missing land drops, not using mana sinks at end of opponent's turn
 - Fundamentally wrong game plan decisions, not countering must-answer threats
-- Overextending into board wipes, running best threat into open counter mana"""
+- Overextending into board wipes, running best threat into open counter mana
+- Passing priority in the postcombat main phase (with nothing on the stack) when \
+there are still sorcery-speed actions available this turn — e.g. unplayed land drops, \
+castable creatures or sorceries in hand, planeswalker abilities to activate. Passing \
+here ends the turn and wastes those opportunities."""
 
 SHARED_SEVERITY = """\
 ## Severity Levels
@@ -1125,8 +1133,27 @@ def main(gz_path: str) -> None:
     print(f"\nTotal cost: ${total_cost:.3f}")
 
 
+def resolve_game_path(arg: str) -> str:
+    """Resolve a game argument to a file path.
+
+    Accepts either:
+      - A file path (e.g. website/public/games/game_xxx.json.gz)
+      - A bare game ID (e.g. game_20260225_174042_g2)
+    """
+    from blunder_eval_common import game_path_for_id
+
+    p = Path(arg)
+    if p.exists():
+        return str(p)
+    # Treat as a game ID
+    return str(game_path_for_id(arg))
+
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print(f"Usage: {sys.argv[0]} <game.json.gz>", file=sys.stderr)
+        print(
+            f"Usage: {sys.argv[0]} <game.json.gz | game_id>",
+            file=sys.stderr,
+        )
         sys.exit(1)
-    main(sys.argv[1])
+    main(resolve_game_path(sys.argv[1]))
