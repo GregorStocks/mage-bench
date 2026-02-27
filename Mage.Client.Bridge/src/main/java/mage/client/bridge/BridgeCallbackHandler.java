@@ -2851,6 +2851,12 @@ public class BridgeCallbackHandler {
             logger.warn("[" + client.getUsername() + "] Cannot concede: no active game");
             return false;
         }
+        if (!activeGames.containsKey(gameId)) {
+            // Game already ended (e.g. opponent conceded first) — the XMage
+            // session is disconnected, so sending CONCEDE would fail.
+            logger.info("[" + client.getUsername() + "] Game already over, concede is a no-op");
+            return true;
+        }
         logger.info("[" + client.getUsername() + "] Conceding game " + gameId);
         session.sendPlayerAction(PlayerAction.CONCEDE, gameId, null);
         return true;
