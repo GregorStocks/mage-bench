@@ -20,6 +20,45 @@
     }
   ],
   "cardImages": {},
+  "decisions": [
+    {
+      "actionResult": {},
+      "actionType": "GAME_TARGET",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "id": "p1",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "p2",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 0,
+      "isForced": false,
+      "llmEventIndices": [
+        1
+      ],
+      "message": "Select a starting player",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "index",
+      "snapshotIndex": 0,
+      "step": null,
+      "subsequentActions": [
+        "TestPlayer wants to concede"
+      ],
+      "turn": 0
+    }
+  ],
   "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Game ended",

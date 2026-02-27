@@ -168,6 +168,560 @@
     }
   ],
   "cardImages": {},
+  "decisions": [
+    {
+      "actionResult": {
+        "action_taken": "selected_target_0",
+        "game_seq": 1,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true
+      },
+      "actionType": "GAME_TARGET",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "id": "p1",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "p2",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "index": 0,
+      "isForced": false,
+      "llmEventIndices": [
+        2,
+        3
+      ],
+      "message": "Select a starting player",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "index",
+      "snapshotIndex": 0,
+      "step": null,
+      "subsequentActions": [
+        "TestPlayer chooses that they take the first turn"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_taken": "no",
+        "game_seq": 5,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "index": 1,
+      "isForced": true,
+      "llmEventIndices": [
+        4,
+        6
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 1,
+      "step": null,
+      "subsequentActions": [],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_taken": "no",
+        "game_seq": 6,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "index": 2,
+      "isForced": true,
+      "llmEventIndices": [
+        5,
+        7
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "Opponent",
+      "responseType": "boolean",
+      "snapshotIndex": 1,
+      "step": null,
+      "subsequentActions": [
+        "TestPlayer skips Draw step",
+        "TestPlayer skip attack"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_taken": "selected_0",
+        "game_seq": 15,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p10",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p11",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p12",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "index": 3,
+      "isForced": false,
+      "llmEventIndices": [
+        8,
+        9
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11",
+          "p12",
+          "p13",
+          "p14",
+          "p15"
+        ]
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 6,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer puts Plains from hand onto the Battlefield",
+        "TestPlayer casts Savannah Lions from hand",
+        "TestPlayer puts Savannah Lions from stack onto the Battlefield"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_taken": "selected_0",
+        "game_seq": 26,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_SELECT",
+      "choiceCount": 7,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p3",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p4",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p5",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p6",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p7",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p8",
+          "index": 5,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 6,
+          "name": "Plains"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "index": 4,
+      "isForced": false,
+      "llmEventIndices": [
+        11,
+        12
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p3",
+          "p4",
+          "p5",
+          "p6",
+          "p7",
+          "p8",
+          "p24"
+        ]
+      },
+      "player": "Opponent",
+      "responseType": "select",
+      "snapshotIndex": 13,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
+        "Opponent puts Plains from hand onto the Battlefield",
+        "Opponent casts Savannah Lions from hand",
+        "Opponent puts Savannah Lions from stack onto the Battlefield",
+        "Opponent skip attack"
+      ],
+      "turn": 2
+    },
+    {
+      "actionResult": {
+        "action_taken": "passed_priority",
+        "game_seq": 44,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p11",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p12",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p26",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "index": 5,
+      "isForced": false,
+      "llmEventIndices": [
+        14,
+        15
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p26"
+        ],
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 24,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_taken": "batch_attack",
+        "declared": [
+          "all"
+        ],
+        "game_seq": 46,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_SELECT",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "choice_type": "attacker",
+          "id": "p16",
+          "index": 0,
+          "name": "Savannah Lions",
+          "power": "2",
+          "toughness": "1"
+        },
+        {
+          "choice_type": "special",
+          "id": "all",
+          "index": 1,
+          "name": "All attack"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "all"
+        ]
+      },
+      "index": 6,
+      "isForced": false,
+      "llmEventIndices": [
+        16,
+        17
+      ],
+      "message": "Select attackers",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "combatPhase": "attackers",
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 26,
+      "step": "DECLARE_ATTACKERS",
+      "subsequentActions": [
+        "TestPlayer attacks Opponent with 1 creature"
+      ],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_taken": "selected_0",
+        "game_seq": 53,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_SELECT",
+      "choiceCount": 1,
+      "choices": [
+        {
+          "choice_type": "blocker",
+          "id": "p9",
+          "index": 0,
+          "name": "Savannah Lions",
+          "power": "2",
+          "toughness": "1"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "index": 7,
+      "isForced": true,
+      "llmEventIndices": [
+        19,
+        20
+      ],
+      "message": "Select blockers",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "combatPhase": "blockers",
+        "incomingAttackers": [
+          {
+            "id": "p16",
+            "name": "Savannah Lions",
+            "power": "2",
+            "toughness": "1"
+          }
+        ]
+      },
+      "player": "Opponent",
+      "responseType": "select",
+      "snapshotIndex": 29,
+      "step": "DECLARE_BLOCKERS",
+      "subsequentActions": [
+        "Attacker: Savannah Lions (2/1) blocked by Savannah Lions (2/1)",
+        "Savannah Lions deals 2 damage to Savannah Lions",
+        "Savannah Lions deals 2 damage to Savannah Lions",
+        "Savannah Lions died",
+        "Savannah Lions died"
+      ],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p11",
+          "index": 0,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p12",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "p26",
+          "index": 5,
+          "name": "Plains"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 8,
+      "isForced": false,
+      "llmEventIndices": [
+        23
+      ],
+      "message": "Play spells and abilities",
+      "phase": "COMBAT",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p26"
+        ],
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 34,
+      "step": "COMBAT_DAMAGE",
+      "subsequentActions": [
+        "TestPlayer wants to concede"
+      ],
+      "turn": 3
+    }
+  ],
   "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Game ended",

@@ -1233,6 +1233,7 @@ def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict])
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
     sys.path.insert(0, str(REPO_ROOT / "scripts" / "analysis"))
     from blunder_analysis import _actions_by_turn, _game_overview, build_decision_prompt
+    from blunder_eval_common import decision_index
     from export_game import build_export
     from extract_decisions import extract_decisions
 
@@ -1269,7 +1270,7 @@ def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict])
         )
         oracle_texts = json.loads(oracle_cache_path.read_text())
 
-    by_index = {d["decision_index"]: d for d in decisions}
+    by_index = {decision_index(d): d for d in decisions}
 
     for idx in annotated:
         assert idx in by_index, (

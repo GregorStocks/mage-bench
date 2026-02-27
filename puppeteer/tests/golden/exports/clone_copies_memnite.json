@@ -200,6 +200,677 @@
     }
   ],
   "cardImages": {},
+  "decisions": [
+    {
+      "actionResult": {
+        "action_taken": "selected_target_0",
+        "game_seq": 1,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "success": true
+      },
+      "actionType": "GAME_TARGET",
+      "choiceCount": 2,
+      "choices": [
+        {
+          "id": "p1",
+          "index": 0,
+          "is_you": true,
+          "name": "TestPlayer",
+          "target_type": "player"
+        },
+        {
+          "id": "p2",
+          "index": 1,
+          "name": "Opponent",
+          "target_type": "player"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "index": 0,
+      "isForced": false,
+      "llmEventIndices": [
+        1,
+        2
+      ],
+      "message": "Select a starting player",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "index",
+      "snapshotIndex": 0,
+      "step": null,
+      "subsequentActions": [
+        "TestPlayer chooses that they take the first turn"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_taken": "no",
+        "game_seq": 5,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "index": 1,
+      "isForced": true,
+      "llmEventIndices": [
+        3,
+        4
+      ],
+      "message": "Mulligan down to 6 cards?",
+      "phase": null,
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 1,
+      "step": null,
+      "subsequentActions": [
+        "TestPlayer skips Draw step",
+        "TestPlayer skip attack"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_taken": "selected_1",
+        "game_seq": 15,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p10",
+          "index": 0,
+          "mana_cost": "{0}",
+          "name": "Black Lotus"
+        },
+        {
+          "action": "land",
+          "id": "p12",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 3,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 4,
+          "name": "Island"
+        },
+        {
+          "action": "cast",
+          "id": "p16",
+          "index": 5,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
+      "index": 2,
+      "isForced": false,
+      "llmEventIndices": [
+        5,
+        6
+      ],
+      "message": "Play spells and abilities",
+      "phase": "POSTCOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p16"
+        ]
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 6,
+      "step": "POSTCOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer puts Island from hand onto the Battlefield",
+        "Opponent skip attack",
+        "Opponent discards down to 7 hand cards",
+        "Opponent discards Mountain"
+      ],
+      "turn": 1
+    },
+    {
+      "actionResult": {
+        "action_taken": "selected_0",
+        "game_seq": 33,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "success": true
+      },
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p10",
+          "index": 0,
+          "mana_cost": "{0}",
+          "name": "Black Lotus"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 3,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 4,
+          "name": "Island"
+        },
+        {
+          "action": "cast",
+          "id": "p16",
+          "index": 5,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "index": 3,
+      "isForced": false,
+      "llmEventIndices": [
+        7,
+        8
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p13",
+          "p14",
+          "p15",
+          "p24",
+          "p16"
+        ],
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 16,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_taken": "selected_ability_0",
+        "game_seq": 34,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "choiceCount": 1,
+      "choices": [
+        {
+          "description": "1. Cast Black Lotus",
+          "index": 0
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "index": 4,
+      "isForced": true,
+      "llmEventIndices": [
+        9,
+        10
+      ],
+      "message": "Choose spell or ability to play: Black Lotus",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "index",
+      "snapshotIndex": 16,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer casts Black Lotus from hand",
+        "TestPlayer puts Black Lotus from stack onto the Battlefield"
+      ],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_taken": "selected_5",
+        "game_seq": 41,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "success": true
+      },
+      "actionType": "GAME_SELECT",
+      "choiceCount": 6,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p11",
+          "index": 0,
+          "mana_cost": "{3}{U}",
+          "name": "Clone",
+          "power": "0",
+          "toughness": "0"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 3,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 4,
+          "name": "Island"
+        },
+        {
+          "action": "cast",
+          "id": "p16",
+          "index": 5,
+          "mana_cost": "{0}",
+          "name": "Memnite",
+          "power": "1",
+          "toughness": "1"
+        }
+      ],
+      "chosen": 5,
+      "chosenArgs": {
+        "index": 5
+      },
+      "index": 5,
+      "isForced": false,
+      "llmEventIndices": [
+        11,
+        12
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p13",
+          "p14",
+          "p15",
+          "p24",
+          "p16"
+        ],
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 19,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_taken": "selected_ability_0",
+        "game_seq": 42,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "choiceCount": 1,
+      "choices": [
+        {
+          "description": "1. Cast Memnite",
+          "index": 0
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "index": 6,
+      "isForced": true,
+      "llmEventIndices": [
+        13,
+        14
+      ],
+      "message": "Choose spell or ability to play: Memnite",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "index",
+      "snapshotIndex": 19,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer casts Memnite from hand",
+        "TestPlayer puts Memnite from stack onto the Battlefield"
+      ],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_taken": "selected_0",
+        "game_seq": 47,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_SELECT",
+      "choiceCount": 5,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "p11",
+          "index": 0,
+          "mana_cost": "{3}{U}",
+          "name": "Clone",
+          "power": "0",
+          "toughness": "0"
+        },
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 3,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 4,
+          "name": "Island"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "index": 7,
+      "isForced": false,
+      "llmEventIndices": [
+        15,
+        16
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p13",
+          "p14",
+          "p15",
+          "p24"
+        ],
+        "untappedLands": 1
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 22,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer sacrificed Black Lotus (source: Black Lotus)",
+        "TestPlayer casts Clone from hand"
+      ],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_taken": "yes",
+        "game_seq": 54,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "success": true
+      },
+      "actionType": "GAME_ASK",
+      "choiceCount": 0,
+      "choices": [],
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "index": 8,
+      "isForced": true,
+      "llmEventIndices": [
+        17,
+        18
+      ],
+      "message": "Use effect of Clone?",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0
+      },
+      "player": "TestPlayer",
+      "responseType": "boolean",
+      "snapshotIndex": 27,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer puts Memnite from stack onto the Battlefield"
+      ],
+      "turn": 3
+    },
+    {
+      "actionResult": {
+        "action_taken": "selected_0",
+        "game_seq": 57,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
+      },
+      "actionType": "GAME_SELECT",
+      "choiceCount": 4,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p13",
+          "index": 0,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 3,
+          "name": "Island"
+        }
+      ],
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "index": 9,
+      "isForced": false,
+      "llmEventIndices": [
+        19,
+        20
+      ],
+      "message": "Play spells and abilities",
+      "phase": "PRECOMBAT_MAIN",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p13",
+          "p14",
+          "p15",
+          "p24"
+        ]
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 28,
+      "step": "PRECOMBAT_MAIN",
+      "subsequentActions": [
+        "TestPlayer puts Island from hand onto the Battlefield",
+        "TestPlayer skip attack",
+        "Opponent skip attack",
+        "Opponent discards down to 7 hand cards",
+        "Opponent discards Mountain"
+      ],
+      "turn": 3
+    },
+    {
+      "actionResult": {},
+      "actionType": "GAME_SELECT",
+      "choiceCount": 4,
+      "choices": [
+        {
+          "action": "land",
+          "id": "p14",
+          "index": 0,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p15",
+          "index": 1,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p24",
+          "index": 2,
+          "name": "Island"
+        },
+        {
+          "action": "land",
+          "id": "p29",
+          "index": 3,
+          "name": "Island"
+        }
+      ],
+      "chosen": null,
+      "chosenArgs": {},
+      "index": 10,
+      "isForced": false,
+      "llmEventIndices": [
+        21
+      ],
+      "message": "Play spells and abilities",
+      "phase": "END",
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p14",
+          "p15",
+          "p24",
+          "p29"
+        ],
+        "untappedLands": 2
+      },
+      "player": "TestPlayer",
+      "responseType": "select",
+      "snapshotIndex": 41,
+      "step": "CLEANUP",
+      "subsequentActions": [
+        "TestPlayer wants to concede"
+      ],
+      "turn": 4
+    }
+  ],
   "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Game ended",
