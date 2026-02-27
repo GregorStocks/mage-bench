@@ -36,7 +36,6 @@
       "Bash(zcat:*)",
       "Bash(zgrep:*)",
       "Read(/home/gregor/.mage-bench/logs/**)",
-      "Read(/tmp/**)",
       "Read(~/.mage-bench/logs/**)",
       "WebFetch(domain:api.scryfall.com)",
       "WebFetch(domain:artificialanalysis.ai)",
@@ -47,8 +46,7 @@
       "WebFetch(domain:research.aimultiple.com)",
       "WebFetch(domain:scryfall.com)",
       "WebFetch(domain:www.mtggoldfish.com)",
-      "WebSearch",
-      "Write(/tmp/**)"
+      "WebSearch"
     ],
     "deny": [
       "Bash(git commit --amend:*)",
@@ -65,6 +63,16 @@
           {
             "type": "command",
             "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/enforce-agents-rules.sh",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/block-system-tmp.sh",
             "timeout": 5
           }
         ]
