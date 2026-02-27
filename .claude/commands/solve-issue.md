@@ -21,8 +21,7 @@ Pick and solve exactly **one** issue, then create a PR.
    - [ ] Run `make check` (lint, typecheck, tests)
    - [ ] Delete the issue file and include deletion in the commit
    - [ ] Push final changes: `git push origin HEAD`
-   - [ ] Update PR title and description: `gh pr edit --title "..." --body "..."`
-   - [ ] Mark PR ready: `gh pr ready`
+   - [ ] Finalize PR: `uv run python scripts/finalize-issue-pr.py --title "..." --body "..."`
    ```
 
    This checklist survives the plan mode boundary and ensures no steps are skipped even if earlier context is compressed.
@@ -35,14 +34,9 @@ Pick and solve exactly **one** issue, then create a PR.
 6. Run `make check` to verify lint, typecheck, and tests pass
 7. Delete the issue file (e.g., `rm issues/<issue-filename>.json`) and **include the deletion in the commit** — the issue removal must ship with the fix
 8. **Document ALL issues you discover** during exploration, even if you're only fixing one. Future Claudes benefit from this documentation!
-9. Push final changes, update the PR title/description, and mark it as ready. **The body must end with the `<!-- claim: ... -->` comment** so the issue stays claimed. Extract it from the current PR body first:
+9. Push final changes and finalize the PR. The script extracts the `<!-- claim: ... -->` tag from the current PR body and appends it to your new body automatically:
     ```bash
-    git push origin HEAD
-    CLAIM_TAG=$(gh pr view --json body --jq '.body' | grep -o '<!-- claim: .* -->')
-    gh pr edit --title "<concise PR title>" --body "<PR description with summary, test plan>
-
-    $CLAIM_TAG"
-    gh pr ready
+    uv run python scripts/finalize-issue-pr.py --title "<concise PR title>" --body "<PR description with summary, test plan>"
     ```
     Then stop — leave remaining issues for the next Claude.
 
@@ -50,7 +44,7 @@ Pick and solve exactly **one** issue, then create a PR.
 
 If you determine an issue isn't worth fixing after claiming it, clean up your claim:
 ```bash
-gh pr close --delete-branch
+uv run python scripts/abandon-issue.py
 ```
 Then restart from step 1 to pick a different issue.
 
