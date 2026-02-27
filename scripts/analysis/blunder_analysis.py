@@ -885,7 +885,7 @@ def init_api() -> tuple[OpenAI, dict[str, tuple[float, float]]]:
         f"Could not fetch pricing for {OPUS_MODEL} from OpenRouter"
     )
 
-    client = OpenAI(base_url=BASE_URL, api_key=api_key)
+    client = OpenAI(base_url=BASE_URL, api_key=api_key, timeout=300)
     return client, prices
 
 
@@ -898,24 +898,25 @@ def eval_decisions(
     """Evaluate a list of decisions in parallel. Returns {decision_index: result}."""
     results_by_idx: dict[int, tuple[list[dict], float, bool, dict]] = {}
 
-    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
-        futures = {}
-        for d in decisions:
-            fut = pool.submit(
-                _eval_one_decision,
-                client,
-                OPUS_MODEL,
-                prices,
-                game_ctx["overview"],
-                d,
-                game_ctx["oracle_texts"],
-                game_ctx["snapshots"],
-                game_ctx["actions_by_turn"],
-                game_ctx["num_players"],
-                game_ctx["all_actions"],
-            )
-            futures[fut] = d["decision_index"]
+    pool = ThreadPoolExecutor(max_workers=MAX_WORKERS)
+    futures = {}
+    for d in decisions:
+        fut = pool.submit(
+            _eval_one_decision,
+            client,
+            OPUS_MODEL,
+            prices,
+            game_ctx["overview"],
+            d,
+            game_ctx["oracle_texts"],
+            game_ctx["snapshots"],
+            game_ctx["actions_by_turn"],
+            game_ctx["num_players"],
+            game_ctx["all_actions"],
+        )
+        futures[fut] = d["decision_index"]
 
+    try:
         for fut in as_completed(futures):
             idx = futures[fut]
             try:
@@ -923,6 +924,14 @@ def eval_decisions(
             except Exception as e:
                 print(f"  WARNING: decision_{idx} failed: {e}")
                 results_by_idx[idx] = ([], 0.0, False, {})
+    except KeyboardInterrupt:
+        print("\n  Interrupted — cancelling pending analysis...")
+        for fut in futures:
+            fut.cancel()
+        pool.shutdown(wait=False, cancel_futures=True)
+        raise
+    finally:
+        pool.shutdown(wait=False)
 
     return results_by_idx
 
