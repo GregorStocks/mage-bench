@@ -30,8 +30,8 @@ _LLM_EVENT_TYPES = {
     "auto_pilot_mode",
 }
 
-# Size threshold: use .json.gz only above 40MB
-_GZ_THRESHOLD = 40_000_000
+# Size threshold: use .json.gz above 25 MiB (Cloudflare Pages file size limit)
+_GZ_THRESHOLD = 25 * 1024 * 1024
 
 
 def _strip_html(message: str) -> str:
