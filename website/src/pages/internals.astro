@@ -519,14 +519,17 @@ if (fs.existsSync(exportsDir)) {
         noteEl.textContent = `${numModels} model(s), ${totalRawPoints} game data points, smoothing window: ${smoothingWindow}`;
       }
 
-      // Build date tick labels: show date when it changes between games
+      // Build date tick labels: show date when it changes between games.
+      // Skip the first one (index 0) so it doesn't render on/left of the Y axis.
       const dateTicks: {value: number; label: string}[] = [];
       let lastDateStr = '';
       for (let i = 0; i < filtered.length; i++) {
         const d = gameDate.get(i)!;
         const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
         if (dateStr !== lastDateStr) {
-          dateTicks.push({ value: i, label: dateStr });
+          if (lastDateStr !== '') {
+            dateTicks.push({ value: i, label: dateStr });
+          }
           lastDateStr = dateStr;
         }
       }
