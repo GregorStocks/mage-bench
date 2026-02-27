@@ -4,6 +4,8 @@ Provides data structures, I/O, and matching logic used by the seed,
 audit, baseline, eval, and promote scripts.
 """
 
+from __future__ import annotations
+
 import gzip
 import json
 from pathlib import Path
@@ -13,6 +15,52 @@ GROUND_TRUTH_DIR = REPO_ROOT / "scripts" / "analysis" / "ground_truth"
 BASELINE_PATH = REPO_ROOT / "scripts" / "analysis" / "blunder_baseline.json"
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 TMP_DIR = REPO_ROOT / "tmp"
+
+
+# --- Decision format compat helpers ---
+# Canonical decisions (from export's decisions[]) use camelCase.
+# Legacy decisions (from extract_decisions) use snake_case.
+# These helpers read either format.
+
+
+def is_canonical_decision(d: dict) -> bool:
+    """Check if a decision is in canonical (camelCase) format."""
+    return "snapshotIndex" in d
+
+
+def decision_index(d: dict) -> int:
+    """Get the decision index from either format."""
+    return d.get("index", d.get("decision_index", 0))
+
+
+def snapshot_index(d: dict) -> int:
+    """Get the snapshot index from either format."""
+    return d.get("snapshotIndex", d.get("snapshot_index", 0))
+
+
+def is_forced(d: dict) -> bool:
+    """Check if a decision is forced (<=1 choice) in either format."""
+    return d.get("isForced", d.get("is_forced", False))
+
+
+def action_result(d: dict) -> dict:
+    """Get the action result from either format."""
+    return d.get("actionResult", d.get("action_result", {}))
+
+
+def is_rolled_back(d: dict) -> bool:
+    """Check if a decision was rolled back in either format."""
+    return d.get("rolled_back", False)
+
+
+def is_cast_rolled_back(d: dict) -> bool:
+    """Check if a cast was rolled back in either format."""
+    return d.get("castRolledBack", d.get("cast_rolled_back", False))
+
+
+def subsequent_actions(d: dict) -> list[str]:
+    """Get subsequent actions from either format."""
+    return d.get("subsequentActions", d.get("subsequent_actions", []))
 
 
 def load_game(path: str | Path) -> dict:
@@ -132,15 +180,21 @@ def compute_aftermath_index(decision: dict, snapshots: list[dict]) -> int:
     """Compute the aftermath snapshot index for a decision.
 
     Mirrors the logic in _eval_one_decision from blunder_analysis.py:
-    finds the first snapshot at or after action_ts, starting from the
+    finds the first snapshot at or after action_ts/action_seq, starting from the
     decision's snapshot_index.
     """
+    s_idx = snapshot_index(decision)
+    action_seq = decision.get("action_seq", 0)
     action_ts = decision.get("action_ts", "")
-    if action_ts:
-        for i in range(decision["snapshot_index"], len(snapshots)):
+    if action_seq:
+        for i in range(s_idx, len(snapshots)):
+            if snapshots[i].get("seq", 0) >= action_seq:
+                return i
+    elif action_ts:
+        for i in range(s_idx, len(snapshots)):
             if snapshots[i].get("ts", "") >= action_ts:
                 return i
-    return decision["snapshot_index"]
+    return s_idx
 
 
 def reverse_map_annotations(
@@ -182,8 +236,8 @@ def reverse_map_annotations(
             for d_idx, d in enumerate(decisions):
                 if d["player"] != ann_player:
                     continue
-                if d["snapshot_index"] <= ann_snap:
-                    dist = ann_snap - d["snapshot_index"]
+                if snapshot_index(d) <= ann_snap:
+                    dist = ann_snap - snapshot_index(d)
                     if dist < best_dist:
                         best_dist = dist
                         best_decision_idx = d_idx

@@ -1,6 +1,8 @@
 # Export Schema
 
-The `.json.gz` export format is formally defined by `schemas/game-export-v2.schema.json` (JSON Schema, Draft 7). This is the single source of truth.
+Game exports live in `website/public/games/` as either `.json` or `.json.gz` files — the format is identical, we just gzip when the file is large enough to annoy GitHub. Both extensions should be treated the same by all consumers.
+
+The format is formally defined by `schemas/game-export-v2.schema.json` (JSON Schema, Draft 7). This is the single source of truth.
 
 TypeScript types are generated from the schema: `website/src/types/game-export.d.ts`. Regenerate with `make schema-types`.
 
@@ -40,6 +42,22 @@ Snapshots are deduplicated in raw logs by hash (repeated identical states store 
 
 Within the server event log, events are ordered by seq (with ties broken by emission order: turn_change, phase_change, decision). Across the merged game log (`game.jsonl`), events from different sources (server, LLM) are sorted by server seq first, then timestamp, then read order.
 
+## Decisions
+
+The `decisions` array contains canonical decision records built at export time. Each decision references a snapshot (by index) and overlays pilot-specific context (choices, playable cards, combat info, etc.) that isn't in the server snapshot.
+
+Decisions are the shared data format consumed by both the pilot (at game time, via the shared renderer) and the blunder annotator (at analysis time). See `doc/unified-decisions-plan.md` for the full design.
+
+Key fields:
+- `snapshotIndex` — points into `snapshots[]` for the board state
+- `choices` — available choices from the MCP tool result
+- `pilotContext` — overlay data (untapped lands, land drops, playable cards, combat info)
+- `llmEventIndices` — indices into `llmEvents[]` covering this decision's LLM interactions
+- `chosen`, `chosenArgs`, `actionResult` — what the player did
+- `subsequentActions` — game log messages after the action resolved
+
+Oracle text is NOT stored in the export. The shared renderer (`decision_renderer.py`) accepts oracle texts as a parameter — the pilot extracts them from the bridge board payload's `rules` fields, and the annotator fetches them from the Scryfall cache.
+
 ## Consumers
 
 Code that reads the export format and would need updating if the schema changes:
@@ -56,6 +74,7 @@ Code that reads the export format and would need updating if the schema changes:
 | `puppeteer/src/puppeteer/leaderboard.py` | Python | Player data, placements for Elo |
 | `scripts/analysis/extract_decisions.py` | Python | Snapshots + llmEvents for blunder analysis |
 | `scripts/analysis/blunder_analysis.py` | Python | Full export for annotation |
+| `puppeteer/src/puppeteer/decision_renderer.py` | Python | Decisions + snapshots for shared rendering |
 
 ## Migration Framework
 

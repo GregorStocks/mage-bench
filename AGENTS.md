@@ -202,7 +202,7 @@ When you bump `HARNESS_EPOCH`:
 
 ## Game Exports
 
-Exported `.json.gz` game files live in `website/public/games/`. These are the source of truth for blunder analysis, the leaderboard, and the game viewer. Raw game logs in `~/.mage-bench/logs/` are the pre-export format and don't have annotations or merged data.
+Exported game files live in `website/public/games/` as `.json` or `.json.gz` (identical format, gzipped when large). These are the source of truth for blunder analysis, the leaderboard, and the game viewer. Raw game logs in `~/.mage-bench/logs/` are the pre-export format and don't have annotations or merged data.
 
 ## Logging
 

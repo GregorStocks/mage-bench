@@ -15,6 +15,7 @@ from openai import AsyncOpenAI
 
 from puppeteer.auto_pass import auto_pass_loop
 from puppeteer.config import load_prompts
+from puppeteer.decision_renderer import BASIC_LAND_NAMES, render_decision
 from puppeteer.game_log import GameLogWriter
 from puppeteer.llm_cost import (
     DEFAULT_BASE_URL,
@@ -66,6 +67,184 @@ def _log_error(game_dir: Path | None, username: str, msg: str) -> None:
                 f.write(f"[{ts}] {msg}\n")
         except OSError:
             pass
+
+
+def _extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
+    """Extract oracle text from board payload's rules fields.
+
+    The bridge includes `rules` on every card (hand, battlefield, etc.).
+    Convert these to the oracle_texts format expected by render_decision().
+    """
+    oracle_texts: dict[str, dict] = {}
+    for player in board:
+        for zone in ("hand", "battlefield", "graveyard", "exile", "commanders"):
+            for card in player.get(zone, []):
+                if not isinstance(card, dict):
+                    continue
+                name = card.get("name", "")
+                if not name or name in BASIC_LAND_NAMES or name in oracle_texts:
+                    continue
+                rules = card.get("rules", [])
+                if not rules:
+                    continue
+                entry: dict[str, str] = {}
+                if card.get("mana_cost"):
+                    entry["mana_cost"] = card["mana_cost"]
+                # Build type_line from available info
+                if card.get("is_land"):
+                    entry["type_line"] = "Land"
+                if card.get("power") is not None:
+                    entry["power_toughness"] = f"{card['power']}/{card['toughness']}"
+                if rules:
+                    entry["oracle_text"] = " / ".join(rules)
+                oracle_texts[name] = entry
+    return oracle_texts
+
+
+def _build_pilot_snapshot(data: dict, board: list[dict] | None) -> dict:
+    """Build a snapshot-like dict from a pass_priority/get_action_choices result.
+
+    Converts the flat board (list of players) into the snapshot format
+    expected by render_decision().
+    """
+    players: list[dict] = []
+    if board:
+        for p in board:
+            player: dict = {
+                "name": p.get("name", "?"),
+                "life": p.get("life", 0),
+                "library_size": p.get("library_size"),
+            }
+            if p.get("hand"):
+                player["hand"] = p["hand"]
+            player["hand_count"] = p.get("hand_size", len(p.get("hand", [])))
+            for zone in ("battlefield", "graveyard", "exile", "commanders"):
+                if p.get(zone):
+                    player[zone] = p[zone]
+            if p.get("counters"):
+                player["counters"] = p["counters"]
+            players.append(player)
+
+    snapshot: dict = {"players": players}
+    if data.get("stack"):
+        snapshot["stack"] = data["stack"]
+    if data.get("combat"):
+        snapshot["combat"] = data["combat"]
+    return snapshot
+
+
+def _build_pilot_decision(data: dict) -> dict:
+    """Build a decision-like dict from a pass_priority/get_action_choices result.
+
+    Extracts the fields that render_decision() reads from a decision.
+    """
+    decision: dict = {
+        "index": 0,
+        "snapshotIndex": 0,
+        "player": "You",
+        "turn": 0,
+        "phase": "",
+        "actionType": data.get("action_type", ""),
+        "responseType": data.get("response_type", ""),
+        "message": data.get("message", ""),
+        "choices": data.get("choices", []),
+        "choiceCount": len(data.get("choices", [])),
+        "isForced": len(data.get("choices", [])) <= 1,
+    }
+
+    # Parse context string for turn/phase: "T3 Precombat Main/Precombat Main (Alice) YOUR_MAIN"
+    context = data.get("context", "")
+    if context:
+        import re
+
+        m = re.match(r"T(\d+)\s+(.+?)(?:\s+\(|$)", context)
+        if m:
+            decision["turn"] = int(m.group(1))
+            decision["phase"] = m.group(2).split("/")[0].strip().upper().replace(" ", "_")
+
+    # Find player name from board
+    board = data.get("board", [])
+    if isinstance(board, list):
+        for p in board:
+            if isinstance(p, dict) and p.get("is_you"):
+                decision["player"] = p["name"]
+                break
+
+    # Pilot context overlay
+    pilot_ctx: dict = {}
+    if "untapped_lands" in data:
+        pilot_ctx["untappedLands"] = data["untapped_lands"]
+    if "land_drops_used" in data:
+        pilot_ctx["landDropsUsed"] = data["land_drops_used"]
+    if "combat_phase" in data:
+        pilot_ctx["combatPhase"] = data["combat_phase"]
+    if "already_attacking" in data:
+        pilot_ctx["alreadyAttacking"] = data["already_attacking"]
+    if "incoming_attackers" in data:
+        pilot_ctx["incomingAttackers"] = data["incoming_attackers"]
+    if "mana_pool" in data:
+        pilot_ctx["manaPool"] = data["mana_pool"]
+    if pilot_ctx:
+        decision["pilotContext"] = pilot_ctx
+
+    return decision
+
+
+def _render_for_pilot(result_text: str, last_board: list[dict] | None) -> tuple[str, list[dict] | None]:
+    """Render a pass_priority/get_action_choices result for LLM consumption.
+
+    Returns (rendered_text, updated_board). The board is tracked so that
+    board_unchanged results can use the last-known board.
+    """
+    try:
+        data = json.loads(result_text)
+    except (json.JSONDecodeError, TypeError):
+        return result_text, last_board
+
+    if not isinstance(data, dict) or not data.get("action_pending"):
+        # Not a decision — pass through the raw JSON
+        return result_text, last_board
+
+    # Get board (current or last-known)
+    board = data.get("board")
+    if isinstance(board, list):
+        last_board = board
+    elif board is None:
+        board = last_board
+    else:
+        board = last_board
+
+    snapshot = _build_pilot_snapshot(data, board)
+    decision = _build_pilot_decision(data)
+
+    # Extract oracle texts from board's rules fields
+    oracle_texts = _extract_oracle_texts_from_board(board) if board else {}
+
+    deciding_player = decision["player"]
+
+    rendered = render_decision(
+        decision,
+        snapshot,
+        oracle_texts=oracle_texts,
+        deciding_player=deciding_player,
+        include_card_reference=True,
+    )
+
+    # Append operational metadata the LLM needs to respond
+    lines = [rendered]
+    resp_type = data.get("response_type", "")
+    respond_with = data.get("respond_with", "")
+    if respond_with:
+        lines.append(f"  Respond: {respond_with}")
+    elif resp_type:
+        lines.append(f"  Response type: {resp_type}")
+
+    mana_pool = data.get("mana_pool")
+    if mana_pool and any(v > 0 for v in mana_pool.values()):
+        pool_str = ", ".join(f"{k}={v}" for k, v in mana_pool.items() if v > 0)
+        lines.append(f"  Mana pool: {pool_str}")
+
+    return "\n".join(lines), last_board
 
 
 def _summarize_tool_result(tool_name: str, content: str) -> str:
@@ -480,6 +659,7 @@ async def run_pilot_loop(
     MAX_CONSECUTIVE_EMPTY_ERRORS = 10  # bridge is dead if every tool returns empty error
     last_game_seq: int | None = None  # game-level seq from most recent tool result
     board_tracker = BoardCursorTracker()
+    last_board: list[dict] | None = None  # last-known board for rendering when board_unchanged
     game_start = time.monotonic()
     # Render caching: reuse rendered prefix between full re-renders to improve
     # prompt cache hit rates.  Only re-render every RENDER_INTERVAL iterations.
@@ -578,6 +758,7 @@ async def run_pilot_loop(
                     render_counter = 0
                     consecutive_truncations = 0
                     board_tracker.reset()
+                    last_board = None
                     continue
             else:
                 consecutive_truncations = 0
@@ -806,11 +987,16 @@ async def run_pilot_loop(
                     except (json.JSONDecodeError, TypeError):
                         pass
 
+                    # Render pass_priority/get_action_choices for LLM display
+                    display_text = result_text
+                    if fn.name in ("pass_priority", "get_action_choices"):
+                        display_text, last_board = _render_for_pilot(result_text, last_board)
+
                     history.append(
                         {
                             "role": "tool",
                             "tool_call_id": tool_call.id,
-                            "content": result_text,
+                            "content": display_text,
                         }
                     )
 
@@ -951,6 +1137,7 @@ async def run_pilot_loop(
                 render_counter = 0
                 consecutive_timeouts = 0
                 board_tracker.reset()
+                last_board = None
 
         except Exception as e:
             consecutive_timeouts = 0

@@ -110,6 +110,11 @@
       "type": "integer",
       "minimum": 0,
       "description": "Version of the blunder analysis script that produced the annotations."
+    },
+    "decisions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Decision" },
+      "description": "Canonical decision records built at export time. Each references a snapshot and overlays pilot-specific context (choices, playable cards, etc.). See doc/unified-decisions-plan.md."
     }
   },
 
@@ -392,6 +397,145 @@
         "llmReasoning": {
           "type": "string",
           "description": "Optional LLM reasoning for the annotation."
+        }
+      }
+    },
+
+    "Decision": {
+      "type": "object",
+      "required": [
+        "index",
+        "snapshotIndex",
+        "player",
+        "turn",
+        "phase",
+        "actionType",
+        "responseType",
+        "message",
+        "choices",
+        "choiceCount",
+        "isForced",
+        "llmEventIndices",
+        "subsequentActions"
+      ],
+      "additionalProperties": true,
+      "description": "Canonical decision record. References a snapshot (by index) and overlays pilot-specific context. See doc/unified-decisions-plan.md.",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Position in the decisions array (0-indexed)."
+        },
+        "snapshotIndex": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Index into the snapshots array — the game state when this decision was presented."
+        },
+        "player": {
+          "type": "string",
+          "description": "Name of the player making this decision."
+        },
+        "turn": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "phase": {
+          "type": ["string", "null"]
+        },
+        "step": {
+          "type": ["string", "null"]
+        },
+        "actionType": {
+          "type": "string",
+          "description": "XMage action type, e.g. 'GAME_SELECT', 'GAME_PICK_REQUIRED_TARGETS'."
+        },
+        "responseType": {
+          "type": "string",
+          "description": "MCP response type, e.g. 'select', 'boolean', 'amount', 'multi_select'."
+        },
+        "message": {
+          "type": "string",
+          "description": "Prompt message shown to the player."
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "description": "Available choices. Shape depends on the tool (name, id, action, mana_cost, etc.)."
+        },
+        "choiceCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "isForced": {
+          "type": "boolean",
+          "description": "True if there is at most one choice (forced action)."
+        },
+        "pilotContext": {
+          "$ref": "#/$defs/PilotContext",
+          "description": "Pilot-specific overlay data not captured in the server snapshot."
+        },
+        "chosen": {
+          "description": "Index, answer, or amount the player chose. Null if no response recorded."
+        },
+        "chosenArgs": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Raw args from the choose_action tool call."
+        },
+        "actionResult": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Result of the choose_action tool call."
+        },
+        "llmEventIndices": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "description": "Indices into llmEvents[] covering this decision (source tool call, LLM response, choose_action)."
+        },
+        "subsequentActions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Game log messages after the action resolved, for annotator context."
+        },
+        "castRolledBack": {
+          "type": "boolean",
+          "description": "True if the cast was rolled back (failed mana payment, etc.)."
+        }
+      }
+    },
+
+    "PilotContext": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Pilot-specific data extracted from MCP tool results. Not present in server snapshots.",
+      "properties": {
+        "untappedLands": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "landDropsUsed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "playableCards": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "IDs of cards flagged as playable by the bridge."
+        },
+        "combatPhase": {
+          "type": ["string", "null"],
+          "description": "Combat sub-phase if in combat, null otherwise."
+        },
+        "alreadyAttacking": {
+          "type": "array",
+          "description": "Creatures already declared as attackers."
+        },
+        "incomingAttackers": {
+          "type": "array",
+          "description": "Opponent creatures attacking this player."
         }
       }
     }
