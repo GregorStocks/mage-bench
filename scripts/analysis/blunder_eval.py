@@ -257,7 +257,6 @@ def main() -> None:
                 game_ctx["num_players"],
                 game_ctx["all_actions"],
                 pk,
-                llm_events=game_ctx.get("llm_events"),
             )
             futures[fut] = pk
 

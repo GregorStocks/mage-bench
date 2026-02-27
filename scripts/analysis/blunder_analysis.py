@@ -12,6 +12,7 @@ Accepts either a file path or a bare game ID (e.g. game_20260214_185313_g1).
 Requires OPENROUTER_API_KEY environment variable.
 """
 
+import html
 import json
 import os
 import re
@@ -37,8 +38,12 @@ from blunder_eval_common import (  # noqa: E402
     load_game,
     snapshot_index,
 )
-from extract_decisions import _summarize_snapshot, extract_decisions  # noqa: E402
-from puppeteer.decision_renderer import render_decision  # noqa: E402
+from extract_decisions import extract_decisions  # noqa: E402
+from puppeteer.decision_renderer import (  # noqa: E402
+    card_display,
+    permanent_display,
+    render_decision,
+)
 from puppeteer.harness_epoch import MIN_BLUNDER_VERSION  # noqa: F401, E402
 from puppeteer.llm_cost import fetch_openrouter_prices, get_model_price  # noqa: E402
 
@@ -88,7 +93,11 @@ MAX_WORKERS = 50
 # v23: moved static instructions (examples, severity, output format) from
 #      user message to system prompt
 # v24: clarify that choices list = legal actions in pass-priority guidance
-BLUNDER_SCRIPT_VERSION = 24
+# v25: improve prompt structure — remove After/Reasoning from chosen block,
+#      restructure sections (Card Reference / Prior Context / This Turn / Decision),
+#      add "Chosen: False" guidance, fix PREGAME phase, prefix chat messages,
+#      enrich permanent display (loyalty, token, copy), fix prior context board rendering
+BLUNDER_SCRIPT_VERSION = 25
 
 # --- Prompt components ---
 
@@ -133,6 +142,14 @@ ANNOTATION_SCHEMA = """\
   "betterLine": "<what they should have done>"
 }"""
 
+CHOSEN_FALSE_GUIDANCE = """\
+## Understanding "Chosen: False"
+
+"Chosen: False" means the player passed priority — they declined to act. \
+If the stack is empty, passing means moving to the next phase (e.g. main phase \
+to combat, or postcombat main to end step — ending the turn). If the stack has \
+items, passing lets those items resolve without responding."""
+
 PER_DECISION_SYSTEM = f"""\
 You are a Magic: The Gathering expert evaluating a single decision from a game replay.
 
@@ -145,6 +162,8 @@ You may be given prior context showing the board state from earlier and the acti
 since then. Use this to understand how the game reached the current state.
 
 {BLUNDER_EXAMPLES}
+
+{CHOSEN_FALSE_GUIDANCE}
 
 {SHARED_SEVERITY}
 
@@ -371,6 +390,12 @@ def _actions_by_turn(actions: list[dict]) -> dict[int, list[str]]:
     player_turn_counts: dict[str, int] = {}
     for a in actions:
         msg = a.get("message", "")
+        # Prefix chat messages with sender attribution
+        if a.get("type") == "chat":
+            sender = a.get("from", "?")
+            msg = f"[Chat from {sender}]: {html.unescape(msg)}"
+        else:
+            msg = html.unescape(msg)
         m = re.match(r"^TURN (\d+) for (.+?)( \(.+\))$", msg)
         if m:
             current_turn = int(m.group(1))
@@ -415,17 +440,16 @@ def _format_prior_context(
     if ref_snap is None:
         return ""
 
-    # Format the reference snapshot
-    summary = _summarize_snapshot(ref_snap)
+    # Format the reference snapshot using shared renderer display functions
     players_parts: list[str] = []
-    for p in summary.get("players", []):
+    for p in ref_snap.get("players", []):
         bf = p.get("battlefield", [])
-        s = f"{p['name']}: {p.get('life', '?')}hp"
+        s = f"{p.get('name', '?')}: {p.get('life', '?')}hp"
         if bf:
-            s += f" bf=[{', '.join(str(x) for x in bf)}]"
+            s += f" bf=[{', '.join(permanent_display(x) for x in bf)}]"
         gy = p.get("graveyard", [])
         if gy:
-            s += f" gy=[{', '.join(str(x) for x in gy)}]"
+            s += f" gy=[{', '.join(card_display(x) for x in gy)}]"
         players_parts.append(s)
 
     lines = ["## Prior Context (2 turn cycles ago)\n"]
@@ -480,6 +504,13 @@ def _format_current_turn_actions(
         # Only actions before the decision was presented
         if ts >= cutoff_ts:
             break
+
+        # Prefix chat messages with sender attribution
+        if a.get("type") == "chat":
+            sender = a.get("from", "?")
+            msg = f"[Chat from {sender}]: {html.unescape(msg)}"
+        else:
+            msg = html.unescape(msg)
 
         # Filter noise (same as prior context)
         if _ACTION_NOISE.search(msg):
@@ -789,7 +820,6 @@ def build_decision_prompt(
     actions_by_turn: dict[int, list[str]],
     num_players: int,
     all_actions: list[dict],
-    llm_events: list[dict] | None = None,
 ) -> tuple[str, str]:
     """Build the (system_prompt, user_message) pair for a single decision evaluation.
 
@@ -818,9 +848,8 @@ def build_decision_prompt(
             include_chosen=True,
             prior_context=prior_ctx,
             current_turn_actions=turn_ctx,
-            llm_events=llm_events,
         )
-        user_msg = f"## Game Overview\n{overview}\n\n## Decision\n\n{formatted}"
+        user_msg = f"## Game Overview\n{overview}\n\n{formatted}"
     else:
         # Legacy format: use old formatting code
         formatted = _format_decisions([decision])
@@ -860,7 +889,6 @@ def _eval_one_decision(
     num_players: int,
     all_actions: list[dict],
     label: str | None = None,
-    llm_events: list[dict] | None = None,
 ) -> tuple[list[dict], float, bool, dict]:
     """Evaluate a single decision. Returns (annotations, cost_usd, parsed_ok, raw_record).
 
@@ -875,7 +903,6 @@ def _eval_one_decision(
         actions_by_turn,
         num_players,
         all_actions,
-        llm_events=llm_events,
     )
     if label is None:
         label = f"decision_{decision_index(decision)}"
@@ -1009,7 +1036,6 @@ def load_game_context(gz_path: str) -> dict:
         "actions_by_turn": abt,
         "num_players": num_players,
         "all_actions": game_actions,
-        "llm_events": data.get("llmEvents", []),
     }
 
 
@@ -1054,7 +1080,6 @@ def eval_decisions(
             game_ctx["actions_by_turn"],
             game_ctx["num_players"],
             game_ctx["all_actions"],
-            llm_events=game_ctx.get("llm_events"),
         )
         futures[fut] = decision_index(d)
 

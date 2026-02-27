@@ -72,7 +72,6 @@ def game_context():
         "actions_by_turn": abt,
         "num_players": num_players,
         "all_actions": game_actions,
-        "llm_events": data.get("llmEvents", []),
     }
 
 
@@ -92,7 +91,6 @@ def test_blunder_prompt_golden(game_context, decision_index):
         actions_by_turn=game_context["actions_by_turn"],
         num_players=game_context["num_players"],
         all_actions=game_context["all_actions"],
-        llm_events=game_context["llm_events"],
     )
 
     actual = {

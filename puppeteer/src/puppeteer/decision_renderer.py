@@ -39,7 +39,6 @@ def render_decision(
     include_chosen: bool = False,
     prior_context: str = "",
     current_turn_actions: str = "",
-    llm_events: list[dict] | None = None,
 ) -> str:
     """Render a canonical decision into structured text.
 
@@ -49,40 +48,43 @@ def render_decision(
         oracle_texts: Card name -> oracle fields dict. Optional.
         deciding_player: Who's deciding (for hand redaction). When set,
             opponent hands show only hand_size/hand_count.
-        include_card_reference: Prepend a Card Reference section.
-        include_chosen: Append chosen action, reasoning, and subsequent actions.
+        include_card_reference: Prepend a ## Card Reference section.
+        include_chosen: Append chosen action (for annotator).
         prior_context: Pre-formatted prior context string (annotator-specific).
+            Should already include its own ## heading.
         current_turn_actions: Pre-formatted current turn actions string.
-        llm_events: Full llmEvents array from export (for reasoning lookup
-            via llmEventIndices). Only needed when include_chosen=True.
+            Should already include its own ## heading.
 
     Returns:
         Rendered text suitable for LLM consumption.
     """
     parts: list[str] = []
 
-    # Card reference section
+    # Card reference section (with heading)
     if include_card_reference and oracle_texts:
         card_ref = _render_card_reference(decision, snapshot, oracle_texts)
         if card_ref:
             parts.append(card_ref)
 
-    # Prior context (annotator passes pre-formatted string)
+    # Prior context (annotator passes pre-formatted string with ## heading)
     if prior_context:
         parts.append(prior_context)
 
-    # Current turn actions
+    # Current turn actions (pre-formatted with ## heading)
     if current_turn_actions:
         parts.append(current_turn_actions)
 
-    # Main decision block
-    parts.append(_render_decision_block(decision, snapshot, deciding_player))
+    # Main decision block (with heading)
+    decision_block = _render_decision_block(decision, snapshot, deciding_player)
+    decision_parts = [f"## Decision\n\n{decision_block}"]
 
-    # Chosen action + reasoning (for annotator)
+    # Chosen action (for annotator)
     if include_chosen:
-        chosen_block = _render_chosen_block(decision, llm_events)
+        chosen_block = _render_chosen_block(decision)
         if chosen_block:
-            parts.append(chosen_block)
+            decision_parts.append(chosen_block)
+
+    parts.append("\n\n".join(decision_parts))
 
     return "\n\n".join(parts)
 
@@ -94,7 +96,7 @@ def _render_decision_block(
 ) -> str:
     """Render the core decision: board state, stack, choices."""
     turn = decision.get("turn", "?")
-    phase = decision.get("phase") or "?"
+    phase = decision.get("phase") or ("PREGAME" if turn == 0 else "?")
     player = decision.get("player", "?")
     message = decision.get("message", "")
 
@@ -168,7 +170,7 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
                 s += f" hand={hand_count}"
         else:
             hand = p.get("hand", [])
-            hand_strs = [_card_display(c) for c in hand]
+            hand_strs = [card_display(c) for c in hand]
             s = f"{name}: {life}hp hand=[{', '.join(hand_strs)}]" if hand_strs else f"{name}: {life}hp hand=0"
 
         lib = p.get("library_size")
@@ -181,13 +183,13 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
             s += _format_counters(counters)
 
         if bf:
-            bf_strs = [_permanent_display(c) for c in bf]
+            bf_strs = [permanent_display(c) for c in bf]
             s += f" bf=[{', '.join(bf_strs)}]"
         if gy:
-            gy_strs = [_card_display(c) for c in gy]
+            gy_strs = [card_display(c) for c in gy]
             s += f" gy=[{', '.join(gy_strs)}]"
         if exile:
-            exile_strs = [_card_display(c) for c in exile]
+            exile_strs = [card_display(c) for c in exile]
             s += f" exile=[{', '.join(exile_strs)}]"
 
         players_parts.append(s)
@@ -195,14 +197,14 @@ def _render_board(snapshot: dict, deciding_player: str | None) -> str:
     return " | ".join(players_parts)
 
 
-def _card_display(c: object) -> str:
+def card_display(c: object) -> str:
     """Display a card (hand, graveyard, exile) as a string."""
     if isinstance(c, dict):
         return c.get("name", "?")
     return str(c)
 
 
-def _permanent_display(c: object) -> str:
+def permanent_display(c: object) -> str:
     """Display a battlefield permanent with status annotations."""
     if not isinstance(c, dict):
         return str(c)
@@ -214,6 +216,8 @@ def _permanent_display(c: object) -> str:
         extras.append("sick")
     if c.get("face_down"):
         extras.append("face_down")
+    if c.get("loyalty") is not None:
+        extras.append(f"loyalty={c['loyalty']}")
     if c.get("counters"):
         counters = c["counters"]
         if isinstance(counters, list):
@@ -223,8 +227,16 @@ def _permanent_display(c: object) -> str:
         elif isinstance(counters, dict):
             for k, v in counters.items():
                 extras.append(f"{k}={v}")
+    if c.get("original_card"):
+        extras.append(f"copy of {c['original_card']}")
+    elif c.get("copy"):
+        extras.append("copy")
+    if c.get("token"):
+        extras.append("token")
     # Power/toughness for creatures
     pt = c.get("power_toughness") or c.get("pt")
+    if not pt and c.get("power") is not None:
+        pt = f"{c['power']}/{c['toughness']}"
     if pt:
         name += f" {pt}"
     if extras:
@@ -298,8 +310,8 @@ def _format_choice(c: object) -> str:
     return parts[0]
 
 
-def _render_chosen_block(decision: dict, llm_events: list[dict] | None) -> str:
-    """Render chosen action, reasoning, and subsequent actions."""
+def _render_chosen_block(decision: dict) -> str:
+    """Render what was chosen in a decision."""
     lines: list[str] = []
     chosen = decision.get("chosen")
     chosen_args = decision.get("chosenArgs", {})
@@ -308,24 +320,6 @@ def _render_chosen_block(decision: dict, llm_events: list[dict] | None) -> str:
     # Display chosen
     chosen_name = _chosen_display(chosen, chosen_args, choices)
     lines.append(f"  Chosen: {chosen_name}")
-
-    # Look up reasoning from llmEvents via indices
-    if llm_events:
-        for idx in decision.get("llmEventIndices", []):
-            if 0 <= idx < len(llm_events):
-                ev = llm_events[idx]
-                if ev.get("type") == "llm_response":
-                    reasoning = ev.get("reasoning", "")
-                    if reasoning:
-                        lines.append(f"  Reasoning: {reasoning[:500]}")
-                    break
-
-    # Subsequent actions (own player only)
-    player = decision.get("player", "")
-    subsequent = decision.get("subsequentActions", [])
-    own_actions = [a for a in subsequent if a.startswith(player)]
-    if own_actions:
-        lines.append(f"  After: {'; '.join(own_actions)}")
 
     if decision.get("castRolledBack"):
         lines.append(
@@ -410,4 +404,4 @@ def _render_card_reference(
 
     if not lines:
         return ""
-    return "Card Reference:\n" + "\n".join(lines)
+    return "## Card Reference\n" + "\n".join(lines)

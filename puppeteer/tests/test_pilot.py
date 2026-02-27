@@ -598,7 +598,7 @@ class TestRenderForPilot:
     def test_card_reference_included(self) -> None:
         result = json.dumps(_sample_pass_priority_result())
         text, _ = _render_for_pilot(result, None)
-        assert "Card Reference:" in text
+        assert "## Card Reference" in text
         assert "3 damage" in text
 
     def test_invalid_json_passthrough(self) -> None:

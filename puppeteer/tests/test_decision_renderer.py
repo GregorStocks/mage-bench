@@ -2,8 +2,8 @@
 
 from puppeteer.decision_renderer import (
     _format_choice,
-    _permanent_display,
     _render_card_reference,
+    permanent_display,
     render_decision,
 )
 
@@ -157,33 +157,16 @@ class TestRenderDecision:
 
     def test_include_chosen(self) -> None:
         snap = _make_snapshot()
-        decision = _make_decision(
-            subsequent_actions=["Alice casts Lightning Bolt"],
-        )
-        llm_events = [
-            {},  # padding
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {"type": "tool_call", "tool": "pass_priority", "player": "Alice"},
-            {"type": "llm_response", "player": "Alice", "reasoning": "I should bolt their face."},
-            {"type": "tool_call", "tool": "choose_action", "player": "Alice"},
-        ]
+        decision = _make_decision()
         text = render_decision(
             decision,
             snap,
             include_chosen=True,
-            llm_events=llm_events,
         )
         assert "Chosen: Lightning Bolt" in text
-        assert "Reasoning: I should bolt their face." in text
-        assert "After: Alice casts Lightning Bolt" in text
+        # Reasoning and After sections are no longer included
+        assert "Reasoning:" not in text
+        assert "After:" not in text
 
     def test_card_reference(self) -> None:
         snap = _make_snapshot()
@@ -202,11 +185,11 @@ class TestRenderDecision:
             oracle_texts=oracle_texts,
             include_card_reference=True,
         )
-        assert "Card Reference:" in text
+        assert "## Card Reference" in text
         assert "Lightning Bolt {R} -- Instant" in text
         assert "3 damage" in text
         # Mountain is a basic land, should not appear in card reference
-        card_ref_section = text.split("Card Reference:")[1].split("\n\n")[0]
+        card_ref_section = text.split("## Card Reference")[1].split("\n\n")[0]
         assert "Mountain" not in card_ref_section
 
     def test_prior_context_and_turn_actions(self) -> None:
@@ -233,18 +216,26 @@ class TestRenderDecision:
 
     def test_cast_rolled_back(self) -> None:
         snap = _make_snapshot()
-        decision = _make_decision(
-            subsequent_actions=[],
-        )
+        decision = _make_decision()
         decision["castRolledBack"] = True
-        llm_events: list[dict] = [{} for _ in range(13)]
         text = render_decision(
             decision,
             snap,
             include_chosen=True,
-            llm_events=llm_events,
         )
         assert "rolled it back" in text.lower() or "rolled back" in text.lower()
+
+    def test_decision_heading(self) -> None:
+        snap = _make_snapshot()
+        decision = _make_decision()
+        text = render_decision(decision, snap)
+        assert "## Decision" in text
+
+    def test_pregame_phase(self) -> None:
+        snap = _make_snapshot(turn=0, phase="?")
+        decision = _make_decision(turn=0, phase=None)
+        text = render_decision(decision, snap)
+        assert "Turn 0 PREGAME" in text
 
 
 class TestFormatChoice:
@@ -262,21 +253,52 @@ class TestFormatChoice:
 
 class TestPermanentDisplay:
     def test_simple_name(self) -> None:
-        assert _permanent_display({"name": "Island"}) == "Island"
+        assert permanent_display({"name": "Island"}) == "Island"
 
     def test_tapped(self) -> None:
-        assert _permanent_display({"name": "Mountain", "tapped": True}) == "Mountain (tapped)"
+        assert permanent_display({"name": "Mountain", "tapped": True}) == "Mountain (tapped)"
 
     def test_counters(self) -> None:
-        result = _permanent_display({"name": "Thalia", "counters": [{"name": "+1/+1", "count": 2}]})
+        result = permanent_display({"name": "Thalia", "counters": [{"name": "+1/+1", "count": 2}]})
         assert "Thalia" in result
         assert "+1/+1=2" in result
 
     def test_power_toughness(self) -> None:
-        assert _permanent_display({"name": "Goblin Guide", "pt": "2/2"}) == "Goblin Guide 2/2"
+        assert permanent_display({"name": "Goblin Guide", "pt": "2/2"}) == "Goblin Guide 2/2"
 
     def test_string_input(self) -> None:
-        assert _permanent_display("Island") == "Island"
+        assert permanent_display("Island") == "Island"
+
+    def test_loyalty(self) -> None:
+        assert permanent_display({"name": "Karn", "loyalty": 5}) == "Karn (loyalty=5)"
+
+    def test_token(self) -> None:
+        assert permanent_display({"name": "Soldier", "token": True}) == "Soldier (token)"
+
+    def test_copy_of_original(self) -> None:
+        result = permanent_display({"name": "Phyrexian Metamorph", "original_card": "Sol Ring"})
+        assert result == "Phyrexian Metamorph (copy of Sol Ring)"
+
+    def test_copy_without_original(self) -> None:
+        result = permanent_display({"name": "Clone", "copy": True})
+        assert result == "Clone (copy)"
+
+    def test_power_toughness_integers(self) -> None:
+        result = permanent_display({"name": "Bear", "power": "2", "toughness": "2"})
+        assert result == "Bear 2/2"
+
+    def test_multiple_extras(self) -> None:
+        result = permanent_display(
+            {
+                "name": "Soldier",
+                "tapped": True,
+                "token": True,
+                "counters": [{"name": "+1/+1", "count": 1}],
+            }
+        )
+        assert "tapped" in result
+        assert "token" in result
+        assert "+1/+1=1" in result
 
 
 class TestCardReference:
