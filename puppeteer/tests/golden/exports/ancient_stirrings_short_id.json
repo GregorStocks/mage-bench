@@ -148,7 +148,7 @@
         "stop_reason": "non_priority_action"
       },
       "seq": 2,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -166,7 +166,7 @@
         "success": true
       },
       "seq": 3,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -314,7 +314,7 @@
         ]
       },
       "seq": 4,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -332,7 +332,7 @@
         "success": true
       },
       "seq": 5,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -475,7 +475,7 @@
         "stop_reason": "playable_cards"
       },
       "seq": 6,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -493,7 +493,7 @@
         "success": true
       },
       "seq": 7,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -511,7 +511,7 @@
         "success": true
       },
       "seq": 8,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -608,7 +608,7 @@
         "stop_reason": "non_priority_action"
       },
       "seq": 9,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -626,7 +626,7 @@
         "success": true
       },
       "seq": 10,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -644,7 +644,7 @@
         "success": true
       },
       "seq": 11,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -751,7 +751,7 @@
         "turn": 1
       },
       "seq": 12,
-      "tool": "",
+      "tool": "get_game_state",
       "type": "tool_call"
     },
     {
@@ -763,7 +763,7 @@
         "history": "Turn 1:\n    - TestPlayer drew Ancient Stirrings\n    - TestPlayer drew Forest\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Forest\n    - TestPlayer cast Ancient Stirrings\n"
       },
       "seq": 13,
-      "tool": "",
+      "tool": "get_game_history",
       "type": "tool_call"
     }
   ],

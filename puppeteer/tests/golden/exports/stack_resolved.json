@@ -162,7 +162,7 @@
         "stop_reason": "non_priority_action"
       },
       "seq": 2,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -180,7 +180,7 @@
         "success": true
       },
       "seq": 3,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -332,7 +332,7 @@
         ]
       },
       "seq": 4,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -350,7 +350,7 @@
         "success": true
       },
       "seq": 5,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -491,7 +491,7 @@
         "stop_reason": "playable_cards"
       },
       "seq": 6,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -509,7 +509,7 @@
         "success": true
       },
       "seq": 7,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -630,7 +630,7 @@
         "untapped_lands": 1
       },
       "seq": 8,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -648,7 +648,7 @@
         "success": true
       },
       "seq": 9,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -666,7 +666,7 @@
         "success": true
       },
       "seq": 10,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -769,7 +769,7 @@
         "stop_reason": "stack_resolved"
       },
       "seq": 11,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -869,7 +869,7 @@
         "turn": 1
       },
       "seq": 12,
-      "tool": "",
+      "tool": "get_game_state",
       "type": "tool_call"
     },
     {
@@ -881,7 +881,7 @@
         "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n    - Opponent lost 3 life\n"
       },
       "seq": 13,
-      "tool": "",
+      "tool": "get_game_history",
       "type": "tool_call"
     }
   ],

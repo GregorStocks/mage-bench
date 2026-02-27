@@ -1,0 +1,34 @@
+{
+  "Dark Depths": {
+    "mana_cost": "",
+    "name": "Dark Depths",
+    "oracle_text": "Dark Depths enters with ten ice counters on it.\n{3}: Remove an ice counter from Dark Depths.\nWhen Dark Depths has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
+    "type_line": "Legendary Snow Land"
+  },
+  "Marit Lage": {
+    "mana_cost": "",
+    "name": "Marit Lage",
+    "oracle_text": "Flying, indestructible",
+    "power": "20",
+    "toughness": "20",
+    "type_line": "Token Legendary Creature \u2014 Avatar"
+  },
+  "Mountain": {
+    "mana_cost": "",
+    "name": "Mountain",
+    "oracle_text": "({T}: Add {R}.)",
+    "type_line": "Basic Land \u2014 Mountain"
+  },
+  "Plains": {
+    "mana_cost": "",
+    "name": "Plains",
+    "oracle_text": "({T}: Add {W}.)",
+    "type_line": "Basic Land \u2014 Plains"
+  },
+  "Thespian's Stage": {
+    "mana_cost": "",
+    "name": "Thespian's Stage",
+    "oracle_text": "{T}: Add {C}.\n{2}, {T}: This land becomes a copy of target land, except it has this ability.",
+    "type_line": "Land"
+  }
+}

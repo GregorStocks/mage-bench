@@ -276,7 +276,7 @@
         "stop_reason": "non_priority_action"
       },
       "seq": 2,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -294,7 +294,7 @@
         "success": true
       },
       "seq": 3,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -444,7 +444,7 @@
         ]
       },
       "seq": 4,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -462,7 +462,7 @@
         "success": true
       },
       "seq": 5,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -610,7 +610,7 @@
         "stop_reason": "playable_cards"
       },
       "seq": 6,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -628,7 +628,7 @@
         "success": true
       },
       "seq": 7,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -796,7 +796,7 @@
         "untapped_lands": 1
       },
       "seq": 8,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -814,7 +814,7 @@
         "success": true
       },
       "seq": 9,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -844,7 +844,7 @@
         "untapped_lands": 1
       },
       "seq": 10,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -862,7 +862,7 @@
         "success": true
       },
       "seq": 11,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1032,7 +1032,7 @@
         "untapped_lands": 1
       },
       "seq": 12,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1050,7 +1050,7 @@
         "success": true
       },
       "seq": 13,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1080,7 +1080,7 @@
         "untapped_lands": 1
       },
       "seq": 14,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1098,7 +1098,7 @@
         "success": true
       },
       "seq": 15,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1259,7 +1259,7 @@
         "untapped_lands": 1
       },
       "seq": 16,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1277,7 +1277,7 @@
         "success": true
       },
       "seq": 17,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1392,7 +1392,7 @@
         "stop_reason": "non_priority_action"
       },
       "seq": 18,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1410,7 +1410,7 @@
         "success": true
       },
       "seq": 19,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1562,7 +1562,7 @@
         "stop_reason": "playable_cards"
       },
       "seq": 20,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1580,7 +1580,7 @@
         "success": true
       },
       "seq": 21,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1748,7 +1748,7 @@
         "untapped_lands": 2
       },
       "seq": 22,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1885,7 +1885,7 @@
         "turn": 3
       },
       "seq": 23,
-      "tool": "",
+      "tool": "get_game_state",
       "type": "tool_call"
     },
     {
@@ -1897,7 +1897,7 @@
         "history": "Turn 1:\n    - TestPlayer drew Island\n    - TestPlayer drew Clone\n    - TestPlayer drew Memnite\n    - TestPlayer drew Black Lotus\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer cast Black Lotus\n    - TestPlayer cast Memnite\n    - TestPlayer sacrificed Black Lotus\n    - TestPlayer cast Clone\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n"
       },
       "seq": 24,
-      "tool": "",
+      "tool": "get_game_history",
       "type": "tool_call"
     }
   ],

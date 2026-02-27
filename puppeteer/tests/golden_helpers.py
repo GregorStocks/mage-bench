@@ -126,6 +126,7 @@ def print_timing_summary() -> None:
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 GOLDEN_DIR = Path(__file__).resolve().parent / "golden" / "prompts"
 GOLDEN_EXPORTS_DIR = Path(__file__).resolve().parent / "golden" / "exports"
+GOLDEN_BLUNDER_DIR = Path(__file__).resolve().parent / "golden" / "blunder_prompts"
 
 UPDATE_MODE = os.environ.get("UPDATE_GOLDEN", "").lower() in ("1", "true", "yes")
 SPECTATOR_READY_TIMEOUT_SECONDS = 240
@@ -636,6 +637,7 @@ def _run_golden_persistent(
         with timed_phase(golden_name, "golden_comparison"):
             assert_golden_prompt(golden_name, prompt)
             assert_golden_export(golden_name, game_dir)
+            assert_golden_blunder_prompts(golden_name, game_dir, script)
 
         return prompt
 
@@ -793,6 +795,7 @@ def _run_golden_subprocess(
         with timed_phase(golden_name, "golden_comparison"):
             assert_golden_prompt(golden_name, prompt)
             assert_golden_export(golden_name, game_dir)
+            assert_golden_blunder_prompts(golden_name, game_dir, script)
 
         return prompt
 
@@ -1175,3 +1178,143 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
         raise AssertionError(
             f"Golden export mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
         )
+
+
+def _script_blunder_indices(script: list[dict]) -> list[int]:
+    """Walk script steps, return decision indices where ``golden_blunder`` is set.
+
+    Decisions are anchored on ``pass_priority`` / ``get_action_choices`` calls
+    (decision sources), not on ``choose_action``.  The first ``choose_action``
+    after a decision source resolves that decision; subsequent chained
+    ``choose_action`` calls (e.g. targeting after a cast) are part of the same
+    decision and do NOT increment the index.
+
+    Place ``golden_blunder`` on the *first* ``choose_action`` after a decision
+    source — that's the one whose decision index is captured.
+    """
+    indices: list[int] = []
+    decision_idx = 0
+    after_decision_source = False
+
+    for step in script:
+        name = step.get("name")
+        if name in ("pass_priority", "get_action_choices"):
+            after_decision_source = True
+        elif name == "choose_action":
+            if after_decision_source:
+                # First choose_action after a decision source = new decision
+                if step.get("golden_blunder"):
+                    indices.append(decision_idx)
+                decision_idx += 1
+                after_decision_source = False
+            else:
+                # Chained choose_action (targeting, second cast, etc.)
+                # — still part of previous decision, don't increment.
+                assert not step.get("golden_blunder"), (
+                    "golden_blunder on chained choose_action (step has no preceding "
+                    "pass_priority/get_action_choices). Annotate the first choose_action "
+                    "of the decision instead."
+                )
+    return indices
+
+
+def assert_golden_blunder_prompts(name: str, game_dir: Path, script: list[dict]) -> None:
+    """Check blunder analysis prompts for script steps annotated with ``golden_blunder``.
+
+    For each annotated ``choose_action`` in the script, builds the blunder
+    evaluation prompt (system + user) from the game export and compares against
+    golden reference files.  Skips entirely if no script steps are annotated.
+    """
+    annotated = _script_blunder_indices(script)
+    if not annotated:
+        return
+
+    # Late imports — same pattern as assert_golden_export
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+    sys.path.insert(0, str(REPO_ROOT / "scripts" / "analysis"))
+    from blunder_analysis import _actions_by_turn, _game_overview, build_decision_prompt
+    from export_game import build_export
+    from extract_decisions import extract_decisions
+
+    # Build full (unstripped) export and extract decisions
+    export_data = build_export(game_dir)
+    tmp_export = game_dir / "_blunder_export.json"
+    tmp_export.write_text(json.dumps(export_data))
+    try:
+        decisions = extract_decisions(str(tmp_export))
+    finally:
+        tmp_export.unlink()
+
+    # Build prompt context
+    overview = _game_overview(export_data)
+    snapshots = export_data.get("snapshots", [])
+    actions = export_data.get("actions", [])
+    abt = _actions_by_turn(actions)
+    num_players = len(export_data.get("players", []))
+
+    # Oracle cache: load from golden dir, or generate in update mode
+    golden_dir = GOLDEN_BLUNDER_DIR / name
+    oracle_cache_path = golden_dir / "oracle_cache.json"
+
+    if UPDATE_MODE:
+        from blunder_analysis import _collect_card_names, _get_oracle_texts
+
+        all_names = _collect_card_names(export_data)
+        oracle_texts = _get_oracle_texts(sorted(all_names))
+        golden_dir.mkdir(parents=True, exist_ok=True)
+        oracle_cache_path.write_text(json.dumps(oracle_texts, indent=2, sort_keys=True) + "\n")
+    else:
+        assert oracle_cache_path.exists(), (
+            f"Oracle cache missing: {oracle_cache_path}\nRun 'make update-golden' to generate."
+        )
+        oracle_texts = json.loads(oracle_cache_path.read_text())
+
+    by_index = {d["decision_index"]: d for d in decisions}
+
+    for idx in annotated:
+        assert idx in by_index, (
+            f"Decision index {idx} not found in extracted decisions for {name}. "
+            f"Available indices: {sorted(by_index.keys())}"
+        )
+        decision = by_index[idx]
+        system, user = build_decision_prompt(
+            overview=overview,
+            decision=decision,
+            oracle_texts=oracle_texts,
+            snapshots=snapshots,
+            actions_by_turn=abt,
+            num_players=num_players,
+            all_actions=actions,
+        )
+
+        actual = {
+            "decision_index": idx,
+            "turn": decision.get("turn"),
+            "phase": decision.get("phase"),
+            "player": decision["player"],
+            "message": decision.get("message", ""),
+            "system": system,
+            "user": user,
+        }
+
+        golden_file = golden_dir / f"decision_{idx}.json"
+        actual_json = json.dumps(actual, indent=2) + "\n"
+
+        if UPDATE_MODE:
+            golden_file.write_text(actual_json)
+            print(f"Updated golden blunder prompt: {golden_file}")
+            continue
+
+        assert golden_file.exists(), (
+            f"Golden blunder prompt missing: {golden_file}\nRun 'make update-golden' to generate."
+        )
+        expected = json.loads(golden_file.read_text())
+
+        if actual["system"] != expected["system"]:
+            raise AssertionError(
+                f"Blunder system prompt changed for {name} decision {idx}\nRun 'make update-golden' to regenerate."
+            )
+        if actual["user"] != expected["user"]:
+            raise AssertionError(
+                f"Blunder user message changed for {name} decision {idx}\nRun 'make update-golden' to regenerate."
+            )

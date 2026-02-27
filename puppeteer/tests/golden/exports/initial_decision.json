@@ -96,7 +96,7 @@
         "stop_reason": "non_priority_action"
       },
       "seq": 2,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -132,7 +132,7 @@
         "turn": 1
       },
       "seq": 3,
-      "tool": "",
+      "tool": "get_game_state",
       "type": "tool_call"
     },
     {
@@ -144,7 +144,7 @@
         "history": "No game events recorded yet."
       },
       "seq": 4,
-      "tool": "",
+      "tool": "get_game_history",
       "type": "tool_call"
     }
   ],

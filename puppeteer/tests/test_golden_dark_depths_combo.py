@@ -49,7 +49,7 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root, bridge_session,
             {"name": "choose_action", "arguments": {"id": "p16"}},
             # T4 combat: Activate Thespian's Stage.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p16"}},
+            {"name": "choose_action", "arguments": {"id": "p16"}, "golden_blunder": True},
             # GAME_CHOOSE_ABILITY: index 1 = "{2}, {T}: copy target land."
             # (index 0 is the mana ability "{T}: Add {C}.")
             {"name": "pass_priority", "arguments": {}},
@@ -67,7 +67,7 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root, bridge_session,
             {"name": "choose_action", "arguments": {"answer": False}},
             # Declare Marit Lage as attacker for lethal (20 damage).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"attackers": ["all"]}},
+            {"name": "choose_action", "arguments": {"attackers": ["all"]}, "golden_blunder": True},
             # Capture state with Marit Lage attacking before combat damage.
             {"name": "get_game_state", "arguments": {}},
             # Pass priority — combat damage resolves, Opponent dies (game_over).

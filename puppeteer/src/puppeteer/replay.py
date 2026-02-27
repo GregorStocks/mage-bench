@@ -61,7 +61,7 @@ async def execute_replay_script(
         board_tracker.extract(result_text)
 
         if game_log:
-            game_log.emit("tool_call", name=name, arguments=arguments, result=result_text)
+            game_log.emit("tool_call", tool=name, arguments=arguments, result=result_text)
 
         # Build initial user message from first pass_priority result
         if i == 0 and name == "pass_priority":
@@ -108,7 +108,7 @@ async def execute_replay_script(
 
     history_result = await call_tool("get_game_history", {})
     if game_log:
-        game_log.emit("tool_call", name="get_game_history", arguments={}, result=history_result)
+        game_log.emit("tool_call", tool="get_game_history", arguments={}, result=history_result)
     history_call_id = f"call_{len(script) + 1}"
     history.append(
         {

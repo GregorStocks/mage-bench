@@ -50,7 +50,7 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root, bridge_session, pot
             {"name": "choose_action", "arguments": {"answer": False}},
             # T2 Postcombat Main: cast Lightning Bolt #1.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"index": 0}, "golden_blunder": True},
             # Target Opponent (chained choose_action, no pass_priority to avoid auto-pass resolving the bolt).
             {"name": "choose_action", "arguments": {"id": "p2"}},
             # Cast Lightning Bolt #2 while #1 is still on the stack.

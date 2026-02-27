@@ -544,7 +544,7 @@
         "stop_reason": "non_priority_action"
       },
       "seq": 2,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -562,7 +562,7 @@
         "success": true
       },
       "seq": 3,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -714,7 +714,7 @@
         ]
       },
       "seq": 4,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -732,7 +732,7 @@
         "success": true
       },
       "seq": 5,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -889,7 +889,7 @@
         "stop_reason": "playable_cards"
       },
       "seq": 6,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -907,7 +907,7 @@
         "success": true
       },
       "seq": 7,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1091,7 +1091,7 @@
         "untapped_lands": 1
       },
       "seq": 8,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1109,7 +1109,7 @@
         "success": true
       },
       "seq": 9,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1287,7 +1287,7 @@
         "stop_reason": "playable_cards"
       },
       "seq": 10,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1305,7 +1305,7 @@
         "success": true
       },
       "seq": 11,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1323,7 +1323,7 @@
         "success": true
       },
       "seq": 12,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1341,7 +1341,7 @@
         "success": true
       },
       "seq": 13,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1523,7 +1523,7 @@
         "untapped_lands": 2
       },
       "seq": 14,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1541,7 +1541,7 @@
         "success": true
       },
       "seq": 15,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1738,7 +1738,7 @@
         "untapped_lands": 3
       },
       "seq": 16,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1756,7 +1756,7 @@
         "success": true
       },
       "seq": 17,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1968,7 +1968,7 @@
         "untapped_lands": 4
       },
       "seq": 18,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1986,7 +1986,7 @@
         "success": true
       },
       "seq": 19,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -2164,7 +2164,7 @@
         "untapped_lands": 5
       },
       "seq": 20,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2182,7 +2182,7 @@
         "success": true
       },
       "seq": 21,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -2433,7 +2433,7 @@
         "untapped_lands": 5
       },
       "seq": 22,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2641,7 +2641,7 @@
         "turn": 6
       },
       "seq": 23,
-      "tool": "",
+      "tool": "get_game_state",
       "type": "tool_call"
     },
     {
@@ -2653,7 +2653,7 @@
         "history": "Turn 1:\n    - TestPlayer drew Boggart Trawler\n    - TestPlayer drew Crashing Footfalls\n    - TestPlayer drew Forest\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Forest\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Postcombat Main:\n    - TestPlayer played Boggart Bog\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 6 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 7 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 8 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 9 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 10 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 11 (TestPlayer):\n  Upkeep:\n    - TestPlayer cast Crashing Footfalls\n  Draw:\n    - TestPlayer drew Plains\n"
       },
       "seq": 24,
-      "tool": "",
+      "tool": "get_game_history",
       "type": "tool_call"
     }
   ],

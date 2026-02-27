@@ -460,7 +460,7 @@
         ]
       },
       "seq": 2,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -515,7 +515,7 @@
         "stop_reason": "non_priority_action"
       },
       "seq": 2,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -533,7 +533,7 @@
         "success": true
       },
       "seq": 3,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -551,7 +551,7 @@
         "success": true
       },
       "seq": 3,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -708,7 +708,7 @@
         "stop_reason": "playable_cards"
       },
       "seq": 4,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -856,7 +856,7 @@
         ]
       },
       "seq": 4,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -874,7 +874,7 @@
         "success": true
       },
       "seq": 5,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -892,7 +892,7 @@
         "success": true
       },
       "seq": 5,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1049,7 +1049,7 @@
         "untapped_lands": 1
       },
       "seq": 6,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1185,7 +1185,7 @@
         "stop_reason": "playable_cards"
       },
       "seq": 6,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1203,7 +1203,7 @@
         "stop_reason": "step_not_reached"
       },
       "seq": 7,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1221,7 +1221,7 @@
         "success": true
       },
       "seq": 7,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1239,7 +1239,7 @@
         "success": true
       },
       "seq": 8,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1257,7 +1257,7 @@
         "success": true
       },
       "seq": 8,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1443,7 +1443,7 @@
         "untapped_lands": 1
       },
       "seq": 9,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1601,7 +1601,7 @@
         "untapped_lands": 1
       },
       "seq": 9,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1619,7 +1619,7 @@
         "success": true
       },
       "seq": 10,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1677,7 +1677,7 @@
         "untapped_lands": 1
       },
       "seq": 10,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1849,7 +1849,7 @@
         "untapped_lands": 2
       },
       "seq": 11,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -1867,7 +1867,7 @@
         "success": true
       },
       "seq": 11,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -1885,7 +1885,7 @@
         "success": true
       },
       "seq": 12,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -2028,7 +2028,7 @@
         "untapped_lands": 2
       },
       "seq": 12,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2242,7 +2242,7 @@
         "untapped_lands": 1
       },
       "seq": 13,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2260,7 +2260,7 @@
         "success": true
       },
       "seq": 13,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -2278,7 +2278,7 @@
         "success": true
       },
       "seq": 14,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -2443,7 +2443,7 @@
         "untapped_lands": 2
       },
       "seq": 14,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2508,7 +2508,7 @@
         "untapped_lands": 1
       },
       "seq": 15,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2554,7 +2554,7 @@
         "untapped_lands": 2
       },
       "seq": 15,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2569,7 +2569,7 @@
         "success": true
       },
       "seq": 16,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -2592,7 +2592,7 @@
         "success": true
       },
       "seq": 16,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -2608,7 +2608,7 @@
         "stop_reason": "game_over"
       },
       "seq": 17,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2807,7 +2807,7 @@
         "stop_reason": "non_priority_action"
       },
       "seq": 17,
-      "tool": "",
+      "tool": "pass_priority",
       "type": "tool_call"
     },
     {
@@ -2819,7 +2819,7 @@
         "history": "Turn 1:\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - Opponent drew Plains\n    - Opponent drew Savannah Lions\n    - Opponent drew Ajani Goldmane\n    - Opponent drew Baneslayer Angel\n    - Opponent drew Captain of the Watch\n    - Opponent drew Guardian Seraph\n    - Opponent drew Serra Angel\n  Postcombat Main:\n    - TestPlayer played Island\n    - TestPlayer cast Sol Ring\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew Plains\n  Precombat Main:\n    - Opponent played Plains\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew a card\n  Precombat Main:\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew Plains\n  Precombat Main:\n    - Opponent played Plains\n  Postcombat Main:\n    - Opponent cast Savannah Lions\n    - TestPlayer cast Mana Drain\n    - A spell was countered\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew a card\n  Precombat Main:\n    - TestPlayer cast Fact or Fiction\n"
       },
       "seq": 18,
-      "tool": "",
+      "tool": "get_game_history",
       "type": "tool_call"
     },
     {
@@ -2837,7 +2837,7 @@
         "success": true
       },
       "seq": 18,
-      "tool": "",
+      "tool": "choose_action",
       "type": "tool_call"
     },
     {
@@ -3031,7 +3031,7 @@
         "turn": 3
       },
       "seq": 19,
-      "tool": "",
+      "tool": "get_game_state",
       "type": "tool_call"
     },
     {
@@ -3043,7 +3043,7 @@
         "history": "Turn 1:\n    - TestPlayer drew Mana Drain\n    - TestPlayer drew Sol Ring\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n    - TestPlayer cast Sol Ring\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n  Postcombat Main:\n    - Opponent cast Savannah Lions\n    - TestPlayer cast Mana Drain\n    - A spell was countered\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Fact or Fiction\n  Precombat Main:\n    - TestPlayer cast Fact or Fiction\n"
       },
       "seq": 20,
-      "tool": "",
+      "tool": "get_game_history",
       "type": "tool_call"
     }
   ],
