@@ -19,6 +19,7 @@ from puppeteer.leaderboard import (
     derive_format,
     extract_placements,
     generate_all_leaderboards,
+    generate_internals_data,
     generate_leaderboard,
     generate_leaderboard_file,
     generate_model_stats,
@@ -1594,3 +1595,152 @@ def test_generate_model_stats_reasoning_effort():
         assert "a/model-a::low" in result["models"]
         assert result["models"]["a/model-a::medium"]["reasoningEffort"] == "medium"
         assert result["models"]["a/model-a::low"]["reasoningEffort"] == "low"
+
+
+# --- generate_internals_data ---
+
+
+def test_generate_internals_data_basic():
+    """Per-game per-player data points with correct metrics."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260115_120000",
+            "20260115_120000",
+            "Alice",
+            [
+                _pilot("Alice", "a/model-a", cost=5.0, placement=1, tool_calls_ok=10, tool_calls_failed=1),
+                _pilot("Bob", "b/model-b", cost=2.0, placement=2, tool_calls_ok=8, tool_calls_failed=0),
+            ],
+            [
+                {
+                    "ts": "T1",
+                    "player": "Alice",
+                    "type": "llm_response",
+                    "usage": {"promptTokens": 1000, "completionTokens": 200, "cachedTokens": 400},
+                },
+                {
+                    "ts": "T2",
+                    "player": "Alice",
+                    "type": "llm_error",
+                    "errorType": "timeout",
+                    "errorMessage": "Timed out",
+                },
+                {
+                    "ts": "T3",
+                    "player": "Alice",
+                    "type": "llm_error",
+                    "errorType": "rate_limit",
+                    "errorMessage": "Rate limited",
+                },
+                {
+                    "ts": "T4",
+                    "player": "Alice",
+                    "type": "context_reset",
+                    "reason": "repeated_timeouts",
+                },
+                {
+                    "ts": "T5",
+                    "player": "Bob",
+                    "type": "llm_response",
+                    "usage": {"promptTokens": 500, "completionTokens": 100},
+                },
+            ],
+            epoch=10,
+        )
+        game["players"][0]["thinkingTimeSecs"] = 60.0
+        game["players"][1]["thinkingTimeSecs"] = 30.0
+        (games_dir / "game_20260115_120000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_internals_data(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        assert result["generatedAt"]
+        assert result["minLeaderboardEpoch"]
+        assert len(result["games"]) == 1
+
+        g = result["games"][0]
+        assert g["id"] == "game_20260115_120000"
+        assert g["ts"] == "2026-01-15T12:00:00"
+        assert g["epoch"] == 10
+        assert g["format"] == "commander"  # default for games without deckType
+        assert len(g["players"]) == 2
+
+        alice = next(p for p in g["players"] if p["key"] == "a/model-a")
+        assert alice["modelName"] == "Model A"
+        assert alice["won"] is True
+        assert alice["costUsd"] == 5.0
+        assert alice["promptTokens"] == 1000
+        assert alice["completionTokens"] == 200
+        assert alice["cachedTokens"] == 400
+        assert alice["toolCallsOk"] == 10
+        assert alice["toolCallsFailed"] == 1
+        assert alice["thinkingTimeSecs"] == 60.0
+        assert alice["responses"] == 1
+        assert alice["timeouts"] == 1
+        assert alice["otherErrors"] == 1
+        assert alice["contextResets"] == 1
+
+        bob = next(p for p in g["players"] if p["key"] == "b/model-b")
+        assert bob["won"] is False
+        assert bob["responses"] == 1
+        assert bob["timeouts"] == 0
+        assert bob["otherErrors"] == 0
+        assert bob["contextResets"] == 0
+
+
+def test_generate_internals_data_format_detection():
+    """Games with deckType produce correct format."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        game = _make_game_with_events(
+            "game_20260116_000000",
+            "20260116_000000",
+            "Alice",
+            [
+                _pilot("Alice", "a/model-a", cost=1.0, placement=1),
+                _pilot("Bob", "b/model-b", cost=1.0, placement=2),
+            ],
+            [],
+            epoch=10,
+        )
+        game["deckType"] = "Constructed - Standard"
+        game["players"][0]["thinkingTimeSecs"] = 10.0
+        game["players"][1]["thinkingTimeSecs"] = 10.0
+        (games_dir / "game_20260116_000000.json.gz").write_bytes(gzip.compress(json.dumps(game).encode()))
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_internals_data(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        assert result["games"][0]["format"] == "standard"
+
+
+def test_generate_internals_data_no_games():
+    """Empty games directory produces empty output."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        games_dir = root / "games"
+        games_dir.mkdir()
+        data_dir = root / "data"
+
+        models_json = root / "models.json"
+        models_json.write_text(json.dumps({"models": []}))
+
+        output_path = generate_internals_data(games_dir, data_dir, models_json)
+        result = json.loads(output_path.read_text())
+
+        assert result["games"] == []

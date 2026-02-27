@@ -5,23 +5,24 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpServer;
 import org.apache.log4j.Logger;
 
 import mage.client.bridge.tools.*;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * MCP (Model Context Protocol) server using stdio transport.
- * Implements JSON-RPC 2.0 over newline-delimited stdin/stdout.
- *
+ * MCP (Model Context Protocol) server using HTTP transport.
+ * Implements JSON-RPC 2.0 over HTTP POST on /mcp.
  */
 public class McpServer {
 
@@ -50,9 +51,9 @@ public class McpServer {
     private final BridgeMageClient client;
     private final Gson gson;
     private final AtomicBoolean running = new AtomicBoolean(false);
-    private final PrintWriter stdout;
     private boolean initialized = false;
     private final McpToolRegistry registry;
+    private HttpServer httpServer;
 
     public McpServer(BridgeMageClient client) {
         this(client, false);
@@ -61,7 +62,6 @@ public class McpServer {
     public McpServer(BridgeMageClient client, boolean keepAlive) {
         this.client = client;
         this.gson = new GsonBuilder().create();
-        this.stdout = new PrintWriter(System.out, true);
         if (keepAlive) {
             // Merge base tools + keepAlive tools
             Class<?>[] allTools = new Class<?>[TOOL_CLASSES.length + KEEP_ALIVE_TOOL_CLASSES.length];
@@ -74,55 +74,97 @@ public class McpServer {
     }
 
     /**
-     * Start the MCP server. Blocks until shutdown.
+     * Start the MCP HTTP server on the given port. Blocks until shutdown.
      */
-    public void start() {
+    public void start(int port) {
         running.set(true);
-        logger.info("MCP server starting on stdio");
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-            String line;
-            while (running.get() && (line = reader.readLine()) != null) {
-                if (line.trim().isEmpty()) {
-                    continue;
-                }
+        try {
+            httpServer = HttpServer.create(new InetSocketAddress("127.0.0.1", port), 0);
+            httpServer.createContext("/mcp", this::handleHttpRequest);
+            httpServer.start();
+            logger.info("MCP HTTP server started on port " + port);
+
+            // Block until stopped
+            while (running.get()) {
                 try {
-                    handleMessage(line);
-                } catch (Exception e) {
-                    logger.error("Error handling MCP message", e);
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
                 }
             }
         } catch (IOException e) {
-            logger.error("Error reading from stdin", e);
+            logger.error("Failed to start MCP HTTP server on port " + port, e);
+        } finally {
+            if (httpServer != null) {
+                httpServer.stop(0);
+            }
+            logger.info("MCP HTTP server stopped");
         }
-
-        logger.info("MCP server stopped");
     }
 
     public void stop() {
         running.set(false);
+        if (httpServer != null) {
+            httpServer.stop(0);
+        }
     }
 
-    private void handleMessage(String json) {
-        JsonObject message = JsonParser.parseString(json).getAsJsonObject();
-
-        String method = message.has("method") ? message.get("method").getAsString() : null;
-        JsonElement id = message.has("id") ? message.get("id") : null;
-        JsonObject params = message.has("params") ? message.getAsJsonObject("params") : null;
-
-        // Handle notifications (no id)
-        if (id == null) {
-            handleNotification(method, params);
+    private void handleHttpRequest(HttpExchange exchange) throws IOException {
+        // Only accept POST
+        if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
+            exchange.sendResponseHeaders(405, -1);
+            exchange.close();
             return;
         }
 
-        // Handle requests (have id)
+        String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+
         try {
-            Object result = handleRequest(method, params);
-            sendResponse(id, result, null);
+            JsonObject message = JsonParser.parseString(body).getAsJsonObject();
+            String method = message.has("method") ? message.get("method").getAsString() : null;
+            JsonElement id = message.has("id") ? message.get("id") : null;
+            JsonObject params = message.has("params") ? message.getAsJsonObject("params") : null;
+
+            // Handle notifications (no id) — return 202 Accepted
+            if (id == null) {
+                handleNotification(method, params);
+                exchange.sendResponseHeaders(202, -1);
+                exchange.close();
+                return;
+            }
+
+            // Handle requests (have id) — return JSON-RPC response
+            Map<String, Object> response = new HashMap<>();
+            response.put("jsonrpc", "2.0");
+            response.put("id", id);
+
+            try {
+                Object result = handleRequest(method, params);
+                response.put("result", result);
+            } catch (Exception e) {
+                client.getCallbackHandler().logError("MCP request failed (" + method + "): " + e.getMessage());
+                response.put("error", Map.of("code", -32603, "message", e.getMessage()));
+            }
+
+            byte[] responseBytes = gson.toJson(response).getBytes(StandardCharsets.UTF_8);
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            exchange.sendResponseHeaders(200, responseBytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(responseBytes);
+            }
         } catch (Exception e) {
-            client.getCallbackHandler().logError("MCP request failed (" + method + "): " + e.getMessage());
-            sendError(id, -32603, e.getMessage());
+            logger.error("Error handling MCP HTTP request", e);
+            byte[] errorBytes = gson.toJson(Map.of(
+                    "jsonrpc", "2.0",
+                    "error", Map.of("code", -32700, "message", "Parse error: " + e.getMessage())
+            )).getBytes(StandardCharsets.UTF_8);
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            exchange.sendResponseHeaders(200, errorBytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(errorBytes);
+            }
         }
     }
 
@@ -174,28 +216,6 @@ public class McpServer {
                 "structuredContent", toolResult,
                 "isError", false
         );
-    }
-
-    private void sendResponse(JsonElement id, Object result, Object error) {
-        Map<String, Object> response = new HashMap<>();
-        response.put("jsonrpc", "2.0");
-        response.put("id", id);
-
-        if (error != null) {
-            response.put("error", error);
-        } else {
-            response.put("result", result);
-        }
-
-        String json = gson.toJson(response);
-        synchronized (stdout) {
-            stdout.println(json);
-            stdout.flush();
-        }
-    }
-
-    private void sendError(JsonElement id, int code, String message) {
-        sendResponse(id, null, Map.of("code", code, "message", message));
     }
 
     /**
