@@ -40,7 +40,7 @@ test-js:
 	cd website && npm install --prefer-offline --no-audit --no-fund && npx vitest run
 
 .PHONY: check
-check: lint format-check typecheck test test-js verify-decks
+check: lint format-check typecheck test test-js verify-decks verify-schema-types
 
 .PHONY: test-golden
 test-golden:
@@ -178,6 +178,17 @@ blunder-audit:
 .PHONY: blunder-baseline
 blunder-baseline:
 	uv run --project puppeteer python scripts/analysis/blunder_baseline.py
+
+# Generate TypeScript types from the JSON Schema
+.PHONY: schema-types
+schema-types:
+	cd website && npx json2ts ../schemas/game-export-v2.schema.json > src/types/game-export.d.ts
+
+# Verify generated TypeScript types are up to date
+.PHONY: verify-schema-types
+verify-schema-types:
+	@cd website && npx json2ts ../schemas/game-export-v2.schema.json | diff -q - src/types/game-export.d.ts > /dev/null 2>&1 \
+		|| (echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make schema-types' to regenerate." && exit 1)
 
 .PHONY: blunder-eval
 blunder-eval:

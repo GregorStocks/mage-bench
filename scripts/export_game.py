@@ -476,7 +476,50 @@ def build_export(game_dir: Path) -> dict:
     if meta.get("youtube_url"):
         output["youtubeUrl"] = meta["youtube_url"]
 
+    _validate_export(output)
     return output
+
+
+# Fields that build_export() always emits. harnessEpoch and youtubeUrl are
+# conditional on metadata; annotations and blunderScriptVersion are added by
+# annotate_game.py after export. See schemas/game-export-v2.schema.json for
+# the full schema including those downstream fields.
+_BUILD_EXPORT_REQUIRED = {
+    "version",
+    "id",
+    "timestamp",
+    "gameType",
+    "deckType",
+    "totalTurns",
+    "winner",
+    "players",
+    "cardImages",
+    "snapshots",
+    "actions",
+    "llmEvents",
+    "llmTrace",
+    "gameOver",
+}
+
+
+def _validate_export(data: dict) -> None:
+    """Assert the export has the expected top-level structure.
+
+    Lightweight runtime check — no jsonschema dependency. Catches missing
+    required fields and wrong version. The full JSON Schema validation
+    runs in tests (test_export_schema.py).
+    """
+    assert data.get("version") == 2, f"Expected version 2, got {data.get('version')}"
+    missing = _BUILD_EXPORT_REQUIRED - set(data.keys())
+    assert not missing, f"Export missing required fields: {missing}"
+    assert isinstance(data["players"], list), "players must be a list"
+    assert isinstance(data["snapshots"], list), "snapshots must be a list"
+    assert isinstance(data["actions"], list), "actions must be a list"
+    assert isinstance(data["llmEvents"], list), "llmEvents must be a list"
+    for i, p in enumerate(data["players"]):
+        assert "name" in p, f"Player {i} missing 'name'"
+        assert "type" in p, f"Player {i} missing 'type'"
+        assert "model" in p, f"Player {i} missing 'model'"
 
 
 def export_game(game_dir: Path, website_games_dir: Path) -> Path:

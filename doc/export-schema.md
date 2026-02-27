@@ -1,10 +1,13 @@
-# Export Schema Design
+# Export Schema
 
-Reference doc for the export schema formalization effort. See `issues/export-schema-validation.json`.
+The `.json.gz` export format is formally defined by `schemas/game-export-v2.schema.json` (JSON Schema, Draft 7). This is the single source of truth.
 
-## Current State (v2)
+TypeScript types are generated from the schema: `website/src/types/game-export.d.ts`. Regenerate with `make schema-types`.
 
-The `.json.gz` export format is defined implicitly by whatever `scripts/export_game.py` emits and whatever consumers happen to parse. There's no shared schema definition, no validation on either end, and no documentation of field semantics beyond reading the code.
+## Validation
+
+- **Exporter**: `scripts/export_game.py` runs lightweight assert checks after `build_export()`.
+- **All exports**: `puppeteer/tests/test_export_schema.py` validates every game in `website/public/games/` against the full JSON Schema. Runs as part of `make check`.
 
 ## Seq Number Semantics
 
@@ -43,7 +46,7 @@ Code that reads the export format and would need updating if the schema changes:
 
 | Consumer | Language | What it reads |
 |----------|----------|---------------|
-| `scripts/export_game.py` | Python | Raw logs → export (producer) |
+| `scripts/export_game.py` | Python | Raw logs -> export (producer) |
 | `website/src/pages/games/[...slug].astro` | Astro/JS | Full export for game replay |
 | `website/public/game-renderer.js` | JS | Snapshots, actions, llmEvents for rendering |
 | `website/src/pages/leaderboard.astro` | Astro | Player summaries, placements, costs |
@@ -54,17 +57,12 @@ Code that reads the export format and would need updating if the schema changes:
 | `scripts/analysis/extract_decisions.py` | Python | Snapshots + llmEvents for blunder analysis |
 | `scripts/analysis/blunder_analysis.py` | Python | Full export for annotation |
 
-## Migration Framework Design
+## Migration Framework
+
+Migration modules live in `schemas/migrations/`. See `schemas/migrations/README.md` for the pattern.
 
 Goals:
-- Bidirectional transforms (v2↔v3) so roundtrip tests can prove no data loss.
+- Bidirectional transforms (v2<->v3) so roundtrip tests can prove no data loss.
 - Incremental migration: land schema definition first, migrate games across multiple PRs.
 - At most two versions coexist at any time (briefly, during migration).
-- Old versions don't accumulate — once migration is complete, delete the old version's migration code.
-
-Approach (TBD during implementation):
-- Define the schema in a single source of truth (JSON Schema or Pydantic models).
-- Generate TypeScript types from the schema for website consumers.
-- Each version bump is a migration module with `up(v2_data) → v3_data` and `down(v3_data) → v2_data`.
-- CI test: for every exported game, `down(up(game)) == game` (roundtrip invariant).
-- Validation runs on both ends: exporter asserts output matches schema, consumers assert input matches schema.
+- Old versions don't accumulate -- once migration is complete, delete the old version's migration code.
