@@ -48106,5 +48106,5096 @@
       "player": "KimiK2 Sport"
     }
   ],
-  "blunderScriptVersion": 18
+  "blunderScriptVersion": 18,
+  "decisions": [
+    {
+      "index": 0,
+      "snapshotIndex": 0,
+      "player": "KimiK2 Sport",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a starting player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "KimiK2 Sport",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "Sonnet Tactic",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 3,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        3,
+        4,
+        8
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport chooses that Sonnet Tactic take the first turn"
+      ]
+    },
+    {
+      "index": 1,
+      "snapshotIndex": 1,
+      "player": "Sonnet Tactic",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 5,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        6,
+        7,
+        12
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 2,
+      "snapshotIndex": 1,
+      "player": "KimiK2 Sport",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 6,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        10,
+        11,
+        15
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic skips Draw step",
+        "Sonnet Tactic skip attack"
+      ]
+    },
+    {
+      "index": 3,
+      "snapshotIndex": 6,
+      "player": "Sonnet Tactic",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{0}",
+          "name": "Lion's Eye Diamond",
+          "index": 0,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 1,
+          "action": "land",
+          "id": "p15"
+        },
+        {
+          "name": "Underground Sea",
+          "index": 2,
+          "action": "land",
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p16"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 13,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        17,
+        18,
+        19
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts Underground Sea from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p12",
+          "p15",
+          "p16"
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "snapshotIndex": 9,
+      "player": "KimiK2 Sport",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Badlands",
+          "index": 0,
+          "action": "land",
+          "id": "p23"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "index": 1,
+          "action": "land",
+          "id": "p5"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "index": 2,
+          "action": "land",
+          "id": "p6"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p23"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 17,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        21,
+        22,
+        23
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport puts Badlands from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p23",
+          "p5",
+          "p6"
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "snapshotIndex": 11,
+      "player": "Sonnet Tactic",
+      "turn": 2,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Dark Ritual",
+          "index": 0,
+          "action": "cast",
+          "id": "p10"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 20,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        25,
+        26,
+        29
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p10",
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "snapshotIndex": 14,
+      "player": "KimiK2 Sport",
+      "turn": 2,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}",
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "cast",
+          "id": "p3"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p3"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 24,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        31,
+        32,
+        33
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport casts Aether Vial from hand",
+        "KimiK2 Sport puts Aether Vial from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p3"
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "snapshotIndex": 20,
+      "player": "Sonnet Tactic",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Dark Ritual",
+          "index": 0,
+          "action": "cast",
+          "id": "p10"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Lion's Eye Diamond",
+          "index": 2,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Personal Tutor",
+          "index": 3,
+          "action": "cast",
+          "id": "p13"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Personal Tutor",
+          "index": 4,
+          "action": "cast",
+          "id": "p14"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 5,
+          "action": "land",
+          "id": "p15"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 6,
+          "action": "land",
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 5,
+      "chosenArgs": {
+        "id": "p15"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 32,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_5"
+      },
+      "llmEventIndices": [
+        37,
+        38,
+        39
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts Polluted Delta from hand onto the Battlefield",
+        "Sonnet Tactic skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11",
+          "p12",
+          "p13",
+          "p14",
+          "p15",
+          "p25"
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "snapshotIndex": 23,
+      "player": "Sonnet Tactic",
+      "turn": 3,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Dark Ritual",
+          "index": 0,
+          "action": "cast",
+          "id": "p10"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 37,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        43,
+        44,
+        47
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p10",
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "snapshotIndex": 24,
+      "player": "KimiK2 Sport",
+      "turn": 3,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p3"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 38,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        45,
+        46,
+        53
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 10,
+      "snapshotIndex": 25,
+      "player": "Sonnet Tactic",
+      "turn": 3,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Dark Ritual",
+          "index": 0,
+          "action": "cast",
+          "id": "p10"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Lion's Eye Diamond",
+          "index": 2,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Personal Tutor",
+          "index": 3,
+          "action": "cast",
+          "id": "p13"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Personal Tutor",
+          "index": 4,
+          "action": "cast",
+          "id": "p14"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 5,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "id": "p13",
+        "mana_plan": [
+          "p16"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 39,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_3",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
+      },
+      "llmEventIndices": [
+        49,
+        50,
+        51
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic casts Personal Tutor from hand",
+        "Sonnet Tactic searches their library (source: Personal Tutor)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p10",
+          "p11",
+          "p12",
+          "p13",
+          "p14"
+        ]
+      }
+    },
+    {
+      "index": 11,
+      "snapshotIndex": 29,
+      "player": "Sonnet Tactic",
+      "turn": 3,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a sorcery card",
+      "choices": [
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 0,
+          "id": "p26"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 1,
+          "id": "p27"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 2,
+          "id": "p31"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 3,
+          "id": "p35"
+        },
+        {
+          "name": "Edge of Autumn",
+          "target_type": "card",
+          "index": 4,
+          "id": "p36"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 5,
+          "id": "p37"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 6,
+          "id": "p28"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 7,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 8,
+          "id": "p30"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 9,
+          "id": "p32"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 10,
+          "id": "p33"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 11,
+          "id": "p34"
+        },
+        {
+          "name": "Unearth",
+          "target_type": "card",
+          "index": 12,
+          "id": "p38"
+        }
+      ],
+      "choiceCount": 13,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p26"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 45,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        55,
+        56,
+        57
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic reveals Doomsday",
+        "Sonnet Tactic's library is shuffled (source: Personal Tutor)",
+        "Sonnet Tactic puts a card from library to the top of their library (source: Personal Tutor)",
+        "Sonnet Tactic puts Personal Tutor from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 12,
+      "snapshotIndex": 31,
+      "player": "KimiK2 Sport",
+      "turn": 3,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p3"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 51,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        59,
+        60,
+        61
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
+      ]
+    },
+    {
+      "index": 13,
+      "snapshotIndex": 33,
+      "player": "Sonnet Tactic",
+      "turn": 4,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 0,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 54,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        63,
+        64,
+        69
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 14,
+      "snapshotIndex": 34,
+      "player": "KimiK2 Sport",
+      "turn": 4,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 55,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        65,
+        66,
+        67
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport puts 1 charge counter on Aether Vial",
+        "KimiK2 Sport skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 15,
+      "snapshotIndex": 41,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Dark Ritual",
+          "index": 0,
+          "action": "cast",
+          "id": "p10"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Lion's Eye Diamond",
+          "index": 2,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Personal Tutor",
+          "index": 3,
+          "action": "cast",
+          "id": "p14"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 5,
+          "action": "land",
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p10",
+        "mana_plan": [
+          "p16"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 64,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
+      },
+      "llmEventIndices": [
+        71,
+        72,
+        73
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic casts Dark Ritual from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p11",
+          "p12",
+          "p14",
+          "p25"
+        ]
+      }
+    },
+    {
+      "index": 16,
+      "snapshotIndex": 44,
+      "player": "KimiK2 Sport",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        75,
+        76
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 17,
+      "snapshotIndex": 44,
+      "player": "KimiK2 Sport",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p3"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 68,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        77,
+        78,
+        83
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts Dark Ritual from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 18,
+      "snapshotIndex": 45,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}{B}{B}",
+          "name": "Doomsday",
+          "index": 0,
+          "action": "cast",
+          "id": "p27"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Lion's Eye Diamond",
+          "index": 2,
+          "action": "cast",
+          "id": "p12"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 4,
+          "action": "land",
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p12"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 70,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        79,
+        80,
+        81
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic casts Lion's Eye Diamond from hand",
+        "Sonnet Tactic puts Lion's Eye Diamond from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p27",
+          "p11",
+          "p12",
+          "p25"
+        ]
+      }
+    },
+    {
+      "index": 19,
+      "snapshotIndex": 48,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}{B}{B}",
+          "name": "Doomsday",
+          "index": 0,
+          "action": "cast",
+          "id": "p27"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Personal Tutor",
+          "index": 2,
+          "action": "cast",
+          "id": "p14"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 4,
+          "action": "land",
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p27",
+        "mana_plan": [
+          "BLACK",
+          "BLACK",
+          "BLACK"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 76,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 3
+      },
+      "llmEventIndices": [
+        85,
+        86,
+        87
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic casts Doomsday from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p27",
+          "p11",
+          "p14",
+          "p25"
+        ]
+      }
+    },
+    {
+      "index": 20,
+      "snapshotIndex": 54,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select card (selected 0 of 5, min 5)",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p72"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 1,
+          "id": "p51"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 2,
+          "id": "p52"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 3,
+          "id": "p62"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 4,
+          "id": "p63"
+        },
+        {
+          "name": "Cabal Ritual",
+          "target_type": "card",
+          "index": 5,
+          "id": "p64"
+        },
+        {
+          "name": "Cabal Ritual",
+          "target_type": "card",
+          "index": 6,
+          "id": "p65"
+        },
+        {
+          "name": "Cavern of Souls",
+          "target_type": "card",
+          "index": 7,
+          "id": "p73"
+        },
+        {
+          "name": "Consider",
+          "target_type": "card",
+          "index": 8,
+          "id": "p74"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 9,
+          "id": "p10"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 10,
+          "id": "p49"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 11,
+          "id": "p50"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 12,
+          "id": "p68"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 13,
+          "id": "p45"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 14,
+          "id": "p46"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 15,
+          "id": "p60"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 16,
+          "id": "p61"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 17,
+          "id": "p27"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 18,
+          "id": "p35"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 19,
+          "id": "p57"
+        },
+        {
+          "name": "Edge of Autumn",
+          "target_type": "card",
+          "index": 20,
+          "id": "p36"
+        },
+        {
+          "name": "Flooded Strand",
+          "target_type": "card",
+          "index": 21,
+          "id": "p53"
+        },
+        {
+          "name": "Flooded Strand",
+          "target_type": "card",
+          "index": 22,
+          "id": "p54"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 23,
+          "id": "p40"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 24,
+          "id": "p41"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 25,
+          "id": "p42"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 26,
+          "id": "p71"
+        },
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 27,
+          "id": "p75"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 28,
+          "id": "p47"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 29,
+          "id": "p48"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 30,
+          "id": "p58"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 31,
+          "id": "p59"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 32,
+          "id": "p13"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 33,
+          "id": "p37"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 34,
+          "id": "p43"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 35,
+          "id": "p44"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 36,
+          "id": "p28"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 37,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 38,
+          "id": "p30"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 39,
+          "id": "p32"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 40,
+          "id": "p76"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 41,
+          "id": "p55"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 42,
+          "id": "p56"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 43,
+          "id": "p69"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 44,
+          "id": "p70"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 45,
+          "id": "p77"
+        },
+        {
+          "name": "Thassa's Oracle",
+          "target_type": "card",
+          "index": 46,
+          "id": "p78"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 47,
+          "id": "p33"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 48,
+          "id": "p34"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 49,
+          "id": "p79"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 50,
+          "id": "p66"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 51,
+          "id": "p67"
+        },
+        {
+          "name": "Unearth",
+          "target_type": "card",
+          "index": 52,
+          "id": "p38"
+        }
+      ],
+      "choiceCount": 53,
+      "isForced": false,
+      "chosen": 36,
+      "chosenArgs": {
+        "id": "p28"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 83,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_36"
+      },
+      "llmEventIndices": [
+        89,
+        90,
+        91
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 21,
+      "snapshotIndex": 54,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select card (selected 1 of 5, min 5)",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p72"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 1,
+          "id": "p51"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 2,
+          "id": "p52"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 3,
+          "id": "p62"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 4,
+          "id": "p63"
+        },
+        {
+          "name": "Cabal Ritual",
+          "target_type": "card",
+          "index": 5,
+          "id": "p64"
+        },
+        {
+          "name": "Cabal Ritual",
+          "target_type": "card",
+          "index": 6,
+          "id": "p65"
+        },
+        {
+          "name": "Cavern of Souls",
+          "target_type": "card",
+          "index": 7,
+          "id": "p73"
+        },
+        {
+          "name": "Consider",
+          "target_type": "card",
+          "index": 8,
+          "id": "p74"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 9,
+          "id": "p10"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 10,
+          "id": "p49"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 11,
+          "id": "p50"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 12,
+          "id": "p68"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 13,
+          "id": "p45"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 14,
+          "id": "p46"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 15,
+          "id": "p60"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 16,
+          "id": "p61"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 17,
+          "id": "p27"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 18,
+          "id": "p35"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 19,
+          "id": "p57"
+        },
+        {
+          "name": "Edge of Autumn",
+          "target_type": "card",
+          "index": 20,
+          "id": "p36"
+        },
+        {
+          "name": "Flooded Strand",
+          "target_type": "card",
+          "index": 21,
+          "id": "p53"
+        },
+        {
+          "name": "Flooded Strand",
+          "target_type": "card",
+          "index": 22,
+          "id": "p54"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 23,
+          "id": "p40"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 24,
+          "id": "p41"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 25,
+          "id": "p42"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 26,
+          "id": "p71"
+        },
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 27,
+          "id": "p75"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 28,
+          "id": "p47"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 29,
+          "id": "p48"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 30,
+          "id": "p58"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 31,
+          "id": "p59"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 32,
+          "id": "p13"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 33,
+          "id": "p37"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 34,
+          "id": "p43"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 35,
+          "id": "p44"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 36,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 37,
+          "id": "p30"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 38,
+          "id": "p32"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 39,
+          "id": "p76"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 40,
+          "id": "p55"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 41,
+          "id": "p56"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 42,
+          "id": "p69"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 43,
+          "id": "p70"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 44,
+          "id": "p77"
+        },
+        {
+          "name": "Thassa's Oracle",
+          "target_type": "card",
+          "index": 45,
+          "id": "p78"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 46,
+          "id": "p33"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 47,
+          "id": "p34"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 48,
+          "id": "p79"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 49,
+          "id": "p66"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 50,
+          "id": "p67"
+        },
+        {
+          "name": "Unearth",
+          "target_type": "card",
+          "index": 51,
+          "id": "p38"
+        }
+      ],
+      "choiceCount": 52,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p51"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 84,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        93,
+        94,
+        95
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 22,
+      "snapshotIndex": 54,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select card (selected 2 of 5, min 5)",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p72"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 1,
+          "id": "p52"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 2,
+          "id": "p62"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 3,
+          "id": "p63"
+        },
+        {
+          "name": "Cabal Ritual",
+          "target_type": "card",
+          "index": 4,
+          "id": "p64"
+        },
+        {
+          "name": "Cabal Ritual",
+          "target_type": "card",
+          "index": 5,
+          "id": "p65"
+        },
+        {
+          "name": "Cavern of Souls",
+          "target_type": "card",
+          "index": 6,
+          "id": "p73"
+        },
+        {
+          "name": "Consider",
+          "target_type": "card",
+          "index": 7,
+          "id": "p74"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 8,
+          "id": "p10"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 9,
+          "id": "p49"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 10,
+          "id": "p50"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 11,
+          "id": "p68"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 12,
+          "id": "p45"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 13,
+          "id": "p46"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 14,
+          "id": "p60"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 15,
+          "id": "p61"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 16,
+          "id": "p27"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 17,
+          "id": "p35"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 18,
+          "id": "p57"
+        },
+        {
+          "name": "Edge of Autumn",
+          "target_type": "card",
+          "index": 19,
+          "id": "p36"
+        },
+        {
+          "name": "Flooded Strand",
+          "target_type": "card",
+          "index": 20,
+          "id": "p53"
+        },
+        {
+          "name": "Flooded Strand",
+          "target_type": "card",
+          "index": 21,
+          "id": "p54"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 22,
+          "id": "p40"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 23,
+          "id": "p41"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 24,
+          "id": "p42"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 25,
+          "id": "p71"
+        },
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 26,
+          "id": "p75"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 27,
+          "id": "p47"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 28,
+          "id": "p48"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 29,
+          "id": "p58"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 30,
+          "id": "p59"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 31,
+          "id": "p13"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 32,
+          "id": "p37"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 33,
+          "id": "p43"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 34,
+          "id": "p44"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 35,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 36,
+          "id": "p30"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 37,
+          "id": "p80"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 38,
+          "id": "p76"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 39,
+          "id": "p55"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 40,
+          "id": "p56"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 41,
+          "id": "p69"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 42,
+          "id": "p70"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 43,
+          "id": "p77"
+        },
+        {
+          "name": "Thassa's Oracle",
+          "target_type": "card",
+          "index": 44,
+          "id": "p78"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 45,
+          "id": "p33"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 46,
+          "id": "p34"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 47,
+          "id": "p79"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 48,
+          "id": "p66"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 49,
+          "id": "p67"
+        },
+        {
+          "name": "Unearth",
+          "target_type": "card",
+          "index": 50,
+          "id": "p38"
+        }
+      ],
+      "choiceCount": 51,
+      "isForced": false,
+      "chosen": 27,
+      "chosenArgs": {
+        "id": "p47"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 85,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_27"
+      },
+      "llmEventIndices": [
+        97,
+        98,
+        99
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 23,
+      "snapshotIndex": 54,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select card (selected 3 of 5, min 5)",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p72"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 1,
+          "id": "p52"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 2,
+          "id": "p62"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 3,
+          "id": "p63"
+        },
+        {
+          "name": "Cabal Ritual",
+          "target_type": "card",
+          "index": 4,
+          "id": "p64"
+        },
+        {
+          "name": "Cabal Ritual",
+          "target_type": "card",
+          "index": 5,
+          "id": "p65"
+        },
+        {
+          "name": "Cavern of Souls",
+          "target_type": "card",
+          "index": 6,
+          "id": "p73"
+        },
+        {
+          "name": "Consider",
+          "target_type": "card",
+          "index": 7,
+          "id": "p74"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 8,
+          "id": "p10"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 9,
+          "id": "p49"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 10,
+          "id": "p50"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 11,
+          "id": "p68"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 12,
+          "id": "p45"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 13,
+          "id": "p46"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 14,
+          "id": "p60"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 15,
+          "id": "p61"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 16,
+          "id": "p27"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 17,
+          "id": "p35"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 18,
+          "id": "p57"
+        },
+        {
+          "name": "Edge of Autumn",
+          "target_type": "card",
+          "index": 19,
+          "id": "p36"
+        },
+        {
+          "name": "Flooded Strand",
+          "target_type": "card",
+          "index": 20,
+          "id": "p53"
+        },
+        {
+          "name": "Flooded Strand",
+          "target_type": "card",
+          "index": 21,
+          "id": "p54"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 22,
+          "id": "p40"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 23,
+          "id": "p41"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 24,
+          "id": "p42"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 25,
+          "id": "p71"
+        },
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 26,
+          "id": "p75"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 27,
+          "id": "p48"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 28,
+          "id": "p58"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 29,
+          "id": "p59"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 30,
+          "id": "p13"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 31,
+          "id": "p37"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 32,
+          "id": "p43"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 33,
+          "id": "p44"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 34,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 35,
+          "id": "p30"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 36,
+          "id": "p80"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 37,
+          "id": "p76"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 38,
+          "id": "p55"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 39,
+          "id": "p56"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 40,
+          "id": "p69"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 41,
+          "id": "p70"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 42,
+          "id": "p77"
+        },
+        {
+          "name": "Thassa's Oracle",
+          "target_type": "card",
+          "index": 43,
+          "id": "p78"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 44,
+          "id": "p33"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 45,
+          "id": "p34"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 46,
+          "id": "p79"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 47,
+          "id": "p66"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 48,
+          "id": "p67"
+        },
+        {
+          "name": "Unearth",
+          "target_type": "card",
+          "index": 49,
+          "id": "p38"
+        }
+      ],
+      "choiceCount": 50,
+      "isForced": false,
+      "chosen": 43,
+      "chosenArgs": {
+        "id": "p78"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 86,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_43"
+      },
+      "llmEventIndices": [
+        101,
+        102,
+        103
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 24,
+      "snapshotIndex": 54,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select card (selected 4 of 5, min 5)",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p72"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 1,
+          "id": "p52"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 2,
+          "id": "p62"
+        },
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 3,
+          "id": "p63"
+        },
+        {
+          "name": "Cabal Ritual",
+          "target_type": "card",
+          "index": 4,
+          "id": "p64"
+        },
+        {
+          "name": "Cabal Ritual",
+          "target_type": "card",
+          "index": 5,
+          "id": "p65"
+        },
+        {
+          "name": "Cavern of Souls",
+          "target_type": "card",
+          "index": 6,
+          "id": "p73"
+        },
+        {
+          "name": "Consider",
+          "target_type": "card",
+          "index": 7,
+          "id": "p74"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 8,
+          "id": "p10"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 9,
+          "id": "p49"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 10,
+          "id": "p50"
+        },
+        {
+          "name": "Dark Ritual",
+          "target_type": "card",
+          "index": 11,
+          "id": "p68"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 12,
+          "id": "p45"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 13,
+          "id": "p46"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 14,
+          "id": "p60"
+        },
+        {
+          "name": "Daze",
+          "target_type": "card",
+          "index": 15,
+          "id": "p61"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 16,
+          "id": "p27"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 17,
+          "id": "p35"
+        },
+        {
+          "name": "Doomsday",
+          "target_type": "card",
+          "index": 18,
+          "id": "p57"
+        },
+        {
+          "name": "Edge of Autumn",
+          "target_type": "card",
+          "index": 19,
+          "id": "p36"
+        },
+        {
+          "name": "Flooded Strand",
+          "target_type": "card",
+          "index": 20,
+          "id": "p53"
+        },
+        {
+          "name": "Flooded Strand",
+          "target_type": "card",
+          "index": 21,
+          "id": "p54"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 22,
+          "id": "p40"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 23,
+          "id": "p41"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 24,
+          "id": "p42"
+        },
+        {
+          "name": "Force of Will",
+          "target_type": "card",
+          "index": 25,
+          "id": "p71"
+        },
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 26,
+          "id": "p75"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 27,
+          "id": "p48"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 28,
+          "id": "p58"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 29,
+          "id": "p59"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 30,
+          "id": "p13"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 31,
+          "id": "p37"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 32,
+          "id": "p43"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 33,
+          "id": "p44"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 34,
+          "id": "p29"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 35,
+          "id": "p30"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 36,
+          "id": "p80"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 37,
+          "id": "p76"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 38,
+          "id": "p55"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 39,
+          "id": "p56"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 40,
+          "id": "p69"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 41,
+          "id": "p70"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 42,
+          "id": "p77"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 43,
+          "id": "p33"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 44,
+          "id": "p34"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 45,
+          "id": "p79"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 46,
+          "id": "p66"
+        },
+        {
+          "name": "Underground Sea",
+          "target_type": "card",
+          "index": 47,
+          "id": "p67"
+        },
+        {
+          "name": "Unearth",
+          "target_type": "card",
+          "index": 48,
+          "id": "p38"
+        }
+      ],
+      "choiceCount": 49,
+      "isForced": false,
+      "chosen": 40,
+      "chosenArgs": {
+        "id": "p69"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 87,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_40"
+      },
+      "llmEventIndices": [
+        105,
+        106,
+        107
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic moves Force of Will from library to the exile zone (source: Doomsday)",
+        "Sonnet Tactic moves Quantum Riddler from library to the exile zone (source: Doomsday)",
+        "Sonnet Tactic moves Doomsday from library to the exile zone (source: Doomsday)",
+        "Sonnet Tactic moves Doomsday from library to the exile zone (source: Doomsday)",
+        "Sonnet Tactic moves Ponder from library to the exile zone (source: Doomsday)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 25,
+      "snapshotIndex": 55,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
+      "choices": [
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 0,
+          "id": "p51"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 1,
+          "id": "p47"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 2,
+          "id": "p28"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 3,
+          "id": "p69"
+        },
+        {
+          "name": "Thassa's Oracle",
+          "target_type": "card",
+          "index": 4,
+          "id": "p78"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "id": "p69"
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 136,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p69 not found in current choices",
+        "choices": [
+          {
+            "name": "Brainstorm",
+            "target_type": "card",
+            "index": 0,
+            "id": "p51"
+          },
+          {
+            "name": "Lotus Petal",
+            "target_type": "card",
+            "index": 1,
+            "id": "p47"
+          },
+          {
+            "name": "Ponder",
+            "target_type": "card",
+            "index": 2,
+            "id": "p28"
+          },
+          {
+            "name": "Street Wraith",
+            "target_type": "card",
+            "index": 3,
+            "id": "p69"
+          },
+          {
+            "name": "Thassa's Oracle",
+            "target_type": "card",
+            "index": 4,
+            "id": "p78"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        110,
+        111,
+        112
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts a card from library to the top of their library (source: Doomsday)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 26,
+      "snapshotIndex": 55,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
+      "choices": [
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 0,
+          "id": "p51"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 1,
+          "id": "p47"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 2,
+          "id": "p28"
+        },
+        {
+          "name": "Thassa's Oracle",
+          "target_type": "card",
+          "index": 3,
+          "id": "p78"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "index": 3
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 138,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_3"
+      },
+      "llmEventIndices": [
+        116,
+        117,
+        118
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts a card from library to the top of their library (source: Doomsday)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 27,
+      "snapshotIndex": 55,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
+      "choices": [
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 0,
+          "id": "p51"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 1,
+          "id": "p47"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 2,
+          "id": "p28"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 140,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        120,
+        121,
+        122
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts a card from library to the top of their library (source: Doomsday)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 28,
+      "snapshotIndex": 55,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
+      "choices": [
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 0,
+          "id": "p51"
+        },
+        {
+          "name": "Ponder",
+          "target_type": "card",
+          "index": 1,
+          "id": "p28"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 142,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        124,
+        125,
+        126
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts a card from library to the top of their library (source: Doomsday)",
+        "Sonnet Tactic puts a card from library to the top of their library (source: Doomsday)",
+        "Sonnet Tactic loses 10 life from Doomsday",
+        "Sonnet Tactic puts Doomsday from stack into their graveyard",
+        "Sonnet Tactic skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 29,
+      "snapshotIndex": 58,
+      "player": "Sonnet Tactic",
+      "turn": 5,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 0,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 150,
+        "success": true,
+        "action_taken": "auto_passed_loop_detected",
+        "warning": "Too many interactions this turn (26). Auto-passing until next turn."
+      },
+      "llmEventIndices": [
+        128,
+        129,
+        130
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 30,
+      "snapshotIndex": 62,
+      "player": "KimiK2 Sport",
+      "turn": 6,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p3"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 155,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        132,
+        133,
+        134
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 31,
+      "snapshotIndex": 64,
+      "player": "KimiK2 Sport",
+      "turn": 6,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 157,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        136,
+        137,
+        139,
+        140
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport puts 1 charge counter on Aether Vial",
+        "KimiK2 Sport skip attack",
+        "KimiK2 Sport discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 32,
+      "snapshotIndex": 71,
+      "player": "KimiK2 Sport",
+      "turn": 6,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Battle Cry Goblin",
+          "target_type": "card",
+          "index": 0,
+          "id": "p4"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 1,
+          "id": "p5"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 2,
+          "id": "p6"
+        },
+        {
+          "name": "Broadside Bombardiers",
+          "target_type": "card",
+          "index": 3,
+          "id": "p7"
+        },
+        {
+          "name": "Broadside Bombardiers",
+          "target_type": "card",
+          "index": 4,
+          "id": "p8"
+        },
+        {
+          "name": "Goblin Matron",
+          "target_type": "card",
+          "index": 5,
+          "id": "p29"
+        },
+        {
+          "name": "Goblin Ringleader",
+          "target_type": "card",
+          "index": 6,
+          "id": "p9"
+        },
+        {
+          "name": "Muxus, Goblin Grandee",
+          "target_type": "card",
+          "index": 7,
+          "id": "p85"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "index": 3
+      },
+      "actionResult": {
+        "game_seq": 167,
+        "success": true,
+        "action_taken": "selected_target_3"
+      },
+      "llmEventIndices": [
+        142,
+        143,
+        147
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport discards Broadside Bombardiers"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 33,
+      "snapshotIndex": 72,
+      "player": "Sonnet Tactic",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 0,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Personal Tutor",
+          "index": 1,
+          "action": "cast",
+          "id": "p14"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 3,
+          "action": "land",
+          "id": "p25"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Ponder",
+          "index": 4,
+          "action": "cast",
+          "id": "p33"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 4,
+      "chosenArgs": {
+        "id": "p33",
+        "mana_plan": [
+          "p16"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 169,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
+      },
+      "llmEventIndices": [
+        144,
+        145,
+        146
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic casts Ponder from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p14",
+          "p25",
+          "p33"
+        ]
+      }
+    },
+    {
+      "index": 34,
+      "snapshotIndex": 76,
+      "player": "Sonnet Tactic",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
+      "choices": [
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 0,
+          "id": "p51"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 1,
+          "id": "p47"
+        },
+        {
+          "name": "Thassa's Oracle",
+          "target_type": "card",
+          "index": 2,
+          "id": "p78"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "index": 2
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 174,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2"
+      },
+      "llmEventIndices": [
+        150,
+        151,
+        152
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts a card from library to the top of their library (source: Ponder)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 35,
+      "snapshotIndex": 76,
+      "player": "Sonnet Tactic",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card ORDER to put on the TOP of your library (last one chosen will be topmost)",
+      "choices": [
+        {
+          "name": "Brainstorm",
+          "target_type": "card",
+          "index": 0,
+          "id": "p51"
+        },
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 1,
+          "id": "p47"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 176,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        154,
+        155,
+        156
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts a card from library to the top of their library (source: Ponder)",
+        "Sonnet Tactic puts a card from library to the top of their library (source: Ponder)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 36,
+      "snapshotIndex": 76,
+      "player": "Sonnet Tactic",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Shuffle your library?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 179,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        158,
+        159,
+        160
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts Ponder from stack into their graveyard",
+        "Sonnet Tactic skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 37,
+      "snapshotIndex": 79,
+      "player": "Sonnet Tactic",
+      "turn": 7,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{U}",
+          "name": "Brainstorm",
+          "index": 0,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p15"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 184,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        162,
+        163,
+        164
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p34",
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 38,
+      "snapshotIndex": 81,
+      "player": "Sonnet Tactic",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{U}",
+          "name": "Brainstorm",
+          "index": 0,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Personal Tutor",
+          "index": 2,
+          "action": "cast",
+          "id": "p14"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p15"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 4,
+          "action": "land",
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "id": "p15"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 186,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_3"
+      },
+      "llmEventIndices": [
+        166,
+        167,
+        168
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic loses 1 life from Polluted Delta",
+        "Sonnet Tactic sacrificed Polluted Delta (source: Polluted Delta)",
+        "Sonnet Tactic activates: search your library for an Island or Swamp card, put it onto the battlefield, then shuffle. from Polluted Delta",
+        "Sonnet Tactic searches their library (source: Polluted Delta)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p34",
+          "p11",
+          "p14",
+          "p25"
+        ]
+      }
+    },
+    {
+      "index": 39,
+      "snapshotIndex": 84,
+      "player": "Sonnet Tactic",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one Island or Swamp card",
+      "choices": [
+        {
+          "name": "Lotus Petal",
+          "target_type": "card",
+          "index": 0,
+          "id": "p47"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 1,
+          "id": "p69"
+        },
+        {
+          "name": "Thassa's Oracle",
+          "target_type": "card",
+          "index": 2,
+          "id": "p78"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 194,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "cancelled"
+      },
+      "llmEventIndices": [
+        170,
+        171,
+        172
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic's library is shuffled (source: Polluted Delta)",
+        "KimiK2 Sport - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p34",
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 40,
+      "snapshotIndex": 87,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p3"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 199,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        175,
+        176,
+        179
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 41,
+      "snapshotIndex": 88,
+      "player": "Sonnet Tactic",
+      "turn": 8,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{U}",
+          "name": "Brainstorm",
+          "index": 0,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 200,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        177,
+        178,
+        188
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p34",
+          "p11"
+        ]
+      }
+    },
+    {
+      "index": 42,
+      "snapshotIndex": 89,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "At the beginning of your upkeep, you may put a charge counter on Aether Vial.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 201,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        181,
+        182,
+        183
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport puts 1 charge counter on Aether Vial"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 43,
+      "snapshotIndex": 90,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Aether Vial",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}: You may put a creature card with mana value ..."
+          ],
+          "id": "p3"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "index": 1,
+          "action": "land",
+          "id": "p5"
+        },
+        {
+          "name": "Bloodstained Mire",
+          "index": 2,
+          "action": "land",
+          "id": "p6"
+        },
+        {
+          "name": "Cavern of Souls",
+          "index": 3,
+          "action": "land",
+          "id": "p90"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "id": "p9"
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 203,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p9 not found in current choices",
+        "choices": [
+          {
+            "name": "Aether Vial",
+            "index": 0,
+            "action": "activate",
+            "playable_abilities": [
+              "{T}: You may put a creature card with mana value ..."
+            ],
+            "id": "p3"
+          },
+          {
+            "name": "Bloodstained Mire",
+            "index": 1,
+            "action": "land",
+            "id": "p5"
+          },
+          {
+            "name": "Bloodstained Mire",
+            "index": 2,
+            "action": "land",
+            "id": "p6"
+          },
+          {
+            "name": "Cavern of Souls",
+            "index": 3,
+            "action": "land",
+            "id": "p90"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        185,
+        186,
+        187
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p5",
+          "p6",
+          "p90"
+        ]
+      }
+    },
+    {
+      "index": 44,
+      "snapshotIndex": 90,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Aether Vial",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}: You may put a creature card with mana value equal to the number of charge counters on Aether Vial from your hand onto the battlefield."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 204,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        192,
+        194,
+        195
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport activates: You may put a creature card with mana value equal to the number of charge counters on Aether Vial from your hand onto the battlefield. from Aether Vial"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 45,
+      "snapshotIndex": 91,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 206,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        197,
+        198,
+        199
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 46,
+      "snapshotIndex": 93,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Put a creature card with mana value equal to 3 from your hand onto the battlefield?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 208,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        201,
+        202,
+        203
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 47,
+      "snapshotIndex": 93,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a creature card with mana value equal to 3",
+      "choices": [
+        {
+          "name": "Broadside Bombardiers",
+          "target_type": "card",
+          "index": 0,
+          "id": "p8"
+        },
+        {
+          "name": "Goblin Matron",
+          "target_type": "card",
+          "index": 1,
+          "id": "p29"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1,
+        "id": "p29"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 209,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1",
+        "warning": "Both id and index provided; used id=p29, ignored index=1"
+      },
+      "llmEventIndices": [
+        205,
+        206,
+        207
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport puts Goblin Matron from hand onto the Battlefield (source: Aether Vial)",
+        "KimiK2 Sport - Ability triggers: Goblin Matron - When Goblin Matron enters, you may search your library for a Goblin card, reveal that card, put it into your hand, then shuffle."
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 48,
+      "snapshotIndex": 94,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        209,
+        210
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 49,
+      "snapshotIndex": 96,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "When Goblin Matron enters, you may search your library for a Goblin card, reveal that card, put it into your hand, then shuffle.",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 214,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        211,
+        212,
+        213
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport searches their library (source: Goblin Matron)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 50,
+      "snapshotIndex": 96,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a Goblin card",
+      "choices": [
+        {
+          "name": "Battle Cry Goblin",
+          "target_type": "card",
+          "index": 0,
+          "id": "p113"
+        },
+        {
+          "name": "Broadside Bombardiers",
+          "target_type": "card",
+          "index": 1,
+          "id": "p96"
+        },
+        {
+          "name": "Broadside Bombardiers",
+          "target_type": "card",
+          "index": 2,
+          "id": "p97"
+        },
+        {
+          "name": "Gempalm Incinerator",
+          "target_type": "card",
+          "index": 3,
+          "id": "p114"
+        },
+        {
+          "name": "Goblin Lackey",
+          "target_type": "card",
+          "index": 4,
+          "id": "p94"
+        },
+        {
+          "name": "Goblin Lackey",
+          "target_type": "card",
+          "index": 5,
+          "id": "p95"
+        },
+        {
+          "name": "Goblin Lackey",
+          "target_type": "card",
+          "index": 6,
+          "id": "p111"
+        },
+        {
+          "name": "Goblin Lackey",
+          "target_type": "card",
+          "index": 7,
+          "id": "p112"
+        },
+        {
+          "name": "Goblin Matron",
+          "target_type": "card",
+          "index": 8,
+          "id": "p100"
+        },
+        {
+          "name": "Goblin Matron",
+          "target_type": "card",
+          "index": 9,
+          "id": "p101"
+        },
+        {
+          "name": "Goblin Matron",
+          "target_type": "card",
+          "index": 10,
+          "id": "p102"
+        },
+        {
+          "name": "Goblin Warchief",
+          "target_type": "card",
+          "index": 11,
+          "id": "p115"
+        },
+        {
+          "name": "Masked Vandal",
+          "target_type": "card",
+          "index": 12,
+          "id": "p116"
+        },
+        {
+          "name": "Mogg War Marshal",
+          "target_type": "card",
+          "index": 13,
+          "id": "p108"
+        },
+        {
+          "name": "Mogg War Marshal",
+          "target_type": "card",
+          "index": 14,
+          "id": "p109"
+        },
+        {
+          "name": "Munitions Expert",
+          "target_type": "card",
+          "index": 15,
+          "id": "p103"
+        },
+        {
+          "name": "Munitions Expert",
+          "target_type": "card",
+          "index": 16,
+          "id": "p104"
+        },
+        {
+          "name": "Munitions Expert",
+          "target_type": "card",
+          "index": 17,
+          "id": "p107"
+        },
+        {
+          "name": "Munitions Expert",
+          "target_type": "card",
+          "index": 18,
+          "id": "p110"
+        },
+        {
+          "name": "Muxus, Goblin Grandee",
+          "target_type": "card",
+          "index": 19,
+          "id": "p117"
+        },
+        {
+          "name": "Pashalik Mons",
+          "target_type": "card",
+          "index": 20,
+          "id": "p118"
+        },
+        {
+          "name": "Skirk Prospector",
+          "target_type": "card",
+          "index": 21,
+          "id": "p105"
+        },
+        {
+          "name": "Skirk Prospector",
+          "target_type": "card",
+          "index": 22,
+          "id": "p106"
+        },
+        {
+          "name": "Sling-Gang Lieutenant",
+          "target_type": "card",
+          "index": 23,
+          "id": "p98"
+        },
+        {
+          "name": "Sling-Gang Lieutenant",
+          "target_type": "card",
+          "index": 24,
+          "id": "p99"
+        },
+        {
+          "name": "Stingscourger",
+          "target_type": "card",
+          "index": 25,
+          "id": "p119"
+        }
+      ],
+      "choiceCount": 26,
+      "isForced": false,
+      "chosen": 19,
+      "chosenArgs": {
+        "index": 19
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 216,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_19"
+      },
+      "llmEventIndices": [
+        215,
+        216,
+        217
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport puts a card from library into their hand",
+        "KimiK2 Sport reveals Muxus, Goblin Grandee",
+        "KimiK2 Sport's library is shuffled (source: Goblin Matron)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 51,
+      "snapshotIndex": 97,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "Choose a creature type",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Warrior"
+        },
+        {
+          "index": 1,
+          "description": "Shapeshifter"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "text": ": "
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 221,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "': ' is not a valid choice"
+      },
+      "llmEventIndices": [
+        221,
+        222,
+        223
+      ],
+      "subsequentActions": [
+        "Cavern of Souls: KimiK2 Sport has chosen Scorpion",
+        "KimiK2 Sport puts Cavern of Souls from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p5",
+          "p6",
+          "p90"
+        ]
+      }
+    },
+    {
+      "index": 52,
+      "snapshotIndex": 98,
+      "player": "KimiK2 Sport",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{R}",
+          "name": "Battle Cry Goblin",
+          "index": 0,
+          "action": "cast",
+          "id": "p4",
+          "power": "2",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "game_seq": 224,
+        "success": true,
+        "action_taken": "auto_passed_loop_detected",
+        "warning": "Too many interactions this turn (27). Auto-passing until next turn."
+      },
+      "llmEventIndices": [
+        247,
+        248,
+        249
+      ],
+      "subsequentActions": [
+        "KimiK2 Sport skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p4"
+        ]
+      }
+    },
+    {
+      "index": 53,
+      "snapshotIndex": 104,
+      "player": "Sonnet Tactic",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{U}",
+          "name": "Brainstorm",
+          "index": 0,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{0}",
+          "name": "Lotus Petal",
+          "index": 2,
+          "action": "cast",
+          "id": "p35"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Personal Tutor",
+          "index": 3,
+          "action": "cast",
+          "id": "p14"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 4,
+          "action": "land",
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p35"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 231,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        251,
+        252,
+        253
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p34",
+          "p11",
+          "p35",
+          "p14",
+          "p25"
+        ]
+      }
+    },
+    {
+      "index": 54,
+      "snapshotIndex": 104,
+      "player": "Sonnet Tactic",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Lotus Petal",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. Cast Lotus Petal"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 232,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        255,
+        256,
+        257
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic casts Lotus Petal from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 55,
+      "snapshotIndex": 106,
+      "player": "KimiK2 Sport",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        259,
+        260
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 56,
+      "snapshotIndex": 106,
+      "player": "KimiK2 Sport",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 235,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        261,
+        262,
+        267
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts Lotus Petal from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 57,
+      "snapshotIndex": 107,
+      "player": "Sonnet Tactic",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{U}",
+          "name": "Brainstorm",
+          "index": 0,
+          "action": "cast",
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{G}",
+          "name": "Edge of Autumn",
+          "index": 1,
+          "action": "cast",
+          "id": "p11"
+        },
+        {
+          "mana_cost": "{U}",
+          "name": "Personal Tutor",
+          "index": 2,
+          "action": "cast",
+          "id": "p14"
+        },
+        {
+          "name": "Polluted Delta",
+          "index": 3,
+          "action": "land",
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p34",
+        "mana_plan": [
+          "p16"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 237,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
+      },
+      "llmEventIndices": [
+        263,
+        264,
+        265
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic casts Brainstorm from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p34",
+          "p11",
+          "p14",
+          "p25"
+        ]
+      }
+    },
+    {
+      "index": 58,
+      "snapshotIndex": 110,
+      "player": "KimiK2 Sport",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "game_seq": 241,
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        269,
+        270,
+        276
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 59,
+      "snapshotIndex": 111,
+      "player": "Sonnet Tactic",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card",
+      "choices": [
+        {
+          "name": "Edge of Autumn",
+          "target_type": "card",
+          "index": 0,
+          "id": "p11"
+        },
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 1,
+          "id": "p14"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 2,
+          "id": "p25"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 3,
+          "id": "p37"
+        },
+        {
+          "name": "Thassa's Oracle",
+          "target_type": "card",
+          "index": 4,
+          "id": "p36"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 242,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        271,
+        272,
+        273
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts a card from hand to the top of their library (source: Brainstorm)"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p11",
+          "p37"
+        ]
+      }
+    },
+    {
+      "index": 60,
+      "snapshotIndex": 112,
+      "player": "Sonnet Tactic",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card",
+      "choices": [
+        {
+          "name": "Personal Tutor",
+          "target_type": "card",
+          "index": 0,
+          "id": "p14"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 1,
+          "id": "p25"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 2,
+          "id": "p37"
+        },
+        {
+          "name": "Thassa's Oracle",
+          "target_type": "card",
+          "index": 3,
+          "id": "p36"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "game_seq": 244,
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        275,
+        277,
+        278
+      ],
+      "subsequentActions": [
+        "Sonnet Tactic puts a card from hand to the top of their library (source: Brainstorm)",
+        "Sonnet Tactic puts Brainstorm from stack into their graveyard",
+        "Sonnet Tactic has lost the game."
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p37"
+        ]
+      }
+    }
+  ]
 }

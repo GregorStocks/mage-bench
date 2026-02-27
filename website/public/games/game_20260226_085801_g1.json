@@ -78465,5 +78465,5308 @@
       "player": "MiMo Minimal"
     }
   ],
-  "blunderScriptVersion": 19
+  "blunderScriptVersion": 19,
+  "decisions": [
+    {
+      "index": 0,
+      "snapshotIndex": 0,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a starting player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "MiMo Minimal",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "GPT52 Memoir",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p1"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 3,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        3,
+        4,
+        5
+      ],
+      "subsequentActions": [
+        "MiMo Minimal chooses that they take the first turn",
+        "MiMo Minimal's library is shuffled"
+      ]
+    },
+    {
+      "index": 1,
+      "snapshotIndex": 2,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card (1 more) to put on the bottom of your library",
+      "choices": [
+        {
+          "name": "Archon of Cruelty",
+          "target_type": "card",
+          "index": 0,
+          "id": "p17"
+        },
+        {
+          "name": "Emperor of Bones",
+          "target_type": "card",
+          "index": 1,
+          "id": "p18"
+        },
+        {
+          "name": "Faithless Looting",
+          "target_type": "card",
+          "index": 2,
+          "id": "p19"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 3,
+          "id": "p20"
+        },
+        {
+          "name": "Psychic Frog",
+          "target_type": "card",
+          "index": 4,
+          "id": "p21"
+        },
+        {
+          "name": "Raucous Theater",
+          "target_type": "card",
+          "index": 5,
+          "id": "p22"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 6,
+          "id": "p23"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p17"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 8,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        10,
+        11,
+        12
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts a card from hand to the bottom of their library"
+      ]
+    },
+    {
+      "index": 2,
+      "snapshotIndex": 3,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 5 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 10,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        14,
+        15,
+        16
+      ],
+      "subsequentActions": [
+        "MiMo Minimal skips Draw step",
+        "MiMo Minimal skip attack"
+      ]
+    },
+    {
+      "index": 3,
+      "snapshotIndex": 8,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Polluted Delta",
+          "index": 0,
+          "action": "land",
+          "id": "p20"
+        },
+        {
+          "name": "Raucous Theater",
+          "index": 1,
+          "action": "land",
+          "id": "p22"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 2,
+          "action": "land",
+          "id": "p23"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p20"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 17,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        18,
+        19,
+        20
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Polluted Delta from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p20",
+          "p22",
+          "p23"
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "snapshotIndex": 9,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Polluted Delta",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p20"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p20"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 19,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        22,
+        23,
+        24
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 5,
+      "snapshotIndex": 9,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Polluted Delta",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}, Pay 1 life, Sacrifice Polluted Delta: Search your library for an Island or Swamp card, put it onto the battlefield, then shuffle."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 20,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        26,
+        27,
+        28
+      ],
+      "subsequentActions": [
+        "MiMo Minimal loses 1 life from Polluted Delta",
+        "MiMo Minimal sacrificed Polluted Delta (source: Polluted Delta)",
+        "MiMo Minimal activates: search your library for an Island or Swamp card, put it onto the battlefield, then shuffle. from Polluted Delta"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 6,
+      "snapshotIndex": 10,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 24,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        30,
+        31,
+        32
+      ],
+      "subsequentActions": [
+        "MiMo Minimal searches their library (source: Polluted Delta)"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 7,
+      "snapshotIndex": 12,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select an Island or Swamp card",
+      "choices": [
+        {
+          "name": "Blood Crypt",
+          "target_type": "card",
+          "index": 0,
+          "id": "p28"
+        },
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 1,
+          "id": "p29"
+        },
+        {
+          "name": "Steam Vents",
+          "target_type": "card",
+          "index": 2,
+          "id": "p30"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 3,
+          "id": "p31"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 4,
+          "id": "p26"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 5,
+          "id": "p27"
+        },
+        {
+          "name": "Watery Grave",
+          "target_type": "card",
+          "index": 6,
+          "id": "p24"
+        },
+        {
+          "name": "Watery Grave",
+          "target_type": "card",
+          "index": 7,
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 6,
+      "chosenArgs": {
+        "id": "p24"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 27,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_6"
+      },
+      "llmEventIndices": [
+        34,
+        35,
+        37,
+        39,
+        40
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 8,
+      "snapshotIndex": 12,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "pay 2 life? (otherwise Watery Grave becomes tapped)",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 9,
+      "snapshotIndex": 12,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "pay 2 life? (otherwise Watery Grave becomes tapped)",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 28,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        48,
+        49,
+        50
+      ],
+      "subsequentActions": [
+        "MiMo Minimal loses 2 life from Watery Grave",
+        "MiMo Minimal puts Watery Grave from library onto the Battlefield (source: Polluted Delta)",
+        "MiMo Minimal's library is shuffled (source: Polluted Delta)",
+        "GPT52 Memoir skip attack",
+        "GPT52 Memoir discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 10,
+      "snapshotIndex": 21,
+      "player": "GPT52 Memoir",
+      "turn": 2,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 1,
+          "id": "p4"
+        },
+        {
+          "name": "Flare of Denial",
+          "target_type": "card",
+          "index": 2,
+          "id": "p5"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 3,
+          "id": "p6"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Snapback",
+          "target_type": "card",
+          "index": 5,
+          "id": "p8"
+        },
+        {
+          "name": "Tameshi, Reality Architect",
+          "target_type": "card",
+          "index": 6,
+          "id": "p33"
+        },
+        {
+          "name": "Thundertrap Trainer",
+          "target_type": "card",
+          "index": 7,
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p7",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 42,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_4",
+        "warning": "Both id and index provided; used id=p7, ignored index=0"
+      },
+      "llmEventIndices": [
+        52,
+        53,
+        60
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir discards Goblin Charbelcher"
+      ]
+    },
+    {
+      "index": 11,
+      "snapshotIndex": 22,
+      "player": "MiMo Minimal",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Raucous Theater",
+          "index": 0,
+          "action": "land",
+          "id": "p22"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 1,
+          "action": "land",
+          "id": "p23"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p22"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 44,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        54,
+        55,
+        56
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Raucous Theater from hand onto the Battlefield",
+        "MiMo Minimal - Ability triggers: Raucous Theater - When Raucous Theater enters, surveil 1."
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p22",
+          "p23"
+        ]
+      }
+    },
+    {
+      "index": 12,
+      "snapshotIndex": 23,
+      "player": "MiMo Minimal",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 47,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        58,
+        59,
+        62
+      ],
+      "subsequentActions": [
+        "MiMo Minimal surveils 1 (source: Raucous Theater)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 13,
+      "snapshotIndex": 25,
+      "player": "MiMo Minimal",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card to PUT into your GRAVEYARD (Surveil)",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p36"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 50,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "cancelled"
+      },
+      "llmEventIndices": [
+        72,
+        73,
+        74,
+        75,
+        76,
+        77
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts a card from library to the top of their library (source: Raucous Theater)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 14,
+      "snapshotIndex": 27,
+      "player": "GPT52 Memoir",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 53,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        79,
+        80,
+        82,
+        83
+      ],
+      "subsequentActions": [
+        "MiMo Minimal skip attack"
+      ]
+    },
+    {
+      "index": 15,
+      "snapshotIndex": 32,
+      "player": "GPT52 Memoir",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Lotus Bloom",
+          "index": 0,
+          "action": "cast",
+          "id": "p36"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p36",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 59,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p36, ignored index=0"
+      },
+      "llmEventIndices": [
+        85,
+        86,
+        87
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p36"
+        ]
+      }
+    },
+    {
+      "index": 16,
+      "snapshotIndex": 32,
+      "player": "GPT52 Memoir",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Lotus Bloom",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. Suspend 3&mdash;{0} (Rather than cast this card from your hand, you may pay {0} and exile it with three time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 60,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        89,
+        90,
+        91
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir activates: Suspend 3. from Lotus Bloom",
+        "GPT52 Memoir moves Lotus Bloom from hand to the exile zone",
+        "GPT52 Memoir suspends (3) Lotus Bloom",
+        "GPT52 Memoir skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 17,
+      "snapshotIndex": 39,
+      "player": "MiMo Minimal",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "land",
+          "id": "p38"
+        },
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Emperor of Bones",
+          "index": 1,
+          "action": "cast",
+          "id": "p18",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Emperor of Bones",
+          "index": 2,
+          "action": "cast",
+          "id": "p34",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Faithless Looting",
+          "index": 3,
+          "action": "cast",
+          "id": "p19"
+        },
+        {
+          "mana_cost": "{U}{B}",
+          "name": "Psychic Frog",
+          "index": 4,
+          "action": "cast",
+          "id": "p21",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 5,
+          "action": "land",
+          "id": "p23"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p38"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 71,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        93,
+        94,
+        95
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Bloodstained Mire from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p38",
+          "p18",
+          "p34",
+          "p19",
+          "p21",
+          "p23"
+        ]
+      }
+    },
+    {
+      "index": 18,
+      "snapshotIndex": 40,
+      "player": "MiMo Minimal",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Bloodstained Mire",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}, Pay 1 life, Sacrifice Bloodstained Mire: Search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 74,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        99,
+        100,
+        101
+      ],
+      "subsequentActions": [
+        "MiMo Minimal loses 1 life from Bloodstained Mire",
+        "MiMo Minimal sacrificed Bloodstained Mire (source: Bloodstained Mire)",
+        "MiMo Minimal activates: search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle. from Bloodstained Mire",
+        "MiMo Minimal searches their library (source: Bloodstained Mire)"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p18",
+          "p34",
+          "p19",
+          "p21"
+        ]
+      }
+    },
+    {
+      "index": 19,
+      "snapshotIndex": 43,
+      "player": "MiMo Minimal",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a Swamp or Mountain card",
+      "choices": [
+        {
+          "name": "Blood Crypt",
+          "target_type": "card",
+          "index": 0,
+          "id": "p28"
+        },
+        {
+          "name": "Steam Vents",
+          "target_type": "card",
+          "index": 1,
+          "id": "p30"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 2,
+          "id": "p39"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 3,
+          "id": "p26"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 4,
+          "id": "p27"
+        },
+        {
+          "name": "Watery Grave",
+          "target_type": "card",
+          "index": 5,
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p39"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 81,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2"
+      },
+      "llmEventIndices": [
+        103,
+        104,
+        105
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Swamp from library onto the Battlefield (source: Bloodstained Mire)",
+        "MiMo Minimal's library is shuffled (source: Bloodstained Mire)",
+        "MiMo Minimal skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 20,
+      "snapshotIndex": 48,
+      "player": "MiMo Minimal",
+      "turn": 5,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "cast",
+          "id": "p18",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Emperor of Bones",
+          "index": 1,
+          "action": "cast",
+          "id": "p34",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Faithless Looting",
+          "index": 2,
+          "action": "cast",
+          "id": "p19"
+        },
+        {
+          "mana_cost": "{U}{B}",
+          "name": "Psychic Frog",
+          "index": 3,
+          "action": "cast",
+          "id": "p21",
+          "power": "1",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p18"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 89,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        107,
+        108,
+        109
+      ],
+      "subsequentActions": [
+        "MiMo Minimal casts Emperor of Bones from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p18",
+          "p34",
+          "p19",
+          "p21"
+        ]
+      }
+    },
+    {
+      "index": 21,
+      "snapshotIndex": 51,
+      "player": "MiMo Minimal",
+      "turn": 5,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 93,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        111,
+        112,
+        113
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Emperor of Bones from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 22,
+      "snapshotIndex": 54,
+      "player": "GPT52 Memoir",
+      "turn": 5,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{U}",
+          "name": "Snapback",
+          "index": 0,
+          "action": "cast",
+          "id": "p8"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 97,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        117,
+        118,
+        119
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 23,
+      "snapshotIndex": 56,
+      "player": "GPT52 Memoir",
+      "turn": 5,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{U}",
+          "name": "Snapback",
+          "index": 0,
+          "action": "cast",
+          "id": "p8"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 99,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        121,
+        122,
+        123
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir - Ability triggers: Lotus Bloom - At the beginning of your upkeep, if this card is suspended, remove a time counter from it."
+      ]
+    },
+    {
+      "index": 24,
+      "snapshotIndex": 59,
+      "player": "GPT52 Memoir",
+      "turn": 6,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{U}",
+          "name": "Snapback",
+          "index": 0,
+          "action": "cast",
+          "id": "p8"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 103,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        125,
+        126,
+        127
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 25,
+      "snapshotIndex": 61,
+      "player": "GPT52 Memoir",
+      "turn": 6,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a blue card from your hand",
+      "choices": [
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 1,
+          "id": "p4"
+        },
+        {
+          "name": "Flare of Denial",
+          "target_type": "card",
+          "index": 2,
+          "id": "p5"
+        },
+        {
+          "name": "Tameshi, Reality Architect",
+          "target_type": "card",
+          "index": 3,
+          "id": "p33"
+        },
+        {
+          "name": "Thundertrap Trainer",
+          "target_type": "card",
+          "index": 4,
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p4",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 106,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1",
+        "warning": "Both id and index provided; used id=p4, ignored index=0"
+      },
+      "llmEventIndices": [
+        131,
+        132,
+        133
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir moves Fallaji Archaeologist from hand to the exile zone (source: Snapback)",
+        "GPT52 Memoir casts Snapback using alternative casting costs targeting Emperor of Bones from hand",
+        "GPT52 Memoir puts Emperor of Bones from battlefield into its owner's hand (source: Snapback)",
+        "GPT52 Memoir puts Snapback from stack into their graveyard",
+        "Removed 1 time counter from Lotus Bloom (2 left)"
+      ]
+    },
+    {
+      "index": 26,
+      "snapshotIndex": 66,
+      "player": "GPT52 Memoir",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play spells and abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 116,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        135,
+        136,
+        137
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 27,
+      "snapshotIndex": 68,
+      "player": "GPT52 Memoir",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 119,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        139,
+        140,
+        141
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 28,
+      "snapshotIndex": 70,
+      "player": "GPT52 Memoir",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play spells and abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 121,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        143,
+        144,
+        151
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 29,
+      "snapshotIndex": 72,
+      "player": "MiMo Minimal",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "cast",
+          "id": "p18",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Emperor of Bones",
+          "index": 1,
+          "action": "cast",
+          "id": "p34",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Faithless Looting",
+          "index": 2,
+          "action": "cast",
+          "id": "p19"
+        },
+        {
+          "mana_cost": "{U}{B}",
+          "name": "Psychic Frog",
+          "index": 3,
+          "action": "cast",
+          "id": "p21",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 4,
+          "action": "land",
+          "id": "p23"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 5,
+          "action": "land",
+          "id": "p46"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p18"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 123,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        145,
+        146,
+        147
+      ],
+      "subsequentActions": [
+        "MiMo Minimal casts Emperor of Bones from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p18",
+          "p34",
+          "p19",
+          "p21",
+          "p23",
+          "p46"
+        ]
+      }
+    },
+    {
+      "index": 30,
+      "snapshotIndex": 75,
+      "player": "MiMo Minimal",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 127,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        149,
+        150,
+        153
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Emperor of Bones from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 31,
+      "snapshotIndex": 79,
+      "player": "MiMo Minimal",
+      "turn": 7,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card from a graveyard",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p38"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 1,
+          "id": "p7"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 2,
+          "id": "p20"
+        },
+        {
+          "name": "Snapback",
+          "target_type": "card",
+          "index": 3,
+          "id": "p8"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "id": "p8"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 132,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_3"
+      },
+      "llmEventIndices": [
+        155,
+        156,
+        157
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Snapback",
+        "MiMo Minimal moves Snapback from graveyard to the exile zone (source: Emperor of Bones)",
+        "MiMo Minimal skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 32,
+      "snapshotIndex": 84,
+      "player": "MiMo Minimal",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Scalding Tarn",
+          "index": 0,
+          "action": "land",
+          "id": "p23"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 1,
+          "action": "land",
+          "id": "p46"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p23"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 140,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        159,
+        160,
+        161
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Scalding Tarn from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p23",
+          "p46"
+        ]
+      }
+    },
+    {
+      "index": 33,
+      "snapshotIndex": 85,
+      "player": "MiMo Minimal",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Scalding Tarn",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p23"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p23"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 142,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        163,
+        164,
+        165
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 34,
+      "snapshotIndex": 85,
+      "player": "MiMo Minimal",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Scalding Tarn",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}, Pay 1 life, Sacrifice Scalding Tarn: Search your library for an Island or Mountain card, put it onto the battlefield, then shuffle."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 143,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        167,
+        168,
+        169
+      ],
+      "subsequentActions": [
+        "MiMo Minimal loses 1 life from Scalding Tarn",
+        "MiMo Minimal sacrificed Scalding Tarn (source: Scalding Tarn)",
+        "MiMo Minimal activates: search your library for an Island or Mountain card, put it onto the battlefield, then shuffle. from Scalding Tarn"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 35,
+      "snapshotIndex": 86,
+      "player": "MiMo Minimal",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 147,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        173,
+        174,
+        175
+      ],
+      "subsequentActions": [
+        "MiMo Minimal searches their library (source: Scalding Tarn)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 36,
+      "snapshotIndex": 88,
+      "player": "MiMo Minimal",
+      "turn": 7,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select an Island or Mountain card",
+      "choices": [
+        {
+          "name": "Blood Crypt",
+          "target_type": "card",
+          "index": 0,
+          "id": "p28"
+        },
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 1,
+          "id": "p29"
+        },
+        {
+          "name": "Steam Vents",
+          "target_type": "card",
+          "index": 2,
+          "id": "p30"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 3,
+          "id": "p26"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 4,
+          "id": "p27"
+        },
+        {
+          "name": "Watery Grave",
+          "target_type": "card",
+          "index": 5,
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p29"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 150,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        178,
+        179,
+        180
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Island from library onto the Battlefield (source: Scalding Tarn)",
+        "MiMo Minimal's library is shuffled (source: Scalding Tarn)",
+        "GPT52 Memoir - Ability triggers: Lotus Bloom - At the beginning of your upkeep, if this card is suspended, remove a time counter from it."
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 37,
+      "snapshotIndex": 92,
+      "player": "MiMo Minimal",
+      "turn": 8,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p18"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p18"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 157,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        182,
+        183,
+        184
+      ],
+      "subsequentActions": [
+        "MiMo Minimal activates: Adapt 2. (If this creature has no +1/+1 counters on it, put two +1/+1 counters on it.) from Emperor of Bones",
+        "MiMo Minimal - Ability triggers: Emperor of Bones - Whenever one or more +1/+1 counters are put on Emperor of Bones, put a creature card exiled with Emperor of Bones onto the battlefield under your control with a finality counter on it. It gains haste. Sacrifice it at the beginning of the next end step.",
+        "Removed 1 time counter from Lotus Bloom (1 left)",
+        "GPT52 Memoir skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 38,
+      "snapshotIndex": 107,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p18"
+        },
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Emperor of Bones",
+          "index": 1,
+          "action": "cast",
+          "id": "p34",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Faithless Looting",
+          "index": 2,
+          "action": "cast",
+          "id": "p19"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Fatal Push",
+          "index": 3,
+          "action": "cast",
+          "id": "p55"
+        },
+        {
+          "mana_cost": "{U}{B}",
+          "name": "Psychic Frog",
+          "index": 4,
+          "action": "cast",
+          "id": "p21",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 5,
+          "action": "land",
+          "id": "p46"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p18"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 176,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        187,
+        188,
+        189
+      ],
+      "subsequentActions": [
+        "MiMo Minimal activates: Adapt 2. (If this creature has no +1/+1 counters on it, put two +1/+1 counters on it.) from Emperor of Bones"
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p34",
+          "p19",
+          "p55",
+          "p21",
+          "p46"
+        ]
+      }
+    },
+    {
+      "index": 39,
+      "snapshotIndex": 110,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p18"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Fatal Push",
+          "index": 1,
+          "action": "cast",
+          "id": "p55"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "id": "p21"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 182,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_3"
+      },
+      "llmEventIndices": [
+        191,
+        192,
+        195,
+        196
+      ],
+      "subsequentActions": [
+        "MiMo Minimal casts Psychic Frog from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 40,
+      "snapshotIndex": 115,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "game_seq": 186,
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        198,
+        199,
+        201
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 41,
+      "snapshotIndex": 116,
+      "player": "GPT52 Memoir",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{U}{U}",
+          "name": "Disrupting Shoal",
+          "index": 0,
+          "action": "cast",
+          "id": "p54"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p54",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 187,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p54, ignored index=0"
+      },
+      "llmEventIndices": [
+        200,
+        203,
+        204
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p54"
+        ]
+      }
+    },
+    {
+      "index": 42,
+      "snapshotIndex": 118,
+      "player": "GPT52 Memoir",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a blue card with mana value X from your hand",
+      "choices": [
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Flare of Denial",
+          "target_type": "card",
+          "index": 1,
+          "id": "p5"
+        },
+        {
+          "name": "Tameshi, Reality Architect",
+          "target_type": "card",
+          "index": 2,
+          "id": "p33"
+        },
+        {
+          "name": "Thundertrap Trainer",
+          "target_type": "card",
+          "index": 3,
+          "id": "p9"
+        },
+        {
+          "name": "Whir of Invention",
+          "target_type": "card",
+          "index": 4,
+          "id": "p45"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        208,
+        209
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 43,
+      "snapshotIndex": 118,
+      "player": "GPT52 Memoir",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a blue card with mana value X from your hand",
+      "choices": [
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 0,
+          "id": "p3"
+        },
+        {
+          "name": "Flare of Denial",
+          "target_type": "card",
+          "index": 1,
+          "id": "p5"
+        },
+        {
+          "name": "Tameshi, Reality Architect",
+          "target_type": "card",
+          "index": 2,
+          "id": "p33"
+        },
+        {
+          "name": "Thundertrap Trainer",
+          "target_type": "card",
+          "index": 3,
+          "id": "p9"
+        },
+        {
+          "name": "Whir of Invention",
+          "target_type": "card",
+          "index": 4,
+          "id": "p45"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p9",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 191,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_3",
+        "warning": "Both id and index provided; used id=p9, ignored index=0"
+      },
+      "llmEventIndices": [
+        210,
+        211,
+        212
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir moves Thundertrap Trainer from hand to the exile zone (source: Disrupting Shoal)",
+        "GPT52 Memoir casts Disrupting Shoal using alternative casting costs targeting Psychic Frog from hand",
+        "MiMo Minimal puts Psychic Frog from stack into their graveyard (source: Disrupting Shoal)",
+        "Psychic Frog is countered by Disrupting Shoal",
+        "GPT52 Memoir puts Disrupting Shoal from stack into their graveyard"
+      ]
+    },
+    {
+      "index": 44,
+      "snapshotIndex": 121,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Scalding Tarn",
+          "index": 0,
+          "action": "land",
+          "id": "p46"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p46"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 199,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        214,
+        215,
+        216
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Scalding Tarn from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p46"
+        ]
+      }
+    },
+    {
+      "index": 45,
+      "snapshotIndex": 122,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Scalding Tarn",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p46"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p46"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 201,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        220,
+        221,
+        222
+      ],
+      "subsequentActions": [
+        "MiMo Minimal loses 1 life from Scalding Tarn",
+        "MiMo Minimal sacrificed Scalding Tarn (source: Scalding Tarn)",
+        "MiMo Minimal activates: search your library for an Island or Mountain card, put it onto the battlefield, then shuffle. from Scalding Tarn"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 46,
+      "snapshotIndex": 123,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 206,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        226,
+        227,
+        228
+      ],
+      "subsequentActions": [
+        "MiMo Minimal searches their library (source: Scalding Tarn)"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 47,
+      "snapshotIndex": 125,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select an Island or Mountain card",
+      "choices": [
+        {
+          "name": "Blood Crypt",
+          "target_type": "card",
+          "index": 0,
+          "id": "p28"
+        },
+        {
+          "name": "Steam Vents",
+          "target_type": "card",
+          "index": 1,
+          "id": "p30"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 2,
+          "id": "p26"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 3,
+          "id": "p27"
+        },
+        {
+          "name": "Watery Grave",
+          "target_type": "card",
+          "index": 4,
+          "id": "p25"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 4,
+      "chosenArgs": {
+        "id": "p25"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 209,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_4"
+      },
+      "llmEventIndices": [
+        230,
+        231,
+        232
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 48,
+      "snapshotIndex": 125,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "pay 2 life? (otherwise Watery Grave becomes tapped)",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 210,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        234,
+        235,
+        236
+      ],
+      "subsequentActions": [
+        "MiMo Minimal loses 2 life from Watery Grave",
+        "MiMo Minimal puts Watery Grave from library onto the Battlefield (source: Scalding Tarn)",
+        "MiMo Minimal's library is shuffled (source: Scalding Tarn)"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 49,
+      "snapshotIndex": 126,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Fatal Push",
+          "index": 0,
+          "action": "cast",
+          "id": "p55"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p55"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 214,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        238,
+        239,
+        240
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 50,
+      "snapshotIndex": 127,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a creature",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "target_type": "permanent",
+          "index": 0,
+          "power": "4",
+          "id": "p18",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 215,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "cancelled"
+      },
+      "llmEventIndices": [
+        244,
+        245,
+        246,
+        247
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 51,
+      "snapshotIndex": 129,
+      "player": "GPT52 Memoir",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 217,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        249,
+        250,
+        255
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 52,
+      "snapshotIndex": 130,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card from a graveyard",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p38"
+        },
+        {
+          "name": "Disrupting Shoal",
+          "target_type": "card",
+          "index": 1,
+          "id": "p54"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 2,
+          "id": "p7"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 3,
+          "id": "p20"
+        },
+        {
+          "name": "Psychic Frog",
+          "target_type": "card",
+          "index": 4,
+          "id": "p21"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 5,
+          "id": "p23"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 6,
+          "id": "p46"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p54"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 218,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        251,
+        252,
+        253
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Disrupting Shoal",
+        "MiMo Minimal moves Disrupting Shoal from graveyard to the exile zone (source: Emperor of Bones)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 53,
+      "snapshotIndex": 133,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p18",
+          "power": "4",
+          "toughness": "4"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p18"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p18"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 223,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        257,
+        258,
+        259
+      ],
+      "subsequentActions": [
+        "MiMo Minimal attacks GPT52 Memoir with 1 creature",
+        "Attacker: Emperor of Bones (4/4) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 54,
+      "snapshotIndex": 136,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Fatal Push",
+          "index": 0,
+          "action": "cast",
+          "id": "p55"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 229,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        261,
+        262,
+        263
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir loses 4 life at combat from Emperor of Bones"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 55,
+      "snapshotIndex": 140,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Fatal Push",
+          "index": 0,
+          "action": "cast",
+          "id": "p55"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 234,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        265,
+        266,
+        267
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir - Ability triggers: Lotus Bloom - At the beginning of your upkeep, if this card is suspended, remove a time counter from it.",
+        "Removed 1 time counter from Lotus Bloom (0 left)",
+        "GPT52 Memoir - Ability triggers: Lotus Bloom - When the last time counter is removed from Lotus Bloom, if it's exiled,"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 56,
+      "snapshotIndex": 145,
+      "player": "MiMo Minimal",
+      "turn": 10,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Fatal Push",
+          "index": 0,
+          "action": "cast",
+          "id": "p55"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 242,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        269,
+        270,
+        275
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 57,
+      "snapshotIndex": 146,
+      "player": "GPT52 Memoir",
+      "turn": 10,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Cast spell without paying its mana cost (Lotus Bloom)?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": true,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 243,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        271,
+        272,
+        273
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir casts Lotus Bloom from exile zone",
+        "GPT52 Memoir puts Lotus Bloom from stack onto the Battlefield"
+      ]
+    },
+    {
+      "index": 58,
+      "snapshotIndex": 149,
+      "player": "GPT52 Memoir",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{U}",
+          "name": "Fallaji Archaeologist",
+          "index": 0,
+          "action": "cast",
+          "id": "p3",
+          "power": "0",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{2}{U}",
+          "name": "Tameshi, Reality Architect",
+          "index": 1,
+          "action": "cast",
+          "id": "p33",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{X}{U}{U}{U}",
+          "name": "Whir of Invention",
+          "index": 2,
+          "action": "cast",
+          "id": "p45"
+        },
+        {
+          "mana_cost": "{X}{U}{U}{U}",
+          "name": "Whir of Invention",
+          "index": 3,
+          "action": "cast",
+          "id": "p67"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        277,
+        278
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p3",
+          "p33",
+          "p45",
+          "p67"
+        ]
+      }
+    },
+    {
+      "index": 59,
+      "snapshotIndex": 149,
+      "player": "GPT52 Memoir",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{1}{U}",
+          "name": "Fallaji Archaeologist",
+          "index": 0,
+          "action": "cast",
+          "id": "p3",
+          "power": "0",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{2}{U}",
+          "name": "Tameshi, Reality Architect",
+          "index": 1,
+          "action": "cast",
+          "id": "p33",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{X}{U}{U}{U}",
+          "name": "Whir of Invention",
+          "index": 2,
+          "action": "cast",
+          "id": "p45"
+        },
+        {
+          "mana_cost": "{X}{U}{U}{U}",
+          "name": "Whir of Invention",
+          "index": 3,
+          "action": "cast",
+          "id": "p67"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [
+          "p36"
+        ],
+        "attackers": [],
+        "blockers": [],
+        "id": "p3",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 248,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "warning": "Both id and index provided; used id=p3, ignored index=0",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
+      },
+      "llmEventIndices": [
+        279,
+        280,
+        281
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir sacrificed Lotus Bloom (source: Lotus Bloom)",
+        "GPT52 Memoir casts Fallaji Archaeologist from hand"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 60,
+      "snapshotIndex": 152,
+      "player": "MiMo Minimal",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Fatal Push",
+          "index": 0,
+          "action": "cast",
+          "id": "p55"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 253,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        283,
+        284,
+        286,
+        287
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir puts Fallaji Archaeologist from stack onto the Battlefield",
+        "GPT52 Memoir - Ability triggers: Fallaji Archaeologist - When Fallaji Archaeologist enters, mill three cards. You may put a noncreature, nonland card from among the cards milled this way into your hand. If you don't, put a +1/+1 counter on Fallaji Archaeologist.",
+        "GPT52 Memoir puts Whir of Invention from library into their graveyard (source: Fallaji Archaeologist)",
+        "GPT52 Memoir puts Fallaji Archaeologist from library into their graveyard (source: Fallaji Archaeologist)",
+        "GPT52 Memoir puts Tameshi, Reality Architect from library into their graveyard (source: Fallaji Archaeologist)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 61,
+      "snapshotIndex": 155,
+      "player": "GPT52 Memoir",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one a noncreature, nonland card",
+      "choices": [
+        {
+          "name": "Whir of Invention",
+          "target_type": "card",
+          "index": 0,
+          "id": "p72"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "p72",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 261,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0",
+        "warning": "Both id and index provided; used id=p72, ignored index=0"
+      },
+      "llmEventIndices": [
+        290,
+        291,
+        292
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir puts Whir of Invention from graveyard into their hand"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 62,
+      "snapshotIndex": 156,
+      "player": "GPT52 Memoir",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play spells and abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 263,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        294,
+        295,
+        301
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 63,
+      "snapshotIndex": 157,
+      "player": "MiMo Minimal",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Fatal Push",
+          "index": 0,
+          "action": "cast",
+          "id": "p55"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p55"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 264,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        296,
+        297,
+        298
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 64,
+      "snapshotIndex": 158,
+      "player": "MiMo Minimal",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a creature",
+      "choices": [
+        {
+          "tapped": true,
+          "name": "Emperor of Bones",
+          "target_type": "permanent",
+          "index": 0,
+          "power": "4",
+          "id": "p18",
+          "toughness": "4"
+        },
+        {
+          "controller": "GPT52 Memoir",
+          "name": "Fallaji Archaeologist",
+          "target_type": "permanent",
+          "index": 1,
+          "power": "0",
+          "id": "p3",
+          "toughness": "3"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p3",
+        "mana_plan": [
+          "p61"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 265,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        300,
+        302,
+        303
+      ],
+      "subsequentActions": [
+        "MiMo Minimal casts Fatal Push targeting Fallaji Archaeologist from hand",
+        "Fallaji Archaeologist died by Fatal Push",
+        "MiMo Minimal puts Fatal Push from stack into their graveyard",
+        "GPT52 Memoir skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 65,
+      "snapshotIndex": 164,
+      "player": "GPT52 Memoir",
+      "turn": 10,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 275,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        307,
+        308,
+        309
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 66,
+      "snapshotIndex": 166,
+      "player": "GPT52 Memoir",
+      "turn": 10,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play spells and abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 277,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        311,
+        312,
+        321
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 67,
+      "snapshotIndex": 168,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p18"
+        },
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Emperor of Bones",
+          "index": 1,
+          "action": "cast",
+          "id": "p34",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Emperor of Bones",
+          "index": 2,
+          "action": "cast",
+          "id": "p73",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Faithless Looting",
+          "index": 3,
+          "action": "cast",
+          "id": "p19"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p34"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 279,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        313,
+        314,
+        315
+      ],
+      "subsequentActions": [
+        "MiMo Minimal casts Emperor of Bones from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 5,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p34",
+          "p73",
+          "p19"
+        ]
+      }
+    },
+    {
+      "index": 68,
+      "snapshotIndex": 171,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p18"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        319,
+        320
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Emperor of Bones from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 69,
+      "snapshotIndex": 173,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p18"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p34"
+        },
+        {
+          "mana_cost": "{1}{B}",
+          "name": "Emperor of Bones",
+          "index": 2,
+          "action": "cast",
+          "id": "p73",
+          "power": "2",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p73"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 286,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        323,
+        324,
+        325
+      ],
+      "subsequentActions": [
+        "MiMo Minimal casts Emperor of Bones from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p73"
+        ]
+      }
+    },
+    {
+      "index": 70,
+      "snapshotIndex": 176,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 290,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        329,
+        330,
+        331
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Emperor of Bones from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 71,
+      "snapshotIndex": 180,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card from a graveyard",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p38"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 1,
+          "id": "p3"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 2,
+          "id": "p70"
+        },
+        {
+          "name": "Fatal Push",
+          "target_type": "card",
+          "index": 3,
+          "id": "p55"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Lotus Bloom",
+          "target_type": "card",
+          "index": 5,
+          "id": "p36"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 6,
+          "id": "p20"
+        },
+        {
+          "name": "Psychic Frog",
+          "target_type": "card",
+          "index": 7,
+          "id": "p21"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 8,
+          "id": "p23"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 9,
+          "id": "p46"
+        },
+        {
+          "name": "Tameshi, Reality Architect",
+          "target_type": "card",
+          "index": 10,
+          "id": "p71"
+        }
+      ],
+      "choiceCount": 11,
+      "isForced": false,
+      "chosen": 7,
+      "chosenArgs": {
+        "id": "p21"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 295,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_7"
+      },
+      "llmEventIndices": [
+        333,
+        334,
+        335
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Psychic Frog"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 72,
+      "snapshotIndex": 181,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card from a graveyard",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p38"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 1,
+          "id": "p3"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 2,
+          "id": "p70"
+        },
+        {
+          "name": "Fatal Push",
+          "target_type": "card",
+          "index": 3,
+          "id": "p55"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Lotus Bloom",
+          "target_type": "card",
+          "index": 5,
+          "id": "p36"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 6,
+          "id": "p20"
+        },
+        {
+          "name": "Psychic Frog",
+          "target_type": "card",
+          "index": 7,
+          "id": "p21"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 8,
+          "id": "p23"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 9,
+          "id": "p46"
+        },
+        {
+          "name": "Tameshi, Reality Architect",
+          "target_type": "card",
+          "index": 10,
+          "id": "p71"
+        }
+      ],
+      "choiceCount": 11,
+      "isForced": false,
+      "chosen": 10,
+      "chosenArgs": {
+        "id": "p71"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 297,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_10"
+      },
+      "llmEventIndices": [
+        337,
+        338,
+        339
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Tameshi, Reality Architect"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 73,
+      "snapshotIndex": 182,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card from a graveyard",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p38"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 1,
+          "id": "p3"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 2,
+          "id": "p70"
+        },
+        {
+          "name": "Fatal Push",
+          "target_type": "card",
+          "index": 3,
+          "id": "p55"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 4,
+          "id": "p7"
+        },
+        {
+          "name": "Lotus Bloom",
+          "target_type": "card",
+          "index": 5,
+          "id": "p36"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 6,
+          "id": "p20"
+        },
+        {
+          "name": "Psychic Frog",
+          "target_type": "card",
+          "index": 7,
+          "id": "p21"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 8,
+          "id": "p23"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 9,
+          "id": "p46"
+        },
+        {
+          "name": "Tameshi, Reality Architect",
+          "target_type": "card",
+          "index": 10,
+          "id": "p71"
+        }
+      ],
+      "choiceCount": 11,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 299,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "cancelled"
+      },
+      "llmEventIndices": [
+        341,
+        342,
+        343
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard.",
+        "MiMo Minimal moves Tameshi, Reality Architect from graveyard to the exile zone (source: Emperor of Bones)",
+        "MiMo Minimal moves Psychic Frog from graveyard to the exile zone (source: Emperor of Bones)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 74,
+      "snapshotIndex": 188,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p18",
+          "power": "4",
+          "toughness": "4"
+        },
+        {
+          "name": "All attack",
+          "index": 1,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p18"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p18"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 309,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        345,
+        346,
+        347
+      ],
+      "subsequentActions": [
+        "MiMo Minimal attacks GPT52 Memoir with 1 creature",
+        "Attacker: Emperor of Bones (4/4) unblocked",
+        "GPT52 Memoir loses 4 life at combat from Emperor of Bones",
+        "GPT52 Memoir skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 75,
+      "snapshotIndex": 203,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p18"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p34"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p73"
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Faithless Looting",
+          "index": 3,
+          "action": "cast",
+          "id": "p19"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Thoughtseize",
+          "index": 4,
+          "action": "cast",
+          "id": "p80"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 4,
+      "chosenArgs": {
+        "id": "p80"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 329,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4"
+      },
+      "llmEventIndices": [
+        349,
+        350,
+        351
+      ],
+      "subsequentActions": [
+        "MiMo Minimal casts Thoughtseize targeting GPT52 Memoir from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 5,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p19",
+          "p80"
+        ]
+      }
+    },
+    {
+      "index": 76,
+      "snapshotIndex": 206,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p18"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p34"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p73"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        357,
+        358
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 77,
+      "snapshotIndex": 207,
+      "player": "GPT52 Memoir",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{U}{U}",
+          "name": "Disrupting Shoal",
+          "index": 0,
+          "action": "cast",
+          "id": "p79"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 334,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        359,
+        360,
+        361
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p79"
+        ]
+      }
+    },
+    {
+      "index": 78,
+      "snapshotIndex": 209,
+      "player": "GPT52 Memoir",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{X}{U}{U}",
+          "name": "Disrupting Shoal",
+          "index": 0,
+          "action": "cast",
+          "id": "p79"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        363,
+        364
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir reveals Goblin Charbelcher, Flare of Denial, Tameshi, Reality Architect, Whir of Invention, Whir of Invention, Whir of Invention, Disrupting Shoal"
+      ]
+    },
+    {
+      "index": 79,
+      "snapshotIndex": 210,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a nonland card",
+      "choices": [
+        {
+          "name": "Disrupting Shoal",
+          "target_type": "card",
+          "index": 0,
+          "id": "p85"
+        },
+        {
+          "name": "Flare of Denial",
+          "target_type": "card",
+          "index": 1,
+          "id": "p86"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 2,
+          "id": "p87"
+        },
+        {
+          "name": "Tameshi, Reality Architect",
+          "target_type": "card",
+          "index": 3,
+          "id": "p88"
+        },
+        {
+          "name": "Whir of Invention",
+          "target_type": "card",
+          "index": 4,
+          "id": "p82"
+        },
+        {
+          "name": "Whir of Invention",
+          "target_type": "card",
+          "index": 5,
+          "id": "p83"
+        },
+        {
+          "name": "Whir of Invention",
+          "target_type": "card",
+          "index": 6,
+          "id": "p84"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p86"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 338,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        365,
+        366,
+        367
+      ],
+      "subsequentActions": [
+        "GPT52 Memoir discards Flare of Denial (source: Thoughtseize)",
+        "MiMo Minimal loses 2 life from Thoughtseize",
+        "MiMo Minimal puts Thoughtseize from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 80,
+      "snapshotIndex": 212,
+      "player": "GPT52 Memoir",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "amount": 0,
+        "answer": false,
+        "amounts": [],
+        "auto_tap": true,
+        "pile": 0,
+        "index": 0,
+        "mana_plan": [],
+        "attackers": [],
+        "blockers": [],
+        "id": "",
+        "text": ""
+      },
+      "actionResult": {
+        "game_seq": 343,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        369,
+        370,
+        380
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 81,
+      "snapshotIndex": 213,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card from a graveyard",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p38"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 1,
+          "id": "p3"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 2,
+          "id": "p70"
+        },
+        {
+          "name": "Fatal Push",
+          "target_type": "card",
+          "index": 3,
+          "id": "p55"
+        },
+        {
+          "name": "Flare of Denial",
+          "target_type": "card",
+          "index": 4,
+          "id": "p5"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 5,
+          "id": "p7"
+        },
+        {
+          "name": "Lotus Bloom",
+          "target_type": "card",
+          "index": 6,
+          "id": "p36"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 7,
+          "id": "p20"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 8,
+          "id": "p23"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 9,
+          "id": "p46"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 10,
+          "id": "p80"
+        }
+      ],
+      "choiceCount": 11,
+      "isForced": false,
+      "chosen": 5,
+      "chosenArgs": {
+        "id": "p7"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 344,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_5"
+      },
+      "llmEventIndices": [
+        371,
+        372,
+        373
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Goblin Charbelcher"
+      ],
+      "pilotContext": {
+        "untappedLands": 4
+      }
+    },
+    {
+      "index": 82,
+      "snapshotIndex": 214,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card from a graveyard",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p38"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 1,
+          "id": "p3"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 2,
+          "id": "p70"
+        },
+        {
+          "name": "Fatal Push",
+          "target_type": "card",
+          "index": 3,
+          "id": "p55"
+        },
+        {
+          "name": "Flare of Denial",
+          "target_type": "card",
+          "index": 4,
+          "id": "p5"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 5,
+          "id": "p7"
+        },
+        {
+          "name": "Lotus Bloom",
+          "target_type": "card",
+          "index": 6,
+          "id": "p36"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 7,
+          "id": "p20"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 8,
+          "id": "p23"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 9,
+          "id": "p46"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 10,
+          "id": "p80"
+        }
+      ],
+      "choiceCount": 11,
+      "isForced": false,
+      "chosen": 6,
+      "chosenArgs": {
+        "id": "p36"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 346,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_6"
+      },
+      "llmEventIndices": [
+        375,
+        376,
+        377
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Lotus Bloom"
+      ],
+      "pilotContext": {
+        "untappedLands": 4
+      }
+    },
+    {
+      "index": 83,
+      "snapshotIndex": 215,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card from a graveyard",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "target_type": "card",
+          "index": 0,
+          "id": "p38"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 1,
+          "id": "p3"
+        },
+        {
+          "name": "Fallaji Archaeologist",
+          "target_type": "card",
+          "index": 2,
+          "id": "p70"
+        },
+        {
+          "name": "Fatal Push",
+          "target_type": "card",
+          "index": 3,
+          "id": "p55"
+        },
+        {
+          "name": "Flare of Denial",
+          "target_type": "card",
+          "index": 4,
+          "id": "p5"
+        },
+        {
+          "name": "Goblin Charbelcher",
+          "target_type": "card",
+          "index": 5,
+          "id": "p7"
+        },
+        {
+          "name": "Lotus Bloom",
+          "target_type": "card",
+          "index": 6,
+          "id": "p36"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 7,
+          "id": "p20"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 8,
+          "id": "p23"
+        },
+        {
+          "name": "Scalding Tarn",
+          "target_type": "card",
+          "index": 9,
+          "id": "p46"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 10,
+          "id": "p80"
+        }
+      ],
+      "choiceCount": 11,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 348,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "cancelled"
+      },
+      "llmEventIndices": [
+        379,
+        381,
+        384,
+        385
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard."
+      ],
+      "pilotContext": {
+        "untappedLands": 4
+      }
+    },
+    {
+      "index": 84,
+      "snapshotIndex": 217,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p18"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p34"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p73"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p34"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 352,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        387,
+        388,
+        389
+      ],
+      "subsequentActions": [
+        "MiMo Minimal activates: Adapt 2. (If this creature has no +1/+1 counters on it, put two +1/+1 counters on it.) from Emperor of Bones"
+      ],
+      "pilotContext": {
+        "untappedLands": 4
+      }
+    },
+    {
+      "index": 85,
+      "snapshotIndex": 220,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p18"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p34"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "{1}{B}: Adapt 2. <i>(If this creature has no +1/+..."
+          ],
+          "id": "p73"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p18"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 356,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        393,
+        394,
+        395
+      ],
+      "subsequentActions": [
+        "MiMo Minimal activates: Adapt 2. (If this creature has no +1/+1 counters on it, put two +1/+1 counters on it.) from Emperor of Bones",
+        "MiMo Minimal - Ability triggers: Emperor of Bones - Whenever one or more +1/+1 counters are put on Emperor of Bones, put a creature card exiled with Emperor of Bones onto the battlefield under your control with a finality counter on it. It gains haste. Sacrifice it at the beginning of the next end step.",
+        "MiMo Minimal puts Psychic Frog from exile zone onto the Battlefield (source: Emperor of Bones)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 86,
+      "snapshotIndex": 230,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "BEGIN_COMBAT",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Psychic Frog",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Discard a card: Put a +1/+1 counter on {this}.",
+            "Exile three cards from your graveyard: {this} gai..."
+          ],
+          "id": "p21"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        401,
+        402
+      ],
+      "subsequentActions": [
+        "MiMo Minimal moves Lotus Bloom from graveyard to the exile zone (source: Emperor of Bones)",
+        "MiMo Minimal moves Goblin Charbelcher from graveyard to the exile zone (source: Emperor of Bones)"
+      ]
+    },
+    {
+      "index": 87,
+      "snapshotIndex": 234,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Emperor of Bones",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p18",
+          "power": "4",
+          "toughness": "4"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p34",
+          "power": "4",
+          "toughness": "4"
+        },
+        {
+          "name": "Emperor of Bones",
+          "index": 2,
+          "choice_type": "attacker",
+          "id": "p73",
+          "power": "2",
+          "toughness": "2"
+        },
+        {
+          "name": "Psychic Frog",
+          "index": 3,
+          "choice_type": "attacker",
+          "id": "p21",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "name": "All attack",
+          "index": 4,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "p18",
+          "p34",
+          "p73",
+          "p21"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "p18",
+          "p34",
+          "p73",
+          "p21"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 375,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        403,
+        404,
+        405
+      ],
+      "subsequentActions": [
+        "MiMo Minimal attacks GPT52 Memoir with 4 creatures",
+        "Attacker: Emperor of Bones (4/4) unblocked",
+        "Attacker: Emperor of Bones (4/4) unblocked",
+        "Attacker: Emperor of Bones (2/2) unblocked",
+        "Attacker: Psychic Frog (1/2) unblocked"
+      ],
+      "pilotContext": {
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 88,
+      "snapshotIndex": 240,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Psychic Frog",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Discard a card: Put a +1/+1 counter on {this}.",
+            "Exile three cards from your graveyard: {this} gai..."
+          ],
+          "id": "p21"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p21"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 387,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        407,
+        408,
+        409
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 89,
+      "snapshotIndex": 240,
+      "player": "MiMo Minimal",
+      "turn": 13,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Psychic Frog",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. Discard a card: Put a +1/+1 counter on Psychic Frog."
+        },
+        {
+          "index": 1,
+          "description": "2. Exile three cards from your graveyard: Psychic Frog gains flying until end of turn."
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 388,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        413,
+        414,
+        415
+      ],
+      "subsequentActions": [
+        "MiMo Minimal discards Faithless Looting (source: Psychic Frog)",
+        "MiMo Minimal activates: put a +1/+1 counter on Psychic Frog. from Psychic Frog",
+        "GPT52 Memoir loses 4 life at combat from Emperor of Bones",
+        "GPT52 Memoir loses 4 life at combat from Emperor of Bones",
+        "GPT52 Memoir loses 2 life at combat from Emperor of Bones"
+      ]
+    }
+  ]
 }

@@ -62775,5 +62775,5300 @@
       "player": "Sonnet Critic"
     }
   ],
-  "blunderScriptVersion": 18
+  "blunderScriptVersion": 18,
+  "decisions": [
+    {
+      "index": 0,
+      "snapshotIndex": 0,
+      "player": "Sonnet Critic",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a starting player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "Sonnet Critic",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "MiMo Minimal",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p2"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 3,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        3,
+        4,
+        8
+      ],
+      "subsequentActions": [
+        "Sonnet Critic chooses that MiMo Minimal take the first turn"
+      ]
+    },
+    {
+      "index": 1,
+      "snapshotIndex": 1,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 5,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        6,
+        7,
+        12
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 2,
+      "snapshotIndex": 1,
+      "player": "Sonnet Critic",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 6 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 6,
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        10,
+        11,
+        19
+      ],
+      "subsequentActions": [
+        "MiMo Minimal's library is shuffled"
+      ]
+    },
+    {
+      "index": 3,
+      "snapshotIndex": 2,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card (1 more) to put on the bottom of your library",
+      "choices": [
+        {
+          "name": "Ephemerate",
+          "target_type": "card",
+          "index": 0,
+          "id": "p17"
+        },
+        {
+          "name": "Goryo's Vengeance",
+          "target_type": "card",
+          "index": 1,
+          "id": "p18"
+        },
+        {
+          "name": "Goryo's Vengeance",
+          "target_type": "card",
+          "index": 2,
+          "id": "p19"
+        },
+        {
+          "name": "Polluted Delta",
+          "target_type": "card",
+          "index": 3,
+          "id": "p20"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 4,
+          "id": "p21"
+        },
+        {
+          "name": "Solitude",
+          "target_type": "card",
+          "index": 5,
+          "id": "p8"
+        },
+        {
+          "name": "Winternight Stories",
+          "target_type": "card",
+          "index": 6,
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 4,
+      "chosenArgs": {
+        "index": 4
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 8,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_4"
+      },
+      "llmEventIndices": [
+        14,
+        15,
+        16
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts a card from hand to the bottom of their library"
+      ]
+    },
+    {
+      "index": 4,
+      "snapshotIndex": 3,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": null,
+      "step": null,
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Mulligan down to 5 cards?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 10,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "no"
+      },
+      "llmEventIndices": [
+        18,
+        22,
+        23
+      ],
+      "subsequentActions": [
+        "MiMo Minimal skips Draw step",
+        "MiMo Minimal puts Polluted Delta from hand onto the Battlefield"
+      ]
+    },
+    {
+      "index": 5,
+      "snapshotIndex": 5,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Polluted Delta",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p20"
+        },
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 1,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p20"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 14,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        30,
+        31,
+        32
+      ],
+      "subsequentActions": [
+        "MiMo Minimal loses 1 life from Polluted Delta",
+        "MiMo Minimal sacrificed Polluted Delta (source: Polluted Delta)",
+        "MiMo Minimal activates: search your library for an Island or Swamp card, put it onto the battlefield, then shuffle. from Polluted Delta"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "snapshotIndex": 6,
+      "player": "MiMo Minimal",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 19,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        36,
+        37,
+        38
+      ],
+      "subsequentActions": [
+        "MiMo Minimal searches their library (source: Polluted Delta)",
+        "MiMo Minimal's library is shuffled (source: Polluted Delta)"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "snapshotIndex": 8,
+      "player": "Sonnet Critic",
+      "turn": 1,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}{B}",
+          "name": "Street Wraith",
+          "index": 0,
+          "action": "cast",
+          "id": "p16",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 24,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        40,
+        41,
+        42
+      ],
+      "subsequentActions": [
+        "MiMo Minimal skip attack"
+      ],
+      "pilotContext": {
+        "playableCards": [
+          "p16"
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "snapshotIndex": 10,
+      "player": "Sonnet Critic",
+      "turn": 1,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{B}{B}",
+          "name": "Street Wraith",
+          "index": 0,
+          "action": "cast",
+          "id": "p16",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 27,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        44,
+        45,
+        46
+      ],
+      "subsequentActions": [
+        "Sonnet Critic skip attack",
+        "Sonnet Critic discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "playableCards": [
+          "p16"
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "snapshotIndex": 11,
+      "player": "Sonnet Critic",
+      "turn": 2,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Blood Crypt",
+          "target_type": "card",
+          "index": 0,
+          "id": "p10"
+        },
+        {
+          "name": "Counterspell",
+          "target_type": "card",
+          "index": 1,
+          "id": "p11"
+        },
+        {
+          "name": "Death's Shadow",
+          "target_type": "card",
+          "index": 2,
+          "id": "p12"
+        },
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 3,
+          "id": "p13"
+        },
+        {
+          "name": "Moonshadow",
+          "target_type": "card",
+          "index": 4,
+          "id": "p14"
+        },
+        {
+          "name": "Nethergoyf",
+          "target_type": "card",
+          "index": 5,
+          "id": "p15"
+        },
+        {
+          "name": "Seal of Fire",
+          "target_type": "card",
+          "index": 6,
+          "id": "p30"
+        },
+        {
+          "name": "Street Wraith",
+          "target_type": "card",
+          "index": 7,
+          "id": "p16"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 7,
+      "chosenArgs": {
+        "id": "p16"
+      },
+      "actionResult": {
+        "game_seq": 31,
+        "success": true,
+        "action_taken": "selected_target_7"
+      },
+      "llmEventIndices": [
+        48,
+        49,
+        59
+      ],
+      "subsequentActions": [
+        "Sonnet Critic discards Street Wraith"
+      ],
+      "pilotContext": {
+        "playableCards": [
+          "p16"
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "snapshotIndex": 12,
+      "player": "MiMo Minimal",
+      "turn": 3,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 33,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        50,
+        51,
+        52
+      ],
+      "subsequentActions": [
+        "MiMo Minimal skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 11,
+      "snapshotIndex": 14,
+      "player": "MiMo Minimal",
+      "turn": 3,
+      "phase": "END",
+      "step": "END_TURN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 37,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        58,
+        60,
+        67
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 12,
+      "snapshotIndex": 15,
+      "player": "Sonnet Critic",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        62,
+        63
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 13,
+      "snapshotIndex": 15,
+      "player": "Sonnet Critic",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Blood Crypt",
+          "index": 0,
+          "action": "land",
+          "id": "p10"
+        },
+        {
+          "name": "Island",
+          "index": 1,
+          "action": "land",
+          "id": "p13"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p10"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_ASK",
+        "game_seq": 38,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        64,
+        65,
+        66
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p13"
+        ]
+      }
+    },
+    {
+      "index": 14,
+      "snapshotIndex": 15,
+      "player": "Sonnet Critic",
+      "turn": 4,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "pay 2 life? (otherwise Blood Crypt becomes tapped)",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 39,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        69,
+        73,
+        74
+      ],
+      "subsequentActions": [
+        "Sonnet Critic loses 2 life from Blood Crypt",
+        "Sonnet Critic puts Blood Crypt from hand onto the Battlefield",
+        "Sonnet Critic skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p10",
+          "p13"
+        ]
+      }
+    },
+    {
+      "index": 15,
+      "snapshotIndex": 18,
+      "player": "Sonnet Critic",
+      "turn": 4,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Death's Shadow",
+          "index": 0,
+          "action": "cast",
+          "id": "p12",
+          "power": "13",
+          "toughness": "13"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{R}",
+          "name": "Seal of Fire",
+          "index": 3,
+          "action": "cast",
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "id": "p30"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 45,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_3"
+      },
+      "llmEventIndices": [
+        76,
+        77,
+        78
+      ],
+      "subsequentActions": [
+        "Sonnet Critic casts Seal of Fire from hand",
+        "Sonnet Critic puts Seal of Fire from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12",
+          "p14",
+          "p15",
+          "p30"
+        ]
+      }
+    },
+    {
+      "index": 16,
+      "snapshotIndex": 21,
+      "player": "Sonnet Critic",
+      "turn": 4,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Seal of Fire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 50,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        80,
+        81,
+        86
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 17,
+      "snapshotIndex": 22,
+      "player": "MiMo Minimal",
+      "turn": 5,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 51,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        82,
+        83,
+        85,
+        90
+      ],
+      "subsequentActions": [
+        "MiMo Minimal skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 18,
+      "snapshotIndex": 23,
+      "player": "MiMo Minimal",
+      "turn": 5,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 54,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        94,
+        95,
+        96
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 19,
+      "snapshotIndex": 25,
+      "player": "Sonnet Critic",
+      "turn": 6,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Death's Shadow",
+          "index": 0,
+          "action": "cast",
+          "id": "p12",
+          "power": "13",
+          "toughness": "13"
+        },
+        {
+          "name": "Island",
+          "index": 1,
+          "action": "land",
+          "id": "p13"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 2,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 3,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p13"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 56,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        98,
+        99,
+        100
+      ],
+      "subsequentActions": [
+        "Sonnet Critic puts Island from hand onto the Battlefield",
+        "Sonnet Critic skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p12",
+          "p13",
+          "p14",
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 20,
+      "snapshotIndex": 28,
+      "player": "Sonnet Critic",
+      "turn": 6,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Seal of Fire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 61,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        104,
+        105,
+        108
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 21,
+      "snapshotIndex": 30,
+      "player": "Sonnet Critic",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Death's Shadow",
+          "index": 0,
+          "action": "cast",
+          "id": "p12",
+          "power": "13",
+          "toughness": "13"
+        },
+        {
+          "mana_cost": "{U}{R}",
+          "name": "Expressive Iteration",
+          "index": 1,
+          "action": "cast",
+          "id": "p32"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 2,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 3,
+          "action": "cast",
+          "id": "p15",
+          "power": "1",
+          "toughness": "2"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p32"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 63,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        110,
+        111,
+        112
+      ],
+      "subsequentActions": [
+        "Sonnet Critic casts Expressive Iteration from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p12",
+          "p32",
+          "p14",
+          "p15"
+        ]
+      }
+    },
+    {
+      "index": 22,
+      "snapshotIndex": 34,
+      "player": "MiMo Minimal",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        114,
+        115,
+        117,
+        134,
+        135,
+        136
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 23,
+      "snapshotIndex": 35,
+      "player": "Sonnet Critic",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card (To put into your hand)",
+      "choices": [
+        {
+          "name": "Moonshadow",
+          "target_type": "card",
+          "index": 0,
+          "id": "p36"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 1,
+          "id": "p37"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 2,
+          "id": "p38"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p38"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 69,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2"
+      },
+      "llmEventIndices": [
+        119,
+        120,
+        122,
+        124,
+        125
+      ],
+      "subsequentActions": [
+        "Sonnet Critic puts a card from library into their hand"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 24,
+      "snapshotIndex": 36,
+      "player": "Sonnet Critic",
+      "turn": 6,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card (To put on the bottom of your library)",
+      "choices": [
+        {
+          "name": "Moonshadow",
+          "target_type": "card",
+          "index": 0,
+          "id": "p39"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 1,
+          "id": "p37"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p37"
+      },
+      "actionResult": {
+        "retryable": true,
+        "game_seq": 71,
+        "success": false,
+        "error_code": "invalid_choice",
+        "error": "Object p37 not found in current choices",
+        "choices": [
+          {
+            "name": "Moonshadow",
+            "target_type": "card",
+            "index": 0,
+            "id": "p39"
+          },
+          {
+            "name": "Swamp",
+            "target_type": "card",
+            "index": 1,
+            "id": "p37"
+          }
+        ]
+      },
+      "llmEventIndices": [
+        127,
+        128,
+        129
+      ],
+      "subsequentActions": [
+        "Sonnet Critic puts a card from library to the bottom of their library (source: Expressive Iteration)",
+        "Sonnet Critic moves Moonshadow from library to the exile zone (source: Expressive Iteration)",
+        "Sonnet Critic puts Expressive Iteration from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 25,
+      "snapshotIndex": 39,
+      "player": "Sonnet Critic",
+      "turn": 7,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Seal of Fire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 82,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        137,
+        140,
+        143
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 26,
+      "snapshotIndex": 40,
+      "player": "MiMo Minimal",
+      "turn": 7,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 81,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        138,
+        139,
+        141
+      ],
+      "subsequentActions": [
+        "MiMo Minimal discards down to 7 hand cards"
+      ],
+      "pilotContext": {
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 27,
+      "snapshotIndex": 43,
+      "player": "MiMo Minimal",
+      "turn": 7,
+      "phase": "END",
+      "step": "CLEANUP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a card to discard",
+      "choices": [
+        {
+          "name": "Ephemerate",
+          "target_type": "card",
+          "index": 0,
+          "id": "p17"
+        },
+        {
+          "name": "Ephemerate",
+          "target_type": "card",
+          "index": 1,
+          "id": "p34"
+        },
+        {
+          "name": "Goryo's Vengeance",
+          "target_type": "card",
+          "index": 2,
+          "id": "p18"
+        },
+        {
+          "name": "Goryo's Vengeance",
+          "target_type": "card",
+          "index": 3,
+          "id": "p19"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 4,
+          "id": "p40"
+        },
+        {
+          "name": "Solitude",
+          "target_type": "card",
+          "index": 5,
+          "id": "p8"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 6,
+          "id": "p31"
+        },
+        {
+          "name": "Winternight Stories",
+          "target_type": "card",
+          "index": 7,
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "index": 2
+      },
+      "actionResult": {
+        "game_seq": 86,
+        "success": true,
+        "action_taken": "selected_target_2"
+      },
+      "llmEventIndices": [
+        147,
+        148,
+        154
+      ],
+      "subsequentActions": [
+        "MiMo Minimal discards Goryo's Vengeance"
+      ],
+      "pilotContext": {
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 28,
+      "snapshotIndex": 44,
+      "player": "Sonnet Critic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Death's Shadow",
+          "index": 0,
+          "action": "cast",
+          "id": "p12",
+          "power": "13",
+          "toughness": "13"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Thoughtseize",
+          "index": 4,
+          "action": "cast",
+          "id": "p41"
+        },
+        {
+          "name": "Undercity Sewers",
+          "index": 5,
+          "action": "land",
+          "id": "p37"
+        }
+      ],
+      "choiceCount": 6,
+      "isForced": false,
+      "chosen": 4,
+      "chosenArgs": {
+        "id": "p41"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 88,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_4"
+      },
+      "llmEventIndices": [
+        149,
+        150,
+        151
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p12",
+          "p14",
+          "p15",
+          "p41",
+          "p37"
+        ]
+      }
+    },
+    {
+      "index": 29,
+      "snapshotIndex": 45,
+      "player": "Sonnet Critic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "Sonnet Critic",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "MiMo Minimal",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 89,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        153,
+        156,
+        157
+      ],
+      "subsequentActions": [
+        "Sonnet Critic casts Thoughtseize targeting MiMo Minimal from hand",
+        "MiMo Minimal reveals Winternight Stories, Goryo's Vengeance, Ephemerate, Solitude, Thoughtseize, Ephemerate, Quantum Riddler"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 30,
+      "snapshotIndex": 49,
+      "player": "Sonnet Critic",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a nonland card",
+      "choices": [
+        {
+          "name": "Ephemerate",
+          "target_type": "card",
+          "index": 0,
+          "id": "p43"
+        },
+        {
+          "name": "Ephemerate",
+          "target_type": "card",
+          "index": 1,
+          "id": "p44"
+        },
+        {
+          "name": "Goryo's Vengeance",
+          "target_type": "card",
+          "index": 2,
+          "id": "p45"
+        },
+        {
+          "name": "Quantum Riddler",
+          "target_type": "card",
+          "index": 3,
+          "id": "p46"
+        },
+        {
+          "name": "Solitude",
+          "target_type": "card",
+          "index": 4,
+          "id": "p47"
+        },
+        {
+          "name": "Thoughtseize",
+          "target_type": "card",
+          "index": 5,
+          "id": "p48"
+        },
+        {
+          "name": "Winternight Stories",
+          "target_type": "card",
+          "index": 6,
+          "id": "p49"
+        }
+      ],
+      "choiceCount": 7,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p45"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 95,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2"
+      },
+      "llmEventIndices": [
+        161,
+        162,
+        164,
+        166,
+        167
+      ],
+      "subsequentActions": [
+        "MiMo Minimal discards Goryo's Vengeance (source: Thoughtseize)",
+        "Sonnet Critic loses 2 life from Thoughtseize",
+        "Sonnet Critic puts Thoughtseize from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 31,
+      "snapshotIndex": 51,
+      "player": "MiMo Minimal",
+      "turn": 8,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 100,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        169,
+        170,
+        173
+      ],
+      "subsequentActions": [
+        "Sonnet Critic skip attack"
+      ],
+      "pilotContext": {
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 32,
+      "snapshotIndex": 52,
+      "player": "Sonnet Critic",
+      "turn": 8,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Seal of Fire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 102,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        171,
+        172,
+        175
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 33,
+      "snapshotIndex": 53,
+      "player": "Sonnet Critic",
+      "turn": 8,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Seal of Fire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        },
+        {
+          "name": "Undercity Sewers",
+          "index": 1,
+          "action": "land",
+          "id": "p37"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p37"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 104,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        177,
+        178,
+        179
+      ],
+      "subsequentActions": [
+        "Sonnet Critic puts Undercity Sewers from hand onto the Battlefield",
+        "Sonnet Critic - Ability triggers: Undercity Sewers - When Undercity Sewers enters, surveil 1.",
+        "Sonnet Critic surveils 1 (source: Undercity Sewers)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p37"
+        ]
+      }
+    },
+    {
+      "index": 34,
+      "snapshotIndex": 54,
+      "player": "Sonnet Critic",
+      "turn": 8,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one card to PUT into your GRAVEYARD (Surveil)",
+      "choices": [
+        {
+          "name": "Nethergoyf",
+          "target_type": "card",
+          "index": 0,
+          "id": "p50"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 109,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "cancelled"
+      },
+      "llmEventIndices": [
+        181,
+        182,
+        183
+      ],
+      "subsequentActions": [
+        "Sonnet Critic puts a card from library to the top of their library (source: Undercity Sewers)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 35,
+      "snapshotIndex": 55,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Polluted Delta",
+          "index": 0,
+          "action": "land",
+          "id": "p44"
+        },
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 1,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p44"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 112,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        185,
+        186,
+        187
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Polluted Delta from hand onto the Battlefield",
+        "MiMo Minimal loses 1 life from Polluted Delta",
+        "MiMo Minimal sacrificed Polluted Delta (source: Polluted Delta)",
+        "MiMo Minimal activates: search your library for an Island or Swamp card, put it onto the battlefield, then shuffle. from Polluted Delta",
+        "MiMo Minimal searches their library (source: Polluted Delta)"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p44",
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 36,
+      "snapshotIndex": 57,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select an Island or Swamp card",
+      "choices": [
+        {
+          "name": "Godless Shrine",
+          "target_type": "card",
+          "index": 0,
+          "id": "p45"
+        },
+        {
+          "name": "Hallowed Fountain",
+          "target_type": "card",
+          "index": 1,
+          "id": "p46"
+        },
+        {
+          "name": "Hedge Maze",
+          "target_type": "card",
+          "index": 2,
+          "id": "p47"
+        },
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 3,
+          "id": "p48"
+        },
+        {
+          "name": "Meticulous Archive",
+          "target_type": "card",
+          "index": 4,
+          "id": "p49"
+        },
+        {
+          "name": "Shadowy Backstreet",
+          "target_type": "card",
+          "index": 5,
+          "id": "p50"
+        },
+        {
+          "name": "Swamp",
+          "target_type": "card",
+          "index": 6,
+          "id": "p51"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 7,
+          "id": "p52"
+        },
+        {
+          "name": "Watery Grave",
+          "target_type": "card",
+          "index": 8,
+          "id": "p53"
+        }
+      ],
+      "choiceCount": 9,
+      "isForced": false,
+      "chosen": 6,
+      "chosenArgs": {
+        "index": 6
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 121,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_6"
+      },
+      "llmEventIndices": [
+        202,
+        203,
+        204
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Swamp from library onto the Battlefield (source: Polluted Delta)",
+        "MiMo Minimal's library is shuffled (source: Polluted Delta)",
+        "MiMo Minimal skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 37,
+      "snapshotIndex": 60,
+      "player": "MiMo Minimal",
+      "turn": 9,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 126,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        206,
+        207,
+        208
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 38,
+      "snapshotIndex": 61,
+      "player": "Sonnet Critic",
+      "turn": 9,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Death's Shadow",
+          "index": 0,
+          "action": "cast",
+          "id": "p12",
+          "power": "13",
+          "toughness": "13"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 3,
+          "action": "cast",
+          "id": "p48",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p15"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 128,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        210,
+        218,
+        220
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p12",
+          "p14",
+          "p15",
+          "p48"
+        ]
+      }
+    },
+    {
+      "index": 39,
+      "snapshotIndex": 62,
+      "player": "MiMo Minimal",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        213,
+        214,
+        216
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 40,
+      "snapshotIndex": 62,
+      "player": "MiMo Minimal",
+      "turn": 10,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 129,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        217,
+        219,
+        222
+      ],
+      "subsequentActions": [
+        "Sonnet Critic skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 41,
+      "snapshotIndex": 65,
+      "player": "Sonnet Critic",
+      "turn": 10,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Death's Shadow",
+          "index": 0,
+          "action": "cast",
+          "id": "p12",
+          "power": "13",
+          "toughness": "13"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 2,
+          "action": "cast",
+          "id": "p15",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 3,
+          "action": "cast",
+          "id": "p48",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 4,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 5,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p15"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 133,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        226,
+        227,
+        229,
+        231,
+        232
+      ],
+      "subsequentActions": [
+        "Sonnet Critic casts Nethergoyf from hand",
+        "Sonnet Critic puts Nethergoyf from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p12",
+          "p14",
+          "p15",
+          "p48"
+        ]
+      }
+    },
+    {
+      "index": 42,
+      "snapshotIndex": 69,
+      "player": "Sonnet Critic",
+      "turn": 10,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{B}",
+          "name": "Death's Shadow",
+          "index": 0,
+          "action": "cast",
+          "id": "p12",
+          "power": "13",
+          "toughness": "13"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 2,
+          "action": "cast",
+          "id": "p48",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p48"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 139,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        234,
+        235,
+        236
+      ],
+      "subsequentActions": [
+        "Sonnet Critic casts Nethergoyf from hand",
+        "Sonnet Critic puts Nethergoyf from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p12",
+          "p14",
+          "p48"
+        ]
+      }
+    },
+    {
+      "index": 43,
+      "snapshotIndex": 74,
+      "player": "Sonnet Critic",
+      "turn": 10,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Seal of Fire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 146,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        238,
+        239,
+        241,
+        250
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "landDropsUsed": 0
+      }
+    },
+    {
+      "index": 44,
+      "snapshotIndex": 76,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p51"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 148,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        242,
+        243,
+        245,
+        246
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Meticulous Archive from hand onto the Battlefield",
+        "MiMo Minimal - Ability triggers: Meticulous Archive - When Meticulous Archive enters, surveil 1.",
+        "MiMo Minimal surveils 1 (source: Meticulous Archive)",
+        "MiMo Minimal puts a card from library to the top of their library (source: Meticulous Archive)"
+      ]
+    },
+    {
+      "index": 45,
+      "snapshotIndex": 78,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Thoughtseize",
+          "index": 1,
+          "action": "cast",
+          "id": "p31"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p31"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 156,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        258,
+        259,
+        261,
+        262
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8",
+          "p31"
+        ]
+      }
+    },
+    {
+      "index": 46,
+      "snapshotIndex": 79,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a player",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "MiMo Minimal",
+          "target_type": "player",
+          "index": 0,
+          "id": "p54"
+        },
+        {
+          "name": "Sonnet Critic",
+          "target_type": "player",
+          "index": 1,
+          "id": "p55"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 157,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        264,
+        265,
+        266
+      ],
+      "subsequentActions": [
+        "MiMo Minimal casts Thoughtseize targeting Sonnet Critic from hand",
+        "Sonnet Critic reveals Counterspell, Death's Shadow, Moonshadow, Counterspell"
+      ],
+      "pilotContext": {
+        "untappedLands": 1,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 47,
+      "snapshotIndex": 81,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a nonland card",
+      "choices": [
+        {
+          "name": "Counterspell",
+          "target_type": "card",
+          "index": 0,
+          "id": "p56"
+        },
+        {
+          "name": "Counterspell",
+          "target_type": "card",
+          "index": 1,
+          "id": "p57"
+        },
+        {
+          "name": "Death's Shadow",
+          "target_type": "card",
+          "index": 2,
+          "id": "p58"
+        },
+        {
+          "name": "Moonshadow",
+          "target_type": "card",
+          "index": 3,
+          "id": "p59"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "index": 2
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 162,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2"
+      },
+      "llmEventIndices": [
+        268,
+        269,
+        270
+      ],
+      "subsequentActions": [
+        "Sonnet Critic discards Death's Shadow (source: Thoughtseize)",
+        "MiMo Minimal loses 2 life from Thoughtseize",
+        "MiMo Minimal puts Thoughtseize from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 48,
+      "snapshotIndex": 82,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 166,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        272,
+        273,
+        275,
+        276
+      ],
+      "subsequentActions": [
+        "MiMo Minimal skip attack"
+      ],
+      "pilotContext": {
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 49,
+      "snapshotIndex": 83,
+      "player": "MiMo Minimal",
+      "turn": 11,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 168,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        278,
+        279,
+        280
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 50,
+      "snapshotIndex": 85,
+      "player": "Sonnet Critic",
+      "turn": 12,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "land",
+          "id": "p54"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 170,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        282,
+        283,
+        288
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p54",
+          "p14"
+        ]
+      }
+    },
+    {
+      "index": 51,
+      "snapshotIndex": 86,
+      "player": "MiMo Minimal",
+      "turn": 12,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        284,
+        285
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 52,
+      "snapshotIndex": 86,
+      "player": "MiMo Minimal",
+      "turn": 12,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 171,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        286,
+        287,
+        294
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 53,
+      "snapshotIndex": 87,
+      "player": "Sonnet Critic",
+      "turn": 12,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Nethergoyf",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p15",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "Nethergoyf",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p48",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "All attack",
+          "index": 2,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "all"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "all"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 172,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        290,
+        291,
+        292
+      ],
+      "subsequentActions": [
+        "Sonnet Critic attacks MiMo Minimal with 2 creatures",
+        "Attacker: Nethergoyf (2/3) unblocked",
+        "Attacker: Nethergoyf (2/3) unblocked",
+        "MiMo Minimal loses 2 life at combat from Nethergoyf",
+        "MiMo Minimal loses 2 life at combat from Nethergoyf"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 54,
+      "snapshotIndex": 94,
+      "player": "Sonnet Critic",
+      "turn": 12,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "land",
+          "id": "p54"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p54"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 185,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        296,
+        297,
+        298
+      ],
+      "subsequentActions": [
+        "Sonnet Critic puts Bloodstained Mire from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p54",
+          "p14"
+        ]
+      }
+    },
+    {
+      "index": 55,
+      "snapshotIndex": 96,
+      "player": "MiMo Minimal",
+      "turn": 12,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": null,
+      "chosenArgs": {},
+      "actionResult": {},
+      "llmEventIndices": [
+        300,
+        301
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 56,
+      "snapshotIndex": 97,
+      "player": "Sonnet Critic",
+      "turn": 13,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p54"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 190,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        302,
+        303,
+        304
+      ],
+      "subsequentActions": [
+        "MiMo Minimal skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 4
+      }
+    },
+    {
+      "index": 57,
+      "snapshotIndex": 98,
+      "player": "Sonnet Critic",
+      "turn": 14,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p54"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 2,
+          "action": "land",
+          "id": "p55"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 193,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        306,
+        307,
+        308
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p14",
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 58,
+      "snapshotIndex": 99,
+      "player": "Sonnet Critic",
+      "turn": 14,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Nethergoyf",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p15",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "Nethergoyf",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p48",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "All attack",
+          "index": 2,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "all"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "all"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 194,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        310,
+        311,
+        312
+      ],
+      "subsequentActions": [
+        "Sonnet Critic attacks MiMo Minimal with 2 creatures",
+        "Attacker: Nethergoyf (2/3) unblocked",
+        "Attacker: Nethergoyf (2/3) unblocked",
+        "MiMo Minimal loses 2 life at combat from Nethergoyf",
+        "MiMo Minimal loses 2 life at combat from Nethergoyf"
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 59,
+      "snapshotIndex": 103,
+      "player": "Sonnet Critic",
+      "turn": 14,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p54"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Moonshadow",
+          "index": 1,
+          "action": "cast",
+          "id": "p14",
+          "power": "7",
+          "toughness": "7"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 2,
+          "action": "land",
+          "id": "p55"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p14"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 204,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        314,
+        315,
+        317,
+        318
+      ],
+      "subsequentActions": [
+        "Sonnet Critic casts Moonshadow from hand",
+        "Sonnet Critic puts Moonshadow from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p14",
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 60,
+      "snapshotIndex": 105,
+      "player": "MiMo Minimal",
+      "turn": 15,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 0,
+          "action": "cast",
+          "id": "p21",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 1,
+          "action": "cast",
+          "id": "p40",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 2,
+          "action": "cast",
+          "id": "p57",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 3,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p21",
+        "mana_plan": [
+          "p51",
+          "p51:1",
+          "p47",
+          "p47"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 209,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 4
+      },
+      "llmEventIndices": [
+        320,
+        321,
+        323,
+        324
+      ],
+      "subsequentActions": [
+        "MiMo Minimal skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p21",
+          "p40",
+          "p57",
+          "p8"
+        ]
+      },
+      "castRolledBack": true
+    },
+    {
+      "index": 61,
+      "snapshotIndex": 109,
+      "player": "MiMo Minimal",
+      "turn": 15,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 214,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        326,
+        327,
+        328
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 62,
+      "snapshotIndex": 111,
+      "player": "Sonnet Critic",
+      "turn": 16,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p54"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 1,
+          "action": "cast",
+          "id": "p59",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 2,
+          "action": "land",
+          "id": "p55"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 216,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        330,
+        331,
+        333,
+        336
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p59",
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 63,
+      "snapshotIndex": 112,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "",
+      "message": "",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 217,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        334,
+        335,
+        342
+      ],
+      "subsequentActions": []
+    },
+    {
+      "index": 64,
+      "snapshotIndex": 113,
+      "player": "Sonnet Critic",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Select attackers",
+      "choices": [
+        {
+          "name": "Nethergoyf",
+          "index": 0,
+          "choice_type": "attacker",
+          "id": "p15",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "Nethergoyf",
+          "index": 1,
+          "choice_type": "attacker",
+          "id": "p48",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "Moonshadow",
+          "index": 2,
+          "choice_type": "attacker",
+          "id": "p14",
+          "power": "1",
+          "toughness": "1"
+        },
+        {
+          "name": "All attack",
+          "index": 3,
+          "choice_type": "special",
+          "id": "all"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": null,
+      "chosenArgs": {
+        "attackers": [
+          "all"
+        ]
+      },
+      "actionResult": {
+        "declared": [
+          "all"
+        ],
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 218,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "batch_attack"
+      },
+      "llmEventIndices": [
+        338,
+        339,
+        340
+      ],
+      "subsequentActions": [
+        "Sonnet Critic attacks MiMo Minimal with 3 creatures"
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "combatPhase": "attackers"
+      }
+    },
+    {
+      "index": 65,
+      "snapshotIndex": 115,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 222,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        344,
+        345,
+        348
+      ],
+      "subsequentActions": [
+        "Attacker: Nethergoyf (2/3) unblocked",
+        "Attacker: Nethergoyf (2/3) unblocked",
+        "Attacker: Moonshadow (1/1) unblocked"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 66,
+      "snapshotIndex": 116,
+      "player": "Sonnet Critic",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "DECLARE_BLOCKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p54"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 1,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 226,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        346,
+        347,
+        350
+      ],
+      "subsequentActions": [
+        "MiMo Minimal loses 2 life at combat from Nethergoyf",
+        "MiMo Minimal loses 2 life at combat from Nethergoyf",
+        "MiMo Minimal loses 1 life at combat from Moonshadow"
+      ],
+      "pilotContext": {
+        "untappedLands": 4
+      }
+    },
+    {
+      "index": 67,
+      "snapshotIndex": 119,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{W}{W}",
+          "name": "Solitude",
+          "index": 0,
+          "action": "cast",
+          "id": "p8",
+          "power": "3",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p8",
+        "mana_plan": [
+          "p51",
+          "p51:1",
+          "p47"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_CHOICE",
+        "game_seq": 232,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 3
+      },
+      "llmEventIndices": [
+        352,
+        353,
+        355,
+        356
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p8"
+        ]
+      }
+    },
+    {
+      "index": 68,
+      "snapshotIndex": 120,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_CHOOSE_CHOICE",
+      "responseType": "index",
+      "message": "You may choose an alternative cost",
+      "choices": [
+        {
+          "index": 0,
+          "description": "Cast with Evoke alternative cost: Exile a white card from your hand (source: Solitude)"
+        },
+        {
+          "index": 1,
+          "description": "Cast with no alternative cost: {3}{W}{W}"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 233,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_choice_0"
+      },
+      "llmEventIndices": [
+        358,
+        359,
+        361,
+        362
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 69,
+      "snapshotIndex": 120,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a white card from your hand",
+      "choices": [
+        {
+          "name": "Ephemerate",
+          "target_type": "card",
+          "index": 0,
+          "id": "p17"
+        },
+        {
+          "name": "Ephemerate",
+          "target_type": "card",
+          "index": 1,
+          "id": "p34"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p17"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 234,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        364,
+        365,
+        366
+      ],
+      "subsequentActions": [
+        "MiMo Minimal moves Ephemerate from hand to the exile zone (source: Solitude)",
+        "MiMo Minimal casts Solitude with Evoke from hand"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 70,
+      "snapshotIndex": 121,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 237,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "confirmed"
+      },
+      "llmEventIndices": [
+        368,
+        369,
+        370
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Solitude from stack onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 71,
+      "snapshotIndex": 123,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Pick triggered ability (goes to the stack first)",
+      "choices": [
+        {
+          "name": "Ability",
+          "target_type": "card",
+          "index": 0,
+          "id": "p61"
+        },
+        {
+          "name": "Ability",
+          "target_type": "card",
+          "index": 1,
+          "id": "p62"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p61"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 240,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        372,
+        373,
+        374
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Solitude - When this permanent enters, if its evoke cost was paid, its controller sacrifices it."
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p34"
+        ]
+      }
+    },
+    {
+      "index": 72,
+      "snapshotIndex": 124,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one other creature",
+      "choices": [
+        {
+          "tapped": true,
+          "controller": "Sonnet Critic",
+          "name": "Moonshadow",
+          "target_type": "permanent",
+          "index": 0,
+          "power": "1",
+          "id": "p14",
+          "toughness": "1"
+        },
+        {
+          "tapped": true,
+          "controller": "Sonnet Critic",
+          "name": "Nethergoyf",
+          "target_type": "permanent",
+          "index": 1,
+          "power": "2",
+          "id": "p15",
+          "toughness": "3"
+        },
+        {
+          "tapped": true,
+          "controller": "Sonnet Critic",
+          "name": "Nethergoyf",
+          "target_type": "permanent",
+          "index": 2,
+          "power": "2",
+          "id": "p48",
+          "toughness": "3"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p15"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 242,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        376,
+        377,
+        378
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Solitude - When Solitude enters, exile up to one other target creature. That creature's controller gains life equal to its power. - targeting Nethergoyf"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p34"
+        ]
+      }
+    },
+    {
+      "index": 73,
+      "snapshotIndex": 126,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "mana_cost": "{W}",
+          "name": "Ephemerate",
+          "index": 0,
+          "action": "cast",
+          "id": "p34"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p34",
+        "mana_plan": [
+          "p51"
+        ]
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 245,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0",
+        "mana_plan_set": true,
+        "mana_plan_size": 1
+      },
+      "llmEventIndices": [
+        380,
+        381,
+        382,
+        383
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2,
+        "playableCards": [
+          "p34"
+        ]
+      }
+    },
+    {
+      "index": 74,
+      "snapshotIndex": 127,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a creature you control",
+      "choices": [
+        {
+          "name": "Solitude",
+          "target_type": "permanent",
+          "index": 0,
+          "power": "3",
+          "id": "p8",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p8"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 246,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        385,
+        386,
+        387
+      ],
+      "subsequentActions": [
+        "MiMo Minimal casts Ephemerate targeting Solitude from hand",
+        "MiMo Minimal moves Solitude from battlefield to the exile zone (source: Ephemerate)",
+        "MiMo Minimal puts Solitude from exile zone onto the Battlefield (source: Ephemerate)",
+        "MiMo Minimal moves Ephemerate from stack to the exile zone"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 75,
+      "snapshotIndex": 130,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "COMBAT",
+      "step": "COMBAT_DAMAGE",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one other creature",
+      "choices": [
+        {
+          "tapped": true,
+          "controller": "Sonnet Critic",
+          "name": "Moonshadow",
+          "target_type": "permanent",
+          "index": 0,
+          "power": "1",
+          "id": "p14",
+          "toughness": "1"
+        },
+        {
+          "tapped": true,
+          "controller": "Sonnet Critic",
+          "name": "Nethergoyf",
+          "target_type": "permanent",
+          "index": 1,
+          "power": "2",
+          "id": "p15",
+          "toughness": "3"
+        },
+        {
+          "tapped": true,
+          "controller": "Sonnet Critic",
+          "name": "Nethergoyf",
+          "target_type": "permanent",
+          "index": 2,
+          "power": "2",
+          "id": "p48",
+          "toughness": "3"
+        }
+      ],
+      "choiceCount": 3,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p48"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 254,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_2"
+      },
+      "llmEventIndices": [
+        389,
+        390,
+        391
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Solitude - When Solitude enters, exile up to one other target creature. That creature's controller gains life equal to its power. - targeting Nethergoyf",
+        "MiMo Minimal moves Nethergoyf from battlefield to the exile zone (source: Solitude)",
+        "Sonnet Critic gains 2 life (source: Solitude)",
+        "MiMo Minimal moves Nethergoyf from battlefield to the exile zone (source: Solitude)",
+        "Sonnet Critic gains 2 life (source: Solitude)"
+      ],
+      "pilotContext": {
+        "untappedLands": 1
+      }
+    },
+    {
+      "index": 76,
+      "snapshotIndex": 136,
+      "player": "Sonnet Critic",
+      "turn": 16,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p54"
+        },
+        {
+          "mana_cost": "{B}",
+          "name": "Nethergoyf",
+          "index": 1,
+          "action": "cast",
+          "id": "p59",
+          "power": "2",
+          "toughness": "3"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 2,
+          "action": "land",
+          "id": "p55"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 3,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p59"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 265,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_1"
+      },
+      "llmEventIndices": [
+        397,
+        398,
+        400,
+        401
+      ],
+      "subsequentActions": [
+        "Sonnet Critic casts Nethergoyf from hand",
+        "Sonnet Critic puts Nethergoyf from stack onto the Battlefield",
+        "MiMo Minimal - Ability triggers: Ephemerate - Rebound - You may cast Ephemerate from exile without paying its mana cost."
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p59",
+          "p55"
+        ]
+      }
+    },
+    {
+      "index": 77,
+      "snapshotIndex": 140,
+      "player": "MiMo Minimal",
+      "turn": 17,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_ASK",
+      "responseType": "boolean",
+      "message": "Cast spell without paying its mana cost (Ephemerate)?",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": true,
+      "chosenArgs": {
+        "answer": true
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 274,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "yes"
+      },
+      "llmEventIndices": [
+        403,
+        404,
+        405
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 78,
+      "snapshotIndex": 141,
+      "player": "MiMo Minimal",
+      "turn": 17,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a creature you control",
+      "choices": [
+        {
+          "name": "Solitude",
+          "target_type": "permanent",
+          "index": 0,
+          "power": "3",
+          "id": "p8",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "id": "p8"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 275,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_0"
+      },
+      "llmEventIndices": [
+        407,
+        408,
+        409
+      ],
+      "subsequentActions": [
+        "MiMo Minimal casts Ephemerate targeting Solitude from exile zone",
+        "MiMo Minimal moves Solitude from battlefield to the exile zone (source: Ephemerate)",
+        "MiMo Minimal puts Solitude from exile zone onto the Battlefield (source: Ephemerate)",
+        "MiMo Minimal puts Ephemerate from stack into their graveyard"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 79,
+      "snapshotIndex": 143,
+      "player": "MiMo Minimal",
+      "turn": 17,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select up to one other creature",
+      "choices": [
+        {
+          "tapped": true,
+          "controller": "Sonnet Critic",
+          "name": "Moonshadow",
+          "target_type": "permanent",
+          "index": 0,
+          "power": "1",
+          "id": "p14",
+          "toughness": "1"
+        },
+        {
+          "controller": "Sonnet Critic",
+          "name": "Nethergoyf",
+          "target_type": "permanent",
+          "index": 1,
+          "power": "2",
+          "id": "p59",
+          "toughness": "3"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "index": 1
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 281,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        413,
+        414,
+        415
+      ],
+      "subsequentActions": [
+        "MiMo Minimal - Ability triggers: Solitude - When Solitude enters, exile up to one other target creature. That creature's controller gains life equal to its power. - targeting Nethergoyf"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 80,
+      "snapshotIndex": 144,
+      "player": "MiMo Minimal",
+      "turn": 17,
+      "phase": "BEGINNING",
+      "step": "UPKEEP",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 283,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        417,
+        418,
+        419
+      ],
+      "subsequentActions": [
+        "MiMo Minimal moves Nethergoyf from battlefield to the exile zone (source: Solitude)",
+        "Sonnet Critic gains 2 life (source: Solitude)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2
+      }
+    },
+    {
+      "index": 81,
+      "snapshotIndex": 145,
+      "player": "MiMo Minimal",
+      "turn": 17,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Flooded Strand",
+          "index": 0,
+          "action": "land",
+          "id": "p68"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 1,
+          "action": "cast",
+          "id": "p21",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 2,
+          "action": "cast",
+          "id": "p40",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 3,
+          "action": "cast",
+          "id": "p57",
+          "power": "4",
+          "toughness": "6"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 286,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_0"
+      },
+      "llmEventIndices": [
+        421,
+        422,
+        423
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Flooded Strand from hand onto the Battlefield"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p68",
+          "p21",
+          "p40",
+          "p57"
+        ]
+      }
+    },
+    {
+      "index": 82,
+      "snapshotIndex": 146,
+      "player": "MiMo Minimal",
+      "turn": 17,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Flooded Strand",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. {T}, Pay 1 life, Sacrifice Flooded Strand: Search your library for a Plains or Island card, put it onto the battlefield, then shuffle."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 289,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        427,
+        428,
+        429
+      ],
+      "subsequentActions": [
+        "MiMo Minimal loses 1 life from Flooded Strand",
+        "MiMo Minimal sacrificed Flooded Strand (source: Flooded Strand)",
+        "MiMo Minimal activates: search your library for a Plains or Island card, put it onto the battlefield, then shuffle. from Flooded Strand"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p21",
+          "p40",
+          "p57"
+        ]
+      }
+    },
+    {
+      "index": 83,
+      "snapshotIndex": 147,
+      "player": "MiMo Minimal",
+      "turn": 17,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 293,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        431,
+        432,
+        433
+      ],
+      "subsequentActions": [
+        "MiMo Minimal searches their library (source: Flooded Strand)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 84,
+      "snapshotIndex": 147,
+      "player": "MiMo Minimal",
+      "turn": 17,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select a Plains or Island card",
+      "choices": [
+        {
+          "name": "Godless Shrine",
+          "target_type": "card",
+          "index": 0,
+          "id": "p45"
+        },
+        {
+          "name": "Hallowed Fountain",
+          "target_type": "card",
+          "index": 1,
+          "id": "p46"
+        },
+        {
+          "name": "Hedge Maze",
+          "target_type": "card",
+          "index": 2,
+          "id": "p47"
+        },
+        {
+          "name": "Island",
+          "target_type": "card",
+          "index": 3,
+          "id": "p71"
+        },
+        {
+          "name": "Plains",
+          "target_type": "card",
+          "index": 4,
+          "id": "p72"
+        },
+        {
+          "name": "Shadowy Backstreet",
+          "target_type": "card",
+          "index": 5,
+          "id": "p50"
+        },
+        {
+          "name": "Undercity Sewers",
+          "target_type": "card",
+          "index": 6,
+          "id": "p73"
+        },
+        {
+          "name": "Watery Grave",
+          "target_type": "card",
+          "index": 7,
+          "id": "p74"
+        }
+      ],
+      "choiceCount": 8,
+      "isForced": false,
+      "chosen": 3,
+      "chosenArgs": {
+        "id": "p71"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 295,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_3"
+      },
+      "llmEventIndices": [
+        439,
+        440,
+        441,
+        442,
+        443,
+        444,
+        445,
+        446,
+        447,
+        448,
+        449
+      ],
+      "subsequentActions": [
+        "MiMo Minimal puts Island from library onto the Battlefield (source: Flooded Strand)",
+        "MiMo Minimal's library is shuffled (source: Flooded Strand)"
+      ],
+      "pilotContext": {
+        "untappedLands": 2,
+        "landDropsUsed": 1
+      }
+    },
+    {
+      "index": 85,
+      "snapshotIndex": 149,
+      "player": "MiMo Minimal",
+      "turn": 16,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 0,
+          "action": "cast",
+          "id": "p21",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 1,
+          "action": "cast",
+          "id": "p40",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 2,
+          "action": "cast",
+          "id": "p57",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{2}{U}",
+          "name": "Winternight Stories",
+          "index": 3,
+          "action": "cast",
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 298,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        451,
+        452,
+        453
+      ],
+      "subsequentActions": [
+        "MiMo Minimal skip attack"
+      ],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p21",
+          "p40",
+          "p57",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 86,
+      "snapshotIndex": 150,
+      "player": "MiMo Minimal",
+      "turn": 17,
+      "phase": "COMBAT",
+      "step": "DECLARE_ATTACKERS",
+      "actionType": "GAME_SELECT",
+      "responseType": "boolean",
+      "message": "Play instants and activated abilities",
+      "choices": [],
+      "choiceCount": 0,
+      "isForced": true,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 300,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        455,
+        456,
+        457
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3
+      }
+    },
+    {
+      "index": 87,
+      "snapshotIndex": 151,
+      "player": "MiMo Minimal",
+      "turn": 17,
+      "phase": "POSTCOMBAT_MAIN",
+      "step": "POSTCOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 0,
+          "action": "cast",
+          "id": "p21",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 1,
+          "action": "cast",
+          "id": "p40",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{3}{U}{U}",
+          "name": "Quantum Riddler",
+          "index": 2,
+          "action": "cast",
+          "id": "p57",
+          "power": "4",
+          "toughness": "6"
+        },
+        {
+          "mana_cost": "{2}{U}",
+          "name": "Winternight Stories",
+          "index": 3,
+          "action": "cast",
+          "id": "p9"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 301,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        459,
+        460,
+        462
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 3,
+        "landDropsUsed": 1,
+        "playableCards": [
+          "p21",
+          "p40",
+          "p57",
+          "p9"
+        ]
+      }
+    },
+    {
+      "index": 88,
+      "snapshotIndex": 152,
+      "player": "Sonnet Critic",
+      "turn": 18,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play spells and abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p54"
+        },
+        {
+          "name": "Scalding Tarn",
+          "index": 1,
+          "action": "land",
+          "id": "p55"
+        },
+        {
+          "name": "Seal of Fire",
+          "index": 2,
+          "action": "activate",
+          "playable_abilities": [
+            "Sacrifice {this}: It deals 2 damage to any target."
+          ],
+          "id": "p30"
+        },
+        {
+          "mana_cost": "{3}{B}{B}",
+          "name": "Street Wraith",
+          "index": 3,
+          "action": "cast",
+          "id": "p72",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 2,
+      "chosenArgs": {
+        "id": "p30"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_CHOOSE_ABILITY",
+        "game_seq": 302,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_2"
+      },
+      "llmEventIndices": [
+        461,
+        465,
+        468,
+        469
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p55",
+          "p72"
+        ]
+      }
+    },
+    {
+      "index": 89,
+      "snapshotIndex": 152,
+      "player": "Sonnet Critic",
+      "turn": 18,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_CHOOSE_ABILITY",
+      "responseType": "index",
+      "message": "Choose spell or ability to play: Seal of Fire",
+      "choices": [
+        {
+          "index": 0,
+          "description": "1. Sacrifice Seal of Fire: It deals 2 damage to any target."
+        }
+      ],
+      "choiceCount": 1,
+      "isForced": true,
+      "chosen": 0,
+      "chosenArgs": {
+        "index": 0
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_TARGET",
+        "game_seq": 303,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_ability_0"
+      },
+      "llmEventIndices": [
+        471,
+        472,
+        473
+      ],
+      "subsequentActions": [],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p55",
+          "p72"
+        ]
+      }
+    },
+    {
+      "index": 90,
+      "snapshotIndex": 153,
+      "player": "Sonnet Critic",
+      "turn": 18,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_TARGET",
+      "responseType": "index",
+      "message": "Select any target",
+      "choices": [
+        {
+          "is_you": true,
+          "name": "Sonnet Critic",
+          "target_type": "player",
+          "index": 0,
+          "id": "p1"
+        },
+        {
+          "name": "MiMo Minimal",
+          "target_type": "player",
+          "index": 1,
+          "id": "p2"
+        },
+        {
+          "name": "Moonshadow",
+          "target_type": "permanent",
+          "index": 2,
+          "power": "1",
+          "id": "p14",
+          "toughness": "1"
+        },
+        {
+          "controller": "MiMo Minimal",
+          "name": "Solitude",
+          "target_type": "permanent",
+          "index": 3,
+          "power": "3",
+          "id": "p8",
+          "toughness": "2"
+        }
+      ],
+      "choiceCount": 4,
+      "isForced": false,
+      "chosen": 1,
+      "chosenArgs": {
+        "id": "p2"
+      },
+      "actionResult": {
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "game_seq": 304,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "success": true,
+        "action_taken": "selected_target_1"
+      },
+      "llmEventIndices": [
+        475,
+        476,
+        477
+      ],
+      "subsequentActions": [
+        "Sonnet Critic sacrificed Seal of Fire (source: Seal of Fire)",
+        "Sonnet Critic activates: it deals 2 damage to any target. from Seal of Fire targeting MiMo Minimal",
+        "Sonnet Critic - Ability triggers: Moonshadow - Whenever one or more permanent cards are put into your graveyard from anywhere while this creature has a -1/-1 counter on it, remove a -1/-1 counter from Moonshadow.",
+        "Removed 1 -1/-1 counter from Moonshadow"
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p72"
+        ]
+      }
+    },
+    {
+      "index": 91,
+      "snapshotIndex": 155,
+      "player": "Sonnet Critic",
+      "turn": 18,
+      "phase": "PRECOMBAT_MAIN",
+      "step": "PRECOMBAT_MAIN",
+      "actionType": "GAME_SELECT",
+      "responseType": "select",
+      "message": "Play instants and activated abilities",
+      "choices": [
+        {
+          "name": "Bloodstained Mire",
+          "index": 0,
+          "action": "activate",
+          "playable_abilities": [
+            "{T}, Pay 1 life, Sacrifice {this}: Search your li..."
+          ],
+          "id": "p54"
+        },
+        {
+          "mana_cost": "{3}{B}{B}",
+          "name": "Street Wraith",
+          "index": 1,
+          "action": "cast",
+          "id": "p72",
+          "power": "3",
+          "toughness": "4"
+        }
+      ],
+      "choiceCount": 2,
+      "isForced": false,
+      "chosen": false,
+      "chosenArgs": {
+        "answer": false
+      },
+      "actionResult": {
+        "game_seq": 310,
+        "success": true,
+        "action_taken": "passed_priority"
+      },
+      "llmEventIndices": [
+        479,
+        480,
+        483
+      ],
+      "subsequentActions": [
+        "MiMo Minimal loses 2 life from Seal of Fire",
+        "MiMo Minimal has lost the game."
+      ],
+      "pilotContext": {
+        "untappedLands": 4,
+        "landDropsUsed": 0,
+        "playableCards": [
+          "p72"
+        ]
+      }
+    }
+  ]
 }
