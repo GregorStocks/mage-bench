@@ -1,0 +1,10 @@
+{
+  "title": "Add golden test prompt files for blunder annotator",
+  "description": "We have golden test prompt files that capture what the pilot LLM sees at each decision point (puppeteer/tests/golden/prompts/). We should have the equivalent for the blunder annotator — capturing the exact prompt sent to Opus for each decision evaluation.\n\nThis would:\n- Surface changes to blunder prompt assembly (format, context, card references) in PR diffs\n- Catch regressions like the subsequent_actions leak or broken snapshot context\n- Make it easy to review what the annotator actually sees for a given decision\n\nApproach: pick a representative game (e.g. game_20260216_074122_g2), run the annotator's _format_decisions + prompt assembly on a few interesting decisions, and snapshot the full prompt as golden files. Compare in CI like the pilot golden prompts.\n\nUnlike pilot golden prompts, these don't need a live XMage server — they can run purely from exported .json.gz files, so they'd be fast unit tests.",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["evaluation", "testing"],
+  "created_at": "2026-02-26T18:25:00.000000-08:00",
+  "updated_at": "2026-02-26T18:25:00.000000-08:00"
+}

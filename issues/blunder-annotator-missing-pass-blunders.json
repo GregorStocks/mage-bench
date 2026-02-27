@@ -1,0 +1,10 @@
+{
+  "title": "Blunder annotator misses many passing-with-mana-up situations on game_20260216_074122_g2",
+  "description": "After fixing the snapshot context (v21) and subsequent_actions leak (v22), the blunder annotator on game_20260216_074122_g2 still does not flag many of the pass-priority decisions as blunders even when the player has mana available and sorcery-speed actions to take (land drops, castable spells in hand).\n\nThe v20 prompt explicitly calls out 'passing priority in the postcombat main phase with nothing on the stack when you still have sorcery-speed things to do' as a blunder, but the LLM is not consistently applying this.\n\nNeeds investigation:\n- Are the unflagged decisions actually blunders? (Review a sample manually)\n- Is the game state context sufficient for the LLM to determine there are castable spells?\n- Is the prompt guidance too narrow (only mentions postcombat main) when some passes happen in precombat main?\n- Would showing mana availability or playable flags help the LLM make better judgments?",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": ["evaluation"],
+  "created_at": "2026-02-26T18:25:00.000000-08:00",
+  "updated_at": "2026-02-26T18:25:00.000000-08:00"
+}
