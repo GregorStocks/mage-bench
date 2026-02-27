@@ -175,7 +175,7 @@
   {
     "content": {
       "action_taken": "selected_1",
-      "game_seq": 25,
+      "game_seq": 33,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -370,7 +370,7 @@
         }
       ],
       "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 44,
+      "game_seq": 58,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -401,7 +401,7 @@
   {
     "content": {
       "action_taken": "selected_0",
-      "game_seq": 44,
+      "game_seq": 58,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -614,7 +614,7 @@
         }
       ],
       "context": "T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 63,
+      "game_seq": 83,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -645,7 +645,7 @@
   {
     "content": {
       "action_taken": "selected_6",
-      "game_seq": 63,
+      "game_seq": 83,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -827,7 +827,7 @@
         }
       ],
       "context": "T4 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 68,
+      "game_seq": 91,
       "has_playable_cards": true,
       "message": "Play instants and activated abilities",
       "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
@@ -857,7 +857,7 @@
   {
     "content": {
       "action_taken": "selected_1",
-      "game_seq": 68,
+      "game_seq": 91,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_CHOOSE_ABILITY",
@@ -899,7 +899,7 @@
         }
       ],
       "context": "T4 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 69,
+      "game_seq": 92,
       "message": "Choose spell or ability to play: Thespian's Stage",
       "respond_with": "index=N",
       "response_type": "index",
@@ -928,7 +928,7 @@
   {
     "content": {
       "action_taken": "selected_ability_1",
-      "game_seq": 69,
+      "game_seq": 92,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_TARGET",
@@ -987,7 +987,7 @@
         }
       ],
       "context": "T4 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 70,
+      "game_seq": 93,
       "message": "Select a land",
       "required": false,
       "respond_with": "id=\"pN\" or index=N, or answer=false to cancel",
@@ -1022,7 +1022,7 @@
   {
     "content": {
       "action_taken": "selected_target_0",
-      "game_seq": 70,
+      "game_seq": 93,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1205,7 +1205,7 @@
         }
       ],
       "context": "T4 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 76,
+      "game_seq": 99,
       "message": "Select a Dark Depths to keep (Legendary Rule)?",
       "required": true,
       "respond_with": "id=\"pN\" or index=N",
@@ -1235,7 +1235,7 @@
   {
     "content": {
       "action_taken": "selected_target_1",
-      "game_seq": 76,
+      "game_seq": 99,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1473,7 +1473,7 @@
         }
       ],
       "context": "T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 97,
+      "game_seq": 123,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
@@ -1504,7 +1504,7 @@
   {
     "content": {
       "action_taken": "passed_priority",
-      "game_seq": 97,
+      "game_seq": 123,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1708,7 +1708,7 @@
       ],
       "combat_phase": "attackers",
       "context": "T5 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 99,
+      "game_seq": 125,
       "message": "Select attackers",
       "respond_with": "attackers=[\"p1\",...] or answer=true (confirm) or answer=false (skip)",
       "response_type": "select",
@@ -1742,7 +1742,7 @@
       "declared": [
         "all"
       ],
-      "game_seq": 99,
+      "game_seq": 125,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
@@ -1784,7 +1784,7 @@
         }
       ],
       "cursor": 1,
-      "game_seq": 102,
+      "game_seq": 130,
       "phase": "Combat",
       "players": [
         {
@@ -1970,7 +1970,7 @@
     "content": {
       "action_pending": false,
       "game_over": true,
-      "game_seq": 110,
+      "game_seq": 140,
       "stop_reason": "game_over"
     },
     "role": "tool",
