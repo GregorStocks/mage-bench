@@ -4125,7 +4125,7 @@ public class BridgeCallbackHandler {
     }
 
     private static int parseShortIdSequence(String shortId) {
-        if (shortId == null || shortId.length() < 2 || shortId.charAt(0) != 'p') {
+        if (shortId == null || shortId.length() < 2 || (shortId.charAt(0) != 'p' && shortId.charAt(0) != 'l')) {
             return Integer.MAX_VALUE;
         }
         try {
