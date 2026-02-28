@@ -100,14 +100,14 @@
       "choiceCount": 2,
       "choices": [
         {
-          "id": "p1",
+          "id": "l1",
           "index": 0,
           "is_you": true,
           "name": "TestPlayer",
           "target_type": "player"
         },
         {
-          "id": "p2",
+          "id": "l2",
           "index": 1,
           "name": "Opponent",
           "target_type": "player"
@@ -380,14 +380,14 @@
         "can_cancel": false,
         "choices": [
           {
-            "id": "p1",
+            "id": "l1",
             "index": 0,
             "is_you": true,
             "name": "TestPlayer",
             "target_type": "player"
           },
           {
-            "id": "p2",
+            "id": "l2",
             "index": 1,
             "name": "Opponent",
             "target_type": "player"
@@ -893,7 +893,7 @@
     },
     {
       "args": {
-        "id": "p2"
+        "id": "l2"
       },
       "gameSeq": 22,
       "player": "TestPlayer",

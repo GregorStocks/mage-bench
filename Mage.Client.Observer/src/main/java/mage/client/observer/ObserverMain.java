@@ -139,6 +139,13 @@ public class ObserverMain {
                     observerFrame.setVisible(true);
                 }
                 LOGGER.info("Observer client started successfully");
+
+                // In keepAlive mode, start the stdin command loop.
+                // The loop reads game configs from stdin; actual "ready" signal
+                // is logged later when prepareAndShowServerLobby() completes.
+                if (Boolean.getBoolean("xmage.observer.keepAlive")) {
+                    observerFrame.startKeepAliveLoop();
+                }
             } catch (Throwable e) {
                 LOGGER.fatal("Critical error on start up: " + e.getMessage(), e);
                 System.exit(1);

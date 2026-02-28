@@ -258,14 +258,14 @@
       "choiceCount": 2,
       "choices": [
         {
-          "id": "p1",
+          "id": "l1",
           "index": 0,
           "is_you": true,
           "name": "TestPlayer",
           "target_type": "player"
         },
         {
-          "id": "p2",
+          "id": "l2",
           "index": 1,
           "name": "Opponent",
           "target_type": "player"
@@ -955,31 +955,31 @@
       "choiceCount": 5,
       "choices": [
         {
-          "id": "p28",
+          "id": "l28",
           "index": 0,
           "name": "Air Elemental",
           "target_type": "card"
         },
         {
-          "id": "p29",
+          "id": "l29",
           "index": 1,
           "name": "Djinn of Wishes",
           "target_type": "card"
         },
         {
-          "id": "p30",
+          "id": "l30",
           "index": 2,
           "name": "Mind Control",
           "target_type": "card"
         },
         {
-          "id": "p31",
+          "id": "l31",
           "index": 3,
           "name": "Serra Angel",
           "target_type": "card"
         },
         {
-          "id": "p32",
+          "id": "l32",
           "index": 4,
           "name": "Shivan Dragon",
           "target_type": "card"
@@ -1017,25 +1017,25 @@
       "choiceCount": 4,
       "choices": [
         {
-          "id": "p29",
+          "id": "l29",
           "index": 0,
           "name": "Djinn of Wishes",
           "target_type": "card"
         },
         {
-          "id": "p30",
+          "id": "l30",
           "index": 1,
           "name": "Mind Control",
           "target_type": "card"
         },
         {
-          "id": "p31",
+          "id": "l31",
           "index": 2,
           "name": "Serra Angel",
           "target_type": "card"
         },
         {
-          "id": "p32",
+          "id": "l32",
           "index": 3,
           "name": "Shivan Dragon",
           "target_type": "card"
@@ -1353,14 +1353,14 @@
         "can_cancel": false,
         "choices": [
           {
-            "id": "p1",
+            "id": "l1",
             "index": 0,
             "is_you": true,
             "name": "TestPlayer",
             "target_type": "player"
           },
           {
-            "id": "p2",
+            "id": "l2",
             "index": 1,
             "name": "Opponent",
             "target_type": "player"
@@ -3048,31 +3048,31 @@
         "can_cancel": true,
         "choices": [
           {
-            "id": "p28",
+            "id": "l28",
             "index": 0,
             "name": "Air Elemental",
             "target_type": "card"
           },
           {
-            "id": "p29",
+            "id": "l29",
             "index": 1,
             "name": "Djinn of Wishes",
             "target_type": "card"
           },
           {
-            "id": "p30",
+            "id": "l30",
             "index": 2,
             "name": "Mind Control",
             "target_type": "card"
           },
           {
-            "id": "p31",
+            "id": "l31",
             "index": 3,
             "name": "Serra Angel",
             "target_type": "card"
           },
           {
-            "id": "p32",
+            "id": "l32",
             "index": 4,
             "name": "Shivan Dragon",
             "target_type": "card"
@@ -3092,7 +3092,7 @@
             "name": "Ability",
             "targets": [
               {
-                "id": "p27",
+                "id": "l27",
                 "name": "TestPlayer"
               }
             ]
@@ -3293,7 +3293,7 @@
             "name": "Ability",
             "targets": [
               {
-                "id": "p1",
+                "id": "l1",
                 "name": "TestPlayer (you)"
               }
             ]
@@ -3320,25 +3320,25 @@
         "can_cancel": true,
         "choices": [
           {
-            "id": "p29",
+            "id": "l29",
             "index": 0,
             "name": "Djinn of Wishes",
             "target_type": "card"
           },
           {
-            "id": "p30",
+            "id": "l30",
             "index": 1,
             "name": "Mind Control",
             "target_type": "card"
           },
           {
-            "id": "p31",
+            "id": "l31",
             "index": 2,
             "name": "Serra Angel",
             "target_type": "card"
           },
           {
-            "id": "p32",
+            "id": "l32",
             "index": 3,
             "name": "Shivan Dragon",
             "target_type": "card"
@@ -3358,7 +3358,7 @@
             "name": "Ability",
             "targets": [
               {
-                "id": "p27",
+                "id": "l27",
                 "name": "TestPlayer"
               }
             ]
@@ -3404,7 +3404,7 @@
             "name": "Ability",
             "targets": [
               {
-                "id": "p1",
+                "id": "l1",
                 "name": "TestPlayer (you)"
               }
             ]
@@ -3658,7 +3658,7 @@
             "name": "Ability",
             "targets": [
               {
-                "id": "p1",
+                "id": "l1",
                 "name": "TestPlayer (you)"
               }
             ]
@@ -3881,7 +3881,7 @@
             ],
             "targets": [
               {
-                "id": "p1",
+                "id": "l1",
                 "name": "TestPlayer (you)"
               }
             ]

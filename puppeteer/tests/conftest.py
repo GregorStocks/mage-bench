@@ -3,7 +3,6 @@
 import os
 import re
 import subprocess
-import sys
 from pathlib import Path
 
 import pytest
@@ -15,8 +14,15 @@ from puppeteer.xml_config import modify_server_config
 from tests.golden_helpers import (
     DECK_GOBLINS,
     DECK_RED_STOMPY,
+    MAIN_CLASS_BRIDGE,
+    MAIN_CLASS_OBSERVER,
+    MAIN_CLASS_SERVER,
     BridgeSession,
     PotatoProcess,
+    SpectatorProcess,
+    _build_java_cmd,
+    _wait_for_log_marker,
+    compute_module_classpath,
     print_timing_summary,
     timed_phase,
 )
@@ -41,23 +47,27 @@ def extract_golden_set_codes(project_root: Path) -> str:
 
 
 def pytest_collection_modifyitems(items: list) -> None:
-    """Schedule tests that use session-scoped persistent JVM fixtures last.
+    """Schedule tests that use bridge/potato session fixtures last.
 
     Tests that spawn their own subprocesses (e.g. two-replay tests) must run
     before the persistent bridge/potato fixtures are created, because those
     fixtures stay connected to the XMage server as "TestPlayer"/"Opponent" and
     their leftover table state can interfere with fresh subprocess clients
     that use the same usernames.
+
+    Note: spectator_process is NOT included here — the spectator connects as
+    "spectator" (not a player username) so it doesn't conflict with subprocess
+    clients.
     """
-    persistent_fixture_names = {"bridge_session", "potato_process"}
-    non_persistent = []
-    persistent = []
+    bridge_potato_fixtures = {"bridge_session", "potato_process"}
+    non_bridge_potato = []
+    bridge_potato = []
     for item in items:
-        if persistent_fixture_names & set(item.fixturenames):
-            persistent.append(item)
+        if bridge_potato_fixtures & set(item.fixturenames):
+            bridge_potato.append(item)
         else:
-            non_persistent.append(item)
-    items[:] = non_persistent + persistent
+            non_bridge_potato.append(item)
+    items[:] = non_bridge_potato + bridge_potato
 
 
 @pytest.fixture(scope="session")
@@ -100,13 +110,16 @@ def xmage_server(project_root, tmp_path_factory):
     # Restrict card pool to only the sets used by golden test decks
     allowed_sets = extract_golden_set_codes(project_root)
 
-    # Build JVM options (server has no GUI; clients need AWT for Swing)
-    jvm_opts = " ".join(
-        [
-            "--add-opens=java.base/java.io=ALL-UNNAMED",
-            "-Djava.awt.headless=true",
-            f"-Dxmage.sets.allowed={allowed_sets}",
-        ]
+    # Build java -cp command (server has no GUI; clients need AWT for Swing)
+    server_cp = compute_module_classpath(project_root, "Mage.Server")
+    server_cmd = _build_java_cmd(
+        server_cp,
+        MAIN_CLASS_SERVER,
+        {
+            "java.awt.headless": "true",
+            "xmage.sets.allowed": allowed_sets,
+            "xmage.config.path": str(config_path),
+        },
     )
 
     # Start server
@@ -119,14 +132,13 @@ def xmage_server(project_root, tmp_path_factory):
             "XMAGE_AI_PUPPETEER_SERVER": "localhost",
             "XMAGE_AI_PUPPETEER_PORT": str(port),
             "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
-            "MAVEN_OPTS": f"{jvm_opts} -Dxmage.config.path={config_path}",
         }
     )
 
     server_log = tmp_dir / "server.log"
     server_log_fh = open(server_log, "w")
     server_proc = subprocess.Popen(
-        ["mvn", "-q", "exec:java"],
+        server_cmd,
         cwd=project_root / "Mage.Server",
         env=env,
         stdout=server_log_fh,
@@ -155,39 +167,36 @@ def bridge_session(xmage_server, project_root):
     tmp_dir = project_root / "tmp" / "golden-bridge"
     tmp_dir.mkdir(parents=True, exist_ok=True)
 
-    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
-    jvm_no_ui = jvm_opens
-    if sys.platform == "darwin":
-        jvm_no_ui += " -Dapple.awt.UIElement=true"
-
     allowed_sets = extract_golden_set_codes(project_root)
 
     # Allocate a port for the MCP HTTP server
     mcp_port_res = find_available_port("localhost", 19000)
     mcp_port = mcp_port_res.port
 
-    bridge_jvm = " ".join(
-        [
-            jvm_no_ui,
-            f"-Dxmage.bridge.server={server}",
-            f"-Dxmage.bridge.port={port}",
-            "-Dxmage.bridge.personality=sleepwalker",
-            "-Dxmage.bridge.keepAlive=true",
-            f"-Dxmage.bridge.mcpPort={mcp_port}",
-            f"-Dxmage.sets.allowed={allowed_sets}",
-        ]
+    bridge_cp = compute_module_classpath(project_root, "Mage.Client.Bridge")
+    bridge_cmd = _build_java_cmd(
+        bridge_cp,
+        MAIN_CLASS_BRIDGE,
+        {
+            "xmage.bridge.server": server,
+            "xmage.bridge.port": str(port),
+            "xmage.bridge.personality": "sleepwalker",
+            "xmage.bridge.keepAlive": "true",
+            "xmage.bridge.mcpPort": str(mcp_port),
+            "xmage.bridge.username": "TestPlayer",
+            "xmage.sets.allowed": allowed_sets,
+        },
     )
 
     bridge_log = tmp_dir / "bridge.log"
     bridge_log_fh = open(bridge_log, "w")
 
     proc = subprocess.Popen(
-        ["mvn", "-q", "-Dxmage.bridge.username=TestPlayer", "exec:java"],
+        bridge_cmd,
         cwd=project_root / "Mage.Client.Bridge",
         stdin=subprocess.PIPE,
         stdout=bridge_log_fh,
         stderr=subprocess.STDOUT,
-        env={**os.environ, "MAVEN_OPTS": bridge_jvm},
     )
 
     with timed_phase("session", "bridge_jvm_startup"):
@@ -230,34 +239,31 @@ def potato_process(xmage_server, project_root):
     tmp_dir = project_root / "tmp" / "golden-potato"
     tmp_dir.mkdir(parents=True, exist_ok=True)
 
-    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
-    jvm_no_ui = jvm_opens
-    if sys.platform == "darwin":
-        jvm_no_ui += " -Dapple.awt.UIElement=true"
-
     allowed_sets = extract_golden_set_codes(project_root)
 
-    potato_jvm = " ".join(
-        [
-            jvm_no_ui,
-            f"-Dxmage.bridge.server={server}",
-            f"-Dxmage.bridge.port={port}",
-            "-Dxmage.bridge.personality=potato",
-            "-Dxmage.bridge.keepAlive=true",
-            f"-Dxmage.sets.allowed={allowed_sets}",
-        ]
+    potato_cp = compute_module_classpath(project_root, "Mage.Client.Bridge")
+    potato_cmd = _build_java_cmd(
+        potato_cp,
+        MAIN_CLASS_BRIDGE,
+        {
+            "xmage.bridge.server": server,
+            "xmage.bridge.port": str(port),
+            "xmage.bridge.personality": "potato",
+            "xmage.bridge.keepAlive": "true",
+            "xmage.bridge.username": "Opponent",
+            "xmage.sets.allowed": allowed_sets,
+        },
     )
 
     potato_log = tmp_dir / "potato.log"
     potato_log_fh = open(potato_log, "w")
 
     proc = subprocess.Popen(
-        ["mvn", "-q", "-Dxmage.bridge.username=Opponent", "exec:java"],
+        potato_cmd,
         cwd=project_root / "Mage.Client.Bridge",
         stdin=subprocess.PIPE,
         stdout=potato_log_fh,
         stderr=subprocess.STDOUT,
-        env={**os.environ, "MAVEN_OPTS": potato_jvm},
     )
 
     with timed_phase("session", "potato_jvm_startup"):
@@ -272,6 +278,80 @@ def potato_process(xmage_server, project_root):
     except subprocess.TimeoutExpired:
         kill_tree(proc.pid)
     potato_log_fh.close()
+
+
+@pytest.fixture(scope="session")
+def spectator_process(xmage_server, project_root):
+    """Session-scoped observer spectator JVM with stdin command protocol.
+
+    Starts the spectator with keepAlive=true. Each test sends a JSON command
+    via stdin to create a new game table, avoiding the cost of spawning a
+    fresh JVM per test.
+    """
+    server, port = xmage_server
+
+    tmp_dir = project_root / "tmp" / "golden-spectator"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+
+    allowed_sets = extract_golden_set_codes(project_root)
+
+    cp = compute_module_classpath(project_root, "Mage.Client.Observer")
+    spectator_cmd = _build_java_cmd(
+        cp,
+        MAIN_CLASS_OBSERVER,
+        {
+            "xmage.aiPuppeteer.autoConnect": "true",
+            "xmage.aiPuppeteer.disableWhatsNew": "true",
+            "xmage.observer.noWindow": "true",
+            "xmage.observer.keepAlive": "true",
+            "xmage.aiPuppeteer.server": server,
+            "xmage.aiPuppeteer.port": str(port),
+            "xmage.aiPuppeteer.user": "spectator",
+            "xmage.aiPuppeteer.password": "",
+            "xmage.sets.allowed": allowed_sets,
+        },
+    )
+
+    spectator_log = tmp_dir / "spectator.log"
+    spectator_log_fh = open(spectator_log, "w")
+
+    env = os.environ.copy()
+    env.update(
+        {
+            "XMAGE_AI_PUPPETEER": "1",
+            "XMAGE_AI_PUPPETEER_USER": "spectator",
+            "XMAGE_AI_PUPPETEER_PASSWORD": "",
+            "XMAGE_AI_PUPPETEER_SERVER": server,
+            "XMAGE_AI_PUPPETEER_PORT": str(port),
+            "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
+            "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
+            "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
+        }
+    )
+
+    proc = subprocess.Popen(
+        spectator_cmd,
+        cwd=project_root / "Mage.Client.Observer",
+        stdin=subprocess.PIPE,
+        stdout=spectator_log_fh,
+        stderr=subprocess.STDOUT,
+        env=env,
+    )
+
+    with timed_phase("session", "spectator_jvm_startup"):
+        spectator = SpectatorProcess(proc, spectator_log)
+        print(f"Spectator JVM started (pid={proc.pid}), waiting for keepAlive ready...")
+        _wait_for_log_marker(spectator_log, "keepAlive: lobby initialized, ready for commands", proc, timeout=120)
+        print("Spectator keepAlive ready")
+
+    yield spectator
+
+    spectator.close()
+    try:
+        proc.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        kill_tree(proc.pid)
+    spectator_log_fh.close()
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:

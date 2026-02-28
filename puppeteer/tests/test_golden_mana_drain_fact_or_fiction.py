@@ -10,7 +10,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root):
+def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root, spectator_process):
     """Mana Drain counters Savannah Lions, then Fact or Fiction off the mana.
 
     Script:
@@ -82,4 +82,5 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root):
             {"name": "pass_priority", "arguments": {}},
         ],
         golden_name="mana_drain_fact_or_fiction",
+        spectator=spectator_process,
     )

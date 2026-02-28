@@ -1,0 +1,10 @@
+{
+  "title": "Surface critical errors in game exports for fast-analysis to catch",
+  "description": "When real unambiguous bugs happen during a game (e.g., server short ID collisions logged at SEVERE, uncaught exceptions in callback handling), these errors are only visible in verbose log files that nobody actively monitors.\n\nWe should record sufficiently-bad errors in the game export itself (e.g., an \"errors\" array in the JSON) so that fast-analysis and other automated tools can flag them. This makes it impossible to miss critical issues even if nobody is watching the logs.\n\nExamples of errors worth surfacing:\n- ShortIdRegistry server ID collisions (SEVERE log)\n- Uncaught exceptions in callback handling\n- Loop detector interventions\n- Any error that indicates a genuine bug rather than normal LLM mistakes",
+  "status": "open",
+  "priority": 3,
+  "type": "feature",
+  "labels": ["bridge", "analysis"],
+  "created_at": "2026-02-28T12:00:00.000000-08:00",
+  "updated_at": "2026-02-28T12:00:00.000000-08:00"
+}

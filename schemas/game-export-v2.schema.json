@@ -135,7 +135,11 @@
         },
         "deckName": {
           "type": "string",
-          "description": "Display name for the deck (commander name or filename stem)."
+          "description": "Display name for the deck from the deck registry."
+        },
+        "deckStrategy": {
+          "type": "string",
+          "description": "1-2 sentence strategy summary for blunder annotation context."
         },
         "commander": {
           "type": "string",
