@@ -1,0 +1,10 @@
+{
+  "title": "Golden CI: use HTTP health endpoint instead of log polling for spectator readiness",
+  "description": "Spectator readiness is detected by polling the log file for the marker string \"AI Puppeteer: waiting for\" (golden_helpers.py _start_spectator, line 559-564). This uses _wait_for_log_marker which polls the file at some interval.\n\nThe 16s baseline on warm tests may include polling latency. An HTTP health endpoint (or a signal file written atomically) could provide faster detection of readiness.\n\nThe first test's spectator startup is 36-48s vs ~16s for subsequent tests, suggesting the extra time is JVM/class loading cold-cache overhead rather than polling latency. So the savings here are modest — a few seconds per test at best.\n\nExpected savings: ~10-20s total across 10 tests.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["ci", "golden", "spectator"],
+  "created_at": "2026-02-28T10:30:00.000000-08:00",
+  "updated_at": "2026-02-28T10:30:00.000000-08:00"
+}
