@@ -178,9 +178,11 @@ def parallel_subprocess_results(
     from tests.golden_scenarios import SUBPROCESS_SCENARIOS, Scenario
 
     server, port = xmage_server
+    base_dir = tmp_path_factory.mktemp("parallel")
 
     def run_one(scenario: Scenario) -> tuple[str, ScenarioResult]:
-        game_dir = tmp_path_factory.mktemp(scenario.golden_name)
+        game_dir = base_dir / scenario.golden_name
+        game_dir.mkdir()
         try:
             if scenario.script_b is not None:
                 prompt = run_golden_scenario_two_replay(
