@@ -19,6 +19,9 @@ DECKLIST_RE = re.compile(r"(?:SB:\s*)?(\d+)\s+\[([^:]+):([^\]]+)\]\s+(.+)")
 LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 WON_GAME_RE = re.compile(r"^(.+?) has won the game$")
 _ERROR_LINE_RE = re.compile(r"^\[(\d{2}:\d{2}:\d{2})\]\s+\[(\w+)\]\s+(.+)$")
+_ERROR_LINE_ISO_RE = re.compile(
+    r"^\[\d{4}-\d{2}-\d{2}T(\d{2}:\d{2}:\d{2})\.\d+[-+]\d{2}:\d{2}\]\s+\[(\w+)\]\s+(.+)$"
+)
 
 # LLM event types to include in the website export
 _LLM_EVENT_TYPES = {
@@ -56,7 +59,7 @@ def _read_errors(game_dir: Path) -> list[dict]:
                 line = line.strip()
                 if not line:
                     continue
-                m = _ERROR_LINE_RE.match(line)
+                m = _ERROR_LINE_RE.match(line) or _ERROR_LINE_ISO_RE.match(line)
                 if m:
                     errors.append(
                         {
@@ -754,6 +757,53 @@ def _build_decisions(
     return decisions
 
 
+def _link_errors_to_decisions(
+    errors: list[dict], decisions: list[dict], llm_events: list[dict]
+) -> None:
+    """Add decisionIndex to each error by matching player + timestamp.
+
+    For each error, finds the most recent decision for the same player
+    whose source event timestamp is <= the error timestamp. Modifies
+    errors in place.
+    """
+    # Build per-player sorted list of (HH:MM:SS, decision_index)
+    player_decisions: dict[str, list[tuple[str, int]]] = {}
+    for d in decisions:
+        player = d.get("player", "")
+        indices = d.get("llmEventIndices", [])
+        if not indices:
+            continue
+        source_event = llm_events[indices[0]]
+        # Extract HH:MM:SS from ISO timestamp (e.g. "2026-02-28T13:38:35.408-08:00")
+        ts_iso = source_event.get("ts", "")
+        if len(ts_iso) >= 19 and ts_iso[10] == "T":
+            ts_hms = ts_iso[11:19]
+        else:
+            continue
+        player_decisions.setdefault(player, []).append((ts_hms, d["index"]))
+
+    # Lists are already in chronological order (decisions built from sorted events)
+
+    for err in errors:
+        err_ts = err.get("ts", "")
+        if not err_ts:
+            continue
+        player = err.get("player", "")
+        pd = player_decisions.get(player)
+        if not pd:
+            continue
+        # Binary search: find last decision with ts <= err_ts
+        lo, hi = 0, len(pd)
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if pd[mid][0] <= err_ts:
+                lo = mid + 1
+            else:
+                hi = mid
+        if lo > 0:
+            err["decisionIndex"] = pd[lo - 1][1]
+
+
 def build_export(game_dir: Path) -> dict:
     """Build the export data dict from a game directory.
 
@@ -875,9 +925,11 @@ def build_export(game_dir: Path) -> dict:
     if decisions:
         output["decisions"] = decisions
 
-    # Read error logs
+    # Read error logs and link to decisions
     errors = _read_errors(game_dir)
     if errors:
+        if decisions:
+            _link_errors_to_decisions(errors, decisions, llm_events)
         output["errors"] = errors
 
     _validate_export(output)

@@ -86,3 +86,42 @@ def test_read_errors_player_name_with_spaces():
         errors = _read_errors(game_dir)
         assert len(errors) == 1
         assert errors[0]["player"] == "Gem3F Libby"
+
+
+def test_read_errors_iso_timestamp():
+    """Java bridge writes ISO 8601 timestamps — should parse to HH:MM:SS."""
+    _read_errors = _get_read_errors()
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir)
+        line = (
+            "[2026-02-28T14:33:38.795711643-08:00] [mcp]"
+            " Loop detected (27 interactions on turn 12),"
+            " auto-passing GAME_SELECT\n"
+        )
+        (game_dir / "Alice_errors.log").write_text(line)
+        errors = _read_errors(game_dir)
+        assert len(errors) == 1
+        assert errors[0] == {
+            "ts": "14:33:38",
+            "player": "Alice",
+            "source": "mcp",
+            "message": ("Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT"),
+        }
+
+
+def test_read_errors_mixed_formats():
+    """Python pilot (HH:MM:SS) and Java bridge (ISO) in same file."""
+    _read_errors = _get_read_errors()
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir)
+        (game_dir / "Bot_errors.log").write_text(
+            "[13:55:11] [pilot] Action failed: Object p3 not found\n"
+            "[2026-02-28T14:33:38.123456789-08:00] [mcp] choose_action failed: bad index\n"
+        )
+        errors = _read_errors(game_dir)
+        assert len(errors) == 2
+        assert errors[0]["ts"] == "13:55:11"
+        assert errors[0]["source"] == "pilot"
+        assert errors[1]["ts"] == "14:33:38"
+        assert errors[1]["source"] == "mcp"
+        assert errors[1]["message"] == "choose_action failed: bad index"
