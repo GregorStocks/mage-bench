@@ -126,6 +126,13 @@ def _wait_with_pilot_monitoring(
         # Check spectator first
         spectator_rc = spectator_proc.poll()
         if spectator_rc is not None:
+            if spectator_rc != 0:
+                # Spectator crashed — kill pilots so they don't continue
+                # playing an unrecorded game on the server.
+                print(f"\nSpectator exited with code {spectator_rc} — killing pilots.")
+                for _name, proc in pilot_procs:
+                    if proc.poll() is None:
+                        proc.terminate()
             return spectator_rc
 
         # Check all pilot processes
@@ -1267,6 +1274,14 @@ def _wait_for_all_games(
             # Check spectator
             spectator_rc = session.spectator_proc.poll()
             if spectator_rc is not None:
+                if spectator_rc != 0:
+                    # Spectator crashed — kill pilots so they don't continue
+                    # playing an unrecorded game on the server.
+                    game_label = f"Game {session.index + 1}"
+                    print(f"\n{game_label}: spectator exited with code {spectator_rc} — killing pilots.")
+                    for _name, pilot_proc in session.pilot_procs:
+                        if pilot_proc.poll() is None:
+                            pilot_proc.terminate()
                 results[session.index] = spectator_rc
                 active.remove(session)
                 continue
