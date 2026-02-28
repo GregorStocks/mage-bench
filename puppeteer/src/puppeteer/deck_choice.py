@@ -6,7 +6,13 @@ from pathlib import Path
 
 from openai import OpenAI
 
-from puppeteer.config import _DECK_TYPE_TO_DIR, PilotPlayer
+from puppeteer.config import (
+    _DECK_TYPE_TO_FORMAT_DIR,
+    DeckEntry,
+    PilotPlayer,
+    generate_dck_file,
+    load_deck_registry,
+)
 from puppeteer.llm_cost import DEFAULT_BASE_URL, required_api_key_env
 from puppeteer.log import get_logger
 
@@ -48,16 +54,10 @@ def _parse_card_name(line: str) -> tuple[int, str, bool] | None:
     return int(m.group(1)), m.group(2).strip(), is_sideboard
 
 
-def _deck_display_name(path: Path) -> str:
-    """Convert a deck filename to a display name (strip .dck extension)."""
-    return path.stem
-
-
-def _summarize_deck(deck_path: Path) -> str:
+def _summarize_entry(entry: DeckEntry) -> str:
     """Return top 5 nonland maindeck cards by count as a compact string."""
     cards: list[tuple[int, str]] = []
-    text = deck_path.read_text()
-    for line in text.splitlines():
+    for line in entry.cards:
         parsed = _parse_card_name(line)
         if parsed is None:
             continue
@@ -74,21 +74,17 @@ def _summarize_deck(deck_path: Path) -> str:
     return ", ".join(f"{count}x {name}" for count, name in top)
 
 
-def list_available_decks(project_root: Path, deck_type: str) -> list[tuple[Path, str]]:
-    """Find all .dck files for the format. Returns (relative_path, display_name) sorted by name."""
-    dir_name = _DECK_TYPE_TO_DIR.get(deck_type, "Commander")
-    deck_dir = project_root / "Mage.Client" / "release" / "sample-decks" / dir_name
-    decks = []
-    for p in deck_dir.rglob("*.dck"):
-        rel = p.relative_to(project_root)
-        decks.append((rel, _deck_display_name(p)))
-    decks.sort(key=lambda x: x[1].lower())
-    return decks
+def list_available_decks(project_root: Path, deck_type: str) -> list[DeckEntry]:
+    """Load all decks for the format from the registry. Returns entries sorted by name."""
+    format_dir = _DECK_TYPE_TO_FORMAT_DIR.get(deck_type)
+    assert format_dir, f"Unknown deck type for registry: {deck_type!r}"
+    entries = load_deck_registry(project_root, format_dir)
+    entries.sort(key=lambda e: e.name.lower())
+    return entries
 
 
 def _build_choice_prompt(
-    decks: list[tuple[Path, str]],
-    project_root: Path,
+    decks: list[DeckEntry],
     player_name: str,
     already_chosen: list[tuple[str, str]],
     deck_type: str,
@@ -105,12 +101,12 @@ def _build_choice_prompt(
 
     lines.append("Available decks:")
     include_summaries = len(decks) < 30
-    for i, (rel_path, display_name) in enumerate(decks, 1):
+    for i, entry in enumerate(decks, 1):
         if include_summaries:
-            summary = _summarize_deck(project_root / rel_path)
-            lines.append(f"  {i}. {display_name} ({summary})")
+            summary = _summarize_entry(entry)
+            lines.append(f"  {i}. {entry.name} ({summary})")
         else:
-            lines.append(f"  {i}. {display_name}")
+            lines.append(f"  {i}. {entry.name}")
 
     lines.append("")
     lines.append("Reply with ONLY the number of your choice.")
@@ -128,18 +124,18 @@ def _parse_choice(response_text: str, num_decks: int) -> int:
 
 def choose_deck_for_player(
     player: PilotPlayer,
-    decks: list[tuple[Path, str]],
+    decks: list[DeckEntry],
     project_root: Path,
     deck_type: str,
     already_chosen: list[tuple[str, str]],
-) -> tuple[Path, str]:
-    """Ask one player's LLM to choose a deck. Returns (relative_path, display_name)."""
+) -> DeckEntry:
+    """Ask one player's LLM to choose a deck. Returns the chosen DeckEntry."""
     base_url = player.base_url or DEFAULT_BASE_URL
     key_env = required_api_key_env(base_url)
     api_key = os.environ[key_env]
 
     client = OpenAI(base_url=base_url, api_key=api_key)
-    prompt = _build_choice_prompt(decks, project_root, player.name, already_chosen, deck_type)
+    prompt = _build_choice_prompt(decks, player_name=player.name, already_chosen=already_chosen, deck_type=deck_type)
 
     assert player.model is not None
     response = client.chat.completions.create(
@@ -165,25 +161,28 @@ def resolve_choice_decks(
         return
 
     all_decks = list_available_decks(project_root, deck_type)
-    assert all_decks, f"No .dck files found for deck type {deck_type!r}"
+    assert all_decks, f"No decks found in registry for deck type {deck_type!r}"
 
     available = list(all_decks)
     already_chosen: list[tuple[str, str]] = []
 
     for player in choice_players:
         assert player.model, f"Player {player.name!r} has deck='choice' but no model set"
-        path, display_name = choose_deck_for_player(
+        entry = choose_deck_for_player(
             player,
             available,
             project_root,
             deck_type,
             already_chosen,
         )
-        player.deck = str(path)
-        logger.info("Deck choice for %s: %s", player.name, display_name)
-        already_chosen.append((player.name, display_name))
+        dck_path = generate_dck_file(project_root, entry)
+        player.deck = str(dck_path)
+        player.deck_name = entry.name
+        player.deck_strategy = entry.strategy
+        logger.info("Deck choice for %s: %s", player.name, entry.name)
+        already_chosen.append((player.name, entry.name))
         # Remove chosen deck from pool
-        available = [(p, n) for p, n in available if p != path]
+        available = [e for e in available if e.name != entry.name]
         if not available:
             # All decks used — reset pool (allows more players than decks)
             available = list(all_decks)

@@ -243,6 +243,10 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
             deck_file = project_root / player.deck
             if deck_file.exists():
                 entry["decklist"] = read_decklist(deck_file)
+        if player.deck_name:
+            entry["deck_name"] = player.deck_name
+        if player.deck_strategy:
+            entry["deck_strategy"] = player.deck_strategy
         if hasattr(player, "model") and player.model:
             entry["model"] = player.model
         if hasattr(player, "personality") and player.personality:
