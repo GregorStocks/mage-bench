@@ -1241,7 +1241,7 @@ def _json_diff(expected: object, actual: object, path: str = "", max_diffs: int 
 
 
 def _is_short_id(value: object) -> bool:
-    return isinstance(value, str) and len(value) > 1 and value[0] == "p" and value[1:].isdigit()
+    return isinstance(value, str) and len(value) > 1 and value[0] in ("p", "l") and value[1:].isdigit()
 
 
 def _normalize_prompt_for_golden(obj: object) -> object:

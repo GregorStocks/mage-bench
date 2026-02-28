@@ -40,8 +40,8 @@ def test_stack_resolved(xmage_server, tmp_path, project_root, spectator_process)
             # Cast Lightning Bolt #1 (first playable spell).
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}},
-            # Target Opponent.
-            {"name": "choose_action", "arguments": {"id": "p2"}},
+            # Target Opponent (player IDs use "l" prefix, bridge-local).
+            {"name": "choose_action", "arguments": {"id": "l2"}},
             # Let the stack resolve — bolt deals 3 damage.
             {"name": "pass_priority", "arguments": {"until": "stack_resolved"}},
             {"name": "get_game_state", "arguments": {}},

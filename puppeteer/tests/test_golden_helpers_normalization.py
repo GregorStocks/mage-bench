@@ -1,4 +1,33 @@
-from tests.golden_helpers import _json_diff, _normalize_embedded_json, _normalize_prompt_for_golden, _strip_volatile
+from tests.golden_helpers import (
+    _is_short_id,
+    _json_diff,
+    _normalize_embedded_json,
+    _normalize_prompt_for_golden,
+    _strip_volatile,
+)
+
+
+def test_is_short_id_server_prefix():
+    assert _is_short_id("p1")
+    assert _is_short_id("p99")
+    assert not _is_short_id("p")
+    assert not _is_short_id("")
+    assert not _is_short_id("x5")
+    assert not _is_short_id(42)
+
+
+def test_is_short_id_local_prefix():
+    assert _is_short_id("l1")
+    assert _is_short_id("l42")
+    assert not _is_short_id("l")
+
+
+def test_normalize_prompt_strips_local_short_ids():
+    """Local-prefix short IDs (lN) should be normalized the same as server ones (pN)."""
+    payload = [{"content": '{"id":"l5","name":"Lotus Petal"}'}]
+
+    normalized = _normalize_prompt_for_golden(payload)
+    assert normalized[0]["content"]["id"] == "_"
 
 
 def test_normalize_embedded_json_sorts_keys():

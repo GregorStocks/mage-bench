@@ -147,7 +147,7 @@ public class BridgeCallbackHandler {
             }
         }
     }
-    private final ShortIdRegistry shortIds = new ShortIdRegistry();
+    private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private volatile List<Object> lastChoices = null; // Index→UUID/String mapping for choose_action
     private volatile String lastChoicesActionType = null; // Debug context for stale-choice diagnostics
     private volatile String lastChoicesResponseType = null; // Debug context for stale-choice diagnostics
@@ -4125,7 +4125,7 @@ public class BridgeCallbackHandler {
     }
 
     private static int parseShortIdSequence(String shortId) {
-        if (shortId == null || shortId.length() < 2 || shortId.charAt(0) != 'p') {
+        if (shortId == null || shortId.length() < 2 || (shortId.charAt(0) != 'p' && shortId.charAt(0) != 'l')) {
             return Integer.MAX_VALUE;
         }
         try {
