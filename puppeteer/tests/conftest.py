@@ -19,10 +19,13 @@ from tests.golden_helpers import (
     DECK_GOBLINS,
     DECK_RED_STOMPY,
     MAIN_CLASS_BRIDGE,
+    MAIN_CLASS_OBSERVER,
     MAIN_CLASS_SERVER,
     BridgeSession,
     PotatoProcess,
+    SpectatorProcess,
     _build_java_cmd,
+    _wait_for_log_marker,
     compute_module_classpath,
     print_timing_summary,
     run_golden_scenario,
@@ -50,23 +53,27 @@ def extract_golden_set_codes(project_root: Path) -> str:
 
 
 def pytest_collection_modifyitems(items: list) -> None:
-    """Schedule tests that use session-scoped persistent JVM fixtures last.
+    """Schedule tests that use bridge/potato session fixtures last.
 
     Tests that spawn their own subprocesses (e.g. two-replay tests) must run
     before the persistent bridge/potato fixtures are created, because those
     fixtures stay connected to the XMage server as "TestPlayer"/"Opponent" and
     their leftover table state can interfere with fresh subprocess clients
     that use the same usernames.
+
+    Note: spectator_process is NOT included here — the spectator connects as
+    "spectator" (not a player username) so it doesn't conflict with subprocess
+    clients.
     """
-    persistent_fixture_names = {"bridge_session", "potato_process"}
-    non_persistent = []
-    persistent = []
+    bridge_potato_fixtures = {"bridge_session", "potato_process"}
+    non_bridge_potato = []
+    bridge_potato = []
     for item in items:
-        if persistent_fixture_names & set(item.fixturenames):
-            persistent.append(item)
+        if bridge_potato_fixtures & set(item.fixturenames):
+            bridge_potato.append(item)
         else:
-            non_persistent.append(item)
-    items[:] = non_persistent + persistent
+            non_bridge_potato.append(item)
+    items[:] = non_bridge_potato + bridge_potato
 
 
 @pytest.fixture(scope="session")
@@ -352,6 +359,80 @@ def potato_process(xmage_server, project_root):
     except subprocess.TimeoutExpired:
         kill_tree(proc.pid)
     potato_log_fh.close()
+
+
+@pytest.fixture(scope="session")
+def spectator_process(xmage_server, project_root):
+    """Session-scoped observer spectator JVM with stdin command protocol.
+
+    Starts the spectator with keepAlive=true. Each test sends a JSON command
+    via stdin to create a new game table, avoiding the cost of spawning a
+    fresh JVM per test.
+    """
+    server, port = xmage_server
+
+    tmp_dir = project_root / "tmp" / "golden-spectator"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+
+    allowed_sets = extract_golden_set_codes(project_root)
+
+    cp = compute_module_classpath(project_root, "Mage.Client.Observer")
+    spectator_cmd = _build_java_cmd(
+        cp,
+        MAIN_CLASS_OBSERVER,
+        {
+            "xmage.aiPuppeteer.autoConnect": "true",
+            "xmage.aiPuppeteer.disableWhatsNew": "true",
+            "xmage.observer.noWindow": "true",
+            "xmage.observer.keepAlive": "true",
+            "xmage.aiPuppeteer.server": server,
+            "xmage.aiPuppeteer.port": str(port),
+            "xmage.aiPuppeteer.user": "spectator",
+            "xmage.aiPuppeteer.password": "",
+            "xmage.sets.allowed": allowed_sets,
+        },
+    )
+
+    spectator_log = tmp_dir / "spectator.log"
+    spectator_log_fh = open(spectator_log, "w")
+
+    env = os.environ.copy()
+    env.update(
+        {
+            "XMAGE_AI_PUPPETEER": "1",
+            "XMAGE_AI_PUPPETEER_USER": "spectator",
+            "XMAGE_AI_PUPPETEER_PASSWORD": "",
+            "XMAGE_AI_PUPPETEER_SERVER": server,
+            "XMAGE_AI_PUPPETEER_PORT": str(port),
+            "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
+            "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
+            "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
+        }
+    )
+
+    proc = subprocess.Popen(
+        spectator_cmd,
+        cwd=project_root / "Mage.Client.Observer",
+        stdin=subprocess.PIPE,
+        stdout=spectator_log_fh,
+        stderr=subprocess.STDOUT,
+        env=env,
+    )
+
+    with timed_phase("session", "spectator_jvm_startup"):
+        spectator = SpectatorProcess(proc, spectator_log)
+        print(f"Spectator JVM started (pid={proc.pid}), waiting for keepAlive ready...")
+        _wait_for_log_marker(spectator_log, "keepAlive: lobby initialized, ready for commands", proc, timeout=120)
+        print("Spectator keepAlive ready")
+
+    yield spectator
+
+    spectator.close()
+    try:
+        proc.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        kill_tree(proc.pid)
+    spectator_log_fh.close()
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:

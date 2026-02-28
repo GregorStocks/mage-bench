@@ -291,6 +291,57 @@ class PotatoProcess:
             pass
 
 
+class SpectatorProcess:
+    """Persistent observer spectator JVM controlled via stdin JSON protocol.
+
+    In keepAlive mode, the spectator reads JSON commands from stdin. Each command
+    creates a game table, waits for players to join, starts the match, and
+    auto-watches the game.
+    """
+
+    def __init__(self, proc: subprocess.Popen[bytes], log_path: Path) -> None:
+        self.proc = proc
+        self.log_path = log_path
+        assert proc.stdin is not None, "SpectatorProcess requires stdin=PIPE"
+        self._stdin = io.TextIOWrapper(proc.stdin, encoding="utf-8", line_buffering=True)
+
+    def start_game(
+        self,
+        game_dir: Path,
+        players_config: dict,
+        choosing_player: str,
+    ) -> None:
+        """Send a JSON command to create a new game table."""
+        cmd = {
+            "gameDir": str(game_dir),
+            "playersConfig": players_config,
+            "choosingPlayer": choosing_player,
+            "skipInitShuffling": True,
+            "winsNeeded": 1,
+        }
+        self._stdin.write(json.dumps(cmd, separators=(",", ":")) + "\n")
+        self._stdin.flush()
+
+    def wait_for_ready(self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
+        """Wait for the spectator to create the table and be ready for players.
+
+        Uses gameDir in the marker to distinguish between games, since the
+        log file accumulates across all games in the session.
+        """
+        _wait_for_log_marker(
+            self.log_path,
+            f"gameDir={game_dir}",
+            self.proc,
+            timeout=timeout,
+        )
+
+    def close(self) -> None:
+        try:
+            self._stdin.close()
+        except Exception:
+            pass
+
+
 def _run_replay_on_bridge(
     bridge: BridgeSession,
     script: list[dict],
@@ -469,6 +520,7 @@ def run_golden_scenario(
     spectator_name: str = "spectator",
     skip_assert: bool = False,
     name_map: dict[str, str] | None = None,
+    spectator: SpectatorProcess | None = None,
 ) -> list[dict]:
     """Run a golden test scenario with a replay player vs a potato opponent.
 
@@ -478,6 +530,9 @@ def run_golden_scenario(
 
     When ``bridge`` and/or ``potato`` are provided, reuses those session-scoped
     JVM processes instead of spawning fresh ones per test.
+
+    When ``spectator`` is provided, reuses the session-scoped spectator JVM
+    instead of spawning a fresh one per test.
 
     Automatically asserts golden prompt and export comparisons using
     ``golden_name`` as the file identifier.
@@ -501,6 +556,7 @@ def run_golden_scenario(
             deck_type,
             bridge,
             potato,
+            spectator,
         )
     return _run_golden_subprocess(
         server,
@@ -518,6 +574,7 @@ def run_golden_scenario(
         spectator_name=spectator_name,
         skip_assert=skip_assert,
         name_map=name_map,
+        spectator=spectator,
     )
 
 
@@ -543,6 +600,30 @@ def _write_game_meta(
         ],
     }
     (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
+
+
+def _send_spectator_command(
+    spectator: SpectatorProcess,
+    game_dir: Path,
+    deck_a: str,
+    deck_b: str,
+    player_a_name: str,
+    player_b_name: str,
+    player_b_type: str,
+    game_type: str,
+    deck_type: str,
+) -> None:
+    """Send a game command to a session-scoped spectator and wait for readiness."""
+    players_config = {
+        "players": [
+            {"type": "replay", "name": player_a_name, "deck": deck_a},
+            {"type": player_b_type, "name": player_b_name, "deck": deck_b},
+        ],
+        "gameType": game_type,
+        "deckType": deck_type,
+    }
+    spectator.start_game(game_dir, players_config, player_a_name)
+    spectator.wait_for_ready(game_dir)
 
 
 def _start_spectator(
@@ -636,6 +717,7 @@ def _run_golden_persistent(
     deck_type: str,
     bridge: BridgeSession,
     potato: PotatoProcess,
+    spectator: SpectatorProcess | None = None,
 ) -> list[dict]:
     """Run a golden scenario using session-scoped bridge and potato JVMs."""
     game_dir.mkdir(parents=True, exist_ok=True)
@@ -655,23 +737,37 @@ def _run_golden_persistent(
     log_fhs: list = []
 
     try:
-        # Start spectator (always per-test)
-        with timed_phase(golden_name, "spectator_startup"):
-            spectator_proc, spectator_fh, _spectator_log = _start_spectator(
-                server,
-                port,
-                project_root,
-                game_dir,
-                deck_a,
-                deck_b,
-                player_a_name,
-                player_b_name,
-                "potato",
-                game_type,
-                deck_type,
-            )
-            procs.append(spectator_proc)
-            log_fhs.append(spectator_fh)
+        # Start spectator — reuse session-scoped process if available
+        if spectator is not None:
+            with timed_phase(golden_name, "spectator_command"):
+                _send_spectator_command(
+                    spectator,
+                    game_dir,
+                    deck_a,
+                    deck_b,
+                    player_a_name,
+                    player_b_name,
+                    "potato",
+                    game_type,
+                    deck_type,
+                )
+        else:
+            with timed_phase(golden_name, "spectator_startup"):
+                spectator_proc, spectator_fh, _spectator_log = _start_spectator(
+                    server,
+                    port,
+                    project_root,
+                    game_dir,
+                    deck_a,
+                    deck_b,
+                    player_a_name,
+                    player_b_name,
+                    "potato",
+                    game_type,
+                    deck_type,
+                )
+                procs.append(spectator_proc)
+                log_fhs.append(spectator_fh)
 
         # Tell potato to join with the new deck (non-blocking: potato starts polling)
         potato.join_next_game(str(project_root / deck_b))
@@ -708,7 +804,7 @@ def _run_golden_persistent(
             bridge.call_tool("concede", timeout=10)
         except Exception:
             pass
-        # Kill only the per-test spectator — bridge and potato are session-scoped
+        # Kill only the per-test processes — session-scoped ones are managed by fixtures
         for proc in procs:
             if proc.poll() is None:
                 kill_tree(proc.pid)
@@ -732,6 +828,7 @@ def _run_golden_subprocess(
     spectator_name: str = "spectator",
     skip_assert: bool = False,
     name_map: dict[str, str] | None = None,
+    spectator: SpectatorProcess | None = None,
 ) -> list[dict]:
     """Run a golden scenario by spawning fresh subprocess per test (original approach)."""
     game_dir.mkdir(parents=True, exist_ok=True)
@@ -755,24 +852,38 @@ def _run_golden_subprocess(
     log_fhs: list = []
 
     try:
-        # Start spectator
-        with timed_phase(golden_name, "spectator_startup"):
-            spectator_proc, spectator_fh, spectator_log = _start_spectator(
-                server,
-                port,
-                project_root,
-                game_dir,
-                deck_a,
-                deck_b,
-                player_a_name,
-                player_b_name,
-                "potato",
-                game_type,
-                deck_type,
-                spectator_name=spectator_name,
-            )
-            procs.append(spectator_proc)
-            log_fhs.append(spectator_fh)
+        # Start spectator — reuse session-scoped process if available
+        if spectator is not None:
+            with timed_phase(golden_name, "spectator_command"):
+                _send_spectator_command(
+                    spectator,
+                    game_dir,
+                    deck_a,
+                    deck_b,
+                    player_a_name,
+                    player_b_name,
+                    "potato",
+                    game_type,
+                    deck_type,
+                )
+        else:
+            with timed_phase(golden_name, "spectator_startup"):
+                spectator_proc, spectator_fh, spectator_log = _start_spectator(
+                    server,
+                    port,
+                    project_root,
+                    game_dir,
+                    deck_a,
+                    deck_b,
+                    player_a_name,
+                    player_b_name,
+                    "potato",
+                    game_type,
+                    deck_type,
+                    spectator_name=spectator_name,
+                )
+                procs.append(spectator_proc)
+                log_fhs.append(spectator_fh)
 
         # --- Start replay client (player A) ---
         replay_log = game_dir / f"{player_a_name}_replay.log"
@@ -887,8 +998,12 @@ def run_golden_scenario_two_replay(
     spectator_name: str = "spectator",
     skip_assert: bool = False,
     name_map: dict[str, str] | None = None,
+    spectator: SpectatorProcess | None = None,
 ) -> list[dict]:
     """Run a golden test scenario with replay clients for both players.
+
+    When ``spectator`` is provided, reuses the session-scoped spectator JVM
+    instead of spawning a fresh one per test.
 
     Automatically asserts golden prompt and export comparisons using
     ``golden_name`` as the file identifier.
@@ -913,70 +1028,43 @@ def run_golden_scenario_two_replay(
     script_a_path.write_text(json.dumps(script_a))
     script_b_path.write_text(json.dumps(script_b))
 
-    # Build player config JSON for the spectator
-    players_config = json.dumps(
-        {
-            "players": [
-                {"type": "replay", "name": player_a_name, "deck": deck_a},
-                {"type": "replay", "name": player_b_name, "deck": deck_b},
-            ],
-            "gameType": game_type,
-            "deckType": deck_type,
-        },
-        separators=(",", ":"),
-    )
-
     procs: list[subprocess.Popen] = []
     log_fhs: list = []
 
     try:
         # --- Start observer spectator ---
-        with timed_phase(golden_name, "spectator_startup"):
-            spectator_log = game_dir / "spectator.log"
-            cp = compute_module_classpath(project_root, "Mage.Client.Observer")
-            spectator_cmd = _build_java_cmd(
-                cp,
-                MAIN_CLASS_OBSERVER,
-                {
-                    "xmage.aiPuppeteer.autoConnect": "true",
-                    "xmage.aiPuppeteer.autoStart": "true",
-                    "xmage.aiPuppeteer.disableWhatsNew": "true",
-                    "xmage.observer.noWindow": "true",
-                    "xmage.aiPuppeteer.server": server,
-                    "xmage.aiPuppeteer.port": str(port),
-                    "xmage.aiPuppeteer.user": spectator_name,
-                    "xmage.aiPuppeteer.password": "",
-                    "xmage.observer.gameDir": str(game_dir),
-                },
-            )
-
-            spectator_proc, spectator_fh = _start_process(
-                args=spectator_cmd,
-                cwd=project_root / "Mage.Client.Observer",
-                env_updates={
-                    "XMAGE_AI_PUPPETEER": "1",
-                    "XMAGE_AI_PUPPETEER_USER": spectator_name,
-                    "XMAGE_AI_PUPPETEER_PASSWORD": "",
-                    "XMAGE_AI_PUPPETEER_SERVER": server,
-                    "XMAGE_AI_PUPPETEER_PORT": str(port),
-                    "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
-                    "XMAGE_AI_PUPPETEER_PLAYERS_CONFIG": players_config,
-                    "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
-                    "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
-                    "XMAGE_AI_PUPPETEER_CHOOSING_PLAYER": player_a_name,
-                },
-                log_path=spectator_log,
-            )
-            procs.append(spectator_proc)
-            log_fhs.append(spectator_fh)
-
-            # Wait for table creation
-            _wait_for_log_marker(
-                spectator_log,
-                "AI Puppeteer: waiting for",
-                spectator_proc,
-                timeout=SPECTATOR_READY_TIMEOUT_SECONDS,
-            )
+        if spectator is not None:
+            spectator_log = spectator.log_path
+            with timed_phase(golden_name, "spectator_command"):
+                _send_spectator_command(
+                    spectator,
+                    game_dir,
+                    deck_a,
+                    deck_b,
+                    player_a_name,
+                    player_b_name,
+                    "replay",
+                    game_type,
+                    deck_type,
+                )
+        else:
+            with timed_phase(golden_name, "spectator_startup"):
+                spectator_proc, spectator_fh, spectator_log = _start_spectator(
+                    server,
+                    port,
+                    project_root,
+                    game_dir,
+                    deck_a,
+                    deck_b,
+                    player_a_name,
+                    player_b_name,
+                    "replay",
+                    game_type,
+                    deck_type,
+                    spectator_name=spectator_name,
+                )
+                procs.append(spectator_proc)
+                log_fhs.append(spectator_fh)
 
         # --- Start replay client (player A) ---
         replay_a_log = game_dir / f"{player_a_name}_replay.log"
@@ -1170,7 +1258,7 @@ def _json_diff(expected: object, actual: object, path: str = "", max_diffs: int 
 
 
 def _is_short_id(value: object) -> bool:
-    return isinstance(value, str) and len(value) > 1 and value[0] == "p" and value[1:].isdigit()
+    return isinstance(value, str) and len(value) > 1 and value[0] in ("p", "l") and value[1:].isdigit()
 
 
 def _normalize_prompt_for_golden(obj: object) -> object:

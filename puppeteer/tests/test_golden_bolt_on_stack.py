@@ -10,7 +10,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_bolt_on_stack(xmage_server, tmp_path, project_root, bridge_session, potato_process):
+def test_bolt_on_stack(xmage_server, tmp_path, project_root, bridge_session, potato_process, spectator_process):
     """Two Lightning Bolts on the stack, one targeting Memnite, one targeting Opponent.
 
     Script: choose starting player, keep hand, T1 play Mountain + cast Memnite,
@@ -52,7 +52,8 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root, bridge_session, pot
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}, "golden_blunder": True},
             # Target Opponent (chained choose_action, no pass_priority to avoid auto-pass resolving the bolt).
-            {"name": "choose_action", "arguments": {"id": "p2"}},
+            # Player IDs use "l" prefix (bridge-local) since players aren't card views.
+            {"name": "choose_action", "arguments": {"id": "l2"}},
             # Cast Lightning Bolt #2 while #1 is still on the stack.
             {"name": "choose_action", "arguments": {"index": 0}},
             # Target Memnite.
@@ -62,4 +63,5 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root, bridge_session, pot
         golden_name="bolt_on_stack",
         bridge=bridge_session,
         potato=potato_process,
+        spectator=spectator_process,
     )

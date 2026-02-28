@@ -363,14 +363,17 @@ public class ObserverGamePanel extends GamePanel {
             costPollTimer.stop();
         }
 
-        logger.info("Game ended, will auto-close in 10 seconds");
-
-        var exitTimer = new Timer(10000, e -> {
-            logger.info("Auto-closing observer spectator");
-            System.exit(0);
-        });
-        exitTimer.setRepeats(false);
-        exitTimer.start();
+        if (Boolean.getBoolean("xmage.observer.keepAlive")) {
+            logger.info("Game ended (keepAlive mode, staying alive for next game)");
+        } else {
+            logger.info("Game ended, will auto-close in 10 seconds");
+            var exitTimer = new Timer(10000, e -> {
+                logger.info("Auto-closing observer spectator");
+                System.exit(0);
+            });
+            exitTimer.setRepeats(false);
+            exitTimer.start();
+        }
     }
 
     /**

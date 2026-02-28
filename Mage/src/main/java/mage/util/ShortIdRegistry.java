@@ -5,13 +5,18 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Logger;
 
 /**
  * Bidirectional mapping between XMage UUIDs and short, token-efficient IDs.
- * Short IDs use format "p1", "p2", etc.
  *
- * IDs are stable for the lifetime of a game — the same UUID always maps to
- * the same short ID, even as objects move between zones.
+ * <h3>Dual-namespace design</h3>
+ * The server uses prefix {@code "p"} (the default). The bridge client uses
+ * prefix {@code "l"} for locally-assigned fallback IDs (via {@link #getOrAssign}),
+ * while server-assigned IDs (received via {@link #register}) keep whatever
+ * prefix the server used. When a server ID replaces a local ID, the old local
+ * ID is kept as a resolve-only alias in {@code shortToUuid} so that stale
+ * references (e.g. from an LLM's mana plan) still resolve to the correct UUID.
  *
  * <h3>Deterministic ordering invariant</h3>
  * All code that sorts game objects for display or ID assignment MUST produce
@@ -26,9 +31,22 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class ShortIdRegistry {
 
+    private static final Logger logger = Logger.getLogger(ShortIdRegistry.class.getName());
+
+    private final String prefix;
     private final Map<UUID, String> uuidToShort = new ConcurrentHashMap<>();
     private final Map<String, UUID> shortToUuid = new ConcurrentHashMap<>();
     private final AtomicInteger nextId = new AtomicInteger(1);
+
+    /** Create a registry with the default {@code "p"} prefix (used by the server). */
+    public ShortIdRegistry() {
+        this("p");
+    }
+
+    /** Create a registry with a custom prefix for {@link #getOrAssign} IDs. */
+    public ShortIdRegistry(String prefix) {
+        this.prefix = Objects.requireNonNull(prefix);
+    }
 
     /**
      * Get the short ID for a UUID, assigning a new one if first encounter.
@@ -38,7 +56,7 @@ public class ShortIdRegistry {
         if (existing != null) {
             return existing;
         }
-        String shortId = "p" + nextId.getAndIncrement();
+        String shortId = prefix + nextId.getAndIncrement();
         String race = uuidToShort.putIfAbsent(uuid, shortId);
         if (race != null) {
             return race;
@@ -92,7 +110,8 @@ public class ShortIdRegistry {
             // This happens when a card is first seen in a zone not searched by
             // findCardViewById (e.g. lookedAt) and gets a local ID, then later
             // appears in a visible zone with its server-assigned ID.
-            shortToUuid.remove(existingShort, uuid);
+            // Keep the old ID in shortToUuid as a resolve-only alias so stale
+            // references (e.g. from an LLM's mana plan) still resolve correctly.
             uuidToShort.put(uuid, shortId);
             shortToUuid.put(shortId, uuid);
             advanceNextId(shortId);
@@ -101,9 +120,12 @@ public class ShortIdRegistry {
 
         UUID existingUuid = shortToUuid.get(shortId);
         if (existingUuid != null && !existingUuid.equals(uuid)) {
-            // The short ID was locally assigned to a different UUID. The server
-            // is authoritative, so evict the stale mapping. The evicted UUID will
-            // get a fresh local ID on its next getOrAssign() call.
+            // With namespace separation (local=l, server=p), this should only
+            // happen if the server assigned the same ID to two different UUIDs,
+            // which is a server bug. Log at ERROR so it's impossible to miss.
+            logger.severe("Server short ID collision: " + shortId + " was mapped to "
+                    + existingUuid + " but server now says it belongs to " + uuid
+                    + " — evicting old mapping (likely a server bug)");
             uuidToShort.remove(existingUuid, shortId);
             shortToUuid.remove(shortId, existingUuid);
         }
@@ -123,7 +145,7 @@ public class ShortIdRegistry {
     }
 
     /**
-     * Parse the numeric sequence from a short ID string (e.g., "p6" → 6).
+     * Parse the numeric sequence from a short ID string (e.g., "p6" → 6, "l3" → 3).
      * Useful for comparators operating on already-serialized short ID strings.
      */
     public static int parseSequence(String shortId) {
