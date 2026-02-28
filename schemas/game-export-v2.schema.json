@@ -115,6 +115,11 @@
       "type": "array",
       "items": { "$ref": "#/$defs/Decision" },
       "description": "Canonical decision records built at export time. Each references a snapshot and overlays pilot-specific context (choices, playable cards, etc.). See doc/unified-decisions-plan.md."
+    },
+    "errors": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/GameError" },
+      "description": "Errors from per-player error logs, surfacing critical issues (loop detection, uncaught exceptions, short ID collisions) for automated analysis. Absent when no errors occurred."
     }
   },
 
@@ -540,6 +545,30 @@
         "incomingAttackers": {
           "type": "array",
           "description": "Opponent creatures attacking this player."
+        }
+      }
+    },
+
+    "GameError": {
+      "type": "object",
+      "required": ["ts", "player", "source", "message"],
+      "additionalProperties": false,
+      "properties": {
+        "ts": {
+          "type": "string",
+          "description": "HH:MM:SS timestamp from the error log, or empty string for malformed lines."
+        },
+        "player": {
+          "type": "string",
+          "description": "Player name derived from the error log filename."
+        },
+        "source": {
+          "type": "string",
+          "description": "Error source tag: 'pilot' (Python-side), 'mcp' (Java bridge-side), or 'unknown'."
+        },
+        "message": {
+          "type": "string",
+          "description": "Error message text."
         }
       }
     }

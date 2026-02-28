@@ -84,6 +84,17 @@ def main(gz_path: str) -> None:
         ct = sum(e["usage"].get("completionTokens", 0) for e in pr)
         print(f"{player}: {len(pr)} responses, {pt:,} prompt, {ct:,} completion tokens")
 
+    # Game-level errors from error logs
+    errors = d.get("errors", [])
+    if errors:
+        print()
+        print(f"=== Game Errors ({len(errors)}) ===")
+        for err in errors:
+            print(
+                f"  [{err.get('ts', '?')}] [{err.get('source', '?')}] "
+                f"{err.get('player', '?')}: {err.get('message', '?')}"
+            )
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

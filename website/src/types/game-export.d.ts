@@ -87,6 +87,10 @@ export interface GameExportV2 {
    * Canonical decision records built at export time. Each references a snapshot and overlays pilot-specific context (choices, playable cards, etc.). See doc/unified-decisions-plan.md.
    */
   decisions?: Decision[];
+  /**
+   * Errors from per-player error logs, surfacing critical issues (loop detection, uncaught exceptions, short ID collisions) for automated analysis. Absent when no errors occurred.
+   */
+  errors?: GameError[];
 }
 export interface Player {
   name: string;
@@ -401,4 +405,22 @@ export interface PilotContext {
    */
   incomingAttackers?: unknown[];
   [k: string]: unknown;
+}
+export interface GameError {
+  /**
+   * HH:MM:SS timestamp from the error log, or empty string for malformed lines.
+   */
+  ts: string;
+  /**
+   * Player name derived from the error log filename.
+   */
+  player: string;
+  /**
+   * Error source tag: 'pilot' (Python-side), 'mcp' (Java bridge-side), or 'unknown'.
+   */
+  source: string;
+  /**
+   * Error message text.
+   */
+  message: string;
 }
