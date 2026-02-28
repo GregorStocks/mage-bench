@@ -5093,7 +5093,11 @@ public class BridgeCallbackHandler {
 
             if ("tap".equals(entry.type())) {
                 manaPlanAbilityIndex = entry.abilityIndex();  // save for GAME_CHOOSE_ABILITY
-                UUID targetId = shortIds.resolve(entry.value());
+                UUID targetId = shortIds.tryResolve(entry.value());
+                if (targetId == null) {
+                    logger.warn("[" + client.getUsername() + "] Mana plan: unknown short ID '" + entry.value() + "', cancelling spell");
+                    return cancelSpellFromBadManaPlan(gameId, payingForId, msg);
+                }
                 PlayableObjectsList playableForPlan = gameView != null ? gameView.getCanPlayObjects() : null;
                 if (playableForPlan != null) {
                     PlayableObjectStats stats = playableForPlan.getObjects().get(targetId);
