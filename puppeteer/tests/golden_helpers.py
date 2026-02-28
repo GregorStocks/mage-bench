@@ -164,7 +164,7 @@ class BridgeSession:
         self._url = url
         self._id = 0
 
-    def _rpc(self, method: str, params: dict | None = None, timeout: int = 300) -> dict:
+    def _rpc(self, method: str, params: dict | None = None, timeout: int = 60) -> dict:
         self._id += 1
         req: dict = {"jsonrpc": "2.0", "method": method, "id": self._id}
         if params is not None:
@@ -202,9 +202,13 @@ class BridgeSession:
         result = self._rpc("tools/list", {})
         return [t["name"] for t in result["tools"]]
 
-    def call_tool(self, name: str, arguments: dict | None = None) -> str:
+    def call_tool(self, name: str, arguments: dict | None = None, timeout: int | None = None) -> str:
         """Call an MCP tool and return the result text (matches execute_tool() return format)."""
-        result = self._rpc("tools/call", {"name": name, "arguments": arguments or {}})
+        kwargs: dict = {"name": name, "arguments": arguments or {}}
+        rpc_kwargs: dict = {}
+        if timeout is not None:
+            rpc_kwargs["timeout"] = timeout
+        result = self._rpc("tools/call", kwargs, **rpc_kwargs)
         return result["content"][0]["text"]
 
     def close(self) -> None:
@@ -642,6 +646,13 @@ def _run_golden_persistent(
         return prompt
 
     finally:
+        # Concede the bridge game so it's ready for the next test.
+        # Without this, a failed test leaves the bridge stuck mid-game
+        # and all subsequent persistent tests fail on join_table.
+        try:
+            bridge.call_tool("concede", timeout=10)
+        except Exception:
+            pass
         # Kill only the per-test spectator — bridge and potato are session-scoped
         for proc in procs:
             if proc.poll() is None:
