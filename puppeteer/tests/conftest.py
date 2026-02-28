@@ -1,5 +1,9 @@
 """Shared fixtures for golden prompt integration tests."""
 
+from __future__ import annotations
+
+import concurrent.futures
+import dataclasses
 import os
 import re
 import subprocess
@@ -18,6 +22,8 @@ from tests.golden_helpers import (
     BridgeSession,
     PotatoProcess,
     print_timing_summary,
+    run_golden_scenario,
+    run_golden_scenario_two_replay,
     timed_phase,
 )
 
@@ -141,6 +147,79 @@ def xmage_server(project_root, tmp_path_factory):
     finally:
         kill_tree(server_proc.pid)
         server_log_fh.close()
+
+
+@dataclasses.dataclass
+class ScenarioResult:
+    """Result of running a subprocess golden scenario."""
+
+    prompt: list[dict]
+    game_dir: Path
+    error: BaseException | None
+
+
+@pytest.fixture(scope="session")
+def parallel_subprocess_results(
+    xmage_server: tuple[str, int],
+    project_root: Path,
+    tmp_path_factory: pytest.TempPathFactory,
+) -> dict[str, ScenarioResult]:
+    """Run all non-persistent golden scenarios in parallel.
+
+    Each scenario uses unique XMage usernames so they can share the same
+    server without collisions.  Results are collected and returned for
+    individual test functions to assert against.
+    """
+    from tests.golden_scenarios import SUBPROCESS_SCENARIOS, Scenario
+
+    server, port = xmage_server
+
+    def run_one(scenario: Scenario) -> tuple[str, ScenarioResult]:
+        game_dir = tmp_path_factory.mktemp(scenario.golden_name)
+        try:
+            if scenario.script_b is not None:
+                prompt = run_golden_scenario_two_replay(
+                    server=server,
+                    port=port,
+                    project_root=project_root,
+                    game_dir=game_dir,
+                    deck_a=scenario.deck_a,
+                    deck_b=scenario.deck_b,
+                    script_a=scenario.script_a,
+                    script_b=scenario.script_b,
+                    golden_name=scenario.golden_name,
+                    player_a_name=scenario.player_a_name,
+                    player_b_name=scenario.player_b_name,
+                    spectator_name=scenario.spectator_name,
+                    skip_assert=True,
+                )
+            else:
+                prompt = run_golden_scenario(
+                    server=server,
+                    port=port,
+                    project_root=project_root,
+                    game_dir=game_dir,
+                    deck_a=scenario.deck_a,
+                    deck_b=scenario.deck_b,
+                    script=scenario.script_a,
+                    golden_name=scenario.golden_name,
+                    player_a_name=scenario.player_a_name,
+                    player_b_name=scenario.player_b_name,
+                    spectator_name=scenario.spectator_name,
+                    skip_assert=True,
+                )
+            return scenario.golden_name, ScenarioResult(prompt, game_dir, None)
+        except BaseException as e:
+            return scenario.golden_name, ScenarioResult([], game_dir, e)
+
+    results: dict[str, ScenarioResult] = {}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        futures = [executor.submit(run_one, s) for s in SUBPROCESS_SCENARIOS]
+        for future in concurrent.futures.as_completed(futures):
+            name, result = future.result()
+            results[name] = result
+
+    return results
 
 
 @pytest.fixture(scope="session")

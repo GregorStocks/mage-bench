@@ -414,6 +414,9 @@ def run_golden_scenario(
     deck_type: str = "Constructed - Legacy",
     bridge: BridgeSession | None = None,
     potato: PotatoProcess | None = None,
+    spectator_name: str = "spectator",
+    skip_assert: bool = False,
+    name_map: dict[str, str] | None = None,
 ) -> list[dict]:
     """Run a golden test scenario with a replay player vs a potato opponent.
 
@@ -460,6 +463,9 @@ def run_golden_scenario(
         player_b_name,
         game_type,
         deck_type,
+        spectator_name=spectator_name,
+        skip_assert=skip_assert,
+        name_map=name_map,
     )
 
 
@@ -499,6 +505,7 @@ def _start_spectator(
     player_b_type: str,
     game_type: str,
     deck_type: str,
+    spectator_name: str = "spectator",
 ) -> tuple[subprocess.Popen, object, Path]:
     """Start a observer spectator and wait for table creation.
 
@@ -531,7 +538,7 @@ def _start_spectator(
             "-Dxmage.observer.noWindow=true",
             f"-Dxmage.aiPuppeteer.server={server}",
             f"-Dxmage.aiPuppeteer.port={port}",
-            "-Dxmage.aiPuppeteer.user=spectator",
+            f"-Dxmage.aiPuppeteer.user={spectator_name}",
             "-Dxmage.aiPuppeteer.password=",
             f"-Dxmage.observer.gameDir={game_dir}",
         ]
@@ -542,7 +549,7 @@ def _start_spectator(
         cwd=project_root / "Mage.Client.Observer",
         env_updates={
             "XMAGE_AI_PUPPETEER": "1",
-            "XMAGE_AI_PUPPETEER_USER": "spectator",
+            "XMAGE_AI_PUPPETEER_USER": spectator_name,
             "XMAGE_AI_PUPPETEER_PASSWORD": "",
             "XMAGE_AI_PUPPETEER_SERVER": server,
             "XMAGE_AI_PUPPETEER_PORT": str(port),
@@ -674,6 +681,9 @@ def _run_golden_subprocess(
     player_b_name: str,
     game_type: str,
     deck_type: str,
+    spectator_name: str = "spectator",
+    skip_assert: bool = False,
+    name_map: dict[str, str] | None = None,
 ) -> list[dict]:
     """Run a golden scenario by spawning fresh subprocess per test (original approach)."""
     game_dir.mkdir(parents=True, exist_ok=True)
@@ -717,6 +727,7 @@ def _run_golden_subprocess(
                 "potato",
                 game_type,
                 deck_type,
+                spectator_name=spectator_name,
             )
             procs.append(spectator_proc)
             log_fhs.append(spectator_fh)
@@ -803,10 +814,11 @@ def _run_golden_subprocess(
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_log}"
         prompt = json.loads(prompt_path.read_text())
 
-        with timed_phase(golden_name, "golden_comparison"):
-            assert_golden_prompt(golden_name, prompt)
-            assert_golden_export(golden_name, game_dir)
-            assert_golden_blunder_prompts(golden_name, game_dir, script)
+        if not skip_assert:
+            with timed_phase(golden_name, "golden_comparison"):
+                assert_golden_prompt(golden_name, prompt, name_map=name_map)
+                assert_golden_export(golden_name, game_dir, name_map=name_map)
+                assert_golden_blunder_prompts(golden_name, game_dir, script)
 
         return prompt
 
@@ -832,6 +844,9 @@ def run_golden_scenario_two_replay(
     player_b_name: str = "Opponent",
     game_type: str = "Two Player Duel",
     deck_type: str = "Constructed - Legacy",
+    spectator_name: str = "spectator",
+    skip_assert: bool = False,
+    name_map: dict[str, str] | None = None,
 ) -> list[dict]:
     """Run a golden test scenario with replay clients for both players.
 
@@ -893,7 +908,7 @@ def run_golden_scenario_two_replay(
                     "-Dxmage.observer.noWindow=true",
                     f"-Dxmage.aiPuppeteer.server={server}",
                     f"-Dxmage.aiPuppeteer.port={port}",
-                    "-Dxmage.aiPuppeteer.user=spectator",
+                    f"-Dxmage.aiPuppeteer.user={spectator_name}",
                     "-Dxmage.aiPuppeteer.password=",
                     f"-Dxmage.observer.gameDir={game_dir}",
                 ]
@@ -904,7 +919,7 @@ def run_golden_scenario_two_replay(
                 cwd=project_root / "Mage.Client.Observer",
                 env_updates={
                     "XMAGE_AI_PUPPETEER": "1",
-                    "XMAGE_AI_PUPPETEER_USER": "spectator",
+                    "XMAGE_AI_PUPPETEER_USER": spectator_name,
                     "XMAGE_AI_PUPPETEER_PASSWORD": "",
                     "XMAGE_AI_PUPPETEER_SERVER": server,
                     "XMAGE_AI_PUPPETEER_PORT": str(port),
@@ -1025,9 +1040,10 @@ def run_golden_scenario_two_replay(
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_a_log}"
         prompt = json.loads(prompt_path.read_text())
 
-        with timed_phase(golden_name, "golden_comparison"):
-            assert_golden_prompt(golden_name, prompt)
-            assert_golden_export(golden_name, game_dir)
+        if not skip_assert:
+            with timed_phase(golden_name, "golden_comparison"):
+                assert_golden_prompt(golden_name, prompt, name_map=name_map)
+                assert_golden_export(golden_name, game_dir, name_map=name_map)
 
         return prompt
 
@@ -1073,8 +1089,32 @@ def _normalize_prompt_for_golden(obj: object) -> object:
     return obj
 
 
-def assert_golden_prompt(name: str, actual: list[dict]) -> None:
+def _normalize_player_names(obj: object, name_map: dict[str, str]) -> object:
+    """Replace runtime player names with canonical names for golden comparison.
+
+    Applies string replacement recursively so golden files stay stable
+    regardless of the runtime names used for XMage server isolation.
+    """
+    if isinstance(obj, str):
+        result = obj
+        for actual_name, canonical in name_map.items():
+            result = result.replace(actual_name, canonical)
+        return result
+    if isinstance(obj, dict):
+        return {k: _normalize_player_names(v, name_map) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_normalize_player_names(item, name_map) for item in obj]
+    return obj
+
+
+def assert_golden_prompt(
+    name: str,
+    actual: list[dict],
+    name_map: dict[str, str] | None = None,
+) -> None:
     """Compare prompt messages against golden file, or update in UPDATE_GOLDEN mode."""
+    if name_map:
+        actual = _normalize_player_names(actual, name_map)
     actual_json = _to_sorted_json(_normalize_prompt_for_golden(actual))
     golden_file = GOLDEN_DIR / f"{name}.json"
 
@@ -1152,7 +1192,11 @@ def _strip_volatile(data: dict) -> None:
     data.get("llmTrace", []).sort(key=lambda e: (e.get("seq", 0), e.get("player", "")))
 
 
-def assert_golden_export(name: str, game_dir: Path) -> None:
+def assert_golden_export(
+    name: str,
+    game_dir: Path,
+    name_map: dict[str, str] | None = None,
+) -> None:
     """Run export pipeline on game dir, compare against golden file."""
     # Import here to avoid circular imports at module level
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
@@ -1161,6 +1205,8 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
     export_data = build_export(game_dir)
     _strip_volatile(export_data)
     export_data = _normalize_embedded_json(export_data)
+    if name_map:
+        export_data = _normalize_player_names(export_data, name_map)
     actual_json = _to_sorted_json(export_data)
     golden_file = GOLDEN_EXPORTS_DIR / f"{name}.json"
 
