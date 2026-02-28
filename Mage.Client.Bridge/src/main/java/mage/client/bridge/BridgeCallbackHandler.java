@@ -26,9 +26,11 @@ import mage.view.CombatGroupView;
 import mage.view.ExileView;
 import mage.view.GameClientMessage;
 import mage.view.GameView;
+import mage.view.LookedAtView;
 import mage.view.ManaPoolView;
 import mage.view.PermanentView;
 import mage.view.PlayerView;
+import mage.view.SimpleCardView;
 import mage.view.TableClientMessage;
 import mage.view.UserRequestMessage;
 import mage.players.PlayableObjectsList;
@@ -134,6 +136,7 @@ public class BridgeCallbackHandler {
                 return;
             }
             lastGameView = gv;
+            registerNonCardViewShortIds(gv);
             roundTracker.update(gv);
             // Determinism debugging: log when game_seq changes and who changed it
             int oldSeq = old != null ? old.getGameSeq() : -1;
@@ -147,6 +150,31 @@ public class BridgeCallbackHandler {
             }
         }
     }
+
+    /**
+     * Pre-register server-assigned short IDs for objects not found by findCardViewById.
+     * Called when a new GameView is received so that player UUIDs and lookedAt cards
+     * get p-prefix IDs instead of l-prefix fallbacks.
+     */
+    private void registerNonCardViewShortIds(GameView gv) {
+        // Players (PlayerView is not a CardView, so findCardViewById never finds them)
+        for (PlayerView pv : gv.getPlayers()) {
+            String serverShortId = pv.getShortId();
+            if (serverShortId != null && !serverShortId.isBlank()) {
+                shortIds.register(pv.getPlayerId(), serverShortId);
+            }
+        }
+        // LookedAt cards (SimpleCardView, not searchable by findCardViewById)
+        for (LookedAtView lv : gv.getLookedAt()) {
+            for (SimpleCardView sv : lv.getCards().values()) {
+                String serverShortId = sv.getShortId();
+                if (serverShortId != null && !serverShortId.isBlank()) {
+                    shortIds.register(sv.getId(), serverShortId);
+                }
+            }
+        }
+    }
+
     private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private volatile List<Object> lastChoices = null; // Index→UUID/String mapping for choose_action
     private volatile String lastChoicesActionType = null; // Debug context for stale-choice diagnostics
