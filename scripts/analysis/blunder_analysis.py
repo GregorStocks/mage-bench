@@ -103,7 +103,8 @@ MAX_WORKERS = 50
 #      show targeting/activation details in chosen block
 # v27: fix is_forced false positives — boolean questions and single-choice
 #      selects with pass option are no longer skipped
-BLUNDER_SCRIPT_VERSION = 27
+# v28: add deck archetype/strategy context to game overview when available
+BLUNDER_SCRIPT_VERSION = 28
 
 # --- Prompt components ---
 
@@ -543,6 +544,9 @@ def _game_overview(data: dict) -> str:
     ]
     for p in data["players"]:
         lines.append(f"  {p['name']} ({p.get('model', '?')})")
+        strategy = p.get("deckStrategy")
+        if strategy:
+            lines.append(f"    Deck: {strategy}")
     return "\n".join(lines)
 
 

@@ -1,18 +1,18 @@
 """Tests for deck choice logic."""
 
+import json
 import tempfile
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
 
-from puppeteer.config import PilotPlayer
+from puppeteer.config import DeckEntry, PilotPlayer
 from puppeteer.deck_choice import (
     _build_choice_prompt,
-    _deck_display_name,
     _parse_card_name,
     _parse_choice,
-    _summarize_deck,
+    _summarize_entry,
     list_available_decks,
     resolve_choice_decks,
 )
@@ -47,119 +47,108 @@ def test_parse_card_name_multiword_set():
     assert sb is False
 
 
-# --- _deck_display_name ---
+# --- _summarize_entry ---
 
 
-def test_deck_display_name_simple():
-    assert _deck_display_name(Path("Burn.dck")) == "Burn"
+def test_summarize_entry_top_5():
+    entry = DeckEntry(
+        name="Burn",
+        strategy="",
+        cards=[
+            "4 [M21:1] Lightning Bolt",
+            "3 [M21:2] Goblin Guide",
+            "2 [M21:3] Eidolon of the Great Revel",
+            "2 [M21:4] Monastery Swiftspear",
+            "1 [M21:5] Searing Blaze",
+            "1 [M21:6] Lava Spike",
+            "10 [M21:7] Mountain",  # basic land, excluded
+        ],
+    )
+    result = _summarize_entry(entry)
+    assert "Lightning Bolt" in result
+    assert "Goblin Guide" in result
+    assert "Eidolon of the Great Revel" in result
+    assert "Monastery Swiftspear" in result
+    # When counts tie, alphabetical order wins: Lava Spike before Searing Blaze
+    assert "Lava Spike" in result
+    assert "Searing Blaze" not in result  # 6th card, excluded
+    assert "Mountain" not in result  # basic land
 
 
-def test_deck_display_name_with_spaces():
-    assert _deck_display_name(Path("Geoff's Daxos of Meletis.dck")) == "Geoff's Daxos of Meletis"
+def test_summarize_entry_excludes_basic_lands():
+    entry = DeckEntry(
+        name="Control",
+        strategy="",
+        cards=[
+            "20 [M21:1] Island",
+            "10 [CSP:1] Snow-Covered Forest",
+            "4 [M21:2] Counterspell",
+        ],
+    )
+    result = _summarize_entry(entry)
+    assert "Island" not in result
+    assert "Snow-Covered Forest" not in result
+    assert "4x Counterspell" in result
 
 
-def test_deck_display_name_nested():
-    assert _deck_display_name(Path("Commander/zurgo.dck")) == "zurgo"
-
-
-# --- _summarize_deck ---
-
-
-def test_summarize_deck_top_5():
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".dck", delete=False) as f:
-        f.write("4 [M21:1] Lightning Bolt\n")
-        f.write("3 [M21:2] Goblin Guide\n")
-        f.write("2 [M21:3] Eidolon of the Great Revel\n")
-        f.write("2 [M21:4] Monastery Swiftspear\n")
-        f.write("1 [M21:5] Searing Blaze\n")
-        f.write("1 [M21:6] Lava Spike\n")
-        f.write("10 [M21:7] Mountain\n")  # basic land, excluded
-        path = Path(f.name)
-
-    try:
-        result = _summarize_deck(path)
-        assert "Lightning Bolt" in result
-        assert "Goblin Guide" in result
-        assert "Eidolon of the Great Revel" in result
-        assert "Monastery Swiftspear" in result
-        # When counts tie, alphabetical order wins: Lava Spike before Searing Blaze
-        assert "Lava Spike" in result
-        assert "Searing Blaze" not in result  # 6th card, excluded
-        assert "Mountain" not in result  # basic land
-    finally:
-        path.unlink()
-
-
-def test_summarize_deck_excludes_basic_lands():
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".dck", delete=False) as f:
-        f.write("20 [M21:1] Island\n")
-        f.write("10 [CSP:1] Snow-Covered Forest\n")
-        f.write("4 [M21:2] Counterspell\n")
-        path = Path(f.name)
-
-    try:
-        result = _summarize_deck(path)
-        assert "Island" not in result
-        assert "Snow-Covered Forest" not in result
-        assert "4x Counterspell" in result
-    finally:
-        path.unlink()
-
-
-def test_summarize_deck_excludes_sideboard():
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".dck", delete=False) as f:
-        f.write("4 [M21:1] Lightning Bolt\n")
-        f.write("SB: 4 [M21:2] Pyroblast\n")
-        path = Path(f.name)
-
-    try:
-        result = _summarize_deck(path)
-        assert "Lightning Bolt" in result
-        assert "Pyroblast" not in result
-    finally:
-        path.unlink()
+def test_summarize_entry_excludes_sideboard():
+    entry = DeckEntry(
+        name="Burn",
+        strategy="",
+        cards=[
+            "4 [M21:1] Lightning Bolt",
+            "SB: 4 [M21:2] Pyroblast",
+        ],
+    )
+    result = _summarize_entry(entry)
+    assert "Lightning Bolt" in result
+    assert "Pyroblast" not in result
 
 
 # --- list_available_decks ---
 
 
+def _make_registry(root: Path, fmt_dir: str, decks: dict[str, list[str]]) -> None:
+    """Create a deck registry directory with JSON files."""
+    reg_dir = root / "data" / "decks" / fmt_dir
+    reg_dir.mkdir(parents=True)
+    for name, cards in decks.items():
+        slug = name.lower().replace(" ", "-")
+        data = {"name": name, "strategy": "", "cards": cards}
+        (reg_dir / f"{slug}.json").write_text(json.dumps(data))
+
+
 def test_list_available_decks():
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
-        deck_dir = root / "Mage.Client" / "release" / "sample-decks" / "Legacy"
-        deck_dir.mkdir(parents=True)
-        (deck_dir / "Burn.dck").write_text("4 [M21:1] Lightning Bolt\n")
-        (deck_dir / "Delver.dck").write_text("4 [ISD:1] Delver of Secrets\n")
-
+        _make_registry(
+            root,
+            "legacy",
+            {
+                "Burn": ["4 [M21:1] Lightning Bolt"],
+                "Delver": ["4 [ISD:1] Delver of Secrets"],
+            },
+        )
         result = list_available_decks(root, "Constructed - Legacy")
         assert len(result) == 2
-        names = [name for _, name in result]
+        names = [e.name for e in result]
         assert names == ["Burn", "Delver"]  # sorted alphabetically
-
-
-def test_list_available_decks_commander_default():
-    with tempfile.TemporaryDirectory() as tmpdir:
-        root = Path(tmpdir)
-        deck_dir = root / "Mage.Client" / "release" / "sample-decks" / "Commander"
-        deck_dir.mkdir(parents=True)
-        (deck_dir / "Zurgo.dck").write_text("1 [CMD:1] Sol Ring\n")
-
-        result = list_available_decks(root, "")
-        assert len(result) == 1
-        assert result[0][1] == "Zurgo"
 
 
 def test_list_available_decks_sorted():
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
-        deck_dir = root / "Mage.Client" / "release" / "sample-decks" / "Commander"
-        deck_dir.mkdir(parents=True)
-        (deck_dir / "Zurgo.dck").write_text("1 [CMD:1] Sol Ring\n")
-        (deck_dir / "Alpha.dck").write_text("1 [CMD:1] Sol Ring\n")
-        (deck_dir / "Middle.dck").write_text("1 [CMD:1] Sol Ring\n")
-
+        _make_registry(
+            root,
+            "commander",
+            {
+                "Zurgo": ["1 [CMD:1] Sol Ring"],
+                "Alpha": ["1 [CMD:1] Sol Ring"],
+                "Middle": ["1 [CMD:1] Sol Ring"],
+            },
+        )
         result = list_available_decks(root, "Variant Magic - Commander")
-        names = [name for _, name in result]
+        names = [e.name for e in result]
         assert names == ["Alpha", "Middle", "Zurgo"]
 
 
@@ -167,55 +156,37 @@ def test_list_available_decks_sorted():
 
 
 def test_build_choice_prompt_small_pool():
-    with tempfile.TemporaryDirectory() as tmpdir:
-        root = Path(tmpdir)
-        deck_dir = root / "Mage.Client" / "release" / "sample-decks" / "Legacy"
-        deck_dir.mkdir(parents=True)
-        (deck_dir / "Burn.dck").write_text("4 [M21:1] Lightning Bolt\n3 [M21:2] Goblin Guide\n")
-        (deck_dir / "Delver.dck").write_text("4 [ISD:1] Delver of Secrets\n")
-
-        decks = list_available_decks(root, "Constructed - Legacy")
-        prompt = _build_choice_prompt(decks, root, "TestBot", [], "Constructed - Legacy")
-
-        assert "TestBot" in prompt
-        assert "Constructed - Legacy" in prompt
-        assert "1. Burn" in prompt
-        assert "2. Delver" in prompt
-        # Small pool includes summaries
-        assert "Lightning Bolt" in prompt
-        assert "Delver of Secrets" in prompt
-        assert "ONLY the number" in prompt
+    entries = [
+        DeckEntry(name="Burn", strategy="", cards=["4 [M21:1] Lightning Bolt", "3 [M21:2] Goblin Guide"]),
+        DeckEntry(name="Delver", strategy="", cards=["4 [ISD:1] Delver of Secrets"]),
+    ]
+    prompt = _build_choice_prompt(entries, "TestBot", [], "Constructed - Legacy")
+    assert "TestBot" in prompt
+    assert "Constructed - Legacy" in prompt
+    assert "1. Burn" in prompt
+    assert "2. Delver" in prompt
+    # Small pool includes summaries
+    assert "Lightning Bolt" in prompt
+    assert "Delver of Secrets" in prompt
+    assert "ONLY the number" in prompt
 
 
 def test_build_choice_prompt_already_chosen():
-    with tempfile.TemporaryDirectory() as tmpdir:
-        root = Path(tmpdir)
-        deck_dir = root / "Mage.Client" / "release" / "sample-decks" / "Commander"
-        deck_dir.mkdir(parents=True)
-        (deck_dir / "Zurgo.dck").write_text("1 [CMD:1] Sol Ring\n")
-
-        decks = list_available_decks(root, "Variant Magic - Commander")
-        already = [("Player1", "Burn"), ("Player2", "Delver")]
-        prompt = _build_choice_prompt(decks, root, "TestBot", already, "Variant Magic - Commander")
-
-        assert "Player1: Burn" in prompt
-        assert "Player2: Delver" in prompt
+    entries = [
+        DeckEntry(name="Zurgo", strategy="", cards=["1 [CMD:1] Sol Ring"]),
+    ]
+    already = [("Player1", "Burn"), ("Player2", "Delver")]
+    prompt = _build_choice_prompt(entries, "TestBot", already, "Variant Magic - Commander")
+    assert "Player1: Burn" in prompt
+    assert "Player2: Delver" in prompt
 
 
 def test_build_choice_prompt_large_pool_no_summaries():
-    with tempfile.TemporaryDirectory() as tmpdir:
-        root = Path(tmpdir)
-        deck_dir = root / "Mage.Client" / "release" / "sample-decks" / "Legacy"
-        deck_dir.mkdir(parents=True)
-        for i in range(35):
-            (deck_dir / f"Deck{i:02d}.dck").write_text(f"4 [M21:1] Card{i}\n")
-
-        decks = list_available_decks(root, "Constructed - Legacy")
-        prompt = _build_choice_prompt(decks, root, "TestBot", [], "Constructed - Legacy")
-
-        # Large pool: names only, no card summaries
-        assert "1. Deck00" in prompt
-        assert "Card" not in prompt
+    entries = [DeckEntry(name=f"Deck{i:02d}", strategy="", cards=[f"4 [M21:1] Card{i}"]) for i in range(35)]
+    prompt = _build_choice_prompt(entries, "TestBot", [], "Constructed - Legacy")
+    # Large pool: names only, no card summaries
+    assert "1. Deck00" in prompt
+    assert "Card" not in prompt
 
 
 # --- _parse_choice ---
@@ -254,10 +225,14 @@ def test_parse_choice_no_number_crashes():
 def test_resolve_choice_decks_sets_player_deck():
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
-        deck_dir = root / "Mage.Client" / "release" / "sample-decks" / "Commander"
-        deck_dir.mkdir(parents=True)
-        (deck_dir / "Alpha.dck").write_text("1 [CMD:1] Sol Ring\n")
-        (deck_dir / "Beta.dck").write_text("1 [CMD:1] Command Tower\n")
+        _make_registry(
+            root,
+            "commander",
+            {
+                "Alpha": ["1 [CMD:1] Sol Ring"],
+                "Beta": ["1 [CMD:1] Command Tower"],
+            },
+        )
 
         player = PilotPlayer(name="TestBot", deck="choice", model="test/model", base_url="https://openrouter.ai/api/v1")
 
@@ -277,23 +252,25 @@ def test_resolve_choice_decks_sets_player_deck():
 
         assert player.deck is not None
         assert player.deck.endswith(".dck")
-        assert "Alpha" in player.deck
+        assert player.deck_name == "Alpha"
 
 
 def test_resolve_choice_decks_no_duplicates():
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
-        deck_dir = root / "Mage.Client" / "release" / "sample-decks" / "Commander"
-        deck_dir.mkdir(parents=True)
-        (deck_dir / "Alpha.dck").write_text("1 [CMD:1] Sol Ring\n")
-        (deck_dir / "Beta.dck").write_text("1 [CMD:1] Command Tower\n")
-        (deck_dir / "Gamma.dck").write_text("1 [CMD:1] Arcane Signet\n")
+        _make_registry(
+            root,
+            "commander",
+            {
+                "Alpha": ["1 [CMD:1] Sol Ring"],
+                "Beta": ["1 [CMD:1] Command Tower"],
+                "Gamma": ["1 [CMD:1] Arcane Signet"],
+            },
+        )
 
         p1 = PilotPlayer(name="Bot1", deck="choice", model="test/model", base_url="https://openrouter.ai/api/v1")
         p2 = PilotPlayer(name="Bot2", deck="choice", model="test/model", base_url="https://openrouter.ai/api/v1")
 
-        # Both choose "1" — but after p1 picks Alpha, p2's pool is [Beta, Gamma]
-        # so p2 choosing "1" gets Beta
         def make_response(text):
             resp = MagicMock()
             resp.choices = [MagicMock()]
@@ -313,9 +290,9 @@ def test_resolve_choice_decks_no_duplicates():
 
             resolve_choice_decks([p1, p2], root, "Variant Magic - Commander")
 
-        assert p1.deck != p2.deck
-        assert "Alpha" in p1.deck
-        assert "Beta" in p2.deck
+        assert p1.deck_name != p2.deck_name
+        assert p1.deck_name == "Alpha"
+        assert p2.deck_name == "Beta"
 
 
 def test_resolve_choice_decks_skips_non_choice():
@@ -325,10 +302,7 @@ def test_resolve_choice_decks_skips_non_choice():
 
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
-        deck_dir = root / "Mage.Client" / "release" / "sample-decks" / "Commander"
-        deck_dir.mkdir(parents=True)
-        (deck_dir / "Zurgo.dck").write_text("1 [CMD:1] Sol Ring\n")
-
+        _make_registry(root, "commander", {"Zurgo": ["1 [CMD:1] Sol Ring"]})
         resolve_choice_decks([p1, p2], root, "Variant Magic - Commander")
 
     assert p1.deck == "random"
@@ -339,9 +313,7 @@ def test_resolve_choice_decks_no_model_crashes():
     """Player with deck='choice' but no model should crash."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
-        deck_dir = root / "Mage.Client" / "release" / "sample-decks" / "Commander"
-        deck_dir.mkdir(parents=True)
-        (deck_dir / "Zurgo.dck").write_text("1 [CMD:1] Sol Ring\n")
+        _make_registry(root, "commander", {"Zurgo": ["1 [CMD:1] Sol Ring"]})
 
         player = PilotPlayer(name="NoModel", deck="choice")
         with pytest.raises(AssertionError, match="no model set"):

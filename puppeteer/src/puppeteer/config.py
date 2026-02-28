@@ -10,11 +10,22 @@ from puppeteer.matchmaker import get_round_robin_matchup, get_yente_pool, pick_r
 
 
 @dataclass
+class DeckEntry:
+    """A deck from the registry (data/decks/)."""
+
+    name: str  # Display name (e.g., "Death's Shadow")
+    strategy: str  # 1-2 sentence strategy summary (may be empty)
+    cards: list[str]  # Card lines in .dck format
+
+
+@dataclass
 class PotatoPlayer:
     """Potato personality: pure Java, auto-responds to everything (dumbest)."""
 
     name: str
     deck: str | None = None  # Path to .dck file, relative to project root
+    deck_name: str | None = None  # Display name from deck registry
+    deck_strategy: str | None = None  # Strategy summary from deck registry
 
 
 @dataclass
@@ -23,6 +34,8 @@ class StallerPlayer:
 
     name: str
     deck: str | None = None  # Path to .dck file, relative to project root
+    deck_name: str | None = None
+    deck_strategy: str | None = None
 
 
 @dataclass
@@ -31,6 +44,8 @@ class SleepwalkerPlayer:
 
     name: str
     deck: str | None = None  # Path to .dck file, relative to project root
+    deck_name: str | None = None
+    deck_strategy: str | None = None
 
 
 @dataclass
@@ -39,6 +54,8 @@ class PilotPlayer:
 
     name: str
     deck: str | None = None  # Path to .dck file, relative to project root
+    deck_name: str | None = None
+    deck_strategy: str | None = None
     preset: str | None = None  # Named preset from presets.json
     model: str | None = None  # LLM model (resolved from preset)
     base_url: str | None = None  # API base URL (e.g., "https://openrouter.ai/api/v1")
@@ -58,6 +75,8 @@ class ReplayPlayer:
 
     name: str
     deck: str | None = None  # Path to .dck file, relative to project root
+    deck_name: str | None = None
+    deck_strategy: str | None = None
     script: str | None = None  # Path to script JSON file, relative to project root
 
 
@@ -67,6 +86,8 @@ class CpuPlayer:
 
     name: str
     deck: str | None = None  # Path to .dck file, relative to project root
+    deck_name: str | None = None
+    deck_strategy: str | None = None
 
 
 # Union type for all player types
@@ -405,6 +426,51 @@ _DECK_TYPE_TO_DIR: dict[str, str] = {
     "Constructed - Standard": "Standard",
 }
 
+# Maps XMage deck type to our registry directory in data/decks/
+_DECK_TYPE_TO_FORMAT_DIR: dict[str, str] = {
+    "Variant Magic - Freeform Commander": "commander",
+    "Variant Magic - Commander": "commander",
+    "Constructed - Legacy": "legacy",
+    "Constructed - Modern": "modern",
+    "Constructed - Standard": "standard",
+    "Limited": "jumpstart",
+}
+
+
+def load_deck_registry(project_root: Path, format_dir: str) -> list[DeckEntry]:
+    """Load all deck entries from data/decks/{format_dir}/.
+
+    Each JSON file in the directory defines one deck with name, strategy, and cards.
+    """
+    registry_dir = project_root / "data" / "decks" / format_dir
+    assert registry_dir.is_dir(), f"Deck registry directory not found: {registry_dir}"
+    entries = []
+    for json_file in sorted(registry_dir.glob("*.json")):
+        data = json.loads(json_file.read_text())
+        assert "name" in data, f"Deck file {json_file} missing 'name' field"
+        assert "cards" in data or "variants" in data, f"Deck file {json_file} missing 'cards' or 'variants' field"
+        cards = data.get("cards", [])
+        entries.append(
+            DeckEntry(
+                name=data["name"],
+                strategy=data.get("strategy", ""),
+                cards=cards,
+            )
+        )
+    assert entries, f"No deck files found in {registry_dir}"
+    return entries
+
+
+def generate_dck_file(project_root: Path, entry: DeckEntry) -> Path:
+    """Write a .dck file from a DeckEntry to tmp/decks/ and return relative path."""
+    tmp_dir = project_root / "tmp" / "decks"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+    # Use deck name as filename, sanitized
+    safe_name = entry.name.replace(" ", "-").replace("'", "").replace("/", "-")
+    dck_path = tmp_dir / f"{safe_name}.dck"
+    dck_path.write_text("\n".join(entry.cards) + "\n")
+    return dck_path.relative_to(project_root)
+
 
 @dataclass
 class Config:
@@ -666,7 +732,7 @@ class Config:
         return json.dumps(result, separators=(",", ":"))
 
     def resolve_random_decks(self, project_root: Path) -> None:
-        """Replace any deck="random" with a randomly chosen .dck file for the configured format."""
+        """Replace any deck="random" with a randomly chosen deck from the registry."""
         # Fail fast if any player still has deck="choice" — caller must resolve those first
         all_typed_players = (
             self.potato_players
@@ -699,30 +765,76 @@ class Config:
             used_themes: set[str] = set()
             for player in all_players:
                 if player.deck == "random":
-                    deck_path = create_random_jumpstart_deck(project_root, exclude_themes=used_themes)
+                    deck_path, deck_name = create_random_jumpstart_deck(project_root, exclude_themes=used_themes)
                     player.deck = str(deck_path)
+                    player.deck_name = deck_name
                     # Extract theme names from filename to avoid giving two players identical themes
                     stem = deck_path.stem  # e.g. "Cats+Dogs"
                     for theme in stem.split("+"):
                         used_themes.add(theme.replace("-", " "))
-                    print(f"Random Jumpstart deck for {player.name}: {deck_path.name}")
+                    print(f"Random Jumpstart deck for {player.name}: {deck_name}")
             return
 
-        dir_name = _DECK_TYPE_TO_DIR.get(self.deck_type, "Commander")
-        deck_dir = project_root / "Mage.Client" / "release" / "sample-decks" / dir_name
-        decks = [p.relative_to(project_root) for p in deck_dir.rglob("*.dck")]
-        if not decks:
-            print(f"WARNING: No .dck files found in {dir_name} directory, keeping 'random' as-is")
-            return
+        format_dir = _DECK_TYPE_TO_FORMAT_DIR.get(self.deck_type)
+        assert format_dir, f"Unknown deck type for registry lookup: {self.deck_type!r}"
+        registry = load_deck_registry(project_root, format_dir)
 
         used: set[str] = set()
         for player in all_players:
             if player.deck == "random":
-                available = [d for d in decks if str(d) not in used]
+                available = [e for e in registry if e.name not in used]
                 if not available:
                     used.clear()
-                    available = list(decks)
+                    available = list(registry)
                 chosen = random.choice(available)
-                used.add(str(chosen))
-                player.deck = str(chosen)
+                used.add(chosen.name)
+                dck_path = generate_dck_file(project_root, chosen)
+                player.deck = str(dck_path)
+                player.deck_name = chosen.name
+                player.deck_strategy = chosen.strategy
                 print(f"Random deck for {player.name}: {chosen.name}")
+
+    def resolve_deck_metadata(self, project_root: Path) -> None:
+        """Populate deck_name/deck_strategy for players with static deck paths.
+
+        Called after all deck resolution is complete. Looks up static deck paths
+        in the registry by matching card content.
+        """
+        all_players = (
+            self.potato_players
+            + self.staller_players
+            + self.sleepwalker_players
+            + self.pilot_players
+            + self.replay_players
+            + self.cpu_players
+        )
+        for player in all_players:
+            # Skip players that already have metadata (from random/choice resolution)
+            # or don't have a deck path
+            if player.deck_name or not player.deck:
+                continue
+            # Try to read the .dck file and match against registry
+            dck_file = project_root / player.deck
+            if not dck_file.exists():
+                continue
+            cards = [
+                line.strip()
+                for line in dck_file.read_text().splitlines()
+                if line.strip()
+                and not line.strip().startswith("#")
+                and not line.strip().startswith("//")
+                and not line.strip().startswith("NAME:")
+            ]
+            # Search all format directories
+            for fmt_dir in ("standard", "modern", "legacy", "commander"):
+                registry_dir = project_root / "data" / "decks" / fmt_dir
+                if not registry_dir.is_dir():
+                    continue
+                for json_file in registry_dir.glob("*.json"):
+                    data = json.loads(json_file.read_text())
+                    if data.get("cards") == cards:
+                        player.deck_name = data["name"]
+                        player.deck_strategy = data.get("strategy", "")
+                        break
+                if player.deck_name:
+                    break
