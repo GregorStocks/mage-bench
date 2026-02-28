@@ -80,3 +80,16 @@ jobs:
 
       - run: npm run build
         working-directory: website
+
+      - name: Run e2e tests
+        run: npx vitest run --config vitest.e2e.config.js
+        working-directory: website
+
+      - name: Deploy to Cloudflare Pages
+        if: github.ref == 'refs/heads/master'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=mage-bench
+          workingDirectory: website
