@@ -56,14 +56,6 @@
     "human_notes": "no reason to fetch a shock here"
   },
   {
-    "decision_index": 27,
-    "annotation_version": 18,
-    "annotation_severity": "questionable",
-    "annotation_description": "Casting Kozilek's Command during combat with X=1 uses all available mana (Boseiju for {G}, Eldrazi Temple for {C}{C} toward Eldrazi spell, Ugin's Labyrinth for {C}) but the timing is questionable. While exiling Marauding Mako (a growing threat) is reasonable, casting this during combat on their own turn rather than waiting until the opponent's end step means they're tapping out and can't use mana for anything else this turn cycle. Additionally, with X=1, the spell only creates one 0/1 token and exiles one creature - relatively low impact. However, Marauding Mako with Burning Inquiry synergy could grow quickly, so removing it now has merit. The bigger question is whether main phase 2 would have been better for sequencing - they could have played Forest first (from hand) to have more mana available, potentially casting with X=2 instead to exile the 1/2 Orc Army token as well or get more value.",
-    "verdict": "blunder",
-    "human_notes": "gave the tokens to opponent and exiled a graveyard card rather than the one-drop. could also have cast it for x=3"
-  },
-  {
     "decision_index": 32,
     "annotation_version": 18,
     "annotation_severity": "minor",

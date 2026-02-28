@@ -433,7 +433,7 @@ class TestExtractDecisionsV2:
         assert d["chosen"] == 0
         assert d["chosen_args"] == {"id": "p1"}
         assert d["choice_count"] == 1
-        assert d["is_forced"] is True
+        assert d["is_forced"] is False  # "Play spells" allows passing
 
     def test_multiple_choices_id_resolution(self) -> None:
         """choose_action with id resolves to correct index."""

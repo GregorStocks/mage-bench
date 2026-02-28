@@ -177,6 +177,32 @@ def _resolve_chosen_index(
     return None
 
 
+# Messages where the player can always decline (pass/not attack/not block).
+_PASS_ALLOWED_PREFIXES = (
+    "Play ",
+    "Choose spell or ability",
+    "Choose ability",
+    "Select attacker",
+    "Select blocker",
+)
+
+
+def _is_forced(response_type: str, message: str, choices: list) -> bool:
+    """Determine if a decision is truly forced (no meaningful choice).
+
+    Boolean questions always have yes/no.
+    Single-choice selects where the player can pass are not forced.
+    """
+    if response_type == "boolean":
+        return False
+    n = len(choices)
+    if n == 0:
+        return True
+    if n == 1:
+        return not message.startswith(_PASS_ALLOWED_PREFIXES)
+    return False
+
+
 def _build_decision(
     *,
     decisions: list[dict],
@@ -216,7 +242,7 @@ def _build_decision(
         "chosen_args": chosen_args,
         "action_result": action_result,
         "reasoning": reasoning,
-        "is_forced": len(available_choices) <= 1,
+        "is_forced": _is_forced(response_type, message, available_choices),
         "game_state": game_state,
         "combat_phase": combat_phase,
         "combat": combat,

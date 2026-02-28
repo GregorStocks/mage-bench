@@ -196,7 +196,24 @@ class TestExtractDecisions:
 
     def test_forced_choice(self, tmp_path: Path) -> None:
         game = _make_test_game()
-        # Replace choices with a single forced option
+        # Replace with a mandatory single-choice prompt (no pass option)
+        choices_result = json.loads(game["llmEvents"][0]["result"])
+        choices_result["choices"] = [{"index": 0, "name": "Mountain"}]
+        choices_result["message"] = "Choose target creature"
+        game["llmEvents"][0]["result"] = json.dumps(choices_result)
+
+        gz_path = tmp_path / "game.json.gz"
+        _write_gz(game, gz_path)
+
+        result = _run_script("extract_decisions.py", str(gz_path))
+        decisions = json.loads(result.stdout)
+        assert len(decisions) == 1
+        assert decisions[0]["is_forced"] is True
+        assert decisions[0]["choice_count"] == 1
+
+    def test_single_choice_with_pass_not_forced(self, tmp_path: Path) -> None:
+        game = _make_test_game()
+        # Single choice with "Play spells" message — player can pass, not forced
         choices_result = json.loads(game["llmEvents"][0]["result"])
         choices_result["choices"] = [{"index": 0, "name": "Mountain"}]
         game["llmEvents"][0]["result"] = json.dumps(choices_result)
@@ -207,7 +224,7 @@ class TestExtractDecisions:
         result = _run_script("extract_decisions.py", str(gz_path))
         decisions = json.loads(result.stdout)
         assert len(decisions) == 1
-        assert decisions[0]["is_forced"] is True
+        assert decisions[0]["is_forced"] is False
         assert decisions[0]["choice_count"] == 1
 
     def test_multiple_players(self, tmp_path: Path) -> None:

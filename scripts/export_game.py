@@ -544,6 +544,32 @@ def _mark_rolled_back_casts(
                 break
 
 
+# Messages where the player can always decline (pass/not attack/not block).
+_PASS_ALLOWED_PREFIXES = (
+    "Play ",
+    "Choose spell or ability",
+    "Choose ability",
+    "Select attacker",
+    "Select blocker",
+)
+
+
+def _is_forced(response_type: str, message: str, choices: list) -> bool:
+    """Determine if a decision is truly forced (no meaningful choice).
+
+    Boolean questions always have yes/no.
+    Single-choice selects where the player can pass are not forced.
+    """
+    if response_type == "boolean":
+        return False
+    n = len(choices)
+    if n == 0:
+        return True
+    if n == 1:
+        return not message.startswith(_PASS_ALLOWED_PREFIXES)
+    return False
+
+
 def _build_decisions(
     snapshots: list[dict],
     actions: list[dict],
@@ -661,7 +687,7 @@ def _build_decisions(
             "message": message,
             "choices": available_choices,
             "choiceCount": len(available_choices),
-            "isForced": len(available_choices) <= 1,
+            "isForced": _is_forced(response_type, message, available_choices),
             "chosen": chosen_index,
             "chosenArgs": chosen_args,
             "actionResult": action_result,
