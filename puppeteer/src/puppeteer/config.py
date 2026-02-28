@@ -403,7 +403,6 @@ _DECK_TYPE_TO_DIR: dict[str, str] = {
     "Constructed - Legacy": "Legacy",
     "Constructed - Modern": "Modern",
     "Constructed - Standard": "Standard",
-    "Limited": "Jumpstart",
 }
 
 
@@ -691,6 +690,22 @@ class Config:
             + self.cpu_players
         )
         if not any(p.deck == "random" for p in all_players):
+            return
+
+        # Jumpstart: combine two random half-decks at runtime
+        if self.deck_type == "Limited":
+            from puppeteer.jumpstart import create_random_jumpstart_deck
+
+            used_themes: set[str] = set()
+            for player in all_players:
+                if player.deck == "random":
+                    deck_path = create_random_jumpstart_deck(project_root, exclude_themes=used_themes)
+                    player.deck = str(deck_path)
+                    # Extract theme names from filename to avoid giving two players identical themes
+                    stem = deck_path.stem  # e.g. "Cats+Dogs"
+                    for theme in stem.split("+"):
+                        used_themes.add(theme.replace("-", " "))
+                    print(f"Random Jumpstart deck for {player.name}: {deck_path.name}")
             return
 
         dir_name = _DECK_TYPE_TO_DIR.get(self.deck_type, "Commander")
