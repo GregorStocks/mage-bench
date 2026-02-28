@@ -57,8 +57,7 @@ def check(command: str) -> None:
     # --- Expensive configs ---
 
     paid_configs = (
-        "commander-gauntlet", "commander-1v3",
-        "standard-gauntlet", "modern-gauntlet", "legacy-gauntlet",
+        "commander-1v3",
         "round-robin-1v1", "round-robin-commander",
         "yente-1v1", "yente-commander",
     )

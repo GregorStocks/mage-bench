@@ -5,7 +5,7 @@ Usage:
     list-recent-games.py                   # 5 most recent games with metadata
     list-recent-games.py --count 10        # 10 most recent games
     list-recent-games.py --symlinks        # show all last-* symlinks
-    list-recent-games.py --config gauntlet # resolve a config symlink
+    list-recent-games.py --config round-robin-1v1 # resolve a config symlink
 """
 
 import argparse

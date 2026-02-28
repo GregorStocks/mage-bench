@@ -183,9 +183,9 @@ def test_run_tag_commander_dumb():
     assert config.run_tag == "commander-dumb"
 
 
-def test_run_tag_commander_gauntlet():
-    config = Config(config_file=Path("configs/commander-gauntlet.json"))
-    assert config.run_tag == "commander-gauntlet"
+def test_run_tag_round_robin_1v1():
+    config = Config(config_file=Path("configs/round-robin-1v1.json"))
+    assert config.run_tag == "round-robin-1v1"
 
 
 def test_run_tag_commander_1v3():

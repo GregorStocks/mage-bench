@@ -11,7 +11,7 @@ See `logging.md` for the file format reference.
 GAME_DIR=~/.mage-bench/logs/$(readlink ~/.mage-bench/logs/last-llm4)
 
 # Most recent game by config name
-GAME_DIR=~/.mage-bench/logs/$(readlink ~/.mage-bench/logs/last-gauntlet)
+GAME_DIR=~/.mage-bench/logs/$(readlink ~/.mage-bench/logs/last-round-robin-1v1)
 
 # Most recent game on a branch
 GAME_DIR=~/.mage-bench/logs/$(readlink ~/.mage-bench/logs/last-branch-GregorStocks-my-branch)

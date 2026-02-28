@@ -125,10 +125,6 @@ class TestBlockedCommands:
     @pytest.mark.parametrize(
         "command",
         [
-            "make run CONFIG=commander-gauntlet",
-            "make run CONFIG=standard-gauntlet",
-            "make run CONFIG=modern-gauntlet",
-            "make run CONFIG=legacy-gauntlet",
             "make run CONFIG=commander-1v3",
             "make run CONFIG=round-robin-1v1",
             "make run CONFIG=round-robin-commander",

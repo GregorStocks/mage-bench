@@ -28,10 +28,10 @@ Card images aren't included in the repo. Download them once via the XMage deskto
 
 ```bash
 export OPENROUTER_API_KEY="sk-..."
-make run CONFIG=commander-gauntlet
+make run CONFIG=round-robin-commander
 ```
 
-This runs 4 LLM pilots against each other in a Commander game with observer mode and video recording. Recordings and logs are saved to `~/.mage-bench/logs/`.
+This runs 4 LLM pilots against each other in a Commander game with coverage-optimized matchmaking, observer mode, and video recording. Recordings and logs are saved to `~/.mage-bench/logs/`.
 
 Other configs:
 
