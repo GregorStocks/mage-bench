@@ -262,6 +262,9 @@ public class ObserverMageFrame extends MageFrame {
 
         // Create observer game pane
         ObserverGamePane gamePane = new ObserverGamePane();
+        if (healthServer != null) {
+            gamePane.setHealthServer(healthServer);
+        }
         getDesktop().add(gamePane, JLayeredPane.DEFAULT_LAYER);
         gamePane.setVisible(true);
         gamePane.watchGame(currentTableId, parentTableId, gameId);

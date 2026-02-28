@@ -280,9 +280,13 @@ class PotatoProcess:
         assert proc.stdin is not None, "PotatoProcess requires stdin=PIPE"
         self._stdin = io.TextIOWrapper(proc.stdin, encoding="utf-8", line_buffering=True)
 
-    def join_next_game(self, deck_path: str) -> None:
+    def join_next_game(self, deck_path: str, *, table_id: str | None = None) -> None:
         """Send a deck path to trigger the potato to join the next game."""
-        self._stdin.write(deck_path + "\n")
+        if table_id is not None:
+            msg = json.dumps({"deck_path": deck_path, "table_id": table_id}, separators=(",", ":"))
+        else:
+            msg = deck_path
+        self._stdin.write(msg + "\n")
         self._stdin.flush()
 
     def close(self) -> None:
@@ -324,14 +328,19 @@ class SpectatorProcess:
         self._stdin.write(json.dumps(cmd, separators=(",", ":")) + "\n")
         self._stdin.flush()
 
-    def wait_for_ready(self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
+    def wait_for_ready(self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> str:
         """Wait for the spectator to create the table and be ready for players.
 
-        Uses the HTTP health endpoint for long-poll readiness detection when
-        available, falling back to log marker polling otherwise.
+        Uses the HTTP health endpoint for long-poll readiness detection.
+        Returns the tableId string from the spectator.
         """
         assert self.health_port > 0, "SpectatorProcess requires health_port for readiness detection"
-        _wait_for_game_ready(self.health_port, game_dir, timeout=timeout)
+        return _wait_for_game_ready(self.health_port, game_dir, timeout=timeout)
+
+    def wait_for_game_end(self, game_dir: Path, timeout: int = 30) -> None:
+        """Wait for the spectator to signal that event files are fully written."""
+        assert self.health_port > 0, "SpectatorProcess requires health_port for game-end detection"
+        _wait_for_game_end_http(self.health_port, game_dir, timeout=timeout)
 
     def close(self) -> None:
         try:
@@ -447,8 +456,11 @@ def _wait_for_health(port: int, timeout: int = 120) -> None:
             raise RuntimeError(f"Observer health returned unexpected status: {data}")
 
 
-def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
-    """Wait for observer to create a game table via long-poll HTTP endpoint."""
+def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> str:
+    """Wait for observer to create a game table via long-poll HTTP endpoint.
+
+    Returns the tableId string from the spectator.
+    """
     url = f"http://127.0.0.1:{port}/wait-for-ready"
     body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
     req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
@@ -457,9 +469,30 @@ def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_REA
             data = json.loads(resp.read())
             if not data.get("ready"):
                 raise RuntimeError(f"Wait-for-ready returned: {data}")
+            return data["tableId"]
     except urllib.error.HTTPError as e:
         error_body = e.read().decode()
         raise RuntimeError(f"Wait-for-ready failed (HTTP {e.code}): {error_body}") from e
+
+
+def _wait_for_game_end_http(port: int, game_dir: Path, timeout: int = 30) -> None:
+    """Wait for observer to signal game-end via long-poll HTTP endpoint.
+
+    Blocks until the spectator's event files are fully written and closed.
+    The server's event file is guaranteed complete by the time the spectator
+    signals (the server fires game_end before notifying the spectator).
+    """
+    url = f"http://127.0.0.1:{port}/wait-for-game-end"
+    body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
+            data = json.loads(resp.read())
+            if not data.get("done"):
+                raise RuntimeError(f"Wait-for-game-end returned: {data}")
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode()
+        raise RuntimeError(f"Wait-for-game-end failed (HTTP {e.code}): {error_body}") from e
 
 
 def _wait_for_files_quiescent(paths: list[Path], timeout: int = 30, stable_for: float = 2.0) -> None:
@@ -629,8 +662,11 @@ def _send_spectator_command(
     player_b_type: str,
     game_type: str,
     deck_type: str,
-) -> None:
-    """Send a game command to a session-scoped spectator and wait for readiness."""
+) -> str:
+    """Send a game command to a session-scoped spectator and wait for readiness.
+
+    Returns the tableId string from the spectator.
+    """
     players_config = {
         "players": [
             {"type": "replay", "name": player_a_name, "deck": deck_a},
@@ -640,7 +676,7 @@ def _send_spectator_command(
         "deckType": deck_type,
     }
     spectator.start_game(game_dir, players_config, player_a_name)
-    spectator.wait_for_ready(game_dir)
+    return spectator.wait_for_ready(game_dir)
 
 
 def _start_spectator(
@@ -754,9 +790,10 @@ def _run_golden_persistent(
 
     try:
         # Start spectator — reuse session-scoped process if available
+        table_id: str | None = None
         if spectator is not None:
             with timed_phase(golden_name, "spectator_command"):
-                _send_spectator_command(
+                table_id = _send_spectator_command(
                     spectator,
                     game_dir,
                     deck_a,
@@ -786,24 +823,28 @@ def _run_golden_persistent(
                 log_fhs.append(spectator_fh)
 
         # Tell potato to join with the new deck (non-blocking: potato starts polling)
-        potato.join_next_game(str(project_root / deck_b))
+        potato.join_next_game(str(project_root / deck_b), table_id=table_id)
 
         # Tell bridge to join with the new deck (blocking: waits for game start)
+        join_args: dict = {"deck_path": str(project_root / deck_a)}
+        if table_id is not None:
+            join_args["table_id"] = table_id
         with timed_phase(golden_name, "bridge_join"):
-            bridge.call_tool("join_table", {"deck_path": str(project_root / deck_a)})
+            bridge.call_tool("join_table", join_args)
 
         # Execute replay script on the persistent bridge
         with timed_phase(golden_name, "replay"):
             prompt = _run_replay_on_bridge(bridge, script, game_dir, player_a_name)
 
-        # Wait for the spectator to record the game_end event before checking
-        # file quiescence — otherwise the files may appear "stable" before
-        # the game_end event is written, producing gameOver=null in the export.
-        with timed_phase(golden_name, "game_end_wait"):
-            _wait_for_game_end_event(game_dir)
-
-        with timed_phase(golden_name, "file_quiescence"):
-            _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
+        # Wait for the spectator to signal that event files are fully written.
+        # Uses HTTP long-poll when session-scoped spectator is available,
+        # falls back to file quiescence for non-keepAlive spectators.
+        with timed_phase(golden_name, "game_end_signal"):
+            if spectator is not None:
+                spectator.wait_for_game_end(game_dir)
+            else:
+                _wait_for_game_end_event(game_dir)
+                _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         with timed_phase(golden_name, "golden_comparison"):
             assert_golden_prompt(golden_name, prompt)
@@ -866,9 +907,12 @@ def _run_golden_subprocess(
 
     try:
         # Start spectator — reuse session-scoped process if available
+        spectator_log: Path | None = None
+        table_id: str | None = None
         if spectator is not None:
+            spectator_log = spectator.log_path
             with timed_phase(golden_name, "spectator_command"):
-                _send_spectator_command(
+                table_id = _send_spectator_command(
                     spectator,
                     game_dir,
                     deck_a,
@@ -899,26 +943,29 @@ def _run_golden_subprocess(
 
         # --- Start replay client (player A) ---
         replay_log = game_dir / f"{player_a_name}_replay.log"
+        replay_args = [
+            sys.executable,
+            "-m",
+            "puppeteer.replay",
+            "--server",
+            server,
+            "--port",
+            str(port),
+            "--username",
+            player_a_name,
+            "--project-root",
+            str(project_root),
+            "--deck",
+            str(project_root / deck_a),
+            "--script",
+            str(script_path),
+            "--game-dir",
+            str(game_dir),
+        ]
+        if table_id is not None:
+            replay_args.extend(["--table-id", table_id])
         replay_proc, replay_fh = _start_process(
-            args=[
-                sys.executable,
-                "-m",
-                "puppeteer.replay",
-                "--server",
-                server,
-                "--port",
-                str(port),
-                "--username",
-                player_a_name,
-                "--project-root",
-                str(project_root),
-                "--deck",
-                str(project_root / deck_a),
-                "--script",
-                str(script_path),
-                "--game-dir",
-                str(game_dir),
-            ],
+            args=replay_args,
             cwd=project_root,
             env_updates={"PYTHONUNBUFFERED": "1"},
             log_path=replay_log,
@@ -929,16 +976,19 @@ def _run_golden_subprocess(
         # --- Start potato client (player B) ---
         potato_log = game_dir / f"{player_b_name}_mcp.log"
         bridge_cp = compute_module_classpath(project_root, "Mage.Client.Bridge")
+        potato_sys_props: dict[str, str] = {
+            "xmage.bridge.server": server,
+            "xmage.bridge.port": str(port),
+            "xmage.bridge.personality": "potato",
+            "xmage.bridge.username": player_b_name,
+            "xmage.bridge.deck": str(project_root / deck_b),
+        }
+        if table_id is not None:
+            potato_sys_props["xmage.bridge.tableId"] = table_id
         potato_cmd = _build_java_cmd(
             bridge_cp,
             MAIN_CLASS_BRIDGE,
-            {
-                "xmage.bridge.server": server,
-                "xmage.bridge.port": str(port),
-                "xmage.bridge.personality": "potato",
-                "xmage.bridge.username": player_b_name,
-                "xmage.bridge.deck": str(project_root / deck_b),
-            },
+            potato_sys_props,
         )
         potato_proc, potato_fh = _start_process(
             args=potato_cmd,
@@ -970,8 +1020,11 @@ def _run_golden_subprocess(
                     f"Replay client exited with code {replay_proc.returncode}.\nReplay log tail:\n{replay_text[-2000:]}"
                 )
 
-        with timed_phase(golden_name, "file_quiescence"):
-            _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
+        with timed_phase(golden_name, "game_end_signal"):
+            if spectator is not None:
+                spectator.wait_for_game_end(game_dir)
+            else:
+                _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_log}"
@@ -1161,9 +1214,12 @@ def run_golden_scenario_two_replay(
                     f"Replay log tail:\n{replay_b_text[-2000:]}"
                 )
 
-        # Ensure spectator has finished flushing export inputs.
-        with timed_phase(golden_name, "file_quiescence"):
-            _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
+        # Wait for spectator to signal event files are fully written.
+        with timed_phase(golden_name, "game_end_signal"):
+            if spectator is not None:
+                spectator.wait_for_game_end(game_dir)
+            else:
+                _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         # Read golden prompt for player A
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"

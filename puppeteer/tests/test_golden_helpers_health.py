@@ -1,4 +1,4 @@
-"""Unit tests for HTTP-based spectator readiness detection."""
+"""Unit tests for HTTP-based spectator readiness and game-end detection."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from tests.golden_helpers import _wait_for_game_ready, _wait_for_health
+from tests.golden_helpers import _wait_for_game_end_http, _wait_for_game_ready, _wait_for_health
 
 
 class _HealthHandler(BaseHTTPRequestHandler):
@@ -19,6 +19,7 @@ class _HealthHandler(BaseHTTPRequestHandler):
     # Class-level configuration set by tests
     lobby_ready_delay: float = 0
     game_ready_delay: float = 0
+    game_end_delay: float = 0
 
     def do_GET(self) -> None:
         if self.path.startswith("/health"):
@@ -39,6 +40,16 @@ class _HealthHandler(BaseHTTPRequestHandler):
                     self._send_json(408, {"ready": False, "error": "timeout"})
                     return
             self._send_json(200, {"ready": True, "tableId": "test-table-id"})
+        elif self.path == "/wait-for-game-end":
+            length = int(self.headers.get("Content-Length", 0))
+            body = json.loads(self.rfile.read(length))
+            timeout = body.get("timeout", 30)
+            if self.game_end_delay > 0:
+                time.sleep(min(self.game_end_delay, timeout))
+                if self.game_end_delay > timeout:
+                    self._send_json(408, {"done": False, "error": "timeout"})
+                    return
+            self._send_json(200, {"done": True})
         else:
             self.send_error(404)
 
@@ -60,6 +71,7 @@ def mock_health_server():
     # Reset delays
     _HealthHandler.lobby_ready_delay = 0
     _HealthHandler.game_ready_delay = 0
+    _HealthHandler.game_end_delay = 0
 
     server = HTTPServer(("127.0.0.1", 0), _HealthHandler)
     port = server.server_address[1]
@@ -87,19 +99,42 @@ class TestWaitForHealth:
 class TestWaitForGameReady:
     def test_game_ready_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
-        _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=5)
+        table_id = _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=5)
+        assert table_id == "test-table-id"
 
     def test_game_ready_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _HealthHandler.game_ready_delay = 0.3
         t0 = time.monotonic()
-        _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=5)
+        table_id = _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=5)
         elapsed = time.monotonic() - t0
         assert elapsed >= 0.2
         assert elapsed < 2.0
+        assert table_id == "test-table-id"
 
     def test_game_ready_timeout(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _HealthHandler.game_ready_delay = 10
         with pytest.raises(RuntimeError, match="Wait-for-ready failed"):
             _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=1)
+
+
+class TestWaitForGameEnd:
+    def test_game_end_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
+        port, _server = mock_health_server
+        _wait_for_game_end_http(port, Path("/tmp/test-game"), timeout=5)
+
+    def test_game_end_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
+        port, _server = mock_health_server
+        _HealthHandler.game_end_delay = 0.3
+        t0 = time.monotonic()
+        _wait_for_game_end_http(port, Path("/tmp/test-game"), timeout=5)
+        elapsed = time.monotonic() - t0
+        assert elapsed >= 0.2
+        assert elapsed < 2.0
+
+    def test_game_end_timeout(self, mock_health_server: tuple[int, HTTPServer]) -> None:
+        port, _server = mock_health_server
+        _HealthHandler.game_end_delay = 10
+        with pytest.raises(RuntimeError, match="Wait-for-game-end failed"):
+            _wait_for_game_end_http(port, Path("/tmp/test-game"), timeout=1)

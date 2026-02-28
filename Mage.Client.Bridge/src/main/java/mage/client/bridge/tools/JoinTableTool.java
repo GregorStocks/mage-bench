@@ -21,9 +21,12 @@ public class JoinTableTool {
     )
     public static Map<String, Object> execute(
             BridgeCallbackHandler handler,
-            @Param(description = "Absolute path to the deck file (.dck)", required = true) String deck_path) {
+            @Param(description = "Absolute path to the deck file (.dck)", required = true) String deck_path,
+            @Param(description = "UUID of the specific table to join (from spectator). "
+                + "When provided, joins only this table instead of polling for any available table.") String table_id) {
         try {
-            handler.joinNextTable(deck_path);
+            java.util.UUID targetTableId = table_id != null ? java.util.UUID.fromString(table_id) : null;
+            handler.joinNextTable(deck_path, targetTableId);
             return Map.of("joined", true);
         } catch (Exception e) {
             throw new RuntimeException("Failed to join table: " + e.getMessage(), e);

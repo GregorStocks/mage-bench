@@ -105,12 +105,13 @@ make check
 **Always use `make` targets.** Never invoke `mvn`, `npm`, `npx`, or other build tools directly — the Makefile handles compilation, classpaths, and caching correctly. Running `mvn` directly causes stale class issues and skips necessary build steps.
 
 ```bash
-make build          # Full Java build
-make check          # Lint + typecheck + tests
-make mcp-tools      # Compile + regenerate tool definitions
-make website        # Leaderboard + npm install + dev server
-make run            # Build + run a game
-make test           # Python tests
+make build            # Full Java build
+make check            # Lint + typecheck + tests
+make mcp-tools        # Compile + regenerate tool definitions
+make website          # Leaderboard + npm install + dev server
+make run              # Build + run a game
+make test             # Python tests
+make games-to-analyze # List games needing fast-analysis
 ```
 
 If a `make` target doesn't exist for what you need, ask — don't improvise with raw `mvn`/`npm` commands.
