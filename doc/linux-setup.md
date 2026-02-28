@@ -19,7 +19,7 @@ count=1
 Description=Prevent XMage/Java focus stealing
 fsplevel=4
 fsplevelrule=2
-wmclass=sun-awt-X11-XFramePeer
+wmclass=java-lang-Thread
 wmclassmatch=1
 wmclasscomplete=false
 EOF
@@ -32,7 +32,7 @@ If you already have rules in `kwinrulesrc`, merge manually: increment `count`
 in `[General]` and add a new numbered section.
 
 You can also configure this through System Settings > Window Management >
-Window Rules > Add New > set "Window class" to `sun-awt-X11-XFramePeer`
+Window Rules > Add New > set "Window class" to `java-lang-Thread`
 (substring match), then add "Focus stealing prevention: Force / Extreme".
 
 ### GNOME
