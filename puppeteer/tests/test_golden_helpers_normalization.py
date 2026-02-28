@@ -1,4 +1,10 @@
-from tests.golden_helpers import _is_short_id, _json_diff, _normalize_embedded_json, _normalize_prompt_for_golden, _strip_volatile
+from tests.golden_helpers import (
+    _is_short_id,
+    _json_diff,
+    _normalize_embedded_json,
+    _normalize_prompt_for_golden,
+    _strip_volatile,
+)
 
 
 def test_is_short_id_server_prefix():
