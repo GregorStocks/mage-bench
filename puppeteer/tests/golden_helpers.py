@@ -1044,6 +1044,80 @@ def _to_sorted_json(obj: object) -> str:
     return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
 
 
+def _brief(value: object, max_len: int = 80) -> str:
+    """Short representation of a JSON value for diff output."""
+    if isinstance(value, str):
+        r = repr(value)
+        if len(r) > max_len:
+            return r[: max_len - 3] + "..."
+        return r
+    s = json.dumps(value, sort_keys=True, ensure_ascii=False)
+    if len(s) > max_len:
+        return s[: max_len - 3] + "..."
+    return s
+
+
+def _json_diff(expected: object, actual: object, path: str = "", max_diffs: int = 30) -> list[str]:
+    """Structural diff between two parsed JSON values.
+
+    Returns a list of human-readable diff lines with JSON paths, e.g.:
+        decisions[0].message: "Play instants" -> "Play instants and abilities"
+        actions: 3 items -> 4 items
+          [3]: + {"seq": 8, "type": "turn_change"}
+    """
+    diffs: list[str] = []
+
+    def _recurse(exp: object, act: object, p: str) -> None:
+        if len(diffs) >= max_diffs:
+            return
+        if type(exp) is not type(act):
+            diffs.append(f"  {p}: {_brief(exp)} -> {_brief(act)}")
+            return
+        if isinstance(exp, dict):
+            assert isinstance(act, dict)
+            exp_keys = set(exp.keys())
+            act_keys = set(act.keys())
+            for k in sorted(exp_keys - act_keys):
+                if len(diffs) >= max_diffs:
+                    return
+                child = f"{p}.{k}" if p else k
+                diffs.append(f"  {child}: - {_brief(exp[k])}")
+            for k in sorted(act_keys - exp_keys):
+                if len(diffs) >= max_diffs:
+                    return
+                child = f"{p}.{k}" if p else k
+                diffs.append(f"  {child}: + {_brief(act[k])}")
+            for k in sorted(exp_keys & act_keys):
+                if len(diffs) >= max_diffs:
+                    return
+                child = f"{p}.{k}" if p else k
+                _recurse(exp[k], act[k], child)
+        elif isinstance(exp, list):
+            assert isinstance(act, list)
+            if len(exp) != len(act):
+                diffs.append(f"  {p}: {len(exp)} items -> {len(act)} items")
+            min_len = min(len(exp), len(act))
+            for i in range(min_len):
+                if len(diffs) >= max_diffs:
+                    return
+                _recurse(exp[i], act[i], f"{p}[{i}]")
+            for i in range(min_len, len(exp)):
+                if len(diffs) >= max_diffs:
+                    return
+                diffs.append(f"  {p}[{i}]: - {_brief(exp[i])}")
+            for i in range(min_len, len(act)):
+                if len(diffs) >= max_diffs:
+                    return
+                diffs.append(f"  {p}[{i}]: + {_brief(act[i])}")
+        elif exp != act:
+            diffs.append(f"  {p}: {_brief(exp)} -> {_brief(act)}")
+
+    _recurse(expected, actual, path)
+    if len(diffs) >= max_diffs:
+        diffs.append(f"  ... (truncated, {max_diffs}+ differences)")
+    return diffs
+
+
 def _is_short_id(value: object) -> bool:
     return isinstance(value, str) and len(value) > 1 and value[0] == "p" and value[1:].isdigit()
 
@@ -1088,16 +1162,10 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
 
     expected = golden_file.read_text().rstrip()
     if expected != actual_json:
-        expected_lines = expected.split("\n")
-        actual_lines = actual_json.split("\n")
-        diffs = []
-        max_lines = max(len(expected_lines), len(actual_lines))
-        for i in range(max_lines):
-            exp = expected_lines[i] if i < len(expected_lines) else "<missing>"
-            act = actual_lines[i] if i < len(actual_lines) else "<missing>"
-            if exp != act:
-                diffs.append(f"  Line {i + 1}:\n    expected: {exp}\n    actual:   {act}")
-        diff_text = "\n".join(diffs[:20])
+        expected_obj = json.loads(expected)
+        actual_obj = json.loads(actual_json)
+        diff_lines = _json_diff(expected_obj, actual_obj)
+        diff_text = "\n".join(diff_lines)
         raise AssertionError(
             f"Golden file mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
         )
@@ -1176,16 +1244,9 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
 
     expected = golden_file.read_text().rstrip()
     if expected != actual_json:
-        expected_lines = expected.split("\n")
-        actual_lines = actual_json.split("\n")
-        diffs = []
-        max_lines = max(len(expected_lines), len(actual_lines))
-        for i in range(max_lines):
-            exp = expected_lines[i] if i < len(expected_lines) else "<missing>"
-            act = actual_lines[i] if i < len(actual_lines) else "<missing>"
-            if exp != act:
-                diffs.append(f"  Line {i + 1}:\n    expected: {exp}\n    actual:   {act}")
-        diff_text = "\n".join(diffs[:20])
+        expected_obj = json.loads(expected)
+        diff_lines = _json_diff(expected_obj, export_data)
+        diff_text = "\n".join(diff_lines)
         raise AssertionError(
             f"Golden export mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
         )
