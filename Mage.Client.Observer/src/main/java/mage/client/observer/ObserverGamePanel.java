@@ -155,6 +155,9 @@ public class ObserverGamePanel extends GamePanel {
     private final Map<UUID, Integer> playerColorIndices = new LinkedHashMap<>();
     private boolean playerPanelsStyled = false;
 
+    // Health server for signaling game-end to the test harness
+    private ObserverHealthServer healthServer;
+
     // Game event JSONL logging
     private PrintWriter gameEventWriter;
     private int gameEventSeq = 0;
@@ -162,6 +165,11 @@ public class ObserverGamePanel extends GamePanel {
     private String lastSnapshotKey = "";  // For deduplication
     private static final ZoneId LOG_TZ = ZoneId.of("America/Los_Angeles");
     private static final DateTimeFormatter LOG_TS_FMT = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+
+    /** Set the health server so game-end can be signaled via HTTP. */
+    public void setHealthServer(ObserverHealthServer healthServer) {
+        this.healthServer = healthServer;
+    }
 
     @Override
     public synchronized void watchGame(UUID currentTableId, UUID parentTableId, UUID gameId, MagePane gamePane) {
@@ -357,6 +365,10 @@ public class ObserverGamePanel extends GamePanel {
             writeGameEvent("game_over", event);
             gameEventWriter.close();
             gameEventWriter = null;
+        }
+
+        if (healthServer != null && gameDirPath != null) {
+            healthServer.signalGameEnd(gameDirPath.toString());
         }
 
         if (costPollTimer != null) {

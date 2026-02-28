@@ -333,6 +333,11 @@ class SpectatorProcess:
         assert self.health_port > 0, "SpectatorProcess requires health_port for readiness detection"
         _wait_for_game_ready(self.health_port, game_dir, timeout=timeout)
 
+    def wait_for_game_end(self, game_dir: Path, timeout: int = 30) -> None:
+        """Wait for the spectator to signal that event files are fully written."""
+        assert self.health_port > 0, "SpectatorProcess requires health_port for game-end detection"
+        _wait_for_game_end_http(self.health_port, game_dir, timeout=timeout)
+
     def close(self) -> None:
         try:
             self._stdin.close()
@@ -460,6 +465,26 @@ def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_REA
     except urllib.error.HTTPError as e:
         error_body = e.read().decode()
         raise RuntimeError(f"Wait-for-ready failed (HTTP {e.code}): {error_body}") from e
+
+
+def _wait_for_game_end_http(port: int, game_dir: Path, timeout: int = 30) -> None:
+    """Wait for observer to signal game-end via long-poll HTTP endpoint.
+
+    Blocks until the spectator's event files are fully written and closed.
+    The server's event file is guaranteed complete by the time the spectator
+    signals (the server fires game_end before notifying the spectator).
+    """
+    url = f"http://127.0.0.1:{port}/wait-for-game-end"
+    body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
+            data = json.loads(resp.read())
+            if not data.get("done"):
+                raise RuntimeError(f"Wait-for-game-end returned: {data}")
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode()
+        raise RuntimeError(f"Wait-for-game-end failed (HTTP {e.code}): {error_body}") from e
 
 
 def _wait_for_files_quiescent(paths: list[Path], timeout: int = 30, stable_for: float = 2.0) -> None:
@@ -796,14 +821,15 @@ def _run_golden_persistent(
         with timed_phase(golden_name, "replay"):
             prompt = _run_replay_on_bridge(bridge, script, game_dir, player_a_name)
 
-        # Wait for the spectator to record the game_end event before checking
-        # file quiescence — otherwise the files may appear "stable" before
-        # the game_end event is written, producing gameOver=null in the export.
-        with timed_phase(golden_name, "game_end_wait"):
-            _wait_for_game_end_event(game_dir)
-
-        with timed_phase(golden_name, "file_quiescence"):
-            _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
+        # Wait for the spectator to signal that event files are fully written.
+        # Uses HTTP long-poll when session-scoped spectator is available,
+        # falls back to file quiescence for non-keepAlive spectators.
+        with timed_phase(golden_name, "game_end_signal"):
+            if spectator is not None:
+                spectator.wait_for_game_end(game_dir)
+            else:
+                _wait_for_game_end_event(game_dir)
+                _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         with timed_phase(golden_name, "golden_comparison"):
             assert_golden_prompt(golden_name, prompt)
@@ -970,8 +996,11 @@ def _run_golden_subprocess(
                     f"Replay client exited with code {replay_proc.returncode}.\nReplay log tail:\n{replay_text[-2000:]}"
                 )
 
-        with timed_phase(golden_name, "file_quiescence"):
-            _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
+        with timed_phase(golden_name, "game_end_signal"):
+            if spectator is not None:
+                spectator.wait_for_game_end(game_dir)
+            else:
+                _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
         assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_log}"
@@ -1161,9 +1190,12 @@ def run_golden_scenario_two_replay(
                     f"Replay log tail:\n{replay_b_text[-2000:]}"
                 )
 
-        # Ensure spectator has finished flushing export inputs.
-        with timed_phase(golden_name, "file_quiescence"):
-            _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
+        # Wait for spectator to signal event files are fully written.
+        with timed_phase(golden_name, "game_end_signal"):
+            if spectator is not None:
+                spectator.wait_for_game_end(game_dir)
+            else:
+                _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
 
         # Read golden prompt for player A
         prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"

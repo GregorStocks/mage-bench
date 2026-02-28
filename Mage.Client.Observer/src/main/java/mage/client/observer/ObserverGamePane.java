@@ -48,6 +48,11 @@ public class ObserverGamePane extends MagePane {
         );
     }
 
+    /** Pass the health server to the game panel for game-end signaling. */
+    public void setHealthServer(ObserverHealthServer healthServer) {
+        gamePanel.setHealthServer(healthServer);
+    }
+
     public void showGame(UUID currentTableId, UUID parentTableId, UUID gameId, UUID playerId) {
         this.setTitle("Game " + gameId);
         this.currentTableId = currentTableId;
