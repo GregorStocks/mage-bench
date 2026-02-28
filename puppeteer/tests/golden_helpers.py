@@ -1319,6 +1319,8 @@ def _strip_volatile(data: dict) -> None:
     data.pop("timestamp", None)
     data.pop("id", None)
     data.pop("harnessEpoch", None)
+    # Error log entries contain wall-clock timestamps in message text
+    data.pop("errors", None)
 
     # Strip volatile fields from player summaries
     for player in data.get("players", []):
