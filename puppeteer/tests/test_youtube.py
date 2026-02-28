@@ -190,7 +190,7 @@ def test_maybe_upload_and_export_skips_without_recording():
         assert result is False
 
 
-def test_maybe_upload_and_export_reprompts_on_bad_input(capsys):
+def test_maybe_upload_and_export_reprompts_on_bad_input(caplog):
     """Unrecognized input should re-ask, not silently skip."""
     from puppeteer.orchestrator import _maybe_upload_and_export
 
@@ -198,9 +198,9 @@ def test_maybe_upload_and_export_reprompts_on_bad_input(capsys):
         game_dir = Path(tmpdir)
         project_root = Path(tmpdir)
         (game_dir / "recording.mov").write_bytes(b"fake")
-        with patch("builtins.input", side_effect=["yy", "n"]):
+        with caplog.at_level("INFO", logger="puppeteer.orchestrator"), patch("builtins.input", side_effect=["yy", "n"]):
             _maybe_upload_and_export(game_dir, project_root)
-    output = capsys.readouterr().out
+    output = caplog.text
     assert "Unrecognized answer" in output
 
 

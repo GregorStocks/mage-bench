@@ -18,9 +18,12 @@ from puppeteer.game_log import merge_game_log, read_decklist
 from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.llm_cost import DEFAULT_BASE_URL as DEFAULT_LLM_BASE_URL
 from puppeteer.llm_cost import required_api_key_env
+from puppeteer.log import get_logger, setup_logging
 from puppeteer.port import find_available_port, wait_for_port
 from puppeteer.process_manager import ProcessManager, kill_tree
 from puppeteer.xml_config import modify_server_config
+
+logger = get_logger(__name__)
 
 _SPECTATOR_TABLE_READY = "AI Puppeteer: waiting for"
 _SPECTATOR_GAME_STARTED = "AI Puppeteer: all players joined"
@@ -129,7 +132,7 @@ def _wait_with_pilot_monitoring(
             if spectator_rc != 0:
                 # Spectator crashed — kill everything (server, bridges,
                 # pilots) so they don't continue playing an unrecorded game.
-                print(f"\nSpectator exited with code {spectator_rc} — aborting game.")
+                logger.error("Spectator exited with code %s — aborting game.", spectator_rc)
                 pm.cleanup()
             return spectator_rc
 
@@ -137,7 +140,7 @@ def _wait_with_pilot_monitoring(
         for name, proc in pilot_procs:
             rc = proc.poll()
             if rc is not None and rc != 0:
-                print(f"\nPilot '{name}' exited with code {rc} — aborting game.")
+                logger.error("Pilot '%s' exited with code %s — aborting game.", name, rc)
                 pm.cleanup()
                 return -1
 
@@ -218,7 +221,7 @@ def _write_error_log(game_dir: Path) -> None:
     error_log = game_dir / "errors.log"
     if error_lines:
         error_log.write_text("\n".join(error_lines) + "\n")
-        print(f"  Errors: {len(error_lines)} (see {error_log})")
+        logger.info("  Errors: %d (see %s)", len(error_lines), error_log)
     else:
         error_log.write_text("No errors detected.\n")
 
@@ -265,9 +268,9 @@ def _write_game_meta(game_dir: Path, config: Config, project_root: Path) -> None
 
 def _print_game_summary(game_dir: Path) -> None:
     """Print a summary of game results and costs after the game ends."""
-    print("\n" + "=" * 60)
-    print("GAME SUMMARY")
-    print("=" * 60)
+    logger.info("=" * 60)
+    logger.info("GAME SUMMARY")
+    logger.info("=" * 60)
 
     # Scan bridge client logs for "Game over:" messages
     game_over_found = False
@@ -277,7 +280,7 @@ def _print_game_summary(game_dir: Path) -> None:
             for line in text.splitlines():
                 if "Game over:" in line:
                     game_over_found = True
-                    print(f"  {line.strip()}")
+                    logger.info("  %s", line.strip())
                     break  # Only first game_over per log (client may join next game)
         except OSError:
             pass
@@ -302,16 +305,16 @@ def _print_game_summary(game_dir: Path) -> None:
                         msg = event.get("message", "")
                         if reason == "spectator_closed":
                             game_over_found = True
-                            print(f"  {msg}")
+                            logger.info("  %s", msg)
                         elif reason not in ("timeout_or_killed", "spectator_crashed") and msg:
                             game_over_found = True
-                            print(f"  Game over: {msg}")
+                            logger.info("  Game over: %s", msg)
                         break
             except OSError:
                 pass
 
     if not game_over_found:
-        print("  Game did not finish (killed or disconnected)")
+        logger.info("  Game did not finish (killed or disconnected)")
 
     # Extract turn count from game events
     max_turn = 0
@@ -336,7 +339,7 @@ def _print_game_summary(game_dir: Path) -> None:
         except OSError:
             pass
     if max_turn > 0:
-        print(f"  Turns: {max_turn}")
+        logger.info("  Turns: %d", max_turn)
 
     # Count actions per player from LLM JSONL files and collect costs
     llm_files = sorted(game_dir.glob("*_llm.jsonl"))
@@ -363,7 +366,7 @@ def _print_game_summary(game_dir: Path) -> None:
     # Print per-player costs and actions
     cost_files = sorted(game_dir.glob("*_cost.json"))
     if cost_files or player_actions:
-        print()
+        logger.info("")
         total_cost = 0.0
         for cost_file in cost_files:
             try:
@@ -374,15 +377,15 @@ def _print_game_summary(game_dir: Path) -> None:
                 actions_str = ""
                 if player in player_actions:
                     actions_str = f" ({player_actions.pop(player)} actions)"
-                print(f"  {player}: ${cost:.4f}{actions_str}")
+                logger.info("  %s: $%.4f%s", player, cost, actions_str)
             except (OSError, json.JSONDecodeError):
                 pass
         # Print any players with actions but no cost file (shouldn't happen, but just in case)
         for player, actions in player_actions.items():
-            print(f"  {player}: {actions} actions")
-        print(f"  Total: ${total_cost:.4f}")
+            logger.info("  %s: %d actions", player, actions)
+        logger.info("  Total: $%.4f", total_cost)
 
-    print("=" * 60 + "\n")
+    logger.info("=" * 60)
 
 
 def parse_args() -> Config:
@@ -412,6 +415,11 @@ def parse_args() -> Config:
         default=1,
         help="Number of parallel games on the same server (default: 1)",
     )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Enable DEBUG-level logging (verbose MCP details, process management)",
+    )
     args = parser.parse_args()
 
     # Determine record output path
@@ -425,13 +433,14 @@ def parse_args() -> Config:
         record=bool(args.record),
         record_output=record_output,
         num_games=args.games,
+        debug=args.debug,
     )
     return config
 
 
 def compile_project(project_root: Path, observer: bool = False) -> bool:
     """Compile the project using Maven."""
-    print("Compiling project...")
+    logger.info("Compiling project...")
     modules = "Mage.Server,Mage.Client,Mage.Client.Bridge"
     if observer:
         modules += ",Mage.Client.Observer"
@@ -884,10 +893,10 @@ def _attempt_annotation(gz_path: Path, project_root: Path, max_retries: int = 2)
         except Exception as e:
             last_error = str(e)
             if attempt < max_retries:
-                print(f"  Annotation attempt {attempt + 1} failed: {e}")
-                print(f"  Retrying ({attempt + 2}/{1 + max_retries})...")
+                logger.warning("  Annotation attempt %d failed: %s", attempt + 1, e)
+                logger.warning("  Retrying (%d/%d)...", attempt + 2, 1 + max_retries)
             else:
-                print(f"  Annotation attempt {attempt + 1} failed: {e}")
+                logger.warning("  Annotation attempt %d failed: %s", attempt + 1, e)
     return last_error
 
 
@@ -896,12 +905,12 @@ def _prompt_annotation_failure(game_id: str, error: str) -> str:
 
     Returns "retry", "emit", or "skip".
     """
-    print(f"  Annotation failed for {game_id}: {error}")
+    logger.warning("  Annotation failed for %s: %s", game_id, error)
     while True:
         try:
             answer = input("  [r]etry / [e]mit without annotation / [s]kip? ").strip().lower()
         except (EOFError, KeyboardInterrupt):
-            print()
+            logger.info("")
             return "skip"
         if answer in ("r", "retry"):
             return "retry"
@@ -909,21 +918,21 @@ def _prompt_annotation_failure(game_id: str, error: str) -> str:
             return "emit"
         if answer in ("s", "skip"):
             return "skip"
-        print(f"  Unrecognized answer: {answer!r}")
+        logger.info("  Unrecognized answer: %r", answer)
 
 
 def _finalize_export(tmp_path: Path, final_path: Path) -> None:
     """Move exported game from temp location to final website path."""
     shutil.move(str(tmp_path), str(final_path))
     size_kb = final_path.stat().st_size // 1024
-    print(f"  Exported for website: {final_path} ({size_kb} KB)")
+    logger.info("  Exported for website: %s (%d KB)", final_path, size_kb)
 
 
 def _resolve_annotation_failures(failures: list[_AnnotationFailure], project_root: Path) -> None:
     """Prompt the user about each deferred annotation failure."""
     if not failures:
         return
-    print(f"\n  {len(failures)} game(s) failed annotation:")
+    logger.info("  %d game(s) failed annotation:", len(failures))
     for failure in failures:
         while True:
             action = _prompt_annotation_failure(failure.game_id, failure.error)
@@ -939,7 +948,7 @@ def _resolve_annotation_failures(failures: list[_AnnotationFailure], project_roo
                 break
             else:  # skip
                 failure.tmp_path.unlink(missing_ok=True)
-                print(f"  Skipped {failure.game_id}")
+                logger.info("  Skipped %s", failure.game_id)
                 break
 
 
@@ -966,7 +975,7 @@ def _maybe_upload_and_export(
             try:
                 answer = input(f"{prompt} [y/N/all]: ").strip().lower()
             except (EOFError, KeyboardInterrupt):
-                print()
+                logger.info("")
                 return False
             if answer in ("y", "yes"):
                 break
@@ -975,7 +984,7 @@ def _maybe_upload_and_export(
                 break
             if answer in ("n", "no", ""):
                 return False
-            print(f"  Unrecognized answer: {answer!r} — please enter y, n, or all")
+            logger.info("  Unrecognized answer: %r — please enter y, n, or all", answer)
 
     # Upload to YouTube (only if we have a recording)
     if has_recording:
@@ -985,14 +994,14 @@ def _maybe_upload_and_export(
 
             url = upload_to_youtube(game_dir)
             if url:
-                print(f"  YouTube: {url}")
+                logger.info("  YouTube: %s", url)
                 _save_youtube_url(game_dir, url)
                 _update_website_youtube_url(game_dir, url, project_root)
         except ImportError:
-            print("  Warning: YouTube upload requires google-api-python-client and google-auth-oauthlib")
-            print("  Run: cd puppeteer && uv sync")
+            logger.warning("  YouTube upload requires google-api-python-client and google-auth-oauthlib")
+            logger.warning("  Run: cd puppeteer && uv sync")
         except Exception as e:
-            print(f"  Warning: YouTube upload failed: {e}")
+            logger.warning("  YouTube upload failed: %s", e)
 
     # Export for website — write to a temp file first, only move to final
     # location after annotation succeeds (or user explicitly chooses to emit).
@@ -1011,7 +1020,7 @@ def _maybe_upload_and_export(
             tmp_path = website_games_dir / f".tmp_{tmp_export_path.name}"
             shutil.move(str(tmp_export_path), str(tmp_path))
     except Exception as e:
-        print(f"  Warning: website export failed: {e}")
+        logger.warning("  Website export failed: %s", e)
         return auto_yes
 
     game_id = game_dir.name
@@ -1032,7 +1041,7 @@ def _maybe_upload_and_export(
     if deferred_failures is not None:
         # Batch/auto_yes mode: defer to end
         deferred_failures.append(_AnnotationFailure(tmp_path, final_path, err, game_id))
-        print(f"  Deferred annotation failure for {game_id} (will ask at end)")
+        logger.info("  Deferred annotation failure for %s (will ask at end)", game_id)
         return auto_yes
 
     # Interactive mode: prompt immediately
@@ -1049,7 +1058,7 @@ def _maybe_upload_and_export(
             return auto_yes
         else:  # skip
             tmp_path.unlink(missing_ok=True)
-            print(f"  Skipped {game_id}")
+            logger.info("  Skipped %s", game_id)
             return auto_yes
 
 
@@ -1159,15 +1168,15 @@ def _setup_game(
 
     # Log paths
     spectator_log = game_dir / "spectator.log"
-    print(f"{game_label}Game logs: {game_dir}")
-    print(f"{game_label}Spectator log: {spectator_log}")
+    logger.info("%sGame logs: %s", game_label, game_dir)
+    logger.info("%sSpectator log: %s", game_label, spectator_log)
     if game_config.record:
         record_path = game_config.record_output or (game_dir / "recording.mov")
-        print(f"{game_label}Recording to: {record_path}")
+        logger.info("%sRecording to: %s", game_label, record_path)
 
     # Choose spectator client type
     if game_config.observer:
-        print(f"{game_label}Starting observer spectator client...")
+        logger.info("%sStarting observer spectator client...", game_label)
         start_spectator_client = start_observer_client
     else:
         start_spectator_client = start_gui_client
@@ -1201,18 +1210,18 @@ def _setup_game(
             # Start bridge clients
             for player in game_config.sleepwalker_players:
                 log_path = game_dir / f"{player.name}_mcp.log"
-                print(f"{game_label}Sleepwalker ({player.name}) log: {log_path}")
+                logger.info("%sSleepwalker (%s) log: %s", game_label, player.name, log_path)
                 start_sleepwalker_client(pm, project_root, game_config, player.name, player.deck, log_path)
 
             for player in game_config.pilot_players:
                 log_path = game_dir / f"{player.name}_pilot.log"
-                print(f"{game_label}Pilot ({player.name}) log: {log_path}")
+                logger.info("%sPilot (%s) log: %s", game_label, player.name, log_path)
                 proc = start_pilot_client(pm, project_root, game_config, player, log_path, game_dir=game_dir)
                 session.pilot_procs.append((player.name, proc))
 
             for player in game_config.replay_players:
                 log_path = game_dir / f"{player.name}_replay.log"
-                print(f"{game_label}Replay ({player.name}) log: {log_path}")
+                logger.info("%sReplay (%s) log: %s", game_label, player.name, log_path)
                 proc = start_replay_client(
                     pm, project_root, game_config, player.name, player.deck, player.script, log_path, game_dir=game_dir
                 )
@@ -1220,12 +1229,12 @@ def _setup_game(
 
             for player in game_config.potato_players:
                 log_path = game_dir / f"{player.name}_mcp.log"
-                print(f"{game_label}Potato ({player.name}) log: {log_path}")
+                logger.info("%sPotato (%s) log: %s", game_label, player.name, log_path)
                 start_potato_client(pm, project_root, game_config, player.name, player.deck, log_path)
 
             for player in game_config.staller_players:
                 log_path = game_dir / f"{player.name}_mcp.log"
-                print(f"{game_label}Staller ({player.name}) log: {log_path}")
+                logger.info("%sStaller (%s) log: %s", game_label, player.name, log_path)
                 start_potato_client(
                     pm, project_root, game_config, player.name, player.deck, log_path, personality="staller"
                 )
@@ -1277,7 +1286,7 @@ def _wait_for_all_games(
                     # bridge children) so they don't continue playing an
                     # unrecorded game on the server.
                     game_label = f"Game {session.index + 1}"
-                    print(f"\n{game_label}: spectator exited with code {spectator_rc} — aborting game.")
+                    logger.error("%s: spectator exited with code %s — aborting game.", game_label, spectator_rc)
                     for _name, pilot_proc in session.pilot_procs:
                         if pilot_proc.poll() is None:
                             kill_tree(pilot_proc.pid)
@@ -1289,7 +1298,12 @@ def _wait_for_all_games(
             for name, pilot_proc in session.pilot_procs:
                 pilot_rc = pilot_proc.poll()
                 if pilot_rc is not None and pilot_rc != 0:
-                    print(f"\nGame {session.index + 1}: pilot '{name}' exited with code {pilot_rc} — aborting game.")
+                    logger.error(
+                        "Game %d: pilot '%s' exited with code %s — aborting game.",
+                        session.index + 1,
+                        name,
+                        pilot_rc,
+                    )
                     session.spectator_proc.terminate()
                     for _n, pp in session.pilot_procs:
                         if pp.poll() is None:
@@ -1318,9 +1332,9 @@ def _finalize_game(
     _write_error_log(session.game_dir)
     try:
         merge_game_log(session.game_dir)
-        print(f"  {game_label}Merged game log: {session.game_dir / 'game.jsonl'}")
+        logger.info("  %sMerged game log: %s", game_label, session.game_dir / "game.jsonl")
     except Exception as e:
-        print(f"  {game_label}Warning: failed to merge game log: {e}")
+        logger.warning("  %sFailed to merge game log: %s", game_label, e)
     _print_game_summary(session.game_dir)
     if not session.config.skip_post_game_prompts:
         auto_yes = _maybe_upload_and_export(
@@ -1335,6 +1349,9 @@ def _finalize_game(
 def main() -> int:
     """Main orchestrator for game lifecycle management."""
     config = parse_args()
+    setup_logging(debug=config.debug)
+    if config.debug:
+        os.environ["PUPPETEER_LOG_LEVEL"] = "DEBUG"
     project_root = Path.cwd().resolve()
     pm = ProcessManager()
     port_reservation = None
@@ -1344,17 +1361,17 @@ def main() -> int:
     try:
         # Validate parallel mode constraints
         if batch and config.record_output:
-            print("ERROR: --record=PATH cannot be used with --games (use --record without a path instead)")
+            logger.error("--record=PATH cannot be used with --games (use --record without a path instead)")
             return 2
 
         # Load player config as early as possible so invalid LLM setup fails fast.
         config.load_config()
         missing_llm_keys = _missing_llm_api_keys(config)
         if missing_llm_keys:
-            print("ERROR: LLM players configured without required API keys:")
+            logger.error("LLM players configured without required API keys:")
             for missing in missing_llm_keys:
-                print(f"  - {missing}")
-            print("Set the required key(s) or use a non-LLM config (e.g. make run-dumb).")
+                logger.error("  - %s", missing)
+            logger.error("Set the required key(s) or use a non-LLM config (e.g. make run-dumb).")
             return 2
 
         # Set timestamp
@@ -1362,7 +1379,7 @@ def main() -> int:
 
         # Recording requires observer mode
         if config.record and not config.observer:
-            print("Recording requires observer mode, enabling --observer")
+            logger.info("Recording requires observer mode, enabling --observer")
             config.observer = True
 
         # Create log directory
@@ -1371,20 +1388,20 @@ def main() -> int:
 
         # Compile if needed
         if not compile_project(project_root, observer=config.observer):
-            print("ERROR: Compilation failed")
+            logger.error("Compilation failed")
             return 1
 
         if config.observer:
-            print("Refreshing observer resources...")
+            logger.info("Refreshing observer resources...")
             if not refresh_observer_resources(project_root):
-                print("ERROR: Failed to refresh observer resources")
+                logger.error("Failed to refresh observer resources")
                 return 1
 
         # Find available port
-        print(f"Finding available port starting from {config.start_port}...")
+        logger.info("Finding available port starting from %d...", config.start_port)
         port_reservation = find_available_port(config.server, config.start_port)
         config.port = port_reservation.port
-        print(f"Using port {config.port}")
+        logger.info("Using port %d", config.port)
 
         # Generate server config (lives in first game's dir for N=1,
         # or in the log_dir for parallel runs)
@@ -1403,28 +1420,28 @@ def main() -> int:
             port=config.port,
         )
 
-        print(f"Server log: {server_log}")
+        logger.info("Server log: %s", server_log)
 
         # Start server
-        print("Starting XMage server...")
+        logger.info("Starting XMage server...")
         start_server(pm, project_root, config, server_config_path, server_log)
 
         if not wait_for_port(config.server, config.port, config.server_wait):
-            print(f"ERROR: Server failed to start within {config.server_wait}s")
-            print(f"Check {server_log} for details")
+            logger.error("Server failed to start within %ds", config.server_wait)
+            logger.error("Check %s for details", server_log)
             return 1
 
         # Server has bound the port — release the reservation lock
         port_reservation.release()
         port_reservation = None
 
-        print("Server is ready!")
+        logger.info("Server is ready!")
 
         if config.config_file:
-            print(f"Using config: {config.config_file}")
+            logger.info("Using config: %s", config.config_file)
 
         if batch:
-            print(f"Starting {config.num_games} parallel games...")
+            logger.info("Starting %d parallel games...", config.num_games)
 
         # --- Per-game setup (staggered for parallel) ---
         # Track player names across games to prevent duplicate XMage
@@ -1454,12 +1471,12 @@ def main() -> int:
                 if not batch:
                     raise
                 game_label = f"Game {i + 1}/{config.num_games}"
-                print(f"\n{game_label}: failed to launch, skipping: {e}")
+                logger.error("%s: failed to launch, skipping: %s", game_label, e)
                 continue
             sessions.append(session)
 
         if batch and not sessions:
-            print("ERROR: No games launched successfully")
+            logger.error("No games launched successfully")
             return 1
 
         # Bring the GUI window to the foreground on macOS (single game only)
