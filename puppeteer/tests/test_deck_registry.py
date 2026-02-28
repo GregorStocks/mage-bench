@@ -100,3 +100,21 @@ def test_jumpstart_no_duplicate_themes(jumpstart_files):
         names.append(data["name"])
     dupes = [n for n in names if names.count(n) > 1]
     assert not dupes, f"Duplicate Jumpstart themes: {set(dupes)}"
+
+
+def test_strategies_populated(all_deck_files):
+    """Every deck has a non-empty strategy under 200 characters."""
+    for f in all_deck_files:
+        data = json.loads(f.read_text())
+        strategy = data.get("strategy", "")
+        assert strategy, f"{f.name} has empty strategy"
+        assert len(strategy) <= 200, f"{f.name} strategy too long ({len(strategy)} chars)"
+
+
+def test_jumpstart_strategies_populated(jumpstart_files):
+    """Every Jumpstart theme has a non-empty strategy."""
+    for f in jumpstart_files:
+        data = json.loads(f.read_text())
+        strategy = data.get("strategy", "")
+        assert strategy, f"{f.name} has empty strategy"
+        assert len(strategy) <= 200, f"{f.name} strategy too long ({len(strategy)} chars)"
