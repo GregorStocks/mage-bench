@@ -14,8 +14,10 @@ from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from pathlib import Path
 
+import httpx
 from mcp import ClientSession
 from mcp.client.streamable_http import streamable_http_client
+from mcp.shared._httpx_utils import create_mcp_http_client
 
 from puppeteer.port import PortReservation, find_available_port, wait_for_port
 from puppeteer.process_manager import kill_tree
@@ -93,7 +95,18 @@ async def spawn_bridge_http(
         port_reservation.release()
 
         url = f"http://127.0.0.1:{mcp_port}/mcp"
-        async with streamable_http_client(url) as (read, write, _), ClientSession(read, write) as session:
+        # pass_priority blocks until the opponent finishes their turn, which
+        # can exceed 10 minutes for slow reasoning models.  The MCP SDK's
+        # default SSE read timeout is 300s — too short.  Use an unlimited
+        # read timeout so the connection stays alive for the whole game.
+        http_client = create_mcp_http_client(
+            timeout=httpx.Timeout(30.0, read=None),
+        )
+        async with (
+            http_client,
+            streamable_http_client(url, http_client=http_client) as (read, write, _),
+            ClientSession(read, write) as session,
+        ):
             yield session
 
     finally:
