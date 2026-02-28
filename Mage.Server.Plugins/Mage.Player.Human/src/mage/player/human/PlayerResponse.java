@@ -35,8 +35,8 @@ public class PlayerResponse implements Serializable, Copyable<PlayerResponse> {
     // must process it in game thread on any priority
     // TODO: is concede/hand view confirmation can broken waiting cycle for other choosing/priority player
     //  (with same response type, with diff response type)???
-    private Boolean asyncWantConcede;
-    private Boolean asyncWantCheat;
+    private volatile Boolean asyncWantConcede;
+    private volatile Boolean asyncWantCheat;
 
     public PlayerResponse() {
         clear();
