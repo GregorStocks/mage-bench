@@ -122,21 +122,19 @@ public class ObserverMain {
                 // keyboard input — which is fine for an observer.
                 observerFrame.setFocusableWindowState(false);
                 observerFrame.setAutoRequestFocus(false);
+                // dispose() destroys the native peer created by the
+                // constructor's pack(), allowing setType() (which requires a
+                // non-displayable window). Recreating the peer as UTILITY
+                // prevents Linux WMs from auto-raising/focusing the window.
+                observerFrame.dispose();
+                observerFrame.setType(Window.Type.UTILITY);
                 if (Boolean.getBoolean("xmage.observer.noWindow")) {
-                    // Golden tests: make the frame displayable without ever
-                    // mapping (showing) the window. setVisible(true) maps the
-                    // window to the WM, which on tiling/aggressive Linux WMs
-                    // ignores offscreen positions and tiles it on screen.
-                    // dispose() + addNotify() recreates the native peer as a
-                    // UTILITY window without mapping it — Swing internals
-                    // (JDesktopPane, JInternalFrame, painting) only need the
-                    // component hierarchy to be displayable, not visible.
-                    observerFrame.dispose();
-                    observerFrame.setType(Window.Type.UTILITY);
+                    // Golden tests: displayable but never mapped (shown).
                     observerFrame.setLocation(-10000, -10000);
                     observerFrame.addNotify();
                 } else {
                     observerFrame.setVisible(true);
+                    observerFrame.toBack();
                 }
                 LOGGER.info("Observer client started successfully");
 

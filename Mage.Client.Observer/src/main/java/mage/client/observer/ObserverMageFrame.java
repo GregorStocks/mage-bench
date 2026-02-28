@@ -108,15 +108,26 @@ public class ObserverMageFrame extends MageFrame {
     }
 
     /**
-     * Prevent the maximize hint from reaching the WM during construction.
+     * Prevent the WM maximize hint from stealing focus.
      * MageFrame's constructor calls setExtendedState(MAXIMIZED_BOTH), which
-     * on X11/Wayland causes the WM to map and tile the window immediately.
+     * on X11/Wayland causes the WM to focus and raise the window. Strip the
+     * maximize bits and set explicit screen-sized bounds instead — the window
+     * fills the screen without triggering WM focus-steal behavior.
      */
     @Override
     public void setExtendedState(int state) {
         if (NO_WINDOW) {
             // Don't maximize — prevents the WM from mapping the window.
             return;
+        }
+        if ((state & MAXIMIZED_BOTH) != 0) {
+            // Set bounds explicitly instead of requesting WM maximize.
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            setBounds(ge.getMaximumWindowBounds());
+            state &= ~MAXIMIZED_BOTH;
+            if (state == 0) {
+                return;
+            }
         }
         super.setExtendedState(state);
     }
