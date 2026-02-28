@@ -5299,9 +5299,17 @@ public class BridgeCallbackHandler {
     private void handleGameOver(UUID gameId, ClientCallback callback) {
         GameClientMessage message = (GameClientMessage) callback.getData();
 
-        // Pull bridge events one last time before cleanup — after this,
-        // the server GameController may be gone and the RPC will return empty.
-        UUID playerId = activeGames.get(gameId);
+        // Remove from activeGames FIRST so that concurrent MCP tool calls
+        // (pullBridgeEvents, passPriority, concede) see the game as ended
+        // immediately, rather than racing with the RPC below.  Without this,
+        // pullBridgeEvents can read activeGames before the remove, then call
+        // session.getBridgeEvents() after client.stop() — hanging on a dead
+        // connection and deadlocking the replay subprocess.
+        UUID playerId = activeGames.remove(gameId);
+
+        // Pull bridge events one last time — the playerId we just removed
+        // is still valid for the RPC.  After this, the server GameController
+        // may be gone and the RPC will return empty.
         if (playerId != null) {
             try {
                 int savedCursor = bridgeEventCursor;
@@ -5319,8 +5327,6 @@ public class BridgeCallbackHandler {
                 logger.warn("[" + client.getUsername() + "] Failed to pull final bridge events on game over", e);
             }
         }
-
-        activeGames.remove(gameId);
         UUID chatId = gameChatIds.remove(gameId);
         if (chatId != null) {
             session.leaveChat(chatId);
