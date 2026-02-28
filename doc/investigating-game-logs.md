@@ -128,6 +128,24 @@ grep "no auto source available" "$GAME_DIR"/*_pilot.log
 jq -r 'select(.method=="GAME_UPDATE" or .method=="GAME_UPDATE_AND_INFORM") | "\(.ts) \(.data)"' "$GAME_DIR"/*_bridge.jsonl | grep -A1 "GAME_PLAY_MANA"
 ```
 
+## Short ID crashes and remapping
+
+```bash
+# Find ShortIdRegistry crashes (mana_plan referencing remapped IDs)
+grep "Unknown short ID" "$GAME_DIR"/*_mcp.log
+
+# Find GAME_TARGET ID mismatches (model sends valid-looking IDs that don't resolve)
+grep "not found in current choices" "$GAME_DIR"/*_errors.log
+
+# Cross-reference: what IDs were in the choices vs what the model sent
+# Look for GAME_TARGET choices lists immediately before the error
+grep -B5 "not found in current choices" "$GAME_DIR"/*_pilot.log
+```
+
+These often indicate ShortIdRegistry remapping: a card's short ID changed between
+when choices were presented and when the LLM responded. Common with multi-step
+targeting (e.g., Doomsday pile construction) and mana sources that get sacrificed.
+
 ## Tracing auto-mana payment sequences
 
 ```bash

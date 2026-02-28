@@ -18,16 +18,14 @@ Determine which game to analyze:
   uv run python scripts/list-recent-games.py --config {config}
   ```
   where `{config}` might be `commander-gauntlet`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
-- **If no game specified at all**, find the most recent unanalyzed game. Check which games already have deep-analysis files in `doc/claudes/analyses/deep/` and skip those:
+- **If no game specified at all**, find the most recent unanalyzed game:
   ```bash
-  ls doc/claudes/analyses/deep/game_*.md 2>/dev/null  # already deep-analyzed
-  ls website/public/games/*.json.gz | sort -r          # all games, newest first
+  uv run python scripts/analysis/find_unanalyzed.py --type deep --count 1
   ```
-  Pick the single most recent gz file that doesn't have a corresponding file in `deep/`.
 
 Set `GAME_DIR=~/.mage-bench/logs/{game_id}`.
 
-If the full log directory doesn't exist but `website/public/games/{game_id}.json.gz` does, tell the user the full logs aren't available and offer to run a fast analysis from the gz file instead. Stop here unless the user wants the fast analysis.
+If the full log directory doesn't exist but the game export exists in `website/public/games/` (`.json` or `.json.gz`), tell the user the full logs aren't available and offer to run a fast analysis from the export instead. Stop here unless the user wants the fast analysis.
 
 ### Step 2: Bootstrap from gz (if available)
 
