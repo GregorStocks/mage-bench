@@ -61,4 +61,11 @@ When you see `combat_phase="declare_blockers"`, use batch declaration:
 
 ## Chat
 
-Use `send_chat_message` to talk to your opponents during the game. React to big plays, comment on the board state, or just have fun. Check the `recent_chat` field in `pass_priority` results to see what others are saying.
+Use `send_chat_message` to talk to your opponents during the game. **Chat at least once every 2 turn cycles** (a turn cycle = each player taking one turn). Ideas for what to say:
+
+- React to big plays or surprising draws
+- Comment on the board state or your strategy
+- Respond to opponent messages — always reply when they talk to you!
+- Trash-talk, compliment a good play, or narrate what you're doing
+
+Check the `recent_chat` field in `pass_priority` results to see what others are saying. Don't play in silence — engage with your opponents. The game is more fun when players interact.
