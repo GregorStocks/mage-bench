@@ -22,12 +22,14 @@ from blunder_eval_common import (
     REPO_ROOT,
     chosen_display,
     compute_aftermath_index,
+    decision_index as get_decision_index,
     game_path_for_id,
     load_game_ground_truth,
     load_ground_truth,
     lookup_annotation_for_decision,
     make_audited_entry,
     save_game_ground_truth,
+    snapshot_index as get_snapshot_index,
 )
 from extract_decisions import extract_decisions
 
@@ -117,14 +119,12 @@ def _load_game_data(gz_path: str) -> dict:
     return load_game(gz_path)
 
 
-def _find_decision(decisions: list[dict], decision_index: int) -> dict:
+def _find_decision(decisions: list[dict], di: int) -> dict:
     """Find a decision by index. Asserts if not found."""
     for d in decisions:
-        if d["decision_index"] == decision_index:
+        if get_decision_index(d) == di:
             return d
-    raise AssertionError(
-        f"Decision {decision_index} not found in {len(decisions)} decisions"
-    )
+    raise AssertionError(f"Decision {di} not found in {len(decisions)} decisions")
 
 
 def _lookup_existing_annotation(
@@ -250,7 +250,7 @@ def format_play_context(
 
     # Recent game log actions
     if game_actions is not None:
-        snap_idx = decision.get("snapshot_index", 0)
+        snap_idx = get_snapshot_index(decision)
         recent = _recent_actions_before(game_actions, snapshots, snap_idx)
         if recent:
             lines.append("Recent log:")
@@ -476,8 +476,8 @@ def add_from_url(url: str) -> None:
         if aftermath == snapshot:
             best_decision = d
             break
-        if d["snapshot_index"] <= snapshot:
-            dist = snapshot - d["snapshot_index"]
+        if get_snapshot_index(d) <= snapshot:
+            dist = snapshot - get_snapshot_index(d)
             if dist < best_dist:
                 best_dist = dist
                 best_decision = d
@@ -488,10 +488,11 @@ def add_from_url(url: str) -> None:
 
     # Check if already in ground truth
     existing = load_game_ground_truth(game_id)
+    best_di = get_decision_index(best_decision)
     for e in existing:
-        if e["decision_index"] == best_decision["decision_index"]:
+        if e["decision_index"] == best_di:
             print(
-                f"Decision {best_decision['decision_index']} already in ground truth "
+                f"Decision {best_di} already in ground truth "
                 f"(verdict={e.get('verdict')})"
             )
             return
@@ -519,7 +520,7 @@ def add_from_url(url: str) -> None:
     )
 
     audited_entry = make_audited_entry(
-        decision_index=best_decision["decision_index"],
+        decision_index=best_di,
         annotation_version=ann_version,
         annotation_severity=annotation.get("severity") if annotation else None,
         annotation_description=annotation.get("description") if annotation else None,
@@ -528,7 +529,7 @@ def add_from_url(url: str) -> None:
     )
 
     save_game_ground_truth(game_id, existing + [audited_entry])
-    print(f"\nAdded as blunder (decision {best_decision['decision_index']})")
+    print(f"\nAdded as blunder (decision {best_di})")
 
 
 def main() -> None:
