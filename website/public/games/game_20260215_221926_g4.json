@@ -258420,7 +258420,7 @@
       "actionTaken": "Played Rakdos Carnarium with no other lands, causing it to bounce itself back to hand.",
       "betterLine": "Play Temple of the False God. While it can't produce mana until 5 lands are controlled, it stays on the battlefield. Next turn, play Rakdos Carnarium bouncing Temple (acceptable since Temple is weak early), giving a mana-producing land on turn 2 and staying on curve.",
       "type": "blunder",
-      "snapshotIndex": 19,
+      "snapshotIndex": 20,
       "player": "GPT5n Perfect"
     },
     {
@@ -258429,7 +258429,7 @@
       "actionTaken": "Cast Shimmer Myr before playing a land for the turn.",
       "betterLine": "Play a land first (Port Town revealing Plains/Island for untapped entry, or Plains/Island), then cast Shimmer Myr. Or better yet, hold Shimmer Myr to cast at end of opponent's turn since it has flash, and play a land + hold up mana for future plays.",
       "type": "blunder",
-      "snapshotIndex": 49,
+      "snapshotIndex": 50,
       "player": "Sonnet Rules"
     },
     {
@@ -258438,7 +258438,7 @@
       "actionTaken": "Played Island from hand",
       "betterLine": "Play Port Town, revealing Plains from hand, to get an untapped dual land providing W/U flexibility while preserving the option to play basics later.",
       "type": "blunder",
-      "snapshotIndex": 50,
+      "snapshotIndex": 51,
       "player": "Sonnet Rules"
     },
     {
@@ -258447,7 +258447,7 @@
       "actionTaken": "Cast Arcanist's Owl without first playing a Plains from hand",
       "betterLine": "Play a Plains first (land drop), then cast Arcanist's Owl with the available mana",
       "type": "blunder",
-      "snapshotIndex": 75,
+      "snapshotIndex": 76,
       "player": "Sonnet Rules"
     },
     {
@@ -258456,7 +258456,7 @@
       "actionTaken": "Chose not to attack with Zndrsplt, Eye of Wisdom",
       "betterLine": "Attack GPT5n Perfect with Zndrsplt for 1 free damage, as there are no blockers and no defensive benefit to holding it back",
       "type": "blunder",
-      "snapshotIndex": 154,
+      "snapshotIndex": 155,
       "player": "Gem3F Analyst"
     },
     {
@@ -258465,7 +258465,7 @@
       "actionTaken": "Targeted itself (GPT5m Minimal) with Burning Vengeance's 2 damage trigger, dealing 2 damage to its own life total for no benefit.",
       "betterLine": "Target an opponent (e.g., GPT5n Perfect at 36 life, or Gem3F Analyst at 37 life) or an opposing creature with the 2 damage from Burning Vengeance. Any target other than yourself or your own creatures would have been strictly better.",
       "type": "blunder",
-      "snapshotIndex": 160,
+      "snapshotIndex": 161,
       "player": "GPT5m Minimal"
     },
     {
@@ -258474,7 +258474,7 @@
       "actionTaken": "Chose Blue for Prismatic Strands' color prevention effect",
       "betterLine": "Should have chosen White since Sonnet Rules (the player with the most threatening board including Weatherlight crewed by white creatures, Shimmer Myr, and white lands) has white sources like Aeronaut Admiral potentially, or simply saved the Prismatic Strands flashback for a turn where it could actually prevent meaningful damage. The Strands doesn't stop colorless Weatherlight regardless of color chosen, so using it here was likely a waste.",
       "type": "blunder",
-      "snapshotIndex": 161,
+      "snapshotIndex": 162,
       "player": "GPT5m Minimal"
     },
     {
@@ -258483,7 +258483,7 @@
       "actionTaken": "Played Rogue's Passage as land for the turn instead of casting The Locust God",
       "betterLine": "Play Island or Mountain, cast The Locust God (4UR) using available mana sources, then equip Lightning Greaves for free to protect it. This establishes the Zndrsplt + Locust God engine immediately.",
       "type": "blunder",
-      "snapshotIndex": 179,
+      "snapshotIndex": 180,
       "player": "Gem3F Analyst"
     },
     {
@@ -258492,7 +258492,7 @@
       "actionTaken": "Cast Lightning Greaves before playing a land for the turn",
       "betterLine": "Play Island or Mountain first (making the land drop), then cast Lightning Greaves with more mana available for other plays this turn",
       "type": "blunder",
-      "snapshotIndex": 181,
+      "snapshotIndex": 182,
       "player": "Gem3F Analyst"
     },
     {
@@ -258501,7 +258501,7 @@
       "actionTaken": "Passed without playing any spells or abilities",
       "betterLine": "Play Island or Mountain from hand to ensure the land drop isn't missed. Could also consider casting Long-Term Plans to tutor for a key card.",
       "type": "blunder",
-      "snapshotIndex": 182,
+      "snapshotIndex": 183,
       "player": "Gem3F Analyst"
     },
     {
@@ -258510,7 +258510,7 @@
       "actionTaken": "Declined to cast Long-Term Plans or activate any abilities before Zndrsplt's trigger resolves",
       "betterLine": "This is actually reasonable - waiting to see how many coin flips are won before deciding whether/when to cast Long-Term Plans is defensible. No clear blunder.",
       "type": "blunder",
-      "snapshotIndex": 183,
+      "snapshotIndex": 184,
       "player": "Gem3F Analyst"
     },
     {
@@ -258519,7 +258519,7 @@
       "actionTaken": "Declined to take any action during their own combat step.",
       "betterLine": "This appears to be a reasonable pass - Long-Term Plans can be cast later at end of an opponent's turn for better information. No clear blunder.",
       "type": "blunder",
-      "snapshotIndex": 185,
+      "snapshotIndex": 186,
       "player": "Gem3F Analyst"
     },
     {
@@ -258528,7 +258528,7 @@
       "actionTaken": "Attacked Gem3F Analyst (37hp) with Dockside Extortionist for 1 damage",
       "betterLine": "Attack GPT5n Perfect (23hp) to put pressure on the lowest life total player, though the difference is minimal with only 1 damage",
       "type": "blunder",
-      "snapshotIndex": 190,
+      "snapshotIndex": 191,
       "player": "GPT5m Minimal"
     },
     {
@@ -258537,7 +258537,7 @@
       "actionTaken": "Targeted themselves with Burning Vengeance, losing 2 life (going from 38 to 36).",
       "betterLine": "Target an opponent with Burning Vengeance's damage trigger, such as GPT5n Perfect (at 23 life) or Gem3F Analyst (at 34 life), to pressure their life totals, or target an opponent's creature like Zndrsplt, Eye of Wisdom.",
       "type": "blunder",
-      "snapshotIndex": 193,
+      "snapshotIndex": 194,
       "player": "GPT5m Minimal"
     },
     {
@@ -258546,7 +258546,7 @@
       "actionTaken": "Selected Mountain as first basic land from Armillary Sphere",
       "betterLine": "Select Swamp first (and ideally two Swamps total) to better support the BB cost of Hedonist's Trove and the B cost of Bone Miser, since a Mountain is already in hand",
       "type": "blunder",
-      "snapshotIndex": 196,
+      "snapshotIndex": 197,
       "player": "GPT5n Perfect"
     },
     {
@@ -258555,7 +258555,7 @@
       "actionTaken": "Selected Mountain as second Armillary Sphere land",
       "betterLine": "Select Swamp to better support the double-black requirement of Hedonist's Trove and single-black of Bone Miser, since red mana is already covered by Mountain in hand and Command Tower.",
       "type": "blunder",
-      "snapshotIndex": 196,
+      "snapshotIndex": 197,
       "player": "GPT5n Perfect"
     },
     {
@@ -258564,7 +258564,7 @@
       "actionTaken": "Played Mountain as the land drop",
       "betterLine": "Play Command Tower to maximize color flexibility, saving the redundant Mountains for later turns when the flexible mana source matters less",
       "type": "blunder",
-      "snapshotIndex": 197,
+      "snapshotIndex": 198,
       "player": "GPT5n Perfect"
     },
     {
@@ -258573,7 +258573,7 @@
       "actionTaken": "Discarded Wildfire Devils",
       "betterLine": "Discard a Mountain, keeping the powerful Wildfire Devils which can copy In Garruk's Wake or Nightmare Unmaking from graveyards",
       "type": "blunder",
-      "snapshotIndex": 202,
+      "snapshotIndex": 203,
       "player": "GPT5n Perfect"
     },
     {
@@ -258582,7 +258582,7 @@
       "actionTaken": "Attacked with Zndrsplt, Eye of Wisdom",
       "betterLine": "Hold Zndrsplt back as a blocker. The 1 damage is negligible against any opponent's life total, and keeping it untapped preserves blocking capability against potential attacks from Sonnet's Weatherlight or other threats.",
       "type": "blunder",
-      "snapshotIndex": 215,
+      "snapshotIndex": 216,
       "player": "Gem3F Analyst"
     },
     {
@@ -258591,7 +258591,7 @@
       "actionTaken": "Passed without casting Long-Term Plans or using any abilities",
       "betterLine": "Cast Long-Term Plans to tutor a high-impact card (e.g., Okaun to pair with Zndrsplt, or another key piece) to third from top, since the mana would otherwise go unused",
       "type": "blunder",
-      "snapshotIndex": 216,
+      "snapshotIndex": 217,
       "player": "Gem3F Analyst"
     },
     {
@@ -258600,7 +258600,7 @@
       "actionTaken": "Passed without casting any spells or playing a land.",
       "betterLine": "Play Rogue's Passage as a land drop, then cast Lightning Greaves for {2} and equip it to Zndrsplt to protect it with shroud.",
       "type": "blunder",
-      "snapshotIndex": 220,
+      "snapshotIndex": 221,
       "player": "Gem3F Analyst"
     },
     {
@@ -258609,7 +258609,7 @@
       "actionTaken": "Passed without playing a land or any spell.",
       "betterLine": "Play Rogue's Passage as the land for turn, then consider holding up Long-Term Plans with remaining mana. Getting closer to 6 mana for The Locust God is important.",
       "type": "blunder",
-      "snapshotIndex": 221,
+      "snapshotIndex": 222,
       "player": "Gem3F Analyst"
     },
     {
@@ -258618,7 +258618,7 @@
       "actionTaken": "Attacked Gem3F Analyst with Dockside Extortionist",
       "betterLine": "Attack GPT5n Perfect to apply pressure on the player at 8 HP with no blockers",
       "type": "blunder",
-      "snapshotIndex": 221,
+      "snapshotIndex": 222,
       "player": "GPT5m Minimal"
     },
     {
@@ -258627,7 +258627,7 @@
       "actionTaken": "Passed priority without casting anything, letting Zndrsplt's trigger resolve without setting up the library.",
       "betterLine": "Cast Long-Term Plans in response to Zndrsplt's trigger to tutor a key card (like a combo piece or answer) to third from top, maximizing the value of the upcoming card draws from coin flips.",
       "type": "blunder",
-      "snapshotIndex": 242,
+      "snapshotIndex": 243,
       "player": "Gem3F Analyst"
     },
     {
@@ -258636,7 +258636,7 @@
       "actionTaken": "Did not attack with available flying creatures",
       "betterLine": "Attack with The Locust God and all 4 Insect tokens at GPT5m Minimal (36hp, all tapped out, no flying blockers) for 8 damage, keeping Zndrsplt back for card draw value.",
       "type": "blunder",
-      "snapshotIndex": 243,
+      "snapshotIndex": 244,
       "player": "Gem3F Analyst"
     },
     {
@@ -258645,7 +258645,7 @@
       "actionTaken": "Passed priority without activating any abilities or casting any spells before combat damage.",
       "betterLine": "Activate The Locust God's loot ability using available mana (Island + Mountain + Arcane Signet/Command Tower), draw a card, discard the Island, and create a 1/1 insect token. Could potentially activate multiple times with all the available mana.",
       "type": "blunder",
-      "snapshotIndex": 244,
+      "snapshotIndex": 245,
       "player": "Gem3F Analyst"
     },
     {
@@ -258654,7 +258654,7 @@
       "actionTaken": "Passed priority without activating any abilities during combat.",
       "betterLine": "Activate The Locust God's loot ability to draw and discard, creating an Insect token and improving card quality. Could also consider casting Long-Term Plans to tutor a key card.",
       "type": "blunder",
-      "snapshotIndex": 244,
+      "snapshotIndex": 245,
       "player": "Gem3F Analyst"
     },
     {
@@ -258663,7 +258663,7 @@
       "actionTaken": "Declined all three options (The Locust God, Rogue's Passage, Long-Term Plans), doing nothing.",
       "betterLine": "Play Rogue's Passage as a land drop, then cast The Locust God for 6 mana using available lands and Arcane Signet. This establishes a powerful engine with Zndrsplt that generates flying tokens every time a coin flip is won.",
       "type": "blunder",
-      "snapshotIndex": 246,
+      "snapshotIndex": 247,
       "player": "Gem3F Analyst"
     },
     {
@@ -258672,7 +258672,7 @@
       "actionTaken": "Passed without casting anything or playing a land",
       "betterLine": "Play Rogue's Passage as land drop, then cast The Locust God for 6 mana. The Locust God + Zndrsplt creates massive card advantage and token generation, and Rogue's Passage enables unblockable Okaun kills.",
       "type": "blunder",
-      "snapshotIndex": 246,
+      "snapshotIndex": 247,
       "player": "Gem3F Analyst"
     },
     {
@@ -258681,7 +258681,7 @@
       "actionTaken": "Targeted Gem3F Analyst (player at 34 life) with Burning Vengeance's 2 damage",
       "betterLine": "Target Aeronaut Admiral (3/1) or Shimmer Myr (2/2) to remove a relevant creature from the board",
       "type": "blunder",
-      "snapshotIndex": 250,
+      "snapshotIndex": 251,
       "player": "GPT5m Minimal"
     },
     {
@@ -258690,7 +258690,7 @@
       "actionTaken": "Selected all creatures to attack, sending every utility creature into combat.",
       "betterLine": "Attack with just Aeronaut Admiral (3/1 flying, hard to block) and perhaps Shimmer Myr or other less critical creatures, keeping Silver Myr (mana), Sram (card draw), and Myrsmith (token generation) back as blockers and utility pieces.",
       "type": "blunder",
-      "snapshotIndex": 256,
+      "snapshotIndex": 257,
       "player": "Sonnet Rules"
     },
     {
@@ -258699,7 +258699,7 @@
       "actionTaken": "Passed the main phase without casting any spells or playing a land",
       "betterLine": "Play Rogue's Passage as land drop, cast The Locust God for 4UR, and potentially cast Lightning Greaves to protect it. This sets up a powerful card advantage + token generation engine with Zndrsplt.",
       "type": "blunder",
-      "snapshotIndex": 263,
+      "snapshotIndex": 264,
       "player": "Gem3F Analyst"
     },
     {
@@ -258708,7 +258708,7 @@
       "actionTaken": "Declined to cast anything before Zndrsplt's trigger resolved.",
       "betterLine": "Cast The Locust God (4UR) before Zndrsplt's trigger resolves, so each card drawn from won coin flips creates a 1/1 flying haste Insect token.",
       "type": "blunder",
-      "snapshotIndex": 264,
+      "snapshotIndex": 265,
       "player": "Gem3F Analyst"
     },
     {
@@ -258717,7 +258717,7 @@
       "actionTaken": "Passed on all options during combat, dealing only 7 damage with existing attackers.",
       "betterLine": "Activate The Locust God's ability to loot, gaining card selection and a free 1/1 Insect creature token. With Island, Mountain, Command Tower, Temple of Epiphany, Exotic Orchard, and Arcane Signet all untapped, there was more than enough mana.",
       "type": "blunder",
-      "snapshotIndex": 266,
+      "snapshotIndex": 267,
       "player": "Gem3F Analyst"
     },
     {
@@ -258726,7 +258726,7 @@
       "actionTaken": "Passed the turn or made a less impactful play instead of deploying The Locust God and playing Rogue's Passage",
       "betterLine": "Play Rogue's Passage for the land drop, then cast The Locust God using available mana (Island, Mountain, Arcane Signet, Command Tower, Temple of Epiphany, Exotic Orchard provides {4}{U}{R})",
       "type": "blunder",
-      "snapshotIndex": 268,
+      "snapshotIndex": 269,
       "player": "Gem3F Analyst"
     },
     {
@@ -258735,7 +258735,7 @@
       "actionTaken": "Attacked with only Dockside Extortionist (1/2), leaving Sevinne (2/2, indestructible) back on defense",
       "betterLine": "Attack with both Sevinne and Dockside Extortionist, or at minimum attack with Sevinne since it cannot die in combat and represents free damage every turn",
       "type": "blunder",
-      "snapshotIndex": 271,
+      "snapshotIndex": 272,
       "player": "GPT5m Minimal"
     },
     {
@@ -258744,7 +258744,7 @@
       "actionTaken": "Attacked with only Dockside Extortionist (1/2), leaving Sevinne (2/2, damage-immune) back on defense.",
       "betterLine": "Attack with both Sevinne and Dockside Extortionist, or at minimum attack with Sevinne since it cannot be damaged and is always a free attacker.",
       "type": "blunder",
-      "snapshotIndex": 271,
+      "snapshotIndex": 272,
       "player": "GPT5m Minimal"
     },
     {
@@ -258753,7 +258753,7 @@
       "actionTaken": "Attacked Sonnet Rules with Dockside Extortionist (1/2)",
       "betterLine": "Either attack Gem3F Analyst where blockers are tapped/less threatening, or don't attack at all to preserve Dockside Extortionist as a blocker/resource.",
       "type": "blunder",
-      "snapshotIndex": 271,
+      "snapshotIndex": 272,
       "player": "GPT5m Minimal"
     },
     {
@@ -258762,7 +258762,7 @@
       "actionTaken": "Targeted Shimmer Myr with Kotori's combat trigger for lifelink and vigilance",
       "betterLine": "Target Foundry Inspector (3/2) with Kotori's trigger to maximize lifelink damage (3 life vs 2 life per attack)",
       "type": "blunder",
-      "snapshotIndex": 277,
+      "snapshotIndex": 278,
       "player": "Sonnet Rules"
     },
     {
@@ -258771,7 +258771,7 @@
       "actionTaken": "Attacked Gem3F Analyst (32 life) for 5 damage",
       "betterLine": "Attack GPT5m Minimal (20 life) for 5, bringing them to 15 and into a much more vulnerable range for elimination",
       "type": "blunder",
-      "snapshotIndex": 278,
+      "snapshotIndex": 279,
       "player": "Sonnet Rules"
     },
     {
@@ -258780,7 +258780,7 @@
       "actionTaken": "Cast Krark's Thumb without first making land drop (Rogue's Passage was available)",
       "betterLine": "Play Rogue's Passage first, then cast Krark's Thumb (or consider Lightning Greaves to protect Zndrsplt)",
       "type": "blunder",
-      "snapshotIndex": 285,
+      "snapshotIndex": 286,
       "player": "Gem3F Analyst"
     },
     {
@@ -258789,7 +258789,7 @@
       "actionTaken": "Passed without casting any spells despite having Lightning Greaves available at exactly 2 mana.",
       "betterLine": "Cast Lightning Greaves for 2 mana and equip it to Zndrsplt, Eye of Wisdom to grant it shroud and protect the card draw engine.",
       "type": "blunder",
-      "snapshotIndex": 288,
+      "snapshotIndex": 289,
       "player": "Gem3F Analyst"
     },
     {
@@ -258798,7 +258798,7 @@
       "actionTaken": "Cast Krark, the Thumbless without first making a land drop",
       "betterLine": "Play Sulfur Falls first (enters untapped), then cast Krark, the Thumbless, leaving more mana open for Long-Term Plans or other instant-speed plays",
       "type": "blunder",
-      "snapshotIndex": 307,
+      "snapshotIndex": 308,
       "player": "Gem3F Analyst"
     },
     {
@@ -258807,7 +258807,7 @@
       "actionTaken": "Played Inventors' Fair as the land drop",
       "betterLine": "Play Sulfur Falls (enters untapped since an Island is controlled), providing flexible colored mana. Inventors' Fair could be saved for a later turn when more artifacts are in play to activate its abilities.",
       "type": "blunder",
-      "snapshotIndex": 308,
+      "snapshotIndex": 309,
       "player": "Gem3F Analyst"
     },
     {
@@ -258816,7 +258816,7 @@
       "actionTaken": "Passed the precombat main phase without taking any action, including not playing a land.",
       "betterLine": "At minimum, play a land (Desolate Lighthouse or Sulfur Falls for color fixing and utility). Could also consider Blasphemous Act to clear the opponent's board, or Long-Term Plans to set up a key card.",
       "type": "blunder",
-      "snapshotIndex": 309,
+      "snapshotIndex": 310,
       "player": "Gem3F Analyst"
     },
     {
@@ -258825,7 +258825,7 @@
       "actionTaken": "Targeted Myr Token with Kotori's lifelink and vigilance trigger",
       "betterLine": "Target Silver Myr with Kotori's trigger, allowing it to attack for 1 (gaining 1 life from lifelink) while still being able to tap for blue mana thanks to vigilance",
       "type": "blunder",
-      "snapshotIndex": 318,
+      "snapshotIndex": 319,
       "player": "Sonnet Rules"
     },
     {
@@ -258834,7 +258834,7 @@
       "actionTaken": "Cast Thought Vessel for incremental mana advantage and no maximum hand size",
       "betterLine": "Cast The Locust God to establish a game-winning synergy with Zndrsplt, Eye of Wisdom. Each combat's coin flips would generate cards and flying attackers, quickly closing out the game against Sonnet Rules at 16 life.",
       "type": "blunder",
-      "snapshotIndex": 329,
+      "snapshotIndex": 330,
       "player": "Gem3F Analyst"
     },
     {
@@ -258843,7 +258843,7 @@
       "actionTaken": "Passed priority without casting any spells during precombat main phase.",
       "betterLine": "Cast Lightning Greaves for 2 mana and equip it to Zndrsplt for free to grant shroud, protecting the key card advantage engine. Could also consider casting Shadowspear for 1 mana.",
       "type": "blunder",
-      "snapshotIndex": 330,
+      "snapshotIndex": 331,
       "player": "Gem3F Analyst"
     },
     {
@@ -258852,7 +258852,7 @@
       "actionTaken": "Declined to cast Embercleave, attacking for only 5 damage total (1+4)",
       "betterLine": "Cast Embercleave during combat (costs {2}{R}{R} with 2 attackers), attach to The Locust God for 11 total damage, putting Sonnet Rules to 5 life and threatening lethal next turn",
       "type": "blunder",
-      "snapshotIndex": 331,
+      "snapshotIndex": 332,
       "player": "Gem3F Analyst"
     }
   ],
@@ -258920,7 +258920,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -258954,7 +258955,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -258988,7 +258990,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -259026,6 +259029,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -259069,7 +259073,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -259104,6 +259109,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -259154,7 +259160,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -259186,7 +259193,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 8,
@@ -259248,6 +259256,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -259288,6 +259297,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -259343,6 +259353,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -259384,6 +259395,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -259424,6 +259436,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -259467,7 +259480,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 14,
@@ -259505,6 +259519,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -259587,6 +259602,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -259628,6 +259644,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -259693,6 +259710,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -259731,6 +259749,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -259772,6 +259791,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -259839,6 +259859,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -259880,6 +259901,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -259921,6 +259943,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -259961,6 +259984,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -260003,6 +260027,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -260062,6 +260087,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -260126,6 +260152,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -260167,6 +260194,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -260221,6 +260249,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -260285,6 +260314,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -260326,6 +260356,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       },
@@ -260367,6 +260398,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -260422,6 +260454,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -260476,6 +260509,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -260529,6 +260563,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -260591,6 +260626,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -260632,6 +260668,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -260698,6 +260735,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -260738,6 +260776,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -260778,6 +260817,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -261332,6 +261372,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -261895,6 +261936,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -261935,6 +261977,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -261974,7 +262017,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 44,
@@ -262011,7 +262055,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 45,
@@ -262048,7 +262093,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 46,
@@ -262083,6 +262129,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -262142,6 +262189,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -262198,6 +262246,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -262239,6 +262288,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -262289,6 +262339,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -262337,7 +262388,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 52,
@@ -262382,6 +262434,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -262422,6 +262475,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -262477,6 +262531,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -262528,6 +262583,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -262606,6 +262662,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -262692,6 +262749,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -262743,6 +262801,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -262792,6 +262851,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -262844,6 +262904,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -262903,6 +262964,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -262962,6 +263024,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_blockers",
@@ -263021,6 +263084,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -263068,6 +263132,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -263118,6 +263183,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -263168,6 +263234,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -263218,6 +263285,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -263317,6 +263385,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -263364,6 +263433,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -263411,6 +263481,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -263470,6 +263541,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -263510,6 +263582,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -263557,6 +263630,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -263604,6 +263678,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -263654,6 +263729,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -263726,6 +263802,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -263792,6 +263869,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -263841,6 +263919,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -263939,6 +264018,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -264018,6 +264098,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -264059,6 +264140,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -264099,6 +264181,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -264149,6 +264232,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -264199,6 +264283,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -264249,6 +264334,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -264304,6 +264390,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
@@ -264364,6 +264451,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -264454,6 +264542,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -264504,6 +264593,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -264545,6 +264635,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -264583,6 +264674,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -264639,6 +264731,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -264670,7 +264763,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 94,
@@ -264732,6 +264826,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -264873,6 +264968,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -264945,6 +265041,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -265015,6 +265112,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -265074,6 +265172,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -265125,6 +265224,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -265176,6 +265276,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -265223,6 +265324,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -265282,6 +265384,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -265322,6 +265425,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -265383,6 +265487,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -265424,6 +265529,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -265473,6 +265579,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -265520,7 +265627,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 108,
@@ -265621,6 +265729,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -265723,6 +265832,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -265791,6 +265901,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -265879,6 +265990,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -265945,6 +266057,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -266012,6 +266125,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -266100,6 +266214,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -266167,6 +266282,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -266208,6 +266324,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -266248,6 +266365,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -266314,6 +266432,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -266364,6 +266483,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -266430,6 +266550,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -266520,6 +266641,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
@@ -266580,6 +266702,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -266659,6 +266782,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers",
@@ -266727,6 +266851,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -266797,6 +266922,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers",
@@ -266871,6 +266997,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -266932,6 +267059,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers",
@@ -267012,6 +267140,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -267052,6 +267181,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -267118,6 +267248,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -267184,6 +267315,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -267253,6 +267385,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -267310,6 +267443,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -267380,6 +267514,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -267450,6 +267585,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -267501,6 +267637,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -267556,6 +267693,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -267618,6 +267756,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -267668,6 +267807,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -267829,6 +267969,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -267983,6 +268124,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -268066,6 +268208,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -268117,6 +268260,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -268168,6 +268312,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -268268,6 +268413,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -268315,6 +268461,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -268374,6 +268521,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -268414,6 +268562,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -268461,6 +268610,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -268502,6 +268652,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -268553,6 +268704,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -268676,6 +268828,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -268780,6 +268933,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -268855,6 +269009,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -268905,6 +269060,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -268954,6 +269110,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -269073,6 +269230,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -269131,6 +269289,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -269171,6 +269330,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -269249,6 +269409,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -269346,6 +269507,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -269406,6 +269568,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -269493,6 +269656,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers",
@@ -269561,6 +269725,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -269639,6 +269804,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers",
@@ -269713,6 +269879,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -269782,6 +269949,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers",
@@ -269862,6 +270030,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -269917,6 +270086,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers",
@@ -270001,6 +270171,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -270058,6 +270229,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -270115,6 +270287,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -270194,6 +270367,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -270245,6 +270419,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -270309,6 +270484,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -270382,6 +270558,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -270455,6 +270632,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -270505,6 +270683,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -270578,6 +270757,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -270643,6 +270823,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "declare_attackers",
@@ -270725,6 +270906,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -270775,6 +270957,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -270823,6 +271006,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -270873,6 +271057,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -270924,6 +271109,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -270975,6 +271161,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -271034,6 +271221,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -271127,6 +271315,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
@@ -271187,6 +271376,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -271227,6 +271417,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -271277,6 +271468,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -271328,6 +271520,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -271476,6 +271669,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -271544,6 +271738,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -271619,6 +271814,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -271659,6 +271855,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -271765,6 +271962,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers"
@@ -271819,6 +272017,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -271916,6 +272115,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers",
@@ -271978,6 +272178,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -272062,6 +272263,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers",
@@ -272130,6 +272332,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -272170,6 +272373,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -272246,6 +272450,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -272321,6 +272526,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -272399,6 +272605,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -272509,6 +272716,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -272559,6 +272767,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -272627,6 +272836,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -272675,6 +272885,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -273052,6 +273263,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -273145,6 +273357,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -273213,6 +273426,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -273318,6 +273532,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -273385,6 +273600,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -273468,6 +273684,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -273561,6 +273778,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -273623,6 +273841,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -273688,6 +273907,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -273892,6 +274112,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -273942,6 +274163,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -273992,6 +274214,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -274042,6 +274265,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       },
@@ -274108,7 +274332,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 225,
@@ -274161,7 +274386,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 226,
@@ -274225,7 +274451,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 227,
@@ -274287,7 +274514,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 228,
@@ -274338,6 +274566,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -274433,6 +274662,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
@@ -274474,6 +274704,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -274515,6 +274746,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -274619,6 +274851,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -274723,6 +274956,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -274827,6 +275061,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -274939,6 +275174,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -275037,6 +275273,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -275135,6 +275372,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -275233,6 +275471,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -275339,6 +275578,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -275417,6 +275657,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -275457,6 +275698,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -275582,6 +275824,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "combatPhase": "declare_attackers"
@@ -275636,6 +275879,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -275751,6 +275995,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "combatPhase": "declare_attackers",
@@ -275813,6 +276058,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -275919,6 +276165,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "combatPhase": "declare_attackers",
@@ -275987,6 +276234,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -276084,6 +276332,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "combatPhase": "declare_attackers",
@@ -276158,6 +276407,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -276246,6 +276496,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "combatPhase": "declare_attackers",
@@ -276326,6 +276577,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -276405,6 +276657,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "combatPhase": "declare_attackers",
@@ -276491,6 +276744,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -276560,6 +276814,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "combatPhase": "declare_attackers",
@@ -276652,6 +276907,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -276713,6 +276969,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "combatPhase": "declare_attackers",
@@ -276811,6 +277068,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -276851,6 +277109,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -276923,6 +277182,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -277033,6 +277293,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -277129,6 +277390,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -277188,6 +277450,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -277239,6 +277502,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -277321,6 +277585,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
@@ -277389,6 +277654,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -277446,6 +277712,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -277513,6 +277780,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -277594,6 +277862,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
@@ -277662,6 +277931,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -277719,6 +277989,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -277786,6 +278057,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -277826,6 +278098,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -277900,6 +278173,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -277940,6 +278214,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -278056,6 +278331,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers"
@@ -278110,6 +278386,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -278221,6 +278498,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers"
@@ -278252,7 +278530,8 @@
         "Sonnet Rules draws seven cards",
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 279,
@@ -278316,6 +278595,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -278367,6 +278647,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -278433,6 +278714,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -278474,6 +278756,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -278554,6 +278837,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -278659,6 +278943,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -278726,6 +279011,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -278824,6 +279110,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -278882,6 +279169,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -278956,6 +279244,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -279005,6 +279294,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279045,6 +279335,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279086,6 +279377,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279126,6 +279418,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279167,6 +279460,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279207,6 +279501,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279248,6 +279543,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279296,6 +279592,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279344,6 +279641,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279392,6 +279690,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279440,6 +279739,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279488,6 +279788,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279536,6 +279837,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279686,6 +279988,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -279740,6 +280043,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279778,6 +280082,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -279843,6 +280148,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "blockers",
@@ -279955,6 +280261,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -279995,6 +280302,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -280035,6 +280343,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -280076,6 +280385,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -280151,6 +280461,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -280226,6 +280537,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -280301,6 +280613,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -280436,6 +280749,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 0
@@ -280512,6 +280826,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -280629,6 +280944,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -280735,6 +281051,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -280905,6 +281222,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -280990,6 +281308,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -281096,6 +281415,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -281181,6 +281501,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -281221,6 +281542,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -281261,6 +281583,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -281301,6 +281624,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -281341,6 +281665,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -281381,6 +281706,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -281465,6 +281791,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -281556,6 +281883,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -281647,6 +281975,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -281738,6 +282067,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -281943,6 +282273,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers"
@@ -282044,6 +282375,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -282142,6 +282474,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -282199,6 +282532,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -282239,6 +282573,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       },
@@ -282331,6 +282666,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 11
       }
@@ -282476,6 +282812,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 11,
         "landDropsUsed": 0
@@ -282603,6 +282940,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12,
         "landDropsUsed": 1
@@ -282695,6 +283033,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 11,
         "landDropsUsed": 1
@@ -282825,6 +283164,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 11,
         "landDropsUsed": 1
@@ -282917,6 +283257,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -283034,6 +283375,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -283126,6 +283468,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -283166,6 +283509,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -283385,6 +283729,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "combatPhase": "declare_attackers"
@@ -283477,6 +283822,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -283565,6 +283911,7 @@
         "Gem3F Analyst draws seven cards",
         "GPT5m Minimal draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }

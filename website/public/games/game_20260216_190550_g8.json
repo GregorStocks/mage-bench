@@ -191698,7 +191698,7 @@
       "actionTaken": "Played Darkwater Catacombs",
       "betterLine": "Play Thriving Isle (choosing Black) to have a land that taps for {U} or {B} without requiring additional mana investment, saving Darkwater Catacombs for later when you have more mana to spare on its activation cost.",
       "type": "blunder",
-      "snapshotIndex": 57,
+      "snapshotIndex": 58,
       "player": "MiniMx Sarge"
     },
     {
@@ -191707,7 +191707,7 @@
       "actionTaken": "Cast Nadir Kraken for {1}{U}{U}",
       "betterLine": "Cast Commander's Sphere for 3 mana to ramp, then next turn have more mana available to cast Nadir Kraken with mana open to pay for its triggered ability on future draws. Alternatively, Shadowmage Infiltrator could connect more easily now while boards are small.",
       "type": "blunder",
-      "snapshotIndex": 85,
+      "snapshotIndex": 86,
       "player": "MiniMx Sarge"
     },
     {
@@ -191716,7 +191716,7 @@
       "actionTaken": "Targeted Kaima, the Fractured Calm with Into the Roil, bouncing it to hand (command zone effectively)",
       "betterLine": "Target Avenger of Zendikar with Into the Roil to remove the higher-value non-commander threat that's harder to replay",
       "type": "blunder",
-      "snapshotIndex": 196,
+      "snapshotIndex": 197,
       "player": "Llama4 Tactic"
     }
   ],
@@ -191781,7 +191781,8 @@
         "Llama4 Tactic draws seven cards",
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -191815,7 +191816,8 @@
         "Llama4 Tactic draws seven cards",
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -191852,7 +191854,8 @@
         "Llama4 Tactic draws seven cards",
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -191889,7 +191892,8 @@
         "Llama4 Tactic draws seven cards",
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -191926,7 +191930,8 @@
         "Llama4 Tactic draws seven cards",
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -191963,7 +191968,8 @@
         "Llama4 Tactic draws seven cards",
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -192001,6 +192007,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -192042,6 +192049,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -192081,6 +192089,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -192122,6 +192131,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -192163,6 +192173,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -192211,6 +192222,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -192252,6 +192264,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -192292,6 +192305,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -192331,7 +192345,8 @@
         "Llama4 Tactic draws seven cards",
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 15,
@@ -192369,6 +192384,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -192422,6 +192438,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -192462,6 +192479,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -192512,6 +192530,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -192584,6 +192603,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -192641,6 +192661,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -192750,6 +192771,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -192796,6 +192818,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -192854,6 +192877,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -192895,6 +192919,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -192984,6 +193009,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -193029,6 +193055,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -193068,7 +193095,8 @@
         "Llama4 Tactic draws seven cards",
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 28,
@@ -193106,6 +193134,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -193328,6 +193357,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -193368,6 +193398,7 @@
         "GPT4om Snark draws seven cards",
         "MiniMx Sarge draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }

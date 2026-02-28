@@ -109133,7 +109133,7 @@
       "actionTaken": "Targeted themselves (GPT52 Vet) with Burst Lightning, dealing 2 damage to themselves.",
       "betterLine": "Target Haiku Worrier with Burst Lightning to deal 2 damage, putting them from 4 to 2 life. This creates enormous pressure and sets up lethal with almost any future damage source.",
       "type": "blunder",
-      "snapshotIndex": 251,
+      "snapshotIndex": 252,
       "player": "GPT52 Vet"
     },
     {
@@ -109142,7 +109142,7 @@
       "actionTaken": "Targeted themselves (GPT52 Vet) with Burst Lightning, dealing 2 damage to themselves.",
       "betterLine": "Target Haiku Worrier with Burst Lightning to deal 2 damage, bringing them from 4 to 2 life. This puts the opponent in lethal range of nearly any subsequent burn spell or attack.",
       "type": "blunder",
-      "snapshotIndex": 255,
+      "snapshotIndex": 256,
       "player": "GPT52 Vet"
     },
     {
@@ -109151,7 +109151,7 @@
       "actionTaken": "Targeted themselves with Burst Lightning, dealing 2 damage to themselves (6 -> 4 life)",
       "betterLine": "Target Haiku Worrier (opponent at 4 life) with Burst Lightning to deal 2 damage, bringing them to 2 life and putting them in range of any future damage source. With Opt and Sleight of Hand in hand to dig for more burn, plus another Eddymurk Crab for board presence, targeting the opponent was clearly correct.",
       "type": "blunder",
-      "snapshotIndex": 293,
+      "snapshotIndex": 294,
       "player": "GPT52 Vet"
     },
     {
@@ -109160,7 +109160,7 @@
       "actionTaken": "Targeted themselves (GPT52 Vet) with Burst Lightning, dealing 2 damage to themselves.",
       "betterLine": "Target Haiku Worrier (the opponent at 4 life) with Burst Lightning to deal 2 damage, putting them to 2 life and setting up lethal. Alternatively, target Ral, Crackling Wit to remove loyalty counters from the threatening planeswalker.",
       "type": "blunder",
-      "snapshotIndex": 307,
+      "snapshotIndex": 308,
       "player": "GPT52 Vet"
     }
   ],
@@ -109227,7 +109227,8 @@
         "GPT52 Vet draws seven cards",
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -109261,7 +109262,8 @@
         "GPT52 Vet draws seven cards",
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -109308,6 +109310,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -109349,6 +109352,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -109399,6 +109403,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -109464,6 +109469,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -109515,6 +109521,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -109556,6 +109563,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -109638,6 +109646,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -109704,6 +109713,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -109755,6 +109765,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -109833,6 +109844,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -109883,6 +109895,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -109955,6 +109968,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -110007,6 +110021,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -110079,6 +110094,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -110129,6 +110145,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -110211,6 +110228,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -110262,6 +110280,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -110312,6 +110331,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -110391,6 +110411,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -110441,6 +110462,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -110514,6 +110536,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -110565,6 +110588,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -110637,6 +110661,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -110690,6 +110715,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -110762,6 +110788,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -110812,6 +110839,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -110883,6 +110911,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -110934,6 +110963,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -111003,6 +111033,7 @@
         "Haiku Worrier draws seven cards",
         "GPT52 Vet keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }

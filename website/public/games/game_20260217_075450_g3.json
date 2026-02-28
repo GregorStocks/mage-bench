@@ -107569,7 +107569,7 @@
       "actionTaken": "Targeted Stormchaser's Talent with Boomerang Basics, returning it to hand and drawing a card, but losing the enchantment from the battlefield.",
       "betterLine": "Target the Otter Token with Boomerang Basics. You still draw a card (since you controlled the token), the token ceases to exist upon returning to hand, and Stormchaser's Talent stays on the battlefield ready to be leveled up. When you replay Talent later, you get a fresh Otter anyway.",
       "type": "blunder",
-      "snapshotIndex": 51,
+      "snapshotIndex": 52,
       "player": "o3 Tactic"
     },
     {
@@ -107578,7 +107578,7 @@
       "actionTaken": "Chose Steam Vents from Accumulate Wisdom's top 3 cards (Steam Vents, Monument to Endurance, Artist's Talent)",
       "betterLine": "Taking Artist's Talent, which is a powerful engine piece that synergizes with the noncreature-spell-heavy hand. The deck should find lands naturally, and Artist's Talent provides card filtering immediately plus cost reduction and damage amplification at higher levels.",
       "type": "blunder",
-      "snapshotIndex": 79,
+      "snapshotIndex": 80,
       "player": "o3 Tactic"
     },
     {
@@ -107587,7 +107587,7 @@
       "actionTaken": "Cast Grim Bauble targeting nothing (no creatures to target), deploying it only for its future Surveil 2 sacrifice ability.",
       "betterLine": "Cast Get Lost targeting Stormchaser's Talent while the opponent is tapped out, removing a key enchantment before it can be leveled up. Grim Bauble could be saved for when there's an actual creature to target with its ETB.",
       "type": "blunder",
-      "snapshotIndex": 88,
+      "snapshotIndex": 89,
       "player": "Grk41F Memoir"
     },
     {
@@ -107596,7 +107596,7 @@
       "actionTaken": "Cast Get Lost targeting Gran-Gran, giving opponent two Map tokens (now 4 total).",
       "betterLine": "Cast Kaito, Bane of Nightmares (4 mana available from 4 untapped lands). Kaito attacks as a hexproof 3/4 next turn, threatens card advantage with 0 ability, and preserves Get Lost for a higher-impact threat or for when the Map token downside is less relevant.",
       "type": "blunder",
-      "snapshotIndex": 138,
+      "snapshotIndex": 139,
       "player": "Grk41F Memoir"
     },
     {
@@ -107605,7 +107605,7 @@
       "actionTaken": "Activated Kaito's +1 to create a third Ninja emblem, making Kaito a 6/7 during their turn.",
       "betterLine": "Activate Kaito's 0 ability to Surveil 2, improving card quality and potentially finding threats or removal rather than stacking redundant emblems when no other Ninjas are present.",
       "type": "blunder",
-      "snapshotIndex": 215,
+      "snapshotIndex": 216,
       "player": "Grk41F Memoir"
     },
     {
@@ -107614,7 +107614,7 @@
       "actionTaken": "Activated Kaito's +1 to create another Ninja +1/+1 emblem (stacking on existing emblems).",
       "betterLine": "Use Kaito's 0 ability to Surveil 2, improving card quality to find threats or answers to close the game. Additional +1/+1 emblems beyond the first few have diminishing returns, while card selection is always valuable.",
       "type": "blunder",
-      "snapshotIndex": 265,
+      "snapshotIndex": 266,
       "player": "Grk41F Memoir"
     },
     {
@@ -107623,7 +107623,7 @@
       "actionTaken": "Bounced Grim Bauble with Nurturing Pixie, planning to replay it for a -2/-2 with no current creature target.",
       "betterLine": "Bounce Stormchaser's Talent to replay it next turn, creating another 1/1 prowess Otter token and maintaining the Class for future noncreature spell synergy, accelerating the clock alongside Kaito.",
       "type": "blunder",
-      "snapshotIndex": 267,
+      "snapshotIndex": 268,
       "player": "Grk41F Memoir"
     },
     {
@@ -107632,7 +107632,7 @@
       "actionTaken": "Targeted Otter Token with Firebending Lesson",
       "betterLine": "Target Nurturing Pixie with Firebending Lesson, removing the more threatening evasive creature that can generate value through bouncing permanents",
       "type": "blunder",
-      "snapshotIndex": 270,
+      "snapshotIndex": 271,
       "player": "o3 Tactic"
     },
     {
@@ -107641,7 +107641,7 @@
       "actionTaken": "Passed priority and skipped the attack phase entirely, dealing 0 damage to an opponent at 5 life.",
       "betterLine": "Attack with Kaito, Bane of Nightmares (who is a 3/4 creature during your turn with 8 loyalty) to deal 3 damage, putting the opponent to 2 life. This sets up lethal on the following turn or with any incidental damage source.",
       "type": "blunder",
-      "snapshotIndex": 292,
+      "snapshotIndex": 293,
       "player": "Grk41F Memoir"
     }
   ],
@@ -107697,7 +107697,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -107731,7 +107732,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -107778,7 +107780,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -107868,7 +107871,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -107916,7 +107920,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -107953,7 +107958,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -107990,7 +107996,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -108027,7 +108034,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 8,
@@ -108062,6 +108070,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108129,6 +108138,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -108200,6 +108210,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -108241,6 +108252,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -108281,6 +108293,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -108340,6 +108353,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -108411,6 +108425,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -108480,6 +108495,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -108529,6 +108545,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -108579,6 +108596,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -108628,6 +108646,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -108677,6 +108696,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -108727,6 +108747,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -108768,6 +108789,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -108805,6 +108827,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -108906,6 +108929,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -108965,6 +108989,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -109024,6 +109049,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -109074,6 +109100,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -109162,6 +109189,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -109221,6 +109249,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -109282,6 +109311,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -109341,6 +109371,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -109391,6 +109422,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -109447,6 +109479,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -109488,6 +109521,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -109538,6 +109572,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -109598,6 +109633,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -109671,6 +109707,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -109734,6 +109771,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -109772,6 +109810,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -109843,6 +109882,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -109902,6 +109942,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -109952,6 +109993,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -110002,6 +110044,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -110052,6 +110095,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -110100,6 +110144,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -110150,6 +110195,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -110191,6 +110237,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -110231,6 +110278,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -110271,6 +110319,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -110310,7 +110359,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 50,
@@ -110378,6 +110428,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -110437,6 +110488,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -110510,6 +110562,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -110560,6 +110613,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -110601,6 +110655,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -110653,6 +110708,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -110693,6 +110749,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -110732,7 +110789,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 58,
@@ -110779,6 +110837,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -110817,6 +110876,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -110869,6 +110929,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -110922,6 +110983,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -110962,6 +111024,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -111008,6 +111071,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -111061,7 +111125,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 65,
@@ -111098,7 +111163,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 66,
@@ -111181,6 +111247,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -111242,6 +111309,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -111296,6 +111364,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -111347,6 +111416,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -111397,6 +111467,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -111438,6 +111509,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -111492,6 +111564,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -111541,6 +111614,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -111582,6 +111656,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -111622,6 +111697,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -111662,6 +111738,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -111710,6 +111787,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -111808,6 +111886,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -111846,6 +111925,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -111904,6 +111984,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -111954,6 +112035,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -112004,6 +112086,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -112045,6 +112128,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -112085,6 +112169,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -112146,6 +112231,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -112199,6 +112285,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -112239,6 +112326,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -112289,6 +112377,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -112329,6 +112418,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -112410,6 +112500,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -112450,6 +112541,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -112501,6 +112593,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -112571,6 +112664,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -112607,7 +112701,8 @@
         "Grk41F Memoir draws seven cards",
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 95,
@@ -112655,6 +112750,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -112714,6 +112810,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -112782,6 +112879,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -112842,6 +112940,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -112902,6 +113001,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -112962,6 +113062,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -113000,6 +113101,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -113074,6 +113176,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -113115,6 +113218,7 @@
         "o3 Tactic draws seven cards",
         "Grk41F Memoir keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }

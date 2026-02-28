@@ -50995,7 +50995,7 @@
       "actionTaken": "Selected mode 2 of Insatiable Avarice intending to target the opponent, giving them 3 cards for 3 damage.",
       "betterLine": "Target yourself with mode 2 to draw 3 cards and lose 3 life (going to 15 life), finding action to close the game with Harvester of Misery on board. Alternatively, use both modes to tutor a key card to the top and then draw it plus 2 more.",
       "type": "blunder",
-      "snapshotIndex": 71,
+      "snapshotIndex": 72,
       "player": "Haiku Hype"
     },
     {
@@ -51004,7 +51004,7 @@
       "actionTaken": "Selected only the tutor mode (+{2}) of Insatiable Avarice, paying {2}{B} to search for a card and put it on top of library.",
       "betterLine": "Select the draw-3 mode (+{B}{B}) instead, paying {B}{B}{B} total to draw three cards and lose 3 life, providing immediate card advantage to find relevant spells.",
       "type": "blunder",
-      "snapshotIndex": 71,
+      "snapshotIndex": 72,
       "player": "Haiku Hype"
     },
     {
@@ -51013,7 +51013,7 @@
       "actionTaken": "Targeted Qwen3 ESPN with Insatiable Avarice's draw-three mode, giving the opponent 3 cards and dealing 3 damage.",
       "betterLine": "Target yourself (Haiku Hype) with the draw-three mode to draw 3 cards and lose 3 life. At 18 life, going to 15 is fine, and drawing 3 cards would help find lands or additional interaction to press the advantage with the Harvester of Misery on board.",
       "type": "blunder",
-      "snapshotIndex": 71,
+      "snapshotIndex": 72,
       "player": "Haiku Hype"
     },
     {
@@ -51022,7 +51022,7 @@
       "actionTaken": "Cast Sleight of Hand before deploying Eddymurk Crab + Sunderflock",
       "betterLine": "Cast Eddymurk Crab (UU) tapping Harvester of Misery, then cast Sunderflock (UU) bouncing Harvester, hold up Spell Pierce (U) with remaining 2 mana for protection",
       "type": "blunder",
-      "snapshotIndex": 80,
+      "snapshotIndex": 81,
       "player": "Qwen3 ESPN"
     },
     {
@@ -51031,7 +51031,7 @@
       "actionTaken": "Cast Spell Pierce targeting Sleight of Hand",
       "betterLine": "Let Sleight of Hand resolve and save Spell Pierce to protect Eddymurk Crab or Sunderflock from removal when deploying them. The opponent denying one card of selection is much less impactful than potentially losing counter protection for a game-winning threat.",
       "type": "blunder",
-      "snapshotIndex": 81,
+      "snapshotIndex": 82,
       "player": "Qwen3 ESPN"
     },
     {
@@ -51040,7 +51040,7 @@
       "actionTaken": "Cast Glacial Dragonhunt instead of Eddymurk Crab",
       "betterLine": "Cast Eddymurk Crab for UU, tap Harvester of Misery, then next turn cast Sunderflock for UU to bounce all non-Elemental creatures",
       "type": "blunder",
-      "snapshotIndex": 82,
+      "snapshotIndex": 83,
       "player": "Qwen3 ESPN"
     },
     {
@@ -51049,7 +51049,7 @@
       "actionTaken": "Selected mode 1 (Exile target creature or planeswalker) with no opposing creatures/planeswalkers on board.",
       "betterLine": "Choose mode 3 (Put two +1/+1 counters on Harvester of Misery, giving it lifelink) to make it a 7/6 lifelink menace attacker, threatening 7 damage and gaining 7 life. Alternatively, mode 2 to return Doomsday Excruciator from graveyard to hand for future value.",
       "type": "blunder",
-      "snapshotIndex": 87,
+      "snapshotIndex": 88,
       "player": "Haiku Hype"
     },
     {
@@ -51058,7 +51058,7 @@
       "actionTaken": "Chose to discard 2 non-creature cards from Winternight Stories resolution",
       "betterLine": "Discard one Sunderflock as a creature card to satisfy Winternight Stories' alternative cost, keeping an extra card in hand (likely a land drop or spell)",
       "type": "blunder",
-      "snapshotIndex": 97,
+      "snapshotIndex": 98,
       "player": "Qwen3 ESPN"
     },
     {
@@ -51145,7 +51145,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -51179,7 +51180,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -51259,7 +51261,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -51296,7 +51299,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -51376,7 +51380,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -51450,7 +51455,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -51487,7 +51493,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -51538,6 +51545,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -51578,6 +51586,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -51619,6 +51628,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -51667,6 +51677,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -51715,6 +51726,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -51756,6 +51768,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -51822,6 +51835,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -51888,6 +51902,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -51953,6 +51968,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52019,6 +52035,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52060,6 +52077,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52099,7 +52117,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 19,
@@ -52137,6 +52156,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52177,6 +52197,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -52217,7 +52238,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 22,
@@ -52255,6 +52277,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -52293,6 +52316,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -52349,6 +52373,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -52400,6 +52425,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -52441,6 +52467,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52513,6 +52540,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52572,6 +52600,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52613,6 +52642,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52653,6 +52683,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -52693,6 +52724,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -52758,6 +52790,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -52805,6 +52838,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -52845,6 +52879,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -52885,6 +52920,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52934,6 +52970,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -52982,6 +53019,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -53032,6 +53070,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -53073,6 +53112,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -53140,6 +53180,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -53207,6 +53248,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -53273,6 +53315,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -53327,6 +53370,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -53376,6 +53420,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -53417,6 +53462,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -53457,6 +53503,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -53517,6 +53564,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -53557,6 +53605,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -53597,7 +53646,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 50,
@@ -53643,6 +53693,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -53693,6 +53744,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -53734,6 +53786,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -53805,6 +53858,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -53870,6 +53924,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -53910,6 +53965,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -53947,6 +54003,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -54022,6 +54079,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -54072,6 +54130,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -54114,6 +54173,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -54154,6 +54214,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -54203,6 +54264,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -54252,6 +54314,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -54302,6 +54365,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -54343,6 +54407,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -54415,6 +54480,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -54481,6 +54547,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -54519,6 +54586,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -54574,6 +54642,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -54628,6 +54697,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -54683,6 +54753,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -54733,6 +54804,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -54774,6 +54846,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -54831,6 +54904,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -54893,6 +54967,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -54934,6 +55009,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -54985,6 +55061,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -55046,6 +55123,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -55087,6 +55165,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -55127,6 +55206,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -55167,6 +55247,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -55204,6 +55285,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -55296,6 +55378,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -55354,6 +55437,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -55405,6 +55489,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -55446,6 +55531,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -55504,6 +55590,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -55555,6 +55642,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -55609,6 +55697,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -55660,6 +55749,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -55743,6 +55833,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -55801,6 +55892,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -55851,6 +55943,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -55934,6 +56027,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -55984,6 +56078,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -56025,6 +56120,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -56071,6 +56167,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -56121,6 +56218,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -56157,7 +56255,8 @@
         "Qwen3 ESPN draws seven cards",
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 99,
@@ -56205,6 +56304,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -56255,6 +56355,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -56305,6 +56406,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -56355,6 +56457,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -56451,6 +56554,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -56513,6 +56617,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -56554,6 +56659,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -56639,6 +56745,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -56689,6 +56796,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -56730,6 +56838,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56771,6 +56880,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56855,6 +56965,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56933,6 +57044,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56974,6 +57086,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57015,6 +57128,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -57052,6 +57166,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57110,6 +57225,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -57174,6 +57290,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -57227,6 +57344,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -57281,6 +57399,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -57336,6 +57455,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -57386,6 +57506,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -57442,6 +57563,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -57501,6 +57623,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -57559,6 +57682,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -57600,6 +57724,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -57637,6 +57762,7 @@
         "Haiku Hype draws seven cards",
         "Qwen3 ESPN decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }

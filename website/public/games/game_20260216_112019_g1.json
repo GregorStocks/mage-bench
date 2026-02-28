@@ -34310,7 +34310,7 @@
       "actionTaken": "Selected Qwen3 Sport as the starting player (chose to draw)",
       "betterLine": "Select GPT5n Critic as the starting player (choose to play first) to maximize the tempo advantage of this aggressive curve-out hand.",
       "type": "blunder",
-      "snapshotIndex": 1,
+      "snapshotIndex": 2,
       "player": "GPT5n Critic"
     },
     {
@@ -34319,7 +34319,7 @@
       "actionTaken": "Activated Burnout Bashtronaut's {2}: +1/+0 ability during precombat main phase.",
       "betterLine": "Play a Mountain from hand first, then attack with Burnout Bashtronaut without pumping, saving mana for future turns. The 2 mana spent on +1/+0 is inefficient when facing no blockers and the opponent is at 20 life.",
       "type": "blunder",
-      "snapshotIndex": 16,
+      "snapshotIndex": 17,
       "player": "Qwen3 Sport"
     },
     {
@@ -34328,7 +34328,7 @@
       "actionTaken": "Cast Marauding Mako (1/1) for R",
       "betterLine": "Cast Bloodghast (2/1 with landfall recursion) for BB using Blazemire Verge + Starting Town (paying 1 life), providing more immediate pressure and long-term resilience",
       "type": "blunder",
-      "snapshotIndex": 22,
+      "snapshotIndex": 23,
       "player": "GPT5n Critic"
     },
     {
@@ -34337,7 +34337,7 @@
       "actionTaken": "Cast Marauding Mako as a 1/1 on turn 2",
       "betterLine": "This is borderline - casting Mako is fine for board presence and it will benefit from future discards via Tersa Lightshatter. The alternative of waiting to deploy Monument to Endurance on turn 3 and then Tersa on turn 4 (discarding with both Monument and Mako on board) could maximize value, but losing tempo against an aggressive opponent may not be worth it. Casting Mako here is defensible.",
       "type": "blunder",
-      "snapshotIndex": 23,
+      "snapshotIndex": 24,
       "player": "GPT5n Critic"
     },
     {
@@ -34346,7 +34346,7 @@
       "actionTaken": "Activated Starting Town for {C} (colorless mana) to try to pay for Marauding Mako's {R} cost.",
       "betterLine": "Activate Starting Town's second ability ({T}, Pay 1 life: Add one mana of any color) to produce {R} and properly cast Marauding Mako.",
       "type": "blunder",
-      "snapshotIndex": 23,
+      "snapshotIndex": 24,
       "player": "GPT5n Critic"
     },
     {
@@ -34355,7 +34355,7 @@
       "actionTaken": "Tapped Starting Town for {C} (colorless mana) while trying to cast Bloodghast ({B}{B})",
       "betterLine": "Tap Starting Town paying 1 life to add {B}, combined with Blazemire Verge's {B}, to successfully cast Bloodghast on turn 2 as a strong recursive threat.",
       "type": "blunder",
-      "snapshotIndex": 28,
+      "snapshotIndex": 29,
       "player": "GPT5n Critic"
     },
     {
@@ -34364,7 +34364,7 @@
       "actionTaken": "Targeted Burnout Bashtronaut with Bitter Triumph",
       "betterLine": "Target Tersa Lightshatter with Bitter Triumph to remove the much larger and more impactful threat",
       "type": "blunder",
-      "snapshotIndex": 43,
+      "snapshotIndex": 44,
       "player": "GPT5n Critic"
     },
     {
@@ -34373,7 +34373,7 @@
       "actionTaken": "Attacked with only Tersa Lightshatter, dealing 3 damage",
       "betterLine": "Attack with all creatures (Tersa Lightshatter and Hired Claw) to deal 5 damage total (3 from Tersa + 1 from Hired Claw + 1 from Hired Claw's Lizard trigger), putting opponent to 9 life",
       "type": "blunder",
-      "snapshotIndex": 52,
+      "snapshotIndex": 53,
       "player": "Qwen3 Sport"
     },
     {
@@ -34382,7 +34382,7 @@
       "actionTaken": "Passed without activating Hired Claw's ability or using any mana.",
       "betterLine": "Activate Hired Claw's {1}{R} ability to put a +1/+1 counter on it, growing it from 1/2 to 2/3 permanently, since there was nothing else to spend mana on.",
       "type": "blunder",
-      "snapshotIndex": 56,
+      "snapshotIndex": 57,
       "player": "Qwen3 Sport"
     },
     {
@@ -34391,7 +34391,7 @@
       "actionTaken": "Declined to activate Rockface Village's ability on Hired Claw before combat.",
       "betterLine": "Activate Rockface Village targeting Hired Claw for +1/+0, then attack with both creatures to deal 6 total damage (instead of 5), bringing opponent to 3 life instead of 4.",
       "type": "blunder",
-      "snapshotIndex": 66,
+      "snapshotIndex": 67,
       "player": "Qwen3 Sport"
     },
     {
@@ -34400,7 +34400,7 @@
       "actionTaken": "Declined to activate any abilities, passing with unused mana.",
       "betterLine": "Activate Hired Claw's {1}{R} ability to put a +1/+1 counter on it, making it 2/3 permanently. This costs nothing meaningful since the mana would otherwise go unused, and improves lethal chances next turn.",
       "type": "blunder",
-      "snapshotIndex": 74,
+      "snapshotIndex": 75,
       "player": "Qwen3 Sport"
     },
     {
@@ -34409,7 +34409,7 @@
       "actionTaken": "Cast Monument to Endurance, a do-nothing artifact with no immediate impact on a critical board state at 4 life.",
       "betterLine": "Cast Tersa Lightshatter (paying 1 life from Starting Town for red mana) to get a 3/3 haste blocker that can survive combat with opponent's creatures. The ETB discard/draw also helps find answers. A blocker is far more important than a value engine when facing lethal.",
       "type": "blunder",
-      "snapshotIndex": 75,
+      "snapshotIndex": 76,
       "player": "GPT5n Critic"
     }
   ],
@@ -34472,7 +34472,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -34506,7 +34507,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -34550,7 +34552,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -34631,7 +34634,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -34668,7 +34672,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -34712,7 +34717,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -34769,6 +34775,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -34826,6 +34833,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -34867,6 +34875,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34907,6 +34916,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34946,7 +34956,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 11,
@@ -34981,6 +34992,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -35045,7 +35057,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 13,
@@ -35093,6 +35106,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -35151,6 +35165,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -35192,6 +35207,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -35232,6 +35248,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -35292,6 +35309,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -35331,7 +35349,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 19,
@@ -35368,7 +35387,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 20,
@@ -35405,7 +35425,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 21,
@@ -35442,7 +35463,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 22,
@@ -35477,6 +35499,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -35556,6 +35579,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -35617,6 +35641,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -35677,6 +35702,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -35747,6 +35773,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -35810,6 +35837,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -35858,6 +35886,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -35924,6 +35953,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -35974,6 +36004,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -36015,6 +36046,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -36055,6 +36087,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -36104,7 +36137,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 34,
@@ -36142,6 +36176,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -36179,6 +36214,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -36232,6 +36268,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -36272,6 +36309,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -36342,6 +36380,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -36381,7 +36420,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 40,
@@ -36418,7 +36458,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 41,
@@ -36455,7 +36496,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 42,
@@ -36492,7 +36534,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 43,
@@ -36530,6 +36573,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -36566,7 +36610,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 45,
@@ -36622,6 +36667,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -36693,6 +36739,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -36742,7 +36789,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 48,
@@ -36826,7 +36874,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 49,
@@ -36873,7 +36922,8 @@
         "Qwen3 Sport draws seven cards",
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 50,
@@ -36924,6 +36974,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       },
@@ -36975,6 +37026,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -37016,6 +37068,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -37067,6 +37120,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -37145,6 +37199,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -37186,6 +37241,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -37226,6 +37282,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -37276,6 +37333,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -37326,6 +37384,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -37382,6 +37441,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -37442,6 +37502,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -37500,6 +37561,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -37551,6 +37613,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -37604,6 +37667,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -37663,6 +37727,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -37704,6 +37769,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -37775,6 +37841,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -37816,6 +37883,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -37876,6 +37944,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -37947,6 +38016,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -37998,6 +38068,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -38048,6 +38119,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -38098,6 +38170,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -38148,6 +38221,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -38204,6 +38278,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -38264,6 +38339,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -38358,6 +38434,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -38409,6 +38486,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -38441,6 +38519,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -38490,6 +38569,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -38540,6 +38620,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -38590,6 +38671,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -38631,6 +38713,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -38678,6 +38761,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -38718,6 +38802,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -38795,6 +38880,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -38836,6 +38922,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -38876,6 +38963,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -38913,6 +39001,7 @@
         "GPT5n Critic draws seven cards",
         "Qwen3 Sport decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }

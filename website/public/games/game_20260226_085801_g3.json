@@ -81619,7 +81619,7 @@
       "actionTaken": "Played Arena of Glory as the turn 2 land drop, which enters tapped with no Mountains in play.",
       "betterLine": "Play Flooded Strand, crack it to fetch Hallowed Fountain (paying 2 life to have it enter untapped), giving access to white mana for Prismatic Ending to answer potential early threats like Emperor of Bones.",
       "type": "blunder",
-      "snapshotIndex": 14,
+      "snapshotIndex": 15,
       "player": "GPT5m Worrier"
     },
     {
@@ -81628,7 +81628,7 @@
       "actionTaken": "Played Watery Grave from hand",
       "betterLine": "Play Bloodstained Mire, crack it paying 1 life to fetch Watery Grave (paying 2 life to enter untapped), then cast Psychic Frog. This costs 1 extra life but puts Bloodstained Mire in the graveyard (4 GY cards), accelerating toward Abhorrent Oculus's graveyard requirement while saving Watery Grave for a future land drop isn't needed since you'd find it from library.",
       "type": "blunder",
-      "snapshotIndex": 25,
+      "snapshotIndex": 26,
       "player": "DSV3 Proud"
     },
     {
@@ -81637,7 +81637,7 @@
       "actionTaken": "Cast Emperor of Bones for {1}{B}",
       "betterLine": "Cast Psychic Frog for {U}{B}, which is a stronger card advantage engine and grows naturally with the discard synergies in the deck",
       "type": "blunder",
-      "snapshotIndex": 26,
+      "snapshotIndex": 27,
       "player": "DSV3 Proud"
     },
     {
@@ -81646,7 +81646,7 @@
       "actionTaken": "Attempted to hard-cast Solitude for {3}{W}{W} with only one land on the battlefield.",
       "betterLine": "Play a land first (Marsh Flats or Hallowed Fountain), then Evoke Solitude by exiling Prismatic Ending (a white card) from hand to immediately remove Emperor of Bones before it can exile cards and reanimate threats like Archon of Cruelty.",
       "type": "blunder",
-      "snapshotIndex": 33,
+      "snapshotIndex": 34,
       "player": "GPT5m Worrier"
     },
     {
@@ -81655,7 +81655,7 @@
       "actionTaken": "Cast Solitude (likely via evoke, exiling a white card) to remove Emperor of Bones",
       "betterLine": "Play a land first (Flooded Strand, Marsh Flats, or Arena of Glory), then cast Prismatic Ending with W+U to exile Emperor of Bones (MV 2), preserving Solitude for bigger threats",
       "type": "blunder",
-      "snapshotIndex": 36,
+      "snapshotIndex": 37,
       "player": "GPT5m Worrier"
     },
     {
@@ -81664,7 +81664,7 @@
       "actionTaken": "Activated Adapt 2 on Emperor of Bones during the declare attackers step, after attackers were already declared",
       "betterLine": "Activate Adapt 2 on Emperor of Bones during the beginning of combat step, before declaring attackers, allowing the reanimated Archon of Cruelty to attack and trigger its attack ability for massive additional value",
       "type": "blunder",
-      "snapshotIndex": 52,
+      "snapshotIndex": 53,
       "player": "DSV3 Proud"
     },
     {
@@ -81673,7 +81673,7 @@
       "actionTaken": "Did not cast Solitude to remove Emperor of Bones before the Adapt ability resolved, allowing Archon of Cruelty to enter the battlefield.",
       "betterLine": "Evoke Solitude (exiling Phlage or Prismatic Ending as the white card) targeting Emperor of Bones before Adapt 2 resolves. This exiles Emperor, preventing the +1/+1 counter trigger entirely, and thus preventing Archon of Cruelty from entering the battlefield.",
       "type": "blunder",
-      "snapshotIndex": 57,
+      "snapshotIndex": 58,
       "player": "GPT5m Worrier"
     },
     {
@@ -81682,7 +81682,7 @@
       "actionTaken": "Discarded Solitude to Archon of Cruelty's forced discard trigger.",
       "betterLine": "Discard Arena of Glory or Flooded Strand (a redundant land) instead, preserving Solitude as a free removal spell for the Archon of Cruelty or other threats.",
       "type": "blunder",
-      "snapshotIndex": 68,
+      "snapshotIndex": 69,
       "player": "GPT5m Worrier"
     },
     {
@@ -81691,7 +81691,7 @@
       "actionTaken": "Fetched basic Swamp with Bloodstained Mire",
       "betterLine": "Fetch Steam Vents (paying 2 life to have it enter untapped) to have access to blue mana for Abhorrent Oculus and Psychic Frog, or Watery Grave for the same reason",
       "type": "blunder",
-      "snapshotIndex": 73,
+      "snapshotIndex": 74,
       "player": "DSV3 Proud"
     },
     {
@@ -81700,7 +81700,7 @@
       "actionTaken": "Cast Prismatic Ending before making a land drop",
       "betterLine": "Play a land first (e.g., Marsh Flats, crack for a Swamp/Plains to get additional color), then cast Prismatic Ending with enough colors to target Emperor of Bones at MV 2",
       "type": "blunder",
-      "snapshotIndex": 83,
+      "snapshotIndex": 84,
       "player": "GPT5m Worrier"
     },
     {
@@ -81709,7 +81709,7 @@
       "actionTaken": "Cast Psychic Frog for UB before combat",
       "betterLine": "Consider passing to combat first to see Emperor of Bones trigger resolve, then cast Psychic Frog in post-combat main phase to keep mana open for Fatal Push during combat if needed. Though with opponent having no creatures, this is a minor sequencing consideration.",
       "type": "blunder",
-      "snapshotIndex": 97,
+      "snapshotIndex": 98,
       "player": "DSV3 Proud"
     },
     {
@@ -81718,7 +81718,7 @@
       "actionTaken": "Fetched Plains from library with Flooded Strand",
       "betterLine": "Fetch Steam Vents (paying 2 life to enter untapped) to enable 2-color Prismatic Ending next turn, capable of exiling Emperor of Bones (MV 2)",
       "type": "blunder",
-      "snapshotIndex": 112,
+      "snapshotIndex": 113,
       "player": "GPT5m Worrier"
     },
     {
@@ -81727,7 +81727,7 @@
       "actionTaken": "Passed without activating any abilities, leaving Psychic Frog at 1/2.",
       "betterLine": "Discard an Abhorrent Oculus to Psychic Frog's ability to pump it to 2/3, making next turn's lethal attack more robust (6 damage vs 5 life), while still holding up Fatal Push on the untapped Swamp.",
       "type": "blunder",
-      "snapshotIndex": 119,
+      "snapshotIndex": 120,
       "player": "DSV3 Proud"
     },
     {
@@ -81736,7 +81736,7 @@
       "actionTaken": "Cast Phlage, Titan of Fire's Fury from hand (which self-sacrifices) before playing a land",
       "betterLine": "Play a land first (Arena of Glory or fetchland), then consider Prismatic Ending on Emperor of Bones (MV 2) to prevent it from reanimating Archon of Cruelty each combat turn. Alternatively, cast Phlage targeting Emperor of Bones and follow up with Prismatic Ending on Psychic Frog if mana allows.",
       "type": "blunder",
-      "snapshotIndex": 121,
+      "snapshotIndex": 122,
       "player": "GPT5m Worrier"
     },
     {
@@ -81745,7 +81745,7 @@
       "actionTaken": "Targeted DSV3 Proud (opponent's face) with Phlage's 3 damage trigger, reducing them from 18 to 15.",
       "betterLine": "Target Psychic Frog with the 3 damage to kill it (1/2 dies to 3 damage), removing a dangerous card-advantage creature that can grow and gain flying. At 5 life with no board after Phlage is sacrificed, removing threats is far more important than dealing 3 to an 18-life opponent.",
       "type": "blunder",
-      "snapshotIndex": 129,
+      "snapshotIndex": 130,
       "player": "GPT5m Worrier"
     },
     {
@@ -81754,7 +81754,7 @@
       "actionTaken": "Passed without activating Psychic Frog's discard ability",
       "betterLine": "Discard one or more redundant cards (e.g., an Abhorrent Oculus) to Psychic Frog to pump it and stock the graveyard for future options",
       "type": "blunder",
-      "snapshotIndex": 146,
+      "snapshotIndex": 147,
       "player": "DSV3 Proud"
     },
     {
@@ -81763,7 +81763,7 @@
       "actionTaken": "Exiled Quantum Riddler with Emperor of Bones' trigger",
       "betterLine": "Exile Phlage, Titan of Fire's Fury to permanently remove the escape threat from the opponent's graveyard",
       "type": "blunder",
-      "snapshotIndex": 149,
+      "snapshotIndex": 150,
       "player": "DSV3 Proud"
     },
     {
@@ -81772,7 +81772,7 @@
       "actionTaken": "Passed priority without pumping Psychic Frog, dealing only 5 damage and leaving opponent at 2 life.",
       "betterLine": "Activate Psychic Frog twice by discarding two cards (e.g., two Unearths or any two cards) to make it a 3/4, dealing exactly 7 damage for lethal.",
       "type": "blunder",
-      "snapshotIndex": 155,
+      "snapshotIndex": 156,
       "player": "DSV3 Proud"
     },
     {
@@ -81781,7 +81781,7 @@
       "actionTaken": "Cast Prismatic Ending before making a land drop",
       "betterLine": "Play Arena of Glory first (enters untapped), then cast Prismatic Ending on Emperor of Bones, preserving access to all 5 lands' worth of mana for potential follow-up plays",
       "type": "blunder",
-      "snapshotIndex": 164,
+      "snapshotIndex": 165,
       "player": "GPT5m Worrier"
     },
     {
@@ -81790,7 +81790,7 @@
       "actionTaken": "Cast Prismatic Ending instead of escaping Phlage",
       "betterLine": "Escape Phlage, Titan of Fire's Fury using RRWW and exiling 5 graveyard cards, gaining 3 life (going to 5) and getting a 6/6 flying threat that can close the game",
       "type": "blunder",
-      "snapshotIndex": 167,
+      "snapshotIndex": 168,
       "player": "GPT5m Worrier"
     },
     {
@@ -81799,7 +81799,7 @@
       "actionTaken": "Targeted Psychic Frog with Phlage's 3 damage ETB trigger",
       "betterLine": "Target Emperor of Bones with Phlage's 3 damage to kill the 4/4 and prevent it from reanimating Archon of Cruelty next combat",
       "type": "blunder",
-      "snapshotIndex": 175,
+      "snapshotIndex": 176,
       "player": "GPT5m Worrier"
     },
     {
@@ -81808,7 +81808,7 @@
       "actionTaken": "Fetched Steam Vents, paying 2 life for a red/blue dual when red mana was already available and not needed.",
       "betterLine": "Fetch basic Island - provides the blue mana needed for Gran-Gran and Abhorrent Oculus without paying life, while Blood Crypt already covers red.",
       "type": "blunder",
-      "snapshotIndex": 189,
+      "snapshotIndex": 190,
       "player": "DSV3 Proud"
     },
     {
@@ -81817,7 +81817,7 @@
       "actionTaken": "Passed without casting anything in precombat main, planning to only attack with Emperor for 4 (leaving opponent at 1).",
       "betterLine": "Cast Unearth targeting Psychic Frog in graveyard for {B}, return it to battlefield, then attack with both Emperor of Bones (4 damage) and Psychic Frog (1 damage) for exactly 5 = lethal.",
       "type": "blunder",
-      "snapshotIndex": 190,
+      "snapshotIndex": 191,
       "player": "DSV3 Proud"
     },
     {
@@ -81826,7 +81826,7 @@
       "actionTaken": "Attacked with only Emperor of Bones (4/4) for 4 damage, leaving opponent at 1 life.",
       "betterLine": "Cast Unearth targeting Psychic Frog before combat, then attack with Emperor of Bones (4/4) and Psychic Frog (1/2+) for 5+ lethal damage.",
       "type": "blunder",
-      "snapshotIndex": 195,
+      "snapshotIndex": 196,
       "player": "DSV3 Proud"
     },
     {
@@ -81835,7 +81835,7 @@
       "actionTaken": "Flashed back Faithless Looting from the graveyard, spending all available mana on card selection",
       "betterLine": "Cast Unearth targeting Psychic Frog in the graveyard to create a second attacker, making it nearly impossible for the opponent at 1 life to survive the next combat. With Emperor of Bones already on board, two attackers against an opponent at 1 life is overwhelming.",
       "type": "blunder",
-      "snapshotIndex": 202,
+      "snapshotIndex": 203,
       "player": "DSV3 Proud"
     },
     {
@@ -81844,7 +81844,7 @@
       "actionTaken": "Cast Prismatic Ending before making a land drop",
       "betterLine": "Play Arena of Glory or Arid Mesa first, then cast Prismatic Ending on Emperor of Bones",
       "type": "blunder",
-      "snapshotIndex": 211,
+      "snapshotIndex": 212,
       "player": "GPT5m Worrier"
     },
     {
@@ -81853,7 +81853,7 @@
       "actionTaken": "Played Arid Mesa as their land drop, a fetchland they can never activate at 1 life.",
       "betterLine": "Play Arena of Glory, which enters untapped (they control Sacred Foundry, a Mountain) and produces R mana. This would give them 5 usable mana sources next turn to cast Quantum Riddler ({3}{U}{U}) with Hallowed Fountain and Thundering Falls providing UU.",
       "type": "blunder",
-      "snapshotIndex": 216,
+      "snapshotIndex": 217,
       "player": "GPT5m Worrier"
     },
     {
@@ -81862,7 +81862,7 @@
       "actionTaken": "Attempted to cast Quantum Riddler but failed to complete mana payment, resulting in the spell being rolled back and no action taken.",
       "betterLine": "Play Arena of Glory as land drop and pass turn. At 1 life, fetchlands can't be cracked, so Quantum Riddler is uncastable this turn. Should have recognized this immediately rather than attempting an illegal mana payment.",
       "type": "blunder",
-      "snapshotIndex": 217,
+      "snapshotIndex": 218,
       "player": "GPT5m Worrier"
     }
   ],
@@ -81914,7 +81914,8 @@
       ],
       "subsequentActions": [
         "DSV3 Proud chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 3
     },
     {
       "index": 1,
@@ -81948,7 +81949,8 @@
       ],
       "subsequentActions": [
         "DSV3 Proud skips Draw step"
-      ]
+      ],
+      "actionSeq": 5
     },
     {
       "index": 2,
@@ -82000,6 +82002,7 @@
         14
       ],
       "subsequentActions": [],
+      "actionSeq": 8,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -82043,6 +82046,7 @@
         "DSV3 Proud loses 2 life from Blood Crypt",
         "DSV3 Proud puts Blood Crypt from hand onto the Battlefield"
       ],
+      "actionSeq": 9,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -82088,6 +82092,7 @@
       "subsequentActions": [
         "DSV3 Proud casts Faithless Looting from hand"
       ],
+      "actionSeq": 12,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -82127,6 +82132,7 @@
         26
       ],
       "subsequentActions": [],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -82205,6 +82211,7 @@
         30
       ],
       "subsequentActions": [],
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -82281,6 +82288,7 @@
         "DSV3 Proud discards Raucous Theater (source: Faithless Looting)",
         "DSV3 Proud puts Faithless Looting from stack into their graveyard"
       ],
+      "actionSeq": 18,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -82318,6 +82326,7 @@
       "subsequentActions": [
         "DSV3 Proud skip attack"
       ],
+      "actionSeq": 22,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -82352,7 +82361,8 @@
         41,
         42
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 25
     },
     {
       "index": 10,
@@ -82382,6 +82392,7 @@
         47
       ],
       "subsequentActions": [],
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -82465,6 +82476,7 @@
         "GPT5m Worrier puts Flooded Strand from hand onto the Battlefield",
         "GPT5m Worrier skip attack"
       ],
+      "actionSeq": 29,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -82496,7 +82508,8 @@
         55,
         56
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 39
     },
     {
       "index": 13,
@@ -82540,6 +82553,7 @@
       "subsequentActions": [
         "DSV3 Proud skip attack"
       ],
+      "actionSeq": 39,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -82591,6 +82605,7 @@
         61
       ],
       "subsequentActions": [],
+      "actionSeq": 43,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -82634,6 +82649,7 @@
         "DSV3 Proud loses 2 life from Watery Grave",
         "DSV3 Proud puts Watery Grave from hand onto the Battlefield"
       ],
+      "actionSeq": 44,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -82699,6 +82715,7 @@
         "DSV3 Proud casts Emperor of Bones from hand",
         "DSV3 Proud puts Emperor of Bones from stack onto the Battlefield"
       ],
+      "actionSeq": 47,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -82737,6 +82754,7 @@
         76
       ],
       "subsequentActions": [],
+      "actionSeq": 54,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -82826,6 +82844,7 @@
         79
       ],
       "subsequentActions": [],
+      "actionSeq": 56,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -82902,6 +82921,7 @@
         82
       ],
       "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -82971,6 +82991,7 @@
         84
       ],
       "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -83061,6 +83082,7 @@
         87
       ],
       "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -83110,6 +83132,7 @@
         "GPT5m Worrier loses 2 life from Hallowed Fountain",
         "GPT5m Worrier puts Hallowed Fountain from hand onto the Battlefield"
       ],
+      "actionSeq": 59,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -83183,6 +83206,7 @@
         95
       ],
       "subsequentActions": [],
+      "actionSeq": 62,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -83239,6 +83263,7 @@
         98
       ],
       "subsequentActions": [],
+      "actionSeq": 64,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -83293,6 +83318,7 @@
       "subsequentActions": [
         "GPT5m Worrier skip attack"
       ],
+      "actionSeq": 64,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -83363,6 +83389,7 @@
       "subsequentActions": [
         "DSV3 Proud puts Bloodstained Mire from hand onto the Battlefield"
       ],
+      "actionSeq": 71,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -83393,7 +83420,8 @@
         105,
         106
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 74
     },
     {
       "index": 28,
@@ -83447,6 +83475,7 @@
       "subsequentActions": [
         "DSV3 Proud - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Archon of Cruelty"
       ],
+      "actionSeq": 75,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -83513,6 +83542,7 @@
       "subsequentActions": [
         "DSV3 Proud moves Archon of Cruelty from graveyard to the exile zone (source: Emperor of Bones)"
       ],
+      "actionSeq": 77,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -83570,6 +83600,7 @@
       "subsequentActions": [
         "DSV3 Proud attacks GPT5m Worrier with 1 creature"
       ],
+      "actionSeq": 80,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -83634,6 +83665,7 @@
       "subsequentActions": [
         "DSV3 Proud activates: Adapt 2. (If this creature has no +1/+1 counters on it, put two +1/+1 counters on it.) from Emperor of Bones"
       ],
+      "actionSeq": 83,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -83702,6 +83734,7 @@
         131
       ],
       "subsequentActions": [],
+      "actionSeq": 88,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -83751,6 +83784,7 @@
       "subsequentActions": [
         "DSV3 Proud - Ability triggers: Emperor of Bones - Whenever one or more +1/+1 counters are put on Emperor of Bones, put a creature card exiled with Emperor of Bones onto the battlefield under your control with a finality counter on it. It gains haste. Sacrifice it at the beginning of the next end step."
       ],
+      "actionSeq": 90,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -83816,6 +83850,7 @@
         138
       ],
       "subsequentActions": [],
+      "actionSeq": 93,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -83866,6 +83901,7 @@
         "DSV3 Proud puts Archon of Cruelty from exile zone onto the Battlefield (source: Emperor of Bones)",
         "DSV3 Proud - Ability triggers: Archon of Cruelty - Whenever Archon of Cruelty enters or attacks, target opponent sacrifices a creature or planeswalker of their choice, discards a card, and loses 3 life. You draw a card and gain 3 life. - targeting GPT5m Worrier"
       ],
+      "actionSeq": 95,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -83908,6 +83944,7 @@
         146
       ],
       "subsequentActions": [],
+      "actionSeq": 100,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -83973,6 +84010,7 @@
         149
       ],
       "subsequentActions": [],
+      "actionSeq": 101,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -84070,6 +84108,7 @@
         "DSV3 Proud gains 3 life (source: Archon of Cruelty)",
         "Attacker: Emperor of Bones (4/4) unblocked"
       ],
+      "actionSeq": 104,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -84119,6 +84158,7 @@
         "DSV3 Proud sacrificed Bloodstained Mire (source: Bloodstained Mire)",
         "DSV3 Proud activates: search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle. from Bloodstained Mire"
       ],
+      "actionSeq": 111,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -84155,7 +84195,8 @@
       ],
       "subsequentActions": [
         "DSV3 Proud searches their library (source: Bloodstained Mire)"
-      ]
+      ],
+      "actionSeq": 116
     },
     {
       "index": 41,
@@ -84221,7 +84262,8 @@
       "subsequentActions": [
         "DSV3 Proud puts Swamp from library onto the Battlefield (source: Bloodstained Mire)",
         "DSV3 Proud's library is shuffled (source: Bloodstained Mire)"
-      ]
+      ],
+      "actionSeq": 119
     },
     {
       "index": 42,
@@ -84264,6 +84306,7 @@
       "subsequentActions": [
         "GPT5m Worrier loses 4 life at combat from Emperor of Bones"
       ],
+      "actionSeq": 122,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -84310,6 +84353,7 @@
         176
       ],
       "subsequentActions": [],
+      "actionSeq": 125,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -84356,6 +84400,7 @@
         212
       ],
       "subsequentActions": [],
+      "actionSeq": 146,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -84446,6 +84491,7 @@
       "subsequentActions": [
         "GPT5m Worrier puts Scalding Tarn from hand onto the Battlefield"
       ],
+      "actionSeq": 133,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -84505,6 +84551,7 @@
         186
       ],
       "subsequentActions": [],
+      "actionSeq": 135,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -84581,6 +84628,7 @@
         189
       ],
       "subsequentActions": [],
+      "actionSeq": 135,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -84628,6 +84676,7 @@
         193
       ],
       "subsequentActions": [],
+      "actionSeq": 137,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -84694,6 +84743,7 @@
         197
       ],
       "subsequentActions": [],
+      "actionSeq": 140,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -84759,6 +84809,7 @@
         "GPT5m Worrier activates: search your library for an Island or Mountain card, put it onto the battlefield, then shuffle. from Scalding Tarn",
         "GPT5m Worrier searches their library (source: Scalding Tarn)"
       ],
+      "actionSeq": 141,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -84846,6 +84897,7 @@
         "GPT5m Worrier puts Sacred Foundry from library onto the Battlefield (source: Scalding Tarn)",
         "GPT5m Worrier's library is shuffled (source: Scalding Tarn)"
       ],
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -84882,6 +84934,7 @@
         211
       ],
       "subsequentActions": [],
+      "actionSeq": 152,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -84929,6 +84982,7 @@
         217
       ],
       "subsequentActions": [],
+      "actionSeq": 156,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -85018,6 +85072,7 @@
       "subsequentActions": [
         "DSV3 Proud casts Psychic Frog from hand"
       ],
+      "actionSeq": 159,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -85051,7 +85106,8 @@
       ],
       "subsequentActions": [
         "DSV3 Proud puts Psychic Frog from stack onto the Battlefield"
-      ]
+      ],
+      "actionSeq": 164
     },
     {
       "index": 56,
@@ -85102,6 +85158,7 @@
         229
       ],
       "subsequentActions": [],
+      "actionSeq": 166,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -85174,6 +85231,7 @@
       "subsequentActions": [
         "DSV3 Proud - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Solitude"
       ],
+      "actionSeq": 168,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -85229,6 +85287,7 @@
       "subsequentActions": [
         "DSV3 Proud moves Solitude from graveyard to the exile zone (source: Emperor of Bones)"
       ],
+      "actionSeq": 170,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -85286,6 +85345,7 @@
       "subsequentActions": [
         "DSV3 Proud attacks GPT5m Worrier with 1 creature"
       ],
+      "actionSeq": 173,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -85322,6 +85382,7 @@
         244
       ],
       "subsequentActions": [],
+      "actionSeq": 177,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -85378,6 +85439,7 @@
         247
       ],
       "subsequentActions": [],
+      "actionSeq": 177,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -85432,6 +85494,7 @@
         "GPT5m Worrier sacrificed Flooded Strand (source: Flooded Strand)",
         "GPT5m Worrier activates: search your library for a Plains or Island card, put it onto the battlefield, then shuffle. from Flooded Strand"
       ],
+      "actionSeq": 178,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -85487,6 +85550,7 @@
       "subsequentActions": [
         "GPT5m Worrier searches their library (source: Flooded Strand)"
       ],
+      "actionSeq": 183,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -85573,6 +85637,7 @@
         "GPT5m Worrier puts Plains from library onto the Battlefield (source: Flooded Strand)",
         "GPT5m Worrier's library is shuffled (source: Flooded Strand)"
       ],
+      "actionSeq": 185,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -85626,6 +85691,7 @@
         266
       ],
       "subsequentActions": [],
+      "actionSeq": 188,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -85673,6 +85739,7 @@
       "subsequentActions": [
         "Attacker: Emperor of Bones (4/4) unblocked"
       ],
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -85728,6 +85795,7 @@
       "subsequentActions": [
         "GPT5m Worrier loses 4 life at combat from Emperor of Bones"
       ],
+      "actionSeq": 191,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -85781,6 +85849,7 @@
         277
       ],
       "subsequentActions": [],
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -85834,6 +85903,7 @@
         282
       ],
       "subsequentActions": [],
+      "actionSeq": 196,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -85937,6 +86007,7 @@
         "GPT5m Worrier casts Phlage, Titan of Fire's Fury from hand",
         "GPT5m Worrier puts Phlage, Titan of Fire's Fury from stack onto the Battlefield"
       ],
+      "actionSeq": 198,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -86006,6 +86077,7 @@
         289
       ],
       "subsequentActions": [],
+      "actionSeq": 206,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -86101,6 +86173,7 @@
         "GPT5m Worrier - Ability triggers: Phlage, Titan of Fire's Fury - Whenever Phlage, Titan of Fire's Fury enters or attacks, it deals 3 damage to any target and you gain 3 life. - targeting DSV3 Proud",
         "GPT5m Worrier - Ability triggers: Phlage, Titan of Fire's Fury - When Phlage, Titan of Fire's Fury enters, sacrifice it unless it escaped."
       ],
+      "actionSeq": 208,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -86157,6 +86230,7 @@
       "subsequentActions": [
         "GPT5m Worrier sacrificed Phlage, Titan of Fire's Fury (source: Phlage, Titan of Fire's Fury)"
       ],
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -86213,6 +86287,7 @@
         "DSV3 Proud loses 3 life from Phlage, Titan of Fire's Fury",
         "GPT5m Worrier gains 3 life (source: Phlage, Titan of Fire's Fury)"
       ],
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -86302,6 +86377,7 @@
       "subsequentActions": [
         "GPT5m Worrier puts Flooded Strand from hand onto the Battlefield"
       ],
+      "actionSeq": 218,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -86342,6 +86418,7 @@
         312
       ],
       "subsequentActions": [],
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -86399,6 +86476,7 @@
         315
       ],
       "subsequentActions": [],
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -86455,6 +86533,7 @@
         "GPT5m Worrier activates: search your library for a Plains or Island card, put it onto the battlefield, then shuffle. from Flooded Strand",
         "GPT5m Worrier searches their library (source: Flooded Strand)"
       ],
+      "actionSeq": 221,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -86537,6 +86616,7 @@
         "GPT5m Worrier's library is shuffled (source: Flooded Strand)",
         "GPT5m Worrier - Ability triggers: Thundering Falls - When Thundering Falls enters, surveil 1."
       ],
+      "actionSeq": 228,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -86592,6 +86672,7 @@
       "subsequentActions": [
         "GPT5m Worrier surveils 1 (source: Thundering Falls)"
       ],
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -86650,6 +86731,7 @@
       "subsequentActions": [
         "GPT5m Worrier puts Quantum Riddler from library into their graveyard (source: Thundering Falls)"
       ],
+      "actionSeq": 235,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -86705,6 +86787,7 @@
       "subsequentActions": [
         "GPT5m Worrier skip attack"
       ],
+      "actionSeq": 238,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -86761,6 +86844,7 @@
         339
       ],
       "subsequentActions": [],
+      "actionSeq": 243,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -86786,7 +86870,8 @@
         342,
         343
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 245
     },
     {
       "index": 85,
@@ -86870,6 +86955,7 @@
       "subsequentActions": [
         "DSV3 Proud - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Quantum Riddler"
       ],
+      "actionSeq": 246,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -86953,6 +87039,7 @@
       "subsequentActions": [
         "DSV3 Proud moves Quantum Riddler from graveyard to the exile zone (source: Emperor of Bones)"
       ],
+      "actionSeq": 248,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -87002,6 +87089,7 @@
         354
       ],
       "subsequentActions": [],
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -87070,6 +87158,7 @@
       "subsequentActions": [
         "DSV3 Proud attacks GPT5m Worrier with 2 creatures"
       ],
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -87144,6 +87233,7 @@
         362
       ],
       "subsequentActions": [],
+      "actionSeq": 255,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -87196,7 +87286,8 @@
       "subsequentActions": [
         "Attacker: Emperor of Bones (4/4) unblocked",
         "Attacker: Psychic Frog (1/2) unblocked"
-      ]
+      ],
+      "actionSeq": 256
     },
     {
       "index": 91,
@@ -87239,7 +87330,8 @@
         "GPT5m Worrier loses 4 life at combat from Emperor of Bones",
         "GPT5m Worrier loses 1 life at combat from Psychic Frog",
         "DSV3 Proud - Ability triggers: Psychic Frog - Whenever Psychic Frog deals combat damage to a player or planeswalker, draw a card."
-      ]
+      ],
+      "actionSeq": 260
     },
     {
       "index": 92,
@@ -87313,6 +87405,7 @@
         374
       ],
       "subsequentActions": [],
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -87401,6 +87494,7 @@
         378
       ],
       "subsequentActions": [],
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -87500,6 +87594,7 @@
         383
       ],
       "subsequentActions": [],
+      "actionSeq": 270,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -87554,6 +87649,7 @@
         387
       ],
       "subsequentActions": [],
+      "actionSeq": 272,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -87600,6 +87696,7 @@
         393
       ],
       "subsequentActions": [],
+      "actionSeq": 273,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -87696,6 +87793,7 @@
       "subsequentActions": [
         "GPT5m Worrier puts Marsh Flats from hand onto the Battlefield"
       ],
+      "actionSeq": 275,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -87804,6 +87902,7 @@
         "GPT5m Worrier casts Phlage, Titan of Fire's Fury from hand",
         "GPT5m Worrier puts Phlage, Titan of Fire's Fury from stack onto the Battlefield"
       ],
+      "actionSeq": 277,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -87870,6 +87969,7 @@
         407
       ],
       "subsequentActions": [],
+      "actionSeq": 286,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -87963,6 +88063,7 @@
         "GPT5m Worrier - Ability triggers: Phlage, Titan of Fire's Fury - When Phlage, Titan of Fire's Fury enters, sacrifice it unless it escaped.",
         "GPT5m Worrier sacrificed Phlage, Titan of Fire's Fury (source: Phlage, Titan of Fire's Fury)"
       ],
+      "actionSeq": 288,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -88020,6 +88121,7 @@
         415
       ],
       "subsequentActions": [],
+      "actionSeq": 294,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -88076,6 +88178,7 @@
         419
       ],
       "subsequentActions": [],
+      "actionSeq": 296,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -88133,6 +88236,7 @@
         423
       ],
       "subsequentActions": [],
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -88175,6 +88279,7 @@
         "Psychic Frog died",
         "GPT5m Worrier skip attack"
       ],
+      "actionSeq": 300,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -88275,6 +88380,7 @@
       "subsequentActions": [
         "DSV3 Proud puts Polluted Delta from hand onto the Battlefield"
       ],
+      "actionSeq": 312,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -88390,6 +88496,7 @@
         "DSV3 Proud sacrificed Polluted Delta (source: Polluted Delta)",
         "DSV3 Proud activates: search your library for an Island or Swamp card, put it onto the battlefield, then shuffle. from Polluted Delta"
       ],
+      "actionSeq": 314,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -88471,6 +88578,7 @@
         446
       ],
       "subsequentActions": [],
+      "actionSeq": 319,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -88504,7 +88612,8 @@
       ],
       "subsequentActions": [
         "DSV3 Proud searches their library (source: Polluted Delta)"
-      ]
+      ],
+      "actionSeq": 320
     },
     {
       "index": 109,
@@ -88568,6 +88677,7 @@
         450
       ],
       "subsequentActions": [],
+      "actionSeq": 322,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -88608,6 +88718,7 @@
         "DSV3 Proud puts Steam Vents from library onto the Battlefield (source: Polluted Delta)",
         "DSV3 Proud's library is shuffled (source: Polluted Delta)"
       ],
+      "actionSeq": 323,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -88700,6 +88811,7 @@
         460
       ],
       "subsequentActions": [],
+      "actionSeq": 326,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -88806,6 +88918,7 @@
       "subsequentActions": [
         "DSV3 Proud - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Phlage, Titan of Fire's Fury"
       ],
+      "actionSeq": 328,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -88887,6 +89000,7 @@
       "subsequentActions": [
         "DSV3 Proud moves Phlage, Titan of Fire's Fury from graveyard to the exile zone (source: Emperor of Bones)"
       ],
+      "actionSeq": 330,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -88945,6 +89059,7 @@
         "DSV3 Proud attacks GPT5m Worrier with 1 creature",
         "Attacker: Emperor of Bones (4/4) unblocked"
       ],
+      "actionSeq": 333,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -89021,6 +89136,7 @@
       "subsequentActions": [
         "GPT5m Worrier loses 4 life at combat from Emperor of Bones"
       ],
+      "actionSeq": 339,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -89120,6 +89236,7 @@
       "subsequentActions": [
         "DSV3 Proud casts Faithless Looting using Flashback from graveyard from graveyard"
       ],
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -89163,6 +89280,7 @@
         488
       ],
       "subsequentActions": [],
+      "actionSeq": 349,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -89253,6 +89371,7 @@
         492
       ],
       "subsequentActions": [],
+      "actionSeq": 351,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -89341,6 +89460,7 @@
         "DSV3 Proud discards Gran-Gran (source: Faithless Looting)",
         "DSV3 Proud moves Faithless Looting from stack to the exile zone"
       ],
+      "actionSeq": 352,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -89374,6 +89494,7 @@
         502
       ],
       "subsequentActions": [],
+      "actionSeq": 356,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -89473,6 +89594,7 @@
         505
       ],
       "subsequentActions": [],
+      "actionSeq": 358,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -89530,6 +89652,7 @@
         "GPT5m Worrier casts Prismatic Ending targeting Emperor of Bones from hand",
         "GPT5m Worrier puts Prismatic Ending from stack into their graveyard"
       ],
+      "actionSeq": 360,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -89596,6 +89719,7 @@
         513
       ],
       "subsequentActions": [],
+      "actionSeq": 367,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -89691,6 +89815,7 @@
       "subsequentActions": [
         "GPT5m Worrier puts Arid Mesa from hand onto the Battlefield"
       ],
+      "actionSeq": 367,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -89756,6 +89881,7 @@
       "subsequentActions": [
         "GPT5m Worrier skip attack"
       ],
+      "actionSeq": 369,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -89826,6 +89952,7 @@
         522
       ],
       "subsequentActions": [],
+      "actionSeq": 372,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -89878,6 +90005,7 @@
         "GPT5m Worrier activates: search your library for a Plains or Swamp card, put it onto the battlefield, then shuffle. from Marsh Flats",
         "GPT5m Worrier has lost the game."
       ],
+      "actionSeq": 373,
       "pilotContext": {
         "untappedLands": 5
       }

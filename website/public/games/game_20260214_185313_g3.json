@@ -61141,7 +61141,7 @@
       "actionTaken": "Played Bloodstained Mire as land drop",
       "betterLine": "Play Scalding Tarn instead, keeping the option to fetch an Island at instant speed to enable Daze if the opponent tries something threatening this turn cycle.",
       "type": "blunder",
-      "snapshotIndex": 20,
+      "snapshotIndex": 21,
       "player": "Llama4 Coach"
     },
     {
@@ -61150,7 +61150,7 @@
       "actionTaken": "Cast Personal Tutor, tapping Underground Sea, despite already having Doomsday and Dark Ritual in hand.",
       "betterLine": "Cast Dark Ritual (tap Underground Sea for B, get BBB), then cast Doomsday with BBB, construct a winning pile with LED on board to crack for mana. The Doomsday pile could include cards to win immediately through LED mana generation.",
       "type": "blunder",
-      "snapshotIndex": 34,
+      "snapshotIndex": 35,
       "player": "Llama4 Coach"
     },
     {
@@ -61159,7 +61159,7 @@
       "actionTaken": "Attempted to cast Force of Will, apparently targeting their own Personal Tutor on the stack",
       "betterLine": "Let Personal Tutor resolve to tutor Doomsday to the top of library, then on a subsequent turn execute the Doomsday combo with Dark Ritual and Lion's Eye Diamond already in play. Alternatively, crack Scalding Tarn now for mana sequencing purposes.",
       "type": "blunder",
-      "snapshotIndex": 34,
+      "snapshotIndex": 35,
       "player": "Llama4 Coach"
     },
     {
@@ -61168,7 +61168,7 @@
       "actionTaken": "Cast Force of Will with alternative cost (exile Daze, pay 1 life) to counter opponent's Force of Will targeting Personal Tutor",
       "betterLine": "Let Personal Tutor get countered by opponent's Force of Will. Doomsday is already in hand, and keeping Daze available would provide protection when casting Doomsday via Dark Ritual on a future turn.",
       "type": "blunder",
-      "snapshotIndex": 35,
+      "snapshotIndex": 36,
       "player": "Llama4 Coach"
     },
     {
@@ -61177,7 +61177,7 @@
       "actionTaken": "Cast Dark Ritual during the Combat phase",
       "betterLine": "Pass through combat without casting anything, then in Main Phase 2: crack Scalding Tarn for Underground Sea, tap for B, cast Dark Ritual for BBB, cast Doomsday, then use LED + the Doomsday pile to win.",
       "type": "blunder",
-      "snapshotIndex": 39,
+      "snapshotIndex": 40,
       "player": "Llama4 Coach"
     },
     {
@@ -61186,7 +61186,7 @@
       "actionTaken": "Chose to cast Doomsday before cracking Scalding Tarn for mana",
       "betterLine": "Activate Scalding Tarn first to fetch a Swamp, tap it for B, cast Dark Ritual to get BBB, then cast Doomsday",
       "type": "blunder",
-      "snapshotIndex": 42,
+      "snapshotIndex": 43,
       "player": "Llama4 Coach"
     },
     {
@@ -61195,7 +61195,7 @@
       "actionTaken": "Chose Unearth, which has no valid targets in the graveyard",
       "betterLine": "Activate Scalding Tarn to fetch a black-producing land, then sequence Dark Ritual into Doomsday with LED on board to set up a winning Doomsday pile",
       "type": "blunder",
-      "snapshotIndex": 42,
+      "snapshotIndex": 43,
       "player": "Llama4 Coach"
     },
     {
@@ -61204,7 +61204,7 @@
       "actionTaken": "Player appeared confused about game state and may not have recognized the Doomsday combo line available (Dark Ritual → Doomsday with LED + Unearth)",
       "betterLine": "Cast Dark Ritual (getting BBB), then cast Doomsday, construct a winning pile using LED + Unearth to execute the combo kill",
       "type": "blunder",
-      "snapshotIndex": 45,
+      "snapshotIndex": 46,
       "player": "Llama4 Coach"
     },
     {
@@ -61213,7 +61213,7 @@
       "actionTaken": "Cast Dark Ritual during the combat phase, where the mana cannot be used for Doomsday (a sorcery).",
       "betterLine": "Pass through combat without casting anything, then cast Dark Ritual during Main Phase 2 immediately before casting Doomsday.",
       "type": "blunder",
-      "snapshotIndex": 51,
+      "snapshotIndex": 52,
       "player": "Llama4 Coach"
     },
     {
@@ -61222,7 +61222,7 @@
       "actionTaken": "Cast Doomsday, presumably cracking LED to help pay, going to ~8 life with an empty hand",
       "betterLine": "Waiting a turn to develop more mana could allow casting Doomsday with mana left over to immediately draw into the pile (e.g., with a cantrip), rather than passing the turn with an empty hand at 8 life against an opponent who could develop their board.",
       "type": "blunder",
-      "snapshotIndex": 53,
+      "snapshotIndex": 54,
       "player": "Llama4 Coach"
     },
     {
@@ -61231,7 +61231,7 @@
       "actionTaken": "Passed the turn without activating any abilities, despite having the combo pieces assembled.",
       "betterLine": "Activate Thespian's Stage ({2}, {T}: copy Dark Depths) using Ancient Tomb for mana. The copied Dark Depths enters with no ice counters, triggers its sacrifice ability, and creates Marit Lage - a 20/20 flying indestructible creature that attacks for lethal next turn (opponent at 17 life with no Karakas to bounce it).",
       "type": "blunder",
-      "snapshotIndex": 58,
+      "snapshotIndex": 59,
       "player": "MiMo Spike"
     },
     {
@@ -61240,7 +61240,7 @@
       "actionTaken": "Selected Doomsday as one of the 5 cards for the Doomsday pile, apparently planning a pile without Thassa's Oracle.",
       "betterLine": "The correct Doomsday pile with LED in play and Unearth in hand should include Thassa's Oracle as the win condition. A strong pile would be: Street Wraith (or Consider) on top, then Thassa's Oracle, then filler. With Unearth in hand and LED on board: crack LED for UUU discarding Unearth, cycle Street Wraith (pay 2 life) to draw into pile, cast Thassa's Oracle with UU, win with devotion >= library size.",
       "type": "blunder",
-      "snapshotIndex": 66,
+      "snapshotIndex": 67,
       "player": "Llama4 Coach"
     },
     {
@@ -61249,7 +61249,7 @@
       "actionTaken": "Put Doomsday on the bottom of the 5-card pile while reasoning about nonexistent cards like Brainstorm and Ponder.",
       "betterLine": "The pile ordering should prioritize Edge of Autumn on top (to cycle via land sacrifice into further draws), but more fundamentally, the 5 cards chosen for the Doomsday pile needed to include an actual win condition.",
       "type": "blunder",
-      "snapshotIndex": 66,
+      "snapshotIndex": 67,
       "player": "Llama4 Coach"
     },
     {
@@ -61258,7 +61258,7 @@
       "actionTaken": "Cast the second Doomsday from hand at 8 life with all lands tapped",
       "betterLine": "Do not cast the second Doomsday. Instead, pass the turn or activate Lion's Eye Diamond for mana and cast Unearth if there's a relevant creature in the graveyard. At minimum, saving the 4 life is critical when facing a 20/20 flying indestructible threat next turn.",
       "type": "blunder",
-      "snapshotIndex": 68,
+      "snapshotIndex": 69,
       "player": "Llama4 Coach"
     },
     {
@@ -61267,7 +61267,7 @@
       "actionTaken": "Passed priority without activating Thespian's Stage, missing the combo kill.",
       "betterLine": "Tap Ancient Tomb for {C}{C}, then activate Thespian's Stage targeting Dark Depths. Stage becomes a copy of Dark Depths with no ice counters, triggering the sacrifice to create Marit Lage (20/20 flying indestructible). Attack next turn for lethal against the opponent at 8 life with no apparent way to interact.",
       "type": "blunder",
-      "snapshotIndex": 74,
+      "snapshotIndex": 75,
       "player": "MiMo Spike"
     },
     {
@@ -61276,7 +61276,7 @@
       "actionTaken": "Activated Dark Depths to remove 1 ice counter for {3}",
       "betterLine": "Tap Ancient Tomb for {C}{C}, activate Thespian's Stage ({2}, {T}: become a copy of Dark Depths) to immediately create Marit Lage, a 20/20 flying indestructible token, winning the game next attack step.",
       "type": "blunder",
-      "snapshotIndex": 75,
+      "snapshotIndex": 76,
       "player": "MiMo Spike"
     },
     {
@@ -61285,7 +61285,7 @@
       "actionTaken": "Put Doomsday as the bottom card of the pile while reasoning about cards (Brainstorm, Ponder) that don't exist in the available options.",
       "betterLine": "The pile should be constructed to maximize draw potential: likely Flooded Strand on bottom, then Doomsday, then Swamp, then Cabal Ritual, then Edge of Autumn on top (to cycle by sacrificing a land, drawing into Cabal Ritual, then use LED + Unearth if there's a creature in the pile). Without a win condition in the pile, the game may already be lost.",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "Llama4 Coach"
     },
     {
@@ -61348,7 +61348,8 @@
         "MiMo Spike draws seven cards",
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -61384,7 +61385,8 @@
         "MiMo Spike draws seven cards",
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -61413,7 +61415,8 @@
         "MiMo Spike draws seven cards",
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -61483,6 +61486,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -61534,6 +61538,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -61582,6 +61587,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -61614,6 +61620,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -61810,6 +61817,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -61875,6 +61883,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -61936,6 +61945,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -61986,6 +61996,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -62038,6 +62049,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -62089,6 +62101,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -62138,6 +62151,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -62187,6 +62201,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -62248,6 +62263,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -62289,6 +62305,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -62337,6 +62354,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -62382,6 +62400,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -62445,6 +62464,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -62511,6 +62531,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -62577,6 +62598,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -62635,6 +62657,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -62679,6 +62702,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -62743,6 +62767,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -62847,6 +62872,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -62918,6 +62944,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -62996,6 +63023,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -63074,6 +63102,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63123,6 +63152,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63170,6 +63200,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63234,6 +63265,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63298,6 +63330,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -63355,6 +63388,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -63418,6 +63452,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63468,6 +63503,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63525,6 +63561,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63567,6 +63604,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       },
@@ -63632,6 +63670,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -63672,6 +63711,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63713,6 +63753,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63753,6 +63794,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63802,6 +63844,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -63852,6 +63895,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -63895,6 +63939,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -63926,6 +63971,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -63981,6 +64027,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -64029,6 +64076,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -64070,6 +64118,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -64131,6 +64180,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -64178,6 +64228,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -64226,6 +64277,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -64297,6 +64349,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -64352,6 +64405,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -64398,6 +64452,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -64480,6 +64535,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -64546,6 +64602,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -64587,6 +64644,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -64634,6 +64692,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -64701,6 +64760,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -64772,6 +64832,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -64814,6 +64875,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -64873,6 +64935,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -64913,6 +64976,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -64954,6 +65018,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -65306,6 +65371,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -65377,6 +65443,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -65431,6 +65498,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -65471,6 +65539,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       },
@@ -65511,7 +65580,8 @@
         "MiMo Spike draws seven cards",
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 70,
@@ -65598,6 +65668,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -65673,6 +65744,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -65713,6 +65785,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -65753,6 +65826,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -65791,6 +65865,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -65863,6 +65938,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -65924,6 +66000,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -65981,6 +66058,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -66021,6 +66099,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -66081,6 +66160,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -66135,6 +66215,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -66176,6 +66257,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -66225,6 +66307,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -66295,6 +66378,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -66342,6 +66426,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -66374,6 +66459,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -66413,6 +66499,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -66444,7 +66531,8 @@
         "MiMo Spike draws seven cards",
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 88,
@@ -66480,7 +66568,8 @@
         "MiMo Spike draws seven cards",
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 89,
@@ -66510,6 +66599,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -66549,6 +66639,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       },
@@ -66602,6 +66693,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -66678,6 +66770,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       },
@@ -66719,7 +66812,8 @@
         "MiMo Spike draws seven cards",
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 94,
@@ -66772,6 +66866,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -66819,6 +66914,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -66887,6 +66983,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -66934,6 +67031,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -66981,6 +67079,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -67029,6 +67128,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -67074,6 +67174,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -67161,6 +67262,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -67215,6 +67317,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -67273,6 +67376,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -67320,6 +67424,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -67360,6 +67465,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -67409,6 +67515,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -67458,6 +67565,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -67505,6 +67613,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -67558,6 +67667,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -67606,6 +67716,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -67684,6 +67795,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -193735,6 +193847,7 @@
         "Llama4 Coach chooses that they take the first turn",
         "Llama4 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }

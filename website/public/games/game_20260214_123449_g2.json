@@ -25057,7 +25057,7 @@
       "actionTaken": "Cast Hired Claw (1/2 Lizard Mercenary) on turn 1.",
       "betterLine": "Cast Burnout Bashtronaut, whose menace makes it unblockable by the single Otter token, allowing guaranteed damage to start the speed engine and potentially enabling Hired Claw's pump ability on the following turn.",
       "type": "blunder",
-      "snapshotIndex": 11,
+      "snapshotIndex": 12,
       "player": "Gem25P Libby"
     },
     {
@@ -25066,7 +25066,7 @@
       "actionTaken": "Chose to play two Burnout Bashtronauts (1/1 menace each) for the turn.",
       "betterLine": "Cast Razorkin Needlehead (RR) to get a 2/2 first-striker that punishes the opponent's card draws, which is far more impactful against a Stormchaser's Talent deck.",
       "type": "blunder",
-      "snapshotIndex": 27,
+      "snapshotIndex": 28,
       "player": "Gem25P Libby"
     },
     {
@@ -25075,7 +25075,7 @@
       "actionTaken": "Cast a second Burnout Bashtronaut instead of Hired Claw",
       "betterLine": "Cast Hired Claw, then attack with the first Burnout Bashtronaut into the tapped Otter Token to start applying pressure and potentially increase speed.",
       "type": "blunder",
-      "snapshotIndex": 29,
+      "snapshotIndex": 30,
       "player": "Gem25P Libby"
     },
     {
@@ -25084,7 +25084,7 @@
       "actionTaken": "Cast Razorkin Needlehead (2/2 with first strike on your turn, punishes opponent card draws)",
       "betterLine": "Cast Tersa Lightshatter for 2R — it has haste allowing an immediate 3-damage attack, a 3/3 body that's harder to remove, and an ETB that filters your hand (potentially discarding lands or weak cards to find action). This pressures the opponent more immediately and builds toward Tersa's graveyard exile attack trigger.",
       "type": "blunder",
-      "snapshotIndex": 43,
+      "snapshotIndex": 44,
       "player": "Gem25P Libby"
     },
     {
@@ -25093,7 +25093,7 @@
       "actionTaken": "Cast Tersa Lightshatter in precombat main phase",
       "betterLine": "Attack first with Hired Claw and Razorkin Needlehead (opponent has no blockers), then cast Tersa Lightshatter (or Hexing Squelcher) in second main phase. This avoids giving the opponent information before blocks and ensures combat damage triggers happen regardless of what you draw off Tersa.",
       "type": "blunder",
-      "snapshotIndex": 59,
+      "snapshotIndex": 60,
       "player": "Gem25P Libby"
     }
   ],
@@ -25148,7 +25148,8 @@
         "GLM47 Gramps draws seven cards",
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -25184,7 +25185,8 @@
         "GLM47 Gramps draws seven cards",
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -25234,6 +25236,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -25272,7 +25275,8 @@
         "GLM47 Gramps draws seven cards",
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -25318,6 +25322,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -25358,6 +25363,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -25410,6 +25416,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -25490,6 +25497,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -25553,6 +25561,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -25593,6 +25602,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -25651,6 +25661,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -25691,6 +25702,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -25730,6 +25742,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -25776,6 +25789,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -25836,6 +25850,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -25875,6 +25890,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -25935,6 +25951,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -26012,6 +26029,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -26103,6 +26121,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -26143,6 +26162,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -26204,6 +26224,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -26286,6 +26307,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -26326,6 +26348,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -26393,6 +26416,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -26433,6 +26457,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -26493,6 +26518,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -26544,6 +26570,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -26628,6 +26655,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -26710,6 +26738,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -26761,6 +26790,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -26812,6 +26842,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -26889,6 +26920,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -26949,6 +26981,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -27012,6 +27045,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -27091,6 +27125,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -27144,6 +27179,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -27190,6 +27226,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -27265,6 +27302,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -27311,6 +27349,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -27348,6 +27387,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -27397,6 +27437,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -27436,6 +27477,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -27506,6 +27548,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -27545,6 +27588,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -27601,6 +27645,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -27653,6 +27698,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -27737,6 +27783,7 @@
         "Gem25P Libby draws seven cards",
         "GLM47 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }

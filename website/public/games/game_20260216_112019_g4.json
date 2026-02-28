@@ -32852,7 +32852,7 @@
       "actionTaken": "Cast Emberheart Challenger in precombat main phase",
       "betterLine": "Plot Slickshot Show-Off instead, saving the Emberheart Challengers for a more explosive future turn with the free Slickshot cast and Might of the Meek triggers",
       "type": "blunder",
-      "snapshotIndex": 15,
+      "snapshotIndex": 16,
       "player": "Qwen3 Heckler"
     },
     {
@@ -32861,7 +32861,7 @@
       "actionTaken": "Chose not to attack with Llanowar Elves despite the opponent having no untapped blockers.",
       "betterLine": "Attack with Llanowar Elves for 1 free damage, then use second main phase to play land and cast spells if mana from Elves is needed.",
       "type": "blunder",
-      "snapshotIndex": 25,
+      "snapshotIndex": 26,
       "player": "Gem3P Sport"
     },
     {
@@ -32870,7 +32870,7 @@
       "actionTaken": "Cast a second Emberheart Challenger in precombat main phase",
       "betterLine": "Cast Slickshot Show-Off (which has haste and flying) pre-combat, attack with both Slickshot and the existing Emberheart Challenger, then cast Might of the Meek during combat targeting one of them to maximize prowess/pump triggers and evasive damage.",
       "type": "blunder",
-      "snapshotIndex": 29,
+      "snapshotIndex": 30,
       "player": "Qwen3 Heckler"
     },
     {
@@ -32879,7 +32879,7 @@
       "actionTaken": "Attacked with only 1 creature (likely Sazh's Chocobo or Llanowar Elves alone)",
       "betterLine": "Attack with both Llanowar Elves and Sazh's Chocobo since the opponent has no untapped creatures to block, dealing maximum free damage.",
       "type": "blunder",
-      "snapshotIndex": 38,
+      "snapshotIndex": 39,
       "player": "Gem3P Sport"
     },
     {
@@ -32888,7 +32888,7 @@
       "actionTaken": "Activated Ba Sing Se's Earthbend 2 ability for {2}{G}, turning a land into a 2/2 creature.",
       "betterLine": "Tap Ba Sing Se for {G} mana instead, saving resources. Focus on playing a Forest from hand to trigger Sazh's Chocobo's landfall, and set up to cast Felidar Retreat next turn for sustained value generation.",
       "type": "blunder",
-      "snapshotIndex": 42,
+      "snapshotIndex": 43,
       "player": "Gem3P Sport"
     },
     {
@@ -32897,7 +32897,7 @@
       "actionTaken": "Cast Slickshot Show-Off during precombat main phase",
       "betterLine": "Play Mountain first (land drop), then cast Slickshot Show-Off. The land should be played before spending mana. Additionally, plotting Slickshot for {1}{R} to cast it free next turn could be considered, preserving mana for Might of the Meek this combat, though casting it now with haste for immediate pressure is defensible.",
       "type": "blunder",
-      "snapshotIndex": 45,
+      "snapshotIndex": 46,
       "player": "Qwen3 Heckler"
     },
     {
@@ -32906,7 +32906,7 @@
       "actionTaken": "Cast Might of the Meek before Slickshot Show-Off resolved",
       "betterLine": "Let Slickshot Show-Off resolve first, then cast Might of the Meek during combat to trigger Slickshot's +2/+0, both Emberheart Challengers' prowess, and potentially Valiant",
       "type": "blunder",
-      "snapshotIndex": 45,
+      "snapshotIndex": 46,
       "player": "Qwen3 Heckler"
     }
   ],
@@ -32962,7 +32962,8 @@
         "Qwen3 Heckler draws seven cards",
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -32999,7 +33000,8 @@
         "Qwen3 Heckler draws seven cards",
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -33033,7 +33035,8 @@
         "Qwen3 Heckler draws seven cards",
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -33113,7 +33116,8 @@
         "Qwen3 Heckler draws seven cards",
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -33150,7 +33154,8 @@
         "Qwen3 Heckler draws seven cards",
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -33207,6 +33212,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -33247,6 +33253,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -33286,7 +33293,8 @@
         "Qwen3 Heckler draws seven cards",
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 8,
@@ -33321,6 +33329,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -33385,6 +33394,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -33461,6 +33471,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -33502,6 +33513,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -33542,6 +33554,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -33602,6 +33615,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -33641,7 +33655,8 @@
         "Qwen3 Heckler draws seven cards",
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 15,
@@ -33678,7 +33693,8 @@
         "Qwen3 Heckler draws seven cards",
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 16,
@@ -33715,7 +33731,8 @@
         "Qwen3 Heckler draws seven cards",
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 17,
@@ -33750,6 +33767,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -33815,6 +33833,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -33856,6 +33875,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -33897,6 +33917,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -33953,6 +33974,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -33994,6 +34016,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -34031,6 +34054,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -34107,6 +34131,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -34156,6 +34181,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -34224,6 +34250,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -34278,6 +34305,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34318,6 +34346,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34358,6 +34387,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34398,6 +34428,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34438,6 +34469,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34478,6 +34510,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34546,6 +34579,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -34582,7 +34616,8 @@
         "Qwen3 Heckler draws seven cards",
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 35,
@@ -34620,6 +34655,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -34660,6 +34696,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -34759,6 +34796,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -34828,6 +34866,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -34869,6 +34908,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -34909,6 +34949,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -34949,6 +34990,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -35014,6 +35056,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -35055,6 +35098,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -35115,6 +35159,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -35165,6 +35210,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -35225,6 +35271,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -35273,6 +35320,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -35350,6 +35398,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -35400,6 +35449,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -35458,6 +35508,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -35535,6 +35586,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -35595,6 +35647,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35636,6 +35689,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35677,6 +35731,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35718,6 +35773,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35759,6 +35815,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35800,6 +35857,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35841,6 +35899,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35918,6 +35977,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -35956,6 +36016,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -35996,6 +36057,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -36036,6 +36098,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -36076,6 +36139,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -36113,6 +36177,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -36154,6 +36219,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -36240,6 +36306,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -36309,6 +36376,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36359,6 +36427,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36400,6 +36469,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -36441,6 +36511,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -36482,6 +36553,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -36519,6 +36591,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -36586,6 +36659,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -36652,6 +36726,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -36718,6 +36793,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36778,6 +36854,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36832,6 +36909,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36883,6 +36961,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36934,6 +37013,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36985,6 +37065,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -37036,6 +37117,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -37087,6 +37169,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -37138,6 +37221,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -37215,6 +37299,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -37253,6 +37338,7 @@
         "Qwen3 Heckler decides to take mulligan",
         "Gem3P Sport keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }

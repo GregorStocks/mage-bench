@@ -116421,7 +116421,8 @@
       ],
       "subsequentActions": [
         "Grk41F Heckler chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 5
     },
     {
       "index": 1,
@@ -116450,7 +116451,8 @@
         8,
         11
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -116485,7 +116487,8 @@
       "subsequentActions": [
         "Grk41F Heckler skips Draw step",
         "Grk41F Heckler skip attack"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 3,
@@ -116539,6 +116542,7 @@
       "subsequentActions": [
         "Grk41F Heckler puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -116576,6 +116580,7 @@
         29
       ],
       "subsequentActions": [],
+      "actionSeq": 20,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -116633,6 +116638,7 @@
       "subsequentActions": [
         "Opus Sport puts Island from hand onto the Battlefield"
       ],
+      "actionSeq": 22,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -116685,6 +116691,7 @@
         "Opus Sport puts Aether Spellbomb from stack onto the Battlefield",
         "Opus Sport skip attack"
       ],
+      "actionSeq": 26,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -116739,6 +116746,7 @@
       "subsequentActions": [
         "Grk41F Heckler puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 40,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -116796,6 +116804,7 @@
       "subsequentActions": [
         "Grk41F Heckler skip attack"
       ],
+      "actionSeq": 44,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -116836,6 +116845,7 @@
         42
       ],
       "subsequentActions": [],
+      "actionSeq": 48,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -116883,6 +116893,7 @@
         53
       ],
       "subsequentActions": [],
+      "actionSeq": 50,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -116947,6 +116958,7 @@
       "subsequentActions": [
         "Opus Sport puts Mountain from hand onto the Battlefield"
       ],
+      "actionSeq": 52,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -117009,6 +117021,7 @@
         "Opus Sport casts Fanatical Firebrand from hand",
         "Opus Sport puts Fanatical Firebrand from stack onto the Battlefield"
       ],
+      "actionSeq": 56,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -117072,6 +117085,7 @@
         "Attacker: Fanatical Firebrand (1/1) unblocked",
         "Grk41F Heckler loses 1 life at combat from Fanatical Firebrand"
       ],
+      "actionSeq": 65,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -117104,6 +117118,7 @@
         63
       ],
       "subsequentActions": [],
+      "actionSeq": 79,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -117171,6 +117186,7 @@
       "subsequentActions": [
         "Grk41F Heckler puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 81,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -117248,6 +117264,7 @@
       "subsequentActions": [
         "Grk41F Heckler casts Skyhunter Prowler from hand"
       ],
+      "actionSeq": 85,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -117293,6 +117310,7 @@
         "Grk41F Heckler puts Skyhunter Prowler from stack onto the Battlefield",
         "Grk41F Heckler skip attack"
       ],
+      "actionSeq": 90,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -117369,6 +117387,7 @@
       "subsequentActions": [
         "Opus Sport puts Mountain from hand onto the Battlefield"
       ],
+      "actionSeq": 101,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -117453,6 +117472,7 @@
       "subsequentActions": [
         "Opus Sport casts Thirst for Knowledge from hand"
       ],
+      "actionSeq": 105,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -117495,6 +117515,7 @@
       "subsequentActions": [
         "Opus Sport did not pay for Thirst for Knowledge - Discard an artifact card instead of discarding two cards?"
       ],
+      "actionSeq": 112,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -117577,6 +117598,7 @@
         "Opus Sport discards Mountain (source: Thirst for Knowledge)",
         "Opus Sport puts Thirst for Knowledge from stack into their graveyard"
       ],
+      "actionSeq": 114,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -117634,6 +117656,7 @@
       "subsequentActions": [
         "Opus Sport attacks Grk41F Heckler with 1 creature"
       ],
+      "actionSeq": 121,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -117689,6 +117712,7 @@
       "subsequentActions": [
         "Attacker: Fanatical Firebrand (1/1) blocked by Skyhunter Prowler (1/3)"
       ],
+      "actionSeq": 127,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -117735,7 +117759,8 @@
         "Skyhunter Prowler deals 1 damage to Fanatical Firebrand",
         "Fanatical Firebrand deals 1 damage to Skyhunter Prowler",
         "Fanatical Firebrand died"
-      ]
+      ],
+      "actionSeq": 132
     },
     {
       "index": 25,
@@ -117767,7 +117792,8 @@
         109,
         110
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 138
     },
     {
       "index": 26,
@@ -117799,7 +117825,8 @@
         113,
         114
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 140
     },
     {
       "index": 27,
@@ -117854,6 +117881,7 @@
       "subsequentActions": [
         "Grk41F Heckler attacks Opus Sport with 1 creature"
       ],
+      "actionSeq": 143,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -117893,6 +117921,7 @@
         "Attacker: Skyhunter Prowler (1/3) unblocked",
         "Opus Sport loses 1 life at combat from Skyhunter Prowler"
       ],
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -117928,6 +117957,7 @@
         130
       ],
       "subsequentActions": [],
+      "actionSeq": 156,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -117998,6 +118028,7 @@
         137
       ],
       "subsequentActions": [],
+      "actionSeq": 160,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -118042,6 +118073,7 @@
       "subsequentActions": [
         "Opus Sport skip attack"
       ],
+      "actionSeq": 161,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -118088,6 +118120,7 @@
         144
       ],
       "subsequentActions": [],
+      "actionSeq": 165,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -118163,6 +118196,7 @@
       "subsequentActions": [
         "Opus Sport puts Island from hand onto the Battlefield"
       ],
+      "actionSeq": 167,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -118229,6 +118263,7 @@
         "Opus Sport puts Ardoz, Cobbler of War from stack onto the Battlefield",
         "Opus Sport - Ability triggers: Ardoz, Cobbler of War - Whenever Ardoz, Cobbler of War or another creature you control enters, that creature gets +2/+0 until end of turn."
       ],
+      "actionSeq": 170,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -118286,6 +118321,7 @@
         158
       ],
       "subsequentActions": [],
+      "actionSeq": 178,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -118340,6 +118376,7 @@
         163
       ],
       "subsequentActions": [],
+      "actionSeq": 180,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -118417,6 +118454,7 @@
       "subsequentActions": [
         "Grk41F Heckler puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 182,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -118486,6 +118524,7 @@
       "subsequentActions": [
         "Grk41F Heckler casts Tempered Veteran from hand"
       ],
+      "actionSeq": 186,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -118529,6 +118568,7 @@
       "subsequentActions": [
         "Grk41F Heckler puts Tempered Veteran from stack onto the Battlefield"
       ],
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -118587,6 +118627,7 @@
       "subsequentActions": [
         "Grk41F Heckler attacks Opus Sport with 1 creature"
       ],
+      "actionSeq": 195,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -118623,6 +118664,7 @@
         186
       ],
       "subsequentActions": [],
+      "actionSeq": 199,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -118684,6 +118726,7 @@
         "Attacker: Skyhunter Prowler (1/3) unblocked",
         "Opus Sport loses 1 life at combat from Skyhunter Prowler"
       ],
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "blockers",
@@ -118748,6 +118791,7 @@
       "subsequentActions": [
         "Grk41F Heckler casts Basri's Solidarity from hand"
       ],
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -118792,6 +118836,7 @@
         "Basri's Solidarity: Grk41F Heckler puts 1 +1/+1 counter on Tempered Veteran",
         "Grk41F Heckler puts Basri's Solidarity from stack into their graveyard"
       ],
+      "actionSeq": 215,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -118824,6 +118869,7 @@
         201
       ],
       "subsequentActions": [],
+      "actionSeq": 220,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -118900,6 +118946,7 @@
       "subsequentActions": [
         "Opus Sport puts Mountain from hand onto the Battlefield"
       ],
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -118968,6 +119015,7 @@
         208
       ],
       "subsequentActions": [],
+      "actionSeq": 226,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -119034,6 +119082,7 @@
         212
       ],
       "subsequentActions": [],
+      "actionSeq": 227,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -119085,6 +119134,7 @@
         "Opus Sport puts Fiery Conclusion from stack into their graveyard",
         "Skyhunter Prowler died"
       ],
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -119134,6 +119184,7 @@
       "subsequentActions": [
         "Opus Sport skip attack"
       ],
+      "actionSeq": 238,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -119178,6 +119229,7 @@
         227
       ],
       "subsequentActions": [],
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -119246,6 +119298,7 @@
         230
       ],
       "subsequentActions": [],
+      "actionSeq": 246,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -119296,6 +119349,7 @@
         234
       ],
       "subsequentActions": [],
+      "actionSeq": 247,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -119352,6 +119406,7 @@
         "Thriving Heath: Grk41F Heckler has chosen Red",
         "Grk41F Heckler puts Thriving Heath from hand onto the Battlefield"
       ],
+      "actionSeq": 248,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -119416,6 +119471,7 @@
       "subsequentActions": [
         "Grk41F Heckler casts Trusty Retriever from hand"
       ],
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -119458,6 +119514,7 @@
       "subsequentActions": [
         "Grk41F Heckler puts Trusty Retriever from stack onto the Battlefield"
       ],
+      "actionSeq": 259,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -119504,6 +119561,7 @@
       "subsequentActions": [
         "Grk41F Heckler - Ability triggers: Trusty Retriever - When Trusty Retriever enters, choose one — &bull Put a +1/+1 counter on Trusty Retriever. &bull Return target artifact or enchantment card from your graveyard to your hand."
       ],
+      "actionSeq": 262,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -119539,6 +119597,7 @@
         256
       ],
       "subsequentActions": [],
+      "actionSeq": 264,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -119576,6 +119635,7 @@
       "subsequentActions": [
         "Grk41F Heckler skip attack"
       ],
+      "actionSeq": 266,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -119608,6 +119668,7 @@
         271
       ],
       "subsequentActions": [],
+      "actionSeq": 273,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -119671,6 +119732,7 @@
       "subsequentActions": [
         "Opus Sport puts Buried Ruin from hand onto the Battlefield"
       ],
+      "actionSeq": 275,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -119752,6 +119814,7 @@
         "Opus Sport casts Markov Warlord from hand",
         "Opus Sport puts Markov Warlord from stack onto the Battlefield"
       ],
+      "actionSeq": 279,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -119819,6 +119882,7 @@
         280
       ],
       "subsequentActions": [],
+      "actionSeq": 290,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -119874,6 +119938,7 @@
       "subsequentActions": [
         "Opus Sport - Ability triggers: Markov Warlord - When Markov Warlord enters, up to two target creatures can't block this turn. - targeting Tempered Veteran Trusty Retriever"
       ],
+      "actionSeq": 291,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -119931,6 +119996,7 @@
       "subsequentActions": [
         "Opus Sport attacks Grk41F Heckler with 1 creature"
       ],
+      "actionSeq": 297,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -119985,6 +120051,7 @@
       "subsequentActions": [
         "Attacker: Markov Warlord (4/4) unblocked"
       ],
+      "actionSeq": 303,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -120029,7 +120096,8 @@
       ],
       "subsequentActions": [
         "Grk41F Heckler loses 4 life at combat from Markov Warlord"
-      ]
+      ],
+      "actionSeq": 307
     },
     {
       "index": 68,
@@ -120059,6 +120127,7 @@
         303
       ],
       "subsequentActions": [],
+      "actionSeq": 312,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -120095,7 +120164,8 @@
       ],
       "subsequentActions": [
         "Grk41F Heckler skip attack"
-      ]
+      ],
+      "actionSeq": 313
     },
     {
       "index": 70,
@@ -120117,7 +120187,8 @@
         314,
         315
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 320
     },
     {
       "index": 71,
@@ -120182,6 +120253,7 @@
         318
       ],
       "subsequentActions": [],
+      "actionSeq": 322,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -120234,6 +120306,7 @@
       "subsequentActions": [
         "Grk41F Heckler casts Patron of the Valiant from hand"
       ],
+      "actionSeq": 328,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -120273,6 +120346,7 @@
         "Grk41F Heckler puts Patron of the Valiant from stack onto the Battlefield",
         "Grk41F Heckler - Ability triggers: Patron of the Valiant - When Patron of the Valiant enters, put a +1/+1 counter on each creature you control with a +1/+1 counter on it."
       ],
+      "actionSeq": 331,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -120311,6 +120385,7 @@
         "Patron of the Valiant: Grk41F Heckler puts 1 +1/+1 counter on Tempered Veteran",
         "Patron of the Valiant: Grk41F Heckler puts 1 +1/+1 counter on Trusty Retriever"
       ],
+      "actionSeq": 335,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -120383,6 +120458,7 @@
       "subsequentActions": [
         "Opus Sport puts Island from hand onto the Battlefield"
       ],
+      "actionSeq": 341,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -120469,6 +120545,7 @@
         340
       ],
       "subsequentActions": [],
+      "actionSeq": 345,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -120544,6 +120621,7 @@
         344
       ],
       "subsequentActions": [],
+      "actionSeq": 347,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -120616,6 +120694,7 @@
         350
       ],
       "subsequentActions": [],
+      "actionSeq": 349,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -120669,6 +120748,7 @@
       "subsequentActions": [
         "Opus Sport skip attack"
       ],
+      "actionSeq": 355,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -120725,6 +120805,7 @@
         358
       ],
       "subsequentActions": [],
+      "actionSeq": 358,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -120795,6 +120876,7 @@
         362
       ],
       "subsequentActions": [],
+      "actionSeq": 360,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -120867,6 +120949,7 @@
       "subsequentActions": [
         "Grk41F Heckler puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 364,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -120944,6 +121027,7 @@
       "subsequentActions": [
         "Grk41F Heckler casts Shining Armor from hand"
       ],
+      "actionSeq": 368,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -120995,6 +121079,7 @@
         378
       ],
       "subsequentActions": [],
+      "actionSeq": 372,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -121052,6 +121137,7 @@
         "Grk41F Heckler puts Shining Armor from stack onto the Battlefield",
         "Grk41F Heckler - Ability triggers: Shining Armor - When Shining Armor enters, attach it to target Knight you control. - targeting Tempered Veteran"
       ],
+      "actionSeq": 373,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -121097,6 +121183,7 @@
         384
       ],
       "subsequentActions": [],
+      "actionSeq": 376,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -121150,6 +121237,7 @@
         389
       ],
       "subsequentActions": [],
+      "actionSeq": 379,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -121225,6 +121313,7 @@
       "subsequentActions": [
         "Grk41F Heckler attacks Opus Sport with 2 creatures"
       ],
+      "actionSeq": 380,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -121268,6 +121357,7 @@
         399
       ],
       "subsequentActions": [],
+      "actionSeq": 385,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -121331,6 +121421,7 @@
         "Attacker: Patron of the Valiant (4/4) unblocked",
         "Attacker: Trusty Retriever (4/5) unblocked"
       ],
+      "actionSeq": 387,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "blockers",
@@ -121394,6 +121485,7 @@
         "Opus Sport loses 4 life at combat from Patron of the Valiant",
         "Opus Sport loses 4 life at combat from Trusty Retriever"
       ],
+      "actionSeq": 391,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -121439,6 +121531,7 @@
         412
       ],
       "subsequentActions": [],
+      "actionSeq": 396,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -121491,6 +121584,7 @@
         413
       ],
       "subsequentActions": [],
+      "actionSeq": 397,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -121546,6 +121640,7 @@
         418
       ],
       "subsequentActions": [],
+      "actionSeq": 399,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -121629,6 +121724,7 @@
         "Opus Sport casts Scholar of the Lost Trove from hand",
         "Opus Sport puts Scholar of the Lost Trove from stack onto the Battlefield"
       ],
+      "actionSeq": 400,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -121691,6 +121787,7 @@
       "subsequentActions": [
         "Opus Sport - Ability triggers: Scholar of the Lost Trove - When Scholar of the Lost Trove enters, you may cast target instant, sorcery, or artifact card from your graveyard without paying its mana cost. If an instant or sorcery spell cast this way would be put into your graveyard, exile it instead. - targeting Meteor Golem"
       ],
+      "actionSeq": 416,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -121737,6 +121834,7 @@
         438
       ],
       "subsequentActions": [],
+      "actionSeq": 419,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -121775,6 +121873,7 @@
         "Opus Sport casts Meteor Golem from graveyard from graveyard",
         "Opus Sport puts Meteor Golem from stack onto the Battlefield"
       ],
+      "actionSeq": 420,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -121851,6 +121950,7 @@
         "Opus Sport - Ability triggers: Meteor Golem - When Meteor Golem enters, destroy target nonland permanent an opponent controls. - targeting Patron of the Valiant",
         "Patron of the Valiant died by Meteor Golem"
       ],
+      "actionSeq": 425,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -121894,6 +121994,7 @@
         449
       ],
       "subsequentActions": [],
+      "actionSeq": 430,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -121940,6 +122041,7 @@
         454
       ],
       "subsequentActions": [],
+      "actionSeq": 431,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -121995,6 +122097,7 @@
       "subsequentActions": [
         "Grk41F Heckler activates: put a +1/+1 counter on target creature with a +1/+1 counter on it. from Tempered Veteran targeting Trusty Retriever"
       ],
+      "actionSeq": 432,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -122030,6 +122133,7 @@
         466
       ],
       "subsequentActions": [],
+      "actionSeq": 435,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -122077,6 +122181,7 @@
       "subsequentActions": [
         "Tempered Veteran: Grk41F Heckler puts 1 +1/+1 counters on Trusty Retriever"
       ],
+      "actionSeq": 436,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -122136,6 +122241,7 @@
         "Opus Sport attacks Grk41F Heckler with 1 creature",
         "Attacker: Markov Warlord (4/4) unblocked"
       ],
+      "actionSeq": 440,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -122174,6 +122280,7 @@
       "subsequentActions": [
         "Grk41F Heckler loses 4 life at combat from Markov Warlord"
       ],
+      "actionSeq": 449,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -122222,6 +122329,7 @@
         "Opus Sport sacrificed Aether Spellbomb (source: Aether Spellbomb)",
         "Opus Sport activates: draw a card. from Aether Spellbomb"
       ],
+      "actionSeq": 454,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -122255,6 +122363,7 @@
         487
       ],
       "subsequentActions": [],
+      "actionSeq": 459,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -122334,6 +122443,7 @@
       "subsequentActions": [
         "Grk41F Heckler puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 463,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -122411,6 +122521,7 @@
         496
       ],
       "subsequentActions": [],
+      "actionSeq": 467,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -122460,6 +122571,7 @@
         500
       ],
       "subsequentActions": [],
+      "actionSeq": 468,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -122507,6 +122619,7 @@
       "subsequentActions": [
         "Grk41F Heckler activates: put a +1/+1 counter on target creature. from Tempered Veteran targeting Trusty Retriever"
       ],
+      "actionSeq": 475,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -122545,6 +122658,7 @@
       "subsequentActions": [
         "Tempered Veteran: Grk41F Heckler puts 1 +1/+1 counters on Trusty Retriever"
       ],
+      "actionSeq": 478,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -122583,6 +122697,7 @@
       "subsequentActions": [
         "Grk41F Heckler skip attack"
       ],
+      "actionSeq": 481,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -122619,6 +122734,7 @@
         520
       ],
       "subsequentActions": [],
+      "actionSeq": 486,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -122692,6 +122808,7 @@
         "Opus Sport casts Bolt Hound from hand",
         "Opus Sport puts Bolt Hound from stack onto the Battlefield"
       ],
+      "actionSeq": 490,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -122762,6 +122879,7 @@
         "Opus Sport casts Mudbutton Torchrunner from hand",
         "Opus Sport puts Mudbutton Torchrunner from stack onto the Battlefield"
       ],
+      "actionSeq": 500,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -122813,6 +122931,7 @@
         "Opus Sport casts Chromatic Sphere from hand",
         "Opus Sport puts Chromatic Sphere from stack onto the Battlefield"
       ],
+      "actionSeq": 508,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -122852,6 +122971,7 @@
         538
       ],
       "subsequentActions": [],
+      "actionSeq": 514,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -122942,6 +123062,7 @@
         "Opus Sport attacks Grk41F Heckler with 4 creatures",
         "Opus Sport - Ability triggers: Bolt Hound - Whenever Bolt Hound attacks, other creatures you control get +1/+0 until end of turn."
       ],
+      "actionSeq": 516,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -122997,6 +123118,7 @@
         "Attacker: Meteor Golem (4/3) unblocked",
         "Attacker: Bolt Hound (2/2) unblocked"
       ],
+      "actionSeq": 528,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "blockers",
@@ -123062,6 +123184,7 @@
         "Grk41F Heckler loses 4 life at combat from Meteor Golem",
         "Grk41F Heckler loses 2 life at combat from Bolt Hound"
       ],
+      "actionSeq": 537,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -123074,7 +123197,7 @@
       "actionTaken": "Passed priority, wasting 2 mana with no instant-speed options",
       "betterLine": "Cast Jousting Lance for {2} to deploy it now, since the mana would otherwise go completely unused. This sets up equipping Skyhunter Prowler on a future turn for a meaningful combat advantage.",
       "type": "blunder",
-      "snapshotIndex": 21,
+      "snapshotIndex": 22,
       "player": "Grk41F Heckler"
     },
     {
@@ -123083,7 +123206,7 @@
       "actionTaken": "Passed priority, wasting 2 mana with nothing else to do.",
       "betterLine": "Cast Jousting Lance for {2}, deploying the equipment ahead of time so it's ready to equip to Skyhunter Prowler (or other creatures) a turn earlier.",
       "type": "blunder",
-      "snapshotIndex": 25,
+      "snapshotIndex": 26,
       "player": "Grk41F Heckler"
     },
     {
@@ -123092,7 +123215,7 @@
       "actionTaken": "Timed out and did not declare any attackers",
       "betterLine": "Attack with Fanatical Firebrand for 1 free damage against an empty board.",
       "type": "blunder",
-      "snapshotIndex": 35,
+      "snapshotIndex": 36,
       "player": "Opus Sport"
     },
     {
@@ -123101,7 +123224,7 @@
       "actionTaken": "Declined to discard an artifact card, requiring discard of two cards instead of one.",
       "betterLine": "Discard Meteor Golem as the artifact card to save a card. Buried Ruin can later recover it from the graveyard when needed.",
       "type": "blunder",
-      "snapshotIndex": 64,
+      "snapshotIndex": 65,
       "player": "Opus Sport"
     },
     {
@@ -123110,7 +123233,7 @@
       "actionTaken": "Timed out and did not block, taking 1 damage and leaving Fanatical Firebrand alive.",
       "betterLine": "Block the Fanatical Firebrand with Skyhunter Prowler to kill it cleanly while the Prowler survives at 1/2, removing the opponent's sacrifice-ping threat for free.",
       "type": "blunder",
-      "snapshotIndex": 70,
+      "snapshotIndex": 71,
       "player": "Grk41F Heckler"
     },
     {
@@ -123119,7 +123242,7 @@
       "actionTaken": "Timed out and did not declare attackers",
       "betterLine": "Attack with Skyhunter Prowler for 1 free damage. Vigilance means no defensive cost whatsoever.",
       "type": "blunder",
-      "snapshotIndex": 80,
+      "snapshotIndex": 81,
       "player": "Grk41F Heckler"
     },
     {
@@ -123128,7 +123251,7 @@
       "actionTaken": "Played Mountain as the land drop",
       "betterLine": "Play Buried Ruin to have access to recurring Meteor Golem from the graveyard later, while still contributing mana toward future plays like Markov Warlord.",
       "type": "blunder",
-      "snapshotIndex": 88,
+      "snapshotIndex": 89,
       "player": "Opus Sport"
     },
     {
@@ -123137,7 +123260,7 @@
       "actionTaken": "Cast Ardoz postcombat, entering as a 3/1 that shrinks to 1/1 at end of turn without attacking.",
       "betterLine": "Hold Ardoz and cast it next turn in precombat main phase to attack as a 3/1 with haste, potentially forcing a trade with Skyhunter Prowler or dealing 3 damage.",
       "type": "blunder",
-      "snapshotIndex": 93,
+      "snapshotIndex": 94,
       "player": "Opus Sport"
     },
     {
@@ -123146,7 +123269,7 @@
       "actionTaken": "Timed out and did not declare any attackers.",
       "betterLine": "Attack with Skyhunter Prowler for 1 free damage. With flying and vigilance, there is no risk and no cost.",
       "type": "blunder",
-      "snapshotIndex": 110,
+      "snapshotIndex": 111,
       "player": "Grk41F Heckler"
     },
     {
@@ -123155,7 +123278,7 @@
       "actionTaken": "Played Mountain",
       "betterLine": "Play Buried Ruin to have its sacrifice ability available sooner for recovering Meteor Golem, then play Mountain next turn",
       "type": "blunder",
-      "snapshotIndex": 125,
+      "snapshotIndex": 126,
       "player": "Opus Sport"
     },
     {
@@ -123164,7 +123287,7 @@
       "actionTaken": "Cast Fiery Conclusion sacrificing Ardoz to kill Tempered Veteran (or Skyhunter Prowler)",
       "betterLine": "Activate Aether Spellbomb for {U} to bounce Tempered Veteran, preserving Ardoz for its +2/+0 synergy with Markov Warlord and saving Fiery Conclusion for a more critical removal later.",
       "type": "blunder",
-      "snapshotIndex": 126,
+      "snapshotIndex": 127,
       "player": "Opus Sport"
     },
     {
@@ -123173,7 +123296,7 @@
       "actionTaken": "Targeted Skyhunter Prowler with Fiery Conclusion",
       "betterLine": "Target Tempered Veteran with Fiery Conclusion to remove the repeatable +1/+1 counter engine, then use Aether Spellbomb to handle Skyhunter Prowler if needed",
       "type": "blunder",
-      "snapshotIndex": 127,
+      "snapshotIndex": 128,
       "player": "Opus Sport"
     },
     {
@@ -123182,7 +123305,7 @@
       "actionTaken": "Timed out (no response) during declare attackers, so no creatures attacked.",
       "betterLine": "Attack with Markov Warlord for 4 unblockable damage, bringing opponent from 19 to 15 life.",
       "type": "blunder",
-      "snapshotIndex": 171,
+      "snapshotIndex": 172,
       "player": "Opus Sport"
     },
     {
@@ -123191,7 +123314,7 @@
       "actionTaken": "Declined to attack with Markov Warlord.",
       "betterLine": "Attack with Markov Warlord for 4 unblocked damage (or at worst favorable combat), dropping opponent to 11 life.",
       "type": "blunder",
-      "snapshotIndex": 208,
+      "snapshotIndex": 209,
       "player": "Opus Sport"
     },
     {
@@ -123200,7 +123323,7 @@
       "actionTaken": "Passed priority, allowing Shining Armor to resolve and attach to Tempered Veteran (making it a 3/6 with vigilance)",
       "betterLine": "Activate Aether Spellbomb's bounce mode ({U}, sacrifice) targeting Tempered Veteran in response to Shining Armor. This creates a 2-for-1 (strips counters and wastes armor ETB) while clearing a blocker for Markov Warlord's attack.",
       "type": "blunder",
-      "snapshotIndex": 219,
+      "snapshotIndex": 220,
       "player": "Opus Sport"
     },
     {
@@ -123209,7 +123332,7 @@
       "actionTaken": "No response (timeout) — declared no attackers.",
       "betterLine": "Attack with at least Patron of the Valiant for 4 unblockable flying damage. Tempered Veteran could also attack if it has vigilance from Shining Armor. Trusty Retriever could attack into the Markov Warlord favorably as a 4/5 vs 4/4.",
       "type": "blunder",
-      "snapshotIndex": 224,
+      "snapshotIndex": 225,
       "player": "Grk41F Heckler"
     },
     {
@@ -123218,7 +123341,7 @@
       "actionTaken": "Passed priority without activating Tempered Veteran during combat.",
       "betterLine": "Activate Tempered Veteran targeting Trusty Retriever (or itself) to add a +1/+1 counter for {W}, then still cast Jousting Lance postcombat with remaining 2 mana.",
       "type": "blunder",
-      "snapshotIndex": 226,
+      "snapshotIndex": 227,
       "player": "Grk41F Heckler"
     },
     {
@@ -123227,7 +123350,7 @@
       "actionTaken": "Declared no blockers and did not activate Aether Spellbomb, taking the full 8 damage.",
       "betterLine": "Activate Aether Spellbomb ({U}, sacrifice) to bounce Patron of the Valiant before damage, saving 4 damage and forcing the opponent to spend 5 mana recasting it. Going to 14 instead of 10 is significant, and the Spellbomb could be recovered later via Buried Ruin if needed.",
       "type": "blunder",
-      "snapshotIndex": 228,
+      "snapshotIndex": 229,
       "player": "Opus Sport"
     },
     {
@@ -123236,7 +123359,7 @@
       "actionTaken": "Passed priority without activating Tempered Veteran during combat.",
       "betterLine": "Activate Tempered Veteran targeting Trusty Retriever to make it 5/6, gaining a permanent +1/+1 counter for minimal cost during combat.",
       "type": "blunder",
-      "snapshotIndex": 229,
+      "snapshotIndex": 230,
       "player": "Grk41F Heckler"
     },
     {
@@ -123245,7 +123368,7 @@
       "actionTaken": "Passed priority without activating Tempered Veteran during combat.",
       "betterLine": "Activate Tempered Veteran targeting Trusty Retriever for {W} to make it a permanent 5/6, gaining an extra point of power on an attacking creature at minimal cost.",
       "type": "blunder",
-      "snapshotIndex": 231,
+      "snapshotIndex": 232,
       "player": "Grk41F Heckler"
     },
     {
@@ -123254,7 +123377,7 @@
       "actionTaken": "Passed priority without activating Aether Spellbomb, taking the full attack damage.",
       "betterLine": "Activate Aether Spellbomb paying {U} to bounce Patron of the Valiant, then block Trusty Retriever with Markov Warlord (take 0 damage) or let Retriever through (take 4, go to 6 life with Warlord intact). Either line is far better than going to 2 life.",
       "type": "blunder",
-      "snapshotIndex": 232,
+      "snapshotIndex": 233,
       "player": "Opus Sport"
     },
     {
@@ -123263,7 +123386,7 @@
       "actionTaken": "Passed priority without activating Tempered Veteran",
       "betterLine": "Activate Tempered Veteran's {W},{T} ability to put a +1/+1 counter on Trusty Retriever (or itself) before Meteor Golem resolves and potentially destroys the Veteran",
       "type": "blunder",
-      "snapshotIndex": 248,
+      "snapshotIndex": 249,
       "player": "Grk41F Heckler"
     },
     {
@@ -123272,7 +123395,7 @@
       "actionTaken": "Timed out and declared no attackers",
       "betterLine": "Attack with Markov Warlord for 4 unblocked damage, bringing opponent to 11 life",
       "type": "blunder",
-      "snapshotIndex": 263,
+      "snapshotIndex": 264,
       "player": "Opus Sport"
     },
     {
@@ -123281,7 +123404,7 @@
       "actionTaken": "Sacrificed Aether Spellbomb to draw a card using the {1} generic mana mode.",
       "betterLine": "Pass without activating Aether Spellbomb, saving it for next turn when blue mana is available to bounce the Tempered Veteran or the 5/6 Trusty Retriever, removing accumulated +1/+1 counters and significantly weakening the opponent's board.",
       "type": "blunder",
-      "snapshotIndex": 270,
+      "snapshotIndex": 271,
       "player": "Opus Sport"
     },
     {
@@ -123290,7 +123413,7 @@
       "actionTaken": "Activated Tempered Veteran's {4}{W}{W} ability to put a +1/+1 counter on a creature that already had counters.",
       "betterLine": "Use Tempered Veteran's {W} ability (ability 1) to put a +1/+1 counter on Trusty Retriever or itself (both have counters), saving 5 mana to cast and potentially equip Jousting Lance.",
       "type": "blunder",
-      "snapshotIndex": 277,
+      "snapshotIndex": 278,
       "player": "Grk41F Heckler"
     },
     {
@@ -123299,7 +123422,7 @@
       "actionTaken": "No response (timeout) — no attackers declared.",
       "betterLine": "Attack with all creatures. Bolt Hound triggers give each other attacker +1/+0. Scholar flies over for 6, and the remaining ground creatures deal enough to be lethal regardless of which one Trusty Retriever blocks.",
       "type": "blunder",
-      "snapshotIndex": 311,
+      "snapshotIndex": 312,
       "player": "Opus Sport"
     }
   ],

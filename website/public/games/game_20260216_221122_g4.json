@@ -49126,7 +49126,7 @@
       "actionTaken": "Discarded Llanowar Elves to Formidable Speaker's tutor ability",
       "betterLine": "Discard Forest instead, keeping the second Llanowar Elves for additional ramp to potentially cast Quantum Riddler on turn 3",
       "type": "blunder",
-      "snapshotIndex": 34,
+      "snapshotIndex": 35,
       "player": "o3 Minimal"
     },
     {
@@ -49135,7 +49135,7 @@
       "actionTaken": "Tutored for Craterhoof Behemoth (8 mana) with Formidable Speaker's ETB on turn 2",
       "betterLine": "Tutor for a mid-cost creature like Ouroboroid or Spider Manifestation that could be cast sooner and contribute to board development, eventually building toward a winning board state more reliably",
       "type": "blunder",
-      "snapshotIndex": 35,
+      "snapshotIndex": 36,
       "player": "o3 Minimal"
     },
     {
@@ -49144,7 +49144,7 @@
       "actionTaken": "Targeted Llanowar Elves with Get Lost, destroying a 1/1 mana dork and giving opponent two Map tokens.",
       "betterLine": "Target Formidable Speaker with Get Lost to remove the more impactful 2/4 creature that already tutored a card and has an untap ability.",
       "type": "blunder",
-      "snapshotIndex": 49,
+      "snapshotIndex": 50,
       "player": "Qwen3 Vet"
     },
     {
@@ -49153,7 +49153,7 @@
       "actionTaken": "Untapped a Map Token with Formidable Speaker's ability",
       "betterLine": "Untap the tapped Breeding Pool to maximize available mana, enabling both Badgermole Cub cast and potential Map Token activation in the same turn",
       "type": "blunder",
-      "snapshotIndex": 57,
+      "snapshotIndex": 58,
       "player": "o3 Minimal"
     },
     {
@@ -49162,7 +49162,7 @@
       "actionTaken": "Used Formidable Speaker's untap ability on Map Token, then activated Map Token to explore, consuming all available mana.",
       "betterLine": "Play Forest from hand first, then cast Badgermole Cub for {1}{G} to develop the board with a 2/2 and earthbend a land. Save the Map Tokens and Formidable Speaker's untap ability for a later turn when the mana is less constrained.",
       "type": "blunder",
-      "snapshotIndex": 57,
+      "snapshotIndex": 58,
       "player": "o3 Minimal"
     },
     {
@@ -49171,7 +49171,7 @@
       "actionTaken": "Used Formidable Speaker's untap ability targeting opponent's Island, then skipped combat entirely.",
       "betterLine": "Attack with both Formidable Speaker and Badgermole Cub. Opponent's Unagi can only block one, guaranteeing 2-3 damage against a 7-life opponent. Then use remaining mana to cast Gene Pollinator or hold up options.",
       "type": "blunder",
-      "snapshotIndex": 126,
+      "snapshotIndex": 127,
       "player": "o3 Minimal"
     },
     {
@@ -49180,7 +49180,7 @@
       "actionTaken": "Cast Nature's Rhythm while Gene Pollinator was still on the stack, reducing available mana for X.",
       "betterLine": "Let Gene Pollinator resolve first, then use Gene Pollinator's tap ability (with Badgermole Cub's extra {G} trigger) to generate more mana before casting Nature's Rhythm with a higher X value.",
       "type": "blunder",
-      "snapshotIndex": 150,
+      "snapshotIndex": 151,
       "player": "o3 Minimal"
     },
     {
@@ -49189,7 +49189,7 @@
       "actionTaken": "Searched for Badgermole Cub with Nature's Rhythm instead of Craterhoof Behemoth",
       "betterLine": "Search for Craterhoof Behemoth, which enters with haste and pumps all creatures, enabling a lethal attack against the opponent at 7 life",
       "type": "blunder",
-      "snapshotIndex": 153,
+      "snapshotIndex": 154,
       "player": "o3 Minimal"
     },
     {
@@ -49198,7 +49198,7 @@
       "actionTaken": "Targeted opponent's Island with Formidable Speaker's untap ability",
       "betterLine": "Untap own Breeding Pool to have 5 mana available, enabling casting Quantum Riddler this turn to apply lethal pressure against an opponent at 4 life",
       "type": "blunder",
-      "snapshotIndex": 174,
+      "snapshotIndex": 175,
       "player": "o3 Minimal"
     },
     {
@@ -49207,7 +49207,7 @@
       "actionTaken": "Attacked with only Formidable Speaker for 3 damage, leaving opponent at 1 life.",
       "betterLine": "Choose 'All attack' to send both Formidable Speaker and Badgermole Cub, dealing 6 damage to the opponent at 4 life for lethal.",
       "type": "blunder",
-      "snapshotIndex": 176,
+      "snapshotIndex": 177,
       "player": "o3 Minimal"
     }
   ],
@@ -49256,7 +49256,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -49293,7 +49294,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -49373,7 +49375,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -49410,7 +49413,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -49490,7 +49494,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -49564,7 +49569,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -49601,7 +49607,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -49681,7 +49688,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 8,
@@ -49755,7 +49763,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 9,
@@ -49823,7 +49832,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 10,
@@ -49857,7 +49867,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 11,
@@ -49905,6 +49916,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -49982,6 +49994,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -50187,6 +50200,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -50247,6 +50261,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -50298,6 +50313,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -50397,6 +50413,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -50458,6 +50475,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -50557,6 +50575,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -50616,6 +50635,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -50688,6 +50708,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -50758,6 +50779,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -50806,6 +50828,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -50878,6 +50901,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -50949,6 +50973,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -51000,6 +51025,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -51141,6 +51167,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -51192,7 +51219,8 @@
         "o3 Minimal draws seven cards",
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 28,
@@ -51273,6 +51301,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -51348,6 +51377,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -51401,6 +51431,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -51711,6 +51742,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -51782,6 +51814,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -51925,6 +51958,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -52006,6 +52040,7 @@
         "Qwen3 Vet draws seven cards",
         "o3 Minimal keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"

@@ -37882,7 +37882,7 @@
       "actionTaken": "Played Jasmine Dragon Tea Shop as the turn-1 land.",
       "betterLine": "Play Floodfarm Verge turn 1 to have unconditional white mana available for Earth Kingdom Protectors or Earthen Ally on turn 2, saving Jasmine Dragon Tea Shop for a later turn.",
       "type": "blunder",
-      "snapshotIndex": 14,
+      "snapshotIndex": 15,
       "player": "o3 Proud"
     },
     {
@@ -37891,7 +37891,7 @@
       "actionTaken": "Skipped the attack phase with Hired Claw.",
       "betterLine": "Attack with Hired Claw for free damage (1 combat + 1 from Lizard trigger = 2 damage), then activate its +1/+1 counter ability with the Mountain to make it a 2/3.",
       "type": "blunder",
-      "snapshotIndex": 27,
+      "snapshotIndex": 28,
       "player": "MiniMx Gramps"
     },
     {
@@ -37900,7 +37900,7 @@
       "actionTaken": "Used Burst Lightning to deal 2 damage to Earthen Ally, killing it.",
       "betterLine": "Save Burst Lightning for a higher-value target like Katara (3/3) or Hakoda (3/5). The Earthen Ally poses minimal threat currently and Burst Lightning could be kicked later for 4 damage against a real threat.",
       "type": "blunder",
-      "snapshotIndex": 40,
+      "snapshotIndex": 41,
       "player": "MiniMx Gramps"
     },
     {
@@ -37909,7 +37909,7 @@
       "actionTaken": "Cast Nova Hellkite with Warp for {2}{R}, which exiles it at end step",
       "betterLine": "Hardcast Nova Hellkite for {3}{R}{R} using all 5 available lands, keeping the 4/5 flying creature permanently as insurance. Alternatively, simply attack with existing creatures and use Burst Lightning to finish (Hired Claw trigger + Hired Claw damage + Burst Lightning = lethal even if Katara blocks Sunspine Lynx).",
       "type": "blunder",
-      "snapshotIndex": 124,
+      "snapshotIndex": 125,
       "player": "MiniMx Gramps"
     }
   ],
@@ -37965,7 +37965,8 @@
         "o3 Proud draws seven cards",
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -37999,7 +38000,8 @@
         "o3 Proud draws seven cards",
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -38046,7 +38048,8 @@
         "o3 Proud draws seven cards",
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -38109,6 +38112,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -38183,6 +38187,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -38224,6 +38229,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -38264,6 +38270,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -38330,6 +38337,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -38400,6 +38408,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -38460,6 +38469,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -38511,6 +38521,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -38577,6 +38588,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -38633,6 +38645,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -38682,6 +38695,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -38722,6 +38736,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -38793,6 +38808,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -38841,6 +38857,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -38910,6 +38927,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -38970,6 +38988,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -39031,6 +39050,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -39087,6 +39107,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -39147,6 +39168,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -39208,6 +39230,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -39264,6 +39287,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -39315,6 +39339,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -39356,6 +39381,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -39427,6 +39453,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -39467,6 +39494,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -39507,7 +39535,8 @@
         "o3 Proud draws seven cards",
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 29,
@@ -39544,7 +39573,8 @@
         "o3 Proud draws seven cards",
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 30,
@@ -39601,6 +39631,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -39654,6 +39685,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -39705,6 +39737,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -39745,7 +39778,8 @@
         "o3 Proud draws seven cards",
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 34,
@@ -39808,6 +39842,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -39863,6 +39898,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -39922,6 +39958,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -39980,6 +40017,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -40038,6 +40076,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -40097,6 +40136,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -40165,6 +40205,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -40206,6 +40247,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -40277,6 +40319,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -40344,6 +40387,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -40394,6 +40438,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -40444,6 +40489,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -40493,6 +40539,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -40534,6 +40581,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -40624,6 +40672,7 @@
         "MiniMx Gramps keeps hand",
         "o3 Proud keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }

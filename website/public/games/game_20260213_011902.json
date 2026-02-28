@@ -31527,7 +31527,7 @@
       "actionTaken": "Played Floodfarm Verge as the turn 1 land.",
       "betterLine": "Play Temple Garden (paying 2 life to enter untapped), then cast Llanowar Elves with the {G} it produces. This enables a much faster curve: turn 2 Badgermole Cub or Doc Aurlock, turn 3 Appa.",
       "type": "blunder",
-      "snapshotIndex": 6,
+      "snapshotIndex": 7,
       "player": "Llama4 Sarge"
     },
     {
@@ -31536,7 +31536,7 @@
       "actionTaken": "Cast Hexing Squelcher as the turn 2 play",
       "betterLine": "Cast Razorkin Needlehead to start the damage clock immediately, saving Squelcher for when there are other creatures to protect with ward",
       "type": "blunder",
-      "snapshotIndex": 11,
+      "snapshotIndex": 12,
       "player": "Grok4F Spike"
     },
     {
@@ -31545,7 +31545,7 @@
       "actionTaken": "Cast Llanowar Elves for G to ramp toward 4 mana on turn 3",
       "betterLine": "Cast Doc Aurlock, Grizzled Genius for GU (using Temple Garden + Floodfarm Verge) to put a more resilient 2/3 body on board that also enables future cost reduction, then play Llanowar Elves next turn alongside another 2-drop",
       "type": "blunder",
-      "snapshotIndex": 17,
+      "snapshotIndex": 18,
       "player": "Llama4 Sarge"
     },
     {
@@ -31554,7 +31554,7 @@
       "actionTaken": "Attacked with only Hexing Squelcher (2/2), holding back Razorkin Needlehead.",
       "betterLine": "Attack with both Hexing Squelcher and Razorkin Needlehead. The Needlehead has first strike on your turn and the opponent's only blocker is a 1/1, so attacking with both is strictly better for damage output with minimal risk.",
       "type": "blunder",
-      "snapshotIndex": 25,
+      "snapshotIndex": 26,
       "player": "Grok4F Spike"
     },
     {
@@ -31563,7 +31563,7 @@
       "actionTaken": "Cast Badgermole Cub for {1}{G}",
       "betterLine": "Cast Doc Aurlock, Grizzled Genius for {G}{U} to set up powerful synergy with Appa's airbend on future turns, or cast Llanowar Elves for {G} to enable a turn 4 Appa while leaving mana open for Airbender Ascension",
       "type": "blunder",
-      "snapshotIndex": 30,
+      "snapshotIndex": 31,
       "player": "Llama4 Sarge"
     },
     {
@@ -31572,7 +31572,7 @@
       "actionTaken": "Cast Lightning Strike (using all available mana on removal)",
       "betterLine": "Cast Razorkin Needlehead to develop the board, doubling the card-draw punishment clock and adding another 2/2 first-strike attacker, saving burn spells for finishing the opponent.",
       "type": "blunder",
-      "snapshotIndex": 36,
+      "snapshotIndex": 37,
       "player": "Grok4F Spike"
     },
     {
@@ -31581,7 +31581,7 @@
       "actionTaken": "Cast Llanowar Elves before playing the Floodfarm Verge land from hand.",
       "betterLine": "Play Floodfarm Verge first (land drop is free and should precede spells), then consider whether Doc Aurlock, Grizzled Genius (GU) might be a higher-impact play than Llanowar Elves given the opponent's tapped board. Doc Aurlock would reduce future exile/graveyard casting costs and has a better body (2/3 vs 1/1) against the opponent's aggressive red deck.",
       "type": "blunder",
-      "snapshotIndex": 45,
+      "snapshotIndex": 46,
       "player": "Llama4 Sarge"
     },
     {
@@ -31642,7 +31642,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -31676,7 +31677,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -31713,7 +31715,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -31747,7 +31750,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -31793,6 +31797,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -31830,6 +31835,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -31879,6 +31885,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -31916,6 +31923,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -31960,6 +31968,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -32048,6 +32057,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -32086,6 +32096,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -32129,6 +32140,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -32167,6 +32179,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -32258,6 +32271,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -32296,6 +32310,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -32381,6 +32396,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -32419,6 +32435,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -32469,6 +32486,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -32505,7 +32523,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 19,
@@ -32548,6 +32567,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -32592,6 +32612,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -32678,6 +32699,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -32716,6 +32738,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -32766,6 +32789,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -32809,6 +32833,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -32846,6 +32871,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -32883,6 +32909,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -32968,6 +32995,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -33049,6 +33077,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -33087,6 +33116,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -33144,6 +33174,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -33180,7 +33211,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 32,
@@ -33215,6 +33247,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -33292,6 +33325,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -33330,6 +33364,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -33368,6 +33403,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -33425,6 +33461,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -33471,6 +33508,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_blockers"
@@ -33531,6 +33569,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -33613,6 +33652,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -33649,7 +33689,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 41,
@@ -33694,6 +33735,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -33730,7 +33772,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 43,
@@ -33764,7 +33807,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 44,
@@ -33798,7 +33842,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 45,
@@ -33871,6 +33916,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -33961,6 +34007,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -33999,6 +34046,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -34036,7 +34084,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 49,
@@ -34072,6 +34121,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -34109,6 +34159,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -34162,6 +34213,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -34199,6 +34251,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -34238,6 +34291,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -34318,6 +34372,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -34355,6 +34410,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -34412,6 +34468,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -34490,6 +34547,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -34528,6 +34586,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34565,6 +34624,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34633,6 +34693,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -34671,6 +34732,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -34737,6 +34799,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -34801,6 +34864,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -34839,6 +34903,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -34903,6 +34968,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -34972,6 +35038,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -35010,6 +35077,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -35074,6 +35142,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -35110,7 +35179,8 @@
         "Grok4F Spike draws seven cards",
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 70,
@@ -35172,6 +35242,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -35210,6 +35281,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -35274,6 +35346,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -35320,6 +35393,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -35384,6 +35458,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -35422,6 +35497,7 @@
         "Llama4 Sarge draws seven cards",
         "Grok4F Spike keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0

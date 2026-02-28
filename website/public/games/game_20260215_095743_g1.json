@@ -23494,7 +23494,7 @@
       "actionTaken": "Put Lotus Bloom on the bottom of the library during the opening hand selection (appears to be a scry or partial paris mulligan putting cards back).",
       "betterLine": "Keep Lotus Bloom and put back a less impactful card like Stern Scolding or Into the Flood Maw. Lotus Bloom can be suspended turn 1 for free and provides massive mana acceleration, especially alongside Tameshi who can recur it from the graveyard.",
       "type": "blunder",
-      "snapshotIndex": 3,
+      "snapshotIndex": 4,
       "player": "GPT4om Spike"
     },
     {
@@ -23503,7 +23503,7 @@
       "actionTaken": "Played Cephalid Coliseum first, triggering only Ruin Crab's landfall for 3 mills.",
       "betterLine": "Cast Hedron Crab first using the existing Island, then play Cephalid Coliseum to trigger both Ruin Crab and Hedron Crab's landfall abilities for 6 total mills.",
       "type": "blunder",
-      "snapshotIndex": 15,
+      "snapshotIndex": 16,
       "player": "Grok4F Timmy"
     },
     {
@@ -23512,7 +23512,7 @@
       "actionTaken": "Exiled Whir of Invention (MV 3) to Disrupting Shoal, setting X=3, which cannot counter Surgical Extraction (MV 1).",
       "betterLine": "Exile Spell Snare or Into the Flood Maw (both MV 1) to set X=1 and actually counter Surgical Extraction. Spell Snare would be the better exile since Into the Flood Maw has utility as removal, and Whir of Invention is the most important card in hand.",
       "type": "blunder",
-      "snapshotIndex": 22,
+      "snapshotIndex": 23,
       "player": "GPT4om Spike"
     },
     {
@@ -23521,7 +23521,7 @@
       "actionTaken": "Fetched Watery Grave untapped, paying 2 life (going from 16 to 14)",
       "betterLine": "Fetch Undercity Sewers (enters tapped but provides U/B with no life cost and a surveil trigger for graveyard value), or fetch a basic Island if black mana isn't immediately needed this turn",
       "type": "blunder",
-      "snapshotIndex": 52,
+      "snapshotIndex": 53,
       "player": "Grok4F Timmy"
     }
   ],
@@ -23576,7 +23576,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -23612,7 +23613,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -23648,7 +23650,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -23727,7 +23730,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -23763,7 +23767,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -23842,7 +23847,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -23915,7 +23921,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -23949,7 +23956,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 8,
@@ -24000,6 +24008,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -24049,6 +24058,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -24089,6 +24099,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -24146,6 +24157,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -24180,6 +24192,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -24220,6 +24233,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -24275,6 +24289,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -24324,6 +24339,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -24380,6 +24396,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -24428,6 +24445,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -24468,6 +24486,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -24527,6 +24546,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -24567,6 +24587,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -24614,7 +24635,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 22,
@@ -24659,7 +24681,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 23,
@@ -24708,7 +24731,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 24,
@@ -24775,7 +24799,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 25,
@@ -24812,6 +24837,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -24860,6 +24886,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -24919,6 +24946,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -24972,6 +25000,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -25012,6 +25041,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -25059,6 +25089,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -25098,6 +25129,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -25144,6 +25176,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -25198,6 +25231,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -25253,6 +25287,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -25293,6 +25328,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -25333,6 +25369,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -25397,6 +25434,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -25452,6 +25490,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -25492,6 +25531,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -25554,6 +25594,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -25607,6 +25648,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -25660,6 +25702,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -25714,6 +25757,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -25765,6 +25809,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -25805,6 +25850,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -25876,6 +25922,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -25929,6 +25976,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -25978,6 +26026,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -26026,6 +26075,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -26082,6 +26132,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -26123,6 +26174,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -26163,6 +26215,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -26226,6 +26279,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -26266,6 +26320,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -26305,6 +26360,7 @@
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -26344,7 +26400,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 57,
@@ -26378,7 +26435,8 @@
         "Grok4F Timmy draws seven cards",
         "GPT4om Spike draws seven cards",
         "Grok4F Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     }
   ]
 }

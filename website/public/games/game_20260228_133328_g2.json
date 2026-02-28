@@ -101192,7 +101192,8 @@
       ],
       "subsequentActions": [
         "Grok4 Optim chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 5
     },
     {
       "index": 1,
@@ -101226,7 +101227,8 @@
       ],
       "subsequentActions": [
         "Grok4 Optim's library is shuffled"
-      ]
+      ],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -101303,7 +101305,8 @@
       ],
       "subsequentActions": [
         "Grok4 Optim puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 10
     },
     {
       "index": 3,
@@ -101337,7 +101340,8 @@
       ],
       "subsequentActions": [
         "Grok4 Optim skips Draw step"
-      ]
+      ],
+      "actionSeq": 12
     },
     {
       "index": 4,
@@ -101391,6 +101395,7 @@
       "subsequentActions": [
         "Grok4 Optim puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -101455,6 +101460,7 @@
       "subsequentActions": [
         "Grok4 Optim casts Oashra Cultivator from hand"
       ],
+      "actionSeq": 18,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -101496,6 +101502,7 @@
       "subsequentActions": [
         "Grok4 Optim puts Oashra Cultivator from stack onto the Battlefield"
       ],
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -101533,6 +101540,7 @@
       "subsequentActions": [
         "Grok4 Optim skip attack"
       ],
+      "actionSeq": 24,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -101567,7 +101575,8 @@
         39,
         40
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 28
     },
     {
       "index": 9,
@@ -101638,6 +101647,7 @@
       "subsequentActions": [
         "GPT52 Coach puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 32,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -101691,6 +101701,7 @@
       "subsequentActions": [
         "GPT52 Coach skip attack"
       ],
+      "actionSeq": 36,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -101742,6 +101753,7 @@
       "subsequentActions": [
         "Grok4 Optim puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 44,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -101782,6 +101794,7 @@
         58
       ],
       "subsequentActions": [],
+      "actionSeq": 48,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -101835,6 +101848,7 @@
       "subsequentActions": [
         "Grok4 Optim skip attack"
       ],
+      "actionSeq": 50,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -101871,6 +101885,7 @@
         66
       ],
       "subsequentActions": [],
+      "actionSeq": 53,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -101938,6 +101953,7 @@
       "subsequentActions": [
         "GPT52 Coach puts Mountain from hand onto the Battlefield"
       ],
+      "actionSeq": 57,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -102003,6 +102019,7 @@
         "GPT52 Coach casts Initiate's Companion from hand",
         "GPT52 Coach puts Initiate's Companion from stack onto the Battlefield"
       ],
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -102049,6 +102066,7 @@
         81
       ],
       "subsequentActions": [],
+      "actionSeq": 68,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -102094,6 +102112,7 @@
       "subsequentActions": [
         "GPT52 Coach skip attack"
       ],
+      "actionSeq": 69,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -102140,6 +102159,7 @@
         88
       ],
       "subsequentActions": [],
+      "actionSeq": 73,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -102198,6 +102218,7 @@
       "subsequentActions": [
         "Grok4 Optim puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 76,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -102275,6 +102296,7 @@
         "Grok4 Optim sacrificed Oashra Cultivator (source: Oashra Cultivator)",
         "Grok4 Optim activates: search your library for a basic land card, put it onto the battlefield tapped, then shuffle. from Oashra Cultivator"
       ],
+      "actionSeq": 80,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -102316,6 +102338,7 @@
         106
       ],
       "subsequentActions": [],
+      "actionSeq": 86,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -102342,7 +102365,8 @@
       ],
       "subsequentActions": [
         "Grok4 Optim searches their library (source: Oashra Cultivator)"
-      ]
+      ],
+      "actionSeq": 87
     },
     {
       "index": 24,
@@ -102433,6 +102457,7 @@
         "Grok4 Optim puts Forest from library onto the Battlefield (source: Oashra Cultivator)",
         "Grok4 Optim's library is shuffled (source: Oashra Cultivator)"
       ],
+      "actionSeq": 89,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -102470,6 +102495,7 @@
       "subsequentActions": [
         "Grok4 Optim skip attack"
       ],
+      "actionSeq": 92,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -102504,7 +102530,8 @@
         117,
         118
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 96
     },
     {
       "index": 27,
@@ -102534,6 +102561,7 @@
         123
       ],
       "subsequentActions": [],
+      "actionSeq": 98,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -102601,6 +102629,7 @@
       "subsequentActions": [
         "GPT52 Coach puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 100,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -102683,6 +102712,7 @@
         "GPT52 Coach puts Dutiful Replicator from stack onto the Battlefield",
         "GPT52 Coach - Ability triggers: Dutiful Replicator - When Dutiful Replicator enters, you may pay {1}. When you do, create a token that's a copy of target token you control not named Dutiful Replicator."
       ],
+      "actionSeq": 104,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -102734,6 +102764,7 @@
         134
       ],
       "subsequentActions": [],
+      "actionSeq": 115,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -102779,6 +102810,7 @@
         138
       ],
       "subsequentActions": [],
+      "actionSeq": 116,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -102848,6 +102880,7 @@
         "Attacker: Initiate's Companion (3/1) unblocked",
         "Grok4 Optim loses 3 life at combat from Initiate's Companion"
       ],
+      "actionSeq": 118,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -102966,7 +102999,8 @@
       ],
       "subsequentActions": [
         "GPT52 Coach - Ability triggers: Initiate's Companion - Whenever Initiate's Companion deals combat damage to a player, untap target creature or land. - targeting Initiate's Companion"
-      ]
+      ],
+      "actionSeq": 130
     },
     {
       "index": 34,
@@ -103006,6 +103040,7 @@
         151
       ],
       "subsequentActions": [],
+      "actionSeq": 136,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -103069,6 +103104,7 @@
       "subsequentActions": [
         "Grok4 Optim casts Kibo, Uktabi Prince from hand"
       ],
+      "actionSeq": 138,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -103112,6 +103148,7 @@
       "subsequentActions": [
         "Grok4 Optim puts Kibo, Uktabi Prince from stack onto the Battlefield"
       ],
+      "actionSeq": 145,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -103150,6 +103187,7 @@
       "subsequentActions": [
         "Grok4 Optim skip attack"
       ],
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -103234,6 +103272,7 @@
       "subsequentActions": [
         "GPT52 Coach puts Mountain from hand onto the Battlefield"
       ],
+      "actionSeq": 156,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -103318,6 +103357,7 @@
         "GPT52 Coach - Ability triggers: Brazen Freebooter - When Brazen Freebooter enters, create a Treasure token.",
         "GPT52 Coach creates a Treasure Token token"
       ],
+      "actionSeq": 160,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -103369,6 +103409,7 @@
         176
       ],
       "subsequentActions": [],
+      "actionSeq": 173,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -103446,6 +103487,7 @@
       "subsequentActions": [
         "GPT52 Coach attacks Grok4 Optim with 2 creatures"
       ],
+      "actionSeq": 175,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -103493,6 +103535,7 @@
         "Attacker: Initiate's Companion (3/1) unblocked",
         "Attacker: Dutiful Replicator (3/2) unblocked"
       ],
+      "actionSeq": 182,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "blockers",
@@ -103549,7 +103592,8 @@
         185,
         189
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 186
     },
     {
       "index": 44,
@@ -103582,6 +103626,7 @@
         "Grok4 Optim loses 3 life at combat from Initiate's Companion",
         "Grok4 Optim loses 3 life at combat from Dutiful Replicator"
       ],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -103724,7 +103769,8 @@
       ],
       "subsequentActions": [
         "GPT52 Coach - Ability triggers: Initiate's Companion - Whenever Initiate's Companion deals combat damage to a player, untap target creature or land. - targeting Dutiful Replicator"
-      ]
+      ],
+      "actionSeq": 191
     },
     {
       "index": 46,
@@ -103764,6 +103810,7 @@
         201
       ],
       "subsequentActions": [],
+      "actionSeq": 197,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -103839,6 +103886,7 @@
         211
       ],
       "subsequentActions": [],
+      "actionSeq": 199,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -103905,6 +103953,7 @@
         "Grok4 Optim attacks GPT52 Coach with 1 creature",
         "Grok4 Optim - Ability triggers: Kibo, Uktabi Prince - Whenever Kibo, Uktabi Prince attacks, defending player sacrifices an artifact of their choice."
       ],
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -103966,7 +104015,8 @@
       "subsequentActions": [
         "GPT52 Coach sacrificed Treasure Token (source: Kibo, Uktabi Prince)",
         "Grok4 Optim - Ability triggers: Kibo, Uktabi Prince - Whenever an artifact an opponent controls is put into a graveyard from the battlefield, put a +1/+1 counter on each creature you control that's an Ape or a Monkey."
-      ]
+      ],
+      "actionSeq": 209
     },
     {
       "index": 50,
@@ -104017,6 +104067,7 @@
       "subsequentActions": [
         "Kibo, Uktabi Prince: Grok4 Optim puts 1 +1/+1 counter on Kibo, Uktabi Prince"
       ],
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -104085,6 +104136,7 @@
       "subsequentActions": [
         "Attacker: Kibo, Uktabi Prince (3/3) blocked by Dutiful Replicator (3/2)"
       ],
+      "actionSeq": 217,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -104143,6 +104195,7 @@
         234
       ],
       "subsequentActions": [],
+      "actionSeq": 221,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -104213,6 +104266,7 @@
       "subsequentActions": [
         "Grok4 Optim casts Ram Through targeting Kibo, Uktabi Prince, Dutiful Replicator from hand"
       ],
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -104259,6 +104313,7 @@
         242
       ],
       "subsequentActions": [],
+      "actionSeq": 226,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -104328,6 +104383,7 @@
       "subsequentActions": [
         "Grok4 Optim casts Master's Rebuke targeting Kibo, Uktabi Prince, Brazen Freebooter from hand"
       ],
+      "actionSeq": 227,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -104378,7 +104434,8 @@
         "Brazen Freebooter died",
         "Kibo, Uktabi Prince deals 3 damage to Dutiful Replicator",
         "Grok4 Optim puts Ram Through from stack into their graveyard"
-      ]
+      ],
+      "actionSeq": 232
     },
     {
       "index": 57,
@@ -104420,7 +104477,8 @@
         255,
         256
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 246
     },
     {
       "index": 58,
@@ -104501,6 +104559,7 @@
       "subsequentActions": [
         "GPT52 Coach puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -104578,6 +104637,7 @@
         "Attacker: Initiate's Companion (3/1) unblocked",
         "Grok4 Optim loses 3 life at combat from Initiate's Companion"
       ],
+      "actionSeq": 257,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -104709,6 +104769,7 @@
       "subsequentActions": [
         "GPT52 Coach - Ability triggers: Initiate's Companion - Whenever Initiate's Companion deals combat damage to a player, untap target creature or land. - targeting Mountain"
       ],
+      "actionSeq": 269,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -104779,6 +104840,7 @@
         "GPT52 Coach casts Pouncing Cheetah from hand",
         "GPT52 Coach puts Pouncing Cheetah from stack onto the Battlefield"
       ],
+      "actionSeq": 275,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -104822,6 +104884,7 @@
         277
       ],
       "subsequentActions": [],
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -104909,6 +104972,7 @@
         284
       ],
       "subsequentActions": [],
+      "actionSeq": 288,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -104973,6 +105037,7 @@
         "Grok4 Optim attacks GPT52 Coach with 1 creature",
         "Grok4 Optim - Ability triggers: Kibo, Uktabi Prince - Whenever Kibo, Uktabi Prince attacks, defending player sacrifices an artifact of their choice."
       ],
+      "actionSeq": 288,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -105010,6 +105075,7 @@
         294
       ],
       "subsequentActions": [],
+      "actionSeq": 294,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -105064,6 +105130,7 @@
         298
       ],
       "subsequentActions": [],
+      "actionSeq": 298,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "blockers",
@@ -105120,6 +105187,7 @@
       "subsequentActions": [
         "Attacker: Kibo, Uktabi Prince (4/4) blocked by Pouncing Cheetah (3/2)"
       ],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "blockers"
@@ -105170,6 +105238,7 @@
         "Kibo, Uktabi Prince deals 4 damage to Pouncing Cheetah",
         "Pouncing Cheetah died"
       ],
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -105233,6 +105302,7 @@
       "subsequentActions": [
         "Grok4 Optim casts Towering Gibbon from hand"
       ],
+      "actionSeq": 310,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -105276,6 +105346,7 @@
       "subsequentActions": [
         "Grok4 Optim puts Towering Gibbon from stack onto the Battlefield"
       ],
+      "actionSeq": 317,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -105350,6 +105421,7 @@
       "subsequentActions": [
         "GPT52 Coach puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 322,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -105417,6 +105489,7 @@
         322
       ],
       "subsequentActions": [],
+      "actionSeq": 328,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "attackers"
@@ -105465,6 +105538,7 @@
       "subsequentActions": [
         "GPT52 Coach attacks Grok4 Optim with 1 creature"
       ],
+      "actionSeq": 329,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "attackers"
@@ -105517,6 +105591,7 @@
       "subsequentActions": [
         "Attacker: Initiate's Companion (3/1) blocked by Towering Gibbon (4/4)"
       ],
+      "actionSeq": 334,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -105579,6 +105654,7 @@
         334
       ],
       "subsequentActions": [],
+      "actionSeq": 338,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -105636,6 +105712,7 @@
         338
       ],
       "subsequentActions": [],
+      "actionSeq": 340,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -105669,6 +105746,7 @@
         341
       ],
       "subsequentActions": [],
+      "actionSeq": 342,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -105702,6 +105780,7 @@
         343
       ],
       "subsequentActions": [],
+      "actionSeq": 342,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -105735,6 +105814,7 @@
         345
       ],
       "subsequentActions": [],
+      "actionSeq": 342,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -105768,6 +105848,7 @@
         347
       ],
       "subsequentActions": [],
+      "actionSeq": 342,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -105801,6 +105882,7 @@
         349
       ],
       "subsequentActions": [],
+      "actionSeq": 342,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -105854,6 +105936,7 @@
         352
       ],
       "subsequentActions": [],
+      "actionSeq": 342,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -105887,6 +105970,7 @@
         355
       ],
       "subsequentActions": [],
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -105941,6 +106025,7 @@
         358
       ],
       "subsequentActions": [],
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -105974,6 +106059,7 @@
         361
       ],
       "subsequentActions": [],
+      "actionSeq": 346,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -106007,6 +106093,7 @@
         363
       ],
       "subsequentActions": [],
+      "actionSeq": 346,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -106070,6 +106157,7 @@
         368
       ],
       "subsequentActions": [],
+      "actionSeq": 346,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -106103,6 +106191,7 @@
         373
       ],
       "subsequentActions": [],
+      "actionSeq": 348,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -106140,6 +106229,7 @@
         "Initiate's Companion deals 3 damage to Towering Gibbon",
         "Initiate's Companion died"
       ],
+      "actionSeq": 348,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -106209,6 +106299,7 @@
       "subsequentActions": [
         "Grok4 Optim puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 358,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -106293,6 +106384,7 @@
         396
       ],
       "subsequentActions": [],
+      "actionSeq": 369,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -106323,7 +106415,8 @@
         382,
         383
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 363
     },
     {
       "index": 93,
@@ -106354,6 +106447,7 @@
         385
       ],
       "subsequentActions": [],
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -106410,6 +106504,7 @@
         388
       ],
       "subsequentActions": [],
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -106443,6 +106538,7 @@
         391
       ],
       "subsequentActions": [],
+      "actionSeq": 365,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -106495,6 +106591,7 @@
       "subsequentActions": [
         "Grok4 Optim skip attack"
       ],
+      "actionSeq": 365,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -106540,6 +106637,7 @@
         401
       ],
       "subsequentActions": [],
+      "actionSeq": 369,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -106564,7 +106662,8 @@
         403,
         404
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 373
     },
     {
       "index": 99,
@@ -106606,6 +106705,7 @@
       "subsequentActions": [
         "GPT52 Coach skip attack"
       ],
+      "actionSeq": 374,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -106663,6 +106763,7 @@
         "Welding Sparks deals 3 damage to Kibo, Uktabi Prince",
         "GPT52 Coach puts Welding Sparks from stack into their graveyard"
       ],
+      "actionSeq": 378,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -106708,6 +106809,7 @@
         418
       ],
       "subsequentActions": [],
+      "actionSeq": 388,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -106776,6 +106878,7 @@
         427
       ],
       "subsequentActions": [],
+      "actionSeq": 390,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -106836,6 +106939,7 @@
         431
       ],
       "subsequentActions": [],
+      "actionSeq": 391,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -106902,6 +107006,7 @@
         "Thriving Grove: GPT52 Coach has chosen Red",
         "GPT52 Coach puts Thriving Grove from hand onto the Battlefield"
       ],
+      "actionSeq": 392,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -106961,6 +107066,7 @@
       "subsequentActions": [
         "GPT52 Coach casts Pridemalkin from hand"
       ],
+      "actionSeq": 396,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -107013,6 +107119,7 @@
         "GPT52 Coach puts Pridemalkin from stack onto the Battlefield",
         "GPT52 Coach - Ability triggers: Pridemalkin - When Pridemalkin enters, put a +1/+1 counter on target creature you control. - targeting Pridemalkin"
       ],
+      "actionSeq": 402,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -107060,6 +107167,7 @@
       "subsequentActions": [
         "Pridemalkin: GPT52 Coach puts 1 +1/+1 counters on Pridemalkin"
       ],
+      "actionSeq": 406,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -107102,6 +107210,7 @@
         450
       ],
       "subsequentActions": [],
+      "actionSeq": 408,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107168,6 +107277,7 @@
         "Grok4 Optim attacks GPT52 Coach with 2 creatures",
         "Grok4 Optim - Ability triggers: Kibo, Uktabi Prince - Whenever Kibo, Uktabi Prince attacks, defending player sacrifices an artifact of their choice."
       ],
+      "actionSeq": 412,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -107204,6 +107314,7 @@
         463
       ],
       "subsequentActions": [],
+      "actionSeq": 418,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -107258,6 +107369,7 @@
         467
       ],
       "subsequentActions": [],
+      "actionSeq": 422,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -107340,7 +107452,8 @@
       "subsequentActions": [
         "Attacker: Kibo, Uktabi Prince (4/4) blocked by Pridemalkin (3/2)",
         "Attacker: Towering Gibbon (4/4) unblocked"
-      ]
+      ],
+      "actionSeq": 423
     },
     {
       "index": 113,
@@ -107387,7 +107500,8 @@
         "Kibo, Uktabi Prince deals 4 damage to Pridemalkin",
         "GPT52 Coach loses 4 life at combat from Towering Gibbon",
         "Pridemalkin died"
-      ]
+      ],
+      "actionSeq": 429
     },
     {
       "index": 114,
@@ -107426,7 +107540,8 @@
         480,
         482
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 436
     },
     {
       "index": 115,
@@ -107494,6 +107609,7 @@
       "subsequentActions": [
         "Grok4 Optim casts Silverback Shaman from hand"
       ],
+      "actionSeq": 437,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -107538,6 +107654,7 @@
       "subsequentActions": [
         "Grok4 Optim puts Silverback Shaman from stack onto the Battlefield"
       ],
+      "actionSeq": 445,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -107570,6 +107687,7 @@
         497
       ],
       "subsequentActions": [],
+      "actionSeq": 448,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -107635,6 +107753,7 @@
         "GPT52 Coach casts Sabertooth Mauler from hand",
         "GPT52 Coach puts Sabertooth Mauler from stack onto the Battlefield"
       ],
+      "actionSeq": 450,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -107693,6 +107812,7 @@
         501
       ],
       "subsequentActions": [],
+      "actionSeq": 461,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -107751,6 +107871,7 @@
         505
       ],
       "subsequentActions": [],
+      "actionSeq": 462,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -107818,6 +107939,7 @@
         "GPT52 Coach puts Thriving Bluff from hand onto the Battlefield",
         "GPT52 Coach skip attack"
       ],
+      "actionSeq": 463,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -107894,6 +108016,7 @@
         513
       ],
       "subsequentActions": [],
+      "actionSeq": 474,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -107972,6 +108095,7 @@
       "subsequentActions": [
         "Grok4 Optim casts Declare Dominance targeting Silverback Shaman from hand"
       ],
+      "actionSeq": 475,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -108021,6 +108145,7 @@
         523
       ],
       "subsequentActions": [],
+      "actionSeq": 484,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -108064,7 +108189,8 @@
       ],
       "subsequentActions": [
         "Grok4 Optim puts Declare Dominance from stack into their graveyard"
-      ]
+      ],
+      "actionSeq": 485
     },
     {
       "index": 126,
@@ -108107,6 +108233,7 @@
         529
       ],
       "subsequentActions": [],
+      "actionSeq": 487,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -108181,6 +108308,7 @@
         "Grok4 Optim attacks GPT52 Coach with 3 creatures",
         "Grok4 Optim - Ability triggers: Kibo, Uktabi Prince - Whenever Kibo, Uktabi Prince attacks, defending player sacrifices an artifact of their choice."
       ],
+      "actionSeq": 489,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -108212,7 +108340,8 @@
         536,
         538
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 494
     },
     {
       "index": 129,
@@ -108255,6 +108384,7 @@
         541
       ],
       "subsequentActions": [],
+      "actionSeq": 495,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -108304,6 +108434,7 @@
         "Attacker: Towering Gibbon (5/4) unblocked",
         "Attacker: Silverback Shaman (8/7) blocked by Sabertooth Mauler (3/3)"
       ],
+      "actionSeq": 497,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -108349,6 +108480,7 @@
         "GPT52 Coach loses 4 life at combat from Kibo, Uktabi Prince",
         "GPT52 Coach loses 5 life at combat from Towering Gibbon"
       ],
+      "actionSeq": 503,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -108385,7 +108517,8 @@
       ],
       "subsequentActions": [
         "Grok4 Optim has lost the game."
-      ]
+      ],
+      "actionSeq": 507
     }
   ],
   "errors": [
@@ -108499,7 +108632,7 @@
       "actionTaken": "Mulliganed a 7-card hand with 4 lands, a 4-drop creature, and two removal spells.",
       "betterLine": "Keep the 7-card hand. Play Thriving Grove turn 1, Forests on turns 2-3, deploy Simian Brawler turn 4 with removal backup.",
       "type": "blunder",
-      "snapshotIndex": 1,
+      "snapshotIndex": 2,
       "player": "Grok4 Optim"
     },
     {
@@ -108508,7 +108641,7 @@
       "actionTaken": "Bottomed Thriving Grove, keeping 3 Forests as the only lands",
       "betterLine": "Bottom a Forest instead, keeping Thriving Grove for color fixing. The hand would be Forest, Forest, Thriving Grove, Oashra Cultivator, Ram Through, Towering Gibbon — still 3 lands with better color access for potential red spells.",
       "type": "blunder",
-      "snapshotIndex": 2,
+      "snapshotIndex": 3,
       "player": "Grok4 Optim"
     },
     {
@@ -108517,7 +108650,7 @@
       "actionTaken": "Activated Oashra Cultivator (2G, tap, sacrifice) to search for a basic land, ramping to 5 lands next turn but leaving the board empty.",
       "betterLine": "Cast Kibo, Uktabi Prince for 2G. Next turn, tap Kibo to create Banana tokens, giving access to 4 lands + Banana = 5 mana while having a 2/2 creature on board that pressures the opponent and synergizes with Towering Gibbon and the rest of the deck.",
       "type": "blunder",
-      "snapshotIndex": 42,
+      "snapshotIndex": 43,
       "player": "Grok4 Optim"
     },
     {
@@ -108526,7 +108659,7 @@
       "actionTaken": "Cast Dutiful Replicator with no tokens to copy, wasting its ETB.",
       "betterLine": "Cast Pouncing Cheetah (same 3/2 body, uses the flash creature when flash isn't needed on an empty board) and save Dutiful Replicator for after Brazen Freebooter creates a Treasure token to copy.",
       "type": "blunder",
-      "snapshotIndex": 56,
+      "snapshotIndex": 57,
       "player": "GPT52 Coach"
     },
     {
@@ -108535,7 +108668,7 @@
       "actionTaken": "Cast Kibo, Uktabi Prince (2/2) for 3 mana",
       "betterLine": "Cast Towering Gibbon for 4 mana, deploying a 4/4 reach creature that dominates the board defensively and offensively while maximizing removal spell effectiveness",
       "type": "blunder",
-      "snapshotIndex": 79,
+      "snapshotIndex": 80,
       "player": "Grok4 Optim"
     },
     {
@@ -108544,7 +108677,7 @@
       "actionTaken": "Cast Brazen Freebooter, creating a 3/3 body and a Treasure token that feeds Kibo's abilities.",
       "betterLine": "Cast Welding Sparks targeting Kibo, Uktabi Prince to remove it before it can generate value. Kibo is a must-answer threat that punishes artifact ownership and grows itself.",
       "type": "blunder",
-      "snapshotIndex": 92,
+      "snapshotIndex": 93,
       "player": "GPT52 Coach"
     },
     {
@@ -108553,7 +108686,7 @@
       "actionTaken": "Attacked with only Initiate's Companion (3 damage)",
       "betterLine": "Attack with both Dutiful Replicator and Initiate's Companion for 6 unblocked damage, bringing opponent to 11 instead of 14.",
       "type": "blunder",
-      "snapshotIndex": 103,
+      "snapshotIndex": 104,
       "player": "GPT52 Coach"
     },
     {
@@ -108562,7 +108695,7 @@
       "actionTaken": "Untapped Brazen Freebooter (summoning sick, no tap abilities — zero value)",
       "betterLine": "Untap Initiate's Companion to have a 3/1 blocker available for the opponent's next attack step",
       "type": "blunder",
-      "snapshotIndex": 110,
+      "snapshotIndex": 111,
       "player": "GPT52 Coach"
     },
     {
@@ -108571,7 +108704,7 @@
       "actionTaken": "Timed out and passed priority without casting any spell or activating Kibo.",
       "betterLine": "Cast Canopy Baloth or Towering Gibbon (both cost 4 mana, available) to add a significant blocker/attacker. Alternatively, activate Kibo first to create Banana tokens, then cast a 4-drop. Could also cast Khalni Heart Expedition for 2 mana and still have 2 mana for Ram Through or Master's Rebuke later.",
       "type": "blunder",
-      "snapshotIndex": 117,
+      "snapshotIndex": 118,
       "player": "Grok4 Optim"
     },
     {
@@ -108580,7 +108713,7 @@
       "actionTaken": "Did not attack with any creatures (timed out / no response).",
       "betterLine": "Attack with Kibo, Uktabi Prince to force the opponent to sacrifice an artifact (likely the Treasure Token), triggering Kibo's +1/+1 counter ability. If the opponent blocks with Dutiful Replicator, you can use Ram Through or Master's Rebuke from hand to handle the blocker while keeping Kibo alive.",
       "type": "blunder",
-      "snapshotIndex": 119,
+      "snapshotIndex": 120,
       "player": "Grok4 Optim"
     },
     {
@@ -108589,7 +108722,7 @@
       "actionTaken": "Sacrificed Dutiful Replicator (3/2 creature) to Kibo's forced artifact sacrifice trigger.",
       "betterLine": "Sacrifice the Treasure Token instead, preserving the 3/2 body for attacking and blocking.",
       "type": "blunder",
-      "snapshotIndex": 122,
+      "snapshotIndex": 123,
       "player": "GPT52 Coach"
     },
     {
@@ -108598,7 +108731,7 @@
       "actionTaken": "Timed out and didn't declare any attackers, missing 4 unblockable damage.",
       "betterLine": "Attack with Kibo, Uktabi Prince for 4 damage, bringing opponent to 16. It costs nothing since Kibo untaps for blocking duty next turn.",
       "type": "blunder",
-      "snapshotIndex": 172,
+      "snapshotIndex": 173,
       "player": "Grok4 Optim"
     },
     {
@@ -108607,7 +108740,7 @@
       "actionTaken": "Blocked Kibo with Pouncing Cheetah, trading it away for 3 non-lethal damage to Kibo",
       "betterLine": "Don't block, take 4 damage (go to 16), then next turn attack with both Cheetah and Initiate's Companion for 6 and use Welding Sparks for 3+ to threaten lethal",
       "type": "blunder",
-      "snapshotIndex": 178,
+      "snapshotIndex": 179,
       "player": "GPT52 Coach"
     },
     {
@@ -108616,7 +108749,7 @@
       "actionTaken": "Blocked Kibo, Uktabi Prince with Pouncing Cheetah, losing the 3/2 for no permanent effect on Kibo.",
       "betterLine": "Don't block, take 4 damage (going to 16 life), preserve Pouncing Cheetah as an attacker to pressure the opponent at 8 life. Next turn the Cheetah could attack and help close out the game.",
       "type": "blunder",
-      "snapshotIndex": 179,
+      "snapshotIndex": 180,
       "player": "GPT52 Coach"
     },
     {
@@ -108625,7 +108758,7 @@
       "actionTaken": "Played Forest (enters untapped) with no use for the 6th mana this turn.",
       "betterLine": "Play Thriving Bluff or Thriving Grove (choosing the missing color) to maximize future mana flexibility, saving the basic Forest for a turn where all mana is needed untapped.",
       "type": "blunder",
-      "snapshotIndex": 193,
+      "snapshotIndex": 194,
       "player": "GPT52 Coach"
     },
     {
@@ -108634,7 +108767,7 @@
       "actionTaken": "Attacked with Initiate's Companion into a board with untapped Towering Gibbon 4/4 (reach)",
       "betterLine": "Hold back Initiate's Companion as a blocker. With Welding Sparks in hand (3 damage) and the opponent at 8 life, preserving the creature for defense while looking for more threats or waiting for a better attack opportunity would be more prudent.",
       "type": "blunder",
-      "snapshotIndex": 197,
+      "snapshotIndex": 198,
       "player": "GPT52 Coach"
     },
     {
@@ -108643,7 +108776,7 @@
       "actionTaken": "No response (timeout) - did not assign Towering Gibbon as a blocker, taking 3 damage to face.",
       "betterLine": "Block Initiate's Companion with Towering Gibbon to kill the 3/1, save 3 life, and keep the Gibbon alive.",
       "type": "blunder",
-      "snapshotIndex": 199,
+      "snapshotIndex": 200,
       "player": "Grok4 Optim"
     },
     {
@@ -108652,7 +108785,7 @@
       "actionTaken": "Timed out and did not respond, letting Initiate's Companion die without killing the Towering Gibbon.",
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon for 3 damage before combat damage resolves, so the combined 6 damage (3 from Sparks + 3 from Companion) kills the 4/4 Gibbon, trading an already-dead creature plus a removal spell for their major blocker.",
       "type": "blunder",
-      "snapshotIndex": 205,
+      "snapshotIndex": 206,
       "player": "GPT52 Coach"
     },
     {
@@ -108661,7 +108794,7 @@
       "actionTaken": "Timed out (no response), letting Initiate's Companion die without using Welding Sparks.",
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before, dealing 3 damage to it. Combined with the 3 combat damage from Initiate's Companion, the Gibbon would die. This trades the Companion 1-for-1 with a bigger creature instead of losing it for nothing.",
       "type": "blunder",
-      "snapshotIndex": 205,
+      "snapshotIndex": 206,
       "player": "GPT52 Coach"
     },
     {
@@ -108670,7 +108803,7 @@
       "actionTaken": "No response (timeout) — Companion died in combat without accomplishing anything.",
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before, dealing 3 spell damage + 3 combat damage = 6 to the 4/4, killing it. This turns a dead Companion into a meaningful trade.",
       "type": "blunder",
-      "snapshotIndex": 205,
+      "snapshotIndex": 206,
       "player": "GPT52 Coach"
     },
     {
@@ -108679,7 +108812,7 @@
       "actionTaken": "Timed out (no response), letting combat resolve without casting Welding Sparks. Companion dies, Gibbon survives.",
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before. The 3 combat damage + 3 from Welding Sparks = 6 kills the 4/4 Gibbon, turning a losing trade into a clean 1-for-1+spell exchange and removing a key blocker with the opponent at 8 life.",
       "type": "blunder",
-      "snapshotIndex": 205,
+      "snapshotIndex": 206,
       "player": "GPT52 Coach"
     },
     {
@@ -108688,7 +108821,7 @@
       "actionTaken": "Timed out / no response, allowing Initiate's Companion to die to Towering Gibbon without casting Welding Sparks.",
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage or before damage. The 3 damage from Welding Sparks plus 3 combat damage would kill the 4/4 Towering Gibbon, trading Initiate's Companion and a spell for a significant blocker. Alternatively, Welding Sparks could target Kibo (4/4) — 3 damage wouldn't kill it alone, so Towering Gibbon is the correct target during this combat.",
       "type": "blunder",
-      "snapshotIndex": 205,
+      "snapshotIndex": 206,
       "player": "GPT52 Coach"
     },
     {
@@ -108697,7 +108830,7 @@
       "actionTaken": "Timed out and did not cast Welding Sparks, allowing Towering Gibbon to survive combat.",
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during the combat damage step (or before), dealing 3 damage so that combined with 3 combat damage from Companion, the Gibbon dies.",
       "type": "blunder",
-      "snapshotIndex": 207,
+      "snapshotIndex": 208,
       "player": "GPT52 Coach"
     },
     {
@@ -108706,7 +108839,7 @@
       "actionTaken": "Timed out and did not respond, letting the Companion die without finishing off the Towering Gibbon.",
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon after combat damage to kill it, turning an unfavorable block into a 2-for-1 trade that removes a key reach blocker while opponent is at 8 life.",
       "type": "blunder",
-      "snapshotIndex": 209,
+      "snapshotIndex": 210,
       "player": "GPT52 Coach"
     },
     {
@@ -108715,7 +108848,7 @@
       "actionTaken": "Timed out (no response), letting combat resolve without casting Welding Sparks. Initiate's Companion dies and Towering Gibbon survives.",
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon for 3 damage before combat damage resolves, then the Companion's 3 combat damage kills the Gibbon. This trades a 3/1 and a removal spell for a 4/4 reach creature — a strong exchange given the opponent is at 8 life and the Gibbon is a major blocker.",
       "type": "blunder",
-      "snapshotIndex": 209,
+      "snapshotIndex": 210,
       "player": "GPT52 Coach"
     },
     {
@@ -108724,7 +108857,7 @@
       "actionTaken": "No response (timeout) — did not cast Welding Sparks, letting Initiate's Companion die while Towering Gibbon survived at 4/1.",
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon for 3 damage, reducing it to 4/1, then combat damage from Initiate's Companion (3 damage) kills it. This trades Companion + Welding Sparks for the opponent's Gibbon, clearing a key blocker with the opponent at 8 life.",
       "type": "blunder",
-      "snapshotIndex": 211,
+      "snapshotIndex": 212,
       "player": "GPT52 Coach"
     },
     {
@@ -108733,7 +108866,7 @@
       "actionTaken": "No response (timeout) — Companion dies, Towering Gibbon survives at 4/1.",
       "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before, dealing 3 damage to it. Combined with 3 combat damage from Companion, this kills the Gibbon (6 damage to a 4-toughness creature). Trading Companion + Welding Sparks for the 4/4 reach creature is excellent when the opponent is at 8 life.",
       "type": "blunder",
-      "snapshotIndex": 211,
+      "snapshotIndex": 212,
       "player": "GPT52 Coach"
     },
     {
@@ -108742,7 +108875,7 @@
       "actionTaken": "Cast Welding Sparks for 3 damage against a 4-toughness creature, wasting the card.",
       "betterLine": "Hold Welding Sparks for a situation where it can actually kill a creature (e.g., when you control artifacts like Treasure tokens to boost the damage, or against a smaller creature). Pass priority and play a land instead.",
       "type": "blunder",
-      "snapshotIndex": 219,
+      "snapshotIndex": 220,
       "player": "GPT52 Coach"
     },
     {
@@ -108751,7 +108884,7 @@
       "actionTaken": "Passed priority without activating Kibo's ability, missing a free value opportunity.",
       "betterLine": "Activate Kibo's tap ability to create Banana tokens for both players, setting up future +1/+1 counter triggers when the opponent's artifact goes to graveyard (especially forced by Kibo's attack trigger next turn).",
       "type": "blunder",
-      "snapshotIndex": 243,
+      "snapshotIndex": 244,
       "player": "Grok4 Optim"
     },
     {
@@ -108760,7 +108893,7 @@
       "actionTaken": "Passed priority without activating Kibo's tap ability to create Banana tokens.",
       "betterLine": "Activate Kibo to create Banana tokens for both players. The 2 life gain from cracking your own Banana is meaningful at 8 life, and there's upside if the opponent doesn't crack theirs before Kibo attacks next turn.",
       "type": "blunder",
-      "snapshotIndex": 245,
+      "snapshotIndex": 246,
       "player": "Grok4 Optim"
     },
     {
@@ -108769,7 +108902,7 @@
       "actionTaken": "Timed out and didn't declare any attackers, missing 8 damage.",
       "betterLine": "Attack with both Kibo and Towering Gibbon for 8 unblockable damage, bringing the opponent to 12 life.",
       "type": "blunder",
-      "snapshotIndex": 250,
+      "snapshotIndex": 251,
       "player": "Grok4 Optim"
     },
     {
@@ -108778,7 +108911,7 @@
       "actionTaken": "Blocked with Pridemalkin, losing the only creature to save 4 life at a comfortable 20 life total.",
       "betterLine": "Don't block. Take 8 damage to go to 12 life, which is still safe, and keep Pridemalkin as an offensive threat against the opponent's 8 life total.",
       "type": "blunder",
-      "snapshotIndex": 256,
+      "snapshotIndex": 257,
       "player": "GPT52 Coach"
     },
     {
@@ -108787,7 +108920,7 @@
       "actionTaken": "No response (timeout) — no attackers declared, wasting the combat phase entirely.",
       "betterLine": "Attack with all three creatures. With 17 total power (including Silverback Shaman's trample) against a single 3/3 blocker, this deals 12-14 damage regardless of how the opponent blocks, putting them to 2-4 life and threatening lethal next turn.",
       "type": "blunder",
-      "snapshotIndex": 297,
+      "snapshotIndex": 298,
       "player": "Grok4 Optim"
     }
   ],

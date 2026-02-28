@@ -49361,7 +49361,7 @@
       "actionTaken": "Cast Ocelot Pride (W) precombat, leaving W open",
       "betterLine": "Attack with Guide of Souls first, then cast Ocelot Pride post-combat (Guide of Souls ETB trigger still gives life gain for Ocelot Pride's end step trigger, and you don't reveal information before attacks)",
       "type": "blunder",
-      "snapshotIndex": 43,
+      "snapshotIndex": 44,
       "player": "Opus Fate"
     },
     {
@@ -49370,7 +49370,7 @@
       "actionTaken": "Cast Ragavan with normal cost {R} to keep it on the battlefield permanently",
       "betterLine": "Dash might have been slightly safer given the opponent could have removal, but normal cast is defensible since Ragavan staying on board is higher upside and triggers Guide of Souls for life/energy",
       "type": "blunder",
-      "snapshotIndex": 82,
+      "snapshotIndex": 83,
       "player": "Opus Fate"
     },
     {
@@ -49379,7 +49379,7 @@
       "actionTaken": "Cast Galvanic Discharge targeting Emry, Lurker of the Loch before combat",
       "betterLine": "Attack first with all creatures (Voice of Victory creates Mobilize tokens and prevents opponent from casting spells during your turn anyway), then evaluate whether to use Galvanic Discharge post-combat. Emry is summoning sick and can't activate this turn, so there's no urgency to remove it before your combat phase.",
       "type": "blunder",
-      "snapshotIndex": 111,
+      "snapshotIndex": 112,
       "player": "Opus Fate"
     }
   ],
@@ -49435,7 +49435,8 @@
         "Gem25F Sarge draws seven cards",
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -49472,7 +49473,8 @@
         "Gem25F Sarge draws seven cards",
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -49549,7 +49551,8 @@
         "Gem25F Sarge draws seven cards",
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -49630,7 +49633,8 @@
         "Gem25F Sarge draws seven cards",
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -49664,7 +49668,8 @@
         "Gem25F Sarge draws seven cards",
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -49729,6 +49734,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -49769,6 +49775,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -49820,6 +49827,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -49866,6 +49874,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -49907,6 +49916,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -49984,6 +49994,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -50039,6 +50050,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -50082,6 +50094,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -50153,6 +50166,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -50194,6 +50208,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -50235,6 +50250,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -50276,6 +50292,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -50337,6 +50354,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -50378,6 +50396,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -50419,6 +50438,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -50459,6 +50479,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -50496,6 +50517,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -50544,6 +50566,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -50592,6 +50615,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -50632,6 +50656,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -50711,6 +50736,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -50761,6 +50787,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -50810,6 +50837,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -50851,6 +50879,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -50904,6 +50933,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -50964,6 +50994,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -51019,6 +51050,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -51059,6 +51091,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -51128,6 +51161,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -51227,6 +51261,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -51285,6 +51320,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -51326,6 +51362,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -51381,6 +51418,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -51438,6 +51476,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -51551,6 +51590,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -51604,6 +51644,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -51641,6 +51682,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -51695,6 +51737,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -51844,6 +51887,7 @@
         "Opus Fate draws seven cards",
         "Gem25F Sarge decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }

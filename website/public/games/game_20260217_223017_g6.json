@@ -42606,7 +42606,7 @@
       "actionTaken": "Used Force of Negation with alternative cost to counter Preordain",
       "betterLine": "Let Preordain resolve. Save Force of Negation for a high-impact spell like a counterspell on your Goryo's Vengeance or a game-changing threat. Preordain is card selection, not a must-counter spell.",
       "type": "blunder",
-      "snapshotIndex": 26,
+      "snapshotIndex": 27,
       "player": "o3 Grudge"
     },
     {
@@ -42615,7 +42615,7 @@
       "actionTaken": "Cast Force of Negation targeting Mishra's Bauble, requiring exiling a critical blue card (Psychic Frog or Atraxa) as alternative cost",
       "betterLine": "Let Mishra's Bauble resolve - it only provides the opponent a scry-like effect and a delayed draw. Save Force of Negation for a meaningful threat or combo piece.",
       "type": "blunder",
-      "snapshotIndex": 52,
+      "snapshotIndex": 53,
       "player": "o3 Grudge"
     },
     {
@@ -42624,7 +42624,7 @@
       "actionTaken": "Passed priority on Cori-Steel Cutter (which was cast before Monastery Swiftspear), missing the prowess trigger on Swiftspear.",
       "betterLine": "Cast Monastery Swiftspear first, then cast Cori-Steel Cutter as the second spell to trigger both Swiftspear's prowess and Flurry, getting a 2/3 haste Swiftspear plus a 2/2 haste trample Monk.",
       "type": "blunder",
-      "snapshotIndex": 80,
+      "snapshotIndex": 81,
       "player": "Gem3F Lucky"
     },
     {
@@ -42633,7 +42633,7 @@
       "actionTaken": "Passed priority without casting any spells in precombat main.",
       "betterLine": "Cast Lava Dart targeting opponent (1 damage), flashback Lava Dart sacrificing Mountain (1 damage), then cast Mutagenic Growth on Monastery Swiftspear paying 2 life, then attack with Swiftspear and non-sick Monk for exactly lethal.",
       "type": "blunder",
-      "snapshotIndex": 110,
+      "snapshotIndex": 111,
       "player": "Gem3F Lucky"
     },
     {
@@ -42642,7 +42642,7 @@
       "actionTaken": "Cracked Arid Mesa, paying 1 life and thinning the deck before going for the lethal attack.",
       "betterLine": "Skip the fetch. Cast Lava Dart targeting opponent (R from Thundering Falls), then cast Mutagenic Growth (pay 2 life) on Monastery Swiftspear, then attack with all creatures for exactly lethal (12 combat + 1 Lava Dart = 13 vs 12 life).",
       "type": "blunder",
-      "snapshotIndex": 111,
+      "snapshotIndex": 112,
       "player": "Gem3F Lucky"
     },
     {
@@ -42651,7 +42651,7 @@
       "actionTaken": "Attacked with 3 creatures without casting Lava Dart pre-combat to generate a flurry token and maximize prowess/combat damage.",
       "betterLine": "Cast Lava Dart targeting opponent (1 damage, triggers Cori-Steel Cutter flurry for a 4th attacker with prowess), then attack with all 4 creatures, cast Mutagenic Growth on Swiftspear in combat for additional prowess triggers and +2/+2, potentially dealing lethal.",
       "type": "blunder",
-      "snapshotIndex": 116,
+      "snapshotIndex": 117,
       "player": "Gem3F Lucky"
     },
     {
@@ -42660,7 +42660,7 @@
       "actionTaken": "Declined to cast Lava Dart and Mutagenic Growth during combat, leaving significant damage on the table.",
       "betterLine": "Cast Mutagenic Growth (paying 2 life) targeting the biggest attacker, then cast Lava Dart targeting the opponent, triggering prowess twice on all three attacking creatures for likely lethal damage.",
       "type": "blunder",
-      "snapshotIndex": 116,
+      "snapshotIndex": 117,
       "player": "Gem3F Lucky"
     }
   ],
@@ -42716,7 +42716,8 @@
         "Gem3F Lucky draws seven cards",
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -42750,7 +42751,8 @@
         "Gem3F Lucky draws seven cards",
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -42785,6 +42787,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -42833,6 +42836,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -42873,6 +42877,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -42914,7 +42919,8 @@
         "Gem3F Lucky draws seven cards",
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -42981,6 +42987,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -43029,6 +43036,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -43089,6 +43097,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -43145,6 +43154,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -43194,6 +43204,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -43255,6 +43266,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -43310,6 +43322,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -43409,7 +43422,8 @@
         "Gem3F Lucky draws seven cards",
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 14,
@@ -43456,7 +43470,8 @@
         "Gem3F Lucky draws seven cards",
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 15,
@@ -43519,6 +43534,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -43598,6 +43614,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -43644,6 +43661,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -43701,6 +43719,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -43746,6 +43765,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -43801,6 +43821,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -43868,6 +43889,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -43914,6 +43936,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -43972,6 +43995,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -44038,6 +44062,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -44079,6 +44104,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -44160,6 +44186,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -44220,6 +44247,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -44314,6 +44342,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -44378,6 +44407,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -44437,6 +44467,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44503,6 +44534,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44561,6 +44593,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44619,6 +44652,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44677,6 +44711,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44744,6 +44779,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44799,6 +44835,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44857,6 +44894,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44932,6 +44970,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44988,6 +45027,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -45048,6 +45088,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -45103,6 +45144,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -45179,6 +45221,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45220,6 +45263,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45278,6 +45322,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45340,6 +45385,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45405,6 +45451,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45470,6 +45517,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45535,6 +45583,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45576,6 +45625,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45641,6 +45691,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45706,6 +45757,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45771,6 +45823,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45836,6 +45889,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45904,6 +45958,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45960,6 +46015,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -46020,6 +46076,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -46061,6 +46118,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -46127,6 +46185,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -46204,6 +46263,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -46260,6 +46320,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -46317,6 +46378,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -46357,6 +46419,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -46425,6 +46488,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -46472,6 +46536,7 @@
         "o3 Grudge draws seven cards",
         "Four lands? The spirits are telling me this deck wants to breathe today. I&#39;ll keep, let&#39;s see what the top of the deck has in store!"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }

@@ -129974,7 +129974,7 @@
       "actionTaken": "Declined to cast Shoot the Sheriff or any spell before combat, allowing Oblivious Bookworm to attack for 2 damage.",
       "betterLine": "Cast Shoot the Sheriff targeting Oblivious Bookworm before combat to prevent 2 damage and deny the opponent's end-step card draw trigger.",
       "type": "blunder",
-      "snapshotIndex": 66,
+      "snapshotIndex": 67,
       "player": "Kimi25 Snark"
     },
     {
@@ -129983,7 +129983,7 @@
       "actionTaken": "Cast Enduring Curiosity in postcombat main, tapping out",
       "betterLine": "Pass the turn holding up mana, potentially cast Tishana's Tidebinder to counter Bookworm's end step trigger, or flash in Enduring Curiosity at end of opponent's turn if nothing needs answering",
       "type": "blunder",
-      "snapshotIndex": 84,
+      "snapshotIndex": 85,
       "player": "Kimi25 Snark"
     },
     {
@@ -129992,7 +129992,7 @@
       "actionTaken": "Chose Wistfulness as the copy target for Superior Spider-Man's Mind Swap ability.",
       "betterLine": "Choose Oblivious Bookworm to gain the repeatable end-step draw ability on a 4/4 body, providing much-needed card advantage.",
       "type": "blunder",
-      "snapshotIndex": 131,
+      "snapshotIndex": 132,
       "player": "Llama4 Sarge"
     },
     {
@@ -130001,7 +130001,7 @@
       "actionTaken": "Copied Oblivious Bookworm, getting a 4/4 with end-step draw/discard",
       "betterLine": "Copy Deep-Cavern Bat to get a 4/4 flying lifelinker that can stabilize life total and disrupt opponent's hand, which is far more impactful at 2 life",
       "type": "blunder",
-      "snapshotIndex": 211,
+      "snapshotIndex": 212,
       "player": "Llama4 Sarge"
     },
     {
@@ -130010,7 +130010,7 @@
       "actionTaken": "Attempted to cast a spell but failed mana payment, resulting in no action taken and taking full 6 combat damage.",
       "betterLine": "Cast Shoot the Sheriff targeting Superior Spider-Man (4/4) using Watery Grave for {B} and Gloomlake Verge or Fountainport for {1}, reducing incoming damage by 4.",
       "type": "blunder",
-      "snapshotIndex": 306,
+      "snapshotIndex": 307,
       "player": "Kimi25 Snark"
     }
   ],
@@ -130063,7 +130063,8 @@
         "Kimi25 Snark chooses that Llama4 Sarge take the first turn",
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -130101,6 +130102,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -130167,6 +130169,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -130261,6 +130264,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -130311,6 +130315,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -130352,6 +130357,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -130392,6 +130398,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -130452,6 +130459,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -130502,6 +130510,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -130552,6 +130561,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -130602,6 +130612,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -130673,6 +130684,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -130723,6 +130735,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -130782,6 +130795,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -130831,6 +130845,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -130880,6 +130895,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -130934,6 +130950,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -131126,6 +131143,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -131200,6 +131218,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -131241,6 +131260,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -131301,6 +131321,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -131385,6 +131406,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -131435,6 +131457,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -131485,6 +131508,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -131574,6 +131598,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       },
@@ -131666,6 +131691,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "blockers",
@@ -131730,6 +131756,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -131785,6 +131812,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -131851,6 +131879,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -131900,6 +131929,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -131942,6 +131972,7 @@
         "Llama4 Sarge draws seven cards",
         "Kimi25 Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1

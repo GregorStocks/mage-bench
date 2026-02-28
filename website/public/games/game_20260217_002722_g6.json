@@ -67885,7 +67885,7 @@
       "actionTaken": "Cast Winternight Stories without first making a land drop, despite having Swamp and Restless Reef in hand.",
       "betterLine": "Play Swamp (untapped) first, then cast Winternight Stories using the other 3 lands, leaving the new Swamp untapped for potential plays after drawing 3 cards.",
       "type": "blunder",
-      "snapshotIndex": 61,
+      "snapshotIndex": 62,
       "player": "Opus Valley"
     },
     {
@@ -67894,7 +67894,7 @@
       "actionTaken": "Discarded 2 Swamps to keep Harvester of Misery, netting only +1 card from Winternight Stories.",
       "betterLine": "Discard Harvester of Misery as the creature card to satisfy Winternight Stories with only 1 discard, netting +2 cards. Harvester won't be castable for 2+ turns, and the extra Swamp kept is low-value given the abundance of lands already available.",
       "type": "blunder",
-      "snapshotIndex": 62,
+      "snapshotIndex": 63,
       "player": "Opus Valley"
     },
     {
@@ -67903,7 +67903,7 @@
       "actionTaken": "Chose to destroy Greasewrench Goblin (a 3/2 with no remaining abilities) with Bitter Triumph",
       "betterLine": "Destroy Marauding Mako, which scales with every discard and poses a much greater long-term threat in this discard-synergy deck",
       "type": "blunder",
-      "snapshotIndex": 102,
+      "snapshotIndex": 103,
       "player": "o3 Tinker"
     },
     {
@@ -67912,7 +67912,7 @@
       "actionTaken": "Attacked with an unequipped 2/1 Bloodghast for only 2 damage, putting opponent to 4 life.",
       "betterLine": "In main phase, discard Flamewake Phoenix to equip Bloodthorn Flail to Bloodghast. Monument to Endurance triggers - choose 'each opponent loses 3 life' (opponent to 3). Then attack with 4/2 Bloodghast for lethal.",
       "type": "blunder",
-      "snapshotIndex": 179,
+      "snapshotIndex": 180,
       "player": "o3 Tinker"
     },
     {
@@ -67921,7 +67921,7 @@
       "actionTaken": "Planned to exile Archenemy's Charm and Winternight Stories for evidence 6",
       "betterLine": "Exile Stock Up (3) + Bitter Triumph (2) + Intimidation Tactics (1) for evidence 6, preserving Winternight Stories (Harmonize from graveyard) and Archenemy's Charm for potential recursion",
       "type": "blunder",
-      "snapshotIndex": 189,
+      "snapshotIndex": 190,
       "player": "Opus Valley"
     },
     {
@@ -67930,7 +67930,7 @@
       "actionTaken": "Chose tutor mode only for Insatiable Avarice",
       "betterLine": "Actually, this was the only viable choice since drawing 3 and losing 3 life at 2 HP would be lethal",
       "type": "blunder",
-      "snapshotIndex": 216,
+      "snapshotIndex": 217,
       "player": "Opus Valley"
     }
   ],
@@ -67972,7 +67972,8 @@
         "o3 Tinker draws seven cards",
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -68023,6 +68024,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68078,6 +68080,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68132,6 +68135,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68187,6 +68191,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68228,6 +68233,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68275,7 +68281,8 @@
         "o3 Tinker draws seven cards",
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -68314,6 +68321,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -68354,6 +68362,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68446,6 +68455,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68503,6 +68513,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -68557,6 +68568,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -68611,6 +68623,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -68661,6 +68674,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -68728,6 +68742,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -68780,6 +68795,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -68821,6 +68837,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -68898,6 +68915,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -68994,6 +69012,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -69034,6 +69053,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -69115,7 +69135,8 @@
         "o3 Tinker draws seven cards",
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 21,
@@ -69186,7 +69207,8 @@
         "o3 Tinker draws seven cards",
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 22,
@@ -69247,7 +69269,8 @@
         "o3 Tinker draws seven cards",
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 23,
@@ -69331,6 +69354,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -69402,6 +69426,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -69450,6 +69475,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -69499,6 +69525,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -69602,6 +69629,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -69672,6 +69700,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -69730,6 +69759,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -69770,6 +69800,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -69836,6 +69867,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -69877,6 +69909,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -69932,6 +69965,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -69987,6 +70021,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -70036,6 +70071,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -70102,6 +70138,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -70164,6 +70201,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -70204,6 +70242,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -70292,6 +70331,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -70333,6 +70373,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -70390,6 +70431,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -70446,6 +70488,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -70484,6 +70527,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -70541,6 +70585,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -70601,6 +70646,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -70648,6 +70694,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -70688,6 +70735,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -70769,6 +70817,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -70840,6 +70889,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -70901,6 +70951,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -70962,6 +71013,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -71003,6 +71055,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -71102,6 +71155,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -71143,6 +71197,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -71257,6 +71312,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -71359,6 +71415,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -71522,6 +71579,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -71578,6 +71636,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -71650,6 +71709,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -71698,6 +71758,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -71758,6 +71819,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -71801,6 +71863,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -71863,6 +71926,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -71913,6 +71977,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -71954,6 +72019,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -71997,6 +72063,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -72051,6 +72118,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -72109,6 +72177,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -72159,6 +72228,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -72209,6 +72279,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -72250,6 +72321,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -72291,6 +72363,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -72344,6 +72417,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -72398,6 +72472,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -72452,6 +72527,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -72493,6 +72569,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -72535,6 +72612,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       },
@@ -72576,6 +72654,7 @@
         "Opus Valley draws seven cards",
         "o3 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0

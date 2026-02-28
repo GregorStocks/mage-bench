@@ -62937,7 +62937,7 @@
       "actionTaken": "Tutored Grindstone into the graveyard with Goblin Engineer's ETB trigger.",
       "betterLine": "Tutor Painter's Servant into the graveyard instead. Since Grindstone costs only {1} to cast from hand while Painter's Servant costs {2}, it's more efficient to plan on casting Grindstone and reanimating Painter's Servant with Goblin Engineer. This also means you only need 1 mana to deploy Grindstone + the Engineer activation, rather than needing 2 mana for Painter's Servant from hand.",
       "type": "blunder",
-      "snapshotIndex": 39,
+      "snapshotIndex": 40,
       "player": "DSV3 Contra"
     },
     {
@@ -62946,7 +62946,7 @@
       "actionTaken": "Cast Back to Basics with all three lands, tapping out with no protection available.",
       "betterLine": "Play Flooded Strand first, crack it for a basic Island, then cast Back to Basics with the fourth land untapped to hold up Brainstorm. This would also leave open the option to Brainstorm in response to any interaction. Alternatively, cast Brainstorm first at the end of opponent's turn to see more cards before committing.",
       "type": "blunder",
-      "snapshotIndex": 49,
+      "snapshotIndex": 50,
       "player": "Opus Detect"
     },
     {
@@ -62955,7 +62955,7 @@
       "actionTaken": "Cast Simian Spirit Guide as a 2/2 creature for {2}{R}",
       "betterLine": "Either pass the turn holding up Pyroblast and Lightning Bolts as interaction, or bolt the Thundertrap Trainer to prevent it from blocking/attacking. Keep Simian Spirit Guide in hand for its exile-for-mana ability on the combo turn.",
       "type": "blunder",
-      "snapshotIndex": 115,
+      "snapshotIndex": 116,
       "player": "DSV3 Contra"
     },
     {
@@ -62964,7 +62964,7 @@
       "actionTaken": "Cast Lightning Bolt targeting Opus Detect (face) for 3 damage.",
       "betterLine": "Cast Lightning Bolt targeting Thundertrap Trainer to remove the Wizard synergy creature and potential blocker, preserving future options while denying Opus Detect the Wizard bonus on cards like Flame of Anor.",
       "type": "blunder",
-      "snapshotIndex": 116,
+      "snapshotIndex": 117,
       "player": "DSV3 Contra"
     },
     {
@@ -62973,7 +62973,7 @@
       "actionTaken": "Passed priority during combat without casting Pyroblast on Back to Basics",
       "betterLine": "Cast Pyroblast targeting Back to Basics to free up Ancient Tomb, which provides crucial mana acceleration for the Painter combo gameplan",
       "type": "blunder",
-      "snapshotIndex": 121,
+      "snapshotIndex": 122,
       "player": "DSV3 Contra"
     },
     {
@@ -62982,7 +62982,7 @@
       "actionTaken": "Selected modes 2 (destroy Grindstone) and 3 (deal 5 to Goblin Engineer) to remove both combo pieces.",
       "betterLine": "Select modes 1 (draw 2 cards) and 2 (destroy Grindstone). The opponent has no artifacts to sacrifice to Goblin Engineer, so the combo is already dead. Drawing 2 cards provides much more value for pressing the advantage.",
       "type": "blunder",
-      "snapshotIndex": 128,
+      "snapshotIndex": 129,
       "player": "Opus Detect"
     },
     {
@@ -62991,7 +62991,7 @@
       "actionTaken": "Chose mode 3 (deal 5 damage to creature) as second mode alongside mode 2 (destroy artifact), targeting Goblin Engineer which is already in lethal combat with Thundertrap Trainer.",
       "betterLine": "Choose mode 1 (draw two cards) as the second mode alongside mode 2 (destroy artifact). Goblin Engineer already dies in combat to the Thundertrap Trainer block, so the 5 damage is redundant. Drawing 2 cards would provide much more value with only Force of Will and Forth Eorlingas! in hand.",
       "type": "blunder",
-      "snapshotIndex": 128,
+      "snapshotIndex": 129,
       "player": "Opus Detect"
     },
     {
@@ -63000,7 +63000,7 @@
       "actionTaken": "Targeted Opus Detect (opponent's face) with Lightning Bolt, dealing 3 damage (12 -> 9)",
       "betterLine": "Target Thundertrap Trainer with Lightning Bolt to remove the Wizard, preventing future Flame of Anor from choosing two modes",
       "type": "blunder",
-      "snapshotIndex": 133,
+      "snapshotIndex": 134,
       "player": "DSV3 Contra"
     },
     {
@@ -63009,7 +63009,7 @@
       "actionTaken": "Fetched Tundra from Scalding Tarn",
       "betterLine": "Fetch basic Island to maintain consistent mana development under Back to Basics. White mana for Forth Eorlingas! can wait until a situation where it would be more impactful, or find it through other means.",
       "type": "blunder",
-      "snapshotIndex": 140,
+      "snapshotIndex": 141,
       "player": "Opus Detect"
     },
     {
@@ -63018,7 +63018,7 @@
       "actionTaken": "Cast Simian Spirit Guide as a 2/2 creature",
       "betterLine": "This is actually probably the correct play - casting as a creature provides a blocker. The real question is whether Pyroblast on Back to Basics would have been more impactful earlier, but that's a different decision point.",
       "type": "blunder",
-      "snapshotIndex": 157,
+      "snapshotIndex": 158,
       "player": "DSV3 Contra"
     },
     {
@@ -63027,7 +63027,7 @@
       "actionTaken": "Targeted Opus Detect (player) with Lightning Bolt for 3 face damage",
       "betterLine": "Kill a Human Knight Token to reduce incoming combat damage from 6 to 4, buying an extra turn to find answers. With the combo in the graveyard and only Pyroblast in hand, reducing the clock is more important than racing.",
       "type": "blunder",
-      "snapshotIndex": 182,
+      "snapshotIndex": 183,
       "player": "DSV3 Contra"
     }
   ],
@@ -63083,7 +63083,8 @@
         "Opus Detect draws seven cards",
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -63117,7 +63118,8 @@
         "Opus Detect draws seven cards",
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -63154,7 +63156,8 @@
         "Opus Detect draws seven cards",
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -63234,7 +63237,8 @@
         "Opus Detect draws seven cards",
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -63271,7 +63275,8 @@
         "Opus Detect draws seven cards",
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -63308,7 +63313,8 @@
         "Opus Detect draws seven cards",
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -63342,7 +63348,8 @@
         "Opus Detect draws seven cards",
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -63399,6 +63406,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -63454,6 +63462,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63500,6 +63509,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63541,6 +63551,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -63630,6 +63641,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -63678,6 +63690,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -63741,6 +63754,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -63797,6 +63811,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -63840,6 +63855,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -63908,6 +63924,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -63954,6 +63971,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -63996,6 +64014,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -64062,6 +64081,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -64124,6 +64144,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -64181,6 +64202,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -64251,6 +64273,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -64322,6 +64345,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -64368,6 +64392,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -64405,6 +64430,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -64457,6 +64483,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -64501,6 +64528,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -64638,6 +64666,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -64678,6 +64707,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -64733,6 +64763,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -64810,6 +64841,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -64880,6 +64912,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -64968,6 +65001,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -65041,6 +65075,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -65093,6 +65128,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -65145,6 +65181,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -65190,6 +65227,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -65259,6 +65297,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -65349,6 +65388,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -65432,6 +65472,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -65502,6 +65543,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -65552,6 +65594,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -65640,6 +65683,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -65699,6 +65743,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -65764,6 +65809,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -65810,6 +65856,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -65864,6 +65911,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -65913,6 +65961,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -65999,6 +66048,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -66090,6 +66140,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -66156,6 +66207,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -66202,6 +66254,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -66269,6 +66322,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -66322,6 +66376,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -66395,6 +66450,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -66475,6 +66531,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -66542,6 +66599,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -66612,6 +66670,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -66681,6 +66740,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -66727,6 +66787,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -66786,6 +66847,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -66852,6 +66914,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -66897,6 +66960,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -66956,6 +67020,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -67016,6 +67081,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -67081,6 +67147,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -67188,6 +67255,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -67295,6 +67363,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -67347,6 +67416,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -67434,6 +67504,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -67493,6 +67564,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -67562,6 +67634,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -67658,6 +67731,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -67736,6 +67810,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -67815,6 +67890,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -67873,6 +67949,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -67937,6 +68014,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -67999,6 +68077,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -68075,6 +68154,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "blockers",
@@ -68152,6 +68232,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -68206,6 +68287,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -68345,6 +68427,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -68395,6 +68478,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -68468,6 +68552,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -68523,6 +68608,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -68587,6 +68673,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -68637,6 +68724,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -68689,6 +68777,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -68749,6 +68838,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -68809,6 +68899,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -68871,6 +68962,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -68922,6 +69014,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -68974,6 +69067,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -69042,6 +69136,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -69086,6 +69181,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -69134,6 +69230,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p24"
@@ -69173,6 +69270,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -69223,6 +69321,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -69277,6 +69376,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -69323,6 +69423,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -69364,6 +69465,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -69424,6 +69526,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -69483,6 +69586,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -69527,6 +69631,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -69623,6 +69728,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -69686,6 +69792,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -69749,6 +69856,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -69803,6 +69911,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -69845,6 +69954,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -69891,6 +70001,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p24"
@@ -69982,6 +70093,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -70023,6 +70135,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -70080,6 +70193,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -70125,6 +70239,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -70169,6 +70284,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -70217,6 +70333,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -70271,6 +70388,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -70317,6 +70435,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -70383,6 +70502,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -70432,6 +70552,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -70491,6 +70612,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -70613,6 +70735,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -70666,6 +70789,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -70725,6 +70849,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -70771,6 +70896,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -70839,6 +70965,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -70943,6 +71070,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -70998,6 +71126,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -71047,6 +71176,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -71150,6 +71280,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -71197,6 +71328,7 @@
         "DSV3 Contra draws seven cards",
         "Opus Detect keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [

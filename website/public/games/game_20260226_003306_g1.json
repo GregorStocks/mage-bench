@@ -222135,7 +222135,7 @@
       "actionTaken": "Chose the opponent (MiniMx Rules) to take the first turn, putting themselves on the draw.",
       "betterLine": "Choose yourself (Qwen3L Teach) to go first to have the play advantage, which is the default correct choice in nearly all constructed formats.",
       "type": "blunder",
-      "snapshotIndex": 0,
+      "snapshotIndex": 1,
       "player": "Qwen3L Teach"
     },
     {
@@ -222144,7 +222144,7 @@
       "actionTaken": "Bottomed Green Sun's Zenith, keeping Badgermole Cub, Dredger's Insight, Malevolent Rumble, Overgrown Tomb, Spymaster's Vault, Verdant Catacombs",
       "betterLine": "Bottom Spymaster's Vault instead. The hand has 3 lands without it (Overgrown Tomb, Verdant Catacombs, plus Catacombs can fetch another), which is sufficient. Keeping GSZ provides a powerful late-game tutor that scales with available mana and can find exactly what's needed. Spymaster's Vault's activated ability requires creatures dying and the hand has no black spells to leverage it.",
       "type": "blunder",
-      "snapshotIndex": 2,
+      "snapshotIndex": 3,
       "player": "MiniMx Rules"
     },
     {
@@ -222153,7 +222153,7 @@
       "actionTaken": "Played Watery Grave as their first land drop",
       "betterLine": "Play Bloodstained Mire first to preserve fetch-crack flexibility for Revolt-enabled Fatal Push on the opponent's turn, then play Watery Grave next turn for Emperor of Bones mana",
       "type": "blunder",
-      "snapshotIndex": 12,
+      "snapshotIndex": 13,
       "player": "Qwen3L Teach"
     },
     {
@@ -222162,7 +222162,7 @@
       "actionTaken": "Played Verdant Catacombs, planning to crack it to fetch a land (costing 1 life)",
       "betterLine": "Play Spymaster's Vault (enters untapped since Overgrown Tomb is a Swamp), saving Verdant Catacombs for a future turn where revolt or shuffle effect is more valuable",
       "type": "blunder",
-      "snapshotIndex": 19,
+      "snapshotIndex": 20,
       "player": "MiniMx Rules"
     },
     {
@@ -222171,7 +222171,7 @@
       "actionTaken": "Fetched basic Swamp from library",
       "betterLine": "Fetch Overgrown Tomb (paying 2 life) or Forest for better green mana access, since the hand is heavy on green 2-drops and Spymaster's Vault already enters untapped with the existing Overgrown Tomb as a Swamp.",
       "type": "blunder",
-      "snapshotIndex": 23,
+      "snapshotIndex": 24,
       "player": "MiniMx Rules"
     },
     {
@@ -222180,7 +222180,7 @@
       "actionTaken": "Chose Swamp as the earthbend target for Badgermole Cub's ETB ability.",
       "betterLine": "Choose Overgrown Tomb as the earthbend target, preserving the basic Swamp as a reliable untapped land and getting a more flexible animated creature that taps for B or G (with bonus G from Badgermole Cub).",
       "type": "blunder",
-      "snapshotIndex": 29,
+      "snapshotIndex": 30,
       "player": "MiniMx Rules"
     },
     {
@@ -222189,7 +222189,7 @@
       "actionTaken": "Cast Fatal Push targeting Badgermole Cub in response to its earthbend trigger, tapping their only land.",
       "betterLine": "Play Bloodstained Mire first (free land drop), then wait. Could use Fatal Push targeting the animated Swamp land-creature after earthbend resolves (destroying a land is much higher value than killing a 2/2), or hold Fatal Push for combat/later turns to preserve options.",
       "type": "blunder",
-      "snapshotIndex": 31,
+      "snapshotIndex": 32,
       "player": "Qwen3L Teach"
     },
     {
@@ -222198,7 +222198,7 @@
       "actionTaken": "Passed priority without activating Bloodstained Mire or casting any spells",
       "betterLine": "Activate Bloodstained Mire to fetch a Swamp, then consider casting Fatal Push on the opponent's animated Swamp land-creature (destroying both a threat and a mana source), or at minimum develop mana for Emperor of Bones next turn.",
       "type": "blunder",
-      "snapshotIndex": 44,
+      "snapshotIndex": 45,
       "player": "Qwen3L Teach"
     },
     {
@@ -222207,7 +222207,7 @@
       "actionTaken": "Fetched basic Swamp, leaving no red mana source on the battlefield",
       "betterLine": "Fetch Blood Crypt (paying 2 life to have it enter untapped) to have access to both B and R, enabling Faithless Looting on a future turn while still casting Emperor of Bones this turn",
       "type": "blunder",
-      "snapshotIndex": 47,
+      "snapshotIndex": 48,
       "player": "Qwen3L Teach"
     },
     {
@@ -222216,7 +222216,7 @@
       "actionTaken": "Activated Emperor of Bones' Adapt 2 ability for {1}{B}, putting +1/+1 counters on it but likely having no exiled creature to reanimate.",
       "betterLine": "Cast Unearth targeting Badgermole Cub from the opponent's graveyard (mana value 2, valid target) to get a creature on board, or hold mana open for Fatal Push as removal. Alternatively, if Emperor had exiled a creature earlier in combat, the Adapt could wait until a creature is exiled.",
       "type": "blunder",
-      "snapshotIndex": 79,
+      "snapshotIndex": 80,
       "player": "Qwen3L Teach"
     },
     {
@@ -222225,7 +222225,7 @@
       "actionTaken": "Did not block the 4/4 Emperor of Bones, taking 4 damage.",
       "betterLine": "Block with the animated Swamp (1/1 with +1/+1 counter). It dies to the 4/4 but returns to the battlefield tapped as a land via earthbend, saving 4 life at essentially no cost. Alternatively, chump block with the Eldrazi Spawn token to save 4 life.",
       "type": "blunder",
-      "snapshotIndex": 93,
+      "snapshotIndex": 94,
       "player": "MiniMx Rules"
     },
     {
@@ -222234,7 +222234,7 @@
       "actionTaken": "Cast Yawgmoth, Thran Physician without first playing Boseiju as a land drop",
       "betterLine": "Play Boseiju, Who Endures first as the land drop, then cast Yawgmoth, Thran Physician with the same mana sources (Overgrown Tomb, Spymaster's Vault, animated Swamp, Eldrazi Spawn)",
       "type": "blunder",
-      "snapshotIndex": 100,
+      "snapshotIndex": 101,
       "player": "MiniMx Rules"
     },
     {
@@ -222243,7 +222243,7 @@
       "actionTaken": "Attacked with both Swamp (1/1) and Eldrazi Spawn Token (0/1)",
       "betterLine": "Attack with only the Swamp (1/1) for 1 damage, keeping the Eldrazi Spawn Token back as a mana resource and potential Yawgmoth sacrifice fodder.",
       "type": "blunder",
-      "snapshotIndex": 122,
+      "snapshotIndex": 123,
       "player": "MiniMx Rules"
     },
     {
@@ -222252,7 +222252,7 @@
       "actionTaken": "Passed priority without taking any action in precombat main phase.",
       "betterLine": "Activate Polluted Delta (pay 1 life, sacrifice it) to fetch an untapped Swamp, enabling revolt. Then cast Fatal Push targeting Delighted Halfling to deny the opponent mana acceleration, or save it for combat with revolt active to potentially kill a larger threat.",
       "type": "blunder",
-      "snapshotIndex": 150,
+      "snapshotIndex": 151,
       "player": "Qwen3L Teach"
     },
     {
@@ -222261,7 +222261,7 @@
       "actionTaken": "Cast Green Sun's Zenith instead of Yawgmoth, Thran Physician",
       "betterLine": "Cast Yawgmoth, Thran Physician for {2}{B}{B} using Boseiju (G for generic), Overgrown Tomb (B), Spymaster's Vault (B), and animated Swamp (B), establishing a powerful sacrifice engine with the Eldrazi Spawn token and animated land as fodder",
       "type": "blunder",
-      "snapshotIndex": 168,
+      "snapshotIndex": 169,
       "player": "MiniMx Rules"
     },
     {
@@ -222270,7 +222270,7 @@
       "actionTaken": "Activated Adapt 2 on Emperor of Bones which already had +1/+1 counters, wasting 1B mana with no effect.",
       "betterLine": "Cast Faithless Looting for R (from Blood Crypt) to draw 2 cards and discard Archon of Cruelty plus another card, setting up reanimation with Unearth or future Emperor of Bones triggers. Alternatively, hold up Fatal Push for Yawgmoth.",
       "type": "blunder",
-      "snapshotIndex": 195,
+      "snapshotIndex": 196,
       "player": "Qwen3L Teach"
     },
     {
@@ -222279,7 +222279,7 @@
       "actionTaken": "Passed priority without taking any action in precombat main phase.",
       "betterLine": "Activate Polluted Delta (enabling revolt), then cast Fatal Push targeting Yawgmoth to remove the opponent's key engine piece. Alternatively, at minimum cast Faithless Looting to improve hand quality by discarding the uncastable Archon of Cruelty.",
       "type": "blunder",
-      "snapshotIndex": 200,
+      "snapshotIndex": 201,
       "player": "Qwen3L Teach"
     },
     {
@@ -222288,7 +222288,7 @@
       "actionTaken": "Exiled Dredger's Insight (an enchantment) from opponent's graveyard with Emperor of Bones' trigger.",
       "betterLine": "Exile Badgermole Cub from opponent's graveyard - it's a creature that could be reanimated by Emperor of Bones if counters are added later, and it denies the opponent a recursion target for cards like Green Sun's Zenith (already in exile, but future recursion).",
       "type": "blunder",
-      "snapshotIndex": 202,
+      "snapshotIndex": 203,
       "player": "Qwen3L Teach"
     },
     {
@@ -222297,7 +222297,7 @@
       "actionTaken": "Passed priority without casting any spells, leaving Yawgmoth alive.",
       "betterLine": "Activate Polluted Delta (triggering Revolt), fetch a land, then cast Fatal Push targeting Yawgmoth, Thran Physician to remove this critical threat before it becomes active.",
       "type": "blunder",
-      "snapshotIndex": 213,
+      "snapshotIndex": 214,
       "player": "Qwen3L Teach"
     },
     {
@@ -222306,7 +222306,7 @@
       "actionTaken": "Cast Dredger's Insight for {1}{G} to mill 4 and potentially grab a card",
       "betterLine": "Cast Green Sun's Zenith for X=3-4 to search for a green creature (like Endurance or another impactful creature) directly onto the battlefield to immediately pressure the opponent or stabilize the board against Emperor of Bones",
       "type": "blunder",
-      "snapshotIndex": 215,
+      "snapshotIndex": 216,
       "player": "MiniMx Rules"
     },
     {
@@ -222315,7 +222315,7 @@
       "actionTaken": "Chose Boseiju, Who Endures from the milled cards",
       "betterLine": "Choose Agatha's Soul Cauldron — castable immediately for {2}, it exiles graveyard creatures (countering Emperor of Bones), puts +1/+1 counters on your creatures, and grants Yawgmoth access to exiled creatures' activated abilities for a powerful engine",
       "type": "blunder",
-      "snapshotIndex": 222,
+      "snapshotIndex": 223,
       "player": "MiniMx Rules"
     },
     {
@@ -222324,7 +222324,7 @@
       "actionTaken": "Did not attack with Yawgmoth, Thran Physician, citing fear of Emperor of Bones blocking.",
       "betterLine": "Attack with Yawgmoth for 2 free damage since Emperor of Bones is tapped and cannot block.",
       "type": "blunder",
-      "snapshotIndex": 230,
+      "snapshotIndex": 231,
       "player": "MiniMx Rules"
     },
     {
@@ -222333,7 +222333,7 @@
       "actionTaken": "Passed priority without casting any spells, apparently believing Thoughtseize had already resolved.",
       "betterLine": "Cast Thoughtseize targeting the opponent to take Boseiju, Who Endures, preventing them from destroying a nonbasic land. Could also consider casting Faithless Looting for card filtering.",
       "type": "blunder",
-      "snapshotIndex": 236,
+      "snapshotIndex": 237,
       "player": "Qwen3L Teach"
     },
     {
@@ -222342,7 +222342,7 @@
       "actionTaken": "Passed priority without casting any spells in post-combat main phase.",
       "betterLine": "Cast Thoughtseize targeting the opponent (costs {B} from Swamp or Blood Crypt) to see their hand, strip their best card, and deal 2 damage bringing them from 8 to 6 life. This makes lethal easier next turn with Emperor of Bones attack (4 damage to 2 life) plus any additional pressure.",
       "type": "blunder",
-      "snapshotIndex": 253,
+      "snapshotIndex": 254,
       "player": "Qwen3L Teach"
     },
     {
@@ -222351,7 +222351,7 @@
       "actionTaken": "Fetched Formidable Speaker, a 2/4 with no usable ETB and an untap ability that can't be activated this turn (all lands tapped).",
       "betterLine": "Fetch Grist, the Hunger Tide. It immediately answers Emperor of Bones with -2, creates Yawgmoth sacrifice fodder with +1, and threatens lethal with -5 given the 13 creature cards in graveyard.",
       "type": "blunder",
-      "snapshotIndex": 268,
+      "snapshotIndex": 269,
       "player": "MiniMx Rules"
     },
     {
@@ -222360,7 +222360,7 @@
       "actionTaken": "Exiled Boseiju, Who Endures (a land) from opponent's graveyard with Emperor of Bones' combat trigger.",
       "betterLine": "Exile a creature card like Formidable Speaker or Badgermole Cub to set up potential reanimation with Emperor of Bones if additional +1/+1 counters are added, and to deny the opponent potential recursion targets.",
       "type": "blunder",
-      "snapshotIndex": 281,
+      "snapshotIndex": 282,
       "player": "Qwen3L Teach"
     },
     {
@@ -222369,7 +222369,7 @@
       "actionTaken": "Passed priority without casting any spells, wasting 4 available mana.",
       "betterLine": "Cast Fatal Push targeting Yawgmoth, Thran Physician (the opponent's most dangerous engine piece), and then cast Thoughtseize or deploy Ragavan with remaining mana. At minimum, Thoughtseize to strip a key card from the opponent's hand.",
       "type": "blunder",
-      "snapshotIndex": 293,
+      "snapshotIndex": 294,
       "player": "Qwen3L Teach"
     },
     {
@@ -222378,7 +222378,7 @@
       "actionTaken": "Activated Spymaster's Vault for connive 0, accomplishing nothing while spending {B} and tapping the land.",
       "betterLine": "Cast Young Wolf for {G} to establish a combo piece with Yawgmoth (undying + Yawgmoth sacrifice engine), then use remaining mana for Walking Ballista or other plays.",
       "type": "blunder",
-      "snapshotIndex": 295,
+      "snapshotIndex": 296,
       "player": "MiniMx Rules"
     },
     {
@@ -222387,7 +222387,7 @@
       "actionTaken": "Did not attack, incorrectly reasoning that Emperor of Bones could block and trade.",
       "betterLine": "Attack with Yawgmoth, Thran Physician for 2 unblockable damage, reducing opponent from 15 to 13 life.",
       "type": "blunder",
-      "snapshotIndex": 298,
+      "snapshotIndex": 299,
       "player": "MiniMx Rules"
     },
     {
@@ -222396,7 +222396,7 @@
       "actionTaken": "Cast only Young Wolf for G, leaving 4 mana unused",
       "betterLine": "Cast both Walking Ballista (X=1 or X=2) and Young Wolf to maximize board presence and Yawgmoth sacrifice fodder. With 5 available mana, casting Ballista X=2 (4 mana) + Young Wolf (1 mana) = 5 mana deploys both threats and gives more options with Yawgmoth.",
       "type": "blunder",
-      "snapshotIndex": 300,
+      "snapshotIndex": 301,
       "player": "MiniMx Rules"
     },
     {
@@ -222405,7 +222405,7 @@
       "actionTaken": "Cast Psychic Frog for {U}{B} without addressing Yawgmoth on the opponent's board.",
       "betterLine": "Crack Polluted Delta (enabling revolt), then cast Fatal Push targeting Yawgmoth, Thran Physician. After removing the opponent's key engine piece, deploy a threat like Psychic Frog or Ragavan with remaining mana.",
       "type": "blunder",
-      "snapshotIndex": 306,
+      "snapshotIndex": 307,
       "player": "Qwen3L Teach"
     },
     {
@@ -222414,7 +222414,7 @@
       "actionTaken": "Passed priority without casting any spells, leaving mana unused in the precombat main phase.",
       "betterLine": "Cast Thoughtseize targeting the opponent to strip a key card (or cast Faithless Looting to discard Archon of Cruelty for later reanimation via Unearth/Emperor of Bones), then proceed to combat.",
       "type": "blunder",
-      "snapshotIndex": 311,
+      "snapshotIndex": 312,
       "player": "Qwen3L Teach"
     },
     {
@@ -222423,7 +222423,7 @@
       "actionTaken": "Passed priority, allowing Yawgmoth to block Emperor of Bones.",
       "betterLine": "Activate Polluted Delta to fetch a land (enabling revolt), then cast Fatal Push targeting Yawgmoth, Thran Physician. Emperor of Bones attacks unblocked for 3, and the opponent loses their most important creature.",
       "type": "blunder",
-      "snapshotIndex": 322,
+      "snapshotIndex": 323,
       "player": "Qwen3L Teach"
     },
     {
@@ -222432,7 +222432,7 @@
       "actionTaken": "Blocked Emperor of Bones with Yawgmoth, Thran Physician, leaving Yawgmoth at 2/1 and Emperor alive at 3/1",
       "betterLine": "Block with Young Wolf - it dies and returns with undying as a 2/2 (free value), Emperor takes 1 damage, and Yawgmoth stays at full toughness. Alternatively, use Yawgmoth's activated ability to sacrifice Young Wolf for value before/after blocking decisions.",
       "type": "blunder",
-      "snapshotIndex": 323,
+      "snapshotIndex": 324,
       "player": "MiniMx Rules"
     },
     {
@@ -222441,7 +222441,7 @@
       "actionTaken": "Passed priority without casting any spells, leaving Blood Crypt and Polluted Delta untapped with Thoughtseize and Ragavan both castable.",
       "betterLine": "Cast Thoughtseize targeting the opponent to strip a key card (like Walking Ballista or any combo piece they might draw), then potentially also deploy Ragavan off the remaining mana via Polluted Delta fetching a Mountain-type land, or at minimum cast Thoughtseize to gain information and disrupt the opponent's plans.",
       "type": "blunder",
-      "snapshotIndex": 329,
+      "snapshotIndex": 330,
       "player": "Qwen3L Teach"
     },
     {
@@ -222450,7 +222450,7 @@
       "actionTaken": "Activated Spymaster's Vault for connive 0, accomplishing nothing",
       "betterLine": "Cast Walking Ballista for X=3 using all 6 available mana, getting a 3/3 that can pressure the opponent or remove Psychic Frog",
       "type": "blunder",
-      "snapshotIndex": 331,
+      "snapshotIndex": 332,
       "player": "MiniMx Rules"
     },
     {
@@ -222459,7 +222459,7 @@
       "actionTaken": "Cast Walking Ballista from hand for X=0, resulting in it dying immediately as a 0/0",
       "betterLine": "Activate the Walking Ballista already on the battlefield (id=p116) to remove +1/+1 counters and deal damage to Psychic Frog (2 damage kills it), or use Yawgmoth to sacrifice Young Wolf targeting Psychic Frog with -1/-1 counter while drawing a card (Young Wolf returns with undying for repeated use).",
       "type": "blunder",
-      "snapshotIndex": 341,
+      "snapshotIndex": 342,
       "player": "MiniMx Rules"
     },
     {
@@ -222468,7 +222468,7 @@
       "actionTaken": "Cast Walking Ballista for X=0, which dies immediately as a 0/0",
       "betterLine": "Activate Yawgmoth, Thran Physician by sacrificing Young Wolf to draw a card and put a -1/-1 counter on Emperor of Bones (reducing it to 2/2). Young Wolf returns with undying as a 2/2. This generates card advantage and shrinks the opponent's threat while preserving the Walking Ballista for later.",
       "type": "blunder",
-      "snapshotIndex": 345,
+      "snapshotIndex": 346,
       "player": "MiniMx Rules"
     },
     {
@@ -222477,7 +222477,7 @@
       "actionTaken": "Blocked Yawgmoth (2/4) with Psychic Frog (1/2), which kills the Frog while Yawgmoth survives.",
       "betterLine": "Crack Polluted Delta to enable revolt, then cast Fatal Push targeting Yawgmoth (mana value 4, killed with revolt). Block Young Wolf with Psychic Frog (1/2 survives blocking 1/1). This removes Yawgmoth permanently while preserving Psychic Frog.",
       "type": "blunder",
-      "snapshotIndex": 353,
+      "snapshotIndex": 354,
       "player": "Qwen3L Teach"
     },
     {
@@ -222486,7 +222486,7 @@
       "actionTaken": "Passed the turn, reasoning incorrectly that no mana meant no actions available.",
       "betterLine": "Activate Yawgmoth (pay 1 life, sac Young Wolf, -1/-1 on Emperor, draw). Young Wolf returns with +1/+1. Activate Yawgmoth again (pay 1 life, sac Young Wolf, -1/-1 on Emperor, draw). Then remove a +1/+1 counter from Walking Ballista to deal 1 damage to Emperor of Bones, killing it. Net result: kill Emperor, draw 2 cards, cost 2 life.",
       "type": "blunder",
-      "snapshotIndex": 359,
+      "snapshotIndex": 360,
       "player": "MiniMx Rules"
     },
     {
@@ -222495,7 +222495,7 @@
       "actionTaken": "Discarded Archon of Cruelty and Ragavan, Nimble Pilferer",
       "betterLine": "Discard Archon of Cruelty and Polluted Delta, keeping Ragavan as a cheap threat to deploy next turn alongside Thoughtseize or Fatal Push",
       "type": "blunder",
-      "snapshotIndex": 367,
+      "snapshotIndex": 368,
       "player": "Qwen3L Teach"
     },
     {
@@ -222504,7 +222504,7 @@
       "actionTaken": "Passed priority without taking any action, allowing the opponent to untap with the combo intact.",
       "betterLine": "Activate Polluted Delta to fetch a Swamp (getting {B}), then cast Fatal Push targeting Walking Ballista (MV 0, easily destroyed). This breaks the infinite combo. Could also play the second Polluted Delta from hand first as the land drop for additional mana later.",
       "type": "blunder",
-      "snapshotIndex": 368,
+      "snapshotIndex": 369,
       "player": "Qwen3L Teach"
     },
     {
@@ -222513,7 +222513,7 @@
       "actionTaken": "Planning to cast Walking Ballista for X=2 without first using the Yawgmoth + Young Wolf draw engine.",
       "betterLine": "Activate Yawgmoth by sacrificing Young Wolf repeatedly (paying 1 life each time, putting -1/-1 counters on Young Wolf when it returns with undying to reset it) to draw multiple cards first, then decide how to best spend mana based on what was drawn.",
       "type": "blunder",
-      "snapshotIndex": 388,
+      "snapshotIndex": 389,
       "player": "MiniMx Rules"
     },
     {
@@ -222522,7 +222522,7 @@
       "actionTaken": "Passed without activating either Walking Ballista or Yawgmoth, allowing Emperor of Bones to block Yawgmoth and only dealing 1 damage with Young Wolf.",
       "betterLine": "Activate Yawgmoth sacrificing Young Wolf (pay 1 life, -1/-1 on Emperor making it 2/2, draw a card; Young Wolf returns with undying as 2/2), then remove both +1/+1 counters from Walking Ballista to deal 2 damage to Emperor killing it, letting Yawgmoth deal 4 unblocked combat damage (opponent to 9 instead of 12).",
       "type": "blunder",
-      "snapshotIndex": 400,
+      "snapshotIndex": 401,
       "player": "MiniMx Rules"
     },
     {
@@ -222531,7 +222531,7 @@
       "actionTaken": "Earthbended Boseiju, Who Endures, making it a 1/1 creature-land",
       "betterLine": "Earthbend a basic Forest instead, preserving Boseiju's availability for its Channel ability while getting the same mana benefit from Badgermole Cub's creature-mana bonus",
       "type": "blunder",
-      "snapshotIndex": 410,
+      "snapshotIndex": 411,
       "player": "MiniMx Rules"
     },
     {
@@ -222540,7 +222540,7 @@
       "actionTaken": "Activated Walking Ballista to deal 1 damage, shrinking it from 2/2 to 1/1 and accomplishing relatively little.",
       "betterLine": "Activate Yawgmoth sacrificing Young Wolf, targeting Emperor of Bones with the -1/-1 counter. This draws a card (critical with empty hand), Young Wolf returns via undying with a +1/+1 counter, and Emperor loses its +1/+1 counter. Then could potentially chain further Yawgmoth activations or use Ballista shots more strategically.",
       "type": "blunder",
-      "snapshotIndex": 412,
+      "snapshotIndex": 413,
       "player": "MiniMx Rules"
     },
     {
@@ -222549,7 +222549,7 @@
       "actionTaken": "Exiled Unearth (a sorcery) with Emperor of Bones' combat trigger, gaining no benefit since Emperor can only reanimate creature cards exiled with it.",
       "betterLine": "Exile Archon of Cruelty from the graveyard, then use Emperor of Bones' Adapt ability ({1}{B}) to put +1/+1 counters on it, triggering the ability to put Archon of Cruelty onto the battlefield with haste. This would be devastating against the opponent at 9 life.",
       "type": "blunder",
-      "snapshotIndex": 418,
+      "snapshotIndex": 419,
       "player": "Qwen3L Teach"
     },
     {
@@ -222558,7 +222558,7 @@
       "actionTaken": "Blocked Emperor of Bones with Walking Ballista (2/2), dealing only 2 damage to the 3/3 Emperor, leaving it alive.",
       "betterLine": "Block with Walking Ballista and also activate its ability to remove one +1/+1 counter to ping Emperor of Bones for 1 additional damage (total 3), killing it. Ballista dies either way, so the ping is free value.",
       "type": "blunder",
-      "snapshotIndex": 424,
+      "snapshotIndex": 425,
       "player": "MiniMx Rules"
     },
     {
@@ -222567,7 +222567,7 @@
       "actionTaken": "Cast Thoughtseize without first playing Polluted Delta from hand",
       "betterLine": "Play Polluted Delta first, then cast Thoughtseize. This preserves maximum flexibility and enables revolt for Fatal Push if needed later.",
       "type": "blunder",
-      "snapshotIndex": 430,
+      "snapshotIndex": 431,
       "player": "Qwen3L Teach"
     },
     {
@@ -222576,7 +222576,7 @@
       "actionTaken": "Passed priority without making any plays despite having available mana and impactful options.",
       "betterLine": "Play Polluted Delta, then cast Unearth targeting Psychic Frog (or Ragavan) from the graveyard to establish a threatening creature on board.",
       "type": "blunder",
-      "snapshotIndex": 432,
+      "snapshotIndex": 433,
       "player": "Qwen3L Teach"
     },
     {
@@ -222585,7 +222585,7 @@
       "actionTaken": "Cast a second Yawgmoth, Thran Physician, triggering the legend rule and losing one copy immediately.",
       "betterLine": "Use the existing Yawgmoth's activated abilities (sacrifice Young Wolf to draw cards and put -1/-1 counters on Emperor of Bones), leveraging the undying loop with the mana that would have been spent on the redundant legendary cast.",
       "type": "blunder",
-      "snapshotIndex": 434,
+      "snapshotIndex": 435,
       "player": "MiniMx Rules"
     },
     {
@@ -222594,7 +222594,7 @@
       "actionTaken": "Exiled Young Wolf from opponent's graveyard with Emperor of Bones' combat trigger",
       "betterLine": "Exile Archon of Cruelty from own graveyard, then Adapt 2 Emperor of Bones for {1}{B} to put Archon onto the battlefield, triggering its devastating ETB (opponent sacs creature, discards, loses 3 life; you draw card, gain 3 life) and getting a 6/6 flying attacker.",
       "type": "blunder",
-      "snapshotIndex": 470,
+      "snapshotIndex": 471,
       "player": "Qwen3L Teach"
     },
     {
@@ -222603,7 +222603,7 @@
       "actionTaken": "Put Young Wolf onto the battlefield - a 1/1 that attacks for 1 and provides no additional value since finality counter prevents undying.",
       "betterLine": "Choose Endurance to get a 3/4 attacker and use its ETB to shuffle the opponent's graveyard away, denying future Unearth/recursion targets and weakening their Dredger's Insight value engine.",
       "type": "blunder",
-      "snapshotIndex": 480,
+      "snapshotIndex": 481,
       "player": "Qwen3L Teach"
     },
     {
@@ -222612,7 +222612,7 @@
       "actionTaken": "Discarded Thoughtseize",
       "betterLine": "Discarding the second Unearth might be slightly better since you already have one copy and the Thoughtseize could provide critical disruption even at low life, but this is genuinely close given the life total consideration.",
       "type": "blunder",
-      "snapshotIndex": 496,
+      "snapshotIndex": 497,
       "player": "Qwen3L Teach"
     }
   ],
@@ -222661,7 +222661,8 @@
       ],
       "subsequentActions": [
         "Qwen3L Teach chooses that MiniMx Rules take the first turn"
-      ]
+      ],
+      "actionSeq": 3
     },
     {
       "index": 1,
@@ -222693,7 +222694,8 @@
         9,
         12
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 5
     },
     {
       "index": 2,
@@ -222724,7 +222726,8 @@
       ],
       "subsequentActions": [
         "MiniMx Rules's library is shuffled"
-      ]
+      ],
+      "actionSeq": 6
     },
     {
       "index": 3,
@@ -222799,7 +222802,8 @@
       "subsequentActions": [
         "MiniMx Rules puts a card from hand to the bottom of their library",
         "Qwen3L Teach's library is shuffled"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 4,
@@ -222876,7 +222880,8 @@
       ],
       "subsequentActions": [
         "Qwen3L Teach puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -222907,7 +222912,8 @@
       ],
       "subsequentActions": [
         "MiniMx Rules skips Draw step"
-      ]
+      ],
+      "actionSeq": 15
     },
     {
       "index": 6,
@@ -222959,6 +222965,7 @@
         28
       ],
       "subsequentActions": [],
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -223002,6 +223009,7 @@
         "MiniMx Rules loses 2 life from Overgrown Tomb",
         "MiniMx Rules puts Overgrown Tomb from hand onto the Battlefield"
       ],
+      "actionSeq": 18,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -223039,6 +223047,7 @@
       "subsequentActions": [
         "MiniMx Rules skip attack"
       ],
+      "actionSeq": 21,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -223065,6 +223074,7 @@
         41
       ],
       "subsequentActions": [],
+      "actionSeq": 24,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -223130,6 +223140,7 @@
         44
       ],
       "subsequentActions": [],
+      "actionSeq": 28,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -223172,6 +223183,7 @@
         "Qwen3L Teach loses 2 life from Watery Grave",
         "Qwen3L Teach puts Watery Grave from hand onto the Battlefield"
       ],
+      "actionSeq": 29,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -223225,6 +223237,7 @@
         52
       ],
       "subsequentActions": [],
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -223251,6 +223264,7 @@
         55
       ],
       "subsequentActions": [],
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -223305,6 +223319,7 @@
       "subsequentActions": [
         "Qwen3L Teach skip attack"
       ],
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -223357,6 +223372,7 @@
         64
       ],
       "subsequentActions": [],
+      "actionSeq": 35,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -223408,6 +223424,7 @@
         70
       ],
       "subsequentActions": [],
+      "actionSeq": 37,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -223459,6 +223476,7 @@
       "subsequentActions": [
         "MiniMx Rules puts Verdant Catacombs from hand onto the Battlefield"
       ],
+      "actionSeq": 39,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -223509,6 +223527,7 @@
         82
       ],
       "subsequentActions": [],
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -223554,6 +223573,7 @@
         "MiniMx Rules sacrificed Verdant Catacombs (source: Verdant Catacombs)",
         "MiniMx Rules activates: search your library for a Swamp or Forest card, put it onto the battlefield, then shuffle. from Verdant Catacombs"
       ],
+      "actionSeq": 42,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -223582,6 +223602,7 @@
       "subsequentActions": [
         "MiniMx Rules searches their library (source: Verdant Catacombs)"
       ],
+      "actionSeq": 46,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -223664,6 +223685,7 @@
         "MiniMx Rules puts Swamp from library onto the Battlefield (source: Verdant Catacombs)",
         "MiniMx Rules's library is shuffled (source: Verdant Catacombs)"
       ],
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -223726,6 +223748,7 @@
       "subsequentActions": [
         "MiniMx Rules casts Badgermole Cub from hand"
       ],
+      "actionSeq": 52,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -223759,6 +223782,7 @@
       "subsequentActions": [
         "MiniMx Rules puts Badgermole Cub from stack onto the Battlefield"
       ],
+      "actionSeq": 56,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -223811,6 +223835,7 @@
       "subsequentActions": [
         "MiniMx Rules - Ability triggers: Badgermole Cub - When Badgermole Cub enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.) - targeting Swamp"
       ],
+      "actionSeq": 59,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -223883,6 +223908,7 @@
         "Qwen3L Teach puts Fatal Push from stack into their graveyard",
         "MiniMx Rules skip attack"
       ],
+      "actionSeq": 62,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -223911,7 +223937,8 @@
         112,
         113
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 75
     },
     {
       "index": 27,
@@ -223943,7 +223970,8 @@
         115,
         116
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 75
     },
     {
       "index": 28,
@@ -223965,7 +223993,8 @@
         118,
         119
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 78
     },
     {
       "index": 29,
@@ -224031,6 +224060,7 @@
       "subsequentActions": [
         "Qwen3L Teach puts Bloodstained Mire from hand onto the Battlefield"
       ],
+      "actionSeq": 78,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -224089,6 +224119,7 @@
         126
       ],
       "subsequentActions": [],
+      "actionSeq": 80,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -224160,6 +224191,7 @@
         "Qwen3L Teach activates: search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle. from Bloodstained Mire",
         "Qwen3L Teach searches their library (source: Bloodstained Mire)"
       ],
+      "actionSeq": 81,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -224242,6 +224274,7 @@
         "Qwen3L Teach puts Swamp from library onto the Battlefield (source: Bloodstained Mire)",
         "Qwen3L Teach's library is shuffled (source: Bloodstained Mire)"
       ],
+      "actionSeq": 88,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -224315,6 +224348,7 @@
         "Qwen3L Teach casts Emperor of Bones from hand",
         "Qwen3L Teach puts Emperor of Bones from stack onto the Battlefield"
       ],
+      "actionSeq": 91,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -224376,6 +224410,7 @@
         "Qwen3L Teach - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard.",
         "Qwen3L Teach skip attack"
       ],
+      "actionSeq": 98,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -224410,7 +224445,8 @@
         149,
         150
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 105
     },
     {
       "index": 36,
@@ -224440,6 +224476,7 @@
         155
       ],
       "subsequentActions": [],
+      "actionSeq": 107,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -224505,6 +224542,7 @@
       "subsequentActions": [
         "MiniMx Rules puts Spymaster's Vault from hand onto the Battlefield"
       ],
+      "actionSeq": 109,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -224580,6 +224618,7 @@
       "subsequentActions": [
         "MiniMx Rules casts Malevolent Rumble from hand"
       ],
+      "actionSeq": 111,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -224623,6 +224662,7 @@
       "subsequentActions": [
         "MiniMx Rules reveals Misty Rainforest, Spymaster's Vault, Delighted Halfling, Malevolent Rumble (source: Malevolent Rumble)"
       ],
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -224659,6 +224699,7 @@
         168
       ],
       "subsequentActions": [],
+      "actionSeq": 118,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -224720,6 +224761,7 @@
         "MiniMx Rules puts Malevolent Rumble from library into their graveyard (source: Malevolent Rumble)",
         "MiniMx Rules creates a Eldrazi Spawn Token token"
       ],
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -224768,6 +224810,7 @@
       "subsequentActions": [
         "MiniMx Rules skip attack"
       ],
+      "actionSeq": 126,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -224811,6 +224854,7 @@
         181
       ],
       "subsequentActions": [],
+      "actionSeq": 131,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -224886,6 +224930,7 @@
       "subsequentActions": [
         "Qwen3L Teach puts Scalding Tarn from hand onto the Battlefield"
       ],
+      "actionSeq": 133,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -224968,6 +225013,7 @@
         188
       ],
       "subsequentActions": [],
+      "actionSeq": 135,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -225036,6 +225082,7 @@
         "Qwen3L Teach activates: search your library for an Island or Mountain card, put it onto the battlefield, then shuffle. from Scalding Tarn",
         "Qwen3L Teach searches their library (source: Scalding Tarn)"
       ],
+      "actionSeq": 136,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -225118,6 +225165,7 @@
         "Qwen3L Teach puts Blood Crypt from library onto the Battlefield (source: Scalding Tarn)",
         "Qwen3L Teach's library is shuffled (source: Scalding Tarn)"
       ],
+      "actionSeq": 143,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -225193,6 +225241,7 @@
         "Qwen3L Teach activates: Adapt 2. (If this creature has no +1/+1 counters on it, put two +1/+1 counters on it.) from Emperor of Bones",
         "Qwen3L Teach - Ability triggers: Emperor of Bones - Whenever one or more +1/+1 counters are put on Emperor of Bones, put a creature card exiled with Emperor of Bones onto the battlefield under your control with a finality counter on it. It gains haste. Sacrifice it at the beginning of the next end step."
       ],
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -225253,6 +225302,7 @@
       "subsequentActions": [
         "Qwen3L Teach - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard."
       ],
+      "actionSeq": 156,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -225310,6 +225360,7 @@
       "subsequentActions": [
         "Qwen3L Teach attacks MiniMx Rules with 1 creature"
       ],
+      "actionSeq": 162,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -225366,6 +225417,7 @@
         "Attacker: Emperor of Bones (4/4) unblocked",
         "MiniMx Rules loses 4 life at combat from Emperor of Bones"
       ],
+      "actionSeq": 167,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "blockers",
@@ -225424,6 +225476,7 @@
         221
       ],
       "subsequentActions": [],
+      "actionSeq": 174,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -225515,6 +225568,7 @@
         223
       ],
       "subsequentActions": [],
+      "actionSeq": 176,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -225600,6 +225654,7 @@
       "subsequentActions": [
         "MiniMx Rules puts Boseiju, Who Endures from hand onto the Battlefield"
       ],
+      "actionSeq": 181,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -225711,6 +225766,7 @@
         "MiniMx Rules casts Delighted Halfling from hand",
         "MiniMx Rules puts Delighted Halfling from stack onto the Battlefield"
       ],
+      "actionSeq": 184,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -225789,6 +225845,7 @@
         "MiniMx Rules puts Dredger's Insight from library into their graveyard (source: Dredger's Insight)",
         "MiniMx Rules puts Badgermole Cub from library into their graveyard (source: Dredger's Insight)"
       ],
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -225853,6 +225910,7 @@
         "MiniMx Rules - Ability triggers: Dredger's Insight - Whenever one or more artifact and/or creature cards leave your graveyard, you gain 1 life.",
         "MiniMx Rules gains 1 life (source: Dredger's Insight)"
       ],
+      "actionSeq": 204,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -225924,6 +225982,7 @@
         "Attacker: Eldrazi Spawn Token (0/1) unblocked",
         "Qwen3L Teach loses 1 life at combat from Swamp"
       ],
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -225974,6 +226033,7 @@
         "MiniMx Rules casts Endurance with Evoke from hand",
         "MiniMx Rules puts Endurance from stack onto the Battlefield"
       ],
+      "actionSeq": 223,
       "pilotContext": {
         "playableCards": [
           "p69"
@@ -226027,7 +226087,8 @@
         "MiniMx Rules - Ability triggers: Endurance - When Endurance enters, up to one target player puts all the cards from their graveyard on the bottom of their library in a random order.",
         "MiniMx Rules - Ability triggers: Endurance - When this permanent enters, if its evoke cost was paid, its controller sacrifices it.",
         "MiniMx Rules sacrificed Endurance (source: Endurance)"
-      ]
+      ],
+      "actionSeq": 231
     },
     {
       "index": 61,
@@ -226098,6 +226159,7 @@
         270
       ],
       "subsequentActions": [],
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -226168,6 +226230,7 @@
       "subsequentActions": [
         "Qwen3L Teach casts Faithless Looting from hand"
       ],
+      "actionSeq": 248,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -226246,6 +226309,7 @@
         278
       ],
       "subsequentActions": [],
+      "actionSeq": 254,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -226321,6 +226385,7 @@
         "Qwen3L Teach discards Unearth (source: Faithless Looting)",
         "Qwen3L Teach puts Faithless Looting from stack into their graveyard"
       ],
+      "actionSeq": 256,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -226388,6 +226453,7 @@
       "subsequentActions": [
         "Qwen3L Teach puts Polluted Delta from hand onto the Battlefield"
       ],
+      "actionSeq": 260,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -226461,6 +226527,7 @@
         290
       ],
       "subsequentActions": [],
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -226603,6 +226670,7 @@
         "MiniMx Rules - Ability triggers: Dredger's Insight - Whenever one or more artifact and/or creature cards leave your graveyard, you gain 1 life.",
         "MiniMx Rules gains 1 life (source: Dredger's Insight)"
       ],
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -226660,6 +226728,7 @@
       "subsequentActions": [
         "Qwen3L Teach attacks MiniMx Rules with 1 creature"
       ],
+      "actionSeq": 273,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -226718,6 +226787,7 @@
         "Emperor of Bones deals 4 damage to Delighted Halfling",
         "Delighted Halfling died"
       ],
+      "actionSeq": 278,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -226757,7 +226827,8 @@
         307,
         309
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 287
     },
     {
       "index": 71,
@@ -226797,6 +226868,7 @@
         313
       ],
       "subsequentActions": [],
+      "actionSeq": 288,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -226884,6 +226956,7 @@
         "MiniMx Rules casts Yawgmoth, Thran Physician from hand",
         "MiniMx Rules puts Yawgmoth, Thran Physician from stack onto the Battlefield"
       ],
+      "actionSeq": 290,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -226940,6 +227013,7 @@
         "MiniMx Rules - Ability triggers: Badgermole Cub - When it dies or is exiled, return it to the battlefield tapped.",
         "MiniMx Rules puts Swamp from graveyard onto the Battlefield (source: Badgermole Cub)"
       ],
+      "actionSeq": 299,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -226989,6 +227063,7 @@
         "Yawgmoth, Thran Physician: MiniMx Rules puts 1 -1/-1 counters on Eldrazi Spawn Token",
         "Eldrazi Spawn Token is put into graveyard from battlefield"
       ],
+      "actionSeq": 310,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -227033,6 +227108,7 @@
       "subsequentActions": [
         "MiniMx Rules puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 319,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -227080,6 +227156,7 @@
         346
       ],
       "subsequentActions": [],
+      "actionSeq": 321,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -227120,6 +227197,7 @@
         354
       ],
       "subsequentActions": [],
+      "actionSeq": 322,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -227157,6 +227235,7 @@
       "subsequentActions": [
         "MiniMx Rules skip attack"
       ],
+      "actionSeq": 325,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -227256,6 +227335,7 @@
       "subsequentActions": [
         "Qwen3L Teach activates: Adapt 2. (If this creature has no +1/+1 counters on it, put two +1/+1 counters on it.) from Emperor of Bones"
       ],
+      "actionSeq": 332,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -227287,7 +227367,8 @@
         371,
         373
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 337
     },
     {
       "index": 81,
@@ -227341,6 +227422,7 @@
         377
       ],
       "subsequentActions": [],
+      "actionSeq": 338,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -227398,6 +227480,7 @@
         380
       ],
       "subsequentActions": [],
+      "actionSeq": 339,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -227533,6 +227616,7 @@
         "Qwen3L Teach - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Dredger's Insight",
         "Qwen3L Teach moves Dredger's Insight from graveyard to the exile zone (source: Emperor of Bones)"
       ],
+      "actionSeq": 340,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -227593,6 +227677,7 @@
       "subsequentActions": [
         "Qwen3L Teach attacks MiniMx Rules with 1 creature"
       ],
+      "actionSeq": 345,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -227641,6 +227726,7 @@
         "Attacker: Emperor of Bones (4/4) unblocked",
         "MiniMx Rules loses 4 life at combat from Emperor of Bones"
       ],
+      "actionSeq": 350,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "blockers",
@@ -227706,6 +227792,7 @@
         401
       ],
       "subsequentActions": [],
+      "actionSeq": 357,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -227735,7 +227822,8 @@
         398,
         399
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 359
     },
     {
       "index": 88,
@@ -227803,6 +227891,7 @@
       "subsequentActions": [
         "MiniMx Rules casts Dredger's Insight from hand"
       ],
+      "actionSeq": 359,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -227849,6 +227938,7 @@
         "MiniMx Rules puts Agatha's Soul Cauldron from library into their graveyard (source: Dredger's Insight)",
         "MiniMx Rules puts Delighted Halfling from library into their graveyard (source: Dredger's Insight)"
       ],
+      "actionSeq": 363,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -227912,6 +228002,7 @@
       "subsequentActions": [
         "MiniMx Rules puts Boseiju, Who Endures from graveyard into their hand"
       ],
+      "actionSeq": 373,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -227984,6 +228075,7 @@
       "subsequentActions": [
         "MiniMx Rules puts Boseiju, Who Endures from hand onto the Battlefield"
       ],
+      "actionSeq": 375,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -228039,6 +228131,7 @@
       "subsequentActions": [
         "Boseiju, Who Endures is put into graveyard from battlefield"
       ],
+      "actionSeq": 378,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -228086,6 +228179,7 @@
         428
       ],
       "subsequentActions": [],
+      "actionSeq": 380,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -228143,6 +228237,7 @@
         436
       ],
       "subsequentActions": [],
+      "actionSeq": 384,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -228196,6 +228291,7 @@
       "subsequentActions": [
         "MiniMx Rules skip attack"
       ],
+      "actionSeq": 386,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -228297,6 +228393,7 @@
         448
       ],
       "subsequentActions": [],
+      "actionSeq": 392,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -228401,6 +228498,7 @@
         453
       ],
       "subsequentActions": [],
+      "actionSeq": 394,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -228426,7 +228524,8 @@
         452,
         455
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 395
     },
     {
       "index": 99,
@@ -228456,6 +228555,7 @@
         461
       ],
       "subsequentActions": [],
+      "actionSeq": 395,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -228608,6 +228708,7 @@
       "subsequentActions": [
         "Qwen3L Teach - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Agatha's Soul Cauldron"
       ],
+      "actionSeq": 396,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -228653,6 +228754,7 @@
         "MiniMx Rules gains 1 life (source: Dredger's Insight)",
         "MiniMx Rules gains 1 life (source: Dredger's Insight)"
       ],
+      "actionSeq": 399,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -228710,6 +228812,7 @@
       "subsequentActions": [
         "Qwen3L Teach attacks MiniMx Rules with 1 creature"
       ],
+      "actionSeq": 409,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -228758,6 +228861,7 @@
         "Attacker: Emperor of Bones (4/4) unblocked",
         "MiniMx Rules loses 4 life at combat from Emperor of Bones"
       ],
+      "actionSeq": 414,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "blockers",
@@ -228864,6 +228968,7 @@
         479
       ],
       "subsequentActions": [],
+      "actionSeq": 421,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -228906,6 +229011,7 @@
         482
       ],
       "subsequentActions": [],
+      "actionSeq": 422,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -228958,6 +229064,7 @@
       "subsequentActions": [
         "MiniMx Rules skip attack"
       ],
+      "actionSeq": 425,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -229028,6 +229135,7 @@
       "subsequentActions": [
         "MiniMx Rules puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 429,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -229097,6 +229205,7 @@
         "MiniMx Rules announces a value of 4 for {X} (source: Green Sun's Zenith)",
         "MiniMx Rules casts Green Sun's Zenith from hand"
       ],
+      "actionSeq": 431,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -229129,6 +229238,7 @@
       "subsequentActions": [
         "MiniMx Rules searches their library (source: Green Sun's Zenith)"
       ],
+      "actionSeq": 440,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -229244,6 +229354,7 @@
         "MiniMx Rules's library is shuffled (source: Green Sun's Zenith)",
         "MiniMx Rules - Ability triggers: Formidable Speaker - When Formidable Speaker enters, you may discard a card. If you do, search your library for a creature card, reveal it, put it into your hand, then shuffle."
       ],
+      "actionSeq": 443,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -229287,6 +229398,7 @@
         511
       ],
       "subsequentActions": [],
+      "actionSeq": 452,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -229471,6 +229583,7 @@
         514
       ],
       "subsequentActions": [],
+      "actionSeq": 454,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -229530,6 +229643,7 @@
         "MiniMx Rules activates: put a -1/-1 counter on up to one target creature and draw a card. from Yawgmoth, Thran Physician targeting Emperor of Bones",
         "Yawgmoth, Thran Physician: MiniMx Rules puts 1 -1/-1 counters on Emperor of Bones"
       ],
+      "actionSeq": 455,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -229683,6 +229797,7 @@
         "Qwen3L Teach - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Boseiju, Who Endures",
         "Qwen3L Teach moves Boseiju, Who Endures from graveyard to the exile zone (source: Emperor of Bones)"
       ],
+      "actionSeq": 467,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -229744,6 +229859,7 @@
       "subsequentActions": [
         "Qwen3L Teach attacks MiniMx Rules with 1 creature"
       ],
+      "actionSeq": 472,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -229793,6 +229909,7 @@
         "Yawgmoth, Thran Physician deals 2 damage to Emperor of Bones",
         "Emperor of Bones deals 3 damage to Yawgmoth, Thran Physician"
       ],
+      "actionSeq": 477,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "blockers",
@@ -229908,6 +230025,7 @@
         546
       ],
       "subsequentActions": [],
+      "actionSeq": 486,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -229988,6 +230106,7 @@
         549
       ],
       "subsequentActions": [],
+      "actionSeq": 488,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -230046,6 +230165,7 @@
         553
       ],
       "subsequentActions": [],
+      "actionSeq": 489,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -230099,6 +230219,7 @@
       "subsequentActions": [
         "MiniMx Rules skip attack"
       ],
+      "actionSeq": 492,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -230166,6 +230287,7 @@
         "MiniMx Rules casts Young Wolf from hand",
         "MiniMx Rules puts Young Wolf from stack onto the Battlefield"
       ],
+      "actionSeq": 496,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -230289,6 +230411,7 @@
         569
       ],
       "subsequentActions": [],
+      "actionSeq": 504,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -230373,6 +230496,7 @@
         "Qwen3L Teach casts Psychic Frog from hand",
         "Qwen3L Teach puts Psychic Frog from stack onto the Battlefield"
       ],
+      "actionSeq": 508,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -230463,6 +230587,7 @@
         579
       ],
       "subsequentActions": [],
+      "actionSeq": 514,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -230620,6 +230745,7 @@
         "MiniMx Rules - Ability triggers: Dredger's Insight - Whenever one or more artifact and/or creature cards leave your graveyard, you gain 1 life.",
         "MiniMx Rules gains 1 life (source: Dredger's Insight)"
       ],
+      "actionSeq": 516,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -230701,6 +230827,7 @@
       "subsequentActions": [
         "Qwen3L Teach attacks MiniMx Rules with 1 creature"
       ],
+      "actionSeq": 529,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -230761,6 +230888,7 @@
         594
       ],
       "subsequentActions": [],
+      "actionSeq": 532,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -230855,6 +230983,7 @@
         "Yawgmoth, Thran Physician deals 2 damage to Emperor of Bones",
         "Emperor of Bones deals 3 damage to Yawgmoth, Thran Physician"
       ],
+      "actionSeq": 534,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "blockers",
@@ -230946,6 +231075,7 @@
         604
       ],
       "subsequentActions": [],
+      "actionSeq": 543,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -231026,6 +231156,7 @@
         603
       ],
       "subsequentActions": [],
+      "actionSeq": 545,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -231099,6 +231230,7 @@
         "MiniMx Rules casts Walking Ballista from hand",
         "MiniMx Rules puts Walking Ballista from stack onto the Battlefield"
       ],
+      "actionSeq": 547,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -231167,6 +231299,7 @@
         621
       ],
       "subsequentActions": [],
+      "actionSeq": 561,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -231213,6 +231346,7 @@
         "MiniMx Rules activates: It deals 1 damage to any target. from Walking Ballista targeting Psychic Frog",
         "Walking Ballista deals 1 damage to Psychic Frog"
       ],
+      "actionSeq": 562,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -231276,6 +231410,7 @@
         633
       ],
       "subsequentActions": [],
+      "actionSeq": 568,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -231347,6 +231482,7 @@
       "subsequentActions": [
         "MiniMx Rules attacks Qwen3L Teach with 2 creatures"
       ],
+      "actionSeq": 574,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -231420,6 +231556,7 @@
         "Attacker: Yawgmoth, Thran Physician (2/4) blocked by Psychic Frog (1/2)",
         "Attacker: Young Wolf (1/1) unblocked"
       ],
+      "actionSeq": 580,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "blockers",
@@ -231486,7 +231623,8 @@
         "Yawgmoth, Thran Physician deals 2 damage to Psychic Frog",
         "Qwen3L Teach loses 1 life at combat from Young Wolf",
         "Psychic Frog died"
-      ]
+      ],
+      "actionSeq": 585
     },
     {
       "index": 138,
@@ -231527,7 +231665,8 @@
         653,
         654
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 591
     },
     {
       "index": 139,
@@ -231576,6 +231715,7 @@
         660
       ],
       "subsequentActions": [],
+      "actionSeq": 593,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -231603,7 +231743,8 @@
         657,
         658
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 595
     },
     {
       "index": 141,
@@ -231719,6 +231860,7 @@
         663
       ],
       "subsequentActions": [],
+      "actionSeq": 595,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -231774,6 +231916,7 @@
       "subsequentActions": [
         "Qwen3L Teach casts Faithless Looting from hand"
       ],
+      "actionSeq": 599,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -231867,6 +232010,7 @@
         "Qwen3L Teach discards Ragavan, Nimble Pilferer (source: Faithless Looting)",
         "Qwen3L Teach puts Faithless Looting from stack into their graveyard"
       ],
+      "actionSeq": 605,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -231962,6 +232106,7 @@
         677
       ],
       "subsequentActions": [],
+      "actionSeq": 610,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -232135,6 +232280,7 @@
         "Qwen3L Teach - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Fatal Push",
         "Qwen3L Teach moves Fatal Push from graveyard to the exile zone (source: Emperor of Bones)"
       ],
+      "actionSeq": 612,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -232192,6 +232338,7 @@
       "subsequentActions": [
         "Qwen3L Teach attacks MiniMx Rules with 1 creature"
       ],
+      "actionSeq": 617,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -232260,6 +232407,7 @@
         "Emperor of Bones deals 3 damage to Walking Ballista",
         "Walking Ballista died"
       ],
+      "actionSeq": 622,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -232319,6 +232467,7 @@
         695
       ],
       "subsequentActions": [],
+      "actionSeq": 632,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -232368,6 +232517,7 @@
         "Qwen3L Teach activates: search your library for an Island or Swamp card, put it onto the battlefield, then shuffle. from Polluted Delta",
         "Qwen3L Teach searches their library (source: Polluted Delta)"
       ],
+      "actionSeq": 633,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -232444,6 +232594,7 @@
         "Qwen3L Teach puts Watery Grave from library onto the Battlefield (source: Polluted Delta)",
         "Qwen3L Teach's library is shuffled (source: Polluted Delta)"
       ],
+      "actionSeq": 640,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -232483,6 +232634,7 @@
         710
       ],
       "subsequentActions": [],
+      "actionSeq": 644,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -232549,6 +232701,7 @@
         708
       ],
       "subsequentActions": [],
+      "actionSeq": 646,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -232631,6 +232784,7 @@
         "MiniMx Rules casts Walking Ballista from hand",
         "MiniMx Rules puts Walking Ballista from stack onto the Battlefield"
       ],
+      "actionSeq": 646,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -232699,6 +232853,7 @@
         "Attacker: Yawgmoth, Thran Physician (2/4) unblocked",
         "Attacker: Young Wolf (1/1) unblocked"
       ],
+      "actionSeq": 660,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -232747,6 +232902,7 @@
         "Qwen3L Teach loses 2 life at combat from Yawgmoth, Thran Physician",
         "Qwen3L Teach loses 1 life at combat from Young Wolf"
       ],
+      "actionSeq": 667,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -232791,6 +232947,7 @@
         728
       ],
       "subsequentActions": [],
+      "actionSeq": 671,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -232857,6 +233014,7 @@
         "MiniMx Rules casts Badgermole Cub from hand",
         "MiniMx Rules puts Badgermole Cub from stack onto the Battlefield"
       ],
+      "actionSeq": 673,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -232941,6 +233099,7 @@
       "subsequentActions": [
         "MiniMx Rules - Ability triggers: Badgermole Cub - When Badgermole Cub enters, earthbend 1. (Target land you control becomes a 0/0 creature with haste that's still a land. Put a +1/+1 counter on it. When it dies or is exiled, return it to the battlefield tapped.) - targeting Boseiju, Who Endures"
       ],
+      "actionSeq": 681,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -233019,6 +233178,7 @@
         743
       ],
       "subsequentActions": [],
+      "actionSeq": 685,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -233214,6 +233374,7 @@
         749
       ],
       "subsequentActions": [],
+      "actionSeq": 690,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -233407,6 +233568,7 @@
         "Qwen3L Teach - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Unearth",
         "Qwen3L Teach moves Unearth from graveyard to the exile zone (source: Emperor of Bones)"
       ],
+      "actionSeq": 692,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -233469,6 +233631,7 @@
       "subsequentActions": [
         "Qwen3L Teach attacks MiniMx Rules with 1 creature"
       ],
+      "actionSeq": 697,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -233553,6 +233716,7 @@
         "Emperor of Bones deals 3 damage to Walking Ballista",
         "Walking Ballista died"
       ],
+      "actionSeq": 702,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -233676,6 +233840,7 @@
         767
       ],
       "subsequentActions": [],
+      "actionSeq": 712,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -233797,6 +233962,7 @@
         772
       ],
       "subsequentActions": [],
+      "actionSeq": 714,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -233852,6 +234018,7 @@
         774
       ],
       "subsequentActions": [],
+      "actionSeq": 716,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -233923,6 +234090,7 @@
         "MiniMx Rules casts Yawgmoth, Thran Physician from hand",
         "MiniMx Rules puts Yawgmoth, Thran Physician from stack onto the Battlefield"
       ],
+      "actionSeq": 716,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -233978,6 +234146,7 @@
       "subsequentActions": [
         "Yawgmoth, Thran Physician is put into graveyard from battlefield"
       ],
+      "actionSeq": 724,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -234055,6 +234224,7 @@
         "Attacker: Young Wolf (1/1) unblocked",
         "Attacker: Badgermole Cub (2/2) unblocked"
       ],
+      "actionSeq": 728,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -234101,6 +234271,7 @@
         793
       ],
       "subsequentActions": [],
+      "actionSeq": 736,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -234136,6 +234307,7 @@
         800
       ],
       "subsequentActions": [],
+      "actionSeq": 738,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -234181,6 +234353,7 @@
         803
       ],
       "subsequentActions": [],
+      "actionSeq": 738,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -234223,6 +234396,7 @@
       "subsequentActions": [
         "MiniMx Rules loses 1 life from Yawgmoth, Thran Physician"
       ],
+      "actionSeq": 739,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -234292,6 +234466,7 @@
         "MiniMx Rules puts Young Wolf from graveyard onto the Battlefield",
         "MiniMx Rules - Ability triggers: Dredger's Insight - Whenever one or more artifact and/or creature cards leave your graveyard, you gain 1 life."
       ],
+      "actionSeq": 742,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -234329,6 +234504,7 @@
       "subsequentActions": [
         "MiniMx Rules gains 1 life (source: Dredger's Insight)"
       ],
+      "actionSeq": 751,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -234380,6 +234556,7 @@
         "Yawgmoth, Thran Physician: MiniMx Rules puts 1 -1/-1 counters on Emperor of Bones",
         "MiniMx Rules gains 1 life (source: Dredger's Insight)"
       ],
+      "actionSeq": 754,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -234495,6 +234672,7 @@
         830
       ],
       "subsequentActions": [],
+      "actionSeq": 778,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -234690,6 +234868,7 @@
         "MiniMx Rules - Ability triggers: Dredger's Insight - Whenever one or more artifact and/or creature cards leave your graveyard, you gain 1 life.",
         "MiniMx Rules - Ability triggers: Dredger's Insight - Whenever one or more artifact and/or creature cards leave your graveyard, you gain 1 life."
       ],
+      "actionSeq": 780,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -234763,6 +234942,7 @@
       "subsequentActions": [
         "Qwen3L Teach activates: Adapt 2. (If this creature has no +1/+1 counters on it, put two +1/+1 counters on it.) from Emperor of Bones"
       ],
+      "actionSeq": 787,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -234826,6 +235006,7 @@
       "subsequentActions": [
         "Qwen3L Teach - Ability triggers: Emperor of Bones - Whenever one or more +1/+1 counters are put on Emperor of Bones, put a creature card exiled with Emperor of Bones onto the battlefield under your control with a finality counter on it. It gains haste. Sacrifice it at the beginning of the next end step."
       ],
+      "actionSeq": 791,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -234904,6 +235085,7 @@
         "MiniMx Rules gains 1 life (source: Dredger's Insight)",
         "MiniMx Rules gains 1 life (source: Dredger's Insight)"
       ],
+      "actionSeq": 796,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -234988,6 +235170,7 @@
         "Attacker: Emperor of Bones (3/3) unblocked",
         "Attacker: Young Wolf (1/1) unblocked"
       ],
+      "actionSeq": 804,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -235051,6 +235234,7 @@
         "Qwen3L Teach sacrificed Young Wolf (source: Emperor of Bones)",
         "Qwen3L Teach discards down to 7 hand cards"
       ],
+      "actionSeq": 811,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -235152,6 +235336,7 @@
       "subsequentActions": [
         "Qwen3L Teach discards Thoughtseize"
       ],
+      "actionSeq": 824,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -235237,6 +235422,7 @@
         "MiniMx Rules puts Underground Mortuary from hand onto the Battlefield",
         "MiniMx Rules - Ability triggers: Underground Mortuary - When Underground Mortuary enters, surveil 1."
       ],
+      "actionSeq": 826,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -235322,6 +235508,7 @@
         "MiniMx Rules sacrificed Badgermole Cub (source: Yawgmoth, Thran Physician)",
         "MiniMx Rules activates: put a -1/-1 counter on up to one target creature and draw a card. from Yawgmoth, Thran Physician targeting Emperor of Bones"
       ],
+      "actionSeq": 829,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -235349,7 +235536,8 @@
       ],
       "subsequentActions": [
         "Yawgmoth, Thran Physician: MiniMx Rules puts 1 -1/-1 counters on Emperor of Bones"
-      ]
+      ],
+      "actionSeq": 837
     },
     {
       "index": 188,
@@ -235402,6 +235590,7 @@
         877
       ],
       "subsequentActions": [],
+      "actionSeq": 839,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -235437,6 +235626,7 @@
         880
       ],
       "subsequentActions": [],
+      "actionSeq": 840,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -235488,6 +235678,7 @@
         "MiniMx Rules - Ability triggers: Badgermole Cub - When it dies or is exiled, return it to the battlefield tapped.",
         "MiniMx Rules puts Boseiju, Who Endures from graveyard onto the Battlefield (source: Badgermole Cub)"
       ],
+      "actionSeq": 840,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -235564,6 +235755,7 @@
       "subsequentActions": [
         "MiniMx Rules has lost the game."
       ],
+      "actionSeq": 850,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1

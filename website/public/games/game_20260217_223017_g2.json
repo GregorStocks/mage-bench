@@ -29458,7 +29458,7 @@
       "actionTaken": "Fetched a basic Island",
       "betterLine": "Fetch Watery Grave (entering untapped for 2 life) to have access to black mana for Fatal Push while retaining sufficient blue sources for mill spells. The second Flooded Strand in hand can fetch a basic Island later if needed.",
       "type": "blunder",
-      "snapshotIndex": 66,
+      "snapshotIndex": 67,
       "player": "Kimi25 Gramps"
     }
   ],
@@ -29514,7 +29514,8 @@
         "Kimi25 Gramps draws seven cards",
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -29558,7 +29559,8 @@
         "Kimi25 Gramps draws seven cards",
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -29603,6 +29605,7 @@
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -29662,6 +29665,7 @@
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -29713,6 +29717,7 @@
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -29759,6 +29764,7 @@
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -29825,6 +29831,7 @@
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -29909,6 +29916,7 @@
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -29967,6 +29975,7 @@
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -30021,6 +30030,7 @@
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -30071,6 +30081,7 @@
         "GPT52 Timmy draws seven cards",
         "Kimi25 Gramps keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0

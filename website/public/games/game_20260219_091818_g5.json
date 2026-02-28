@@ -50319,7 +50319,7 @@
       "actionTaken": "Cast Stock Up for {2}{U}, tapping both Ancient Tomb and Island, using all available mana on turn 2.",
       "betterLine": "Play Mistrise Village (or second Ancient Tomb) as land for turn first, then cast Ponder for {U} to set up draws while preserving mana flexibility. Stock Up could be cast on a later turn when there's less opportunity cost.",
       "type": "blunder",
-      "snapshotIndex": 24,
+      "snapshotIndex": 25,
       "player": "Haiku Coach"
     },
     {
@@ -50328,7 +50328,7 @@
       "actionTaken": "Sacrificed Wasteland to destroy opponent's Ancient Tomb, going down to 1 land on turn 2.",
       "betterLine": "Tap Wasteland for {C} mana instead (or don't activate it at all during combat), preserve the land drop, and focus on developing mana to cast Glaring Fleshraker or Eldrazi Linebreaker on turn 3 with upcoming land drops.",
       "type": "blunder",
-      "snapshotIndex": 36,
+      "snapshotIndex": 37,
       "player": "Grok4 Optim"
     },
     {
@@ -50337,7 +50337,7 @@
       "actionTaken": "Cast Kozilek's Command with X=0, using Eldrazi Temple for {C}{C}, choosing to create 0 tokens and scry 0/draw 1 card — effectively just cycling the spell.",
       "betterLine": "Hold Kozilek's Command for later when more mana is available to cast it for a meaningful X value. Instead, play Abundant Countryside or Cavern of Souls this turn to develop mana toward casting Glaring Fleshraker or Eldrazi Linebreaker on the following turn.",
       "type": "blunder",
-      "snapshotIndex": 39,
+      "snapshotIndex": 40,
       "player": "Grok4 Optim"
     },
     {
@@ -50346,7 +50346,7 @@
       "actionTaken": "Cast Ponder instead of Intuition",
       "betterLine": "Cast Intuition (paying {2}{U} with Ancient Tomb + Island) to search for three cards that enable casting Omniscience, such as three copies of Show and Tell or similar enablers where getting any one is sufficient to combo off.",
       "type": "blunder",
-      "snapshotIndex": 49,
+      "snapshotIndex": 50,
       "player": "Haiku Coach"
     },
     {
@@ -50355,7 +50355,7 @@
       "actionTaken": "Chose option 1: {T}: Add {C}",
       "betterLine": "This was the only legal choice since Grim Monolith is not an Eldrazi spell",
       "type": "blunder",
-      "snapshotIndex": 83,
+      "snapshotIndex": 84,
       "player": "Grok4 Optim"
     }
   ],
@@ -50411,7 +50411,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -50445,7 +50446,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -50482,7 +50484,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -50551,6 +50554,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -50595,6 +50599,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -50656,6 +50661,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -50706,6 +50712,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -50774,6 +50781,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -50842,6 +50850,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -50918,6 +50927,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -50977,6 +50987,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -51014,6 +51025,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -51063,6 +51075,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -51132,6 +51145,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -51196,6 +51210,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -51248,6 +51263,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -51312,6 +51328,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -51363,6 +51380,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -51423,6 +51441,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -51476,6 +51495,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -51530,6 +51550,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -51584,6 +51605,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -51633,6 +51655,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -51705,6 +51728,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -51768,6 +51792,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -51832,6 +51857,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -51872,6 +51898,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -51938,6 +51965,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -51990,6 +52018,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -52063,6 +52092,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -52149,6 +52179,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -52215,6 +52246,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -52263,6 +52295,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -52343,6 +52376,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -52414,6 +52448,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -52491,6 +52526,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -52550,6 +52586,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -52638,7 +52675,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 38,
@@ -52685,6 +52723,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -52735,6 +52774,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -52776,6 +52816,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -52844,6 +52885,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -52887,6 +52929,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -52941,6 +52984,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p31"
@@ -52991,7 +53035,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 45,
@@ -53059,7 +53104,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 46,
@@ -53116,6 +53162,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -53166,6 +53213,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -53211,6 +53259,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -53285,6 +53334,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -53332,6 +53382,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -53372,6 +53423,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -53434,6 +53486,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -53474,6 +53527,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -53545,6 +53599,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -53582,6 +53637,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -53630,6 +53686,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p17"
@@ -53680,7 +53737,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 58,
@@ -53724,7 +53782,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 59,
@@ -53762,7 +53821,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 60,
@@ -54052,7 +54112,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 61,
@@ -54109,6 +54170,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -54149,6 +54211,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -54186,6 +54249,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -54255,6 +54319,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -54310,6 +54375,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -54411,6 +54477,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -54506,6 +54573,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -54593,6 +54661,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -54688,6 +54757,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -54745,6 +54815,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -54795,6 +54866,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -54853,6 +54925,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -54933,6 +55006,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -54989,6 +55063,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -55039,6 +55114,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -55089,6 +55165,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -55127,6 +55204,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -55175,6 +55253,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p56"
@@ -55229,7 +55308,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 80,
@@ -55286,6 +55366,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -55345,6 +55426,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -55404,6 +55486,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -55465,6 +55548,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -55520,6 +55604,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -55561,6 +55646,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -55612,6 +55698,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -55652,7 +55739,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 88,
@@ -55714,7 +55802,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 89,
@@ -55751,7 +55840,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 90,
@@ -55793,6 +55883,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -55833,7 +55924,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 92,
@@ -55891,6 +55983,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -55961,6 +56054,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -56008,7 +56102,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 95,
@@ -56045,7 +56140,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 96,
@@ -56090,6 +56186,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -56133,7 +56230,8 @@
         "Haiku Coach draws seven cards",
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 98,
@@ -56181,6 +56279,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -56231,6 +56330,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -56281,6 +56381,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -56364,6 +56465,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -56432,6 +56534,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -56485,6 +56588,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -56535,6 +56639,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -56573,6 +56678,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -56621,6 +56727,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -56694,6 +56801,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -56731,6 +56839,7 @@
         "Grok4 Optim draws seven cards",
         "Haiku Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }

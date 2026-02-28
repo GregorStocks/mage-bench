@@ -85061,7 +85061,7 @@
       "actionTaken": "Copied Sunpearl Kirin with Superior Spider-Man, getting a 4/4 flyer with a bounce-your-own-permanent ETB trigger.",
       "betterLine": "Copy Quantum Riddler to get a 4/4 flyer that draws a card on ETB and has the bonus draw ability when at one or fewer cards in hand, providing significantly more value.",
       "type": "blunder",
-      "snapshotIndex": 168,
+      "snapshotIndex": 169,
       "player": "GPT52 Hype"
     },
     {
@@ -85070,7 +85070,7 @@
       "actionTaken": "Cast Nowhere to Run targeting nothing (no opposing creatures), wasting the removal ETB for just a prowess trigger.",
       "betterLine": "Play a land (Concealed Courtyard or Watery Grave), then cast Stormchaser's Talent (or Grim Bauble for another prowess trigger with upside), and hold Nowhere to Run as removal for when the opponent plays a creature.",
       "type": "blunder",
-      "snapshotIndex": 184,
+      "snapshotIndex": 185,
       "player": "Gem3P Diplom"
     },
     {
@@ -85079,7 +85079,7 @@
       "actionTaken": "Played Concealed Courtyard, which entered tapped, leaving only 1 untapped land (Hallowed Fountain).",
       "betterLine": "Play Watery Grave (paying 2 life) to have 2 untapped lands, enabling Grim Bauble deployment or holding up Sunpearl Kirin as a flash threat.",
       "type": "blunder",
-      "snapshotIndex": 185,
+      "snapshotIndex": 186,
       "player": "Gem3P Diplom"
     },
     {
@@ -85088,7 +85088,7 @@
       "actionTaken": "Used Bitter Triumph to destroy an Otter Token (1/1 prowess)",
       "betterLine": "Use Bitter Triumph to destroy Sunpearl Kirin (2/1 flash flyer with bounce ETB), saving 1 more damage and removing the more threatening permanent",
       "type": "blunder",
-      "snapshotIndex": 275,
+      "snapshotIndex": 276,
       "player": "GPT52 Hype"
     },
     {
@@ -85097,7 +85097,7 @@
       "actionTaken": "Targeted an Otter Token with Bitter Triumph, leaving Sunpearl Kirin and another Otter Token alive to deal 4 total combat damage.",
       "betterLine": "Target Sunpearl Kirin with Bitter Triumph to remove the flying 2-power threat, taking only 2 damage from the two Otter Tokens instead of 4 from Kirin + Otter.",
       "type": "blunder",
-      "snapshotIndex": 278,
+      "snapshotIndex": 279,
       "player": "GPT52 Hype"
     },
     {
@@ -85106,7 +85106,7 @@
       "actionTaken": "Targeted an Otter Token with Bitter Triumph",
       "betterLine": "Target Sunpearl Kirin with Bitter Triumph, as it's the highest-impact creature on the board with flying evasion and a bounce ability",
       "type": "blunder",
-      "snapshotIndex": 281,
+      "snapshotIndex": 282,
       "player": "GPT52 Hype"
     },
     {
@@ -85115,7 +85115,7 @@
       "actionTaken": "Used Bitter Triumph to destroy an Otter Token (1/1 prowess)",
       "betterLine": "Destroy Sunpearl Kirin, the 2/1 flyer that represents consistent evasive damage that's hard to interact with on defense",
       "type": "blunder",
-      "snapshotIndex": 286,
+      "snapshotIndex": 287,
       "player": "GPT52 Hype"
     }
   ],
@@ -85182,7 +85182,8 @@
         "GPT52 Hype draws seven cards",
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -85244,6 +85245,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -85302,6 +85304,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -85393,6 +85396,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -85443,6 +85447,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -85501,6 +85506,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -85559,6 +85565,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -85643,6 +85650,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -85684,6 +85692,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -85725,6 +85734,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -85786,6 +85796,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -85873,6 +85884,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -85922,6 +85934,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -85971,6 +85984,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -86054,6 +86068,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -86135,6 +86150,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -86217,6 +86233,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -86257,6 +86274,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -86339,6 +86357,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -86388,6 +86407,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -86448,6 +86468,7 @@
         "Gem3P Diplom draws seven cards",
         "GPT52 Hype decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }

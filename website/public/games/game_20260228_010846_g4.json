@@ -114185,7 +114185,8 @@
       ],
       "subsequentActions": [
         "Kimi25 Philo chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 5
     },
     {
       "index": 1,
@@ -114214,7 +114215,8 @@
         8,
         12
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -114238,7 +114240,8 @@
         13,
         15
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 8
     },
     {
       "index": 3,
@@ -114275,7 +114278,8 @@
       ],
       "subsequentActions": [
         "Gem25F Lucky's library is shuffled"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 4,
@@ -114354,7 +114358,8 @@
         "Gem25F Lucky puts a card from hand to the bottom of their library",
         "Kimi25 Philo skips Draw step",
         "Kimi25 Philo skip attack"
-      ]
+      ],
+      "actionSeq": 10
     },
     {
       "index": 5,
@@ -114408,6 +114413,7 @@
       "subsequentActions": [
         "Kimi25 Philo puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -114475,6 +114481,7 @@
       "subsequentActions": [
         "Gem25F Lucky puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 26,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -114518,6 +114525,7 @@
       "subsequentActions": [
         "Gem25F Lucky skip attack"
       ],
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -114596,6 +114604,7 @@
       "subsequentActions": [
         "Kimi25 Philo puts Mountain from hand onto the Battlefield"
       ],
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -114664,6 +114673,7 @@
       "subsequentActions": [
         "Kimi25 Philo skip attack"
       ],
+      "actionSeq": 42,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -114713,6 +114723,7 @@
         57
       ],
       "subsequentActions": [],
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -114778,6 +114789,7 @@
       "subsequentActions": [
         "Gem25F Lucky puts Island from hand onto the Battlefield"
       ],
+      "actionSeq": 53,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -114820,6 +114832,7 @@
       "subsequentActions": [
         "Gem25F Lucky skip attack"
       ],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -114866,6 +114879,7 @@
         69
       ],
       "subsequentActions": [],
+      "actionSeq": 62,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -114935,6 +114949,7 @@
         73
       ],
       "subsequentActions": [],
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -114978,6 +114993,7 @@
         77
       ],
       "subsequentActions": [],
+      "actionSeq": 66,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -115023,6 +115039,7 @@
         80
       ],
       "subsequentActions": [],
+      "actionSeq": 66,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -115080,6 +115097,7 @@
         "Kimi25 Philo puts Thriving Grove from hand onto the Battlefield",
         "Kimi25 Philo skip attack"
       ],
+      "actionSeq": 67,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -115124,6 +115142,7 @@
         88
       ],
       "subsequentActions": [],
+      "actionSeq": 76,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -115183,6 +115202,7 @@
       "subsequentActions": [
         "Gem25F Lucky puts Island from hand onto the Battlefield"
       ],
+      "actionSeq": 80,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -115234,6 +115254,7 @@
       "subsequentActions": [
         "Gem25F Lucky skip attack"
       ],
+      "actionSeq": 85,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -115289,6 +115310,7 @@
       "subsequentActions": [
         "Gem25F Lucky casts Garruk's Uprising from hand"
       ],
+      "actionSeq": 90,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -115338,6 +115360,7 @@
       "subsequentActions": [
         "Gem25F Lucky puts Garruk's Uprising from stack onto the Battlefield"
       ],
+      "actionSeq": 97,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -115417,6 +115440,7 @@
         "Kimi25 Philo puts Mountain from hand onto the Battlefield",
         "Kimi25 Philo skip attack"
       ],
+      "actionSeq": 101,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -115474,6 +115498,7 @@
         118
       ],
       "subsequentActions": [],
+      "actionSeq": 109,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -115536,6 +115561,7 @@
         121
       ],
       "subsequentActions": [],
+      "actionSeq": 113,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -115615,6 +115641,7 @@
         "Kimi25 Philo casts Khalni Heart Expedition from hand",
         "Kimi25 Philo puts Khalni Heart Expedition from stack onto the Battlefield"
       ],
+      "actionSeq": 113,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -115672,6 +115699,7 @@
       "subsequentActions": [
         "Gem25F Lucky puts Island from hand onto the Battlefield"
       ],
+      "actionSeq": 123,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -115723,6 +115751,7 @@
       "subsequentActions": [
         "Gem25F Lucky skip attack"
       ],
+      "actionSeq": 128,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -115772,6 +115801,7 @@
       "subsequentActions": [
         "Kimi25 Philo skip attack"
       ],
+      "actionSeq": 134,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -115815,6 +115845,7 @@
         146
       ],
       "subsequentActions": [],
+      "actionSeq": 140,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -115882,6 +115913,7 @@
         154
       ],
       "subsequentActions": [],
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -115921,6 +115953,7 @@
         150
       ],
       "subsequentActions": [],
+      "actionSeq": 145,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -115969,6 +116002,7 @@
       "subsequentActions": [
         "Gem25F Lucky skip attack"
       ],
+      "actionSeq": 145,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -116008,6 +116042,7 @@
         162
       ],
       "subsequentActions": [],
+      "actionSeq": 150,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -116074,6 +116109,7 @@
       "subsequentActions": [
         "Gem25F Lucky casts Orazca Frillback from hand"
       ],
+      "actionSeq": 151,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -116107,6 +116143,7 @@
         168
       ],
       "subsequentActions": [],
+      "actionSeq": 157,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -116154,6 +116191,7 @@
         "Gem25F Lucky puts Orazca Frillback from stack onto the Battlefield",
         "Gem25F Lucky - Ability triggers: Garruk's Uprising - Whenever a creature you control with power 4 or greater enters, draw a card."
       ],
+      "actionSeq": 158,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -116214,6 +116252,7 @@
       "subsequentActions": [
         "Gem25F Lucky puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 163,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -116278,6 +116317,7 @@
         179
       ],
       "subsequentActions": [],
+      "actionSeq": 165,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -116334,6 +116374,7 @@
       "subsequentActions": [
         "Kimi25 Philo skip attack"
       ],
+      "actionSeq": 168,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -116380,6 +116421,7 @@
         192
       ],
       "subsequentActions": [],
+      "actionSeq": 174,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -116426,6 +116468,7 @@
         195
       ],
       "subsequentActions": [],
+      "actionSeq": 175,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -116462,6 +116505,7 @@
         200
       ],
       "subsequentActions": [],
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -116508,6 +116552,7 @@
         207
       ],
       "subsequentActions": [],
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -116566,6 +116611,7 @@
         "Gem25F Lucky attacks Kimi25 Philo with 1 creature",
         "Attacker: Orazca Frillback (4/2) unblocked"
       ],
+      "actionSeq": 180,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -116610,6 +116656,7 @@
         213
       ],
       "subsequentActions": [],
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -116658,6 +116705,7 @@
       "subsequentActions": [
         "Kimi25 Philo loses 4 life at combat from Orazca Frillback"
       ],
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -116704,6 +116752,7 @@
         221
       ],
       "subsequentActions": [],
+      "actionSeq": 196,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -116752,6 +116801,7 @@
       "subsequentActions": [
         "Kimi25 Philo skip attack"
       ],
+      "actionSeq": 198,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -116790,6 +116840,7 @@
       "subsequentActions": [
         "Kimi25 Philo discards down to 7 hand cards"
       ],
+      "actionSeq": 202,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -116876,6 +116927,7 @@
       "subsequentActions": [
         "Kimi25 Philo discards Thrill of Possibility"
       ],
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -116965,6 +117017,7 @@
       "subsequentActions": [
         "Gem25F Lucky puts Island from hand onto the Battlefield"
       ],
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -117061,6 +117114,7 @@
         "Gem25F Lucky casts Garruk, Unleashed from hand",
         "Gem25F Lucky puts Garruk, Unleashed from stack onto the Battlefield"
       ],
+      "actionSeq": 214,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -117127,6 +117181,7 @@
         "Gem25F Lucky attacks Kimi25 Philo with 1 creature",
         "Attacker: Orazca Frillback (4/2) unblocked"
       ],
+      "actionSeq": 225,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -117173,6 +117228,7 @@
       "subsequentActions": [
         "Kimi25 Philo loses 4 life at combat from Orazca Frillback"
       ],
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -117233,6 +117289,7 @@
       "subsequentActions": [
         "Gem25F Lucky activates: up to one target creature gets +3/+3 and gains trample until end of turn. from Garruk, Unleashed targeting Orazca Frillback"
       ],
+      "actionSeq": 239,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -117277,6 +117334,7 @@
         266
       ],
       "subsequentActions": [],
+      "actionSeq": 246,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -117375,6 +117433,7 @@
         "Kimi25 Philo puts Forest from hand onto the Battlefield",
         "Kimi25 Philo - Ability triggers: Khalni Heart Expedition - Landfall — Whenever a land you control enters, you may put a quest counter on Khalni Heart Expedition."
       ],
+      "actionSeq": 248,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -117420,6 +117479,7 @@
         273
       ],
       "subsequentActions": [],
+      "actionSeq": 255,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -117466,6 +117526,7 @@
       "subsequentActions": [
         "Kimi25 Philo skip attack"
       ],
+      "actionSeq": 257,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -117559,6 +117620,7 @@
         "Kimi25 Philo casts Snapping Gnarlid from hand",
         "Kimi25 Philo puts Snapping Gnarlid from stack onto the Battlefield"
       ],
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -117628,6 +117690,7 @@
         299
       ],
       "subsequentActions": [],
+      "actionSeq": 270,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -117677,6 +117740,7 @@
         297
       ],
       "subsequentActions": [],
+      "actionSeq": 271,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -117737,6 +117801,7 @@
       "subsequentActions": [
         "Gem25F Lucky attacks Kimi25 Philo with 1 creature"
       ],
+      "actionSeq": 274,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "attackers"
@@ -117784,6 +117849,7 @@
       "subsequentActions": [
         "Attacker: Orazca Frillback (4/2) unblocked"
       ],
+      "actionSeq": 281,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "blockers",
@@ -117838,6 +117904,7 @@
       "subsequentActions": [
         "Kimi25 Philo loses 4 life at combat from Orazca Frillback"
       ],
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 6,
         "playableCards": [
@@ -117933,6 +118000,7 @@
       "subsequentActions": [
         "Gem25F Lucky puts Island from hand onto the Battlefield"
       ],
+      "actionSeq": 290,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -118026,6 +118094,7 @@
       "subsequentActions": [
         "Kimi25 Philo puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 295,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -118086,6 +118155,7 @@
         "Kimi25 Philo - Ability triggers: Snapping Gnarlid - Landfall — Whenever a land you control enters, Snapping Gnarlid gets +1/+1 until end of turn.",
         "Kimi25 Philo - Ability triggers: Khalni Heart Expedition - Landfall — Whenever a land you control enters, you may put a quest counter on Khalni Heart Expedition."
       ],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -118137,6 +118207,7 @@
         335
       ],
       "subsequentActions": [],
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -118175,6 +118246,7 @@
         333
       ],
       "subsequentActions": [],
+      "actionSeq": 304,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -118268,6 +118340,7 @@
         "Kimi25 Philo casts Rampaging Baloths from hand",
         "Kimi25 Philo puts Rampaging Baloths from stack onto the Battlefield"
       ],
+      "actionSeq": 307,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -118308,6 +118381,7 @@
         347
       ],
       "subsequentActions": [],
+      "actionSeq": 319,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -118347,6 +118421,7 @@
         352
       ],
       "subsequentActions": [],
+      "actionSeq": 321,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -118403,6 +118478,7 @@
         355
       ],
       "subsequentActions": [],
+      "actionSeq": 321,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -118451,7 +118527,8 @@
         358,
         359
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 323
     },
     {
       "index": 77,
@@ -118486,6 +118563,7 @@
       "subsequentActions": [
         "Kimi25 Philo attacks Gem25F Lucky with 1 creature"
       ],
+      "actionSeq": 324,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -118529,6 +118607,7 @@
         367
       ],
       "subsequentActions": [],
+      "actionSeq": 328,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -118600,6 +118679,7 @@
         "Gem25F Lucky puts Chilling Trap from stack into their graveyard",
         "Attacker: Snapping Gnarlid (-1/3) unblocked"
       ],
+      "actionSeq": 329,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -118692,6 +118772,7 @@
         377
       ],
       "subsequentActions": [],
+      "actionSeq": 346,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -118747,6 +118828,7 @@
       "subsequentActions": [
         "Gem25F Lucky activates: up to one target creature gets +3/+3 and gains trample until end of turn. from Garruk, Unleashed targeting Orazca Frillback"
       ],
+      "actionSeq": 349,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -118817,6 +118899,7 @@
         391
       ],
       "subsequentActions": [],
+      "actionSeq": 356,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -118877,6 +118960,7 @@
       "subsequentActions": [
         "Gem25F Lucky skip attack"
       ],
+      "actionSeq": 361,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -118947,6 +119031,7 @@
         399
       ],
       "subsequentActions": [],
+      "actionSeq": 366,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -119040,6 +119125,7 @@
       "subsequentActions": [
         "Kimi25 Philo puts Mountain from hand onto the Battlefield"
       ],
+      "actionSeq": 371,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -119105,6 +119191,7 @@
       "subsequentActions": [
         "Kimi25 Philo - Ability triggers: Khalni Heart Expedition - Landfall — Whenever a land you control enters, you may put a quest counter on Khalni Heart Expedition."
       ],
+      "actionSeq": 375,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -119178,6 +119265,7 @@
         "Kimi25 Philo - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token.",
         "Kimi25 Philo creates a Beast Token token"
       ],
+      "actionSeq": 377,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -119225,6 +119313,7 @@
         421
       ],
       "subsequentActions": [],
+      "actionSeq": 383,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -119264,6 +119353,7 @@
         427
       ],
       "subsequentActions": [],
+      "actionSeq": 387,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -119333,6 +119423,7 @@
         431
       ],
       "subsequentActions": [],
+      "actionSeq": 390,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -119384,6 +119475,7 @@
         437
       ],
       "subsequentActions": [],
+      "actionSeq": 391,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -119440,6 +119532,7 @@
         441
       ],
       "subsequentActions": [],
+      "actionSeq": 392,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers",
@@ -119498,6 +119591,7 @@
         445
       ],
       "subsequentActions": [],
+      "actionSeq": 393,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -119535,6 +119629,7 @@
       "subsequentActions": [
         "Kimi25 Philo attacks Gem25F Lucky with 2 creatures"
       ],
+      "actionSeq": 394,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -119583,6 +119678,7 @@
         "Attacker: Snapping Gnarlid (3/3) unblocked",
         "Attacker: Rampaging Baloths (6/6) blocked by Orazca Frillback (4/2)"
       ],
+      "actionSeq": 399,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "blockers",
@@ -119653,6 +119749,7 @@
       "subsequentActions": [
         "Gem25F Lucky loses 3 life at combat from Snapping Gnarlid"
       ],
+      "actionSeq": 405,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -119689,6 +119786,7 @@
         463
       ],
       "subsequentActions": [],
+      "actionSeq": 409,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -119735,6 +119833,7 @@
         "Rampaging Baloths deals 2 damage to Orazca Frillback",
         "Orazca Frillback died"
       ],
+      "actionSeq": 411,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -119827,6 +119926,7 @@
         476
       ],
       "subsequentActions": [],
+      "actionSeq": 422,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -119880,6 +119980,7 @@
         484
       ],
       "subsequentActions": [],
+      "actionSeq": 425,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -119936,6 +120037,7 @@
         "Thriving Isle: Gem25F Lucky has chosen Green",
         "Gem25F Lucky puts Thriving Isle from hand onto the Battlefield"
       ],
+      "actionSeq": 426,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -119989,6 +120091,7 @@
         492
       ],
       "subsequentActions": [],
+      "actionSeq": 432,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -120041,6 +120144,7 @@
         "Kimi25 Philo activates: search your library for up to two basic land cards, put them onto the battlefield tapped, then shuffle. from Khalni Heart Expedition",
         "Kimi25 Philo searches their library (source: Khalni Heart Expedition)"
       ],
+      "actionSeq": 433,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -120123,6 +120227,7 @@
         "Kimi25 Philo puts Mountain from library onto the Battlefield (source: Khalni Heart Expedition)",
         "Kimi25 Philo's library is shuffled (source: Khalni Heart Expedition)"
       ],
+      "actionSeq": 439,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -120188,6 +120293,7 @@
       "subsequentActions": [
         "Kimi25 Philo - Ability triggers: Snapping Gnarlid - Landfall — Whenever a land you control enters, Snapping Gnarlid gets +1/+1 until end of turn."
       ],
+      "actionSeq": 444,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -120247,6 +120353,7 @@
       "subsequentActions": [
         "Kimi25 Philo - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token."
       ],
+      "actionSeq": 446,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -120299,6 +120406,7 @@
         "Kimi25 Philo - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token.",
         "Kimi25 Philo - Ability triggers: Snapping Gnarlid - Landfall — Whenever a land you control enters, Snapping Gnarlid gets +1/+1 until end of turn."
       ],
+      "actionSeq": 448,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -120345,6 +120453,7 @@
         "Kimi25 Philo creates a Beast Token token",
         "Kimi25 Philo creates a Beast Token token"
       ],
+      "actionSeq": 454,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -120388,6 +120497,7 @@
         529
       ],
       "subsequentActions": [],
+      "actionSeq": 460,
       "pilotContext": {
         "untappedLands": 7,
         "playableCards": [
@@ -120502,6 +120612,7 @@
       "subsequentActions": [
         "Gem25F Lucky skip attack"
       ],
+      "actionSeq": 461,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -120568,6 +120679,7 @@
         535
       ],
       "subsequentActions": [],
+      "actionSeq": 470,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -120654,6 +120766,7 @@
       "subsequentActions": [
         "Kimi25 Philo puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 472,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0,
@@ -120715,6 +120828,7 @@
         "Kimi25 Philo - Ability triggers: Rampaging Baloths - Landfall — Whenever a land you control enters, create a 4/4 green Beast creature token.",
         "Kimi25 Philo creates a Beast Token token"
       ],
+      "actionSeq": 476,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1,
@@ -120766,6 +120880,7 @@
         548
       ],
       "subsequentActions": [],
+      "actionSeq": 482,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1,
@@ -120857,6 +120972,7 @@
         552
       ],
       "subsequentActions": [],
+      "actionSeq": 486,
       "pilotContext": {
         "untappedLands": 10,
         "combatPhase": "attackers"
@@ -120907,6 +121023,7 @@
         556
       ],
       "subsequentActions": [],
+      "actionSeq": 487,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -120948,6 +121065,7 @@
         "Attacker: Beast Token (4/4) unblocked",
         "Attacker: Beast Token (4/4) unblocked"
       ],
+      "actionSeq": 488,
       "pilotContext": {
         "untappedLands": 10,
         "combatPhase": "attackers"
@@ -120996,6 +121114,7 @@
         "Gem25F Lucky loses 4 life at combat from Beast Token",
         "Gem25F Lucky loses 4 life at combat from Beast Token"
       ],
+      "actionSeq": 499,
       "pilotContext": {
         "untappedLands": 10,
         "playableCards": [
@@ -121011,7 +121130,7 @@
       "actionTaken": "Mulliganed to 6 cards",
       "betterLine": "Keep the 7-card hand. It has 3 lands, a curve, and interaction. Thriving Isle choosing green gives access to green mana by turn 3, making the hand functional despite imperfect mana.",
       "type": "blunder",
-      "snapshotIndex": 1,
+      "snapshotIndex": 2,
       "player": "Gem25F Lucky"
     },
     {
@@ -121020,7 +121139,7 @@
       "actionTaken": "Bottomed Hunter's Insight, keeping a hand of Chilling Trap, Crashing Tide, Forest, Island, Island, Island (4 lands, 2 spells)",
       "betterLine": "Bottom an Island instead, keeping Hunter's Insight for a hand of Chilling Trap, Crashing Tide, Forest, Hunter's Insight, Island, Island (3 lands, 3 spells) with better spell density and both colors still represented.",
       "type": "blunder",
-      "snapshotIndex": 2,
+      "snapshotIndex": 3,
       "player": "Gem25F Lucky"
     },
     {
@@ -121029,7 +121148,7 @@
       "actionTaken": "No response - passed priority without casting anything, wasting 2 available mana.",
       "betterLine": "Cast Thrill of Possibility discarding Adventuring Gear (or Khalni Heart Expedition) to dig for lands and playable cards, helping hit land drops to cast Wildfire Elemental or Rampaging Baloths sooner.",
       "type": "blunder",
-      "snapshotIndex": 30,
+      "snapshotIndex": 31,
       "player": "Kimi25 Philo"
     },
     {
@@ -121038,7 +121157,7 @@
       "actionTaken": "Played Thriving Grove (enters tapped), limiting this turn to 2 available mana",
       "betterLine": "Play Mountain to have 3 mana available, then cast both Khalni Heart Expedition (1G) and Adventuring Gear (1) this turn, maximizing board development and landfall synergy setup",
       "type": "blunder",
-      "snapshotIndex": 35,
+      "snapshotIndex": 36,
       "player": "Kimi25 Philo"
     },
     {
@@ -121047,7 +121166,7 @@
       "actionTaken": "Timed out on Thriving Grove color choice, defaulting to White (or another non-Red color).",
       "betterLine": "Choose Red for Thriving Grove to enable casting Thrill of Possibility on turn 3 and Wildfire Elemental with double red later.",
       "type": "blunder",
-      "snapshotIndex": 35,
+      "snapshotIndex": 36,
       "player": "Kimi25 Philo"
     },
     {
@@ -121056,7 +121175,7 @@
       "actionTaken": "Passed priority without casting Thrill of Possibility",
       "betterLine": "Cast Thrill of Possibility discarding Adventuring Gear to dig for lands and accelerate toward casting Wildfire Elemental (turn 4 land) and eventually Rampaging Baloths",
       "type": "blunder",
-      "snapshotIndex": 44,
+      "snapshotIndex": 45,
       "player": "Kimi25 Philo"
     },
     {
@@ -121065,7 +121184,7 @@
       "actionTaken": "Timed out and passed without casting anything, wasting 4 mana and an entire turn of development.",
       "betterLine": "Cast Khalni Heart Expedition ({1}{G}) to start building toward ramp for Rampaging Baloths, plus Chandra's Pyreling ({1}{R}) to establish board presence, using 3 of 4 available mana. Alternatively, cast Wildfire Elemental ({2}{R}{R}) as a 3/3 threat.",
       "type": "blunder",
-      "snapshotIndex": 62,
+      "snapshotIndex": 63,
       "player": "Kimi25 Philo"
     },
     {
@@ -121074,7 +121193,7 @@
       "actionTaken": "Played Island, leaving only 1 green source (1 Forest) and unable to cast Garruk, Unleashed.",
       "betterLine": "Play Forest to have 2 Forests + 2 Islands, then cast Garruk, Unleashed this turn, immediately generating a 3/3 Beast token or using another loyalty ability.",
       "type": "blunder",
-      "snapshotIndex": 69,
+      "snapshotIndex": 70,
       "player": "Gem25F Lucky"
     },
     {
@@ -121083,7 +121202,7 @@
       "actionTaken": "Passed priority, ending the turn with 2 untapped mana and no action taken.",
       "betterLine": "Cast Thrill of Possibility discarding Chandra's Pyreling (weakest card in a green ramp strategy) to draw 2 cards and dig toward lands for Rampaging Baloths or other threats. Also would put a quest counter on Khalni Heart Expedition if a land is found.",
       "type": "blunder",
-      "snapshotIndex": 75,
+      "snapshotIndex": 76,
       "player": "Kimi25 Philo"
     },
     {
@@ -121092,7 +121211,7 @@
       "actionTaken": "Cast Orazca Frillback before playing a land",
       "betterLine": "Play Forest first, then cast Orazca Frillback using 1 Forest + 2 Islands, leaving 1 Forest + 1 Island (2 mana) untapped to potentially use on the card drawn from Garruk's Uprising trigger",
       "type": "blunder",
-      "snapshotIndex": 81,
+      "snapshotIndex": 82,
       "player": "Gem25F Lucky"
     },
     {
@@ -121101,7 +121220,7 @@
       "actionTaken": "Cast Orazca Frillback without playing a land first, leaving the land drop unused this turn.",
       "betterLine": "Play Forest first, then either cast Orazca Frillback (3 mana, draws a card from Uprising, keeps 2 mana open) or cast Garruk, Unleashed (4 mana, a premium threat). Either way, the land should be played first.",
       "type": "blunder",
-      "snapshotIndex": 85,
+      "snapshotIndex": 86,
       "player": "Gem25F Lucky"
     },
     {
@@ -121110,7 +121229,7 @@
       "actionTaken": "Attempted to cast Brushstrider but failed to complete mana payment, resulting in no action taken.",
       "betterLine": "Successfully cast Brushstrider by paying {G} from Forest and {1} from Island, adding a 3/1 vigilance creature to the board.",
       "type": "blunder",
-      "snapshotIndex": 94,
+      "snapshotIndex": 95,
       "player": "Gem25F Lucky"
     },
     {
@@ -121119,7 +121238,7 @@
       "actionTaken": "Timed out and did not declare any attackers.",
       "betterLine": "Attack with Orazca Frillback for 4 unblockable damage, then proceed to second main phase to play Garruk, Unleashed or other spells.",
       "type": "blunder",
-      "snapshotIndex": 105,
+      "snapshotIndex": 106,
       "player": "Gem25F Lucky"
     },
     {
@@ -121128,7 +121247,7 @@
       "actionTaken": "Passed priority without casting anything, wasting all 4 available mana.",
       "betterLine": "Cast Thrill of Possibility discarding Adventuring Gear (or a basic land) to draw 2 cards and improve hand quality while efficiently using mana.",
       "type": "blunder",
-      "snapshotIndex": 113,
+      "snapshotIndex": 114,
       "player": "Kimi25 Philo"
     },
     {
@@ -121137,7 +121256,7 @@
       "actionTaken": "Timed out and did not declare any attackers, missing 4 free damage.",
       "betterLine": "Attack with Orazca Frillback for 4 unblockable damage, bringing the opponent from 16 to 12 life.",
       "type": "blunder",
-      "snapshotIndex": 131,
+      "snapshotIndex": 132,
       "player": "Gem25F Lucky"
     },
     {
@@ -121146,7 +121265,7 @@
       "actionTaken": "Activated Garruk's +1 targeting the already-tapped Orazca Frillback in postcombat main, wasting the +3/+3 buff entirely.",
       "betterLine": "Either activate Garruk's +1 with no target to tick up to 5 loyalty, or use -2 to create a 3/3 Beast token for additional board presence.",
       "type": "blunder",
-      "snapshotIndex": 138,
+      "snapshotIndex": 139,
       "player": "Gem25F Lucky"
     },
     {
@@ -121155,7 +121274,7 @@
       "actionTaken": "Passed priority in postcombat main phase, wasting 3 mana and deploying nothing.",
       "betterLine": "Cast Spiteful Prankster for 2R to add a 3/2 body to the board, providing another attacker to pressure Garruk next turn and offering value through its damage-on-creature-death ability.",
       "type": "blunder",
-      "snapshotIndex": 157,
+      "snapshotIndex": 158,
       "player": "Kimi25 Philo"
     },
     {
@@ -121164,7 +121283,7 @@
       "actionTaken": "No response - skipped the attack phase without declaring any attackers.",
       "betterLine": "Attack with Orazca Frillback for 4 uncontested damage, putting the opponent to 8 life. Then in post-combat main phase, play Thriving Isle and continue developing the board with Rumbling Baloth or other spells.",
       "type": "blunder",
-      "snapshotIndex": 161,
+      "snapshotIndex": 162,
       "player": "Gem25F Lucky"
     },
     {
@@ -121173,7 +121292,7 @@
       "actionTaken": "Timed out and did not declare any attackers, passing combat with no attacks.",
       "betterLine": "Attack with Snapping Gnarlid into Garruk, Unleashed to reduce it from 5 to 2 loyalty, putting the planeswalker in a much more vulnerable position. There are no blockers, so this is completely free.",
       "type": "blunder",
-      "snapshotIndex": 190,
+      "snapshotIndex": 191,
       "player": "Kimi25 Philo"
     },
     {
@@ -121182,7 +121301,7 @@
       "actionTaken": "Timed out and did not declare any attackers.",
       "betterLine": "Attack with Snapping Gnarlid into Garruk, Unleashed to reduce it from 5 to 2 loyalty, significantly reducing the planeswalker threat while there are no blockers available.",
       "type": "blunder",
-      "snapshotIndex": 190,
+      "snapshotIndex": 191,
       "player": "Kimi25 Philo"
     },
     {
@@ -121191,7 +121310,7 @@
       "actionTaken": "Attacked opponent's face with Snapping Gnarlid 3/3",
       "betterLine": "Attack Garruk, Unleashed to reduce it from 5 to 2 loyalty, limiting its ability to generate value and threaten lethal",
       "type": "blunder",
-      "snapshotIndex": 190,
+      "snapshotIndex": 191,
       "player": "Kimi25 Philo"
     },
     {
@@ -121200,7 +121319,7 @@
       "actionTaken": "Cast Chilling Trap on Snapping Gnarlid to prevent 3 combat damage while at 20 life, without drawing a card.",
       "betterLine": "Take the 3 damage (going to 17 life) and save Chilling Trap for a higher-impact moment, such as shrinking Rampaging Baloths during a crucial attack or block.",
       "type": "blunder",
-      "snapshotIndex": 192,
+      "snapshotIndex": 193,
       "player": "Gem25F Lucky"
     },
     {
@@ -121209,7 +121328,7 @@
       "actionTaken": "Used Garruk's +1 to pump Orazca Frillback to 7/5 with trample",
       "betterLine": "Use Garruk's -2 to create a 3/3 Beast token, play Thriving Isle, cast Rumbling Baloth (drawing a card from Garruk's Uprising), then attack with all three creatures with trample, dealing 7 damage through optimal blocks and putting opponent to 1 life.",
       "type": "blunder",
-      "snapshotIndex": 208,
+      "snapshotIndex": 209,
       "player": "Gem25F Lucky"
     },
     {
@@ -121218,7 +121337,7 @@
       "actionTaken": "Cast Heirloom Blade, not setting up lethal this turn.",
       "betterLine": "Cast Crashing Tide targeting Rampaging Baloths to remove the only blocker, then activate Garruk's +1 on Orazca Frillback (making it 10/8 trample), and attack for lethal.",
       "type": "blunder",
-      "snapshotIndex": 212,
+      "snapshotIndex": 213,
       "player": "Gem25F Lucky"
     },
     {
@@ -121227,7 +121346,7 @@
       "actionTaken": "Declined to attack with the 7/5 Orazca Frillback into an empty board.",
       "betterLine": "Attack with Orazca Frillback for 7 damage (opponent goes to 1 life), then post-combat cast Crashing Tide to bounce Rampaging Baloths, leaving the opponent at 1 life with no board presence and virtually no way to survive.",
       "type": "blunder",
-      "snapshotIndex": 217,
+      "snapshotIndex": 218,
       "player": "Gem25F Lucky"
     },
     {
@@ -121236,7 +121355,7 @@
       "actionTaken": "Timed out and declared no attackers.",
       "betterLine": "Attack with Rampaging Baloths targeting Garruk, Unleashed to destroy it. Optionally also attack with Snapping Gnarlid (3/3) at the opponent's face or Garruk, forcing the Orazca Frillback to make unfavorable blocking decisions.",
       "type": "blunder",
-      "snapshotIndex": 236,
+      "snapshotIndex": 237,
       "player": "Kimi25 Philo"
     },
     {
@@ -121245,7 +121364,7 @@
       "actionTaken": "Chose to attack Gem25F Lucky (opponent at 20 life)",
       "betterLine": "Attack Garruk, Unleashed with both Rampaging Baloths and Snapping Gnarlid to kill the planeswalker, removing the opponent's primary source of card and board advantage.",
       "type": "blunder",
-      "snapshotIndex": 236,
+      "snapshotIndex": 237,
       "player": "Kimi25 Philo"
     },
     {
@@ -121254,7 +121373,7 @@
       "actionTaken": "Timed out and only attacked with Snapping Gnarlid 3/3, leaving Rampaging Baloths 6/6 back.",
       "betterLine": "Attack with Rampaging Baloths into Garruk, Unleashed to either kill it outright or significantly reduce its loyalty while trading with the opponent's only blocker. Garruk at 6 loyalty is the most dangerous card on the opponent's board and must be addressed.",
       "type": "blunder",
-      "snapshotIndex": 237,
+      "snapshotIndex": 238,
       "player": "Kimi25 Philo"
     },
     {
@@ -121263,7 +121382,7 @@
       "actionTaken": "Attacked Gem25F Lucky (opponent at 20 life) with Snapping Gnarlid 3/3",
       "betterLine": "Attack Garruk, Unleashed to reduce it from 6 to 3 loyalty, preventing the imminent ultimate and setting up a potential kill with Chandra's Pyrohelix next turn",
       "type": "blunder",
-      "snapshotIndex": 237,
+      "snapshotIndex": 238,
       "player": "Kimi25 Philo"
     },
     {
@@ -121272,7 +121391,7 @@
       "actionTaken": "No blocks (timeout), taking full 9 damage from Snapping Gnarlid and Rampaging Baloths",
       "betterLine": "Block Snapping Gnarlid with Orazca Frillback to trade and reduce incoming damage by 3",
       "type": "blunder",
-      "snapshotIndex": 240,
+      "snapshotIndex": 241,
       "player": "Gem25F Lucky"
     },
     {
@@ -121281,7 +121400,7 @@
       "actionTaken": "Passed priority during combat without activating Khalni Heart Expedition or casting Chandra's Pyrohelix.",
       "betterLine": "Activate Khalni Heart Expedition to fetch two basic lands, generating two 4/4 Beast tokens from Rampaging Baloths' landfall and pumping Snapping Gnarlid to 5/5 for 2 extra unblocked damage. Could also consider casting Chandra's Pyrohelix at the opponent's face to trigger Wildfire Elemental if on the battlefield (it's in hand though). The Expedition activation alone is enormous value.",
       "type": "blunder",
-      "snapshotIndex": 242,
+      "snapshotIndex": 243,
       "player": "Kimi25 Philo"
     },
     {
@@ -121290,7 +121409,7 @@
       "actionTaken": "Timed out on Thriving Isle color choice, likely defaulting to White (useless for this G/U deck).",
       "betterLine": "Choose Green for Thriving Isle to have a third green source, enabling Rumbling Baloth (2GG) and improving consistency for other green spells.",
       "type": "blunder",
-      "snapshotIndex": 251,
+      "snapshotIndex": 252,
       "player": "Gem25F Lucky"
     },
     {
@@ -121299,7 +121418,7 @@
       "actionTaken": "Passed priority (timeout) without casting anything, ending the turn with no blockers.",
       "betterLine": "Cast Rumbling Baloth (4/4 blocker, draws a card from Garruk's Uprising), activate Garruk -2 to create a 3/3 Beast token (another blocker), and cast Crashing Tide to bounce Rampaging Baloths — giving three blockers and removing the biggest threat to survive the next attack.",
       "type": "blunder",
-      "snapshotIndex": 275,
+      "snapshotIndex": 276,
       "player": "Gem25F Lucky"
     },
     {
@@ -121308,7 +121427,7 @@
       "actionTaken": "No response (timeout) - no attackers declared, missing lethal.",
       "betterLine": "Attack with all available creatures (Rampaging Baloths, three Beast Tokens, and Snapping Gnarlid) for 21 damage against 13 life with no blockers — a clean lethal kill.",
       "type": "blunder",
-      "snapshotIndex": 285,
+      "snapshotIndex": 286,
       "player": "Kimi25 Philo"
     },
     {
@@ -121317,7 +121436,7 @@
       "actionTaken": "Passed without casting Chandra's Pyrohelix during combat",
       "betterLine": "Cast Chandra's Pyrohelix targeting the opponent for 2 damage as insurance against potential bounce spells, ensuring lethal even through interaction",
       "type": "blunder",
-      "snapshotIndex": 288,
+      "snapshotIndex": 289,
       "player": "Kimi25 Philo"
     }
   ],

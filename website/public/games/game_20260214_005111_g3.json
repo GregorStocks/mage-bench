@@ -229117,7 +229117,7 @@
       "actionTaken": "Played Breeding Pool as the turn 1 land",
       "betterLine": "Play Misty Rainforest turn 1, crack it on opponent's end step for Overgrown Tomb (untapped, paying 3 life total), then play Breeding Pool turn 2 to have {1}{B} available for Overlord impending on turn 2.",
       "type": "blunder",
-      "snapshotIndex": 3,
+      "snapshotIndex": 4,
       "player": "GPT4om Valley"
     },
     {
@@ -229126,7 +229126,7 @@
       "actionTaken": "Chose to evoke Subtlety, exiling a blue card from hand on turn 1.",
       "betterLine": "Depending on the target, it may have been better to not cast Subtlety at all and save the blue card for later. Force of Negation and Deceit are both high-value cards that shouldn't be exiled lightly on turn 1.",
       "type": "blunder",
-      "snapshotIndex": 5,
+      "snapshotIndex": 6,
       "player": "GPT4om Valley"
     },
     {
@@ -229135,7 +229135,7 @@
       "actionTaken": "Exiled Deceit (a 6-mana creature with powerful ETB effects) to pay for Subtlety's evoke cost.",
       "betterLine": "Exile Force of Negation instead, preserving Deceit which has synergy with Overlord of the Balemurk's recursion ability and is a more impactful card in this deck's game plan.",
       "type": "blunder",
-      "snapshotIndex": 5,
+      "snapshotIndex": 6,
       "player": "GPT4om Valley"
     },
     {
@@ -229144,7 +229144,7 @@
       "actionTaken": "Played Swamp as the turn 1 land drop",
       "betterLine": "Play Polluted Delta, crack it to fetch a Swamp (or Overgrown Tomb if in deck), then cast Thoughtseize. This builds the graveyard for Psychic Frog's exile ability and thins the deck, while preserving the basic Swamp for a future land drop.",
       "type": "blunder",
-      "snapshotIndex": 13,
+      "snapshotIndex": 14,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229153,7 +229153,7 @@
       "actionTaken": "Fetched a basic Forest from library with Misty Rainforest.",
       "betterLine": "Fetch Watery Grave (paying 2 life to have it enter untapped) to have access to black mana alongside the Breeding Pool's blue/green, setting up to cast black-heavy spells like Overlord of the Balemurk or Deceit in coming turns.",
       "type": "blunder",
-      "snapshotIndex": 19,
+      "snapshotIndex": 20,
       "player": "GPT4om Valley"
     },
     {
@@ -229162,7 +229162,7 @@
       "actionTaken": "Played Polluted Delta before casting any spells",
       "betterLine": "Cast Thoughtseize first using the existing Swamp to see opponent's hand, then play Polluted Delta and fetch the appropriate land based on the information gained and what was taken.",
       "type": "blunder",
-      "snapshotIndex": 23,
+      "snapshotIndex": 24,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229171,7 +229171,7 @@
       "actionTaken": "Cast Thoughtseize before playing/cracking Polluted Delta",
       "betterLine": "Crack Polluted Delta first to fetch the appropriate land (e.g., Watery Grave/Underground Sea for UB access), then decide between Thoughtseize or deploying Psychic Frog based on what opponent's hand reveals and mana availability",
       "type": "blunder",
-      "snapshotIndex": 24,
+      "snapshotIndex": 25,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229180,7 +229180,7 @@
       "actionTaken": "Took Overlord of the Balemurk with Thoughtseize",
       "betterLine": "Taking Deceit may have been slightly better, as it could be evoked immediately for {U/B}{U/B} to bounce a permanent or strip a card, while Overlord requires more mana or time via impending. However, Overlord's impending mode being available at 2 mana and its ability to recur Subtlety from the graveyard makes this a very close call.",
       "type": "blunder",
-      "snapshotIndex": 25,
+      "snapshotIndex": 26,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229189,7 +229189,7 @@
       "actionTaken": "Searched for Overgrown Tomb (second copy, already had one in hand)",
       "betterLine": "Search for Hedge Maze to diversify mana base and provide a second blue source for Deceit's UU trigger, which could be fetched with the Misty Rainforest already in hand",
       "type": "blunder",
-      "snapshotIndex": 30,
+      "snapshotIndex": 31,
       "player": "GPT4om Valley"
     },
     {
@@ -229198,7 +229198,7 @@
       "actionTaken": "Played Overgrown Tomb as the turn 3 land drop",
       "betterLine": "Play Misty Rainforest instead, keeping flexibility to fetch the optimal land (e.g., Watery Grave for UB, or a basic to avoid life loss) and preserving both Overgrown Tombs for future turns",
       "type": "blunder",
-      "snapshotIndex": 31,
+      "snapshotIndex": 32,
       "player": "GPT4om Valley"
     },
     {
@@ -229207,7 +229207,7 @@
       "actionTaken": "Attempted to cast Deceit for 6 mana with only 3 lands in play (4 after land drop).",
       "betterLine": "Play Misty Rainforest (or Overgrown Tomb), then cast Formidable Speaker for 3 mana, discarding a card to tutor for a creature. This develops the board within the available mana and advances the game plan.",
       "type": "blunder",
-      "snapshotIndex": 43,
+      "snapshotIndex": 44,
       "player": "GPT4om Valley"
     },
     {
@@ -229216,7 +229216,7 @@
       "actionTaken": "Chose to cast Deceit for full mana cost {4}{U/B}{U/B} instead of Evoke cost {U/B}{U/B}",
       "betterLine": "Cast Deceit with Evoke alternative cost for {U/B}{U/B}, getting the ETB trigger (likely the discard mode with BB from Overgrown Tomb + Breeding Pool) to strip a card from the opponent's hand before the creature is sacrificed.",
       "type": "blunder",
-      "snapshotIndex": 44,
+      "snapshotIndex": 45,
       "player": "GPT4om Valley"
     },
     {
@@ -229225,7 +229225,7 @@
       "actionTaken": "Cast Formidable Speaker with 3 lands, before making a land drop",
       "betterLine": "Play Misty Rainforest first (potentially crack it to fetch a land), then cast Formidable Speaker with more mana available afterward for flexibility",
       "type": "blunder",
-      "snapshotIndex": 45,
+      "snapshotIndex": 46,
       "player": "GPT4om Valley"
     },
     {
@@ -229234,7 +229234,7 @@
       "actionTaken": "Cast Endurance (likely via evoke since all lands are tapped) to shuffle opponent's graveyard, losing the creature.",
       "betterLine": "Play Misty Rainforest as the land drop for turn, pass the turn, and hardcast Endurance next turn with 4 mana ({1}{G}{G}) to keep the 3/4 reach body on the battlefield while still getting the graveyard-shuffling ETB trigger.",
       "type": "blunder",
-      "snapshotIndex": 49,
+      "snapshotIndex": 50,
       "player": "GPT4om Valley"
     },
     {
@@ -229243,7 +229243,7 @@
       "actionTaken": "Played Overgrown Tomb as the land drop for the turn.",
       "betterLine": "Play Misty Rainforest, then crack it to fetch a basic Forest (or another green source), keeping Overgrown Tomb in hand for flexibility on future turns.",
       "type": "blunder",
-      "snapshotIndex": 51,
+      "snapshotIndex": 52,
       "player": "GPT4om Valley"
     },
     {
@@ -229252,7 +229252,7 @@
       "actionTaken": "Used Generous Ent's forestcycling to search for a Forest card, putting it into hand while already holding Misty Rainforest",
       "betterLine": "Play Misty Rainforest first (free land drop), crack it to get a 6th land on battlefield, then consider holding Endurance as a flash threat or using the available mana differently. Forestcycling when already holding a fetchland and having 5 lands creates unnecessary land flooding.",
       "type": "blunder",
-      "snapshotIndex": 62,
+      "snapshotIndex": 63,
       "player": "GPT4om Valley"
     },
     {
@@ -229261,7 +229261,7 @@
       "actionTaken": "Cast Endurance during own precombat main phase, presumably targeting opponent's graveyard.",
       "betterLine": "Play Misty Rainforest first (land drop), then either hold Endurance to flash in on opponent's turn in response to a graveyard-utilizing play, or at minimum wait until after combat to cast it. Holding it up as a flash threat during the opponent's turn would provide more value as both a combat trick and reactive graveyard hate.",
       "type": "blunder",
-      "snapshotIndex": 63,
+      "snapshotIndex": 64,
       "player": "GPT4om Valley"
     },
     {
@@ -229270,7 +229270,7 @@
       "actionTaken": "Fetched Underground Mortuary (B/G dual)",
       "betterLine": "Fetch Hedge Maze (G/U dual) to shore up the weakest color in their mana base, giving a second blue source for potential blue-heavy spells.",
       "type": "blunder",
-      "snapshotIndex": 66,
+      "snapshotIndex": 67,
       "player": "GPT4om Valley"
     },
     {
@@ -229279,7 +229279,7 @@
       "actionTaken": "Forestcycled Generous Ent to search for a Forest, leaving only Misty Rainforest in hand with no spells.",
       "betterLine": "Play Misty Rainforest, crack it for a land (reaching 6 mana), then cast Generous Ent next turn as a 5/7 reach creature with a Food token, providing a meaningful threat and board presence against Psychic Frog.",
       "type": "blunder",
-      "snapshotIndex": 76,
+      "snapshotIndex": 77,
       "player": "GPT4om Valley"
     },
     {
@@ -229288,7 +229288,7 @@
       "actionTaken": "Played Hedge Maze (enters tapped) as their land for the turn.",
       "betterLine": "Play Misty Rainforest, crack it for an untapped dual land to have more mana available this turn for interaction, and save Hedge Maze for a turn where the tempo loss matters less.",
       "type": "blunder",
-      "snapshotIndex": 78,
+      "snapshotIndex": 79,
       "player": "GPT4om Valley"
     },
     {
@@ -229297,7 +229297,7 @@
       "actionTaken": "Blocked with Psychic Frog, losing it in combat without trading for anything",
       "betterLine": "Take the combat damage (likely ~5 points) and keep Psychic Frog alive to attack next turn, potentially growing it and drawing cards. They have Bitter Triumph in hand to deal with threats if needed, and another Psychic Frog in hand as backup.",
       "type": "blunder",
-      "snapshotIndex": 81,
+      "snapshotIndex": 82,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229306,7 +229306,7 @@
       "actionTaken": "Used Formidable Speaker's untap ability targeting opponent's Ragavan, Nimble Pilferer",
       "betterLine": "Target one of your own tapped permanents like Underground Mortuary to untap it for additional mana, or any other tapped land for mana advantage.",
       "type": "blunder",
-      "snapshotIndex": 90,
+      "snapshotIndex": 91,
       "player": "GPT4om Valley"
     },
     {
@@ -229315,7 +229315,7 @@
       "actionTaken": "Attacked with only Ragavan, Nimble Pilferer into an untapped Endurance",
       "betterLine": "Either attack with neither creature (wait to deploy Abhorrent Oculus or set up a better attack), or attack with Psychic Frog using pump + flying to get over Endurance while keeping Ragavan back. Alternatively, not attacking at all preserves Ragavan as a valuable threat.",
       "type": "blunder",
-      "snapshotIndex": 96,
+      "snapshotIndex": 97,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229324,7 +229324,7 @@
       "actionTaken": "Cast Shardless Agent before playing Misty Rainforest",
       "betterLine": "Play Misty Rainforest first (and potentially crack it to shuffle/thin before cascade), then cast Shardless Agent",
       "type": "blunder",
-      "snapshotIndex": 100,
+      "snapshotIndex": 101,
       "player": "GPT4om Valley"
     },
     {
@@ -229333,7 +229333,7 @@
       "actionTaken": "Fetched basic Island from Misty Rainforest",
       "betterLine": "Fetch Watery Grave (paying 2 life to have it enter untapped) for U/B flexibility, or Undercity Sewers if nothing needs to be cast this turn (gets surveil 1 with 0 cards in hand). Basic Island is defensible but slightly less flexible.",
       "type": "blunder",
-      "snapshotIndex": 104,
+      "snapshotIndex": 105,
       "player": "GPT4om Valley"
     },
     {
@@ -229342,7 +229342,7 @@
       "actionTaken": "Cast a spell before playing the land drop (Polluted Delta)",
       "betterLine": "Play Polluted Delta first, crack it for an Island, then cast Abhorrent Oculus as a 5/5 flyer that generates value every opponent's upkeep",
       "type": "blunder",
-      "snapshotIndex": 106,
+      "snapshotIndex": 107,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229351,7 +229351,7 @@
       "actionTaken": "Activated Psychic Frog before playing land",
       "betterLine": "Play Polluted Delta first, fetch an untapped land to have mana available, then evaluate Psychic Frog activations in the context of combat with full information about available mana.",
       "type": "blunder",
-      "snapshotIndex": 108,
+      "snapshotIndex": 109,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229360,7 +229360,7 @@
       "actionTaken": "Declined to activate any abilities in response to Deceit on the stack",
       "betterLine": "Activate Polluted Delta to fetch an untapped land, gaining mana and graveyard fuel before Deceit resolves",
       "type": "blunder",
-      "snapshotIndex": 117,
+      "snapshotIndex": 118,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229369,7 +229369,7 @@
       "actionTaken": "Declined to activate Psychic Frog's discard ability or crack Polluted Delta before combat.",
       "betterLine": "Discard Persist to Psychic Frog (+1/+1 counter making it 2/3), exile 3 graveyard cards for flying, then attack for 2 damage and draw a card. This trades Persist for a card draw + 2 damage while preserving enough graveyard cards for Abhorrent Oculus.",
       "type": "blunder",
-      "snapshotIndex": 118,
+      "snapshotIndex": 119,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229378,7 +229378,7 @@
       "actionTaken": "Declined to activate any abilities before/during combat, leaving Psychic Frog as a ground 1/2 that likely can't profitably attack into Formidable Speaker (2/4) or Endurance (3/4).",
       "betterLine": "Discard Persist to pump Psychic Frog to 2/3, exile 3 graveyard cards to give it flying, then attack for 2 damage and draw a card on hit. Persist can't be cast this turn anyway, and the card drawn could replace it with something useful.",
       "type": "blunder",
-      "snapshotIndex": 120,
+      "snapshotIndex": 121,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229387,7 +229387,7 @@
       "actionTaken": "Fetched basic Island from Polluted Delta",
       "betterLine": "Fetch Watery Grave (paying 2 life to enter untapped, going to 4 life) to have a second black source, enabling casting both Bitter Triumph and Persist. Alternatively, if life is too precious, fetch Undercity Sewers for a tapped U/B dual with surveil upside.",
       "type": "blunder",
-      "snapshotIndex": 123,
+      "snapshotIndex": 124,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229396,7 +229396,7 @@
       "actionTaken": "Declined to attack with Psychic Frog despite the opponent being completely tapped out with no available blockers.",
       "betterLine": "Attack with Psychic Frog (potentially discarding a Persist to pump it to 2/3), deal combat damage, and draw a card from the combat damage trigger.",
       "type": "blunder",
-      "snapshotIndex": 127,
+      "snapshotIndex": 128,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229405,7 +229405,7 @@
       "actionTaken": "Discarded Bitter Triumph to pump Psychic Frog, keeping two copies of Persist.",
       "betterLine": "Discard one copy of Persist instead, retaining Bitter Triumph as crucial instant-speed interaction alongside one Persist for reanimating Abhorrent Oculus.",
       "type": "blunder",
-      "snapshotIndex": 127,
+      "snapshotIndex": 128,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229414,7 +229414,7 @@
       "actionTaken": "Chose Psychic Frog as the Persist target",
       "betterLine": "Choose Abhorrent Oculus as the Persist target to get a 4/4 flyer that generates manifest dread tokens each opponent's upkeep, providing both a dominant threat and continuous card advantage",
       "type": "blunder",
-      "snapshotIndex": 130,
+      "snapshotIndex": 131,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229423,7 +229423,7 @@
       "actionTaken": "Used Formidable Speaker's untap ability targeting Deceit, which appears to be in the graveyard rather than on the battlefield.",
       "betterLine": "Attack with Formidable Speaker and Endurance to pressure the opponent at 7 life, or if using the untap ability, target one of their own tapped lands (like Underground Mortuary or Hedge Maze) to have additional mana available.",
       "type": "blunder",
-      "snapshotIndex": 134,
+      "snapshotIndex": 135,
       "player": "GPT4om Valley"
     },
     {
@@ -229432,7 +229432,7 @@
       "actionTaken": "Returned Generous Ent (6 mana 5/7 reach) to hand",
       "betterLine": "Return Endurance (3 mana flash 3/4 reach with graveyard disruption) to hand, as it's cheaper, can be deployed at instant speed, and disrupts Psychic Frog's flying activation by emptying opponent's graveyard",
       "type": "blunder",
-      "snapshotIndex": 135,
+      "snapshotIndex": 136,
       "player": "GPT4om Valley"
     },
     {
@@ -229441,7 +229441,7 @@
       "actionTaken": "Attacked with only Deceit (5/5), allowing the opponent to potentially chump block it with a single Psychic Frog for 0 damage.",
       "betterLine": "Attack with all three creatures (Endurance, Shardless Agent, Deceit) to force maximum damage through and trade off opponent's Psychic Frogs.",
       "type": "blunder",
-      "snapshotIndex": 137,
+      "snapshotIndex": 138,
       "player": "GPT4om Valley"
     },
     {
@@ -229450,7 +229450,7 @@
       "actionTaken": "Attacked with only Endurance (3 damage), leaving Shardless Agent back.",
       "betterLine": "Attack with both Endurance and Shardless Agent to deal maximum damage (up to 5) and put the opponent at 2 life or force unfavorable blocks.",
       "type": "blunder",
-      "snapshotIndex": 137,
+      "snapshotIndex": 138,
       "player": "GPT4om Valley"
     },
     {
@@ -229459,7 +229459,7 @@
       "actionTaken": "Attacked with only Shardless Agent (2/2), holding Endurance back",
       "betterLine": "Attack with both Shardless Agent and Endurance to pressure the opponent at 7 life, forcing them to either trade Frogs in blocks or take 5 damage",
       "type": "blunder",
-      "snapshotIndex": 137,
+      "snapshotIndex": 138,
       "player": "GPT4om Valley"
     },
     {
@@ -229468,7 +229468,7 @@
       "actionTaken": "Assigned a Psychic Frog to block Shardless Agent (2/2)",
       "betterLine": "Block Deceit (5/5) and Endurance (3/4) with the two Psychic Frogs, taking only 2 damage from Shardless Agent and surviving at 5 life instead of 4",
       "type": "blunder",
-      "snapshotIndex": 138,
+      "snapshotIndex": 139,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229477,7 +229477,7 @@
       "actionTaken": "Discarded Abhorrent Oculus as part of Faithless Looting's discard, likely keeping Psychic Frog",
       "betterLine": "Keep Abhorrent Oculus (discarding Psychic Frog and Blood Crypt). Oculus can be cast next turn for 3 mana using existing lands, providing a 5/5 flying blocker/attacker and recurring manifest dread value. This is far more impactful for stabilizing at 4 life than a 1/2 Psychic Frog with no hand to fuel it.",
       "type": "blunder",
-      "snapshotIndex": 142,
+      "snapshotIndex": 143,
       "player": "Qwen3 Vorthos"
     },
     {
@@ -229486,7 +229486,7 @@
       "actionTaken": "Cast Generous Ent in precombat main phase before attacking.",
       "betterLine": "Go directly to combat and attack with Formidable Speaker and Endurance for 5 damage, which is lethal against the opponent at 4 life with no blockers.",
       "type": "blunder",
-      "snapshotIndex": 146,
+      "snapshotIndex": 147,
       "player": "GPT4om Valley"
     }
   ],
@@ -229538,7 +229538,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -229572,7 +229573,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -229606,7 +229608,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -229676,7 +229679,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -229710,7 +229714,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -229770,6 +229775,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -229807,6 +229813,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -229854,6 +229861,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -229901,6 +229909,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -229951,6 +229960,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230001,6 +230011,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230040,6 +230051,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230079,6 +230091,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230118,6 +230131,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230156,6 +230170,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -230204,6 +230219,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -230249,6 +230265,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230299,6 +230316,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230345,6 +230363,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230399,6 +230418,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -230446,6 +230466,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -230484,6 +230505,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230558,6 +230580,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230596,6 +230619,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -230647,6 +230671,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -230701,6 +230726,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -230751,6 +230777,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -230798,6 +230825,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230847,6 +230875,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230894,6 +230923,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -230941,6 +230971,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -230987,6 +231018,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -231045,6 +231077,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -231099,6 +231132,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -231137,6 +231171,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -231190,6 +231225,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -231228,6 +231264,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -231266,6 +231303,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -231317,6 +231355,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -231355,6 +231394,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -231427,6 +231467,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -231474,6 +231515,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -231543,6 +231585,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -231590,6 +231633,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -231637,6 +231681,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -231683,6 +231728,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -231757,6 +231803,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -231823,6 +231870,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -231871,6 +231919,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -231929,6 +231978,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -231967,6 +232017,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -232020,6 +232071,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -232213,6 +232265,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -232270,6 +232323,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       },
@@ -232319,6 +232373,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -232356,6 +232411,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -232419,6 +232475,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -232467,6 +232524,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       },
@@ -232537,6 +232595,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -232593,6 +232652,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -232675,6 +232735,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -232731,6 +232792,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -232781,6 +232843,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -232829,6 +232892,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -232879,6 +232943,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -232915,7 +232980,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 66,
@@ -232958,6 +233024,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -233028,6 +233095,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -233076,6 +233144,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -233122,7 +233191,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 70,
@@ -233167,6 +233237,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -233227,6 +233298,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -233274,6 +233346,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -233363,6 +233436,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -233410,7 +233484,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 75,
@@ -233454,7 +233529,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 76,
@@ -233500,6 +233576,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -233549,6 +233626,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -233596,7 +233674,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 79,
@@ -233637,6 +233716,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -233684,7 +233764,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 81,
@@ -233732,6 +233813,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -233770,6 +233852,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -233816,7 +233899,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 84,
@@ -233868,6 +233952,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -233921,7 +234006,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 86,
@@ -233965,7 +234051,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 87,
@@ -234033,6 +234120,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -234090,6 +234178,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -234137,6 +234226,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -234236,6 +234326,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -234280,6 +234371,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -234351,6 +234443,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -234401,6 +234494,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -234451,6 +234545,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -234496,6 +234591,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_blockers",
@@ -234541,6 +234637,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -234601,6 +234698,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -234648,6 +234746,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -234749,6 +234848,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -234796,7 +234896,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 101,
@@ -234840,7 +234941,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 102,
@@ -234886,6 +234988,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -234929,7 +235032,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 104,
@@ -234973,7 +235077,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 105,
@@ -235014,6 +235119,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -235061,6 +235167,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -235099,6 +235206,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -235147,7 +235255,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 109,
@@ -235199,6 +235308,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -235246,7 +235356,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 111,
@@ -235282,6 +235393,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -235328,7 +235440,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 113,
@@ -235373,7 +235486,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 114,
@@ -235444,6 +235558,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -235492,6 +235607,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -235553,6 +235669,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -235617,6 +235734,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -235655,6 +235773,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -235705,6 +235824,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -235743,6 +235863,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -235807,6 +235928,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -235859,6 +235981,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_blockers",
@@ -235912,6 +236035,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_blockers",
@@ -235957,6 +236081,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -236021,6 +236146,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -236061,6 +236187,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -236116,6 +236243,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -236154,6 +236282,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -236209,6 +236338,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -236248,6 +236378,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -236303,6 +236434,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -236350,6 +236482,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -236406,6 +236539,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -236461,6 +236595,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -236514,6 +236649,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -236569,6 +236705,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -236633,6 +236770,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -236669,7 +236807,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 139,
@@ -236722,6 +236861,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -236784,6 +236924,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -236857,6 +236998,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -236894,7 +237036,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 143,
@@ -236947,6 +237090,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -236993,7 +237137,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 145,
@@ -237063,7 +237208,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 146,
@@ -237108,6 +237254,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -237155,6 +237302,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -237233,6 +237381,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -237284,6 +237433,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -237339,6 +237489,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -237392,6 +237543,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -237439,6 +237591,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -237486,6 +237639,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -237555,6 +237709,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -237604,6 +237759,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -237652,6 +237808,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -237709,6 +237866,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -237764,6 +237922,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -237819,6 +237978,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -237875,6 +238035,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -237922,6 +238083,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -237969,6 +238131,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -238100,6 +238263,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -238138,6 +238302,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -238192,6 +238357,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -238246,6 +238412,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -238300,6 +238467,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -238378,6 +238546,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -238415,6 +238584,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -238469,6 +238639,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -238533,6 +238704,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -238590,6 +238762,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers",
         "alreadyAttacking": [
@@ -238647,6 +238820,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers",
         "alreadyAttacking": [
@@ -238695,7 +238869,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 175,
@@ -238747,6 +238922,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -238815,6 +238991,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -238898,6 +239075,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -238959,6 +239137,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -239042,6 +239221,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -239096,6 +239276,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -239151,6 +239332,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -239202,6 +239384,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -239240,6 +239423,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -239293,6 +239477,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -239341,6 +239526,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -239405,6 +239591,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -239484,6 +239671,7 @@
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -239520,7 +239708,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 189,
@@ -239600,7 +239789,8 @@
         "GPT4om Valley draws seven cards",
         "Qwen3 Vorthos draws seven cards",
         "GPT4om Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     }
   ]
 }

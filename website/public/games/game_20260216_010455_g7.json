@@ -67746,7 +67746,7 @@
       "actionTaken": "Played Mountain, leaving only 2 blue sources for a hand of mostly blue spells.",
       "betterLine": "Play Multiversal Passage choosing Island (entering tapped to save 2 life), giving 3 blue sources for next turn's Winternight Stories or Duelist of the Mind. Save Mountain for a later turn when untapped red mana is more relevant.",
       "type": "blunder",
-      "snapshotIndex": 26,
+      "snapshotIndex": 27,
       "player": "Grok4F Grudge"
     },
     {
@@ -67755,7 +67755,7 @@
       "actionTaken": "Cast Duelist of the Mind for 1U, deploying a 1/3 flyer with vigilance",
       "betterLine": "Warp Quantum Riddler for 1U to get a 4/6 flyer, draw a card on ETB, deal 4 damage next combat against the empty board, then cast it from exile later for full value",
       "type": "blunder",
-      "snapshotIndex": 28,
+      "snapshotIndex": 29,
       "player": "Grok4F Grudge"
     },
     {
@@ -67764,7 +67764,7 @@
       "actionTaken": "Chose not to attack with Duelist of the Mind.",
       "betterLine": "Attack with Duelist of the Mind for 1 unblockable flying damage. Vigilance means no defensive cost, making this pure upside.",
       "type": "blunder",
-      "snapshotIndex": 63,
+      "snapshotIndex": 64,
       "player": "Grok4F Grudge"
     },
     {
@@ -67773,7 +67773,7 @@
       "actionTaken": "Cast Nova Hellkite with Warp for {2}{R}, meaning it will be exiled at end of turn",
       "betterLine": "Hard-cast Nova Hellkite for {3}{R}{R} using all 5 available mana sources to keep the 4/5 flying haste creature permanently on the battlefield",
       "type": "blunder",
-      "snapshotIndex": 76,
+      "snapshotIndex": 77,
       "player": "Sonnet Stoic"
     },
     {
@@ -67782,7 +67782,7 @@
       "actionTaken": "Chose to bounce the Fish Token with Into the Flood Maw",
       "betterLine": "Bounce the Treasure Token to deny Sonnet Stoic the extra mana and bargain resource",
       "type": "blunder",
-      "snapshotIndex": 91,
+      "snapshotIndex": 92,
       "player": "Grok4F Grudge"
     },
     {
@@ -67791,7 +67791,7 @@
       "actionTaken": "Passed the turn without casting any spells, leaving 5 mana completely unused.",
       "betterLine": "Cast Clarion Conqueror (2W) to deploy a 3/3 flyer that blocks Duelist and shuts down Map token activated abilities. Alternatively, cast Sarkhan (1R) beholding Nova Hellkite for a Treasure, then cast Clarion Conqueror with remaining mana to develop two threats.",
       "type": "blunder",
-      "snapshotIndex": 99,
+      "snapshotIndex": 100,
       "player": "Sonnet Stoic"
     },
     {
@@ -67800,7 +67800,7 @@
       "actionTaken": "Returned Torch the Tower to hand via Stormchaser's Talent level 2 trigger",
       "betterLine": "Return Winternight Stories to hand, which draws 3 cards and helps find the burn/threats needed to close out the game against an opponent at 11 life with no real board presence",
       "type": "blunder",
-      "snapshotIndex": 101,
+      "snapshotIndex": 102,
       "player": "Grok4F Grudge"
     }
   ],
@@ -67856,7 +67856,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -67890,7 +67891,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -67927,7 +67929,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -68007,7 +68010,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -68044,7 +68048,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -68081,6 +68086,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68122,6 +68128,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -68161,7 +68168,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 8,
@@ -68212,6 +68220,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -68252,6 +68261,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -68300,6 +68310,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68350,6 +68361,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68396,6 +68408,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68445,6 +68458,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -68526,6 +68540,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -68601,6 +68616,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -68650,6 +68666,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -68691,6 +68708,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -68776,6 +68794,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -68844,6 +68863,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -68883,7 +68903,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 21,
@@ -68920,7 +68941,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 22,
@@ -68982,7 +69004,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 23,
@@ -69019,7 +69042,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 24,
@@ -69085,6 +69109,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -69126,6 +69151,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -69167,6 +69193,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -69217,6 +69244,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -69267,6 +69295,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -69308,6 +69337,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -69347,7 +69377,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 31,
@@ -69419,6 +69450,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -69466,7 +69498,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 33,
@@ -69557,6 +69590,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -69599,6 +69633,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -69640,6 +69675,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -69696,6 +69732,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -69745,6 +69782,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -69822,6 +69860,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -69862,6 +69901,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -69902,6 +69942,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -69969,6 +70010,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -70017,6 +70059,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -70057,6 +70100,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -70097,6 +70141,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -70129,6 +70174,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -70170,6 +70216,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -70237,6 +70284,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -70287,6 +70335,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -70328,6 +70377,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -70370,6 +70420,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -70427,6 +70478,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -70526,6 +70578,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -70567,6 +70620,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -70637,6 +70691,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -70678,6 +70733,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -70726,6 +70782,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -70775,6 +70832,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -70816,6 +70874,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -70874,6 +70933,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -70915,6 +70975,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -70956,6 +71017,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -71013,6 +71075,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -71054,6 +71117,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -71095,6 +71159,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -71144,6 +71209,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -71193,6 +71259,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71251,6 +71318,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71300,6 +71368,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71339,7 +71408,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 70,
@@ -71373,7 +71443,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 71,
@@ -71461,6 +71532,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -71503,6 +71575,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -71586,6 +71659,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -71626,6 +71700,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -71658,6 +71733,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -71728,6 +71804,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -71815,7 +71892,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 78,
@@ -71852,7 +71930,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 79,
@@ -71889,7 +71968,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 80,
@@ -71926,7 +72006,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 81,
@@ -71963,7 +72044,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 82,
@@ -72015,6 +72097,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -72118,6 +72201,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -72169,6 +72253,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -72219,6 +72304,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -72260,6 +72346,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -72330,6 +72417,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -72371,6 +72459,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -72409,6 +72498,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -72496,6 +72586,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -72536,6 +72627,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -72576,6 +72668,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -72616,6 +72709,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -72656,6 +72750,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -72723,6 +72818,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -72764,6 +72860,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -72823,6 +72920,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -72873,6 +72971,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -72914,6 +73013,7 @@
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -73006,7 +73106,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 101,
@@ -73043,7 +73144,8 @@
         "Grok4F Grudge draws seven cards",
         "Sonnet Stoic draws seven cards",
         "Grok4F Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     }
   ]
 }

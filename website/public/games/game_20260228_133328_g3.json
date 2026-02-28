@@ -71301,7 +71301,8 @@
       ],
       "subsequentActions": [
         "Grok4F Humble chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 5
     },
     {
       "index": 1,
@@ -71330,7 +71331,8 @@
         8,
         11
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -71364,7 +71366,8 @@
       ],
       "subsequentActions": [
         "MiniMx Minimal's library is shuffled"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 3,
@@ -71441,7 +71444,8 @@
       ],
       "subsequentActions": [
         "MiniMx Minimal puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -71475,7 +71479,8 @@
       ],
       "subsequentActions": [
         "MiniMx Minimal's library is shuffled"
-      ]
+      ],
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -71552,7 +71557,8 @@
       ],
       "subsequentActions": [
         "MiniMx Minimal puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 14
     },
     {
       "index": 6,
@@ -71623,7 +71629,8 @@
       ],
       "subsequentActions": [
         "MiniMx Minimal puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 16
     },
     {
       "index": 7,
@@ -71657,7 +71664,8 @@
       ],
       "subsequentActions": [
         "Grok4F Humble skips Draw step"
-      ]
+      ],
+      "actionSeq": 18
     },
     {
       "index": 8,
@@ -71690,7 +71698,8 @@
       ],
       "subsequentActions": [
         "Grok4F Humble skip attack"
-      ]
+      ],
+      "actionSeq": 22
     },
     {
       "index": 9,
@@ -71750,6 +71759,7 @@
       "subsequentActions": [
         "Grok4F Humble puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -71788,6 +71798,7 @@
         51
       ],
       "subsequentActions": [],
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -71846,6 +71857,7 @@
         "MiniMx Minimal puts Swamp from hand onto the Battlefield",
         "MiniMx Minimal skip attack"
       ],
+      "actionSeq": 32,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -71907,6 +71919,7 @@
       "subsequentActions": [
         "Grok4F Humble puts Forest from hand onto the Battlefield"
       ],
+      "actionSeq": 44,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -71960,6 +71973,7 @@
       "subsequentActions": [
         "Grok4F Humble casts Ironshell Beetle from hand"
       ],
+      "actionSeq": 48,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -72002,6 +72016,7 @@
         "Grok4F Humble puts Ironshell Beetle from stack onto the Battlefield",
         "Grok4F Humble - Ability triggers: Ironshell Beetle - When Ironshell Beetle enters, put a +1/+1 counter on target creature. - targeting Ironshell Beetle"
       ],
+      "actionSeq": 52,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -72038,6 +72053,7 @@
       "subsequentActions": [
         "Ironshell Beetle: Grok4F Humble puts 1 +1/+1 counters on Ironshell Beetle"
       ],
+      "actionSeq": 56,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -72075,6 +72091,7 @@
       "subsequentActions": [
         "Grok4F Humble skip attack"
       ],
+      "actionSeq": 59,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -72109,7 +72126,8 @@
         77,
         78
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 63
     },
     {
       "index": 18,
@@ -72139,6 +72157,7 @@
         85
       ],
       "subsequentActions": [],
+      "actionSeq": 65,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -72192,6 +72211,7 @@
         "MiniMx Minimal puts Black Cat from stack onto the Battlefield",
         "MiniMx Minimal skip attack"
       ],
+      "actionSeq": 67,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -72247,6 +72267,7 @@
       "subsequentActions": [
         "Grok4F Humble puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 86,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -72287,6 +72308,7 @@
         98
       ],
       "subsequentActions": [],
+      "actionSeq": 90,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -72345,6 +72367,7 @@
       "subsequentActions": [
         "Grok4F Humble attacks MiniMx Minimal with 1 creature"
       ],
+      "actionSeq": 92,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -72404,6 +72427,7 @@
         "Black Cat died",
         "MiniMx Minimal - Ability triggers: Black Cat - When Black Cat dies, target opponent discards a card at random. - targeting Grok4F Humble"
       ],
+      "actionSeq": 98,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -72457,6 +72481,7 @@
         "MiniMx Minimal puts Swamp from hand onto the Battlefield",
         "MiniMx Minimal skip attack"
       ],
+      "actionSeq": 117,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -72509,6 +72534,7 @@
         "MiniMx Minimal casts Liliana's Devotee from hand",
         "MiniMx Minimal puts Liliana's Devotee from stack onto the Battlefield"
       ],
+      "actionSeq": 127,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -72561,6 +72587,7 @@
         118
       ],
       "subsequentActions": [],
+      "actionSeq": 138,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -72610,6 +72637,7 @@
         122
       ],
       "subsequentActions": [],
+      "actionSeq": 139,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -72666,6 +72694,7 @@
         "Thriving Heath: Grok4F Humble has chosen Green",
         "Grok4F Humble puts Thriving Heath from hand onto the Battlefield"
       ],
+      "actionSeq": 140,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -72702,6 +72731,7 @@
         130
       ],
       "subsequentActions": [],
+      "actionSeq": 145,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -72760,6 +72790,7 @@
       "subsequentActions": [
         "Grok4F Humble attacks MiniMx Minimal with 1 creature"
       ],
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -72818,6 +72849,7 @@
         "Ironshell Beetle deals 2 damage to Liliana's Devotee",
         "Ironshell Beetle died"
       ],
+      "actionSeq": 153,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -72873,6 +72905,7 @@
       "subsequentActions": [
         "MiniMx Minimal casts Ghoulraiser from hand"
       ],
+      "actionSeq": 167,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -72916,6 +72949,7 @@
         "MiniMx Minimal - Ability triggers: Ghoulraiser - When Ghoulraiser enters, return a Zombie card at random from your graveyard to your hand.",
         "MiniMx Minimal puts Black Cat from graveyard into their hand"
       ],
+      "actionSeq": 174,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -72975,6 +73009,7 @@
         "Attacker: Liliana's Devotee (2/3) unblocked",
         "Grok4F Humble loses 2 life at combat from Liliana's Devotee"
       ],
+      "actionSeq": 183,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -73035,6 +73070,7 @@
         154
       ],
       "subsequentActions": [],
+      "actionSeq": 199,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -73088,6 +73124,7 @@
         "Thriving Grove: Grok4F Humble has chosen White",
         "Grok4F Humble puts Thriving Grove from hand onto the Battlefield"
       ],
+      "actionSeq": 200,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -73143,6 +73180,7 @@
         164
       ],
       "subsequentActions": [],
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -73194,6 +73232,7 @@
       "subsequentActions": [
         "Grok4F Humble casts Gallant Cavalry from hand"
       ],
+      "actionSeq": 211,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -73235,6 +73274,7 @@
         "Grok4F Humble creates a Knight Token token",
         "Grok4F Humble skip attack"
       ],
+      "actionSeq": 213,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -73287,6 +73327,7 @@
         178
       ],
       "subsequentActions": [],
+      "actionSeq": 228,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -73330,6 +73371,7 @@
       "subsequentActions": [
         "MiniMx Minimal skip attack"
       ],
+      "actionSeq": 231,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -73379,6 +73421,7 @@
         "MiniMx Minimal casts Black Cat from hand",
         "MiniMx Minimal puts Black Cat from stack onto the Battlefield"
       ],
+      "actionSeq": 243,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -73455,6 +73498,7 @@
       "subsequentActions": [
         "Grok4F Humble puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -73525,6 +73569,7 @@
         200
       ],
       "subsequentActions": [],
+      "actionSeq": 257,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -73584,6 +73629,7 @@
         204
       ],
       "subsequentActions": [],
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -73631,6 +73677,7 @@
       "subsequentActions": [
         "Grok4F Humble casts Moldgraf Millipede from hand"
       ],
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -73673,6 +73720,7 @@
         "Grok4F Humble puts Crawling Sensation from library into their graveyard (source: Moldgraf Millipede)",
         "Grok4F Humble puts Brightmare from library into their graveyard (source: Moldgraf Millipede)"
       ],
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -73741,6 +73789,7 @@
       "subsequentActions": [
         "Grok4F Humble attacks MiniMx Minimal with 2 creatures"
       ],
+      "actionSeq": 277,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -73821,6 +73870,7 @@
         "MiniMx Minimal loses 2 life at combat from Gallant Cavalry",
         "MiniMx Minimal loses 2 life at combat from Knight Token"
       ],
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "blockers",
@@ -73886,6 +73936,7 @@
         231
       ],
       "subsequentActions": [],
+      "actionSeq": 301,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -73926,6 +73977,7 @@
         237
       ],
       "subsequentActions": [],
+      "actionSeq": 304,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -73993,6 +74045,7 @@
         "Grok4F Humble discards Nantuko Cultivator (source: Black Cat)",
         "MiniMx Minimal moves Ghoulraiser from battlefield to the exile zone (source: Eaten Alive)"
       ],
+      "actionSeq": 305,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -74047,6 +74100,7 @@
         "MiniMx Minimal skip attack",
         "MiniMx Minimal - Ability triggers: Liliana's Devotee - At the beginning of your end step, if a creature died this turn, you may pay {1}{B}. If you do, create a 2/2 black Zombie creature token."
       ],
+      "actionSeq": 321,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -74083,6 +74137,7 @@
         "MiniMx Minimal paid for Liliana's Devotee - Pay {1}{B} and create a 2/2 black Zombie creature token?",
         "MiniMx Minimal creates a Zombie Token token"
       ],
+      "actionSeq": 332,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -74136,6 +74191,7 @@
       "subsequentActions": [
         "Grok4F Humble puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 337,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -74185,6 +74241,7 @@
         261
       ],
       "subsequentActions": [],
+      "actionSeq": 346,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -74233,6 +74290,7 @@
         "Grok4F Humble casts Iridescent Hornbeetle from hand",
         "Grok4F Humble puts Iridescent Hornbeetle from stack onto the Battlefield"
       ],
+      "actionSeq": 348,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -74311,6 +74369,7 @@
       "subsequentActions": [
         "Grok4F Humble attacks MiniMx Minimal with 3 creatures"
       ],
+      "actionSeq": 355,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -74384,6 +74443,7 @@
         "MiniMx Minimal loses 2 life at combat from Gallant Cavalry",
         "MiniMx Minimal loses 2 life at combat from Knight Token"
       ],
+      "actionSeq": 363,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -74428,7 +74488,8 @@
         281,
         282
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 386
     },
     {
       "index": 61,
@@ -74486,6 +74547,7 @@
       "subsequentActions": [
         "MiniMx Minimal skip attack"
       ],
+      "actionSeq": 388,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -74554,6 +74616,7 @@
       "subsequentActions": [
         "MiniMx Minimal casts Infernal Idol from hand"
       ],
+      "actionSeq": 394,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -74596,6 +74659,7 @@
       "subsequentActions": [
         "MiniMx Minimal puts Infernal Idol from stack onto the Battlefield"
       ],
+      "actionSeq": 400,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -74638,6 +74702,7 @@
         303
       ],
       "subsequentActions": [],
+      "actionSeq": 405,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -74723,6 +74788,7 @@
       "subsequentActions": [
         "Grok4F Humble attacks MiniMx Minimal with 4 creatures"
       ],
+      "actionSeq": 407,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "declare_attackers"
@@ -74759,6 +74825,7 @@
         313
       ],
       "subsequentActions": [],
+      "actionSeq": 412,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -74831,6 +74898,7 @@
         "Attacker: Iridescent Hornbeetle (3/4) unblocked",
         "MiniMx Minimal loses 2 life at combat from Gallant Cavalry"
       ],
+      "actionSeq": 414,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -74919,7 +74987,7 @@
       "actionTaken": "Mulliganed a 7-card hand with 5 lands, Devouring Swarm, and Skullslither Worm.",
       "betterLine": "Keep the 7-card hand. Play Devouring Swarm on turn 3, Skullslither Worm on turn 4, and draw into more spells with the extra card.",
       "type": "blunder",
-      "snapshotIndex": 1,
+      "snapshotIndex": 2,
       "player": "MiniMx Minimal"
     },
     {
@@ -74928,7 +74996,7 @@
       "actionTaken": "Put Thriving Moor on the bottom, keeping a zero-land hand of all spells.",
       "betterLine": "Bottom Rise Again (expensive, situational 5-mana sorcery that needs a creature in graveyard) or Grotesque Mutation (reactive combat trick) instead, keeping the only land to have a chance at curving out.",
       "type": "blunder",
-      "snapshotIndex": 2,
+      "snapshotIndex": 3,
       "player": "MiniMx Minimal"
     },
     {
@@ -74937,7 +75005,7 @@
       "actionTaken": "Bottomed a Swamp, keeping a 2-land hand with Massacre Wurm (6 mana)",
       "betterLine": "Bottom Massacre Wurm to keep 3 Swamps, ensuring on-curve Liliana's Devotee on turn 3 and Strangling Spores on turn 4. Massacre Wurm is too expensive to justify keeping in a mana-light mulligan hand.",
       "type": "blunder",
-      "snapshotIndex": 5,
+      "snapshotIndex": 6,
       "player": "MiniMx Minimal"
     },
     {
@@ -74946,7 +75014,7 @@
       "actionTaken": "Played Forest turn 1",
       "betterLine": "Play Thriving Heath (choosing green) turn 1, taking advantage of having no 1-drop to absorb the enters-tapped tempo loss for free",
       "type": "blunder",
-      "snapshotIndex": 11,
+      "snapshotIndex": 12,
       "player": "Grok4F Humble"
     },
     {
@@ -74955,7 +75023,7 @@
       "actionTaken": "Played Plains (enters untapped but can't use the mana productively this turn)",
       "betterLine": "Play Thriving Heath (choosing green) now while you can't cast anything anyway, saving Plains for a turn where entering untapped enables an on-curve play",
       "type": "blunder",
-      "snapshotIndex": 47,
+      "snapshotIndex": 48,
       "player": "Grok4F Humble"
     },
     {
@@ -74964,7 +75032,7 @@
       "actionTaken": "Timed out and did not declare any attackers.",
       "betterLine": "Attack with Ironshell Beetle for 2 unblocked damage.",
       "type": "blunder",
-      "snapshotIndex": 50,
+      "snapshotIndex": 51,
       "player": "Grok4F Humble"
     },
     {
@@ -74973,7 +75041,7 @@
       "actionTaken": "Timed out on Thriving Heath color choice, defaulting to a likely useless color (Blue)",
       "betterLine": "Choose Green for Thriving Heath to maximize mana flexibility for the G/W deck, enabling easier casting of green-heavy spells like Moldgraf Millipede and Nantuko Cultivator",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "Grok4F Humble"
     },
     {
@@ -74982,7 +75050,7 @@
       "actionTaken": "No attackers declared (timeout/no response).",
       "betterLine": "Attack with Ironshell Beetle 2/2 for 2 unblockable damage, putting opponent to 18.",
       "type": "blunder",
-      "snapshotIndex": 80,
+      "snapshotIndex": 81,
       "player": "Grok4F Humble"
     },
     {
@@ -74991,7 +75059,7 @@
       "actionTaken": "No response (timeout) - did not block, taking 2 damage",
       "betterLine": "Block Ironshell Beetle with Liliana's Devotee. Devotee survives at 1 toughness remaining, Beetle dies, and the creature death enables Devotee's end step zombie token ability.",
       "type": "blunder",
-      "snapshotIndex": 83,
+      "snapshotIndex": 84,
       "player": "MiniMx Minimal"
     },
     {
@@ -75000,7 +75068,7 @@
       "actionTaken": "No response - skipped attackers declaration, dealing 0 damage.",
       "betterLine": "Attack with Liliana's Devotee for 2 unblocked damage against the opponent's empty board.",
       "type": "blunder",
-      "snapshotIndex": 101,
+      "snapshotIndex": 102,
       "player": "MiniMx Minimal"
     },
     {
@@ -75009,7 +75077,7 @@
       "actionTaken": "Attempted to cast Eaten Alive, which was rolled back due to inability to complete mana payment.",
       "betterLine": "Cast Black Cat for {1}{B} - it deploys a useful body that can later be sacrificed to Eaten Alive as the additional cost, and preserves the more valuable creatures on board.",
       "type": "blunder",
-      "snapshotIndex": 126,
+      "snapshotIndex": 127,
       "player": "MiniMx Minimal"
     },
     {
@@ -75018,7 +75086,7 @@
       "actionTaken": "Timed out and declared no attackers.",
       "betterLine": "Attack with both vigilance creatures. Opponent either takes 4 damage or must block, and the attackers remain untapped for defense regardless.",
       "type": "blunder",
-      "snapshotIndex": 156,
+      "snapshotIndex": 157,
       "player": "Grok4F Humble"
     },
     {
@@ -75027,7 +75095,7 @@
       "actionTaken": "Timed out with no blockers assigned, taking 4 damage.",
       "betterLine": "Block one 2/2 with Liliana's Devotee (survives, kills attacker) and the other with Black Cat (dies, forces random discard, enables Devotee zombie trigger). Take 0 damage, kill both attackers, gain a zombie token.",
       "type": "blunder",
-      "snapshotIndex": 160,
+      "snapshotIndex": 161,
       "player": "MiniMx Minimal"
     },
     {
@@ -75036,7 +75104,7 @@
       "actionTaken": "Timed out and declared no attackers, dealing 0 damage.",
       "betterLine": "Attack with all three creatures (Moldgraf Millipede 6/6, Gallant Cavalry 2/2 vigilance, Knight Token 2/2 vigilance). This forces the opponent to either take 10 damage or block one creature and still take 4-8 damage, likely killing their Devotee in the process.",
       "type": "blunder",
-      "snapshotIndex": 197,
+      "snapshotIndex": 198,
       "player": "Grok4F Humble"
     },
     {
@@ -75045,7 +75113,7 @@
       "actionTaken": "No blocks declared (timeout/no response), taking 10 damage to go to 6 life.",
       "betterLine": "Block Gallant Cavalry (or Knight Token) with Liliana's Devotee (kills the 2/2, Devotee survives at 2/1) and block Moldgraf Millipede with the Zombie Token (prevents 6 damage, token dies triggering Devotee's ability). Take only 2 damage, going to 14 life.",
       "type": "blunder",
-      "snapshotIndex": 202,
+      "snapshotIndex": 203,
       "player": "MiniMx Minimal"
     },
     {
@@ -75054,7 +75122,7 @@
       "actionTaken": "Declined to attack with any creatures.",
       "betterLine": "Attack with both Liliana's Devotee and Zombie Token. They win every combat trade against the 2/2 vigilance blockers, clearing the opponent's board of those threats while MiniMx's creatures survive, and potentially triggering Devotee's end-step zombie creation.",
       "type": "blunder",
-      "snapshotIndex": 213,
+      "snapshotIndex": 214,
       "player": "MiniMx Minimal"
     },
     {
@@ -75063,7 +75131,7 @@
       "actionTaken": "Passed priority without playing the Forest, missing the land drop.",
       "betterLine": "Play the Forest, then proceed to combat. The extra mana could matter in subsequent turns.",
       "type": "blunder",
-      "snapshotIndex": 223,
+      "snapshotIndex": 224,
       "player": "Grok4F Humble"
     },
     {
@@ -75072,7 +75140,7 @@
       "actionTaken": "No response — failed to declare any attackers, passing the combat phase entirely.",
       "betterLine": "Attack with all four creatures. Opponent can only block two, and any blocking configuration lets at least 4 damage through (likely 5), putting them to 1-2 life. With vigilance creatures still untapped for defense and a Forest in hand, this is an overwhelming attack with virtually no downside.",
       "type": "blunder",
-      "snapshotIndex": 225,
+      "snapshotIndex": 226,
       "player": "Grok4F Humble"
     },
     {
@@ -75081,7 +75149,7 @@
       "actionTaken": "No response (timeout) — no blockers declared, taking 13 lethal damage at 6 life.",
       "betterLine": "Block Moldgraf Millipede with Zombie Token and Iridescent Hornbeetle with Liliana's Devotee. Only 4 damage gets through, surviving at 2 life. Next turn, cast Massacre Wurm to give opponent's creatures -2/-2, killing the 2/2s and potentially stabilizing.",
       "type": "blunder",
-      "snapshotIndex": 228,
+      "snapshotIndex": 229,
       "player": "MiniMx Minimal"
     }
   ],

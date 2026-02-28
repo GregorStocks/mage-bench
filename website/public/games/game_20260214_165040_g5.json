@@ -128738,7 +128738,7 @@
       "actionTaken": "Played Fabled Passage as the turn 1 land drop",
       "betterLine": "Play Forest, cast Sazh's Chocobo turn 1, then play Fabled Passage turn 2 to maximize landfall triggers on Chocobo",
       "type": "blunder",
-      "snapshotIndex": 6,
+      "snapshotIndex": 7,
       "player": "GPT4om Analyst"
     },
     {
@@ -128747,7 +128747,7 @@
       "actionTaken": "Played Undercity Sewers (enters tapped), leaving only 1 mana available (Watery Grave) and unable to cast Essence Scatter.",
       "betterLine": "Play Swamp untapped to have Watery Grave + Swamp available, enabling Essence Scatter to be held up against potential turn 2 creature plays. Undercity Sewers could be played tapped on a later turn when the tempo loss matters less.",
       "type": "blunder",
-      "snapshotIndex": 12,
+      "snapshotIndex": 13,
       "player": "Gem3F Valley"
     },
     {
@@ -128756,7 +128756,7 @@
       "actionTaken": "Cast Sazh's Chocobo before playing a land for the turn.",
       "betterLine": "Play a Forest (or Ba Sing Se) first, then cast Sazh's Chocobo. The land entering would trigger landfall, putting a +1/+1 counter on the Chocobo immediately, resulting in a 1/2 creature instead of 0/1.",
       "type": "blunder",
-      "snapshotIndex": 17,
+      "snapshotIndex": 18,
       "player": "GPT4om Analyst"
     },
     {
@@ -128765,7 +128765,7 @@
       "actionTaken": "Cast Badgermole Cub with only 2 lands on the battlefield, tapping out completely.",
       "betterLine": "Play a Forest first, then cast Badgermole Cub for {1}{G}, keeping one land untapped and having more earthbend target options.",
       "type": "blunder",
-      "snapshotIndex": 29,
+      "snapshotIndex": 30,
       "player": "GPT4om Analyst"
     },
     {
@@ -128774,7 +128774,7 @@
       "actionTaken": "Targeted Ba Sing Se with earthbend 2, making it a 2/2 land creature",
       "betterLine": "Target one of the Forests with earthbend 2 instead, preserving Ba Sing Se's utility earthbend ability for future turns. While the Forests are currently tapped, the creature will be available to attack on subsequent turns regardless.",
       "type": "blunder",
-      "snapshotIndex": 52,
+      "snapshotIndex": 53,
       "player": "GPT4om Analyst"
     },
     {
@@ -128783,7 +128783,7 @@
       "actionTaken": "Cast Earthbender Ascension before playing Forest from hand",
       "betterLine": "Play Forest first to trigger landfall on the existing Earthbender Ascension, then cast the second Earthbender Ascension (or Mightform Harmonizer depending on read of opponent's hand)",
       "type": "blunder",
-      "snapshotIndex": 67,
+      "snapshotIndex": 68,
       "player": "GPT4om Analyst"
     },
     {
@@ -128792,7 +128792,7 @@
       "actionTaken": "Activated Demolition Field to destroy Ba Sing Se, a low-value target in a mono-green deck",
       "betterLine": "Cast Three Steps Ahead in draw mode ({U} + {2} = 3 mana) to draw 2 cards and discard 1, finding answers while still having mana remaining for future plays",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "Gem3F Valley"
     },
     {
@@ -128801,7 +128801,7 @@
       "actionTaken": "Cast Three Steps Ahead (draw 2, discard 1) during precombat main phase",
       "betterLine": "Pass turn holding Three Steps Ahead, then cast it in draw mode at opponent's end step if nothing needs countering, preserving the counter option during the opponent's turn",
       "type": "blunder",
-      "snapshotIndex": 81,
+      "snapshotIndex": 82,
       "player": "Gem3F Valley"
     },
     {
@@ -128810,7 +128810,7 @@
       "actionTaken": "Cast Mightform Harmonizer (4 mana) as the first threat",
       "betterLine": "Cast Badgermole Cub (2 mana) to bait removal, then use remaining mana for Ba Sing Se earthbend activation, creating multiple threats while preserving the stronger Mightform Harmonizer for next turn",
       "type": "blunder",
-      "snapshotIndex": 87,
+      "snapshotIndex": 88,
       "player": "GPT4om Analyst"
     },
     {
@@ -128819,7 +128819,7 @@
       "actionTaken": "Selected Deadly Cover-Up (5 MV) as part of the evidence cost, exiling their best card from the graveyard.",
       "betterLine": "Exile two Essence Scatters + Shoot the Sheriff (or Requiting Hex + two Essence Scatters, etc.) to reach 6 MV while keeping Deadly Cover-Up in the graveyard for potential future use.",
       "type": "blunder",
-      "snapshotIndex": 96,
+      "snapshotIndex": 97,
       "player": "Gem3F Valley"
     },
     {
@@ -128828,7 +128828,7 @@
       "actionTaken": "Added Shoot the Sheriff to the evidence exile pile when 6 mana value was already selected",
       "betterLine": "Only exile the minimum cards needed to meet evidence 6 (the 2 cards already selected), keeping Shoot the Sheriff in the graveyard for potential future use",
       "type": "blunder",
-      "snapshotIndex": 96,
+      "snapshotIndex": 97,
       "player": "Gem3F Valley"
     },
     {
@@ -128837,7 +128837,7 @@
       "actionTaken": "Exiled Mightform Harmonizer (and all copies) from opponent's graveyard/hand/library",
       "betterLine": "Exile Surrak, Elusive Hunter to remove the uncounterable threat that bypasses the deck's primary interaction suite of counterspells",
       "type": "blunder",
-      "snapshotIndex": 97,
+      "snapshotIndex": 98,
       "player": "Gem3F Valley"
     },
     {
@@ -128846,7 +128846,7 @@
       "actionTaken": "Cast only Sazh's Chocobo, leaving Ba Sing Se's earthbend ability unused despite having sufficient mana.",
       "betterLine": "Activate Ba Sing Se's earthbend ability on a Forest (creating a 2/2 hasty land creature) AND cast Sazh's Chocobo, maximizing board development while the opponent is tapped out with no interaction available.",
       "type": "blunder",
-      "snapshotIndex": 103,
+      "snapshotIndex": 104,
       "player": "GPT4om Analyst"
     },
     {
@@ -128855,7 +128855,7 @@
       "actionTaken": "Did not attack with Sazh's Chocobo (opponent stayed at 15 life)",
       "betterLine": "Attack with Sazh's Chocobo to deal damage and pressure the opponent's life total. With no cards in hand, there are no tricks to represent by holding back.",
       "type": "blunder",
-      "snapshotIndex": 121,
+      "snapshotIndex": 122,
       "player": "GPT4om Analyst"
     },
     {
@@ -128864,7 +128864,7 @@
       "actionTaken": "Chose Sazh's Chocobo to exile with Deadly Cover-Up's evidence ability",
       "betterLine": "Choose Surrak, Elusive Hunter to exile all copies from graveyard, hand, and library, removing the opponent's most threatening uncounterable finisher that this control deck struggles to answer",
       "type": "blunder",
-      "snapshotIndex": 126,
+      "snapshotIndex": 127,
       "player": "Gem3F Valley"
     },
     {
@@ -128873,7 +128873,7 @@
       "actionTaken": "Named Sazh's Chocobo for Deadly Cover-Up's evidence exile effect",
       "betterLine": "Name Surrak, Elusive Hunter to exile all copies from graveyard, hand, and library, since it's the biggest threat and can't be countered by the counterspells in hand",
       "type": "blunder",
-      "snapshotIndex": 125,
+      "snapshotIndex": 126,
       "player": "Gem3F Valley"
     },
     {
@@ -128882,7 +128882,7 @@
       "actionTaken": "Declined to activate any abilities with untapped Fountainport and Demolition Field while Deadly Cover-Up was on the stack.",
       "betterLine": "Tap Fountainport for {C} and Demolition Field's {T} plus pay {2} (using Fountainport + Demolition Field) to sacrifice Demolition Field and destroy Ba Sing Se permanently before the board wipe resolves, preventing earthbend from returning it.",
       "type": "blunder",
-      "snapshotIndex": 126,
+      "snapshotIndex": 127,
       "player": "Gem3F Valley"
     },
     {
@@ -128891,7 +128891,7 @@
       "actionTaken": "Passed without activating any abilities, leaving mana unused with no way to cast counterspells.",
       "betterLine": "Activate Demolition Field targeting Ba Sing Se to destroy the opponent's only creature threat. While earthbend returns it as a land, it loses its +1/+1 counters and creature status, significantly slowing the opponent's clock.",
       "type": "blunder",
-      "snapshotIndex": 129,
+      "snapshotIndex": 130,
       "player": "Gem3F Valley"
     },
     {
@@ -128900,7 +128900,7 @@
       "actionTaken": "Declined to activate either Demolition Field or Fountainport during precombat main phase.",
       "betterLine": "Activate Fountainport to create a Fish token (paying 3 mana + 1 life) or a Treasure token (paying 4 mana) to generate value from otherwise unused mana. Demolition Field could also be considered to pressure the opponent's Ba Sing Se, though that's more debatable given it returns tapped.",
       "type": "blunder",
-      "snapshotIndex": 130,
+      "snapshotIndex": 131,
       "player": "Gem3F Valley"
     },
     {
@@ -128909,7 +128909,7 @@
       "actionTaken": "Declined to activate Demolition Field or Fountainport, passing with unused mana that couldn't cast any spells in hand.",
       "betterLine": "Activate Demolition Field targeting Ba Sing Se (using Swamp and Fountainport to pay {2}), destroying the animated land creature. Since no blue mana was available for counterspells, there was no opportunity cost.",
       "type": "blunder",
-      "snapshotIndex": 131,
+      "snapshotIndex": 132,
       "player": "Gem3F Valley"
     },
     {
@@ -128918,7 +128918,7 @@
       "actionTaken": "Passed without activating Demolition Field or Fountainport, leaving mana unused.",
       "betterLine": "Activate Demolition Field targeting Ba Sing Se to destroy the opponent's animated land creature. Even though it returns as a tapped land via earthbend, it loses its counters and creature status, removing the clock. Alternatively, at minimum use Fountainport to create a Treasure token for future mana advantage.",
       "type": "blunder",
-      "snapshotIndex": 131,
+      "snapshotIndex": 132,
       "player": "Gem3F Valley"
     },
     {
@@ -128927,7 +128927,7 @@
       "actionTaken": "Passed the turn without using any mana sinks.",
       "betterLine": "Activate Fountainport to create a 1/1 Fish token ({3}, {T}, pay 1 life), still leaving 6 untapped lands to hold up Spell Snare and Requiting Hex for the opponent's turn.",
       "type": "blunder",
-      "snapshotIndex": 135,
+      "snapshotIndex": 136,
       "player": "Gem3F Valley"
     },
     {
@@ -128936,7 +128936,7 @@
       "actionTaken": "Passed without activating any abilities, leaving all mana unused during precombat main.",
       "betterLine": "Activate Fountainport to create a 1/1 Fish token for {3}, {T}, pay 1 life, while keeping 4 lands untapped for reactive plays like Three Steps Ahead.",
       "type": "blunder",
-      "snapshotIndex": 136,
+      "snapshotIndex": 137,
       "player": "Gem3F Valley"
     },
     {
@@ -128945,7 +128945,7 @@
       "actionTaken": "Passed without activating any abilities, leaving all mana unused.",
       "betterLine": "Activate Fountainport to create a 1/1 Fish token ({3}, {T}, pay 1 life), still leaving 4 lands untapped to hold up Spell Snare and/or Requiting Hex on the opponent's turn. The Fish token can later be sacrificed to Fountainport to draw a card.",
       "type": "blunder",
-      "snapshotIndex": 137,
+      "snapshotIndex": 138,
       "player": "Gem3F Valley"
     },
     {
@@ -128954,7 +128954,7 @@
       "actionTaken": "Declined to activate Fountainport or cast any spells during precombat main.",
       "betterLine": "Activate Fountainport to create a 1/1 Fish token (3 mana + tap + 1 life), providing a chump blocker and future card draw fodder, while still having 4 mana available to hold up Spell Pierce or Spell Snare.",
       "type": "blunder",
-      "snapshotIndex": 143,
+      "snapshotIndex": 144,
       "player": "Gem3F Valley"
     },
     {
@@ -128963,7 +128963,7 @@
       "actionTaken": "Passed without activating Fountainport or casting any spells.",
       "betterLine": "Activate Fountainport to create a Treasure token ({4}, {T}) or a Fish token ({3}, {T}, pay 1 life) to generate incremental value with unused mana before passing the turn.",
       "type": "blunder",
-      "snapshotIndex": 144,
+      "snapshotIndex": 145,
       "player": "Gem3F Valley"
     },
     {
@@ -128972,7 +128972,7 @@
       "actionTaken": "Passed the main phase without taking any action.",
       "betterLine": "Activate Demolition Field targeting Ba Sing Se to remove the opponent's repeatable earthbend source. Both players search for basics, but removing Ba Sing Se's activated ability is worth the exchange.",
       "type": "blunder",
-      "snapshotIndex": 146,
+      "snapshotIndex": 147,
       "player": "Gem3F Valley"
     },
     {
@@ -128981,7 +128981,7 @@
       "actionTaken": "Passed without activating any abilities, wasting available mana.",
       "betterLine": "Activate Demolition Field targeting Ba Sing Se to remove the opponent's earthbend-capable nonbasic land, or at minimum activate Fountainport to create a Treasure token for future mana advantage.",
       "type": "blunder",
-      "snapshotIndex": 149,
+      "snapshotIndex": 150,
       "player": "Gem3F Valley"
     },
     {
@@ -128990,7 +128990,7 @@
       "actionTaken": "Passed priority without activating any abilities, letting mana go unused.",
       "betterLine": "Activate Fountainport to create a 1/1 Fish token ({3}, {T}, pay 1 life) while still holding up Spell Pierce ({U}) and/or Spell Snare ({U}) with remaining untapped lands. Could also save Three Steps Ahead for opponent's end step.",
       "type": "blunder",
-      "snapshotIndex": 151,
+      "snapshotIndex": 152,
       "player": "Gem3F Valley"
     },
     {
@@ -128999,7 +128999,7 @@
       "actionTaken": "Passed the turn without casting any spells, presumably to hold up countermagic.",
       "betterLine": "Cast Deadly Cover-Up (3BB) to destroy all animated land-creatures, resetting the opponent's board. The animated lands return as regular tapped lands without +1/+1 counters, eliminating the opponent's attacking force while Gem3F Valley still has countermagic for future threats.",
       "type": "blunder",
-      "snapshotIndex": 155,
+      "snapshotIndex": 156,
       "player": "Gem3F Valley"
     },
     {
@@ -129008,7 +129008,7 @@
       "actionTaken": "Passed priority without taking any action",
       "betterLine": "Activate Demolition Field targeting Ba Sing Se to deny the opponent a repeatable source of creature-lands, while still holding up countermagic with remaining mana",
       "type": "blunder",
-      "snapshotIndex": 162,
+      "snapshotIndex": 163,
       "player": "Gem3F Valley"
     },
     {
@@ -129017,7 +129017,7 @@
       "actionTaken": "Passed without activating any abilities or casting any spells.",
       "betterLine": "Activate Fountainport to create a Treasure token, banking mana toward next turn's Deadly Cover-Up while still keeping countermagic available with remaining untapped lands.",
       "type": "blunder",
-      "snapshotIndex": 163,
+      "snapshotIndex": 164,
       "player": "Gem3F Valley"
     },
     {
@@ -129026,7 +129026,7 @@
       "actionTaken": "Passed without using any mana during postcombat main phase.",
       "betterLine": "Activate Fountainport to create a Treasure token (4, T), leaving 3 other lands untapped - still enough for Spell Pierce or Spell Snare on the opponent's turn, while banking mana for future turns.",
       "type": "blunder",
-      "snapshotIndex": 168,
+      "snapshotIndex": 169,
       "player": "Gem3F Valley"
     },
     {
@@ -129035,7 +129035,7 @@
       "actionTaken": "Cast Three Steps Ahead (mode 3: draw 2, discard 1) during their own postcombat main phase",
       "betterLine": "Pass the turn with all mana open, then cast Three Steps Ahead at the end of the opponent's turn. This preserves all reactive options and gives maximum information before committing to the draw spell.",
       "type": "blunder",
-      "snapshotIndex": 171,
+      "snapshotIndex": 172,
       "player": "Gem3F Valley"
     },
     {
@@ -129044,7 +129044,7 @@
       "actionTaken": "Passed the turn without casting any spells, doing nothing to advance the board position.",
       "betterLine": "Cast Wan Shi Tong, Librarian for X=6 (8 mana total) as a 7/7 flying vigilance that draws 3 cards, establishing a dominant threat while the opponent has no creatures to contest it.",
       "type": "blunder",
-      "snapshotIndex": 175,
+      "snapshotIndex": 176,
       "player": "Gem3F Valley"
     },
     {
@@ -129053,7 +129053,7 @@
       "actionTaken": "Passed the turn without casting any spells, leaving 8 mana unused.",
       "betterLine": "Cast Wan Shi Tong, Librarian for X=4 (5/5 flier, draw 2 cards) leaving up Spell Pierce or Spell Snare to protect it, or X=6 for maximum value as a 7/7 drawing 3 cards. The opponent has no creatures to contest it and limited known removal options.",
       "type": "blunder",
-      "snapshotIndex": 178,
+      "snapshotIndex": 179,
       "player": "Gem3F Valley"
     },
     {
@@ -129062,7 +129062,7 @@
       "actionTaken": "Cast Wan Shi Tong, Librarian during precombat main phase",
       "betterLine": "Pass the turn holding up Spell Pierce/Spell Snare, then cast Wan Shi Tong at opponent's end step for the same value while maintaining countermagic flexibility during opponent's turn.",
       "type": "blunder",
-      "snapshotIndex": 177,
+      "snapshotIndex": 178,
       "player": "Gem3F Valley"
     },
     {
@@ -129071,7 +129071,7 @@
       "actionTaken": "Passed priority during combat without activating any abilities or casting any spells.",
       "betterLine": "Flash in Wan Shi Tong, Librarian for X=3 (spending 5 mana total) to establish a 4/4 flying vigilance threat and draw a card, or at minimum activate Demolition Field to destroy Ba Sing Se and deny earthbend activations.",
       "type": "blunder",
-      "snapshotIndex": 180,
+      "snapshotIndex": 181,
       "player": "Gem3F Valley"
     },
     {
@@ -129080,7 +129080,7 @@
       "actionTaken": "Passed priority without casting anything, leaving all mana unused.",
       "betterLine": "Flash in Wan Shi Tong, Librarian for X=3 or X=4 at end of opponent's turn to deploy a flying threat and draw cards while holding up the second copy and countermagic for future turns.",
       "type": "blunder",
-      "snapshotIndex": 181,
+      "snapshotIndex": 182,
       "player": "Gem3F Valley"
     },
     {
@@ -129089,7 +129089,7 @@
       "actionTaken": "Discarded Icetill Explorer",
       "betterLine": "Discard a basic Forest instead, since Fabled Passage can fetch Forests and the second Icetill Explorer provides redundancy for their key engine piece against an opponent with removal",
       "type": "blunder",
-      "snapshotIndex": 182,
+      "snapshotIndex": 183,
       "player": "GPT4om Analyst"
     },
     {
@@ -129098,7 +129098,7 @@
       "actionTaken": "Passed the turn without casting any spells, despite having 8 mana and Wan Shi Tong in hand against an empty board.",
       "betterLine": "Cast Wan Shi Tong, Librarian for X=6, creating a 7/7 flying vigilance creature and drawing 3 cards. This establishes a dominant board presence and card advantage against an opponent with no creatures and no easy answers to a large flyer.",
       "type": "blunder",
-      "snapshotIndex": 183,
+      "snapshotIndex": 184,
       "player": "Gem3F Valley"
     },
     {
@@ -129107,7 +129107,7 @@
       "actionTaken": "Passed without casting anything",
       "betterLine": "Cast Wan Shi Tong, Librarian for X=4 (6 mana total: 4+UU), creating a 5/5 flying vigilance that draws 2 cards, while keeping 2 mana open for Spell Pierce or Spell Snare to protect it.",
       "type": "blunder",
-      "snapshotIndex": 186,
+      "snapshotIndex": 187,
       "player": "Gem3F Valley"
     },
     {
@@ -129116,7 +129116,7 @@
       "actionTaken": "Passed priority without casting anything or activating any abilities.",
       "betterLine": "Cast Wan Shi Tong, Librarian with X=3 (or higher) at end of opponent's turn to flash in a meaningful threat while keeping Spell Pierce/Spell Snare available earlier in the turn. At minimum, activate Fountainport to create a token or Treasure as a mana sink.",
       "type": "blunder",
-      "snapshotIndex": 189,
+      "snapshotIndex": 190,
       "player": "Gem3F Valley"
     },
     {
@@ -129125,7 +129125,7 @@
       "actionTaken": "Played Undercity Sewers (enters tapped, surveil 1)",
       "betterLine": "Play Gloomlake Verge (enters untapped since they control Islands/Swamps), saving the tapped Undercity Sewers for a later turn. This maximizes available mana for holding up interaction alongside any proactive plays.",
       "type": "blunder",
-      "snapshotIndex": 193,
+      "snapshotIndex": 194,
       "player": "Gem3F Valley"
     },
     {
@@ -129134,7 +129134,7 @@
       "actionTaken": "Discarded Spell Pierce as the 3rd discard to hand size",
       "betterLine": "Discard a redundant land like Swamp, Undercity Sewers, or Gloomlake Verge instead, keeping Spell Pierce as a potential cheap interaction piece",
       "type": "blunder",
-      "snapshotIndex": 198,
+      "snapshotIndex": 199,
       "player": "Gem3F Valley"
     },
     {
@@ -129143,7 +129143,7 @@
       "actionTaken": "Discarded Llanowar Elves",
       "betterLine": "Discard a Forest, since Icetill Explorer (in hand) allows playing lands from the graveyard, making the Forest discard essentially free while preserving Llanowar Elves as an additional creature option.",
       "type": "blunder",
-      "snapshotIndex": 202,
+      "snapshotIndex": 203,
       "player": "GPT4om Analyst"
     },
     {
@@ -129152,7 +129152,7 @@
       "actionTaken": "Played Undercity Sewers (enters tapped, surveil 1)",
       "betterLine": "Play Gloomlake Verge (enters untapped, produces U or B) to maintain mana flexibility for Feed the Cycle or other instant-speed plays, saving Undercity Sewers for a later turn when tapped entry matters less.",
       "type": "blunder",
-      "snapshotIndex": 202,
+      "snapshotIndex": 203,
       "player": "Gem3F Valley"
     },
     {
@@ -129161,7 +129161,7 @@
       "actionTaken": "Passed without casting any spells, leaving all mana unused.",
       "betterLine": "Cast Wan Shi Tong, Librarian for X=6 (8 mana total), creating a 7/7 flying vigilance that draws 3 cards, presenting lethal in 2 attacks against the opponent at 9 life while refilling the hand.",
       "type": "blunder",
-      "snapshotIndex": 208,
+      "snapshotIndex": 209,
       "player": "Gem3F Valley"
     },
     {
@@ -129170,7 +129170,7 @@
       "actionTaken": "Played Watery Grave from hand, paying 2 life to have it enter untapped.",
       "betterLine": "Play Demolition Field (provides a second copy to threaten opponent's Ba Sing Se, costs no life) or Gloomlake Verge (enters untapped for free, adds U or B).",
       "type": "blunder",
-      "snapshotIndex": 212,
+      "snapshotIndex": 213,
       "player": "Gem3F Valley"
     },
     {
@@ -129179,7 +129179,7 @@
       "actionTaken": "Passed without playing any spells or lands",
       "betterLine": "Play Gloomlake Verge or Swamp, then cast Wan Shi Tong, Librarian for X=7, creating an 8/8 flying vigilance creature and drawing 3 cards against an opponent at 9 life with no blockers",
       "type": "blunder",
-      "snapshotIndex": 213,
+      "snapshotIndex": 214,
       "player": "Gem3F Valley"
     }
   ],
@@ -129234,7 +129234,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -129270,7 +129271,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -129304,7 +129306,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -129368,6 +129371,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -129407,6 +129411,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -129446,6 +129451,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -129484,7 +129490,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -129521,6 +129528,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -129591,6 +129599,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -129640,6 +129649,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -129680,6 +129690,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -129718,7 +129729,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 12,
@@ -129822,6 +129834,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -129860,7 +129873,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 14,
@@ -129896,7 +129910,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 15,
@@ -129932,7 +129947,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 16,
@@ -129995,6 +130011,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -130028,6 +130045,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -130068,6 +130086,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -130115,6 +130134,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -130155,6 +130175,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -130195,6 +130216,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -130234,6 +130256,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -130314,6 +130337,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -130354,6 +130378,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -130424,6 +130449,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -130468,6 +130494,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -130515,6 +130542,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -130553,7 +130581,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 29,
@@ -130589,7 +130618,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 30,
@@ -130625,7 +130655,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 31,
@@ -130661,7 +130692,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 32,
@@ -130697,7 +130729,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 33,
@@ -130753,6 +130786,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -130819,6 +130853,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -130859,6 +130894,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -130899,6 +130935,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -130938,6 +130975,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -131012,6 +131050,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -131053,6 +131092,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -131100,6 +131140,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -131139,6 +131180,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -131203,6 +131245,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -131242,6 +131285,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -131281,6 +131325,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -131320,6 +131365,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -131379,6 +131425,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -131419,6 +131466,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -131459,6 +131507,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -131498,6 +131547,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -131591,6 +131641,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -131632,6 +131683,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -131679,6 +131731,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -131737,6 +131790,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -131776,6 +131830,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -131815,6 +131870,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -131854,6 +131910,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -131916,6 +131973,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -131956,6 +132014,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -132007,6 +132066,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -132048,6 +132108,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -132088,6 +132149,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -132126,7 +132188,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 63,
@@ -132161,6 +132224,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -132247,6 +132311,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -132279,7 +132344,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 66,
@@ -132315,7 +132381,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 67,
@@ -132380,6 +132447,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -132419,7 +132487,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 69,
@@ -132511,6 +132580,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -132550,7 +132620,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 71,
@@ -132600,6 +132671,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -132639,7 +132711,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 73,
@@ -132675,7 +132748,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 74,
@@ -132732,6 +132806,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -132771,7 +132846,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 76,
@@ -132807,7 +132883,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 77,
@@ -132843,7 +132920,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 78,
@@ -132879,7 +132957,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 79,
@@ -132937,6 +133016,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -132998,6 +133078,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -133040,6 +133121,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133083,6 +133165,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133125,6 +133208,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133167,6 +133251,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133209,6 +133294,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133251,6 +133337,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133293,6 +133380,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133335,6 +133423,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133377,6 +133466,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133419,6 +133509,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133461,6 +133552,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133503,6 +133595,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133545,6 +133638,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133595,6 +133689,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133635,6 +133730,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133685,6 +133781,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133735,6 +133832,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133785,6 +133883,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -133834,6 +133933,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -133915,6 +134015,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -133965,6 +134066,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -134044,6 +134146,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -134094,6 +134197,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -134182,6 +134286,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -134232,6 +134337,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -134281,6 +134387,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -134330,6 +134437,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -134403,6 +134511,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -134467,6 +134576,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -134516,6 +134626,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -134562,6 +134673,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -134611,6 +134723,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -134660,6 +134773,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -134709,6 +134823,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -134758,6 +134873,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -134807,6 +134923,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -134856,6 +134973,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -134920,6 +135038,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -134980,6 +135099,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -135040,6 +135160,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -135097,6 +135218,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -135148,6 +135270,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -135202,6 +135325,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -135253,6 +135377,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -135303,6 +135428,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -135352,6 +135478,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -135420,6 +135547,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -135475,6 +135603,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -135533,6 +135662,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -135584,6 +135714,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -135680,6 +135811,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -135732,6 +135864,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -135781,6 +135914,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -135832,6 +135966,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -135891,6 +136026,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -135942,6 +136078,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -135991,6 +136128,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -136040,6 +136178,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -136089,6 +136228,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -136156,6 +136296,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -136196,6 +136337,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -136280,6 +136422,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136357,6 +136500,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136460,6 +136604,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136531,6 +136676,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136596,6 +136742,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136668,6 +136815,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136733,6 +136881,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136799,6 +136948,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136849,6 +136999,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136945,6 +137096,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -136992,6 +137144,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137045,6 +137198,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137092,6 +137246,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137144,7 +137299,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 156,
@@ -137191,6 +137347,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137241,6 +137398,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137291,6 +137449,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137341,6 +137500,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137391,6 +137551,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137441,6 +137602,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137491,6 +137653,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137541,6 +137704,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -137590,6 +137754,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -137649,6 +137814,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -137699,6 +137865,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -137748,6 +137915,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -137798,6 +137966,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -137847,6 +138016,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -137896,6 +138066,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -137953,6 +138124,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -138019,6 +138191,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -138059,6 +138232,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -138107,6 +138281,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -138321,6 +138496,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -138379,6 +138555,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -138443,6 +138620,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -138502,6 +138680,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -138555,6 +138734,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -138614,6 +138794,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -138664,6 +138845,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -138728,6 +138910,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "declare_attackers"
@@ -138799,6 +138982,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -138873,6 +139057,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -138914,6 +139099,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -138985,6 +139171,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139050,6 +139237,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139129,6 +139317,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139208,6 +139397,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139267,6 +139457,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139335,6 +139526,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139388,6 +139580,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139442,6 +139635,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139489,6 +139683,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139548,6 +139743,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139638,6 +139834,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139683,6 +139880,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139737,6 +139935,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139784,6 +139983,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139831,6 +140031,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139890,6 +140091,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -139949,6 +140151,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -139988,6 +140191,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -140046,6 +140250,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -140105,6 +140310,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -140144,6 +140350,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -140202,6 +140409,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -140260,6 +140468,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -140322,6 +140531,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -140389,6 +140599,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -140456,6 +140667,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -140495,6 +140707,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -140561,6 +140774,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -140628,6 +140842,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -140667,6 +140882,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -140733,6 +140949,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -140799,6 +141016,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -140862,6 +141080,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -140902,6 +141121,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -140969,6 +141189,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -141036,6 +141257,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -141094,6 +141316,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -141133,6 +141356,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -141190,6 +141414,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -141247,6 +141472,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -141320,6 +141546,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -141393,6 +141620,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -141462,6 +141690,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -141529,6 +141758,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -141568,6 +141798,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -141634,6 +141865,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -141701,6 +141933,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -141740,6 +141973,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -141806,6 +142040,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -141872,6 +142107,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -141948,6 +142184,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -142015,6 +142252,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -142054,6 +142292,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -142127,6 +142366,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -142194,6 +142434,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -142233,6 +142474,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -142299,6 +142541,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -142365,6 +142608,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -142444,6 +142688,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -142519,6 +142764,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -142586,6 +142832,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -142625,6 +142872,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -142698,6 +142946,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -142765,6 +143014,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -142804,6 +143054,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -142870,6 +143121,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -142936,6 +143188,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -143010,6 +143263,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 0
@@ -143077,6 +143331,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -143114,6 +143369,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -143190,6 +143446,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 0
@@ -143257,6 +143514,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -143296,6 +143554,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -143362,6 +143621,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -143411,6 +143671,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -143468,6 +143729,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -143517,6 +143779,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -143573,6 +143836,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -143656,6 +143920,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -143714,6 +143979,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -143804,6 +144070,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 0
@@ -143875,6 +144142,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -143953,6 +144221,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -144000,6 +144269,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -144085,6 +144355,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -144163,6 +144434,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -144202,6 +144474,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -144286,6 +144559,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -144357,6 +144631,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -144434,6 +144709,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -144473,6 +144749,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -144550,6 +144827,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -144627,6 +144905,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -144713,6 +144992,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -144804,6 +145084,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 11,
         "landDropsUsed": 0
@@ -144889,6 +145170,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12,
         "landDropsUsed": 1
@@ -144967,6 +145249,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -145006,6 +145289,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -145090,6 +145374,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12,
         "landDropsUsed": 1
@@ -145161,6 +145446,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -145200,6 +145486,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -145277,6 +145564,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -145356,6 +145644,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -145442,6 +145731,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -145481,6 +145771,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12,
         "landDropsUsed": 0
@@ -145521,6 +145812,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -145560,6 +145852,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -145630,6 +145923,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -145669,6 +145963,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -145715,6 +146010,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -145754,6 +146050,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -145792,7 +146089,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 298,
@@ -145829,6 +146127,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -145868,6 +146167,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -145969,7 +146269,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 301,
@@ -146060,7 +146361,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 302,
@@ -146145,7 +146447,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 303,
@@ -146181,7 +146484,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 304,
@@ -146218,6 +146522,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -146256,7 +146561,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 306,
@@ -146292,7 +146598,8 @@
         "GPT4om Analyst draws seven cards",
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 307,
@@ -146376,6 +146683,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -146483,6 +146791,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13,
         "landDropsUsed": 1
@@ -146596,6 +146905,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13,
         "landDropsUsed": 0
@@ -146664,6 +146974,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13,
         "landDropsUsed": 1
@@ -146712,6 +147023,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13,
         "landDropsUsed": 1
@@ -146788,6 +147100,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13,
         "landDropsUsed": 1
@@ -146848,6 +147161,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13,
         "combatPhase": "declare_attackers"
@@ -146924,6 +147238,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13
       }
@@ -146963,6 +147278,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -147038,6 +147354,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13
       }
@@ -147113,6 +147430,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13
       }
@@ -147187,6 +147505,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13,
         "landDropsUsed": 1
@@ -147270,6 +147589,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13,
         "landDropsUsed": 1
@@ -147346,6 +147666,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13
       }
@@ -147385,6 +147706,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -147460,6 +147782,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13
       }
@@ -147535,6 +147858,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13
       }
@@ -147621,6 +147945,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -147735,6 +148060,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 14,
         "landDropsUsed": 0
@@ -147818,6 +148144,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 15,
         "landDropsUsed": 1
@@ -147879,6 +148206,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 15,
         "combatPhase": "declare_attackers"
@@ -147955,6 +148283,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 15
       }
@@ -147994,6 +148323,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -148067,6 +148397,7 @@
         "Gem3F Valley keeps hand",
         "Omg, I&#39;m literally going first! Strategy is like, so aesthetic. I&#39;m keeping this hand, it&#39;s a total vibe. &#128133;&#10024;"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 15
       }

@@ -48048,7 +48048,7 @@
       "actionTaken": "Played Underground Sea directly as the turn 1 land",
       "betterLine": "Play Polluted Delta, crack it to fetch Underground Sea (or another blue/black source), then cast Personal Tutor. This protects the dual from Wasteland while still enabling the same plays this turn.",
       "type": "blunder",
-      "snapshotIndex": 6,
+      "snapshotIndex": 7,
       "player": "Sonnet Tactic"
     },
     {
@@ -48057,7 +48057,7 @@
       "actionTaken": "Played Badlands as the land drop without casting Aether Vial, leaving 1 mana unused.",
       "betterLine": "Play Badlands, then cast Aether Vial for {1} using the Badlands. This gets Vial ticking a full turn earlier, which is critical for the Goblin Vial strategy.",
       "type": "blunder",
-      "snapshotIndex": 9,
+      "snapshotIndex": 10,
       "player": "KimiK2 Sport"
     },
     {
@@ -48066,7 +48066,7 @@
       "actionTaken": "Cast Doomsday by cracking LED (discarding Edge of Autumn, Personal Tutor, and Polluted Delta) with no immediate way to draw into the pile.",
       "betterLine": "Play Polluted Delta from hand, crack the on-battlefield Polluted Delta for U, cast Personal Tutor to find a setup piece, then combo off on a subsequent turn with Doomsday + LED while having Edge of Autumn available to cycle into the pile immediately.",
       "type": "blunder",
-      "snapshotIndex": 48,
+      "snapshotIndex": 49,
       "player": "Sonnet Tactic"
     },
     {
@@ -48075,7 +48075,7 @@
       "actionTaken": "Selected Ponder as first card in the Doomsday pile",
       "betterLine": "Select Brainstorm as the first pile card, enabling the immediate win line: Edge of Autumn cycling → draw Brainstorm → crack LED for UUU → Brainstorm draws Oracle + 2 → put 2 back → cast Oracle with UU → devotion 2 ≥ 2 cards in library → win",
       "type": "blunder",
-      "snapshotIndex": 54,
+      "snapshotIndex": 55,
       "player": "Sonnet Tactic"
     },
     {
@@ -48084,7 +48084,7 @@
       "actionTaken": "Put Lotus Petal on top of library (drawing it off Ponder), leaving Brainstorm as second card",
       "betterLine": "Put Brainstorm on top of library, draw it off Ponder, then crack Polluted Delta for a land, tap for U, cast Brainstorm and crack LED in response for 3 mana, discard hand, draw remaining 3 pile cards to execute the win",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "Sonnet Tactic"
     },
     {
@@ -48093,7 +48093,7 @@
       "actionTaken": "Put Goblin Matron into play with Aether Vial to tutor for a Goblin card",
       "betterLine": "Put Broadside Bombardiers into play with Aether Vial (haste, menace), play Cavern of Souls naming Goblin, cast Goblin Matron from hand with Badlands + Cavern, attack with Bombardiers and potentially other creatures, then use Bombardiers' boast to sacrifice Matron for 5 damage to face, threatening lethal against the 9-life Doomsday opponent.",
       "type": "blunder",
-      "snapshotIndex": 94,
+      "snapshotIndex": 95,
       "player": "KimiK2 Sport"
     },
     {
@@ -48102,7 +48102,7 @@
       "actionTaken": "Tutored for a second Muxus, Goblin Grandee despite already having one in hand.",
       "betterLine": "Tutor for Goblin Warchief (3 CMC, exactly matching Aether Vial's charge counters for immediate deployment). Warchief gives all goblins haste and reduces their costs by {1}, making Muxus cost 5 instead of 6 and enabling a faster Muxus deployment. Alternatively, Skirk Prospector could enable mana acceleration through sacrificing goblins.",
       "type": "blunder",
-      "snapshotIndex": 97,
+      "snapshotIndex": 98,
       "player": "KimiK2 Sport"
     }
   ],
@@ -48154,7 +48154,8 @@
       ],
       "subsequentActions": [
         "KimiK2 Sport chooses that Sonnet Tactic take the first turn"
-      ]
+      ],
+      "actionSeq": 3
     },
     {
       "index": 1,
@@ -48186,7 +48187,8 @@
         7,
         12
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 5
     },
     {
       "index": 2,
@@ -48221,7 +48223,8 @@
       "subsequentActions": [
         "Sonnet Tactic skips Draw step",
         "Sonnet Tactic skip attack"
-      ]
+      ],
+      "actionSeq": 6
     },
     {
       "index": 3,
@@ -48276,6 +48279,7 @@
       "subsequentActions": [
         "Sonnet Tactic puts Underground Sea from hand onto the Battlefield"
       ],
+      "actionSeq": 13,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -48337,6 +48341,7 @@
       "subsequentActions": [
         "KimiK2 Sport puts Badlands from hand onto the Battlefield"
       ],
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -48394,6 +48399,7 @@
       "subsequentActions": [
         "KimiK2 Sport skip attack"
       ],
+      "actionSeq": 20,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -48444,6 +48450,7 @@
         "KimiK2 Sport casts Aether Vial from hand",
         "KimiK2 Sport puts Aether Vial from stack onto the Battlefield"
       ],
+      "actionSeq": 24,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -48534,6 +48541,7 @@
         "Sonnet Tactic puts Polluted Delta from hand onto the Battlefield",
         "Sonnet Tactic skip attack"
       ],
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -48603,6 +48611,7 @@
         47
       ],
       "subsequentActions": [],
+      "actionSeq": 37,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -48651,7 +48660,8 @@
         46,
         53
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 38
     },
     {
       "index": 10,
@@ -48737,6 +48747,7 @@
         "Sonnet Tactic casts Personal Tutor from hand",
         "Sonnet Tactic searches their library (source: Personal Tutor)"
       ],
+      "actionSeq": 39,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -48864,6 +48875,7 @@
         "Sonnet Tactic puts a card from library to the top of their library (source: Personal Tutor)",
         "Sonnet Tactic puts Personal Tutor from stack into their graveyard"
       ],
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -48914,7 +48926,8 @@
       ],
       "subsequentActions": [
         "KimiK2 Sport - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
-      ]
+      ],
+      "actionSeq": 51
     },
     {
       "index": 13,
@@ -48964,6 +48977,7 @@
         69
       ],
       "subsequentActions": [],
+      "actionSeq": 54,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -49005,6 +49019,7 @@
         "KimiK2 Sport puts 1 charge counter on Aether Vial",
         "KimiK2 Sport skip attack"
       ],
+      "actionSeq": 55,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -49091,6 +49106,7 @@
       "subsequentActions": [
         "Sonnet Tactic casts Dark Ritual from hand"
       ],
+      "actionSeq": 64,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -49123,7 +49139,8 @@
         75,
         76
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 68
     },
     {
       "index": 17,
@@ -49168,6 +49185,7 @@
       "subsequentActions": [
         "Sonnet Tactic puts Dark Ritual from stack into their graveyard"
       ],
+      "actionSeq": 68,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -49243,6 +49261,7 @@
         "Sonnet Tactic casts Lion's Eye Diamond from hand",
         "Sonnet Tactic puts Lion's Eye Diamond from stack onto the Battlefield"
       ],
+      "actionSeq": 70,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -49331,6 +49350,7 @@
       "subsequentActions": [
         "Sonnet Tactic casts Doomsday from hand"
       ],
+      "actionSeq": 76,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -49692,6 +49712,7 @@
         91
       ],
       "subsequentActions": [],
+      "actionSeq": 83,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -50044,6 +50065,7 @@
         95
       ],
       "subsequentActions": [],
+      "actionSeq": 84,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -50387,6 +50409,7 @@
         99
       ],
       "subsequentActions": [],
+      "actionSeq": 85,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -50724,6 +50747,7 @@
         103
       ],
       "subsequentActions": [],
+      "actionSeq": 86,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -51061,6 +51085,7 @@
         "Sonnet Tactic moves Doomsday from library to the exile zone (source: Doomsday)",
         "Sonnet Tactic moves Ponder from library to the exile zone (source: Doomsday)"
       ],
+      "actionSeq": 87,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -51161,6 +51186,7 @@
       "subsequentActions": [
         "Sonnet Tactic puts a card from library to the top of their library (source: Doomsday)"
       ],
+      "actionSeq": 136,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -51227,6 +51253,7 @@
       "subsequentActions": [
         "Sonnet Tactic puts a card from library to the top of their library (source: Doomsday)"
       ],
+      "actionSeq": 138,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -51284,6 +51311,7 @@
       "subsequentActions": [
         "Sonnet Tactic puts a card from library to the top of their library (source: Doomsday)"
       ],
+      "actionSeq": 140,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -51339,6 +51367,7 @@
         "Sonnet Tactic puts Doomsday from stack into their graveyard",
         "Sonnet Tactic skip attack"
       ],
+      "actionSeq": 142,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -51392,6 +51421,7 @@
       "subsequentActions": [
         "KimiK2 Sport - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
       ],
+      "actionSeq": 150,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -51440,6 +51470,7 @@
         134
       ],
       "subsequentActions": [],
+      "actionSeq": 155,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -51480,6 +51511,7 @@
         "KimiK2 Sport skip attack",
         "KimiK2 Sport discards down to 7 hand cards"
       ],
+      "actionSeq": 157,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -51563,6 +51595,7 @@
       "subsequentActions": [
         "KimiK2 Sport discards Broadside Bombardiers"
       ],
+      "actionSeq": 167,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -51642,6 +51675,7 @@
       "subsequentActions": [
         "Sonnet Tactic casts Ponder from hand"
       ],
+      "actionSeq": 169,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -51705,6 +51739,7 @@
       "subsequentActions": [
         "Sonnet Tactic puts a card from library to the top of their library (source: Ponder)"
       ],
+      "actionSeq": 174,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -51760,6 +51795,7 @@
         "Sonnet Tactic puts a card from library to the top of their library (source: Ponder)",
         "Sonnet Tactic puts a card from library to the top of their library (source: Ponder)"
       ],
+      "actionSeq": 176,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -51799,6 +51835,7 @@
         "Sonnet Tactic puts Ponder from stack into their graveyard",
         "Sonnet Tactic skip attack"
       ],
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -51859,6 +51896,7 @@
         164
       ],
       "subsequentActions": [],
+      "actionSeq": 184,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -51940,6 +51978,7 @@
         "Sonnet Tactic activates: search your library for an Island or Swamp card, put it onto the battlefield, then shuffle. from Polluted Delta",
         "Sonnet Tactic searches their library (source: Polluted Delta)"
       ],
+      "actionSeq": 186,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -52004,6 +52043,7 @@
         "Sonnet Tactic's library is shuffled (source: Polluted Delta)",
         "KimiK2 Sport - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
       ],
+      "actionSeq": 194,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -52053,6 +52093,7 @@
         179
       ],
       "subsequentActions": [],
+      "actionSeq": 199,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -52100,6 +52141,7 @@
         188
       ],
       "subsequentActions": [],
+      "actionSeq": 200,
       "pilotContext": {
         "playableCards": [
           "p34",
@@ -52140,6 +52182,7 @@
       "subsequentActions": [
         "KimiK2 Sport puts 1 charge counter on Aether Vial"
       ],
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -52231,6 +52274,7 @@
         187
       ],
       "subsequentActions": [],
+      "actionSeq": 203,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -52279,6 +52323,7 @@
       "subsequentActions": [
         "KimiK2 Sport activates: You may put a creature card with mana value equal to the number of charge counters on Aether Vial from your hand onto the battlefield. from Aether Vial"
       ],
+      "actionSeq": 204,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -52315,6 +52360,7 @@
         199
       ],
       "subsequentActions": [],
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -52351,6 +52397,7 @@
         203
       ],
       "subsequentActions": [],
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -52405,6 +52452,7 @@
         "KimiK2 Sport puts Goblin Matron from hand onto the Battlefield (source: Aether Vial)",
         "KimiK2 Sport - Ability triggers: Goblin Matron - When Goblin Matron enters, you may search your library for a Goblin card, reveal that card, put it into your hand, then shuffle."
       ],
+      "actionSeq": 209,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -52431,6 +52479,7 @@
         210
       ],
       "subsequentActions": [],
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -52469,6 +52518,7 @@
       "subsequentActions": [
         "KimiK2 Sport searches their library (source: Goblin Matron)"
       ],
+      "actionSeq": 214,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -52666,6 +52716,7 @@
         "KimiK2 Sport reveals Muxus, Goblin Grandee",
         "KimiK2 Sport's library is shuffled (source: Goblin Matron)"
       ],
+      "actionSeq": 216,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -52713,6 +52764,7 @@
         "Cavern of Souls: KimiK2 Sport has chosen Scorpion",
         "KimiK2 Sport puts Cavern of Souls from hand onto the Battlefield"
       ],
+      "actionSeq": 221,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -52764,6 +52816,7 @@
       "subsequentActions": [
         "KimiK2 Sport skip attack"
       ],
+      "actionSeq": 224,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -52838,6 +52891,7 @@
         253
       ],
       "subsequentActions": [],
+      "actionSeq": 231,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -52888,6 +52942,7 @@
       "subsequentActions": [
         "Sonnet Tactic casts Lotus Petal from hand"
       ],
+      "actionSeq": 232,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -52913,7 +52968,8 @@
         259,
         260
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 235
     },
     {
       "index": 56,
@@ -52948,6 +53004,7 @@
       "subsequentActions": [
         "Sonnet Tactic puts Lotus Petal from stack onto the Battlefield"
       ],
+      "actionSeq": 235,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -53018,6 +53075,7 @@
       "subsequentActions": [
         "Sonnet Tactic casts Brainstorm from hand"
       ],
+      "actionSeq": 237,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -53057,6 +53115,7 @@
         276
       ],
       "subsequentActions": [],
+      "actionSeq": 241,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -53125,6 +53184,7 @@
       "subsequentActions": [
         "Sonnet Tactic puts a card from hand to the top of their library (source: Brainstorm)"
       ],
+      "actionSeq": 242,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -53190,6 +53250,7 @@
         "Sonnet Tactic puts Brainstorm from stack into their graveyard",
         "Sonnet Tactic has lost the game."
       ],
+      "actionSeq": 244,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [

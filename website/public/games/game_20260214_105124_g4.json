@@ -87459,7 +87459,7 @@
       "actionTaken": "Played Bloodstained Mire and cast Mishra's Bauble, unable to cast Preordain this turn.",
       "betterLine": "Play Fiery Islet, tap it for {U} (pay 1 life), cast Preordain to scry 2 and draw a card, and also cast Mishra's Bauble. This maximizes turn 1 card quality and selection.",
       "type": "blunder",
-      "snapshotIndex": 2,
+      "snapshotIndex": 3,
       "player": "GPT4om Coach"
     },
     {
@@ -87468,7 +87468,7 @@
       "actionTaken": "Fetched a basic Mountain with Bloodstained Mire",
       "betterLine": "Fetch Steam Vents (paying 2 life) to have access to blue mana and cast Preordain this turn to improve card selection early in the game",
       "type": "blunder",
-      "snapshotIndex": 5,
+      "snapshotIndex": 6,
       "player": "GPT4om Coach"
     },
     {
@@ -87477,7 +87477,7 @@
       "actionTaken": "Targeted opponent (Gem25P Gramps) with Mishra's Bauble's look ability",
       "betterLine": "Target yourself with Mishra's Bauble to see your top card, then use a fetch land to shuffle if the top card is undesirable before the delayed draw trigger resolves",
       "type": "blunder",
-      "snapshotIndex": 12,
+      "snapshotIndex": 13,
       "player": "GPT4om Coach"
     },
     {
@@ -87486,7 +87486,7 @@
       "actionTaken": "Played Verdant Catacombs as the land for turn 1 without casting Delighted Halfling.",
       "betterLine": "Play Forest, then cast Delighted Halfling. This enables turn 2 Agatha's Soul Cauldron and turn 3 Yawgmoth, maximizing the deck's development curve.",
       "type": "blunder",
-      "snapshotIndex": 11,
+      "snapshotIndex": 12,
       "player": "Gem25P Gramps"
     },
     {
@@ -87495,7 +87495,7 @@
       "actionTaken": "Activated Verdant Catacombs to fetch a Swamp",
       "betterLine": "Fetch a Forest with Verdant Catacombs, then cast Delighted Halfling on turn 1 to accelerate toward Agatha's Soul Cauldron on turn 2 and Yawgmoth on turn 3 (Halfling can produce B for the legendary Yawgmoth).",
       "type": "blunder",
-      "snapshotIndex": 12,
+      "snapshotIndex": 13,
       "player": "Gem25P Gramps"
     },
     {
@@ -87504,7 +87504,7 @@
       "actionTaken": "Fetched a basic Swamp with Verdant Catacombs",
       "betterLine": "Fetch Overgrown Tomb (entering untapped, paying 2 life) to have access to both black and green mana from one land, maximizing flexibility for casting Delighted Halfling turn 1 and Yawgmoth later",
       "type": "blunder",
-      "snapshotIndex": 13,
+      "snapshotIndex": 14,
       "player": "Gem25P Gramps"
     },
     {
@@ -87513,7 +87513,7 @@
       "actionTaken": "Passed the main phase without casting anything or playing a land (Forest was in hand).",
       "betterLine": "Play Forest from hand, then cast Delighted Halfling for {G}. This enables a turn 3 Yawgmoth, Thran Physician (Swamp + Forest + Halfling's legendary mana = BBGG-equivalent for the 2BB cost). Even if not casting the Halfling, playing the Forest is strictly necessary to not fall behind on mana development.",
       "type": "blunder",
-      "snapshotIndex": 14,
+      "snapshotIndex": 15,
       "player": "Gem25P Gramps"
     },
     {
@@ -87522,7 +87522,7 @@
       "actionTaken": "Declined to cast Walking Ballista, attempting to pass the turn.",
       "betterLine": "Cast Walking Ballista for X=0 (costs 0 mana) to put it into the graveyard, setting up the Agatha's Soul Cauldron combo line. The Ballista dies immediately as a 0/0 but its presence in the graveyard is exactly where you want it for the Cauldron to exile it later.",
       "type": "blunder",
-      "snapshotIndex": 19,
+      "snapshotIndex": 20,
       "player": "Gem25P Gramps"
     },
     {
@@ -87531,7 +87531,7 @@
       "actionTaken": "Played Bloodstained Mire from hand as land drop",
       "betterLine": "Activate Mishra's Bauble targeting yourself first to see the top card of your library before committing to playing a fetchland that could shuffle away relevant information. Then play the fetchland.",
       "type": "blunder",
-      "snapshotIndex": 17,
+      "snapshotIndex": 18,
       "player": "GPT4om Coach"
     },
     {
@@ -87540,7 +87540,7 @@
       "actionTaken": "Activated Bloodstained Mire to fetch before using Mishra's Bauble",
       "betterLine": "Activate Mishra's Bauble first to see the top card of the library, then decide whether to crack the fetchland to shuffle it away before casting Preordain",
       "type": "blunder",
-      "snapshotIndex": 18,
+      "snapshotIndex": 19,
       "player": "GPT4om Coach"
     },
     {
@@ -87549,7 +87549,7 @@
       "actionTaken": "Fetched basic Mountain from Bloodstained Mire",
       "betterLine": "Fetch Steam Vents (paying 2 life to enter untapped) to have immediate blue mana access, enabling Preordain this turn while preserving Fiery Islet for its card-draw sacrifice ability later.",
       "type": "blunder",
-      "snapshotIndex": 24,
+      "snapshotIndex": 25,
       "player": "GPT4om Coach"
     },
     {
@@ -87558,7 +87558,7 @@
       "actionTaken": "Declined to cast Walking Ballista, passing the turn without using available mana or advancing the combo setup.",
       "betterLine": "Cast Walking Ballista for X=0 (free), let it die to state-based actions, putting it in the graveyard ready to be exiled by Agatha's Soul Cauldron next turn. This advances the Yawgmoth combo setup at zero cost.",
       "type": "blunder",
-      "snapshotIndex": 26,
+      "snapshotIndex": 27,
       "player": "Gem25P Gramps"
     },
     {
@@ -87567,7 +87567,7 @@
       "actionTaken": "Passed without casting Walking Ballista, leaving two copies in hand.",
       "betterLine": "Cast Walking Ballista for X=0 to put it into the graveyard, setting up for Agatha's Soul Cauldron to exile it later and grant its ping ability to creatures with +1/+1 counters, enabling the Yawgmoth combo.",
       "type": "blunder",
-      "snapshotIndex": 30,
+      "snapshotIndex": 31,
       "player": "Gem25P Gramps"
     },
     {
@@ -87576,7 +87576,7 @@
       "actionTaken": "Played a second Delighted Halfling instead of advancing the board with a more impactful play.",
       "betterLine": "Cast Badgermole Cub for 1G (using Forest and Delighted Halfling), earthbending a land into a creature to provide an extra sacrifice target for Yawgmoth and additional mana acceleration, or cast Agatha's Soul Cauldron for 2 mana to set up the combo engine immediately.",
       "type": "blunder",
-      "snapshotIndex": 38,
+      "snapshotIndex": 39,
       "player": "Gem25P Gramps"
     },
     {
@@ -87585,7 +87585,7 @@
       "actionTaken": "Cast Walking Ballista for X=1, creating a 1/1 creature",
       "betterLine": "Cast Badgermole Cub using Swamp + Delighted Halfling, getting a 2/2 body plus earthbending a land into a creature with a +1/+1 counter, which would help ramp into Yawgmoth on turn 4",
       "type": "blunder",
-      "snapshotIndex": 39,
+      "snapshotIndex": 40,
       "player": "Gem25P Gramps"
     },
     {
@@ -87594,7 +87594,7 @@
       "actionTaken": "Cast Walking Ballista for X=1 as a 1/1",
       "betterLine": "Cast Badgermole Cub using Dryad Arbor (G) + Swamp (B for generic), earthbend a land, and set up massive mana acceleration to cast Yawgmoth next turn.",
       "type": "blunder",
-      "snapshotIndex": 41,
+      "snapshotIndex": 42,
       "player": "Gem25P Gramps"
     },
     {
@@ -87603,7 +87603,7 @@
       "actionTaken": "Declined to attack with any creatures.",
       "betterLine": "Attack with at least the creatures not needed for mana this turn. Ideally attack with all three (Dryad Arbor + 2 Delighted Halflings) for 3 unblocked damage, then cast Agatha's Soul Cauldron post-combat using the Swamp and Forest (which is already tapped, but was tapped from earlier). At minimum, attack with 1-2 creatures for free damage against an empty board.",
       "type": "blunder",
-      "snapshotIndex": 44,
+      "snapshotIndex": 45,
       "player": "Gem25P Gramps"
     },
     {
@@ -87612,7 +87612,7 @@
       "actionTaken": "Targeted Gem25P Gramps with Mishra's Bauble, looking at the opponent's top card.",
       "betterLine": "Target themselves with Mishra's Bauble, see their own top card, then on their next turn play Arid Mesa and either keep the top card or shuffle it away by fetching — gaining meaningful card selection.",
       "type": "blunder",
-      "snapshotIndex": 53,
+      "snapshotIndex": 54,
       "player": "GPT4om Coach"
     },
     {
@@ -87621,7 +87621,7 @@
       "actionTaken": "Attacked with all three creatures (both Delighted Halflings and Dryad Arbor) for 3 damage, tapping all mana creatures.",
       "betterLine": "Keep all mana creatures back and use post-combat mana to cast Agatha's Soul Cauldron + Badgermole Cub, or cast Yawgmoth (using Delighted Halfling to make it uncounterable). Developing the board with powerful 4-drops is far more valuable than 3 points of chip damage against an 18-life opponent.",
       "type": "blunder",
-      "snapshotIndex": 54,
+      "snapshotIndex": 55,
       "player": "Gem25P Gramps"
     },
     {
@@ -87630,7 +87630,7 @@
       "actionTaken": "Cast Slickshot Show-Off from hand during postcombat main phase, paying life from Fiery Islet for the blue/red mana.",
       "betterLine": "Play Arid Mesa, then use remaining mana to Plot Slickshot Show-Off (same 1R cost) so it can be cast for free next turn and attack immediately. Or save mana for Preordain this turn and plot/cast Slickshot next turn.",
       "type": "blunder",
-      "snapshotIndex": 61,
+      "snapshotIndex": 62,
       "player": "GPT4om Coach"
     },
     {
@@ -87639,7 +87639,7 @@
       "actionTaken": "Attacked with all three creatures (both Delighted Halflings and Dryad Arbor), tapping all mana creatures.",
       "betterLine": "Attack with Dryad Arbor and one Delighted Halfling (2 damage), keeping the other Halfling untapped for mana. This preserves the ability to cast Agatha's Soul Cauldron post-combat with better mana flexibility, or hold up options.",
       "type": "blunder",
-      "snapshotIndex": 70,
+      "snapshotIndex": 71,
       "player": "Gem25P Gramps"
     },
     {
@@ -87648,7 +87648,7 @@
       "actionTaken": "Cast Preordain (paying life off Fiery Islet) without first making their land drop of Arid Mesa.",
       "betterLine": "Play Arid Mesa first, potentially crack it to thin the deck, then cast Preordain for better scry quality. Also consider activating Mishra's Bauble first to see the top card before scrying.",
       "type": "blunder",
-      "snapshotIndex": 83,
+      "snapshotIndex": 84,
       "player": "GPT4om Coach"
     },
     {
@@ -87657,7 +87657,7 @@
       "actionTaken": "Selected Gem25P Gramps as the target for Mishra's Bauble",
       "betterLine": "This is actually reasonable - looking at the opponent's library is standard with Mishra's Bauble",
       "type": "blunder",
-      "snapshotIndex": 84,
+      "snapshotIndex": 85,
       "player": "GPT4om Coach"
     },
     {
@@ -87666,7 +87666,7 @@
       "actionTaken": "Cast Yawgmoth, Thran Physician without first playing Verdant Catacombs as a land drop.",
       "betterLine": "Play Verdant Catacombs first, crack it for a land (e.g., Overgrown Tomb or Forest), then cast Yawgmoth with the additional mana available, potentially leaving mana open for another spell like Badgermole Cub or Walking Ballista.",
       "type": "blunder",
-      "snapshotIndex": 94,
+      "snapshotIndex": 95,
       "player": "Gem25P Gramps"
     },
     {
@@ -87675,7 +87675,7 @@
       "actionTaken": "Targeted opponent's Delighted Halfling with Mutagenic Growth, giving the opponent's creature +2/+2.",
       "betterLine": "Target Slickshot Show-Off with Mutagenic Growth to make it a 5/4 flyer (with the +2/+0 trigger already on the stack from casting the spell), maximizing combat damage while at 10 life facing an incoming Yawgmoth.",
       "type": "blunder",
-      "snapshotIndex": 99,
+      "snapshotIndex": 100,
       "player": "GPT4om Coach"
     },
     {
@@ -87684,7 +87684,7 @@
       "actionTaken": "Fetched Overgrown Tomb, paying 2 life to have it enter untapped, dropping to 13 life.",
       "betterLine": "Fetch basic Forest to save 2 life. Already has Swamp and Overgrown Tomb for black mana needs (Yawgmoth's proliferate). The extra green source costs nothing and preserves life total against an aggressive opponent at a stage where the combo pieces (Cauldron + Ballista) only need generic/green mana.",
       "type": "blunder",
-      "snapshotIndex": 99,
+      "snapshotIndex": 100,
       "player": "Gem25P Gramps"
     },
     {
@@ -87693,7 +87693,7 @@
       "actionTaken": "Sacrificed the untapped Delighted Halfling to Yawgmoth's ability",
       "betterLine": "Sacrifice the tapped Dryad Arbor instead, preserving the more valuable untapped Delighted Halfling for mana production and future utility",
       "type": "blunder",
-      "snapshotIndex": 102,
+      "snapshotIndex": 103,
       "player": "Gem25P Gramps"
     },
     {
@@ -87702,7 +87702,7 @@
       "actionTaken": "Targeted Yawgmoth, Thran Physician (opponent's creature) with Mutagenic Growth, making it a 4/6.",
       "betterLine": "Target Slickshot Show-Off with Mutagenic Growth. Combined with the +2/+0 trigger from casting a noncreature spell, Slickshot would become a 5/4 flyer, threatening significant damage against an opponent at 12 life.",
       "type": "blunder",
-      "snapshotIndex": 107,
+      "snapshotIndex": 108,
       "player": "GPT4om Coach"
     },
     {
@@ -87711,7 +87711,7 @@
       "actionTaken": "Targeted Walking Ballista with Mutagenic Growth, giving it a mostly useless temporary +2/+2.",
       "betterLine": "Target Slickshot Show-Off with Mutagenic Growth, making it a 5/4 flyer (at minimum) for combat, dealing significantly more damage to the opponent who is at 12 life.",
       "type": "blunder",
-      "snapshotIndex": 109,
+      "snapshotIndex": 110,
       "player": "GPT4om Coach"
     },
     {
@@ -87720,7 +87720,7 @@
       "actionTaken": "Targeted opponent's Delighted Halfling with Mutagenic Growth",
       "betterLine": "Target Slickshot Show-Off with Mutagenic Growth to maximize combat damage. Slickshot would become a 5/4 flyer (1/2 base + 2/0 from prowess trigger + 2/2 from Mutagenic Growth) heading into combat.",
       "type": "blunder",
-      "snapshotIndex": 111,
+      "snapshotIndex": 112,
       "player": "GPT4om Coach"
     },
     {
@@ -87729,7 +87729,7 @@
       "actionTaken": "Targeted Dryad Arbor (opponent's creature) with Mutagenic Growth",
       "betterLine": "Target Slickshot Show-Off with Mutagenic Growth to maximize damage output, getting both the +2/+2 from the spell and +2/+0 from Slickshot's trigger for a 5/4 flying attacker",
       "type": "blunder",
-      "snapshotIndex": 115,
+      "snapshotIndex": 116,
       "player": "GPT4om Coach"
     },
     {
@@ -87738,7 +87738,7 @@
       "actionTaken": "Discarded Mutagenic Growth",
       "betterLine": "Discard Arid Mesa (redundant with Wooded Foothills already in hand and two lands in play) or Cori-Steel Cutter (expensive and less synergistic with the burst kill plan). Keeping Mutagenic Growth maximizes the chance of a lethal Slickshot turn with Lava Dart + Mishra's Bauble + Mutagenic Growth.",
       "type": "blunder",
-      "snapshotIndex": 121,
+      "snapshotIndex": 122,
       "player": "GPT4om Coach"
     },
     {
@@ -87747,7 +87747,7 @@
       "actionTaken": "Activated Walking Ballista's {4} ability to put a +1/+1 counter on it, using all available mana.",
       "betterLine": "Cast Young Wolf for {G} first, potentially cast Badgermole Cub or Agatha's Soul Cauldron with remaining mana, then use Yawgmoth's sacrifice abilities to interact with the opponent's Slickshot Show-Off while drawing cards.",
       "type": "blunder",
-      "snapshotIndex": 122,
+      "snapshotIndex": 123,
       "player": "Gem25P Gramps"
     },
     {
@@ -87756,7 +87756,7 @@
       "actionTaken": "Attacked with only Walking Ballista, keeping Yawgmoth back",
       "betterLine": "Attack with both Yawgmoth and Walking Ballista to deal 3 damage total instead of 1, pressuring the opponent's 10 life total while Yawgmoth faces no profitable blocks",
       "type": "blunder",
-      "snapshotIndex": 124,
+      "snapshotIndex": 125,
       "player": "Gem25P Gramps"
     },
     {
@@ -87765,7 +87765,7 @@
       "actionTaken": "Targeted Yawgmoth, Thran Physician (2/4) with Lava Dart for 1 damage, dealing inconsequential damage.",
       "betterLine": "Target Dryad Arbor (1/1) to kill it, removing both a mana source and a potential Yawgmoth sacrifice target. Alternatively, target Gem25P Gramps directly to advance the burn/aggro plan with Slickshot Show-Off attacking.",
       "type": "blunder",
-      "snapshotIndex": 124,
+      "snapshotIndex": 125,
       "player": "GPT4om Coach"
     },
     {
@@ -87774,7 +87774,7 @@
       "actionTaken": "Passed priority without activating any abilities in response to Lava Dart on the stack.",
       "betterLine": "Use Walking Ballista's remove-counter ability to ping Slickshot Show-Off for 1 before losing the counter, and/or use Yawgmoth to sacrifice Dryad Arbor to put a -1/-1 counter on Show-Off and draw a card, potentially killing it.",
       "type": "blunder",
-      "snapshotIndex": 126,
+      "snapshotIndex": 127,
       "player": "Gem25P Gramps"
     },
     {
@@ -87783,7 +87783,7 @@
       "actionTaken": "Passed priority without activating Walking Ballista or Yawgmoth",
       "betterLine": "Remove a +1/+1 counter from Walking Ballista to deal 1 damage to the opponent (or to Slickshot Show-Off) in response to Lava Dart, preserving value before potentially losing the Ballista",
       "type": "blunder",
-      "snapshotIndex": 125,
+      "snapshotIndex": 126,
       "player": "Gem25P Gramps"
     },
     {
@@ -87792,7 +87792,7 @@
       "actionTaken": "Passed priority without activating Walking Ballista or Yawgmoth, letting Lava Dart resolve and losing the Ballista for nothing.",
       "betterLine": "Activate Walking Ballista to deal 1 damage to Slickshot Show-Off or the opponent, and/or sacrifice it to Yawgmoth to draw a card and potentially shrink/kill the Show-Off. At minimum, ping for 1 damage as pure upside before losing the creature.",
       "type": "blunder",
-      "snapshotIndex": 125,
+      "snapshotIndex": 126,
       "player": "Gem25P Gramps"
     },
     {
@@ -87801,7 +87801,7 @@
       "actionTaken": "Declined to activate any abilities in response to Lava Dart on the stack.",
       "betterLine": "Activate Yawgmoth, sacrificing Walking Ballista to put a -1/-1 counter on Slickshot Show-Off and draw a card, or at minimum remove Walking Ballista's +1/+1 counter to ping the opponent or Slickshot Show-Off before the Lava Dart resolves.",
       "type": "blunder",
-      "snapshotIndex": 128,
+      "snapshotIndex": 129,
       "player": "Gem25P Gramps"
     },
     {
@@ -87810,7 +87810,7 @@
       "actionTaken": "Cast Agatha's Soul Cauldron (a setup artifact) before combat",
       "betterLine": "Cast both Young Wolves using land mana, then attack with all ground creatures (Yawgmoth, Walking Ballista, Delighted Halfling, Dryad Arbor, both Young Wolves) for likely lethal damage against 7 life with no ground blockers.",
       "type": "blunder",
-      "snapshotIndex": 134,
+      "snapshotIndex": 135,
       "player": "Gem25P Gramps"
     },
     {
@@ -87819,7 +87819,7 @@
       "actionTaken": "Declined to attack with any creatures, believing combat had already happened this turn.",
       "betterLine": "Attack with all available creatures. Opponent at 7 life can only block one ground creature with Slickshot Show-Off. Attacking with Delighted Halfling, Dryad Arbor, Yawgmoth, and Walking Ballista would push through at least 4-5 damage (likely more), putting the opponent in range of Walking Ballista pings or Yawgmoth sacrifice loops. This could be lethal or near-lethal.",
       "type": "blunder",
-      "snapshotIndex": 136,
+      "snapshotIndex": 137,
       "player": "Gem25P Gramps"
     },
     {
@@ -87828,7 +87828,7 @@
       "actionTaken": "Declined to activate Walking Ballista, Agatha's Soul Cauldron, or Yawgmoth while Young Wolf was on the stack, passing the turn.",
       "betterLine": "After Young Wolf resolves, use Yawgmoth to sacrifice Young Wolf (pay 1 life, draw a card, put -1/-1 on Slickshot Show-Off). Young Wolf returns with a +1/+1 counter via undying. Then sacrifice Dryad Arbor or other creatures to Yawgmoth to continue drawing cards and putting counters on opponent's creatures. With Agatha's Soul Cauldron available to exile creatures from graveyards and add counters, there may have been a combo loop available to drain the opponent or at minimum kill the Slickshot Show-Off and draw multiple cards.",
       "type": "blunder",
-      "snapshotIndex": 138,
+      "snapshotIndex": 139,
       "player": "Gem25P Gramps"
     },
     {
@@ -87837,7 +87837,7 @@
       "actionTaken": "Cast Dragon's Rage Channeler before playing a land for the turn.",
       "betterLine": "Play a fetch land (Wooded Foothills or Arid Mesa) first, then evaluate whether to cast DRC before or after combat. Playing the land first ensures the land drop isn't forgotten and preserves better sequencing options.",
       "type": "blunder",
-      "snapshotIndex": 141,
+      "snapshotIndex": 142,
       "player": "GPT4om Coach"
     },
     {
@@ -87846,7 +87846,7 @@
       "actionTaken": "Declined to attack with any creatures, passing combat entirely.",
       "betterLine": "Attack with Yawgmoth (protected from Human DRC), Delighted Halfling, and Dryad Arbor. Opponent's DRC can't block Yawgmoth, so at minimum Yawgmoth's 2 damage gets through if Slickshot blocks a small creature, or significant total damage if Slickshot blocks Yawgmoth. This pressures the opponent at 6 life and could set up lethal with Yawgmoth sacrifices or Walking Ballista pings.",
       "type": "blunder",
-      "snapshotIndex": 145,
+      "snapshotIndex": 146,
       "player": "Gem25P Gramps"
     },
     {
@@ -87855,7 +87855,7 @@
       "actionTaken": "Declined to activate any abilities (Walking Ballista, Agatha's Soul Cauldron, or Yawgmoth) during the opponent's combat step, allowing Dragon's Rage Channeler to deal 3 unblocked damage.",
       "betterLine": "Use Walking Ballista to remove counters and ping the opponent for damage. If Walking Ballista has counters, fire them at the opponent's face. Additionally, with Young Wolf in hand (castable next turn) and Yawgmoth on board, the Yawgmoth + Young Wolf + Walking Ballista combo could generate repeated pings. At minimum, any Walking Ballista counters should be used to ping the opponent toward lethal or remove the attacking Dragon's Rage Channeler before damage.",
       "type": "blunder",
-      "snapshotIndex": 151,
+      "snapshotIndex": 152,
       "player": "Gem25P Gramps"
     },
     {
@@ -87864,7 +87864,7 @@
       "actionTaken": "Did not assign any blockers, letting the 3/3 Dragon's Rage Channeler through unblocked for 3 damage (9 → 6 life).",
       "betterLine": "Block Dragon's Rage Channeler with Yawgmoth, Thran Physician. Yawgmoth (2/4) survives blocking a 3/3, preventing 3 damage and keeping life total at 9 instead of 6. This is especially critical when the opponent has burn potential and Gramps is already at a precarious life total.",
       "type": "blunder",
-      "snapshotIndex": 158,
+      "snapshotIndex": 159,
       "player": "Gem25P Gramps"
     },
     {
@@ -87873,7 +87873,7 @@
       "actionTaken": "Put Preordain on top of library (to draw) and Cori-Steel Cutter below it.",
       "betterLine": "Put Cori-Steel Cutter on top to draw it, as it provides immediate board impact with the existing creature-heavy board and the player needs to maximize damage output before Yawgmoth takes over.",
       "type": "blunder",
-      "snapshotIndex": 166,
+      "snapshotIndex": 167,
       "player": "GPT4om Coach"
     },
     {
@@ -87882,7 +87882,7 @@
       "actionTaken": "Declined to activate any abilities (Walking Ballista, Agatha's Soul Cauldron, or Yawgmoth) during combat, allowing the opponent's Dragon's Rage Channeler to deal 3 damage unimpeded.",
       "betterLine": "Activate Walking Ballista to remove counters and deal damage to GPT4om Coach (at 3 life). If the Ballista had enough counters, this is lethal. Even if not, combine with Yawgmoth sacrificing Dryad Arbor or Delighted Halfling to draw cards and potentially find additional damage sources, or use the Ballista pings to finish the opponent off.",
       "type": "blunder",
-      "snapshotIndex": 165,
+      "snapshotIndex": 166,
       "player": "Gem25P Gramps"
     },
     {
@@ -87891,7 +87891,7 @@
       "actionTaken": "Discarded Expressive Iteration",
       "betterLine": "Discard the second Cori-Steel Cutter or Thundering Falls instead, keeping Expressive Iteration to dig for burn spells or combat tricks to close the game at 3 vs 3 life.",
       "type": "blunder",
-      "snapshotIndex": 168,
+      "snapshotIndex": 169,
       "player": "GPT4om Coach"
     },
     {
@@ -87900,7 +87900,7 @@
       "actionTaken": "Activated Walking Ballista's {4}: Put a +1/+1 counter on Walking Ballista, spending 4 mana to grow it instead of using its damage ability.",
       "betterLine": "Remove +1/+1 counters from Walking Ballista to deal direct damage to the opponent (at 3 life), then attack with available creatures for lethal. Even removing 2 counters for 2 damage plus attacking with Dryad Arbor or Delighted Halfling would be lethal if the opponent can't block everything.",
       "type": "blunder",
-      "snapshotIndex": 170,
+      "snapshotIndex": 171,
       "player": "Gem25P Gramps"
     },
     {
@@ -87909,7 +87909,7 @@
       "actionTaken": "Activated Walking Ballista's {4} ability to add a +1/+1 counter, spending 4 mana without dealing any damage.",
       "betterLine": "Remove the +1/+1 counter from Walking Ballista to deal 1 damage to GPT4om Coach (going to 2 life), then use Yawgmoth to sacrifice Dryad Arbor or Delighted Halfling targeting an opponent's creature for a -1/-1 counter and drawing a card, then attack with remaining creatures to try to push through the final 2 damage.",
       "type": "blunder",
-      "snapshotIndex": 170,
+      "snapshotIndex": 171,
       "player": "Gem25P Gramps"
     },
     {
@@ -87918,7 +87918,7 @@
       "actionTaken": "Passed priority without activating Yawgmoth's ability during combat, missing the lethal attack line.",
       "betterLine": "Activate Yawgmoth twice (sacrificing Dryad Arbor and Delighted Halfling, paying 2 life) to put two -1/-1 counters on Slickshot Show-Off, killing it. Then attack with Yawgmoth and Badgermole Cub. Swiftspear (Human) can't block Yawgmoth, so at least 2 damage gets through for lethal.",
       "type": "blunder",
-      "snapshotIndex": 172,
+      "snapshotIndex": 173,
       "player": "Gem25P Gramps"
     },
     {
@@ -87991,7 +87991,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -88027,7 +88028,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -88063,7 +88065,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -88141,6 +88144,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -88190,6 +88194,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -88267,6 +88272,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -88316,6 +88322,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -88367,6 +88374,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -88447,6 +88455,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -88516,6 +88525,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -88556,6 +88566,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -88632,6 +88643,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -88692,6 +88704,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -88753,6 +88766,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -88829,6 +88843,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -88896,6 +88911,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -88950,6 +88966,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -89000,6 +89017,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -89069,6 +89087,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -89144,6 +89163,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -89235,6 +89255,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89296,6 +89317,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -89357,6 +89379,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -89427,6 +89450,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -89481,6 +89505,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89538,6 +89563,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -89637,6 +89663,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -89727,6 +89754,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -89811,6 +89839,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -89870,6 +89899,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -89923,6 +89953,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -89979,6 +90010,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -90052,6 +90084,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -90117,6 +90150,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -90173,6 +90207,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -90227,6 +90262,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -90287,6 +90323,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -90340,6 +90377,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -90404,6 +90442,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -90479,6 +90518,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -90571,6 +90611,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -90687,6 +90728,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -90743,6 +90785,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90847,6 +90890,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -90954,6 +90998,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -91063,6 +91108,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -91140,6 +91186,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -91183,6 +91230,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -91234,6 +91282,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -91273,6 +91322,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -91329,7 +91379,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 51,
@@ -91365,7 +91416,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 52,
@@ -91440,7 +91492,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 53,
@@ -91492,7 +91545,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 54,
@@ -91561,6 +91615,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -91617,7 +91672,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 56,
@@ -91653,7 +91709,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 57,
@@ -91728,7 +91785,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 58,
@@ -91782,7 +91840,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 59,
@@ -91847,6 +91906,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -91958,6 +92018,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -92027,6 +92088,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -92125,6 +92187,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -92240,6 +92303,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -92298,6 +92362,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92351,6 +92416,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92408,6 +92474,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92447,6 +92514,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92525,6 +92593,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92582,6 +92651,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92635,6 +92705,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92692,6 +92763,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92731,6 +92803,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92809,6 +92882,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92866,6 +92940,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92919,6 +92994,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -92976,6 +93052,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -93015,6 +93092,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -93093,6 +93171,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -93150,6 +93229,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -93203,6 +93283,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -93259,6 +93340,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -93363,6 +93445,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -93406,6 +93489,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -93456,6 +93540,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -93513,7 +93598,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 86,
@@ -93549,7 +93635,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 87,
@@ -93621,7 +93708,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 88,
@@ -93684,6 +93772,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -93724,6 +93813,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -93825,6 +93915,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -93901,6 +93992,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -93963,6 +94055,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -94030,6 +94123,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -94128,6 +94222,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -94178,6 +94273,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -94249,6 +94345,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -94305,7 +94402,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 98,
@@ -94341,7 +94439,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 99,
@@ -94424,7 +94523,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 100,
@@ -94478,7 +94578,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 101,
@@ -94514,7 +94615,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 102,
@@ -94597,7 +94699,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 103,
@@ -94651,7 +94754,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 104,
@@ -94687,7 +94791,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 105,
@@ -94770,7 +94875,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 106,
@@ -94824,7 +94930,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 107,
@@ -94860,7 +94967,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 108,
@@ -94943,7 +95051,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 109,
@@ -94997,7 +95106,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 110,
@@ -95033,7 +95143,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 111,
@@ -95116,7 +95227,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 112,
@@ -95169,7 +95281,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 113,
@@ -95204,6 +95317,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -95291,6 +95405,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -95399,6 +95514,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -95455,6 +95571,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -95509,6 +95626,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -95563,6 +95681,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -95619,6 +95738,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -95694,6 +95814,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -95749,6 +95870,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -95804,6 +95926,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -95866,6 +95989,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -95920,6 +96044,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -95986,6 +96111,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -96039,6 +96165,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -96105,6 +96232,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -96172,6 +96300,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -96281,6 +96410,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -96339,6 +96469,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -96392,6 +96523,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -96441,6 +96573,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -96477,7 +96610,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 134,
@@ -96533,6 +96667,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -96584,6 +96719,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -96642,6 +96778,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -96690,7 +96827,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 138,
@@ -96796,7 +96934,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 139,
@@ -96840,7 +96979,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 140,
@@ -96874,7 +97014,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 141,
@@ -96930,6 +97071,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -96980,6 +97122,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -97074,6 +97217,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -97183,6 +97327,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -97244,6 +97389,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -97331,6 +97477,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -97441,6 +97588,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -97511,6 +97659,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -97615,6 +97764,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -97655,6 +97805,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -97691,7 +97842,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 152,
@@ -97783,6 +97935,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -97877,6 +98030,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -97917,6 +98071,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -97953,7 +98108,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 156,
@@ -98020,6 +98176,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -98109,6 +98266,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -98182,6 +98340,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -98240,6 +98399,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -98279,6 +98439,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -98331,6 +98492,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -98370,6 +98532,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -98414,6 +98577,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -98534,6 +98698,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_blockers",
@@ -98633,6 +98798,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -98692,6 +98858,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -98744,6 +98911,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -98793,6 +98961,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -98846,6 +99015,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -98892,6 +99062,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -98942,6 +99113,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -99011,6 +99183,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -99098,7 +99271,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 174,
@@ -99133,6 +99307,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -99203,6 +99378,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -99272,6 +99448,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -99338,7 +99515,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 178,
@@ -99466,7 +99644,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 179,
@@ -99530,7 +99709,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 180,
@@ -99659,7 +99839,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 181,
@@ -99714,7 +99895,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 182,
@@ -99769,7 +99951,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 183,
@@ -99824,7 +100007,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 184,
@@ -99879,7 +100063,8 @@
         "GPT4om Coach draws seven cards",
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 185,
@@ -99961,6 +100146,7 @@
         "Gem25P Gramps draws seven cards",
         "GPT4om Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [

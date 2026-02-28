@@ -113645,7 +113645,7 @@
       "actionTaken": "Chose Sowing Mycospawn from Malevolent Rumble's revealed cards",
       "betterLine": "Shifting Woodland could have been considered as an immediate land drop providing green mana (enters untapped with Forest in play), while Coach already has two Talismans in hand for mana development. However, Sowing Mycospawn's land search when cast is also powerful ramp, making this genuinely debatable.",
       "type": "blunder",
-      "snapshotIndex": 52,
+      "snapshotIndex": 53,
       "player": "GLM47 Coach"
     },
     {
@@ -113654,7 +113654,7 @@
       "actionTaken": "Played Wooded Foothills as the turn 3 land drop",
       "betterLine": "Play Thundering Falls (enters tapped, provides U for Omnath next turn, surveil helps graveyard), saving fetch lands for turns where untapped mana is needed",
       "type": "blunder",
-      "snapshotIndex": 67,
+      "snapshotIndex": 68,
       "player": "Grok4F Gramps"
     },
     {
@@ -113663,7 +113663,7 @@
       "actionTaken": "Cast Sowing Mycospawn without playing Ugin's Labyrinth first, missing the opportunity to kick it.",
       "betterLine": "Play Ugin's Labyrinth first, then cast Sowing Mycospawn with kicker using Forest + Eldrazi Temple + Talisman + Ugin's Labyrinth + Eldrazi Spawn sacrifice, exiling one of the opponent's key lands (like Breeding Pool or Temple Garden).",
       "type": "blunder",
-      "snapshotIndex": 92,
+      "snapshotIndex": 93,
       "player": "GLM47 Coach"
     },
     {
@@ -113672,7 +113672,7 @@
       "actionTaken": "Passed without playing a land or casting anything.",
       "betterLine": "Play Ghost Quarter (preserving it for utility against opponent's lands), then cast Talisman of Impulse using Forest + Eldrazi Temple for {2}. This adds two mana sources and puts them much closer to casting kicked Sowing Mycospawn next turn.",
       "type": "blunder",
-      "snapshotIndex": 98,
+      "snapshotIndex": 99,
       "player": "GLM47 Coach"
     },
     {
@@ -113681,7 +113681,7 @@
       "actionTaken": "Passed the turn without playing a land, despite having Forest, Ghost Quarter, and Ugin's Labyrinth in hand.",
       "betterLine": "Play Forest (or possibly Ghost Quarter for utility) to develop mana and enable casting Sowing Mycospawn next turn, potentially with kicker using Eldrazi Temple and spawn token.",
       "type": "blunder",
-      "snapshotIndex": 117,
+      "snapshotIndex": 118,
       "player": "GLM47 Coach"
     },
     {
@@ -113690,7 +113690,7 @@
       "actionTaken": "Cracked Arid Mesa first before casting any spells",
       "betterLine": "Cast Wrenn and Six first (RG from Temple Garden + Sacred Foundry), +1 to return a fetchland from graveyard to hand, then decide whether to crack Arid Mesa now or save it for Omnath landfall triggers next turn.",
       "type": "blunder",
-      "snapshotIndex": 126,
+      "snapshotIndex": 127,
       "player": "Grok4F Gramps"
     },
     {
@@ -113699,7 +113699,7 @@
       "actionTaken": "Chose Eldrazi Temple's second ability ({C}{C} restricted to colorless Eldrazi spells) to help pay for Kozilek's Return",
       "betterLine": "Choose Eldrazi Temple's first ability ({C} unrestricted) since Kozilek's Return is not an Eldrazi spell and cannot use the restricted mana",
       "type": "blunder",
-      "snapshotIndex": 173,
+      "snapshotIndex": 174,
       "player": "GLM47 Coach"
     },
     {
@@ -113708,7 +113708,7 @@
       "actionTaken": "Exiled Teferi, Time Raveler (1 loyalty) with Ugin's cast trigger",
       "betterLine": "Exile Wrenn and Six (4 loyalty), which is a more durable and impactful threat. Teferi at 1 loyalty could be dealt with by Ugin's ongoing triggered ability on the next colorless spell, or would die to any incidental damage.",
       "type": "blunder",
-      "snapshotIndex": 216,
+      "snapshotIndex": 217,
       "player": "GLM47 Coach"
     },
     {
@@ -113717,7 +113717,7 @@
       "actionTaken": "Exiled Arid Mesa and both Flooded Strands (valuable Wrenn and Six recursion targets) as part of Phlage's escape cost.",
       "betterLine": "Exile cards with no graveyard utility instead, such as Solitude, Malevolent Rumble, Prismatic Ending, Forest, and Delighted Halfling, preserving fetch lands for Wrenn and Six's +1 ability to generate recurring value.",
       "type": "blunder",
-      "snapshotIndex": 250,
+      "snapshotIndex": 251,
       "player": "Grok4F Gramps"
     },
     {
@@ -113726,7 +113726,7 @@
       "actionTaken": "Passed the turn without playing Ghost Quarter or activating Ugin's Labyrinth.",
       "betterLine": "Play Ghost Quarter as the land for the turn to advance toward casting Emrakul. Could also activate the untapped Ugin's Labyrinth to return Ugin, Eye of the Storms to hand for future use.",
       "type": "blunder",
-      "snapshotIndex": 266,
+      "snapshotIndex": 267,
       "player": "GLM47 Coach"
     }
   ],
@@ -113782,7 +113782,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -113816,7 +113817,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -113853,7 +113855,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -113890,7 +113893,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -113953,6 +113957,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -114000,6 +114005,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -114051,6 +114057,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -114097,6 +114104,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -114138,6 +114146,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -114215,6 +114224,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -114254,6 +114264,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -114320,6 +114331,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -114366,6 +114378,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -114412,6 +114425,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -114453,6 +114467,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -114512,6 +114527,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -114568,6 +114584,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -114616,6 +114633,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -114688,6 +114706,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -114734,6 +114753,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -114775,6 +114795,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -114828,6 +114849,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -114883,6 +114905,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -114935,6 +114958,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -115005,6 +115029,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -115062,6 +115087,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -115108,6 +115134,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -115149,6 +115176,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -115233,6 +115261,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -115282,6 +115311,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -115326,6 +115356,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -115367,6 +115398,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -115432,6 +115464,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -115472,6 +115505,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -115511,7 +115545,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 35,
@@ -115546,6 +115581,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -115635,6 +115671,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -115715,6 +115752,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -115770,6 +115808,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -115821,6 +115860,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -115863,6 +115903,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -115923,6 +115964,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -115988,6 +116030,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -116033,6 +116076,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -116081,6 +116125,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -116124,6 +116169,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -116182,6 +116228,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -116221,7 +116268,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 48,
@@ -116256,6 +116304,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -116347,6 +116396,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -116405,6 +116455,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -116487,6 +116538,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -116564,6 +116616,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -116629,6 +116682,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -116684,6 +116738,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -116744,6 +116799,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -116795,6 +116851,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -116850,6 +116907,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -116904,6 +116962,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -116960,6 +117019,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -117011,6 +117071,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -117061,6 +117122,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -117105,6 +117167,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -117146,6 +117209,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -117187,6 +117251,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -117225,6 +117290,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -117324,6 +117390,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -117387,6 +117454,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -117438,6 +117506,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -117487,6 +117556,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -117527,6 +117597,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -117608,6 +117679,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -117656,6 +117728,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -117720,6 +117793,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -117804,6 +117878,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -117878,6 +117953,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -117932,6 +118008,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -117986,6 +118063,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -118066,6 +118144,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -118117,6 +118196,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -118173,6 +118253,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -118221,6 +118302,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -118276,6 +118358,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -118327,6 +118410,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -118367,6 +118451,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -118455,6 +118540,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -118504,6 +118590,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -118574,6 +118661,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -118634,6 +118722,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -118689,6 +118778,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -118768,6 +118858,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -118850,6 +118941,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -118905,6 +118997,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -118951,6 +119044,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -118992,6 +119086,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -119058,6 +119153,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -119099,6 +119195,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -119140,6 +119237,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -119206,6 +119304,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -119246,6 +119345,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -119294,6 +119394,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -119398,6 +119499,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -119457,6 +119559,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -119508,6 +119611,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -119634,6 +119738,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -119721,6 +119826,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -119806,6 +119912,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -119869,6 +119976,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -119908,7 +120016,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 109,
@@ -119971,6 +120080,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -120008,6 +120118,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -120117,6 +120228,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -120227,6 +120339,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1,
@@ -120282,6 +120395,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -120332,6 +120446,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -120386,6 +120501,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -120440,6 +120556,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -120500,6 +120617,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -120554,6 +120672,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -120595,6 +120714,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -120654,6 +120774,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -120707,6 +120828,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -120754,6 +120876,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -120794,6 +120917,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -120846,6 +120970,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -120933,6 +121058,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -120990,6 +121116,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -121022,6 +121149,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -121094,6 +121222,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -121132,6 +121261,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -121194,6 +121324,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -121257,6 +121388,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -121312,6 +121444,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -121379,6 +121512,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -121426,6 +121560,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -121475,6 +121610,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -121571,6 +121707,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -121676,6 +121813,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -121729,6 +121867,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -121780,6 +121919,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -121838,6 +121978,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -121912,6 +122053,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -121967,6 +122109,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -122032,6 +122175,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -122083,6 +122227,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -122129,6 +122274,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -122174,6 +122320,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -122228,6 +122375,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -122287,6 +122435,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -122375,6 +122524,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -122431,6 +122581,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -122531,6 +122682,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -122603,6 +122755,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -122667,6 +122820,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -122720,6 +122874,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -122794,6 +122949,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -122848,6 +123004,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -122899,6 +123056,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -122959,6 +123117,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -123058,6 +123217,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -123104,6 +123264,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -123169,6 +123330,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -123221,6 +123383,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -123284,6 +123447,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -123324,7 +123488,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 165,
@@ -123382,6 +123547,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -123421,7 +123587,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 167,
@@ -123479,6 +123646,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -123620,6 +123788,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -123674,6 +123843,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -123718,6 +123888,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -123748,7 +123919,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 172,
@@ -123796,6 +123968,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -123849,6 +124022,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -123974,6 +124148,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -124013,7 +124188,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 176,
@@ -124047,7 +124223,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 177,
@@ -124085,6 +124262,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -124126,6 +124304,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -124167,6 +124346,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -124225,6 +124405,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -124314,6 +124495,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -124358,6 +124540,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -124389,7 +124572,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 184,
@@ -124440,6 +124624,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -124490,6 +124675,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -124616,6 +124802,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -124657,6 +124844,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -124711,6 +124899,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -124789,6 +124978,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -124830,6 +125020,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -124881,6 +125072,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -124931,6 +125123,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -124980,6 +125173,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -125117,6 +125311,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0,
@@ -125156,7 +125351,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 196,
@@ -125191,6 +125387,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -125245,6 +125442,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -125282,6 +125480,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -125323,6 +125522,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -125392,6 +125592,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -125456,6 +125657,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
@@ -125535,6 +125737,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -125575,6 +125778,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -125605,7 +125809,8 @@
         "GLM47 Coach draws seven cards",
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 205,
@@ -125663,6 +125868,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -125740,6 +125946,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "blockers",
@@ -125789,6 +125996,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -125867,6 +126075,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0,
@@ -125917,6 +126126,7 @@
         "Grok4F Gramps draws seven cards",
         "GLM47 Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0

@@ -53822,7 +53822,8 @@
       ],
       "subsequentActions": [
         "Kimi25 Valley chooses that MiMo Coach take the first turn"
-      ]
+      ],
+      "actionSeq": 5
     },
     {
       "index": 1,
@@ -53851,7 +53852,8 @@
         9,
         11
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -53885,7 +53887,8 @@
       ],
       "subsequentActions": [
         "MiMo Coach's library is shuffled"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 3,
@@ -53962,7 +53965,8 @@
       ],
       "subsequentActions": [
         "MiMo Coach puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -53997,7 +54001,8 @@
       "subsequentActions": [
         "MiMo Coach skips Draw step",
         "MiMo Coach skip attack"
-      ]
+      ],
+      "actionSeq": 12
     },
     {
       "index": 5,
@@ -54051,6 +54056,7 @@
       "subsequentActions": [
         "MiMo Coach puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -54113,6 +54119,7 @@
         "Kimi25 Valley puts Swamp from hand onto the Battlefield",
         "Kimi25 Valley skip attack"
       ],
+      "actionSeq": 26,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -54176,6 +54183,7 @@
         "MiMo Coach puts Plains from hand onto the Battlefield",
         "MiMo Coach skip attack"
       ],
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -54230,6 +54238,7 @@
         "MiMo Coach casts Benalish Honor Guard from hand",
         "MiMo Coach puts Benalish Honor Guard from stack onto the Battlefield"
       ],
+      "actionSeq": 48,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -54282,6 +54291,7 @@
         50
       ],
       "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -54331,6 +54341,7 @@
         54
       ],
       "subsequentActions": [],
+      "actionSeq": 59,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -54388,6 +54399,7 @@
         "Kimi25 Valley puts Thriving Isle from hand onto the Battlefield",
         "Kimi25 Valley skip attack"
       ],
+      "actionSeq": 60,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -54445,6 +54457,7 @@
       "subsequentActions": [
         "MiMo Coach puts Swamp from hand onto the Battlefield"
       ],
+      "actionSeq": 73,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -54510,6 +54523,7 @@
         "Attacker: Benalish Honor Guard (2/2) unblocked",
         "Kimi25 Valley loses 2 life at combat from Benalish Honor Guard"
       ],
+      "actionSeq": 79,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -54559,6 +54573,7 @@
         "MiMo Coach casts Chains of Custody targeting Benalish Honor Guard from hand",
         "MiMo Coach puts Chains of Custody from stack onto the Battlefield"
       ],
+      "actionSeq": 93,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -54615,6 +54630,7 @@
         "Kimi25 Valley puts Swamp from hand onto the Battlefield",
         "Kimi25 Valley skip attack"
       ],
+      "actionSeq": 104,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -54663,6 +54679,7 @@
         86
       ],
       "subsequentActions": [],
+      "actionSeq": 112,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -54720,6 +54737,7 @@
         90
       ],
       "subsequentActions": [],
+      "actionSeq": 116,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -54783,6 +54801,7 @@
         "Thriving Moor: MiMo Coach has chosen White",
         "MiMo Coach puts Thriving Moor from hand onto the Battlefield"
       ],
+      "actionSeq": 118,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -54827,6 +54846,7 @@
         107
       ],
       "subsequentActions": [],
+      "actionSeq": 124,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -54888,6 +54908,7 @@
         "MiMo Coach attacks Kimi25 Valley with 1 creature",
         "Attacker: Benalish Honor Guard (2/2) unblocked"
       ],
+      "actionSeq": 125,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -54934,6 +54955,7 @@
       "subsequentActions": [
         "Kimi25 Valley loses 2 life at combat from Benalish Honor Guard"
       ],
+      "actionSeq": 134,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -54996,6 +55018,7 @@
         115
       ],
       "subsequentActions": [],
+      "actionSeq": 141,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -55048,6 +55071,7 @@
       "subsequentActions": [
         "Kimi25 Valley casts Wavebreak Hippocamp from hand"
       ],
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -55090,6 +55114,7 @@
         "Kimi25 Valley puts Wavebreak Hippocamp from stack onto the Battlefield",
         "Kimi25 Valley skip attack"
       ],
+      "actionSeq": 149,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -55158,6 +55183,7 @@
         "MiMo Coach casts Kwende, Pride of Femeref from hand",
         "MiMo Coach puts Kwende, Pride of Femeref from stack onto the Battlefield"
       ],
+      "actionSeq": 160,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -55215,6 +55241,7 @@
       "subsequentActions": [
         "MiMo Coach puts Plains from hand onto the Battlefield"
       ],
+      "actionSeq": 172,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -55276,6 +55303,7 @@
       "subsequentActions": [
         "MiMo Coach attacks Kimi25 Valley with 1 creature"
       ],
+      "actionSeq": 176,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -55324,6 +55352,7 @@
         "Attacker: Benalish Honor Guard (3/2) unblocked",
         "Kimi25 Valley loses 3 life at combat from Benalish Honor Guard"
       ],
+      "actionSeq": 182,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -55390,6 +55419,7 @@
       "subsequentActions": [
         "Kimi25 Valley puts Leechridden Swamp from hand onto the Battlefield"
       ],
+      "actionSeq": 193,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -55446,6 +55476,7 @@
         151
       ],
       "subsequentActions": [],
+      "actionSeq": 197,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -55497,6 +55528,7 @@
       "subsequentActions": [
         "Kimi25 Valley casts Infernal Idol from hand"
       ],
+      "actionSeq": 200,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -55538,6 +55570,7 @@
       "subsequentActions": [
         "Kimi25 Valley puts Infernal Idol from stack onto the Battlefield"
       ],
+      "actionSeq": 203,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -55590,6 +55623,7 @@
       "subsequentActions": [
         "Kimi25 Valley skip attack"
       ],
+      "actionSeq": 208,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -55649,6 +55683,7 @@
         "MiMo Coach casts Infernal Idol from hand",
         "MiMo Coach puts Infernal Idol from stack onto the Battlefield"
       ],
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -55714,6 +55749,7 @@
       "subsequentActions": [
         "MiMo Coach puts Swamp from hand onto the Battlefield"
       ],
+      "actionSeq": 225,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -55786,6 +55822,7 @@
       "subsequentActions": [
         "MiMo Coach attacks Kimi25 Valley with 2 creatures"
       ],
+      "actionSeq": 229,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -55834,6 +55871,7 @@
         "Attacker: Benalish Honor Guard (3/2) unblocked",
         "Attacker: Kwende, Pride of Femeref (2/2) unblocked"
       ],
+      "actionSeq": 236,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -55890,6 +55928,7 @@
         195
       ],
       "subsequentActions": [],
+      "actionSeq": 240,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -55928,7 +55967,8 @@
         "Kimi25 Valley loses 2 life at combat from Kwende, Pride of Femeref",
         "Kimi25 Valley loses 3 life at combat from Benalish Honor Guard",
         "Kimi25 Valley loses 2 life at combat from Kwende, Pride of Femeref"
-      ]
+      ],
+      "actionSeq": 241
     },
     {
       "index": 40,
@@ -55972,6 +56012,7 @@
         205
       ],
       "subsequentActions": [],
+      "actionSeq": 249,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -56025,6 +56066,7 @@
         214
       ],
       "subsequentActions": [],
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -56058,6 +56100,7 @@
         219
       ],
       "subsequentActions": [],
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -56149,6 +56192,7 @@
         227
       ],
       "subsequentActions": [],
+      "actionSeq": 255,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -56222,6 +56266,7 @@
         231
       ],
       "subsequentActions": [],
+      "actionSeq": 256,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -56274,6 +56319,7 @@
         "Kimi25 Valley casts Strangling Spores targeting Benalish Honor Guard from hand",
         "MiMo Coach - Ability triggers: Benalish Honor Guard - ward {2} (Whenever this creature becomes the target of a spell or ability an opponent controls, counter it unless that player pays {2}.)"
       ],
+      "actionSeq": 259,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -56319,6 +56365,7 @@
         "Kimi25 Valley puts Strangling Spores from stack into their graveyard (source: Benalish Honor Guard)",
         "Strangling Spores is countered by Benalish Honor Guard"
       ],
+      "actionSeq": 266,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -56364,6 +56411,7 @@
         "Kimi25 Valley puts Swamp from hand onto the Battlefield",
         "Kimi25 Valley skip attack"
       ],
+      "actionSeq": 272,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -56427,6 +56475,7 @@
       "subsequentActions": [
         "MiMo Coach puts Swamp from hand onto the Battlefield"
       ],
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0,
@@ -56490,6 +56539,7 @@
         261
       ],
       "subsequentActions": [],
+      "actionSeq": 287,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1,
@@ -56545,6 +56595,7 @@
       "subsequentActions": [
         "MiMo Coach casts Diabolic Edict targeting Kimi25 Valley from hand"
       ],
+      "actionSeq": 288,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -56594,6 +56645,7 @@
         "Kimi25 Valley sacrificed Wavebreak Hippocamp (source: Diabolic Edict)",
         "MiMo Coach puts Diabolic Edict from stack into their graveyard"
       ],
+      "actionSeq": 292,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -56662,6 +56714,7 @@
       "subsequentActions": [
         "MiMo Coach attacks Kimi25 Valley with 2 creatures"
       ],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -56701,6 +56754,7 @@
         "Attacker: Benalish Honor Guard (3/2) unblocked",
         "Attacker: Kwende, Pride of Femeref (2/2) unblocked"
       ],
+      "actionSeq": 304,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -56751,6 +56805,7 @@
         "Kimi25 Valley loses 2 life at combat from Kwende, Pride of Femeref",
         "Kimi25 Valley has lost the game."
       ],
+      "actionSeq": 309,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -56801,7 +56856,7 @@
       "actionTaken": "Chose to be on the draw (selected opponent as starting player)",
       "betterLine": "Choose to be on the play (select yourself as starting player) to gain tempo advantage, which is the default correct choice in Limited.",
       "type": "blunder",
-      "snapshotIndex": 0,
+      "snapshotIndex": 1,
       "player": "Kimi25 Valley"
     },
     {
@@ -56810,7 +56865,7 @@
       "actionTaken": "Chose to mulligan to 6 cards",
       "betterLine": "Keep the 7-card hand. Hero's Blade into Balan is an extremely strong synergy that's castable with the available mana, and 3 lands is a fine starting count.",
       "type": "blunder",
-      "snapshotIndex": 1,
+      "snapshotIndex": 2,
       "player": "MiMo Coach"
     },
     {
@@ -56819,7 +56874,7 @@
       "actionTaken": "Bottomed the Swamp, leaving hand with 3 Plains and no black mana source",
       "betterLine": "Bottom a Plains instead, keeping 2 Plains + 1 Swamp (or even 3 Plains + 1 Swamp if keeping 4 lands). This maintains access to black mana while still curving out perfectly with the white spells in hand.",
       "type": "blunder",
-      "snapshotIndex": 2,
+      "snapshotIndex": 3,
       "player": "MiMo Coach"
     },
     {
@@ -56828,7 +56883,7 @@
       "actionTaken": "Played Swamp (untapped land) on turn 2 with no 2-mana plays available.",
       "betterLine": "Play Thriving Isle (choosing black) on turn 2 so it enters tapped now and is available untapped on turn 3, enabling a turn-3 three-drop.",
       "type": "blunder",
-      "snapshotIndex": 11,
+      "snapshotIndex": 12,
       "player": "Kimi25 Valley"
     },
     {
@@ -56837,7 +56892,7 @@
       "actionTaken": "Timed out, getting a default color choice (likely White) instead of actively choosing.",
       "betterLine": "Choose Black for Thriving Isle to have access to both Blue and Black mana, supporting the heavy black requirements in hand.",
       "type": "blunder",
-      "snapshotIndex": 30,
+      "snapshotIndex": 31,
       "player": "Kimi25 Valley"
     },
     {
@@ -56846,7 +56901,7 @@
       "actionTaken": "Played Swamp (untapped) when there were no 3-mana plays available this turn.",
       "betterLine": "Play Thriving Moor (choosing white) since it enters tapped at no cost when you have no plays, saving Swamp for a future turn when entering untapped matters.",
       "type": "blunder",
-      "snapshotIndex": 37,
+      "snapshotIndex": 38,
       "player": "MiMo Coach"
     },
     {
@@ -56855,7 +56910,7 @@
       "actionTaken": "Timed out and did not declare any attackers.",
       "betterLine": "Attack with Benalish Honor Guard for 2 unblockable damage against the empty board.",
       "type": "blunder",
-      "snapshotIndex": 40,
+      "snapshotIndex": 41,
       "player": "MiMo Coach"
     },
     {
@@ -56864,7 +56919,7 @@
       "actionTaken": "Cast Chains of Custody on Benalish Honor Guard with no opponent nonland permanents to exile",
       "betterLine": "Hold Chains of Custody for when the opponent plays actual threats to exile. Could pass the turn and save it for a meaningful target later.",
       "type": "blunder",
-      "snapshotIndex": 47,
+      "snapshotIndex": 48,
       "player": "MiMo Coach"
     },
     {
@@ -56873,7 +56928,7 @@
       "actionTaken": "Passed priority without casting Fleeting Distraction",
       "betterLine": "Cast Fleeting Distraction targeting Benalish Honor Guard to draw a card, since there's no better use for the U mana this turn and the hand needs to find land drops to deploy expensive threats like Yargle and Skullslither Worm.",
       "type": "blunder",
-      "snapshotIndex": 58,
+      "snapshotIndex": 59,
       "player": "Kimi25 Valley"
     },
     {
@@ -56882,7 +56937,7 @@
       "actionTaken": "Played Thriving Moor (enters tapped), leaving only 3 mana available this turn.",
       "betterLine": "Play Plains (or Swamp) to have 4 mana available and immediately cast Kwende, Pride of Femeref this turn.",
       "type": "blunder",
-      "snapshotIndex": 62,
+      "snapshotIndex": 63,
       "player": "MiMo Coach"
     },
     {
@@ -56891,7 +56946,7 @@
       "actionTaken": "Passed priority without casting Fleeting Distraction",
       "betterLine": "Cast Fleeting Distraction targeting Benalish Honor Guard to draw a card and dig toward lands. The U mana would otherwise go unused, and finding a 4th land is critical for deploying threats like Skullslither Worm next turn. Alternatively, saving it for the opponent's combat to reduce Honor Guard's damage by 1 while drawing is also reasonable, but the land-finding urgency favors casting now.",
       "type": "blunder",
-      "snapshotIndex": 64,
+      "snapshotIndex": 65,
       "player": "Kimi25 Valley"
     },
     {
@@ -56900,7 +56955,7 @@
       "actionTaken": "Timed out and did not declare attackers",
       "betterLine": "Attack with Benalish Honor Guard for 2 unblockable damage against an empty board.",
       "type": "blunder",
-      "snapshotIndex": 65,
+      "snapshotIndex": 66,
       "player": "MiMo Coach"
     },
     {
@@ -56909,7 +56964,7 @@
       "actionTaken": "Passed priority, taking 2 damage from Benalish Honor Guard instead of 1",
       "betterLine": "Cast Fleeting Distraction targeting Benalish Honor Guard to save 1 life and draw a card for {U}",
       "type": "blunder",
-      "snapshotIndex": 69,
+      "snapshotIndex": 70,
       "player": "Kimi25 Valley"
     },
     {
@@ -56918,7 +56973,7 @@
       "actionTaken": "Cast Kwende, Pride of Femeref with all 4 available mana before making the land drop.",
       "betterLine": "Play Plains (or Swamp) first, then cast Kwende, Pride of Femeref, leaving 1 mana open for potential interaction or flexibility.",
       "type": "blunder",
-      "snapshotIndex": 86,
+      "snapshotIndex": 87,
       "player": "MiMo Coach"
     },
     {
@@ -56927,7 +56982,7 @@
       "actionTaken": "Played Plains as the land drop",
       "betterLine": "Play Swamp to have better access to {B}{B} for Infernal Idol's sacrifice ability (would have 2 Swamps + Thriving Moor for 3 black sources)",
       "type": "blunder",
-      "snapshotIndex": 93,
+      "snapshotIndex": 94,
       "player": "MiMo Coach"
     },
     {
@@ -56936,7 +56991,7 @@
       "actionTaken": "Timed out and did not declare any attackers.",
       "betterLine": "Attack with Benalish Honor Guard for 3 unblockable damage, bringing opponent from 16 to 13 life.",
       "type": "blunder",
-      "snapshotIndex": 96,
+      "snapshotIndex": 97,
       "player": "MiMo Coach"
     },
     {
@@ -56945,7 +57000,7 @@
       "actionTaken": "Did not attack with Wavebreak Hippocamp.",
       "betterLine": "Attack with Wavebreak Hippocamp. If Kwende blocks, use Fleeting Distraction to win combat and draw a card. If Kwende doesn't block, deal 2 damage for free.",
       "type": "blunder",
-      "snapshotIndex": 115,
+      "snapshotIndex": 116,
       "player": "Kimi25 Valley"
     },
     {
@@ -56954,7 +57009,7 @@
       "actionTaken": "Cast Infernal Idol with land drop still unused",
       "betterLine": "Play Swamp first, then cast Infernal Idol, leaving 3 mana open instead of 2",
       "type": "blunder",
-      "snapshotIndex": 119,
+      "snapshotIndex": 120,
       "player": "MiMo Coach"
     },
     {
@@ -56963,7 +57018,7 @@
       "actionTaken": "No response - failed to declare any attackers",
       "betterLine": "Attack with all. In every blocking scenario, Hippocamp dies (Kwende's first strike or Honor Guard's 3 power kills it) and MiMo Coach deals 3-7 damage while losing nothing. This pressures the opponent significantly at 13 life.",
       "type": "blunder",
-      "snapshotIndex": 128,
+      "snapshotIndex": 129,
       "player": "MiMo Coach"
     },
     {
@@ -56972,7 +57027,7 @@
       "actionTaken": "Declined to block, taking 7 damage (3 from Honor Guard + 4 from Kwende's double strike) to drop to 6 life.",
       "betterLine": "Block Benalish Honor Guard with Wavebreak Hippocamp to trade 2/2 for the 3/2 Honor Guard, taking only 4 damage from Kwende (going to 9 life) while removing a threat.",
       "type": "blunder",
-      "snapshotIndex": 132,
+      "snapshotIndex": 133,
       "player": "Kimi25 Valley"
     },
     {
@@ -56981,7 +57036,7 @@
       "actionTaken": "Cast Strangling Spores in precombat main phase when opponent's creatures were tapped",
       "betterLine": "Play Swamp, cast Yargle Glutton of Urborg (9/3) for 4B, attack for 9 damage into tapped-out board, save Strangling Spores for opponent's turn to trigger Wavebreak Hippocamp card draw",
       "type": "blunder",
-      "snapshotIndex": 142,
+      "snapshotIndex": 143,
       "player": "Kimi25 Valley"
     },
     {
@@ -56990,7 +57045,7 @@
       "actionTaken": "Targeted Benalish Honor Guard with Strangling Spores",
       "betterLine": "Target Kwende, Pride of Femeref with Strangling Spores to remove the double strike threat and simultaneously weaken Honor Guard from 3/2 to 2/2",
       "type": "blunder",
-      "snapshotIndex": 143,
+      "snapshotIndex": 144,
       "player": "Kimi25 Valley"
     },
     {
@@ -56999,7 +57054,7 @@
       "actionTaken": "Timed out and did not declare any attackers, missing lethal damage.",
       "betterLine": "Attack with both Kwende, Pride of Femeref and Benalish Honor Guard for 7 total damage (4 + 3), killing the opponent at 6 life.",
       "type": "blunder",
-      "snapshotIndex": 167,
+      "snapshotIndex": 168,
       "player": "MiMo Coach"
     }
   ],

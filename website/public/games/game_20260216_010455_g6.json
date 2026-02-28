@@ -33664,7 +33664,7 @@
       "actionTaken": "Played Breeding Pool (costing 2 life or entering tapped)",
       "betterLine": "Play Botanical Sanctum, which enters untapped for free with ≤2 other lands, saving Breeding Pool for a later turn",
       "type": "blunder",
-      "snapshotIndex": 17,
+      "snapshotIndex": 18,
       "player": "Gem25P Nature"
     },
     {
@@ -33673,7 +33673,7 @@
       "actionTaken": "Cast Badgermole Cub for {1}{G}, using all available mana on turn 2.",
       "betterLine": "Cast Llanowar Elves for {G}, saving 1 mana (though nothing to spend it on), and enabling a turn 3 Appa, Steadfast Guardian by playing Hallowed Fountain untapped. This also sets up better Badgermole Cub synergy on a later turn.",
       "type": "blunder",
-      "snapshotIndex": 25,
+      "snapshotIndex": 26,
       "player": "Qwen3L Valley"
     },
     {
@@ -33682,7 +33682,7 @@
       "actionTaken": "Declined to attack with any creatures, keeping Gene Pollinator and Ouroboroid back.",
       "betterLine": "Attack with at least Ouroboroid (2/4), which survives any single blocker and either deals 2 damage or forces the opponent to double-block and trade two creatures for chip damage. Gene Pollinator could also attack profitably as a 2/3.",
       "type": "blunder",
-      "snapshotIndex": 43,
+      "snapshotIndex": 44,
       "player": "Gem25P Nature"
     },
     {
@@ -33691,7 +33691,7 @@
       "actionTaken": "Cast Doc Aurlock, Grizzled Genius without first playing Hushwood Verge from hand.",
       "betterLine": "Play Hushwood Verge first, then either cast Doc Aurlock with more mana available, or hold up mana for Appa, Steadfast Guardian at flash speed on opponent's turn to deal with the growing Ouroboroid threat.",
       "type": "blunder",
-      "snapshotIndex": 45,
+      "snapshotIndex": 46,
       "player": "Qwen3L Valley"
     },
     {
@@ -33700,7 +33700,7 @@
       "actionTaken": "Selected only one Badgermole Cub to airbend with Appa's ETB trigger.",
       "betterLine": "Select both Badgermole Cubs (and potentially Llanowar Elves) to airbend, maximizing the number of cheap/free exile casts after playing Doc Aurlock, generating more Ally tokens and earthbend triggers.",
       "type": "blunder",
-      "snapshotIndex": 48,
+      "snapshotIndex": 49,
       "player": "Qwen3L Valley"
     },
     {
@@ -33709,7 +33709,7 @@
       "actionTaken": "Played Temple Garden from exile, paying 2 life (going from 6 to 4 life) to have it enter untapped.",
       "betterLine": "Play Temple Garden tapped (staying at 6 life) or cast Doc Aurlock, Grizzled Genius first using existing mana, then play Temple Garden tapped. At 6 life against 20 life opponent with multiple creatures, preserving life points is critical.",
       "type": "blunder",
-      "snapshotIndex": 69,
+      "snapshotIndex": 70,
       "player": "Qwen3L Valley"
     }
   ],
@@ -33765,7 +33765,8 @@
         "Gem25P Nature draws seven cards",
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -33799,7 +33800,8 @@
         "Gem25P Nature draws seven cards",
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -33898,7 +33900,8 @@
         "Gem25P Nature draws seven cards",
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -33935,7 +33938,8 @@
         "Gem25P Nature draws seven cards",
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -33986,7 +33990,8 @@
         "Gem25P Nature draws seven cards",
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -34024,7 +34029,8 @@
         "Gem25P Nature draws seven cards",
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -34081,6 +34087,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -34137,6 +34144,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -34178,6 +34186,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -34219,6 +34228,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -34280,6 +34290,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -34345,6 +34356,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -34385,6 +34397,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -34459,6 +34472,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -34515,6 +34529,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -34547,6 +34562,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -34587,6 +34603,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -34670,6 +34687,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -34711,6 +34729,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -34786,6 +34805,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -34827,6 +34847,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34864,6 +34885,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -34917,6 +34939,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -34981,6 +35004,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35044,6 +35068,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35076,6 +35101,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -35135,6 +35161,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -35176,6 +35203,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -35216,6 +35244,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -35263,7 +35292,8 @@
         "Gem25P Nature draws seven cards",
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 30,
@@ -35316,6 +35346,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -35355,7 +35386,8 @@
         "Gem25P Nature draws seven cards",
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 32,
@@ -35390,6 +35422,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -35475,6 +35508,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -35542,6 +35576,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -35592,6 +35627,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -35646,6 +35682,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35725,6 +35762,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35766,6 +35804,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -35804,7 +35843,8 @@
         "Gem25P Nature draws seven cards",
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 40,
@@ -35851,7 +35891,8 @@
         "Gem25P Nature draws seven cards",
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 41,
@@ -35925,6 +35966,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -35966,6 +36008,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -36007,6 +36050,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -36071,6 +36115,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36128,6 +36173,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36166,6 +36212,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36264,6 +36311,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -36305,6 +36353,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -36382,6 +36431,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -36423,6 +36473,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -36460,6 +36511,7 @@
         "Qwen3L Valley draws seven cards",
         "Gem25P Nature keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }

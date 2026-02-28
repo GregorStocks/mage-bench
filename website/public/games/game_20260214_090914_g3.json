@@ -86869,7 +86869,7 @@
       "actionTaken": "Played Breeding Pool as the turn 1 land drop",
       "betterLine": "Play Forest turn 1 (free untapped green source), saving Breeding Pool for a later turn when the option to pay 2 life for an untapped dual land is more valuable.",
       "type": "blunder",
-      "snapshotIndex": 6,
+      "snapshotIndex": 7,
       "player": "Grok4F Timmy"
     },
     {
@@ -86878,7 +86878,7 @@
       "actionTaken": "Declined to play any land, passing without making a land drop despite having playable lands in hand.",
       "betterLine": "Play Blooming Marsh (enters untapped on Turn 1) to have two lands available next turn, enabling Overlord of the Balemurk's impending cost ({1}{B}) on Turn 2.",
       "type": "blunder",
-      "snapshotIndex": 10,
+      "snapshotIndex": 11,
       "player": "Gem3P Sarge"
     },
     {
@@ -86887,7 +86887,7 @@
       "actionTaken": "Played Forest from hand",
       "betterLine": "Play Breeding Pool (untapped for free with only 1 other land), preserving a Forest for turn 3. This maximizes mana flexibility and avoids paying 2 life or losing tempo on a later Breeding Pool play.",
       "type": "blunder",
-      "snapshotIndex": 13,
+      "snapshotIndex": 14,
       "player": "Grok4F Timmy"
     },
     {
@@ -86896,7 +86896,7 @@
       "actionTaken": "Chose Breeding Pool as the earthbend target for Badgermole Cub's ETB trigger.",
       "betterLine": "Choose Forest as the earthbend target instead, preserving the more valuable dual land from creature removal vulnerability while still getting the same 1/1 attacker with haste.",
       "type": "blunder",
-      "snapshotIndex": 16,
+      "snapshotIndex": 17,
       "player": "Grok4F Timmy"
     },
     {
@@ -86905,7 +86905,7 @@
       "actionTaken": "Passed without playing a land, forcing a discard to hand size.",
       "betterLine": "Play Blooming Marsh (enters untapped with ≤2 other lands) to have 2 mana available next turn and avoid discarding a card. This also enables casting Requiting Hex to potentially deal with Badgermole Cub if needed.",
       "type": "blunder",
-      "snapshotIndex": 21,
+      "snapshotIndex": 22,
       "player": "Gem3P Sarge"
     },
     {
@@ -86914,7 +86914,7 @@
       "actionTaken": "Cast Requiting Hex targeting Badgermole Cub before playing a land for the turn.",
       "betterLine": "Play Blooming Marsh first (enters untapped), then decide between Requiting Hex and Overlord of the Balemurk Impending. Both are reasonable targets for the turn's mana, but playing land first is better sequencing. Overlord Impending is arguably stronger since it mills 4 and can return Wistfulness from graveyard, creating long-term value, while the Cub is already tapped and less threatening if you're developing your own board.",
       "type": "blunder",
-      "snapshotIndex": 31,
+      "snapshotIndex": 32,
       "player": "Gem3P Sarge"
     },
     {
@@ -86923,7 +86923,7 @@
       "actionTaken": "Cast Requiting Hex before playing a land for the turn.",
       "betterLine": "Play Gloomlake Verge first (enters untapped with ≤2 other lands), then cast Requiting Hex targeting Badgermole Cub using Blooming Marsh for B, leaving Starting Town and Gloomlake Verge untapped for future use.",
       "type": "blunder",
-      "snapshotIndex": 35,
+      "snapshotIndex": 36,
       "player": "Gem3P Sarge"
     },
     {
@@ -86932,7 +86932,7 @@
       "actionTaken": "Cast Overlord of the Balemurk for its impending cost instead of removing the opponent's Badgermole Cub.",
       "betterLine": "Cast Requiting Hex targeting Badgermole Cub to destroy the opponent's mana accelerant, then deploy Overlord of the Balemurk on a subsequent turn. This removes the ramp threat immediately while Overlord's impending deployment can wait a turn with minimal cost.",
       "type": "blunder",
-      "snapshotIndex": 37,
+      "snapshotIndex": 38,
       "player": "Gem3P Sarge"
     },
     {
@@ -86941,7 +86941,7 @@
       "actionTaken": "Cast Overlord of the Balemurk for its impending cost ({1}{B}) on turn 4 with 2 lands, ignoring the opponent's Badgermole Cub.",
       "betterLine": "Play Gloomlake Verge, then cast Requiting Hex targeting Badgermole Cub to remove the opponent's mana acceleration. Cast Overlord for impending next turn with 3 lands available.",
       "type": "blunder",
-      "snapshotIndex": 39,
+      "snapshotIndex": 40,
       "player": "Gem3P Sarge"
     },
     {
@@ -86950,7 +86950,7 @@
       "actionTaken": "Played Multiversal Passage as the land drop, paying 2 life to have it enter untapped.",
       "betterLine": "Play Willowrush Verge, which enters untapped for free and taps for G (since a Forest is already in play), saving 2 life. Save Multiversal Passage or Breeding Pool for a later turn.",
       "type": "blunder",
-      "snapshotIndex": 42,
+      "snapshotIndex": 43,
       "player": "Grok4F Timmy"
     },
     {
@@ -86959,7 +86959,7 @@
       "actionTaken": "Skipped the attack phase entirely despite opponent having no blockers.",
       "betterLine": "Attack with all creatures (at minimum both Badgermole Cubs) for 4-6 free damage into an empty board.",
       "type": "blunder",
-      "snapshotIndex": 49,
+      "snapshotIndex": 50,
       "player": "Grok4F Timmy"
     },
     {
@@ -86968,7 +86968,7 @@
       "actionTaken": "Discarded Wistfulness",
       "betterLine": "Discard the second Superior Spider-Man since it's legendary and redundant, keeping Wistfulness for its cheap evoke option",
       "type": "blunder",
-      "snapshotIndex": 55,
+      "snapshotIndex": 56,
       "player": "Gem3P Sarge"
     }
   ],
@@ -87022,7 +87022,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -87061,7 +87062,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -87095,7 +87097,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -87155,6 +87158,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -87215,6 +87219,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -87254,6 +87259,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -87293,6 +87299,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -87352,6 +87359,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -87408,6 +87416,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -87485,6 +87494,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -87525,6 +87535,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -87577,6 +87588,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -87616,6 +87628,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -87655,6 +87668,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -87693,7 +87707,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 15,
@@ -87730,6 +87745,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -87779,6 +87795,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -87844,6 +87861,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -87927,6 +87945,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -88008,6 +88027,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -88068,6 +88088,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -88108,6 +88129,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -88163,6 +88185,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -88229,6 +88252,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -88269,6 +88293,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -88309,6 +88334,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -88584,6 +88610,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -88621,6 +88648,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -88683,6 +88711,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -88752,6 +88781,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -88822,6 +88852,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -88888,6 +88919,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -88947,6 +88979,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89015,6 +89048,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89074,6 +89108,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89133,6 +89168,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89202,6 +89238,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89263,6 +89300,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89331,6 +89369,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89381,6 +89420,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89441,6 +89481,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89507,6 +89548,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89590,6 +89632,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -89651,6 +89694,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -89691,6 +89735,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -89758,6 +89803,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -89796,6 +89842,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -89846,6 +89893,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -89902,6 +89950,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -89966,6 +90015,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -90006,6 +90056,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -90064,6 +90115,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -90104,6 +90156,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -90146,6 +90199,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -90190,6 +90244,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -90235,6 +90290,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -90287,6 +90343,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -90327,6 +90384,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -90368,6 +90426,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -90441,6 +90500,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -90520,6 +90580,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -90593,6 +90654,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -90633,6 +90695,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90672,6 +90735,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90727,6 +90791,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90800,6 +90865,7 @@
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -90838,7 +90904,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 67,
@@ -90874,7 +90941,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 68,
@@ -90912,7 +90980,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 69,
@@ -90945,7 +91014,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 70,
@@ -90973,7 +91043,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 71,
@@ -91004,7 +91075,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 72,
@@ -91032,7 +91104,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 73,
@@ -91060,7 +91133,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 74,
@@ -91093,7 +91167,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 75,
@@ -91123,7 +91198,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 76,
@@ -91152,7 +91228,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 77,
@@ -91180,7 +91257,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 78,
@@ -91209,7 +91287,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 79,
@@ -91237,7 +91316,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 80,
@@ -91269,7 +91349,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 81,
@@ -91302,7 +91383,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 82,
@@ -91332,7 +91414,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 83,
@@ -91366,7 +91449,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 84,
@@ -91398,7 +91482,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 85,
@@ -91429,7 +91514,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 86,
@@ -91458,7 +91544,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 87,
@@ -91487,7 +91574,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 88,
@@ -91518,7 +91606,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 89,
@@ -91548,7 +91637,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 90,
@@ -91578,7 +91668,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 91,
@@ -91607,7 +91698,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 92,
@@ -91636,7 +91728,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 93,
@@ -91665,7 +91758,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 94,
@@ -91694,7 +91788,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 95,
@@ -91723,7 +91818,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 96,
@@ -91754,7 +91850,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 97,
@@ -91783,7 +91880,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 98,
@@ -91811,7 +91909,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 99,
@@ -91840,7 +91939,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 100,
@@ -91870,7 +91970,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 101,
@@ -91898,7 +91999,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 102,
@@ -91927,7 +92029,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 103,
@@ -91957,7 +92060,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 104,
@@ -91986,7 +92090,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 105,
@@ -92015,7 +92120,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 106,
@@ -92043,7 +92149,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 107,
@@ -92074,7 +92181,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 108,
@@ -92102,7 +92210,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 109,
@@ -92131,7 +92240,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 110,
@@ -92160,7 +92270,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 111,
@@ -92189,7 +92300,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 112,
@@ -92217,7 +92329,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 113,
@@ -92246,7 +92359,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 114,
@@ -92281,7 +92395,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 115,
@@ -92309,7 +92424,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 116,
@@ -92337,7 +92453,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 117,
@@ -92365,7 +92482,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 118,
@@ -92393,7 +92511,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 119,
@@ -92427,7 +92546,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 120,
@@ -92457,7 +92577,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 121,
@@ -92492,7 +92613,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 122,
@@ -92521,7 +92643,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 123,
@@ -92551,7 +92674,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 124,
@@ -92580,7 +92704,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 125,
@@ -92609,7 +92734,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 126,
@@ -92637,7 +92763,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 127,
@@ -92665,7 +92792,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 128,
@@ -92693,7 +92821,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 129,
@@ -92722,7 +92851,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 130,
@@ -92750,7 +92880,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 131,
@@ -92779,7 +92910,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 132,
@@ -92807,7 +92939,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 133,
@@ -92835,7 +92968,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 134,
@@ -92863,7 +92997,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 135,
@@ -92892,7 +93027,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 136,
@@ -92920,7 +93056,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 137,
@@ -92949,7 +93086,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 138,
@@ -92977,7 +93115,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 139,
@@ -93005,7 +93144,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 140,
@@ -93034,7 +93174,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 141,
@@ -93062,7 +93203,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 142,
@@ -93090,7 +93232,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 143,
@@ -93118,7 +93261,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 144,
@@ -93146,7 +93290,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 145,
@@ -93174,7 +93319,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 146,
@@ -93202,7 +93348,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 147,
@@ -93231,7 +93378,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 148,
@@ -93260,7 +93408,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 149,
@@ -93289,7 +93438,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 150,
@@ -93317,7 +93467,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 151,
@@ -93345,7 +93496,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 152,
@@ -93373,7 +93525,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 153,
@@ -93401,7 +93554,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 154,
@@ -93432,7 +93586,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 155,
@@ -93460,7 +93615,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 156,
@@ -93488,7 +93644,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 157,
@@ -93516,7 +93673,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 158,
@@ -93549,7 +93707,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 159,
@@ -93583,7 +93742,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 160,
@@ -93611,7 +93771,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 161,
@@ -93639,7 +93800,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 162,
@@ -93668,7 +93830,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 163,
@@ -93696,7 +93859,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 164,
@@ -93725,7 +93889,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 165,
@@ -93753,7 +93918,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 166,
@@ -93781,7 +93947,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 167,
@@ -93809,7 +93976,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 168,
@@ -93837,7 +94005,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 169,
@@ -93865,7 +94034,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 170,
@@ -93893,7 +94063,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 171,
@@ -93921,7 +94092,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 172,
@@ -93949,7 +94121,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 173,
@@ -93980,7 +94153,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 174,
@@ -94008,7 +94182,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 175,
@@ -94036,7 +94211,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 176,
@@ -94064,7 +94240,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 177,
@@ -94092,7 +94269,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 178,
@@ -94125,7 +94303,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 179,
@@ -94154,7 +94333,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 180,
@@ -94185,7 +94365,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 181,
@@ -94213,7 +94394,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 182,
@@ -94243,7 +94425,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 183,
@@ -94272,7 +94455,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 184,
@@ -94300,7 +94484,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 185,
@@ -94330,7 +94515,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 186,
@@ -94359,7 +94545,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 187,
@@ -94389,7 +94576,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 188,
@@ -94417,7 +94605,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 189,
@@ -94446,7 +94635,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 190,
@@ -94475,7 +94665,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 191,
@@ -94503,7 +94694,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 192,
@@ -94531,7 +94723,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 193,
@@ -94559,7 +94752,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 194,
@@ -94588,7 +94782,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 195,
@@ -94621,7 +94816,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 196,
@@ -94649,7 +94845,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 197,
@@ -94679,7 +94876,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 198,
@@ -94707,7 +94905,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 199,
@@ -94736,7 +94935,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 200,
@@ -94764,7 +94964,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 201,
@@ -94792,7 +94993,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 202,
@@ -94820,7 +95022,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 203,
@@ -94848,7 +95051,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 204,
@@ -94878,7 +95082,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 205,
@@ -94906,7 +95111,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 206,
@@ -94934,7 +95140,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 207,
@@ -94962,7 +95169,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 208,
@@ -94990,7 +95198,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 209,
@@ -95018,7 +95227,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 210,
@@ -95046,7 +95256,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 211,
@@ -95075,7 +95286,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 212,
@@ -95104,7 +95316,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 213,
@@ -95132,7 +95345,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 214,
@@ -95161,7 +95375,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 215,
@@ -95189,7 +95404,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 216,
@@ -95217,7 +95433,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 217,
@@ -95245,7 +95462,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 218,
@@ -95273,7 +95491,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 219,
@@ -95302,7 +95521,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 220,
@@ -95330,7 +95550,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 221,
@@ -95358,7 +95579,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 222,
@@ -95386,7 +95608,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 223,
@@ -95414,7 +95637,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 224,
@@ -95442,7 +95666,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 225,
@@ -95470,7 +95695,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 226,
@@ -95498,7 +95724,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 227,
@@ -95526,7 +95753,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 228,
@@ -95554,7 +95782,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 229,
@@ -95582,7 +95811,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 230,
@@ -95615,7 +95845,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 231,
@@ -95643,7 +95874,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 232,
@@ -95671,7 +95903,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 233,
@@ -95699,7 +95932,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 234,
@@ -95728,7 +95962,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 235,
@@ -95756,7 +95991,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 236,
@@ -95785,7 +96021,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 237,
@@ -95813,7 +96050,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 238,
@@ -95842,7 +96080,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 239,
@@ -95871,7 +96110,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 240,
@@ -95900,7 +96140,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 241,
@@ -95929,7 +96170,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 242,
@@ -95957,7 +96199,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 243,
@@ -95987,7 +96230,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 244,
@@ -96016,7 +96260,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 245,
@@ -96044,7 +96289,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 246,
@@ -96078,7 +96324,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 247,
@@ -96111,7 +96358,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 248,
@@ -96140,7 +96388,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 249,
@@ -96170,7 +96419,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 250,
@@ -96199,7 +96449,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 251,
@@ -96228,7 +96479,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 252,
@@ -96262,7 +96514,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 253,
@@ -96293,7 +96546,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 254,
@@ -96326,7 +96580,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 255,
@@ -96355,7 +96610,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 256,
@@ -96385,7 +96641,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 257,
@@ -96419,7 +96676,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 258,
@@ -96447,7 +96705,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 259,
@@ -96480,7 +96739,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 260,
@@ -96508,7 +96768,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 261,
@@ -96539,7 +96800,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 262,
@@ -96567,7 +96829,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 263,
@@ -96595,7 +96858,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 264,
@@ -96625,7 +96889,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 265,
@@ -96654,7 +96919,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 266,
@@ -96683,7 +96949,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 267,
@@ -96712,7 +96979,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 268,
@@ -96741,7 +97009,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 269,
@@ -96769,7 +97038,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 270,
@@ -96797,7 +97067,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 271,
@@ -96825,7 +97096,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 272,
@@ -96853,7 +97125,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 273,
@@ -96882,7 +97155,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 274,
@@ -96911,7 +97185,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 275,
@@ -96940,7 +97215,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 276,
@@ -96968,7 +97244,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 277,
@@ -96996,7 +97273,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 278,
@@ -97024,7 +97302,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 279,
@@ -97052,7 +97331,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 280,
@@ -97080,7 +97360,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 281,
@@ -97108,7 +97389,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 282,
@@ -97136,7 +97418,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 283,
@@ -97164,7 +97447,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 284,
@@ -97192,7 +97476,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 285,
@@ -97220,7 +97505,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 286,
@@ -97253,7 +97539,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 287,
@@ -97281,7 +97568,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 288,
@@ -97309,7 +97597,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 289,
@@ -97337,7 +97626,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 290,
@@ -97365,7 +97655,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 291,
@@ -97398,7 +97689,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 292,
@@ -97431,7 +97723,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 293,
@@ -97459,7 +97752,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 294,
@@ -97488,7 +97782,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 295,
@@ -97516,7 +97811,8 @@
         "Gem3P Sarge draws seven cards",
         "Grok4F Timmy draws seven cards",
         "Gem3P Sarge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     }
   ]
 }

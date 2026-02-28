@@ -201940,7 +201940,7 @@
       "actionTaken": "Cast Mathas, Fiend Seeker before combat",
       "betterLine": "Cast Heirloom Blade first (to avoid telegraphing the creature before combat), then cast Mathas post-combat and equip next turn. Alternatively, Mathas is fine but casting creatures before combat when it doesn't matter is a minor sequencing issue.",
       "type": "blunder",
-      "snapshotIndex": 46,
+      "snapshotIndex": 47,
       "player": "GPT5m Valley"
     },
     {
@@ -201949,7 +201949,7 @@
       "actionTaken": "Chose Red for the mana color selection while casting Mathas, Fiend Seeker",
       "betterLine": "If this mana choice is for Command Tower, should have chosen White since Bloodfell Caves can produce Red and no other land produces White. The correct allocation is Command Tower=W, Bloodfell Caves=R, Swamp=B.",
       "type": "blunder",
-      "snapshotIndex": 46,
+      "snapshotIndex": 47,
       "player": "GPT5m Valley"
     },
     {
@@ -201958,7 +201958,7 @@
       "actionTaken": "Cast Goblin Electromancer for UR, leaving no mana to cast anything else this turn.",
       "betterLine": "Cast Windfall for 2U to wheel all hands while you have the largest hand at 7 cards, potentially disrupting opponents' plans and drawing fresh cards. Electromancer could be played next turn.",
       "type": "blunder",
-      "snapshotIndex": 56,
+      "snapshotIndex": 57,
       "player": "Sonnet Gramps"
     },
     {
@@ -201967,7 +201967,7 @@
       "actionTaken": "Cast Mathas, Fiend Seeker before playing a land",
       "betterLine": "Play Bojuka Bog or Scoured Barrens first, then cast Mathas, Fiend Seeker",
       "type": "blunder",
-      "snapshotIndex": 72,
+      "snapshotIndex": 73,
       "player": "GPT5m Valley"
     },
     {
@@ -201976,7 +201976,7 @@
       "actionTaken": "Cast Windfall on turn 4, discarding a 6-card hand including Blatant Thievery and Rite of Replication, giving all players 6 new cards.",
       "betterLine": "Hold Windfall for a turn where opponents have fewer cards in hand or where Mizzix is on the battlefield with experience counters. Could have played Vivid Crag (tapped land) and passed, saving the strong hand for future turns. Steam Augury at end of an opponent's turn would also have been a reasonable play to dig for lands/ramp while keeping the powerful cards.",
       "type": "blunder",
-      "snapshotIndex": 83,
+      "snapshotIndex": 84,
       "player": "Sonnet Gramps"
     },
     {
@@ -201985,7 +201985,7 @@
       "actionTaken": "Played Golgari Guildgate (enters tapped), leaving only 3 mana available and likely only casting Elvish Mystic this turn.",
       "betterLine": "Play Swamp (enters untapped), then cast both Farhaven Elf (2G) and Elvish Mystic (G) using all 4 mana, ramping further and building elf count for Shaman of the Pack.",
       "type": "blunder",
-      "snapshotIndex": 87,
+      "snapshotIndex": 88,
       "player": "Gem25P Tinker"
     },
     {
@@ -201994,7 +201994,7 @@
       "actionTaken": "Cast Elvish Mystic for G",
       "betterLine": "Cast Farhaven Elf for 2G to fetch a basic land (likely a Swamp for color fixing), providing more resilient ramp and deck thinning while still adding to the Elf count.",
       "type": "blunder",
-      "snapshotIndex": 89,
+      "snapshotIndex": 90,
       "player": "Gem25P Tinker"
     },
     {
@@ -202003,7 +202003,7 @@
       "actionTaken": "Cast Thundercloud Shaman without first making a land drop",
       "betterLine": "Play Blasted Landscape first, then cast Thundercloud Shaman. The land drop is free and provides additional mana going forward.",
       "type": "blunder",
-      "snapshotIndex": 93,
+      "snapshotIndex": 94,
       "player": "Grok4F ESPN"
     },
     {
@@ -202012,7 +202012,7 @@
       "actionTaken": "Played Urborg Volcano, which enters tapped and provides B or R mana.",
       "betterLine": "Play Terramorphic Expanse to fetch a basic Plains or Swamp next turn for better mana flexibility and deck thinning, or Kabira Crossroads for 2 life and white mana to help cast Blind Obedience sooner.",
       "type": "blunder",
-      "snapshotIndex": 103,
+      "snapshotIndex": 104,
       "player": "GPT5m Valley"
     },
     {
@@ -202021,7 +202021,7 @@
       "actionTaken": "Played Golgari Rot Farm as land drop, bouncing a land and entering tapped, leaving only 3 mana available.",
       "betterLine": "Play Swamp instead, giving 5 mana available (4 existing lands + Swamp), then cast Wirewood Channeler ({3}{G}) this turn. Play Golgari Rot Farm on a future turn when the tempo loss matters less.",
       "type": "blunder",
-      "snapshotIndex": 111,
+      "snapshotIndex": 112,
       "player": "Gem25P Tinker"
     },
     {
@@ -202030,7 +202030,7 @@
       "actionTaken": "Cycled Blasted Landscape for 2 mana to draw a card instead of deploying Herald of the Host.",
       "betterLine": "Play Boros Garrison (bouncing a tapped Mountain), then cast Herald of the Host for 3WW using Plains, Plains, Vivid Crag (spending a charge counter for W), Thought Vessel, and Mountain/Boros Garrison, deploying a powerful 4/4 flying vigilance myriad creature.",
       "type": "blunder",
-      "snapshotIndex": 120,
+      "snapshotIndex": 121,
       "player": "Grok4F ESPN"
     },
     {
@@ -202039,7 +202039,7 @@
       "actionTaken": "Attacked Gem25P Tinker with Thundercloud Shaman",
       "betterLine": "Attack Sonnet Gramps (no untapped blockers, dangerous Mizzix/spellslinger gameplan) or GPT5m Valley (though Drana could block) to pressure the more threatening opponents rather than piling on the weakest player.",
       "type": "blunder",
-      "snapshotIndex": 123,
+      "snapshotIndex": 124,
       "player": "Grok4F ESPN"
     },
     {
@@ -202048,7 +202048,7 @@
       "actionTaken": "Targeted Goblin Electromancer with Fall of the Hammer, dealing 4 damage to destroy the 2/2 cost reducer.",
       "betterLine": "Target Drana, Kalastria Bloodchief with Fall of the Hammer, dealing 4 damage to exactly kill the 4/4 flying threat that has a powerful repeatable removal/pump ability and is a much more dangerous creature on the board.",
       "type": "blunder",
-      "snapshotIndex": 125,
+      "snapshotIndex": 126,
       "player": "Grok4F ESPN"
     },
     {
@@ -202057,7 +202057,7 @@
       "actionTaken": "Cast Malakir Bloodwitch for 3BB without first playing a land or casting Blind Obedience.",
       "betterLine": "Play a land (Kabira Crossroads or Terramorphic Expanse), then cast Blind Obedience (1W), then cast Malakir Bloodwitch with extort trigger available. However, mana may have been tight - all lands appear tapped, so the sequencing issue is mainly about the land drop being missed before casting spells.",
       "type": "blunder",
-      "snapshotIndex": 130,
+      "snapshotIndex": 131,
       "player": "GPT5m Valley"
     },
     {
@@ -202066,7 +202066,7 @@
       "actionTaken": "Attacked with only the 1/1 Vampire Token, holding back Drana.",
       "betterLine": "Attack with both Drana and the Vampire Token to maximize damage output while opponents' boards are mostly tapped. Drana's flying makes her very difficult to block.",
       "type": "blunder",
-      "snapshotIndex": 134,
+      "snapshotIndex": 135,
       "player": "GPT5m Valley"
     },
     {
@@ -202075,7 +202075,7 @@
       "actionTaken": "Attacked Gem25P Tinker who has a potential blocker for the Vampire Token",
       "betterLine": "Attack Sonnet Gramps or Grok4F ESPN who have no blockers, guaranteeing the full 5 damage gets through",
       "type": "blunder",
-      "snapshotIndex": 134,
+      "snapshotIndex": 135,
       "player": "GPT5m Valley"
     },
     {
@@ -202084,7 +202084,7 @@
       "actionTaken": "Attacked with only the 1/1 Vampire Token, holding back Drana.",
       "betterLine": "Attack with both Drana and the Vampire Token. Drana's 4 flying damage is essentially free since no opponent can block her and there's no mana available for her activated ability.",
       "type": "blunder",
-      "snapshotIndex": 134,
+      "snapshotIndex": 135,
       "player": "GPT5m Valley"
     },
     {
@@ -202093,7 +202093,7 @@
       "actionTaken": "Played Golgari Guildgate, which enters tapped, losing 1 mana this turn.",
       "betterLine": "Play Swamp (enters untapped) to maximize available mana this turn. The Golgari Guildgate could be played on a future turn when the tempo loss matters less, and the player already has BG color coverage from existing lands.",
       "type": "blunder",
-      "snapshotIndex": 144,
+      "snapshotIndex": 145,
       "player": "Gem25P Tinker"
     },
     {
@@ -202102,7 +202102,7 @@
       "actionTaken": "Cast Jaspera Sentinel without first playing the Swamp from hand.",
       "betterLine": "Play Swamp first (land drop), then cast Wirewood Channeler (3G) as the priority play since it's a much more impactful card, followed by Jaspera Sentinel if mana permits.",
       "type": "blunder",
-      "snapshotIndex": 146,
+      "snapshotIndex": 147,
       "player": "Gem25P Tinker"
     },
     {
@@ -202111,7 +202111,7 @@
       "actionTaken": "Cast Herald of the Host without first playing Boros Garrison from hand.",
       "betterLine": "Play Boros Garrison first (bouncing a basic Mountain), then cast Herald of the Host with the remaining 6 untapped mana sources. This develops the mana base while still deploying the same threat.",
       "type": "blunder",
-      "snapshotIndex": 152,
+      "snapshotIndex": 153,
       "player": "Grok4F ESPN"
     },
     {
@@ -202120,7 +202120,7 @@
       "actionTaken": "Cast Wirewood Channeler before playing the Swamp land",
       "betterLine": "Play Swamp first to go to 7 lands, then cast Wirewood Channeler, then cast Shaman of the Pack with remaining mana",
       "type": "blunder",
-      "snapshotIndex": 176,
+      "snapshotIndex": 177,
       "player": "Gem25P Tinker"
     },
     {
@@ -202129,7 +202129,7 @@
       "actionTaken": "Chose to attack GPT5m Valley (55 life) with Lightning Rager.",
       "betterLine": "Attack Sonnet Gramps or Grok4F ESPN (both at 36 life) where 5 damage represents a larger percentage of their life total and creates more strategic pressure.",
       "type": "blunder",
-      "snapshotIndex": 180,
+      "snapshotIndex": 181,
       "player": "Gem25P Tinker"
     },
     {
@@ -202138,7 +202138,7 @@
       "actionTaken": "Declined to attack with the Elf Warrior Token alongside the Lightning Rager.",
       "betterLine": "Attack with both the Elf Warrior Token and Lightning Rager. The extra 1 damage is free since most opposing creatures are tapped, and the player desperately needs to deal damage from such a losing position.",
       "type": "blunder",
-      "snapshotIndex": 180,
+      "snapshotIndex": 181,
       "player": "Gem25P Tinker"
     },
     {
@@ -202147,7 +202147,7 @@
       "actionTaken": "Passed without casting any spells in precombat main phase, leaving 8 mana unused.",
       "betterLine": "Cast Seer's Sundial for 4 mana to set up card draw. Next turn, playing Boros Garrison would trigger landfall, allowing a draw for 2 mana. With only 3 cards in hand, card advantage is critical.",
       "type": "blunder",
-      "snapshotIndex": 188,
+      "snapshotIndex": 189,
       "player": "Grok4F ESPN"
     },
     {
@@ -202156,7 +202156,7 @@
       "actionTaken": "Activated Drana's ability with X=4 targeting their own Herald of the Host, killing it for a temporary +4/+0 pump on Drana.",
       "betterLine": "Do not kill your own Herald of the Host. If mana needs to be spent on Drana's ability, target an opponent's creature like Thundercloud Shaman (which is a real threat as a Giant that synergizes with Giant tribal effects). Alternatively, save the mana for other uses.",
       "type": "blunder",
-      "snapshotIndex": 197,
+      "snapshotIndex": 198,
       "player": "GPT5m Valley"
     },
     {
@@ -202165,7 +202165,7 @@
       "actionTaken": "Cast Kalemne from command zone without first playing the Plains from hand, likely leaving insufficient mana to also cast Sun Titan this turn.",
       "betterLine": "Play Plains first, then cast Kalemne for {2}{R}{W}, then cast Sun Titan for {4}{W}{W} using remaining mana. Sun Titan ETB recurs Worn Powerstone, and Kalemne gets an experience counter.",
       "type": "blunder",
-      "snapshotIndex": 214,
+      "snapshotIndex": 215,
       "player": "Grok4F ESPN"
     },
     {
@@ -202174,7 +202174,7 @@
       "actionTaken": "Passed without taking any action during precombat main phase, missing a land drop.",
       "betterLine": "Play Island from hand to increase available mana, making it easier to hold up Aethersnatch (6 mana) while still having mana for other responses.",
       "type": "blunder",
-      "snapshotIndex": 230,
+      "snapshotIndex": 231,
       "player": "Sonnet Gramps"
     },
     {
@@ -202183,7 +202183,7 @@
       "actionTaken": "Passed priority without playing a land, choosing to save mana for opponents' turns.",
       "betterLine": "Play Island or Mountain from hand before passing - land drops are free and don't tap existing mana, so there's no downside to playing one even when holding up interaction.",
       "type": "blunder",
-      "snapshotIndex": 232,
+      "snapshotIndex": 233,
       "player": "Sonnet Gramps"
     },
     {
@@ -202192,7 +202192,7 @@
       "actionTaken": "Attacked GPT5m Valley (46hp) with Thundercloud Shaman",
       "betterLine": "Attack Sonnet Gramps (18hp) to apply meaningful pressure to the lower-life opponent who also controls the dangerous Rite of the Raging Storm",
       "type": "blunder",
-      "snapshotIndex": 242,
+      "snapshotIndex": 243,
       "player": "Grok4F ESPN"
     },
     {
@@ -202201,7 +202201,7 @@
       "actionTaken": "Attacked Grok4F ESPN (35 life) instead of Sonnet Gramps (5 life)",
       "betterLine": "Attack Sonnet Gramps with both Drana and the Vampire Token for exactly 5 damage lethal, eliminating an opponent and removing Rite of the Raging Storm from the game.",
       "type": "blunder",
-      "snapshotIndex": 253,
+      "snapshotIndex": 254,
       "player": "GPT5m Valley"
     },
     {
@@ -202210,7 +202210,7 @@
       "actionTaken": "Chose to cast Damnable Pact before playing a land and without addressing the 4/4 threat on board.",
       "betterLine": "Play a land first (Swamp), then cast Consuming Vapors (3B) to force Grok4F ESPN to sacrifice Thundercloud Shaman, gaining 4 life to go to 15. This addresses the board threat and improves survivability. Damnable Pact could be cast on a later turn from a stronger position.",
       "type": "blunder",
-      "snapshotIndex": 304,
+      "snapshotIndex": 305,
       "player": "GPT5m Valley"
     },
     {
@@ -202219,7 +202219,7 @@
       "actionTaken": "Targeted Grok4F ESPN with Damnable Pact, giving them 3 cards and dealing only 3 damage.",
       "betterLine": "Target themselves with Damnable Pact to draw 3 cards (going from 11 to 8 life), gaining crucial card advantage to find ways to deal with Grok4F ESPN's board and close the game.",
       "type": "blunder",
-      "snapshotIndex": 305,
+      "snapshotIndex": 306,
       "player": "GPT5m Valley"
     },
     {
@@ -202228,7 +202228,7 @@
       "actionTaken": "Passed priority without taking any action",
       "betterLine": "Cast/equip Skullclamp onto the 1/1 Vampire Token to draw 2 cards for 1 mana, then assess options with the new cards before proceeding",
       "type": "blunder",
-      "snapshotIndex": 305,
+      "snapshotIndex": 306,
       "player": "GPT5m Valley"
     },
     {
@@ -202246,7 +202246,7 @@
       "actionTaken": "Blocked with the 1/1 Vampire Token, allowing the bulk of combat damage through, resulting in death.",
       "betterLine": "Block with Malakir Bloodwitch (4/4) to absorb maximum combat damage and survive the attack. The Bloodwitch trades with a 4/4 attacker while preventing all that damage from hitting life total.",
       "type": "blunder",
-      "snapshotIndex": 309,
+      "snapshotIndex": 310,
       "player": "GPT5m Valley"
     }
   ],
@@ -202295,7 +202295,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -202329,7 +202330,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -202363,7 +202365,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -202397,7 +202400,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -202431,7 +202435,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -202479,6 +202484,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -202519,6 +202525,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -202560,6 +202567,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -202597,6 +202605,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -202638,6 +202647,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -202679,6 +202689,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -202717,6 +202728,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -202769,6 +202781,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -202833,6 +202846,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -202889,6 +202903,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -202930,6 +202945,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -202985,6 +203001,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -203033,6 +203050,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -203081,6 +203099,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -203122,6 +203141,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -203196,6 +203216,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -203261,6 +203282,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -203326,6 +203348,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -203381,6 +203404,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -203432,6 +203456,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -203496,6 +203521,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -203538,6 +203564,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -203599,6 +203626,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -203664,6 +203692,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -203705,6 +203734,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -203742,6 +203772,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -203790,6 +203821,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -203831,6 +203863,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -203905,6 +203938,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -203988,6 +204022,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -204042,6 +204077,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -204093,6 +204129,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -204143,6 +204180,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -204203,6 +204241,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -204243,6 +204282,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -204323,6 +204363,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -204397,6 +204438,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -204438,6 +204480,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -204489,6 +204532,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -204578,6 +204622,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -204656,6 +204701,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -204707,6 +204753,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -204779,6 +204826,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -204820,6 +204868,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -204860,6 +204909,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -204900,6 +204950,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -204937,6 +204988,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -204987,6 +205039,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -205038,6 +205091,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -205123,6 +205177,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -205189,6 +205244,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -205261,6 +205317,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -205314,6 +205371,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -205374,6 +205432,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -205414,6 +205473,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -205506,6 +205566,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -205563,6 +205624,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -205603,6 +205665,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -205652,6 +205715,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -205725,6 +205789,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -205785,6 +205850,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -205826,6 +205892,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -205866,6 +205933,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -205906,6 +205974,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -206097,6 +206166,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -206137,6 +206207,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -206176,7 +206247,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 72,
@@ -206211,6 +206283,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -206272,6 +206345,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -206310,6 +206384,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -206370,6 +206445,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -206410,6 +206486,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -206458,6 +206535,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -206536,6 +206614,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -206576,6 +206655,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -206692,6 +206772,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -206743,6 +206824,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -206824,6 +206906,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -206895,6 +206978,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -206966,6 +207050,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers",
@@ -207045,6 +207130,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -207095,6 +207181,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -207126,6 +207213,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -207157,6 +207245,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -207187,7 +207276,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 90,
@@ -207269,6 +207359,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -207332,6 +207423,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -207363,7 +207455,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 93,
@@ -207409,6 +207502,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -207501,6 +207595,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -207587,6 +207682,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -207637,6 +207733,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -207679,6 +207776,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -207751,6 +207849,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -207804,7 +207903,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 100,
@@ -207861,6 +207961,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -207901,6 +208002,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -207938,6 +208040,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -207978,6 +208081,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -208015,6 +208119,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -208109,6 +208214,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "attackers"
@@ -208180,6 +208286,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -208230,6 +208337,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -208291,6 +208399,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -208345,6 +208454,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -208479,6 +208589,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -208540,6 +208651,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -208593,6 +208705,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -208727,6 +208840,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -208776,7 +208890,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 115,
@@ -208833,6 +208948,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -208874,6 +208990,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -208940,6 +209057,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -208981,6 +209099,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -209043,6 +209162,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -209090,6 +209210,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -209160,6 +209281,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -209220,6 +209342,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -209275,6 +209398,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers",
@@ -209324,6 +209448,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -209361,6 +209486,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       },
@@ -209392,7 +209518,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 127,
@@ -209420,7 +209547,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 128,
@@ -209471,7 +209599,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 129,
@@ -209520,7 +209649,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 130,
@@ -209580,6 +209710,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -209657,6 +209788,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "declare_attackers"
@@ -209698,6 +209830,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -209738,6 +209871,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -209779,6 +209913,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -209819,6 +209954,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -209856,6 +209992,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -209906,6 +210043,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -210010,6 +210148,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -210060,6 +210199,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -210091,6 +210231,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -210131,6 +210272,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -210222,6 +210364,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -210294,6 +210437,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -210335,6 +210479,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -210376,6 +210521,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -210437,6 +210583,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -210491,6 +210638,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -210531,6 +210679,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -210571,6 +210720,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -210611,6 +210761,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -210682,6 +210833,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -210750,6 +210902,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -210818,6 +210971,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -210886,6 +211040,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -210952,6 +211107,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -211018,6 +211174,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -211088,6 +211245,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -211153,6 +211311,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -211222,6 +211381,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -211298,6 +211458,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -211336,6 +211497,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -211377,6 +211539,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -211418,6 +211581,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -211468,6 +211632,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -211517,6 +211682,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -211558,6 +211724,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -211598,6 +211765,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -211666,6 +211834,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -211718,7 +211887,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 170,
@@ -211755,7 +211925,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 171,
@@ -211803,6 +211974,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -211916,6 +212088,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -212008,6 +212181,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -212059,6 +212233,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -212110,6 +212285,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -212172,6 +212348,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -212234,7 +212411,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 178,
@@ -212295,7 +212473,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 179,
@@ -212353,7 +212532,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 180,
@@ -212415,6 +212595,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -212476,6 +212657,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -212524,6 +212706,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -212620,6 +212803,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -212660,6 +212844,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -212700,6 +212885,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -212740,6 +212926,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -212780,6 +212967,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -212839,6 +213027,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -212938,7 +213127,8 @@
         "GPT5m Valley draws seven cards",
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 190,
@@ -212976,6 +213166,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -213016,6 +213207,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -213056,6 +213248,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -213121,6 +213314,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -213161,6 +213355,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -213202,6 +213397,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -213250,6 +213446,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -213301,6 +213498,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -213341,6 +213539,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -213381,6 +213580,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -213421,6 +213621,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -213461,6 +213662,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 11,
         "landDropsUsed": 1
@@ -213502,6 +213704,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 11,
         "landDropsUsed": 1
@@ -213553,6 +213756,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 11,
         "landDropsUsed": 1
@@ -213594,6 +213798,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -213651,6 +213856,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -213691,6 +213897,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -213731,6 +213938,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -213771,6 +213979,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -213821,6 +214030,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -213911,6 +214121,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
@@ -213959,6 +214170,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -214002,6 +214214,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -214039,6 +214252,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -214097,6 +214311,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -214148,6 +214363,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -214201,6 +214417,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -214239,6 +214456,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12,
         "landDropsUsed": 1
@@ -214365,6 +214583,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -214434,6 +214653,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -214496,6 +214716,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -214547,6 +214768,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -214660,6 +214882,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -214711,6 +214934,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -214808,6 +215032,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -214875,6 +215100,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -214966,6 +215192,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -215018,6 +215245,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -215084,6 +215312,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -215142,6 +215371,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -215235,6 +215465,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12,
         "combatPhase": "attackers"
@@ -215290,6 +215521,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -215343,6 +215575,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -215383,6 +215616,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -215423,6 +215657,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -215460,6 +215695,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -215538,6 +215774,7 @@
         "Sonnet Gramps draws seven cards",
         "Gem25P Tinker draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "blockers",

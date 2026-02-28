@@ -60438,7 +60438,7 @@
       "actionTaken": "Played Scrubland as the first land drop and cast Aether Vial.",
       "betterLine": "Play Karakas first (still casts Aether Vial for {1}), preserving dual lands for later color needs while having Karakas's legendary creature bounce ability available immediately.",
       "type": "blunder",
-      "snapshotIndex": 28,
+      "snapshotIndex": 29,
       "player": "o3 Worrier"
     },
     {
@@ -60447,7 +60447,7 @@
       "actionTaken": "Fetched Scrubland (second copy) with Marsh Flats",
       "betterLine": "Fetch a basic Swamp to play around Wasteland while still having access to B mana for Bowmasters and future plays, with W mana covered by existing Scrubland and Savannah in hand.",
       "type": "blunder",
-      "snapshotIndex": 78,
+      "snapshotIndex": 79,
       "player": "o3 Worrier"
     },
     {
@@ -60456,7 +60456,7 @@
       "actionTaken": "Searched for Stoneforge Mystic with Recruiter of the Guard's ETB",
       "betterLine": "Flickerwisp might have been stronger here for tempo and to flicker Recruiter for another search, or Phelia for repeated exile pressure. Stoneforge is reasonable if the plan is to find Lion Sash for graveyard hate, but that requires additional mana investment over multiple turns against a combo opponent.",
       "type": "blunder",
-      "snapshotIndex": 110,
+      "snapshotIndex": 111,
       "player": "o3 Worrier"
     },
     {
@@ -60465,7 +60465,7 @@
       "actionTaken": "Cast Solitude with Evoke, exiling Phelia from hand, targeting nothing meaningful with no enemy creatures on board.",
       "betterLine": "Simply pass and attack for lethal next turn with the existing board (Bowmasters 1/1 + Orc Army 2/2 + Recruiter 1/1 = 4 damage vs 3 life). Save Solitude and Phelia for potential interaction if needed.",
       "type": "blunder",
-      "snapshotIndex": 197,
+      "snapshotIndex": 198,
       "player": "o3 Worrier"
     },
     {
@@ -60474,7 +60474,7 @@
       "actionTaken": "Cast Solitude with Evoke, exiling White Orchid Phantom from hand, during combat when already attacking for lethal damage.",
       "betterLine": "Simply let combat damage resolve for the kill without spending any additional resources. White Orchid Phantom could have been relevant if somehow the game continued.",
       "type": "blunder",
-      "snapshotIndex": 217,
+      "snapshotIndex": 218,
       "player": "o3 Worrier"
     }
   ],
@@ -60527,7 +60527,8 @@
         "o3 Worrier draws seven cards",
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -60574,6 +60575,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60634,6 +60636,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "castRolledBack": true
     },
     {
@@ -60718,6 +60721,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60778,6 +60782,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "castRolledBack": true
     },
     {
@@ -60831,6 +60836,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -60880,6 +60886,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60934,6 +60941,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -61003,6 +61011,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -61063,6 +61072,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -61124,6 +61134,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -61184,6 +61195,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -61239,6 +61251,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -61299,6 +61312,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -61405,6 +61419,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -61478,6 +61493,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -61527,6 +61543,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -61581,6 +61598,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -61665,7 +61683,8 @@
         "o3 Worrier draws seven cards",
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 19,
@@ -61718,6 +61737,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -61773,6 +61793,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -61845,6 +61866,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -61896,6 +61918,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -62086,6 +62109,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -62135,6 +62159,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -62189,6 +62214,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -62244,6 +62270,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -62310,6 +62337,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -62370,6 +62398,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -62426,6 +62455,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -62485,6 +62515,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -62540,6 +62571,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -62599,6 +62631,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -62674,6 +62707,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -62735,6 +62769,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -62794,6 +62829,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -62849,6 +62885,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -62908,6 +62945,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -62967,6 +63005,7 @@
         "Llama4 Villain draws seven cards",
         "o3 Worrier keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }

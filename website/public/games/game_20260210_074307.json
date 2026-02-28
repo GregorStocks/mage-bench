@@ -328476,7 +328476,7 @@
       "actionTaken": "Chose self (Devstral) as starting player",
       "betterLine": "Choose another player to go first, allowing yourself to draw an extra card and potentially find ramp or early plays for this expensive hand",
       "type": "blunder",
-      "snapshotIndex": 0,
+      "snapshotIndex": 1,
       "player": "Devstral"
     },
     {
@@ -328485,7 +328485,7 @@
       "actionTaken": "Played Swamp instead of Command Tower",
       "betterLine": "Play Command Tower to maximize mana flexibility for future turns, keeping Swamps for later when color requirements are already met",
       "type": "blunder",
-      "snapshotIndex": 8,
+      "snapshotIndex": 9,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328494,7 +328494,7 @@
       "actionTaken": "Played Swamp as the turn 2 land drop",
       "betterLine": "Play Command Tower to maximize color flexibility for the multicolored spells in hand (Ikra Shidiqi, Fathom Mage, Citadel Siege)",
       "type": "blunder",
-      "snapshotIndex": 23,
+      "snapshotIndex": 24,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328503,7 +328503,7 @@
       "actionTaken": "Fetched Island with Ancient Excavation's basic landcycling",
       "betterLine": "Fetch Forest to better support casting Ikra Shidiqi (3BG) and Fathom Mage (2GU), since Command Tower already covers blue",
       "type": "blunder",
-      "snapshotIndex": 25,
+      "snapshotIndex": 26,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328512,7 +328512,7 @@
       "actionTaken": "Played Swamp as the turn 2 land drop",
       "betterLine": "Play Rakdos Carnarium, bouncing Forest back to hand. This gives 3 mana on turn 3 (Carnarium + replay Forest), enabling Farhaven Elf on curve, which accelerates toward Rampaging Baloths and Bloodtracker.",
       "type": "blunder",
-      "snapshotIndex": 29,
+      "snapshotIndex": 30,
       "player": "Gemini2.5Flash"
     },
     {
@@ -328521,7 +328521,7 @@
       "actionTaken": "Chose not to play a land (selected False), missing their turn 2 land drop.",
       "betterLine": "Play a Swamp or Forest to have two lands on the battlefield, developing mana toward casting spells on future turns.",
       "type": "blunder",
-      "snapshotIndex": 33,
+      "snapshotIndex": 34,
       "player": "Gem3Flash"
     },
     {
@@ -328530,7 +328530,7 @@
       "actionTaken": "Did not play a land on Turn 2, then had to discard down to 7 cards.",
       "betterLine": "Play a Forest or Swamp to make the land drop, developing mana and avoiding the forced discard.",
       "type": "blunder",
-      "snapshotIndex": 35,
+      "snapshotIndex": 36,
       "player": "Gem3Flash"
     },
     {
@@ -328539,7 +328539,7 @@
       "actionTaken": "Fetched Swamp from Terramorphic Expanse",
       "betterLine": "Fetch Forest to enable Centaur Vinecrasher on turn 4 and unlock green cards in hand",
       "type": "blunder",
-      "snapshotIndex": 39,
+      "snapshotIndex": 40,
       "player": "Devstral"
     },
     {
@@ -328548,7 +328548,7 @@
       "actionTaken": "Used Sylvan Reclamation's basic landcycling before playing a land for the turn.",
       "betterLine": "Play Command Tower first, then use Sylvan Reclamation's basic landcycling with the two Swamps. The end result is identical, but playing lands before spending mana is correct sequencing practice.",
       "type": "blunder",
-      "snapshotIndex": 43,
+      "snapshotIndex": 44,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328557,7 +328557,7 @@
       "actionTaken": "Played Rakdos Carnarium, bouncing a land and ending with only one tapped land.",
       "betterLine": "Play Forest, keeping three lands in play. Next turn play another land and cast Farhaven Elf to ramp. Save Rakdos Carnarium for a later turn when bouncing a land is less punishing.",
       "type": "blunder",
-      "snapshotIndex": 49,
+      "snapshotIndex": 50,
       "player": "Gemini2.5Flash"
     },
     {
@@ -328566,7 +328566,7 @@
       "actionTaken": "Bounced Forest to hand, leaving only Swamp and Rakdos Carnarium (producing B and BR) on the battlefield with no green mana source.",
       "betterLine": "Bounce Swamp instead of Forest. Rakdos Carnarium already produces black mana, so the Swamp is redundant. Keeping Forest on the battlefield preserves access to green mana, which is important for casting Farhaven Elf and other green spells in hand.",
       "type": "blunder",
-      "snapshotIndex": 50,
+      "snapshotIndex": 51,
       "player": "Gemini2.5Flash"
     },
     {
@@ -328575,7 +328575,7 @@
       "actionTaken": "Discarded Farhaven Elf to hand size",
       "betterLine": "Discard a Forest instead, preserving Farhaven Elf to cast next turn for ramp, which is critical for deploying the expensive threats in hand (Rampaging Baloths, Thantis, Bloodtracker)",
       "type": "blunder",
-      "snapshotIndex": 54,
+      "snapshotIndex": 55,
       "player": "Gemini2.5Flash"
     },
     {
@@ -328584,7 +328584,7 @@
       "actionTaken": "Cast Fathom Mage (a 1/1 with no immediate counter synergies on board) instead of Crystalline Crawler",
       "betterLine": "Cast Crystalline Crawler using all 4 available mana (potentially getting 2-3 different colors via Command Tower), entering with multiple +1/+1 counters for mana acceleration, enabling faster deployment of 5-mana spells like Ikra Shidiqi or Cauldron of Souls next turn",
       "type": "blunder",
-      "snapshotIndex": 67,
+      "snapshotIndex": 68,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328593,7 +328593,7 @@
       "actionTaken": "Played a basic Forest",
       "betterLine": "Play Blighted Woodland instead, preserving both Forests in hand for future turns when Blighted Woodland's sacrifice ability or other land-matters effects become relevant.",
       "type": "blunder",
-      "snapshotIndex": 72,
+      "snapshotIndex": 73,
       "player": "Gemini2.5Flash"
     },
     {
@@ -328602,7 +328602,7 @@
       "actionTaken": "Cast Eldrazi Monument with only Corpse Augur as a creature, meaning the Monument will force sacrificing it next upkeep and then be sacrificed itself the upkeep after.",
       "betterLine": "Cast Centaur Vinecrasher to develop the board, saving Eldrazi Monument for when there are enough creatures to sustain its upkeep cost. Alternatively, hold mana open for Altar's Reap if needed.",
       "type": "blunder",
-      "snapshotIndex": 88,
+      "snapshotIndex": 89,
       "player": "Devstral"
     },
     {
@@ -328611,7 +328611,7 @@
       "actionTaken": "Cast Solidarity of Heroes targeting Fathom Mage (which has 0 +1/+1 counters), wasting the card for no effect.",
       "betterLine": "Play Plains (or Island) first, then cast Crystalline Crawler for 4 mana (using all 4 colors available with Command Tower) to get it onto the battlefield with counters, or save Solidarity of Heroes for when there are actual +1/+1 counters to double.",
       "type": "blunder",
-      "snapshotIndex": 95,
+      "snapshotIndex": 96,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328620,7 +328620,7 @@
       "actionTaken": "Targeted Fathom Mage with Solidarity of Heroes, which has 0 +1/+1 counters, resulting in no effect.",
       "betterLine": "Should not have cast Solidarity of Heroes at all when no creatures have +1/+1 counters to double. The card should have been held for a turn when counters are present (e.g., after Citadel Siege's Khans mode or Fathom Mage evolve triggers).",
       "type": "blunder",
-      "snapshotIndex": 96,
+      "snapshotIndex": 97,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328629,7 +328629,7 @@
       "actionTaken": "Cast Solidarity of Heroes targeting Corpse Augur, which has no +1/+1 counters, accomplishing nothing.",
       "betterLine": "Don't cast Solidarity of Heroes at all since no creatures have +1/+1 counters to double. Save it for later when Fathom Mage or Crystalline Crawler might have counters, creating actual value.",
       "type": "blunder",
-      "snapshotIndex": 96,
+      "snapshotIndex": 97,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328638,7 +328638,7 @@
       "actionTaken": "Attacked with Fathom Mage (1/1) by selecting 'All attack'",
       "betterLine": "Don't attack with Fathom Mage. Keep it back as a value engine for upcoming +1/+1 counter synergies (Citadel Siege, Solidarity of Heroes). 1 damage to any opponent is not worth the risk of losing your only creature and key card draw engine.",
       "type": "blunder",
-      "snapshotIndex": 98,
+      "snapshotIndex": 99,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328647,7 +328647,7 @@
       "actionTaken": "Attacked Gemini2.5Flash with Fathom Mage, risking it being blocked and killed by Bloodtracker",
       "betterLine": "Attack Devstral where the Corpse Augur is tapped and cannot block, preserving Fathom Mage safely while still dealing 1 damage",
       "type": "blunder",
-      "snapshotIndex": 98,
+      "snapshotIndex": 99,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328656,7 +328656,7 @@
       "actionTaken": "Cast Crystalline Crawler before playing a land, getting only 3 +1/+1 counters.",
       "betterLine": "Play Plains (or Island) first, then cast Crystalline Crawler spending 4 colors of mana (e.g., WBUG) for 4 +1/+1 counters.",
       "type": "blunder",
-      "snapshotIndex": 101,
+      "snapshotIndex": 102,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328665,7 +328665,7 @@
       "actionTaken": "Fetched two Forests from Blighted Woodland",
       "betterLine": "Fetch Forest + Swamp to improve black mana access for Gaze of Granite and other black-heavy spells while still having ample green sources",
       "type": "blunder",
-      "snapshotIndex": 111,
+      "snapshotIndex": 112,
       "player": "Gemini2.5Flash"
     },
     {
@@ -328674,7 +328674,7 @@
       "actionTaken": "Cast Ambition's Cost to draw 3 cards and lose 3 life",
       "betterLine": "Cast Corpse Augur to develop the board with a 4/2 creature that can be equipped with Lightning Greaves and will eventually draw cards when it dies, preserving life total while still advancing the game plan",
       "type": "blunder",
-      "snapshotIndex": 118,
+      "snapshotIndex": 119,
       "player": "Gem3Flash"
     },
     {
@@ -328683,7 +328683,7 @@
       "actionTaken": "Targeted themselves for Corpse Augur trigger",
       "betterLine": "Any target gives the same result (X=1), so this is fine",
       "type": "blunder",
-      "snapshotIndex": 125,
+      "snapshotIndex": 126,
       "player": "Devstral"
     },
     {
@@ -328692,7 +328692,7 @@
       "actionTaken": "Discarded Butcher of Malakir to put a +1/+1 counter on Lotleth Troll",
       "betterLine": "Discard Centaur Vinecrasher instead, which has built-in graveyard recursion (pay GG when a land enters a graveyard), preserving Butcher of Malakir for hard-casting or keeping Victimize targets more flexible.",
       "type": "blunder",
-      "snapshotIndex": 132,
+      "snapshotIndex": 133,
       "player": "Devstral"
     },
     {
@@ -328701,7 +328701,7 @@
       "actionTaken": "Played Temple of the False God as their land for the turn",
       "betterLine": "Play Forest (or Mountain) to have untapped mana available, then cast Explosive Vegetation to ramp into two more basics, setting up for Thantis or Rampaging Baloths next turn with landfall triggers.",
       "type": "blunder",
-      "snapshotIndex": 140,
+      "snapshotIndex": 141,
       "player": "Gemini2.5Flash"
     },
     {
@@ -328710,7 +328710,7 @@
       "actionTaken": "Cast Explosive Vegetation to ramp, delaying Rampaging Baloths to a later turn.",
       "betterLine": "Play Forest from hand, then cast Rampaging Baloths (4GG) using the 9 available mana, getting an immediate 4/4 Beast token from the Forest's landfall trigger. Save Explosive Vegetation for next turn to generate two more 4/4 tokens.",
       "type": "blunder",
-      "snapshotIndex": 141,
+      "snapshotIndex": 142,
       "player": "Gemini2.5Flash"
     },
     {
@@ -328719,7 +328719,7 @@
       "actionTaken": "Searched for Forest as the second land (both picks were Forests)",
       "betterLine": "Fetch a Mountain and a Swamp (or at least one of them) to improve mana redundancy for Thantis and Gaze of Granite, ensuring they can cast their spells even if Rakdos Carnarium is removed.",
       "type": "blunder",
-      "snapshotIndex": 142,
+      "snapshotIndex": 143,
       "player": "Gemini2.5Flash"
     },
     {
@@ -328728,7 +328728,7 @@
       "actionTaken": "Attacked with Bloodtracker 3/3",
       "betterLine": "This is debatable - attacking with a growing Bloodtracker is fine if no dangerous blockers are present, but holding back to continue growing it could yield more value long-term.",
       "type": "blunder",
-      "snapshotIndex": 145,
+      "snapshotIndex": 146,
       "player": "Gemini2.5Flash"
     },
     {
@@ -328737,7 +328737,7 @@
       "actionTaken": "Played Command Tower (enters untapped)",
       "betterLine": "Play Golgari Guildgate (enters tapped) this turn since 5 untapped mana is sufficient for current castable spells, saving Command Tower for a future turn when the extra untapped mana and flexibility matters more.",
       "type": "blunder",
-      "snapshotIndex": 149,
+      "snapshotIndex": 150,
       "player": "Gem3Flash"
     },
     {
@@ -328746,7 +328746,7 @@
       "actionTaken": "Equipped Lightning Greaves to Meren before playing a land",
       "betterLine": "Play a land first (Forest for untapped mana, or Golgari Guildgate/Slippery Karst if saving the Forest), then equip Lightning Greaves to Meren",
       "type": "blunder",
-      "snapshotIndex": 151,
+      "snapshotIndex": 152,
       "player": "Gem3Flash"
     },
     {
@@ -328755,7 +328755,7 @@
       "actionTaken": "Discarded Spider Spawning",
       "betterLine": "Discard Golgari Guildgate - with 7 lands already in play including Command Tower and Vivid Marsh for color fixing, the tapped land is the lowest-impact card. While Spider Spawning has flashback, keeping it in hand preserves the option to cast it at its cheaper regular cost (4G vs 6B for flashback).",
       "type": "blunder",
-      "snapshotIndex": 159,
+      "snapshotIndex": 160,
       "player": "Gem3Flash"
     },
     {
@@ -328764,7 +328764,7 @@
       "actionTaken": "Cast Corpse Augur before playing a land for turn",
       "betterLine": "Play Forest first, then cast Wood Elves to ramp (fetching another Forest), building toward casting expensive threats like Pathbreaker Ibex or Eater of Hope sooner while generating Meren synergy",
       "type": "blunder",
-      "snapshotIndex": 169,
+      "snapshotIndex": 170,
       "player": "Gem3Flash"
     },
     {
@@ -328773,7 +328773,7 @@
       "actionTaken": "Activated Lightning Greaves equip for 0 before playing a land or casting any spells.",
       "betterLine": "Play Forest (or Golgari Guildgate), then cast Mulch to find more lands and fill the graveyard for Meren's ability, or cast Wood Elves to ramp. Equip Greaves later to protect a newly deployed creature.",
       "type": "blunder",
-      "snapshotIndex": 171,
+      "snapshotIndex": 172,
       "player": "Gem3Flash"
     },
     {
@@ -328782,7 +328782,7 @@
       "actionTaken": "Equipped Lightning Greaves (to Meren presumably) for 0 mana",
       "betterLine": "This is actually fine as a first action since equip costs 0; they can still cast Mulch afterwards with their remaining mana",
       "type": "blunder",
-      "snapshotIndex": 172,
+      "snapshotIndex": 173,
       "player": "Gem3Flash"
     },
     {
@@ -328791,7 +328791,7 @@
       "actionTaken": "Declined both available actions (did not equip Lightning Greaves to Meren, did not cast Scourge of Nel Toth).",
       "betterLine": "Equip Lightning Greaves to Meren of Clan Nel Toth for free to give her shroud and protect her from targeted removal. Note: they should wait until after playing Wood Elves or other creatures that need to be targeted by Meren's ability, but protecting the commander with free equipment is generally correct, especially before playing the land for the turn.",
       "type": "blunder",
-      "snapshotIndex": 174,
+      "snapshotIndex": 175,
       "player": "Gem3Flash"
     },
     {
@@ -328800,7 +328800,7 @@
       "actionTaken": "Passed without equipping Lightning Greaves to Meren.",
       "betterLine": "Equip Lightning Greaves to Meren of Clan Nel Toth for {0} to give her shroud, protecting her from targeted removal for free.",
       "type": "blunder",
-      "snapshotIndex": 178,
+      "snapshotIndex": 179,
       "player": "Gem3Flash"
     },
     {
@@ -328809,7 +328809,7 @@
       "actionTaken": "Cast Pathbreaker Ibex without first playing a land drop.",
       "betterLine": "Play Forest or Evolving Wilds first, then cast Pathbreaker Ibex. This preserves the land drop and maximizes available mana for the turn.",
       "type": "blunder",
-      "snapshotIndex": 282,
+      "snapshotIndex": 283,
       "player": "Gem3Flash"
     },
     {
@@ -328818,7 +328818,7 @@
       "actionTaken": "Equipped Lightning Greaves to Meren of Clan Nel Toth before playing a land",
       "betterLine": "Play Evolving Wilds (or Forest/Swamp) first, then cast Wood Elves (fetching a land), then equip Lightning Greaves to Meren or Wood Elves as appropriate after all ETB effects resolve",
       "type": "blunder",
-      "snapshotIndex": 284,
+      "snapshotIndex": 285,
       "player": "Gem3Flash"
     },
     {
@@ -328827,7 +328827,7 @@
       "actionTaken": "Passed without taking any action (chose False, declining to act)",
       "betterLine": "At minimum, equip Lightning Greaves to Meren of Clan Nel Toth for free shroud protection. Then play a land (Forest or Swamp) and potentially activate Evolving Wilds to fix mana and thin the deck.",
       "type": "blunder",
-      "snapshotIndex": 285,
+      "snapshotIndex": 286,
       "player": "Gem3Flash"
     },
     {
@@ -328836,7 +328836,7 @@
       "actionTaken": "Activated Evolving Wilds before equipping Lightning Greaves to Meren",
       "betterLine": "Equip Lightning Greaves to Meren first ({0} cost) to give her shroud protection, then activate Evolving Wilds to fetch a basic land",
       "type": "blunder",
-      "snapshotIndex": 289,
+      "snapshotIndex": 290,
       "player": "Gem3Flash"
     },
     {
@@ -328845,7 +328845,7 @@
       "actionTaken": "Fetched Swamp from Evolving Wilds",
       "betterLine": "Fetch Forest to better support casting Viridian Zealot (GG) and Wood Elves (2G), since black sources are already abundant and there's a Swamp in hand",
       "type": "blunder",
-      "snapshotIndex": 290,
+      "snapshotIndex": 291,
       "player": "Gem3Flash"
     },
     {
@@ -328854,7 +328854,7 @@
       "actionTaken": "Selected Eater of Hope to return to hand via Meren",
       "betterLine": "Select Extractor Demon - it costs 1 less mana to cast, has unearth for flexibility, and can always be the Meren target next turn if needed. Eater of Hope could be selected on a future Meren trigger when experience counters are higher for direct reanimation.",
       "type": "blunder",
-      "snapshotIndex": 292,
+      "snapshotIndex": 293,
       "player": "Gem3Flash"
     },
     {
@@ -328863,7 +328863,7 @@
       "actionTaken": "Discarded Scourge of Nel Toth as one of the two cards to discard to hand size",
       "betterLine": "This is actually a reasonable discard since Scourge can be cast from graveyard and Meren can retrieve it - the play is defensible",
       "type": "blunder",
-      "snapshotIndex": 347,
+      "snapshotIndex": 348,
       "player": "Gem3Flash"
     },
     {
@@ -328872,7 +328872,7 @@
       "actionTaken": "Activated Lightning Greaves Equip {0} before casting any creatures",
       "betterLine": "Cast a creature first (like Wood Elves for ramp or Thief of Blood to remove counters from opponents' creatures), then equip Lightning Greaves to the new creature if desired. Gemini2.5Flash is at 6 life - consider lines that enable attacking for the kill.",
       "type": "blunder",
-      "snapshotIndex": 365,
+      "snapshotIndex": 366,
       "player": "Gem3Flash"
     },
     {
@@ -328881,7 +328881,7 @@
       "actionTaken": "Passed priority without playing any spells, abilities, or lands.",
       "betterLine": "Play Forest from hand (land drop), then cast Viridian Zealot for GG (using Vivid Marsh + untapped Swamp), equip Lightning Greaves for free to give it haste, and potentially attack Gemini2.5Flash who is at 6 life. With Meren on board, developing creatures is valuable for the death trigger synergies.",
       "type": "blunder",
-      "snapshotIndex": 368,
+      "snapshotIndex": 369,
       "player": "Gem3Flash"
     },
     {
@@ -328890,7 +328890,7 @@
       "actionTaken": "Selected only Pathbreaker Ibex to attack, then skipped the attack phase entirely, dealing no damage.",
       "betterLine": "Attack Gemini2.5Flash with all creatures. Pathbreaker Ibex's trigger would give all creatures +5/+5 (from Extractor Demon's 5 power) and trample, resulting in massive lethal damage through Bloodtracker's single block, eliminating a player.",
       "type": "blunder",
-      "snapshotIndex": 369,
+      "snapshotIndex": 370,
       "player": "Gem3Flash"
     },
     {
@@ -328899,7 +328899,7 @@
       "actionTaken": "Cast Solidarity of Heroes for {1}{G} to double +1/+1 counters on Crystalline Crawler",
       "betterLine": "Play a land (Island or Azorius Chancery) and cast Commander's Sphere to develop mana base, saving Solidarity of Heroes for a more impactful target later when building a board with Citadel Siege or actual threats.",
       "type": "blunder",
-      "snapshotIndex": 399,
+      "snapshotIndex": 400,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328908,7 +328908,7 @@
       "actionTaken": "Selected Devstral's Lotleth Troll as a target for Solidarity of Heroes, doubling its +1/+1 counters from 3 to 6 (making it 8/7).",
       "betterLine": "Should not have targeted any opponent's creature with Solidarity of Heroes. If forced to choose between the two, Bloodtracker on 6-life Gemini2.5Flash is less threatening than buffing Devstral's Lotleth Troll. Ideally, decline additional targets entirely.",
       "type": "blunder",
-      "snapshotIndex": 400,
+      "snapshotIndex": 401,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328917,7 +328917,7 @@
       "actionTaken": "Removed a +1/+1 counter from Crystalline Crawler before Solidarity of Heroes resolved, reducing the doubling benefit.",
       "betterLine": "Let Solidarity of Heroes resolve first to double 3 counters to 6, then remove counters as needed for mana afterward.",
       "type": "blunder",
-      "snapshotIndex": 400,
+      "snapshotIndex": 401,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328926,7 +328926,7 @@
       "actionTaken": "Cast Duelist's Heritage for {2}{W}, spending Crystalline Crawler counters for mana",
       "betterLine": "Cast Commander's Sphere {3} to provide ongoing mana acceleration and color fixing, enabling faster deployment of Citadel Siege and Cauldron of Souls in subsequent turns while preserving more Crawler counters",
       "type": "blunder",
-      "snapshotIndex": 401,
+      "snapshotIndex": 402,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328935,7 +328935,7 @@
       "actionTaken": "Passed the turn without casting any spells.",
       "betterLine": "Cast Citadel Siege by tapping Island and removing 2 +1/+1 counters from Crystalline Crawler, choosing Khans mode to start accumulating +1/+1 counters on creatures each combat.",
       "type": "blunder",
-      "snapshotIndex": 405,
+      "snapshotIndex": 406,
       "player": "GPT-4.1-mini"
     },
     {
@@ -328944,7 +328944,7 @@
       "actionTaken": "Cast Caller of the Pack without first playing the Forest from hand",
       "betterLine": "Play Forest from hand first, then cast Caller of the Pack",
       "type": "blunder",
-      "snapshotIndex": 411,
+      "snapshotIndex": 412,
       "player": "Gem3Flash"
     },
     {
@@ -328953,7 +328953,7 @@
       "actionTaken": "Equipped Lightning Greaves (to Meren presumably) before playing Forest from hand.",
       "betterLine": "Play Forest from hand first to ensure the land drop isn't missed, then proceed with equipping and other plays. With Gemini2.5Flash at 6 life, also consider whether Thief of Blood could be relevant this turn to push for a kill.",
       "type": "blunder",
-      "snapshotIndex": 413,
+      "snapshotIndex": 414,
       "player": "Gem3Flash"
     },
     {
@@ -328962,7 +328962,7 @@
       "actionTaken": "Passed priority without playing a land or casting any spells.",
       "betterLine": "Play Forest from hand first (land drop), then consider casting Viridian Zealot as a body that synergizes with Meren's death triggers.",
       "type": "blunder",
-      "snapshotIndex": 413,
+      "snapshotIndex": 414,
       "player": "Gem3Flash"
     },
     {
@@ -328971,7 +328971,7 @@
       "actionTaken": "Attacked with only Caller of the Pack (8/6 trample with Myriad)",
       "betterLine": "Attack with at least Pathbreaker Ibex and Caller of the Pack together. Ibex trigger gives all attackers +8/+8 and trample, making Caller 16/14 and all Myriad copies 16/14 trample, likely killing Gemini2.5Flash and dealing massive damage to all opponents. Could also send all creatures for maximum damage.",
       "type": "blunder",
-      "snapshotIndex": 414,
+      "snapshotIndex": 415,
       "player": "Gem3Flash"
     },
     {
@@ -328980,7 +328980,7 @@
       "actionTaken": "Attacked with only Pathbreaker Ibex (3/3), dealing 5 trample damage through blocker, leaving Gemini2.5Flash at 1 life.",
       "betterLine": "Attack with all creatures targeting Gemini2.5Flash for guaranteed lethal damage with Pathbreaker Ibex's trample buff.",
       "type": "blunder",
-      "snapshotIndex": 414,
+      "snapshotIndex": 415,
       "player": "Gem3Flash"
     },
     {
@@ -328989,7 +328989,7 @@
       "actionTaken": "Attacked Gemini2.5Flash with only 2 creatures (likely Meren and Corpse Augur), leaving Wood Elves back.",
       "betterLine": "Attack with all 3 creatures. This forces the opponent into a lose-lose: block Wood Elves and die to 7 damage, or block a bigger creature and take 4-5 damage, putting them in easy kill range next turn.",
       "type": "blunder",
-      "snapshotIndex": 414,
+      "snapshotIndex": 415,
       "player": "Gem3Flash"
     },
     {
@@ -328998,7 +328998,7 @@
       "actionTaken": "Cast Duelist's Heritage before making a land drop",
       "betterLine": "Play Evolving Wilds first (crack it to fetch a basic), then cast Duelist's Heritage. This ensures the land drop isn't forgotten and gets deck thinning started immediately.",
       "type": "blunder",
-      "snapshotIndex": 428,
+      "snapshotIndex": 429,
       "player": "GPT-4.1-mini"
     },
     {
@@ -329007,7 +329007,7 @@
       "actionTaken": "Played Evolving Wilds as land drop",
       "betterLine": "Play Azorius Chancery, bouncing a tapped land (e.g., Island), to get the double-mana bounce land online sooner and maximize mana development for casting 4-5 mana spells in hand.",
       "type": "blunder",
-      "snapshotIndex": 430,
+      "snapshotIndex": 431,
       "player": "GPT-4.1-mini"
     },
     {
@@ -329016,7 +329016,7 @@
       "actionTaken": "Passed priority without activating any abilities",
       "betterLine": "Tap Crystalline Crawler to put a +1/+1 counter on it (free value), and activate Evolving Wilds if available to thin the deck and fix mana",
       "type": "blunder",
-      "snapshotIndex": 431,
+      "snapshotIndex": 432,
       "player": "GPT-4.1-mini"
     },
     {
@@ -329025,7 +329025,7 @@
       "actionTaken": "Cast Great Oak Guardian during precombat main phase",
       "betterLine": "Cast Bloodspore Thrinax (potentially devouring nothing for now to set up future synergy with Meren), or if wanting Great Oak Guardian, cast it during the declare attackers step to pump Meren for combat damage. Alternatively, play Golgari Rot Farm first to set up future mana, then consider casting Thief of Blood or Bloodspore Thrinax.",
       "type": "blunder",
-      "snapshotIndex": 435,
+      "snapshotIndex": 436,
       "player": "Gem3Flash"
     },
     {
@@ -329034,7 +329034,7 @@
       "actionTaken": "Chose Butcher of Malakir (7 mana) to return to hand via Meren",
       "betterLine": "Choose Thief of Blood (6 mana) to return to hand - it directly answers Ishai's counter accumulation and Crystalline Crawler, while being cheaper to cast than Butcher",
       "type": "blunder",
-      "snapshotIndex": 614,
+      "snapshotIndex": 615,
       "player": "Gem3Flash"
     },
     {
@@ -329043,7 +329043,7 @@
       "actionTaken": "Targeted Terastodon with Meren's end step trigger to return to hand",
       "betterLine": "Target Shriekmaw (castable via evoke for 1B to kill Ishai) or Acidic Slime (castable at 3GG with current 7 lands) to get an immediately usable creature",
       "type": "blunder",
-      "snapshotIndex": 684,
+      "snapshotIndex": 685,
       "player": "Gem3Flash"
     },
     {
@@ -329052,7 +329052,7 @@
       "actionTaken": "Cast Vulturous Zombie, growing Ishai by +1/+1 in the process",
       "betterLine": "Cast Sever the Bloodline targeting Ishai, Ojutai Dragonspeaker to exile GPT-4.1-mini's main threat, then use remaining mana for Viridian Zealot or Phyrexian Rager",
       "type": "blunder",
-      "snapshotIndex": 764,
+      "snapshotIndex": 765,
       "player": "Gem3Flash"
     },
     {
@@ -329061,7 +329061,7 @@
       "actionTaken": "Equipped Lightning Greaves to Vulturous Zombie, leaving Pathbreaker Ibex and Meren unprotected.",
       "betterLine": "Keep Lightning Greaves on Pathbreaker Ibex to protect the most impactful creature, or move it to Meren to protect the recursion engine.",
       "type": "blunder",
-      "snapshotIndex": 766,
+      "snapshotIndex": 767,
       "player": "Gem3Flash"
     },
     {
@@ -329070,7 +329070,7 @@
       "actionTaken": "Declined to activate any abilities, passing without cracking Terramorphic Expanse.",
       "betterLine": "Activate Terramorphic Expanse to search for a basic land, gaining incremental advantage at no cost.",
       "type": "blunder",
-      "snapshotIndex": 766,
+      "snapshotIndex": 767,
       "player": "Gem3Flash"
     },
     {
@@ -329079,7 +329079,7 @@
       "actionTaken": "Passed priority without activating any abilities",
       "betterLine": "Activate Terramorphic Expanse to search for a basic land, getting additional mana for future turns and thinning the deck",
       "type": "blunder",
-      "snapshotIndex": 768,
+      "snapshotIndex": 769,
       "player": "Gem3Flash"
     },
     {
@@ -329088,7 +329088,7 @@
       "actionTaken": "Equipped Lightning Greaves to Phyrexian Rager (2/2)",
       "betterLine": "Equip Lightning Greaves to Meren of Clan Nel Toth to protect the most important creature on the board from removal.",
       "type": "blunder",
-      "snapshotIndex": 769,
+      "snapshotIndex": 770,
       "player": "Gem3Flash"
     },
     {
@@ -329097,7 +329097,7 @@
       "actionTaken": "Selected Terastodon as the Meren of Clan Nel Toth end-step graveyard target",
       "betterLine": "Select Eternal Witness (3 mana, castable next turn to recur a key card like Pathbreaker Ibex or Overwhelming Stampede) or Butcher of Malakir/Acidic Slime for immediate board impact",
       "type": "blunder",
-      "snapshotIndex": 770,
+      "snapshotIndex": 771,
       "player": "Gem3Flash"
     },
     {
@@ -329106,7 +329106,7 @@
       "actionTaken": "Equipped Lightning Greaves to Meren of Clan Nel Toth before casting any other spells",
       "betterLine": "Cast Korozda Guildmage first using Vivid Marsh (removing charge counter for G) and Swamp (for B), then equip Lightning Greaves to whichever creature needs protection most",
       "type": "blunder",
-      "snapshotIndex": 847,
+      "snapshotIndex": 848,
       "player": "Gem3Flash"
     },
     {
@@ -329115,7 +329115,7 @@
       "actionTaken": "Chose Butcher of Malakir as the Meren end-step target, which likely just goes to hand as an expensive card they can't cast soon.",
       "betterLine": "Choose Sakura-Tribe Elder or Eternal Witness - creatures with low enough CMV to potentially return directly to the battlefield via Meren, providing immediate board impact and incremental advantage.",
       "type": "blunder",
-      "snapshotIndex": 850,
+      "snapshotIndex": 851,
       "player": "Gem3Flash"
     },
     {
@@ -329124,7 +329124,7 @@
       "actionTaken": "Cast Butcher of Malakir for 7 mana, deploying a 5/4 flyer with no immediate board impact.",
       "betterLine": "Cast Centaur Vinecrasher for 4 mana (entering as ~32/32 trample), equip Lightning Greaves for free (haste+shroud), and attack GPT-4.1-mini for lethal or near-lethal damage. Remaining 3 mana could be used for Viridian Zealot or held for Altar's Reap.",
       "type": "blunder",
-      "snapshotIndex": 858,
+      "snapshotIndex": 859,
       "player": "Gem3Flash"
     },
     {
@@ -329133,7 +329133,7 @@
       "actionTaken": "Equipped Lightning Greaves to Pathbreaker Ibex (3/3)",
       "betterLine": "Equip Lightning Greaves to Vulturous Zombie (11/11) to protect the biggest threat and ensure maximum value from Pathbreaker Ibex's attack trigger. Greaves can be moved to Ibex after attacks are declared if needed (equip 0).",
       "type": "blunder",
-      "snapshotIndex": 860,
+      "snapshotIndex": 861,
       "player": "Gem3Flash"
     },
     {
@@ -329198,7 +329198,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -329232,7 +329233,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -329271,7 +329273,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -329305,7 +329308,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -329339,7 +329343,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -329373,7 +329378,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -329412,7 +329418,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -329452,6 +329459,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -329506,7 +329514,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 9,
@@ -329546,6 +329555,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -329599,7 +329609,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 11,
@@ -329650,7 +329661,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 12,
@@ -329684,7 +329696,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 13,
@@ -329737,6 +329750,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -329784,6 +329798,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -329898,7 +329913,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 16,
@@ -329950,6 +329966,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -330005,6 +330022,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -330059,6 +330077,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -330129,6 +330148,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -330171,6 +330191,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -330213,6 +330234,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -330255,6 +330277,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -330389,6 +330412,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -330448,6 +330472,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -330558,7 +330583,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 26,
@@ -330614,7 +330640,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 27,
@@ -330654,6 +330681,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -330704,6 +330732,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -330754,6 +330783,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -330824,6 +330854,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -330879,6 +330910,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -330921,6 +330953,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -330957,7 +330990,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 34,
@@ -330997,6 +331031,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -331052,6 +331087,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -331103,6 +331139,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -331157,6 +331194,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -331203,6 +331241,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -331254,6 +331293,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -331296,6 +331336,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -331332,7 +331373,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 42,
@@ -331407,7 +331449,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 43,
@@ -331447,6 +331490,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -331489,6 +331533,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -331526,6 +331571,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -331574,6 +331620,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -331621,6 +331668,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -331658,6 +331706,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -331701,6 +331750,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -331744,7 +331794,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 51,
@@ -331788,6 +331839,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -331846,6 +331898,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -331894,6 +331947,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -331939,7 +331993,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 55,
@@ -331973,7 +332028,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 56,
@@ -332019,6 +332075,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -332067,7 +332124,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 58,
@@ -332106,7 +332164,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 59,
@@ -332145,7 +332204,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 60,
@@ -332184,7 +332244,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 61,
@@ -332223,7 +332284,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 62,
@@ -332262,7 +332324,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 63,
@@ -332301,7 +332364,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 64,
@@ -332340,7 +332404,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 65,
@@ -332398,6 +332463,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -332453,6 +332519,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -332504,6 +332571,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -332551,6 +332619,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -332581,7 +332650,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 70,
@@ -332621,7 +332691,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 71,
@@ -332672,6 +332743,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -332724,6 +332796,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -332766,6 +332839,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -332809,6 +332883,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -332852,7 +332927,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 76,
@@ -332906,6 +332982,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -332947,7 +333024,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 78,
@@ -332995,7 +333073,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 79,
@@ -333044,6 +333123,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333091,7 +333171,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 81,
@@ -333151,6 +333232,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -333205,6 +333287,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -333251,6 +333334,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -333288,6 +333372,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333325,6 +333410,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333362,6 +333448,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333399,6 +333486,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333436,6 +333524,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333473,6 +333562,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333510,6 +333600,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333548,6 +333639,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333595,6 +333687,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333650,6 +333743,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333701,6 +333795,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333748,6 +333843,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -333841,7 +333937,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 97,
@@ -333928,7 +334025,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 98,
@@ -333974,6 +334072,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -334019,7 +334118,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 100,
@@ -334053,7 +334153,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 101,
@@ -334099,6 +334200,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -334149,6 +334251,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -334191,6 +334294,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -334250,6 +334354,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -334300,6 +334405,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -334337,6 +334443,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -334379,6 +334486,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -334421,6 +334529,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -334471,6 +334580,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -334525,6 +334635,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -334567,6 +334678,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -334608,7 +334720,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 113,
@@ -334647,7 +334760,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 114,
@@ -334698,7 +334812,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 115,
@@ -334737,7 +334852,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 116,
@@ -334776,7 +334892,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 117,
@@ -334823,7 +334940,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 118,
@@ -334862,7 +334980,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 119,
@@ -334901,7 +335020,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 120,
@@ -334937,6 +335057,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -335011,6 +335132,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -335073,6 +335195,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -335115,6 +335238,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -335201,6 +335325,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -335283,6 +335408,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -335329,6 +335455,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -335371,6 +335498,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -335413,6 +335541,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -335461,6 +335590,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -335508,6 +335638,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -335545,6 +335676,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -335587,6 +335719,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -335625,6 +335758,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -335668,6 +335802,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -335735,6 +335870,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -335788,6 +335924,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -335841,6 +335978,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -335899,6 +336037,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -335936,6 +336075,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -335978,6 +336118,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -336025,6 +336166,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -336067,6 +336209,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -336109,6 +336252,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -336151,6 +336295,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -336187,7 +336332,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 146,
@@ -336233,6 +336379,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -336278,7 +336425,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 148,
@@ -336312,7 +336460,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 149,
@@ -336379,7 +336528,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 150,
@@ -336443,6 +336593,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -336480,6 +336631,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -336534,6 +336686,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -336576,6 +336729,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -336613,6 +336767,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -336668,6 +336823,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -336722,6 +336878,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -336764,6 +336921,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -336801,6 +336959,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -336856,6 +337015,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -336893,6 +337053,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -336940,6 +337101,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -336982,6 +337144,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337019,6 +337182,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337065,6 +337229,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337118,6 +337283,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -337165,6 +337331,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337202,6 +337369,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337250,6 +337418,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337287,6 +337456,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -337370,6 +337540,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -337407,6 +337578,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337462,6 +337634,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337504,6 +337677,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337550,6 +337724,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337587,6 +337762,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337641,6 +337817,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -337688,6 +337865,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -337746,6 +337924,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -337793,6 +337972,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -337830,6 +338010,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -337872,6 +338053,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -337919,6 +338101,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -337961,6 +338144,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -337998,6 +338182,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -338100,6 +338285,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -338142,6 +338328,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -338183,6 +338370,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -338229,6 +338417,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -338267,6 +338456,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -338304,6 +338494,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -338369,6 +338560,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -338439,6 +338631,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -338476,6 +338669,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -338563,6 +338757,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -338600,6 +338795,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -338683,6 +338879,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -338757,6 +338954,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -338800,6 +338998,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -338867,6 +339066,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -338909,6 +339109,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -338959,6 +339160,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339001,6 +339203,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339067,6 +339270,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339109,6 +339313,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -339152,6 +339357,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -339214,6 +339420,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -339273,6 +339480,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339315,6 +339523,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339369,6 +339578,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339411,6 +339621,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339469,6 +339680,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339533,6 +339745,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -339618,6 +339831,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339673,6 +339887,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339724,6 +339939,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339771,6 +339987,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -339818,7 +340035,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 218,
@@ -339863,7 +340081,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 219,
@@ -339911,7 +340130,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 220,
@@ -339971,7 +340191,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 221,
@@ -340016,7 +340237,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 222,
@@ -340064,7 +340286,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 223,
@@ -340137,7 +340360,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 224,
@@ -340199,6 +340423,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -340258,6 +340483,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -340303,6 +340529,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -340359,6 +340586,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -340401,6 +340629,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -340443,6 +340672,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -340485,6 +340715,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -340527,6 +340758,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -340610,6 +340842,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -340684,6 +340917,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 11
       }
@@ -340727,6 +340961,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -340782,6 +341017,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -340824,6 +341060,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -340878,6 +341115,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -340920,6 +341158,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -340974,6 +341213,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341042,6 +341282,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
@@ -341089,6 +341330,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341152,6 +341394,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers",
@@ -341202,6 +341445,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341260,6 +341504,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers",
@@ -341307,6 +341552,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341353,6 +341599,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341395,6 +341642,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341432,6 +341680,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341474,6 +341723,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341516,6 +341766,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341558,6 +341809,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341601,6 +341853,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341681,6 +341934,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -341729,6 +341983,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -341780,6 +342035,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -341843,6 +342099,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -341880,6 +342137,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -341928,6 +342186,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -341970,6 +342229,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -342046,6 +342306,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -342093,7 +342354,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 262,
@@ -342141,7 +342403,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 263,
@@ -342201,7 +342464,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 264,
@@ -342235,7 +342499,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 265,
@@ -342280,7 +342545,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 266,
@@ -342320,6 +342586,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -342379,7 +342646,8 @@
         "GPT-4.1-mini draws seven cards",
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 268,
@@ -342422,6 +342690,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -342479,6 +342748,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -342521,6 +342791,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -342563,6 +342834,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -342605,6 +342877,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -342687,6 +342960,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 11
       }
@@ -342761,6 +343035,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -342803,6 +343078,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -342845,6 +343121,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -342896,6 +343173,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -342938,6 +343216,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343008,6 +343287,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343077,6 +343357,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "declare_attackers"
@@ -343124,6 +343405,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343161,6 +343443,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343207,6 +343490,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343249,6 +343533,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343291,6 +343576,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343333,6 +343619,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343370,6 +343657,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343412,6 +343700,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343454,6 +343743,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -343521,6 +343811,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -343600,6 +343891,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -343690,6 +343982,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 12
       }
@@ -343772,6 +344065,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13
       }
@@ -343818,6 +344112,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -343864,6 +344159,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -343942,6 +344238,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -343984,6 +344281,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -344046,6 +344344,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -344092,6 +344391,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -344170,6 +344470,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -344216,6 +344517,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -344262,6 +344564,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -344308,6 +344611,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -344382,6 +344686,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -344424,6 +344729,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -344490,6 +344796,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -344540,6 +344847,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -344614,6 +344922,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -344709,6 +345018,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -344759,6 +345069,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13
       }
@@ -344849,6 +345160,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13
       }
@@ -344899,6 +345211,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -344949,6 +345262,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -345035,6 +345349,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -345077,6 +345392,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -345147,6 +345463,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -345197,6 +345514,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -345283,6 +345601,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -345333,6 +345652,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -345383,6 +345703,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -345469,6 +345790,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -345571,6 +345893,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -345625,6 +345948,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -345679,6 +346003,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -345733,6 +346058,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -345787,6 +346113,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -345841,6 +346168,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -345895,6 +346223,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -345989,6 +346318,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 13
       }
@@ -346079,6 +346409,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 14
       }
@@ -346133,6 +346464,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346187,6 +346519,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346273,6 +346606,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346315,6 +346649,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346393,6 +346728,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346447,6 +346783,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346533,6 +346870,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346626,6 +346964,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "combatPhase": "declare_attackers"
@@ -346664,6 +347003,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346709,6 +347049,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346759,6 +347100,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346805,6 +347147,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346859,6 +347202,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346913,6 +347257,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -346967,6 +347312,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -347021,6 +347367,7 @@
         "Gemini2.5Flash draws seven cards",
         "Devstral decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
