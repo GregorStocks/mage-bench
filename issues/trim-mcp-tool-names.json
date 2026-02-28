@@ -1,0 +1,10 @@
+{
+  "title": "Trim whitespace in MCP tool name lookup to handle Kimi K2.5 formatting quirk",
+  "description": "Kimi K2.5 (`moonshotai/kimi-k2.5`) systematically emits tool names with leading whitespace, e.g. `\"  pass_priority\"` or `\"                         choose_action\"` (26 leading spaces). The MCP tool registry does an exact HashMap lookup, so these all fail with `Unknown tool`.\n\nThis happened 7 times in a single game, each wasting a round-trip and tokens.\n\nEvidence:\n- ~/.mage-bench/logs/game_20260228_010846_g4/Kimi25 Philo_errors.log: 7 occurrences\n- McpToolRegistry.java:88-91 — `byName.get(name)` with no trimming\n- McpServer.java:207-208 — `params.get(\"name\").getAsString()` with no trimming\n\nFix: Add `name = name.strip()` in `McpToolRegistry.call()` before the HashMap lookup. This is a one-line defensive fix that helps any model with whitespace formatting issues.\n\nAlternatively, log a warning when trimming changes the name so we can track which models have this issue.",
+  "status": "closed",
+  "priority": 3,
+  "type": "task",
+  "labels": ["bridge"],
+  "created_at": "2026-02-28T09:00:00.000000-08:00",
+  "updated_at": "2026-02-28T09:00:00.000000-08:00"
+}

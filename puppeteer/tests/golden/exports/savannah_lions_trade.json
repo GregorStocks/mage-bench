@@ -1665,7 +1665,7 @@
           }
         ],
         "message": "Select blockers",
-        "respond_with": "blockers=[{\"id\":\"pN\",\"blocks\":\"pM\"},...] or answer=true (confirm) or answer=false (skip)",
+        "respond_with": "blockers=[\"pN:pM\",...] (blocker:attacker) or answer=true (confirm) or answer=false (skip)",
         "response_type": "select",
         "stop_reason": "combat"
       },

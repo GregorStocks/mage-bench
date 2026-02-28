@@ -1,0 +1,10 @@
+{
+  "title": "System prompt and respond_with teach wrong blocker declaration format",
+  "description": "The system prompt (`puppeteer/prompts/default.md:58`) and the `respond_with` hints from `pass_priority` teach the object format for blocker declarations:\n\n```\nblockers=[{\"id\":\"p5\",\"blocks\":\"p1\"},{\"id\":\"p6\",\"blocks\":\"p2\"}]\n```\n\nBut `ChooseActionTool.java:78` declares the `blockers` parameter as `String[]` with description:\n\n```\nArray of \"blocker_id:attacker_id\" strings. Example: [\"p5:p1\",\"p6:p2\"]\n```\n\nWhen models follow the system prompt (which they see first and trust most), the MCP parameter deserializer fails because it can't convert JSON objects to strings:\n\n```\nParameter 'blockers': expected array of strings, got JsonArray ([{\"id\":\"p41\",\"blocks\":\"p14\"}])\n```\n\nModels self-correct after the error, but this wastes a round-trip and tokens every time.\n\nEvidence:\n- ~/.mage-bench/logs/game_20260228_010846_g4/Gem25F Lucky_errors.log: blocker format error\n- puppeteer/prompts/default.md:58 — teaches object format\n- puppeteer/tests/golden/exports/savannah_lions_trade.json:1668 — respond_with also teaches object format\n- ChooseActionTool.java:78 — tool expects String[] with \"id:blocks\" format\n\nFix options:\n1. Update default.md and the respond_with builder to teach the string format `[\"p5:p1\"]`\n2. Or accept both formats in the tool by parsing objects from the JsonArray before converting to String[]",
+  "status": "closed",
+  "priority": 3,
+  "type": "task",
+  "labels": ["bridge", "pilot"],
+  "created_at": "2026-02-28T09:00:00.000000-08:00",
+  "updated_at": "2026-02-28T09:00:00.000000-08:00"
+}

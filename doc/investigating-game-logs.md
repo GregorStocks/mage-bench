@@ -146,6 +146,19 @@ These often indicate ShortIdRegistry remapping: a card's short ID changed betwee
 when choices were presented and when the LLM responded. Common with multi-step
 targeting (e.g., Doomsday pile construction) and mana sources that get sacrificed.
 
+## Tool name formatting issues
+
+Some models (notably Kimi K2.5) emit tool names with leading whitespace, causing
+`Unknown tool` errors. The MCP registry does exact string matching.
+
+```bash
+# Find tool name whitespace errors (model-specific formatting bugs)
+grep "Unknown tool:" "$GAME_DIR"/*_errors.log
+
+# Count per model to identify systematic issues
+grep -c "Unknown tool:" "$GAME_DIR"/*_errors.log
+```
+
 ## Tracing auto-mana payment sequences
 
 ```bash

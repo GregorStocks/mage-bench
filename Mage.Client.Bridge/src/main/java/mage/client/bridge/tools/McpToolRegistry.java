@@ -86,6 +86,8 @@ public class McpToolRegistry {
     /** Execute a tool by name, extracting args from the JsonObject. */
     @SuppressWarnings("unchecked")
     public Map<String, Object> call(String name, JsonObject arguments, BridgeCallbackHandler handler) {
+        // Some models (e.g. Kimi K2.5) emit tool names with leading whitespace
+        name = name.strip();
         ToolEntry entry = byName.get(name);
         if (entry == null) {
             throw new RuntimeException("Unknown tool: " + name);

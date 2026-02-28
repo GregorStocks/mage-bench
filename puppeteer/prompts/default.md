@@ -55,8 +55,8 @@ When you see `combat_phase="declare_attackers"`, use batch declaration:
 
 When you see `combat_phase="declare_blockers"`, use batch declaration:
 
-- `choose_action(blockers=[{"id":"p5","blocks":"p1"},{"id":"p6","blocks":"p2"}])` declares blockers and their assignments at once.
-- Use IDs from `incoming_attackers` for the "blocks" field.
+- `choose_action(blockers=["p5:p1","p6:p2"])` declares blockers at once. Format: `"blocker_id:attacker_id"`.
+- Use IDs from `incoming_attackers` for the attacker ID.
 - To not block, call `choose_action(answer=false)`.
 
 ## Chat
