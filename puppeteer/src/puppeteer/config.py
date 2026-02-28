@@ -110,8 +110,33 @@ def load_presets(config_file: Path | None) -> dict:
 
 
 def load_prompts(config_file: Path | None) -> dict[str, str]:
-    """Load prompt definitions from prompts.json."""
-    return _load_json_file("prompts.json", config_file)
+    """Load prompt definitions from prompts/ dir and prompts.json.
+
+    Scans for .md files in a ``prompts/`` directory (sibling to config file,
+    then ``puppeteer/prompts/``).  Each file's stem becomes a prompt key with
+    the file contents as the value.  Then loads ``prompts.json`` (if present)
+    and merges on top, so JSON entries override .md files with the same name.
+    """
+    result: dict[str, str] = {}
+
+    # Scan prompts/ directories for .md files
+    prompt_dirs: list[Path] = []
+    if config_file is not None:
+        prompt_dirs.append(config_file.parent / "prompts")
+    prompt_dirs.append(Path("puppeteer/prompts"))
+
+    for prompt_dir in prompt_dirs:
+        if prompt_dir.is_dir():
+            for md_file in sorted(prompt_dir.glob("*.md")):
+                key = md_file.stem
+                if key not in result:
+                    result[key] = md_file.read_text().strip()
+
+    # JSON overrides .md files
+    json_prompts = _load_json_file("prompts.json", config_file)
+    result.update(json_prompts)
+
+    return result
 
 
 def load_toolsets(config_file: Path | None) -> dict[str, list[str]]:

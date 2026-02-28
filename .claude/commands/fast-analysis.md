@@ -1,6 +1,6 @@
 # Fast Game Analysis
 
-Quickly analyze a game using only the exported `.json.gz` file. This covers ~85-90% of what the full analysis finds — game narrative, LLM decision quality, error patterns, bug identification — without needing the raw log directory.
+Quickly analyze a game using only the exported game file (`.json` or `.json.gz`). This covers ~85-90% of what the full analysis finds — game narrative, LLM decision quality, error patterns, bug identification — without needing the raw log directory.
 
 ## Workflow
 
@@ -18,28 +18,26 @@ Determine which game(s) to analyze:
   uv run python scripts/list-recent-games.py --config {config}
   ```
   where `{config}` might be `commander-gauntlet`, `standard-dumb`, `modern-staller`, etc. Check what symlinks exist with `--symlinks`.
-- **If no game specified at all**, find the 10 most recent unanalyzed games. Check which games already have fast-analysis files in `doc/claudes/analyses/fast/` and skip those:
+- **If no game specified at all**, find the 10 most recent unanalyzed games:
   ```bash
-  ls doc/claudes/analyses/fast/game_*.md 2>/dev/null  # already fast-analyzed
-  ls website/public/games/*.json.gz | sort -r          # all games, newest first
+  uv run python scripts/analysis/find_unanalyzed.py
   ```
-  Pick the 10 most recent gz files that don't have a corresponding file in `fast/`. Analyze them one by one.
+  This cross-references all game exports in `website/public/games/` (both `.json` and `.json.gz`) against existing analysis files in `doc/claudes/analyses/fast/` and prints the unanalyzed ones newest-first. Use `--count N` to change the number.
 
 Run steps 2-5 for **each** selected game before moving to the next.
 
-### Step 2: Find or generate the gz file
+### Step 2: Resolve the game file path
 
 ```bash
 GAME_ID=game_YYYYMMDD_HHMMSS  # from step 1
-GZ_PATH=website/public/games/${GAME_ID}.json.gz
+GAME_PATH=website/public/games/${GAME_ID}.json  # or .json.gz
 ```
 
-a. Check if `$GZ_PATH` exists on the current branch.
-b. If not, check if `~/.mage-bench/logs/${GAME_ID}/game_events.jsonl` exists. If so, generate the gz:
+a. Check if `website/public/games/${GAME_ID}.json` or `.json.gz` exists on the current branch. (If using `find_unanalyzed.py`, it already outputs the full path — use that directly.)
+b. If not, check if `~/.mage-bench/logs/${GAME_ID}/game_events.jsonl` exists. If so, generate the export:
    ```bash
    uv run python scripts/export_game.py ${GAME_ID}
    ```
-   This creates `website/public/games/${GAME_ID}.json.gz`.
 c. If neither exists, tell the user and stop.
 
 ### Step 3: Use reusable analysis scripts
@@ -48,13 +46,13 @@ All analysis logic lives in `scripts/analysis/`. Check what already exists there
 
 If a script you need doesn't exist yet, **create it in `scripts/analysis/`** and check it in. Do NOT write inline `python3 -c "..."` one-liners. These scripts accumulate over time into a reusable analysis toolkit.
 
-Each script should accept a gz file path as an argument:
+Each script accepts a game file path (`.json` or `.json.gz`) as an argument:
 
 ```bash
-uv run python scripts/analysis/game_overview.py $GZ_PATH
-uv run python scripts/analysis/game_narrative.py $GZ_PATH
-uv run python scripts/analysis/llm_events.py $GZ_PATH
-uv run python scripts/analysis/llm_reasoning.py $GZ_PATH
+uv run python scripts/analysis/game_overview.py $GAME_PATH
+uv run python scripts/analysis/game_narrative.py $GAME_PATH
+uv run python scripts/analysis/llm_events.py $GAME_PATH
+uv run python scripts/analysis/llm_reasoning.py $GAME_PATH
 ```
 
 The scripts should cover:
