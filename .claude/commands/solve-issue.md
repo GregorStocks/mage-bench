@@ -6,12 +6,18 @@ Pick and solve exactly **one** issue, then create a PR.
 
 1. **Claim an issue** by running:
    ```bash
+   # Auto-pick the highest-priority unclaimed issue:
    uv run python scripts/autoclaim-issue.py
+
+   # Or claim a specific issue by name (bypasses not_autoclaimable):
+   uv run python scripts/autoclaim-issue.py <issue-name>
    ```
-   This merges origin/master, picks the highest-priority unclaimed autoclaimable issue, and claims it (creating a draft PR). Issues with `"not_autoclaimable": true` are skipped — those have preconditions that need manual review.
+   If the user passed an argument to `/solve-issue` (e.g. `/solve-issue populate-deck-strategies`), use it as the issue name. Otherwise, auto-pick.
+
+   Auto-pick mode skips issues with `"not_autoclaimable": true` — those have preconditions that need manual review. Naming a specific issue bypasses that filter, but still fails if the issue is already claimed by another PR.
+
    - If the script **succeeds** (exit 0): you claimed it. Continue to step 2.
-   - If the script **fails** (exit 1): no claimable issues available. Tell the user.
-   - If the script **fails** (exit 2): lost all race attempts. Tell the user.
+   - If the script **fails** (exit 1 or 2): **stop immediately**. Tell the user no issue was claimed and do NOT proceed. You must not work on any issue you haven't successfully claimed — no exceptions. The claiming system prevents multiple Claudes from working on the same issue; bypassing it causes wasted work and merge conflicts.
 2. **Enter plan mode** — explore the codebase, design your approach, and present it to the user for feedback before writing any code. This is the user's chance to redirect you if the approach is wrong. **Your plan must end with this checklist** (copy it verbatim into your plan):
 
    ```

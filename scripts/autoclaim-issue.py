@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Automatically pick and claim the highest-priority unclaimed issue.
+"""Claim an issue — either a specific one or the highest-priority unclaimed one.
 
-Merges origin/master, lists issues, filters out claimed and non-autoclaimable
-ones, picks the highest-priority unclaimed issue, and claims it.
+Merges origin/master first, then either claims the named issue or picks the
+highest-priority unclaimed autoclaimable issue.
 
 Usage:
-    autoclaim-issue.py
+    autoclaim-issue.py                  Auto-pick highest priority issue
+    autoclaim-issue.py <issue-name>     Claim a specific issue (bypasses not_autoclaimable)
 
 Exit codes:
     0  Claimed successfully (prints issue filename and PR number)
-    1  No claimable issues available
+    1  No claimable issues available / named issue already claimed
     2  Failed after max retries (all picks were race-lost)
 """
 
@@ -81,8 +82,31 @@ def pick_unclaimed(issues: list[tuple[str, int, str]], claimed: set[str]) -> str
     return None
 
 
+def claim_specific(issue_name: str) -> None:
+    """Claim a specific issue by name, bypassing not_autoclaimable."""
+    issue_stem = issue_name.removesuffix(".json")
+    issue_path = ISSUES_DIR / f"{issue_stem}.json"
+    assert issue_path.exists(), f"Issue file not found: {issue_path}"
+
+    claimed = get_claimed()
+    if issue_stem in claimed:
+        print(f"Issue {issue_stem} is already claimed by another PR.", file=sys.stderr)
+        sys.exit(1)
+
+    if claim(issue_stem):
+        print(f"Claimed: {issue_stem}")
+        sys.exit(0)
+
+    print(f"Failed to claim {issue_stem}.", file=sys.stderr)
+    sys.exit(2)
+
+
 def main() -> None:
     merge_master()
+
+    if len(sys.argv) > 1:
+        claim_specific(sys.argv[1])
+        return
 
     for attempt in range(MAX_RETRIES):
         issues = load_issues()
