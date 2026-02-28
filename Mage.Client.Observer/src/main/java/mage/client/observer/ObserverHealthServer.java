@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -134,16 +137,56 @@ public class ObserverHealthServer {
 
         CompletableFuture<Void> future = gameEndFutures.computeIfAbsent(gameDir, k -> new CompletableFuture<>());
 
+        // Wait for game end via two paths:
+        // 1. CompletableFuture signaled by ObserverGamePanel.endMessage()
+        // 2. Polling server_game_events.jsonl for "game_end" marker (fallback
+        //    for when the spectator panel wasn't watching the game at end time)
+        long deadlineMs = System.currentTimeMillis() + timeout * 1000L;
         try {
-            future.get(timeout, TimeUnit.SECONDS);
-            sendJson(exchange, 200, "{\"done\":true}");
-        } catch (TimeoutException e) {
-            sendJson(exchange, 408, "{\"done\":false,\"error\":\"timeout\"}");
+            while (System.currentTimeMillis() < deadlineMs) {
+                // Check the CompletableFuture (primary signal)
+                try {
+                    future.get(500, TimeUnit.MILLISECONDS);
+                    break;
+                } catch (TimeoutException ignored) {
+                    // Not signaled yet — check file fallback
+                }
+
+                // File-based fallback: check server event log
+                if (isGameEndInServerLog(gameDir)) {
+                    future.complete(null);
+                    break;
+                }
+            }
+
+            if (future.isDone()) {
+                sendJson(exchange, 200, "{\"done\":true}");
+            } else {
+                sendJson(exchange, 408, "{\"done\":false,\"error\":\"timeout\"}");
+            }
         } catch (Exception e) {
             sendJson(exchange, 500, "{\"done\":false,\"error\":\"" + e.getMessage() + "\"}");
         } finally {
             gameEndFutures.remove(gameDir);
         }
+    }
+
+    /**
+     * Check if server_game_events.jsonl contains a "game_end" event.
+     * This file is written by the server directly and doesn't depend on
+     * the spectator panel being connected when the game ends.
+     */
+    private static boolean isGameEndInServerLog(String gameDir) {
+        try {
+            Path serverEvents = Paths.get(gameDir, "server_game_events.jsonl");
+            if (Files.exists(serverEvents)) {
+                String content = Files.readString(serverEvents);
+                return content.contains("\"game_end\"");
+            }
+        } catch (IOException e) {
+            // File might be partially written; ignore and retry next poll
+        }
+        return false;
     }
 
     private void sendJson(HttpExchange exchange, int status, String json) throws IOException {
