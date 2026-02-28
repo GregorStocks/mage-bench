@@ -8,6 +8,9 @@ from openai import OpenAI
 
 from puppeteer.config import _DECK_TYPE_TO_DIR, PilotPlayer
 from puppeteer.llm_cost import DEFAULT_BASE_URL, required_api_key_env
+from puppeteer.log import get_logger
+
+logger = get_logger(__name__)
 
 # Basic lands excluded from deck summaries
 _BASIC_LANDS = frozenset(
@@ -177,7 +180,7 @@ def resolve_choice_decks(
             already_chosen,
         )
         player.deck = str(path)
-        print(f"Deck choice for {player.name}: {display_name}")
+        logger.info("Deck choice for %s: %s", player.name, display_name)
         already_chosen.append((player.name, display_name))
         # Remove chosen deck from pool
         available = [(p, n) for p, n in available if p != path]

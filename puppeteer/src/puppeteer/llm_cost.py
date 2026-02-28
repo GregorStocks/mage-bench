@@ -8,6 +8,10 @@ import json
 import urllib.request
 from pathlib import Path
 
+from puppeteer.log import get_logger
+
+logger = get_logger(__name__)
+
 OPENROUTER_MODELS_URL = "https://openrouter.ai/api/v1/models"
 FETCH_TIMEOUT_SECS = 10
 DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
@@ -38,7 +42,7 @@ def fetch_openrouter_prices() -> dict[str, tuple[float, float]]:
         with urllib.request.urlopen(req, timeout=FETCH_TIMEOUT_SECS) as resp:
             data = json.loads(resp.read())
     except Exception as e:
-        print(f"[llm_cost] Failed to fetch OpenRouter prices: {e}")
+        logger.warning("[llm_cost] Failed to fetch OpenRouter prices: %s", e)
         return {}
 
     prices: dict[str, tuple[float, float]] = {}
@@ -63,9 +67,9 @@ def load_prices() -> dict[str, tuple[float, float]]:
     """Fetch OpenRouter prices at startup. Returns empty dict on failure."""
     prices = fetch_openrouter_prices()
     if prices:
-        print(f"[llm_cost] Loaded pricing for {len(prices)} models from OpenRouter")
+        logger.info("[llm_cost] Loaded pricing for %d models from OpenRouter", len(prices))
     else:
-        print("[llm_cost] Could not fetch OpenRouter prices; cost tracking disabled")
+        logger.warning("[llm_cost] Could not fetch OpenRouter prices; cost tracking disabled")
     return prices
 
 
@@ -90,4 +94,4 @@ def write_cost_file(game_dir: Path, username: str, cost: float) -> None:
         tmp_file.write_text(json.dumps({"cost_usd": cost}))
         tmp_file.rename(cost_file)
     except Exception as e:
-        print(f"[llm_cost] Failed to write cost file: {e}")
+        logger.error("[llm_cost] Failed to write cost file: %s", e)

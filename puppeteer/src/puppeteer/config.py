@@ -6,7 +6,10 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from puppeteer.log import get_logger
 from puppeteer.matchmaker import get_round_robin_matchup, get_yente_pool, pick_round_robin_format
+
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -442,6 +445,7 @@ class Config:
     record: bool = False
     record_output: Path | None = None
     num_games: int = 1  # Number of parallel games on the same server
+    debug: bool = False  # Enable DEBUG-level logging
 
     # Match timer settings (XMage enum names, e.g. "MIN__20", "SEC__10")
     match_time_limit: str = ""
@@ -705,14 +709,14 @@ class Config:
                     stem = deck_path.stem  # e.g. "Cats+Dogs"
                     for theme in stem.split("+"):
                         used_themes.add(theme.replace("-", " "))
-                    print(f"Random Jumpstart deck for {player.name}: {deck_path.name}")
+                    logger.info("Random Jumpstart deck for %s: %s", player.name, deck_path.name)
             return
 
         dir_name = _DECK_TYPE_TO_DIR.get(self.deck_type, "Commander")
         deck_dir = project_root / "Mage.Client" / "release" / "sample-decks" / dir_name
         decks = [p.relative_to(project_root) for p in deck_dir.rglob("*.dck")]
         if not decks:
-            print(f"WARNING: No .dck files found in {dir_name} directory, keeping 'random' as-is")
+            logger.warning("No .dck files found in %s directory, keeping 'random' as-is", dir_name)
             return
 
         used: set[str] = set()
@@ -725,4 +729,4 @@ class Config:
                 chosen = random.choice(available)
                 used.add(str(chosen))
                 player.deck = str(chosen)
-                print(f"Random deck for {player.name}: {chosen.name}")
+                logger.info("Random deck for %s: %s", player.name, chosen.name)

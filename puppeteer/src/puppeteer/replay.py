@@ -15,17 +15,14 @@ import json
 import sys
 from collections.abc import Awaitable, Callable
 from contextlib import ExitStack
-from datetime import datetime
 from pathlib import Path
 
 from puppeteer.config import load_prompts
 from puppeteer.game_log import GameLogWriter
+from puppeteer.log import get_logger, setup_logging
 from puppeteer.pilot import BoardCursorTracker, _render_context, build_initial_message, execute_tool
 
-
-def _log(msg: str) -> None:
-    ts = datetime.now().strftime("%H:%M:%S")
-    print(f"[{ts}] {msg}")
+logger = get_logger(__name__)
 
 
 def _load_default_system_prompt() -> str:
@@ -152,9 +149,9 @@ async def run_replay(
 
     Returns the captured prompt messages array (what the LLM would see).
     """
-    _log(f"[replay] Starting for {username}@{server}:{port}")
+    logger.info("[replay] Starting for %s@%s:%s", username, server, port)
     if script:
-        _log(f"[replay] Script has {len(script)} calls")
+        logger.info("[replay] Script has %d calls", len(script))
 
     system_prompt = _load_default_system_prompt()
 
@@ -176,7 +173,7 @@ async def run_replay(
         mvn_args.append(f"-Dxmage.bridge.errorlog={game_dir / f'{username}_errors.log'}")
     mvn_args.append("exec:java")
 
-    _log("[replay] Spawning bridge client...")
+    logger.info("[replay] Spawning bridge client...")
 
     game_log = None
     with ExitStack() as log_stack:
@@ -192,11 +189,11 @@ async def run_replay(
             log_file=game_dir / f"{username}_mcp.log" if game_dir else None,
         ) as session:
             result = await session.initialize()
-            _log(f"[replay] MCP initialized: {result.serverInfo}")
+            logger.debug("[replay] MCP initialized: %s", result.serverInfo)
 
             tools_result = await session.list_tools()
             tool_names = [t.name for t in tools_result.tools]
-            _log(f"[replay] Available tools: {tool_names}")
+            logger.debug("[replay] Available tools: %s", tool_names)
 
             if game_log:
                 game_log.emit("game_start", available_tools=tool_names)
@@ -212,22 +209,23 @@ async def run_replay(
             if game_dir:
                 prompt_path = game_dir / f"{username}_golden_prompt.json"
                 prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
-                _log(f"[replay] Prompt written to {prompt_path}")
+                logger.info("[replay] Prompt written to %s", prompt_path)
 
             # --- Concede to end the game ---
-            _log("[replay] Conceding game...")
+            logger.info("[replay] Conceding game...")
             concede_result = await execute_tool(session, "concede", {})
-            _log(f"[replay] Concede result: {concede_result}")
+            logger.debug("[replay] Concede result: %s", concede_result)
 
             if game_log:
                 game_log.emit("game_end", reason="replay_script_complete")
 
-            _log("[replay] Done")
+            logger.info("[replay] Done")
             return prompt
 
 
 def main() -> int:
     """Main entry point for CLI usage."""
+    setup_logging()
     parser = argparse.ArgumentParser(description="Replay pilot for XMage golden tests")
     parser.add_argument("--server", default="localhost", help="XMage server address")
     parser.add_argument("--port", type=int, default=17171, help="XMage server port")
