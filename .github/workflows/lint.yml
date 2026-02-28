@@ -17,7 +17,13 @@ jobs:
           java-version: '17'
           cache: 'maven'
 
-      - run: mvn compile -q -T 1C
+      - uses: actions/cache@v4
+        with:
+          path: ~/.m2/build-cache
+          key: build-cache-${{ github.sha }}
+          restore-keys: build-cache-
+
+      - run: mvn install -q -DskipTests -T 1C
 
   python:
     runs-on: ubuntu-latest
@@ -45,6 +51,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'maven'
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.m2/build-cache
+          key: build-cache-${{ github.sha }}
+          restore-keys: build-cache-
 
       - uses: astral-sh/setup-uv@v5
 

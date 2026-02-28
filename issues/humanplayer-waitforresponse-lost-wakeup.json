@@ -1,0 +1,10 @@
+{
+  "title": "Lost-wakeup race in HumanPlayer.waitForResponse() causes concede to hang",
+  "description": "XMage upstream bug. In HumanPlayer.waitForResponse(), response.clear() (line 329) clears asyncWantConcede outside the synchronized(response) block. If signalPlayerConcede fires between response.clear() and response.wait(), the notifyAll() is lost (nobody waiting yet) and asyncWantConcede is set but the game thread enters wait() without checking it. The concede sits in the concedingPlayers queue forever because checkConcede() is only called when asyncWantConcede is true after a successful wakeup.\n\nFixed by checking asyncWantConcede and asyncWantCheat inside the synchronized(response) block before calling response.wait(). This is the standard Java pattern for avoiding lost wakeups.\n\nThe fix has a theoretical data race (response.clear() writes null unsynchronized, signalPlayerConcede writes true synchronized, then the check reads inside synchronized). On x86 (our target) this is safe due to total store order + monitor memory barriers. On weakly-ordered architectures, the fix can only help (skip unnecessary wait) or be neutral (still enter wait, same as before). A fully correct fix would synchronize response.clear() or make asyncWantConcede volatile, but that's a larger change.\n\nReproduction: golden test test_bolt_on_stack flakes on CI (~1 in 10 runs). The test concedes while two Lightning Bolts are on the stack. The race window is between the game thread processing the last target selection and re-entering response.wait().",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["upstream", "xmage-bug", "golden-tests"],
+  "created_at": "2026-02-28T18:00:00.000000-08:00",
+  "updated_at": "2026-02-28T18:00:00.000000-08:00"
+}
