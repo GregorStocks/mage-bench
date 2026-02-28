@@ -128,8 +128,7 @@ class TestBlockedCommands:
             "make run CONFIG=commander-1v3",
             "make run CONFIG=round-robin-1v1",
             "make run CONFIG=round-robin-commander",
-            "make run CONFIG=yente-1v1",
-            "make run CONFIG=yente-commander",
+            "make run CONFIG=round-robin-jumpstart",
         ],
     )
     def test_llm_configs_blocked(self, command: str) -> None:
