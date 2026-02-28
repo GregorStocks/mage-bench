@@ -132,7 +132,7 @@ class TestRenderDecision:
         decision = _make_decision(pilot_context={"untappedLands": 2, "landDropsUsed": 0})
         text = render_decision(decision, snap)
         assert "Untapped lands: 2" in text
-        assert "Land drops: 0/1" in text
+        assert "Land drops remaining: 1" in text
 
     def test_stack_rendering(self) -> None:
         snap = _make_snapshot(stack=[{"name": "Lightning Bolt", "targets": ["Bob"]}])

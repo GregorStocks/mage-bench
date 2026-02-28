@@ -76,6 +76,13 @@ def check(command: str) -> None:
             "  make update-golden K=bolt     # regenerate golden files matching 'bolt'"
         )
 
+    if re.search(r"UPDATE_(?:BLUNDER_)?GOLDEN\s*=\s*1", stripped):
+        block(
+            "Blocked: don't pass UPDATE_GOLDEN / UPDATE_BLUNDER_GOLDEN as env vars. Use make targets instead:\n"
+            "  make update-golden            # regenerate all golden files\n"
+            "  make update-blunder-golden    # regenerate blunder prompt golden files"
+        )
+
     # --- /tmp/ — use tmp/ (repo-local) instead ---
     # Match /tmp as an absolute path, not as a component inside another path
     # (e.g. "dale-dragon-lily/tmp/foo" is fine, "/tmp/foo" is not).

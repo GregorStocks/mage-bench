@@ -133,7 +133,8 @@ def _render_decision_block(
         if "untappedLands" in pilot_ctx:
             ctx_parts.append(f"Untapped lands: {pilot_ctx['untappedLands']}")
         if "landDropsUsed" in pilot_ctx:
-            ctx_parts.append(f"Land drops: {pilot_ctx['landDropsUsed']}/1")
+            remaining = 1 - pilot_ctx["landDropsUsed"]
+            ctx_parts.append(f"Land drops remaining: {remaining}")
         lines.append(f"  {', '.join(ctx_parts)}")
 
     # Message and choices
@@ -320,6 +321,17 @@ def _render_chosen_block(decision: dict) -> str:
     # Display chosen
     chosen_name = _chosen_display(chosen, chosen_args, choices)
     lines.append(f"  Chosen: {chosen_name}")
+
+    # Show targeting / activation details from subsequent actions.
+    # These are part of the decision itself (what the player targeted), not
+    # outcome information, so they're safe to include without biasing the annotator.
+    player = decision.get("player", "")
+    for action in decision.get("subsequentActions", []):
+        if not action.startswith(player):
+            continue
+        if " targeting " in action or "activates:" in action:
+            lines.append(f"  Result: {action}")
+            break
 
     if decision.get("castRolledBack"):
         lines.append(
