@@ -737,6 +737,7 @@ def _build_decisions(
             "actionResult": action_result,
             "llmEventIndices": llm_event_indices,
             "subsequentActions": subsequent,
+            "actionSeq": action_seq,
         }
 
         # Add pilot context if available

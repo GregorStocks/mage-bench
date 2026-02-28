@@ -1002,24 +1002,27 @@ def _eval_one_decision(
     # Inject constant fields the LLM doesn't need to generate.
     # snapshotIndex points to the first snapshot AFTER the action resolved,
     # so the viewer shows the annotation alongside its consequences.
-    action_seq = decision.get("action_seq", 0)
+    # action_seq/actionSeq is the gameSeq of the choose_action call, which
+    # represents the state BEFORE the action processes.  The resulting game
+    # actions get strictly higher seq values, so we need > (not >=).
+    action_seq = decision.get("action_seq", 0) or decision.get("actionSeq", 0)
     action_ts = decision.get("action_ts", "")
     if action_seq:
-        # v2: find first snapshot at or after action_seq
-        aftermath_idx = s_idx
+        # v2: find first snapshot strictly after action_seq
+        aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
         for i in range(s_idx, len(snapshots)):
-            if snapshots[i].get("seq", 0) >= action_seq:
+            if snapshots[i].get("seq", 0) > action_seq:
                 aftermath_idx = i
                 break
     elif action_ts:
-        # v1: find first snapshot at or after action_ts
-        aftermath_idx = s_idx
+        # v1: find first snapshot strictly after action_ts
+        aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
         for i in range(s_idx, len(snapshots)):
-            if snapshots[i].get("ts", "") >= action_ts:
+            if snapshots[i].get("ts", "") > action_ts:
                 aftermath_idx = i
                 break
     else:
-        aftermath_idx = s_idx
+        aftermath_idx = min(s_idx + 1, len(snapshots) - 1)
     ann["type"] = "blunder"
     ann["snapshotIndex"] = aftermath_idx
     ann["player"] = decision["player"]
