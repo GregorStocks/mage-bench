@@ -6,8 +6,11 @@ import json
 import random
 import sys
 import time
-from datetime import datetime
 from pathlib import Path
+
+from puppeteer.log import get_logger, setup_logging
+
+logger = get_logger(__name__)
 
 SLEEPY_NOISES = [
     "zzz",
@@ -29,11 +32,6 @@ def get_sleepy_noise():
     return random.choice(SLEEPY_NOISES)
 
 
-def _log(msg: str) -> None:
-    ts = datetime.now().strftime("%H:%M:%S")
-    print(f"[{ts}] {msg}")
-
-
 ACTION_DELAY_SECS = 0.5
 CHAT_INTERVAL_SECS = 30
 
@@ -46,7 +44,7 @@ async def run_sleepwalker(
     deck_path: Path | None = None,
 ) -> None:
     """Run the sleepwalker client."""
-    _log(f"[sleepwalker] Starting for {username}@{server}:{port}")
+    logger.info("[sleepwalker] Starting for %s@%s:%s", username, server, port)
 
     # Build JVM args for the bridge
     jvm_args_list = [
@@ -66,7 +64,7 @@ async def run_sleepwalker(
         mvn_args.append(f"-Dxmage.bridge.deck={deck_path}")
     mvn_args.append("exec:java")
 
-    _log("[sleepwalker] Spawning bridge client...")
+    logger.info("[sleepwalker] Spawning bridge client...")
 
     from puppeteer.bridge_transport import spawn_bridge_http
 
@@ -77,16 +75,16 @@ async def run_sleepwalker(
     ) as session:
         # Initialize MCP connection
         result = await session.initialize()
-        _log(f"[sleepwalker] MCP initialized: {result.serverInfo}")
+        logger.debug("[sleepwalker] MCP initialized: %s", result.serverInfo)
 
         # List available tools
         tools = await session.list_tools()
-        _log(f"[sleepwalker] Available tools: {[t.name for t in tools.tools]}")
+        logger.debug("[sleepwalker] Available tools: %s", [t.name for t in tools.tools])
 
         last_chat_time = time.time()
         last_log_length = 0
 
-        _log("[sleepwalker] Entering main loop...")
+        logger.info("[sleepwalker] Entering main loop...")
 
         while True:
             try:
@@ -96,14 +94,14 @@ async def run_sleepwalker(
 
                 if status.get("action_pending"):
                     action_type = status.get("action_type", "UNKNOWN")
-                    _log(f"[sleepwalker] Action required: {action_type}")
+                    logger.info("[sleepwalker] Action required: %s", action_type)
 
                     # Delay before taking action
                     await asyncio.sleep(ACTION_DELAY_SECS)
 
                     # Pass priority (auto-handles the pending action)
                     await session.call_tool("pass_priority", {})
-                    _log("[sleepwalker]   Result: passed")
+                    logger.info("[sleepwalker]   Result: passed")
 
                     # Print game log (only new entries since last check)
                     log_result = await session.call_tool("get_game_log", {"max_chars": 10000})
@@ -118,9 +116,9 @@ async def run_sleepwalker(
                         if new_chars > 0 and len(current_log) >= new_chars:
                             new_log = current_log[-new_chars:]
                             if new_log.strip():
-                                _log("[sleepwalker] === New Log Entries ===")
-                                print(new_log)
-                                _log("[sleepwalker] ========================")
+                                logger.debug("[sleepwalker] === New Log Entries ===")
+                                logger.debug("%s", new_log)
+                                logger.debug("[sleepwalker] ========================")
                         last_log_length = total_length
 
                 # Send periodic chat message
@@ -130,23 +128,24 @@ async def run_sleepwalker(
                     result = await session.call_tool("send_chat_message", {"message": chat_message})
                     chat_result = json.loads(result.content[0].text)
                     if chat_result.get("success"):
-                        _log(f"[sleepwalker] Chat sent: {chat_message}")
+                        logger.info("[sleepwalker] Chat sent: %s", chat_message)
                     else:
-                        _log("[sleepwalker] Chat failed (no game active yet?)")
+                        logger.warning("[sleepwalker] Chat failed (no game active yet?)")
                     last_chat_time = current_time
 
                 await asyncio.sleep(0.1)  # 100ms poll interval
 
             except KeyboardInterrupt:
-                _log("[sleepwalker] Interrupted, shutting down...")
+                logger.info("[sleepwalker] Interrupted, shutting down...")
                 break
             except Exception as e:
-                _log(f"[sleepwalker] Error: {e}")
+                logger.error("[sleepwalker] Error: %s", e)
                 await asyncio.sleep(1)
 
 
 def main() -> int:
     """Main entry point."""
+    setup_logging()
     parser = argparse.ArgumentParser(description="Sleepwalker MCP client for XMage")
     parser.add_argument("--server", default="localhost", help="XMage server address")
     parser.add_argument("--port", type=int, default=17171, help="XMage server port")
@@ -167,7 +166,7 @@ def main() -> int:
         elif project_root.name == "puppeteer":
             project_root = project_root.parent
 
-    _log(f"[sleepwalker] Project root: {project_root}")
+    logger.debug("[sleepwalker] Project root: %s", project_root)
 
     try:
         asyncio.run(

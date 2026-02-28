@@ -6,7 +6,10 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from puppeteer.log import get_logger
 from puppeteer.matchmaker import get_round_robin_matchup, get_yente_pool, pick_round_robin_format
+
+logger = get_logger(__name__)
 
 
 @dataclass
@@ -508,6 +511,7 @@ class Config:
     record: bool = False
     record_output: Path | None = None
     num_games: int = 1  # Number of parallel games on the same server
+    debug: bool = False  # Enable DEBUG-level logging
 
     # Match timer settings (XMage enum names, e.g. "MIN__20", "SEC__10")
     match_time_limit: str = ""
@@ -772,7 +776,7 @@ class Config:
                     stem = deck_path.stem  # e.g. "Cats+Dogs"
                     for theme in stem.split("+"):
                         used_themes.add(theme.replace("-", " "))
-                    print(f"Random Jumpstart deck for {player.name}: {deck_name}")
+                    logger.info("Random Jumpstart deck for %s: %s", player.name, deck_name)
             return
 
         format_dir = _DECK_TYPE_TO_FORMAT_DIR.get(self.deck_type)
@@ -792,7 +796,7 @@ class Config:
                 player.deck = str(dck_path)
                 player.deck_name = chosen.name
                 player.deck_strategy = chosen.strategy
-                print(f"Random deck for {player.name}: {chosen.name}")
+                logger.info("Random deck for %s: %s", player.name, chosen.name)
 
     def resolve_deck_metadata(self, project_root: Path) -> None:
         """Populate deck_name/deck_strategy for players with static deck paths.

@@ -14,6 +14,9 @@ from puppeteer.config import (
     load_deck_registry,
 )
 from puppeteer.llm_cost import DEFAULT_BASE_URL, required_api_key_env
+from puppeteer.log import get_logger
+
+logger = get_logger(__name__)
 
 # Basic lands excluded from deck summaries
 _BASIC_LANDS = frozenset(
@@ -176,7 +179,7 @@ def resolve_choice_decks(
         player.deck = str(dck_path)
         player.deck_name = entry.name
         player.deck_strategy = entry.strategy
-        print(f"Deck choice for {player.name}: {entry.name}")
+        logger.info("Deck choice for %s: %s", player.name, entry.name)
         already_chosen.append((player.name, entry.name))
         # Remove chosen deck from pool
         available = [e for e in available if e.name != entry.name]
