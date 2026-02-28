@@ -1,0 +1,10 @@
+{
+  "title": "Golden CI: share compilation artifacts with java job to avoid redundant build",
+  "description": "The golden CI job compiles the entire project from scratch via compile_project() inside the pytest xmage_server fixture (~159s). Meanwhile, the java job already runs `mvn compile -q -T 1C` (~2 min) in parallel. There's no artifact sharing between them, so compilation happens twice.\n\nOptions:\n- Use GitHub Actions `actions/cache` to share Maven target/ directories between jobs\n- Make the golden job depend on the java job and download compiled artifacts\n- Use a shared build step that uploads artifacts for both consumers\n\nThis is the easiest win — pure CI config change, no Java or Python modifications needed.\n\nEvidence from 3 recent CI runs:\n- Run 22524763758: compilation=159.3s (23.4% of 705s total)\n- Run 22517711462: compilation ~160s (similar proportion of 722s total)\n- Run 22524555497: compilation ~160s (similar proportion of 721s total)\n\nExpected savings: ~150s (~2.5 min).",
+  "status": "open",
+  "priority": 2,
+  "type": "task",
+  "labels": ["ci", "golden"],
+  "created_at": "2026-02-28T10:30:00.000000-08:00",
+  "updated_at": "2026-02-28T10:30:00.000000-08:00"
+}

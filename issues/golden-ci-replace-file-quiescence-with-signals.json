@@ -1,0 +1,10 @@
+{
+  "title": "Golden CI: replace file quiescence polling with explicit completion signals",
+  "description": "Each golden test waits ~2.3-2.8s for game_events.jsonl and server_game_events.jsonl to stabilize before running the export pipeline and golden comparison. This \"file quiescence\" check polls file modification times to ensure all events have been written.\n\nWith 10 tests, this adds up to ~24s (3.5% of total golden CI time).\n\nUsing explicit completion signals instead of file-modification polling could make this near-instant. Options:\n- Have the spectator/server write a sentinel event (e.g., \"export_ready\") when all events are flushed\n- Use file locking or an atomic rename pattern\n- Flush and fsync before signaling completion via an existing mechanism\n\nExpected savings: ~20-24s.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["ci", "golden", "spectator"],
+  "created_at": "2026-02-28T10:30:00.000000-08:00",
+  "updated_at": "2026-02-28T10:30:00.000000-08:00"
+}
