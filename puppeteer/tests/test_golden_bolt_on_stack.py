@@ -52,8 +52,7 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root, bridge_session, pot
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"index": 0}, "golden_blunder": True},
             # Target Opponent (chained choose_action, no pass_priority to avoid auto-pass resolving the bolt).
-            # Player IDs use "l" prefix (bridge-local) since players aren't card views.
-            {"name": "choose_action", "arguments": {"id": "l2"}},
+            {"name": "choose_action", "arguments": {"index": 1}},
             # Cast Lightning Bolt #2 while #1 is still on the stack.
             {"name": "choose_action", "arguments": {"index": 0}},
             # Target Memnite.

@@ -20,6 +20,7 @@ import os
 import subprocess
 import sys
 import time
+import urllib.error
 import urllib.request
 from collections import defaultdict
 from collections.abc import Generator
@@ -299,9 +300,10 @@ class SpectatorProcess:
     auto-watches the game.
     """
 
-    def __init__(self, proc: subprocess.Popen[bytes], log_path: Path) -> None:
+    def __init__(self, proc: subprocess.Popen[bytes], log_path: Path, *, health_port: int = 0) -> None:
         self.proc = proc
         self.log_path = log_path
+        self.health_port = health_port
         assert proc.stdin is not None, "SpectatorProcess requires stdin=PIPE"
         self._stdin = io.TextIOWrapper(proc.stdin, encoding="utf-8", line_buffering=True)
 
@@ -325,15 +327,11 @@ class SpectatorProcess:
     def wait_for_ready(self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
         """Wait for the spectator to create the table and be ready for players.
 
-        Uses gameDir in the marker to distinguish between games, since the
-        log file accumulates across all games in the session.
+        Uses the HTTP health endpoint for long-poll readiness detection when
+        available, falling back to log marker polling otherwise.
         """
-        _wait_for_log_marker(
-            self.log_path,
-            f"gameDir={game_dir}",
-            self.proc,
-            timeout=timeout,
-        )
+        assert self.health_port > 0, "SpectatorProcess requires health_port for readiness detection"
+        _wait_for_game_ready(self.health_port, game_dir, timeout=timeout)
 
     def close(self) -> None:
         try:
@@ -437,6 +435,31 @@ def _wait_for_log_marker(
         time.sleep(2)
     log_text = log_path.read_text() if log_path.exists() else "<no log>"
     raise TimeoutError(f"Marker not found within {timeout}s: {marker!r}\nLog tail:\n{log_text[-2000:]}")
+
+
+def _wait_for_health(port: int, timeout: int = 120) -> None:
+    """Wait for observer health endpoint to report lobby ready (long-poll)."""
+    url = f"http://127.0.0.1:{port}/health?timeout={timeout}"
+    req = urllib.request.Request(url)
+    with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
+        data = json.loads(resp.read())
+        if data.get("status") != "ready":
+            raise RuntimeError(f"Observer health returned unexpected status: {data}")
+
+
+def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
+    """Wait for observer to create a game table via long-poll HTTP endpoint."""
+    url = f"http://127.0.0.1:{port}/wait-for-ready"
+    body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout + 5) as resp:
+            data = json.loads(resp.read())
+            if not data.get("ready"):
+                raise RuntimeError(f"Wait-for-ready returned: {data}")
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode()
+        raise RuntimeError(f"Wait-for-ready failed (HTTP {e.code}): {error_body}") from e
 
 
 def _wait_for_files_quiescent(paths: list[Path], timeout: int = 30, stable_for: float = 2.0) -> None:

@@ -21,7 +21,7 @@ from tests.golden_helpers import (
     PotatoProcess,
     SpectatorProcess,
     _build_java_cmd,
-    _wait_for_log_marker,
+    _wait_for_health,
     compute_module_classpath,
     print_timing_summary,
     timed_phase,
@@ -295,6 +295,10 @@ def spectator_process(xmage_server, project_root):
 
     allowed_sets = extract_golden_set_codes(project_root)
 
+    # Allocate a port for the observer health HTTP server
+    health_port_res = find_available_port("localhost", 20000)
+    health_port = health_port_res.port
+
     cp = compute_module_classpath(project_root, "Mage.Client.Observer")
     spectator_cmd = _build_java_cmd(
         cp,
@@ -304,6 +308,7 @@ def spectator_process(xmage_server, project_root):
             "xmage.aiPuppeteer.disableWhatsNew": "true",
             "xmage.observer.noWindow": "true",
             "xmage.observer.keepAlive": "true",
+            "xmage.observer.healthPort": str(health_port),
             "xmage.aiPuppeteer.server": server,
             "xmage.aiPuppeteer.port": str(port),
             "xmage.aiPuppeteer.user": "spectator",
@@ -339,9 +344,13 @@ def spectator_process(xmage_server, project_root):
     )
 
     with timed_phase("session", "spectator_jvm_startup"):
-        spectator = SpectatorProcess(proc, spectator_log)
-        print(f"Spectator JVM started (pid={proc.pid}), waiting for keepAlive ready...")
-        _wait_for_log_marker(spectator_log, "keepAlive: lobby initialized, ready for commands", proc, timeout=120)
+        spectator = SpectatorProcess(proc, spectator_log, health_port=health_port)
+        print(f"Spectator JVM started (pid={proc.pid}), waiting for health endpoint on port {health_port}...")
+        assert wait_for_port("127.0.0.1", health_port, 120), (
+            f"Observer health server did not start on port {health_port} within 120s — check {spectator_log}"
+        )
+        health_port_res.release()
+        _wait_for_health(health_port, timeout=120)
         print("Spectator keepAlive ready")
 
     yield spectator
