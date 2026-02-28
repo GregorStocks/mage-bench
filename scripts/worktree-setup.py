@@ -37,9 +37,16 @@ def main() -> None:
         plugins_dir.mkdir(parents=True, exist_ok=True)
         images_link = plugins_dir / "images"
 
-        if images_link.is_symlink():
-            # Already a symlink, we're good
+        if (
+            images_link.is_symlink()
+            and images_link.resolve() == SHARED_IMAGES.resolve()
+        ):
+            # Already a correct symlink, we're good
             pass
+        elif images_link.is_symlink():
+            # Symlink pointing to wrong target, fix it
+            images_link.unlink()
+            images_link.symlink_to(SHARED_IMAGES)
         elif images_link.is_dir():
             # Existing directory - move contents to shared location, then symlink
             print(f"Moving existing images from {module} to shared location...")
@@ -61,15 +68,18 @@ def main() -> None:
     port = PORT_RANGE_START + (port_hash % PORT_RANGE_SIZE)
 
     env_file = PROJECT_ROOT / ".env"
-    env_lines: list[str] = []
+    port_line = f"WEBSITE_PORT={port}"
+    existing_lines: list[str] = []
     if env_file.exists():
+        existing_lines = env_file.read_text().splitlines()
+
+    # Skip rewrite if port is already set correctly (idempotent fast path)
+    if port_line not in existing_lines:
         env_lines = [
-            line
-            for line in env_file.read_text().splitlines()
-            if not line.startswith("WEBSITE_PORT=")
+            line for line in existing_lines if not line.startswith("WEBSITE_PORT=")
         ]
-    env_lines.append(f"WEBSITE_PORT={port}")
-    env_file.write_text("\n".join(env_lines) + "\n")
+        env_lines.append(port_line)
+        env_file.write_text("\n".join(env_lines) + "\n")
 
     print("mage-bench workspace ready.")
     print(f"  Website port: {port} (for worktree '{worktree_name}')")
