@@ -195,7 +195,9 @@ public class BridgeClient {
             DeckCardLists deck = loadDeck(deckPath);
             callbackHandler.setDeckList(deck);
 
-            UUID tableId = tryJoinTable(session, roomId, username, deck, null);
+            String tableIdProp = System.getProperty("xmage.bridge.tableId");
+            UUID targetTableId = tableIdProp != null ? UUID.fromString(tableIdProp) : null;
+            UUID tableId = tryJoinTable(session, roomId, username, deck, targetTableId);
             if (tableId == null) {
                 logger.error("Failed to join any table within timeout");
                 session.connectStop(false, false);
@@ -348,13 +350,29 @@ public class BridgeClient {
             try {
                 String line;
                 while ((line = stdinReader.readLine()) != null) {
-                    String deckPathLine = line.trim();
-                    if (deckPathLine.isEmpty()) continue;
-                    logger.info("keepAlive: received deck path: " + deckPathLine);
+                    String trimmed = line.trim();
+                    if (trimmed.isEmpty()) continue;
+
+                    // Parse stdin: JSON object with deck_path + optional table_id,
+                    // or plain deck path string for backwards compatibility.
+                    String deckPathLine;
+                    UUID targetTableId = null;
+                    if (trimmed.startsWith("{")) {
+                        com.google.gson.JsonObject obj = com.google.gson.JsonParser.parseString(trimmed).getAsJsonObject();
+                        deckPathLine = obj.get("deck_path").getAsString();
+                        if (obj.has("table_id") && !obj.get("table_id").isJsonNull()) {
+                            targetTableId = UUID.fromString(obj.get("table_id").getAsString());
+                        }
+                    } else {
+                        deckPathLine = trimmed;
+                    }
+
+                    logger.info("keepAlive: received deck path: " + deckPathLine
+                        + (targetTableId != null ? " (table_id=" + targetTableId + ")" : ""));
                     DeckCardLists deck = loadDeck(deckPathLine);
                     BridgeCallbackHandler fresh = client.getCallbackHandler().createFreshForNextGame();
                     fresh.setDeckList(deck);
-                    UUID tableId = tryJoinTable(session, roomId, username, deck, null);
+                    UUID tableId = tryJoinTable(session, roomId, username, deck, targetTableId);
                     if (tableId == null) {
                         logger.error("keepAlive: failed to join table, continuing to read stdin...");
                         continue;

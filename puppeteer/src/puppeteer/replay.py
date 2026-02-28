@@ -142,6 +142,7 @@ async def run_replay(
     deck_path: Path | None = None,
     script: list[dict] | None = None,
     game_dir: Path | None = None,
+    table_id: str | None = None,
 ) -> list[dict]:
     """Run the replay pilot.
 
@@ -162,6 +163,8 @@ async def run_replay(
         f"-Dxmage.bridge.port={port}",
         "-Dxmage.bridge.personality=sleepwalker",
     ]
+    if table_id is not None:
+        jvm_args_list.append(f"-Dxmage.bridge.tableId={table_id}")
     if sys.platform == "darwin":
         jvm_args_list.append("-Dapple.awt.UIElement=true")
     jvm_args = " ".join(jvm_args_list)
@@ -234,6 +237,7 @@ def main() -> int:
     parser.add_argument("--deck", type=Path, help="Path to deck file (.dck)")
     parser.add_argument("--script", type=Path, help="Path to script JSON file")
     parser.add_argument("--game-dir", type=Path, help="Game log directory")
+    parser.add_argument("--table-id", help="UUID of the specific table to join")
     args = parser.parse_args()
 
     # Determine project root
@@ -261,6 +265,7 @@ def main() -> int:
                 deck_path=args.deck,
                 script=script,
                 game_dir=args.game_dir,
+                table_id=args.table_id,
             )
         )
     except KeyboardInterrupt:

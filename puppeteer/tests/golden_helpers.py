@@ -280,9 +280,13 @@ class PotatoProcess:
         assert proc.stdin is not None, "PotatoProcess requires stdin=PIPE"
         self._stdin = io.TextIOWrapper(proc.stdin, encoding="utf-8", line_buffering=True)
 
-    def join_next_game(self, deck_path: str) -> None:
+    def join_next_game(self, deck_path: str, *, table_id: str | None = None) -> None:
         """Send a deck path to trigger the potato to join the next game."""
-        self._stdin.write(deck_path + "\n")
+        if table_id is not None:
+            msg = json.dumps({"deck_path": deck_path, "table_id": table_id}, separators=(",", ":"))
+        else:
+            msg = deck_path
+        self._stdin.write(msg + "\n")
         self._stdin.flush()
 
     def close(self) -> None:
@@ -819,7 +823,7 @@ def _run_golden_persistent(
                 log_fhs.append(spectator_fh)
 
         # Tell potato to join with the new deck (non-blocking: potato starts polling)
-        potato.join_next_game(str(project_root / deck_b))
+        potato.join_next_game(str(project_root / deck_b), table_id=table_id)
 
         # Tell bridge to join with the new deck (blocking: waits for game start)
         join_args: dict = {"deck_path": str(project_root / deck_a)}
@@ -903,9 +907,12 @@ def _run_golden_subprocess(
 
     try:
         # Start spectator — reuse session-scoped process if available
+        spectator_log: Path | None = None
+        table_id: str | None = None
         if spectator is not None:
+            spectator_log = spectator.log_path
             with timed_phase(golden_name, "spectator_command"):
-                _send_spectator_command(
+                table_id = _send_spectator_command(
                     spectator,
                     game_dir,
                     deck_a,
@@ -936,26 +943,29 @@ def _run_golden_subprocess(
 
         # --- Start replay client (player A) ---
         replay_log = game_dir / f"{player_a_name}_replay.log"
+        replay_args = [
+            sys.executable,
+            "-m",
+            "puppeteer.replay",
+            "--server",
+            server,
+            "--port",
+            str(port),
+            "--username",
+            player_a_name,
+            "--project-root",
+            str(project_root),
+            "--deck",
+            str(project_root / deck_a),
+            "--script",
+            str(script_path),
+            "--game-dir",
+            str(game_dir),
+        ]
+        if table_id is not None:
+            replay_args.extend(["--table-id", table_id])
         replay_proc, replay_fh = _start_process(
-            args=[
-                sys.executable,
-                "-m",
-                "puppeteer.replay",
-                "--server",
-                server,
-                "--port",
-                str(port),
-                "--username",
-                player_a_name,
-                "--project-root",
-                str(project_root),
-                "--deck",
-                str(project_root / deck_a),
-                "--script",
-                str(script_path),
-                "--game-dir",
-                str(game_dir),
-            ],
+            args=replay_args,
             cwd=project_root,
             env_updates={"PYTHONUNBUFFERED": "1"},
             log_path=replay_log,
@@ -966,16 +976,19 @@ def _run_golden_subprocess(
         # --- Start potato client (player B) ---
         potato_log = game_dir / f"{player_b_name}_mcp.log"
         bridge_cp = compute_module_classpath(project_root, "Mage.Client.Bridge")
+        potato_sys_props: dict[str, str] = {
+            "xmage.bridge.server": server,
+            "xmage.bridge.port": str(port),
+            "xmage.bridge.personality": "potato",
+            "xmage.bridge.username": player_b_name,
+            "xmage.bridge.deck": str(project_root / deck_b),
+        }
+        if table_id is not None:
+            potato_sys_props["xmage.bridge.tableId"] = table_id
         potato_cmd = _build_java_cmd(
             bridge_cp,
             MAIN_CLASS_BRIDGE,
-            {
-                "xmage.bridge.server": server,
-                "xmage.bridge.port": str(port),
-                "xmage.bridge.personality": "potato",
-                "xmage.bridge.username": player_b_name,
-                "xmage.bridge.deck": str(project_root / deck_b),
-            },
+            potato_sys_props,
         )
         potato_proc, potato_fh = _start_process(
             args=potato_cmd,
