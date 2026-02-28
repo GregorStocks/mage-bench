@@ -146,6 +146,58 @@ DECK_SAVANNAH_LIONS = "puppeteer/tests/decks/savannah_lions.dck"
 DECK_ANCIENT_STIRRINGS = "puppeteer/tests/decks/ancient_stirrings.dck"
 DECK_MDFC_LAND_AND_SUSPEND = "puppeteer/tests/decks/mdfc_land_and_suspend.dck"
 
+# Main classes for direct java -cp launches (from each module's pom.xml exec-maven-plugin config)
+MAIN_CLASS_OBSERVER = "mage.client.observer.ObserverMain"
+MAIN_CLASS_BRIDGE = "mage.client.bridge.BridgeClient"
+MAIN_CLASS_SERVER = "mage.server.Main"
+
+# ---------------------------------------------------------------------------
+# Classpath computation (cached per module within a pytest session)
+# ---------------------------------------------------------------------------
+
+_classpath_cache: dict[str, str] = {}
+
+
+def compute_module_classpath(project_root: Path, module: str) -> str:
+    """Compute the Java classpath for a Maven module, cached per session.
+
+    Runs ``mvn dependency:build-classpath`` on first call per module, then
+    returns the cached result on subsequent calls. The classpath includes
+    the module's own ``target/classes`` directory prepended to the dependency
+    classpath.
+    """
+    if module in _classpath_cache:
+        return _classpath_cache[module]
+    module_dir = project_root / module
+    cp_file = module_dir / "target" / "classpath.txt"
+    result = subprocess.run(
+        ["mvn", "-q", "dependency:build-classpath", f"-Dmdep.outputFile={cp_file}"],
+        cwd=module_dir,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, f"Failed to compute classpath for {module}: {result.stderr}"
+    dep_classpath = cp_file.read_text().strip()
+    classpath = f"{module_dir / 'target' / 'classes'}:{dep_classpath}"
+    _classpath_cache[module] = classpath
+    return classpath
+
+
+def _build_java_cmd(
+    classpath: str,
+    main_class: str,
+    system_props: dict[str, str],
+) -> list[str]:
+    """Build a ``java -cp`` command with JVM flags and system properties."""
+    jvm_flags = ["--add-opens=java.base/java.io=ALL-UNNAMED"]
+    if sys.platform == "darwin":
+        jvm_flags.append("-Dapple.awt.UIElement=true")
+    cmd = ["java", *jvm_flags]
+    for k, v in system_props.items():
+        cmd.append(f"-D{k}={v}")
+    cmd.extend(["-cp", classpath, main_class])
+    return cmd
+
 
 # ---------------------------------------------------------------------------
 # Persistent process wrappers for session-scoped JVM reuse
@@ -516,29 +568,26 @@ def _start_spectator(
         separators=(",", ":"),
     )
 
-    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
-    jvm_no_ui = jvm_opens
-    if sys.platform == "darwin":
-        jvm_no_ui += " -Dapple.awt.UIElement=true"
-
     spectator_log = game_dir / "spectator.log"
-    spectator_jvm = " ".join(
-        [
-            jvm_no_ui,
-            "-Dxmage.aiPuppeteer.autoConnect=true",
-            "-Dxmage.aiPuppeteer.autoStart=true",
-            "-Dxmage.aiPuppeteer.disableWhatsNew=true",
-            "-Dxmage.observer.noWindow=true",
-            f"-Dxmage.aiPuppeteer.server={server}",
-            f"-Dxmage.aiPuppeteer.port={port}",
-            "-Dxmage.aiPuppeteer.user=spectator",
-            "-Dxmage.aiPuppeteer.password=",
-            f"-Dxmage.observer.gameDir={game_dir}",
-        ]
+    cp = compute_module_classpath(project_root, "Mage.Client.Observer")
+    cmd = _build_java_cmd(
+        cp,
+        MAIN_CLASS_OBSERVER,
+        {
+            "xmage.aiPuppeteer.autoConnect": "true",
+            "xmage.aiPuppeteer.autoStart": "true",
+            "xmage.aiPuppeteer.disableWhatsNew": "true",
+            "xmage.observer.noWindow": "true",
+            "xmage.aiPuppeteer.server": server,
+            "xmage.aiPuppeteer.port": str(port),
+            "xmage.aiPuppeteer.user": "spectator",
+            "xmage.aiPuppeteer.password": "",
+            "xmage.observer.gameDir": str(game_dir),
+        },
     )
 
     spectator_proc, spectator_fh = _start_process(
-        args=["mvn", "-q", "exec:java"],
+        args=cmd,
         cwd=project_root / "Mage.Client.Observer",
         env_updates={
             "XMAGE_AI_PUPPETEER": "1",
@@ -551,7 +600,6 @@ def _start_spectator(
             "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
             "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
             "XMAGE_AI_PUPPETEER_CHOOSING_PLAYER": player_a_name,
-            "MAVEN_OPTS": spectator_jvm,
         },
         log_path=spectator_log,
     )
@@ -693,12 +741,6 @@ def _run_golden_subprocess(
     script_path = game_dir / "script.json"
     script_path.write_text(json.dumps(script))
 
-    # JVM options
-    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
-    jvm_no_ui = jvm_opens
-    if sys.platform == "darwin":
-        jvm_no_ui += " -Dapple.awt.UIElement=true"
-
     procs: list[subprocess.Popen] = []
     log_fhs: list = []
 
@@ -752,24 +794,22 @@ def _run_golden_subprocess(
 
         # --- Start potato client (player B) ---
         potato_log = game_dir / f"{player_b_name}_mcp.log"
-        potato_jvm = " ".join(
-            [
-                jvm_no_ui,
-                f"-Dxmage.bridge.server={server}",
-                f"-Dxmage.bridge.port={port}",
-                "-Dxmage.bridge.personality=potato",
-            ]
+        bridge_cp = compute_module_classpath(project_root, "Mage.Client.Bridge")
+        potato_cmd = _build_java_cmd(
+            bridge_cp,
+            MAIN_CLASS_BRIDGE,
+            {
+                "xmage.bridge.server": server,
+                "xmage.bridge.port": str(port),
+                "xmage.bridge.personality": "potato",
+                "xmage.bridge.username": player_b_name,
+                "xmage.bridge.deck": str(project_root / deck_b),
+            },
         )
         potato_proc, potato_fh = _start_process(
-            args=[
-                "mvn",
-                "-q",
-                f"-Dxmage.bridge.username={player_b_name}",
-                f"-Dxmage.bridge.deck={project_root / deck_b}",
-                "exec:java",
-            ],
+            args=potato_cmd,
             cwd=project_root / "Mage.Client.Bridge",
-            env_updates={"MAVEN_OPTS": potato_jvm},
+            env_updates={},
             log_path=potato_log,
         )
         procs.append(potato_proc)
@@ -871,12 +911,6 @@ def run_golden_scenario_two_replay(
         separators=(",", ":"),
     )
 
-    # JVM options
-    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
-    jvm_no_ui = jvm_opens
-    if sys.platform == "darwin":
-        jvm_no_ui += " -Dapple.awt.UIElement=true"
-
     procs: list[subprocess.Popen] = []
     log_fhs: list = []
 
@@ -884,23 +918,25 @@ def run_golden_scenario_two_replay(
         # --- Start observer spectator ---
         with timed_phase(golden_name, "spectator_startup"):
             spectator_log = game_dir / "spectator.log"
-            spectator_jvm = " ".join(
-                [
-                    jvm_no_ui,
-                    "-Dxmage.aiPuppeteer.autoConnect=true",
-                    "-Dxmage.aiPuppeteer.autoStart=true",
-                    "-Dxmage.aiPuppeteer.disableWhatsNew=true",
-                    "-Dxmage.observer.noWindow=true",
-                    f"-Dxmage.aiPuppeteer.server={server}",
-                    f"-Dxmage.aiPuppeteer.port={port}",
-                    "-Dxmage.aiPuppeteer.user=spectator",
-                    "-Dxmage.aiPuppeteer.password=",
-                    f"-Dxmage.observer.gameDir={game_dir}",
-                ]
+            cp = compute_module_classpath(project_root, "Mage.Client.Observer")
+            spectator_cmd = _build_java_cmd(
+                cp,
+                MAIN_CLASS_OBSERVER,
+                {
+                    "xmage.aiPuppeteer.autoConnect": "true",
+                    "xmage.aiPuppeteer.autoStart": "true",
+                    "xmage.aiPuppeteer.disableWhatsNew": "true",
+                    "xmage.observer.noWindow": "true",
+                    "xmage.aiPuppeteer.server": server,
+                    "xmage.aiPuppeteer.port": str(port),
+                    "xmage.aiPuppeteer.user": "spectator",
+                    "xmage.aiPuppeteer.password": "",
+                    "xmage.observer.gameDir": str(game_dir),
+                },
             )
 
             spectator_proc, spectator_fh = _start_process(
-                args=["mvn", "-q", "exec:java"],
+                args=spectator_cmd,
                 cwd=project_root / "Mage.Client.Observer",
                 env_updates={
                     "XMAGE_AI_PUPPETEER": "1",
@@ -913,7 +949,6 @@ def run_golden_scenario_two_replay(
                     "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
                     "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
                     "XMAGE_AI_PUPPETEER_CHOOSING_PLAYER": player_a_name,
-                    "MAVEN_OPTS": spectator_jvm,
                 },
                 log_path=spectator_log,
             )
@@ -1044,6 +1079,80 @@ def _to_sorted_json(obj: object) -> str:
     return json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
 
 
+def _brief(value: object, max_len: int = 80) -> str:
+    """Short representation of a JSON value for diff output."""
+    if isinstance(value, str):
+        r = repr(value)
+        if len(r) > max_len:
+            return r[: max_len - 3] + "..."
+        return r
+    s = json.dumps(value, sort_keys=True, ensure_ascii=False)
+    if len(s) > max_len:
+        return s[: max_len - 3] + "..."
+    return s
+
+
+def _json_diff(expected: object, actual: object, path: str = "", max_diffs: int = 30) -> list[str]:
+    """Structural diff between two parsed JSON values.
+
+    Returns a list of human-readable diff lines with JSON paths, e.g.:
+        decisions[0].message: "Play instants" -> "Play instants and abilities"
+        actions: 3 items -> 4 items
+          [3]: + {"seq": 8, "type": "turn_change"}
+    """
+    diffs: list[str] = []
+
+    def _recurse(exp: object, act: object, p: str) -> None:
+        if len(diffs) >= max_diffs:
+            return
+        if type(exp) is not type(act):
+            diffs.append(f"  {p}: {_brief(exp)} -> {_brief(act)}")
+            return
+        if isinstance(exp, dict):
+            assert isinstance(act, dict)
+            exp_keys = set(exp.keys())
+            act_keys = set(act.keys())
+            for k in sorted(exp_keys - act_keys):
+                if len(diffs) >= max_diffs:
+                    return
+                child = f"{p}.{k}" if p else k
+                diffs.append(f"  {child}: - {_brief(exp[k])}")
+            for k in sorted(act_keys - exp_keys):
+                if len(diffs) >= max_diffs:
+                    return
+                child = f"{p}.{k}" if p else k
+                diffs.append(f"  {child}: + {_brief(act[k])}")
+            for k in sorted(exp_keys & act_keys):
+                if len(diffs) >= max_diffs:
+                    return
+                child = f"{p}.{k}" if p else k
+                _recurse(exp[k], act[k], child)
+        elif isinstance(exp, list):
+            assert isinstance(act, list)
+            if len(exp) != len(act):
+                diffs.append(f"  {p}: {len(exp)} items -> {len(act)} items")
+            min_len = min(len(exp), len(act))
+            for i in range(min_len):
+                if len(diffs) >= max_diffs:
+                    return
+                _recurse(exp[i], act[i], f"{p}[{i}]")
+            for i in range(min_len, len(exp)):
+                if len(diffs) >= max_diffs:
+                    return
+                diffs.append(f"  {p}[{i}]: - {_brief(exp[i])}")
+            for i in range(min_len, len(act)):
+                if len(diffs) >= max_diffs:
+                    return
+                diffs.append(f"  {p}[{i}]: + {_brief(act[i])}")
+        elif exp != act:
+            diffs.append(f"  {p}: {_brief(exp)} -> {_brief(act)}")
+
+    _recurse(expected, actual, path)
+    if len(diffs) >= max_diffs:
+        diffs.append(f"  ... (truncated, {max_diffs}+ differences)")
+    return diffs
+
+
 def _is_short_id(value: object) -> bool:
     return isinstance(value, str) and len(value) > 1 and value[0] in ("p", "l") and value[1:].isdigit()
 
@@ -1088,16 +1197,10 @@ def assert_golden_prompt(name: str, actual: list[dict]) -> None:
 
     expected = golden_file.read_text().rstrip()
     if expected != actual_json:
-        expected_lines = expected.split("\n")
-        actual_lines = actual_json.split("\n")
-        diffs = []
-        max_lines = max(len(expected_lines), len(actual_lines))
-        for i in range(max_lines):
-            exp = expected_lines[i] if i < len(expected_lines) else "<missing>"
-            act = actual_lines[i] if i < len(actual_lines) else "<missing>"
-            if exp != act:
-                diffs.append(f"  Line {i + 1}:\n    expected: {exp}\n    actual:   {act}")
-        diff_text = "\n".join(diffs[:20])
+        expected_obj = json.loads(expected)
+        actual_obj = json.loads(actual_json)
+        diff_lines = _json_diff(expected_obj, actual_obj)
+        diff_text = "\n".join(diff_lines)
         raise AssertionError(
             f"Golden file mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
         )
@@ -1176,16 +1279,9 @@ def assert_golden_export(name: str, game_dir: Path) -> None:
 
     expected = golden_file.read_text().rstrip()
     if expected != actual_json:
-        expected_lines = expected.split("\n")
-        actual_lines = actual_json.split("\n")
-        diffs = []
-        max_lines = max(len(expected_lines), len(actual_lines))
-        for i in range(max_lines):
-            exp = expected_lines[i] if i < len(expected_lines) else "<missing>"
-            act = actual_lines[i] if i < len(actual_lines) else "<missing>"
-            if exp != act:
-                diffs.append(f"  Line {i + 1}:\n    expected: {exp}\n    actual:   {act}")
-        diff_text = "\n".join(diffs[:20])
+        expected_obj = json.loads(expected)
+        diff_lines = _json_diff(expected_obj, export_data)
+        diff_text = "\n".join(diff_lines)
         raise AssertionError(
             f"Golden export mismatch: {name}.json\nRun 'make update-golden' to regenerate.\n\n{diff_text}"
         )

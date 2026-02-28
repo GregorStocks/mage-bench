@@ -695,63 +695,80 @@ def test_random_end_to_end_config_load():
 # --- Format-aware random deck selection tests ---
 
 
+def _make_deck_registry(root: Path, fmt_dir: str, decks: dict[str, list[str]]) -> None:
+    """Create a deck registry directory with JSON files."""
+    reg_dir = root / "data" / "decks" / fmt_dir
+    reg_dir.mkdir(parents=True)
+    (root / "tmp").mkdir(parents=True, exist_ok=True)
+    for name, cards in decks.items():
+        slug = name.lower().replace(" ", "-")
+        data = {"name": name, "strategy": "", "cards": cards}
+        (reg_dir / f"{slug}.json").write_text(json.dumps(data))
+
+
 def test_resolve_random_decks_legacy_format():
     """With deckType='Constructed - Legacy', decks should come from Legacy dir."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
-        legacy_dir = root / "Mage.Client" / "release" / "sample-decks" / "Legacy"
-        legacy_dir.mkdir(parents=True)
-        (legacy_dir / "Burn.dck").write_text("4 [M21:1] Lightning Bolt\n")
-        (legacy_dir / "Delver.dck").write_text("4 [ISD:1] Delver of Secrets\n")
+        _make_deck_registry(
+            root,
+            "legacy",
+            {
+                "Burn": ["4 [M21:1] Lightning Bolt"],
+                "Delver": ["4 [ISD:1] Delver of Secrets"],
+            },
+        )
 
         config = Config(deck_type="Constructed - Legacy")
         config.cpu_players = [CpuPlayer(name="cpu1", deck="random")]
         config.resolve_random_decks(root)
 
         assert config.cpu_players[0].deck is not None
-        assert "Legacy" in config.cpu_players[0].deck
         assert config.cpu_players[0].deck.endswith(".dck")
+        assert config.cpu_players[0].deck_name in ("Burn", "Delver")
 
 
 def test_resolve_random_decks_modern_format():
     """With deckType='Constructed - Modern', decks should come from Modern dir."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
-        modern_dir = root / "Mage.Client" / "release" / "sample-decks" / "Modern"
-        modern_dir.mkdir(parents=True)
-        (modern_dir / "Burn.dck").write_text("4 [M21:1] Lightning Bolt\n")
+        _make_deck_registry(root, "modern", {"Burn": ["4 [M21:1] Lightning Bolt"]})
 
         config = Config(deck_type="Constructed - Modern")
         config.cpu_players = [CpuPlayer(name="cpu1", deck="random")]
         config.resolve_random_decks(root)
 
-        assert "Modern" in config.cpu_players[0].deck
+        assert config.cpu_players[0].deck.endswith(".dck")
+        assert config.cpu_players[0].deck_name == "Burn"
 
 
-def test_resolve_random_decks_default_commander():
-    """Empty deckType should fall back to Commander directory."""
+def test_resolve_random_decks_commander_format():
+    """With deckType='Variant Magic - Commander', decks should come from commander dir."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
-        commander_dir = root / "Mage.Client" / "release" / "sample-decks" / "Commander"
-        commander_dir.mkdir(parents=True)
-        (commander_dir / "Precon.dck").write_text("1 [CMD:1] Sol Ring\n")
+        _make_deck_registry(root, "commander", {"Precon": ["1 [CMD:1] Sol Ring"]})
 
-        config = Config()
+        config = Config(deck_type="Variant Magic - Commander")
         config.cpu_players = [CpuPlayer(name="cpu1", deck="random")]
         config.resolve_random_decks(root)
 
-        assert "Commander" in config.cpu_players[0].deck
+        assert config.cpu_players[0].deck.endswith(".dck")
+        assert config.cpu_players[0].deck_name == "Precon"
 
 
 def test_resolve_random_decks_no_duplicate_decks():
     """Two players with random decks should get different decks."""
     with tempfile.TemporaryDirectory() as tmpdir:
         root = Path(tmpdir)
-        legacy_dir = root / "Mage.Client" / "release" / "sample-decks" / "Legacy"
-        legacy_dir.mkdir(parents=True)
-        (legacy_dir / "DeckA.dck").write_text("4 [M21:1] Card A\n")
-        (legacy_dir / "DeckB.dck").write_text("4 [M21:2] Card B\n")
-        (legacy_dir / "DeckC.dck").write_text("4 [M21:3] Card C\n")
+        _make_deck_registry(
+            root,
+            "legacy",
+            {
+                "DeckA": ["4 [M21:1] Card A"],
+                "DeckB": ["4 [M21:2] Card B"],
+                "DeckC": ["4 [M21:3] Card C"],
+            },
+        )
 
         config = Config(deck_type="Constructed - Legacy")
         config.cpu_players = [
@@ -761,6 +778,7 @@ def test_resolve_random_decks_no_duplicate_decks():
         config.resolve_random_decks(root)
 
         assert config.cpu_players[0].deck != config.cpu_players[1].deck
+        assert config.cpu_players[0].deck_name != config.cpu_players[1].deck_name
 
 
 # --- Toolset tests ---

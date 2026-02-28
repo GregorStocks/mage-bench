@@ -132,7 +132,7 @@ def test_ensure_game_over_event_no_file():
         assert event["seq"] == 1
 
 
-def test_print_game_summary_from_events_jsonl(capsys):
+def test_print_game_summary_from_events_jsonl(caplog):
     """CPU-only games should read the result from game_events.jsonl."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
@@ -141,38 +141,41 @@ def test_print_game_summary_from_events_jsonl(capsys):
             json.dumps({"ts": "2024-01-01T00:05:00", "type": "game_over", "message": "Player1 wins"}) + "\n"
         )
 
-        _print_game_summary(game_dir)
+        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+            _print_game_summary(game_dir)
 
-        output = capsys.readouterr().out
+        output = caplog.text
         assert "Player1 wins" in output
         assert "did not finish" not in output
 
 
-def test_print_game_summary_from_pilot_log(capsys):
+def test_print_game_summary_from_pilot_log(caplog):
     """Bridge client logs take priority over game_events.jsonl."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "ace_pilot.log").write_text("INFO Game over: Player1 won the game\n")
 
-        _print_game_summary(game_dir)
+        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+            _print_game_summary(game_dir)
 
-        output = capsys.readouterr().out
+        output = caplog.text
         assert "Player1 won the game" in output
         assert "did not finish" not in output
 
 
-def test_print_game_summary_no_logs(capsys):
+def test_print_game_summary_no_logs(caplog):
     """No logs at all should print 'did not finish'."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
 
-        _print_game_summary(game_dir)
+        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+            _print_game_summary(game_dir)
 
-        output = capsys.readouterr().out
+        output = caplog.text
         assert "did not finish" in output
 
 
-def test_print_game_summary_synthetic_game_over(capsys):
+def test_print_game_summary_synthetic_game_over(caplog):
     """A synthetic game_over (timeout_or_killed) should still show 'did not finish'."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
@@ -189,13 +192,14 @@ def test_print_game_summary_synthetic_game_over(capsys):
             + "\n"
         )
 
-        _print_game_summary(game_dir)
+        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+            _print_game_summary(game_dir)
 
-        output = capsys.readouterr().out
+        output = caplog.text
         assert "did not finish" in output
 
 
-def test_print_game_summary_spectator_closed(capsys):
+def test_print_game_summary_spectator_closed(caplog):
     """spectator_closed reason should show the interrupted message, not 'did not finish'."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
@@ -212,14 +216,15 @@ def test_print_game_summary_spectator_closed(capsys):
             + "\n"
         )
 
-        _print_game_summary(game_dir)
+        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+            _print_game_summary(game_dir)
 
-        output = capsys.readouterr().out
+        output = caplog.text
         assert "spectator window closed" in output
         assert "did not finish" not in output
 
 
-def test_print_game_summary_spectator_crashed(capsys):
+def test_print_game_summary_spectator_crashed(caplog):
     """spectator_crashed reason should show 'did not finish'."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
@@ -236,13 +241,14 @@ def test_print_game_summary_spectator_crashed(capsys):
             + "\n"
         )
 
-        _print_game_summary(game_dir)
+        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+            _print_game_summary(game_dir)
 
-        output = capsys.readouterr().out
+        output = caplog.text
         assert "did not finish" in output
 
 
-def test_print_game_summary_turns_and_actions(capsys):
+def test_print_game_summary_turns_and_actions(caplog):
     """Summary should show turn count and per-player action counts."""
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
@@ -276,9 +282,10 @@ def test_print_game_summary_turns_and_actions(capsys):
         (game_dir / "Alice_cost.json").write_text(json.dumps({"cost_usd": 0.05}))
         (game_dir / "Bob_cost.json").write_text(json.dumps({"cost_usd": 0.03}))
 
-        _print_game_summary(game_dir)
+        with caplog.at_level("INFO", logger="puppeteer.orchestrator"):
+            _print_game_summary(game_dir)
 
-        output = capsys.readouterr().out
+        output = caplog.text
         assert "Turns: 3" in output
         assert "Alice: $0.0500 (3 actions)" in output
         assert "Bob: $0.0300 (1 actions)" in output

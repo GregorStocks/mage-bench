@@ -9,7 +9,6 @@ from __future__ import annotations
 import gzip
 import json
 import random
-import sys
 from collections import defaultdict
 from itertools import combinations
 from pathlib import Path
@@ -20,6 +19,9 @@ from puppeteer.leaderboard import (
     compute_openskill_ratings,
     derive_format,
 )
+from puppeteer.log import get_logger
+
+logger = get_logger(__name__)
 
 _ROOT = Path(__file__).resolve().parent.parent.parent.parent
 _GAMES_DIR = _ROOT / "website" / "public" / "games"
@@ -137,11 +139,11 @@ def get_yente_pool(
 
     # Display the pool
     model_names = _load_model_names(models_path)
-    print(f"  {random.choice(_BLESSINGS)}", file=sys.stderr)
-    print(f"  Yente {mode_label} pool ({len(eligible)} models >= {threshold}):", file=sys.stderr)
+    logger.info("  %s", random.choice(_BLESSINGS))
+    logger.info("  Yente %s pool (%d models >= %d):", mode_label, len(eligible), threshold)
     for key, preset, rating in eligible:
         display = _display_key(key, model_names)
-        print(f"    {rating:4d}  {display}  [{preset}]", file=sys.stderr)
+        logger.info("    %4d  %s  [%s]", rating, display, preset)
 
     return [preset for _, preset, _ in eligible]
 
@@ -278,21 +280,22 @@ def get_round_robin_matchup(
     # Display
     model_names = _load_model_names(models_path)
     preset_to_key = {v: k for k, v in key_to_preset.items()}
-    print(f"  {random.choice(_DISPATCHES)}", file=sys.stderr)
-    print(f"  Round-robin {mode_label} matchup ({num_seats} seats):", file=sys.stderr)
+    logger.info("  %s", random.choice(_DISPATCHES))
+    logger.info("  Round-robin %s matchup (%d seats):", mode_label, num_seats)
     for preset in selected:
         key = preset_to_key.get(preset, preset)
         display = _display_key(key, model_names)
         games = game_counts.get(preset, 0)
-        print(f"    {display}  [{preset}]  ({games} games)", file=sys.stderr)
+        logger.info("    %s  [%s]  (%d games)", display, preset, games)
     total_pairs = len(list(combinations(gauntlet, 2)))
     covered = sum(1 for pair in combinations(sorted(gauntlet), 2) if pair_counts.get(pair, 0) > 0)
-    print(f"  Coverage: {covered}/{total_pairs} pairs have been played", file=sys.stderr)
+    logger.info("  Coverage: %d/%d pairs have been played", covered, total_pairs)
     if underrated and max_underrated < num_seats:
-        print(
-            f"  Calibration: {len(underrated)} underrated models (<{_CALIBRATION_GAMES} games), "
-            f"capped at {max_underrated}/game",
-            file=sys.stderr,
+        logger.info(
+            "  Calibration: %d underrated models (<%d games), capped at %d/game",
+            len(underrated),
+            _CALIBRATION_GAMES,
+            max_underrated,
         )
 
     return selected
@@ -363,10 +366,10 @@ def pick_round_robin_format(
     chosen = random.choice(tied)
 
     # Display
-    print(f"  {random.choice(_FORMAT_DISPATCHES)}", file=sys.stderr)
+    logger.info("  %s", random.choice(_FORMAT_DISPATCHES))
     for fmt in candidates:
         score = sum(format_counts[p][fmt] for p in selected_presets)
         marker = " <--" if fmt == chosen else ""
-        print(f"    {fmt}: {score} games for selected players{marker}", file=sys.stderr)
+        logger.info("    %s: %d games for selected players%s", fmt, score, marker)
 
     return chosen

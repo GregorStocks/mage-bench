@@ -3,7 +3,6 @@
 import os
 import re
 import subprocess
-import sys
 from pathlib import Path
 
 import pytest
@@ -15,8 +14,12 @@ from puppeteer.xml_config import modify_server_config
 from tests.golden_helpers import (
     DECK_GOBLINS,
     DECK_RED_STOMPY,
+    MAIN_CLASS_BRIDGE,
+    MAIN_CLASS_SERVER,
     BridgeSession,
     PotatoProcess,
+    _build_java_cmd,
+    compute_module_classpath,
     print_timing_summary,
     timed_phase,
 )
@@ -100,13 +103,16 @@ def xmage_server(project_root, tmp_path_factory):
     # Restrict card pool to only the sets used by golden test decks
     allowed_sets = extract_golden_set_codes(project_root)
 
-    # Build JVM options (server has no GUI; clients need AWT for Swing)
-    jvm_opts = " ".join(
-        [
-            "--add-opens=java.base/java.io=ALL-UNNAMED",
-            "-Djava.awt.headless=true",
-            f"-Dxmage.sets.allowed={allowed_sets}",
-        ]
+    # Build java -cp command (server has no GUI; clients need AWT for Swing)
+    server_cp = compute_module_classpath(project_root, "Mage.Server")
+    server_cmd = _build_java_cmd(
+        server_cp,
+        MAIN_CLASS_SERVER,
+        {
+            "java.awt.headless": "true",
+            "xmage.sets.allowed": allowed_sets,
+            "xmage.config.path": str(config_path),
+        },
     )
 
     # Start server
@@ -119,14 +125,13 @@ def xmage_server(project_root, tmp_path_factory):
             "XMAGE_AI_PUPPETEER_SERVER": "localhost",
             "XMAGE_AI_PUPPETEER_PORT": str(port),
             "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
-            "MAVEN_OPTS": f"{jvm_opts} -Dxmage.config.path={config_path}",
         }
     )
 
     server_log = tmp_dir / "server.log"
     server_log_fh = open(server_log, "w")
     server_proc = subprocess.Popen(
-        ["mvn", "-q", "exec:java"],
+        server_cmd,
         cwd=project_root / "Mage.Server",
         env=env,
         stdout=server_log_fh,
@@ -155,39 +160,36 @@ def bridge_session(xmage_server, project_root):
     tmp_dir = project_root / "tmp" / "golden-bridge"
     tmp_dir.mkdir(parents=True, exist_ok=True)
 
-    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
-    jvm_no_ui = jvm_opens
-    if sys.platform == "darwin":
-        jvm_no_ui += " -Dapple.awt.UIElement=true"
-
     allowed_sets = extract_golden_set_codes(project_root)
 
     # Allocate a port for the MCP HTTP server
     mcp_port_res = find_available_port("localhost", 19000)
     mcp_port = mcp_port_res.port
 
-    bridge_jvm = " ".join(
-        [
-            jvm_no_ui,
-            f"-Dxmage.bridge.server={server}",
-            f"-Dxmage.bridge.port={port}",
-            "-Dxmage.bridge.personality=sleepwalker",
-            "-Dxmage.bridge.keepAlive=true",
-            f"-Dxmage.bridge.mcpPort={mcp_port}",
-            f"-Dxmage.sets.allowed={allowed_sets}",
-        ]
+    bridge_cp = compute_module_classpath(project_root, "Mage.Client.Bridge")
+    bridge_cmd = _build_java_cmd(
+        bridge_cp,
+        MAIN_CLASS_BRIDGE,
+        {
+            "xmage.bridge.server": server,
+            "xmage.bridge.port": str(port),
+            "xmage.bridge.personality": "sleepwalker",
+            "xmage.bridge.keepAlive": "true",
+            "xmage.bridge.mcpPort": str(mcp_port),
+            "xmage.bridge.username": "TestPlayer",
+            "xmage.sets.allowed": allowed_sets,
+        },
     )
 
     bridge_log = tmp_dir / "bridge.log"
     bridge_log_fh = open(bridge_log, "w")
 
     proc = subprocess.Popen(
-        ["mvn", "-q", "-Dxmage.bridge.username=TestPlayer", "exec:java"],
+        bridge_cmd,
         cwd=project_root / "Mage.Client.Bridge",
         stdin=subprocess.PIPE,
         stdout=bridge_log_fh,
         stderr=subprocess.STDOUT,
-        env={**os.environ, "MAVEN_OPTS": bridge_jvm},
     )
 
     with timed_phase("session", "bridge_jvm_startup"):
@@ -230,34 +232,31 @@ def potato_process(xmage_server, project_root):
     tmp_dir = project_root / "tmp" / "golden-potato"
     tmp_dir.mkdir(parents=True, exist_ok=True)
 
-    jvm_opens = "--add-opens=java.base/java.io=ALL-UNNAMED"
-    jvm_no_ui = jvm_opens
-    if sys.platform == "darwin":
-        jvm_no_ui += " -Dapple.awt.UIElement=true"
-
     allowed_sets = extract_golden_set_codes(project_root)
 
-    potato_jvm = " ".join(
-        [
-            jvm_no_ui,
-            f"-Dxmage.bridge.server={server}",
-            f"-Dxmage.bridge.port={port}",
-            "-Dxmage.bridge.personality=potato",
-            "-Dxmage.bridge.keepAlive=true",
-            f"-Dxmage.sets.allowed={allowed_sets}",
-        ]
+    potato_cp = compute_module_classpath(project_root, "Mage.Client.Bridge")
+    potato_cmd = _build_java_cmd(
+        potato_cp,
+        MAIN_CLASS_BRIDGE,
+        {
+            "xmage.bridge.server": server,
+            "xmage.bridge.port": str(port),
+            "xmage.bridge.personality": "potato",
+            "xmage.bridge.keepAlive": "true",
+            "xmage.bridge.username": "Opponent",
+            "xmage.sets.allowed": allowed_sets,
+        },
     )
 
     potato_log = tmp_dir / "potato.log"
     potato_log_fh = open(potato_log, "w")
 
     proc = subprocess.Popen(
-        ["mvn", "-q", "-Dxmage.bridge.username=Opponent", "exec:java"],
+        potato_cmd,
         cwd=project_root / "Mage.Client.Bridge",
         stdin=subprocess.PIPE,
         stdout=potato_log_fh,
         stderr=subprocess.STDOUT,
-        env={**os.environ, "MAVEN_OPTS": potato_jvm},
     )
 
     with timed_phase("session", "potato_jvm_startup"):

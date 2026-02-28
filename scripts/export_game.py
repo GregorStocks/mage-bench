@@ -84,9 +84,14 @@ def _deck_name_from_path(deck_path: str) -> str | None:
 def _deck_display_name(player_meta: dict, deck_type: str) -> str | None:
     """Get display name for a player's deck.
 
-    For commander formats, returns the commander card name.
-    For other formats, derives the name from the deck filename.
+    Prefers deck_name from game_meta (set by deck registry resolution).
+    Falls back to legacy logic for old game_metas: commander card name
+    for commander formats, filename stem for others.
     """
+    # New: deck_name from registry
+    if player_meta.get("deck_name"):
+        return player_meta["deck_name"]
+    # Legacy fallback for old game_metas
     if deck_type in _COMMANDER_DECK_TYPES:
         return _extract_commander(player_meta)
     return _deck_name_from_path(player_meta.get("deck_path", ""))
@@ -783,6 +788,8 @@ def build_export(game_dir: Path) -> dict:
             "type": p.get("type", "?"),
             "deckName": _deck_display_name(p, meta.get("deck_type", "")),
         }
+        if p.get("deck_strategy"):
+            entry["deckStrategy"] = p["deck_strategy"]
         if p.get("model"):
             entry["model"] = p["model"]
         if p.get("reasoning_effort"):

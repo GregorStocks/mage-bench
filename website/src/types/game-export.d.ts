@@ -99,9 +99,13 @@ export interface Player {
    */
   model?: string;
   /**
-   * Display name for the deck (commander name or filename stem).
+   * Display name for the deck from the deck registry.
    */
   deckName?: string;
+  /**
+   * 1-2 sentence strategy summary for blunder annotation context.
+   */
+  deckStrategy?: string;
   /**
    * Legacy field: commander card name. Replaced by deckName in newer exports.
    */
