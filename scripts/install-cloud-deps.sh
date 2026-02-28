@@ -2,8 +2,18 @@
 # Install dependencies needed to run `make update-golden` and `claim-issue.py`
 # in Claude Code cloud environments.
 #
+# Called automatically via SessionStart hook. Fast no-op (~10ms) when
+# everything is already installed; only does real work on first run.
+#
 # Usage: bash scripts/install-cloud-deps.sh
 set -euo pipefail
+
+MARKER="tmp/.cloud-deps-installed"
+
+# Fast path: if we've already run successfully, skip everything.
+if [ -f "$MARKER" ]; then
+    exit 0
+fi
 
 echo "Installing cloud environment dependencies..."
 
@@ -15,8 +25,6 @@ if ! command -v mvn &>/dev/null; then
     echo "Installing Maven..."
     sudo apt-get update -qq
     sudo apt-get install -y -qq maven
-else
-    echo "Maven already installed."
 fi
 
 # GitHub CLI (needed for claim-issue.py)
@@ -28,15 +36,12 @@ if ! command -v gh &>/dev/null; then
     tar xzf "tmp/${GH_ARCHIVE}" -C tmp/
     sudo cp "tmp/gh_${GH_VERSION}_linux_amd64/bin/gh" /usr/local/bin/gh
     rm -rf "tmp/${GH_ARCHIVE}" "tmp/gh_${GH_VERSION}_linux_amd64"
-else
-    echo "GitHub CLI already installed."
 fi
 
 # Run workspace setup (creates tmp/, symlinks, .env, etc.)
 uv run python scripts/worktree-setup.py
 
-echo ""
-echo "Done. You can now run:"
-echo "  make build          # compile Java"
-echo "  make update-golden  # update golden test fixtures"
-echo "  uv run python scripts/claim-issue.py <issue>"
+# Mark as done so subsequent sessions are instant.
+touch "$MARKER"
+
+echo "Cloud dependencies installed."
