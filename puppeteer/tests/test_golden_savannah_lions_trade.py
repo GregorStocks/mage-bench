@@ -9,7 +9,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_savannah_lions_trade(xmage_server, tmp_path, project_root):
+def test_savannah_lions_trade(xmage_server, tmp_path, project_root, spectator_process):
     """Both players play Savannah Lions, P1 attacks T2, P2 blocks, both die.
 
     Script:
@@ -70,4 +70,5 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root):
             {"name": "pass_priority", "arguments": {}},
         ],
         golden_name="savannah_lions_trade",
+        spectator=spectator_process,
     )

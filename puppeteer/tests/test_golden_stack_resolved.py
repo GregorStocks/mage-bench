@@ -10,7 +10,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_stack_resolved(xmage_server, tmp_path, project_root):
+def test_stack_resolved(xmage_server, tmp_path, project_root, spectator_process):
     """Cast Lightning Bolt, then pass_priority(until="stack_resolved") to let it resolve.
 
     Script:
@@ -47,4 +47,5 @@ def test_stack_resolved(xmage_server, tmp_path, project_root):
             {"name": "get_game_state", "arguments": {}},
         ],
         golden_name="stack_resolved",
+        spectator=spectator_process,
     )

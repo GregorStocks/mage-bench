@@ -10,7 +10,7 @@ from tests.golden_helpers import (
 
 
 @pytest.mark.golden
-def test_mdfc_land_and_suspend(xmage_server, tmp_path, project_root, bridge_session, potato_process):
+def test_mdfc_land_and_suspend(xmage_server, tmp_path, project_root, bridge_session, potato_process, spectator_process):
     """Play Boggart Trawler as Boggart Bog (MDFC land mode) and suspend Crashing Footfalls,
     then play through until the last time counter is removed and it resolves into Rhino tokens.
 
@@ -77,4 +77,5 @@ def test_mdfc_land_and_suspend(xmage_server, tmp_path, project_root, bridge_sess
         golden_name="mdfc_land_and_suspend",
         bridge=bridge_session,
         potato=potato_process,
+        spectator=spectator_process,
     )
