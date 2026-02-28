@@ -453,10 +453,12 @@ def test_wait_for_all_games_pilot_fails(mock_sleep):
     s2.spectator_proc = MagicMock()
     # Spectator for s2 never exits on its own — will be terminated
     s2.spectator_proc.poll = MagicMock(side_effect=[None, None, None, None])
-    s2.pilot_procs = [("bob", _mock_proc([None, 3]))]
+    bob_proc = _mock_proc([None, 3, 3])
+    s2.pilot_procs = [("bob", bob_proc)]
 
     pm = MagicMock()
-    results = _wait_for_all_games([s1, s2], pm)
+    with patch("puppeteer.orchestrator.kill_tree"):
+        results = _wait_for_all_games([s1, s2], pm)
 
     assert results[0] == 0
     assert results[1] == -1
