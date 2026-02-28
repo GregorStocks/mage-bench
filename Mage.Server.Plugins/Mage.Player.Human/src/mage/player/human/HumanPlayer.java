@@ -334,7 +334,16 @@ public class HumanPlayer extends PlayerImpl {
             loop = false;
             synchronized (response) { // TODO: synchronized response smells bad here, possible deadlocks? Need research
                 try {
-                    response.wait(); // start waiting a response.notifyAll command from CALL thread (client answer)
+                    // Check async signals before waiting to avoid lost-wakeup:
+                    // signalPlayerConcede/signalPlayerCheat can fire between
+                    // response.clear() and here, setting the async flag and
+                    // calling notifyAll() before we enter wait().  Without this
+                    // guard the notification is lost and the game thread blocks
+                    // forever (the concede sits in the queue but checkConcede is
+                    // never called).
+                    if (!response.getAsyncWantConcede() && !response.getAsyncWantCheat()) {
+                        response.wait(); // start waiting a response.notifyAll command from CALL thread (client answer)
+                    }
                 } catch (InterruptedException ignore) {
                 } finally {
                     responseOpenedForAnswer = false;
