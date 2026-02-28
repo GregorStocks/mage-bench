@@ -19,7 +19,7 @@ from puppeteer.harness_epoch import HARNESS_EPOCH
 from puppeteer.llm_cost import DEFAULT_BASE_URL as DEFAULT_LLM_BASE_URL
 from puppeteer.llm_cost import required_api_key_env
 from puppeteer.port import find_available_port, wait_for_port
-from puppeteer.process_manager import ProcessManager
+from puppeteer.process_manager import ProcessManager, kill_tree
 from puppeteer.xml_config import modify_server_config
 
 _SPECTATOR_TABLE_READY = "AI Puppeteer: waiting for"
@@ -127,12 +127,10 @@ def _wait_with_pilot_monitoring(
         spectator_rc = spectator_proc.poll()
         if spectator_rc is not None:
             if spectator_rc != 0:
-                # Spectator crashed — kill pilots so they don't continue
-                # playing an unrecorded game on the server.
-                print(f"\nSpectator exited with code {spectator_rc} — killing pilots.")
-                for _name, proc in pilot_procs:
-                    if proc.poll() is None:
-                        proc.terminate()
+                # Spectator crashed — kill everything (server, bridges,
+                # pilots) so they don't continue playing an unrecorded game.
+                print(f"\nSpectator exited with code {spectator_rc} — aborting game.")
+                pm.cleanup()
             return spectator_rc
 
         # Check all pilot processes
@@ -1275,13 +1273,14 @@ def _wait_for_all_games(
             spectator_rc = session.spectator_proc.poll()
             if spectator_rc is not None:
                 if spectator_rc != 0:
-                    # Spectator crashed — kill pilots so they don't continue
-                    # playing an unrecorded game on the server.
+                    # Spectator crashed — kill pilot process trees (includes
+                    # bridge children) so they don't continue playing an
+                    # unrecorded game on the server.
                     game_label = f"Game {session.index + 1}"
-                    print(f"\n{game_label}: spectator exited with code {spectator_rc} — killing pilots.")
+                    print(f"\n{game_label}: spectator exited with code {spectator_rc} — aborting game.")
                     for _name, pilot_proc in session.pilot_procs:
                         if pilot_proc.poll() is None:
-                            pilot_proc.terminate()
+                            kill_tree(pilot_proc.pid)
                 results[session.index] = spectator_rc
                 active.remove(session)
                 continue
@@ -1292,6 +1291,9 @@ def _wait_for_all_games(
                 if pilot_rc is not None and pilot_rc != 0:
                     print(f"\nGame {session.index + 1}: pilot '{name}' exited with code {pilot_rc} — aborting game.")
                     session.spectator_proc.terminate()
+                    for _n, pp in session.pilot_procs:
+                        if pp.poll() is None:
+                            kill_tree(pp.pid)
                     results[session.index] = -1
                     active.remove(session)
                     break
