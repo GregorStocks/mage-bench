@@ -55,7 +55,7 @@
       "type": "phase_change"
     },
     {
-      "message": "TestPlayer wants to concede",
+      "message": "TestPlayer casts Lightning Bolt targeting Opponent from hand",
       "seq": 24
     },
     {
@@ -71,6 +71,18 @@
       "step": "PRECOMBAT_MAIN",
       "turn": 2,
       "type": "phase_change"
+    },
+    {
+      "message": "Opponent loses 3 life from Lightning Bolt",
+      "seq": 29
+    },
+    {
+      "message": "TestPlayer puts Lightning Bolt from stack into their graveyard",
+      "seq": 30
+    },
+    {
+      "message": "TestPlayer wants to concede",
+      "seq": 33
     }
   ],
   "cardImages": {},
@@ -283,29 +295,18 @@
       "responseType": "select",
       "snapshotIndex": 10,
       "step": "PRECOMBAT_MAIN",
-      "subsequentActions": [],
+      "subsequentActions": [
+        "TestPlayer casts Lightning Bolt targeting Opponent from hand",
+        "Opponent loses 3 life from Lightning Bolt",
+        "TestPlayer puts Lightning Bolt from stack into their graveyard"
+      ],
       "turn": 2
     },
     {
       "actionResult": {},
       "actionType": "GAME_SELECT",
-      "choiceCount": 2,
-      "choices": [
-        {
-          "action": "cast",
-          "id": "p11",
-          "index": 0,
-          "mana_cost": "{R}",
-          "name": "Lightning Bolt"
-        },
-        {
-          "action": "cast",
-          "id": "p12",
-          "index": 1,
-          "mana_cost": "{R}",
-          "name": "Lightning Bolt"
-        }
-      ],
+      "choiceCount": 0,
+      "choices": [],
       "chosen": null,
       "chosenArgs": {},
       "index": 4,
@@ -315,16 +316,9 @@
       ],
       "message": "Play instants and activated abilities",
       "phase": "PRECOMBAT_MAIN",
-      "pilotContext": {
-        "playableCards": [
-          "p11",
-          "p12"
-        ],
-        "untappedLands": 1
-      },
       "player": "TestPlayer",
-      "responseType": "select",
-      "snapshotIndex": 11,
+      "responseType": "boolean",
+      "snapshotIndex": 15,
       "step": "PRECOMBAT_MAIN",
       "subsequentActions": [
         "TestPlayer wants to concede"
@@ -335,7 +329,7 @@
   "deckType": "Constructed - Legacy",
   "gameOver": {
     "message": "Game ended",
-    "seq": 27
+    "seq": 34
   },
   "gameType": "Two Player Duel",
   "llmEvents": [
@@ -899,11 +893,17 @@
     },
     {
       "args": {
-        "id": "p2"
+        "id": "l2"
       },
+      "gameSeq": 22,
       "player": "TestPlayer",
       "result": {
-        "error": "Unknown short ID: p2"
+        "action_taken": "selected_target_1",
+        "game_seq": 22,
+        "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_pending": true,
+        "next_action_type": "GAME_SELECT",
+        "success": true
       },
       "seq": 10,
       "tool": "choose_action",
@@ -914,7 +914,7 @@
         "board_cursor": 4,
         "until": "stack_resolved"
       },
-      "gameSeq": 23,
+      "gameSeq": 32,
       "player": "TestPlayer",
       "result": {
         "action_pending": true,
@@ -928,7 +928,16 @@
                 "rules": [
                   "{T}: Add {R}."
                 ],
-                "tapped": false
+                "tapped": true
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p11",
+                "name": "Lightning Bolt",
+                "rules": [
+                  "{this} deals 3 damage to any target."
+                ]
               }
             ],
             "hand": [
@@ -942,19 +951,9 @@
                 ]
               },
               {
-                "id": "p11",
-                "mana_cost": "{R}",
-                "name": "Lightning Bolt",
-                "playable": true,
-                "rules": [
-                  "{this} deals 3 damage to any target."
-                ]
-              },
-              {
                 "id": "p12",
                 "mana_cost": "{R}",
                 "name": "Lightning Bolt",
-                "playable": true,
                 "rules": [
                   "{this} deals 3 damage to any target."
                 ]
@@ -985,7 +984,7 @@
                 ]
               }
             ],
-            "hand_size": 6,
+            "hand_size": 5,
             "is_active": false,
             "is_you": true,
             "library_size": 53,
@@ -997,34 +996,17 @@
             "is_active": true,
             "is_you": false,
             "library_size": 52,
-            "life": 20,
+            "life": 17,
             "name": "Opponent"
           }
         ],
         "board_cursor": 6,
-        "choices": [
-          {
-            "action": "cast",
-            "id": "p11",
-            "index": 0,
-            "mana_cost": "{R}",
-            "name": "Lightning Bolt"
-          },
-          {
-            "action": "cast",
-            "id": "p12",
-            "index": 1,
-            "mana_cost": "{R}",
-            "name": "Lightning Bolt"
-          }
-        ],
         "context": "T1 Precombat Main/Precombat Main (Opponent)",
-        "game_seq": 23,
+        "game_seq": 32,
         "message": "Play instants and activated abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
-        "response_type": "select",
-        "stop_reason": "stack_resolved",
-        "untapped_lands": 1
+        "respond_with": "answer=true (confirm) or answer=false (pass)",
+        "response_type": "boolean",
+        "stop_reason": "stack_resolved"
       },
       "seq": 11,
       "tool": "pass_priority",
@@ -1032,13 +1014,13 @@
     },
     {
       "args": {},
-      "gameSeq": 23,
+      "gameSeq": 32,
       "player": "TestPlayer",
       "result": {
         "active_player": "Opponent",
         "available": true,
         "cursor": 1,
-        "game_seq": 23,
+        "game_seq": 32,
         "phase": "Precombat Main",
         "players": [
           {
@@ -1049,7 +1031,16 @@
                 "rules": [
                   "{T}: Add {R}."
                 ],
-                "tapped": false
+                "tapped": true
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p11",
+                "name": "Lightning Bolt",
+                "rules": [
+                  "{this} deals 3 damage to any target."
+                ]
               }
             ],
             "hand": [
@@ -1063,19 +1054,9 @@
                 ]
               },
               {
-                "id": "p11",
-                "mana_cost": "{R}",
-                "name": "Lightning Bolt",
-                "playable": true,
-                "rules": [
-                  "{this} deals 3 damage to any target."
-                ]
-              },
-              {
                 "id": "p12",
                 "mana_cost": "{R}",
                 "name": "Lightning Bolt",
-                "playable": true,
                 "rules": [
                   "{this} deals 3 damage to any target."
                 ]
@@ -1106,7 +1087,7 @@
                 ]
               }
             ],
-            "hand_size": 6,
+            "hand_size": 5,
             "is_active": false,
             "is_you": true,
             "library_size": 53,
@@ -1118,7 +1099,7 @@
             "is_active": true,
             "is_you": false,
             "library_size": 52,
-            "life": 20,
+            "life": 17,
             "name": "Opponent"
           }
         ],
@@ -1135,9 +1116,9 @@
       "args": {},
       "player": "TestPlayer",
       "result": {
-        "cursor": 18,
-        "event_count": 18,
-        "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n"
+        "cursor": 20,
+        "event_count": 20,
+        "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n    - Opponent lost 3 life\n"
       },
       "seq": 13,
       "tool": "get_game_history",
@@ -2733,6 +2714,574 @@
           ],
           "exile": [],
           "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Badlands",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Lightning Bolt",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Memnite",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plateau",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Taiga",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 23,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p24",
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt",
+          "targets": [
+            {
+              "id": "p1",
+              "name": "Opponent"
+            }
+          ]
+        }
+      ],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p14",
+              "name": "Mountain",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Badlands",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Lightning Bolt",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Memnite",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plateau",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Taiga",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "seq": 27,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p24",
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt",
+          "targets": [
+            {
+              "id": "p1",
+              "name": "Opponent"
+            }
+          ]
+        }
+      ],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p14",
+              "name": "Mountain",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Badlands",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Lightning Bolt",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Memnite",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plateau",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Taiga",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 28,
+      "stack": [
+        {
+          "controller": "TestPlayer",
+          "id": "p24",
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt",
+          "targets": [
+            {
+              "id": "p1",
+              "name": "Opponent"
+            }
+          ]
+        }
+      ],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 17,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p14",
+              "name": "Mountain",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [
+            {
+              "id": "p11",
+              "name": "Lightning Bolt"
+            }
+          ],
+          "hand": [
+            {
+              "id": "p10",
+              "name": "Badlands",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p12",
+              "name": "Lightning Bolt",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p13",
+              "name": "Memnite",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p15",
+              "name": "Plateau",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            },
+            {
+              "id": "p16",
+              "name": "Taiga",
+              "visible_to": [
+                "TestPlayer"
+              ]
+            }
+          ],
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        }
+      ],
+      "priority_player": "Opponent",
+      "seq": 31,
+      "stack": [],
+      "step": "PRECOMBAT_MAIN",
+      "turn": 2
+    },
+    {
+      "active_player": "Opponent",
+      "phase": "PRECOMBAT_MAIN",
+      "players": [
+        {
+          "battlefield": [],
+          "exile": [],
+          "graveyard": [],
+          "hand": [
+            {
+              "id": "p3",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p4",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p5",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p6",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p7",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p8",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p9",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            },
+            {
+              "id": "p23",
+              "name": "Mountain",
+              "visible_to": [
+                "Opponent"
+              ]
+            }
+          ],
+          "library_size": 52,
+          "life": 17,
+          "name": "Opponent"
+        },
+        {
+          "battlefield": [
+            {
+              "face_down": false,
+              "id": "p14",
+              "name": "Mountain",
+              "summoning_sick": true,
+              "tapped": true,
+              "token": false
+            }
+          ],
+          "exile": [],
+          "graveyard": [],
           "hand": [],
           "library_size": 0,
           "life": 20,
@@ -2740,7 +3289,7 @@
         }
       ],
       "priority_player": "TestPlayer",
-      "seq": 27,
+      "seq": 34,
       "stack": [],
       "step": "PRECOMBAT_MAIN",
       "turn": 2
