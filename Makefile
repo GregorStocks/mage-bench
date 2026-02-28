@@ -199,6 +199,10 @@ verify-schema-types:
 	@cd website && npx json2ts ../schemas/game-export-v2.schema.json | diff -q - src/types/game-export.d.ts > /dev/null 2>&1 \
 		|| (echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make schema-types' to regenerate." && exit 1)
 
+.PHONY: games-to-analyze
+games-to-analyze:
+	uv run --project puppeteer python scripts/analysis/find_unanalyzed.py $(ARGS)
+
 .PHONY: blunder-eval
 blunder-eval:
 	uv run --project puppeteer python scripts/analysis/blunder_eval.py $(ARGS)
