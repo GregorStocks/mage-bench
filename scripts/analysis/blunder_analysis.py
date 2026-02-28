@@ -34,6 +34,7 @@ from blunder_eval_common import (  # noqa: E402
     is_canonical_decision,
     is_cast_rolled_back,
     is_forced,
+    is_mana_ability_subdecision,
     is_rolled_back,
     load_game,
     snapshot_index,
@@ -97,7 +98,10 @@ MAX_WORKERS = 50
 #      restructure sections (Card Reference / Prior Context / This Turn / Decision),
 #      add "Chosen: False" guidance, fix PREGAME phase, prefix chat messages,
 #      enrich permanent display (loyalty, token, copy), fix prior context board rendering
-BLUNDER_SCRIPT_VERSION = 25
+# v26: add "(no response)" guidance, fix land drops display ambiguity,
+#      filter mana sub-decisions and chat messages from context,
+#      show targeting/activation details in chosen block
+BLUNDER_SCRIPT_VERSION = 26
 
 # --- Prompt components ---
 
@@ -148,7 +152,15 @@ CHOSEN_FALSE_GUIDANCE = """\
 "Chosen: False" means the player passed priority — they declined to act. \
 If the stack is empty, passing means moving to the next phase (e.g. main phase \
 to combat, or postcombat main to end step — ending the turn). If the stack has \
-items, passing lets those items resolve without responding."""
+items, passing lets those items resolve without responding.
+
+## Understanding "Chosen: (no response)"
+
+"Chosen: (no response)" means the player failed to respond in time (timeout) \
+or their client did not send a valid action. The game engine chose a default \
+for them — typically passing or skipping. Treat this like "Chosen: False" \
+for blunder evaluation: if skipping was wrong given the available choices, \
+flag it."""
 
 PER_DECISION_SYSTEM = f"""\
 You are a Magic: The Gathering expert evaluating a single decision from a game replay.
@@ -390,12 +402,11 @@ def _actions_by_turn(actions: list[dict]) -> dict[int, list[str]]:
     player_turn_counts: dict[str, int] = {}
     for a in actions:
         msg = a.get("message", "")
-        # Prefix chat messages with sender attribution
+        # Skip chat messages — LLM personality flavor adds noise and can bias
+        # the blunder annotator
         if a.get("type") == "chat":
-            sender = a.get("from", "?")
-            msg = f"[Chat from {sender}]: {html.unescape(msg)}"
-        else:
-            msg = html.unescape(msg)
+            continue
+        msg = html.unescape(msg)
         m = re.match(r"^TURN (\d+) for (.+?)( \(.+\))$", msg)
         if m:
             current_turn = int(m.group(1))
@@ -505,12 +516,10 @@ def _format_current_turn_actions(
         if ts >= cutoff_ts:
             break
 
-        # Prefix chat messages with sender attribution
+        # Skip chat messages — LLM personality flavor adds noise
         if a.get("type") == "chat":
-            sender = a.get("from", "?")
-            msg = f"[Chat from {sender}]: {html.unescape(msg)}"
-        else:
-            msg = html.unescape(msg)
+            continue
+        msg = html.unescape(msg)
 
         # Filter noise (same as prior context)
         if _ACTION_NOISE.search(msg):
@@ -1174,6 +1183,9 @@ def main(gz_path: str) -> None:
         if is_rolled_back(d):
             skip_indices.add(i)
             continue
+        if is_mana_ability_subdecision(d):
+            skip_indices.add(i)
+            continue
         if ar.get("action_taken") == "cancelled":
             skip_indices.add(i)
             # Also skip the preceding same-player decision if it was
@@ -1194,7 +1206,7 @@ def main(gz_path: str) -> None:
     non_forced = [d for i, d in enumerate(decisions) if i not in skip_indices]
     print(
         f"Extracted {len(decisions)} decisions, "
-        f"skipped {len(skip_indices)} (forced/failed/cancelled), "
+        f"skipped {len(skip_indices)} (forced/failed/cancelled/mana), "
         f"{len(non_forced)} to analyze"
     )
 

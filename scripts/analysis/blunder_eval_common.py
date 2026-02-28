@@ -58,6 +58,27 @@ def is_cast_rolled_back(d: dict) -> bool:
     return d.get("castRolledBack", d.get("cast_rolled_back", False))
 
 
+def is_mana_ability_subdecision(d: dict) -> bool:
+    """Check if a decision is a mana ability sub-decision (picking which mana to produce).
+
+    These are intermediate steps during mana payment or ability activation —
+    not strategically interesting for blunder annotation.
+    """
+    msg = d.get("message", "")
+    if msg.startswith("Choose which mana to produce from"):
+        return True
+    # "Choose spell or ability to play" where ALL choices are mana abilities
+    if msg.startswith("Choose spell or ability") or msg.startswith("Choose ability"):
+        choices = d.get("choices", [])
+        if choices and all(
+            isinstance(c, dict)
+            and "Add {" in (c.get("name", "") + c.get("description", ""))
+            for c in choices
+        ):
+            return True
+    return False
+
+
 def subsequent_actions(d: dict) -> list[str]:
     """Get subsequent actions from either format."""
     return d.get("subsequentActions", d.get("subsequent_actions", []))
