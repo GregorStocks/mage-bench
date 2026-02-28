@@ -99,16 +99,18 @@ class TestWaitForHealth:
 class TestWaitForGameReady:
     def test_game_ready_immediately(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
-        _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=5)
+        table_id = _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=5)
+        assert table_id == "test-table-id"
 
     def test_game_ready_after_delay(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server
         _HealthHandler.game_ready_delay = 0.3
         t0 = time.monotonic()
-        _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=5)
+        table_id = _wait_for_game_ready(port, Path("/tmp/test-game"), timeout=5)
         elapsed = time.monotonic() - t0
         assert elapsed >= 0.2
         assert elapsed < 2.0
+        assert table_id == "test-table-id"
 
     def test_game_ready_timeout(self, mock_health_server: tuple[int, HTTPServer]) -> None:
         port, _server = mock_health_server

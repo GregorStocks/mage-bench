@@ -195,7 +195,7 @@ public class BridgeClient {
             DeckCardLists deck = loadDeck(deckPath);
             callbackHandler.setDeckList(deck);
 
-            UUID tableId = tryJoinTable(session, roomId, username, deck);
+            UUID tableId = tryJoinTable(session, roomId, username, deck, null);
             if (tableId == null) {
                 logger.error("Failed to join any table within timeout");
                 session.connectStop(false, false);
@@ -208,9 +208,9 @@ public class BridgeClient {
         if (isSleepwalker) {
             // Set up JoinHandler so the join_table MCP tool can trigger table joining
             if (keepAlive) {
-                callbackHandler.setJoinHandler(deckPath -> {
+                callbackHandler.setJoinHandler((deckPath, targetTableId) -> {
                     DeckCardLists d = loadDeck(deckPath);
-                    return tryJoinTable(session, roomId, username, d);
+                    return tryJoinTable(session, roomId, username, d, targetTableId);
                 });
             }
 
@@ -354,7 +354,7 @@ public class BridgeClient {
                     DeckCardLists deck = loadDeck(deckPathLine);
                     BridgeCallbackHandler fresh = client.getCallbackHandler().createFreshForNextGame();
                     fresh.setDeckList(deck);
-                    UUID tableId = tryJoinTable(session, roomId, username, deck);
+                    UUID tableId = tryJoinTable(session, roomId, username, deck, null);
                     if (tableId == null) {
                         logger.error("keepAlive: failed to join table, continuing to read stdin...");
                         continue;
@@ -435,7 +435,7 @@ public class BridgeClient {
         logger.info("Done.");
     }
 
-    private static UUID tryJoinTable(Session session, UUID roomId, String username, DeckCardLists deck) {
+    private static UUID tryJoinTable(Session session, UUID roomId, String username, DeckCardLists deck, UUID targetTableId) {
         long startTime = System.currentTimeMillis();
 
         while (System.currentTimeMillis() - startTime < TABLE_POLL_TIMEOUT_MS) {
@@ -444,6 +444,10 @@ public class BridgeClient {
                 if (tables != null) {
                     for (TableView table : tables) {
                         if (table.getTableState() == TableState.WAITING) {
+                            // If a target table is specified, only try that one
+                            if (targetTableId != null && !targetTableId.equals(table.getTableId())) {
+                                continue;
+                            }
                             // Check for empty human seats
                             for (SeatView seat : table.getSeats()) {
                                 if (seat.getPlayerType() == PlayerType.HUMAN &&

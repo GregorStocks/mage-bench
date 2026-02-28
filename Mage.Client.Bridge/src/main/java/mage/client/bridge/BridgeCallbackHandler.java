@@ -219,7 +219,7 @@ public class BridgeCallbackHandler {
     // Join handler: provided by BridgeClient so JoinTableTool can trigger table joining
     @FunctionalInterface
     public interface JoinHandler {
-        UUID joinTable(String deckPath) throws Exception;
+        UUID joinTable(String deckPath, UUID targetTableId) throws Exception;
     }
     private volatile JoinHandler joinHandler = null;
 
@@ -457,13 +457,13 @@ public class BridgeCallbackHandler {
      * Creates a fresh handler (discarding all old game state), loads the deck,
      * joins a table, and waits for game start.
      */
-    public void joinNextTable(String deckPath) throws Exception {
+    public void joinNextTable(String deckPath, UUID targetTableId) throws Exception {
         JoinHandler jh = this.joinHandler;
         assert jh != null : "joinHandler not set — keepAlive mode requires a JoinHandler";
         BridgeCallbackHandler fresh = createFreshForNextGame();
         mage.cards.decks.DeckCardLists deck = BridgeClient.loadDeck(deckPath);
         fresh.setDeckList(deck);
-        UUID tableId = jh.joinTable(deckPath);
+        UUID tableId = jh.joinTable(deckPath, targetTableId);
         assert tableId != null : "Failed to join any table within timeout";
         logger.info("[" + client.getUsername() + "] Joined table " + tableId + ", waiting for game start...");
         boolean started = fresh.awaitGameStart(60_000);

@@ -324,14 +324,14 @@ class SpectatorProcess:
         self._stdin.write(json.dumps(cmd, separators=(",", ":")) + "\n")
         self._stdin.flush()
 
-    def wait_for_ready(self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
+    def wait_for_ready(self, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> str:
         """Wait for the spectator to create the table and be ready for players.
 
-        Uses the HTTP health endpoint for long-poll readiness detection when
-        available, falling back to log marker polling otherwise.
+        Uses the HTTP health endpoint for long-poll readiness detection.
+        Returns the tableId string from the spectator.
         """
         assert self.health_port > 0, "SpectatorProcess requires health_port for readiness detection"
-        _wait_for_game_ready(self.health_port, game_dir, timeout=timeout)
+        return _wait_for_game_ready(self.health_port, game_dir, timeout=timeout)
 
     def wait_for_game_end(self, game_dir: Path, timeout: int = 30) -> None:
         """Wait for the spectator to signal that event files are fully written."""
@@ -452,8 +452,11 @@ def _wait_for_health(port: int, timeout: int = 120) -> None:
             raise RuntimeError(f"Observer health returned unexpected status: {data}")
 
 
-def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> None:
-    """Wait for observer to create a game table via long-poll HTTP endpoint."""
+def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_READY_TIMEOUT_SECONDS) -> str:
+    """Wait for observer to create a game table via long-poll HTTP endpoint.
+
+    Returns the tableId string from the spectator.
+    """
     url = f"http://127.0.0.1:{port}/wait-for-ready"
     body = json.dumps({"gameDir": str(game_dir), "timeout": timeout}).encode()
     req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
@@ -462,6 +465,7 @@ def _wait_for_game_ready(port: int, game_dir: Path, timeout: int = SPECTATOR_REA
             data = json.loads(resp.read())
             if not data.get("ready"):
                 raise RuntimeError(f"Wait-for-ready returned: {data}")
+            return data["tableId"]
     except urllib.error.HTTPError as e:
         error_body = e.read().decode()
         raise RuntimeError(f"Wait-for-ready failed (HTTP {e.code}): {error_body}") from e
@@ -654,8 +658,11 @@ def _send_spectator_command(
     player_b_type: str,
     game_type: str,
     deck_type: str,
-) -> None:
-    """Send a game command to a session-scoped spectator and wait for readiness."""
+) -> str:
+    """Send a game command to a session-scoped spectator and wait for readiness.
+
+    Returns the tableId string from the spectator.
+    """
     players_config = {
         "players": [
             {"type": "replay", "name": player_a_name, "deck": deck_a},
@@ -665,7 +672,7 @@ def _send_spectator_command(
         "deckType": deck_type,
     }
     spectator.start_game(game_dir, players_config, player_a_name)
-    spectator.wait_for_ready(game_dir)
+    return spectator.wait_for_ready(game_dir)
 
 
 def _start_spectator(
@@ -779,9 +786,10 @@ def _run_golden_persistent(
 
     try:
         # Start spectator — reuse session-scoped process if available
+        table_id: str | None = None
         if spectator is not None:
             with timed_phase(golden_name, "spectator_command"):
-                _send_spectator_command(
+                table_id = _send_spectator_command(
                     spectator,
                     game_dir,
                     deck_a,
@@ -814,8 +822,11 @@ def _run_golden_persistent(
         potato.join_next_game(str(project_root / deck_b))
 
         # Tell bridge to join with the new deck (blocking: waits for game start)
+        join_args: dict = {"deck_path": str(project_root / deck_a)}
+        if table_id is not None:
+            join_args["table_id"] = table_id
         with timed_phase(golden_name, "bridge_join"):
-            bridge.call_tool("join_table", {"deck_path": str(project_root / deck_a)})
+            bridge.call_tool("join_table", join_args)
 
         # Execute replay script on the persistent bridge
         with timed_phase(golden_name, "replay"):
