@@ -84,12 +84,14 @@ _DECK_TYPE_TO_FORMAT: dict[str, str] = {
     "Constructed - Legacy": "legacy",
     "Variant Magic - Freeform Commander": "commander",
     "Variant Magic - Commander": "commander",
+    "Limited": "jumpstart",
 }
 
 # Display labels for leaderboard tabs.
 FORMAT_LABELS: dict[str, str] = {
     "1v1": "1v1",
     "commander": "Commander",
+    "jumpstart": "Jumpstart",
 }
 
 
@@ -536,15 +538,17 @@ def generate_all_leaderboards(
     model_registry: dict[str, str],
     games_dir: Path | None = None,
 ) -> tuple[dict[str, dict], dict[str, dict[str, dict[str, int]]]]:
-    """Generate 1v1 and Commander leaderboards.
+    """Generate 1v1, Commander, and Jumpstart leaderboards.
 
     Returns (format_results, ratings_by_game) where format_results maps
-    "1v1" and "commander" to their respective benchmark_results dicts.
-    1v1 uses Elo; Commander uses OpenSkill PlackettLuce.
+    "1v1", "commander", and "jumpstart" to their respective benchmark_results
+    dicts. 1v1 and Jumpstart use Elo; Commander uses OpenSkill PlackettLuce.
     """
-    # Partition into 1v1 (standard/modern/legacy) and commander
-    games_1v1 = [g for g in games_index if derive_format(g) != "commander"]
+    # Partition into 1v1 (standard/modern/legacy), commander, and jumpstart
+    _1V1_FORMATS = {"standard", "modern", "legacy"}
+    games_1v1 = [g for g in games_index if derive_format(g) in _1V1_FORMATS]
     games_commander = [g for g in games_index if derive_format(g) == "commander"]
+    games_jumpstart = [g for g in games_index if derive_format(g) == "jumpstart"]
 
     # 1v1: all Standard/Modern/Legacy in one Elo pool
     results_1v1, ratings_1v1 = generate_leaderboard(games_1v1, model_registry, games_dir, rating_fn="elo")
@@ -554,15 +558,22 @@ def generate_all_leaderboards(
         games_commander, model_registry, games_dir, rating_fn="openskill"
     )
 
+    # Jumpstart: simpler 40-card format, Elo (two-player duels)
+    results_jumpstart, ratings_jumpstart = generate_leaderboard(
+        games_jumpstart, model_registry, games_dir, rating_fn="elo"
+    )
+
     format_results: dict[str, dict] = {
         "1v1": results_1v1,
         "commander": results_commander,
+        "jumpstart": results_jumpstart,
     }
 
     # Merge per-game ratings (game IDs are unique across pools)
     ratings_by_game: dict[str, dict[str, dict[str, int]]] = {}
     ratings_by_game.update(ratings_1v1)
     ratings_by_game.update(ratings_commander)
+    ratings_by_game.update(ratings_jumpstart)
 
     return format_results, ratings_by_game
 
@@ -661,8 +672,7 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
 
     # Build output with backward-compatible top-level fields from 1v1
     pool_1v1 = format_results.get("1v1", {"generatedAt": "", "totalGames": 0, "models": []})
-    pool_cmdr = format_results.get("commander", {"totalGames": 0})
-    total_games = pool_1v1.get("totalGames", 0) + pool_cmdr.get("totalGames", 0)
+    total_games = sum(p.get("totalGames", 0) for p in format_results.values())
     output = {
         "generatedAt": pool_1v1.get("generatedAt", ""),
         "totalGames": total_games,

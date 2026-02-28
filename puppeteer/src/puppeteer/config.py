@@ -403,6 +403,7 @@ _DECK_TYPE_TO_DIR: dict[str, str] = {
     "Constructed - Legacy": "Legacy",
     "Constructed - Modern": "Modern",
     "Constructed - Standard": "Standard",
+    "Limited": "Jumpstart",
 }
 
 

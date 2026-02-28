@@ -1,0 +1,9 @@
+{
+  "skipPostGamePrompts": true,
+  "gameType": "Two Player Duel",
+  "deckType": "Limited",
+  "players": [
+    {"type": "cpu", "name": "Mage 1", "deck": "random"},
+    {"type": "cpu", "name": "Mage 2", "deck": "random"}
+  ]
+}

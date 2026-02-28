@@ -560,6 +560,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     "Constructed - Legacy": "legacy",
     "Variant Magic - Freeform Commander": "commander",
     "Variant Magic - Commander": "commander",
+    "Limited": "jumpstart",
   };
 
   var FORMAT_DISPLAY = {
@@ -567,6 +568,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     "modern": "Modern",
     "legacy": "Legacy",
     "commander": "Commander",
+    "jumpstart": "Jumpstart",
   };
 
   var MIN_LEADERBOARD_EPOCH = 2;
@@ -896,7 +898,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
       var fmt = getGameFormat(game.deckType);
       counts[fmt] = (counts[fmt] || 0) + 1;
     });
-    var formats = ["standard", "modern", "legacy", "commander"];
+    var formats = ["standard", "modern", "legacy", "commander", "jumpstart"];
     var activeFormats = formats.filter(function (f) { return counts[f] > 0; });
     if (activeFormats.length <= 1) {
       tabsEl.style.display = "none";

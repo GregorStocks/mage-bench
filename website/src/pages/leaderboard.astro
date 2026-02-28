@@ -5,9 +5,10 @@ import benchmarkData from '../data/benchmark-results.json';
 const FORMAT_LABELS: Record<string, string> = {
   '1v1': '1v1',
   commander: 'Commander',
+  jumpstart: 'Jumpstart',
 };
 
-const FORMAT_ORDER = ['1v1', 'commander'];
+const FORMAT_ORDER = ['1v1', 'commander', 'jumpstart'];
 
 // Build per-format data from the formats key (or fall back to single leaderboard)
 const formats: Record<string, any> = (benchmarkData as any).formats ?? {

@@ -159,6 +159,11 @@ screenshot:
 	fi && \
 	echo "Screenshot saved to $$OUT (T=$$TIME from $$VIDEO)"
 
+# Generate Jumpstart 40-card .dck files from half-deck pairs
+.PHONY: jumpstart-decks
+jumpstart-decks:
+	uv run python scripts/generate-jumpstart-decks.py
+
 # Validate sample decks against the real card database (requires make build first)
 .PHONY: verify-decks
 verify-decks:

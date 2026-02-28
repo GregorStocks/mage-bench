@@ -135,3 +135,22 @@ def named(name: str) -> dict | None:
         cache[name] = None
         _save_cache()
         return None
+
+
+def search(query: str) -> list[dict]:
+    """Search Scryfall with a query string, no caching.
+
+    Returns list of card objects (may be empty).
+    """
+    _rate_limit()
+    qs = urllib.parse.urlencode({"q": query})
+    req = urllib.request.Request(
+        f"https://api.scryfall.com/cards/search?{qs}",
+        headers=_HEADERS,
+    )
+    try:
+        with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read())
+        return data.get("data", [])
+    except urllib.error.HTTPError:
+        return []

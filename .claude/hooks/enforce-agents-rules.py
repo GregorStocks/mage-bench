@@ -83,6 +83,14 @@ def check(command: str) -> None:
             "  make update-blunder-golden    # regenerate blunder prompt golden files"
         )
 
+    # --- Maven build cache — use make clean ---
+    if re.search(r"\.m2/build-cache\b", stripped) or re.search(
+        r"maven\.build\.cache", stripped
+    ):
+        block(
+            "Blocked: don't manipulate the Maven build cache directly. Use 'make clean' instead."
+        )
+
     # --- /tmp/ — use tmp/ (repo-local) instead ---
     # Match /tmp as an absolute path, not as a component inside another path
     # (e.g. "dale-dragon-lily/tmp/foo" is fine, "/tmp/foo" is not).
