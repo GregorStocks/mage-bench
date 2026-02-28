@@ -57,14 +57,25 @@ uv run python scripts/analysis/llm_reasoning.py $GAME_PATH
 
 The scripts should cover:
 
-- **game_overview.py**: Game ID, format, turns, winner, player names/models/costs/placements. Also shows critical errors from the `errors` array if present.
+- **game_overview.py**: Game ID, format, turns, winner, player names/models/costs/placements/tool call counts/thinking time. Also shows critical errors from the `errors` array if present.
 - **game_narrative.py**: Turn-boundary board states (life, hand size, battlefield) and key actions (plays, casts, attacks, blocks, damage, etc.). Include chat messages prefixed with `[CHAT]`.
 - **llm_events.py**: Event type counts by player, failed tool calls (with args and error messages), stalls/resets/auto-pilot/llm_error counts, token/cost summaries, and game-level errors from the `errors` array.
-- **llm_reasoning.py**: Sample 3-4 reasoning excerpts per player from `llm_response` events to assess decision quality (mulligan, combat, spell targeting).
+- **llm_reasoning.py**: Sample 3-4 reasoning excerpts per player from `llm_response` events (checks both `reasoning` and `thinking` fields for extended-thinking models) to assess decision quality (mulligan, combat, spell targeting).
+
+**Additional scripts** for targeted investigation when the core scripts reveal something interesting:
+
+- **game_timeline.py**: Chronological event viewer with filtering by `--turns`, `--player`, `--mana`, and `-v` for verbose output. More powerful than `game_narrative.py` for drilling into specific turns or mana behavior.
+- **mcp_errors.py**: MCP tool error analysis — error frequencies by error_code, retry outcomes, per-model breakdowns, and "least helpful error messages" (where models retry with the same error). Run this when `llm_events.py` shows many failed tool calls.
+- **mana_tapping.py**: Mana behavior analysis — mana_plan usage/success, auto-tap effectiveness, GAME_CHOOSE_ABILITY handling, spell cancellations. Run this when you see mana-related errors or spell cancellations.
+- **extract_decisions.py**: Structured decision extraction — outputs each decision point with board state, available choices, what was chosen, reasoning, and what happened next. Useful for evaluating specific decisions in depth.
 
 **Critical errors**: The `errors` array in the export surfaces critical issues from the game's error logs — loop detector interventions, uncaught exceptions, server short ID collisions, etc. These indicate genuine bugs rather than normal LLM mistakes. **Always check and explicitly call out any entries in the `errors` array** — they are high-signal indicators of platform bugs that need investigation.
 
 **Smoking guns in reasoning and chat**: Pay close attention to what models complain about in their thinking traces and chat messages. When a model says things like "this doesn't make sense", "the tool returned wrong data", "I keep getting errors", or "why can't I cast this" — those are often smoking guns for platform bugs, not just model confusion. Cross-reference these complaints with the failed tool calls from `llm_events.py` to distinguish real bugs from model misunderstandings.
+
+**Decisions array**: The export may contain a `decisions` array with structured decision records — each one has the board state snapshot, available choices, what was chosen, `pilotContext` (untapped lands, playable cards, combat state), `subsequentActions` (what actually happened next), and `castRolledBack` (whether a spell was cancelled during mana payment). Use `extract_decisions.py` to view these in a readable format. This is the best data for evaluating decision quality — much more structured than reading raw reasoning.
+
+**Existing annotations**: Check whether the export already has an `annotations` array (added by `annotate_game.py`). If blunder annotations already exist, you can reference them directly rather than re-evaluating decisions from scratch.
 
 ### Step 4: Check existing issues and verify bugs still exist
 

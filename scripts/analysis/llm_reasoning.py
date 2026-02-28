@@ -25,7 +25,7 @@ def main(gz_path: str) -> None:
         for e in events:
             if e.get("type") != "llm_response" or e.get("player") != player:
                 continue
-            reasoning = e.get("reasoning", "")
+            reasoning = e.get("reasoning", "") or e.get("thinking", "")
             if len(reasoning) > MIN_REASONING_LEN:
                 count += 1
                 print(f"--- Sample {count} ---")
