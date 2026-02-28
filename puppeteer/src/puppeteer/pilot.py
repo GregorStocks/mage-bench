@@ -7,7 +7,6 @@ import os
 import sys
 import time
 from contextlib import ExitStack
-from datetime import datetime
 from pathlib import Path
 
 from mcp import ClientSession
@@ -24,6 +23,9 @@ from puppeteer.llm_cost import (
     required_api_key_env,
     write_cost_file,
 )
+from puppeteer.log import get_logger, log_error, setup_logging
+
+logger = get_logger(__name__)
 
 DEFAULT_MODEL = "google/gemini-2.0-flash-001"
 
@@ -50,23 +52,6 @@ CONTEXT_RECENT_COUNT = 40  # recent history entries kept at full fidelity
 CONTEXT_SUMMARY_COUNT = 20  # older entries included as compact summaries
 TOOL_RESULT_MAX_CHARS = 200  # max chars for a summarised tool result
 RENDER_INTERVAL = 5  # re-render context every N iterations when history is long
-
-
-def _log(msg: str) -> None:
-    ts = datetime.now().strftime("%H:%M:%S")
-    print(f"[{ts}] {msg}")
-
-
-def _log_error(game_dir: Path | None, username: str, msg: str) -> None:
-    """Append an error line to {username}_errors.log in the game directory."""
-    _log(msg)
-    if game_dir:
-        ts = datetime.now().strftime("%H:%M:%S")
-        try:
-            with open(game_dir / f"{username}_errors.log", "a") as f:
-                f.write(f"[{ts}] {msg}\n")
-        except OSError:
-            pass
 
 
 def _extract_oracle_texts_from_board(board: list[dict]) -> dict[str, dict]:
@@ -669,7 +654,7 @@ async def run_pilot_loop(
 
     while True:
         if time.monotonic() - game_start > MAX_GAME_DURATION_SECS:
-            _log_error(game_dir, username, "[pilot] Maximum game duration exceeded, switching to auto-pass")
+            log_error(logger, game_dir, username, "[pilot] Maximum game duration exceeded, switching to auto-pass")
             if game_log:
                 game_log.emit("auto_pilot_mode", reason="max_duration_exceeded")
             await auto_pass_loop(session, game_dir, username, "pilot")
@@ -722,7 +707,7 @@ async def run_pilot_loop(
             )
             consecutive_timeouts = 0
             if not response.choices:
-                _log("[pilot] LLM returned empty/null choices, retrying...")
+                logger.warning("[pilot] LLM returned empty/null choices, retrying...")
                 continue
             choice = response.choices[0]
 
@@ -732,14 +717,15 @@ async def run_pilot_loop(
             if choice.finish_reason == "length":
                 consecutive_truncations += 1
                 tokens_used = (response.usage.completion_tokens or 0) if response.usage else "?"
-                _log_error(
+                log_error(
+                    logger,
                     game_dir,
                     username,
                     f"[pilot] OUTPUT TRUNCATED: finish_reason=length, completion_tokens={tokens_used}/{MAX_TOKENS}. "
                     f"Model hit max_tokens cap before producing a tool call. [{consecutive_truncations}]",
                 )
                 if consecutive_truncations >= MAX_CONSECUTIVE_TRUNCATIONS:
-                    _log("[pilot] Repeated truncations, resetting conversation context")
+                    logger.warning("[pilot] Repeated truncations, resetting conversation context")
                     if game_log:
                         game_log.emit("context_reset", reason="repeated_truncations")
                     last_reasoning = _extract_last_reasoning(history)
@@ -807,7 +793,7 @@ async def run_pilot_loop(
                         total_prompt = response.usage.prompt_tokens or 0
                         if total_prompt > 0:
                             hit_pct = ptd.cached_tokens / total_prompt * 100
-                            _log(f"[pilot] Cache: {ptd.cached_tokens}/{total_prompt} ({hit_pct:.0f}%)")
+                            logger.debug("[pilot] Cache: %d/%d (%.0f%%)", ptd.cached_tokens, total_prompt, hit_pct)
                     ctd = response.usage.completion_tokens_details
                     if ctd and getattr(ctd, "reasoning_tokens", None):
                         usage_dict["reasoning_tokens"] = ctd.reasoning_tokens
@@ -829,7 +815,7 @@ async def run_pilot_loop(
                 # Gemini often omits reasoning text for obvious actions (like passing) -
                 # that's normal, not degradation.
                 if choice.message.content:
-                    _log(f"[pilot] Thinking: {choice.message.content}")
+                    logger.info("[pilot] Thinking: %s", choice.message.content)
                 empty_responses = 0
                 last_was_empty = False
                 # Build a clean assistant message dict for cross-provider
@@ -856,7 +842,7 @@ async def run_pilot_loop(
                     args = json.loads(fn.arguments) if fn.arguments else {}
 
                     board_tracker.inject(fn.name, args)
-                    _log(f"[pilot] Tool: {fn.name}({json.dumps(args, separators=(',', ':'))})")
+                    logger.info("[pilot] Tool: %s(%s)", fn.name, json.dumps(args, separators=(",", ":")))
 
                     tool_start = time.monotonic()
                     result_text = await execute_tool(session, fn.name, args)
@@ -887,7 +873,8 @@ async def run_pilot_loop(
                     if result_text == '{"error": ""}':
                         consecutive_empty_errors += 1
                         if consecutive_empty_errors >= MAX_CONSECUTIVE_EMPTY_ERRORS:
-                            _log_error(
+                            log_error(
+                                logger,
                                 game_dir,
                                 username,
                                 f"[pilot] {consecutive_empty_errors} consecutive empty errors "
@@ -910,11 +897,12 @@ async def run_pilot_loop(
                         action_taken = result_data.get("action_taken", "")
                         success = result_data.get("success", False)
                         if success:
-                            _log(f"[pilot] Action: {action_taken}")
+                            logger.info("[pilot] Action: %s", action_taken)
                             turn_had_successful_action = True
                             turns_without_progress = 0
                         else:
-                            _log_error(
+                            log_error(
+                                logger,
                                 game_dir,
                                 username,
                                 f"[pilot] Action failed: {result_data.get('error', '')}",
@@ -928,10 +916,10 @@ async def run_pilot_loop(
                         if result_data.get("error"):
                             turn_had_actionable_opportunity = True
                         elif choices:
-                            _log(f"[pilot] Choices for {action_type}: {len(choices)} options")
+                            logger.info("[pilot] Choices for %s: %d options", action_type, len(choices))
                             turn_had_actionable_opportunity = True
                         else:
-                            _log(f"[pilot] Action: {action_type} - {msg[:100]}")
+                            logger.info("[pilot] Action: %s - %s", action_type, msg[:100])
                     elif fn.name == "pass_priority":
                         try:
                             result_data = json.loads(result_text)
@@ -948,9 +936,9 @@ async def run_pilot_loop(
                                     consecutive_pass_errors = 1
                                     last_pass_error_msg = err_msg
                                 if consecutive_pass_errors >= MAX_CONSECUTIVE_PASS_ERRORS:
-                                    _log(
-                                        f"[pilot] {consecutive_pass_errors} consecutive identical "
-                                        f"pass_priority errors, forcing plain pass"
+                                    logger.warning(
+                                        "[pilot] %d consecutive identical pass_priority errors, forcing plain pass",
+                                        consecutive_pass_errors,
                                     )
                                     if game_log:
                                         game_log.emit(
@@ -973,13 +961,13 @@ async def run_pilot_loop(
                         _rd = json.loads(result_text)
                         if isinstance(_rd, dict):
                             if _rd.get("game_over"):
-                                _log(f"[pilot] Game over detected from {fn.name}, switching to auto-pass")
+                                logger.info("[pilot] Game over detected from %s, switching to auto-pass", fn.name)
                                 if game_log:
                                     game_log.emit("auto_pilot_mode", reason="game_over")
                                 await auto_pass_loop(session, game_dir, username, "pilot")
                                 return
                             if _rd.get("player_dead"):
-                                _log(f"[pilot] Player dead detected from {fn.name}, switching to auto-pass")
+                                logger.info("[pilot] Player dead detected from %s, switching to auto-pass", fn.name)
                                 if game_log:
                                     game_log.emit("auto_pilot_mode", reason="player_dead")
                                 await auto_pass_loop(session, game_dir, username, "pilot")
@@ -1010,25 +998,27 @@ async def run_pilot_loop(
                 turns_without_progress += 1
                 content = (choice.message.content or "").strip()
                 if content:
-                    _log(f"[pilot] Thinking: {content[:500]}")
+                    logger.info("[pilot] Thinking: %s", content[:500])
                     history.append({"role": "assistant", "content": content})
                     empty_responses = 0
                     last_was_empty = False
                 elif not last_was_empty:
                     # First empty response: retry immediately without counting
-                    _log("[pilot] Empty response from LLM, retrying...")
+                    logger.warning("[pilot] Empty response from LLM, retrying...")
                     last_was_empty = True
                     continue
                 else:
                     last_was_empty = False
                     empty_responses += 1
-                    _log_error(
+                    log_error(
+                        logger,
                         game_dir,
                         username,
                         f"[pilot] Empty response from LLM (no tools, no text) [{empty_responses}]",
                     )
                     if empty_responses >= 10:
-                        _log_error(
+                        log_error(
+                            logger,
                             game_dir,
                             username,
                             "[pilot] LLM appears degraded (no tools or text), switching to auto-pass mode",
@@ -1056,7 +1046,8 @@ async def run_pilot_loop(
             # until something interesting happens (new turn, new cards, etc.)
             if turns_without_progress >= MAX_TURNS_WITHOUT_PROGRESS:
                 last_tools = sorted(turn_tools_called) if choice.message.tool_calls and turn_tools_called else []
-                _log_error(
+                log_error(
+                    logger,
                     game_dir,
                     username,
                     f"[pilot] Stalled: {turns_without_progress} turns without progress, "
@@ -1078,9 +1069,9 @@ async def run_pilot_loop(
                     pass
                 try:
                     await execute_tool(session, "pass_priority", {})
-                    _log("[pilot] Auto-passed stalled action")
+                    logger.info("[pilot] Auto-passed stalled action")
                 except Exception as e:
-                    _log(f"[pilot] Auto-pass failed: {e}")
+                    logger.warning("[pilot] Auto-pass failed: %s", e)
                 turns_without_progress = 0
                 # Reset conversation so the LLM gets a fresh start
                 last_reasoning = _extract_last_reasoning(history)
@@ -1101,7 +1092,8 @@ async def run_pilot_loop(
 
         except asyncio.TimeoutError:
             consecutive_timeouts += 1
-            _log_error(
+            log_error(
+                logger,
                 game_dir,
                 username,
                 f"[pilot] LLM request timed out after {LLM_REQUEST_TIMEOUT_SECS}s [{consecutive_timeouts}]",
@@ -1118,7 +1110,7 @@ async def run_pilot_loop(
                 await asyncio.sleep(5)
 
             if consecutive_timeouts >= MAX_CONSECUTIVE_TIMEOUTS:
-                _log("[pilot] Repeated LLM timeouts, resetting conversation context")
+                logger.warning("[pilot] Repeated LLM timeouts, resetting conversation context")
                 if game_log:
                     game_log.emit("context_reset", reason="repeated_timeouts")
                 last_reasoning = _extract_last_reasoning(history)
@@ -1142,7 +1134,7 @@ async def run_pilot_loop(
         except Exception as e:
             consecutive_timeouts = 0
             error_str = str(e)
-            _log_error(game_dir, username, f"[pilot] LLM error: {e}")
+            log_error(logger, game_dir, username, f"[pilot] LLM error: {e}")
             if game_log:
                 game_log.emit("llm_error", error_type=type(e).__name__, error_message=error_str[:500])
 
@@ -1152,7 +1144,7 @@ async def run_pilot_loop(
             if any(code in error_str for code in permanent_codes):
                 is_not_found = "404" in error_str and "401" not in error_str
                 reason = "Model not found" if is_not_found else "Credits exhausted"
-                _log_error(game_dir, username, f"[pilot] {reason}, aborting")
+                log_error(logger, game_dir, username, f"[pilot] {reason}, aborting")
                 if game_log:
                     game_log.emit("permanent_llm_failure", reason=reason)
                 try:
@@ -1207,17 +1199,17 @@ async def run_pilot(
     cache_control: dict | None = None,
 ) -> None:
     """Run the pilot client."""
-    _log(f"[pilot] Starting for {username}@{server}:{port}")
-    _log(f"[pilot] Model: {model}")
-    _log(f"[pilot] Base URL: {base_url}")
+    logger.info("[pilot] Starting for %s@%s:%s", username, server, port)
+    logger.info("[pilot] Model: %s", model)
+    logger.info("[pilot] Base URL: %s", base_url)
     if reasoning_effort:
-        _log(f"[pilot] Reasoning effort: {reasoning_effort}")
+        logger.info("[pilot] Reasoning effort: %s", reasoning_effort)
     if tools is not None:
-        _log(f"[pilot] Custom toolset: {sorted(tools)}")
+        logger.info("[pilot] Custom toolset: %s", sorted(tools))
     if ignore_providers:
-        _log(f"[pilot] Ignoring providers: {ignore_providers}")
+        logger.info("[pilot] Ignoring providers: %s", ignore_providers)
     if cache_control:
-        _log(f"[pilot] Prompt cache_control: {cache_control}")
+        logger.debug("[pilot] Prompt cache_control: %s", cache_control)
 
     # Initialize OpenAI-compatible client
     llm_client = AsyncOpenAI(
@@ -1251,7 +1243,7 @@ async def run_pilot(
         mvn_args.append(f"-Dxmage.bridge.maxInteractionsPerTurn={max_interactions_per_turn}")
     mvn_args.append("exec:java")
 
-    _log("[pilot] Spawning bridge client...")
+    logger.info("[pilot] Spawning bridge client...")
 
     game_log = None
     trace_log = None
@@ -1270,7 +1262,7 @@ async def run_pilot(
                 log_file=game_dir / f"{username}_mcp.log" if game_dir else None,
             ) as session:
                 result = await session.initialize()
-                _log(f"[pilot] MCP initialized: {result.serverInfo}")
+                logger.debug("[pilot] MCP initialized: %s", result.serverInfo)
 
                 tools_result = await session.list_tools()
                 # Fail fast if toolset references tools the MCP bridge doesn't have
@@ -1284,7 +1276,7 @@ async def run_pilot(
                         )
                 openai_tools = mcp_tools_to_openai(tools_result.tools, tools)
                 tool_names = [t["function"]["name"] for t in openai_tools]
-                _log(f"[pilot] Available tools: {tool_names}")
+                logger.debug("[pilot] Available tools: %s", tool_names)
 
                 if game_log:
                     game_log.emit(
@@ -1295,7 +1287,7 @@ async def run_pilot(
                         deck_path=str(deck_path) if deck_path else None,
                     )
 
-                _log("[pilot] Starting game-playing loop...")
+                logger.info("[pilot] Starting game-playing loop...")
                 await run_pilot_loop(
                     session,
                     llm_client,
@@ -1318,6 +1310,7 @@ async def run_pilot(
 
 def main() -> int:
     """Main entry point."""
+    setup_logging()
     parser = argparse.ArgumentParser(description="Pilot LLM game player for XMage")
     parser.add_argument("--server", default="localhost", help="XMage server address")
     parser.add_argument("--port", type=int, default=17171, help="XMage server port")
@@ -1350,12 +1343,12 @@ def main() -> int:
     required_key_env = required_api_key_env(args.base_url)
     api_key = args.api_key or os.environ.get(required_key_env, "")
     if not api_key.strip():
-        _log(f"[pilot] ERROR: Missing API key for {args.base_url}")
-        _log(f"[pilot] Set {required_key_env} or pass --api-key.")
+        logger.error("[pilot] Missing API key for %s", args.base_url)
+        logger.error("[pilot] Set %s or pass --api-key.", required_key_env)
         return 2
 
     prices = load_prices()
-    _log(f"[pilot] Project root: {project_root}")
+    logger.debug("[pilot] Project root: %s", project_root)
 
     # Load system prompt: CLI arg > prompts.json default
     system_prompt = args.system_prompt or _load_default_system_prompt()
@@ -1389,7 +1382,7 @@ def main() -> int:
     except KeyboardInterrupt:
         pass
     except PermanentLLMFailure as e:
-        _log(f"[pilot] Permanent LLM failure: {e}")
+        logger.error("[pilot] Permanent LLM failure: %s", e)
         return PERMANENT_FAILURE_EXIT_CODE
 
     return 0

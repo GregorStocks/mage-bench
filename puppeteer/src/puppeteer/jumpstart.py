@@ -1,18 +1,17 @@
 """Jumpstart half-deck parsing and runtime deck generation.
 
-Parses jumpstart_custom.txt into half-decks, picks one representative variant
-per theme, and combines random pairs into 40-card .dck files at game creation
-time. Any two half-decks can be paired regardless of color.
+Reads half-deck themes from data/decks/jumpstart/*.json, picks one representative
+variant per theme, and combines random pairs into 40-card .dck files at game
+creation time. Any two half-decks can be paired regardless of color.
 """
 
 from __future__ import annotations
 
+import json
 import random
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
-
-JUMPSTART_TXT = Path("Mage.Client/release/sample-decks/Jumpstart/jumpstart_custom.txt")
 
 
 @dataclass
@@ -29,7 +28,7 @@ class Card:
 @dataclass
 class HalfDeck:
     theme: str  # base theme name, e.g. "Cats"
-    variant: int  # 1, 2, 3, ...
+    variant: int  # 0-based index within variants array
     cards: list[Card] = field(default_factory=list)
 
     @property
@@ -43,61 +42,43 @@ class HalfDeck:
         return self.theme
 
 
-def parse_jumpstart_txt(path: Path) -> list[HalfDeck]:
-    """Parse jumpstart_custom.txt into a list of HalfDecks."""
-    text = path.read_text()
-    half_decks: list[HalfDeck] = []
-    current: HalfDeck | None = None
-
-    for line in text.splitlines():
-        line = line.strip()
-        if line.startswith("#"):
-            if current is not None:
-                half_decks.append(current)
-            header = line[2:].strip()
-            m = re.match(r"^(.+?)\s*\((\d+)\)$", header)
-            if m:
-                theme, variant = m.group(1), int(m.group(2))
-            else:
-                theme, variant = header, 0
-            current = HalfDeck(theme=theme, variant=variant)
-        elif line and current is not None:
-            m = re.match(r"^(\d+)\s+(\S+)\s+(\S+)\s+(.+)$", line)
-            assert m, f"Could not parse card line: {line!r}"
-            current.cards.append(
-                Card(
-                    count=int(m.group(1)),
-                    set_code=m.group(2),
-                    collector_number=m.group(3),
-                    name=m.group(4),
-                )
-            )
-        elif not line and current is not None and current.cards:
-            half_decks.append(current)
-            current = None
-
-    if current is not None and current.cards:
-        half_decks.append(current)
-
-    return half_decks
+# Regex for .dck-format card lines: "1 [SET:NUM] Card Name"
+_DCK_CARD_RE = re.compile(r"^(\d+)\s+\[(\S+?):(\S+?)\]\s+(.+)$")
 
 
-def pick_representatives(half_decks: list[HalfDeck]) -> list[HalfDeck]:
-    """Pick one representative variant per theme (variant 1, or lowest).
+def _parse_dck_card(line: str) -> Card:
+    """Parse a .dck-format card line into a Card object."""
+    m = _DCK_CARD_RE.match(line.strip())
+    assert m, f"Could not parse card line: {line!r}"
+    return Card(
+        count=int(m.group(1)),
+        set_code=m.group(2),
+        collector_number=m.group(3),
+        name=m.group(4).strip(),
+    )
 
-    Returns a flat list of representative half-decks.
+
+def load_jumpstart_themes(project_root: Path) -> list[HalfDeck]:
+    """Load all Jumpstart themes from data/decks/jumpstart/*.json.
+
+    Each JSON file contains one theme with a variants array. Returns one
+    representative HalfDeck per theme (the first variant).
     """
-    by_theme: dict[str, list[HalfDeck]] = {}
-    for hd in half_decks:
-        by_theme.setdefault(hd.theme, []).append(hd)
+    registry_dir = project_root / "data" / "decks" / "jumpstart"
+    assert registry_dir.is_dir(), f"Jumpstart registry not found: {registry_dir}"
 
-    result: list[HalfDeck] = []
-    for theme in sorted(by_theme.keys()):
-        variants = by_theme[theme]
-        variants.sort(key=lambda h: h.variant)
-        result.append(variants[0])
+    half_decks: list[HalfDeck] = []
+    for json_file in sorted(registry_dir.glob("*.json")):
+        data = json.loads(json_file.read_text())
+        theme = data["name"]
+        variants = data.get("variants", [])
+        assert variants, f"Jumpstart theme {theme!r} has no variants in {json_file}"
+        # Use first variant as representative
+        cards = [_parse_dck_card(line) for line in variants[0]["cards"]]
+        half_decks.append(HalfDeck(theme=theme, variant=0, cards=cards))
 
-    return result
+    assert half_decks, f"No Jumpstart themes found in {registry_dir}"
+    return half_decks
 
 
 def generate_dck(half1: HalfDeck, half2: HalfDeck) -> str:
@@ -118,22 +99,19 @@ _cached_representatives: list[HalfDeck] | None = None
 
 
 def _get_representatives(project_root: Path) -> list[HalfDeck]:
-    """Get cached representative half-decks, parsing on first call."""
+    """Get cached representative half-decks, loading on first call."""
     global _cached_representatives
     if _cached_representatives is None:
-        txt_path = project_root / JUMPSTART_TXT
-        assert txt_path.exists(), f"Jumpstart data not found: {txt_path}"
-        half_decks = parse_jumpstart_txt(txt_path)
-        for hd in half_decks:
+        _cached_representatives = load_jumpstart_themes(project_root)
+        for hd in _cached_representatives:
             assert hd.card_count == 20, f"{hd.full_name} has {hd.card_count} cards, expected 20"
-        _cached_representatives = pick_representatives(half_decks)
     return _cached_representatives
 
 
-def create_random_jumpstart_deck(project_root: Path, exclude_themes: set[str] | None = None) -> Path:
+def create_random_jumpstart_deck(project_root: Path, exclude_themes: set[str] | None = None) -> tuple[Path, str]:
     """Create a random 40-card Jumpstart deck by combining two random half-decks.
 
-    Writes the .dck to tmp/ and returns the path relative to project_root.
+    Writes the .dck to tmp/ and returns (path_relative_to_project_root, display_name).
     """
     reps = _get_representatives(project_root)
 
@@ -155,4 +133,5 @@ def create_random_jumpstart_deck(project_root: Path, exclude_themes: set[str] | 
     deck_path = tmp_dir / safe_name
     deck_path.write_text(content)
 
-    return deck_path.relative_to(project_root)
+    display_name = f"{t1} + {t2}"
+    return deck_path.relative_to(project_root), display_name
