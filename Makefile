@@ -39,6 +39,10 @@ test:
 test-js:
 	cd website && npm install --prefer-offline --no-audit --no-fund && npx vitest run
 
+.PHONY: test-e2e
+test-e2e:
+	cd website && npm install --prefer-offline --no-audit --no-fund && npm run build && npx vitest run --config vitest.e2e.config.js
+
 .PHONY: check
 check: lint format-check typecheck test test-js verify-decks verify-schema-types
 

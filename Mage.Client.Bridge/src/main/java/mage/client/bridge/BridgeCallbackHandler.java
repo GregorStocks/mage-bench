@@ -26,9 +26,11 @@ import mage.view.CombatGroupView;
 import mage.view.ExileView;
 import mage.view.GameClientMessage;
 import mage.view.GameView;
+import mage.view.LookedAtView;
 import mage.view.ManaPoolView;
 import mage.view.PermanentView;
 import mage.view.PlayerView;
+import mage.view.SimpleCardView;
 import mage.view.TableClientMessage;
 import mage.view.UserRequestMessage;
 import mage.players.PlayableObjectsList;
@@ -134,6 +136,7 @@ public class BridgeCallbackHandler {
                 return;
             }
             lastGameView = gv;
+            registerNonCardViewShortIds(gv);
             roundTracker.update(gv);
             // Determinism debugging: log when game_seq changes and who changed it
             int oldSeq = old != null ? old.getGameSeq() : -1;
@@ -147,6 +150,31 @@ public class BridgeCallbackHandler {
             }
         }
     }
+
+    /**
+     * Pre-register server-assigned short IDs for objects not found by findCardViewById.
+     * Called when a new GameView is received so that player UUIDs and lookedAt cards
+     * get p-prefix IDs instead of l-prefix fallbacks.
+     */
+    private void registerNonCardViewShortIds(GameView gv) {
+        // Players (PlayerView is not a CardView, so findCardViewById never finds them)
+        for (PlayerView pv : gv.getPlayers()) {
+            String serverShortId = pv.getShortId();
+            if (serverShortId != null && !serverShortId.isBlank()) {
+                shortIds.register(pv.getPlayerId(), serverShortId);
+            }
+        }
+        // LookedAt cards (SimpleCardView, not searchable by findCardViewById)
+        for (LookedAtView lv : gv.getLookedAt()) {
+            for (SimpleCardView sv : lv.getCards().values()) {
+                String serverShortId = sv.getShortId();
+                if (serverShortId != null && !serverShortId.isBlank()) {
+                    shortIds.register(sv.getId(), serverShortId);
+                }
+            }
+        }
+    }
+
     private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private volatile List<Object> lastChoices = null; // Index→UUID/String mapping for choose_action
     private volatile String lastChoicesActionType = null; // Debug context for stale-choice diagnostics
@@ -1504,6 +1532,8 @@ public class BridgeCallbackHandler {
         // Loop detection: model has made too many interactions this turn — auto-handle
         if (interactionsThisTurn > maxInteractionsPerTurn) {
             logger.warn("[" + client.getUsername() + "] Loop detected (" + interactionsThisTurn
+                + " interactions this turn), auto-handling " + action.method().name());
+            logError("Loop detected (" + interactionsThisTurn
                 + " interactions this turn), auto-handling " + action.method().name());
             executeDefaultAction();
             result.put("success", true);
@@ -3063,6 +3093,8 @@ public class BridgeCallbackHandler {
                 if (interactionsThisTurn > maxInteractionsPerTurn) {
                     logger.warn("[" + client.getUsername() + "] Loop detected (" + interactionsThisTurn
                         + " interactions on turn " + lastTurnNumber + "), auto-passing " + method.name());
+                    logError("Loop detected (" + interactionsThisTurn
+                        + " interactions on turn " + lastTurnNumber + "), auto-passing " + method.name());
                     executeDefaultAction();
                     actionsPassed++;
                     continue;
@@ -4109,6 +4141,12 @@ public class BridgeCallbackHandler {
         if (cardView != null) {
             String serverShortId = cardView.getShortId();
             if (serverShortId != null && !serverShortId.isBlank()) {
+                // Detect server ID collision before register() overwrites the mapping
+                UUID existing = shortIds.tryResolve(serverShortId);
+                if (existing != null && !existing.equals(objectId)) {
+                    logError("Server short ID collision: " + serverShortId
+                        + " was mapped to " + existing + " but server now says " + objectId);
+                }
                 shortIds.register(objectId, serverShortId);
                 return serverShortId;
             }
@@ -4434,6 +4472,7 @@ public class BridgeCallbackHandler {
             }
         } catch (Exception e) {
             logger.error("[" + client.getUsername() + "] Error handling callback: " + callback.getMethod(), e);
+            logError("Error handling callback " + callback.getMethod() + ": " + e.getMessage());
         }
     }
 

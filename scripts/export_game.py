@@ -18,6 +18,7 @@ OBJECT_ID_RE = re.compile(r"\s*\[[0-9a-f]{3,}\]")
 DECKLIST_RE = re.compile(r"(?:SB:\s*)?(\d+)\s+\[([^:]+):([^\]]+)\]\s+(.+)")
 LOST_GAME_RE = re.compile(r"^(.+?) has lost the game\.$")
 WON_GAME_RE = re.compile(r"^(.+?) has won the game$")
+_ERROR_LINE_RE = re.compile(r"^\[(\d{2}:\d{2}:\d{2})\]\s+\[(\w+)\]\s+(.+)$")
 
 # LLM event types to include in the website export
 _LLM_EVENT_TYPES = {
@@ -39,6 +40,44 @@ def _strip_html(message: str) -> str:
     message = FONT_TAG_RE.sub("", message)
     message = OBJECT_ID_RE.sub("", message)
     return message.strip()
+
+
+def _read_errors(game_dir: Path) -> list[dict]:
+    """Read per-player error logs and return structured error entries.
+
+    Each entry has: ts (HH:MM:SS or ""), player, source (pilot/mcp/unknown),
+    message.
+    """
+    errors: list[dict] = []
+    for log_file in sorted(game_dir.glob("*_errors.log")):
+        player = log_file.stem.removesuffix("_errors")
+        try:
+            for line in log_file.read_text().splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                m = _ERROR_LINE_RE.match(line)
+                if m:
+                    errors.append(
+                        {
+                            "ts": m.group(1),
+                            "player": player,
+                            "source": m.group(2),
+                            "message": m.group(3),
+                        }
+                    )
+                else:
+                    errors.append(
+                        {
+                            "ts": "",
+                            "player": player,
+                            "source": "unknown",
+                            "message": line,
+                        }
+                    )
+        except OSError:
+            pass
+    return errors
 
 
 def _build_card_images(players_meta: list[dict]) -> dict[str, str]:
@@ -835,6 +874,11 @@ def build_export(game_dir: Path) -> dict:
     decisions = _build_decisions(snapshots, actions, llm_events, harness_epoch)
     if decisions:
         output["decisions"] = decisions
+
+    # Read error logs
+    errors = _read_errors(game_dir)
+    if errors:
+        output["errors"] = errors
 
     _validate_export(output)
     return output

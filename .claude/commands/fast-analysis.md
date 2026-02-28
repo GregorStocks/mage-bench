@@ -57,10 +57,12 @@ uv run python scripts/analysis/llm_reasoning.py $GAME_PATH
 
 The scripts should cover:
 
-- **game_overview.py**: Game ID, format, turns, winner, player names/models/costs/placements.
+- **game_overview.py**: Game ID, format, turns, winner, player names/models/costs/placements. Also shows critical errors from the `errors` array if present.
 - **game_narrative.py**: Turn-boundary board states (life, hand size, battlefield) and key actions (plays, casts, attacks, blocks, damage, etc.). Include chat messages prefixed with `[CHAT]`.
-- **llm_events.py**: Event type counts by player, failed tool calls (with args and error messages), stalls/resets/auto-pilot/llm_error counts, and token/cost summaries.
+- **llm_events.py**: Event type counts by player, failed tool calls (with args and error messages), stalls/resets/auto-pilot/llm_error counts, token/cost summaries, and game-level errors from the `errors` array.
 - **llm_reasoning.py**: Sample 3-4 reasoning excerpts per player from `llm_response` events to assess decision quality (mulligan, combat, spell targeting).
+
+**Critical errors**: The `errors` array in the export surfaces critical issues from the game's error logs — loop detector interventions, uncaught exceptions, server short ID collisions, etc. These indicate genuine bugs rather than normal LLM mistakes. **Always check and explicitly call out any entries in the `errors` array** — they are high-signal indicators of platform bugs that need investigation.
 
 **Smoking guns in reasoning and chat**: Pay close attention to what models complain about in their thinking traces and chat messages. When a model says things like "this doesn't make sense", "the tool returned wrong data", "I keep getting errors", or "why can't I cast this" — those are often smoking guns for platform bugs, not just model confusion. Cross-reference these complaints with the failed tool calls from `llm_events.py` to distinguish real bugs from model misunderstandings.
 

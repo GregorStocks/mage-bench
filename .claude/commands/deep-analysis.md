@@ -37,6 +37,8 @@ uv run python scripts/game-gz-bootstrap.py ${GAME_ID}
 
 This gives you a roadmap — you'll know which players had errors, roughly when, and what to look for in the raw logs.
 
+**Check the `errors` array first**: The export may contain an `errors` field with critical issues surfaced from the per-player error logs (loop detection, uncaught exceptions, short ID collisions). These are high-signal bug indicators — always check and call them out before diving into raw logs.
+
 ### Step 3: Read game metadata
 
 Read `config.json` and `game_meta.json` — understand who played, what models/decks were used, and the game outcome (winner, turn count, life totals).

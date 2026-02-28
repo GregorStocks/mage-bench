@@ -90,6 +90,14 @@ public class ShortIdRegistry {
     }
 
     /**
+     * Resolve a short ID back to its UUID, or null if not known.
+     * Non-throwing variant of {@link #resolve(String)}.
+     */
+    public UUID tryResolve(String shortId) {
+        return shortToUuid.get(shortId);
+    }
+
+    /**
      * Register an externally-assigned short ID for a UUID. Used by clients to sync
      * with server-assigned IDs (via CardView.getShortId()). The server's assignment
      * is authoritative — if the UUID was previously assigned a different (local) ID

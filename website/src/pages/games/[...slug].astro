@@ -1272,6 +1272,24 @@ const { slug } = Astro.params;
           renderAnnotationMarkers(game.annotations, game.snapshots.length);
         }
 
+        // Error summary in header
+        if (game.errors && game.errors.length > 0) {
+          var errorSummaryEl = document.createElement("details");
+          errorSummaryEl.id = "error-summary";
+          var errorSummaryText = document.createElement("summary");
+          errorSummaryText.textContent = game.errors.length + " critical error" + (game.errors.length !== 1 ? "s" : "");
+          errorSummaryEl.appendChild(errorSummaryText);
+          var errorList = document.createElement("ul");
+          errorList.className = "error-list";
+          game.errors.forEach(function (err) {
+            var li = document.createElement("li");
+            li.textContent = "[" + (err.ts || "?") + "] [" + (err.source || "?") + "] " + (err.player || "?") + ": " + (err.message || "?");
+            errorList.appendChild(li);
+          });
+          errorSummaryEl.appendChild(errorList);
+          document.getElementById("game-header").appendChild(errorSummaryEl);
+        }
+
         // Harness epoch display
         var minEpoch = 2;
         var gameEpoch = game.harnessEpoch || 1;

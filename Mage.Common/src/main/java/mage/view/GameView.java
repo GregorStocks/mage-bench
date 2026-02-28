@@ -326,6 +326,12 @@ public class GameView implements Serializable {
 
         // Helper emblems
         assignCards.accept(myHelperEmblems);
+
+        // Assign short IDs to players themselves (for targeting).
+        // Placed after all card/permanent assignments to avoid shifting existing card IDs.
+        for (PlayerView pv : sortedPlayers) {
+            pv.setShortId(registry.getOrAssign(pv.getPlayerId()));
+        }
     }
 
     /**

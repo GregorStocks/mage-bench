@@ -44,6 +44,7 @@ public class ObserverMageFrame extends MageFrame {
     private static final int[] RECONNECT_BACKOFF_MS = {2000, 4000, 8000, 16000, 30000};
     private static final boolean NO_WINDOW = Boolean.getBoolean("xmage.observer.noWindow");
     private static final String GIT_BRANCH = getGitBranch();
+    private ObserverHealthServer healthServer;
     private String titlePrefix = GIT_BRANCH != null ? "[" + GIT_BRANCH + "] " : "";
 
     /**
@@ -282,6 +283,9 @@ public class ObserverMageFrame extends MageFrame {
         // In keepAlive mode, signal readiness after lobby init (connection is established)
         if (Boolean.getBoolean("xmage.observer.keepAlive")) {
             LOGGER.info("keepAlive: lobby initialized, ready for commands");
+            if (healthServer != null) {
+                healthServer.signalLobbyReady();
+            }
         }
     }
 
@@ -312,6 +316,16 @@ public class ObserverMageFrame extends MageFrame {
      *  "choosingPlayer":"TestPlayer","skipInitShuffling":true,"winsNeeded":1}
      */
     public void startKeepAliveLoop() {
+        int healthPort = Integer.getInteger("xmage.observer.healthPort", 0);
+        if (healthPort > 0) {
+            try {
+                healthServer = new ObserverHealthServer(healthPort);
+                healthServer.start();
+            } catch (Exception e) {
+                throw new RuntimeException("Failed to start observer health server on port " + healthPort, e);
+            }
+        }
+
         LOGGER.info("keepAlive: ready for commands");
 
         Thread stdinThread = new Thread(() -> {
@@ -474,6 +488,9 @@ public class ObserverMageFrame extends MageFrame {
             LOGGER.info("AI Puppeteer: waiting for " + config.getBridgeCount()
                     + " bridge client(s) to join table " + table.getTableId()
                     + " gameDir=" + gameDir);
+            if (healthServer != null) {
+                healthServer.signalGameReady(gameDir, table.getTableId().toString());
+            }
             final UUID finalTableId = table.getTableId();
             Thread starter = new Thread(() -> {
                 long deadline = System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(600);
