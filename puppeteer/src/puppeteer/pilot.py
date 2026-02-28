@@ -646,6 +646,9 @@ async def run_pilot_loop(
     board_tracker = BoardCursorTracker()
     last_board: list[dict] | None = None  # last-known board for rendering when board_unchanged
     game_start = time.monotonic()
+    # Chat nudge tracking: encourage LLMs to chat regularly
+    current_game_turn: int = 0  # parsed from pass_priority context "T3 ..."
+    last_chat_turn: int = 0  # game turn when LLM last sent a chat message
     # Render caching: reuse rendered prefix between full re-renders to improve
     # prompt cache hit rates.  Only re-render every RENDER_INTERVAL iterations.
     cached_render: list[dict] | None = None
@@ -923,6 +926,13 @@ async def run_pilot_loop(
                     elif fn.name == "pass_priority":
                         try:
                             result_data = json.loads(result_text)
+                            # Parse game turn from context for chat nudge tracking
+                            _ctx = result_data.get("context", "")
+                            if _ctx.startswith("T"):
+                                try:
+                                    current_game_turn = int(_ctx[1:].split()[0])
+                                except (ValueError, IndexError):
+                                    pass
                             if result_data.get("action_pending"):
                                 turn_had_actionable_opportunity = True
                                 consecutive_pass_errors = 0
@@ -956,6 +966,10 @@ async def run_pilot_loop(
                         except (json.JSONDecodeError, TypeError):
                             pass
 
+                    # Track chat sends for nudge system
+                    if fn.name == "send_chat_message":
+                        last_chat_turn = current_game_turn
+
                     # Detect game_over/player_dead from ANY tool result
                     try:
                         _rd = json.loads(result_text)
@@ -979,6 +993,13 @@ async def run_pilot_loop(
                     display_text = result_text
                     if fn.name in ("pass_priority", "get_action_choices"):
                         display_text, last_board = _render_for_pilot(result_text, last_board)
+                        # Chat nudge: remind LLM to chat if it's been silent too long
+                        turns_since_chat = current_game_turn - last_chat_turn
+                        if turns_since_chat >= 2 and display_text != result_text:
+                            display_text += (
+                                f"\n\n[It's been {turns_since_chat} turns since you last "
+                                f"chatted — send a message to your opponent!]"
+                            )
 
                     history.append(
                         {
