@@ -124515,102 +124515,523 @@
   ],
   "errors": [
     {
-      "ts": "13:36:25",
+      "ts": "",
       "player": "KimiK2 Undrdog",
-      "source": "mcp",
-      "message": "choose_action failed: 'black' is not a valid choice",
-      "decisionIndex": 8
+      "source": "unknown",
+      "message": "[2026-02-28T13:36:25.075844094-08:00] [mcp] choose_action failed: 'black' is not a valid choice"
     },
     {
       "ts": "13:36:25",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: 'black' is not a valid choice",
-      "decisionIndex": 8
+      "message": "Action failed: 'black' is not a valid choice"
     },
     {
-      "ts": "13:37:25",
+      "ts": "",
       "player": "KimiK2 Undrdog",
-      "source": "mcp",
-      "message": "choose_action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-      "decisionIndex": 15
+      "source": "unknown",
+      "message": "[2026-02-28T13:37:25.171028138-08:00] [mcp] choose_action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options."
     },
     {
       "ts": "13:37:25",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-      "decisionIndex": 15
+      "message": "Action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options."
     },
     {
-      "ts": "13:45:06",
+      "ts": "",
       "player": "KimiK2 Undrdog",
-      "source": "mcp",
-      "message": "MCP request failed (tools/call): Unknown short ID: p56",
-      "decisionIndex": 62
+      "source": "unknown",
+      "message": "[2026-02-28T13:45:06.112594037-08:00] [mcp] MCP request failed (tools/call): Unknown short ID: p56"
     },
     {
       "ts": "13:45:06",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: Unknown short ID: p56",
-      "decisionIndex": 62
+      "message": "Action failed: Unknown short ID: p56"
     },
     {
-      "ts": "13:46:44",
+      "ts": "",
       "player": "KimiK2 Undrdog",
-      "source": "mcp",
-      "message": "MCP request failed (tools/call): Unknown short ID: p60",
-      "decisionIndex": 76
+      "source": "unknown",
+      "message": "[2026-02-28T13:46:44.924497857-08:00] [mcp] MCP request failed (tools/call): Unknown short ID: p60"
     },
     {
       "ts": "13:46:44",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: Unknown short ID: p60",
-      "decisionIndex": 76
+      "message": "Action failed: Unknown short ID: p60"
     },
     {
-      "ts": "13:48:00",
+      "ts": "",
       "player": "KimiK2 Undrdog",
-      "source": "mcp",
-      "message": "choose_action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-      "decisionIndex": 88
+      "source": "unknown",
+      "message": "[2026-02-28T13:48:00.68653062-08:00] [mcp] choose_action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
     },
     {
       "ts": "13:48:00",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-      "decisionIndex": 88
+      "message": "Action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
     },
     {
-      "ts": "13:49:18",
+      "ts": "",
       "player": "KimiK2 Undrdog",
-      "source": "mcp",
-      "message": "choose_action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-      "decisionIndex": 98
+      "source": "unknown",
+      "message": "[2026-02-28T13:49:18.373430668-08:00] [mcp] choose_action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options."
     },
     {
       "ts": "13:49:18",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
-      "decisionIndex": 98
+      "message": "Action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options."
     },
     {
-      "ts": "13:50:38",
+      "ts": "",
       "player": "KimiK2 Undrdog",
-      "source": "mcp",
-      "message": "choose_action failed: Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.",
-      "decisionIndex": 109
+      "source": "unknown",
+      "message": "[2026-02-28T13:50:38.935485344-08:00] [mcp] choose_action failed: Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options."
     },
     {
       "ts": "13:50:38",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.",
-      "decisionIndex": 109
+      "message": "Action failed: Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options."
     }
-  ]
+  ],
+  "annotations": [
+    {
+      "severity": "questionable",
+      "description": "Mulliganed a 6-card hand with 1 land (Plains), Transcendent Envoy (2-drop), and strong spells including Winged Words (which becomes cheap with the flying Envoy). While 1-land hands are risky, going to 5 cards in Limited is a severe cost. If they draw just 1 land in the first 2 draws, the hand curves out well: T2 Envoy, T3 discounted Winged Words to draw more lands/spells.",
+      "actionTaken": "Mulliganed to 5 cards",
+      "betterLine": "Keep the 6-card hand. The 1-land hand has a functional curve if even 1 land is drawn, and going to 5 cards is very punishing in Limited.",
+      "type": "blunder",
+      "snapshotIndex": 3,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Thriving Grove's color choice defaulted to White (likely due to timeout) instead of Black. The hand and deck are Black/Green, so choosing White provides no benefit. While current spells can still be cast with Swamp (B) and Grove (G), choosing Black would provide important mana redundancy for future turns, especially for cards like Strangling Spores or additional black spells drawn later.",
+      "actionTaken": "Timed out, defaulting to White for Thriving Grove's color choice",
+      "betterLine": "Choose Black for Thriving Grove, giving access to both Black and Green from the Grove while the Swamp also provides Black, maximizing mana flexibility for the BG deck.",
+      "type": "blunder",
+      "snapshotIndex": 11,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "moderate",
+      "description": "Used Eaten Alive (premium exile removal) on a minor 1/2 Pious Wayfarer instead of developing the board with Ilysian Caryatid. The Caryatid is critical for ramping toward Massacre Wurm (6 mana), which is the strongest card in hand. Wasting exile-quality removal on a 1/2 creature is a significant resource misallocation, and delaying ramp by a turn delays the Wurm substantially.",
+      "actionTaken": "Cast Eaten Alive targeting Pious Wayfarer, using premium removal on a 1/2 creature.",
+      "betterLine": "Cast Ilysian Caryatid to develop mana and accelerate toward Massacre Wurm. The Pious Wayfarer can be dealt with later by Strangling Spores, Savage Punch, or simply blocked by Black Cat.",
+      "type": "blunder",
+      "snapshotIndex": 26,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to attack with Pious Wayfarer into an empty board (opponent's only creature, Ilysian Caryatid, is summoning sick). This was 1 free damage with zero risk.",
+      "actionTaken": "Timed out and did not declare any attackers.",
+      "betterLine": "Attack with Pious Wayfarer for 1 unblockable damage, then pass to main phase 2 to hold up mana for Nebelgast Herald on opponent's turn.",
+      "type": "blunder",
+      "snapshotIndex": 44,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "moderate",
+      "description": "Timed out and passed the turn without casting Black Cat, the only creature available. With an empty board facing Pious Wayfarer, deploying Black Cat would provide a blocker, enable Eaten Alive as cheap removal later, and begin developing toward casting Massacre Wurm. Wasting 2 mana and missing a key development turn.",
+      "actionTaken": "Timed out and passed without casting anything, wasting 2 mana.",
+      "betterLine": "Cast Black Cat for {1}{B} to establish a board presence, provide a blocker against Pious Wayfarer, and enable future Eaten Alive plays.",
+      "type": "blunder",
+      "snapshotIndex": 55,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "questionable",
+      "description": "Passed with 3 mana available and Chains of Custody castable. Casting Chains of Custody on Pious Wayfarer to exile Black Cat would trigger constellation (+1/+1), give ward {2}, and set up Sage's Reverie next turn for 2 card draws and +2/+2. This establishes the aura synergy engine that the deck is built around.",
+      "actionTaken": "Passed priority in precombat main phase without casting anything",
+      "betterLine": "Cast Chains of Custody enchanting Pious Wayfarer, exiling Black Cat. This develops the board (2/3 with ward), removes a blocker, and sets up a powerful Sage's Reverie next turn. Nebelgast Herald could then be held for flash value. Counter-argument: saving Chains for a bigger threat is defensible.",
+      "type": "blunder",
+      "snapshotIndex": 67,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Missed a free attack with Pious Wayfarer for 1 damage. The opponent's only creature (Black Cat 1/1) has summoning sickness and cannot block. There is no downside to attacking here.",
+      "actionTaken": "Timed out and declared no attackers.",
+      "betterLine": "Attack with Pious Wayfarer for 1 free damage.",
+      "type": "blunder",
+      "snapshotIndex": 69,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "questionable",
+      "description": "Failed to block Pious Wayfarer with Black Cat. Blocking would have resulted in Black Cat dying and triggering a random discard from the opponent, while only costing a 1/1 body. Not blocking preserves the Cat for potential Eaten Alive sacrifice later, but the random discard is likely worth more than the marginal body.",
+      "actionTaken": "Did not block (timeout/no response), took 1 damage from Pious Wayfarer",
+      "betterLine": "Block Pious Wayfarer with Black Cat to trigger the death trigger for a random discard from the opponent. The 1/1 body has limited future value, and the discard could hit something important from the opponent's 4-card hand.",
+      "type": "blunder",
+      "snapshotIndex": 72,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "questionable",
+      "description": "Passed precombat main without casting Sage's Reverie when opponent has no creatures on board. Casting it precombat on Pious Wayfarer would trigger Constellation, give +1/+1 from the aura, draw a card, and allow a larger attack. With no opposing creatures, there's no reason to delay.",
+      "actionTaken": "Passed priority in precombat main phase without casting any spells",
+      "betterLine": "Cast Sage's Reverie on Pious Wayfarer precombat, triggering Constellation for +1/+1, getting +1/+1 from the aura (making it ~3/4), drawing a card, then attacking with the bigger creature",
+      "type": "blunder",
+      "snapshotIndex": 105,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to attack with any creatures when the opponent had zero creatures on the battlefield. Both Nebelgast Herald (2/1 flying) and Pious Wayfarer (1/2) could attack for a free 3 damage with no possible blocks.",
+      "actionTaken": "Timed out and declared no attackers.",
+      "betterLine": "Attack with both Nebelgast Herald and Pious Wayfarer for 3 unblockable damage against an empty board.",
+      "type": "blunder",
+      "snapshotIndex": 107,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "moderate",
+      "description": "Cast Grotesque Mutation with no friendly creatures on the battlefield, meaning it can only target an opponent's attacking creature. This buffs the attacker (+3/+1 and lifelink), causing KimiK2 to take more damage while the opponent gains life. The card is wasted for a negative effect. If the goal was to kill a creature, Strangling Spores alone could handle either attacker without needing the Mutation.",
+      "actionTaken": "Cast Grotesque Mutation targeting an opponent's attacking creature, buffing it and giving it lifelink.",
+      "betterLine": "Do not cast Grotesque Mutation. Either take the 3 damage from both attackers (going to 14), or use Strangling Spores alone to kill one of the attackers. Save Grotesque Mutation for when you have a creature of your own to buff.",
+      "type": "blunder",
+      "snapshotIndex": 113,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "moderate",
+      "description": "Passed the turn in postcombat main with two castable spells available. Befuddle could target own tapped creature post-combat to draw a card with zero downside (the -4/-0 is meaningless after combat). Sage's Reverie could enchant Pious Wayfarer to make it 2/3, draw a card, and trigger constellation for +1/+1. Either play generates card advantage for no real cost.",
+      "actionTaken": "Passed priority, ending the turn with 4 untapped mana and two playable spells in hand.",
+      "betterLine": "Cast Befuddle targeting own tapped Nebelgast Herald or Pious Wayfarer to draw a card for free post-combat. Alternatively, cast Sage's Reverie on Pious Wayfarer for +1/+1, draw a card, and trigger constellation.",
+      "type": "blunder",
+      "snapshotIndex": 114,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "major",
+      "description": "Cast Grotesque Mutation with no creatures of their own on the battlefield. The only legal targets are the opponent's Nebelgast Herald and Pious Wayfarer, meaning this spell will give an opponent's creature +3/+1 and lifelink — actively helping the opponent while wasting a card and 2 mana.",
+      "actionTaken": "Cast Grotesque Mutation with no friendly creatures to target",
+      "betterLine": "Pass priority and end the turn, saving Grotesque Mutation for when you have a creature on the battlefield to use it as a combat trick.",
+      "type": "blunder",
+      "snapshotIndex": 115,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "minor",
+      "description": "Put the temporary +1/+1 Constellation buff on Spirited Companion, which has summoning sickness and cannot attack this turn, wasting the combat-relevant buff.",
+      "actionTaken": "Targeted Spirited Companion with Pious Wayfarer's Constellation +1/+1 trigger.",
+      "betterLine": "Target Nebelgast Herald to make it a 3/2 flyer for combat this turn, getting an extra point of evasive damage through.",
+      "type": "blunder",
+      "snapshotIndex": 128,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Timed out during attack phase with opponent having no creatures on board. Missed 3 free damage (Nebelgast Herald 2/1 flying + Pious Wayfarer 1/2) against an empty board at 17 life.",
+      "actionTaken": "No response (timeout) - skipped attacks entirely.",
+      "betterLine": "Attack with both Nebelgast Herald and Pious Wayfarer for 3 unblockable damage into an empty board.",
+      "type": "blunder",
+      "snapshotIndex": 136,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "moderate",
+      "description": "Passed with 3 untapped Islands in postcombat main when Befuddle could be cast on their own creature (e.g., the tapped Pious Wayfarer or Nebelgast Herald) to draw a card for free effectively, since the -4/-0 wears off at end of turn. With only 2 cards in hand and no other use for the mana, this wastes a pure-value play.",
+      "actionTaken": "Passed priority, ending the turn with 3 untapped Islands and no mana usage.",
+      "betterLine": "Cast Befuddle targeting their own tapped Pious Wayfarer (or any own creature) to draw a card, since the -4/-0 penalty is irrelevant in postcombat main and would expire at end of turn.",
+      "type": "blunder",
+      "snapshotIndex": 143,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "major",
+      "description": "Sacrificed Rhonas the Indomitable (5/5 indestructible deathtouch god) to cast Eaten Alive, removing a small creature. Rhonas is one of the most powerful creatures in limited and was the only creature on KimiK2's board. KimiK2 had Strangling Spores, Savage Punch, and Massacre Wurm in hand — all of which could handle the opponent's small creatures without sacrificing their best threat.",
+      "actionTaken": "Cast Eaten Alive, sacrificing Rhonas the Indomitable to exile a small opponent creature.",
+      "betterLine": "Pass the turn, keep Rhonas. Next turn, use Savage Punch (with ferocious from Rhonas) or Strangling Spores to remove threats while keeping the indestructible 5/5 as the primary win condition. Massacre Wurm would also devastate the opponent's board of 1/1s and 1/2s.",
+      "type": "blunder",
+      "snapshotIndex": 153,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "major",
+      "description": "Sacrificed Rhonas the Indomitable (5/5 indestructible deathtouch god) to Eaten Alive's additional cost just to exile a 2/1 Nebelgast Herald. This is an enormous resource trade loss - Rhonas is one of the most powerful creatures in the format and was their only creature. They had Strangling Spores and Savage Punch in hand as alternative removal that could handle the Herald next turn without sacrificing anything.",
+      "actionTaken": "Cast Eaten Alive targeting Nebelgast Herald, sacrificing Rhonas the Indomitable as the additional cost.",
+      "betterLine": "Wait until next turn and use Strangling Spores (-3/-3 kills the 2/1 Herald) or Savage Punch (Rhonas fights Herald with ferocious bonus) to remove the Herald while keeping Rhonas on the battlefield. Rhonas also enables Massacre Wurm to come down much sooner via its massive board presence.",
+      "type": "blunder",
+      "snapshotIndex": 156,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "minor",
+      "description": "Timed out on Thriving Isle color choice. The default likely selected a suboptimal color. With 2 Plains already providing white mana, choosing White wastes Thriving Isle's flexibility. Black would open access to powerful removal spells (Eaten Alive, Strangling Spores, Massacre Wurm, Grotesque Mutation) that could answer threats like the opponent's Rhonas the Indomitable.",
+      "actionTaken": "Timed out, likely defaulting to White for Thriving Isle's color choice despite already having 2 Plains.",
+      "betterLine": "Choose Black (or whichever splash color matches removal in the deck) to maximize mana flexibility and access to additional answers.",
+      "type": "blunder",
+      "snapshotIndex": 163,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Passed in precombat main phase without casting Sage's Reverie, missing the opportunity to trigger Pious Wayfarer's constellation ability before attacks. The opponent's lands are all tapped so there's zero risk of interaction. Casting Sage's Reverie precombat would draw a card, buff a creature +1/+1, and give another creature +1/+1 from constellation, enabling better attacks.",
+      "actionTaken": "Passed priority in precombat main phase, moving to combat without casting anything.",
+      "betterLine": "Cast Sage's Reverie on Nebelgast Herald or Pious Wayfarer precombat to draw a card and trigger constellation for +1/+1, then attack with bigger creatures. All opponent lands are tapped so there's no risk.",
+      "type": "blunder",
+      "snapshotIndex": 164,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "moderate",
+      "description": "Timed out and failed to attack with any creatures when the opponent was completely tapped out with no blockers available. All three creatures (Nebelgast Herald 2/1, Pious Wayfarer 1/2, Spirited Companion 1/1) could have attacked for 4 damage risk-free, bringing the opponent from 14 to 10 life.",
+      "actionTaken": "No response (timeout) — no attackers declared, missing 4 free damage.",
+      "betterLine": "Attack with all three creatures for 4 damage. Opponent is fully tapped out with no untapped creatures, making this completely risk-free.",
+      "type": "blunder",
+      "snapshotIndex": 166,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Declined to cast Befuddle targeting the opponent's summoning-sick Rhonas the Indomitable. Since Rhonas is sick and can't attack or block, and the -4/-0 wears off at end of turn, this would have been essentially a free cantrip (draw a card for 3 mana with no downside). The opponent's lands are all tapped so there's no risk of a blowout. Drawing a card could find answers to the 5/5 indestructible Rhonas or other threats.",
+      "actionTaken": "Passed priority, keeping Befuddle in hand for later use.",
+      "betterLine": "Cast Befuddle targeting Rhonas the Indomitable (summoning sick, so -4/-0 is meaningless) to draw a card for free value. With 5 untapped lands, the 3 mana cost is easily payable while still having 2 mana open.",
+      "type": "blunder",
+      "snapshotIndex": 170,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "moderate",
+      "description": "Passed with 5 untapped mana and two castable spells in hand, missing the opportunity to cast Sage's Reverie for a permanent +1/+1 buff, a card draw, and a Pious Wayfarer constellation trigger. With Rhonas the Indomitable just hitting the opponent's board, finding answers and developing the board is critical.",
+      "actionTaken": "Passed priority in postcombat main phase, wasting 5 mana and ending the turn with no action.",
+      "betterLine": "Cast Sage's Reverie on Nebelgast Herald (making it a 3/2 flyer with ward 2) to draw a card, trigger Pious Wayfarer's constellation, and develop the board against the Rhonas threat.",
+      "type": "blunder",
+      "snapshotIndex": 174,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "major",
+      "description": "Timed out and passed priority in precombat main phase with all opponent creatures tapped and multiple strong plays available. At 10 life facing a flying Nebelgast Herald, this was a critical turn to remove threats and develop the board. Savage Punch with Ferocious would let Rhonas (7/7 deathtouch) kill Nebelgast Herald for just 2 mana, and Strangling Spores could remove another creature. Missing this entire turn while behind on life is devastating.",
+      "actionTaken": "Timed out and passed without casting any spells or using any abilities.",
+      "betterLine": "Cast Savage Punch targeting Rhonas to fight Nebelgast Herald (kills it with deathtouch, Rhonas is indestructible so survives). Then use remaining 2 mana for Grotesque Mutation or save for Strangling Spores on a future threat. This removes the flying threat while opponent is tapped out of blockers.",
+      "type": "blunder",
+      "snapshotIndex": 176,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "moderate",
+      "description": "Timed out in precombat main with strong plays available. Savage Punch with indestructible Rhonas (getting +2/+2 from Ferocious) would kill Nebelgast Herald for free since Rhonas is indestructible and takes no lasting damage from the fight. The Herald is the opponent's best creature (flash, flying, tap ability). Strangling Spores could also kill any of the opponent's creatures.",
+      "actionTaken": "Timed out and passed priority without casting any spells.",
+      "betterLine": "Cast Savage Punch targeting Rhonas and Nebelgast Herald. Rhonas fights as a 7/7 deathtouch indestructible, killing the Herald with zero risk. This removes the opponent's best evasive threat and the tap trigger that has been keeping Rhonas locked down.",
+      "type": "blunder",
+      "snapshotIndex": 176,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "questionable",
+      "description": "Passed precombat main phase with Savage Punch available to kill Nebelgast Herald for free (Rhonas is indestructible with Ferocious active). While they could theoretically cast it postcombat, there's no strategic benefit to waiting since Rhonas can't attack anyway. The 2/1 flyer has been a damage source and removing it is pure value.",
+      "actionTaken": "Passed priority in precombat main phase without casting any spells",
+      "betterLine": "Cast Savage Punch targeting Rhonas fighting Nebelgast Herald (2/1 flyer) — Rhonas gets +2/+2 from Ferocious, is indestructible, and kills the flyer for free. This removes the most threatening creature on board.",
+      "type": "blunder",
+      "snapshotIndex": 176,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "minor",
+      "description": "Put the Pious Wayfarer constellation +1/+1 buff on Spirited Companion (1/1 ground creature) instead of Nebelgast Herald (3/2 flyer). The Herald has flying and is the primary damage dealer against an opponent at 10 life with Rhonas blocking the ground. Buffing the Herald to 4/3 flying would deal 1 extra evasive damage this turn.",
+      "actionTaken": "Targeted Spirited Companion with the constellation +1/+1 trigger",
+      "betterLine": "Target Nebelgast Herald with the +1/+1 to maximize flying damage this combat, pushing 4 damage through the air instead of 3",
+      "type": "blunder",
+      "snapshotIndex": 192,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "By passing with the Sage's Reverie draw trigger on the stack, KimiK2 allowed the opponent to draw a card. Casting Strangling Spores on Spirited Companion in response would have killed it before the trigger resolved, causing Sage's Reverie to fall off. The draw trigger would then count 0 Auras attached to creatures, denying the card draw while also removing both Spirited Companion and Sage's Reverie.",
+      "actionTaken": "Passed priority, allowing Sage's Reverie's draw trigger to resolve and draw a card.",
+      "betterLine": "Cast Strangling Spores targeting Spirited Companion (2/2 with Sage's Reverie) in response to the draw trigger. This kills the creature, Sage's Reverie falls off, and the draw trigger resolves drawing 0 cards instead of 1. Two-for-one removal plus card denial.",
+      "type": "blunder",
+      "snapshotIndex": 196,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "major",
+      "description": "Rhonas the Indomitable cannot block because the opponent controls no other creature with power 4 or greater. All three creatures (Nebelgast Herald 3/2, Spirited Companion 2/2, Pious Wayfarer 1/2) could attack completely unblocked for 6 damage, taking the opponent from 10 to 4 life. Missing this much free damage against a low-life opponent is game-altering.",
+      "actionTaken": "Timed out and declared no attackers, dealing 0 damage.",
+      "betterLine": "Attack with all three creatures (Nebelgast Herald, Spirited Companion, Pious Wayfarer) for 6 unblockable damage, putting the opponent to 4 life.",
+      "type": "blunder",
+      "snapshotIndex": 199,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Passed on casting Befuddle in response to Strangling Spores killing Nebelgast Herald. The Herald dies regardless (-3/-3 kills a 3/2), but Befuddle could have been cast targeting Rhonas the Indomitable to draw a card (cantrip value) while also temporarily reducing Rhonas to 1/5. The 3 untapped lands (Island, Thriving Isle, Plains) could pay {2}{U}. While saving Befuddle for later has some merit as a combat trick, the card draw now replaces itself and the -4/-0 on Rhonas during an attack step where Sonnet Hype's creatures are attacking has minimal downside.",
+      "actionTaken": "Passed priority, allowing Strangling Spores to resolve and kill Nebelgast Herald (and lose Sage's Reverie) without using the available mana.",
+      "betterLine": "Cast Befuddle targeting Rhonas the Indomitable to draw a card, replacing Befuddle with a fresh draw while also temporarily weakening Rhonas.",
+      "type": "blunder",
+      "snapshotIndex": 208,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Passed on casting Befuddle targeting Rhonas during combat. With 3 untapped lands (exactly {2}{U} available), Befuddle could cantrip while reducing Rhonas to 1/5. The player has no other instant-speed plays, and Thriving Heath can still be played postcombat. While saving Befuddle for defensive use later has some merit, at 20 life the cantrip value of drawing a card now (potentially finding a better answer) likely outweighs saving 4 damage prevention on a future Rhonas attack.",
+      "actionTaken": "Passed priority without casting Befuddle, wasting 3 mana this turn.",
+      "betterLine": "Cast Befuddle targeting Rhonas the Indomitable to draw a card and reduce its power to 1, then play Thriving Heath postcombat.",
+      "type": "blunder",
+      "snapshotIndex": 212,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "moderate",
+      "description": "Timed out during precombat main phase with important plays available. With 4 untapped lands and opponent's creatures all tapped, KimiK2 could have cast Infernal Idol (3 mana) to ramp toward the game-changing Massacre Wurm in hand (costs 3BBB), and/or used Savage Punch to have the indestructible Rhonas fight and kill an opponent's creature for free. Missing the Infernal Idol deployment delays Massacre Wurm by at least a turn.",
+      "actionTaken": "Timed out and passed priority, doing nothing in the precombat main phase.",
+      "betterLine": "Cast Infernal Idol for {3} (using Forest, Swamp, Thriving Grove) to accelerate toward casting Massacre Wurm. Could also use remaining Swamp to cast Savage Punch with Rhonas fighting an opponent's creature, though the mana doesn't quite work for both. At minimum, Infernal Idol should have been deployed.",
+      "type": "blunder",
+      "snapshotIndex": 218,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "major",
+      "description": "Casting Eaten Alive requires sacrificing Rhonas the Indomitable (their only creature and primary win condition - an indestructible 5/5 with deathtouch) just to exile a 1/1 or 1/2, since they only have 4 mana and can't pay the {4}{B} alternative cost. This is a catastrophic trade of their best card for minimal value.",
+      "actionTaken": "Cast Eaten Alive, which requires sacrificing Rhonas (their only creature) to exile a small creature.",
+      "betterLine": "Cast Savage Punch ({1}{G}) to have Rhonas fight and kill either opponent creature. With Ferocious active (Rhonas has power 5), Rhonas gets +2/+2 becoming 7/7 and easily destroys the target while staying on board. This removes a threat for 2 mana and preserves the win condition, leaving 2 mana for Grotesque Mutation or other plays.",
+      "type": "blunder",
+      "snapshotIndex": 218,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to attack with Spirited Companion into a completely tapped-out board with no blockers. The opponent is at 7 life and every point of damage matters. There is absolutely zero risk as the opponent has no untapped creatures and no available mana.",
+      "actionTaken": "Timed out and didn't declare any attackers.",
+      "betterLine": "Attack with Spirited Companion for 1 free damage, bringing the opponent to 6 life.",
+      "type": "blunder",
+      "snapshotIndex": 239,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Declined to cast Befuddle on their own attacking Spirited Companion to draw a card. With 8 untapped lands, nothing else to spend mana on, and only a Thriving Heath in hand, drawing a card is much more valuable than dealing 1 damage to an opponent at 7 life. The Companion would deal 0 instead of 1 damage, a negligible cost.",
+      "actionTaken": "Passed on casting Befuddle during combat, dealing 1 damage instead of drawing a card.",
+      "betterLine": "Cast Befuddle targeting own Spirited Companion to draw a card for free (effectively), sacrificing only 1 point of combat damage which is insignificant at this board state.",
+      "type": "blunder",
+      "snapshotIndex": 242,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Passed with 8 untapped mana and no other plays available. Befuddle could have been cast targeting their own Spirited Companion (the -4/-0 is irrelevant on a 1/1) to draw a card, which could find threats to close out the game against an opponent at 6 life. The mana was completely wasted instead.",
+      "actionTaken": "Passed priority in postcombat main phase, wasting 8 mana and ending the turn with no plays.",
+      "betterLine": "Cast Befuddle targeting own Spirited Companion to draw a card for free value, potentially finding a threat to close out the game against the opponent at 6 life.",
+      "type": "blunder",
+      "snapshotIndex": 246,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "moderate",
+      "description": "At 6 life with no creatures and needing to race, casting Spectral Hunt-Caller (4/4 no haste) instead of Rampaging Growth wastes a turn of attacks. Rampaging Growth creates a 4/3 haste creature that attacks immediately for 4 damage, AND ramps a land to help cast Massacre Wurm next turn. The Hunt-Caller uses all available mana including Infernal Idol, while Rampaging Growth leaves Idol available.",
+      "actionTaken": "Cast Spectral Hunt-Caller (4/4 no haste) using all 5 mana sources",
+      "betterLine": "Cast Rampaging Growth (3G) to get a 4/3 haste attacker, dealing immediate damage, ramping toward Massacre Wurm, and leaving Infernal Idol untapped for future use",
+      "type": "blunder",
+      "snapshotIndex": 248,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to attack with Spirited Companion (1/1) when opponent is at 6 life and has no available blockers (Spectral Hunt-Caller is summoning sick). This is 1 free damage with zero risk, which matters significantly when the opponent is at low life.",
+      "actionTaken": "Timed out and did not declare any attackers.",
+      "betterLine": "Attack with Spirited Companion for 1 free damage, bringing opponent to 5 life. Every point of damage matters when the opponent is at 6 life.",
+      "type": "blunder",
+      "snapshotIndex": 265,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to block a 1/1 Spirited Companion with the 4/4 Spectral Hunt-Caller (summoning sick but able to block). At 6 life, taking 1 unnecessary damage matters. The block would be essentially free - a 4/4 kills the 1/1 with no risk. Even if opponent had Befuddle (-4/-0), the Hunt-Caller would survive and the Companion would still be blocked.",
+      "actionTaken": "Did not respond (timeout), letting the 1/1 Spirited Companion through unblocked, taking 1 damage to go to 5 life.",
+      "betterLine": "Block Spirited Companion with Spectral Hunt-Caller to prevent 1 damage. The block is essentially free - a 4/4 trivially handles a 1/1.",
+      "type": "blunder",
+      "snapshotIndex": 268,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to block a 1/1 Spirited Companion with a 4/4 Spectral Hunt-Caller while at 6 life. The block is completely free (no risk to the 4/4) and preserves 1 life point, which matters significantly at low life totals. Summoning sick creatures can still block.",
+      "actionTaken": "Did not block (timeout/no response), taking 1 damage to go to 5 life.",
+      "betterLine": "Block Spirited Companion with Spectral Hunt-Caller to stay at 6 life with no downside.",
+      "type": "blunder",
+      "snapshotIndex": 268,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "moderate",
+      "description": "Sacrificed Infernal Idol to draw 2 cards and lose 2 life (going to 4 life), when they could have tapped Idol for {B} to reach exactly 6 mana with 3 black sources ({B} from Idol + 2 Swamps + Thriving Grove + play Forest from hand) to cast Massacre Wurm. Massacre Wurm would kill Spirited Companion (dealing 2 life loss to opponent), put a 6/5 on board alongside the 4/4 Hunt-Caller, and threaten lethal next turn.",
+      "actionTaken": "Activated Infernal Idol's sacrifice ability to draw 2 cards and lose 2 life, going to 4 life and losing a mana source.",
+      "betterLine": "Play Forest, tap Infernal Idol for {B}, and cast Massacre Wurm (using 2 Swamps + Thriving Grove + Idol for {B}{B}{B} + 2 Forests + land for {3}). This kills Spirited Companion, deals 2 life to opponent, and puts a 6/5 on the board for a commanding position.",
+      "type": "blunder",
+      "snapshotIndex": 283,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to attack with Spectral Hunt-Caller 4/4 into an open board (opponent's only creature, Spirited Companion, was tapped). At 4 life vs 20 life, KimiK2 needs to deal damage whenever safely possible. Missing 4 free damage is significant when you're the one who needs to close the game before the opponent overwhelms you.",
+      "actionTaken": "Timed out and declared no attackers, passing combat with no attacks.",
+      "betterLine": "Attack with Spectral Hunt-Caller for 4 unblocked damage, bringing opponent to 16. With Grotesque Mutation in hand as backup against any combat tricks, this attack is very low risk.",
+      "type": "blunder",
+      "snapshotIndex": 292,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "minor",
+      "description": "Passed priority in postcombat main with 2 untapped Forests and Savage Punch as the only available play. Savage Punch with Ferocious would let Spectral Hunt-Caller (effectively 6/6) fight and kill Spirited Companion 1/1, removing a blocker at no real cost. The mana would otherwise go completely unused.",
+      "actionTaken": "Passed priority, ending the turn with 2 unused mana and Savage Punch uncast.",
+      "betterLine": "Cast Savage Punch targeting Spectral Hunt-Caller to fight Spirited Companion, removing a blocker for free with otherwise wasted mana. Even though Massacre Wurm next turn could handle it, using Savage Punch now preserves it as unnecessary redundancy while clearing the board immediately.",
+      "type": "blunder",
+      "snapshotIndex": 299,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "minor",
+      "description": "Player played a basic Plains instead of Thriving Heath when they had no spells to cast this turn. With 9 untapped lands and an empty hand of spells, this was the ideal turn to play the enters-tapped Thriving Heath, saving the untapped Plains for a future turn when immediate mana might matter.",
+      "actionTaken": "Played a basic Plains (untapped)",
+      "betterLine": "Play Thriving Heath (enters tapped) since there are no spells to cast this turn, preserving basic Plains for future turns when untapped mana might be needed.",
+      "type": "blunder",
+      "snapshotIndex": 301,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to attack with Spirited Companion into an empty board (opponent's only creature is tapped) when the opponent is at 4 life. Missing 1 free damage that brings the opponent closer to lethal.",
+      "actionTaken": "Timed out and did not declare any attackers.",
+      "betterLine": "Attack with Spirited Companion for 1 unblockable damage, bringing opponent from 4 to 3 life.",
+      "type": "blunder",
+      "snapshotIndex": 304,
+      "player": "Sonnet Hype"
+    },
+    {
+      "severity": "minor",
+      "description": "At 3 life, casting Colossal Majesty is too slow. Rampaging Growth would create a 4/3 haste attacker, enabling 8 damage this turn (opponent to 8), while also ramping to enable Massacre Wurm next turn. Closing the game quickly at 3 life is critical.",
+      "actionTaken": "Cast Colossal Majesty for slow card advantage",
+      "betterLine": "Play Forest, cast Rampaging Growth to get a land (4/3 haste), attack with both Hunt-Caller and the land creature for 8 damage, putting opponent to 8 and setting up Massacre Wurm next turn",
+      "type": "blunder",
+      "snapshotIndex": 313,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "moderate",
+      "description": "Failed to attack with a 4/4 Spectral Hunt-Caller into a board with no untapped blockers (opponent only has a tapped 1/1). At 3 life, KimiK2 needs to be aggressive and can't afford to give up free damage. Missing 4 damage (opponent goes from 16 to 12) is significant, especially when the attacker faces zero risk.",
+      "actionTaken": "Timed out and did not declare any attackers, passing combat with a 4/4 ready to attack into no blockers.",
+      "betterLine": "Attack with Spectral Hunt-Caller for 4 damage, bringing opponent from 16 to 12. There are no untapped blockers and the opponent's 2 cards in hand are unlikely to profitably interact during combat in a way that kills the 4/4.",
+      "type": "blunder",
+      "snapshotIndex": 322,
+      "player": "KimiK2 Undrdog"
+    },
+    {
+      "severity": "major",
+      "description": "Opponent is at 3 life with a 3/3 Spirited Companion (enchanted with Spectral Steel) ready to attack. The opponent's only creature (Spectral Hunt-Caller 4/4) is tapped and cannot block. The opponent has only 3 untapped Forests, which is insufficient mana to cast any instant-speed answer that could prevent lethal damage. This is lethal on board.",
+      "actionTaken": "Timed out and did not declare attackers, missing lethal damage.",
+      "betterLine": "Attack with Spirited Companion 3/3 for exactly lethal against the opponent at 3 life.",
+      "type": "blunder",
+      "snapshotIndex": 339,
+      "player": "Sonnet Hype"
+    }
+  ],
+  "blunderScriptVersion": 28
 }

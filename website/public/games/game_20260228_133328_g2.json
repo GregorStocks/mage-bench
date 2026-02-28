@@ -108393,120 +108393,403 @@
       "ts": "13:55:11",
       "player": "GPT52 Coach",
       "source": "pilot",
-      "message": "Action failed: Object p3 not found in current choices",
-      "decisionIndex": 39
+      "message": "Action failed: Object p3 not found in current choices"
     },
     {
       "ts": "14:33:15",
       "player": "GPT52 Coach",
       "source": "pilot",
-      "message": "Action failed: Object p19 not found in current choices",
-      "decisionIndex": 87
+      "message": "Action failed: Object p19 not found in current choices"
     },
     {
-      "ts": "14:33:38",
+      "ts": "",
       "player": "GPT52 Coach",
-      "source": "mcp",
-      "message": "Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT",
-      "decisionIndex": 89
+      "source": "unknown",
+      "message": "[2026-02-28T14:33:38.795711643-08:00] [mcp] Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT"
     },
     {
-      "ts": "14:33:38",
+      "ts": "",
       "player": "GPT52 Coach",
-      "source": "mcp",
-      "message": "Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT",
-      "decisionIndex": 89
+      "source": "unknown",
+      "message": "[2026-02-28T14:33:38.911747027-08:00] [mcp] Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT"
     },
     {
-      "ts": "14:33:39",
+      "ts": "",
       "player": "GPT52 Coach",
-      "source": "mcp",
-      "message": "Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT",
-      "decisionIndex": 89
+      "source": "unknown",
+      "message": "[2026-02-28T14:33:39.13567131-08:00] [mcp] Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT"
     },
     {
-      "ts": "13:38:35",
+      "ts": "",
       "player": "Grok4 Optim",
-      "source": "mcp",
-      "message": "choose_action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-      "decisionIndex": 5
+      "source": "unknown",
+      "message": "[2026-02-28T13:38:35.408198676-08:00] [mcp] choose_action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
     },
     {
       "ts": "13:38:35",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "Action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
-      "decisionIndex": 5
+      "message": "Action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
     },
     {
       "ts": "13:59:53",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [1]",
-      "decisionIndex": 47
+      "message": "LLM request timed out after 120s [1]"
     },
     {
       "ts": "14:01:53",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [2]",
-      "decisionIndex": 47
+      "message": "LLM request timed out after 120s [2]"
     },
     {
       "ts": "14:05:35",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [1]",
-      "decisionIndex": 47
+      "message": "LLM request timed out after 120s [1]"
     },
     {
       "ts": "14:07:35",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [2]",
-      "decisionIndex": 47
+      "message": "LLM request timed out after 120s [2]"
     },
     {
       "ts": "14:09:35",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [3]",
-      "decisionIndex": 47
+      "message": "LLM request timed out after 120s [3]"
     },
     {
       "ts": "14:21:58",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [1]",
-      "decisionIndex": 63
+      "message": "LLM request timed out after 120s [1]"
     },
     {
       "ts": "14:23:33",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "Action failed: Object p19 not found in current choices",
-      "decisionIndex": 63
+      "message": "Action failed: Object p19 not found in current choices"
     },
     {
       "ts": "14:36:20",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [1]",
-      "decisionIndex": 91
+      "message": "LLM request timed out after 120s [1]"
     },
     {
       "ts": "14:38:02",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "Action failed: Object p52 not found in current choices",
-      "decisionIndex": 91
+      "message": "Action failed: Object p52 not found in current choices"
     },
     {
       "ts": "14:41:51",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "Action failed: Object p43 not found in current choices",
-      "decisionIndex": 99
+      "message": "Action failed: Object p43 not found in current choices"
     }
-  ]
+  ],
+  "annotations": [
+    {
+      "severity": "moderate",
+      "description": "The opening hand of Forest, Forest, Forest, Master's Rebuke, Ram Through, Simian Brawler, Thriving Grove is a keepable 7-card hand. It has 4 lands (3 Forest + Thriving Grove), a solid 4-drop creature (Simian Brawler), and two removal spells (Master's Rebuke and Ram Through). The hand curves into a turn 4 creature with interaction to back it up. While it lacks a 2-drop or 3-drop creature, the removal spells can bridge to Simian Brawler effectively. Mulliganing to 6 gives up a card for marginal improvement at best — this hand has lands, a threat, and interaction, which is the baseline for a keep.",
+      "actionTaken": "Mulliganed a 7-card hand with 4 lands, a 4-drop creature, and two removal spells.",
+      "betterLine": "Keep the 7-card hand. Play Thriving Grove turn 1, Forests on turns 2-3, deploy Simian Brawler turn 4 with removal backup.",
+      "type": "blunder",
+      "snapshotIndex": 1,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "questionable",
+      "description": "Bottoming Thriving Grove removes the only visible color fixer from the hand. In what appears to be a R/G deck (Brazen Freebooter in pool), keeping the Grove for red mana access could be important. Three Forests already provide sufficient green mana for the early curve.",
+      "actionTaken": "Bottomed Thriving Grove, keeping 3 Forests as the only lands",
+      "betterLine": "Bottom a Forest instead, keeping Thriving Grove for color fixing. The hand would be Forest, Forest, Thriving Grove, Oashra Cultivator, Ram Through, Towering Gibbon — still 3 lands with better color access for potential red spells.",
+      "type": "blunder",
+      "snapshotIndex": 2,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "moderate",
+      "description": "Activated Oashra Cultivator to ramp instead of casting Kibo, Uktabi Prince. Kibo is a strong threat that also generates Banana tokens for mana, so casting Kibo would provide both board presence AND equivalent mana acceleration next turn (4 lands + Banana = 5 mana, same as 5 lands from Oashra). Sacrificing Oashra loses a body for no net mana advantage over the Kibo line.",
+      "actionTaken": "Activated Oashra Cultivator (2G, tap, sacrifice) to search for a basic land, ramping to 5 lands next turn but leaving the board empty.",
+      "betterLine": "Cast Kibo, Uktabi Prince for 2G. Next turn, tap Kibo to create Banana tokens, giving access to 4 lands + Banana = 5 mana while having a 2/2 creature on board that pressures the opponent and synergizes with Towering Gibbon and the rest of the deck.",
+      "type": "blunder",
+      "snapshotIndex": 42,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "minor",
+      "description": "Played Dutiful Replicator with no tokens on the battlefield, permanently wasting its ETB copy ability. GPT52 Coach has Brazen Freebooter in hand which creates a Treasure token on ETB - if Replicator were saved until after playing the Freebooter, it could copy the Treasure for extra mana and improved Welding Sparks damage.",
+      "actionTaken": "Cast Dutiful Replicator with no tokens to copy, wasting its ETB.",
+      "betterLine": "Cast Pouncing Cheetah (same 3/2 body, uses the flash creature when flash isn't needed on an empty board) and save Dutiful Replicator for after Brazen Freebooter creates a Treasure token to copy.",
+      "type": "blunder",
+      "snapshotIndex": 56,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "minor",
+      "description": "Kibo (2/2) is significantly worse than Towering Gibbon (4/4 reach) given the current board state. The opponent has a 3/1 and a 3/2, and Grok4 has no creatures. Towering Gibbon blocks both opposing creatures favorably, while Kibo trades poorly with either. Kibo's synergies (Banana tokens, artifact sacrifice triggers) are slow and also give the opponent resources. The Gibbon also maximizes the power of Master's Rebuke and Ram Through in hand.",
+      "actionTaken": "Cast Kibo, Uktabi Prince (2/2) for 3 mana",
+      "betterLine": "Cast Towering Gibbon for 4 mana, deploying a 4/4 reach creature that dominates the board defensively and offensively while maximizing removal spell effectiveness",
+      "type": "blunder",
+      "snapshotIndex": 79,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "moderate",
+      "description": "Brazen Freebooter creates a Treasure token, which is actively harmful against Kibo - when Kibo attacks next turn, GPT52 must sacrifice an artifact, and that sacrifice triggers Kibo's ability to put +1/+1 counters on itself. Meanwhile, Welding Sparks would deal 4 damage (3 + 1 artifact from Dutiful Replicator), cleanly killing Kibo before it can activate or attack.",
+      "actionTaken": "Cast Brazen Freebooter, creating a 3/3 body and a Treasure token that feeds Kibo's abilities.",
+      "betterLine": "Cast Welding Sparks targeting Kibo, Uktabi Prince to remove it before it can generate value. Kibo is a must-answer threat that punishes artifact ownership and grows itself.",
+      "type": "blunder",
+      "snapshotIndex": 92,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "minor",
+      "description": "Opponent has zero available blockers (Kibo is sick), so both Dutiful Replicator and Initiate's Companion could attack freely for 6 total damage. Attacking with only Initiate's Companion leaves 3 free damage on the table.",
+      "actionTaken": "Attacked with only Initiate's Companion (3 damage)",
+      "betterLine": "Attack with both Dutiful Replicator and Initiate's Companion for 6 unblocked damage, bringing opponent to 11 instead of 14.",
+      "type": "blunder",
+      "snapshotIndex": 103,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "minor",
+      "description": "Chose to untap Brazen Freebooter with Initiate's Companion's combat damage trigger, but Brazen Freebooter has summoning sickness so it can't attack or use any tap abilities this turn — the untap does nothing. Meanwhile, untapping Initiate's Companion itself would provide a 3/1 blocker against Kibo and other potential attackers next turn.",
+      "actionTaken": "Untapped Brazen Freebooter (summoning sick, no tap abilities — zero value)",
+      "betterLine": "Untap Initiate's Companion to have a 3/1 blocker available for the opponent's next attack step",
+      "type": "blunder",
+      "snapshotIndex": 110,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "major",
+      "description": "Timed out during precombat main phase with 4 untapped lands and multiple strong plays available. At 11 life facing significant opposing board pressure (Brazen Freebooter 3/3, Dutiful Replicator 3/2, Initiate's Companion 3/1), failing to deploy any creature or use any spell wastes the entire turn. This likely leads to taking lethal or near-lethal damage next combat.",
+      "actionTaken": "Timed out and passed priority without casting any spell or activating Kibo.",
+      "betterLine": "Cast Canopy Baloth or Towering Gibbon (both cost 4 mana, available) to add a significant blocker/attacker. Alternatively, activate Kibo first to create Banana tokens, then cast a 4-drop. Could also cast Khalni Heart Expedition for 2 mana and still have 2 mana for Ram Through or Master's Rebuke later.",
+      "type": "blunder",
+      "snapshotIndex": 117,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "minor",
+      "description": "Grok4 Optim failed to attack with Kibo, Uktabi Prince. Kibo has a powerful attack trigger: 'Whenever Kibo attacks, defending player sacrifices an artifact of their choice.' The opponent controls a Treasure Token and a Dutiful Replicator (artifact creature). Forcing the opponent to sacrifice an artifact would be valuable — either they lose the Treasure or the Dutiful Replicator. Additionally, if the opponent sacrifices an artifact, Kibo's other ability triggers putting +1/+1 counters on Kibo (as a Monkey). The opponent's untapped blockers are limited (Dutiful Replicator 3/2 could block, but then Kibo trades or the opponent loses the artifact anyway). Even if Kibo trades with the 3/2 Replicator, that's a reasonable exchange given the artifact sacrifice trigger. The timeout/no-response caused them to miss this attack opportunity.",
+      "actionTaken": "Did not attack with any creatures (timed out / no response).",
+      "betterLine": "Attack with Kibo, Uktabi Prince to force the opponent to sacrifice an artifact (likely the Treasure Token), triggering Kibo's +1/+1 counter ability. If the opponent blocks with Dutiful Replicator, you can use Ram Through or Master's Rebuke from hand to handle the blocker while keeping Kibo alive.",
+      "type": "blunder",
+      "snapshotIndex": 119,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "minor",
+      "description": "GPT52 Coach sacrificed Dutiful Replicator (a 3/2 body) instead of the Treasure Token to Kibo's attack trigger. The Treasure Token is a one-shot mana artifact worth roughly 1 mana, while the Dutiful Replicator is a 3/2 creature that can attack and block. Losing the 3/2 body is significantly more costly than losing a Treasure token. Additionally, sacrificing the artifact triggers Kibo's other ability giving +1/+1 counters to Kibo (an Ape/Monkey), making Kibo bigger regardless of which artifact is sacrificed, so that's not a differentiator.",
+      "actionTaken": "Sacrificed Dutiful Replicator (3/2 creature) to Kibo's forced artifact sacrifice trigger.",
+      "betterLine": "Sacrifice the Treasure Token instead, preserving the 3/2 body for attacking and blocking.",
+      "type": "blunder",
+      "snapshotIndex": 122,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "minor",
+      "description": "Kibo, Uktabi Prince is a 4/4 that could attack into no available blockers (Initiate's Companion is tapped, Pouncing Cheetah has summoning sickness). The opponent has only 1 untapped land (Mountain), making combat tricks very unlikely. Kibo would untap and be available to block next turn regardless. Missing 4 free damage when behind 8 to 20 life is significant.",
+      "actionTaken": "Timed out and didn't declare any attackers, missing 4 unblockable damage.",
+      "betterLine": "Attack with Kibo, Uktabi Prince for 4 damage, bringing opponent to 16. It costs nothing since Kibo untaps for blocking duty next turn.",
+      "type": "blunder",
+      "snapshotIndex": 172,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "moderate",
+      "description": "Blocked Kibo (4/4) with Pouncing Cheetah (3/2), trading away the Cheetah for only 3 non-lethal damage to Kibo. The opponent is at 8 life and GPT52 Coach is at 20 — there's no need to block. Next turn, Pouncing Cheetah (3) + Initiate's Companion (3) attacking = 6 damage, plus Welding Sparks (3+ damage) = 9+, which is lethal against the opponent's 8 life. Losing the Cheetah removes this lethal threat.",
+      "actionTaken": "Blocked Kibo with Pouncing Cheetah, trading it away for 3 non-lethal damage to Kibo",
+      "betterLine": "Don't block, take 4 damage (go to 16), then next turn attack with both Cheetah and Initiate's Companion for 6 and use Welding Sparks for 3+ to threaten lethal",
+      "type": "blunder",
+      "snapshotIndex": 178,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "GPT52 Coach blocked Kibo (4/4) with Pouncing Cheetah (3/2), which trades the Cheetah for only 3 temporary damage on Kibo - Kibo survives. At 20 life vs opponent's 8 life, taking 4 damage is very affordable, and keeping the Cheetah as an attacker is important for pressuring the low-life opponent.",
+      "actionTaken": "Blocked Kibo, Uktabi Prince with Pouncing Cheetah, losing the 3/2 for no permanent effect on Kibo.",
+      "betterLine": "Don't block, take 4 damage (going to 16 life), preserve Pouncing Cheetah as an attacker to pressure the opponent at 8 life. Next turn the Cheetah could attack and help close out the game.",
+      "type": "blunder",
+      "snapshotIndex": 179,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "minor",
+      "description": "Playing a basic Forest when there are taplands in hand (Thriving Bluff, Thriving Grove) and no need for the extra untapped mana this turn. With 5 already-untapped lands and only Welding Sparks (3 mana) to cast, this was the ideal turn to deploy a tapland. The Thriving lands provide better color flexibility than a basic Forest for future turns.",
+      "actionTaken": "Played Forest (enters untapped) with no use for the 6th mana this turn.",
+      "betterLine": "Play Thriving Bluff or Thriving Grove (choosing the missing color) to maximize future mana flexibility, saving the basic Forest for a turn where all mana is needed untapped.",
+      "type": "blunder",
+      "snapshotIndex": 193,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "minor",
+      "description": "Attacking Initiate's Companion 3/1 into an untapped Towering Gibbon 4/4 with reach. The opponent can freely block and kill the Companion, leaving GPT52 Coach with no creatures while the opponent has two 4/4s. The Companion would have been more valuable staying back as a blocker.",
+      "actionTaken": "Attacked with Initiate's Companion into a board with untapped Towering Gibbon 4/4 (reach)",
+      "betterLine": "Hold back Initiate's Companion as a blocker. With Welding Sparks in hand (3 damage) and the opponent at 8 life, preserving the creature for defense while looking for more threats or waiting for a better attack opportunity would be more prudent.",
+      "type": "blunder",
+      "snapshotIndex": 197,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "At 8 life, failed to block Initiate's Companion (3/1) with Towering Gibbon (4/4), taking 3 unnecessary damage and going to 5 life. The Gibbon would have killed the Companion and survived at 4/1. Summoning sickness doesn't prevent blocking, so the Gibbon was a legal and highly favorable blocker.",
+      "actionTaken": "No response (timeout) - did not assign Towering Gibbon as a blocker, taking 3 damage to face.",
+      "betterLine": "Block Initiate's Companion with Towering Gibbon to kill the 3/1, save 3 life, and keep the Gibbon alive.",
+      "type": "blunder",
+      "snapshotIndex": 199,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "moderate",
+      "description": "Failed to cast Welding Sparks on Towering Gibbon during combat, when Initiate's Companion was already blocked by it and going to die. Welding Sparks (3 damage) plus Companion's 3 combat damage would have killed the 4/4 Gibbon. Instead, the Companion died for nothing and the Gibbon survived.",
+      "actionTaken": "Timed out and did not respond, letting Initiate's Companion die without killing the Towering Gibbon.",
+      "betterLine": "Cast Welding Sparks targeting Towering Gibbon for 3 damage before combat damage resolves, so the combined 6 damage (3 from Sparks + 3 from Companion) kills the 4/4 Gibbon, trading an already-dead creature plus a removal spell for their major blocker.",
+      "type": "blunder",
+      "snapshotIndex": 205,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "GPT52 Coach timed out and failed to cast Welding Sparks during combat. Initiate's Companion (3/1) is blocked by Towering Gibbon (4/4 reach). Casting Welding Sparks (3 damage, 0 artifacts) on the Gibbon during combat would deal 3+3=6 damage total, killing it. Instead the Companion dies for nothing and the Gibbon survives.",
+      "actionTaken": "Timed out (no response), letting Initiate's Companion die without using Welding Sparks.",
+      "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before, dealing 3 damage to it. Combined with the 3 combat damage from Initiate's Companion, the Gibbon would die. This trades the Companion 1-for-1 with a bigger creature instead of losing it for nothing.",
+      "type": "blunder",
+      "snapshotIndex": 205,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "Timed out during combat with Welding Sparks in hand. Initiate's Companion (3/1) was blocked by Towering Gibbon (4/4 reach). Casting Welding Sparks (3 damage, 0 artifacts) on Towering Gibbon during combat would combine with the 3 combat damage from Companion to deal 6 total, killing the Gibbon. Instead, the Companion died for nothing and the 4/4 reach blocker survived.",
+      "actionTaken": "No response (timeout) — Companion died in combat without accomplishing anything.",
+      "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before, dealing 3 spell damage + 3 combat damage = 6 to the 4/4, killing it. This turns a dead Companion into a meaningful trade.",
+      "type": "blunder",
+      "snapshotIndex": 205,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "Initiate's Companion (3/1) is blocked by Towering Gibbon (4/4). Combat damage alone deals 3 to the Gibbon, leaving it alive at 1 toughness. Welding Sparks (dealing 3 with 0 artifacts) would finish off the Gibbon. Instead, the player timed out and lost the Companion without killing the blocker.",
+      "actionTaken": "Timed out (no response), letting combat resolve without casting Welding Sparks. Companion dies, Gibbon survives.",
+      "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before. The 3 combat damage + 3 from Welding Sparks = 6 kills the 4/4 Gibbon, turning a losing trade into a clean 1-for-1+spell exchange and removing a key blocker with the opponent at 8 life.",
+      "type": "blunder",
+      "snapshotIndex": 205,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "GPT52 Coach attacked Initiate's Companion (3/1) into Towering Gibbon (4/4 with reach), and now during combat has Welding Sparks available but timed out without casting it. Welding Sparks deals 3 damage (3 + 0 artifacts) which could target Towering Gibbon. Combined with the 3 combat damage from Initiate's Companion, that's 6 total damage to Towering Gibbon (a 4/4), killing it. Instead, by not responding, Initiate's Companion dies for nothing and Towering Gibbon survives at 4/4 with only 3 damage marked. This wastes a creature and fails to remove a significant threat.",
+      "actionTaken": "Timed out / no response, allowing Initiate's Companion to die to Towering Gibbon without casting Welding Sparks.",
+      "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage or before damage. The 3 damage from Welding Sparks plus 3 combat damage would kill the 4/4 Towering Gibbon, trading Initiate's Companion and a spell for a significant blocker. Alternatively, Welding Sparks could target Kibo (4/4) — 3 damage wouldn't kill it alone, so Towering Gibbon is the correct target during this combat.",
+      "type": "blunder",
+      "snapshotIndex": 205,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "Initiate's Companion (3/1) is blocked by Towering Gibbon (4/4). Without Welding Sparks, the Companion dies and the Gibbon survives. Casting Welding Sparks (3 damage, no artifacts) on the Gibbon during combat would combine with the Companion's 3 combat damage for 6 total, killing the 4-toughness Gibbon. The opponent is at 8 life with only Kibo and Gibbon as creatures — removing the Gibbon significantly improves the ability to push through lethal.",
+      "actionTaken": "Timed out and did not cast Welding Sparks, allowing Towering Gibbon to survive combat.",
+      "betterLine": "Cast Welding Sparks targeting Towering Gibbon during the combat damage step (or before), dealing 3 damage so that combined with 3 combat damage from Companion, the Gibbon dies.",
+      "type": "blunder",
+      "snapshotIndex": 207,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "Failed to cast Welding Sparks on Towering Gibbon during combat damage step. After Initiate's Companion deals 3 damage to the 4/4 Gibbon, Welding Sparks for 3 more would kill it. Instead, the Companion dies for nothing and the Gibbon survives at 4/1 (damage clears at end of turn back to 4/4).",
+      "actionTaken": "Timed out and did not respond, letting the Companion die without finishing off the Towering Gibbon.",
+      "betterLine": "Cast Welding Sparks targeting Towering Gibbon after combat damage to kill it, turning an unfavorable block into a 2-for-1 trade that removes a key reach blocker while opponent is at 8 life.",
+      "type": "blunder",
+      "snapshotIndex": 209,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "Timed out during combat with Initiate's Companion (3/1) blocked by Towering Gibbon (4/4). Welding Sparks (dealing 3 damage with 0 artifacts) on the Gibbon before combat damage would have combined with the Companion's 3 combat damage to kill the 4/4 Gibbon. Instead, the Companion dies for nothing and the Gibbon survives at 1 toughness effectively wasting the block.",
+      "actionTaken": "Timed out (no response), letting combat resolve without casting Welding Sparks. Initiate's Companion dies and Towering Gibbon survives.",
+      "betterLine": "Cast Welding Sparks targeting Towering Gibbon for 3 damage before combat damage resolves, then the Companion's 3 combat damage kills the Gibbon. This trades a 3/1 and a removal spell for a 4/4 reach creature — a strong exchange given the opponent is at 8 life and the Gibbon is a major blocker.",
+      "type": "blunder",
+      "snapshotIndex": 209,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "GPT52 Coach failed to cast Welding Sparks on Towering Gibbon during combat damage step, when Initiate's Companion was already blocked by it. Using Welding Sparks (3 damage) before combat damage would have let the Companion's 3 combat damage finish off the 4-toughness Gibbon. Instead, the Companion died for nothing and the Gibbon survived.",
+      "actionTaken": "No response (timeout) — did not cast Welding Sparks, letting Initiate's Companion die while Towering Gibbon survived at 4/1.",
+      "betterLine": "Cast Welding Sparks targeting Towering Gibbon for 3 damage, reducing it to 4/1, then combat damage from Initiate's Companion (3 damage) kills it. This trades Companion + Welding Sparks for the opponent's Gibbon, clearing a key blocker with the opponent at 8 life.",
+      "type": "blunder",
+      "snapshotIndex": 211,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "Initiate's Companion (3/1) is blocked by Towering Gibbon (4/4). Combat deals 3 damage to Gibbon. Welding Sparks (dealing 3 with 0 artifacts) on the Gibbon during combat would deal 3+3=6 total damage, killing it. Instead, the timeout meant the Companion died for nothing while the Gibbon survived. This wastes the Companion and leaves the opponent's 4/4 reach blocker intact when the opponent is at only 8 life.",
+      "actionTaken": "No response (timeout) — Companion dies, Towering Gibbon survives at 4/1.",
+      "betterLine": "Cast Welding Sparks targeting Towering Gibbon during combat damage step or before, dealing 3 damage to it. Combined with 3 combat damage from Companion, this kills the Gibbon (6 damage to a 4-toughness creature). Trading Companion + Welding Sparks for the 4/4 reach creature is excellent when the opponent is at 8 life.",
+      "type": "blunder",
+      "snapshotIndex": 211,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "moderate",
+      "description": "Welding Sparks deals only 3 damage (3 + 0 artifacts) which cannot kill either Kibo (4/4) or Towering Gibbon (4/4). The damage is temporary and the card is completely wasted since the creature will survive and heal at end of turn.",
+      "actionTaken": "Cast Welding Sparks for 3 damage against a 4-toughness creature, wasting the card.",
+      "betterLine": "Hold Welding Sparks for a situation where it can actually kill a creature (e.g., when you control artifacts like Treasure tokens to boost the damage, or against a smaller creature). Pass priority and play a land instead.",
+      "type": "blunder",
+      "snapshotIndex": 219,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to activate Kibo's tap ability in postcombat main phase when combat was already over. Kibo's ability costs only {T} (no mana), creates Banana tokens for both players, and when the opponent's Banana is eventually sacrificed (including forced sacrifice when Kibo attacks), it triggers +1/+1 counters on Kibo and Towering Gibbon (both Ape/Monkey). This is essentially free value since combat is done and Kibo doesn't need to be untapped until next turn's combat.",
+      "actionTaken": "Passed priority without activating Kibo's ability, missing a free value opportunity.",
+      "betterLine": "Activate Kibo's tap ability to create Banana tokens for both players, setting up future +1/+1 counter triggers when the opponent's artifact goes to graveyard (especially forced by Kibo's attack trigger next turn).",
+      "type": "blunder",
+      "snapshotIndex": 243,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "minor",
+      "description": "Kibo's tap ability creates Banana tokens for both players. With Grok4 at 8 life, the 2 life from cracking a Banana is relevant. Additionally, if the opponent doesn't crack their Banana before Kibo attacks next turn, the forced sacrifice would put +1/+1 counters on Kibo and Towering Gibbon. The downside of giving the opponent a Banana (1 extra mana + 2 life) is modest since they're at 20 life.",
+      "actionTaken": "Passed priority without activating Kibo's tap ability to create Banana tokens.",
+      "betterLine": "Activate Kibo to create Banana tokens for both players. The 2 life gain from cracking your own Banana is meaningful at 8 life, and there's upside if the opponent doesn't crack theirs before Kibo attacks next turn.",
+      "type": "blunder",
+      "snapshotIndex": 245,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "major",
+      "description": "Opponent has zero untapped creatures (Pridemalkin has summoning sickness) and zero untapped lands. Both Kibo (4/4) and Towering Gibbon (4/4) could attack for 8 unblockable damage, taking the opponent from 20 to 12. At only 8 life, Grok4 Optim desperately needs to pressure the opponent's life total, and this was completely free damage with no possible downside.",
+      "actionTaken": "Timed out and didn't declare any attackers, missing 8 damage.",
+      "betterLine": "Attack with both Kibo and Towering Gibbon for 8 unblockable damage, bringing the opponent to 12 life.",
+      "type": "blunder",
+      "snapshotIndex": 250,
+      "player": "Grok4 Optim"
+    },
+    {
+      "severity": "minor",
+      "description": "Chump-blocking with Pridemalkin 3/2 (the only creature on board) to save 4 life while at 20 life against an opponent at 8 life. Pridemalkin can't trade with either 4/4 attacker, so it dies for nothing but 4 life saved. Meanwhile, keeping Pridemalkin alive preserves a 3/2 trampler that threatens an opponent at 8 life.",
+      "actionTaken": "Blocked with Pridemalkin, losing the only creature to save 4 life at a comfortable 20 life total.",
+      "betterLine": "Don't block. Take 8 damage to go to 12 life, which is still safe, and keep Pridemalkin as an offensive threat against the opponent's 8 life total.",
+      "type": "blunder",
+      "snapshotIndex": 256,
+      "player": "GPT52 Coach"
+    },
+    {
+      "severity": "major",
+      "description": "Failed to declare attackers with a dominant board (Kibo 4/4, Silverback Shaman 8/7 trample, Towering Gibbon 5/4) against an opponent at 16 life with only a 3/3 Sabertooth Mauler to block. Any attack configuration deals 12-14 damage, putting opponent to 2-4 life or threatening lethal next turn. At 8 life, Grok4 needs to close the game quickly before the opponent rebuilds.",
+      "actionTaken": "No response (timeout) — no attackers declared, wasting the combat phase entirely.",
+      "betterLine": "Attack with all three creatures. With 17 total power (including Silverback Shaman's trample) against a single 3/3 blocker, this deals 12-14 damage regardless of how the opponent blocks, putting them to 2-4 life and threatening lethal next turn.",
+      "type": "blunder",
+      "snapshotIndex": 297,
+      "player": "Grok4 Optim"
+    }
+  ],
+  "blunderScriptVersion": 28
 }
