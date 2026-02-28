@@ -101,7 +101,9 @@ MAX_WORKERS = 50
 # v26: add "(no response)" guidance, fix land drops display ambiguity,
 #      filter mana sub-decisions and chat messages from context,
 #      show targeting/activation details in chosen block
-BLUNDER_SCRIPT_VERSION = 26
+# v27: fix is_forced false positives — boolean questions and single-choice
+#      selects with pass option are no longer skipped
+BLUNDER_SCRIPT_VERSION = 27
 
 # --- Prompt components ---
 

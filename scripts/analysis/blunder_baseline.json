@@ -1,137 +1,126 @@
 {
-  "blunder_script_version": 26,
-  "generated_at": "2026-02-28T01:54:26.532967+00:00",
-  "cost_usd": 1.00365,
+  "blunder_script_version": 27,
+  "generated_at": "2026-02-28T03:14:16.634955+00:00",
+  "cost_usd": 0.9411549999999999,
   "results": {
-    "game_20260217_075450_g7:11": {
-      "detected": false
-    },
     "game_20260219_091818_g6:8": {
-      "detected": false
-    },
-    "game_20260217_075450_g6:0": {
       "detected": false
     },
     "game_20260219_091818_g6:53": {
       "detected": false
     },
-    "game_20260217_075450_g7:25": {
+    "game_20260217_075450_g6:0": {
       "detected": false
     },
-    "game_20260226_003306_g4:44": {
+    "game_20260217_075450_g7:25": {
       "detected": false
     },
     "game_20260219_091818_g8:42": {
       "detected": false
     },
-    "game_20260226_003306_g4:32": {
-      "detected": false
-    },
-    "game_20260217_075450_g7:7": {
-      "detected": false
-    },
-    "game_20260217_075450_g6:7": {
-      "detected": false
-    },
-    "game_20260226_003306_g5:3": {
+    "game_20260226_003306_g4:44": {
       "detected": false
     },
     "game_20260226_003306_g4:12": {
       "detected": false
     },
-    "game_20260226_003306_g5:4": {
+    "game_20260219_091818_g8:49": {
       "detected": false
+    },
+    "game_20260217_075450_g6:7": {
+      "detected": false
+    },
+    "game_20260226_003306_g4:22": {
+      "detected": false
+    },
+    "game_20260226_003306_g4:32": {
+      "detected": false
+    },
+    "game_20260226_003306_g4:6": {
+      "detected": false
+    },
+    "game_20260226_003306_g5:3": {
+      "detected": false
+    },
+    "game_20260217_075450_g7:7": {
+      "detected": false
+    },
+    "game_20260217_223017_g8:7": {
+      "detected": true,
+      "severity": "moderate",
+      "description": "Chose to copy Wistfulness with Superior Spider-Man, but Wistfulness's ETB abilities won't trigger because the required colored mana ({G}{G} or {U}{U}) wasn't spent to cast Superior Spider-Man ({2}{U}{B}). This results in a vanilla 4/4. Oblivious Bookworm would have given a 4/4 with repeatable end-step card draw, which is crucial when nearly empty-handed against an opponent with 6 cards and two Enduring Curiosity."
+    },
+    "game_20260219_091818_g8:46": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Passed priority without activating Psychic Frog's discard ability. With duplicate Watery Graves and excess lands in hand, discarding at least one to put a +1/+1 counter on Psychic Frog would grow it for next turn's attack at minimal cost. The Frog draws cards on combat damage, so a bigger Frog is more likely to connect and the discarded cards also fuel its flying ability."
     },
     "game_20260226_003306_g4:37": {
       "detected": false
     },
-    "game_20260217_075450_g6:6": {
-      "detected": false
-    },
-    "game_20260217_075450_g7:44": {
+    "game_20260219_091818_g8:72": {
       "detected": false
     },
     "game_20260217_075450_g6:16": {
       "detected": false
     },
-    "game_20260226_003306_g4:14": {
+    "game_20260217_223017_g8:11": {
       "detected": true,
-      "severity": "minor",
-      "description": "Playing Boseiju, Who Endures as a land wastes its powerful Channel ability (destroy artifact/enchantment/nonbasic land). Eldrazi Temple would have been better since it also enables casting Glaring Fleshraker this turn ({C}{C} from Ugin's Labyrinth + {C} from Eldrazi Temple = {2}{C}) while providing superior mana for future Eldrazi spells like Kozilek's Command, and preserving Boseiju as removal."
-    },
-    "game_20260219_091818_g8:49": {
-      "detected": false
-    },
-    "game_20260226_003306_g4:6": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Chose Walking Ballista over Eldrazi Temple from Devourer of Destiny's look-at-4 ability. A second Eldrazi Temple would provide significant mana acceleration for the Eldrazi-heavy hand (Glaring Fleshraker, Kozilek's Command, Devourer of Destiny), enabling faster deployment of key threats. The player already has 4 lands in hand, so the extra Temple's CC for Eldrazi spells is more valuable than Walking Ballista as a mana sink."
+      "severity": "major",
+      "description": "At 2 life facing lethal on board (4/3 Enduring Curiosity), choosing Oblivious Bookworm over Deep-Cavern Bat is a critical error. Deep-Cavern Bat would make Superior Spider-Man a 4/4 with flying and lifelink - flying blocks the Enduring Curiosity, lifelink stabilizes from 2 life, and the ETB exiles a card from opponent's 7-card hand. Oblivious Bookworm gives a ground 4/4 with a draw/discard ability that doesn't help survive."
     },
     "game_20260219_091818_g7:27": {
       "detected": false
     },
-    "game_20260217_223017_g8:2": {
+    "game_20260217_223017_g8:24": {
+      "detected": true,
+      "severity": "moderate",
+      "description": "Kimi25 Snark attempted to cast Shoot the Sheriff but failed the mana payment, resulting in no action taken during the declare attackers step. They're taking 6 damage from Formidable Speaker (2/4) and Superior Spider-Man (4/4) when they had Floodpits Drowner available at {1}{U} which could flash in, tap Superior Spider-Man (the bigger threat), and then Tishana's Tidebinder could block the 2/4 Formidable Speaker, significantly reducing combat damage. The opponent is at 2 life so preserving life total while maintaining board presence is critical."
+    },
+    "game_20260217_075450_g7:44": {
+      "detected": false
+    },
+    "game_20260217_075450_g6:6": {
+      "detected": false
+    },
+    "game_20260219_091818_g8:67": {
       "detected": false
     },
     "game_20260219_091818_g6:43": {
-      "detected": false
-    },
-    "game_20260226_003306_g4:22": {
       "detected": true,
       "severity": "minor",
-      "description": "Fetched Blood Crypt instead of a basic Mountain. They already have a Blood Crypt for black mana, and their hand (Burning Inquiry R, Orcish Bowmasters 1B, Mountain) means a basic Mountain covers all their mana needs. Fetching Blood Crypt costs an extra 2 life to enter untapped (or enters tapped, wasting tempo) for no benefit."
-    },
-    "game_20260219_091818_g8:46": {
-      "detected": true,
-      "severity": "questionable",
-      "description": "Passing with the option to discard a redundant land to Psychic Frog for a permanent +1/+1 counter. With 4 lands in hand (Bloodstained Mire, Island, Watery Grave, Watery Grave) and only needing a few more land drops, discarding an excess land now grows the Frog for next turn's attack at minimal cost. It also builds graveyard resources for Frog's flying ability."
-    },
-    "game_20260219_091818_g8:72": {
-      "detected": false
-    },
-    "game_20260217_223017_g8:11": {
-      "detected": true,
-      "severity": "moderate",
-      "description": "At 2 life against an opponent at 16 with threatening creatures, choosing Oblivious Bookworm over Deep-Cavern Bat for the Superior Spider-Man copy is a significant error. Deep-Cavern Bat would give a 4/4 with flying and lifelink \u2014 the lifelink is critical for survival at 2 life, the flying helps block Enduring Curiosity or attack over ground creatures, and the ETB lets you see and exile a card from the opponent's 7-card hand. Oblivious Bookworm's card draw with mandatory discard is far less impactful when you're about to die."
-    },
-    "game_20260219_091818_g8:67": {
-      "detected": true,
-      "severity": "moderate",
-      "description": "Passed priority in precombat main without pumping Psychic Frog before combat. The opponent has Fallaji Archaeologist 0/3 which can block the 1/2 Frog on the ground, preventing combat damage and the card draw trigger. Kimi25 has 4 cards in graveyard and could exile 3 to give Frog flying, and discard Street Wraith to make it a 2/3 flyer that gets through for damage and draws a card."
-    },
-    "game_20260217_223017_g8:7": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Copying Wistfulness with Superior Spider-Man creates a vanilla 4/4 since neither {G}{G} nor {U}{U} was spent to cast Superior Spider-Man. Copying Oblivious Bookworm would create a 4/4 with repeatable card filtering (draw then discard) each end step, which is significantly more valuable especially with only 2 cards in hand and needing to find more threats/answers."
-    },
-    "game_20260226_003306_g4:27": {
-      "detected": false
-    },
-    "game_20260226_003306_g4:15": {
-      "detected": false
-    },
-    "game_20260217_223017_g8:24": {
-      "detected": true,
-      "severity": "minor",
-      "description": "Attempted to cast Shoot the Sheriff but couldn't complete the mana payment, resulting in a rolled-back action. Floodpits Drowner was available at {1}{U} which could flash in, tap Superior Spider-Man (4/4), and prevent 4 combat damage while adding a body for a potential lethal counterattack next turn against the opponent at 2 life."
-    },
-    "game_20260217_223017_g8:3": {
-      "detected": true,
-      "severity": "questionable",
-      "description": "Cast Enduring Curiosity using all 4 mana, leaving no interaction for opponent's Oblivious Bookworm end step trigger. Bookworm will draw opponent a card (and likely keep it since they played a land this turn... no, face-down requirement). Kimi had Shoot the Sheriff to cleanly kill Bookworm or Tishana's Tidebinder to counter the trigger and permanently strip its abilities."
+      "description": "Cast Young Wolf before playing a land, missing the opportunity to play Wooded Foothills first, fetch a land, and have 2 mana available to cast Badgermole Cub instead. Badgermole Cub would accelerate toward casting Yawgmoth (the key combo piece) by creating extra mana via earthbend, which is critical with two 4/4 Territorial Kavus threatening lethal. Even if Young Wolf was the intended play, playing the land first preserves more options."
     },
     "game_20260226_003306_g4:3": {
       "detected": true,
       "severity": "moderate",
-      "description": "Bottomed Hollow One instead of a redundant third land. With Burning Inquiry in hand, Hollow One becomes free (3 discards = 6 mana reduction). The T1 line of Mountain \u2192 Marauding Mako \u2192 Burning Inquiry \u2192 free Hollow One is an explosive start that creates a 4/4 and a Mako with +3/+3 counters (from 3 random discards). Even with random discard risk, keeping Hollow One has very high expected value."
+      "description": "Bottomed Hollow One instead of Marauding Mako, giving up the explosive Turn 1 line of Burning Inquiry into free Hollow One (4/4). With Burning Inquiry causing 3 discards, Hollow One costs 0 mana. Even accounting for the ~43% chance Hollow One gets randomly discarded by Burning Inquiry, the expected value of keeping it is much higher than keeping Marauding Mako (a 1/1 for R). Additionally, Orcish Bowmasters punishes the opponent's 3 draws from Burning Inquiry."
     },
-    "game_20260226_003306_g5:19": {
+    "game_20260226_003306_g5:4": {
+      "detected": true,
+      "severity": "minor",
+      "description": "In Legacy, it's generally better to play fetchlands before dual lands. Playing Bloodstained Mire and fetching Badlands would thin the deck while keeping the other Mire for later, preserving options. Playing Badlands first wastes a chance to thin the deck (since they'd play Mires on subsequent turns fetching from a library that still has Badlands in it - though actually Badlands was the only copy)."
+    },
+    "game_20260217_223017_g8:3": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Casting Enduring Curiosity in their own postcombat main phase when it has flash. This taps out all 4 lands, leaving no mana to interact on the opponent's turn. The opponent has Oblivious Bookworm which will trigger at end step for card advantage."
+    },
+    "game_20260226_003306_g4:15": {
       "detected": false
+    },
+    "game_20260226_003306_g4:14": {
+      "detected": true,
+      "severity": "minor",
+      "description": "Playing Boseiju, Who Endures as a land wastes its Channel ability (instant-speed removal for artifacts/enchantments/nonbasic lands) and provides less mana acceleration than Eldrazi Temple for the Eldrazi-heavy game plan. Both lands enable casting Glaring Fleshraker this turn, but Eldrazi Temple's extra colorless mana for Eldrazi spells would enable a larger Kozilek's Command on future turns."
     },
     "game_20260226_003306_g4:9": {
       "detected": true,
       "severity": "minor",
-      "description": "Playing Blood Crypt as the first land when they have Bloodstained Mire and Mountain available. With zero lands on board, paying 2 life for an untapped Blood Crypt provides marginal benefit since they can't cast Orcish Bowmasters with just one land anyway. A Bloodstained Mire would provide more flexibility (crack at instant speed, deck thinning, fetch the right land when needed), or Mountain would provide R mana for free (enabling Marauding Mako without life cost)."
+      "description": "Playing Blood Crypt as the first land instead of Bloodstained Mire is slightly suboptimal. Bloodstained Mire preserves flexibility - it can be cracked at instant speed to fetch whichever basic land type is needed, and fetching a basic costs only 1 life vs 2 life for Blood Crypt untapped. Playing the fetch land first is standard sequencing since it provides maximum optionality throughout the turn."
+    },
+    "game_20260226_003306_g5:19": {
+      "detected": false
     }
   }
 }

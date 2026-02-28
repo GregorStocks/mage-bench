@@ -75138,7 +75138,7 @@
       "message": "Mulligan <font color=#ffff00>down to 6 cards</font>?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -75174,7 +75174,7 @@
       "message": "Mulligan <font color=#ffff00>down to 6 cards</font>?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -75217,7 +75217,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p3"
@@ -75414,7 +75414,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p5"
@@ -75454,7 +75454,7 @@
       "message": "pay 2 life? (otherwise Breeding Pool becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -75556,7 +75556,7 @@
       "message": "pay 2 life? (otherwise Hallowed Fountain becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -75603,7 +75603,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p6"
@@ -75653,7 +75653,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p12"
@@ -75693,7 +75693,7 @@
       "message": "Discard a card and search your library for a creature card, reveal it, put it into your hand, then shuffle?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -75808,7 +75808,7 @@
       "message": "Pay Kicker {1}{U} ?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -75922,7 +75922,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -75962,7 +75962,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -76013,7 +76013,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p17"
@@ -76318,7 +76318,7 @@
       "message": "Pay Kicker {1}{U} ?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -76478,7 +76478,7 @@
       "message": "pay 2 life? (otherwise Watery Grave becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -76577,7 +76577,7 @@
       "message": "Use effect of <font color='#DAA520' object_id='59290b30-f9d7-41d3-91c9-93319c1ac533'>Superior Spider-Man</font> [592]?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -76720,7 +76720,7 @@
       "message": "Discard a card and search your library for a creature card, reveal it, put it into your hand, then shuffle?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -77083,7 +77083,7 @@
       "message": "pay 2 life? (otherwise Hallowed Fountain becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -77607,7 +77607,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {
         "blockers": ":[{"
@@ -77894,7 +77894,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p24"
@@ -78062,7 +78062,7 @@
       "message": "Discard a card and search your library for a creature card, reveal it, put it into your hand, then shuffle?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -78101,7 +78101,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -78340,7 +78340,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -78731,7 +78731,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p24"
@@ -79037,7 +79037,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -79194,7 +79194,7 @@
       "message": "Put <font color='#DAA520' object_id='ef55e6ac-a8e5-4187-8ac4-4bf2b5607d25'>Deceit</font> [ef5] in your graveyard?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -79318,7 +79318,7 @@
       "message": "Pay Kicker {1}{U} ?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -79866,7 +79866,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -80059,7 +80059,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -80173,7 +80173,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -81967,7 +81967,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -82698,7 +82698,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -82958,7 +82958,7 @@
       "message": "Discard a card and search your library for a creature card, reveal it, put it into your hand, then shuffle?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -84335,7 +84335,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -84797,7 +84797,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -84836,7 +84836,7 @@
       "message": "pay 2 life? (otherwise Overgrown Tomb becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -85594,7 +85594,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -85633,7 +85633,7 @@
       "message": "pay 2 life? (otherwise Watery Grave becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -85672,7 +85672,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -85852,7 +85852,7 @@
       "message": "Put <font color='#696969' object_id='ec9d86d4-5b8d-4fe7-bde3-bb0f1017e761'>Requiting Hex</font> [ec9] in your graveyard?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true

@@ -32173,7 +32173,7 @@
       "message": "Mulligan down to 6 cards?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -32208,7 +32208,7 @@
       "message": "Mulligan down to 5 cards?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -32299,7 +32299,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {
         "id": "\"p6\""

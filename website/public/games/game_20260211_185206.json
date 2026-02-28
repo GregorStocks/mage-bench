@@ -65105,7 +65105,7 @@
       "message": "Mulligan <font color=#ffff00>down to 6 cards</font>?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -65139,7 +65139,7 @@
       "message": "Mulligan <font color=#ffff00>down to 6 cards</font>?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -65169,7 +65169,7 @@
       "message": "Mulligan <font color=#ffff00>down to 6 cards</font>?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -65257,7 +65257,7 @@
       "message": "pay 2 life? (otherwise Overgrown Tomb becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -65344,7 +65344,7 @@
       "message": "pay 2 life? (otherwise Breeding Pool becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -65665,7 +65665,7 @@
       "message": "pay 2 life? (otherwise Breeding Pool becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -66322,7 +66322,7 @@
       "message": "Use effect of <font color='#87CEFA' object_id='7aa6fe83-ca67-457e-ac66-588b404a254b'>Mockingbird</font> [7aa]?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -66365,7 +66365,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -66403,7 +66403,7 @@
       "message": "Use effect of <font color='#87CEFA' object_id='9182b112-8ace-4ca7-a5e9-8243766545e7'>Mockingbird</font> [918]?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -66500,7 +66500,7 @@
       "message": "pay 2 life? (otherwise Breeding Pool becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -66652,7 +66652,7 @@
       "message": "Discard a card or pay 3 life?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -66911,7 +66911,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -67051,7 +67051,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -67083,7 +67083,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -67226,7 +67226,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -67477,7 +67477,7 @@
       "message": "Discard a card and search your library for a creature card, reveal it, put it into your hand, then shuffle?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -67819,7 +67819,7 @@
       "message": "Select attackers",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -67862,7 +67862,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -68011,7 +68011,7 @@
       "message": "pay 2 life? (otherwise Temple Garden becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -68054,7 +68054,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -68382,7 +68382,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -68425,7 +68425,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -68515,7 +68515,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -68608,7 +68608,7 @@
       "message": "Select attackers",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -68650,7 +68650,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -68773,7 +68773,7 @@
       "message": "Use effect of <font color='#87CEFA' object_id='06cb9a4a-3b7b-4710-88d9-36597fa0bdc1'>Mockingbird</font> [06c]?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -69035,7 +69035,7 @@
       "message": "Select attackers",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -69078,7 +69078,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -69134,7 +69134,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -69293,7 +69293,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -69336,7 +69336,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -69809,7 +69809,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -69860,7 +69860,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -69926,7 +69926,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -70242,7 +70242,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0
@@ -70710,7 +70710,7 @@
       "message": "Select attackers",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -70750,7 +70750,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -70852,7 +70852,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false

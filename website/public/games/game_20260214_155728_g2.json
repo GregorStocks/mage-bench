@@ -120971,7 +120971,7 @@
       "message": "Mulligan <font color=#ffff00>down to 6 cards</font>?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -121001,7 +121001,7 @@
       "message": "Mulligan <font color=#ffff00>down to 6 cards</font>?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -121035,7 +121035,7 @@
       "message": "Mulligan <font color=#ffff00>down to 6 cards</font>?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -121150,7 +121150,7 @@
       "message": "Mulligan <font color=#ffff00>down to 5 cards</font>?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -121338,7 +121338,7 @@
       "message": "Mulligan <font color=#ffff00>down to 4 cards</font>?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -121381,7 +121381,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p1"
@@ -121478,7 +121478,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -121623,7 +121623,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p2"
@@ -121663,7 +121663,7 @@
       "message": "pay 2 life? (otherwise Sacred Foundry becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -121815,7 +121815,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p4"
@@ -122370,7 +122370,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -122409,7 +122409,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -122451,7 +122451,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -122653,7 +122653,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "amount": 0,
@@ -122712,7 +122712,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p13"
@@ -122904,7 +122904,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -122943,7 +122943,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "index": 0,
@@ -122984,7 +122984,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -123367,7 +123367,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -123506,7 +123506,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -123631,7 +123631,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "amount": 0,
@@ -123681,7 +123681,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -123731,7 +123731,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -123822,7 +123822,7 @@
       "message": "pay 2 life? (otherwise Stomping Ground becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -124045,7 +124045,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -124094,7 +124094,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -124457,7 +124457,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -125626,7 +125626,7 @@
       "message": "pay 2 life? (otherwise Stomping Ground becomes tapped)",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -125744,7 +125744,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {
         "attackers": [
@@ -125795,7 +125795,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "amount": 0,
@@ -125854,7 +125854,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -126017,7 +126017,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -126849,7 +126849,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "amount": 0,
@@ -131826,7 +131826,7 @@
       "message": "Discard a card and draw a card?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -133055,7 +133055,7 @@
       "message": "Pay Kicker {1}{C} ?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -133860,7 +133860,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -133893,7 +133893,7 @@
       "message": "Discard a card and draw a card?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -134449,7 +134449,7 @@
       "message": "Discard a card and draw a card?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -135638,7 +135638,7 @@
       "message": "Discard a card and draw a card?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -136102,7 +136102,7 @@
       "message": "Exile this card from your graveyard and Kozilek's Return deals 5 damage to each creature?",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": true,
       "chosenArgs": {
         "answer": true
@@ -136216,7 +136216,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "id": "p92"
@@ -136256,7 +136256,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": 0,
       "chosenArgs": {
         "amount": 0,
@@ -136357,7 +136357,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -136531,7 +136531,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -136570,7 +136570,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -136602,7 +136602,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -136634,7 +136634,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -136670,7 +136670,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -136704,7 +136704,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {
         "id": "p106"
@@ -136744,7 +136744,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": 3,
       "chosenArgs": {
         "index": 3
@@ -136784,7 +136784,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -136816,7 +136816,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": 1,
       "chosenArgs": {
         "index": 1
@@ -136856,7 +136856,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -136889,7 +136889,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": 2,
       "chosenArgs": {
         "index": 2
@@ -136929,7 +136929,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": 1,
       "chosenArgs": {
         "index": 1
@@ -136969,7 +136969,7 @@
       "message": "Play spells and abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -137338,7 +137338,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": null,
       "chosenArgs": {},
       "actionResult": {},
@@ -137381,7 +137381,7 @@
         }
       ],
       "choiceCount": 1,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -138496,7 +138496,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
@@ -138535,7 +138535,7 @@
       "message": "Play instants and activated abilities",
       "choices": [],
       "choiceCount": 0,
-      "isForced": true,
+      "isForced": false,
       "chosen": false,
       "chosenArgs": {
         "answer": false
