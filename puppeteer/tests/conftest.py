@@ -1,9 +1,5 @@
 """Shared fixtures for golden prompt integration tests."""
 
-from __future__ import annotations
-
-import concurrent.futures
-import dataclasses
 import os
 import re
 import subprocess
@@ -28,8 +24,6 @@ from tests.golden_helpers import (
     _wait_for_log_marker,
     compute_module_classpath,
     print_timing_summary,
-    run_golden_scenario,
-    run_golden_scenario_two_replay,
     timed_phase,
 )
 
@@ -159,162 +153,6 @@ def xmage_server(project_root, tmp_path_factory):
     finally:
         kill_tree(server_proc.pid)
         server_log_fh.close()
-
-
-@dataclasses.dataclass
-class ScenarioResult:
-    """Result of running a subprocess golden scenario."""
-
-    prompt: list[dict]
-    game_dir: Path
-    error: BaseException | None
-
-
-def _start_persistent_spectator(
-    server: str,
-    port: int,
-    project_root: Path,
-    username: str,
-    log_dir: Path,
-) -> SpectatorProcess:
-    """Start a keepAlive spectator JVM and wait for it to be ready."""
-    allowed_sets = extract_golden_set_codes(project_root)
-
-    cp = compute_module_classpath(project_root, "Mage.Client.Observer")
-    cmd = _build_java_cmd(
-        cp,
-        MAIN_CLASS_OBSERVER,
-        {
-            "xmage.aiPuppeteer.autoConnect": "true",
-            "xmage.aiPuppeteer.disableWhatsNew": "true",
-            "xmage.observer.noWindow": "true",
-            "xmage.observer.keepAlive": "true",
-            "xmage.aiPuppeteer.server": server,
-            "xmage.aiPuppeteer.port": str(port),
-            "xmage.aiPuppeteer.user": username,
-            "xmage.aiPuppeteer.password": "",
-            "xmage.sets.allowed": allowed_sets,
-        },
-    )
-
-    log_path = log_dir / f"{username}.log"
-    log_fh = open(log_path, "w")
-
-    env = os.environ.copy()
-    env.update(
-        {
-            "XMAGE_AI_PUPPETEER": "1",
-            "XMAGE_AI_PUPPETEER_USER": username,
-            "XMAGE_AI_PUPPETEER_PASSWORD": "",
-            "XMAGE_AI_PUPPETEER_SERVER": server,
-            "XMAGE_AI_PUPPETEER_PORT": str(port),
-            "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
-            "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
-            "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
-        }
-    )
-
-    proc = subprocess.Popen(
-        cmd,
-        cwd=project_root / "Mage.Client.Observer",
-        stdin=subprocess.PIPE,
-        stdout=log_fh,
-        stderr=subprocess.STDOUT,
-        env=env,
-    )
-
-    spectator = SpectatorProcess(proc, log_path)
-    print(f"Parallel spectator '{username}' started (pid={proc.pid})")
-    _wait_for_log_marker(log_path, "keepAlive: lobby initialized, ready for commands", proc, timeout=120)
-    print(f"Parallel spectator '{username}' ready")
-    return spectator
-
-
-@pytest.fixture(scope="session")
-def parallel_subprocess_results(
-    xmage_server: tuple[str, int],
-    project_root: Path,
-    tmp_path_factory: pytest.TempPathFactory,
-) -> dict[str, ScenarioResult]:
-    """Run all non-persistent golden scenarios in parallel.
-
-    Each scenario uses unique XMage usernames so they can share the same
-    server without collisions.  Uses persistent keepAlive spectators
-    (started sequentially during setup) to avoid the race conditions of
-    spawning fresh spectator JVMs simultaneously.
-    """
-    from tests.golden_scenarios import SUBPROCESS_SCENARIOS, Scenario
-
-    server, port = xmage_server
-    base_dir = tmp_path_factory.mktemp("parallel")
-    spectator_log_dir = base_dir / "spectator_logs"
-    spectator_log_dir.mkdir()
-
-    # Start persistent spectators sequentially (reliable) before parallel execution.
-    spectators: dict[str, SpectatorProcess] = {}
-    for scenario in SUBPROCESS_SCENARIOS:
-        spectators[scenario.golden_name] = _start_persistent_spectator(
-            server,
-            port,
-            project_root,
-            scenario.spectator_name,
-            spectator_log_dir,
-        )
-
-    def run_one(scenario: Scenario) -> tuple[str, ScenarioResult]:
-        game_dir = base_dir / scenario.golden_name
-        game_dir.mkdir()
-        sp = spectators[scenario.golden_name]
-        try:
-            if scenario.script_b is not None:
-                prompt = run_golden_scenario_two_replay(
-                    server=server,
-                    port=port,
-                    project_root=project_root,
-                    game_dir=game_dir,
-                    deck_a=scenario.deck_a,
-                    deck_b=scenario.deck_b,
-                    script_a=scenario.script_a,
-                    script_b=scenario.script_b,
-                    golden_name=scenario.golden_name,
-                    player_a_name=scenario.player_a_name,
-                    player_b_name=scenario.player_b_name,
-                    spectator=sp,
-                    skip_assert=True,
-                )
-            else:
-                prompt = run_golden_scenario(
-                    server=server,
-                    port=port,
-                    project_root=project_root,
-                    game_dir=game_dir,
-                    deck_a=scenario.deck_a,
-                    deck_b=scenario.deck_b,
-                    script=scenario.script_a,
-                    golden_name=scenario.golden_name,
-                    player_a_name=scenario.player_a_name,
-                    player_b_name=scenario.player_b_name,
-                    spectator=sp,
-                    skip_assert=True,
-                )
-            return scenario.golden_name, ScenarioResult(prompt, game_dir, None)
-        except BaseException as e:
-            return scenario.golden_name, ScenarioResult([], game_dir, e)
-
-    results: dict[str, ScenarioResult] = {}
-    try:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-            futures = [executor.submit(run_one, s) for s in SUBPROCESS_SCENARIOS]
-            for future in concurrent.futures.as_completed(futures):
-                name, result = future.result()
-                results[name] = result
-    finally:
-        for sp in spectators.values():
-            sp.close()
-            if sp.proc.poll() is None:
-                kill_tree(sp.proc.pid)
-
-    return results
 
 
 @pytest.fixture(scope="session")
@@ -451,19 +289,69 @@ def spectator_process(xmage_server, project_root):
     fresh JVM per test.
     """
     server, port = xmage_server
+
     tmp_dir = project_root / "tmp" / "golden-spectator"
     tmp_dir.mkdir(parents=True, exist_ok=True)
 
+    allowed_sets = extract_golden_set_codes(project_root)
+
+    cp = compute_module_classpath(project_root, "Mage.Client.Observer")
+    spectator_cmd = _build_java_cmd(
+        cp,
+        MAIN_CLASS_OBSERVER,
+        {
+            "xmage.aiPuppeteer.autoConnect": "true",
+            "xmage.aiPuppeteer.disableWhatsNew": "true",
+            "xmage.observer.noWindow": "true",
+            "xmage.observer.keepAlive": "true",
+            "xmage.aiPuppeteer.server": server,
+            "xmage.aiPuppeteer.port": str(port),
+            "xmage.aiPuppeteer.user": "spectator",
+            "xmage.aiPuppeteer.password": "",
+            "xmage.sets.allowed": allowed_sets,
+        },
+    )
+
+    spectator_log = tmp_dir / "spectator.log"
+    spectator_log_fh = open(spectator_log, "w")
+
+    env = os.environ.copy()
+    env.update(
+        {
+            "XMAGE_AI_PUPPETEER": "1",
+            "XMAGE_AI_PUPPETEER_USER": "spectator",
+            "XMAGE_AI_PUPPETEER_PASSWORD": "",
+            "XMAGE_AI_PUPPETEER_SERVER": server,
+            "XMAGE_AI_PUPPETEER_PORT": str(port),
+            "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
+            "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
+            "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
+        }
+    )
+
+    proc = subprocess.Popen(
+        spectator_cmd,
+        cwd=project_root / "Mage.Client.Observer",
+        stdin=subprocess.PIPE,
+        stdout=spectator_log_fh,
+        stderr=subprocess.STDOUT,
+        env=env,
+    )
+
     with timed_phase("session", "spectator_jvm_startup"):
-        spectator = _start_persistent_spectator(server, port, project_root, "spectator", tmp_dir)
+        spectator = SpectatorProcess(proc, spectator_log)
+        print(f"Spectator JVM started (pid={proc.pid}), waiting for keepAlive ready...")
+        _wait_for_log_marker(spectator_log, "keepAlive: lobby initialized, ready for commands", proc, timeout=120)
+        print("Spectator keepAlive ready")
 
     yield spectator
 
     spectator.close()
     try:
-        spectator.proc.wait(timeout=10)
+        proc.wait(timeout=10)
     except subprocess.TimeoutExpired:
-        kill_tree(spectator.proc.pid)
+        kill_tree(proc.pid)
+    spectator_log_fh.close()
 
 
 def pytest_sessionfinish(session: pytest.Session, exitstatus: int) -> None:

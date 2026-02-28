@@ -2,7 +2,6 @@ from tests.golden_helpers import (
     _is_short_id,
     _json_diff,
     _normalize_embedded_json,
-    _normalize_player_names,
     _normalize_prompt_for_golden,
     _strip_volatile,
 )
@@ -91,41 +90,6 @@ def test_strip_volatile_sorts_llm_events_by_seq_player():
     trace = data["llmTrace"]
     assert all("ts" not in e for e in trace)
     assert [(e["player"], e["seq"]) for e in trace] == [("A", 1), ("B", 1)]
-
-
-def test_normalize_player_names_replaces_in_strings():
-    data = {
-        "name": "Player_MD",
-        "message": "Player_MD plays Island",
-        "nested": {"opponent": "Opp_MD attacks"},
-    }
-    name_map = {"Player_MD": "TestPlayer", "Opp_MD": "Opponent"}
-
-    result = _normalize_player_names(data, name_map)
-
-    assert result == {
-        "name": "TestPlayer",
-        "message": "TestPlayer plays Island",
-        "nested": {"opponent": "Opponent attacks"},
-    }
-
-
-def test_normalize_player_names_replaces_in_lists():
-    data = ["Player_MD", "Opp_MD", "other"]
-    name_map = {"Player_MD": "TestPlayer", "Opp_MD": "Opponent"}
-
-    result = _normalize_player_names(data, name_map)
-
-    assert result == ["TestPlayer", "Opponent", "other"]
-
-
-def test_normalize_player_names_preserves_non_strings():
-    data = {"life": 20, "active": True, "cards": None}
-    name_map = {"Player_MD": "TestPlayer"}
-
-    result = _normalize_player_names(data, name_map)
-
-    assert result == {"life": 20, "active": True, "cards": None}
 
 
 # --- _json_diff tests ---
