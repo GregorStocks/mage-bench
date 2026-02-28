@@ -646,12 +646,7 @@
   },
   {
     "content": {
-      "action_taken": "selected_target_1",
-      "game_seq": 22,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
+      "error": "Unknown short ID: p2"
     },
     "role": "tool",
     "tool_call_id": "call_9"
@@ -686,16 +681,7 @@
               "rules": [
                 "{T}: Add {R}."
               ],
-              "tapped": true
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ]
+              "tapped": false
             }
           ],
           "hand": [
@@ -712,6 +698,16 @@
               "id": "_",
               "mana_cost": "{R}",
               "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
               "rules": [
                 "{this} deals 3 damage to any target."
               ]
@@ -742,7 +738,7 @@
               ]
             }
           ],
-          "hand_size": 5,
+          "hand_size": 6,
           "is_active": false,
           "is_you": true,
           "library_size": 53,
@@ -754,17 +750,34 @@
           "is_active": true,
           "is_you": false,
           "library_size": 52,
-          "life": 17,
+          "life": 20,
           "name": "Opponent"
         }
       ],
       "board_cursor": 6,
+      "choices": [
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 0,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        },
+        {
+          "action": "cast",
+          "id": "_",
+          "index": 1,
+          "mana_cost": "{R}",
+          "name": "Lightning Bolt"
+        }
+      ],
       "context": "T1 Precombat Main/Precombat Main (Opponent)",
-      "game_seq": 32,
+      "game_seq": 23,
       "message": "Play instants and activated abilities",
-      "respond_with": "answer=true (confirm) or answer=false (pass)",
-      "response_type": "boolean",
-      "stop_reason": "stack_resolved"
+      "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+      "response_type": "select",
+      "stop_reason": "stack_resolved",
+      "untapped_lands": 1
     },
     "role": "tool",
     "tool_call_id": "call_10"
@@ -788,7 +801,7 @@
       "active_player": "Opponent",
       "available": true,
       "cursor": 1,
-      "game_seq": 32,
+      "game_seq": 23,
       "phase": "Precombat Main",
       "players": [
         {
@@ -799,16 +812,7 @@
               "rules": [
                 "{T}: Add {R}."
               ],
-              "tapped": true
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Lightning Bolt",
-              "rules": [
-                "{this} deals 3 damage to any target."
-              ]
+              "tapped": false
             }
           ],
           "hand": [
@@ -825,6 +829,16 @@
               "id": "_",
               "mana_cost": "{R}",
               "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
               "rules": [
                 "{this} deals 3 damage to any target."
               ]
@@ -855,7 +869,7 @@
               ]
             }
           ],
-          "hand_size": 5,
+          "hand_size": 6,
           "is_active": false,
           "is_you": true,
           "library_size": 53,
@@ -867,7 +881,7 @@
           "is_active": true,
           "is_you": false,
           "library_size": 52,
-          "life": 17,
+          "life": 20,
           "name": "Opponent"
         }
       ],
@@ -895,9 +909,9 @@
   },
   {
     "content": {
-      "cursor": 20,
-      "event_count": 20,
-      "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n    - Opponent lost 3 life\n"
+      "cursor": 18,
+      "event_count": 18,
+      "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n"
     },
     "role": "tool",
     "tool_call_id": "call_12"

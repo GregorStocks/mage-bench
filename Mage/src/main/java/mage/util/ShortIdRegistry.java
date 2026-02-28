@@ -11,16 +11,12 @@ import java.util.logging.Logger;
  * Bidirectional mapping between XMage UUIDs and short, token-efficient IDs.
  *
  * <h3>Dual-namespace design</h3>
- * Short IDs use two prefixes:
- * <ul>
- *   <li>{@code "l"} — locally-assigned IDs (via {@link #getOrAssign}), used when
- *       a UUID is first seen without a server-assigned ID</li>
- *   <li>{@code "p"} — server-assigned IDs (via {@link #register}), authoritative
- *       and sourced from {@code CardView.getShortId()}</li>
- * </ul>
- * When a server ID replaces a local ID, the old local ID is kept as a
- * resolve-only alias in {@code shortToUuid} so that stale references (e.g.
- * from an LLM's mana plan) still resolve to the correct UUID.
+ * The server uses prefix {@code "p"} (the default). The bridge client uses
+ * prefix {@code "l"} for locally-assigned fallback IDs (via {@link #getOrAssign}),
+ * while server-assigned IDs (received via {@link #register}) keep whatever
+ * prefix the server used. When a server ID replaces a local ID, the old local
+ * ID is kept as a resolve-only alias in {@code shortToUuid} so that stale
+ * references (e.g. from an LLM's mana plan) still resolve to the correct UUID.
  *
  * <h3>Deterministic ordering invariant</h3>
  * All code that sorts game objects for display or ID assignment MUST produce
@@ -37,9 +33,20 @@ public class ShortIdRegistry {
 
     private static final Logger logger = Logger.getLogger(ShortIdRegistry.class.getName());
 
+    private final String prefix;
     private final Map<UUID, String> uuidToShort = new ConcurrentHashMap<>();
     private final Map<String, UUID> shortToUuid = new ConcurrentHashMap<>();
     private final AtomicInteger nextId = new AtomicInteger(1);
+
+    /** Create a registry with the default {@code "p"} prefix (used by the server). */
+    public ShortIdRegistry() {
+        this("p");
+    }
+
+    /** Create a registry with a custom prefix for {@link #getOrAssign} IDs. */
+    public ShortIdRegistry(String prefix) {
+        this.prefix = Objects.requireNonNull(prefix);
+    }
 
     /**
      * Get the short ID for a UUID, assigning a new one if first encounter.
@@ -49,7 +56,7 @@ public class ShortIdRegistry {
         if (existing != null) {
             return existing;
         }
-        String shortId = "l" + nextId.getAndIncrement();
+        String shortId = prefix + nextId.getAndIncrement();
         String race = uuidToShort.putIfAbsent(uuid, shortId);
         if (race != null) {
             return race;

@@ -147,7 +147,7 @@ public class BridgeCallbackHandler {
             }
         }
     }
-    private final ShortIdRegistry shortIds = new ShortIdRegistry();
+    private final ShortIdRegistry shortIds = new ShortIdRegistry("l");
     private volatile List<Object> lastChoices = null; // Index→UUID/String mapping for choose_action
     private volatile String lastChoicesActionType = null; // Debug context for stale-choice diagnostics
     private volatile String lastChoicesResponseType = null; // Debug context for stale-choice diagnostics
