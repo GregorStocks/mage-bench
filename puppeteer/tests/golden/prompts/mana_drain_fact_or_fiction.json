@@ -8,6 +8,10 @@
     "role": "user"
   },
   {
+    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
+  },
+  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -1653,9 +1657,213 @@
       {
         "function": {
           "arguments": {},
-          "name": "get_game_history"
+          "name": "get_game_state"
         },
         "id": "call_19",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "active_player": "TestPlayer",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 101,
+      "phase": "Precombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Sol Ring",
+              "rules": [
+                "{T}: Add {C}{C}."
+              ],
+              "tapped": true
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Djinn of Wishes",
+              "rules": [
+                "Flying",
+                "{this} enters with three wish counters on it.",
+                "{2}{U}{U}, Remove a wish counter from {this}: Reveal the top card of your library. You may play that card without paying its mana cost. If you don't, exile it."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Fact or Fiction",
+              "rules": [
+                "Reveal the top five cards of your library. An opponent separates those cards into two piles. Put one pile into your hand and the other into your graveyard."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mana Drain",
+              "rules": [
+                "Counter target spell. At the beginning of your next main phase, add an amount of {C} equal to that spell's mana value."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mind Control",
+              "rules": [
+                "Enchant creature",
+                "You control enchanted creature."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Serra Angel",
+              "rules": [
+                "Flying",
+                "Vigilance"
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Shivan Dragon",
+              "rules": [
+                "Flying",
+                "{R}: {this} gets +1/+0 until end of turn."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{3}{U}{U}",
+              "name": "Air Elemental",
+              "power": 4,
+              "rules": [
+                "Flying"
+              ],
+              "toughness": 4
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            }
+          ],
+          "hand_size": 5,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 46,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": true
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Savannah Lions"
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [
+        {
+          "id": "_",
+          "name": "Ability",
+          "rules": [
+            "At the beginning of your next main phase, add {C}."
+          ],
+          "targets": [
+            {
+              "id": "_",
+              "name": "TestPlayer (you)"
+            }
+          ]
+        }
+      ],
+      "step": "Precombat Main",
+      "turn": 3
+    },
+    "role": "tool",
+    "tool_call_id": "call_19"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_20",
         "type": "function"
       }
     ]
@@ -1667,6 +1875,6 @@
       "history": "Turn 1:\n    - TestPlayer drew Mana Drain\n    - TestPlayer drew Sol Ring\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n    - TestPlayer cast Sol Ring\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n  Postcombat Main:\n    - Opponent cast Savannah Lions\n    - TestPlayer cast Mana Drain\n    - A spell was countered\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Fact or Fiction\n  Precombat Main:\n    - TestPlayer cast Fact or Fiction\n"
     },
     "role": "tool",
-    "tool_call_id": "call_19"
+    "tool_call_id": "call_20"
   }
 ]
