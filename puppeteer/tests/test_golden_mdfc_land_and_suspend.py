@@ -50,32 +50,29 @@ def test_mdfc_land_and_suspend(
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "p11"}},
             # T2: Play Boggart Trawler as Boggart Bog (p10).
-            # until="precombat_main" skips through opponent's turn deterministically
-            # (plain pass_priority races with the autopass opponent).
-            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
+            {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "p10"}},
             # GAME_CHOOSE_ABILITY: select "Play Boggart Bog" (only option).
             {"name": "choose_action", "arguments": {"choice": "0"}},
             # Boggart Bog ETB: "you may pay 3 life" — decline, enters tapped.
             {"name": "choose_action", "arguments": {"choice": "no"}},
             # Advance through 4 upkeep counter removals.  Playing a Plains
-            # each turn uses the land drop.  until="precombat_main" skips
-            # through postcombat, combat, end step, opponent's turn, and
-            # the next upkeep (counter removal is automatic, no decision).
+            # each turn uses the land drop, so postcombat main has no playable
+            # cards and pass_priority auto-advances through the entire rest of
+            # the turn + opponent's turn in one call.
             #
             # T3 (upkeep: 4→3 counters): play Plains.
-            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
+            {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             # T4 (upkeep: 3→2 counters): play Plains.
-            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
+            {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             # T5 (upkeep: 2→1 counters): play Plains.
-            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
+            {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
-            # T6 (upkeep: 1→0 → suspend resolves): until="precombat_main"
-            # stops at the GAME_ASK "Cast spell without paying its mana cost?"
-            # because action_pending decisions interrupt the until advance.
-            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
+            # T6 (upkeep: 1→0 → suspend resolves): pass_priority stops at
+            # GAME_ASK "Cast spell without paying its mana cost?"
+            {"name": "pass_priority", "arguments": {}},
             # Answer yes to cast Crashing Footfalls from exile for free.
             {"name": "choose_action", "arguments": {"choice": "yes"}},
             # Spell resolves (2x 4/4 Rhino tokens created), stops at main.
