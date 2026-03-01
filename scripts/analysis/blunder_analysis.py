@@ -110,7 +110,8 @@ MAX_WORKERS = 50
 # v28: add deck archetype/strategy context to game overview when available
 # v29: fix batch attack/block decisions rendering as "(no response)" — now shows
 #      actual attackers/blockers from chosenArgs (eliminates false-positive annotations)
-BLUNDER_SCRIPT_VERSION = 29
+# v30: validate that all required fields are non-null strings (fixes null betterLine)
+BLUNDER_SCRIPT_VERSION = 30
 
 # --- Prompt components ---
 
@@ -963,11 +964,15 @@ def _eval_one_decision(
         if ann is None:
             break
 
-        # Validate LLM-generated fields are present
+        # Validate LLM-generated fields are present and non-null strings
         missing = _LLM_REQUIRED_FIELDS - set(ann.keys())
-        if not missing:
+        null_fields = {
+            f for f in _LLM_REQUIRED_FIELDS if f in ann and not isinstance(ann[f], str)
+        }
+        if not missing and not null_fields:
             break
-        print(f"  WARNING: {label} missing fields {missing}, retrying...")
+        bad = missing | null_fields
+        print(f"  WARNING: {label} bad fields {bad}, retrying...")
         print(f"    Got: {json.dumps(ann)[:300]}")
         if attempt < max_attempts - 1:
             import time
