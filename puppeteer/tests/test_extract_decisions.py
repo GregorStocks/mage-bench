@@ -447,6 +447,47 @@ class TestResolveChosenIndex:
     def test_no_resolution(self) -> None:
         assert _resolve_chosen_index({"attackers": ["p1"]}, [], {}) is None
 
+    def test_choice_yes(self) -> None:
+        """New unified choice field: 'yes' resolves to True."""
+        assert _resolve_chosen_index({"choice": "yes"}, [], {}) is True
+
+    def test_choice_no(self) -> None:
+        """New unified choice field: 'no' resolves to False."""
+        assert _resolve_chosen_index({"choice": "no"}, [], {}) is False
+
+    def test_choice_true(self) -> None:
+        """New unified choice field: 'true' resolves to True."""
+        assert _resolve_chosen_index({"choice": "true"}, [], {}) is True
+
+    def test_choice_false(self) -> None:
+        """New unified choice field: 'false' resolves to False."""
+        assert _resolve_chosen_index({"choice": "false"}, [], {}) is False
+
+    def test_choice_index(self) -> None:
+        """New unified choice field: numeric string resolves to int."""
+        assert _resolve_chosen_index({"choice": "2"}, [], {}) == 2
+
+    def test_choice_id(self) -> None:
+        """New unified choice field: permanent ID resolves to choice index."""
+        choices = [{"name": "A", "id": "p1"}, {"name": "B", "id": "p2"}]
+        assert _resolve_chosen_index({"choice": "p2"}, choices, {}) == 1
+
+    def test_choice_id_not_found(self) -> None:
+        """New unified choice field: unknown ID returns None."""
+        choices = [{"name": "A", "id": "p1"}]
+        assert _resolve_chosen_index({"choice": "p99"}, choices, {}) is None
+
+    def test_choice_case_insensitive(self) -> None:
+        """New unified choice field: boolean keywords are case-insensitive."""
+        assert _resolve_chosen_index({"choice": "YES"}, [], {}) is True
+        assert _resolve_chosen_index({"choice": "No"}, [], {}) is False
+
+    def test_choice_takes_precedence_over_old_fields(self) -> None:
+        """When choice is present alongside old fields, choice wins."""
+        choices = [{"name": "A", "id": "p1"}, {"name": "B", "id": "p2"}]
+        result = _resolve_chosen_index({"choice": "p2", "index": 0, "answer": True}, choices, {})
+        assert result == 1  # choice=p2 at index 1, not index=0 or answer=True
+
 
 class TestExtractDecisionsV2:
     def test_basic_pass_priority_decision(self) -> None:

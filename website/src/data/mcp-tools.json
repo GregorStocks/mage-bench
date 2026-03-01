@@ -960,10 +960,6 @@
           "description": "Amount value (for get_amount actions)",
           "type": "integer"
         },
-        "answer": {
-          "description": "Yes/No response. For GAME_ASK: true means YES to the question, false means NO. For mulligan: true = YES MULLIGAN (discard hand, draw new cards), false = NO KEEP (keep this hand). For GAME_SELECT: false = pass priority (done playing cards this phase), true = confirm combat (done declaring attackers/blockers). Also false to cancel target/mana selection.",
-          "type": "boolean"
-        },
         "amounts": {
           "description": "Multiple amount values (for multi_amount actions)",
           "type": "array",
@@ -979,43 +975,30 @@
           "description": "Pile number: 1 or 2 (for pile choices)",
           "type": "integer"
         },
-        "index": {
-          "description": "Choice index from get_action_choices",
-          "type": "integer"
-        },
         "mana_plan": {
-          "description": "Mana payment instructions for casting a spell (use with index/id). Each entry is a short ID of a permanent to tap for mana (e.g. \"p1\" for a land/rock). For multi-ability permanents (dual lands), append :N (e.g. \"p5:1\" for second ability). IMPORTANT: Only use short IDs (\"p1\", \"p5:1\") to TAP permanents for mana. Pool colors (WHITE, BLUE, BLACK, RED, GREEN, COLORLESS) only SPEND mana already in your mana pool — they do NOT produce mana. Only use pool colors after something else has already added mana to your pool (e.g. a ritual spell or a triggered ability). Entries are consumed in order, one per mana pip. If any entry fails (permanent not available), the spell is cancelled. If the plan runs out before all pips are paid, auto-tap fills the rest (unless auto_tap=false, which cancels instead). Example: casting a 3-mana spell with 2 lands: [\"p1\", \"p5:1\"] — auto-tap handles the 3rd pip.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "description": "Comma-separated mana payment instructions for casting a spell (use with choice). Each entry is a short ID of a permanent to tap for mana (e.g. \"p1\" for a land/rock). For multi-ability permanents (dual lands), append :N (e.g. \"p5:1\" for second ability). IMPORTANT: Only use short IDs (\"p1\", \"p5:1\") to TAP permanents for mana. Pool colors (WHITE, BLUE, BLACK, RED, GREEN, COLORLESS) only SPEND mana already in your mana pool — they do NOT produce mana. Only use pool colors after something else has already added mana to your pool (e.g. a ritual spell or a triggered ability). Entries are consumed in order, one per mana pip. If any entry fails (permanent not available), the spell is cancelled. If the plan runs out before all pips are paid, auto-tap fills the rest (unless auto_tap=false, which cancels instead). Example: \"p1,p5:1\" for a 3-mana spell with 2 lands — auto-tap handles the 3rd pip.",
+          "type": "string"
         },
         "attackers": {
-          "description": "Declare multiple attackers at once. Array of short IDs (e.g. [\"p1\",\"p2\"]). Use [\"all\"] to declare all possible attackers. Automatically confirms after declaring.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "description": "Declare multiple attackers at once. Comma-separated short IDs (e.g. \"p1,p2\"). Use \"all\" to declare all possible attackers. Automatically confirms after declaring.",
+          "type": "string"
         },
         "blockers": {
-          "description": "Declare multiple blockers at once. Array of \"blocker_id:attacker_id\" strings. Example: [\"p5:p1\",\"p6:p2\"] means p5 blocks p1, p6 blocks p2. Automatically confirms after declaring.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "id": {
-          "description": "Short ID of the object to select (e.g. \"p3\"). Alternative to index.",
+          "description": "Declare multiple blockers at once. Comma-separated \"blocker_id:attacker_id\" pairs. Example: \"p5:p1,p6:p2\" means p5 blocks p1, p6 blocks p2. Automatically confirms after declaring.",
           "type": "string"
         },
         "text": {
-          "description": "Text value for GAME_CHOOSE_CHOICE (use instead of index to pick any option by name, e.g. a creature type not in the filtered list)",
+          "description": "Text value for GAME_CHOOSE_CHOICE (use instead of choice to pick any option by name, e.g. a creature type not in the filtered list)",
+          "type": "string"
+        },
+        "choice": {
+          "description": "Selection or response. Accepts: permanent ID (\"p3\"), index (\"0\"), or yes/no (\"yes\", \"no\"). Use \"yes\"/\"no\" for boolean questions, mulligans (yes=mulligan, no=keep), pass priority (\"no\"), confirm combat (\"yes\"). Use IDs or indices for cards, targets, abilities, mana sources.",
           "type": "string"
         }
       }
     },
     "name": "choose_action",
-    "description": "Respond to pending action. Blocks until an action is pending (like pass_priority). Use id or index to pick a choice (card, attacker, blocker, target, ability, mana source). Use answer for yes/no, pass priority, or confirm combat (true=confirm attackers/blockers). Use attackers/blockers for batch combat. Call get_action_choices first."
+    "description": "Respond to pending action. Blocks until an action is pending (like pass_priority). Use choice to select by ID (\"p3\"), index (\"0\"), or answer yes/no (\"yes\"/\"no\"). Use attackers/blockers for batch combat. Call get_action_choices first."
   },
   {
     "outputSchema": {

@@ -11,7 +11,7 @@ Follow this exactly:
 ## Critical Rules
 
 - `pass_priority` returns your choices directly in a rendered text format. Read them before calling `choose_action`.
-- When `pass_priority` shows playable cards, choose whether to play something or pass. Passing (`answer=false`) moves to the next phase, so make sure you've done everything you want to do first.
+- When `pass_priority` shows playable cards, choose whether to play something or pass. Passing (`choice="no"`) moves to the next phase, so make sure you've done everything you want to do first.
 
 ## Understanding pass_priority Output
 
@@ -26,38 +26,38 @@ Follow this exactly:
 
 When you see "Mulligan" in the message, the board shows your current hand.
 
-- `choose_action(answer=true)` means **YES MULLIGAN** — throw away this hand and draw new cards
-- `choose_action(answer=false)` means **NO KEEP** — keep this hand and start playing
+- `choose_action(choice="yes")` means **YES MULLIGAN** — throw away this hand and draw new cards
+- `choose_action(choice="no")` means **NO KEEP** — keep this hand and start playing
 
-Think carefully: `answer=false` means KEEP, `answer=true` means MULLIGAN.
+Think carefully: `choice="no"` means KEEP, `choice="yes"` means MULLIGAN.
 
 ## Object IDs
 
-Every game object (cards in hand, permanents, stack items, graveyard/exile cards) has a short ID like "p1", "p2", etc. These IDs are stable — a card keeps its ID as it moves between zones. Use the `id` parameter in `choose_action(id="p3")` instead of index when selecting objects. Use short IDs with `get_oracle_text(object_id="p3")` and in `mana_plan` entries (`{"tap":"p3"}`).
+Every game object (cards in hand, permanents, stack items, graveyard/exile cards) has a short ID like "p1", "p2", etc. These IDs are stable — a card keeps its ID as it moves between zones. Use `choose_action(choice="p3")` to select by ID. Use short IDs with `get_oracle_text(object_id="p3")` and in `mana_plan` entries (e.g. `mana_plan="p3,p5:1"`).
 
 ## How Actions Work
 
-- **Select choices:** Cards listed are confirmed playable with your current mana. Play a card with `choose_action(id="p3")`. Pass with `choose_action(answer=false)` to decline acting and move to the next phase.
-- **Boolean choices with no playable cards:** Pass with `choose_action(answer=false)`.
-- **GAME_ASK (boolean):** Answer true/false based on what's being asked.
-- **GAME_CHOOSE_ABILITY (index):** Pick an ability by index.
-- **GAME_TARGET (index or id):** Pick a target. If `required=true`, you must pick one.
+- **Select choices:** Cards listed are confirmed playable with your current mana. Play a card with `choose_action(choice="p3")`. Pass with `choose_action(choice="no")` to decline acting and move to the next phase.
+- **Boolean choices with no playable cards:** Pass with `choose_action(choice="no")`.
+- **GAME_ASK (boolean):** Answer with `choice="yes"` or `choice="no"` based on what's being asked.
+- **GAME_CHOOSE_ABILITY (index):** Pick an ability with `choice="0"`.
+- **GAME_TARGET (id or index):** Pick a target with `choice="p3"`. If `required=true`, you must pick one.
 
 ## Combat — Attacking
 
 When you see `combat_phase="declare_attackers"`, use batch declaration:
 
-- `choose_action(attackers=["p1","p2","p3"])` declares multiple attackers at once and auto-confirms.
-- `choose_action(attackers=["all"])` declares all possible attackers.
-- To skip attacking, call `choose_action(answer=false)`.
+- `choose_action(attackers="p1,p2,p3")` declares multiple attackers at once and auto-confirms.
+- `choose_action(attackers="all")` declares all possible attackers.
+- To skip attacking, call `choose_action(choice="no")`.
 
 ## Combat — Blocking
 
 When you see `combat_phase="declare_blockers"`, use batch declaration:
 
-- `choose_action(blockers=["p5:p1","p6:p2"])` declares blockers at once. Format: `"blocker_id:attacker_id"`.
+- `choose_action(blockers="p5:p1,p6:p2")` declares blockers at once. Format: `"blocker_id:attacker_id"`.
 - Use IDs from `incoming_attackers` for the attacker ID.
-- To not block, call `choose_action(answer=false)`.
+- To not block, call `choose_action(choice="no")`.
 
 ## Chat
 

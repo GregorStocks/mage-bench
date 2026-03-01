@@ -813,7 +813,7 @@ public class BridgeCallbackHandler {
         switch (method) {
             case GAME_ASK: {
                 result.put("response_type", "boolean");
-                result.put("respond_with", "answer=true or answer=false");
+                result.put("respond_with", "choice=yes or choice=no");
                 lastChoices = null;
 
                 // For mulligan decisions, include hand contents so LLM can evaluate
@@ -1057,15 +1057,15 @@ public class BridgeCallbackHandler {
                     lastChoices = indexToUuid;
                     String combatPhase = (String) result.get("combat_phase");
                     if ("declare_attackers".equals(combatPhase)) {
-                        result.put("respond_with", "attackers=[\"p1\",...] or answer=true (confirm) or answer=false (skip)");
+                        result.put("respond_with", "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)");
                     } else if ("declare_blockers".equals(combatPhase)) {
-                        result.put("respond_with", "blockers=[\"pN:pM\",...] (blocker:attacker) or answer=true (confirm) or answer=false (skip)");
+                        result.put("respond_with", "blockers=p5:p1,p6:p2 (blocker:attacker) or choice=yes (confirm) or choice=no (skip)");
                     } else {
-                        result.put("respond_with", "id=\"pN\" or index=N to play, or answer=false to pass");
+                        result.put("respond_with", "choice=pN to play, or choice=no to pass");
                     }
                 } else {
                     result.put("response_type", "boolean");
-                    result.put("respond_with", "answer=true (confirm) or answer=false (pass)");
+                    result.put("respond_with", "choice=yes (confirm) or choice=no (pass)");
                     lastChoices = null;
                 }
                 break;
@@ -1141,12 +1141,12 @@ public class BridgeCallbackHandler {
 
                 if (!manaChoiceList.isEmpty()) {
                     result.put("response_type", "select");
-                    result.put("respond_with", "id=\"pN\" or index=N to tap, or answer=false to cancel");
+                    result.put("respond_with", "choice=pN to tap, or choice=no to cancel");
                     result.put("choices", manaChoiceList);
                     lastChoices = manaIndexToChoice;
                 } else {
                     result.put("response_type", "boolean");
-                    result.put("respond_with", "answer=false to cancel");
+                    result.put("respond_with", "choice=no to cancel");
                     lastChoices = null;
                 }
                 break;
@@ -1159,8 +1159,8 @@ public class BridgeCallbackHandler {
                 result.put("required", required);
                 result.put("can_cancel", !required);
                 result.put("respond_with", required
-                    ? "id=\"pN\" or index=N"
-                    : "id=\"pN\" or index=N, or answer=false to cancel");
+                    ? "choice=pN"
+                    : "choice=pN, or choice=no to cancel");
 
                 Set<UUID> targets = findValidTargets(msg);
                 var choiceList = new ArrayList<Map<String, Object>>();
@@ -1235,7 +1235,7 @@ public class BridgeCallbackHandler {
                 AbilityPickerView picker = (AbilityPickerView) data;
                 Map<UUID, String> choices = picker.getChoices();
                 result.put("response_type", "index");
-                result.put("respond_with", "index=N");
+                result.put("respond_with", "choice=N");
 
                 var choiceList = new ArrayList<Map<String, Object>>();
                 var indexToUuid = new ArrayList<Object>();
@@ -1283,7 +1283,7 @@ public class BridgeCallbackHandler {
                 GameClientMessage msg = (GameClientMessage) data;
                 Choice choice = msg.getChoice();
                 result.put("response_type", "index");
-                result.put("respond_with", "index=N or text=\"TypeName\"");
+                result.put("respond_with", "choice=N or text=TypeName");
 
                 var choiceList = new ArrayList<Map<String, Object>>();
                 var indexToKey = new ArrayList<Object>();
@@ -1388,7 +1388,7 @@ public class BridgeCallbackHandler {
             case GAME_GET_MULTI_AMOUNT: {
                 GameClientMessage msg = (GameClientMessage) data;
                 result.put("response_type", "multi_amount");
-                result.put("respond_with", "amounts=[N, N, ...] (one per item)");
+                result.put("respond_with", "amounts=N,N,... (one per item)");
                 result.put("total_min", msg.getMin());
                 result.put("total_max", msg.getMax());
 
