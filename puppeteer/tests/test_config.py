@@ -1080,3 +1080,44 @@ def test_deck_type_empty_string():
         config.load_config()
         assert config.deck_type == ""
         assert config.deck_type_candidates == []
+
+
+# --- models.json schema validation ---
+
+# Fields that code actually reads from model entries.
+_MODELS_JSON_FUNCTIONAL_KEYS = {"id", "name", "name_part", "ignore_providers", "cache_control"}
+# Top-level keys that code actually reads.
+_MODELS_JSON_FUNCTIONAL_TOP_KEYS = {"models"}
+
+
+def test_models_json_no_uncommented_fields():
+    """Every non-functional field in models.json must start with '_'.
+
+    Functional fields (read by config.py / leaderboard.py / matchmaker.py):
+      model entries: id, name, name_part, ignore_providers, cache_control
+      top-level: models
+
+    Everything else is documentation and must be prefixed with '_' so it's
+    obvious it's not consumed by code. This prevents accidental drift where
+    someone adds a field thinking it does something.
+    """
+    models_path = Path(__file__).resolve().parent.parent / "models.json"
+    data = json.loads(models_path.read_text())
+
+    # Check top-level keys
+    for key in data:
+        if key not in _MODELS_JSON_FUNCTIONAL_TOP_KEYS and not key.startswith("_"):
+            raise AssertionError(
+                f"Top-level key {key!r} in models.json is not functional and must "
+                f"start with '_'. Functional keys: {sorted(_MODELS_JSON_FUNCTIONAL_TOP_KEYS)}"
+            )
+
+    # Check each model entry
+    for model in data.get("models", []):
+        model_id = model.get("id", "???")
+        for key in model:
+            if key not in _MODELS_JSON_FUNCTIONAL_KEYS and not key.startswith("_"):
+                raise AssertionError(
+                    f"Field {key!r} on model {model_id!r} in models.json is not functional "
+                    f"and must start with '_'. Functional keys: {sorted(_MODELS_JSON_FUNCTIONAL_KEYS)}"
+                )
