@@ -2031,6 +2031,10 @@ public class BridgeCallbackHandler {
             if (next != null) {
                 result.put("next_action_pending", true);
                 result.put("next_action_type", next.method().name());
+                String nextMsg = stripHtml(next.message());
+                if (nextMsg != null && !nextMsg.isEmpty()) {
+                    result.put("next_action_message", nextMsg);
+                }
                 result.put("next_action_hint", "Call get_action_choices or choose_action to see details, or pass_priority to continue.");
             }
         }
@@ -2403,6 +2407,10 @@ public class BridgeCallbackHandler {
         if (next != null) {
             result.put("next_action_pending", true);
             result.put("next_action_type", next.method().name());
+            String nextMsg = stripHtml(next.message());
+            if (nextMsg != null && !nextMsg.isEmpty()) {
+                result.put("next_action_message", nextMsg);
+            }
             result.put("next_action_hint", "Call get_action_choices or choose_action to see details, or pass_priority to continue.");
         }
     }

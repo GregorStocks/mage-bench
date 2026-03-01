@@ -146,6 +146,25 @@ These often indicate ShortIdRegistry remapping: a card's short ID changed betwee
 when choices were presented and when the LLM responded. Common with multi-step
 targeting (e.g., Doomsday pile construction) and mana sources that get sacrificed.
 
+## Ward / additional cost prompt confusion
+
+When a model casts a spell targeting a creature with ward, the game sends a
+GAME_ASK to the caster asking whether they want to pay the additional cost.
+If the model skips `get_action_choices` and guesses what the GAME_ASK is about,
+it may answer `false` (decline to pay), countering its own spell.
+
+```bash
+# Find ward-related GAME_ASK decisions in bridge logs
+grep -A1 "GAME_ASK" "$GAME_DIR"/*_bridge.jsonl | grep -i "ward\|pay\|counter"
+
+# Check if a model declined to pay its own ward cost
+grep "chooses not to pay" "$GAME_DIR"/*_bridge.jsonl
+```
+
+Cross-reference with the LLM trace: look for `choose_action(answer=false)`
+immediately after a `next_action_type: "GAME_ASK"` with no intervening
+`get_action_choices` call — the model never saw the question text.
+
 ## Tool name formatting issues
 
 Some models (notably Kimi K2.5) emit tool names with leading whitespace, causing
