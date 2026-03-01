@@ -275,7 +275,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 0,
       "isForced": false,
@@ -310,7 +310,7 @@
       "choices": [],
       "chosen": false,
       "chosenArgs": {
-        "answer": false
+        "choice": "no"
       },
       "index": 1,
       "isForced": false,
@@ -343,7 +343,7 @@
       "choices": [],
       "chosen": false,
       "chosenArgs": {
-        "answer": false
+        "choice": "no"
       },
       "index": 2,
       "isForced": false,
@@ -410,7 +410,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 3,
       "isForced": false,
@@ -470,7 +470,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 4,
       "isForced": false,
@@ -647,7 +647,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 7,
       "isForced": false,
@@ -686,7 +686,7 @@
       "choices": [],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 8,
       "isForced": true,
@@ -743,7 +743,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 9,
       "isForced": false,
@@ -798,7 +798,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 10,
       "isForced": false,
@@ -848,7 +848,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 11,
       "isForced": false,
@@ -940,10 +940,8 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0,
-        "mana_plan": [
-          "COLORLESS"
-        ]
+        "choice": "0",
+        "mana_plan": "COLORLESS"
       },
       "index": 13,
       "isForced": false,
@@ -1014,7 +1012,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 14,
       "isForced": false,
@@ -1071,7 +1069,7 @@
       ],
       "chosen": false,
       "chosenArgs": {
-        "answer": false
+        "choice": "no"
       },
       "index": 15,
       "isForced": false,
@@ -1140,7 +1138,7 @@
     "seq": 103
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 35,
+  "harnessEpoch": 36,
   "llmEvents": [
     {
       "availableTools": [
@@ -1279,7 +1277,7 @@
         "context": "T1 ()",
         "game_seq": 6,
         "message": "Mulligan down to 6 cards?",
-        "respond_with": "answer=true or answer=false",
+        "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
         "stop_reason": "non_priority_action",
         "your_hand": [
@@ -1401,7 +1399,7 @@
         "game_seq": 1,
         "message": "Select a starting player",
         "required": true,
-        "respond_with": "id=\"pN\" or index=N",
+        "respond_with": "choice=pN",
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },
@@ -1411,7 +1409,7 @@
     },
     {
       "args": {
-        "answer": false
+        "choice": "no"
       },
       "gameSeq": 6,
       "player": "Opponent",
@@ -1430,7 +1428,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 1,
       "player": "TestPlayer",
@@ -1596,7 +1594,7 @@
         "has_playable_cards": true,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
@@ -1693,7 +1691,7 @@
         "context": "T1 ()",
         "game_seq": 5,
         "message": "Mulligan down to 6 cards?",
-        "respond_with": "answer=true or answer=false",
+        "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
         "stop_reason": "non_priority_action",
         "your_hand": [
@@ -1754,7 +1752,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 26,
       "player": "Opponent",
@@ -1773,7 +1771,7 @@
     },
     {
       "args": {
-        "answer": false
+        "choice": "no"
       },
       "gameSeq": 5,
       "player": "TestPlayer",
@@ -1938,7 +1936,7 @@
         "has_playable_cards": true,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards",
         "untapped_lands": 1
@@ -2075,7 +2073,7 @@
         "has_playable_cards": true,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
@@ -2103,7 +2101,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 15,
       "player": "TestPlayer",
@@ -2122,7 +2120,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 43,
       "player": "Opponent",
@@ -2141,7 +2139,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 18,
       "player": "TestPlayer",
@@ -2335,7 +2333,7 @@
         "has_playable_cards": true,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards",
         "untapped_lands": 1
@@ -2493,7 +2491,7 @@
         "has_playable_cards": true,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards",
         "untapped_lands": 1
@@ -2504,7 +2502,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 51,
       "player": "Opponent",
@@ -2570,7 +2568,7 @@
         "game_seq": 38,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "reached_step",
         "untapped_lands": 1
@@ -2742,7 +2740,7 @@
         "has_playable_cards": true,
         "land_drops_used": 1,
         "message": "Play spells and abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards",
         "untapped_lands": 2
@@ -2753,7 +2751,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 38,
       "player": "TestPlayer",
@@ -2772,7 +2770,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 61,
       "player": "Opponent",
@@ -2918,7 +2916,7 @@
         "game_seq": 66,
         "has_playable_cards": true,
         "message": "Play instants and activated abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stack": [
           {
@@ -3123,7 +3121,7 @@
         "game_seq": 90,
         "message": "Select cards to put in the first pile (selected 0 of 5)",
         "required": false,
-        "respond_with": "id=\"pN\" or index=N, or answer=false to cancel",
+        "respond_with": "choice=pN, or choice=no to cancel",
         "response_type": "index",
         "stack": [
           {
@@ -3148,7 +3146,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 66,
       "player": "TestPlayer",
@@ -3167,7 +3165,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 90,
       "player": "Opponent",
@@ -3329,7 +3327,7 @@
         "has_playable_cards": true,
         "land_drops_used": 0,
         "message": "Play instants and activated abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stack": [
           {
@@ -3391,7 +3389,7 @@
         "game_seq": 91,
         "message": "Select cards to put in the first pile (selected 1 of 5)",
         "required": false,
-        "respond_with": "id=\"pN\" or index=N, or answer=false to cancel",
+        "respond_with": "choice=pN, or choice=no to cancel",
         "response_type": "index",
         "stack": [
           {
@@ -3440,7 +3438,7 @@
         "game_seq": 81,
         "land_drops_used": 0,
         "message": "Play instants and activated abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stack": [
           {
@@ -3462,7 +3460,7 @@
     },
     {
       "args": {
-        "answer": false
+        "choice": "no"
       },
       "gameSeq": 91,
       "player": "Opponent",
@@ -3477,10 +3475,8 @@
     },
     {
       "args": {
-        "index": 0,
-        "mana_plan": [
-          "COLORLESS"
-        ]
+        "choice": "0",
+        "mana_plan": "COLORLESS"
       },
       "gameSeq": 81,
       "player": "TestPlayer",

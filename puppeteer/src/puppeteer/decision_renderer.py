@@ -377,8 +377,11 @@ def _attacker_id(entry: object) -> str:
     return str(entry)
 
 
-def _batch_attack_display(attackers: list, choices: list) -> str:
+def _batch_attack_display(attackers: list | str, choices: list) -> str:
     """Render a batch attack declaration for display."""
+    # Handle comma-separated string format (epoch 36+)
+    if isinstance(attackers, str):
+        attackers = [a.strip() for a in attackers.split(",")]
     if attackers == ["all"]:
         # Resolve names from choices (exclude the "All attack" special entry)
         names = [c.get("name", str(c)) for c in choices if isinstance(c, dict) and c.get("id") != "all"]
@@ -394,19 +397,21 @@ def _batch_attack_display(attackers: list, choices: list) -> str:
 def _batch_block_display(blockers: list | str, choices: list) -> str:
     """Render a batch block declaration for display.
 
-    Handles three persisted formats:
-    - List of "blocker_id:attacker_id" strings (current)
+    Handles four persisted formats:
+    - Comma-separated "blocker:attacker" string (epoch 36+)
+    - List of "blocker_id:attacker_id" strings
     - JSON-encoded string of the above list (legacy)
     - List of {"id": blocker_id, "blocks": attacker_id} dicts (legacy)
     """
     if not blockers:
         return "No blocks"
-    # Legacy: JSON-encoded string
     if isinstance(blockers, str):
+        # Try JSON first (legacy format), then comma-separated (epoch 36+)
         try:
-            blockers = json.loads(blockers)
+            parsed = json.loads(blockers)
         except (json.JSONDecodeError, TypeError):
-            return f"Block ({blockers})"
+            parsed = [b.strip() for b in blockers.split(",")]
+        blockers = parsed
     choice_by_id = {c["id"]: c.get("name", c["id"]) for c in choices if isinstance(c, dict) and "id" in c}
     parts = []
     for entry in blockers:

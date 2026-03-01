@@ -19,6 +19,21 @@ REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PUPPETEER_DIR = REPO_ROOT / "puppeteer"
 GAMES_DIR = REPO_ROOT / "website" / "public" / "games"
 SCHEMA_PATH = REPO_ROOT / "schemas" / "game-export-v2.schema.json"
+DECKS_DIR = REPO_ROOT / "data" / "decks"
+CONFIGS_DIR = REPO_ROOT / "configs"
+
+# Special preset/personality keywords resolved at runtime, not looked up in JSON.
+_SPECIAL_PRESET_KEYWORDS = {"random", "yente", "round-robin"}
+_SPECIAL_PERSONALITY_KEYWORDS = {"random"}
+
+# Models that were retired from models.json but still appear in historical
+# exported games.  Add entries here when removing a model.
+_RETIRED_MODELS: set[str] = {
+    "mistralai/devstral-small",
+}
+
+# The canonical set of deck format directories under data/decks/.
+_EXPECTED_DECK_FORMATS = {"standard", "modern", "legacy", "commander", "jumpstart"}
 
 
 # ---------------------------------------------------------------------------
@@ -282,3 +297,212 @@ class TestModelNamePartsUnique:
         assert not dupes, "Duplicate name_parts (would be ambiguous on leaderboard):\n  " + "\n  ".join(
             f"{np!r}: {ids}" for np, ids in dupes.items()
         )
+
+
+# ---------------------------------------------------------------------------
+# Test 11: Personality name_parts are unique
+# ---------------------------------------------------------------------------
+
+
+class TestPersonalityNamePartsUnique:
+    def test_no_duplicate_name_parts(self) -> None:
+        personalities = _load_json(PUPPETEER_DIR / "personalities.json")
+
+        seen: dict[str, list[str]] = {}
+        for key, val in personalities.items():
+            seen.setdefault(val["name_part"], []).append(key)
+
+        dupes = {np: keys for np, keys in seen.items() if len(keys) > 1}
+        assert not dupes, "Duplicate personality name_parts:\n  " + "\n  ".join(
+            f"{np!r}: {keys}" for np, keys in dupes.items()
+        )
+
+
+# ---------------------------------------------------------------------------
+# Test 12: Config presets and personalities reference valid values
+# ---------------------------------------------------------------------------
+
+
+class TestConfigReferencesValid:
+    def test_config_presets_are_valid(self) -> None:
+        """Every preset in a config player must be a special keyword or exist in presets.json."""
+        presets_data = _load_json(PUPPETEER_DIR / "presets.json")
+        preset_names = set(presets_data["presets"])
+
+        bad = []
+        for config_path in sorted(CONFIGS_DIR.glob("*.json")):
+            data = _load_json(config_path)
+            for i, player in enumerate(data.get("players", [])):
+                preset = player.get("preset")
+                if preset and preset not in _SPECIAL_PRESET_KEYWORDS and preset not in preset_names:
+                    bad.append(f"{config_path.name} player[{i}]: {preset!r}")
+
+        assert not bad, "Config players reference unknown presets:\n  " + "\n  ".join(bad)
+
+    def test_config_personalities_are_valid(self) -> None:
+        """Every personality in a config player must be a special keyword or exist in personalities.json."""
+        personalities = _load_json(PUPPETEER_DIR / "personalities.json")
+        personality_names = set(personalities)
+
+        bad = []
+        for config_path in sorted(CONFIGS_DIR.glob("*.json")):
+            data = _load_json(config_path)
+            for i, player in enumerate(data.get("players", [])):
+                personality = player.get("personality")
+                if (
+                    personality
+                    and personality not in _SPECIAL_PERSONALITY_KEYWORDS
+                    and personality not in personality_names
+                ):
+                    bad.append(f"{config_path.name} player[{i}]: {personality!r}")
+
+        assert not bad, "Config players reference unknown personalities:\n  " + "\n  ".join(bad)
+
+
+# ---------------------------------------------------------------------------
+# Test 13: Exported games only reference known models
+# ---------------------------------------------------------------------------
+
+
+class TestExportedGameModelsKnown:
+    def test_game_models_exist(self) -> None:
+        """Every player.model in exported games must be in models.json or the retired allowlist."""
+        models_data = _load_json(PUPPETEER_DIR / "models.json")
+        model_ids = {m["id"] for m in models_data["models"]}
+        allowed = model_ids | _RETIRED_MODELS
+
+        unknown: list[str] = []
+        for game_file in _glob_game_files():
+            data = _load_game(game_file)
+            for player in data.get("players", []):
+                model = player.get("model")
+                if model and model not in allowed:
+                    unknown.append(f"{game_file.name}: {model!r}")
+
+        assert not unknown, (
+            "Exported games reference unknown models (add to _RETIRED_MODELS if intentional):\n  "
+            + "\n  ".join(unknown)
+        )
+
+
+# ---------------------------------------------------------------------------
+# Test 14: No orphaned prompt files
+# ---------------------------------------------------------------------------
+
+
+class TestNoOrphanedPrompts:
+    def test_all_prompts_referenced_by_presets(self) -> None:
+        """Every .md file in prompts/ should be referenced by at least one preset."""
+        prompts_dir = PUPPETEER_DIR / "prompts"
+        if not prompts_dir.is_dir():
+            return
+        prompt_files = {md.stem for md in prompts_dir.glob("*.md")}
+        if not prompt_files:
+            return
+
+        presets_data = _load_json(PUPPETEER_DIR / "presets.json")
+        referenced = {
+            preset.get("system_prompt") for preset in presets_data["presets"].values() if preset.get("system_prompt")
+        }
+
+        orphaned = prompt_files - referenced
+        assert not orphaned, "Prompt files not referenced by any preset:\n  " + "\n  ".join(
+            f"{name}.md" for name in sorted(orphaned)
+        )
+
+
+# ---------------------------------------------------------------------------
+# Test 15: Deck format directories match expected set
+# ---------------------------------------------------------------------------
+
+
+class TestDeckFormatDirectories:
+    def test_no_unexpected_format_dirs(self) -> None:
+        """Subdirectories under data/decks/ must be in the expected set — catches typos like 'standrard'."""
+        actual = {d.name for d in DECKS_DIR.iterdir() if d.is_dir()}
+        unexpected = actual - _EXPECTED_DECK_FORMATS
+        assert not unexpected, (
+            f"Unexpected deck format directories (typo?): {sorted(unexpected)}. "
+            f"If intentional, add to _EXPECTED_DECK_FORMATS."
+        )
+
+    def test_all_expected_formats_exist(self) -> None:
+        """Every expected format directory should exist and contain decks."""
+        for fmt in sorted(_EXPECTED_DECK_FORMATS):
+            fmt_dir = DECKS_DIR / fmt
+            assert fmt_dir.is_dir(), f"Expected deck format directory missing: {fmt}/"
+
+
+# ---------------------------------------------------------------------------
+# Test 16: Config deckType uses recognized format keywords
+# ---------------------------------------------------------------------------
+
+
+class TestConfigDeckTypes:
+    _VALID_DECK_TYPES: ClassVar[set[str]] = {
+        "Constructed - Standard",
+        "Constructed - Modern",
+        "Constructed - Legacy",
+        "Limited",
+    }
+
+    def test_deck_types_recognized(self) -> None:
+        """Every deckType value in configs must be a known XMage deck type."""
+        bad = []
+        for config_path in sorted(CONFIGS_DIR.glob("*.json")):
+            data = _load_json(config_path)
+            deck_type = data.get("deckType")
+            if deck_type is None:
+                continue
+            # deckType can be a string or a list of strings
+            types = deck_type if isinstance(deck_type, list) else [deck_type]
+            for dt in types:
+                if dt not in self._VALID_DECK_TYPES:
+                    bad.append(f"{config_path.name}: {dt!r}")
+
+        assert not bad, (
+            "Configs use unrecognized deckType values (add to _VALID_DECK_TYPES if intentional):\n  " + "\n  ".join(bad)
+        )
+
+
+# ---------------------------------------------------------------------------
+# Test 17: Personality name_part length is bounded
+# ---------------------------------------------------------------------------
+
+
+class TestPersonalityNamePartLength:
+    # XMage player names have a length limit.  Model name_part + " " +
+    # personality name_part must fit.  Max model name_part is currently 7
+    # chars; keeping personality name_part <= 7 leaves room.
+    _MAX_LENGTH = 7
+
+    def test_name_parts_not_too_long(self) -> None:
+        personalities = _load_json(PUPPETEER_DIR / "personalities.json")
+
+        too_long = [
+            f"{key!r}: {val['name_part']!r} ({len(val['name_part'])} chars)"
+            for key, val in personalities.items()
+            if len(val["name_part"]) > self._MAX_LENGTH
+        ]
+        assert not too_long, f"Personality name_parts exceed {self._MAX_LENGTH} chars:\n  " + "\n  ".join(too_long)
+
+
+# ---------------------------------------------------------------------------
+# Test 18: No duplicate gauntlet entries
+# ---------------------------------------------------------------------------
+
+
+class TestGauntletNoDuplicates:
+    def test_gauntlet_entries_unique(self) -> None:
+        presets_data = _load_json(PUPPETEER_DIR / "presets.json")
+        gauntlet = presets_data["gauntlet"]
+
+        seen: dict[str, int] = {}
+        dupes: list[str] = []
+        for entry in gauntlet:
+            seen[entry] = seen.get(entry, 0) + 1
+        for entry, count in seen.items():
+            if count > 1:
+                dupes.append(f"{entry!r} appears {count} times")
+
+        assert not dupes, "Duplicate gauntlet entries (would bias matchmaking):\n  " + "\n  ".join(dupes)

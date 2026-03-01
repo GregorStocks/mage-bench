@@ -173,7 +173,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 0,
       "isForced": false,
@@ -208,7 +208,7 @@
       "choices": [],
       "chosen": false,
       "chosenArgs": {
-        "answer": false
+        "choice": "no"
       },
       "index": 1,
       "isForced": false,
@@ -278,7 +278,7 @@
       ],
       "chosen": 2,
       "chosenArgs": {
-        "id": "p14"
+        "choice": "p14"
       },
       "index": 2,
       "isForced": false,
@@ -352,7 +352,7 @@
       ],
       "chosen": null,
       "chosenArgs": {
-        "id": "p13"
+        "choice": "p13"
       },
       "index": 3,
       "isForced": false,
@@ -409,7 +409,7 @@
       ],
       "chosen": false,
       "chosenArgs": {
-        "answer": false
+        "choice": "no"
       },
       "index": 4,
       "isForced": false,
@@ -496,7 +496,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "id": "p10"
+        "choice": "p10"
       },
       "index": 5,
       "isForced": false,
@@ -560,7 +560,7 @@
       ],
       "chosen": false,
       "chosenArgs": {
-        "answer": false
+        "choice": "no"
       },
       "index": 6,
       "isForced": false,
@@ -615,7 +615,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 7,
       "isForced": false,
@@ -649,7 +649,7 @@
     "seq": 55
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 35,
+  "harnessEpoch": 36,
   "llmEvents": [
     {
       "availableTools": [
@@ -715,7 +715,7 @@
         "game_seq": 1,
         "message": "Select a starting player",
         "required": true,
-        "respond_with": "id=\"pN\" or index=N",
+        "respond_with": "choice=pN",
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },
@@ -725,7 +725,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 1,
       "player": "TestPlayer",
@@ -833,7 +833,7 @@
         "context": "T1 ()",
         "game_seq": 5,
         "message": "Mulligan down to 6 cards?",
-        "respond_with": "answer=true or answer=false",
+        "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
         "stop_reason": "non_priority_action",
         "your_hand": [
@@ -896,7 +896,7 @@
     },
     {
       "args": {
-        "answer": false
+        "choice": "no"
       },
       "gameSeq": 5,
       "player": "TestPlayer",
@@ -1046,7 +1046,7 @@
         "has_playable_cards": true,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
@@ -1056,7 +1056,7 @@
     },
     {
       "args": {
-        "id": "p14"
+        "choice": "p14"
       },
       "gameSeq": 15,
       "player": "TestPlayer",
@@ -1185,7 +1185,7 @@
         "game_seq": 21,
         "has_playable_cards": true,
         "message": "Play instants and activated abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards",
         "untapped_lands": 1
@@ -1196,7 +1196,7 @@
     },
     {
       "args": {
-        "id": "p13"
+        "choice": "p13"
       },
       "gameSeq": 21,
       "player": "TestPlayer",
@@ -1258,7 +1258,7 @@
         "game_seq": 26,
         "has_playable_cards": true,
         "message": "Play instants and activated abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards",
         "untapped_lands": 1
@@ -1269,7 +1269,7 @@
     },
     {
       "args": {
-        "answer": false
+        "choice": "no"
       },
       "gameSeq": 26,
       "player": "TestPlayer",
@@ -1454,7 +1454,7 @@
         "has_playable_cards": true,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards",
         "untapped_lands": 1
@@ -1465,7 +1465,7 @@
     },
     {
       "args": {
-        "id": "p10"
+        "choice": "p10"
       },
       "gameSeq": 33,
       "player": "TestPlayer",
@@ -1611,7 +1611,7 @@
         "game_seq": 41,
         "has_playable_cards": true,
         "message": "Play instants and activated abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards",
         "untapped_lands": 2
@@ -1622,7 +1622,7 @@
     },
     {
       "args": {
-        "answer": false
+        "choice": "no"
       },
       "gameSeq": 41,
       "player": "TestPlayer",
@@ -1768,7 +1768,7 @@
         "game_seq": 46,
         "has_playable_cards": true,
         "message": "Play instants and activated abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards",
         "untapped_lands": 2
@@ -1779,7 +1779,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 46,
       "player": "TestPlayer",
@@ -1798,7 +1798,7 @@
     },
     {
       "args": {
-        "index": 1
+        "choice": "1"
       },
       "gameSeq": 47,
       "player": "TestPlayer",
@@ -1817,7 +1817,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 52,
       "player": "TestPlayer",
@@ -1836,7 +1836,7 @@
     },
     {
       "args": {
-        "id": "p13"
+        "choice": "p13"
       },
       "gameSeq": 53,
       "player": "TestPlayer",

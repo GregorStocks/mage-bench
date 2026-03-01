@@ -1,6 +1,9 @@
 """Tests for the shared decision renderer."""
 
 from puppeteer.decision_renderer import (
+    _batch_attack_display,
+    _batch_block_display,
+    _chosen_display,
     _format_choice,
     _render_card_reference,
     permanent_display,
@@ -320,3 +323,66 @@ class TestCardReference:
         snap = _make_snapshot()
         decision = _make_decision()
         assert _render_card_reference(decision, snap, {}) == ""
+
+
+class TestBatchAttackDisplay:
+    def test_list_format(self) -> None:
+        choices = [{"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"}]
+        assert _batch_attack_display(["p1", "p2"], choices) == "Attack with Bear, Elf"
+
+    def test_string_format(self) -> None:
+        """Comma-separated string format (epoch 36+)."""
+        choices = [{"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"}]
+        assert _batch_attack_display("p1,p2", choices) == "Attack with Bear, Elf"
+
+    def test_string_all(self) -> None:
+        """String 'all' format (epoch 36+)."""
+        choices = [{"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"}]
+        assert _batch_attack_display("all", choices) == "Attack with all (Bear, Elf)"
+
+    def test_list_all(self) -> None:
+        choices = [{"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"}]
+        assert _batch_attack_display(["all"], choices) == "Attack with all (Bear, Elf)"
+
+
+class TestBatchBlockDisplay:
+    def test_list_format(self) -> None:
+        choices = [
+            {"name": "Bear", "id": "p1"},
+            {"name": "Elf", "id": "p2"},
+            {"name": "Goblin", "id": "p3"},
+        ]
+        result = _batch_block_display(["p1:p3"], choices)
+        assert result == "Bear blocks Goblin"
+
+    def test_string_format(self) -> None:
+        """Comma-separated string format (epoch 36+)."""
+        choices = [
+            {"name": "Bear", "id": "p1"},
+            {"name": "Elf", "id": "p2"},
+            {"name": "Goblin", "id": "p3"},
+        ]
+        result = _batch_block_display("p1:p3,p2:p3", choices)
+        assert result == "Bear blocks Goblin, Elf blocks Goblin"
+
+
+class TestChosenDisplay:
+    def test_batch_attackers_string(self) -> None:
+        """String-format attackers in chosen_args (epoch 36+)."""
+        choices = [{"name": "Bear", "id": "p1"}, {"name": "Elf", "id": "p2"}]
+        result = _chosen_display(None, {"attackers": "p1,p2"}, choices)
+        assert result == "Attack with Bear, Elf"
+
+    def test_batch_blockers_string(self) -> None:
+        """String-format blockers in chosen_args (epoch 36+)."""
+        choices = [{"name": "Bear", "id": "p1"}, {"name": "Goblin", "id": "p3"}]
+        result = _chosen_display(None, {"blockers": "p1:p3"}, choices)
+        assert result == "Bear blocks Goblin"
+
+    def test_boolean_chosen(self) -> None:
+        assert _chosen_display(True, {}, []) == "True"
+        assert _chosen_display(False, {}, []) == "False"
+
+    def test_index_chosen(self) -> None:
+        choices = [{"name": "Lightning Bolt"}, {"name": "Mountain"}]
+        assert _chosen_display(0, {}, choices) == "Lightning Bolt"

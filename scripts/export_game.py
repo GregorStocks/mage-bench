@@ -481,10 +481,26 @@ def _resolve_chosen_index(
 ) -> object | None:
     """Resolve chosen_index from choose_action args.
 
-    When both id and index are provided, prefers id (matching bridge behavior
-    which uses id and ignores index in that case).
+    Handles both new format (choice field) and old format (index/id/answer).
     Falls back to parsing the trailing integer from action_taken.
     """
+    # New format: unified choice field (epoch 36+)
+    if "choice" in chosen_args:
+        choice = str(chosen_args["choice"]).strip()
+        if choice.lower() in ("yes", "true"):
+            return True
+        if choice.lower() in ("no", "false"):
+            return False
+        try:
+            return int(choice)
+        except ValueError:
+            # Treat as ID
+            for ci, c in enumerate(available_choices):
+                if isinstance(c, dict) and c.get("id") == choice:
+                    return ci
+            return None
+
+    # Old format: separate index/id/answer fields (pre-epoch 36)
     has_id = "id" in chosen_args and chosen_args["id"]
 
     if "index" in chosen_args:
