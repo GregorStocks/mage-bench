@@ -44,7 +44,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  32 - Fix client-side yield cancelling pending non-priority actions (GAME_TARGET, etc.) (Feb 28)
 #  33 - Fix chosen field in exports: prefer id over index when both present (Mar 1)
 #  34 - Fix stack_resolved fast-path bypassing non-priority action guard (Mar 1)
-HARNESS_EPOCH = 34
+#  35 - Server-assigned short IDs for callback cards (scry, tutor, pile choices) (Mar 1)
+HARNESS_EPOCH = 35
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
