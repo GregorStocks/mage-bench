@@ -174,9 +174,10 @@
 }
 
 /* Battlefield rows always reserve space for one line of cards so height
-   doesn't jump when lands/creatures appear or disappear */
+   doesn't jump when lands/creatures appear, disappear, or get tapped.
+   Tapped cards add 16px margin top+bottom (32px), so 113px + 32px = 145px. */
 .battlefield-zone .cards-row {
-  min-height: 114px;
+  min-height: 145px;
 }
 
 /* Zones */
