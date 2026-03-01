@@ -30,20 +30,20 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root, spectator_pr
         script_a=[
             # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # T1: Play Plains (first land choice).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # T1: Cast Savannah Lions immediately (only castable spell after land).
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # T2: Precombat main — skip land play.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # T2: Declare attackers — attack with Savannah Lions.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"attackers": ["all"]}},
+            {"name": "choose_action", "arguments": {"attackers": "all"}},
             # Mid-game history check: should show land plays, casts, and attack.
             {"name": "get_game_history", "arguments": {}},
             # Pass through combat (P2 blocks) to postcombat main.
@@ -54,18 +54,18 @@ def test_savannah_lions_trade(xmage_server, tmp_path, project_root, spectator_pr
         script_b=[
             # Keep opening hand.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # P2's T1: Play Plains.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # P2's T1: Cast Savannah Lions (chained, no pass_priority).
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # Wait for P1's T2 attack -> declare blockers.
             {"name": "pass_priority", "arguments": {}},
             # Declare lone Savannah Lions blocker against lone attacker using indexes.
-            {"name": "choose_action", "arguments": {"index": 0}},
-            {"name": "choose_action", "arguments": {"index": 0}},
-            {"name": "choose_action", "arguments": {"answer": True}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
+            {"name": "choose_action", "arguments": {"choice": "yes"}},
             # Stay alive until P1's script finishes.
             {"name": "pass_priority", "arguments": {}},
         ],

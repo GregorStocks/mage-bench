@@ -32,42 +32,42 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root, bridge_session,
         script=[
             # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # Turn 1: Play Plains (p11).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p11"}},
+            {"name": "choose_action", "arguments": {"choice": "p11"}},
             # Turn 2: Play Plains (p12).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p12"}},
+            {"name": "choose_action", "arguments": {"choice": "p12"}},
             # Turn 3: Play Dark Depths (p10, enters with 10 ice counters).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p10"}},
+            {"name": "choose_action", "arguments": {"choice": "p10"}},
             # Turn 4: Play Thespian's Stage (p16).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p16"}},
+            {"name": "choose_action", "arguments": {"choice": "p16"}},
             # T4 combat: Activate Thespian's Stage.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p16"}, "golden_blunder": True},
+            {"name": "choose_action", "arguments": {"choice": "p16"}, "golden_blunder": True},
             # GAME_CHOOSE_ABILITY: index 1 = "{2}, {T}: copy target land."
             # (index 0 is the mana ability "{T}: Add {C}.")
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 1}},
+            {"name": "choose_action", "arguments": {"choice": "1"}},
             # Target Dark Depths (p10) for the copy.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p10"}},
+            {"name": "choose_action", "arguments": {"choice": "p10"}},
             # Legend rule: "Select a Dark Depths to keep" — keep the copy
             # (index 1 = p9, 0 ice counters). State trigger then creates
             # Marit Lage (20/20 flying indestructible).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 1}},
+            {"name": "choose_action", "arguments": {"choice": "1"}},
             # Turn 5: pass precombat main to reach combat.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # Declare Marit Lage as attacker for lethal (20 damage).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"attackers": ["all"]}, "golden_blunder": True},
+            {"name": "choose_action", "arguments": {"attackers": "all"}, "golden_blunder": True},
             # Capture state with Marit Lage attacking before combat damage.
             {"name": "get_game_state", "arguments": {}},
             # Pass priority — combat damage resolves, Opponent dies (game_over).

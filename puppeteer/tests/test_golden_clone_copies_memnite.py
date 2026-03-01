@@ -23,29 +23,29 @@ def test_clone_copies_memnite(xmage_server, tmp_path, project_root, bridge_sessi
         script=[
             # Choose TestPlayer as starting player and keep opening hand.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # Play Island.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 1}},
+            {"name": "choose_action", "arguments": {"choice": "1"}},
             # Next turn: cast Black Lotus then Memnite.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 5}},
+            {"name": "choose_action", "arguments": {"choice": "5"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # Cast Clone, choose to copy Memnite, let it resolve, then capture.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": True}},
+            {"name": "choose_action", "arguments": {"choice": "yes"}},
             # Select Memnite as the copy target.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # Let Clone resolve (enters as a copy of Memnite).
             {"name": "pass_priority", "arguments": {}},
             {"name": "get_game_state", "arguments": {}},

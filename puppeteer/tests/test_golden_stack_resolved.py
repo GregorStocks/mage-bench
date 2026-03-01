@@ -30,18 +30,18 @@ def test_stack_resolved(xmage_server, tmp_path, project_root, spectator_process)
         script=[
             # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # T1: Play Mountain (hand alphabetical: Badlands=p10, LB=p11, LB=p12,
             # Memnite=p13, Mountain=p14, Plateau=p15, Taiga=p16).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p14"}},
+            {"name": "choose_action", "arguments": {"choice": "p14"}},
             # Cast Lightning Bolt #1 (first playable spell).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # Target Opponent.
-            {"name": "choose_action", "arguments": {"index": 1}},
+            {"name": "choose_action", "arguments": {"choice": "1"}},
             # Let the stack resolve — bolt deals 3 damage.
             {"name": "pass_priority", "arguments": {"until": "stack_resolved"}},
             {"name": "get_game_state", "arguments": {}},

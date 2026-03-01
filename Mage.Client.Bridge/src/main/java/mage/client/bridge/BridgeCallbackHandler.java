@@ -1646,8 +1646,8 @@ public class BridgeCallbackHandler {
                     // (some models send all params with defaults)
                     if (answer == null) {
                         return buildError(result, "missing_param",
-                            "GAME_ASK requires answer=true (yes) or answer=false (no). "
-                            + "Do not use index or id — this is a yes/no question.", true, action);
+                            "GAME_ASK requires choice=\"yes\" or choice=\"no\". "
+                            + "This is a yes/no question.", true, action);
                     }
                     if (index != null) {
                         logger.warn("[" + client.getUsername() + "] choose_action: ignoring index=" + index + " for GAME_ASK (boolean-only)");
@@ -1729,8 +1729,8 @@ public class BridgeCallbackHandler {
                             result.put("action_taken", answer ? "confirmed" : "passed_priority");
                         } else {
                             return buildError(result, "missing_param",
-                                "GAME_SELECT requires either index=N (from get_action_choices) to play a card, "
-                                + "or answer=false to pass priority. Call get_action_choices first to see available cards.",
+                                "GAME_SELECT requires choice=pN to play a card, "
+                                + "or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
                                 true, action, true);
                         }
                     }
@@ -1805,7 +1805,7 @@ public class BridgeCallbackHandler {
                             result.put("action_taken", "cancelled_spell");
                         } else {
                             return buildError(result, "missing_param",
-                                "GAME_PLAY_MANA requires index=N to choose a mana source, or answer=false to cancel the spell. "
+                                "GAME_PLAY_MANA requires choice=pN to choose a mana source, or choice=\"no\" to cancel the spell. "
                                 + "Call get_action_choices first to see available mana sources.", true, action, true);
                         }
                     }
@@ -1856,7 +1856,7 @@ public class BridgeCallbackHandler {
                     } else if (!required) {
                         // No index, no answer=false — return error for optional targets
                         return buildError(result, "missing_param",
-                            "GAME_TARGET requires index=N to select a target, or answer=false to cancel targeting. "
+                            "GAME_TARGET requires choice=pN to select a target, or choice=\"no\" to cancel targeting. "
                             + "Call get_action_choices first to see available targets.", true, action, true);
                     }
 

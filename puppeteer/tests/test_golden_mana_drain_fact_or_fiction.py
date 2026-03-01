@@ -32,27 +32,27 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root, s
         script_a=[
             # Choose TestPlayer as starting player and keep opening hand.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # Play Island (only playable card).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # Cast Sol Ring.
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # Turn 2: play second Island before opponent casts Savannah Lions.
             {"name": "pass_priority", "arguments": {"until": "my_turn"}},
             {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # End turn, wait for opponent to cast Savannah Lions.
             {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
             # Counter Savannah Lions with Mana Drain.
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # Skip to our next precombat main (Mana Drain mana available).
             {"name": "pass_priority", "arguments": {"until": "my_turn"}},
             {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
             # Cast Fact or Fiction using Mana Drain mana.
-            {"name": "choose_action", "arguments": {"index": 0, "mana_plan": ["COLORLESS"]}},
+            {"name": "choose_action", "arguments": {"choice": "0", "mana_plan": "COLORLESS"}},
             # Choose the 3-card pile.
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"pile": 1}},
@@ -61,23 +61,23 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root, s
         script_b=[
             # Keep opening hand.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # Turn 1: play Plains.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {"until": "end_of_turn"}},
             # Turn 2: cast Savannah Lions (only playable card).
             {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # Split piles 3/2 for Fact or Fiction (pick three cards for pile 1, then done).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # Stay alive until game ends.
             {"name": "pass_priority", "arguments": {}},
         ],

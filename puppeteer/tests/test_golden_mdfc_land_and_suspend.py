@@ -33,22 +33,22 @@ def test_mdfc_land_and_suspend(xmage_server, tmp_path, project_root, bridge_sess
         script=[
             # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # T1: Play Forest (p12).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p12"}},
+            {"name": "choose_action", "arguments": {"choice": "p12"}},
             # T1: Suspend Crashing Footfalls (p11) paying {G}.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p11"}},
+            {"name": "choose_action", "arguments": {"choice": "p11"}},
             # T2: Play Boggart Trawler as Boggart Bog (p10).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p10"}},
+            {"name": "choose_action", "arguments": {"choice": "p10"}},
             # GAME_CHOOSE_ABILITY: select "Play Boggart Bog" (only option).
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # Boggart Bog ETB: "you may pay 3 life" — decline, enters tapped.
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # Advance through 4 upkeep counter removals.  Playing a Plains
             # each turn uses the land drop, so postcombat main has no playable
             # cards and pass_priority auto-advances through the entire rest of
@@ -56,18 +56,18 @@ def test_mdfc_land_and_suspend(xmage_server, tmp_path, project_root, bridge_sess
             #
             # T3 (upkeep: 4→3 counters): play Plains.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # T4 (upkeep: 3→2 counters): play Plains.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # T5 (upkeep: 2→1 counters): play Plains.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # T6 (upkeep: 1→0 → suspend resolves): pass_priority stops at
             # GAME_ASK "Cast spell without paying its mana cost?"
             {"name": "pass_priority", "arguments": {}},
             # Answer yes to cast Crashing Footfalls from exile for free.
-            {"name": "choose_action", "arguments": {"answer": True}},
+            {"name": "choose_action", "arguments": {"choice": "yes"}},
             # Spell resolves (2x 4/4 Rhino tokens created), stops at main.
             {"name": "pass_priority", "arguments": {}},
             # Capture state: 2x 4/4 Rhino tokens + lands on battlefield,

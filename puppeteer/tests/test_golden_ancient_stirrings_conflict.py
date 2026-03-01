@@ -38,22 +38,22 @@ def test_ancient_stirrings_short_id_conflict(
         script=[
             # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # T1: Play Forest (TestPlayer's hand alphabetical:
             # Ancient Stirrings=p10, Forest=p11, Plains=p12-p16).
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p11"}},
+            {"name": "choose_action", "arguments": {"choice": "p11"}},
             # Cast Ancient Stirrings (chain after land play).
-            {"name": "choose_action", "arguments": {"id": "p10"}},
+            {"name": "choose_action", "arguments": {"choice": "p10"}},
             # Pass priority — Ancient Stirrings resolves.
             # GAME_ASK: "Reveal a colorless card and put it into your hand?"
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": True}},
+            {"name": "choose_action", "arguments": {"choice": "yes"}},
             # GAME_TARGET: Select which colorless card from the top 5.
             # This is where cards in lookedAt zone get local IDs (the bug trigger).
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             # Get game state — the selected card moved from lookedAt to hand.
             # Before fix: triggers "UUID already mapped to different short ID" error.
             {"name": "get_game_state", "arguments": {}},

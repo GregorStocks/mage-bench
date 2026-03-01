@@ -29,18 +29,18 @@ def test_board_cursor_dedup(xmage_server, tmp_path, project_root, bridge_session
         script=[
             # Choose TestPlayer as starting player, keep hand.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
             # T1: Play Mountain.
             {"name": "pass_priority", "arguments": {}},
-            {"name": "choose_action", "arguments": {"id": "p14"}},
+            {"name": "choose_action", "arguments": {"choice": "p14"}},
             # T1 main: pass_priority returns with playable cards (full board).
             {"name": "pass_priority", "arguments": {}},
             # Redundant get_action_choices — board is unchanged, should dedup.
             {"name": "get_action_choices", "arguments": {}},
             # Now act on the choices.
-            {"name": "choose_action", "arguments": {"answer": False}},
+            {"name": "choose_action", "arguments": {"choice": "no"}},
         ],
         golden_name="board_cursor_dedup",
         bridge=bridge_session,
