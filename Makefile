@@ -14,6 +14,7 @@ clean:
 lint:
 	uv run python scripts/checks/lint_issues.py
 	uv run python scripts/checks/lint_scripts_are_python.py
+	uv run python scripts/checks/lint_no_fallback.py
 	uv run --project puppeteer ruff check puppeteer/ scripts/
 
 .PHONY: lint-fix
@@ -186,6 +187,10 @@ blunder-seed:
 .PHONY: blunder-audit
 blunder-audit:
 	uv run --project puppeteer python scripts/analysis/blunder_audit.py $(ARGS)
+
+.PHONY: blunder-audit-web
+blunder-audit-web:
+	uv run --project puppeteer python scripts/analysis/blunder_audit_web.py $(ARGS)
 
 .PHONY: blunder-baseline
 blunder-baseline:

@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 # File extensions that are data, not scripts — skip these.
-DATA_EXTENSIONS = {".json", ".gitkeep"}
+DATA_EXTENSIONS = {".json", ".gitkeep", ".html"}
 
 
 def lint_scripts(project_root: Path) -> list[str]:

@@ -1,6 +1,5 @@
 """Matchmakers for model pairing.
 
-Yente: filters to top-rated models (preset="yente").
 Round-robin: fills coverage gaps in the matchup matrix (preset="round-robin").
 """
 
@@ -14,10 +13,7 @@ from itertools import combinations
 from pathlib import Path
 
 from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
-from puppeteer.leaderboard import (
-    compute_openskill_ratings,
-    derive_format,
-)
+from puppeteer.leaderboard import derive_format
 from puppeteer.log import get_logger
 
 logger = get_logger(__name__)
@@ -27,18 +23,12 @@ _GAMES_DIR = _ROOT / "website" / "public" / "games"
 _PRESETS_JSON = _ROOT / "puppeteer" / "presets.json"
 _MODELS_JSON = _ROOT / "puppeteer" / "models.json"
 
-_DEFAULT_THRESHOLD = 1600
 _CALIBRATION_GAMES = 3  # Models with fewer games are "underrated" and get capped in round-robin
 
-_BLESSINGS = [
-    "Matchmaker, matchmaker, make me a match!",
-    "Find me a find, catch me a catch!",
-    "For papa, make him a scholar...",
-    "Matchmaker, matchmaker, look through your book!",
-    "Night after night in the dark I'm alone, so find me a match of my own.",
-    "Up to this minute, I misunderstood that I could get stuck for good!",
-    "Playing with matches a girl can get burned!",
-]
+
+def get_active_presets(presets_data: dict) -> list[str]:
+    """Return names of presets with status='active'."""
+    return [name for name, p in presets_data.get("presets", {}).items() if p.get("status") == "active"]
 
 
 def _load_games_index(games_dir: Path) -> list[dict]:
@@ -61,13 +51,13 @@ def _load_games_index(games_dir: Path) -> list[dict]:
 
 
 def _build_key_to_preset(presets_path: Path) -> dict[str, str]:
-    """Build player_key -> preset_name mapping for gauntlet presets."""
+    """Build player_key -> preset_name mapping for active presets."""
     data = json.loads(presets_path.read_text())
     presets = data.get("presets", {})
-    gauntlet = set(data.get("gauntlet", []))
+    active = set(get_active_presets(data))
     mapping: dict[str, str] = {}
     for name, pdata in presets.items():
-        if name not in gauntlet:
+        if name not in active:
             continue
         model_id = pdata.get("model", "")
         effort = pdata.get("reasoning_effort")
@@ -89,60 +79,6 @@ def _display_key(key: str, model_names: dict[str, str]) -> str:
     if "::" in key:
         display += f" ({key.split('::')[1]})"
     return display
-
-
-def get_yente_pool(
-    deck_type: str,
-    threshold: int = _DEFAULT_THRESHOLD,
-    games_dir: Path = _GAMES_DIR,
-    presets_path: Path = _PRESETS_JSON,
-    models_path: Path = _MODELS_JSON,
-) -> list[str]:
-    """Return gauntlet preset names for models rated above threshold.
-
-    deck_type: the deckType from the config, used to determine the rating pool.
-
-    Returns a list of preset name strings (e.g. ["sonnet-medium", "grok4f-medium"]).
-    Prints a Fiddler quote and the eligible pool to stderr.
-    """
-    # Determine mode from deck type
-    is_commander = "Commander" in deck_type or not deck_type
-
-    # Load game data at current epoch
-    all_games = _load_games_index(games_dir)
-    rated_games = [g for g in all_games if g["harnessEpoch"] >= MIN_LEADERBOARD_EPOCH]
-
-    # Compute ratings for the appropriate pool
-    if is_commander:
-        pool_games = [g for g in rated_games if derive_format(g) == "commander"]
-        mode_label = "commander"
-    else:
-        pool_games = [g for g in rated_games if derive_format(g) != "commander"]
-        mode_label = "2-player"
-    final_ratings, _per_game = compute_openskill_ratings(pool_games, games_dir)
-
-    # Build reverse mapping: player_key -> preset name
-    key_to_preset = _build_key_to_preset(presets_path)
-
-    # Filter to models above threshold that have a gauntlet preset
-    eligible: list[tuple[str, str, int]] = []  # (player_key, preset_name, rating)
-    for key, rating in final_ratings.items():
-        rating_int = int(rating)
-        if rating_int >= threshold and key in key_to_preset:
-            eligible.append((key, key_to_preset[key], rating_int))
-
-    # Sort by rating descending for display
-    eligible.sort(key=lambda x: -x[2])
-
-    # Display the pool
-    model_names = _load_model_names(models_path)
-    logger.info("  %s", random.choice(_BLESSINGS))
-    logger.info("  Yente %s pool (%d models >= %d):", mode_label, len(eligible), threshold)
-    for key, preset, rating in eligible:
-        display = _display_key(key, model_names)
-        logger.info("    %4d  %s  [%s]", rating, display, preset)
-
-    return [preset for _, preset, _ in eligible]
 
 
 # --- Round-robin matchmaker ---
@@ -217,7 +153,7 @@ def get_round_robin_matchup(
 ) -> list[str]:
     """Return preset names for a coverage-maximizing matchup.
 
-    Picks the group of num_seats gauntlet presets whose total pairwise
+    Picks the group of num_seats active presets whose total pairwise
     matchup count is minimal. Ties broken by fewest total games played,
     then randomly.
 
@@ -242,16 +178,16 @@ def get_round_robin_matchup(
 
     # Build mappings
     key_to_preset = _build_key_to_preset(presets_path)
-    gauntlet = json.loads(presets_path.read_text()).get("gauntlet", [])
-    assert len(gauntlet) >= num_seats, f"Gauntlet has {len(gauntlet)} presets but need {num_seats} seats"
+    active = get_active_presets(json.loads(presets_path.read_text()))
+    assert len(active) >= num_seats, f"Active pool has {len(active)} presets but need {num_seats} seats"
 
     # Build matchup matrix
     pair_counts, game_counts = _build_matchup_matrix(pool_games, key_to_preset, extra_matchups)
 
     # Calibration cap: limit underrated models per game so new models face
     # established opponents and their ratings converge quickly.
-    underrated = {p for p in gauntlet if game_counts.get(p, 0) < _CALIBRATION_GAMES}
-    rated_count = len(gauntlet) - len(underrated)
+    underrated = {p for p in active if game_counts.get(p, 0) < _CALIBRATION_GAMES}
+    rated_count = len(active) - len(underrated)
     # Only apply cap if enough rated models exist to fill the remaining seats
     max_underrated = num_seats  # no cap by default
     if underrated and rated_count >= num_seats:
@@ -259,7 +195,7 @@ def get_round_robin_matchup(
 
     # Score all possible groups
     candidates: list[tuple[int, int, tuple[str, ...]]] = []
-    for combo in combinations(gauntlet, num_seats):
+    for combo in combinations(active, num_seats):
         if sum(1 for p in combo if p in underrated) > max_underrated:
             continue
         pair_score = sum(pair_counts.get(pair, 0) for pair in combinations(sorted(combo), 2))
@@ -284,8 +220,8 @@ def get_round_robin_matchup(
         display = _display_key(key, model_names)
         games = game_counts.get(preset, 0)
         logger.info("    %s  [%s]  (%d games)", display, preset, games)
-    total_pairs = len(list(combinations(gauntlet, 2)))
-    covered = sum(1 for pair in combinations(sorted(gauntlet), 2) if pair_counts.get(pair, 0) > 0)
+    total_pairs = len(list(combinations(active, 2)))
+    covered = sum(1 for pair in combinations(sorted(active), 2) if pair_counts.get(pair, 0) > 0)
     logger.info("  Coverage: %d/%d pairs have been played", covered, total_pairs)
     if underrated and max_underrated < num_seats:
         logger.info(

@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blunder Audit</title>
+<link rel="stylesheet" href="/game-renderer.css">
+<link rel="stylesheet" href="/game-viewer.css">
+<style>
+:root {
+  --bg: #1a1a2e;
+  --card-bg: #16213e;
+  --border: #0f3460;
+  --accent: #e94560;
+  --text: #e0e0e0;
+  --text-dim: #a0a0b8;
+  --green: #2ecc71;
+  --yellow: #f1c40f;
+  --orange: #e67e22;
+  --red: #e74c3c;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Top bar */
+#top-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+#top-bar h1 { font-size: 1rem; color: var(--accent); white-space: nowrap; }
+#stats { font-size: 0.85rem; color: var(--text-dim); }
+#filter-bar { display: flex; gap: 0.5rem; margin-left: auto; align-items: center; }
+#filter-bar label { font-size: 0.8rem; color: var(--text-dim); }
+#filter-bar select, #filter-bar input {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.8rem;
+}
+
+/* Main layout */
+#main {
+  display: flex;
+  height: calc(100vh - 42px);
+}
+
+/* Sidebar */
+#sidebar {
+  width: 340px;
+  min-width: 280px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+#play-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.25rem 0;
+}
+.game-group-header {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  padding: 0.5rem 0.75rem 0.15rem;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 1;
+}
+.play-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  border-left: 3px solid transparent;
+  transition: background 0.1s;
+}
+.play-row:hover { background: rgba(255,255,255,0.04); }
+.play-row.selected {
+  background: rgba(233,69,96,0.12);
+  border-left-color: var(--accent);
+}
+.play-row.audited { opacity: 0.6; }
+.sev-badge {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sev-major { background: var(--red); }
+.sev-moderate { background: var(--orange); }
+.sev-minor { background: var(--yellow); }
+.sev-questionable { background: #888; }
+.sev-none { background: #444; }
+.play-info { flex: 1; min-width: 0; }
+.play-player { font-weight: 600; color: var(--text); }
+.play-turn { color: var(--text-dim); font-size: 0.75rem; }
+.play-message {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-dim);
+  font-size: 0.72rem;
+}
+.verdict-icon { width: 16px; text-align: center; flex-shrink: 0; font-size: 0.85rem; }
+
+/* Detail panel */
+#detail {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+#detail-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-dim);
+  font-size: 1.1rem;
+}
+#detail-content { display: none; flex-direction: column; height: 100%; }
+
+/* Viewer container (GameViewer.create populates this) */
+#viewer-container {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0.25rem;
+}
+
+/* Audit bar (below viewer) */
+#audit-bar {
+  flex-shrink: 0;
+  background: var(--card-bg);
+  border-top: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+#decision-context {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+#decision-context .label { color: var(--text-dim); font-size: 0.75rem; }
+#decision-context .value { color: var(--text); }
+#decision-message {
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+#decision-chosen { margin-bottom: 0.25rem; }
+#annotation-box {
+  margin-top: 0.35rem;
+  padding: 0.4rem 0.6rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 4px;
+  border-left: 3px solid var(--border);
+  font-size: 0.8rem;
+  max-height: 5.5em;
+  overflow-y: auto;
+}
+#annotation-box .ann-severity {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+}
+#annotation-box .ann-severity.major { color: var(--red); }
+#annotation-box .ann-severity.moderate { color: var(--orange); }
+#annotation-box .ann-severity.minor { color: var(--yellow); }
+#annotation-box .ann-severity.questionable { color: #888; }
+#annotation-desc { color: var(--text-dim); margin-top: 0.15rem; }
+#annotation-details {
+  margin-top: 0.25rem;
+  font-size: 0.78rem;
+}
+#annotation-details .detail-label { color: var(--text-dim); font-weight: 600; }
+#annotation-details .detail-value { color: var(--text); }
+
+/* Verdict panel */
+#verdict-panel {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: stretch;
+  min-width: 200px;
+}
+#verdict-buttons { display: flex; gap: 0.4rem; }
+.verdict-btn {
+  flex: 1;
+  padding: 0.5rem 0.3rem;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+  transition: all 0.15s;
+  text-align: center;
+}
+.verdict-btn:hover { filter: brightness(1.2); }
+.verdict-btn:active { transform: scale(0.97); }
+.verdict-btn.selected { box-shadow: 0 0 0 2px white; }
+#btn-blunder { background: var(--red); color: white; }
+#btn-not-blunder { background: var(--green); color: white; }
+#btn-questionable { background: var(--yellow); color: #333; }
+#notes-input {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.8rem;
+  resize: none;
+  height: 2.2rem;
+}
+#submit-btn {
+  padding: 0.45rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: all 0.15s;
+}
+#submit-btn:hover { filter: brightness(1.15); }
+#submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+#verdict-status {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+  min-height: 1.1em;
+}
+.shortcut-hint {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  display: block;
+}
+#existing-verdict {
+  text-align: center;
+  padding: 0.3rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+#existing-verdict.v-blunder { background: rgba(231,76,60,0.2); color: var(--red); }
+#existing-verdict.v-not_blunder { background: rgba(46,204,113,0.2); color: var(--green); }
+#existing-verdict.v-questionable { background: rgba(241,196,15,0.2); color: var(--yellow); }
+#existing-notes {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-align: center;
+  font-style: italic;
+}
+
+/* Spinner */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--text-dim);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #1a4a8a; }
+</style>
+</head>
+<body>
+
+<div id="top-bar">
+  <h1>Blunder Audit</h1>
+  <div id="stats"></div>
+  <div id="filter-bar">
+    <label>Show:</label>
+    <select id="filter-verdict">
+      <option value="unaudited">Unaudited</option>
+      <option value="all">All</option>
+      <option value="blunder">Blunders</option>
+      <option value="not_blunder">Not Blunders</option>
+      <option value="questionable">Questionable</option>
+    </select>
+  </div>
+</div>
+
+<div id="main">
+  <div id="sidebar">
+    <div id="play-list"></div>
+  </div>
+
+  <div id="detail">
+    <div id="detail-empty">Select a play from the sidebar</div>
+    <div id="detail-content">
+      <div id="viewer-container"></div>
+      <div id="audit-bar">
+        <div id="decision-context">
+          <div id="decision-message"></div>
+          <div id="decision-chosen"></div>
+          <div id="annotation-box" class="hidden">
+            <span class="ann-severity" id="ann-severity"></span>
+            <div id="annotation-desc"></div>
+            <div id="annotation-details"></div>
+          </div>
+        </div>
+        <div id="verdict-panel">
+          <div id="existing-verdict" class="hidden"></div>
+          <div id="existing-notes" class="hidden"></div>
+          <div id="verdict-buttons">
+            <button class="verdict-btn" id="btn-blunder" data-verdict="blunder">Blunder<span class="shortcut-hint">[B]</span></button>
+            <button class="verdict-btn" id="btn-not-blunder" data-verdict="not_blunder">Not Blunder<span class="shortcut-hint">[N]</span></button>
+            <button class="verdict-btn" id="btn-questionable" data-verdict="questionable">Questionable<span class="shortcut-hint">[?]</span></button>
+          </div>
+          <textarea id="notes-input" placeholder="Notes (optional)"></textarea>
+          <button id="submit-btn" disabled>Submit</button>
+          <div id="verdict-status"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/game-renderer.js"></script>
+<script src="/game-viewer.js"></script>
+<script>
+(function() {
+  "use strict";
+
+  var allPlays = [];
+  var filteredPlays = [];
+  var selectedIdx = -1;
+  var selectedVerdict = null;
+  var submitting = false;
+  var currentDetail = null;
+  var viewer = null;
+  var gameDataCache = {};  // game_id -> game data
+  var currentGameId = null;
+
+  // DOM refs
+  var playListEl = document.getElementById("play-list");
+  var statsEl = document.getElementById("stats");
+  var filterVerdictEl = document.getElementById("filter-verdict");
+  var detailEmpty = document.getElementById("detail-empty");
+  var detailContent = document.getElementById("detail-content");
+  var viewerContainer = document.getElementById("viewer-container");
+  var decisionMessage = document.getElementById("decision-message");
+  var decisionChosen = document.getElementById("decision-chosen");
+  var annotationBox = document.getElementById("annotation-box");
+  var annSeverity = document.getElementById("ann-severity");
+  var annotationDesc = document.getElementById("annotation-desc");
+  var annotationDetails = document.getElementById("annotation-details");
+  var existingVerdictEl = document.getElementById("existing-verdict");
+  var existingNotesEl = document.getElementById("existing-notes");
+  var notesInput = document.getElementById("notes-input");
+  var submitBtn = document.getElementById("submit-btn");
+  var verdictStatus = document.getElementById("verdict-status");
+
+  // -- Data loading --
+
+  function loadPlays() {
+    playListEl.innerHTML = '<div style="padding:1rem;color:var(--text-dim);text-align:center"><span class="spinner"></span> Loading plays...</div>';
+    fetch("/api/plays")
+      .then(function(r) { return r.json(); })
+      .then(function(plays) {
+        allPlays = plays;
+        applyFilter();
+        loadStats();
+        // Check for hash route on initial load
+        handleHashRoute();
+      });
+  }
+
+  function loadStats() {
+    fetch("/api/stats")
+      .then(function(r) { return r.json(); })
+      .then(function(s) {
+        statsEl.textContent = s.audited + "/" + s.total + " audited \u00b7 " +
+          s.unaudited + " remaining \u00b7 " + s.games + " games";
+      });
+  }
+
+  function loadGameData(gameId) {
+    if (gameDataCache[gameId]) {
+      return Promise.resolve(gameDataCache[gameId]);
+    }
+    return GameViewer.fetchGameData("", gameId).then(function(data) {
+      gameDataCache[gameId] = data;
+      return data;
+    });
+  }
+
+  // -- URL hash routing --
+
+  function updateHash(gameId, di) {
+    var hash = "#" + gameId + "/" + di;
+    if (window.location.hash !== hash) {
+      history.replaceState(null, "", hash);
+    }
+  }
+
+  function handleHashRoute() {
+    var hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    var parts = hash.substring(1).split("/");
+    if (parts.length !== 2) return;
+    var gameId = parts[0];
+    var di = parseInt(parts[1], 10);
+    if (isNaN(di)) return;
+
+    // Find this play in filteredPlays
+    var idx = filteredPlays.findIndex(function(p) {
+      return p.game_id === gameId && p.decision_index === di;
+    });
+    if (idx >= 0) {
+      selectPlay(idx);
+    } else {
+      // Try all plays (might be filtered out)
+      idx = allPlays.findIndex(function(p) {
+        return p.game_id === gameId && p.decision_index === di;
+      });
+      if (idx >= 0) {
+        // Switch to "all" filter to show it
+        filterVerdictEl.value = "all";
+        applyFilter();
+        idx = filteredPlays.findIndex(function(p) {
+          return p.game_id === gameId && p.decision_index === di;
+        });
+        if (idx >= 0) selectPlay(idx);
+      }
+    }
+  }
+
+  window.addEventListener("hashchange", handleHashRoute);
+
+  // -- Filtering --
+
+  function applyFilter() {
+    var f = filterVerdictEl.value;
+    if (f === "all") {
+      filteredPlays = allPlays;
+    } else if (f === "unaudited") {
+      filteredPlays = allPlays.filter(function(p) { return p.verdict == null; });
+    } else {
+      filteredPlays = allPlays.filter(function(p) { return p.verdict === f; });
+    }
+    renderPlayList();
+    if (currentDetail) {
+      var newIdx = filteredPlays.findIndex(function(p) {
+        return p.game_id === currentDetail.game_id && p.decision_index === currentDetail.decision_index;
+      });
+      if (newIdx >= 0) {
+        selectedIdx = newIdx;
+        highlightSelected();
+      } else {
+        selectedIdx = -1;
+        showEmpty();
+      }
+    }
+  }
+
+  filterVerdictEl.addEventListener("change", applyFilter);
+
+  // -- Sidebar rendering --
+
+  function sevClass(sev) {
+    if (!sev) return "sev-none";
+    return "sev-" + sev;
+  }
+
+  function verdictIcon(v) {
+    if (v === "blunder") return "\u274c";
+    if (v === "not_blunder") return "\u2705";
+    if (v === "questionable") return "\u2753";
+    return "";
+  }
+
+  function renderPlayList() {
+    playListEl.innerHTML = "";
+    var currentGame = null;
+    filteredPlays.forEach(function(play, idx) {
+      if (play.game_id !== currentGame) {
+        currentGame = play.game_id;
+        var header = document.createElement("div");
+        header.className = "game-group-header";
+        var m = currentGame.match(/game_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/);
+        header.textContent = m
+          ? m[1]+"-"+m[2]+"-"+m[3]+" "+m[4]+":"+m[5]
+          : currentGame;
+        var unaudited = allPlays.filter(function(p) {
+          return p.game_id === currentGame && p.verdict == null;
+        }).length;
+        var total = allPlays.filter(function(p) { return p.game_id === currentGame; }).length;
+        header.textContent += " (" + (total - unaudited) + "/" + total + ")";
+        playListEl.appendChild(header);
+      }
+
+      var row = document.createElement("div");
+      row.className = "play-row" + (play.verdict != null ? " audited" : "");
+      if (idx === selectedIdx) row.classList.add("selected");
+      row.dataset.idx = idx;
+
+      var badge = document.createElement("span");
+      badge.className = "sev-badge " + sevClass(play.annotation_severity);
+      row.appendChild(badge);
+
+      var info = document.createElement("div");
+      info.className = "play-info";
+      var playerSpan = document.createElement("span");
+      playerSpan.className = "play-player";
+      playerSpan.textContent = play.player || ("Decision #" + play.decision_index);
+      info.appendChild(playerSpan);
+      if (play.turn) {
+        var turnSpan = document.createElement("span");
+        turnSpan.className = "play-turn";
+        turnSpan.textContent = " T" + play.turn;
+        info.appendChild(turnSpan);
+      }
+      if (play.message) {
+        var msgDiv = document.createElement("div");
+        msgDiv.className = "play-message";
+        msgDiv.textContent = play.message;
+        info.appendChild(msgDiv);
+      }
+      row.appendChild(info);
+
+      var vi = document.createElement("span");
+      vi.className = "verdict-icon";
+      vi.textContent = verdictIcon(play.verdict);
+      row.appendChild(vi);
+
+      row.addEventListener("click", function() { selectPlay(idx); });
+      playListEl.appendChild(row);
+    });
+  }
+
+  function highlightSelected() {
+    var rows = playListEl.querySelectorAll(".play-row");
+    rows.forEach(function(r) {
+      r.classList.toggle("selected", parseInt(r.dataset.idx) === selectedIdx);
+    });
+    var sel = playListEl.querySelector(".play-row.selected");
+    if (sel) sel.scrollIntoView({ block: "nearest" });
+  }
+
+  function updateSelectedRow(play) {
+    var sel = playListEl.querySelector(".play-row.selected");
+    if (!sel) return;
+    var info = sel.querySelector(".play-info");
+    if (!info) return;
+    var playerSpan = info.querySelector(".play-player");
+    if (playerSpan && play.player) playerSpan.textContent = play.player;
+    var turnSpan = info.querySelector(".play-turn");
+    if (!turnSpan && play.turn) {
+      turnSpan = document.createElement("span");
+      turnSpan.className = "play-turn";
+      info.insertBefore(turnSpan, info.querySelector(".play-message"));
+    }
+    if (turnSpan && play.turn) turnSpan.textContent = " T" + play.turn;
+    var msgDiv = info.querySelector(".play-message");
+    if (!msgDiv && play.message) {
+      msgDiv = document.createElement("div");
+      msgDiv.className = "play-message";
+      info.appendChild(msgDiv);
+    }
+    if (msgDiv && play.message) msgDiv.textContent = play.message;
+    var badge = sel.querySelector(".sev-badge");
+    if (badge && play.annotation_severity) {
+      badge.className = "sev-badge " + sevClass(play.annotation_severity);
+    }
+  }
+
+  // -- Play selection --
+
+  function showEmpty() {
+    detailEmpty.style.display = "flex";
+    detailContent.style.display = "none";
+    currentDetail = null;
+    if (viewer) {
+      viewer.destroy();
+      viewer = null;
+    }
+    currentGameId = null;
+  }
+
+  function selectPlay(idx) {
+    if (idx < 0 || idx >= filteredPlays.length) return;
+    selectedIdx = idx;
+    highlightSelected();
+    var play = filteredPlays[idx];
+
+    detailEmpty.style.display = "none";
+    detailContent.style.display = "flex";
+    verdictStatus.textContent = "Loading...";
+
+    // Update URL hash
+    updateHash(play.game_id, play.decision_index);
+
+    // Fetch play detail (for annotation, verdict, aftermath_index) and game data in parallel
+    Promise.all([
+      fetch("/api/plays/" + play.game_id + "/" + play.decision_index).then(function(r) { return r.json(); }),
+      loadGameData(play.game_id),
+    ])
+    .then(function(results) {
+      var detail = results[0];
+      var gameData = results[1];
+      currentDetail = detail;
+
+      // Enrich sidebar entry
+      play.player = detail.player;
+      play.turn = detail.turn;
+      play.message = detail.message;
+      play.annotation_severity = play.annotation_severity || (detail.annotation && detail.annotation.severity);
+      updateSelectedRow(play);
+
+      // Create or reuse the game viewer
+      if (currentGameId === play.game_id && viewer) {
+        // Same game — just navigate to the right snapshot
+        viewer.goTo(detail.aftermath_index);
+      } else {
+        // Different game — create a new viewer
+        if (viewer) viewer.destroy();
+        viewer = GameViewer.create(viewerContainer, gameData, {
+          initialSnapshot: detail.aftermath_index,
+        });
+        currentGameId = play.game_id;
+      }
+
+      // Render audit context
+      renderAuditContext(detail);
+    })
+    .catch(function(e) {
+      verdictStatus.textContent = "Error: " + e.message;
+    });
+  }
+
+  // -- Audit context rendering --
+
+  function escapeHtml(s) {
+    var div = document.createElement("div");
+    div.textContent = s;
+    return div.innerHTML;
+  }
+
+  function renderAuditContext(d) {
+    decisionMessage.textContent = d.message || "";
+    decisionChosen.innerHTML = '<span class="label">Chosen: </span><span class="value">' +
+      escapeHtml(d.chosen || "?") + '</span>' +
+      ' <span class="label">Hand: </span><span class="value">' +
+      escapeHtml(d.hand || "?") + '</span>';
+
+    // Annotation
+    if (d.annotation && d.annotation.severity) {
+      annotationBox.classList.remove("hidden");
+      annSeverity.textContent = d.annotation.severity;
+      annSeverity.className = "ann-severity " + d.annotation.severity;
+      annotationDesc.textContent = d.annotation.description || "";
+
+      var detailsHtml = "";
+      if (d.annotation.actionTaken) {
+        detailsHtml += '<div><span class="detail-label">Action taken: </span><span class="detail-value">' +
+          escapeHtml(d.annotation.actionTaken) + '</span></div>';
+      }
+      if (d.annotation.betterLine) {
+        detailsHtml += '<div><span class="detail-label">Better line: </span><span class="detail-value">' +
+          escapeHtml(d.annotation.betterLine) + '</span></div>';
+      }
+      annotationDetails.innerHTML = detailsHtml;
+    } else {
+      annotationBox.classList.add("hidden");
+    }
+
+    // Existing verdict
+    if (d.verdict) {
+      existingVerdictEl.className = "v-" + d.verdict;
+      existingVerdictEl.classList.remove("hidden");
+      existingVerdictEl.textContent = "Current: " + d.verdict.replace(/_/g, " ");
+      if (d.human_notes) {
+        existingNotesEl.classList.remove("hidden");
+        existingNotesEl.textContent = '"' + d.human_notes + '"';
+      } else {
+        existingNotesEl.classList.add("hidden");
+      }
+    } else {
+      existingVerdictEl.classList.add("hidden");
+      existingNotesEl.classList.add("hidden");
+    }
+
+    // Reset verdict selection
+    selectedVerdict = null;
+    document.querySelectorAll(".verdict-btn").forEach(function(b) {
+      b.classList.remove("selected");
+    });
+    notesInput.value = d.human_notes || "";
+    submitBtn.disabled = true;
+    verdictStatus.textContent = "";
+  }
+
+  // -- Verdict buttons --
+
+  document.querySelectorAll(".verdict-btn").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      selectVerdict(btn.dataset.verdict);
+    });
+  });
+
+  function selectVerdict(v) {
+    selectedVerdict = v;
+    document.querySelectorAll(".verdict-btn").forEach(function(b) {
+      b.classList.toggle("selected", b.dataset.verdict === v);
+    });
+    submitBtn.disabled = false;
+    if (!notesInput.value) notesInput.focus();
+  }
+
+  submitBtn.addEventListener("click", submitVerdict);
+
+  function submitVerdict() {
+    if (!selectedVerdict || !currentDetail || submitting) return;
+    submitting = true;
+    submitBtn.disabled = true;
+    verdictStatus.innerHTML = '<span class="spinner"></span> Saving...';
+
+    var body = {
+      verdict: selectedVerdict,
+      notes: notesInput.value.trim() || null,
+    };
+
+    fetch("/api/plays/" + currentDetail.game_id + "/" + currentDetail.decision_index + "/verdict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    })
+    .then(function(r) {
+      if (!r.ok) return r.json().then(function(e) { throw new Error(e.error); });
+      return r.json();
+    })
+    .then(function() {
+      verdictStatus.textContent = "Saved: " + selectedVerdict.replace(/_/g, " ");
+
+      var play = filteredPlays[selectedIdx];
+      play.verdict = selectedVerdict;
+      allPlays.forEach(function(p) {
+        if (p.game_id === play.game_id && p.decision_index === play.decision_index) {
+          p.verdict = selectedVerdict;
+        }
+      });
+
+      renderPlayList();
+      loadStats();
+
+      submitting = false;
+      advanceToNextUnaudited();
+    })
+    .catch(function(e) {
+      verdictStatus.textContent = "Error: " + e.message;
+      submitBtn.disabled = false;
+      submitting = false;
+    });
+  }
+
+  function advanceToNextUnaudited() {
+    for (var i = selectedIdx + 1; i < filteredPlays.length; i++) {
+      if (filteredPlays[i].verdict == null) {
+        selectPlay(i);
+        return;
+      }
+    }
+    for (var i = 0; i < selectedIdx; i++) {
+      if (filteredPlays[i].verdict == null) {
+        selectPlay(i);
+        return;
+      }
+    }
+    verdictStatus.textContent = "All plays audited!";
+  }
+
+  // -- Keyboard shortcuts --
+
+  document.addEventListener("keydown", function(e) {
+    // Don't intercept when typing in notes or in viewer inputs
+    if (e.target === notesInput) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        submitVerdict();
+      }
+      return;
+    }
+    // Let viewer handle its own keys when it's focused
+    if (viewerContainer.contains(e.target) && e.target !== document.body) return;
+
+    switch (e.key) {
+      case "b":
+      case "B":
+        selectVerdict("blunder");
+        e.preventDefault();
+        break;
+      case "n":
+      case "N":
+        selectVerdict("not_blunder");
+        e.preventDefault();
+        break;
+      case "?":
+        selectVerdict("questionable");
+        e.preventDefault();
+        break;
+      case "ArrowDown":
+      case "j":
+        e.preventDefault();
+        if (selectedIdx < filteredPlays.length - 1) selectPlay(selectedIdx + 1);
+        break;
+      case "ArrowUp":
+      case "k":
+        e.preventDefault();
+        if (selectedIdx > 0) selectPlay(selectedIdx - 1);
+        break;
+      case "Enter":
+        e.preventDefault();
+        submitVerdict();
+        break;
+      case "s":
+      case "S":
+        e.preventDefault();
+        advanceToNextUnaudited();
+        break;
+    }
+  });
+
+  // -- Init --
+  loadPlays();
+
+})();
+</script>
+</body>
+</html>

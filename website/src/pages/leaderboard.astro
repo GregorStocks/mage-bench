@@ -47,10 +47,10 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
           <span class="tab-count">({(formats[fmt]?.totalGames ?? 0)})</span>
         </button>
       ))}
-      <label class="retired-toggle" title="Retired models are older or superseded versions no longer included in the evaluation gauntlet. Their historical ratings are preserved but no new games are played.">
-        <input type="checkbox" id="show-retired" />
+      <label class="inactive-toggle" title="Inactive models are no longer in the active evaluation pool. Reasons: retired (superseded or bottom-tier), buggy (tool-use issues), or expensive (too costly for regular rotation). Historical ratings are preserved.">
+        <input type="checkbox" id="show-inactive" />
         <span class="toggle-track"><span class="toggle-thumb"></span></span>
-        Show retired models
+        Show inactive models
       </label>
     </div>
 
@@ -82,11 +82,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
                 data-win-rate={m.winRate}
                 data-blunder-score={m.blunderScore}
                 data-avg-api-cost={m.avgApiCost}
-                data-retired={m.retired ? 'true' : ''}
-                class:list={[{ retired: m.retired }]}
+                data-inactive={m.inactive || ''}
+                class:list={[{ inactive: m.inactive }]}
               >
                 <td class="rank-cell">{i + 1}</td>
-                <td class="model-name">{m.modelName}{m.retired && <span class="retired-label"> (retired)</span>}</td>
+                <td class="model-name">{m.modelName}{m.inactive && <span class="inactive-label"> ({m.inactive})</span>}</td>
                 <td>{m.provider}</td>
                 <td class="num">{m.rating}</td>
                 <td class="num"><span class={`blunder-val ${m.blunderScore < 0.3 ? 'blunder-good' : m.blunderScore < 0.8 ? 'blunder-ok' : 'blunder-bad'}`}>{m.blunderScore.toFixed(2)}</span></td>
@@ -114,7 +114,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     // No data yet, nothing to make interactive
   } else {
   const headers = table.querySelectorAll('th[data-sort]');
-  const showRetiredCheckbox = document.getElementById('show-retired') as HTMLInputElement;
+  const showInactiveCheckbox = document.getElementById('show-inactive') as HTMLInputElement;
   const noResults = document.getElementById('no-results')!;
   const formatTabs = document.getElementById('format-tabs');
 
@@ -222,7 +222,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   });
 
   function applyFilters() {
-    const showRetired = showRetiredCheckbox.checked;
+    const showInactive = showInactiveCheckbox.checked;
     const tbody = getActiveTbody();
     if (!tbody) return;
     const rows = tbody.querySelectorAll('tr');
@@ -230,7 +230,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
     rows.forEach(row => {
       const el = row as HTMLElement;
-      const visible = showRetired || el.dataset.retired !== 'true';
+      const visible = showInactive || !el.dataset.inactive;
 
       el.style.display = visible ? '' : 'none';
       if (visible) visibleCount++;
@@ -256,7 +256,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     });
   }
 
-  showRetiredCheckbox.addEventListener('change', applyFilters);
+  showInactiveCheckbox.addEventListener('change', applyFilters);
   updateGamesLinks();
   applyFilters();
   }
@@ -339,7 +339,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     margin: 0 0.3rem;
   }
 
-  .retired-toggle {
+  .inactive-toggle {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -352,7 +352,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     padding-bottom: 1px;
   }
 
-  .retired-toggle input[type="checkbox"] {
+  .inactive-toggle input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     width: 0;
@@ -381,11 +381,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     transition: transform 0.2s, background 0.2s;
   }
 
-  .retired-toggle input:checked + .toggle-track {
+  .inactive-toggle input:checked + .toggle-track {
     background: #e94560;
   }
 
-  .retired-toggle input:checked + .toggle-track .toggle-thumb {
+  .inactive-toggle input:checked + .toggle-track .toggle-thumb {
     transform: translateX(14px);
     background: #fff;
   }
@@ -498,11 +498,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     background: rgba(233, 69, 96, 0.08);
   }
 
-  tbody tr.retired {
+  tbody tr.inactive {
     font-style: italic;
   }
 
-  .retired-label {
+  .inactive-label {
     color: #a0a0b8;
     font-weight: 400;
   }

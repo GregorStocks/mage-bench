@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from puppeteer.log import get_logger
-from puppeteer.matchmaker import get_round_robin_matchup, get_yente_pool, pick_round_robin_format
+from puppeteer.matchmaker import get_active_presets, get_round_robin_matchup, pick_round_robin_format
 
 logger = get_logger(__name__)
 
@@ -207,12 +207,12 @@ def _resolve_preset(
 
 
 def _validate_name_parts(personalities: dict[str, dict], presets_data: dict, models_data: dict) -> None:
-    """Validate all gauntlet x personality name_part combos fit XMage name limits.
+    """Validate all active preset x personality name_part combos fit XMage name limits.
 
     Called at startup when random resolution is needed. Fails fast with a clear
     error listing any offending combinations.
     """
-    pool = presets_data.get("gauntlet", [])
+    pool = get_active_presets(presets_data)
     if not pool:
         return
     presets = presets_data.get("presets", {})
@@ -221,7 +221,7 @@ def _validate_name_parts(personalities: dict[str, dict], presets_data: dict, mod
     for preset_key in pool:
         preset = presets.get(preset_key)
         if preset is None:
-            errors.append(f"gauntlet preset {preset_key!r} not found in presets")
+            errors.append(f"active preset {preset_key!r} not found in presets")
             continue
         model_id = preset.get("model", "")
         model = models_by_id.get(model_id)
@@ -267,10 +267,9 @@ def _resolve_randoms(
     models_data: dict,
     toolsets: dict[str, list[str]] | None = None,
     cross_game_used_names: set[str] | None = None,
-    yente_pool: list[str] | None = None,
     round_robin_picks: list[str] | None = None,
 ) -> None:
-    """Resolve 'random'/'yente'/'round-robin' preset/personality values and apply defaults.
+    """Resolve 'random'/'round-robin' preset/personality values and apply defaults.
 
     Each player tuple is (player, had_explicit_name). Modifies players in-place.
     Avoids duplicate personalities and presets across players.
@@ -279,18 +278,15 @@ def _resolve_randoms(
     batch.  When a randomly generated name collides, the personality is
     re-rolled to produce a unique name.
 
-    yente_pool: preset names for top-rated models (from matchmaker.get_yente_pool).
-    Required when any player has preset="yente".
-
     round_robin_picks: ordered preset names for coverage-optimal matchup
     (from matchmaker.get_round_robin_matchup). Required when any player has
     preset="round-robin". Consumed in order via pop(0).
     """
-    has_randoms = any(p.preset in ("random", "yente", "round-robin") or p.personality == "random" for p, _ in players)
+    has_randoms = any(p.preset in ("random", "round-robin") or p.personality == "random" for p, _ in players)
     if has_randoms:
         _validate_name_parts(personalities, presets_data, models_data)
 
-    preset_pool = presets_data.get("gauntlet", [])
+    preset_pool = get_active_presets(presets_data)
     available_personalities = list(personalities.keys())
     available_presets = list(preset_pool)
 
@@ -317,18 +313,6 @@ def _resolve_randoms(
             if not remaining:
                 used_presets.clear()
                 remaining = available_presets
-            chosen_preset = random.choice(remaining)
-            used_presets.add(chosen_preset)
-            player.preset = chosen_preset
-
-        # Resolve yente preset (top-rated models from matchmaker)
-        elif player.preset == "yente":
-            assert yente_pool, "preset='yente' requires yente_pool (from matchmaker.get_yente_pool)"
-            remaining = [m for m in yente_pool if m not in used_presets]
-            assert remaining, (
-                f"Not enough top-rated models for yente matchmaking. "
-                f"Pool has {len(yente_pool)} presets but need more unique picks."
-            )
             chosen_preset = random.choice(remaining)
             used_presets.add(chosen_preset)
             player.preset = chosen_preset
@@ -648,12 +632,6 @@ class Config:
                 f"deck='choice' requires a pilot player (has LLM), but found on non-pilot player(s): {non_pilot_choice}"
             )
 
-            # Compute yente pool if any player uses preset="yente"
-            has_yente = any(p.preset == "yente" for p, _ in llm_players)
-            yp: list[str] | None = None
-            if has_yente:
-                yp = get_yente_pool(self.deck_type)
-
             # Compute round-robin picks if any player uses preset="round-robin"
             num_rr_seats = sum(1 for p, _ in llm_players if p.preset == "round-robin")
             rrp: list[str] | None = None
@@ -666,7 +644,7 @@ class Config:
                 if cross_game_round_robin is not None:
                     cross_game_round_robin.append(tuple(rrp))
 
-            # Second pass: resolve random/yente/round-robin presets/personalities and generate names
+            # Second pass: resolve random/round-robin presets/personalities and generate names
             _resolve_randoms(
                 llm_players,
                 personalities,
@@ -675,7 +653,6 @@ class Config:
                 models_data,
                 toolsets,
                 cross_game_used_names=cross_game_used_names,
-                yente_pool=yp,
                 round_robin_picks=rrp,
             )
 

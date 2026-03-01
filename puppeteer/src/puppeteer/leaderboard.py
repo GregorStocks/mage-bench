@@ -161,24 +161,27 @@ def load_model_registry(models_json: Path) -> dict[str, str]:
     return {m["id"]: m["name"] for m in data.get("models", [])}
 
 
-def _load_gauntlet_keys(presets_json: Path) -> set[str] | None:
-    """Load the set of active gauntlet player keys from presets.json.
+def _load_inactive_statuses(presets_json: Path) -> dict[str, str] | None:
+    """Load inactive statuses for non-active presets from presets.json.
 
-    Returns keys in the same format as _player_key: 'model_id::effort' or 'model_id'.
+    Returns a dict mapping player_key -> status (e.g. "retired", "buggy", "expensive")
+    for presets whose status is not "active".
     Returns None if presets.json doesn't exist (e.g. in tests).
     """
     if not presets_json.exists():
         return None
     data = json.loads(presets_json.read_text())
     presets = data.get("presets", {})
-    gauntlet_names = data.get("gauntlet", [])
-    keys: set[str] = set()
-    for name in gauntlet_names:
-        preset = presets[name]
+    statuses: dict[str, str] = {}
+    for preset in presets.values():
+        status = preset.get("status", "retired")
+        if status == "active":
+            continue
         model_id = preset["model"]
         effort = preset.get("reasoning_effort")
-        keys.add(f"{model_id}::{effort}" if effort else model_id)
-    return keys
+        key = f"{model_id}::{effort}" if effort else model_id
+        statuses[key] = status
+    return statuses
 
 
 def extract_placements(game: dict, games_dir: Path | None = None) -> dict[str, int]:
@@ -580,16 +583,16 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     model_registry = load_model_registry(models_json)
     format_results, ratings_by_game = generate_all_leaderboards(rated_games, model_registry, games_dir)
 
-    # Mark retired models (not in the current gauntlet)
-    gauntlet_keys = _load_gauntlet_keys(models_json.parent / "presets.json")
-    if gauntlet_keys is not None:
+    # Mark inactive models (not in the active pool)
+    inactive_statuses = _load_inactive_statuses(models_json.parent / "presets.json")
+    if inactive_statuses is not None:
         for fmt_data in format_results.values():
             for model in fmt_data.get("models", []):
                 model_id = model["modelId"]
                 effort = model.get("reasoningEffort")
                 key = f"{model_id}::{effort}" if effort else model_id
-                if key not in gauntlet_keys:
-                    model["retired"] = True
+                if key in inactive_statuses:
+                    model["inactive"] = inactive_statuses[key]
 
     # Build output with backward-compatible top-level fields from jumpstart (primary format)
     pool_jumpstart = format_results.get("jumpstart", {"generatedAt": "", "totalGames": 0, "models": []})

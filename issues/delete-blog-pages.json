@@ -1,0 +1,11 @@
+{
+  "title": "Delete blog pages and infrastructure unless a real blog post is written",
+  "description": "The blog section (pages, utils, content collection, RSS feed) exists but only has placeholder hello-world posts. The nav link has been removed. Delete all blog infrastructure:\n\n- `website/src/pages/blog/` (all page templates)\n- `website/src/utils/blog.ts`\n- `website/src/pages/rss.xml.ts`\n- `website/src/content/blog/` (hello-world posts)\n- `website/src/components/Pagination.astro` (if only used by blog)\n- Blog collection in `website/src/content.config.ts`\n\nSkip this if we decide to write a real blog post instead.",
+  "status": "open",
+  "priority": 5,
+  "type": "task",
+  "labels": ["website", "cleanup"],
+  "autograbbable": false,
+  "created_at": "2026-03-01T12:00:00.000000-08:00",
+  "updated_at": "2026-03-01T12:00:00.000000-08:00"
+}

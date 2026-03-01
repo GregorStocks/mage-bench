@@ -46,6 +46,9 @@ ignore = [
     "SIM105",  # contextlib.suppress - try/except/pass is fine
     "SIM115",  # context manager for open - not always appropriate
 ]
+external = [
+    "MBF001",  # lint_no_fallback.py: or [] / or {} / or "" silent fallbacks
+]
 
 [tool.ruff.lint.isort]
 known-first-party = ["puppeteer"]

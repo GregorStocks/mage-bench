@@ -1,4 +1,4 @@
-"""Tests for matchmakers (yente and round-robin)."""
+"""Tests for round-robin matchmaker."""
 
 import gzip
 import json
@@ -12,13 +12,15 @@ from puppeteer.matchmaker import (
     _build_key_to_preset,
     _build_matchup_matrix,
     get_round_robin_matchup,
-    get_yente_pool,
     pick_round_robin_format,
 )
 
 
-def _write_presets(path: Path, presets: dict, gauntlet: list[str]) -> None:
-    path.write_text(json.dumps({"presets": presets, "gauntlet": gauntlet}))
+def _write_presets(path: Path, presets: dict) -> None:
+    """Write presets.json — all presets get status='active' unless already set."""
+    for p in presets.values():
+        p.setdefault("status", "active")
+    path.write_text(json.dumps({"presets": presets}))
 
 
 def _write_models(path: Path, models: list[dict]) -> None:
@@ -92,14 +94,13 @@ def _setup_fixtures(tmp_path: Path, n: int = 3) -> tuple[Path, Path, Path]:
 
     names = ["alpha", "beta", "gamma", "delta", "epsilon"][:n]
     presets = {f"{name}-medium": {"model": f"v/{name}", "reasoning_effort": "medium"} for name in names}
-    gauntlet = list(presets.keys())
-    _write_presets(presets_path, presets, gauntlet)
+    _write_presets(presets_path, presets)
     _write_models(models_path, [{"id": f"v/{name}", "name": name.title()} for name in names])
     return games_dir, presets_path, models_path
 
 
 class TestBuildKeyToPreset:
-    def test_maps_gauntlet_presets(self, tmp_path: Path) -> None:
+    def test_maps_active_presets(self, tmp_path: Path) -> None:
         presets_path = tmp_path / "presets.json"
         _write_presets(
             presets_path,
@@ -108,7 +109,6 @@ class TestBuildKeyToPreset:
                 "b-low": {"model": "vendor/model-b", "reasoning_effort": "low"},
                 "c-none": {"model": "vendor/model-c"},
             },
-            gauntlet=["a-medium", "b-low", "c-none"],
         )
         result = _build_key_to_preset(presets_path)
         assert result == {
@@ -117,184 +117,18 @@ class TestBuildKeyToPreset:
             "vendor/model-c": "c-none",
         }
 
-    def test_ignores_non_gauntlet_presets(self, tmp_path: Path) -> None:
+    def test_ignores_inactive_presets(self, tmp_path: Path) -> None:
         presets_path = tmp_path / "presets.json"
         _write_presets(
             presets_path,
             {
                 "in-pool": {"model": "v/a", "reasoning_effort": "medium"},
-                "not-in-pool": {"model": "v/b", "reasoning_effort": "medium"},
+                "not-in-pool": {"model": "v/b", "reasoning_effort": "medium", "status": "retired"},
             },
-            gauntlet=["in-pool"],
         )
         result = _build_key_to_preset(presets_path)
         assert "v/a::medium" in result
         assert "v/b::medium" not in result
-
-
-class TestGetYentePool:
-    def test_returns_presets_above_threshold(self, tmp_path: Path) -> None:
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
-
-        # Alpha beats Beta repeatedly -> Alpha gets high rating, Beta gets low
-        for i in range(5):
-            _write_game(
-                games_dir,
-                f"game_{i}",
-                _make_1v1_game(f"game_{i}", f"2026-01-{i + 1:02d}T00:00:00Z", "P1", "v/alpha", "v/beta"),
-            )
-
-        pool = get_yente_pool(
-            "Constructed - Standard",
-            threshold=1650,
-            games_dir=games_dir,
-            presets_path=presets_path,
-            models_path=models_path,
-        )
-        assert "alpha-medium" in pool
-        assert "beta-medium" not in pool
-
-    def test_empty_pool_when_no_games(self, tmp_path: Path) -> None:
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path)
-        pool = get_yente_pool(
-            "Constructed - Standard",
-            threshold=1600,
-            games_dir=games_dir,
-            presets_path=presets_path,
-            models_path=models_path,
-        )
-        assert pool == []
-
-    def test_commander_mode(self, tmp_path: Path) -> None:
-        games_dir, presets_path, models_path = _setup_fixtures(tmp_path, n=5)
-
-        models = [("v/alpha", "medium"), ("v/beta", "medium"), ("v/gamma", "medium"), ("v/delta", "medium")]
-        _write_game(
-            games_dir,
-            "game_c1",
-            _make_commander_game("game_c1", "2026-01-01T00:00:00Z", "P1", models),
-        )
-
-        # Empty deckType -> commander mode
-        pool = get_yente_pool(
-            "",
-            threshold=1200,
-            games_dir=games_dir,
-            presets_path=presets_path,
-            models_path=models_path,
-        )
-        # At least some models should be in the pool
-        assert len(pool) > 0
-        # All returned presets should be valid
-        for preset in pool:
-            assert preset.endswith("-medium")
-
-
-class TestResolveRandomsYente:
-    def test_yente_picks_from_pool(self) -> None:
-        """preset='yente' should resolve to one of the presets in the yente pool."""
-        player = PilotPlayer(name="test", preset="yente", personality="spike")
-        presets_data = {
-            "presets": {
-                "a-medium": {
-                    "model": "v/a",
-                    "reasoning_effort": "medium",
-                    "system_prompt": "default",
-                    "toolset": "default",
-                },
-                "b-medium": {
-                    "model": "v/b",
-                    "reasoning_effort": "medium",
-                    "system_prompt": "default",
-                    "toolset": "default",
-                },
-            },
-            "gauntlet": ["a-medium", "b-medium"],
-        }
-        prompts = {"default": "You are a player."}
-        toolsets = {"default": ["tool1"]}
-        models_data = {
-            "models": [
-                {"id": "v/a", "name": "Model A", "name_part": "ModA"},
-                {"id": "v/b", "name": "Model B", "name_part": "ModB"},
-            ]
-        }
-        personalities = {"spike": {"name_part": "Spike", "prompt_suffix": "Play to win."}}
-
-        _resolve_randoms(
-            [(player, True)],
-            personalities,
-            presets_data,
-            prompts,
-            models_data,
-            toolsets,
-            yente_pool=["a-medium", "b-medium"],
-        )
-
-        assert player.preset in ("a-medium", "b-medium")
-        assert player.model is not None
-
-    def test_yente_no_duplicates(self) -> None:
-        """Two yente players should get different presets."""
-        p1 = PilotPlayer(name="Player One", preset="yente", personality="spike")
-        p2 = PilotPlayer(name="Player Two", preset="yente", personality="villain")
-        presets_data = {
-            "presets": {
-                "a-medium": {
-                    "model": "v/a",
-                    "reasoning_effort": "medium",
-                    "system_prompt": "default",
-                    "toolset": "default",
-                },
-                "b-medium": {
-                    "model": "v/b",
-                    "reasoning_effort": "medium",
-                    "system_prompt": "default",
-                    "toolset": "default",
-                },
-            },
-            "gauntlet": ["a-medium", "b-medium"],
-        }
-        prompts = {"default": "You are a player."}
-        toolsets = {"default": ["tool1"]}
-        models_data = {
-            "models": [
-                {"id": "v/a", "name": "Model A", "name_part": "ModA"},
-                {"id": "v/b", "name": "Model B", "name_part": "ModB"},
-            ]
-        }
-        personalities = {
-            "spike": {"name_part": "Spike", "prompt_suffix": "Play to win."},
-            "villain": {"name_part": "Vill", "prompt_suffix": "Evil."},
-        }
-
-        _resolve_randoms(
-            [(p1, True), (p2, True)],
-            personalities,
-            presets_data,
-            prompts,
-            models_data,
-            toolsets,
-            yente_pool=["a-medium", "b-medium"],
-        )
-
-        assert p1.preset != p2.preset
-
-    def test_yente_asserts_without_pool(self) -> None:
-        """preset='yente' without a yente_pool should fail."""
-        player = PilotPlayer(name="test", preset="yente", personality="spike")
-        presets_data = {"presets": {}, "gauntlet": []}
-        personalities = {"spike": {"name_part": "Spike", "prompt_suffix": ""}}
-
-        with pytest.raises(AssertionError, match="yente_pool"):
-            _resolve_randoms(
-                [(player, True)],
-                personalities,
-                presets_data,
-                {},
-                {"models": []},
-                yente_pool=None,
-            )
 
 
 # --- Round-robin matchmaker tests ---
@@ -332,11 +166,11 @@ class TestBuildMatchupMatrix:
         assert len(pair_counts) == 6
         assert all(v == 1 for v in pair_counts.values())
 
-    def test_ignores_non_gauntlet_players(self, tmp_path: Path) -> None:
+    def test_ignores_non_active_players(self, tmp_path: Path) -> None:
         _games_dir, presets_path, _models_path = _setup_fixtures(tmp_path)
         key_to_preset = _build_key_to_preset(presets_path)
 
-        # "v/unknown" is not in the gauntlet
+        # "v/unknown" is not in the active pool
         game = _make_1v1_game("g1", "2026-01-01T00:00:00Z", "P1", "v/alpha", "v/unknown")
         pair_counts, game_counts = _build_matchup_matrix([game], key_to_preset)
 
@@ -364,8 +198,8 @@ class TestGetRoundRobinMatchup:
         )
         assert len(picks) == 2
         assert picks[0] != picks[1]
-        gauntlet = {"alpha-medium", "beta-medium", "gamma-medium"}
-        assert set(picks).issubset(gauntlet)
+        active = {"alpha-medium", "beta-medium", "gamma-medium"}
+        assert set(picks).issubset(active)
 
     def test_prefers_unplayed_pair(self, tmp_path: Path) -> None:
         """Should prefer the pair that has never played each other."""
@@ -620,18 +454,19 @@ class TestResolveRandomsRoundRobin:
             "presets": {
                 "a-medium": {
                     "model": "v/a",
+                    "status": "active",
                     "reasoning_effort": "medium",
                     "system_prompt": "default",
                     "toolset": "default",
                 },
                 "b-medium": {
                     "model": "v/b",
+                    "status": "active",
                     "reasoning_effort": "medium",
                     "system_prompt": "default",
                     "toolset": "default",
                 },
             },
-            "gauntlet": ["a-medium", "b-medium"],
         }
         prompts = {"default": "You are a player."}
         toolsets = {"default": ["tool1"]}
@@ -672,7 +507,7 @@ class TestResolveRandomsRoundRobin:
     def test_round_robin_asserts_without_picks(self) -> None:
         """preset='round-robin' without round_robin_picks should fail."""
         player = PilotPlayer(name="test", preset="round-robin", personality="spike")
-        presets_data = {"presets": {}, "gauntlet": []}
+        presets_data = {"presets": {}}
         personalities = {"spike": {"name_part": "Spike", "prompt_suffix": ""}}
 
         with pytest.raises(AssertionError, match="round_robin_picks"):

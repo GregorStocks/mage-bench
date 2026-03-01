@@ -427,11 +427,20 @@ SAMPLE_MODELS_DATA = {
 
 SAMPLE_PRESETS_WITH_POOL = {
     "presets": {
-        "preset-a": {"model": "test/model-a", "reasoning_effort": "medium", "system_prompt": "default"},
-        "preset-b": {"model": "test/model-b", "reasoning_effort": "high", "system_prompt": "default"},
-        "preset-c": {"model": "test/model-c", "system_prompt": "default"},
+        "preset-a": {
+            "model": "test/model-a",
+            "status": "active",
+            "reasoning_effort": "medium",
+            "system_prompt": "default",
+        },
+        "preset-b": {
+            "model": "test/model-b",
+            "status": "active",
+            "reasoning_effort": "high",
+            "system_prompt": "default",
+        },
+        "preset-c": {"model": "test/model-c", "status": "active", "system_prompt": "default"},
     },
-    "gauntlet": ["preset-a", "preset-b", "preset-c"],
 }
 
 SAMPLE_PERSONALITIES_WITH_PARTS = {
@@ -461,8 +470,7 @@ def test_validate_name_parts_catches_overflow():
         "longname": {"name_part": "TooLong!", "prompt_suffix": "hi"},
     }
     bad_presets = {
-        "presets": {"p": {"model": "test/m", "system_prompt": "default"}},
-        "gauntlet": ["p"],
+        "presets": {"p": {"model": "test/m", "status": "active", "system_prompt": "default"}},
     }
     bad_models = {
         "models": [{"id": "test/m", "name": "M", "name_part": "Longish"}],
@@ -472,14 +480,14 @@ def test_validate_name_parts_catches_overflow():
         _validate_name_parts(bad_personalities, bad_presets, bad_models)
 
 
-def test_validate_name_parts_missing_preset_in_pool():
-    """gauntlet preset not in presets should raise."""
+def test_validate_name_parts_missing_model():
+    """Active preset referencing unknown model should raise."""
     bad_presets = {
-        "presets": {},
-        "gauntlet": ["missing"],
+        "presets": {"p": {"model": "test/missing", "status": "active", "system_prompt": "default"}},
     }
-    with pytest.raises(ValueError, match="not found in presets"):
-        _validate_name_parts(SAMPLE_PERSONALITIES_WITH_PARTS, bad_presets, SAMPLE_MODELS_DATA)
+    bad_models: dict = {"models": []}
+    with pytest.raises(ValueError, match="not found in models"):
+        _validate_name_parts(SAMPLE_PERSONALITIES_WITH_PARTS, bad_presets, bad_models)
 
 
 def test_validate_name_parts_real_data():
