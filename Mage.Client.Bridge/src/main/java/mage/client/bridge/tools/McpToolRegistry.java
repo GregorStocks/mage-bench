@@ -12,9 +12,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Reflection-based MCP tool registry.
@@ -103,14 +105,49 @@ public class McpToolRegistry {
                 args[i] = extractArg(arguments, paramName, type);
             }
         }
+        Map<String, Object> result;
         try {
-            return (Map<String, Object>) entry.method().invoke(null, args);
+            result = (Map<String, Object>) entry.method().invoke(null, args);
         } catch (java.lang.reflect.InvocationTargetException e) {
             Throwable cause = e.getCause();
             if (cause instanceof RuntimeException re) throw re;
             throw new RuntimeException(cause);
         } catch (Exception e) {
             throw new RuntimeException("Failed to invoke tool " + name, e);
+        }
+        validateOutputKeys(name, entry, result);
+        return result;
+    }
+
+    // -- Output validation --
+
+    /** Cache of declared output field names per tool (built lazily). */
+    private final Map<String, Set<String>> declaredOutputFields = new HashMap<>();
+
+    private Set<String> getDeclaredOutputFields(ToolEntry entry) {
+        return declaredOutputFields.computeIfAbsent(entry.annotation().name(), k -> {
+            var fields = new HashSet<String>();
+            for (Tool.Field f : entry.annotation().output()) {
+                fields.add(f.name());
+            }
+            return fields;
+        });
+    }
+
+    /**
+     * Fail fast: crash if a tool returns output keys not declared in @Tool.Field.
+     * This prevents tool schema and runtime code from drifting out of sync.
+     */
+    private void validateOutputKeys(String toolName, ToolEntry entry, Map<String, Object> result) {
+        if (result == null) return;
+        Set<String> declared = getDeclaredOutputFields(entry);
+        for (String key : result.keySet()) {
+            if (!declared.contains(key)) {
+                throw new IllegalStateException(
+                    "Tool '" + toolName + "' returned undeclared output key '" + key
+                    + "'. Add a @Tool.Field(name = \"" + key + "\", ...) annotation to "
+                    + entry.method().getDeclaringClass().getSimpleName() + ".");
+            }
         }
     }
 

@@ -3032,29 +3032,14 @@ public class BridgeCallbackHandler {
                     result.put("error", "No active game for yield");
                     return result;
                 }
-                // For stack_resolved: if stack is already empty, return immediately
-                // (matching server-side behavior that does nothing on empty stack).
-                if ("stack_resolved".equals(until)) {
-                    GameView gv = lastGameView;
-                    if (gv != null && gv.getStack().isEmpty()) {
-                        var result = new HashMap<String, Object>();
-                        result.put("action_pending", pendingAction != null);
-                        result.put("stop_reason", "stack_resolved");
-                        attachUnseenChat(result);
-                        if (pendingAction != null) {
-                            mergeActionChoices(result, boardCursorParam);
-                        }
-                        return result;
-                    }
-                    yieldUntilStackResolved = true;
-                } else if ("my_turn".equals(until)) {
-                    yieldUntilMyTurn = true;
-                }
                 // If the pending action is non-priority (e.g. GAME_TARGET for
                 // target selection after casting a spell), we must NOT auto-pass
                 // it — sendPlayerBoolean(false) would cancel the targeting and
                 // fizzle the spell.  Return the pending choices instead, matching
                 // the guard at the top of the main loop.
+                // This guard must run BEFORE the stack_resolved fast-path below,
+                // which otherwise returns early with stop_reason="stack_resolved"
+                // instead of "non_priority_action" when the stack is empty.
                 PendingAction currentAction;
                 synchronized (actionLock) {
                     currentAction = pendingAction;
@@ -3072,6 +3057,24 @@ public class BridgeCallbackHandler {
                     attachUnseenChat(result);
                     mergeActionChoices(result, boardCursorParam);
                     return result;
+                }
+                // For stack_resolved: if stack is already empty, return immediately
+                // (matching server-side behavior that does nothing on empty stack).
+                if ("stack_resolved".equals(until)) {
+                    GameView gv = lastGameView;
+                    if (gv != null && gv.getStack().isEmpty()) {
+                        var result = new HashMap<String, Object>();
+                        result.put("action_pending", currentAction != null);
+                        result.put("stop_reason", "stack_resolved");
+                        attachUnseenChat(result);
+                        if (currentAction != null) {
+                            mergeActionChoices(result, boardCursorParam);
+                        }
+                        return result;
+                    }
+                    yieldUntilStackResolved = true;
+                } else if ("my_turn".equals(until)) {
+                    yieldUntilMyTurn = true;
                 }
                 // Auto-pass the current priority locally via sendPlayerBoolean
                 // instead of sendPlayerAction+skip().  This avoids the race where

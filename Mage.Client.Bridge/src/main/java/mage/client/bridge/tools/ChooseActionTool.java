@@ -31,12 +31,21 @@ public class ChooseActionTool {
             @Tool.Field(name = "declared", type = "array", description = "IDs of successfully declared attackers/blockers (batch combat)"),
             @Tool.Field(name = "failed", type = "array", description = "Entries that failed during batch combat: {id, reason}"),
             @Tool.Field(name = "interrupted", type = "boolean", description = "Whether batch combat was interrupted by a trigger"),
+            @Tool.Field(name = "game_seq", type = "integer",
+                description = "Game sequence number for determinism tracking"),
             @Tool.Field(name = "next_action_pending", type = "boolean",
                 description = "Whether a follow-up action arrived from the server (e.g. bestow mode selection, kicker choice). Call get_action_choices or choose_action next — not pass_priority."),
             @Tool.Field(name = "next_action_type", type = "string",
                 description = "XMage callback method name of the follow-up action (e.g. GAME_SELECT, GAME_CHOOSE_CHOICE)"),
+            @Tool.Field(name = "next_action_message", type = "string",
+                description = "Human-readable message describing the follow-up action (e.g. the question text for GAME_ASK)"),
             @Tool.Field(name = "next_action_hint", type = "string",
-                description = "Hint for handling the follow-up action: call get_action_choices/choose_action for details, or pass_priority to continue")
+                description = "Hint for handling the follow-up action: call get_action_choices/choose_action for details, or pass_priority to continue"),
+            @Tool.Field(name = "choices", type = "array[object]",
+                description = "Available choices (attached to error responses so the model can self-correct without a separate get_action_choices call)"),
+            @Tool.Field(name = "player_dead", type = "boolean", description = "Whether you died"),
+            @Tool.Field(name = "game_over", type = "boolean", description = "Whether the game ended"),
+            @Tool.Field(name = "recent_chat", type = "array[string]", description = "Chat messages received since last check")
         }
     )
     public static Map<String, Object> execute(

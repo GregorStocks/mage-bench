@@ -1190,6 +1190,8 @@ def run_golden_scenario_two_replay(
         log_fhs.append(replay_a_fh)
 
         # --- Start replay client (player B) ---
+        # --skip-history: player B isn't the conceding player whose prompt we
+        # compare, and its get_game_history races with event delivery.
         replay_b_log = game_dir / f"{player_b_name}_replay.log"
         replay_b_proc, replay_b_fh = _start_process(
             args=[
@@ -1210,6 +1212,7 @@ def run_golden_scenario_two_replay(
                 str(script_b_path),
                 "--game-dir",
                 str(game_dir),
+                "--skip-history",
             ],
             cwd=project_root,
             env_updates={"PYTHONUNBUFFERED": "1"},
