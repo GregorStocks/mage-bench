@@ -3036,6 +3036,29 @@ public class BridgeCallbackHandler {
                 } else if ("my_turn".equals(until)) {
                     yieldUntilMyTurn = true;
                 }
+                // If the pending action is non-priority (e.g. GAME_TARGET for
+                // target selection after casting a spell), we must NOT auto-pass
+                // it — sendPlayerBoolean(false) would cancel the targeting and
+                // fizzle the spell.  Return the pending choices instead, matching
+                // the guard at the top of the main loop.
+                PendingAction currentAction;
+                synchronized (actionLock) {
+                    currentAction = pendingAction;
+                }
+                if (currentAction != null
+                        && currentAction.method() != ClientCallbackMethod.GAME_SELECT) {
+                    logger.info("[" + client.getUsername()
+                        + "] passPriority: until=" + until
+                        + " blocked by pending " + currentAction.method()
+                        + " — returning choices instead of auto-passing");
+                    var result = new HashMap<String, Object>();
+                    result.put("action_pending", true);
+                    result.put("action_type", currentAction.method().name());
+                    result.put("stop_reason", "non_priority_action");
+                    attachUnseenChat(result);
+                    mergeActionChoices(result, boardCursorParam);
+                    return result;
+                }
                 // Auto-pass the current priority locally via sendPlayerBoolean
                 // instead of sendPlayerAction+skip().  This avoids the race where
                 // skip() bypasses waitResponseOpen() and stale responses answer

@@ -210,3 +210,44 @@ jq -r 'select(.method=="GAME_PLAY_MANA") | .ts' "$GAME_DIR"/*_bridge.jsonl
 # auto-mana handled it silently (or the pending action was consumed by pass_priority)
 grep -n "GAME_PLAY_MANA\|pass_priority\|no auto source" "$GAME_DIR"/*_pilot.log
 ```
+
+## Detecting client-side yield spell cancellation loops
+
+When a model casts a targeted spell (e.g. Flames of the Firebrand) and then calls
+`pass_priority(until="stack_resolved")` or `get_action_choices(until="stack_resolved")`,
+the bridge cancels the pending GAME_TARGET. The spell fizzles and the card returns to hand.
+The model then retries, creating a loop.
+
+```python
+# From the export: count decisions with chosen=None per turn (loop signature)
+import json
+with open('website/public/games/GAME_ID.json') as f:
+    data = json.load(f)
+
+from collections import Counter
+for player in set(d['player'] for d in data['decisions']):
+    none_by_turn = Counter()
+    for d in data['decisions']:
+        if d['player'] == player and d.get('chosen') is None:
+            none_by_turn[d['turn']] += 1
+    if any(v > 5 for v in none_by_turn.values()):
+        print(f"{player} loop turns: {dict(t for t in none_by_turn.items() if t[1] > 5)}")
+```
+
+```python
+# From the export: count until= usage per model (tool misuse signature)
+from collections import Counter
+for player_data in data.get('players', []):
+    name = player_data['name']
+    traces = [t for t in data['llmTrace'] if t.get('player') == name]
+    until_counts = Counter()
+    for t in traces:
+        resp = t.get('response', {})
+        for choices in resp.get('choices', []):
+            for tc in choices.get('message', {}).get('tool_calls', []):
+                args = json.loads(tc.get('function', {}).get('arguments', '{}'))
+                if 'until' in args:
+                    until_counts[tc['function']['name'] + '(until=' + args['until'] + ')'] += 1
+    if until_counts:
+        print(f"{name}: {dict(until_counts.most_common(5))}")
+```

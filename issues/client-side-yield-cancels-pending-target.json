@@ -1,0 +1,10 @@
+{
+  "title": "Client-side yield (until=stack_resolved) cancels pending GAME_TARGET, causing spell-cancel loops",
+  "description": "When a model casts a spell that requires targets (e.g. Flames of the Firebrand) and then calls pass_priority(until=\"stack_resolved\") or get_action_choices(until=\"stack_resolved\"), the bridge unconditionally sends sendPlayerBoolean(gameId, false) at BridgeCallbackHandler.java:3043-3046. This cancels the pending GAME_TARGET action, the spell fizzles, and the card returns to hand. The model then tries to cast the same spell again, entering a loop that wastes 3-7 minutes per turn until the loop detector fires.\n\nThe bug is that lines 3043-3046 don't check pendingAction.method() before sending false. For step-phase until values (precombat_main, etc.), the code correctly enters the main loop where the method != GAME_SELECT guard at line 3167 catches non-priority actions and returns them to the model. But for client-side yields (stack_resolved, end_of_turn, my_turn), the code bypasses the loop entirely.\n\nEvidence from game_20260228_172012_g2:\n- GPT52 Philo tried to cast Flames of the Firebrand 9 times across turns 8, 10, and 16, each time the targeting was auto-cancelled\n- Chandra, Heart of Fire (+1: deal 2 damage) activation was attempted ~8 times across turns 12 and 14, each time cancelled\n- Chandra was on the board for 19 minutes without a single successful activation\n- The loop detector fired 5 times on GPT52 Philo's turns\n- GPT52 Philo made 268 tool calls vs Opus Teach's 121, with 2639s thinking time vs 592s\n\nSuggested fix: Before lines 3043-3046, check if pendingAction is a non-priority action (GAME_TARGET, GAME_ASK, GAME_CHOOSE_ABILITY, GAME_CHOOSE_CHOICE, GAME_PLAY_MANA). If so, return the pending action's choices with stop_reason=\"non_priority_action\" instead of cancelling. This matches the behavior already implemented in the main loop at line 3167.\n\nSource: BridgeCallbackHandler.java:3043-3046",
+  "status": "open",
+  "priority": 1,
+  "type": "task",
+  "labels": ["bridge"],
+  "created_at": "2026-02-28T22:00:00.000000-08:00",
+  "updated_at": "2026-02-28T22:00:00.000000-08:00"
+}
