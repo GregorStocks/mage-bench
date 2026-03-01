@@ -1,0 +1,10 @@
+{
+  "title": "Event log filter should be checkboxes, not a dropdown",
+  "description": "The game viewer event log has a dropdown with mutually exclusive options: All events, LLM calls only, Game actions only, Chat only. This should be a set of checkboxes so users can combine filters (e.g. show chat + game actions but not LLM calls). The current dropdown forces single-category viewing which is too restrictive.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["website"],
+  "created_at": "2026-03-01T10:00:00.000000-08:00",
+  "updated_at": "2026-03-01T10:00:00.000000-08:00"
+}

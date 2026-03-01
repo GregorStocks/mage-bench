@@ -590,7 +590,9 @@ const { slug } = Astro.params;
           var toolResults = [];
           var j = i + 1;
           while (j < events.length && events[j].type === "tool_call" && events[j].player === e.player) {
-            toolResults.push(events[j]);
+            if (events[j].tool !== "send_chat_message") {
+              toolResults.push(events[j]);
+            }
             j++;
           }
           var mergedSeq = e.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
@@ -607,6 +609,10 @@ const { slug } = Astro.params;
           });
           i = j;
         } else if (e.type === "tool_call") {
+          if (e.tool === "send_chat_message") {
+            i++;
+            continue;
+          }
           // Orphan tool_call (no preceding llm_response) — render standalone
           merged.push({
             type: "llm_merged",
@@ -865,6 +871,29 @@ const { slug } = Astro.params;
         return true;
       });
 
+      // Extract chat messages from llmEvents (always, regardless of showLlm toggle)
+      var chatFromLlm = [];
+      if (game.llmEvents) {
+        var chatNextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
+        var chatNextSeq = chatNextSnap ? (chatNextSnap.seq || Infinity) : Infinity;
+        var chatNextTs = chatNextSnap ? (chatNextSnap.ts || "") : "";
+        game.llmEvents.forEach(function (e) {
+          if (e.type !== "tool_call" || e.tool !== "send_chat_message") return;
+          if (useSeq) {
+            if ((e.gameSeq || 0) >= chatNextSeq) return;
+          } else {
+            if (chatNextTs && e.ts >= chatNextTs) return;
+          }
+          if (filterPlayer && e.player !== filterPlayer) return;
+          chatFromLlm.push({
+            ts: e.ts || "",
+            from: e.player,
+            message: (e.args && e.args.message) || "",
+            gameSeq: e.gameSeq || 0,
+          });
+        });
+      }
+
       // All LLM events up to current snapshot (accumulated, not windowed)
       var hasLlmEvents = game.llmEvents && game.llmEvents.length > 0;
       var relevantLlm = [];
@@ -927,7 +956,7 @@ const { slug } = Astro.params;
       var showLlmEvents = filterEventType === "" || filterEventType === "llm";
 
       function itemSeq(item) {
-        if (item.kind === "action" || item.kind === "chat") return item.data.seq || 0;
+        if (item.kind === "action" || item.kind === "chat") return item.data.seq || item.data.gameSeq || 0;
         if (item.kind === "llm") return item.data.gameSeq || item.data.seq || 0;
         if (item.kind === "turn-sep" || item.kind === "phase-sep") return item.data.seq || 0;
         if (item.kind === "annotation") {
@@ -951,6 +980,23 @@ const { slug } = Astro.params;
           timeline.push({ kind: "llm", ts: e.ts || "", data: e });
         });
       }
+      // Add chat extracted from llmEvents, deduplicating against chat already in allActions
+      if (showChatMessages && chatFromLlm.length > 0) {
+        var chatDedup = {};
+        allActions.forEach(function (a) {
+          if (a.type === "chat") {
+            var div = document.createElement("div");
+            div.innerHTML = a.message || "";
+            var decoded = div.textContent || div.innerText || "";
+            chatDedup[a.from + "|" + decoded] = true;
+          }
+        });
+        chatFromLlm.forEach(function (c) {
+          if (!chatDedup[c.from + "|" + c.message]) {
+            timeline.push({ kind: "chat", ts: c.ts, data: c });
+          }
+        });
+      }
 
       function timelineSort(a, b) {
         if (useSeq) {
@@ -970,8 +1016,9 @@ const { slug } = Astro.params;
 
       timeline.sort(timelineSort);
 
-      // Add annotations up to current snapshot into the timeline
-      if (game.annotations) {
+      // Add annotations up to current snapshot (only for "all" and "game" filters)
+      var showAnnotations = filterEventType === "" || filterEventType === "game";
+      if (showAnnotations && game.annotations) {
         game.annotations.forEach(function (ann) {
           if (ann.snapshotIndex <= index) {
             var annSnap = game.snapshots[ann.snapshotIndex] || {};
@@ -988,17 +1035,19 @@ const { slug } = Astro.params;
         timeline.sort(timelineSort);
       }
 
-      // Add phase/step transition separators
-      phaseTransitions.forEach(function (pt) {
-        if (pt.index <= index) {
-          timeline.push({
-            kind: pt.turnChanged ? "turn-sep" : "phase-sep",
-            ts: pt.ts,
-            data: pt,
-          });
-        }
-      });
-      timeline.sort(timelineSort);
+      // Add phase/step transition separators (skip for chat-only mode)
+      if (filterEventType !== "chat") {
+        phaseTransitions.forEach(function (pt) {
+          if (pt.index <= index) {
+            timeline.push({
+              kind: pt.turnChanged ? "turn-sep" : "phase-sep",
+              ts: pt.ts,
+              data: pt,
+            });
+          }
+        });
+        timeline.sort(timelineSort);
+      }
 
       // Render interleaved timeline
       timeline.forEach(function (item) {
@@ -1157,7 +1206,8 @@ const { slug } = Astro.params;
 
         // Show LLM toggle and filters if we have LLM events
         var hasLlm = game.llmEvents && game.llmEvents.length > 0;
-        var hasChat = game.actions && game.actions.some(function (a) { return a.type === "chat"; });
+        var hasChat = (game.actions && game.actions.some(function (a) { return a.type === "chat"; }))
+          || (game.llmEvents && game.llmEvents.some(function (e) { return e.tool === "send_chat_message"; }));
         if (hasLlm) {
           llmToggleLabel.classList.remove("hidden");
         }
