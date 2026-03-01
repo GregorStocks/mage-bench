@@ -250,6 +250,7 @@
         "action_taken": "selected_target_0",
         "game_seq": 1,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Mulligan down to 6 cards?",
         "next_action_pending": true,
         "next_action_type": "GAME_ASK",
         "success": true
@@ -297,6 +298,7 @@
         "action_taken": "no",
         "game_seq": 5,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -328,6 +330,7 @@
         "action_taken": "no",
         "game_seq": 6,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -362,6 +365,7 @@
         "action_taken": "selected_0",
         "game_seq": 15,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -438,6 +442,7 @@
         "action_taken": "selected_0",
         "game_seq": 26,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -593,6 +598,7 @@
         "action_taken": "selected_0",
         "game_seq": 38,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -661,6 +667,7 @@
         "action_taken": "selected_0",
         "game_seq": 43,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -694,6 +701,7 @@
         "action_taken": "selected_0",
         "game_seq": 51,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -759,6 +767,7 @@
         "action_taken": "selected_0",
         "game_seq": 61,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -809,6 +818,7 @@
         "action_taken": "selected_0",
         "game_seq": 66,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -898,6 +908,7 @@
         "mana_plan_set": true,
         "mana_plan_size": 1,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -947,6 +958,7 @@
         "action_taken": "selected_target_0",
         "game_seq": 90,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Select cards to put in the first pile (selected 1 of 5)",
         "next_action_pending": true,
         "next_action_type": "GAME_TARGET",
         "success": true
@@ -1068,6 +1080,7 @@
         "action_taken": "selected_pile_1",
         "game_seq": 92,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -1388,6 +1401,7 @@
         "action_taken": "no",
         "game_seq": 6,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -1406,6 +1420,7 @@
         "action_taken": "selected_target_0",
         "game_seq": 1,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Mulligan down to 6 cards?",
         "next_action_pending": true,
         "next_action_type": "GAME_ASK",
         "success": true
@@ -1729,6 +1744,7 @@
         "action_taken": "selected_0",
         "game_seq": 26,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -1747,6 +1763,7 @@
         "action_taken": "no",
         "game_seq": 5,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -2076,6 +2093,7 @@
         "action_taken": "selected_0",
         "game_seq": 15,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -2094,6 +2112,7 @@
         "action_taken": "selected_0",
         "game_seq": 43,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -2112,6 +2131,7 @@
         "action_taken": "selected_0",
         "game_seq": 18,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -2474,6 +2494,7 @@
         "action_taken": "selected_0",
         "game_seq": 51,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -2722,6 +2743,7 @@
         "action_taken": "selected_0",
         "game_seq": 38,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -2740,6 +2762,7 @@
         "action_taken": "selected_0",
         "game_seq": 61,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -3115,6 +3138,7 @@
         "action_taken": "selected_0",
         "game_seq": 66,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -3133,6 +3157,7 @@
         "action_taken": "selected_target_0",
         "game_seq": 90,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Select cards to put in the first pile (selected 1 of 5)",
         "next_action_pending": true,
         "next_action_type": "GAME_TARGET",
         "success": true
@@ -3447,6 +3472,7 @@
         "mana_plan_set": true,
         "mana_plan_size": 1,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -3692,6 +3718,7 @@
         "action_taken": "selected_pile_1",
         "game_seq": 92,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true

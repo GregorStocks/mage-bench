@@ -206,6 +206,7 @@
         "action_taken": "selected_target_0",
         "game_seq": 1,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Mulligan down to 6 cards?",
         "next_action_pending": true,
         "next_action_type": "GAME_ASK",
         "success": true
@@ -253,6 +254,7 @@
         "action_taken": "no",
         "game_seq": 5,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -287,6 +289,7 @@
         "action_taken": "selected_1",
         "game_seq": 15,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -375,6 +378,7 @@
         "action_taken": "selected_0",
         "game_seq": 33,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Choose spell or ability to play: Black Lotus",
         "next_action_pending": true,
         "next_action_type": "GAME_CHOOSE_ABILITY",
         "success": true
@@ -459,6 +463,7 @@
         "action_taken": "selected_ability_0",
         "game_seq": 34,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -502,6 +507,7 @@
         "action_taken": "selected_5",
         "game_seq": 41,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Choose spell or ability to play: Memnite",
         "next_action_pending": true,
         "next_action_type": "GAME_CHOOSE_ABILITY",
         "success": true
@@ -588,6 +594,7 @@
         "action_taken": "selected_ability_0",
         "game_seq": 42,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -631,6 +638,7 @@
         "action_taken": "selected_0",
         "game_seq": 47,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -710,6 +718,7 @@
         "action_taken": "yes",
         "game_seq": 54,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Select a creature",
         "next_action_pending": true,
         "next_action_type": "GAME_TARGET",
         "success": true
@@ -746,6 +755,7 @@
         "action_taken": "selected_0",
         "game_seq": 57,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -960,6 +970,7 @@
         "action_taken": "selected_target_0",
         "game_seq": 1,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Mulligan down to 6 cards?",
         "next_action_pending": true,
         "next_action_type": "GAME_ASK",
         "success": true
@@ -1128,6 +1139,7 @@
         "action_taken": "no",
         "game_seq": 5,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -1294,6 +1306,7 @@
         "action_taken": "selected_1",
         "game_seq": 15,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -1480,6 +1493,7 @@
         "action_taken": "selected_0",
         "game_seq": 33,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Choose spell or ability to play: Black Lotus",
         "next_action_pending": true,
         "next_action_type": "GAME_CHOOSE_ABILITY",
         "success": true
@@ -1528,6 +1542,7 @@
         "action_taken": "selected_ability_0",
         "game_seq": 34,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -1716,6 +1731,7 @@
         "action_taken": "selected_5",
         "game_seq": 41,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Choose spell or ability to play: Memnite",
         "next_action_pending": true,
         "next_action_type": "GAME_CHOOSE_ABILITY",
         "success": true
@@ -1764,6 +1780,7 @@
         "action_taken": "selected_ability_0",
         "game_seq": 42,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -1943,6 +1960,7 @@
         "action_taken": "selected_0",
         "game_seq": 47,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play instants and activated abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
@@ -2076,6 +2094,7 @@
         "action_taken": "yes",
         "game_seq": 54,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Select a creature",
         "next_action_pending": true,
         "next_action_type": "GAME_TARGET",
         "success": true
@@ -2246,6 +2265,7 @@
         "action_taken": "selected_0",
         "game_seq": 57,
         "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
+        "next_action_message": "Play spells and abilities",
         "next_action_pending": true,
         "next_action_type": "GAME_SELECT",
         "success": true
