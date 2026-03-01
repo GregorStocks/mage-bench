@@ -1,0 +1,10 @@
+{
+  "title": "Golden game page shows '(no prompt fixture found)' for some games",
+  "description": "The 'what the LLM sees' box on the golden game page shows '(no prompt fixture found)' for games like board_cursor_dedup. The prompt fixture lookup is failing to find the corresponding prompt data for these golden tests.",
+  "status": "open",
+  "priority": 1,
+  "type": "bug",
+  "labels": ["website"],
+  "created_at": "2026-02-28T19:42:00.000000-08:00",
+  "updated_at": "2026-02-28T19:42:00.000000-08:00"
+}
