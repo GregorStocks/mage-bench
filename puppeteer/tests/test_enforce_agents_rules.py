@@ -30,6 +30,7 @@ class TestBlockedCommands:
             "git rebase main",
             "git rebase origin/master",
             "git rebase -i HEAD~3",
+            "git checkout --theirs foo.json && git add foo.json && git rebase --skip",
         ],
     )
     def test_rebase_blocked(self, command: str) -> None:
@@ -43,6 +44,7 @@ class TestBlockedCommands:
             "git commit --amend",
             "git commit --amend -m 'fix'",
             "git commit -a --amend",
+            "git add . && git commit --amend",
         ],
     )
     def test_amend_blocked(self, command: str) -> None:
@@ -63,6 +65,25 @@ class TestBlockedCommands:
         result = _run_hook(command)
         assert result.returncode == 2
         assert "force" in result.stderr.lower()
+
+    @pytest.mark.parametrize(
+        "command",
+        [
+            "git reset",
+            "git reset HEAD~1",
+            "git reset --hard HEAD~1",
+            "git reset --soft HEAD~3",
+            "git reset --mixed HEAD~2",
+            "git reset HEAD^",
+            "git reset --hard HEAD^^",
+            "git reset HEAD -- somefile.txt",
+            "git stash && git reset --hard HEAD~3",
+        ],
+    )
+    def test_git_reset_blocked(self, command: str) -> None:
+        result = _run_hook(command)
+        assert result.returncode == 2
+        assert "reset" in result.stderr.lower()
 
     @pytest.mark.parametrize(
         "command",
@@ -194,6 +215,9 @@ class TestAllowedCommands:
             'echo "never use pip3 or python3 directly"',
             # Heredoc-style commit message mentioning tool names
             "git commit -m \"$(cat <<'EOF'\nNo direct mvn/npm/npx/python3/pip\nEOF\n)\"",
+            # Git keywords in commit messages must not trigger blocks
+            'git commit -m "Don\'t use git rebase or git reset"',
+            "git commit -m 'Blocked git reset and git rebase in hook'",
         ],
     )
     def test_tool_names_in_quotes_allowed(self, command: str) -> None:

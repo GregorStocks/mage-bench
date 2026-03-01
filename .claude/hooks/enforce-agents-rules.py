@@ -106,19 +106,25 @@ def check_pr_preconditions(stripped: str) -> None:
 def check(command: str) -> None:
     stripped = strip_quotes(command)
 
-    # --- Git rules (check raw command — these are always first token) ---
+    # --- Git rules (check stripped to ignore quoted strings, e.g. commit messages) ---
 
-    if re.search(r"^\s*git\s+rebase\b", command):
+    if re.search(r"\bgit\s+rebase\b", stripped):
         block(
             "Blocked: we never rebase — always merge.\n"
             "Use 'git fetch origin && git merge origin/master'."
         )
 
-    if re.search(r"^\s*git\s+commit\b.*--amend\b", command):
+    if re.search(r"\bgit\s+commit\b.*--amend\b", stripped):
         block("Blocked: never amend commits. Create a new commit instead.")
 
-    if re.search(r"^\s*git\s+push\b.*(--force-with-lease|--force|-f)\b", command):
+    if re.search(r"\bgit\s+push\b.*(--force-with-lease|--force|-f)\b", stripped):
         block("Blocked: never force-push. Create new commits and push normally.")
+
+    if re.search(r"\bgit\s+reset\b", stripped):
+        block(
+            "Blocked: git reset rewrites history or destroys work.\n"
+            "To unstage files, use 'git restore --staged <file>' instead."
+        )
 
     # --- Generated file checks at commit time ---
     check_generated_files(command)
