@@ -62,6 +62,7 @@
             <!-- Purge shared build cache on mvn clean to prevent stale artifacts -->
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
+                <version>3.4.0</version>
                 <inherited>false</inherited>
                 <configuration>
                     <filesets>
