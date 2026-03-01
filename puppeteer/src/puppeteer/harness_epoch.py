@@ -40,7 +40,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  28 - Fix blocker format: system prompt + respond_with now teach "p5:p1" strings; trim MCP tool names (Feb 28)
 #  29 - Chat nudge: system prompt encourages chatting; pilot injects reminders when silent 2+ turns (Feb 28)
 #  30 - Include next_action_message in choose_action response when next_action_pending=true (Feb 28)
-HARNESS_EPOCH = 30
+#  31 - Text-based invalid_choice errors now include valid choices in response (Feb 28)
+HARNESS_EPOCH = 31
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
