@@ -4,6 +4,16 @@ Pick and solve exactly **one** issue, then create a PR.
 
 ## Workflow
 
+0. **Preflight check** — before doing anything else, verify the branch is clean and up to date:
+   ```bash
+   git fetch origin
+   ```
+   Then check that:
+   - `git status --porcelain` is empty (no uncommitted changes)
+   - `git rev-parse HEAD` equals `git rev-parse origin/master` (no extra commits)
+
+   If either check fails, **stop immediately** and tell the user. Do not proceed — solve-issue must start from a clean branch that matches `origin/master` exactly.
+
 1. **Claim an issue** by running:
    ```bash
    # Auto-pick the highest-priority unclaimed issue:
