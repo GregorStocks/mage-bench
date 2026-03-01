@@ -1,0 +1,10 @@
+{
+  "title": "choose_action returns success:true when mana_plan has invalid short IDs",
+  "description": "When `choose_action` is called with a `mana_plan` containing non-existent short IDs, the tool returns `success: true` with `action_taken: selected_0`. The spell is sent to the server immediately (sendPlayerUUID at line 1682), and the mana plan is parsed (syntax-only validation) afterward. Short ID resolution only happens later in `handleGamePlayManaAuto()` during the GAME_PLAY_MANA callback. When an ID fails resolution there, the spell is cancelled asynchronously via `cancelSpellFromBadManaPlan()`, and the model only learns about it through a `[System] Spell cancelled` chat message in the next `pass_priority` result.\n\nThis creates a false positive where the model believes its spell was cast, then is confused when the permanent doesn't appear on the battlefield. In game_20260228_172012_g1, Gem25P Diplom (gemini-2.5-pro) hit this twice trying to cast Fertilid — hallucinated IDs p35 and p47. The model's reasoning trace shows explicit confusion: 'Fertilid, which I *know* I cast last turn, seems to have vanished from the battlefield.'\n\nEvidence:\n- ~/.mage-bench/logs/game_20260228_172012_g1/Gem25P Diplom_mcp.log lines 45-46, 63-65\n- ~/.mage-bench/logs/game_20260228_172012_g1/Gem25P Diplom_bridge.jsonl lines 173, 322\n\nSource: BridgeCallbackHandler.java — parseManaPlan() (lines 5068-5085) only validates syntax, not ID existence. chooseAction() sets success=true at line 1640 before any mana plan validation.\n\nSuggested fix: In chooseAction(), after parseManaPlan(), validate each 'tap' entry's short ID via shortIds.tryResolve(). If any ID fails resolution, return an error response immediately instead of sending the spell to the server. This gives the model synchronous feedback and avoids the confusing async cancellation.",
+  "status": "closed",
+  "priority": 2,
+  "type": "task",
+  "labels": ["bridge"],
+  "created_at": "2026-02-28T19:30:00.000000-08:00",
+  "updated_at": "2026-02-28T21:55:00.000000-08:00"
+}

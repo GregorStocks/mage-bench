@@ -1679,6 +1679,35 @@ public class BridgeCallbackHandler {
                         } else {
                             Object chosen = choices.get(index);
                             if (chosen instanceof UUID) {
+                                // Validate mana plan before sending spell to server —
+                                // once sent, cancellation is async and confuses the model
+                                if (manaPlanArray != null) {
+                                    CopyOnWriteArrayList<ManaPlanEntry> parsedPlan;
+                                    try {
+                                        parsedPlan = parseManaPlan(manaPlanArray);
+                                    } catch (IllegalArgumentException e) {
+                                        return buildError(result, "invalid_mana_plan",
+                                            "Invalid mana_plan: " + e.getMessage()
+                                            + ". Expected: [\"p1\",\"p2:0\",\"RED\"]", true, action);
+                                    }
+                                    for (ManaPlanEntry entry : parsedPlan) {
+                                        if ("tap".equals(entry.type()) && shortIds.tryResolve(entry.value()) == null) {
+                                            return buildError(result, "invalid_mana_plan",
+                                                "Mana plan references unknown permanent '" + entry.value()
+                                                + "'. Check the board state for correct permanent IDs.", true, action);
+                                        }
+                                    }
+                                    manaPlan = parsedPlan;
+                                    // auto_tap controls fallback when plan runs out:
+                                    // false = cancel spell, true/null = fall through to auto-tap
+                                    manaPlanAutoTapFallback = !(autoTap != null && !autoTap);
+                                    result.put("mana_plan_set", true);
+                                    result.put("mana_plan_size", manaPlan.size());
+                                } else if (autoTap != null && autoTap) {
+                                    manaPlan = null;  // Explicit auto-tap mode
+                                    manaPlanAbilityIndex = null;
+                                    manaPlanAutoTapFallback = true;
+                                }
                                 session.sendPlayerUUID(gameId, (UUID) chosen);
                                 trackSentResponse(gameId, ResponseType.UUID, chosen, null);
                                 result.put("action_taken", "selected_" + index);
@@ -1693,25 +1722,6 @@ public class BridgeCallbackHandler {
                                     "Unexpected choice type at index " + index, false, action);
                             }
                         }
-                    }
-                    // Store mana plan for upcoming payment callbacks (only for index-based selection)
-                    if (usedIndex && manaPlanArray != null) {
-                        try {
-                            manaPlan = parseManaPlan(manaPlanArray);
-                        } catch (IllegalArgumentException e) {
-                            return buildError(result, "invalid_mana_plan",
-                                "Invalid mana_plan: " + e.getMessage()
-                                + ". Expected: [{\"tap\":\"p1\"},{\"pool\":\"RED\"}]", true, action);
-                        }
-                        // auto_tap controls fallback when plan runs out:
-                        // false = cancel spell, true/null = fall through to auto-tap
-                        manaPlanAutoTapFallback = !(autoTap != null && !autoTap);
-                        result.put("mana_plan_set", true);
-                        result.put("mana_plan_size", manaPlan.size());
-                    } else if (usedIndex && autoTap != null && autoTap) {
-                        manaPlan = null;  // Explicit auto-tap mode
-                        manaPlanAbilityIndex = null;
-                        manaPlanAutoTapFallback = true;
                     }
                     if (!usedIndex) {
                         if (answer != null) {
@@ -5106,6 +5116,7 @@ public class BridgeCallbackHandler {
             logBridgeEvent("SPELL_CANCELLED", "mana plan was incorrect or incomplete");
         }
         session.sendPlayerBoolean(gameId, false);
+        trackSentResponse(gameId, ResponseType.BOOLEAN, false, null);
         return true;
     }
 
