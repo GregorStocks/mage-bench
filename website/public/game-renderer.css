@@ -428,6 +428,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  min-width: 112px; /* reserve space for tapped cards (80px card rotated 90deg) */
+  align-items: center;
 }
 
 .land-stack-group .card-thumb {
@@ -439,7 +441,7 @@
 }
 
 .land-stack-group .card-thumb + .card-thumb {
-  margin-top: -80px;
+  margin-top: -92px;
 }
 
 .land-stack-group .card-thumb:hover {
@@ -457,7 +459,7 @@
 }
 
 .land-stack-group .card-thumb.tapped + .card-thumb {
-  margin-top: -60px;
+  margin-top: -72px;
 }
 
 .land-stack-group .card-thumb.tapped:first-child {
@@ -473,7 +475,7 @@
   flex-shrink: 0;
 }
 
-/* Card with attachments (aura/equipment displayed under main card) */
+/* Card with attachments (aura/equipment physically behind main card, peeking out) */
 .card-with-attachments {
   display: flex;
   flex-direction: column;
@@ -482,19 +484,19 @@
 }
 
 .card-with-attachments > .card-thumb:first-child {
-  z-index: 1;
+  z-index: 2;
   position: relative;
 }
 
 .card-with-attachments .attachment-card {
-  width: 60px;
-  margin-top: -16px;
-  opacity: 0.85;
+  /* Same size as main card — slides behind it with only bottom edge visible */
+  margin-top: -96px;
+  position: relative;
+  z-index: 1;
 }
 
 .card-with-attachments .attachment-card:hover {
-  opacity: 1;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Section titles */
