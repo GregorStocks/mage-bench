@@ -255,7 +255,18 @@
       "_context_k": 196,
       "_thinking": true,
       "_tier": "cheap",
-      "_notes": "Very popular (491B weekly tokens). Cheap reasoning model. Untested for Magic tool calling."
+      "_notes": "Retired from gauntlet — replaced by M2.5."
+    },
+    {
+      "id": "minimax/minimax-m2.5",
+      "name": "MiniMax M2.5",
+      "name_part": "MiniMx",
+      "_input_per_m": 0.30,
+      "_output_per_m": 1.20,
+      "_context_k": 196,
+      "_thinking": true,
+      "_tier": "cheap",
+      "_notes": "Successor to M2.1. Strong agentic model with RL training. Cheap reasoning."
     },
     {
       "id": "z-ai/glm-4.7",
@@ -374,32 +385,24 @@
       "anthropic/claude-sonnet-4.5",
       "anthropic/claude-haiku-4.5",
       "anthropic/claude-opus-4.6",
-      "google/gemini-2.5-flash",
-      "google/gemini-2.5-pro",
       "google/gemini-3-flash-preview",
       "google/gemini-3-pro-preview",
       "moonshotai/kimi-k2.5",
-      "moonshotai/kimi-k2-0905",
-      "minimax/minimax-m2.1",
+      "minimax/minimax-m2.5",
       "z-ai/glm-4.7",
       "xiaomi/mimo-v2-flash",
       "qwen/qwen3-max-thinking",
-      "x-ai/grok-4",
       "x-ai/grok-4-fast",
       "x-ai/grok-4.1-fast",
       "openai/o3",
       "openai/gpt-5.2",
       "openai/gpt-5.3-codex",
       "openai/gpt-5",
-      "openai/gpt-5-mini",
-      "openai/gpt-5-nano",
-      "openai/gpt-4.1-mini",
-      "openai/gpt-4o-mini",
       "deepseek/deepseek-v3.2",
       "qwen/qwen3-235b-a22b-2507",
       "meta-llama/llama-4-maverick"
     ],
-    "reasoning": "Full gauntlet with thinking and non-thinking models. GPT-5.2 without reasoning replaced by gpt52-medium (with reasoning.effort=medium). GPT-5.3-Codex and GPT-5 added with medium effort. Frontier models (Opus, o3, Grok 4) in main gauntlet with calibration cap. o3 has known stall issues but included for coverage.",
+    "reasoning": "Trimmed gauntlet: dropped Grok 4 (non-Fast), GPT-5 Mini, GPT-5 Nano, Kimi K2 0905, Gemini 2.5 Flash/Pro, GPT-4o-mini — all superseded or consistently bottom-tier. MiniMax upgraded from M2.1 to M2.5.",
     "showcase_matches": [
       "anthropic/claude-opus-4.6",
       "google/gemini-3-pro-preview",
@@ -455,7 +458,7 @@
       "param": "reasoning.effort",
       "values": ["low", "medium", "high"],
       "recommended": "medium",
-      "_notes": "MiniMax M2.1 reasoning. Thinking content exposure unknown — needs testing."
+      "_notes": "MiniMax M2.5 reasoning. Thinking content exposure unknown — needs testing."
     },
     "z-ai": {
       "param": "reasoning.effort",
