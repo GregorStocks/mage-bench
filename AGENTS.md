@@ -2,6 +2,15 @@
 
 When changing Python code in `puppeteer/`, add or update tests in `puppeteer/tests/`. Run tests with `make test`.
 
+## CI Flakes
+
+**CI flakes are not acceptable. Never re-run CI to work around a failure.** If a golden test or any other CI job fails, the failure has a root cause — find it and fix it. Common golden test flakes have real causes:
+
+- **bridge_join timeout**: The potato or bridge didn't join the table in time. Usually a keepAlive loop issue where the previous game's cleanup races with the next game's setup.
+- **Nondeterministic game replay**: Auto-pass or priority logic behaves differently across runs.
+
+Re-running CI (`gh run rerun`, `gh run retry`) is blocked by the enforcement hook. If you believe a failure is infrastructure-related (e.g. GitHub runner OOM, network timeout downloading dependencies), ask Gregor to re-run it.
+
 ## Pull Requests
 
 Before adding commits to an existing PR, verify it's still open:
