@@ -60198,6 +60198,7 @@
         20
       ],
       "subsequentActions": [],
+      "actionSeq": 8,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -60207,8 +60208,7 @@
           "p6",
           "p7"
         ]
-      },
-      "actionSeq": 8
+      }
     },
     {
       "index": 5,
@@ -60266,10 +60266,10 @@
       "subsequentActions": [
         "Qwen3L Villain skip attack"
       ],
+      "actionSeq": 8,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 8
+      }
     },
     {
       "index": 6,
@@ -60323,6 +60323,7 @@
       "subsequentActions": [
         "Sonnet Detect puts Mountain from hand onto the Battlefield"
       ],
+      "actionSeq": 15,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -60330,8 +60331,7 @@
           "p14",
           "p16"
         ]
-      },
-      "actionSeq": 15
+      }
     },
     {
       "index": 7,
@@ -60478,6 +60478,7 @@
         43
       ],
       "subsequentActions": [],
+      "actionSeq": 24,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -60487,8 +60488,7 @@
           "p6",
           "p7"
         ]
-      },
-      "actionSeq": 24
+      }
     },
     {
       "index": 11,
@@ -60565,10 +60565,10 @@
       "subsequentActions": [
         "Qwen3L Villain puts Abundant Countryside from hand onto the Battlefield"
       ],
+      "actionSeq": 24,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 24
+      }
     },
     {
       "index": 12,
@@ -60609,6 +60609,7 @@
         50
       ],
       "subsequentActions": [],
+      "actionSeq": 26,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -60616,8 +60617,7 @@
           "p5"
         ]
       },
-      "castRolledBack": true,
-      "actionSeq": 26
+      "castRolledBack": true
     },
     {
       "index": 13,
@@ -60646,11 +60646,11 @@
         54
       ],
       "subsequentActions": [],
+      "actionSeq": 27,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 27
+      }
     },
     {
       "index": 14,
@@ -60688,11 +60688,11 @@
         57
       ],
       "subsequentActions": [],
+      "actionSeq": 27,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 27
+      }
     },
     {
       "index": 15,
@@ -60716,11 +60716,11 @@
         63
       ],
       "subsequentActions": [],
+      "actionSeq": 28,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 28
+      }
     },
     {
       "index": 16,
@@ -60753,11 +60753,11 @@
         66
       ],
       "subsequentActions": [],
+      "actionSeq": 28,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 28
+      }
     },
     {
       "index": 17,
@@ -60790,11 +60790,11 @@
         70
       ],
       "subsequentActions": [],
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 30
+      }
     },
     {
       "index": 18,
@@ -60836,11 +60836,11 @@
         73
       ],
       "subsequentActions": [],
+      "actionSeq": 30,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 30
+      }
     },
     {
       "index": 19,
@@ -60864,14 +60864,14 @@
         77
       ],
       "subsequentActions": [],
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
         "playableCards": [
           "p5"
         ]
-      },
-      "actionSeq": 32
+      }
     },
     {
       "index": 20,
@@ -60906,11 +60906,11 @@
       "subsequentActions": [
         "Qwen3L Villain skip attack"
       ],
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 32
+      }
     },
     {
       "index": 21,
@@ -60943,11 +60943,11 @@
         88
       ],
       "subsequentActions": [],
+      "actionSeq": 37,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 37
+      }
     },
     {
       "index": 22,
@@ -61002,6 +61002,7 @@
         "Sonnet Detect puts Bloodstained Mire from hand onto the Battlefield",
         "Sonnet Detect skip attack"
       ],
+      "actionSeq": 39,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -61010,8 +61011,7 @@
           "p16",
           "p27"
         ]
-      },
-      "actionSeq": 39
+      }
     },
     {
       "index": 23,
@@ -61054,10 +61054,10 @@
         92
       ],
       "subsequentActions": [],
+      "actionSeq": 44,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 44
+      }
     },
     {
       "index": 24,
@@ -61099,10 +61099,10 @@
         "Sonnet Detect sacrificed Bloodstained Mire (source: Bloodstained Mire)",
         "Sonnet Detect activates: search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle. from Bloodstained Mire"
       ],
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 45
+      }
     },
     {
       "index": 25,
@@ -61137,10 +61137,10 @@
       "subsequentActions": [
         "Sonnet Detect searches their library (source: Bloodstained Mire)"
       ],
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 49
+      }
     },
     {
       "index": 26,
@@ -61219,10 +61219,10 @@
         "Sonnet Detect puts Mountain from library onto the Battlefield (source: Bloodstained Mire)",
         "Sonnet Detect's library is shuffled (source: Bloodstained Mire)"
       ],
+      "actionSeq": 52,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 52
+      }
     },
     {
       "index": 27,
@@ -61272,6 +61272,7 @@
         108
       ],
       "subsequentActions": [],
+      "actionSeq": 59,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -61281,8 +61282,7 @@
           "p6",
           "p7"
         ]
-      },
-      "actionSeq": 59
+      }
     },
     {
       "index": 28,
@@ -61343,11 +61343,11 @@
       "subsequentActions": [
         "Qwen3L Villain puts Eye of Ugin from hand onto the Battlefield"
       ],
+      "actionSeq": 59,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 59
+      }
     },
     {
       "index": 29,
@@ -61388,6 +61388,7 @@
         115
       ],
       "subsequentActions": [],
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -61395,8 +61396,7 @@
           "p5",
           "p24"
         ]
-      },
-      "actionSeq": 61
+      }
     },
     {
       "index": 30,
@@ -61446,11 +61446,11 @@
         118
       ],
       "subsequentActions": [],
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      },
-      "actionSeq": 61
+      }
     },
     {
       "index": 31,
@@ -61483,11 +61483,11 @@
         122
       ],
       "subsequentActions": [],
+      "actionSeq": 63,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      },
-      "actionSeq": 63
+      }
     },
     {
       "index": 32,
@@ -61532,11 +61532,11 @@
         "Qwen3L Villain casts Glaring Fleshraker from hand",
         "Qwen3L Villain puts Glaring Fleshraker from stack onto the Battlefield"
       ],
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      },
-      "actionSeq": 65
+      }
     },
     {
       "index": 33,
@@ -61570,14 +61570,14 @@
       "subsequentActions": [
         "Qwen3L Villain skip attack"
       ],
+      "actionSeq": 70,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
         "playableCards": [
           "p5"
         ]
-      },
-      "actionSeq": 70
+      }
     },
     {
       "index": 34,
@@ -61634,6 +61634,7 @@
       "subsequentActions": [
         "Sonnet Detect puts Wasteland from hand onto the Battlefield"
       ],
+      "actionSeq": 77,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -61642,8 +61643,7 @@
           "p16",
           "p27"
         ]
-      },
-      "actionSeq": 77
+      }
     },
     {
       "index": 35,
@@ -61711,10 +61711,10 @@
         138
       ],
       "subsequentActions": [],
+      "actionSeq": 82,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 82
+      }
     },
     {
       "index": 37,
@@ -61780,10 +61780,10 @@
         144
       ],
       "subsequentActions": [],
+      "actionSeq": 87,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 87
+      }
     },
     {
       "index": 39,
@@ -61825,10 +61825,10 @@
         148
       ],
       "subsequentActions": [],
+      "actionSeq": 88,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 88
+      }
     },
     {
       "index": 40,
@@ -61886,10 +61886,10 @@
         "Sonnet Detect activates: destroy target nonbasic land. from Wasteland targeting Eye of Ugin",
         "Eye of Ugin was destroyed by Wasteland"
       ],
+      "actionSeq": 89,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 89
+      }
     },
     {
       "index": 41,
@@ -61928,11 +61928,11 @@
         158
       ],
       "subsequentActions": [],
+      "actionSeq": 97,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 97
+      }
     },
     {
       "index": 42,
@@ -61988,11 +61988,11 @@
         "Qwen3L Villain attacks Sonnet Detect with 1 creature",
         "Attacker: Glaring Fleshraker (2/2) unblocked"
       ],
+      "actionSeq": 97,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 97
+      }
     },
     {
       "index": 43,
@@ -62018,10 +62018,10 @@
       "subsequentActions": [
         "Sonnet Detect loses 2 life at combat from Glaring Fleshraker"
       ],
+      "actionSeq": 103,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 103
+      }
     },
     {
       "index": 44,
@@ -62072,6 +62072,7 @@
       "subsequentActions": [
         "Sonnet Detect puts Wasteland from hand onto the Battlefield"
       ],
+      "actionSeq": 110,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -62079,8 +62080,7 @@
           "p33",
           "p27"
         ]
-      },
-      "actionSeq": 110
+      }
     },
     {
       "index": 45,
@@ -62148,10 +62148,10 @@
         174
       ],
       "subsequentActions": [],
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 115
+      }
     },
     {
       "index": 47,
@@ -62207,6 +62207,7 @@
         178
       ],
       "subsequentActions": [],
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -62217,8 +62218,7 @@
           "p5",
           "p7"
         ]
-      },
-      "actionSeq": 119
+      }
     },
     {
       "index": 48,
@@ -62285,11 +62285,11 @@
       "subsequentActions": [
         "Qwen3L Villain puts Ancient Tomb from hand onto the Battlefield"
       ],
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 119
+      }
     },
     {
       "index": 49,
@@ -62335,6 +62335,7 @@
         185
       ],
       "subsequentActions": [],
+      "actionSeq": 121,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -62343,8 +62344,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 121
+      }
     },
     {
       "index": 50,
@@ -62387,10 +62387,10 @@
         192
       ],
       "subsequentActions": [],
+      "actionSeq": 122,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 122
+      }
     },
     {
       "index": 51,
@@ -62446,11 +62446,11 @@
         "Qwen3L Villain attacks Sonnet Detect with 1 creature",
         "Attacker: Glaring Fleshraker (2/2) unblocked"
       ],
+      "actionSeq": 123,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 123
+      }
     },
     {
       "index": 52,
@@ -62495,10 +62495,10 @@
       "subsequentActions": [
         "Sonnet Detect loses 2 life at combat from Glaring Fleshraker"
       ],
+      "actionSeq": 130,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 130
+      }
     },
     {
       "index": 53,
@@ -62541,10 +62541,10 @@
         200
       ],
       "subsequentActions": [],
+      "actionSeq": 135,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 135
+      }
     },
     {
       "index": 54,
@@ -62614,10 +62614,10 @@
       "subsequentActions": [
         "Sonnet Detect discards down to 7 hand cards"
       ],
+      "actionSeq": 139,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 139
+      }
     },
     {
       "index": 56,
@@ -62698,10 +62698,10 @@
       "subsequentActions": [
         "Sonnet Detect discards Goblin Matron"
       ],
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 144
+      }
     },
     {
       "index": 57,
@@ -62774,6 +62774,7 @@
         214
       ],
       "subsequentActions": [],
+      "actionSeq": 146,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -62786,8 +62787,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 146
+      }
     },
     {
       "index": 58,
@@ -62871,11 +62871,11 @@
       "subsequentActions": [
         "Qwen3L Villain puts Eye of Ugin from hand onto the Battlefield"
       ],
+      "actionSeq": 146,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
-      },
-      "actionSeq": 146
+      }
     },
     {
       "index": 59,
@@ -62939,6 +62939,7 @@
         221
       ],
       "subsequentActions": [],
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -62949,8 +62950,7 @@
           "p31",
           "p9"
         ]
-      },
-      "actionSeq": 148
+      }
     },
     {
       "index": 60,
@@ -63023,11 +63023,11 @@
         224
       ],
       "subsequentActions": [],
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      },
-      "actionSeq": 148
+      }
     },
     {
       "index": 61,
@@ -63075,6 +63075,7 @@
         "Qwen3L Villain creates a Eldrazi Spawn Token token",
         "Qwen3L Villain - Ability triggers: Glaring Fleshraker - Whenever another colorless creature you control enters, Glaring Fleshraker deals 1 damage to each opponent."
       ],
+      "actionSeq": 150,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -63082,8 +63083,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 150
+      }
     },
     {
       "index": 62,
@@ -63122,6 +63122,7 @@
         232
       ],
       "subsequentActions": [],
+      "actionSeq": 159,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -63129,8 +63130,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 159
+      }
     },
     {
       "index": 63,
@@ -63172,10 +63172,10 @@
       "subsequentActions": [
         "Sonnet Detect loses 1 life from Glaring Fleshraker"
       ],
+      "actionSeq": 160,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 160
+      }
     },
     {
       "index": 64,
@@ -63216,6 +63216,7 @@
       "subsequentActions": [
         "Qwen3L Villain puts Thought-Knot Seer from stack onto the Battlefield"
       ],
+      "actionSeq": 162,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -63223,8 +63224,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 162
+      }
     },
     {
       "index": 65,
@@ -63261,6 +63261,7 @@
         242
       ],
       "subsequentActions": [],
+      "actionSeq": 165,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -63269,8 +63270,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 165
+      }
     },
     {
       "index": 66,
@@ -63319,11 +63319,11 @@
         "Qwen3L Villain - Ability triggers: Thought-Knot Seer - When Thought-Knot Seer enters, target opponent reveals their hand. You choose a nonland card from it and exile that card. - targeting Sonnet Detect",
         "Qwen3L Villain - Ability triggers: Glaring Fleshraker - Whenever another colorless creature you control enters, Glaring Fleshraker deals 1 damage to each opponent."
       ],
+      "actionSeq": 165,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 165
+      }
     },
     {
       "index": 67,
@@ -63365,10 +63365,10 @@
       "subsequentActions": [
         "Sonnet Detect loses 1 life from Glaring Fleshraker"
       ],
+      "actionSeq": 170,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 170
+      }
     },
     {
       "index": 68,
@@ -63409,6 +63409,7 @@
       "subsequentActions": [
         "Sonnet Detect reveals Sling-Gang Lieutenant, Goblin Matron, Goblin Warchief, Goblin Ringleader, Skirk Prospector, Munitions Expert, Wooded Foothills (source: Thought-Knot Seer)"
       ],
+      "actionSeq": 172,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -63416,8 +63417,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 172
+      }
     },
     {
       "index": 69,
@@ -63489,11 +63489,11 @@
       "subsequentActions": [
         "Qwen3L Villain moves Goblin Ringleader from hand to the exile zone (source: Thought-Knot Seer)"
       ],
+      "actionSeq": 175,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 175
+      }
     },
     {
       "index": 70,
@@ -63534,10 +63534,10 @@
         264
       ],
       "subsequentActions": [],
+      "actionSeq": 178,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 178
+      }
     },
     {
       "index": 71,
@@ -63576,11 +63576,11 @@
         266
       ],
       "subsequentActions": [],
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 179
+      }
     },
     {
       "index": 72,
@@ -63635,11 +63635,11 @@
       "subsequentActions": [
         "Qwen3L Villain attacks Sonnet Detect with 1 creature"
       ],
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 179
+      }
     },
     {
       "index": 73,
@@ -63674,10 +63674,10 @@
       "subsequentActions": [
         "Attacker: Glaring Fleshraker (2/2) unblocked"
       ],
+      "actionSeq": 182,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 182
+      }
     },
     {
       "index": 74,
@@ -63722,10 +63722,10 @@
       "subsequentActions": [
         "Sonnet Detect loses 2 life at combat from Glaring Fleshraker"
       ],
+      "actionSeq": 186,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 186
+      }
     },
     {
       "index": 75,
@@ -63757,14 +63757,14 @@
         281
       ],
       "subsequentActions": [],
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
         "playableCards": [
           "p5"
         ]
-      },
-      "actionSeq": 190
+      }
     },
     {
       "index": 76,
@@ -63805,11 +63805,11 @@
         284
       ],
       "subsequentActions": [],
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 190
+      }
     },
     {
       "index": 77,
@@ -63849,11 +63849,11 @@
         "Qwen3L Villain casts Chalice of the Void from hand",
         "Qwen3L Villain - Ability triggers: Glaring Fleshraker - Whenever you cast a colorless spell, create a 0/1 colorless Eldrazi Spawn creature token with \"Sacrifice this token: Add {C}.\""
       ],
+      "actionSeq": 191,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 191
+      }
     },
     {
       "index": 78,
@@ -63900,10 +63900,10 @@
         "Qwen3L Villain - Ability triggers: Glaring Fleshraker - Whenever another colorless creature you control enters, Glaring Fleshraker deals 1 damage to each opponent.",
         "Sonnet Detect loses 1 life from Glaring Fleshraker"
       ],
+      "actionSeq": 198,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 198
+      }
     },
     {
       "index": 79,
@@ -63948,10 +63948,10 @@
       "subsequentActions": [
         "Qwen3L Villain puts Chalice of the Void from stack onto the Battlefield"
       ],
+      "actionSeq": 205,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 205
+      }
     },
     {
       "index": 80,
@@ -64037,6 +64037,7 @@
         310
       ],
       "subsequentActions": [],
+      "actionSeq": 209,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -64047,8 +64048,7 @@
           "p33",
           "p39"
         ]
-      },
-      "actionSeq": 209
+      }
     },
     {
       "index": 81,
@@ -64098,11 +64098,11 @@
         "Sonnet Detect puts Cavern of Souls from hand onto the Battlefield",
         "Sonnet Detect skip attack"
       ],
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      },
-      "actionSeq": 210
+      }
     },
     {
       "index": 82,
@@ -64154,13 +64154,13 @@
         318
       ],
       "subsequentActions": [],
+      "actionSeq": 216,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
           "p37"
         ]
-      },
-      "actionSeq": 216
+      }
     },
     {
       "index": 83,
@@ -64229,6 +64229,7 @@
         322
       ],
       "subsequentActions": [],
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -64240,8 +64241,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 220
+      }
     },
     {
       "index": 84,
@@ -64319,11 +64319,11 @@
         325
       ],
       "subsequentActions": [],
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      },
-      "actionSeq": 220
+      }
     },
     {
       "index": 85,
@@ -64401,6 +64401,7 @@
         346
       ],
       "subsequentActions": [],
+      "actionSeq": 226,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -64412,8 +64413,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 226
+      }
     },
     {
       "index": 86,
@@ -64462,13 +64462,13 @@
         350
       ],
       "subsequentActions": [],
+      "actionSeq": 227,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
           "p37"
         ]
-      },
-      "actionSeq": 227
+      }
     },
     {
       "index": 87,
@@ -64531,11 +64531,11 @@
         352
       ],
       "subsequentActions": [],
+      "actionSeq": 228,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 228
+      }
     },
     {
       "index": 88,
@@ -64623,11 +64623,11 @@
       "subsequentActions": [
         "Qwen3L Villain attacks Sonnet Detect with 2 creatures"
       ],
+      "actionSeq": 228,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
-      },
-      "actionSeq": 228
+      }
     },
     {
       "index": 89,
@@ -64681,14 +64681,14 @@
         "Sonnet Detect loses 4 life at combat from Thought-Knot Seer",
         "Sonnet Detect loses 2 life at combat from Glaring Fleshraker"
       ],
+      "actionSeq": 232,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 232
+      }
     },
     {
       "index": 90,
@@ -64782,6 +64782,7 @@
         374
       ],
       "subsequentActions": [],
+      "actionSeq": 247,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -64793,8 +64794,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 247
+      }
     },
     {
       "index": 91,
@@ -64898,6 +64898,7 @@
         "Sonnet Detect puts Wooded Foothills from hand onto the Battlefield",
         "Sonnet Detect skip attack"
       ],
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -64910,8 +64911,7 @@
           "p15",
           "p39"
         ]
-      },
-      "actionSeq": 244
+      }
     },
     {
       "index": 92,
@@ -64972,13 +64972,13 @@
         380
       ],
       "subsequentActions": [],
+      "actionSeq": 249,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
           "p37"
         ]
-      },
-      "actionSeq": 249
+      }
     },
     {
       "index": 93,
@@ -65023,14 +65023,14 @@
         389
       ],
       "subsequentActions": [],
+      "actionSeq": 250,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 250
+      }
     },
     {
       "index": 94,
@@ -65127,6 +65127,7 @@
         384
       ],
       "subsequentActions": [],
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -65137,8 +65138,7 @@
           "p33",
           "p15"
         ]
-      },
-      "actionSeq": 251
+      }
     },
     {
       "index": 95,
@@ -65181,11 +65181,11 @@
         "Sonnet Detect activates: search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle. from Wooded Foothills",
         "Sonnet Detect searches their library (source: Wooded Foothills)"
       ],
+      "actionSeq": 252,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
-      },
-      "actionSeq": 252
+      }
     },
     {
       "index": 96,
@@ -65258,14 +65258,14 @@
         "Sonnet Detect puts Badlands from library onto the Battlefield (source: Wooded Foothills)",
         "Sonnet Detect's library is shuffled (source: Wooded Foothills)"
       ],
+      "actionSeq": 259,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
         "playableCards": [
           "p37"
         ]
-      },
-      "actionSeq": 259
+      }
     },
     {
       "index": 97,
@@ -65328,14 +65328,14 @@
         398
       ],
       "subsequentActions": [],
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 263
+      }
     },
     {
       "index": 98,
@@ -65410,6 +65410,7 @@
         402
       ],
       "subsequentActions": [],
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -65422,8 +65423,7 @@
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 264
+      }
     },
     {
       "index": 99,
@@ -65472,13 +65472,13 @@
         406
       ],
       "subsequentActions": [],
+      "actionSeq": 265,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
           "p37"
         ]
-      },
-      "actionSeq": 265
+      }
     },
     {
       "index": 100,
@@ -65541,11 +65541,11 @@
         410
       ],
       "subsequentActions": [],
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 266
+      }
     },
     {
       "index": 101,
@@ -65633,11 +65633,11 @@
       "subsequentActions": [
         "Qwen3L Villain attacks Sonnet Detect with 2 creatures"
       ],
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
-      },
-      "actionSeq": 266
+      }
     },
     {
       "index": 102,
@@ -65692,14 +65692,14 @@
         "Sonnet Detect loses 2 life at combat from Glaring Fleshraker",
         "Sonnet Detect has lost the game."
       ],
+      "actionSeq": 270,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p8",
           "p31"
         ]
-      },
-      "actionSeq": 270
+      }
     }
   ],
   "errors": []

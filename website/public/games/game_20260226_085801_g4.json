@@ -61566,6 +61566,7 @@
       "subsequentActions": [
         "o3 Rambler puts Ancient Tomb from hand onto the Battlefield"
       ],
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -61573,8 +61574,7 @@
           "p18",
           "p19"
         ]
-      },
-      "actionSeq": 17
+      }
     },
     {
       "index": 5,
@@ -61633,14 +61633,14 @@
         "o3 Rambler loses 2 life from Ancient Tomb",
         "o3 Rambler casts Grim Monolith from hand"
       ],
+      "actionSeq": 19,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
         "playableCards": [
           "p21"
         ]
-      },
-      "actionSeq": 19
+      }
     },
     {
       "index": 6,
@@ -61687,10 +61687,10 @@
         "GPT5n ESPN skip attack",
         "GPT5n ESPN discards down to 7 hand cards"
       ],
+      "actionSeq": 23,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 23
+      }
     },
     {
       "index": 7,
@@ -61874,6 +61874,7 @@
       "subsequentActions": [
         "o3 Rambler puts Eldrazi Temple from hand onto the Battlefield"
       ],
+      "actionSeq": 38,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -61884,8 +61885,7 @@
           "p22",
           "p23"
         ]
-      },
-      "actionSeq": 38
+      }
     },
     {
       "index": 9,
@@ -61964,6 +61964,7 @@
       "subsequentActions": [
         "o3 Rambler skip attack"
       ],
+      "actionSeq": 40,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -61972,8 +61973,7 @@
           "p23"
         ]
       },
-      "castRolledBack": true,
-      "actionSeq": 40
+      "castRolledBack": true
     },
     {
       "index": 10,
@@ -62049,10 +62049,10 @@
         48
       ],
       "subsequentActions": [],
+      "actionSeq": 53,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 53
+      }
     },
     {
       "index": 12,
@@ -62107,10 +62107,10 @@
       "subsequentActions": [
         "o3 Rambler loses 2 life from Ancient Tomb"
       ],
+      "actionSeq": 55,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 55
+      }
     },
     {
       "index": 13,
@@ -62164,10 +62164,10 @@
       "subsequentActions": [
         "o3 Rambler activates: untap Grim Monolith. from Grim Monolith"
       ],
+      "actionSeq": 59,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 59
+      }
     },
     {
       "index": 14,
@@ -62555,11 +62555,11 @@
       "subsequentActions": [
         "o3 Rambler loses 2 life from Ancient Tomb"
       ],
+      "actionSeq": 82,
       "pilotContext": {
         "untappedLands": 2
       },
-      "castRolledBack": true,
-      "actionSeq": 82
+      "castRolledBack": true
     },
     {
       "index": 21,
@@ -62611,10 +62611,10 @@
         95
       ],
       "subsequentActions": [],
+      "actionSeq": 86,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 86
+      }
     },
     {
       "index": 22,
@@ -62657,10 +62657,10 @@
         101
       ],
       "subsequentActions": [],
+      "actionSeq": 98,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 98
+      }
     },
     {
       "index": 23,
@@ -62713,13 +62713,13 @@
       "subsequentActions": [
         "GPT5n ESPN puts Bloodstained Mire from hand onto the Battlefield"
       ],
+      "actionSeq": 102,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
           "p40"
         ]
-      },
-      "actionSeq": 102
+      }
     },
     {
       "index": 24,
@@ -62794,10 +62794,10 @@
       "subsequentActions": [
         "GPT5n ESPN skip attack"
       ],
+      "actionSeq": 105,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 105
+      }
     },
     {
       "index": 26,
@@ -62851,10 +62851,10 @@
         118
       ],
       "subsequentActions": [],
+      "actionSeq": 107,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 107
+      }
     },
     {
       "index": 27,
@@ -62908,10 +62908,10 @@
         123
       ],
       "subsequentActions": [],
+      "actionSeq": 109,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 109
+      }
     },
     {
       "index": 28,
@@ -62965,10 +62965,10 @@
         128
       ],
       "subsequentActions": [],
+      "actionSeq": 111,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 111
+      }
     },
     {
       "index": 29,
@@ -63021,10 +63021,10 @@
         132
       ],
       "subsequentActions": [],
+      "actionSeq": 113,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 113
+      }
     },
     {
       "index": 30,
@@ -63078,10 +63078,10 @@
         137
       ],
       "subsequentActions": [],
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 115
+      }
     },
     {
       "index": 31,
@@ -63134,10 +63134,10 @@
         141
       ],
       "subsequentActions": [],
+      "actionSeq": 117,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 117
+      }
     },
     {
       "index": 32,
@@ -63191,10 +63191,10 @@
         146
       ],
       "subsequentActions": [],
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 119
+      }
     },
     {
       "index": 33,
@@ -63247,10 +63247,10 @@
         150
       ],
       "subsequentActions": [],
+      "actionSeq": 121,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 121
+      }
     },
     {
       "index": 34,
@@ -63304,10 +63304,10 @@
         155
       ],
       "subsequentActions": [],
+      "actionSeq": 123,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 123
+      }
     },
     {
       "index": 35,
@@ -63360,10 +63360,10 @@
         159
       ],
       "subsequentActions": [],
+      "actionSeq": 125,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 125
+      }
     },
     {
       "index": 36,
@@ -63417,10 +63417,10 @@
         164
       ],
       "subsequentActions": [],
+      "actionSeq": 127,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 127
+      }
     },
     {
       "index": 37,
@@ -63475,10 +63475,10 @@
       "subsequentActions": [
         "Grim Monolith: Grim Monolith doesn't untap during your untap step."
       ],
+      "actionSeq": 129,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 129
+      }
     },
     {
       "index": 38,
@@ -63569,6 +63569,7 @@
         "o3 Rambler loses 2 life from Ancient Tomb",
         "o3 Rambler casts Reality Smasher from hand"
       ],
+      "actionSeq": 136,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -63579,8 +63580,7 @@
           "p23",
           "p15"
         ]
-      },
-      "actionSeq": 136
+      }
     },
     {
       "index": 39,
@@ -63634,10 +63634,10 @@
         179
       ],
       "subsequentActions": [],
+      "actionSeq": 146,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 146
+      }
     },
     {
       "index": 40,
@@ -63693,10 +63693,10 @@
       "subsequentActions": [
         "o3 Rambler puts Reality Smasher from stack onto the Battlefield"
       ],
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 148
+      }
     },
     {
       "index": 41,
@@ -63739,10 +63739,10 @@
         188
       ],
       "subsequentActions": [],
+      "actionSeq": 152,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 152
+      }
     },
     {
       "index": 42,
@@ -63809,10 +63809,10 @@
         "Attacker: Reality Smasher (5/5) unblocked",
         "GPT5n ESPN loses 5 life at combat from Reality Smasher"
       ],
+      "actionSeq": 154,
       "pilotContext": {
         "combatPhase": "attackers"
-      },
-      "actionSeq": 154
+      }
     },
     {
       "index": 43,
@@ -63846,11 +63846,11 @@
         198
       ],
       "subsequentActions": [],
+      "actionSeq": 167,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 167
+      }
     },
     {
       "index": 44,
@@ -63946,10 +63946,10 @@
         203
       ],
       "subsequentActions": [],
+      "actionSeq": 170,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 170
+      }
     },
     {
       "index": 46,
@@ -64002,10 +64002,10 @@
         207
       ],
       "subsequentActions": [],
+      "actionSeq": 172,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 172
+      }
     },
     {
       "index": 47,
@@ -64059,10 +64059,10 @@
         213
       ],
       "subsequentActions": [],
+      "actionSeq": 174,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 174
+      }
     },
     {
       "index": 48,
@@ -64115,10 +64115,10 @@
         217
       ],
       "subsequentActions": [],
+      "actionSeq": 176,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 176
+      }
     },
     {
       "index": 49,
@@ -64172,10 +64172,10 @@
         223
       ],
       "subsequentActions": [],
+      "actionSeq": 178,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 178
+      }
     },
     {
       "index": 50,
@@ -64229,10 +64229,10 @@
         232
       ],
       "subsequentActions": [],
+      "actionSeq": 180,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 180
+      }
     },
     {
       "index": 51,
@@ -64286,10 +64286,10 @@
         238
       ],
       "subsequentActions": [],
+      "actionSeq": 182,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 182
+      }
     },
     {
       "index": 52,
@@ -64343,10 +64343,10 @@
         243
       ],
       "subsequentActions": [],
+      "actionSeq": 184,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 184
+      }
     },
     {
       "index": 53,
@@ -64400,10 +64400,10 @@
         248
       ],
       "subsequentActions": [],
+      "actionSeq": 186,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 186
+      }
     },
     {
       "index": 54,
@@ -64457,10 +64457,10 @@
         253
       ],
       "subsequentActions": [],
+      "actionSeq": 188,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 188
+      }
     },
     {
       "index": 55,
@@ -64514,10 +64514,10 @@
         258
       ],
       "subsequentActions": [],
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 190
+      }
     },
     {
       "index": 56,
@@ -64571,10 +64571,10 @@
         263
       ],
       "subsequentActions": [],
+      "actionSeq": 192,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 192
+      }
     },
     {
       "index": 57,
@@ -64629,10 +64629,10 @@
         "GPT5n ESPN discards Broadside Bombardiers",
         "Grim Monolith: Grim Monolith doesn't untap during your untap step."
       ],
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 194
+      }
     },
     {
       "index": 58,
@@ -64721,6 +64721,7 @@
         "o3 Rambler loses 2 life from Ancient Tomb",
         "o3 Rambler casts Thought-Knot Seer from hand"
       ],
+      "actionSeq": 202,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -64730,8 +64731,7 @@
           "p23",
           "p15"
         ]
-      },
-      "actionSeq": 202
+      }
     },
     {
       "index": 59,
@@ -64767,10 +64767,10 @@
         "o3 Rambler puts Thought-Knot Seer from stack onto the Battlefield",
         "o3 Rambler - Ability triggers: Thought-Knot Seer - When Thought-Knot Seer enters, target opponent reveals their hand. You choose a nonland card from it and exile that card. - targeting GPT5n ESPN"
       ],
+      "actionSeq": 209,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 209
+      }
     },
     {
       "index": 60,
@@ -64824,10 +64824,10 @@
         279
       ],
       "subsequentActions": [],
+      "actionSeq": 214,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 214
+      }
     },
     {
       "index": 61,
@@ -64881,10 +64881,10 @@
         284
       ],
       "subsequentActions": [],
+      "actionSeq": 216,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 216
+      }
     },
     {
       "index": 62,
@@ -64938,10 +64938,10 @@
         289
       ],
       "subsequentActions": [],
+      "actionSeq": 218,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 218
+      }
     },
     {
       "index": 63,
@@ -64995,10 +64995,10 @@
         294
       ],
       "subsequentActions": [],
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 220
+      }
     },
     {
       "index": 64,
@@ -65052,10 +65052,10 @@
         299
       ],
       "subsequentActions": [],
+      "actionSeq": 222,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 222
+      }
     },
     {
       "index": 65,
@@ -65109,10 +65109,10 @@
         304
       ],
       "subsequentActions": [],
+      "actionSeq": 224,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 224
+      }
     },
     {
       "index": 66,
@@ -65166,10 +65166,10 @@
         309
       ],
       "subsequentActions": [],
+      "actionSeq": 226,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 226
+      }
     },
     {
       "index": 67,
@@ -65223,10 +65223,10 @@
         314
       ],
       "subsequentActions": [],
+      "actionSeq": 228,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 228
+      }
     },
     {
       "index": 68,
@@ -65280,10 +65280,10 @@
         319
       ],
       "subsequentActions": [],
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 230
+      }
     },
     {
       "index": 69,
@@ -65319,10 +65319,10 @@
       "subsequentActions": [
         "GPT5n ESPN reveals Pashalik Mons, Munitions Expert, Goblin Lackey, Skirk Prospector, Broadside Bombardiers, Goblin Warchief, Goblin Lackey (source: Thought-Knot Seer)"
       ],
+      "actionSeq": 232,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 232
+      }
     },
     {
       "index": 70,
@@ -65411,11 +65411,11 @@
       "subsequentActions": [
         "o3 Rambler moves Goblin Warchief from hand to the exile zone (source: Thought-Knot Seer)"
       ],
+      "actionSeq": 234,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 234
+      }
     },
     {
       "index": 71,
@@ -65474,6 +65474,7 @@
         332
       ],
       "subsequentActions": [],
+      "actionSeq": 236,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -65482,8 +65483,7 @@
           "p41",
           "p15"
         ]
-      },
-      "actionSeq": 236
+      }
     },
     {
       "index": 72,
@@ -65517,10 +65517,10 @@
         334
       ],
       "subsequentActions": [],
+      "actionSeq": 237,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 237
+      }
     },
     {
       "index": 73,
@@ -65585,11 +65585,11 @@
       "subsequentActions": [
         "o3 Rambler attacks GPT5n ESPN with 1 creature"
       ],
+      "actionSeq": 238,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 238
+      }
     },
     {
       "index": 74,
@@ -65643,10 +65643,10 @@
         343
       ],
       "subsequentActions": [],
+      "actionSeq": 242,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 242
+      }
     },
     {
       "index": 75,
@@ -65683,10 +65683,10 @@
         "Attacker: Reality Smasher (5/5) unblocked",
         "GPT5n ESPN loses 5 life at combat from Reality Smasher"
       ],
+      "actionSeq": 244,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 244
+      }
     },
     {
       "index": 76,
@@ -65745,6 +65745,7 @@
         361
       ],
       "subsequentActions": [],
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -65753,8 +65754,7 @@
           "p41",
           "p15"
         ]
-      },
-      "actionSeq": 251
+      }
     },
     {
       "index": 77,
@@ -65796,14 +65796,14 @@
       "subsequentActions": [
         "GPT5n ESPN skip attack"
       ],
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
         "playableCards": [
           "p46"
         ]
-      },
-      "actionSeq": 253
+      }
     },
     {
       "index": 78,
@@ -65857,10 +65857,10 @@
         368
       ],
       "subsequentActions": [],
+      "actionSeq": 256,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 256
+      }
     },
     {
       "index": 79,
@@ -65894,10 +65894,10 @@
         373
       ],
       "subsequentActions": [],
+      "actionSeq": 258,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 258
+      }
     },
     {
       "index": 80,
@@ -65957,14 +65957,14 @@
         376
       ],
       "subsequentActions": [],
+      "actionSeq": 260,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
         "playableCards": [
           "p46"
         ]
-      },
-      "actionSeq": 260
+      }
     },
     {
       "index": 81,
@@ -66024,11 +66024,11 @@
         381
       ],
       "subsequentActions": [],
+      "actionSeq": 262,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 262
+      }
     },
     {
       "index": 82,
@@ -66088,11 +66088,11 @@
         386
       ],
       "subsequentActions": [],
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 264
+      }
     },
     {
       "index": 83,
@@ -66152,11 +66152,11 @@
         392
       ],
       "subsequentActions": [],
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 266
+      }
     },
     {
       "index": 84,
@@ -66216,11 +66216,11 @@
         397
       ],
       "subsequentActions": [],
+      "actionSeq": 268,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 268
+      }
     },
     {
       "index": 85,
@@ -66280,11 +66280,11 @@
         402
       ],
       "subsequentActions": [],
+      "actionSeq": 270,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 270
+      }
     },
     {
       "index": 86,
@@ -66344,11 +66344,11 @@
         407
       ],
       "subsequentActions": [],
+      "actionSeq": 272,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 272
+      }
     },
     {
       "index": 87,
@@ -66408,11 +66408,11 @@
         412
       ],
       "subsequentActions": [],
+      "actionSeq": 274,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 274
+      }
     },
     {
       "index": 88,
@@ -66454,11 +66454,11 @@
       "subsequentActions": [
         "Grim Monolith: Grim Monolith doesn't untap during your untap step."
       ],
+      "actionSeq": 276,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 276
+      }
     },
     {
       "index": 89,
@@ -66539,6 +66539,7 @@
         "o3 Rambler puts Wasteland from hand onto the Battlefield",
         "o3 Rambler - Ability triggers: City of Traitors - When you play another land, sacrifice City of Traitors."
       ],
+      "actionSeq": 279,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -66548,8 +66549,7 @@
           "p47",
           "p15"
         ]
-      },
-      "actionSeq": 279
+      }
     },
     {
       "index": 90,
@@ -66603,10 +66603,10 @@
         431
       ],
       "subsequentActions": [],
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 283
+      }
     },
     {
       "index": 91,
@@ -66660,10 +66660,10 @@
         436
       ],
       "subsequentActions": [],
+      "actionSeq": 285,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 285
+      }
     },
     {
       "index": 92,
@@ -66717,10 +66717,10 @@
         442
       ],
       "subsequentActions": [],
+      "actionSeq": 287,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 287
+      }
     },
     {
       "index": 93,
@@ -66774,10 +66774,10 @@
         447
       ],
       "subsequentActions": [],
+      "actionSeq": 289,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 289
+      }
     },
     {
       "index": 94,
@@ -66831,10 +66831,10 @@
         452
       ],
       "subsequentActions": [],
+      "actionSeq": 291,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 291
+      }
     },
     {
       "index": 95,
@@ -66888,10 +66888,10 @@
         457
       ],
       "subsequentActions": [],
+      "actionSeq": 293,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 293
+      }
     },
     {
       "index": 96,
@@ -66945,10 +66945,10 @@
         462
       ],
       "subsequentActions": [],
+      "actionSeq": 295,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 295
+      }
     },
     {
       "index": 97,
@@ -67002,10 +67002,10 @@
         467
       ],
       "subsequentActions": [],
+      "actionSeq": 297,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 297
+      }
     },
     {
       "index": 98,
@@ -67059,10 +67059,10 @@
         472
       ],
       "subsequentActions": [],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 299
+      }
     },
     {
       "index": 99,
@@ -67116,10 +67116,10 @@
         477
       ],
       "subsequentActions": [],
+      "actionSeq": 301,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 301
+      }
     },
     {
       "index": 100,
@@ -67173,10 +67173,10 @@
         483
       ],
       "subsequentActions": [],
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 303
+      }
     },
     {
       "index": 101,
@@ -67234,10 +67234,10 @@
         "GPT5n ESPN sacrificed Bloodstained Mire (source: Bloodstained Mire)",
         "GPT5n ESPN activates: search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle. from Bloodstained Mire"
       ],
+      "actionSeq": 305,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 305
+      }
     },
     {
       "index": 102,
@@ -67303,11 +67303,11 @@
         "GPT5n ESPN's library is shuffled (source: Bloodstained Mire)",
         "o3 Rambler sacrificed City of Traitors (source: City of Traitors)"
       ],
+      "actionSeq": 311,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
-      },
-      "actionSeq": 311
+      }
     },
     {
       "index": 103,
@@ -67369,11 +67369,11 @@
         500
       ],
       "subsequentActions": [],
+      "actionSeq": 318,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      },
-      "actionSeq": 318
+      }
     },
     {
       "index": 104,
@@ -67449,11 +67449,11 @@
         "o3 Rambler attacks GPT5n ESPN with 2 creatures",
         "o3 Rambler loses 2 life from Ancient Tomb"
       ],
+      "actionSeq": 320,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 320
+      }
     },
     {
       "index": 105,
@@ -67507,10 +67507,10 @@
       "subsequentActions": [
         "o3 Rambler activates: untap Grim Monolith. from Grim Monolith"
       ],
+      "actionSeq": 330,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 330
+      }
     },
     {
       "index": 106,

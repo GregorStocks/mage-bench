@@ -88183,6 +88183,7 @@
         20
       ],
       "subsequentActions": [],
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -88191,8 +88192,7 @@
           "p6",
           "p7"
         ]
-      },
-      "actionSeq": 17
+      }
     },
     {
       "index": 5,
@@ -88232,10 +88232,10 @@
       "subsequentActions": [
         "GLM47 Gramps casts Lotus Petal from hand"
       ],
+      "actionSeq": 18,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 18
+      }
     },
     {
       "index": 6,
@@ -88270,10 +88270,10 @@
       "subsequentActions": [
         "GLM47 Gramps puts Lotus Petal from stack onto the Battlefield"
       ],
+      "actionSeq": 21,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 21
+      }
     },
     {
       "index": 7,
@@ -88327,6 +88327,7 @@
       "subsequentActions": [
         "GLM47 Gramps puts Eldrazi Temple from hand onto the Battlefield"
       ],
+      "actionSeq": 24,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -88334,8 +88335,7 @@
           "p5",
           "p6"
         ]
-      },
-      "actionSeq": 24
+      }
     },
     {
       "index": 8,
@@ -88389,6 +88389,7 @@
       "subsequentActions": [
         "Gem25P Lucky puts Underground Sea from hand onto the Battlefield"
       ],
+      "actionSeq": 28,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -88396,8 +88397,7 @@
           "p15",
           "p24"
         ]
-      },
-      "actionSeq": 28
+      }
     },
     {
       "index": 9,
@@ -88454,6 +88454,7 @@
       "subsequentActions": [
         "Gem25P Lucky casts Ponder from hand"
       ],
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -88462,8 +88463,7 @@
           "p11",
           "p16"
         ]
-      },
-      "actionSeq": 32
+      }
     },
     {
       "index": 10,
@@ -88501,14 +88501,14 @@
         47
       ],
       "subsequentActions": [],
+      "actionSeq": 35,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
           "p12",
           "p13"
         ]
-      },
-      "actionSeq": 35
+      }
     },
     {
       "index": 11,
@@ -88566,10 +88566,10 @@
         "Gem25P Lucky's library is shuffled (source: Ponder)",
         "Gem25P Lucky puts Ponder from stack into their graveyard"
       ],
+      "actionSeq": 37,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 37
+      }
     },
     {
       "index": 12,
@@ -88613,13 +88613,13 @@
         "Gem25P Lucky casts Lotus Petal from hand",
         "Gem25P Lucky puts Lotus Petal from stack onto the Battlefield"
       ],
+      "actionSeq": 51,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
           "p29"
         ]
-      },
-      "actionSeq": 51
+      }
     },
     {
       "index": 13,
@@ -88667,14 +88667,14 @@
         68
       ],
       "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
           "p10",
           "p11"
         ]
-      },
-      "actionSeq": 58
+      }
     },
     {
       "index": 14,
@@ -88739,6 +88739,7 @@
         "GLM47 Gramps puts Eldrazi Temple from hand onto the Battlefield",
         "GLM47 Gramps skip attack"
       ],
+      "actionSeq": 60,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -88748,8 +88749,7 @@
           "p6",
           "p31"
         ]
-      },
-      "actionSeq": 60
+      }
     },
     {
       "index": 15,
@@ -88782,10 +88782,10 @@
         74
       ],
       "subsequentActions": [],
+      "actionSeq": 68,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 68
+      }
     },
     {
       "index": 16,
@@ -88855,6 +88855,7 @@
       "subsequentActions": [
         "GLM47 Gramps sacrificed Lotus Petal (source: Lotus Petal)"
       ],
+      "actionSeq": 70,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -88864,8 +88865,7 @@
           "p8",
           "p9"
         ]
-      },
-      "actionSeq": 70
+      }
     },
     {
       "index": 17,
@@ -88907,11 +88907,11 @@
         82
       ],
       "subsequentActions": [],
+      "actionSeq": 75,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      },
-      "actionSeq": 75
+      }
     },
     {
       "index": 18,
@@ -88957,11 +88957,11 @@
         "GLM47 Gramps puts Thought-Knot Seer from stack onto the Battlefield",
         "GLM47 Gramps - Ability triggers: Thought-Knot Seer - When Thought-Knot Seer enters, target opponent reveals their hand. You choose a nonland card from it and exile that card. - targeting Gem25P Lucky"
       ],
+      "actionSeq": 77,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 77
+      }
     },
     {
       "index": 19,
@@ -88996,10 +88996,10 @@
       "subsequentActions": [
         "Gem25P Lucky reveals Polluted Delta, Polluted Delta, Daze, Daze, Brainstorm, Consider (source: Thought-Knot Seer)"
       ],
+      "actionSeq": 84,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 84
+      }
     },
     {
       "index": 20,
@@ -89059,10 +89059,10 @@
       "subsequentActions": [
         "GLM47 Gramps moves Daze from hand to the exile zone (source: Thought-Knot Seer)"
       ],
+      "actionSeq": 87,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 87
+      }
     },
     {
       "index": 21,
@@ -89131,6 +89131,7 @@
         "Gem25P Lucky puts Swamp from hand onto the Battlefield",
         "Gem25P Lucky casts Brainstorm from hand"
       ],
+      "actionSeq": 91,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -89141,8 +89142,7 @@
           "p15",
           "p36"
         ]
-      },
-      "actionSeq": 91
+      }
     },
     {
       "index": 22,
@@ -89180,6 +89180,7 @@
         110
       ],
       "subsequentActions": [],
+      "actionSeq": 98,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -89187,8 +89188,7 @@
           "p11",
           "p13"
         ]
-      },
-      "actionSeq": 98
+      }
     },
     {
       "index": 23,
@@ -89268,6 +89268,7 @@
         "Gem25P Lucky puts a card from hand to the top of their library (source: Brainstorm)",
         "Gem25P Lucky puts Brainstorm from stack into their graveyard"
       ],
+      "actionSeq": 100,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -89276,8 +89277,7 @@
           "p13",
           "p38"
         ]
-      },
-      "actionSeq": 100
+      }
     },
     {
       "index": 24,
@@ -89327,6 +89327,7 @@
         121
       ],
       "subsequentActions": [],
+      "actionSeq": 107,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -89334,8 +89335,7 @@
           "p11",
           "p40"
         ]
-      },
-      "actionSeq": 107
+      }
     },
     {
       "index": 25,
@@ -89385,11 +89385,11 @@
       "subsequentActions": [
         "Gem25P Lucky skip attack"
       ],
+      "actionSeq": 109,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 109
+      }
     },
     {
       "index": 26,
@@ -89427,11 +89427,11 @@
         128
       ],
       "subsequentActions": [],
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 115
+      }
     },
     {
       "index": 27,
@@ -89488,6 +89488,7 @@
         "Cavern of Souls: GLM47 Gramps has chosen Eldrazi",
         "GLM47 Gramps puts Cavern of Souls from hand onto the Battlefield"
       ],
+      "actionSeq": 117,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -89496,8 +89497,7 @@
           "p42",
           "p31"
         ]
-      },
-      "actionSeq": 117
+      }
     },
     {
       "index": 28,
@@ -89541,13 +89541,13 @@
         147
       ],
       "subsequentActions": [],
+      "actionSeq": 124,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
           "p11"
         ]
-      },
-      "actionSeq": 124
+      }
     },
     {
       "index": 29,
@@ -89590,10 +89590,10 @@
         151
       ],
       "subsequentActions": [],
+      "actionSeq": 126,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 126
+      }
     },
     {
       "index": 30,
@@ -89636,10 +89636,10 @@
         155
       ],
       "subsequentActions": [],
+      "actionSeq": 128,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 128
+      }
     },
     {
       "index": 31,
@@ -89682,10 +89682,10 @@
         159
       ],
       "subsequentActions": [],
+      "actionSeq": 130,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 130
+      }
     },
     {
       "index": 32,
@@ -89723,10 +89723,10 @@
         164
       ],
       "subsequentActions": [],
+      "actionSeq": 132,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 132
+      }
     },
     {
       "index": 33,
@@ -89781,11 +89781,11 @@
       "subsequentActions": [
         "GLM47 Gramps attacks Gem25P Lucky with 1 creature"
       ],
+      "actionSeq": 133,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 133
+      }
     },
     {
       "index": 34,
@@ -89828,13 +89828,13 @@
         178
       ],
       "subsequentActions": [],
+      "actionSeq": 140,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
           "p11"
         ]
-      },
-      "actionSeq": 140
+      }
     },
     {
       "index": 35,
@@ -89877,10 +89877,10 @@
         182
       ],
       "subsequentActions": [],
+      "actionSeq": 142,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 142
+      }
     },
     {
       "index": 36,
@@ -89923,10 +89923,10 @@
         186
       ],
       "subsequentActions": [],
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 144
+      }
     },
     {
       "index": 37,
@@ -89973,10 +89973,10 @@
         194
       ],
       "subsequentActions": [],
+      "actionSeq": 146,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 146
+      }
     },
     {
       "index": 38,
@@ -90019,10 +90019,10 @@
         198
       ],
       "subsequentActions": [],
+      "actionSeq": 148,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 148
+      }
     },
     {
       "index": 39,
@@ -90065,10 +90065,10 @@
         202
       ],
       "subsequentActions": [],
+      "actionSeq": 150,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 150
+      }
     },
     {
       "index": 40,
@@ -90114,10 +90114,10 @@
         "Attacker: Thought-Knot Seer (4/4) unblocked",
         "Gem25P Lucky loses 4 life at combat from Thought-Knot Seer"
       ],
+      "actionSeq": 152,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 152
+      }
     },
     {
       "index": 41,
@@ -90184,6 +90184,7 @@
         210
       ],
       "subsequentActions": [],
+      "actionSeq": 163,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -90193,8 +90194,7 @@
           "p31",
           "p8"
         ]
-      },
-      "actionSeq": 163
+      }
     },
     {
       "index": 42,
@@ -90232,11 +90232,11 @@
         214
       ],
       "subsequentActions": [],
+      "actionSeq": 164,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      },
-      "actionSeq": 164
+      }
     },
     {
       "index": 43,
@@ -90278,11 +90278,11 @@
         220
       ],
       "subsequentActions": [],
+      "actionSeq": 167,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      },
-      "actionSeq": 167
+      }
     },
     {
       "index": 44,
@@ -90328,11 +90328,11 @@
         "GLM47 Gramps casts Chalice of the Void from hand",
         "GLM47 Gramps puts Chalice of the Void from stack onto the Battlefield"
       ],
+      "actionSeq": 169,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      },
-      "actionSeq": 169
+      }
     },
     {
       "index": 45,
@@ -90395,6 +90395,7 @@
         "Gem25P Lucky puts Polluted Delta from hand onto the Battlefield",
         "Gem25P Lucky skip attack"
       ],
+      "actionSeq": 178,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -90404,8 +90405,7 @@
           "p39",
           "p40"
         ]
-      },
-      "actionSeq": 178
+      }
     },
     {
       "index": 46,
@@ -90455,13 +90455,13 @@
         236
       ],
       "subsequentActions": [],
+      "actionSeq": 186,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p11"
         ]
-      },
-      "actionSeq": 186
+      }
     },
     {
       "index": 47,
@@ -90509,10 +90509,10 @@
         "Gem25P Lucky activates: search your library for an Island or Swamp card, put it onto the battlefield, then shuffle. from Polluted Delta",
         "Gem25P Lucky searches their library (source: Polluted Delta)"
       ],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 187
+      }
     },
     {
       "index": 48,
@@ -90573,13 +90573,13 @@
         "Gem25P Lucky puts Underground Sea from library onto the Battlefield (source: Polluted Delta)",
         "Gem25P Lucky's library is shuffled (source: Polluted Delta)"
       ],
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
           "p11"
         ]
-      },
-      "actionSeq": 194
+      }
     },
     {
       "index": 49,
@@ -90624,6 +90624,7 @@
         255
       ],
       "subsequentActions": [],
+      "actionSeq": 199,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -90631,8 +90632,7 @@
           "p11",
           "p40"
         ]
-      },
-      "actionSeq": 199
+      }
     },
     {
       "index": 50,
@@ -90697,6 +90697,7 @@
         258
       ],
       "subsequentActions": [],
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -90706,8 +90707,7 @@
           "p8",
           "p49"
         ]
-      },
-      "actionSeq": 201
+      }
     },
     {
       "index": 51,
@@ -90749,11 +90749,11 @@
         262
       ],
       "subsequentActions": [],
+      "actionSeq": 203,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      },
-      "actionSeq": 203
+      }
     },
     {
       "index": 52,
@@ -90795,11 +90795,11 @@
         266
       ],
       "subsequentActions": [],
+      "actionSeq": 205,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
-      },
-      "actionSeq": 205
+      }
     },
     {
       "index": 53,
@@ -90846,11 +90846,11 @@
         "GLM47 Gramps puts Reality Smasher from stack onto the Battlefield",
         "GLM47 Gramps skip attack"
       ],
+      "actionSeq": 207,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 207
+      }
     },
     {
       "index": 54,
@@ -90914,6 +90914,7 @@
         "Gem25P Lucky puts Polluted Delta from hand onto the Battlefield",
         "Gem25P Lucky skip attack"
       ],
+      "actionSeq": 224,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -90923,8 +90924,7 @@
           "p39",
           "p40"
         ]
-      },
-      "actionSeq": 224
+      }
     },
     {
       "index": 55,
@@ -90981,14 +90981,14 @@
         288
       ],
       "subsequentActions": [],
+      "actionSeq": 232,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
           "p11",
           "p52"
         ]
-      },
-      "actionSeq": 232
+      }
     },
     {
       "index": 56,
@@ -91030,10 +91030,10 @@
         "Gem25P Lucky sacrificed Polluted Delta (source: Polluted Delta)",
         "Gem25P Lucky activates: search your library for an Island or Swamp card, put it onto the battlefield, then shuffle. from Polluted Delta"
       ],
+      "actionSeq": 233,
       "pilotContext": {
         "untappedLands": 4
-      },
-      "actionSeq": 233
+      }
     },
     {
       "index": 57,
@@ -91123,14 +91123,14 @@
         "Gem25P Lucky puts Underground Sea from library onto the Battlefield (source: Polluted Delta)",
         "Gem25P Lucky's library is shuffled (source: Polluted Delta)"
       ],
+      "actionSeq": 240,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p11",
           "p52"
         ]
-      },
-      "actionSeq": 240
+      }
     },
     {
       "index": 59,
@@ -91264,6 +91264,7 @@
         317
       ],
       "subsequentActions": [],
+      "actionSeq": 245,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -91272,8 +91273,7 @@
           "p52",
           "p40"
         ]
-      },
-      "actionSeq": 245
+      }
     },
     {
       "index": 63,
@@ -91338,6 +91338,7 @@
         320
       ],
       "subsequentActions": [],
+      "actionSeq": 247,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -91347,8 +91348,7 @@
           "p56",
           "p49"
         ]
-      },
-      "actionSeq": 247
+      }
     },
     {
       "index": 64,
@@ -91390,11 +91390,11 @@
         324
       ],
       "subsequentActions": [],
+      "actionSeq": 249,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      },
-      "actionSeq": 249
+      }
     },
     {
       "index": 65,
@@ -91438,11 +91438,11 @@
       "subsequentActions": [
         "GLM47 Gramps casts Thought-Knot Seer from hand"
       ],
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
-      },
-      "actionSeq": 251
+      }
     },
     {
       "index": 66,
@@ -91478,11 +91478,11 @@
         "GLM47 Gramps puts Thought-Knot Seer from stack onto the Battlefield",
         "GLM47 Gramps - Ability triggers: Thought-Knot Seer - When Thought-Knot Seer enters, target opponent reveals their hand. You choose a nonland card from it and exile that card. - targeting Gem25P Lucky"
       ],
+      "actionSeq": 255,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 255
+      }
     },
     {
       "index": 67,
@@ -91517,11 +91517,11 @@
       "subsequentActions": [
         "Gem25P Lucky reveals Daze, Consider, Ponder, Force of Will, Dark Ritual (source: Thought-Knot Seer)"
       ],
+      "actionSeq": 260,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 260
+      }
     },
     {
       "index": 68,
@@ -91587,11 +91587,11 @@
       "subsequentActions": [
         "GLM47 Gramps moves Force of Will from hand to the exile zone (source: Thought-Knot Seer)"
       ],
+      "actionSeq": 263,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 263
+      }
     },
     {
       "index": 69,
@@ -91633,14 +91633,14 @@
       "subsequentActions": [
         "GLM47 Gramps puts Wasteland from hand onto the Battlefield"
       ],
+      "actionSeq": 265,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
         "playableCards": [
           "p49"
         ]
-      },
-      "actionSeq": 265
+      }
     },
     {
       "index": 70,
@@ -91692,14 +91692,14 @@
       "subsequentActions": [
         "GLM47 Gramps casts Grim Monolith from hand"
       ],
+      "actionSeq": 267,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
         "playableCards": [
           "p31"
         ]
-      },
-      "actionSeq": 267
+      }
     },
     {
       "index": 71,
@@ -91734,10 +91734,10 @@
       "subsequentActions": [
         "GLM47 Gramps puts Grim Monolith from stack onto the Battlefield"
       ],
+      "actionSeq": 272,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 272
+      }
     },
     {
       "index": 72,
@@ -91770,10 +91770,10 @@
         362
       ],
       "subsequentActions": [],
+      "actionSeq": 275,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 275
+      }
     },
     {
       "index": 73,
@@ -91840,10 +91840,10 @@
         "Attacker: Thought-Knot Seer (4/4) unblocked",
         "Attacker: Reality Smasher (5/5) unblocked"
       ],
+      "actionSeq": 277,
       "pilotContext": {
         "combatPhase": "declare_attackers"
-      },
-      "actionSeq": 277
+      }
     },
     {
       "index": 74,
@@ -91945,10 +91945,10 @@
         382
       ],
       "subsequentActions": [],
+      "actionSeq": 294,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 294
+      }
     },
     {
       "index": 77,
@@ -92012,6 +92012,7 @@
       "subsequentActions": [
         "Gem25P Lucky skip attack"
       ],
+      "actionSeq": 296,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -92021,8 +92022,7 @@
           "p61",
           "p40"
         ]
-      },
-      "actionSeq": 296
+      }
     },
     {
       "index": 78,
@@ -92086,11 +92086,11 @@
       "subsequentActions": [
         "GLM47 Gramps skip attack"
       ],
+      "actionSeq": 303,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
-      },
-      "actionSeq": 303
+      }
     },
     {
       "index": 79,
@@ -92160,6 +92160,7 @@
       "subsequentActions": [
         "Gem25P Lucky puts Scalding Tarn from hand onto the Battlefield"
       ],
+      "actionSeq": 315,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -92170,8 +92171,7 @@
           "p40",
           "p63"
         ]
-      },
-      "actionSeq": 315
+      }
     },
     {
       "index": 80,
@@ -92222,13 +92222,13 @@
       "subsequentActions": [
         "Gem25P Lucky skip attack"
       ],
+      "actionSeq": 320,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
           "p62"
         ]
-      },
-      "actionSeq": 320
+      }
     },
     {
       "index": 81,
@@ -92292,6 +92292,7 @@
         412
       ],
       "subsequentActions": [],
+      "actionSeq": 323,
       "pilotContext": {
         "untappedLands": 5,
         "playableCards": [
@@ -92299,8 +92300,7 @@
           "p52",
           "p61"
         ]
-      },
-      "actionSeq": 323
+      }
     },
     {
       "index": 82,
@@ -92342,10 +92342,10 @@
         "Gem25P Lucky sacrificed Scalding Tarn (source: Scalding Tarn)",
         "Gem25P Lucky activates: search your library for an Island or Mountain card, put it onto the battlefield, then shuffle. from Scalding Tarn"
       ],
+      "actionSeq": 324,
       "pilotContext": {
         "untappedLands": 5
-      },
-      "actionSeq": 324
+      }
     },
     {
       "index": 83,
@@ -92406,13 +92406,13 @@
       "subsequentActions": [
         "Gem25P Lucky searches their library (source: Scalding Tarn)"
       ],
+      "actionSeq": 329,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
           "p62"
         ]
-      },
-      "actionSeq": 329
+      }
     },
     {
       "index": 84,
@@ -92461,6 +92461,7 @@
         "Gem25P Lucky puts Island from library onto the Battlefield (source: Scalding Tarn)",
         "Gem25P Lucky's library is shuffled (source: Scalding Tarn)"
       ],
+      "actionSeq": 331,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
@@ -92468,8 +92469,7 @@
           "p52",
           "p61"
         ]
-      },
-      "actionSeq": 331
+      }
     },
     {
       "index": 85,
@@ -92528,13 +92528,13 @@
         430
       ],
       "subsequentActions": [],
+      "actionSeq": 335,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
           "p62"
         ]
-      },
-      "actionSeq": 335
+      }
     },
     {
       "index": 86,
@@ -92598,6 +92598,7 @@
       "subsequentActions": [
         "GLM47 Gramps skip attack"
       ],
+      "actionSeq": 336,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1,
@@ -92607,8 +92608,7 @@
           "p61",
           "p40"
         ]
-      },
-      "actionSeq": 336
+      }
     },
     {
       "index": 87,
@@ -92667,13 +92667,13 @@
         444
       ],
       "subsequentActions": [],
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
           "p62"
         ]
-      },
-      "actionSeq": 344
+      }
     },
     {
       "index": 88,
@@ -92750,6 +92750,7 @@
         "Gem25P Lucky sacrificed Lotus Petal (source: Lotus Petal)",
         "Gem25P Lucky casts Doomsday from hand"
       ],
+      "actionSeq": 348,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -92761,8 +92762,7 @@
           "p40"
         ]
       },
-      "castRolledBack": true,
-      "actionSeq": 348
+      "castRolledBack": true
     },
     {
       "index": 89,
@@ -92842,13 +92842,13 @@
         461
       ],
       "subsequentActions": [],
+      "actionSeq": 361,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
           "p62"
         ]
-      },
-      "actionSeq": 361
+      }
     },
     {
       "index": 91,
@@ -93170,6 +93170,7 @@
         "Gem25P Lucky moves Edge of Autumn from library to the exile zone (source: Doomsday)",
         "Gem25P Lucky moves Dark Ritual from library to the exile zone (source: Doomsday)"
       ],
+      "actionSeq": 362,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -93179,8 +93180,7 @@
           "p61",
           "p13"
         ]
-      },
-      "actionSeq": 362
+      }
     },
     {
       "index": 92,
@@ -93265,6 +93265,7 @@
       "subsequentActions": [
         "Gem25P Lucky puts a card from graveyard to the top of their library (source: Doomsday)"
       ],
+      "actionSeq": 411,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -93274,8 +93275,7 @@
           "p61",
           "p13"
         ]
-      },
-      "actionSeq": 411
+      }
     },
     {
       "index": 93,
@@ -93346,6 +93346,7 @@
         496
       ],
       "subsequentActions": [],
+      "actionSeq": 413,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -93355,8 +93356,7 @@
           "p61",
           "p13"
         ]
-      },
-      "actionSeq": 413
+      }
     },
     {
       "index": 94,
@@ -93429,11 +93429,11 @@
       "subsequentActions": [
         "Gem25P Lucky puts a card from library to the top of their library (source: Doomsday)"
       ],
+      "actionSeq": 414,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      },
-      "actionSeq": 414
+      }
     },
     {
       "index": 95,
@@ -93498,11 +93498,11 @@
         "Gem25P Lucky puts Doomsday from stack into their graveyard",
         "Gem25P Lucky skip attack"
       ],
+      "actionSeq": 416,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      },
-      "actionSeq": 416
+      }
     },
     {
       "index": 96,
@@ -93551,13 +93551,13 @@
         513
       ],
       "subsequentActions": [],
+      "actionSeq": 426,
       "pilotContext": {
         "untappedLands": 4,
         "playableCards": [
           "p62"
         ]
-      },
-      "actionSeq": 426
+      }
     },
     {
       "index": 97,
@@ -93606,10 +93606,10 @@
         515
       ],
       "subsequentActions": [],
+      "actionSeq": 426,
       "pilotContext": {
         "untappedLands": 4
-      },
-      "actionSeq": 426
+      }
     },
     {
       "index": 98,
@@ -93689,6 +93689,7 @@
         518
       ],
       "subsequentActions": [],
+      "actionSeq": 429,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -93698,8 +93699,7 @@
           "p62",
           "p109"
         ]
-      },
-      "actionSeq": 429
+      }
     },
     {
       "index": 99,
@@ -93744,14 +93744,14 @@
         "GLM47 Gramps produces {R} with Cavern of Souls (can only be spend to cast for creatures of type Eldrazi and that spell can't be countered)",
         "GLM47 Gramps casts Eldrazi Linebreaker from hand"
       ],
+      "actionSeq": 431,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
         "playableCards": [
           "p62"
         ]
-      },
-      "actionSeq": 431
+      }
     },
     {
       "index": 100,
@@ -93810,14 +93810,14 @@
         538
       ],
       "subsequentActions": [],
+      "actionSeq": 440,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
         "playableCards": [
           "p62"
         ]
-      },
-      "actionSeq": 440
+      }
     },
     {
       "index": 101,
@@ -93881,6 +93881,7 @@
       "subsequentActions": [
         "GLM47 Gramps puts Eldrazi Linebreaker from stack onto the Battlefield"
       ],
+      "actionSeq": 441,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -93889,8 +93890,7 @@
           "p61",
           "p13"
         ]
-      },
-      "actionSeq": 441
+      }
     },
     {
       "index": 102,
@@ -93958,13 +93958,13 @@
       "subsequentActions": [
         "GLM47 Gramps - Ability triggers: Eldrazi Linebreaker - At the beginning of combat on your turn, target creature you control gains haste and gets +X/+0 until end of turn, where X is the number of Eldrazi you control. - targeting Reality Smasher"
       ],
+      "actionSeq": 445,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
           "p62"
         ]
-      },
-      "actionSeq": 445
+      }
     },
     {
       "index": 103,
@@ -94023,10 +94023,10 @@
         550
       ],
       "subsequentActions": [],
+      "actionSeq": 448,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 448
+      }
     },
     {
       "index": 104,
@@ -94078,6 +94078,7 @@
         555
       ],
       "subsequentActions": [],
+      "actionSeq": 449,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -94085,8 +94086,7 @@
           "p52",
           "p61"
         ]
-      },
-      "actionSeq": 449
+      }
     },
     {
       "index": 105,
@@ -94158,11 +94158,11 @@
         "GLM47 Gramps attacks Gem25P Lucky with 1 creature",
         "Attacker: Reality Smasher (9/5) unblocked"
       ],
+      "actionSeq": 450,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 450
+      }
     },
     {
       "index": 106,
@@ -94217,6 +94217,7 @@
         "Gem25P Lucky loses 9 life at combat from Reality Smasher",
         "Gem25P Lucky has lost the game."
       ],
+      "actionSeq": 459,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -94224,8 +94225,7 @@
           "p52",
           "p61"
         ]
-      },
-      "actionSeq": 459
+      }
     }
   ],
   "annotations": [

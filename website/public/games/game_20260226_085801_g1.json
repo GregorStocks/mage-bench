@@ -78737,6 +78737,7 @@
       "subsequentActions": [
         "MiMo Minimal puts Polluted Delta from hand onto the Battlefield"
       ],
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -78744,8 +78745,7 @@
           "p22",
           "p23"
         ]
-      },
-      "actionSeq": 17
+      }
     },
     {
       "index": 4,
@@ -78788,11 +78788,11 @@
         24
       ],
       "subsequentActions": [],
+      "actionSeq": 19,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 19
+      }
     },
     {
       "index": 5,
@@ -78834,11 +78834,11 @@
         "MiMo Minimal sacrificed Polluted Delta (source: Polluted Delta)",
         "MiMo Minimal activates: search your library for an Island or Swamp card, put it onto the battlefield, then shuffle. from Polluted Delta"
       ],
+      "actionSeq": 20,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 20
+      }
     },
     {
       "index": 6,
@@ -78873,10 +78873,10 @@
       "subsequentActions": [
         "MiMo Minimal searches their library (source: Polluted Delta)"
       ],
+      "actionSeq": 24,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 24
+      }
     },
     {
       "index": 7,
@@ -78960,10 +78960,10 @@
         40
       ],
       "subsequentActions": [],
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 27
+      }
     },
     {
       "index": 8,
@@ -78990,10 +78990,10 @@
         47
       ],
       "subsequentActions": [],
+      "actionSeq": 28,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 28
+      }
     },
     {
       "index": 9,
@@ -79032,10 +79032,10 @@
         "GPT52 Memoir skip attack",
         "GPT52 Memoir discards down to 7 hand cards"
       ],
+      "actionSeq": 28,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 28
+      }
     },
     {
       "index": 10,
@@ -79179,6 +79179,7 @@
         "MiMo Minimal puts Raucous Theater from hand onto the Battlefield",
         "MiMo Minimal - Ability triggers: Raucous Theater - When Raucous Theater enters, surveil 1."
       ],
+      "actionSeq": 44,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -79186,8 +79187,7 @@
           "p22",
           "p23"
         ]
-      },
-      "actionSeq": 44
+      }
     },
     {
       "index": 12,
@@ -79222,11 +79222,11 @@
       "subsequentActions": [
         "MiMo Minimal surveils 1 (source: Raucous Theater)"
       ],
+      "actionSeq": 47,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 47
+      }
     },
     {
       "index": 13,
@@ -79271,11 +79271,11 @@
       "subsequentActions": [
         "MiMo Minimal puts a card from library to the top of their library (source: Raucous Theater)"
       ],
+      "actionSeq": 50,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 50
+      }
     },
     {
       "index": 14,
@@ -79372,13 +79372,13 @@
         87
       ],
       "subsequentActions": [],
+      "actionSeq": 59,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
           "p36"
         ]
-      },
-      "actionSeq": 59
+      }
     },
     {
       "index": 16,
@@ -79431,10 +79431,10 @@
         "GPT52 Memoir suspends (3) Lotus Bloom",
         "GPT52 Memoir skip attack"
       ],
+      "actionSeq": 60,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 60
+      }
     },
     {
       "index": 17,
@@ -79516,6 +79516,7 @@
       "subsequentActions": [
         "MiMo Minimal puts Bloodstained Mire from hand onto the Battlefield"
       ],
+      "actionSeq": 71,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -79527,8 +79528,7 @@
           "p21",
           "p23"
         ]
-      },
-      "actionSeq": 71
+      }
     },
     {
       "index": 18,
@@ -79571,6 +79571,7 @@
         "MiMo Minimal activates: search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle. from Bloodstained Mire",
         "MiMo Minimal searches their library (source: Bloodstained Mire)"
       ],
+      "actionSeq": 74,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -79580,8 +79581,7 @@
           "p19",
           "p21"
         ]
-      },
-      "actionSeq": 74
+      }
     },
     {
       "index": 19,
@@ -79655,11 +79655,11 @@
         "MiMo Minimal's library is shuffled (source: Bloodstained Mire)",
         "MiMo Minimal skip attack"
       ],
+      "actionSeq": 81,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      },
-      "actionSeq": 81
+      }
     },
     {
       "index": 20,
@@ -79729,6 +79729,7 @@
       "subsequentActions": [
         "MiMo Minimal casts Emperor of Bones from hand"
       ],
+      "actionSeq": 89,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -79738,8 +79739,7 @@
           "p19",
           "p21"
         ]
-      },
-      "actionSeq": 89
+      }
     },
     {
       "index": 21,
@@ -79774,11 +79774,11 @@
       "subsequentActions": [
         "MiMo Minimal puts Emperor of Bones from stack onto the Battlefield"
       ],
+      "actionSeq": 93,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 93
+      }
     },
     {
       "index": 22,
@@ -79829,12 +79829,12 @@
         119
       ],
       "subsequentActions": [],
+      "actionSeq": 97,
       "pilotContext": {
         "playableCards": [
           "p8"
         ]
-      },
-      "actionSeq": 97
+      }
     },
     {
       "index": 23,
@@ -79938,12 +79938,12 @@
         127
       ],
       "subsequentActions": [],
+      "actionSeq": 103,
       "pilotContext": {
         "playableCards": [
           "p8"
         ]
-      },
-      "actionSeq": 103
+      }
     },
     {
       "index": 25,
@@ -80069,10 +80069,10 @@
       "subsequentActions": [
         "GPT52 Memoir skip attack"
       ],
+      "actionSeq": 116,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 116
+      }
     },
     {
       "index": 27,
@@ -80158,10 +80158,10 @@
         151
       ],
       "subsequentActions": [],
+      "actionSeq": 121,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 121
+      }
     },
     {
       "index": 29,
@@ -80243,6 +80243,7 @@
       "subsequentActions": [
         "MiMo Minimal casts Emperor of Bones from hand"
       ],
+      "actionSeq": 123,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -80254,8 +80255,7 @@
           "p23",
           "p46"
         ]
-      },
-      "actionSeq": 123
+      }
     },
     {
       "index": 30,
@@ -80290,11 +80290,11 @@
       "subsequentActions": [
         "MiMo Minimal puts Emperor of Bones from stack onto the Battlefield"
       ],
+      "actionSeq": 127,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 127
+      }
     },
     {
       "index": 31,
@@ -80356,10 +80356,10 @@
         "MiMo Minimal moves Snapback from graveyard to the exile zone (source: Emperor of Bones)",
         "MiMo Minimal skip attack"
       ],
+      "actionSeq": 132,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 132
+      }
     },
     {
       "index": 32,
@@ -80407,6 +80407,7 @@
       "subsequentActions": [
         "MiMo Minimal puts Scalding Tarn from hand onto the Battlefield"
       ],
+      "actionSeq": 140,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -80414,8 +80415,7 @@
           "p23",
           "p46"
         ]
-      },
-      "actionSeq": 140
+      }
     },
     {
       "index": 33,
@@ -80458,11 +80458,11 @@
         165
       ],
       "subsequentActions": [],
+      "actionSeq": 142,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      },
-      "actionSeq": 142
+      }
     },
     {
       "index": 34,
@@ -80504,11 +80504,11 @@
         "MiMo Minimal sacrificed Scalding Tarn (source: Scalding Tarn)",
         "MiMo Minimal activates: search your library for an Island or Mountain card, put it onto the battlefield, then shuffle. from Scalding Tarn"
       ],
+      "actionSeq": 143,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      },
-      "actionSeq": 143
+      }
     },
     {
       "index": 35,
@@ -80543,11 +80543,11 @@
       "subsequentActions": [
         "MiMo Minimal searches their library (source: Scalding Tarn)"
       ],
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 147
+      }
     },
     {
       "index": 36,
@@ -80621,11 +80621,11 @@
         "MiMo Minimal's library is shuffled (source: Scalding Tarn)",
         "GPT52 Memoir - Ability triggers: Lotus Bloom - At the beginning of your upkeep, if this card is suspended, remove a time counter from it."
       ],
+      "actionSeq": 150,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 150
+      }
     },
     {
       "index": 37,
@@ -80673,10 +80673,10 @@
         "Removed 1 time counter from Lotus Bloom (1 left)",
         "GPT52 Memoir skip attack"
       ],
+      "actionSeq": 157,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 157
+      }
     },
     {
       "index": 38,
@@ -80759,6 +80759,7 @@
       "subsequentActions": [
         "MiMo Minimal activates: Adapt 2. (If this creature has no +1/+1 counters on it, put two +1/+1 counters on it.) from Emperor of Bones"
       ],
+      "actionSeq": 176,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -80769,8 +80770,7 @@
           "p21",
           "p46"
         ]
-      },
-      "actionSeq": 176
+      }
     },
     {
       "index": 39,
@@ -80823,14 +80823,14 @@
       "subsequentActions": [
         "MiMo Minimal casts Psychic Frog from hand"
       ],
+      "actionSeq": 182,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 182
+      }
     },
     {
       "index": 40,
@@ -80860,10 +80860,10 @@
         201
       ],
       "subsequentActions": [],
+      "actionSeq": 186,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 186
+      }
     },
     {
       "index": 41,
@@ -80915,12 +80915,12 @@
         204
       ],
       "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "playableCards": [
           "p54"
         ]
-      },
-      "actionSeq": 187
+      }
     },
     {
       "index": 42,
@@ -81097,13 +81097,13 @@
       "subsequentActions": [
         "MiMo Minimal puts Scalding Tarn from hand onto the Battlefield"
       ],
+      "actionSeq": 199,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
           "p46"
         ]
-      },
-      "actionSeq": 199
+      }
     },
     {
       "index": 45,
@@ -81150,11 +81150,11 @@
         "MiMo Minimal sacrificed Scalding Tarn (source: Scalding Tarn)",
         "MiMo Minimal activates: search your library for an Island or Mountain card, put it onto the battlefield, then shuffle. from Scalding Tarn"
       ],
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 201
+      }
     },
     {
       "index": 46,
@@ -81189,10 +81189,10 @@
       "subsequentActions": [
         "MiMo Minimal searches their library (source: Scalding Tarn)"
       ],
+      "actionSeq": 206,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 206
+      }
     },
     {
       "index": 47,
@@ -81256,10 +81256,10 @@
         232
       ],
       "subsequentActions": [],
+      "actionSeq": 209,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 209
+      }
     },
     {
       "index": 48,
@@ -81296,10 +81296,10 @@
         "MiMo Minimal puts Watery Grave from library onto the Battlefield (source: Scalding Tarn)",
         "MiMo Minimal's library is shuffled (source: Scalding Tarn)"
       ],
+      "actionSeq": 210,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 210
+      }
     },
     {
       "index": 49,
@@ -81340,14 +81340,14 @@
         240
       ],
       "subsequentActions": [],
+      "actionSeq": 214,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 214
+      }
     },
     {
       "index": 50,
@@ -81390,11 +81390,11 @@
         247
       ],
       "subsequentActions": [],
+      "actionSeq": 215,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 215
+      }
     },
     {
       "index": 51,
@@ -81516,13 +81516,13 @@
         "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Disrupting Shoal",
         "MiMo Minimal moves Disrupting Shoal from graveyard to the exile zone (source: Emperor of Bones)"
       ],
+      "actionSeq": 218,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 218
+      }
     },
     {
       "index": 53,
@@ -81578,11 +81578,11 @@
         "MiMo Minimal attacks GPT52 Memoir with 1 creature",
         "Attacker: Emperor of Bones (4/4) unblocked"
       ],
+      "actionSeq": 223,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 223
+      }
     },
     {
       "index": 54,
@@ -81625,13 +81625,13 @@
       "subsequentActions": [
         "GPT52 Memoir loses 4 life at combat from Emperor of Bones"
       ],
+      "actionSeq": 229,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 229
+      }
     },
     {
       "index": 55,
@@ -81676,14 +81676,14 @@
         "Removed 1 time counter from Lotus Bloom (0 left)",
         "GPT52 Memoir - Ability triggers: Lotus Bloom - When the last time counter is removed from Lotus Bloom, if it's exiled,"
       ],
+      "actionSeq": 234,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 234
+      }
     },
     {
       "index": 56,
@@ -81724,13 +81724,13 @@
         275
       ],
       "subsequentActions": [],
+      "actionSeq": 242,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 242
+      }
     },
     {
       "index": 57,
@@ -81832,6 +81832,7 @@
         278
       ],
       "subsequentActions": [],
+      "actionSeq": 248,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81840,8 +81841,7 @@
           "p45",
           "p67"
         ]
-      },
-      "actionSeq": 248
+      }
     },
     {
       "index": 59,
@@ -81925,10 +81925,10 @@
         "GPT52 Memoir sacrificed Lotus Bloom (source: Lotus Bloom)",
         "GPT52 Memoir casts Fallaji Archaeologist from hand"
       ],
+      "actionSeq": 248,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 248
+      }
     },
     {
       "index": 60,
@@ -81976,13 +81976,13 @@
         "GPT52 Memoir puts Fallaji Archaeologist from library into their graveyard (source: Fallaji Archaeologist)",
         "GPT52 Memoir puts Tameshi, Reality Architect from library into their graveyard (source: Fallaji Archaeologist)"
       ],
+      "actionSeq": 253,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 253
+      }
     },
     {
       "index": 61,
@@ -82035,10 +82035,10 @@
       "subsequentActions": [
         "GPT52 Memoir puts Whir of Invention from graveyard into their hand"
       ],
+      "actionSeq": 261,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 261
+      }
     },
     {
       "index": 62,
@@ -82078,10 +82078,10 @@
         301
       ],
       "subsequentActions": [],
+      "actionSeq": 263,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 263
+      }
     },
     {
       "index": 63,
@@ -82122,13 +82122,13 @@
         298
       ],
       "subsequentActions": [],
+      "actionSeq": 264,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 264
+      }
     },
     {
       "index": 64,
@@ -82188,10 +82188,10 @@
         "MiMo Minimal puts Fatal Push from stack into their graveyard",
         "GPT52 Memoir skip attack"
       ],
+      "actionSeq": 265,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 265
+      }
     },
     {
       "index": 65,
@@ -82277,10 +82277,10 @@
         321
       ],
       "subsequentActions": [],
+      "actionSeq": 277,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 277
+      }
     },
     {
       "index": 67,
@@ -82350,6 +82350,7 @@
       "subsequentActions": [
         "MiMo Minimal casts Emperor of Bones from hand"
       ],
+      "actionSeq": 279,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -82358,8 +82359,7 @@
           "p73",
           "p19"
         ]
-      },
-      "actionSeq": 279
+      }
     },
     {
       "index": 68,
@@ -82394,11 +82394,11 @@
       "subsequentActions": [
         "MiMo Minimal puts Emperor of Bones from stack onto the Battlefield"
       ],
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      },
-      "actionSeq": 283
+      }
     },
     {
       "index": 69,
@@ -82461,14 +82461,14 @@
       "subsequentActions": [
         "MiMo Minimal casts Emperor of Bones from hand"
       ],
+      "actionSeq": 286,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
         "playableCards": [
           "p73"
         ]
-      },
-      "actionSeq": 286
+      }
     },
     {
       "index": 70,
@@ -82503,11 +82503,11 @@
       "subsequentActions": [
         "MiMo Minimal puts Emperor of Bones from stack onto the Battlefield"
       ],
+      "actionSeq": 290,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      },
-      "actionSeq": 290
+      }
     },
     {
       "index": 71,
@@ -82609,10 +82609,10 @@
       "subsequentActions": [
         "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Psychic Frog"
       ],
+      "actionSeq": 295,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 295
+      }
     },
     {
       "index": 72,
@@ -82714,10 +82714,10 @@
       "subsequentActions": [
         "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Tameshi, Reality Architect"
       ],
+      "actionSeq": 297,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 297
+      }
     },
     {
       "index": 73,
@@ -82821,10 +82821,10 @@
         "MiMo Minimal moves Tameshi, Reality Architect from graveyard to the exile zone (source: Emperor of Bones)",
         "MiMo Minimal moves Psychic Frog from graveyard to the exile zone (source: Emperor of Bones)"
       ],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 299
+      }
     },
     {
       "index": 74,
@@ -82882,11 +82882,11 @@
         "GPT52 Memoir loses 4 life at combat from Emperor of Bones",
         "GPT52 Memoir skip attack"
       ],
+      "actionSeq": 309,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 309
+      }
     },
     {
       "index": 75,
@@ -82963,6 +82963,7 @@
       "subsequentActions": [
         "MiMo Minimal casts Thoughtseize targeting GPT52 Memoir from hand"
       ],
+      "actionSeq": 329,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0,
@@ -82970,8 +82971,7 @@
           "p19",
           "p80"
         ]
-      },
-      "actionSeq": 329
+      }
     },
     {
       "index": 76,
@@ -83022,11 +83022,11 @@
         358
       ],
       "subsequentActions": [],
+      "actionSeq": 333,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
-      },
-      "actionSeq": 333
+      }
     },
     {
       "index": 77,
@@ -83077,12 +83077,12 @@
         361
       ],
       "subsequentActions": [],
+      "actionSeq": 334,
       "pilotContext": {
         "playableCards": [
           "p79"
         ]
-      },
-      "actionSeq": 334
+      }
     },
     {
       "index": 78,
@@ -83195,11 +83195,11 @@
         "MiMo Minimal loses 2 life from Thoughtseize",
         "MiMo Minimal puts Thoughtseize from stack into their graveyard"
       ],
+      "actionSeq": 338,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
-      },
-      "actionSeq": 338
+      }
     },
     {
       "index": 80,
@@ -83341,10 +83341,10 @@
       "subsequentActions": [
         "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Goblin Charbelcher"
       ],
+      "actionSeq": 344,
       "pilotContext": {
         "untappedLands": 4
-      },
-      "actionSeq": 344
+      }
     },
     {
       "index": 82,
@@ -83446,10 +83446,10 @@
       "subsequentActions": [
         "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard. - targeting Lotus Bloom"
       ],
+      "actionSeq": 346,
       "pilotContext": {
         "untappedLands": 4
-      },
-      "actionSeq": 346
+      }
     },
     {
       "index": 83,
@@ -83552,10 +83552,10 @@
       "subsequentActions": [
         "MiMo Minimal - Ability triggers: Emperor of Bones - At the beginning of combat on your turn, exile up to one target card from a graveyard."
       ],
+      "actionSeq": 348,
       "pilotContext": {
         "untappedLands": 4
-      },
-      "actionSeq": 348
+      }
     },
     {
       "index": 84,
@@ -83618,10 +83618,10 @@
       "subsequentActions": [
         "MiMo Minimal activates: Adapt 2. (If this creature has no +1/+1 counters on it, put two +1/+1 counters on it.) from Emperor of Bones"
       ],
+      "actionSeq": 352,
       "pilotContext": {
         "untappedLands": 4
-      },
-      "actionSeq": 352
+      }
     },
     {
       "index": 85,
@@ -83686,10 +83686,10 @@
         "MiMo Minimal - Ability triggers: Emperor of Bones - Whenever one or more +1/+1 counters are put on Emperor of Bones, put a creature card exiled with Emperor of Bones onto the battlefield under your control with a finality counter on it. It gains haste. Sacrifice it at the beginning of the next end step.",
         "MiMo Minimal puts Psychic Frog from exile zone onto the Battlefield (source: Emperor of Bones)"
       ],
+      "actionSeq": 356,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 356
+      }
     },
     {
       "index": 86,
@@ -83815,10 +83815,10 @@
         "Attacker: Emperor of Bones (2/2) unblocked",
         "Attacker: Psychic Frog (1/2) unblocked"
       ],
+      "actionSeq": 375,
       "pilotContext": {
         "combatPhase": "attackers"
-      },
-      "actionSeq": 375
+      }
     },
     {
       "index": 88,

@@ -62602,6 +62602,7 @@
         "MiMo Rookie puts Ugin's Labyrinth from hand onto the Battlefield",
         "MiMo Rookie - Ability triggers: Ugin's Labyrinth - Imprint — When Ugin's Labyrinth enters, you may exile a colorless card with mana value 7 or greater from your hand."
       ],
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -62610,8 +62611,7 @@
           "p13",
           "p16"
         ]
-      },
-      "actionSeq": 27
+      }
     },
     {
       "index": 8,
@@ -62653,11 +62653,11 @@
       "subsequentActions": [
         "MiMo Rookie moves Devourer of Destiny from hand to the exile zone (source: Ugin's Labyrinth)"
       ],
+      "actionSeq": 32,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      },
-      "actionSeq": 32
+      }
     },
     {
       "index": 9,
@@ -62715,6 +62715,7 @@
         44
       ],
       "subsequentActions": [],
+      "actionSeq": 36,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -62723,8 +62724,7 @@
           "p18",
           "p6"
         ]
-      },
-      "actionSeq": 36
+      }
     },
     {
       "index": 10,
@@ -62760,10 +62760,10 @@
         "DSV3 Lucky loses 2 life from Blood Crypt",
         "DSV3 Lucky puts Blood Crypt from hand onto the Battlefield"
       ],
+      "actionSeq": 37,
       "pilotContext": {
         "landDropsUsed": 0
-      },
-      "actionSeq": 37
+      }
     },
     {
       "index": 11,
@@ -62808,10 +62808,10 @@
       "subsequentActions": [
         "DSV3 Lucky skip attack"
       ],
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 41
+      }
     },
     {
       "index": 12,
@@ -62863,6 +62863,7 @@
       "subsequentActions": [
         "DSV3 Lucky casts Marauding Mako from hand"
       ],
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -62870,8 +62871,7 @@
           "p19",
           "p4"
         ]
-      },
-      "actionSeq": 45
+      }
     },
     {
       "index": 13,
@@ -62916,10 +62916,10 @@
       "subsequentActions": [
         "DSV3 Lucky puts Marauding Mako from stack onto the Battlefield"
       ],
+      "actionSeq": 49,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 49
+      }
     },
     {
       "index": 14,
@@ -62993,6 +62993,7 @@
         "MiMo Rookie puts Boseiju, Who Endures from hand onto the Battlefield",
         "MiMo Rookie skip attack"
       ],
+      "actionSeq": 53,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -63002,8 +63003,7 @@
           "p13",
           "p30"
         ]
-      },
-      "actionSeq": 53
+      }
     },
     {
       "index": 15,
@@ -63046,10 +63046,10 @@
         70
       ],
       "subsequentActions": [],
+      "actionSeq": 58,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 58
+      }
     },
     {
       "index": 16,
@@ -63094,10 +63094,10 @@
         "MiMo Rookie activates: return the exiled card to its owner's hand. from Ugin's Labyrinth",
         "MiMo Rookie puts Devourer of Destiny from exile zone into their hand"
       ],
+      "actionSeq": 59,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 59
+      }
     },
     {
       "index": 17,
@@ -63137,14 +63137,14 @@
         79
       ],
       "subsequentActions": [],
+      "actionSeq": 66,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
         "playableCards": [
           "p30"
         ]
-      },
-      "actionSeq": 66
+      }
     },
     {
       "index": 18,
@@ -63205,6 +63205,7 @@
       "subsequentActions": [
         "DSV3 Lucky puts Bloodstained Mire from hand onto the Battlefield"
       ],
+      "actionSeq": 68,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -63214,8 +63215,7 @@
           "p19",
           "p6"
         ]
-      },
-      "actionSeq": 68
+      }
     },
     {
       "index": 19,
@@ -63271,11 +63271,11 @@
         "DSV3 Lucky attacks MiMo Rookie with 1 creature",
         "Attacker: Marauding Mako (1/1) unblocked"
       ],
+      "actionSeq": 72,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 72
+      }
     },
     {
       "index": 20,
@@ -63318,10 +63318,10 @@
         90
       ],
       "subsequentActions": [],
+      "actionSeq": 78,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 78
+      }
     },
     {
       "index": 21,
@@ -63364,10 +63364,10 @@
         "DSV3 Lucky activates: search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle. from Bloodstained Mire",
         "DSV3 Lucky searches their library (source: Bloodstained Mire)"
       ],
+      "actionSeq": 79,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 79
+      }
     },
     {
       "index": 22,
@@ -63425,10 +63425,10 @@
         98
       ],
       "subsequentActions": [],
+      "actionSeq": 86,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 86
+      }
     },
     {
       "index": 23,
@@ -63466,10 +63466,10 @@
         "DSV3 Lucky's library is shuffled (source: Bloodstained Mire)",
         "MiMo Rookie loses 1 life at combat from Marauding Mako"
       ],
+      "actionSeq": 87,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 87
+      }
     },
     {
       "index": 24,
@@ -63524,14 +63524,14 @@
         "DSV3 Lucky casts Orcish Bowmasters from hand",
         "DSV3 Lucky puts Orcish Bowmasters from stack onto the Battlefield"
       ],
+      "actionSeq": 94,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
           "p8",
           "p21"
         ]
-      },
-      "actionSeq": 94
+      }
     },
     {
       "index": 25,
@@ -63675,6 +63675,7 @@
         "MiMo Rookie puts Eldrazi Temple from hand onto the Battlefield",
         "MiMo Rookie skip attack"
       ],
+      "actionSeq": 111,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -63684,8 +63685,7 @@
           "p43",
           "p30"
         ]
-      },
-      "actionSeq": 111
+      }
     },
     {
       "index": 27,
@@ -63735,13 +63735,13 @@
         118
       ],
       "subsequentActions": [],
+      "actionSeq": 116,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p15"
         ]
-      },
-      "actionSeq": 116
+      }
     },
     {
       "index": 28,
@@ -63795,10 +63795,10 @@
         125
       ],
       "subsequentActions": [],
+      "actionSeq": 118,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 118
+      }
     },
     {
       "index": 29,
@@ -63838,10 +63838,10 @@
         138
       ],
       "subsequentActions": [],
+      "actionSeq": 121,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 121
+      }
     },
     {
       "index": 30,
@@ -63889,10 +63889,10 @@
         "MiMo Rookie moves Bloodstained Mire from graveyard to the exile zone (source: Kozilek's Command)",
         "MiMo Rookie puts Kozilek's Command from stack into their graveyard"
       ],
+      "actionSeq": 125,
       "pilotContext": {
         "untappedLands": 1
-      },
-      "actionSeq": 125
+      }
     },
     {
       "index": 31,
@@ -63945,13 +63945,13 @@
         146
       ],
       "subsequentActions": [],
+      "actionSeq": 135,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
           "p30"
         ]
-      },
-      "actionSeq": 135
+      }
     },
     {
       "index": 32,
@@ -64024,6 +64024,7 @@
       "subsequentActions": [
         "DSV3 Lucky puts Mountain from hand onto the Battlefield"
       ],
+      "actionSeq": 137,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -64034,8 +64035,7 @@
           "p21",
           "p49"
         ]
-      },
-      "actionSeq": 137
+      }
     },
     {
       "index": 33,
@@ -64121,11 +64121,11 @@
         "Attacker: Orcish Bowmasters (1/1) unblocked",
         "Attacker: Orc Army Token (1/1) unblocked"
       ],
+      "actionSeq": 141,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 141
+      }
     },
     {
       "index": 34,
@@ -64180,14 +64180,14 @@
         "DSV3 Lucky casts Orcish Bowmasters from hand",
         "DSV3 Lucky puts Orcish Bowmasters from stack onto the Battlefield"
       ],
+      "actionSeq": 151,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p21",
           "p49"
         ]
-      },
-      "actionSeq": 151
+      }
     },
     {
       "index": 35,
@@ -64280,13 +64280,13 @@
         "DSV3 Lucky - Ability triggers: Orcish Bowmasters - When Orcish Bowmasters enters and whenever an opponent draws a card except the first one they draw in each of their draw steps, Orcish Bowmasters deals 1 damage to any target. Then amass Orcs 1. - targeting MiMo Rookie",
         "MiMo Rookie loses 1 life from Orcish Bowmasters"
       ],
+      "actionSeq": 158,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
           "p49"
         ]
-      },
-      "actionSeq": 158
+      }
     },
     {
       "index": 36,
@@ -64333,13 +64333,13 @@
         "MiMo Rookie loses 1 life at combat from Orcish Bowmasters",
         "MiMo Rookie loses 2 life at combat from Orc Army Token"
       ],
+      "actionSeq": 163,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
           "p49"
         ]
-      },
-      "actionSeq": 163
+      }
     },
     {
       "index": 37,
@@ -64395,6 +64395,7 @@
         "DSV3 Lucky discards Bloodstained Mire (source: Burning Inquiry)",
         "MiMo Rookie discards Vexing Bauble (source: Burning Inquiry)"
       ],
+      "actionSeq": 170,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -64402,8 +64403,7 @@
           "p19",
           "p49"
         ]
-      },
-      "actionSeq": 170
+      }
     },
     {
       "index": 38,
@@ -64479,10 +64479,10 @@
         176
       ],
       "subsequentActions": [],
+      "actionSeq": 182,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 182
+      }
     },
     {
       "index": 39,
@@ -64574,10 +64574,10 @@
       "subsequentActions": [
         "DSV3 Lucky - Ability triggers: Orcish Bowmasters - When Orcish Bowmasters enters and whenever an opponent draws a card except the first one they draw in each of their draw steps, Orcish Bowmasters deals 1 damage to any target. Then amass Orcs 1. - targeting MiMo Rookie"
       ],
+      "actionSeq": 183,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 183
+      }
     },
     {
       "index": 40,
@@ -64647,10 +64647,10 @@
         184
       ],
       "subsequentActions": [],
+      "actionSeq": 185,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 185
+      }
     },
     {
       "index": 41,
@@ -64742,10 +64742,10 @@
       "subsequentActions": [
         "DSV3 Lucky - Ability triggers: Orcish Bowmasters - When Orcish Bowmasters enters and whenever an opponent draws a card except the first one they draw in each of their draw steps, Orcish Bowmasters deals 1 damage to any target. Then amass Orcs 1. - targeting MiMo Rookie"
       ],
+      "actionSeq": 186,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 186
+      }
     },
     {
       "index": 42,
@@ -64809,10 +64809,10 @@
         192
       ],
       "subsequentActions": [],
+      "actionSeq": 188,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 188
+      }
     },
     {
       "index": 43,
@@ -64904,10 +64904,10 @@
       "subsequentActions": [
         "DSV3 Lucky - Ability triggers: Orcish Bowmasters - When Orcish Bowmasters enters and whenever an opponent draws a card except the first one they draw in each of their draw steps, Orcish Bowmasters deals 1 damage to any target. Then amass Orcs 1. - targeting MiMo Rookie"
       ],
+      "actionSeq": 189,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 189
+      }
     },
     {
       "index": 44,
@@ -64971,10 +64971,10 @@
         "DSV3 Lucky - Ability triggers: Marauding Mako - Whenever you discard one or more cards, put that many +1/+1 counters on Marauding Mako.",
         "DSV3 Lucky puts 3 +1/+1 counter on Marauding Mako"
       ],
+      "actionSeq": 191,
       "pilotContext": {
         "landDropsUsed": 1
-      },
-      "actionSeq": 191
+      }
     },
     {
       "index": 45,
@@ -65048,6 +65048,7 @@
         205
       ],
       "subsequentActions": [],
+      "actionSeq": 224,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -65058,8 +65059,7 @@
           "p30"
         ]
       },
-      "castRolledBack": true,
-      "actionSeq": 224
+      "castRolledBack": true
     },
     {
       "index": 46,
@@ -65103,14 +65103,14 @@
       "subsequentActions": [
         "MiMo Rookie skip attack"
       ],
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
         "playableCards": [
           "p57"
         ]
-      },
-      "actionSeq": 230
+      }
     },
     {
       "index": 47,
@@ -65177,13 +65177,13 @@
         219
       ],
       "subsequentActions": [],
+      "actionSeq": 235,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p57"
         ]
-      },
-      "actionSeq": 235
+      }
     },
     {
       "index": 48,
@@ -65237,10 +65237,10 @@
         227
       ],
       "subsequentActions": [],
+      "actionSeq": 237,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 237
+      }
     },
     {
       "index": 49,
@@ -65316,10 +65316,10 @@
         242
       ],
       "subsequentActions": [],
+      "actionSeq": 241,
       "pilotContext": {
         "untappedLands": 3
-      },
-      "actionSeq": 241
+      }
     },
     {
       "index": 50,
@@ -65375,14 +65375,14 @@
         248
       ],
       "subsequentActions": [],
+      "actionSeq": 247,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p57"
         ]
       },
-      "castRolledBack": true,
-      "actionSeq": 247
+      "castRolledBack": true
     },
     {
       "index": 51,
@@ -65437,6 +65437,7 @@
         255
       ],
       "subsequentActions": [],
+      "actionSeq": 251,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -65445,8 +65446,7 @@
           "p55",
           "p56"
         ]
-      },
-      "actionSeq": 251
+      }
     },
     {
       "index": 52,
@@ -65495,14 +65495,14 @@
       "subsequentActions": [
         "DSV3 Lucky casts Thoughtseize targeting MiMo Rookie from hand"
       ],
+      "actionSeq": 252,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 252
+      }
     },
     {
       "index": 53,
@@ -65552,13 +65552,13 @@
         263
       ],
       "subsequentActions": [],
+      "actionSeq": 256,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
           "p57"
         ]
-      },
-      "actionSeq": 256
+      }
     },
     {
       "index": 54,
@@ -65601,14 +65601,14 @@
       "subsequentActions": [
         "MiMo Rookie reveals Walking Ballista, Devourer of Destiny, Haywire Mite, Urza's Saga, Kozilek's Command, Emrakul, the Promised End"
       ],
+      "actionSeq": 259,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 259
+      }
     },
     {
       "index": 55,
@@ -65676,11 +65676,11 @@
         "DSV3 Lucky loses 2 life from Thoughtseize",
         "DSV3 Lucky puts Thoughtseize from stack into their graveyard"
       ],
+      "actionSeq": 261,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
-      },
-      "actionSeq": 261
+      }
     },
     {
       "index": 56,
@@ -65721,13 +65721,13 @@
         281
       ],
       "subsequentActions": [],
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
           "p57"
         ]
-      },
-      "actionSeq": 266
+      }
     },
     {
       "index": 57,
@@ -65781,10 +65781,10 @@
         288
       ],
       "subsequentActions": [],
+      "actionSeq": 268,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 268
+      }
     },
     {
       "index": 58,
@@ -65821,10 +65821,10 @@
         "MiMo Rookie announces a value of 0 for {X} (source: Kozilek's Command)",
         "MiMo Rookie casts Kozilek's Command (mode 2) targeting DSV3 Lucky (scries then draw) (mode 4) from hand"
       ],
+      "actionSeq": 272,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 272
+      }
     },
     {
       "index": 59,
@@ -65865,14 +65865,14 @@
         317
       ],
       "subsequentActions": [],
+      "actionSeq": 283,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
         "playableCards": [
           "p55"
         ]
-      },
-      "actionSeq": 283
+      }
     },
     {
       "index": 60,
@@ -65965,11 +65965,11 @@
         "DSV3 Lucky scries 0 (source: Kozilek's Command)",
         "MiMo Rookie puts Kozilek's Command from stack into their graveyard"
       ],
+      "actionSeq": 284,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
-      },
-      "actionSeq": 284
+      }
     },
     {
       "index": 61,
@@ -66018,6 +66018,7 @@
       "subsequentActions": [
         "DSV3 Lucky puts Scalding Tarn from hand onto the Battlefield"
       ],
+      "actionSeq": 295,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -66025,8 +66026,7 @@
           "p72",
           "p77"
         ]
-      },
-      "actionSeq": 295
+      }
     },
     {
       "index": 62,
@@ -66123,11 +66123,11 @@
         "Attacker: Orc Army Token (8/8) unblocked",
         "Attacker: Orcish Bowmasters (1/1) unblocked"
       ],
+      "actionSeq": 299,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
-      },
-      "actionSeq": 299
+      }
     },
     {
       "index": 63,
@@ -66173,10 +66173,10 @@
         "MiMo Rookie loses 1 life at combat from Orcish Bowmasters",
         "MiMo Rookie has lost the game."
       ],
+      "actionSeq": 311,
       "pilotContext": {
         "untappedLands": 2
-      },
-      "actionSeq": 311
+      }
     }
   ],
   "errors": []
