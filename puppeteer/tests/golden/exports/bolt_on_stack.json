@@ -152,6 +152,7 @@
         "next_action_type": "GAME_ASK",
         "success": true
       },
+      "actionSeq": 1,
       "actionType": "GAME_TARGET",
       "choiceCount": 2,
       "choices": [
@@ -199,6 +200,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 5,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -233,6 +235,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 15,
       "actionType": "GAME_SELECT",
       "choiceCount": 5,
       "choices": [
@@ -325,6 +328,7 @@
         "retryable": true,
         "success": false
       },
+      "actionSeq": 21,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [
@@ -380,6 +384,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 26,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [
@@ -432,6 +437,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 33,
       "actionType": "GAME_SELECT",
       "choiceCount": 7,
       "choices": [
@@ -527,6 +533,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 41,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [
@@ -580,6 +587,7 @@
         "next_action_type": "GAME_TARGET",
         "success": true
       },
+      "actionSeq": 46,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [

@@ -254,6 +254,7 @@
         "next_action_type": "GAME_ASK",
         "success": true
       },
+      "actionSeq": 1,
       "actionType": "GAME_TARGET",
       "choiceCount": 2,
       "choices": [
@@ -301,6 +302,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 5,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -332,6 +334,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 6,
       "actionType": "GAME_ASK",
       "choiceCount": 0,
       "choices": [],
@@ -366,6 +369,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 15,
       "actionType": "GAME_SELECT",
       "choiceCount": 5,
       "choices": [
@@ -442,6 +446,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 26,
       "actionType": "GAME_SELECT",
       "choiceCount": 2,
       "choices": [
@@ -489,6 +494,7 @@
     },
     {
       "actionResult": {},
+      "actionSeq": 36,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -527,6 +533,7 @@
     },
     {
       "actionResult": {},
+      "actionSeq": 38,
       "actionType": "GAME_SELECT",
       "choiceCount": 5,
       "choices": [
@@ -597,6 +604,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 38,
       "actionType": "GAME_SELECT",
       "choiceCount": 5,
       "choices": [
@@ -665,6 +673,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 43,
       "actionType": "GAME_SELECT",
       "choiceCount": 0,
       "choices": [],
@@ -698,6 +707,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 51,
       "actionType": "GAME_SELECT",
       "choiceCount": 3,
       "choices": [
@@ -763,6 +773,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 61,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -813,6 +824,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 66,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -857,6 +869,7 @@
     },
     {
       "actionResult": {},
+      "actionSeq": 81,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -902,6 +915,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 81,
       "actionType": "GAME_SELECT",
       "choiceCount": 1,
       "choices": [
@@ -951,6 +965,7 @@
         "next_action_type": "GAME_TARGET",
         "success": true
       },
+      "actionSeq": 90,
       "actionType": "GAME_TARGET",
       "choiceCount": 5,
       "choices": [
@@ -1013,6 +1028,7 @@
         "game_seq": 91,
         "success": true
       },
+      "actionSeq": 91,
       "actionType": "GAME_TARGET",
       "choiceCount": 4,
       "choices": [
@@ -1072,6 +1088,7 @@
         "next_action_type": "GAME_SELECT",
         "success": true
       },
+      "actionSeq": 92,
       "actionType": "GAME_CHOOSE_PILE",
       "choiceCount": 0,
       "choices": [],
