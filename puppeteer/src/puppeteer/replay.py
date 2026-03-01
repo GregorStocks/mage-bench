@@ -246,8 +246,7 @@ def main() -> int:
     parser.add_argument("--script", type=Path, help="Path to script JSON file")
     parser.add_argument("--game-dir", type=Path, help="Game log directory")
     parser.add_argument("--table-id", help="UUID of the specific table to join")
-    parser.add_argument("--skip-history", action="store_true",
-                        help="Skip the post-script get_game_history call")
+    parser.add_argument("--skip-history", action="store_true", help="Skip the post-script get_game_history call")
     args = parser.parse_args()
 
     # Determine project root
