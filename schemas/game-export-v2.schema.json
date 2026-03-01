@@ -569,6 +569,11 @@
         "message": {
           "type": "string",
           "description": "Error message text."
+        },
+        "decisionIndex": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Index into the decisions array for the decision active when this error occurred. Absent when no matching decision was found."
         }
       }
     }

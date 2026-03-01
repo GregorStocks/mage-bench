@@ -108526,103 +108526,120 @@
       "ts": "13:55:11",
       "player": "GPT52 Coach",
       "source": "pilot",
-      "message": "Action failed: Object p3 not found in current choices"
+      "message": "Action failed: Object p3 not found in current choices",
+      "decisionIndex": 39
     },
     {
       "ts": "14:33:15",
       "player": "GPT52 Coach",
       "source": "pilot",
-      "message": "Action failed: Object p19 not found in current choices"
+      "message": "Action failed: Object p19 not found in current choices",
+      "decisionIndex": 87
     },
     {
-      "ts": "",
+      "ts": "14:33:38",
       "player": "GPT52 Coach",
-      "source": "unknown",
-      "message": "[2026-02-28T14:33:38.795711643-08:00] [mcp] Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT"
+      "source": "mcp",
+      "message": "Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT",
+      "decisionIndex": 89
     },
     {
-      "ts": "",
+      "ts": "14:33:38",
       "player": "GPT52 Coach",
-      "source": "unknown",
-      "message": "[2026-02-28T14:33:38.911747027-08:00] [mcp] Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT"
+      "source": "mcp",
+      "message": "Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT",
+      "decisionIndex": 89
     },
     {
-      "ts": "",
+      "ts": "14:33:39",
       "player": "GPT52 Coach",
-      "source": "unknown",
-      "message": "[2026-02-28T14:33:39.13567131-08:00] [mcp] Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT"
+      "source": "mcp",
+      "message": "Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT",
+      "decisionIndex": 89
     },
     {
-      "ts": "",
+      "ts": "13:38:35",
       "player": "Grok4 Optim",
-      "source": "unknown",
-      "message": "[2026-02-28T13:38:35.408198676-08:00] [mcp] choose_action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+      "source": "mcp",
+      "message": "choose_action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
+      "decisionIndex": 5
     },
     {
       "ts": "13:38:35",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "Action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+      "message": "Action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
+      "decisionIndex": 5
     },
     {
       "ts": "13:59:53",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [1]"
+      "message": "LLM request timed out after 120s [1]",
+      "decisionIndex": 47
     },
     {
       "ts": "14:01:53",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [2]"
+      "message": "LLM request timed out after 120s [2]",
+      "decisionIndex": 47
     },
     {
       "ts": "14:05:35",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [1]"
+      "message": "LLM request timed out after 120s [1]",
+      "decisionIndex": 47
     },
     {
       "ts": "14:07:35",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [2]"
+      "message": "LLM request timed out after 120s [2]",
+      "decisionIndex": 47
     },
     {
       "ts": "14:09:35",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [3]"
+      "message": "LLM request timed out after 120s [3]",
+      "decisionIndex": 47
     },
     {
       "ts": "14:21:58",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [1]"
+      "message": "LLM request timed out after 120s [1]",
+      "decisionIndex": 63
     },
     {
       "ts": "14:23:33",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "Action failed: Object p19 not found in current choices"
+      "message": "Action failed: Object p19 not found in current choices",
+      "decisionIndex": 63
     },
     {
       "ts": "14:36:20",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "LLM request timed out after 120s [1]"
+      "message": "LLM request timed out after 120s [1]",
+      "decisionIndex": 91
     },
     {
       "ts": "14:38:02",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "Action failed: Object p52 not found in current choices"
+      "message": "Action failed: Object p52 not found in current choices",
+      "decisionIndex": 91
     },
     {
       "ts": "14:41:51",
       "player": "Grok4 Optim",
       "source": "pilot",
-      "message": "Action failed: Object p43 not found in current choices"
+      "message": "Action failed: Object p43 not found in current choices",
+      "decisionIndex": 99
     }
   ],
   "annotations": [

@@ -423,4 +423,8 @@ export interface GameError {
    * Error message text.
    */
   message: string;
+  /**
+   * Index into the decisions array for the decision active when this error occurred. Absent when no matching decision was found.
+   */
+  decisionIndex?: number;
 }

@@ -124649,88 +124649,102 @@
   ],
   "errors": [
     {
-      "ts": "",
+      "ts": "13:36:25",
       "player": "KimiK2 Undrdog",
-      "source": "unknown",
-      "message": "[2026-02-28T13:36:25.075844094-08:00] [mcp] choose_action failed: 'black' is not a valid choice"
+      "source": "mcp",
+      "message": "choose_action failed: 'black' is not a valid choice",
+      "decisionIndex": 8
     },
     {
       "ts": "13:36:25",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: 'black' is not a valid choice"
+      "message": "Action failed: 'black' is not a valid choice",
+      "decisionIndex": 8
     },
     {
-      "ts": "",
+      "ts": "13:37:25",
       "player": "KimiK2 Undrdog",
-      "source": "unknown",
-      "message": "[2026-02-28T13:37:25.171028138-08:00] [mcp] choose_action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options."
+      "source": "mcp",
+      "message": "choose_action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
+      "decisionIndex": 15
     },
     {
       "ts": "13:37:25",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options."
+      "message": "Action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
+      "decisionIndex": 15
     },
     {
-      "ts": "",
+      "ts": "13:45:06",
       "player": "KimiK2 Undrdog",
-      "source": "unknown",
-      "message": "[2026-02-28T13:45:06.112594037-08:00] [mcp] MCP request failed (tools/call): Unknown short ID: p56"
+      "source": "mcp",
+      "message": "MCP request failed (tools/call): Unknown short ID: p56",
+      "decisionIndex": 62
     },
     {
       "ts": "13:45:06",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: Unknown short ID: p56"
+      "message": "Action failed: Unknown short ID: p56",
+      "decisionIndex": 62
     },
     {
-      "ts": "",
+      "ts": "13:46:44",
       "player": "KimiK2 Undrdog",
-      "source": "unknown",
-      "message": "[2026-02-28T13:46:44.924497857-08:00] [mcp] MCP request failed (tools/call): Unknown short ID: p60"
+      "source": "mcp",
+      "message": "MCP request failed (tools/call): Unknown short ID: p60",
+      "decisionIndex": 76
     },
     {
       "ts": "13:46:44",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: Unknown short ID: p60"
+      "message": "Action failed: Unknown short ID: p60",
+      "decisionIndex": 76
     },
     {
-      "ts": "",
+      "ts": "13:48:00",
       "player": "KimiK2 Undrdog",
-      "source": "unknown",
-      "message": "[2026-02-28T13:48:00.68653062-08:00] [mcp] choose_action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+      "source": "mcp",
+      "message": "choose_action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
+      "decisionIndex": 88
     },
     {
       "ts": "13:48:00",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards."
+      "message": "Action failed: GAME_SELECT requires either index=N (from get_action_choices) to play a card, or answer=false to pass priority. Call get_action_choices first to see available cards.",
+      "decisionIndex": 88
     },
     {
-      "ts": "",
+      "ts": "13:49:18",
       "player": "KimiK2 Undrdog",
-      "source": "unknown",
-      "message": "[2026-02-28T13:49:18.373430668-08:00] [mcp] choose_action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options."
+      "source": "mcp",
+      "message": "choose_action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
+      "decisionIndex": 98
     },
     {
       "ts": "13:49:18",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options."
+      "message": "Action failed: Index 2 is out of range (valid: 0-1). Call get_action_choices to see current options.",
+      "decisionIndex": 98
     },
     {
-      "ts": "",
+      "ts": "13:50:38",
       "player": "KimiK2 Undrdog",
-      "source": "unknown",
-      "message": "[2026-02-28T13:50:38.935485344-08:00] [mcp] choose_action failed: Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options."
+      "source": "mcp",
+      "message": "choose_action failed: Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.",
+      "decisionIndex": 109
     },
     {
       "ts": "13:50:38",
       "player": "KimiK2 Undrdog",
       "source": "pilot",
-      "message": "Action failed: Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options."
+      "message": "Action failed: Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.",
+      "decisionIndex": 109
     }
   ],
   "annotations": [

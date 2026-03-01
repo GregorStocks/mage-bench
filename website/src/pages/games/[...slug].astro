@@ -1283,7 +1283,19 @@ const { slug } = Astro.params;
           errorList.className = "error-list";
           game.errors.forEach(function (err) {
             var li = document.createElement("li");
-            li.textContent = "[" + (err.ts || "?") + "] [" + (err.source || "?") + "] " + (err.player || "?") + ": " + (err.message || "?");
+            var text = "[" + (err.ts || "?") + "] [" + (err.source || "?") + "] " + (err.player || "?") + ": " + (err.message || "?");
+            if (err.decisionIndex != null && game.decisions && game.decisions[err.decisionIndex]) {
+              var link = document.createElement("a");
+              link.textContent = text;
+              link.href = "#";
+              link.className = "error-link";
+              link.addEventListener("click", (function (snapIdx) {
+                return function (e) { e.preventDefault(); goTo(snapIdx); };
+              })(game.decisions[err.decisionIndex].snapshotIndex));
+              li.appendChild(link);
+            } else {
+              li.textContent = text;
+            }
             errorList.appendChild(li);
           });
           errorSummaryEl.appendChild(errorList);

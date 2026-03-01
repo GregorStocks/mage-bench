@@ -56816,37 +56816,43 @@
       "ts": "13:38:44",
       "player": "MiMo Coach",
       "source": "pilot",
-      "message": "Action failed: Object p20 not found in current choices"
+      "message": "Action failed: Object p20 not found in current choices",
+      "decisionIndex": 5
     },
     {
       "ts": "13:40:00",
       "player": "MiMo Coach",
       "source": "pilot",
-      "message": "Action failed: Object p6 not found in current choices"
+      "message": "Action failed: Object p6 not found in current choices",
+      "decisionIndex": 14
     },
     {
       "ts": "13:40:54",
       "player": "MiMo Coach",
       "source": "pilot",
-      "message": "Empty response from LLM (no tools, no text) [1]"
+      "message": "Empty response from LLM (no tools, no text) [1]",
+      "decisionIndex": 18
     },
     {
       "ts": "13:45:03",
       "player": "MiMo Coach",
       "source": "pilot",
-      "message": "Action failed: Object p45 not found in current choices"
+      "message": "Action failed: Object p45 not found in current choices",
+      "decisionIndex": 35
     },
     {
       "ts": "13:45:20",
       "player": "MiMo Coach",
       "source": "pilot",
-      "message": "Empty response from LLM (no tools, no text) [1]"
+      "message": "Empty response from LLM (no tools, no text) [1]",
+      "decisionIndex": 35
     },
     {
       "ts": "13:45:22",
       "player": "MiMo Coach",
       "source": "pilot",
-      "message": "Empty response from LLM (no tools, no text) [2]"
+      "message": "Empty response from LLM (no tools, no text) [2]",
+      "decisionIndex": 35
     }
   ],
   "annotations": [

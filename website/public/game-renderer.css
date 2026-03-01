@@ -1187,6 +1187,16 @@
   font-family: monospace;
 }
 
+#error-summary .error-list .error-link {
+  color: #ef4444;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#error-summary .error-list .error-link:hover {
+  text-decoration: underline;
+}
+
 /* Phase bar between player battlefields */
 #phase-bar {
   grid-column: 1 / -1;
