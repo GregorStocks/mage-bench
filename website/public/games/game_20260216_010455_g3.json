@@ -77913,7 +77913,7 @@
       "actionTaken": "Cast Seam Rip before playing a land, likely leaving insufficient mana for Voice of Victory this turn",
       "betterLine": "Play Island or Hallowed Fountain first, then cast both Seam Rip (targeting Stormchaser's Talent) and Voice of Victory with the 3 available mana",
       "type": "blunder",
-      "snapshotIndex": 33,
+      "snapshotIndex": 34,
       "player": "MiMo Romance"
     },
     {
@@ -77922,7 +77922,7 @@
       "actionTaken": "Bounced Voice of Victory with Boomerang Basics",
       "betterLine": "Bounce Seam Rip with Boomerang Basics to get back the exiled permanent (likely Otter Token) while also removing the enchantment",
       "type": "blunder",
-      "snapshotIndex": 63,
+      "snapshotIndex": 64,
       "player": "Kimi25 Tinker"
     },
     {
@@ -77931,7 +77931,7 @@
       "actionTaken": "Targeted Spirebluff Canal (an earthbent land-creature) with Floodpits Drowner's ETB tap+stun ability.",
       "betterLine": "Target Toph, Hardheaded Teacher with the tap+stun effect to neutralize the opponent's key threat, with the option to later use Floodpits Drowner's shuffle ability to permanently remove Toph.",
       "type": "blunder",
-      "snapshotIndex": 87,
+      "snapshotIndex": 88,
       "player": "MiMo Romance"
     },
     {
@@ -77940,7 +77940,7 @@
       "actionTaken": "Did not counter High Noon with Three Steps Ahead, allowing the one-spell-per-turn lock to resolve",
       "betterLine": "Counter High Noon with Three Steps Ahead (spree: counter mode for {U} + {1}{U} = 3 mana total), preserving the ability to cast multiple spells per turn and deploy the strong hand of creatures and planeswalkers",
       "type": "blunder",
-      "snapshotIndex": 123,
+      "snapshotIndex": 124,
       "player": "MiMo Romance"
     },
     {
@@ -77949,7 +77949,7 @@
       "actionTaken": "Declined to counter High Noon, allowing it to resolve",
       "betterLine": "Counter High Noon with Three Steps Ahead (counter mode for {1}{U}{U}), preserving the ability to cast multiple spells per turn and deploy the 7-card hand efficiently while at a critical 3 life total",
       "type": "blunder",
-      "snapshotIndex": 124,
+      "snapshotIndex": 125,
       "player": "MiMo Romance"
     },
     {
@@ -77958,7 +77958,7 @@
       "actionTaken": "Passed without casting anything in precombat main phase.",
       "betterLine": "Cast Floodpits Drowner from hand targeting Toph with ETB to tap it, then attack with the existing Floodpits Drowner for 2 damage = lethal.",
       "type": "blunder",
-      "snapshotIndex": 135,
+      "snapshotIndex": 136,
       "player": "MiMo Romance"
     }
   ],
@@ -78014,7 +78014,8 @@
         "Kimi25 Tinker draws seven cards",
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -78048,7 +78049,8 @@
         "Kimi25 Tinker draws seven cards",
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -78085,7 +78087,8 @@
         "Kimi25 Tinker draws seven cards",
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -78123,7 +78126,8 @@
         "Kimi25 Tinker draws seven cards",
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -78157,7 +78161,8 @@
         "Kimi25 Tinker draws seven cards",
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -78203,6 +78208,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -78244,6 +78250,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -78286,6 +78293,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -78319,6 +78327,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -78359,6 +78368,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -78408,6 +78418,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -78457,6 +78468,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -78497,6 +78509,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -78553,6 +78566,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -78594,6 +78608,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -78634,6 +78649,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -78702,6 +78718,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -78746,6 +78763,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -78788,6 +78806,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -78848,6 +78867,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -78896,6 +78916,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -78974,6 +78995,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -79059,6 +79081,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       },
@@ -79100,6 +79123,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -79147,6 +79171,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -79200,6 +79225,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -79242,6 +79268,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -79310,6 +79337,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -79370,6 +79398,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -79420,6 +79449,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -79461,6 +79491,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -79501,6 +79532,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -79537,7 +79569,8 @@
         "Kimi25 Tinker draws seven cards",
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 33,
@@ -79590,6 +79623,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -79676,6 +79710,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -79731,6 +79766,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -79809,6 +79845,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -79882,6 +79919,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -79932,6 +79970,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -79992,6 +80031,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -80075,6 +80115,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -80116,6 +80157,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -80158,6 +80200,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -80198,6 +80241,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -80235,6 +80279,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -80291,6 +80336,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -80342,6 +80388,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -80434,6 +80481,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -80475,6 +80523,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -80516,6 +80565,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -80557,6 +80607,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -80623,6 +80674,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -80692,6 +80744,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -80758,6 +80811,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       },
@@ -80800,6 +80854,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -80882,6 +80937,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -80941,6 +80997,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -81009,6 +81066,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       },
@@ -81050,6 +81108,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -81119,6 +81178,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -81194,6 +81254,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -81276,6 +81337,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -81352,6 +81414,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -81415,6 +81478,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -81499,6 +81563,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -81547,6 +81612,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -81620,6 +81686,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -81661,6 +81728,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -81702,6 +81770,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -81739,6 +81808,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -81814,6 +81884,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -81890,6 +81961,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -81976,6 +82048,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -82016,6 +82089,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -82053,6 +82127,7 @@
         "MiMo Romance draws seven cards",
         "Kimi25 Tinker keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }

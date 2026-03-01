@@ -36454,7 +36454,7 @@
       "actionTaken": "Discarded Dark Ritual",
       "betterLine": "Discard Simian Spirit Guide, which only provides red mana that doesn't contribute to the BBB-heavy combo plan. Keeping both Dark Rituals maximizes the chance of comboing off with Undercity Informer + Bridge from Below + Narcomoeba + Thassa's Oracle.",
       "type": "blunder",
-      "snapshotIndex": 102,
+      "snapshotIndex": 103,
       "player": "Qwen3L Worrier"
     },
     {
@@ -36463,7 +36463,7 @@
       "actionTaken": "Animated Mycosynth Lattice into a 6/6 creature with Karn's +1",
       "betterLine": "Choose no target for Karn's +1 (it says 'up to one'), keeping Mycosynth Lattice safe as a noncreature artifact and maintaining the unbreakable Karn+Lattice lock while winning slowly with Glaring Fleshraker attacks.",
       "type": "blunder",
-      "snapshotIndex": 109,
+      "snapshotIndex": 110,
       "player": "Opus Valley"
     }
   ],
@@ -36516,7 +36516,8 @@
         "Opus Valley draws seven cards",
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -36550,7 +36551,8 @@
         "Opus Valley draws seven cards",
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -36658,7 +36660,8 @@
         "Opus Valley draws seven cards",
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -36696,6 +36699,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -36775,6 +36779,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -36840,6 +36845,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -36881,6 +36887,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -36956,6 +36963,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -37004,6 +37012,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -37044,6 +37053,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -37084,6 +37094,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -37152,6 +37163,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -37193,6 +37205,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -37266,6 +37279,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -37316,6 +37330,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -37358,6 +37373,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -37460,6 +37476,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -37539,6 +37556,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -37628,7 +37646,8 @@
         "Opus Valley draws seven cards",
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 19,
@@ -37671,6 +37690,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -37721,6 +37741,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -37799,6 +37820,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -37878,6 +37900,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -37953,6 +37976,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -38003,6 +38027,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -38081,6 +38106,7 @@
         "Qwen3L Worrier draws seven cards",
         "Opus Valley keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0

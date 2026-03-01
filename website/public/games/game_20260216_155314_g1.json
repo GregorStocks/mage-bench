@@ -46131,7 +46131,7 @@
       "actionTaken": "Cast Sunpearl Kirin during precombat main phase without playing a land first or attacking with Spyglass Siren",
       "betterLine": "Play a land (Gloomlake Verge or Godless Shrine), attack with Spyglass Siren for 1 damage, then cast Sunpearl Kirin post-combat bouncing the Map Token to draw a card",
       "type": "blunder",
-      "snapshotIndex": 23,
+      "snapshotIndex": 24,
       "player": "GPT5n Nature"
     },
     {
@@ -46140,7 +46140,7 @@
       "actionTaken": "Targeted Spyglass Siren with Sunpearl Kirin's ETB, returning it to hand.",
       "betterLine": "Target the Map Token instead, which would be returned to hand but since it's a token it ceases to exist, and you draw a card. This provides card advantage without losing a relevant permanent.",
       "type": "blunder",
-      "snapshotIndex": 24,
+      "snapshotIndex": 25,
       "player": "GPT5n Nature"
     },
     {
@@ -46149,7 +46149,7 @@
       "actionTaken": "Attacked with Sazh's Chocobo as a 1/2 without playing Ba Sing Se first for the landfall trigger.",
       "betterLine": "Play Ba Sing Se in main phase before combat to trigger landfall on Sazh's Chocobo (making it 2/3), then attack. This way a block by Sunpearl Kirin results in killing the Kirin while Chocobo survives.",
       "type": "blunder",
-      "snapshotIndex": 29,
+      "snapshotIndex": 30,
       "player": "GPT5m Analyst"
     },
     {
@@ -46158,7 +46158,7 @@
       "actionTaken": "Targeted Sunpearl Kirin to bounce back to hand",
       "betterLine": "Target Map Token to bounce it and draw a card, getting immediate card advantage while keeping both Sunpearl Kirins on the battlefield as attackers/blockers",
       "type": "blunder",
-      "snapshotIndex": 39,
+      "snapshotIndex": 40,
       "player": "GPT5n Nature"
     },
     {
@@ -46167,7 +46167,7 @@
       "actionTaken": "Cast Sunpearl Kirin (2/1 flyer with ETB bounce) instead of the much more impactful Kaito, Bane of Nightmares",
       "betterLine": "Cast Kaito, Bane of Nightmares for {2}{U}{B} while the opponent is tapped out, immediately getting a 3/4 hexproof attacker that can stun creatures or generate card advantage",
       "type": "blunder",
-      "snapshotIndex": 55,
+      "snapshotIndex": 56,
       "player": "GPT5n Nature"
     },
     {
@@ -46176,7 +46176,7 @@
       "actionTaken": "Targeted a Map Token with Sunpearl Kirin's ETB, which draws a card but permanently loses the Map Token.",
       "betterLine": "Bounce Spyglass Siren to replay it, generating a new Map Token ETB trigger while keeping the existing Map Tokens on the battlefield. This nets both the Siren replay and an extra Map Token, which is significantly more value than just drawing one card.",
       "type": "blunder",
-      "snapshotIndex": 56,
+      "snapshotIndex": 57,
       "player": "GPT5n Nature"
     },
     {
@@ -46185,7 +46185,7 @@
       "actionTaken": "Activated Ba Sing Se's Earthbend 2 ability, spending all available mana to create a 2/2 land creature.",
       "betterLine": "Play Forest from hand, cast Mightform Harmonizer (2GG), trigger landfall to double Surrak's power to 8, then attack with Surrak (8/3 trample), Badgermole Cub (2/2), and Mightform (4/4) for ~14 damage, leaving opponent at 2 life.",
       "type": "blunder",
-      "snapshotIndex": 78,
+      "snapshotIndex": 79,
       "player": "GPT5m Analyst"
     },
     {
@@ -46194,7 +46194,7 @@
       "actionTaken": "Targeted Surrak, Elusive Hunter with Grim Bauble's -2/-2, only temporarily reducing it to 2/1.",
       "betterLine": "Target Badgermole Cub (2/2) to kill it permanently, or Llanowar Elves (1/1) to remove the mana dork. Badgermole Cub is likely the best target as it removes a more significant body and its mana-adding ability.",
       "type": "blunder",
-      "snapshotIndex": 84,
+      "snapshotIndex": 85,
       "player": "GPT5n Nature"
     },
     {
@@ -46203,7 +46203,7 @@
       "actionTaken": "Cast Kaito, Bane of Nightmares in precombat main phase despite having lethal on board.",
       "betterLine": "Skip straight to combat and attack with any flying creature for lethal damage. No spell casting needed.",
       "type": "blunder",
-      "snapshotIndex": 98,
+      "snapshotIndex": 99,
       "player": "GPT5n Nature"
     }
   ],
@@ -46270,7 +46270,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -46314,7 +46315,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -46405,7 +46407,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -46452,7 +46455,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -46499,7 +46503,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -46546,7 +46551,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -46593,7 +46599,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -46652,6 +46659,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -46703,6 +46711,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46749,7 +46758,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 10,
@@ -46808,6 +46818,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -46859,6 +46870,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46937,6 +46949,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -46989,6 +47002,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -47068,6 +47082,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -47128,6 +47143,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -47179,6 +47195,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47209,7 +47226,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 18,
@@ -47256,7 +47274,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 19,
@@ -47319,6 +47338,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47369,6 +47389,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47415,7 +47436,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 22,
@@ -47463,6 +47485,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47533,6 +47556,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -47584,6 +47608,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -47651,6 +47676,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -47690,6 +47716,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -47740,6 +47767,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -47786,7 +47814,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 29,
@@ -47864,6 +47893,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -47915,6 +47945,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -47994,6 +48025,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -48054,6 +48086,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -48115,6 +48148,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -48166,6 +48200,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -48231,6 +48266,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -48281,6 +48317,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -48331,6 +48368,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -48380,7 +48418,8 @@
         "GPT5m Analyst draws seven cards",
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 39,
@@ -48491,6 +48530,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -48542,6 +48582,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -48593,6 +48634,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -48666,6 +48708,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -48716,6 +48759,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -48815,6 +48859,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -48875,6 +48920,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -48926,6 +48972,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -49006,6 +49053,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -49057,6 +49105,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -49118,6 +49167,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -49194,6 +49244,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -49245,6 +49296,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -49296,6 +49348,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -49347,6 +49400,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -49398,6 +49452,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -49446,6 +49501,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -49519,6 +49575,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -49579,6 +49636,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -49630,6 +49688,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -49681,6 +49740,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -49748,6 +49808,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -49809,6 +49870,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -49893,6 +49955,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -49944,6 +50007,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -49995,6 +50059,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -50046,6 +50111,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -50094,6 +50160,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -50153,6 +50220,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -50226,6 +50294,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -50277,6 +50346,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -50336,6 +50406,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -50396,6 +50467,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -50447,6 +50519,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -50546,6 +50619,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -50607,6 +50681,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -50658,6 +50733,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -50722,6 +50798,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -50780,6 +50857,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -50831,6 +50909,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -50882,6 +50961,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -50933,6 +51013,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -50981,6 +51062,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -51046,6 +51128,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       },
@@ -51097,6 +51180,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -51147,6 +51231,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -51220,6 +51305,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -51280,6 +51366,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -51331,6 +51418,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -51394,6 +51482,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -51458,6 +51547,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -51509,6 +51599,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -51573,6 +51664,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -51631,6 +51723,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -51682,6 +51775,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -51772,6 +51866,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -51823,6 +51918,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -51871,6 +51967,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -51934,6 +52031,7 @@
         "GPT5n Nature draws seven cards",
         "GPT5m Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }

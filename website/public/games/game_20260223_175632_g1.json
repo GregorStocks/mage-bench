@@ -58800,7 +58800,7 @@
       "actionTaken": "Bottomed Desperate Ritual",
       "betterLine": "Bottom the second Ruby Medallion, keeping Desperate Ritual as the critical mana engine piece for chaining Wrenn's Resolve and Reckless Impulse on a combo turn.",
       "type": "blunder",
-      "snapshotIndex": 2,
+      "snapshotIndex": 3,
       "player": "MiMo Rookie"
     },
     {
@@ -58809,7 +58809,7 @@
       "actionTaken": "Played basic Mountain instead of Arid Mesa",
       "betterLine": "Play Arid Mesa, crack it to fetch a Mountain for deck thinning while the 1 life cost is inconsequential",
       "type": "blunder",
-      "snapshotIndex": 14,
+      "snapshotIndex": 15,
       "player": "MiMo Rookie"
     },
     {
@@ -58818,7 +58818,7 @@
       "actionTaken": "Fetched Sacred Foundry, paying 2 life unnecessarily for white mana the deck doesn't need.",
       "betterLine": "Fetch a basic Mountain for free, preserving life total while getting the same useful mana production.",
       "type": "blunder",
-      "snapshotIndex": 36,
+      "snapshotIndex": 37,
       "player": "MiMo Rookie"
     },
     {
@@ -58827,7 +58827,7 @@
       "actionTaken": "Cast Malevolent Rumble for {1}{G}, using both available lands",
       "betterLine": "Cast Ancient Stirrings for {G} from one Grove, keeping the other Grove open to also cast Blade of the Bloodchief for {1} in the same turn, developing two plays instead of one",
       "type": "blunder",
-      "snapshotIndex": 39,
+      "snapshotIndex": 40,
       "player": "Gem3P Romance"
     },
     {
@@ -58836,7 +58836,7 @@
       "actionTaken": "Chose Urza's Saga from Malevolent Rumble, sending Commercial District to graveyard.",
       "betterLine": "Choose Commercial District to secure a third permanent colored mana source, enabling casting of Basking Broodscale, Ancient Stirrings, and eventually Writhing Chrysalis. The deck desperately needs colored mana, not a temporary colorless source.",
       "type": "blunder",
-      "snapshotIndex": 45,
+      "snapshotIndex": 46,
       "player": "Gem3P Romance"
     },
     {
@@ -58845,7 +58845,7 @@
       "actionTaken": "Cast Pyretic Ritual before Ruby Medallion, spending ritual mana early without a complete combo turn available.",
       "betterLine": "Cast Ruby Medallion first (using both lands), then on future turns benefit from reduced costs on Pyretic Ritual, Manamorphose, and Past in Flames for a more explosive combo turn. Also should play Arid Mesa as a land drop first before casting anything.",
       "type": "blunder",
-      "snapshotIndex": 58,
+      "snapshotIndex": 59,
       "player": "MiMo Rookie"
     },
     {
@@ -58854,7 +58854,7 @@
       "actionTaken": "Cast Manamorphose before playing Arid Mesa",
       "betterLine": "Play Arid Mesa first (free land drop), then cast Manamorphose to see the drawn card before deciding on further plays. This preserves maximum information and flexibility.",
       "type": "blunder",
-      "snapshotIndex": 63,
+      "snapshotIndex": 64,
       "player": "MiMo Rookie"
     },
     {
@@ -58863,7 +58863,7 @@
       "actionTaken": "Passed without casting Kozilek's Command or using any abilities.",
       "betterLine": "Consider casting Kozilek's Command for X=0 using Urza's Saga and Eldrazi Spawn token to cantrip and dig for more resources, though saving it for a larger X later is also defensible.",
       "type": "blunder",
-      "snapshotIndex": 121,
+      "snapshotIndex": 122,
       "player": "Gem3P Romance"
     },
     {
@@ -58872,7 +58872,7 @@
       "actionTaken": "Cast Ruby Medallion first with 4 mana available, leaving 2 mana and unable to also deploy Artist's Talent this turn without the Treasure.",
       "betterLine": "Cast Strike It Rich first for {R}, creating a Treasure, then cast Ruby Medallion for {2}, then cast Artist's Talent for {R} (reduced by Medallion), using the last Mountain and the Treasure token. This deploys all three cards in one turn instead of just one.",
       "type": "blunder",
-      "snapshotIndex": 123,
+      "snapshotIndex": 124,
       "player": "MiMo Rookie"
     },
     {
@@ -58881,7 +58881,7 @@
       "actionTaken": "Cast Strike It Rich first, before Artist's Talent was on the battlefield",
       "betterLine": "Cast Artist's Talent first for {R} using the untapped Mountain, then cast Strike It Rich for free (reduced by Ruby Medallion), triggering Artist's Talent's filtering ability to discard a redundant Past in Flames and draw a fresh card",
       "type": "blunder",
-      "snapshotIndex": 132,
+      "snapshotIndex": 133,
       "player": "MiMo Rookie"
     },
     {
@@ -58890,7 +58890,7 @@
       "actionTaken": "Attacked with only the two 4/4 Construct tokens, dealing 8 damage (opponent 14→6).",
       "betterLine": "Attack with both Constructs and Haywire Mite for 9 damage total (opponent 14→5). The Eldrazi Spawn could also attack for 0, but at minimum the Mite's 1 damage is free value.",
       "type": "blunder",
-      "snapshotIndex": 139,
+      "snapshotIndex": 140,
       "player": "Gem3P Romance"
     },
     {
@@ -58899,7 +58899,7 @@
       "actionTaken": "Attempted to cast a spell but couldn't complete the mana payment, resulting in a rollback and no action taken.",
       "betterLine": "Cast Past in Flames for {2}{R} (3 mana with Medallion), then flashback Pyretic Ritual for {R} (netting RR), then flashback Manamorphose to draw and generate mana, chaining into further spells to try to find a win condition or stabilize.",
       "type": "blunder",
-      "snapshotIndex": 156,
+      "snapshotIndex": 157,
       "player": "MiMo Rookie"
     }
   ],
@@ -58951,7 +58951,8 @@
       ],
       "subsequentActions": [
         "Gem3P Romance chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 3
     },
     {
       "index": 1,
@@ -58980,7 +58981,8 @@
         7,
         11
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 5
     },
     {
       "index": 2,
@@ -59015,7 +59017,8 @@
       ],
       "subsequentActions": [
         "MiMo Rookie's library is shuffled"
-      ]
+      ],
+      "actionSeq": 6
     },
     {
       "index": 3,
@@ -59093,7 +59096,8 @@
       ],
       "subsequentActions": [
         "MiMo Rookie puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 4,
@@ -59131,7 +59135,8 @@
         "MiMo Rookie's library is shuffled",
         "MiMo Rookie puts a card from hand to the bottom of their library",
         "MiMo Rookie puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 10
     },
     {
       "index": 5,
@@ -59167,7 +59172,8 @@
       "subsequentActions": [
         "Gem3P Romance skips Draw step",
         "Gem3P Romance skip attack"
-      ]
+      ],
+      "actionSeq": 16
     },
     {
       "index": 6,
@@ -59209,6 +59215,7 @@
       "subsequentActions": [
         "Gem3P Romance puts Grove of the Burnwillows from hand onto the Battlefield"
       ],
+      "actionSeq": 23,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -59269,6 +59276,7 @@
         "MiMo Rookie puts Mountain from hand onto the Battlefield",
         "MiMo Rookie skip attack"
       ],
+      "actionSeq": 27,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -59323,6 +59331,7 @@
       "subsequentActions": [
         "Gem3P Romance skip attack"
       ],
+      "actionSeq": 36,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -59387,6 +59396,7 @@
       "subsequentActions": [
         "Gem3P Romance puts Grove of the Burnwillows from hand onto the Battlefield"
       ],
+      "actionSeq": 41,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -59444,6 +59454,7 @@
         "MiMo Rookie puts Arid Mesa from hand onto the Battlefield",
         "MiMo Rookie skip attack"
       ],
+      "actionSeq": 45,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -59500,6 +59511,7 @@
         "MiMo Rookie activates: search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle. from Arid Mesa",
         "MiMo Rookie searches their library (source: Arid Mesa)"
       ],
+      "actionSeq": 52,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -59573,6 +59585,7 @@
         77
       ],
       "subsequentActions": [],
+      "actionSeq": 60,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59612,6 +59625,7 @@
         "MiMo Rookie puts Sacred Foundry from library onto the Battlefield (source: Arid Mesa)",
         "MiMo Rookie's library is shuffled (source: Arid Mesa)"
       ],
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59690,6 +59704,7 @@
         "Gem3P Romance casts Malevolent Rumble from hand",
         "Gem3P Romance reveals Commercial District, Urza's Saga, Springleaf Drum, Soul-Guide Lantern (source: Malevolent Rumble)"
       ],
+      "actionSeq": 66,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -59733,6 +59748,7 @@
         88
       ],
       "subsequentActions": [],
+      "actionSeq": 74,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -59799,6 +59815,7 @@
         "Gem3P Romance puts Soul-Guide Lantern from library into their graveyard (source: Malevolent Rumble)",
         "Gem3P Romance creates a Eldrazi Spawn Token token"
       ],
+      "actionSeq": 75,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -59851,6 +59868,7 @@
         "Gem3P Romance puts Urza's Saga from hand onto the Battlefield",
         "Gem3P Romance - Ability triggers: Urza's Saga - I - Urza's Saga gains \"{T}: Add {C}.\""
       ],
+      "actionSeq": 87,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -59901,6 +59919,7 @@
         "Gem3P Romance casts Blade of the Bloodchief from hand",
         "Gem3P Romance puts Blade of the Bloodchief from stack onto the Battlefield"
       ],
+      "actionSeq": 92,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -59950,6 +59969,7 @@
         104
       ],
       "subsequentActions": [],
+      "actionSeq": 98,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -60022,6 +60042,7 @@
         "MiMo Rookie casts Pyretic Ritual from hand",
         "MiMo Rookie puts Pyretic Ritual from stack into their graveyard"
       ],
+      "actionSeq": 100,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -60093,6 +60114,7 @@
       "subsequentActions": [
         "MiMo Rookie skip attack"
       ],
+      "actionSeq": 107,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -60152,6 +60174,7 @@
         "MiMo Rookie puts Arid Mesa from hand onto the Battlefield",
         "Gem3P Romance - Ability triggers: Urza's Saga - II - Urza's Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This creature gets +1/+1 for each artifact you control.'\""
       ],
+      "actionSeq": 114,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -60205,6 +60228,7 @@
         120
       ],
       "subsequentActions": [],
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -60262,6 +60286,7 @@
       "subsequentActions": [
         "Gem3P Romance skip attack"
       ],
+      "actionSeq": 122,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -60363,6 +60388,7 @@
         126
       ],
       "subsequentActions": [],
+      "actionSeq": 125,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -60419,6 +60445,7 @@
         "Gem3P Romance activates: create a 0/0 colorless Construct artifact creature token with \"This token gets +1/+1 for each artifact you control.\" from Urza's Saga",
         "Gem3P Romance creates a Construct Token token"
       ],
+      "actionSeq": 126,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -60470,6 +60497,7 @@
         133
       ],
       "subsequentActions": [],
+      "actionSeq": 132,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60541,6 +60569,7 @@
         "MiMo Rookie activates: search your library for a Mountain or Plains card, put it onto the battlefield, then shuffle. from Arid Mesa",
         "MiMo Rookie searches their library (source: Arid Mesa)"
       ],
+      "actionSeq": 133,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -60617,6 +60646,7 @@
         "MiMo Rookie's library is shuffled (source: Arid Mesa)",
         "MiMo Rookie skip attack"
       ],
+      "actionSeq": 141,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -60667,6 +60697,7 @@
       "subsequentActions": [
         "MiMo Rookie casts Manamorphose from hand"
       ],
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -60713,6 +60744,7 @@
       "subsequentActions": [
         "MiMo Rookie puts Manamorphose from stack into their graveyard"
       ],
+      "actionSeq": 153,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -60761,6 +60793,7 @@
         "MiMo Rookie activates: search your library for a Mountain or Forest card, put it onto the battlefield, then shuffle. from Wooded Foothills",
         "MiMo Rookie searches their library (source: Wooded Foothills)"
       ],
+      "actionSeq": 157,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -60829,6 +60862,7 @@
         "MiMo Rookie's library is shuffled (source: Wooded Foothills)",
         "Gem3P Romance - Ability triggers: Urza's Saga - III - Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
       ],
+      "actionSeq": 167,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -60889,6 +60923,7 @@
         169
       ],
       "subsequentActions": [],
+      "actionSeq": 173,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -60942,6 +60977,7 @@
         "Gem3P Romance creates a Construct Token token",
         "Gem3P Romance searches their library (source: Urza's Saga)"
       ],
+      "actionSeq": 174,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -61023,6 +61059,7 @@
         "Gem3P Romance's library is shuffled (source: Urza's Saga)",
         "Gem3P Romance sacrificed Urza's Saga"
       ],
+      "actionSeq": 184,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -61090,6 +61127,7 @@
         "Attacker: Construct Token (4/4) unblocked",
         "MiMo Rookie loses 4 life at combat from Construct Token"
       ],
+      "actionSeq": 190,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -61144,6 +61182,7 @@
         "Gem3P Romance puts Urza's Saga from hand onto the Battlefield",
         "Gem3P Romance - Ability triggers: Urza's Saga - I - Urza's Saga gains \"{T}: Add {C}.\""
       ],
+      "actionSeq": 201,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -61199,6 +61238,7 @@
         188
       ],
       "subsequentActions": [],
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -61283,6 +61323,7 @@
         "MiMo Rookie casts Ruby Medallion from hand",
         "MiMo Rookie puts Ruby Medallion from stack onto the Battlefield"
       ],
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -61336,6 +61377,7 @@
       "subsequentActions": [
         "MiMo Rookie skip attack"
       ],
+      "actionSeq": 216,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -61391,6 +61433,7 @@
       "subsequentActions": [
         "MiMo Rookie casts Strike It Rich from hand"
       ],
+      "actionSeq": 220,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -61443,6 +61486,7 @@
         "MiMo Rookie puts Strike It Rich from stack into their graveyard",
         "Gem3P Romance - Ability triggers: Urza's Saga - II - Urza's Saga gains \"{2}, {T}: Create a 0/0 colorless Construct artifact creature token with 'This creature gets +1/+1 for each artifact you control.'\""
       ],
+      "actionSeq": 224,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -61505,6 +61549,7 @@
         205
       ],
       "subsequentActions": [],
+      "actionSeq": 230,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -61598,6 +61643,7 @@
         "Attacker: Construct Token (4/4) unblocked",
         "Attacker: Haywire Mite (1/1) unblocked"
       ],
+      "actionSeq": 232,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -61667,6 +61713,7 @@
         211
       ],
       "subsequentActions": [],
+      "actionSeq": 241,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -61721,6 +61768,7 @@
         "MiMo Rookie loses 5 life at combat from Construct Token",
         "MiMo Rookie loses 1 life at combat from Haywire Mite"
       ],
+      "actionSeq": 242,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -61777,6 +61825,7 @@
         217
       ],
       "subsequentActions": [],
+      "actionSeq": 253,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -61855,6 +61904,7 @@
       "subsequentActions": [
         "MiMo Rookie skip attack"
       ],
+      "actionSeq": 256,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -61932,6 +61982,7 @@
         241
       ],
       "subsequentActions": [],
+      "actionSeq": 261,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -62021,6 +62072,7 @@
       "subsequentActions": [
         "MiMo Rookie casts Past in Flames from hand"
       ],
+      "actionSeq": 261,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -62066,6 +62118,7 @@
         "MiMo Rookie puts Past in Flames from stack into their graveyard",
         "Gem3P Romance - Ability triggers: Urza's Saga - III - Search your library for an artifact card with mana cost {0} or {1}, put it onto the battlefield, then shuffle."
       ],
+      "actionSeq": 266,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -62135,6 +62188,7 @@
         252
       ],
       "subsequentActions": [],
+      "actionSeq": 272,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -62188,6 +62242,7 @@
         "Gem3P Romance creates a Construct Token token",
         "Gem3P Romance searches their library (source: Urza's Saga)"
       ],
+      "actionSeq": 273,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -62251,6 +62306,7 @@
         "Gem3P Romance's library is shuffled (source: Urza's Saga)",
         "Gem3P Romance sacrificed Urza's Saga"
       ],
+      "actionSeq": 283,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -62350,6 +62406,7 @@
         "Attacker: Haywire Mite (1/1) unblocked",
         "Attacker: Construct Token (7/7) unblocked"
       ],
+      "actionSeq": 289,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -62397,7 +62454,8 @@
         "MiMo Rookie loses 1 life at combat from Haywire Mite",
         "MiMo Rookie loses 7 life at combat from Construct Token",
         "MiMo Rookie has lost the game."
-      ]
+      ],
+      "actionSeq": 301
     }
   ]
 }

@@ -120743,7 +120743,7 @@
       "actionTaken": "Cast Get Lost targeting Floodpits Drowner, giving the opponent 2 more Map tokens on top of their existing 2.",
       "betterLine": "Play a land first (Island or Restless Anchorage), then pass with mana open to hold up Get Lost or other interaction for a more impactful threat.",
       "type": "blunder",
-      "snapshotIndex": 79,
+      "snapshotIndex": 80,
       "player": "o3 ESPN"
     },
     {
@@ -120752,7 +120752,7 @@
       "actionTaken": "Activated Fountainport's draw ability ({2}, {T}, Sacrifice a token: Draw a card) during their own combat step.",
       "betterLine": "Wait until the opponent's end step to activate Fountainport's draw ability, preserving maximum flexibility and information. Play Soulstone Sanctuary first to ensure maximum mana availability for reactive spells.",
       "type": "blunder",
-      "snapshotIndex": 92,
+      "snapshotIndex": 93,
       "player": "GPT52 Hype"
     },
     {
@@ -120761,7 +120761,7 @@
       "actionTaken": "Activated Fountainport's draw ability during their own combat phase, spending 2 mana and sacrificing a Map token to draw a card.",
       "betterLine": "Wait until the opponent's end step to activate Fountainport's draw ability, preserving mana and flexibility during the opponent's turn for any reactive plays.",
       "type": "blunder",
-      "snapshotIndex": 110,
+      "snapshotIndex": 111,
       "player": "GPT52 Hype"
     },
     {
@@ -120770,7 +120770,7 @@
       "actionTaken": "Activated Fountainport's draw ability, spending 2 mana and sacrificing a Map token to draw a card.",
       "betterLine": "Could consider playing Soulstone Sanctuary first for the land drop, then deciding whether to use Fountainport's draw ability or hold up more mana for countermagic/removal. Alternatively, holding all mana open for interaction (Essence Scatter + Shoot the Sheriff backup) might be safer given no board presence.",
       "type": "blunder",
-      "snapshotIndex": 112,
+      "snapshotIndex": 113,
       "player": "GPT52 Hype"
     },
     {
@@ -120779,7 +120779,7 @@
       "actionTaken": "Used Fountainport's ability to sacrifice a Map token and draw a card for 2 mana during combat.",
       "betterLine": "Could have considered creating a Fish token instead (option 3) to establish board presence and later use Map tokens for exploration, though drawing for a threat is also reasonable.",
       "type": "blunder",
-      "snapshotIndex": 119,
+      "snapshotIndex": 120,
       "player": "GPT52 Hype"
     },
     {
@@ -120788,7 +120788,7 @@
       "actionTaken": "Played Floodfarm Verge as land drop",
       "betterLine": "Play Restless Anchorage to gain access to a creature land, enabling attacks next turn with 2 Monks + activated Restless Anchorage (2/3 flyer) for 4 damage, putting the opponent to 4 life and threatening lethal the following turn.",
       "type": "blunder",
-      "snapshotIndex": 190,
+      "snapshotIndex": 191,
       "player": "o3 ESPN"
     },
     {
@@ -120797,7 +120797,7 @@
       "actionTaken": "Cast Jeskai Revelation during postcombat main without first playing a land",
       "betterLine": "Play Restless Anchorage first (land drop), then either cast Jeskai Revelation with the remaining mana or pass the turn holding Jeskai Revelation as instant-speed interaction for the opponent's end step, maintaining flexibility",
       "type": "blunder",
-      "snapshotIndex": 255,
+      "snapshotIndex": 256,
       "player": "o3 ESPN"
     },
     {
@@ -120806,7 +120806,7 @@
       "actionTaken": "Cast Jeskai Revelation before making a land drop for the turn.",
       "betterLine": "Play Restless Anchorage (or another land) first, then cast Jeskai Revelation. The land drop costs nothing and could matter if the game continues.",
       "type": "blunder",
-      "snapshotIndex": 277,
+      "snapshotIndex": 278,
       "player": "o3 ESPN"
     },
     {
@@ -120815,7 +120815,7 @@
       "actionTaken": "Cancelled Three Steps Ahead instead of choosing the 'Draw two cards, then discard a card' mode.",
       "betterLine": "Select 'Draw two cards, then discard a card' to dig for a way to deal the final 3 damage (e.g., Jeskai Revelation is already in hand and can deal 4 damage, but more cards means more options and flexibility). At minimum, the draw mode is pure upside that should never be declined.",
       "type": "blunder",
-      "snapshotIndex": 317,
+      "snapshotIndex": 318,
       "player": "o3 ESPN"
     }
   ],
@@ -120882,7 +120882,8 @@
         "GPT52 Hype draws seven cards",
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -120929,7 +120930,8 @@
         "GPT52 Hype draws seven cards",
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -121021,7 +121023,8 @@
         "GPT52 Hype draws seven cards",
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -121065,7 +121068,8 @@
         "GPT52 Hype draws seven cards",
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -121110,6 +121114,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -121181,6 +121186,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -121241,6 +121247,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -121306,6 +121313,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -121365,6 +121373,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -121416,6 +121425,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -121476,6 +121486,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -121535,6 +121546,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -121595,6 +121607,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -121681,6 +121694,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -121742,6 +121756,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -121810,6 +121825,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -121885,6 +121901,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -121952,6 +121969,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -122028,6 +122046,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -122095,6 +122114,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -122172,6 +122192,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -122249,6 +122270,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -122316,6 +122338,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -122392,6 +122415,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -122468,6 +122492,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -122528,6 +122553,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -122578,6 +122604,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -122639,6 +122666,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -122734,6 +122762,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -122927,6 +122956,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -123008,6 +123038,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
@@ -123092,6 +123123,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -123298,6 +123330,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -123515,6 +123548,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7
       }
@@ -123565,6 +123599,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -123642,6 +123677,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -123848,6 +123884,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -123926,6 +123963,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -124132,6 +124170,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -124209,6 +124248,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8
       }
@@ -124287,6 +124327,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -124501,6 +124542,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -124562,6 +124604,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -124638,6 +124681,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -124699,6 +124743,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -124947,6 +124992,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -125006,6 +125052,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -125065,6 +125112,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -125125,6 +125173,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -125200,6 +125249,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 0
@@ -125262,6 +125312,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9
       }
@@ -125493,6 +125544,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -125568,6 +125620,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -125642,6 +125695,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }
@@ -125701,6 +125755,7 @@
         "o3 ESPN draws seven cards",
         "GPT52 Hype keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10
       }

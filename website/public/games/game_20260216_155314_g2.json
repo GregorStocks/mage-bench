@@ -31258,7 +31258,7 @@
       "actionTaken": "Played a basic Mountain as the Turn 1 land drop.",
       "betterLine": "Play Rockface Village, which taps for R to cast a creature spell (enabling Hired Claw or Burnout Bashtronaut this turn) and provides Lizard pump utility later. Save basic Mountains for turns when you need unconditional red mana for non-creature spells.",
       "type": "blunder",
-      "snapshotIndex": 7,
+      "snapshotIndex": 8,
       "player": "GPT5m Johnny"
     },
     {
@@ -31267,7 +31267,7 @@
       "actionTaken": "Cast Hired Claw on turn 1",
       "betterLine": "Cast Burnout Bashtronaut on turn 1 to start the speed engine as early as possible, then follow up with Hired Claws on subsequent turns to trigger Bashtronaut's speed increases through combat damage.",
       "type": "blunder",
-      "snapshotIndex": 9,
+      "snapshotIndex": 10,
       "player": "GPT5m Johnny"
     },
     {
@@ -31276,7 +31276,7 @@
       "actionTaken": "Attacked with both Hired Claws without playing a land first, dealing 4 total damage.",
       "betterLine": "Play Rockface Village, tap Sunbillow Verge for {R}, activate Rockface Village targeting a Hired Claw for +1/+0, then attack with both for 5 total damage.",
       "type": "blunder",
-      "snapshotIndex": 20,
+      "snapshotIndex": 21,
       "player": "GPT5m Johnny"
     },
     {
@@ -31285,7 +31285,7 @@
       "actionTaken": "Cast Floodpits Drowner for 1U in precombat main, using up all colored mana",
       "betterLine": "Cast Seam Rip for W to permanently exile one Hired Claw, keeping 1U open to flash in Floodpits Drowner during opponent's combat step to tap and stun another attacker",
       "type": "blunder",
-      "snapshotIndex": 54,
+      "snapshotIndex": 55,
       "player": "Gem25F Philo"
     },
     {
@@ -31294,7 +31294,7 @@
       "actionTaken": "Activated Burnout Bashtronaut's pump ability before playing land",
       "betterLine": "Play Rockface Village first, then decide on pump activations with maximum mana available before moving to combat",
       "type": "blunder",
-      "snapshotIndex": 61,
+      "snapshotIndex": 62,
       "player": "GPT5m Johnny"
     },
     {
@@ -31303,7 +31303,7 @@
       "actionTaken": "Activated Rockface Village for {R} restricted to creature spells",
       "betterLine": "Activate Rockface Village for {C} (unrestricted colorless mana) to potentially pump Burnout Bashtronaut with its {2}: +1/+0 ability",
       "type": "blunder",
-      "snapshotIndex": 61,
+      "snapshotIndex": 62,
       "player": "GPT5m Johnny"
     }
   ],
@@ -31359,7 +31359,8 @@
         "Gem25F Philo draws seven cards",
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -31393,7 +31394,8 @@
         "Gem25F Philo draws seven cards",
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -31438,7 +31440,8 @@
         "Gem25F Philo draws seven cards",
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -31475,7 +31478,8 @@
         "Gem25F Philo draws seven cards",
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -31520,6 +31524,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -31568,6 +31573,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -31645,6 +31651,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -31724,6 +31731,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -31777,6 +31785,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -31829,6 +31838,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -31879,6 +31889,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -31929,6 +31940,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -31959,7 +31971,8 @@
         "Gem25F Philo draws seven cards",
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 13,
@@ -32005,6 +32018,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -32050,6 +32064,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -32100,7 +32115,8 @@
         "Gem25F Philo draws seven cards",
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 16,
@@ -32150,6 +32166,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -32201,6 +32218,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -32272,6 +32290,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -32321,6 +32340,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -32361,6 +32381,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -32391,7 +32412,8 @@
         "Gem25F Philo draws seven cards",
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 22,
@@ -32449,6 +32471,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -32489,6 +32512,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -32529,6 +32553,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -32579,6 +32604,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -32616,6 +32642,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -32702,6 +32729,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -32780,6 +32808,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -32842,6 +32871,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -32895,6 +32925,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -32945,6 +32976,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -33023,6 +33055,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -33073,6 +33106,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -33155,6 +33189,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -33206,6 +33241,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -33257,6 +33293,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -33332,6 +33369,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -33395,6 +33433,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -33455,6 +33494,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -33542,6 +33582,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -33591,6 +33632,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       },
@@ -33651,6 +33693,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -33702,6 +33745,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -33767,6 +33811,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -33838,6 +33883,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -33898,6 +33944,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -33960,6 +34007,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -34024,6 +34072,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -34093,6 +34142,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -34144,6 +34194,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34194,6 +34245,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -34288,6 +34340,7 @@
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -34337,7 +34390,8 @@
         "Gem25F Philo draws seven cards",
         "GPT5m Johnny draws seven cards",
         "Gem25F Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     }
   ]
 }

@@ -70224,7 +70224,7 @@
       "actionTaken": "Cast Shardless Agent in precombat main phase",
       "betterLine": "Attack with Subtlety first (3 flying damage with no possible blocks since opponent's creatures have summoning sickness), then cast Shardless Agent in post-combat main phase to avoid giving information before combat.",
       "type": "blunder",
-      "snapshotIndex": 73,
+      "snapshotIndex": 74,
       "player": "KimiK2 Philo"
     },
     {
@@ -70233,7 +70233,7 @@
       "actionTaken": "Chose to discard Force of Negation, which only counters noncreature spells",
       "betterLine": "Take Flare of Denial, which counters any spell and can be cast for free by sacrificing Subtlety (a nontoken blue creature already on the battlefield). This is more threatening against MiniMx's hand full of creatures. Alternatively, taking Abhorrent Oculus (opponent has exactly 6 cards in graveyard to cast it) removes a huge threat.",
       "type": "blunder",
-      "snapshotIndex": 95,
+      "snapshotIndex": 96,
       "player": "MiniMx Folksy"
     },
     {
@@ -70242,7 +70242,7 @@
       "actionTaken": "Chose not to attack with any creatures",
       "betterLine": "Attack with both Orcish Bowmasters and Orc Army Token for 5 unblocked damage (opponent's only creature Subtlety is tapped). This represents significant free damage with no risk.",
       "type": "blunder",
-      "snapshotIndex": 103,
+      "snapshotIndex": 104,
       "player": "MiniMx Folksy"
     },
     {
@@ -70251,7 +70251,7 @@
       "actionTaken": "Chose Abhorrent Oculus as the target for opponent's Dismember, destroying their best creature.",
       "betterLine": "Should have chosen Subtlety as the Dismember target since it's a less valuable creature (3/3 flyer with already-used ETB) compared to the Abhorrent Oculus (5/5 flyer with recurring manifest dread value engine). Alternatively, could have countered Dismember with Flare of Denial by sacrificing a blue creature.",
       "type": "blunder",
-      "snapshotIndex": 114,
+      "snapshotIndex": 115,
       "player": "KimiK2 Philo"
     },
     {
@@ -70260,7 +70260,7 @@
       "actionTaken": "Played Shadowy Backstreet (enters tapped) as the land for turn.",
       "betterLine": "Play Marsh Flats instead, which enters untapped and can be cracked to fetch an untapped land, providing more mana flexibility this turn and next turn for casting Flickerwisp or other plays.",
       "type": "blunder",
-      "snapshotIndex": 124,
+      "snapshotIndex": 125,
       "player": "MiniMx Folksy"
     },
     {
@@ -70269,7 +70269,7 @@
       "actionTaken": "Played Plains from hand as their land for the turn.",
       "betterLine": "Play Marsh Flats instead, which can be cracked to fetch a Plains while thinning the deck and adding a card to the graveyard for synergy with Overlord of the Balemurk's mill/recursion ability.",
       "type": "blunder",
-      "snapshotIndex": 152,
+      "snapshotIndex": 153,
       "player": "MiniMx Folksy"
     },
     {
@@ -70278,7 +70278,7 @@
       "actionTaken": "Chose not to attack with any creatures",
       "betterLine": "Attack with both Orcish Bowmasters and Phelia. Use Phelia's trigger to exile a Birthing Ritual (or Subtlety to remove a blocker permanently). Deal 3 unblocked damage, putting opponent to 5 life with strong board pressure.",
       "type": "blunder",
-      "snapshotIndex": 155,
+      "snapshotIndex": 156,
       "player": "MiniMx Folksy"
     },
     {
@@ -70287,7 +70287,7 @@
       "actionTaken": "Cast Flickerwisp without first playing Marsh Flats from hand.",
       "betterLine": "Play Marsh Flats first (don't need to crack it yet), then cast Flickerwisp. This preserves the option to crack Marsh Flats later if needed for additional mana or deck thinning.",
       "type": "blunder",
-      "snapshotIndex": 175,
+      "snapshotIndex": 176,
       "player": "MiniMx Folksy"
     },
     {
@@ -70296,7 +70296,7 @@
       "actionTaken": "Targeted opponent's Birthing Ritual with Phelia's exile trigger",
       "betterLine": "Target own Flickerwisp - Phelia gets a +1/+1 counter, and when Flickerwisp returns at end step, its ETB can exile a Birthing Ritual or other key permanent. Alternatively, target own Orcish Bowmasters for a counter on Phelia plus another ping and amass trigger.",
       "type": "blunder",
-      "snapshotIndex": 184,
+      "snapshotIndex": 185,
       "player": "MiniMx Folksy"
     },
     {
@@ -70305,7 +70305,7 @@
       "actionTaken": "Returned Emperor of Bones from graveyard to hand",
       "betterLine": "Return Solitude to hand as the best answer to Subtlety, which threatens lethal in the air. Solitude could be cast next turn to exile Subtlety and gain 3 life, stabilizing a precarious position at 4 life.",
       "type": "blunder",
-      "snapshotIndex": 211,
+      "snapshotIndex": 212,
       "player": "MiniMx Folksy"
     }
   ],
@@ -70361,7 +70361,8 @@
         "MiniMx Folksy draws seven cards",
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -70398,7 +70399,8 @@
         "MiniMx Folksy draws seven cards",
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -70432,7 +70434,8 @@
         "MiniMx Folksy draws seven cards",
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -70475,6 +70478,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -70515,6 +70519,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -70561,6 +70566,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -70610,6 +70616,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -70676,6 +70683,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -70722,6 +70730,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -70761,7 +70770,8 @@
         "MiniMx Folksy draws seven cards",
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 10,
@@ -70813,6 +70823,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -70879,6 +70890,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -70916,6 +70928,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -70962,6 +70975,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -71003,6 +71017,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -71087,6 +71102,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -71137,6 +71153,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -71187,6 +71204,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -71228,6 +71246,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -71291,6 +71310,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -71330,6 +71350,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -71368,6 +71389,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -71451,6 +71473,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -71500,6 +71523,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71532,6 +71556,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71572,6 +71597,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71647,6 +71673,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71686,7 +71713,8 @@
         "MiniMx Folksy draws seven cards",
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 28,
@@ -71737,6 +71765,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -71778,6 +71807,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -71826,6 +71856,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -71873,6 +71904,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -71914,6 +71946,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71954,6 +71987,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -71995,6 +72029,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -72040,6 +72075,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -72080,6 +72116,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -72120,6 +72157,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -72177,6 +72215,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -72240,6 +72279,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -72304,6 +72344,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -72345,6 +72386,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -72404,6 +72446,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -72455,6 +72498,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -72531,6 +72575,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -72680,6 +72725,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -72750,6 +72796,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -72791,6 +72838,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -72887,6 +72935,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -72927,6 +72976,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -72967,6 +73017,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -73014,6 +73065,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -73082,6 +73134,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -73177,6 +73230,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -73227,6 +73281,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -73291,7 +73346,8 @@
         "MiniMx Folksy draws seven cards",
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 56,
@@ -73335,7 +73391,8 @@
         "MiniMx Folksy draws seven cards",
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 57,
@@ -73372,7 +73429,8 @@
         "MiniMx Folksy draws seven cards",
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 58,
@@ -73409,7 +73467,8 @@
         "MiniMx Folksy draws seven cards",
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 59,
@@ -73438,6 +73497,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -73477,6 +73537,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -73534,6 +73595,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -73583,6 +73645,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -73649,6 +73712,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -73742,6 +73806,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -73791,6 +73856,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -73839,6 +73905,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -73885,6 +73952,7 @@
         "KimiK2 Philo keeps hand",
         "MiniMx Folksy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }

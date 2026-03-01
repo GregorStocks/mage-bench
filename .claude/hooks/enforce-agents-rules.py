@@ -81,6 +81,13 @@ def check(command: str) -> None:
             "  make update-blunder-golden    # regenerate blunder prompt golden files"
         )
 
+    # --- CI re-runs — never re-run CI, fix the root cause ---
+    if re.search(r"\bgh\s+run\s+(?:rerun|retry)\b", stripped):
+        block(
+            "Blocked: never re-run CI to work around failures. Find and fix the root cause.\n"
+            "If you believe it's a GitHub infrastructure issue, ask Gregor to re-run it."
+        )
+
     # --- Maven build cache — use make clean ---
     if re.search(r"\.m2/build-cache\b", stripped) or re.search(
         r"maven\.build\.cache", stripped

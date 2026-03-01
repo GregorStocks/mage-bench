@@ -37747,7 +37747,7 @@
       "actionTaken": "Chose Ancient Tomb as the land to play on turn 1.",
       "betterLine": "Play Scalding Tarn, crack it for an Island, then cast Ponder to dig for Show and Tell or other combo enablers to deploy Omniscience quickly.",
       "type": "blunder",
-      "snapshotIndex": 2,
+      "snapshotIndex": 3,
       "player": "GPT52 Proud"
     },
     {
@@ -37756,7 +37756,7 @@
       "actionTaken": "Chose Cavern of Souls as the land drop for turn 2",
       "betterLine": "Play Mountain to cast Skirk Prospector, saving both Cavern of Souls for future turns when the opponent has countermagic available and you're casting more impactful Goblins like Goblin Matron or Broadside Bombardiers",
       "type": "blunder",
-      "snapshotIndex": 6,
+      "snapshotIndex": 7,
       "player": "GPT5n Snark"
     },
     {
@@ -37765,7 +37765,7 @@
       "actionTaken": "Cast Aether Vial before playing a land drop, using the only available mana from Mountain.",
       "betterLine": "Play Cavern of Souls (naming Goblin) first, then cast Aether Vial with the Mountain. This preserves the option to use Cavern of Souls mana for a Goblin creature spell this turn or leaves open more flexible sequencing.",
       "type": "blunder",
-      "snapshotIndex": 16,
+      "snapshotIndex": 17,
       "player": "GPT5n Snark"
     },
     {
@@ -37774,7 +37774,7 @@
       "actionTaken": "Activated Aether Vial (with 1 counter) before playing a land.",
       "betterLine": "Play Cavern of Souls (naming Goblin) first, then use Mountain + Cavern to cast Munitions Expert (which with Flash could also be held). Vial activation with only 1-MV creatures available (none particularly needed on board right now) is less valuable than establishing the mana base and potentially deploying a 2-drop.",
       "type": "blunder",
-      "snapshotIndex": 18,
+      "snapshotIndex": 19,
       "player": "GPT5n Snark"
     },
     {
@@ -37783,7 +37783,7 @@
       "actionTaken": "Cast Munitions Expert during combat with no valid target for its ETB damage ability, wasting it as a 1/1 body with no removal value.",
       "betterLine": "Hold Munitions Expert for when the opponent deploys a creature or planeswalker worth removing. Pass priority and just deal 1 damage with Skirk Prospector. The Expert is far more valuable as a flash removal spell later.",
       "type": "blunder",
-      "snapshotIndex": 23,
+      "snapshotIndex": 24,
       "player": "GPT5n Snark"
     },
     {
@@ -37792,7 +37792,7 @@
       "actionTaken": "Flash in Munitions Expert during combat with no valid targets on opponent's board",
       "betterLine": "Let Skirk Prospector deal combat damage and save Munitions Expert for when the opponent has a creature or planeswalker worth killing",
       "type": "blunder",
-      "snapshotIndex": 27,
+      "snapshotIndex": 28,
       "player": "GPT5n Snark"
     },
     {
@@ -37801,7 +37801,7 @@
       "actionTaken": "Passed priority, unable to cast any spells due to mana constraints partly caused by Cavern of Souls naming Shapeshifter instead of Goblin.",
       "betterLine": "The Cavern of Souls should have been named Goblin when it entered the battlefield, which would have allowed casting Goblin Matron (with Cavern + Mountain + Skirk Prospector sacrifice for the third mana) or enabled future Goblin casting. This was a prior decision error that is now causing downstream problems.",
       "type": "blunder",
-      "snapshotIndex": 33,
+      "snapshotIndex": 34,
       "player": "GPT5n Snark"
     },
     {
@@ -37810,7 +37810,7 @@
       "actionTaken": "Cast Munitions Expert during combat with no enemy creatures or planeswalkers to target",
       "betterLine": "Hold Munitions Expert in hand to use as flash removal when the opponent deploys a threat. Could instead activate Aether Vial to start ticking up counters, or simply pass.",
       "type": "blunder",
-      "snapshotIndex": 34,
+      "snapshotIndex": 35,
       "player": "GPT5n Snark"
     },
     {
@@ -37819,7 +37819,7 @@
       "actionTaken": "Passed priority instead of activating Cavern of Souls for mana while Munitions Expert was on the stack.",
       "betterLine": "Should have tapped Cavern of Souls for {C} (option 1) to have mana available. The earlier mistake of naming 'Shapeshifter' instead of 'Goblin' for Cavern of Souls also compounded this issue.",
       "type": "blunder",
-      "snapshotIndex": 36,
+      "snapshotIndex": 37,
       "player": "GPT5n Snark"
     },
     {
@@ -37828,7 +37828,7 @@
       "actionTaken": "Named 'Shapeshifter' as the creature type for Cavern of Souls instead of 'Goblin'",
       "betterLine": "Should have named 'Goblin' when Cavern of Souls entered the battlefield, enabling uncounterable casting of all Goblin creatures in the deck",
       "type": "blunder",
-      "snapshotIndex": 36,
+      "snapshotIndex": 37,
       "player": "GPT5n Snark"
     },
     {
@@ -37837,7 +37837,7 @@
       "actionTaken": "Chose Cavern of Souls's colored mana ability (restricted to Shapeshifter creatures) while trying to cast Munitions Expert, a Goblin.",
       "betterLine": "Should have chosen option 1 ({T}: Add {C}) since neither option can pay for {B} in Munitions Expert's cost, but colorless mana is less restricted. The root issue is the Cavern was named Shapeshifter instead of Goblin earlier.",
       "type": "blunder",
-      "snapshotIndex": 36,
+      "snapshotIndex": 37,
       "player": "GPT5n Snark"
     },
     {
@@ -37846,7 +37846,7 @@
       "actionTaken": "Passed priority without playing their Cavern of Souls land or casting any spells, wasting a full turn of development.",
       "betterLine": "Play Cavern of Souls naming Goblin, then cast Goblin Matron using Mountain ({R}) + new Cavern of Souls ({any color for Goblin}) + existing Cavern of Souls ({C}) to search for a key Goblin like Skirk Prospector or another threat. This develops the board and advances the Goblin synergy plan.",
       "type": "blunder",
-      "snapshotIndex": 42,
+      "snapshotIndex": 43,
       "player": "GPT5n Snark"
     },
     {
@@ -37855,7 +37855,7 @@
       "actionTaken": "Passed priority during combat",
       "betterLine": "N/A - passing was actually correct given no 1-MV creatures in hand for Vial and no black mana for Munitions Expert",
       "type": "blunder",
-      "snapshotIndex": 45,
+      "snapshotIndex": 46,
       "player": "GPT5n Snark"
     },
     {
@@ -37864,7 +37864,7 @@
       "actionTaken": "Cast Broadside Bombardiers postcombat, wasting haste and missing a tutor opportunity.",
       "betterLine": "Play Cavern of Souls (naming Goblin), then cast Goblin Matron to tutor for a key Goblin (like another Skirk Prospector or combo piece). Save Broadside Bombardiers for a precombat main phase where haste is relevant.",
       "type": "blunder",
-      "snapshotIndex": 47,
+      "snapshotIndex": 48,
       "player": "GPT5n Snark"
     },
     {
@@ -37873,7 +37873,7 @@
       "actionTaken": "Passed priority without playing Cavern of Souls land or taking any action.",
       "betterLine": "Play Cavern of Souls (naming Goblin) as land drop, then cast Munitions Expert or Goblin Matron to develop the board. Goblin Matron would tutor for a key Goblin. Even without good ETB targets for Munitions Expert, developing the board is important.",
       "type": "blunder",
-      "snapshotIndex": 49,
+      "snapshotIndex": 50,
       "player": "GPT5n Snark"
     },
     {
@@ -37882,7 +37882,7 @@
       "actionTaken": "Activated Aether Vial with 1 charge counter when no 1-CMC creatures were in hand",
       "betterLine": "Leave Aether Vial untapped and pass through combat, or flash in a Munitions Expert if there were a valid target. The Vial should be saved until it accumulates enough counters to match a creature in hand (2 counters for Munitions Expert).",
       "type": "blunder",
-      "snapshotIndex": 50,
+      "snapshotIndex": 51,
       "player": "GPT5n Snark"
     },
     {
@@ -37891,7 +37891,7 @@
       "actionTaken": "Passed priority without taking any action",
       "betterLine": "The pass is actually reasonable given no 1-CMC creatures in hand for Vial and insufficient mana for Munitions Expert. No blunder here.",
       "type": "blunder",
-      "snapshotIndex": 51,
+      "snapshotIndex": 52,
       "player": "GPT5n Snark"
     },
     {
@@ -37900,7 +37900,7 @@
       "actionTaken": "Discarded Atraxa, Grand Unifier to hand size",
       "betterLine": "Discard a duplicate Ponder or duplicate Show and Tell instead — Atraxa is a critical payoff after resolving Omniscience via Show and Tell, providing massive card advantage and a 7/7 lifelink/deathtouch/vigilance/flying body",
       "type": "blunder",
-      "snapshotIndex": 53,
+      "snapshotIndex": 54,
       "player": "GPT52 Proud"
     },
     {
@@ -37909,7 +37909,7 @@
       "actionTaken": "Activated Aether Vial to put Munitions Expert onto the battlefield with no valid ETB target.",
       "betterLine": "Play Cavern of Souls from hand, then cast Goblin Matron (using Mountain + Cavern) to tutor for a Goblin, keeping Aether Vial untapped to flash in Munitions Expert later when the opponent presents a target.",
       "type": "blunder",
-      "snapshotIndex": 55,
+      "snapshotIndex": 56,
       "player": "GPT5n Snark"
     },
     {
@@ -37918,7 +37918,7 @@
       "actionTaken": "Passed priority without activating Aether Vial, letting Skirk Prospector deal 1 damage alone.",
       "betterLine": "Activate Aether Vial to put Munitions Expert onto the battlefield for free, growing the Goblin count and adding a body at no cost.",
       "type": "blunder",
-      "snapshotIndex": 62,
+      "snapshotIndex": 63,
       "player": "GPT5n Snark"
     },
     {
@@ -37927,7 +37927,7 @@
       "actionTaken": "Passed priority without activating Aether Vial, leaving Munitions Expert in hand.",
       "betterLine": "Activate Aether Vial (2 charge counters) to put Munitions Expert onto the battlefield for free, triggering its ETB to deal 2 damage (2 Goblins in play) to the opponent's face or a relevant target.",
       "type": "blunder",
-      "snapshotIndex": 62,
+      "snapshotIndex": 63,
       "player": "GPT5n Snark"
     },
     {
@@ -37936,7 +37936,7 @@
       "actionTaken": "Passed priority without activating Aether Vial, incorrectly believing it couldn't put in a 2-drop.",
       "betterLine": "Activate Aether Vial to put Munitions Expert onto the battlefield, dealing 2 damage to the opponent (or saving it for opponent's turn as an instant-speed trick). At minimum, the player should recognize that Vial at 2 counters can deploy their 2-MV creatures.",
       "type": "blunder",
-      "snapshotIndex": 64,
+      "snapshotIndex": 65,
       "player": "GPT5n Snark"
     },
     {
@@ -37945,7 +37945,7 @@
       "actionTaken": "Passed priority without activating Aether Vial or casting anything.",
       "betterLine": "Activate Aether Vial to put Munitions Expert onto the battlefield. Its ETB trigger would deal damage equal to the number of Goblins controlled (2, counting Skirk Prospector and itself) to the opponent or a relevant target. This builds board presence and deals free damage.",
       "type": "blunder",
-      "snapshotIndex": 66,
+      "snapshotIndex": 67,
       "player": "GPT5n Snark"
     },
     {
@@ -37954,7 +37954,7 @@
       "actionTaken": "Passed priority without activating Aether Vial, believing it couldn't deploy anything useful.",
       "betterLine": "Activate Aether Vial to put Munitions Expert (2 CMC) onto the battlefield for free, building board presence and increasing Goblin count for future Munitions Expert triggers. Even without a creature/planeswalker target, the free 1/1 body has value.",
       "type": "blunder",
-      "snapshotIndex": 66,
+      "snapshotIndex": 67,
       "player": "GPT5n Snark"
     },
     {
@@ -37963,7 +37963,7 @@
       "actionTaken": "Discarded Atraxa, Grand Unifier to hand size",
       "betterLine": "Discard Ponder instead — it's the lowest-impact card in hand given the combo plan of Show and Tell + Omniscience, and keeping both Ataxas provides more flexibility for the Omniscience turn or as backup Show and Tell targets",
       "type": "blunder",
-      "snapshotIndex": 67,
+      "snapshotIndex": 68,
       "player": "GPT52 Proud"
     },
     {
@@ -37972,7 +37972,7 @@
       "actionTaken": "Activated Aether Vial's upkeep trigger to add a charge counter (2 → 3)",
       "betterLine": "Decline the Aether Vial trigger to keep it at 2 counters, preserving the ability to vial in Munitions Expert at instant speed for removal, since they have 3 copies in hand and no black mana source to hardcast them",
       "type": "blunder",
-      "snapshotIndex": 68,
+      "snapshotIndex": 69,
       "player": "GPT5n Snark"
     },
     {
@@ -37981,7 +37981,7 @@
       "actionTaken": "Attacked with only Skirk Prospector (1/1) for 1 damage.",
       "betterLine": "Activate Aether Vial to put Broadside Bombardiers (CMC 3, haste, menace) onto the battlefield before combat, then attack with both Skirk Prospector and Broadside Bombardiers for 3 total damage against an empty board.",
       "type": "blunder",
-      "snapshotIndex": 71,
+      "snapshotIndex": 72,
       "player": "GPT5n Snark"
     },
     {
@@ -37990,7 +37990,7 @@
       "actionTaken": "Passed priority without activating Aether Vial, letting combat damage resolve with just Skirk Prospector dealing 1 damage.",
       "betterLine": "Activate Aether Vial to put Goblin Matron onto the battlefield, triggering its ETB to search for a Goblin card (such as a key combo piece or additional threat), then proceed to combat damage.",
       "type": "blunder",
-      "snapshotIndex": 73,
+      "snapshotIndex": 74,
       "player": "GPT5n Snark"
     },
     {
@@ -37999,7 +37999,7 @@
       "actionTaken": "Cast Munitions Expert with no valid target for its ETB damage ability, spending mana on a 1/1 body with a wasted trigger.",
       "betterLine": "Activate Aether Vial to put Goblin Matron onto the battlefield for free, tutoring for a Goblin. Save Munitions Expert for when the opponent plays a creature or planeswalker worth removing.",
       "type": "blunder",
-      "snapshotIndex": 74,
+      "snapshotIndex": 75,
       "player": "GPT5n Snark"
     },
     {
@@ -38008,7 +38008,7 @@
       "actionTaken": "Chose {T}: Add {C} from Cavern of Souls",
       "betterLine": "This was actually the correct choice given the Cavern is set to Shapeshifter, not Goblin",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "GPT5n Snark"
     },
     {
@@ -38017,7 +38017,7 @@
       "actionTaken": "Chose ability 2 (add one mana of any color for Shapeshifter spells) from Cavern of Souls to try to pay for Munitions Expert.",
       "betterLine": "Should have chosen ability 1 ({T}: Add {C}) since the colorless mana can at least be used for generic costs, though neither ability directly helps with the {B}{R} colored requirements of Munitions Expert. The real issue is that Cavern was named Shapeshifter instead of Goblin when it entered.",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "GPT5n Snark"
     },
     {
@@ -38026,7 +38026,7 @@
       "actionTaken": "Activated Cavern of Souls (set to Shapeshifter) attempting to produce mana to cast Munitions Expert (a Goblin).",
       "betterLine": "Should not have attempted to cast Munitions Expert without a black mana source available. Should have held Munitions Expert for a turn when proper mana was available, or used Aether Vial (at 3 counters) to put a 3-drop like Goblin Matron into play instead.",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "GPT5n Snark"
     },
     {
@@ -38035,7 +38035,7 @@
       "actionTaken": "Chose Cavern of Souls ability 2 (colored mana for Shapeshifter creatures) thinking it could help cast Munitions Expert.",
       "betterLine": "Should have chosen ability 1 ({C}) since neither ability can produce the {B} needed for Munitions Expert, but at least {C} is unrestricted colorless mana that could be used for other purposes.",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "GPT5n Snark"
     },
     {
@@ -38044,7 +38044,7 @@
       "actionTaken": "Activated Cavern of Souls option 2 to add {B} restricted to Shapeshifter creature spells",
       "betterLine": "Activate Cavern of Souls option 1 to add {C}, which can pay generic mana costs for any spell",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "GPT5n Snark"
     },
     {
@@ -38053,7 +38053,7 @@
       "actionTaken": "Tapped existing Cavern of Souls for {C} and then discarded the second Cavern of Souls from hand.",
       "betterLine": "Should have played the Cavern of Souls from hand (naming Goblin) as a land drop before combat, preserving it as a permanent mana source rather than discarding it.",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "GPT5n Snark"
     },
     {
@@ -38125,7 +38125,8 @@
       ],
       "subsequentActions": [
         "GPT52 Proud chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 4
     },
     {
       "index": 1,
@@ -38166,7 +38167,8 @@
       ],
       "subsequentActions": [
         "GPT52 Proud skips Draw step"
-      ]
+      ],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -38226,6 +38228,7 @@
         "GPT52 Proud puts Scalding Tarn from hand onto the Battlefield",
         "GPT52 Proud skip attack"
       ],
+      "actionSeq": 10,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -38300,6 +38303,7 @@
         "GPT5n Snark puts Skirk Prospector from stack onto the Battlefield",
         "GPT5n Snark skip attack"
       ],
+      "actionSeq": 17,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -38369,6 +38373,7 @@
       "subsequentActions": [
         "GPT52 Proud skip attack"
       ],
+      "actionSeq": 28,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -38442,6 +38447,7 @@
         "GPT5n Snark casts Aether Vial from hand",
         "GPT5n Snark puts Aether Vial from stack onto the Battlefield"
       ],
+      "actionSeq": 34,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -38516,6 +38522,7 @@
         32
       ],
       "subsequentActions": [],
+      "actionSeq": 39,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -38588,6 +38595,7 @@
         36
       ],
       "subsequentActions": [],
+      "actionSeq": 41,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -38631,6 +38639,7 @@
         41
       ],
       "subsequentActions": [],
+      "actionSeq": 43,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -38710,6 +38719,7 @@
         "Cavern of Souls: GPT5n Snark has chosen Shapeshifter",
         "GPT5n Snark puts Cavern of Souls from hand onto the Battlefield"
       ],
+      "actionSeq": 44,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -38782,6 +38792,7 @@
         "GPT5n Snark attacks GPT52 Proud with 1 creature",
         "Attacker: Skirk Prospector (1/1) unblocked"
       ],
+      "actionSeq": 48,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -38857,6 +38868,7 @@
         54
       ],
       "subsequentActions": [],
+      "actionSeq": 53,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -38928,6 +38940,7 @@
       "subsequentActions": [
         "GPT52 Proud loses 1 life at combat from Skirk Prospector"
       ],
+      "actionSeq": 57,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -38996,6 +39009,7 @@
         65
       ],
       "subsequentActions": [],
+      "actionSeq": 61,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -39055,6 +39069,7 @@
         69
       ],
       "subsequentActions": [],
+      "actionSeq": 65,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -39094,6 +39109,7 @@
         74
       ],
       "subsequentActions": [],
+      "actionSeq": 68,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -39163,6 +39179,7 @@
       "subsequentActions": [
         "GPT52 Proud puts Ancient Tomb from hand onto the Battlefield"
       ],
+      "actionSeq": 69,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -39223,6 +39240,7 @@
       "subsequentActions": [
         "GPT52 Proud skip attack"
       ],
+      "actionSeq": 72,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -39301,6 +39319,7 @@
         85
       ],
       "subsequentActions": [],
+      "actionSeq": 74,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -39342,6 +39361,7 @@
         90
       ],
       "subsequentActions": [],
+      "actionSeq": 78,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -39409,6 +39429,7 @@
         93
       ],
       "subsequentActions": [],
+      "actionSeq": 80,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -39447,6 +39468,7 @@
         98
       ],
       "subsequentActions": [],
+      "actionSeq": 82,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -39485,6 +39507,7 @@
         101
       ],
       "subsequentActions": [],
+      "actionSeq": 84,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -39542,6 +39565,7 @@
         104
       ],
       "subsequentActions": [],
+      "actionSeq": 86,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -39592,6 +39616,7 @@
       "subsequentActions": [
         "GPT5n Snark - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
       ],
+      "actionSeq": 89,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -39699,6 +39724,7 @@
         112
       ],
       "subsequentActions": [],
+      "actionSeq": 91,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -39750,6 +39776,7 @@
       "subsequentActions": [
         "GPT5n Snark puts 1 charge counter on Aether Vial"
       ],
+      "actionSeq": 92,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -39841,6 +39868,7 @@
         121
       ],
       "subsequentActions": [],
+      "actionSeq": 95,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -39918,6 +39946,7 @@
         "GPT5n Snark attacks GPT52 Proud with 1 creature",
         "Attacker: Skirk Prospector (1/1) unblocked"
       ],
+      "actionSeq": 96,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -39984,6 +40013,7 @@
       "subsequentActions": [
         "GPT52 Proud loses 1 life at combat from Skirk Prospector"
       ],
+      "actionSeq": 101,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -40052,6 +40082,7 @@
         131
       ],
       "subsequentActions": [],
+      "actionSeq": 103,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -40150,6 +40181,7 @@
         140
       ],
       "subsequentActions": [],
+      "actionSeq": 104,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -40215,6 +40247,7 @@
         143
       ],
       "subsequentActions": [],
+      "actionSeq": 105,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -40281,6 +40314,7 @@
       "subsequentActions": [
         "GPT52 Proud skip attack"
       ],
+      "actionSeq": 107,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -40368,6 +40402,7 @@
         150
       ],
       "subsequentActions": [],
+      "actionSeq": 109,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -40436,6 +40471,7 @@
         154
       ],
       "subsequentActions": [],
+      "actionSeq": 111,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -40506,6 +40542,7 @@
       "subsequentActions": [
         "GPT52 Proud discards down to 7 hand cards"
       ],
+      "actionSeq": 112,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -40606,6 +40643,7 @@
         "GPT52 Proud discards Show and Tell",
         "GPT5n Snark - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
       ],
+      "actionSeq": 115,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -40669,6 +40707,7 @@
         164
       ],
       "subsequentActions": [],
+      "actionSeq": 118,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -40721,6 +40760,7 @@
       "subsequentActions": [
         "GPT5n Snark puts 1 charge counter on Aether Vial"
       ],
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -40842,6 +40882,7 @@
         171
       ],
       "subsequentActions": [],
+      "actionSeq": 122,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -40907,6 +40948,7 @@
         175
       ],
       "subsequentActions": [],
+      "actionSeq": 127,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -40981,6 +41023,7 @@
         "GPT5n Snark attacks GPT52 Proud with 1 creature",
         "Attacker: Skirk Prospector (1/1) unblocked"
       ],
+      "actionSeq": 130,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -41049,6 +41092,7 @@
       "subsequentActions": [
         "GPT52 Proud loses 1 life at combat from Skirk Prospector"
       ],
+      "actionSeq": 135,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41117,6 +41161,7 @@
         188
       ],
       "subsequentActions": [],
+      "actionSeq": 137,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41178,6 +41223,7 @@
         191
       ],
       "subsequentActions": [],
+      "actionSeq": 138,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -41249,6 +41295,7 @@
       "subsequentActions": [
         "GPT52 Proud skip attack"
       ],
+      "actionSeq": 140,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41337,6 +41384,7 @@
         203
       ],
       "subsequentActions": [],
+      "actionSeq": 142,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41425,6 +41473,7 @@
         207
       ],
       "subsequentActions": [],
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41493,6 +41542,7 @@
         211
       ],
       "subsequentActions": [],
+      "actionSeq": 146,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41564,6 +41614,7 @@
       "subsequentActions": [
         "GPT52 Proud discards down to 7 hand cards"
       ],
+      "actionSeq": 147,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41664,6 +41715,7 @@
         "GPT52 Proud discards Atraxa, Grand Unifier",
         "GPT5n Snark - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
       ],
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -41747,6 +41799,7 @@
         221
       ],
       "subsequentActions": [],
+      "actionSeq": 152,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41797,6 +41850,7 @@
         226
       ],
       "subsequentActions": [],
+      "actionSeq": 154,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41828,6 +41882,7 @@
         230
       ],
       "subsequentActions": [],
+      "actionSeq": 155,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41859,6 +41914,7 @@
         233
       ],
       "subsequentActions": [],
+      "actionSeq": 155,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -41911,6 +41967,7 @@
       "subsequentActions": [
         "GPT5n Snark puts 1 charge counter on Aether Vial"
       ],
+      "actionSeq": 155,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -42022,6 +42079,7 @@
         241
       ],
       "subsequentActions": [],
+      "actionSeq": 158,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -42101,6 +42159,7 @@
         "GPT5n Snark attacks GPT52 Proud with 1 creature",
         "Attacker: Skirk Prospector (1/1) unblocked"
       ],
+      "actionSeq": 159,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -42167,6 +42226,7 @@
       "subsequentActions": [
         "GPT52 Proud loses 1 life at combat from Skirk Prospector"
       ],
+      "actionSeq": 164,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -42255,6 +42315,7 @@
         251
       ],
       "subsequentActions": [],
+      "actionSeq": 166,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -42295,6 +42356,7 @@
         255
       ],
       "subsequentActions": [],
+      "actionSeq": 171,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -42334,6 +42396,7 @@
         258
       ],
       "subsequentActions": [],
+      "actionSeq": 173,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -42374,6 +42437,7 @@
         262
       ],
       "subsequentActions": [],
+      "actionSeq": 175,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -42413,6 +42477,7 @@
         265
       ],
       "subsequentActions": [],
+      "actionSeq": 177,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -42453,6 +42518,7 @@
         269
       ],
       "subsequentActions": [],
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -42493,6 +42559,7 @@
         273
       ],
       "subsequentActions": [],
+      "actionSeq": 181,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -42532,6 +42599,7 @@
         276
       ],
       "subsequentActions": [],
+      "actionSeq": 183,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -42571,6 +42639,7 @@
         279
       ],
       "subsequentActions": [],
+      "actionSeq": 185,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -42609,6 +42678,7 @@
         282
       ],
       "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -42670,6 +42740,7 @@
         "GPT5n Snark discards down to 7 hand cards",
         "GPT5n Snark discards Cavern of Souls"
       ],
+      "actionSeq": 189,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -42737,6 +42808,7 @@
         289
       ],
       "subsequentActions": [],
+      "actionSeq": 196,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -42824,6 +42896,7 @@
         293
       ],
       "subsequentActions": [],
+      "actionSeq": 198,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -42911,6 +42984,7 @@
         297
       ],
       "subsequentActions": [],
+      "actionSeq": 200,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -42981,6 +43055,7 @@
       "subsequentActions": [
         "GPT52 Proud skip attack"
       ],
+      "actionSeq": 202,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -43069,6 +43144,7 @@
         304
       ],
       "subsequentActions": [],
+      "actionSeq": 204,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -43157,6 +43233,7 @@
         309
       ],
       "subsequentActions": [],
+      "actionSeq": 206,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -43245,6 +43322,7 @@
         314
       ],
       "subsequentActions": [],
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -43333,6 +43411,7 @@
         319
       ],
       "subsequentActions": [],
+      "actionSeq": 210,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -43421,6 +43500,7 @@
         324
       ],
       "subsequentActions": [],
+      "actionSeq": 212,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [

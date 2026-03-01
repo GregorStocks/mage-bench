@@ -44202,7 +44202,7 @@
       "actionTaken": "Cast a second Voice of Victory",
       "betterLine": "Cast High Noon to lock the opponent to one spell per turn, which is devastating against a prowess/spells strategy. Alternatively, hold mana open for Floodpits Drowner at flash speed to interact with the opponent's creatures.",
       "type": "blunder",
-      "snapshotIndex": 33,
+      "snapshotIndex": 34,
       "player": "Qwen3 Rivals"
     },
     {
@@ -44211,7 +44211,7 @@
       "actionTaken": "Played Mountain (only produces R)",
       "betterLine": "Play Spirebluff Canal, which enters untapped with 2 or fewer other lands and produces both U and R, preserving Mountain for a later turn when Spirebluff Canal would enter tapped",
       "type": "blunder",
-      "snapshotIndex": 74,
+      "snapshotIndex": 75,
       "player": "GPT5m Timmy"
     },
     {
@@ -44220,7 +44220,7 @@
       "actionTaken": "Passed without using any abilities or casting any spells, leaving mana completely unused.",
       "betterLine": "Activate Agna Qel'a to loot for card selection, and/or cast Floodpits Drowner to tap Fear of Missing Out with a stun counter, neutralizing the opponent's only creature.",
       "type": "blunder",
-      "snapshotIndex": 88,
+      "snapshotIndex": 89,
       "player": "Qwen3 Rivals"
     }
   ],
@@ -44269,7 +44269,8 @@
         "GPT5m Timmy draws seven cards",
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -44306,7 +44307,8 @@
         "GPT5m Timmy draws seven cards",
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -44386,7 +44388,8 @@
         "GPT5m Timmy draws seven cards",
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -44420,7 +44423,8 @@
         "GPT5m Timmy draws seven cards",
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -44468,6 +44472,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -44533,6 +44538,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44584,6 +44590,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44624,6 +44631,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -44664,6 +44672,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44720,7 +44729,8 @@
         "GPT5m Timmy draws seven cards",
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 10,
@@ -44768,6 +44778,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -44846,6 +44857,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -44887,6 +44899,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44926,7 +44939,8 @@
         "GPT5m Timmy draws seven cards",
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 14,
@@ -44994,6 +45008,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -45045,6 +45060,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45120,6 +45136,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -45161,6 +45178,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45211,6 +45229,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45282,6 +45301,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45334,7 +45354,8 @@
         "GPT5m Timmy draws seven cards",
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 21,
@@ -45372,6 +45393,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -45429,6 +45451,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45469,6 +45492,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45509,6 +45533,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45546,6 +45571,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45596,6 +45622,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -45646,6 +45673,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -45716,6 +45744,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -45770,6 +45799,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45897,6 +45927,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -45981,6 +46012,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -46059,6 +46091,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -46091,6 +46124,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -46144,6 +46178,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -46228,6 +46263,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -46314,6 +46350,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -46417,6 +46454,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -46458,6 +46496,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -46533,6 +46572,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -46571,6 +46611,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -46621,6 +46662,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -46652,6 +46694,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -46688,7 +46731,8 @@
         "GPT5m Timmy draws seven cards",
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 44,
@@ -46719,6 +46763,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -46750,6 +46795,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -46803,6 +46849,7 @@
         "Qwen3 Rivals draws seven cards",
         "GPT5m Timmy keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }

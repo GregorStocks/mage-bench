@@ -90318,7 +90318,7 @@
       "actionTaken": "Chose to cast Elvish Spirit Guide as a creature (costs {2}{G})",
       "betterLine": "Exile Elvish Spirit Guide for {G} mana to work toward casting Undercity Informer or hold it for a future combo turn. With two Elvish Spirit Guides and one Simian Spirit Guide, they could potentially exile all three for GGR, which doesn't cast Undercity Informer (needs 2B), but exiling the spirit guides preserves future options rather than spending them on an uncastable creature.",
       "type": "blunder",
-      "snapshotIndex": 70,
+      "snapshotIndex": 71,
       "player": "Haiku Stats"
     },
     {
@@ -90327,7 +90327,7 @@
       "actionTaken": "Exiled Elvish Spirit Guide(s) from hand to generate green mana with no way to spend it productively",
       "betterLine": "Pass the turn without exiling any spirit guides, preserving them as potential 2/2 creatures to cast later or as mana sources when black mana becomes available through a land drop",
       "type": "blunder",
-      "snapshotIndex": 71,
+      "snapshotIndex": 72,
       "player": "Haiku Stats"
     },
     {
@@ -90336,7 +90336,7 @@
       "actionTaken": "Activated Urza's Saga's '{T}: Add {C}' ability, floating 1 colorless mana with no apparent use for it.",
       "betterLine": "Play Plains or Wasteland from hand, then activate Urza's Saga's chapter II ability (pay {2} from Savannah + new land, tap Saga) to create a Construct token before losing the Saga to chapter III next turn.",
       "type": "blunder",
-      "snapshotIndex": 79,
+      "snapshotIndex": 80,
       "player": "o3 Snark"
     },
     {
@@ -90345,7 +90345,7 @@
       "actionTaken": "Played Bojuka Bog, wasting its graveyard exile on an irrelevant graveyard and getting a tapped land producing useless black mana.",
       "betterLine": "Play Plains (untapped, produces white for Swords to Plowshares) or Wasteland (provides interaction against opponent's lands), saving Bojuka Bog for when the opponent has reanimation targets in their graveyard.",
       "type": "blunder",
-      "snapshotIndex": 83,
+      "snapshotIndex": 84,
       "player": "o3 Snark"
     },
     {
@@ -90354,7 +90354,7 @@
       "actionTaken": "Returned only Urza's Saga with Life from the Loam, leaving Bojuka Bog in graveyard.",
       "betterLine": "Return both Urza's Saga and Bojuka Bog to hand with Life from the Loam, maximizing card advantage and keeping the graveyard hate option available.",
       "type": "blunder",
-      "snapshotIndex": 90,
+      "snapshotIndex": 91,
       "player": "o3 Snark"
     },
     {
@@ -90363,7 +90363,7 @@
       "actionTaken": "Exiled Simian Spirit Guide for {R} mana",
       "betterLine": "Pass the turn without exiling SSG, or hold SSG to potentially cast as a creature later. Without any source of {B} mana, there's no productive line this turn regardless.",
       "type": "blunder",
-      "snapshotIndex": 96,
+      "snapshotIndex": 97,
       "player": "Haiku Stats"
     },
     {
@@ -90372,7 +90372,7 @@
       "actionTaken": "Exiled Elvish Spirit Guide from hand to add {G} with no productive use for the mana.",
       "betterLine": "Pass the turn without exiling anything. Hold Elvish Spirit Guides for a turn where they can actually contribute to casting a spell, or potentially hard-cast one as a 2/2 creature if the game goes long enough.",
       "type": "blunder",
-      "snapshotIndex": 97,
+      "snapshotIndex": 98,
       "player": "Haiku Stats"
     },
     {
@@ -90381,7 +90381,7 @@
       "actionTaken": "Cast Swords to Plowshares targeting their own Knight of the Reliquary, exiling their primary engine creature to gain 3 life at 20 life.",
       "betterLine": "Pass without casting Swords to Plowshares. Keep Knight of the Reliquary as a powerful engine piece for land tutoring and as a growing threat. Save Swords to Plowshares for an opposing creature. Could instead activate Knight of the Reliquary to fetch a land, or simply move to main phase to play Urza's Saga, Wasteland, or Badgermole Cub.",
       "type": "blunder",
-      "snapshotIndex": 160,
+      "snapshotIndex": 161,
       "player": "o3 Snark"
     },
     {
@@ -90390,7 +90390,7 @@
       "actionTaken": "Cast Swords to Plowshares, which can only exile their own Knight of the Reliquary since the opponent has no creatures.",
       "betterLine": "Activate Wasteland to destroy an opponent's nonbasic land, or simply pass priority and hold Swords to Plowshares for when the opponent deploys a creature threat.",
       "type": "blunder",
-      "snapshotIndex": 176,
+      "snapshotIndex": 177,
       "player": "o3 Snark"
     },
     {
@@ -90399,7 +90399,7 @@
       "actionTaken": "Sacrificed Wasteland to destroy a nonbasic land, likely targeting their own land since the opponent has no lands in play.",
       "betterLine": "Tap Wasteland for {C} mana or simply hold it as a resource. Wasteland is valuable as a future threat against any nonbasic lands the opponent might play, and as a mana source in the meantime.",
       "type": "blunder",
-      "snapshotIndex": 291,
+      "snapshotIndex": 292,
       "player": "o3 Snark"
     },
     {
@@ -90408,7 +90408,7 @@
       "actionTaken": "Activated Shadowspear's anti-hexproof/indestructible ability twice (spending 2 mana) against an opponent with no permanents.",
       "betterLine": "Simply pass priority during combat without activating Shadowspear, preserving mana for post-combat plays or future turns. The mana could potentially be used for other purposes.",
       "type": "blunder",
-      "snapshotIndex": 333,
+      "snapshotIndex": 334,
       "player": "o3 Snark"
     }
   ],
@@ -90457,7 +90457,8 @@
         "o3 Snark draws seven cards",
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -90494,7 +90495,8 @@
         "o3 Snark draws seven cards",
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -90574,7 +90576,8 @@
         "o3 Snark draws seven cards",
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -90611,7 +90614,8 @@
         "o3 Snark draws seven cards",
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -90649,7 +90653,8 @@
         "o3 Snark draws seven cards",
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -90686,7 +90691,8 @@
         "o3 Snark draws seven cards",
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 6,
@@ -90729,6 +90735,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90769,6 +90776,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90808,7 +90816,8 @@
         "o3 Snark draws seven cards",
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 9,
@@ -90836,7 +90845,8 @@
         "o3 Snark draws seven cards",
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 10,
@@ -90916,6 +90926,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -90965,6 +90976,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91019,6 +91031,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91078,6 +91091,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91118,6 +91132,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91177,6 +91192,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91226,6 +91242,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91285,6 +91302,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91335,6 +91353,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91372,6 +91391,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       },
@@ -91425,7 +91445,8 @@
         "o3 Snark draws seven cards",
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 21,
@@ -91482,6 +91503,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -91532,6 +91554,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -91603,6 +91626,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -91668,6 +91692,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -91718,6 +91743,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91777,6 +91803,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91827,6 +91854,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91867,6 +91895,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -91897,7 +91926,8 @@
         "o3 Snark draws seven cards",
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 30,
@@ -91945,6 +91975,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -92048,6 +92079,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -92145,6 +92177,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -92214,6 +92247,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -92274,6 +92308,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -92330,6 +92365,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -92402,6 +92438,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -92470,6 +92507,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -92528,6 +92566,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -92588,6 +92627,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -92692,6 +92732,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -92760,6 +92801,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -92820,6 +92862,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -92880,6 +92923,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -92949,6 +92993,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -93009,6 +93054,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -93070,6 +93116,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       },
@@ -93126,6 +93173,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -93198,6 +93246,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -93257,6 +93306,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -93303,6 +93353,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -93340,6 +93391,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -93394,6 +93446,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -93449,6 +93502,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -93511,6 +93565,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -93596,6 +93651,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -93675,6 +93731,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -93730,6 +93787,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -93790,6 +93848,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -93859,6 +93918,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -93958,6 +94018,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -94018,6 +94079,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -94129,6 +94191,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -94216,6 +94279,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -94295,6 +94359,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -94350,6 +94415,7 @@
         "Haiku Stats draws seven cards",
         "o3 Snark keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }

@@ -57032,7 +57032,7 @@
       "actionTaken": "Chose to be on the draw (let opponent go first)",
       "betterLine": "Being on the draw is correct for Dredge - this was the right call",
       "type": "blunder",
-      "snapshotIndex": 0,
+      "snapshotIndex": 1,
       "player": "Sonnet ESPN"
     },
     {
@@ -57041,7 +57041,7 @@
       "actionTaken": "Cast Brainstorm during own combat phase on turn 2 with no fetchland available to shuffle away the two cards put back.",
       "betterLine": "Hold Brainstorm until a fetchland is found to maximize its power, or at minimum cast it at end of opponent's turn to keep mana available during your own turn. The hand already has playable cards (Orcish Bowmasters) and doesn't need immediate filtering.",
       "type": "blunder",
-      "snapshotIndex": 14,
+      "snapshotIndex": 15,
       "player": "GPT4om Johnny"
     },
     {
@@ -57050,7 +57050,7 @@
       "actionTaken": "Put Force of Will on top of library as one of the two Brainstorm put-back cards",
       "betterLine": "Put back one or both Murktide Regents, keeping Force of Will for free interaction against opponent's threats",
       "type": "blunder",
-      "snapshotIndex": 15,
+      "snapshotIndex": 16,
       "player": "GPT4om Johnny"
     },
     {
@@ -57059,7 +57059,7 @@
       "actionTaken": "Played Lion's Eye Diamond before playing a land or cracking Scalding Tarn",
       "betterLine": "Play Cephalid Coliseum (or crack Scalding Tarn for a land that produces black/red), then play LED, then potentially cast Faithless Looting and crack LED in response for maximum value. Playing the land first preserves more information and flexibility.",
       "type": "blunder",
-      "snapshotIndex": 20,
+      "snapshotIndex": 21,
       "player": "Sonnet ESPN"
     },
     {
@@ -57068,7 +57068,7 @@
       "actionTaken": "Discarded Narcomoeba as second card to Faithless Looting, based on incorrect reasoning about dredge synergy",
       "betterLine": "Discard Cabal Therapy instead, which has flashback from the graveyard and synergizes with Poxwalkers (sacrifice Poxwalkers to flash back Therapy, Poxwalkers returns). Keep both Narcomoebas in hand as creatures that can attack or be sacrificed.",
       "type": "blunder",
-      "snapshotIndex": 28,
+      "snapshotIndex": 29,
       "player": "Sonnet ESPN"
     },
     {
@@ -57077,7 +57077,7 @@
       "actionTaken": "Passed without taking any action, planning to wait until next turn.",
       "betterLine": "Activate Lion's Eye Diamond for RRR (discarding hand), then flashback Faithless Looting from graveyard for 2R, drawing 2 fresh cards and discarding 2, building graveyard and finding new resources.",
       "type": "blunder",
-      "snapshotIndex": 31,
+      "snapshotIndex": 32,
       "player": "Sonnet ESPN"
     },
     {
@@ -57086,7 +57086,7 @@
       "actionTaken": "Ordered cards so Fatal Push is drawn first (topmost) and Force of Will is second from top.",
       "betterLine": "Put Force of Will on top to draw it immediately, keeping Fatal Push underneath. Force of Will is more critical against combo strategies and the player already has Orcish Bowmasters and Snuff Out for creature interaction.",
       "type": "blunder",
-      "snapshotIndex": 31,
+      "snapshotIndex": 32,
       "player": "GPT4om Johnny"
     },
     {
@@ -57095,7 +57095,7 @@
       "actionTaken": "Passed the turn without taking any action, citing not enough mana for Faithless Looting flashback.",
       "betterLine": "Crack one Lion's Eye Diamond for {B}{B}{B} (discarding hand), then cast Cabal Therapy from graveyard... wait, Cabal Therapy isn't in graveyard yet. Actually, they have a Cabal Therapy in the graveyard already! They could sacrifice a creature to flashback Cabal Therapy from graveyard, but they have no creatures on the battlefield. The key missed line: crack LED for BBB, which puts Cabal Therapy, Narcomoeba, and Cephalid Coliseum into graveyard. Narcomoeba triggers (put into graveyard from... no, Narcomoeba triggers from library to graveyard, not from hand). Still, they could have at minimum played Cephalid Coliseum as their land drop and held other options open, or explored LED lines more carefully.",
       "type": "blunder",
-      "snapshotIndex": 44,
+      "snapshotIndex": 45,
       "player": "Sonnet ESPN"
     },
     {
@@ -57104,7 +57104,7 @@
       "actionTaken": "Put Flooded Strand on top (drawing it) and Underground Sea underneath",
       "betterLine": "Put Underground Sea on top to draw it directly, saving 1 life from not needing to crack the fetchland, and draw Flooded Strand next turn for future land drops",
       "type": "blunder",
-      "snapshotIndex": 48,
+      "snapshotIndex": 49,
       "player": "GPT4om Johnny"
     },
     {
@@ -57113,7 +57113,7 @@
       "actionTaken": "Appears to be choosing Faithless Looting flashback before deploying the free LED from hand",
       "betterLine": "Play Lion's Eye Diamond (free) first, then play Cephalid Coliseum as land for turn, then flashback Faithless Looting cracking LEDs as needed for maximum resource generation",
       "type": "blunder",
-      "snapshotIndex": 53,
+      "snapshotIndex": 54,
       "player": "Sonnet ESPN"
     },
     {
@@ -57122,7 +57122,7 @@
       "actionTaken": "Passed priority and skipped to attack step with no attackers, doing nothing on the turn.",
       "betterLine": "At minimum, play Cephalid Coliseum from hand for the land drop, cast Narcomoeba, and consider casting Cabal Therapy or activating Cephalid Coliseum's threshold ability for powerful card selection. Could also crack LED for red and flashback Faithless Looting for card filtering.",
       "type": "blunder",
-      "snapshotIndex": 54,
+      "snapshotIndex": 55,
       "player": "Sonnet ESPN"
     },
     {
@@ -57131,7 +57131,7 @@
       "actionTaken": "Cast Ponder before using Wasteland on opponent's dangerous nonbasic lands",
       "betterLine": "Activate Wasteland targeting a Cephalid Coliseum to deny threshold-enabled card selection/graveyard filling, then cast Ponder next turn after finding another land",
       "type": "blunder",
-      "snapshotIndex": 59,
+      "snapshotIndex": 60,
       "player": "GPT4om Johnny"
     },
     {
@@ -57140,7 +57140,7 @@
       "actionTaken": "Fetched basic Swamp from Polluted Delta",
       "betterLine": "Fetch Underground Sea to have access to both U and B from a single land, enabling more flexible casting of the diverse hand (Thoughtseize, Orcish Bowmasters, Kaito, Murktide Regent)",
       "type": "blunder",
-      "snapshotIndex": 66,
+      "snapshotIndex": 67,
       "player": "GPT4om Johnny"
     },
     {
@@ -57149,7 +57149,7 @@
       "actionTaken": "Passed without activating Cephalid Coliseum, reasoning they wanted to 'save mana'",
       "betterLine": "Consider sacrificing LED (discarding Golgari Thug and other cards to graveyard) then activating Cephalid Coliseum targeting self to dredge and fill graveyard, though waiting for a better-set-up turn is also reasonable",
       "type": "blunder",
-      "snapshotIndex": 67,
+      "snapshotIndex": 68,
       "player": "Sonnet ESPN"
     },
     {
@@ -57158,7 +57158,7 @@
       "actionTaken": "Chose to discard Cabal Therapy from opponent's hand",
       "betterLine": "Taking Faithless Looting would deny the dredge deck its primary engine card, which is more impactful than taking a second Cabal Therapy when the opponent already has one in the graveyard with a creature to sacrifice for flashback",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "GPT4om Johnny"
     },
     {
@@ -57167,7 +57167,7 @@
       "actionTaken": "Activated Cephalid Coliseum's Threshold ability before getting Golgari Thug into the graveyard.",
       "betterLine": "Cast Faithless Looting first (using Volcanic Island for R), discard Golgari Thug (and Lion's Eye Diamond or another card), then activate Cephalid Coliseum to dredge Golgari Thug back (milling 4) on one of the draws, maximizing cards in graveyard.",
       "type": "blunder",
-      "snapshotIndex": 83,
+      "snapshotIndex": 84,
       "player": "Sonnet ESPN"
     },
     {
@@ -57176,7 +57176,7 @@
       "actionTaken": "Directed Orcish Bowmasters ETB damage at their own Orcish Bowmasters, dealing 1 damage to their own creature.",
       "betterLine": "Target Sonnet ESPN (the opponent) with the 1 damage to chip away at their life total, or target Poxwalkers to put some damage on it. Targeting your own creature is strictly worse than targeting the opponent.",
       "type": "blunder",
-      "snapshotIndex": 89,
+      "snapshotIndex": 90,
       "player": "GPT4om Johnny"
     },
     {
@@ -57185,7 +57185,7 @@
       "actionTaken": "Cast Kaito, Bane of Nightmares for 2UB",
       "betterLine": "Cast Murktide Regent for UU delving 5 cards (getting an 8/8 flyer with 5 instant/sorcery exiles), presenting a much faster clock against the dredge opponent while still holding Snuff Out and Force of Will for free interaction",
       "type": "blunder",
-      "snapshotIndex": 92,
+      "snapshotIndex": 93,
       "player": "GPT4om Johnny"
     },
     {
@@ -57194,7 +57194,7 @@
       "actionTaken": "Attacked with only the Orc Army Token, leaving Kaito back",
       "betterLine": "Attack with both Kaito and the Orc Army Token. Opponent can only block one with Poxwalkers, so more damage gets through and Kaito's 0 ability could draw cards if damage connects.",
       "type": "blunder",
-      "snapshotIndex": 94,
+      "snapshotIndex": 95,
       "player": "GPT4om Johnny"
     },
     {
@@ -57203,7 +57203,7 @@
       "actionTaken": "Cast Lion's Eye Diamond from hand (free) and then passed the turn without using any graveyard synergies.",
       "betterLine": "Cast Golgari Thug or discard Bridge from Below and Golgari Thug via LED activation, then activate Cephalid Coliseum targeting self to dredge Golgari Thug (milling 4 cards and potentially hitting Narcomoebas/fueling Bridge from Below). Could also flashback Cabal Therapy by sacrificing Poxwalkers to strip opponent's hand and trigger Bridge from Below.",
       "type": "blunder",
-      "snapshotIndex": 106,
+      "snapshotIndex": 107,
       "player": "Sonnet ESPN"
     },
     {
@@ -57212,7 +57212,7 @@
       "actionTaken": "Passed priority on their own main phase without activating any abilities, thinking it was the opponent's turn.",
       "betterLine": "Activate Cephalid Coliseum's threshold ability targeting themselves (draw 3, discard 3) to dump Bridge from Below and Golgari Thug into the graveyard, enabling future dredge triggers. Alternatively, flashback Otherworldly Gaze to surveil 3 and mill toward more dredge enablers.",
       "type": "blunder",
-      "snapshotIndex": 112,
+      "snapshotIndex": 113,
       "player": "Sonnet ESPN"
     },
     {
@@ -57221,7 +57221,7 @@
       "actionTaken": "Targeted Sonnet ESPN's face for 1 damage",
       "betterLine": "Target Poxwalkers to kill it (3/1, dies to 1 damage), removing the deathtouch threat and protecting Kaito and other attackers",
       "type": "blunder",
-      "snapshotIndex": 115,
+      "snapshotIndex": 116,
       "player": "GPT4om Johnny"
     },
     {
@@ -57230,7 +57230,7 @@
       "actionTaken": "Blocked Poxwalkers with Orcish Bowmasters, losing Bowmasters to deathtouch",
       "betterLine": "Take the 3 damage (going to 12 life), preserve Orcish Bowmasters for its ongoing triggered ability value. Could use Snuff Out later if needed for Poxwalkers.",
       "type": "blunder",
-      "snapshotIndex": 122,
+      "snapshotIndex": 123,
       "player": "GPT4om Johnny"
     },
     {
@@ -57239,7 +57239,7 @@
       "actionTaken": "Cast Murktide Regent immediately in precombat main",
       "betterLine": "Activate Wasteland targeting Cephalid Coliseum first, then cast Murktide Regent. This removes a dangerous dredge enabler at no cost since you still have enough lands for UU and enough graveyard cards for Delve.",
       "type": "blunder",
-      "snapshotIndex": 131,
+      "snapshotIndex": 132,
       "player": "GPT4om Johnny"
     },
     {
@@ -57248,7 +57248,7 @@
       "actionTaken": "Attacked with only 1 creature instead of sending both Orc Army Token and Kaito",
       "betterLine": "Attack with all creatures. Golgari Thug can only block one, and neither attacker dies to a 1/1 block. This maximizes damage output against a dredge opponent at 8 life who could combo off at any moment.",
       "type": "blunder",
-      "snapshotIndex": 133,
+      "snapshotIndex": 134,
       "player": "GPT4om Johnny"
     },
     {
@@ -57257,7 +57257,7 @@
       "actionTaken": "Passed priority during opponent's combat without activating any abilities, reasoning 'it's their turn'.",
       "betterLine": "Activate Cephalid Coliseum's threshold ability targeting themselves, replacing draws with Golgari Thug dredges to mill cards and fuel the graveyard strategy, then discard Bridge from Below to enable zombie token generation.",
       "type": "blunder",
-      "snapshotIndex": 133,
+      "snapshotIndex": 134,
       "player": "Sonnet ESPN"
     },
     {
@@ -57266,7 +57266,7 @@
       "actionTaken": "Passed priority during combat without activating any abilities, taking 2 damage to go to 1 life with nothing accomplished.",
       "betterLine": "Activate Lion's Eye Diamond (discarding Bridge from Below, Poxwalkers, Stinkweed Imp to graveyard for 3 mana), then use that mana + Volcanic Island to cast Otherworldly Gaze flashback from graveyard, surveilling 3 to set up dredge draws. This puts the crucial Bridge from Below and Stinkweed Imp (dredge 5) into the graveyard.",
       "type": "blunder",
-      "snapshotIndex": 141,
+      "snapshotIndex": 142,
       "player": "Sonnet ESPN"
     }
   ],
@@ -57321,7 +57321,8 @@
         "GPT4om Johnny draws seven cards",
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -57355,7 +57356,8 @@
         "GPT4om Johnny draws seven cards",
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -57391,7 +57393,8 @@
         "GPT4om Johnny draws seven cards",
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -57470,7 +57473,8 @@
         "GPT4om Johnny draws seven cards",
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -57506,7 +57510,8 @@
         "GPT4om Johnny draws seven cards",
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -57550,6 +57555,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -57599,6 +57605,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -57638,6 +57645,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -57677,7 +57685,8 @@
         "GPT4om Johnny draws seven cards",
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 9,
@@ -57730,6 +57739,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -57787,6 +57797,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -57874,7 +57885,8 @@
         "GPT4om Johnny draws seven cards",
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 12,
@@ -57953,7 +57965,8 @@
         "GPT4om Johnny draws seven cards",
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 13,
@@ -58017,6 +58030,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -58073,6 +58087,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -58155,6 +58170,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -58226,6 +58242,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58301,6 +58318,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -58384,6 +58402,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58460,6 +58479,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58533,6 +58553,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58595,6 +58616,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -58654,6 +58676,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -58706,6 +58729,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -58745,6 +58769,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -58791,6 +58816,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -58840,6 +58866,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -58931,6 +58958,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -59014,6 +59042,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -59091,6 +59120,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59162,6 +59192,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59253,6 +59284,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59341,6 +59373,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59416,6 +59449,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59490,6 +59524,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -59549,6 +59584,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -59601,6 +59637,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -59640,6 +59677,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -59739,6 +59777,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -59827,6 +59866,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -59916,6 +59956,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -59982,6 +60023,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -60041,6 +60083,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60093,6 +60136,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60132,6 +60176,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60178,6 +60223,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60227,6 +60273,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -60267,6 +60314,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -60343,7 +60391,8 @@
         "GPT4om Johnny draws seven cards",
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 49,
@@ -60399,6 +60448,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -60512,6 +60562,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -60589,6 +60640,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60659,6 +60711,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60745,6 +60798,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60784,6 +60838,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -60880,6 +60935,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -60934,6 +60990,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -60993,6 +61050,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -61043,6 +61101,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -61089,6 +61148,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -61129,6 +61189,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -61258,6 +61319,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -61309,6 +61371,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -61386,6 +61449,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -61457,6 +61521,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -61515,6 +61580,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -61584,7 +61650,8 @@
         "GPT4om Johnny draws seven cards",
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 67,
@@ -61674,6 +61741,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -61726,6 +61794,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -61786,6 +61855,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -61854,6 +61924,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -61991,6 +62062,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -62039,6 +62111,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -62087,6 +62160,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -62139,6 +62213,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -62198,6 +62273,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -62252,6 +62328,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -62291,6 +62368,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -62427,6 +62505,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -62521,6 +62600,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -62599,6 +62679,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -62668,6 +62749,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "combatPhase": "declare_attackers"
@@ -62736,6 +62818,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -62825,6 +62908,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -62874,6 +62958,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -62931,6 +63016,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -62978,6 +63064,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -63021,6 +63108,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -63066,6 +63154,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -63121,6 +63210,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -63163,6 +63253,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -63222,6 +63313,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_blockers",
@@ -63290,6 +63382,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_blockers",
@@ -63341,6 +63434,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -63464,6 +63558,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -63514,6 +63609,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -63578,6 +63674,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -63709,6 +63806,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -63789,6 +63887,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -63854,6 +63953,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
@@ -63918,6 +64018,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
@@ -63995,6 +64096,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -64046,6 +64148,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -64094,6 +64197,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_blockers",
@@ -64154,6 +64258,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -64223,6 +64328,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -64282,6 +64388,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -64332,6 +64439,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -64412,6 +64520,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -64482,6 +64591,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_attackers"
@@ -64559,6 +64669,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -64626,6 +64737,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -64674,6 +64786,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_blockers",
@@ -64777,6 +64890,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -64835,6 +64949,7 @@
         "Sonnet ESPN draws seven cards",
         "GPT4om Johnny keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }

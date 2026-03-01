@@ -36684,7 +36684,7 @@
       "actionTaken": "Declined to cast Burst Lightning or Shock",
       "betterLine": "Declining is correct here - save the burn spells to combine with Slickshot Show-Off triggers for maximum damage later",
       "type": "blunder",
-      "snapshotIndex": 41,
+      "snapshotIndex": 42,
       "player": "Grok4 Sport"
     },
     {
@@ -36693,7 +36693,7 @@
       "actionTaken": "Activated Maelstrom of the Spirit Dragon for {C} (colorless mana).",
       "betterLine": "Activate Maelstrom of the Spirit Dragon's second ability to add one mana of any color for Dragon/Omen spells, since the hand contains multiple Dragons (Magmatic Hellkite, Clarion Conqueror, Dragonhawk).",
       "type": "blunder",
-      "snapshotIndex": 79,
+      "snapshotIndex": 80,
       "player": "GPT52 Trash"
     },
     {
@@ -36702,7 +36702,7 @@
       "actionTaken": "Tapped Maelstrom of the Spirit Dragon for {C} (colorless mana)",
       "betterLine": "Tap Maelstrom of the Spirit Dragon for colored mana via option 2, which is at least as good and potentially better if any Dragon or Omen spell could be relevant",
       "type": "blunder",
-      "snapshotIndex": 101,
+      "snapshotIndex": 102,
       "player": "GPT52 Trash"
     },
     {
@@ -36711,7 +36711,7 @@
       "actionTaken": "Discarded Magmatic Hellkite",
       "betterLine": "Discard the second copy of Momo, Friendly Flier, since it's a legendary creature and having two copies is redundant. Magmatic Hellkite is castable next turn with 4 lands and provides a strong body plus land destruction.",
       "type": "blunder",
-      "snapshotIndex": 122,
+      "snapshotIndex": 123,
       "player": "GPT52 Trash"
     },
     {
@@ -36720,7 +36720,7 @@
       "actionTaken": "Activated Maelstrom of the Spirit Dragon's sacrifice-tutor ability to search for a Dragon card, going from 4 lands to 3.",
       "betterLine": "Keep Maelstrom of the Spirit Dragon for mana production. Play Cavern of Souls (naming Dragon) as the land drop, then use lands to cast Momo, Friendly Flier this turn, building toward casting Magmatic Hellkite or Clarion Conqueror on the following turn with 5 mana sources.",
       "type": "blunder",
-      "snapshotIndex": 135,
+      "snapshotIndex": 136,
       "player": "GPT52 Trash"
     }
   ],
@@ -36787,7 +36787,8 @@
         "GPT52 Trash draws seven cards",
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -36824,7 +36825,8 @@
         "GPT52 Trash draws seven cards",
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -36893,6 +36895,7 @@
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -36941,6 +36944,7 @@
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -36997,6 +37001,7 @@
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -37044,6 +37049,7 @@
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -37105,6 +37111,7 @@
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -37169,6 +37176,7 @@
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -37232,6 +37240,7 @@
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -37332,6 +37341,7 @@
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -37392,6 +37402,7 @@
         "Grok4 Sport draws seven cards",
         "GPT52 Trash keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }

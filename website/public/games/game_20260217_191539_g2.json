@@ -46027,7 +46027,7 @@
       "actionTaken": "Played Mox Diamond planning to discard Thespian's Stage",
       "betterLine": "Play Mox Diamond but discard Windswept Heath instead of Thespian's Stage, preserving the Thespian's Stage + Urza's Saga synergy for future turns.",
       "type": "blunder",
-      "snapshotIndex": 8,
+      "snapshotIndex": 9,
       "player": "Kimi25 Vorthos"
     },
     {
@@ -46036,7 +46036,7 @@
       "actionTaken": "Used Force of Will's alternative cost to counter Mox Diamond, 2-for-1ing themselves on turn 1.",
       "betterLine": "Let Mox Diamond resolve and focus on executing the strong Turn 2 The One Ring plan (City of Traitors + Grim Monolith), saving Force of Will for a more critical threat.",
       "type": "blunder",
-      "snapshotIndex": 10,
+      "snapshotIndex": 11,
       "player": "Grk41F Stats"
     },
     {
@@ -46045,7 +46045,7 @@
       "actionTaken": "Exiled Stock Up to pay for Force of Will's alternative cost, keeping Phyrexian Metamorph in hand.",
       "betterLine": "Exile Phyrexian Metamorph instead, keeping Stock Up to dig for additional resources and answers. With City of Traitors and Grim Monolith, casting Stock Up on turn 2 is straightforward and helps find more impactful cards. However, this is debatable since Metamorph copying The One Ring is a strong line too.",
       "type": "blunder",
-      "snapshotIndex": 11,
+      "snapshotIndex": 12,
       "player": "Grk41F Stats"
     },
     {
@@ -46054,7 +46054,7 @@
       "actionTaken": "Played City of Traitors as the turn 1 land drop",
       "betterLine": "Play Island, then cast Preordain to improve card quality. Next turn play City of Traitors, cast Grim Monolith (CC from City), tap Monolith for CCC + Island for the 4th mana to cast The One Ring.",
       "type": "blunder",
-      "snapshotIndex": 21,
+      "snapshotIndex": 22,
       "player": "Grk41F Stats"
     },
     {
@@ -46063,7 +46063,7 @@
       "actionTaken": "Cast a third Grim Monolith from hand",
       "betterLine": "Cast The One Ring for 4 mana (3 from untapped Grim Monolith + 1 from Island), gaining protection from everything until next turn and setting up card draw, which is far more impactful than additional ramp when already at sufficient mana.",
       "type": "blunder",
-      "snapshotIndex": 45,
+      "snapshotIndex": 46,
       "player": "Grk41F Stats"
     },
     {
@@ -46072,7 +46072,7 @@
       "actionTaken": "Played Thespian's Stage as the land for turn.",
       "betterLine": "Play Windswept Heath instead, which provides colored mana flexibility and can fetch lands at instant speed. Thespian's Stage has no good copy targets currently and only produces colorless mana.",
       "type": "blunder",
-      "snapshotIndex": 59,
+      "snapshotIndex": 60,
       "player": "Kimi25 Vorthos"
     },
     {
@@ -46081,7 +46081,7 @@
       "actionTaken": "Played an Island from hand without casting any spells.",
       "betterLine": "Cast Show and Tell (using Grim Monolith for {2} and Island for {U}), putting Emrakul, the Aeons Torn onto the battlefield. Note: Show and Tell puts the card onto the battlefield but doesn't cast it, so no extra turn trigger - but a 15/15 flying annihilator 6 with protection from colored spells should still be game-winning. Alternatively, they could play Island first then cast Show and Tell with remaining mana. The key point is they must deploy a threat NOW before dying to burden counters next upkeep.",
       "type": "blunder",
-      "snapshotIndex": 126,
+      "snapshotIndex": 127,
       "player": "Grk41F Stats"
     },
     {
@@ -46090,7 +46090,7 @@
       "actionTaken": "Put Echoing Deeps onto the battlefield (planning to copy City of Traitors from opponent's graveyard for mana)",
       "betterLine": "Put The Tabernacle at Pendrell Vale onto the battlefield. While the opponent can likely pay {1} for their creature, Tabernacle provides ongoing pressure against any creatures and is a much more impactful permanent than a City of Traitors copy (which sacrifices when you play another land). With Crop Rotation and Windswept Heath in hand, Kimi25 has mana options already. Tabernacle taxes whatever creature the opponent puts in and has lasting strategic value.",
       "type": "blunder",
-      "snapshotIndex": 131,
+      "snapshotIndex": 132,
       "player": "Kimi25 Vorthos"
     }
   ],
@@ -46146,7 +46146,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -46183,7 +46184,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -46217,7 +46219,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -46297,7 +46300,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -46367,6 +46371,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -46412,6 +46417,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -46460,7 +46466,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -46510,7 +46517,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 8,
@@ -46547,7 +46555,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 9,
@@ -46584,7 +46593,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 10,
@@ -46621,7 +46631,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 11,
@@ -46672,6 +46683,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -46720,6 +46732,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -46761,6 +46774,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46811,6 +46825,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46851,6 +46866,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46891,6 +46907,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46932,6 +46949,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46972,6 +46990,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47038,6 +47057,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -47079,6 +47099,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47139,6 +47160,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -47220,6 +47242,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -47261,6 +47284,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47336,6 +47360,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47376,6 +47401,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47426,6 +47452,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47471,6 +47498,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47511,6 +47539,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47551,6 +47580,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47591,6 +47621,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47628,6 +47659,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -47694,6 +47726,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -47752,6 +47785,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -47798,6 +47832,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -47839,6 +47874,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -47888,6 +47924,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -47929,6 +47966,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -47982,6 +48020,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -48022,6 +48061,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -48061,7 +48101,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 41,
@@ -48096,6 +48137,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -48166,6 +48208,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -48212,6 +48255,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -48252,6 +48296,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -48300,6 +48345,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -48349,6 +48395,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -48390,6 +48437,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -48440,6 +48488,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48517,6 +48566,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48566,6 +48616,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48634,6 +48685,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48684,6 +48736,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48724,6 +48777,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       },
@@ -48821,6 +48875,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -48922,6 +48977,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -48971,6 +49027,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -49011,6 +49068,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -49079,6 +49137,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -49138,6 +49197,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -49178,6 +49238,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -49228,6 +49289,7 @@
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -49267,7 +49329,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 63,
@@ -49304,7 +49367,8 @@
         "Kimi25 Vorthos draws seven cards",
         "Grk41F Stats draws seven cards",
         "Kimi25 Vorthos decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     }
   ]
 }

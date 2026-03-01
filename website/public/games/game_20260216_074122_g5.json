@@ -54759,7 +54759,7 @@
       "actionTaken": "Cast a second Momo, Friendly Flier, which triggers the legend rule and results in losing one copy to the graveyard.",
       "betterLine": "Play Maelstrom of the Spirit Dragon as a land drop and hold Momo. With only 2 lands, there's nothing else castable this turn, but playing the land sets up future turns for casting Clarion Conqueror (3 mana) next turn or using Maelstrom's dragon-mana ability. The second Momo is a dead card while the first is alive.",
       "type": "blunder",
-      "snapshotIndex": 26,
+      "snapshotIndex": 27,
       "player": "Gem3F Tactic"
     },
     {
@@ -54768,7 +54768,7 @@
       "actionTaken": "Cast Slickshot Show-Off using both available Mountains without first playing a land for the turn.",
       "betterLine": "Play Mountain first, then cast Slickshot Show-Off, leaving one Mountain untapped alongside the newly played Mountain to have {R}{R} available for Might of the Meek during combat (which would also trigger Slickshot's +2/+0 for a total of 5/2 flying attacker plus draw a card).",
       "type": "blunder",
-      "snapshotIndex": 33,
+      "snapshotIndex": 34,
       "player": "Gem25P Brewer"
     },
     {
@@ -54777,7 +54777,7 @@
       "actionTaken": "Cast Clarion Conqueror, a 3/3 flyer that locks activated abilities but has no haste",
       "betterLine": "Play Maelstrom of the Spirit Dragon as land drop, then cast Nova Hellkite (discounted to 4 mana via Momo) for immediate haste pressure and a ping on a Hired Claw, attacking for 4 that turn",
       "type": "blunder",
-      "snapshotIndex": 60,
+      "snapshotIndex": 61,
       "player": "Gem3F Tactic"
     },
     {
@@ -54786,7 +54786,7 @@
       "actionTaken": "Attacked with only 2 creatures (likely Momo + one Clarion Conqueror for 4 damage, or both Clarion Conquerors for 6 damage)",
       "betterLine": "Attack with all three creatures (Momo + both Clarion Conquerors) for 7 damage since the opponent has no untapped blockers.",
       "type": "blunder",
-      "snapshotIndex": 62,
+      "snapshotIndex": 63,
       "player": "Gem3F Tactic"
     },
     {
@@ -54795,7 +54795,7 @@
       "actionTaken": "Activated Maelstrom of the Spirit Dragon instead of going for the lethal attack",
       "betterLine": "Cast Nova Hellkite (warp {2}{R}), ETB kills Slickshot, then Burst Lightning face for 2, attack all flyers for 12 = 14 total lethal damage",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "Gem3F Tactic"
     },
     {
@@ -54804,7 +54804,7 @@
       "actionTaken": "Cast Charming Prince from hand before combat",
       "betterLine": "Go directly to combat and attack with all flyers for lethal (7 damage vs 3 HP). If somehow combat doesn't work out, cast Charming Prince in second main phase.",
       "type": "blunder",
-      "snapshotIndex": 95,
+      "snapshotIndex": 96,
       "player": "Gem3F Tactic"
     }
   ],
@@ -54860,7 +54860,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -54897,7 +54898,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -54932,7 +54934,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -54989,6 +54992,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -55039,6 +55043,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -55080,6 +55085,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -55144,6 +55150,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -55185,6 +55192,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -55225,6 +55233,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -55265,6 +55274,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -55304,7 +55314,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 11,
@@ -55342,6 +55353,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -55378,7 +55390,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 13,
@@ -55436,6 +55449,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -55473,7 +55487,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 15,
@@ -55516,6 +55531,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -55581,6 +55597,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -55622,6 +55639,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -55706,6 +55724,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -55747,6 +55766,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -55805,6 +55825,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -55846,6 +55867,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -55887,6 +55909,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -55928,6 +55951,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -55989,6 +56013,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -56030,6 +56055,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -56070,6 +56096,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -56110,6 +56137,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -56147,6 +56175,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56226,6 +56255,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -56267,6 +56297,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -56347,6 +56378,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -56424,6 +56456,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -56465,6 +56498,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56506,6 +56540,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56547,6 +56582,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56585,6 +56621,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -56625,6 +56662,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -56665,6 +56703,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -56705,6 +56744,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -56776,6 +56816,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -56865,6 +56906,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -56906,6 +56948,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -56947,6 +56990,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -56991,6 +57035,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -57062,6 +57107,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -57103,6 +57149,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -57143,6 +57190,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -57183,6 +57231,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -57223,6 +57272,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -57263,6 +57313,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -57300,6 +57351,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -57386,6 +57438,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -57427,6 +57480,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -57525,6 +57579,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -57578,6 +57633,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -57638,6 +57694,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -57716,6 +57773,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -57772,6 +57830,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -57822,6 +57881,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -57863,6 +57923,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -57908,6 +57969,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -57962,6 +58024,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58002,6 +58065,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58042,6 +58106,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58082,6 +58147,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58146,6 +58212,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -58222,6 +58289,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -58261,7 +58329,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 69,
@@ -58298,7 +58367,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 70,
@@ -58335,7 +58405,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 71,
@@ -58373,6 +58444,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58409,7 +58481,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 73,
@@ -58437,7 +58510,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 74,
@@ -58467,7 +58541,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 75,
@@ -58504,7 +58579,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 76,
@@ -58541,7 +58617,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 77,
@@ -58589,6 +58666,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -58636,7 +58714,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 79,
@@ -58673,7 +58752,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 80,
@@ -58710,7 +58790,8 @@
         "Gem25P Brewer draws seven cards",
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 81,
@@ -58795,6 +58876,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -58836,6 +58918,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -58877,6 +58960,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -58923,6 +59007,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -58977,6 +59062,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -59025,6 +59111,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -59079,6 +59166,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -59121,6 +59209,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -59206,6 +59295,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -59247,6 +59337,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -59287,6 +59378,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -59324,6 +59416,7 @@
         "Gem3F Tactic draws seven cards",
         "Gem25P Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }

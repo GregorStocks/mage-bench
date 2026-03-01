@@ -22365,7 +22365,7 @@
       "actionTaken": "Cast Slickshot Show-Off for {1}{R} to attack immediately with haste",
       "betterLine": "Plot Slickshot Show-Off for {1}{R}, attack with just Burnout Bashtronaut this turn, then on a future turn cast Slickshot for free alongside multiple noncreature spells for a much larger burst of damage",
       "type": "blunder",
-      "snapshotIndex": 25,
+      "snapshotIndex": 26,
       "player": "Opus Rules"
     },
     {
@@ -22374,7 +22374,7 @@
       "actionTaken": "Cast Emberheart Challenger in postcombat main phase",
       "betterLine": "Plot Slickshot Show-Off for 1R, setting up a free cast next turn that pairs with Boros Charm for a potentially lethal attack with multiple flying/prowess triggers",
       "type": "blunder",
-      "snapshotIndex": 55,
+      "snapshotIndex": 56,
       "player": "Opus Rules"
     },
     {
@@ -22383,7 +22383,7 @@
       "actionTaken": "Appears to be selecting the 4-damage-to-player mode of Boros Charm during combat instead of the double strike mode.",
       "betterLine": "Choose double strike mode on the best attacking creature. With Slickshot Show-Off getting +2/+0 from casting Boros Charm (becoming 3/2), giving it double strike would deal 6 flying damage, which is more than the 4 direct damage mode. Even better if targeting a larger attacker like Burnout Bashtronaut.",
       "type": "blunder",
-      "snapshotIndex": 72,
+      "snapshotIndex": 73,
       "player": "Opus Rules"
     },
     {
@@ -22392,7 +22392,7 @@
       "actionTaken": "Plotted Slickshot Show-Off for {1}{R} instead of casting it directly",
       "betterLine": "Cast Slickshot Show-Off directly for {1}{R} to have another hasty flyer on board immediately, maximizing pressure against an opponent at 8 life with no creatures. Next turn attack with everything and use Boros Charm for lethal.",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "Opus Rules"
     }
   ],
@@ -22448,7 +22448,8 @@
         "Opus Rules draws seven cards",
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -22482,7 +22483,8 @@
         "Opus Rules draws seven cards",
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -22539,6 +22541,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -22633,6 +22636,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -22683,6 +22687,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -22752,6 +22757,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -22818,6 +22824,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -22890,6 +22897,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -22930,6 +22938,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -23007,6 +23016,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -23071,6 +23081,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -23125,6 +23136,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -23175,6 +23187,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       },
@@ -23225,6 +23238,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -23263,6 +23277,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -23334,6 +23349,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -23388,6 +23404,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -23441,6 +23458,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -23481,6 +23499,7 @@
         "GPT52 Undrdog draws seven cards",
         "Opus Rules keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }

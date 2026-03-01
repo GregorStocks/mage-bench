@@ -78903,7 +78903,7 @@
       "actionTaken": "Played Flooded Strand as their land for the turn.",
       "betterLine": "Play Underground Sea directly, cast Ponder, and save Flooded Strand for a future turn where the shuffle effect or deck thinning is more valuable.",
       "type": "blunder",
-      "snapshotIndex": 2,
+      "snapshotIndex": 3,
       "player": "GPT5n Coach"
     },
     {
@@ -78912,7 +78912,7 @@
       "actionTaken": "Fetched basic Island off Flooded Strand",
       "betterLine": "Fetch Underground Sea to have immediate access to black mana for Snuff Out's alternate cost, keeping the basic Island in the library as Wasteland insurance for later fetches",
       "type": "blunder",
-      "snapshotIndex": 8,
+      "snapshotIndex": 9,
       "player": "GPT5n Coach"
     },
     {
@@ -78921,7 +78921,7 @@
       "actionTaken": "Put Orcish Bowmasters as the deepest card (selected first), burying it under the other two cards.",
       "betterLine": "Put Orcish Bowmasters on top (select it last) to draw it and deploy it turn 2 off Underground Sea, which is the strongest proactive play against the Goblin opponent.",
       "type": "blunder",
-      "snapshotIndex": 15,
+      "snapshotIndex": 16,
       "player": "GPT5n Coach"
     },
     {
@@ -78930,7 +78930,7 @@
       "actionTaken": "Put Brainstorm on bottom and Murktide Regent on top (by selecting Brainstorm first in the ordering), meaning they'll draw the uncastable Murktide Regent next turn.",
       "betterLine": "Select Murktide Regent first so that Brainstorm ends up on top. Drawing Brainstorm next turn allows continued card selection and land finding, while Murktide Regent is uncastable for many turns.",
       "type": "blunder",
-      "snapshotIndex": 16,
+      "snapshotIndex": 17,
       "player": "GPT5n Coach"
     },
     {
@@ -78939,7 +78939,7 @@
       "actionTaken": "Played Wasteland as their land drop for turn 2.",
       "betterLine": "Play Bloodstained Mire as the land for turn 2, then cast Aether Vial. This preserves both Wastelands in hand to threaten the opponent's future nonbasic lands (Underground Sea, etc.) while ensuring access to colored mana via the fetchland for casting Munitions Expert or Broadside Bombardiers on future turns.",
       "type": "blunder",
-      "snapshotIndex": 18,
+      "snapshotIndex": 19,
       "player": "Opus Stoic"
     },
     {
@@ -78948,7 +78948,7 @@
       "actionTaken": "Cast Force of Will to counter Aether Vial",
       "betterLine": "This is actually a reasonable play in Legacy - Aether Vial is one of the most important cards to counter in the Goblins matchup. No clear better line exists.",
       "type": "blunder",
-      "snapshotIndex": 22,
+      "snapshotIndex": 23,
       "player": "GPT5n Coach"
     },
     {
@@ -78957,7 +78957,7 @@
       "actionTaken": "Cast Force of Will (exiling the other Force of Will and paying 1 life) to counter Aether Vial",
       "betterLine": "This is actually a reasonable play since Aether Vial is the most important card to counter against Goblins. However, letting it resolve and relying on Snuff Out for creatures while saving Forces for Muxus could also be viable, especially since both Forces are lost here.",
       "type": "blunder",
-      "snapshotIndex": 24,
+      "snapshotIndex": 25,
       "player": "GPT5n Coach"
     },
     {
@@ -78966,7 +78966,7 @@
       "actionTaken": "Cast Force of Will (pitching a blue card, likely Murktide Regent) to counter Aether Vial",
       "betterLine": "Consider letting Aether Vial resolve and saving Force of Will + Murktide Regent for later. The opponent only has Wasteland and will be slow to deploy threats without additional mana. Snuff Out and Wasteland provide interaction, and preserving the win condition may be more important than stopping Vial when you can potentially answer the creatures it deploys.",
       "type": "blunder",
-      "snapshotIndex": 26,
+      "snapshotIndex": 27,
       "player": "GPT5n Coach"
     },
     {
@@ -78975,7 +78975,7 @@
       "actionTaken": "Cast Force of Will (pitching a blue card and paying 1 life) to counter Aether Vial",
       "betterLine": "Countering Aether Vial is likely correct here since an unchecked Vial would invalidate the remaining countermagic and enable the Goblin deck's most powerful sequences. The play is defensible, though the pitch cost is significant.",
       "type": "blunder",
-      "snapshotIndex": 28,
+      "snapshotIndex": 29,
       "player": "GPT5n Coach"
     },
     {
@@ -78984,7 +78984,7 @@
       "actionTaken": "Cast Force of Will (presumably exiling the other Force of Will or Murktide Regent) to counter Aether Vial",
       "betterLine": "This is likely correct - Aether Vial is the most important permanent in Goblins and countering it with Force of Will is standard. The alternative of letting it resolve and trying to deal with the creature flood is risky. Still questionable given the heavy resource cost.",
       "type": "blunder",
-      "snapshotIndex": 30,
+      "snapshotIndex": 31,
       "player": "GPT5n Coach"
     },
     {
@@ -78993,7 +78993,7 @@
       "actionTaken": "Cast Force of Will (exiling the other Force of Will and paying 1 life) to counter Aether Vial",
       "betterLine": "This is genuinely debatable. Countering Vial is the standard play in many Legacy matchups, but losing both Forces means Muxus becomes unanswerable. Letting Vial resolve and relying on Murktide Regent pressure plus Snuff Out for key creatures could have been considered, especially since the opponent already has Wasteland to potentially slow down mana development.",
       "type": "blunder",
-      "snapshotIndex": 32,
+      "snapshotIndex": 33,
       "player": "GPT5n Coach"
     },
     {
@@ -79002,7 +79002,7 @@
       "actionTaken": "Did not counter Aether Vial with Force of Will, allowing it to resolve onto the battlefield.",
       "betterLine": "Cast Force of Will by paying 1 life and exiling the other Force of Will from hand to counter Aether Vial. This prevents the Goblin deck from deploying creatures at instant speed uncounterably for the rest of the game, which is essential for the control/tempo game plan.",
       "type": "blunder",
-      "snapshotIndex": 34,
+      "snapshotIndex": 35,
       "player": "GPT5n Coach"
     },
     {
@@ -79011,7 +79011,7 @@
       "actionTaken": "Cast Brainstorm before playing a land drop",
       "betterLine": "Play Underground Sea first (ensuring access to Swamp for free Snuff Out and additional mana), then cast Brainstorm with the Island. This preserves better sequencing and ensures the land drop isn't missed if Brainstorm draws into something that changes the plan.",
       "type": "blunder",
-      "snapshotIndex": 43,
+      "snapshotIndex": 44,
       "player": "GPT5n Coach"
     },
     {
@@ -79020,7 +79020,7 @@
       "actionTaken": "Cast Force of Will to counter Brainstorm on the stack",
       "betterLine": "Let Brainstorm resolve (if it's your own spell) or save Force of Will for a more impactful threat like Muxus or Goblin Ringleader",
       "type": "blunder",
-      "snapshotIndex": 45,
+      "snapshotIndex": 46,
       "player": "GPT5n Coach"
     },
     {
@@ -79029,7 +79029,7 @@
       "actionTaken": "Used Force of Will's alternative cost (exiling Murktide Regent, paying 1 life) to counter opponent's Brainstorm.",
       "betterLine": "Let Brainstorm resolve. Save Force of Will for a must-counter threat like Muxus, Goblin Grandee or another critical spell. Murktide Regent is the primary win condition and should not be exiled to counter a cantrip.",
       "type": "blunder",
-      "snapshotIndex": 46,
+      "snapshotIndex": 47,
       "player": "GPT5n Coach"
     },
     {
@@ -79038,7 +79038,7 @@
       "actionTaken": "Cast Force of Will targeting their own Brainstorm on the stack",
       "betterLine": "Let Brainstorm resolve to draw three cards and put two back, saving Force of Will for the opponent's threats like Muxus or other key spells",
       "type": "blunder",
-      "snapshotIndex": 47,
+      "snapshotIndex": 48,
       "player": "GPT5n Coach"
     },
     {
@@ -79047,7 +79047,7 @@
       "actionTaken": "Cast Force of Will using alternative cost (paying 1 life and exiling Murktide Regent) to counter opponent's Brainstorm.",
       "betterLine": "Let Brainstorm resolve. Save Force of Will for a high-impact threat like Muxus, Goblin Grandee or another game-changing spell. Murktide Regent is the primary win condition and should not be exiled to counter a cantrip.",
       "type": "blunder",
-      "snapshotIndex": 48,
+      "snapshotIndex": 49,
       "player": "GPT5n Coach"
     },
     {
@@ -79056,7 +79056,7 @@
       "actionTaken": "Cast Force of Will to counter Brainstorm (which appears to be their own spell on the stack)",
       "betterLine": "Let Brainstorm resolve to draw three cards and improve hand quality, saving Force of Will for countering opponent's threats like Muxus or Goblin Ringleader",
       "type": "blunder",
-      "snapshotIndex": 49,
+      "snapshotIndex": 50,
       "player": "GPT5n Coach"
     },
     {
@@ -79065,7 +79065,7 @@
       "actionTaken": "Cast Force of Will targeting Brainstorm on the stack",
       "betterLine": "Let Brainstorm resolve to draw three cards and set up future draws. Save Force of Will for a critical opponent threat like Muxus or other game-changing spells.",
       "type": "blunder",
-      "snapshotIndex": 51,
+      "snapshotIndex": 52,
       "player": "GPT5n Coach"
     },
     {
@@ -79074,7 +79074,7 @@
       "actionTaken": "Cast Force of Will to counter their own Brainstorm",
       "betterLine": "Let Brainstorm resolve to draw three cards and put two back, improving hand quality and setting up future draws. Save Force of Will for countering opponent's threats like Muxus or Goblin Ringleader.",
       "type": "blunder",
-      "snapshotIndex": 53,
+      "snapshotIndex": 54,
       "player": "GPT5n Coach"
     },
     {
@@ -79083,7 +79083,7 @@
       "actionTaken": "Selected Force of Will to counter opponent's Brainstorm, spending a premium counterspell and a blue card exile to stop a 1-mana cantrip.",
       "betterLine": "Let Brainstorm resolve. The Orcish Bowmasters in hand would actually punish the opponent for drawing cards from Brainstorm (dealing 1 damage and amassing for each extra draw). Save Force of Will for must-counter threats like Muxus, Goblin Grandee or other high-impact spells.",
       "type": "blunder",
-      "snapshotIndex": 57,
+      "snapshotIndex": 58,
       "player": "GPT5n Coach"
     },
     {
@@ -79092,7 +79092,7 @@
       "actionTaken": "Selected Force of Will to counter opponent's Brainstorm (a cantrip)",
       "betterLine": "Let Brainstorm resolve. The Orcish Bowmasters in hand would trigger twice off the extra draws from Brainstorm (dealing damage and creating army tokens). Save Force of Will for high-impact threats like Muxus or Goblin Ringleader. Play Underground Sea this turn and deploy Orcish Bowmasters to punish the Brainstorm draws.",
       "type": "blunder",
-      "snapshotIndex": 58,
+      "snapshotIndex": 59,
       "player": "GPT5n Coach"
     },
     {
@@ -79101,7 +79101,7 @@
       "actionTaken": "Activated Wasteland to destroy opponent's Island while the Aether Vial upkeep trigger was still on the stack.",
       "betterLine": "Let the Aether Vial trigger resolve first (getting the counter to 2), then during main phase activate Wasteland to destroy the opponent's Island. This preserves optionality and proper sequencing - the end result of destroying the Island is the same but you resolve your own beneficial trigger cleanly first.",
       "type": "blunder",
-      "snapshotIndex": 65,
+      "snapshotIndex": 66,
       "player": "Opus Stoic"
     },
     {
@@ -79110,7 +79110,7 @@
       "actionTaken": "Passed priority without activating Aether Vial or cracking Bloodstained Mire",
       "betterLine": "Crack Bloodstained Mire to fetch a land (likely a Badlands or basic Mountain/Swamp) to develop mana toward casting expensive goblins. With Muxus at 6 mana and Goblin Ringleader at 4, every land drop matters. The Vial is fine to leave since there are no MV 1 goblins in hand.",
       "type": "blunder",
-      "snapshotIndex": 70,
+      "snapshotIndex": 71,
       "player": "Opus Stoic"
     },
     {
@@ -79119,7 +79119,7 @@
       "actionTaken": "Passed without activating Bloodstained Mire or Aether Vial",
       "betterLine": "Crack Bloodstained Mire now to fetch a Swamp/Mountain, ensuring the land is available and reducing risk of opponent interaction. Waiting for end step provides minimal advantage here since the opponent has no untapped mana.",
       "type": "blunder",
-      "snapshotIndex": 74,
+      "snapshotIndex": 75,
       "player": "Opus Stoic"
     },
     {
@@ -79128,7 +79128,7 @@
       "actionTaken": "Cast Orcish Bowmasters during own main phase (despite reasoning stating intent to cast Ponder)",
       "betterLine": "Cast Ponder first to improve card selection, then hold Orcish Bowmasters to cast at instant speed on opponent's turn to maximize its flash value and potentially punish extra card draws.",
       "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 78,
       "player": "GPT5n Coach"
     },
     {
@@ -79137,7 +79137,7 @@
       "actionTaken": "Kept two Force of Wills on top of library without shuffling",
       "betterLine": "Should have shuffled with Ponder to have a chance of drawing lands in subsequent turns, since they're severely mana-screwed with only 2 lands and need 3+ mana to cast most of their hand",
       "type": "blunder",
-      "snapshotIndex": 82,
+      "snapshotIndex": 83,
       "player": "GPT5n Coach"
     },
     {
@@ -79146,7 +79146,7 @@
       "actionTaken": "Fetched Badlands (nonbasic dual land)",
       "betterLine": "Fetch a basic Mountain to play around opposing Wasteland while still having red mana for Broadside Bombardiers this turn. The Aether Vial on 2 can handle Munitions Expert without needing black mana from lands immediately.",
       "type": "blunder",
-      "snapshotIndex": 95,
+      "snapshotIndex": 96,
       "player": "Opus Stoic"
     },
     {
@@ -79155,7 +79155,7 @@
       "actionTaken": "Cast Broadside Bombardiers for {2}{R} using Badlands + 2 Wastelands, deploying a hasty menace creature.",
       "betterLine": "Activate Wasteland targeting Underground Sea to cut opponent off black mana, then use Aether Vial (2 counters) to put Munitions Expert into play. This denies the opponent access to black mana for key spells while still developing the board. Broadside Bombardiers could be cast next turn when more mana is available.",
       "type": "blunder",
-      "snapshotIndex": 96,
+      "snapshotIndex": 97,
       "player": "Opus Stoic"
     },
     {
@@ -79164,7 +79164,7 @@
       "actionTaken": "Passed priority and let Broadside Bombardiers resolve, incorrectly believing they had no blue card to exile for Force of Will's alternate cost.",
       "betterLine": "Cast Force of Will by paying 1 life and exiling the other Force of Will from hand to counter Broadside Bombardiers. This removes a hasty menace threat with a powerful boast ability, and the remaining cards in hand (Murktide Regent, Orcish Bowmasters, Snuff Out, Barrowgoyf) still provide strong options going forward.",
       "type": "blunder",
-      "snapshotIndex": 101,
+      "snapshotIndex": 102,
       "player": "GPT5n Coach"
     },
     {
@@ -79173,7 +79173,7 @@
       "actionTaken": "Declined to activate Broadside Bombardiers' Boast ability, preserving Aether Vial.",
       "betterLine": "Keeping Aether Vial is likely correct here since it enables free creature deployment past countermagic, but sacrificing it for 3 damage to race could also be defensible given the aggressive game plan.",
       "type": "blunder",
-      "snapshotIndex": 120,
+      "snapshotIndex": 121,
       "player": "Opus Stoic"
     },
     {
@@ -79182,7 +79182,7 @@
       "actionTaken": "Cast Orcish Bowmasters before making a land drop with Wasteland.",
       "betterLine": "Play Wasteland first, potentially use it to destroy opponent's Badlands (their only colored mana source), then cast Orcish Bowmasters with Underground Sea + Island.",
       "type": "blunder",
-      "snapshotIndex": 122,
+      "snapshotIndex": 123,
       "player": "GPT5n Coach"
     },
     {
@@ -79191,7 +79191,7 @@
       "actionTaken": "Cast Force of Will while their own Snuff Out was the only spell on the stack, effectively countering their own removal.",
       "betterLine": "Pass priority and let Snuff Out resolve, destroying Broadside Bombardiers. This was the whole point of casting Snuff Out in the first place.",
       "type": "blunder",
-      "snapshotIndex": 124,
+      "snapshotIndex": 125,
       "player": "GPT5n Coach"
     },
     {
@@ -79200,7 +79200,7 @@
       "actionTaken": "Cast Force of Will to counter Snuff Out targeting opponent's Broadside Bombardiers, exiling a Force of Will from hand",
       "betterLine": "Let the Snuff Out resolve - the opponent destroying their own Broadside Bombardiers is beneficial for GPT5n Coach, removing a threatening attacker. Save Force of Will for a meaningful counter.",
       "type": "blunder",
-      "snapshotIndex": 126,
+      "snapshotIndex": 127,
       "player": "GPT5n Coach"
     },
     {
@@ -79209,7 +79209,7 @@
       "actionTaken": "Cast Force of Will (exiling Murktide Regent) to counter opponent's Force of Will, protecting Snuff Out on Broadside Bombardiers",
       "betterLine": "Let the opponent's Force of Will resolve and counter Snuff Out. Losing Snuff Out is painful but preserving Murktide Regent as a win condition is far more important than killing a 2/2. Could deploy Orcish Bowmasters or Barrowgoyf instead to contest the board.",
       "type": "blunder",
-      "snapshotIndex": 127,
+      "snapshotIndex": 128,
       "player": "GPT5n Coach"
     },
     {
@@ -79218,7 +79218,7 @@
       "actionTaken": "Cast Force of Will using alternative cost, exiling Murktide Regent to counter opponent's Force of Will protecting Broadside Bombardiers",
       "betterLine": "Let the opponent's Force of Will resolve, accepting the loss of Snuff Out and the 4 life. Preserve Murktide Regent as a win condition. Use Orcish Bowmasters (flash) and Wasteland to manage the board while working toward casting Murktide later.",
       "type": "blunder",
-      "snapshotIndex": 128,
+      "snapshotIndex": 129,
       "player": "GPT5n Coach"
     },
     {
@@ -79227,7 +79227,7 @@
       "actionTaken": "Cast Force of Will exiling Murktide Regent to counter opponent's Force of Will, protecting Snuff Out targeting Broadside Bombardiers",
       "betterLine": "Let the opponent's Force of Will resolve and counter Snuff Out. Keep Force of Will and Murktide Regent for later. Murktide Regent could be cast with Delve as a large flying threat - far more valuable than killing a 2/2. Hold Orcish Bowmasters as potential interaction for future threats.",
       "type": "blunder",
-      "snapshotIndex": 129,
+      "snapshotIndex": 130,
       "player": "GPT5n Coach"
     },
     {
@@ -79236,7 +79236,7 @@
       "actionTaken": "Targeted themselves (GPT5n Coach) with Bowmasters' 1 damage trigger",
       "betterLine": "Target Opus Stoic (opponent) with the 1 damage to deal free damage (19→18), preserving own life total at 11.",
       "type": "blunder",
-      "snapshotIndex": 135,
+      "snapshotIndex": 136,
       "player": "GPT5n Coach"
     },
     {
@@ -79245,7 +79245,7 @@
       "actionTaken": "Declined the Aether Vial upkeep trigger, keeping it at 2 charge counters.",
       "betterLine": "Put a charge counter on Aether Vial to tick it to 3, enabling Broadside Bombardiers this turn and reaching 4 next turn for Goblin Ringleader or Sling-Gang Lieutenant. Munitions Expert can still be hard-cast for BR.",
       "type": "blunder",
-      "snapshotIndex": 148,
+      "snapshotIndex": 149,
       "player": "Opus Stoic"
     },
     {
@@ -79254,7 +79254,7 @@
       "actionTaken": "Activated Aether Vial (2 counters) before casting Broadside Bombardiers, likely putting in Munitions Expert with only 1 goblin on the field.",
       "betterLine": "Cast Broadside Bombardiers first for {2}{R} (haste creature on board), then activate Aether Vial to put in Munitions Expert with 2 goblins, allowing Expert to kill the 2/2 Orc Army token.",
       "type": "blunder",
-      "snapshotIndex": 151,
+      "snapshotIndex": 152,
       "player": "Opus Stoic"
     },
     {
@@ -79263,7 +79263,7 @@
       "actionTaken": "Cast Thoughtseize before playing Wasteland as land for turn",
       "betterLine": "Play Wasteland first (potentially destroying opponent's Badlands to limit mana), then cast Thoughtseize with Underground Sea or Island",
       "type": "blunder",
-      "snapshotIndex": 183,
+      "snapshotIndex": 184,
       "player": "GPT5n Coach"
     },
     {
@@ -79272,7 +79272,7 @@
       "actionTaken": "Targeted themselves with Thoughtseize, losing 2 life (going from 4 to 2) and being forced to discard one of their own cards.",
       "betterLine": "Target Opus Stoic with Thoughtseize to see their hand and strip their best nonland card, gaining crucial information and disruption while at a precarious 4 life.",
       "type": "blunder",
-      "snapshotIndex": 184,
+      "snapshotIndex": 185,
       "player": "GPT5n Coach"
     },
     {
@@ -79281,7 +79281,7 @@
       "actionTaken": "Declined to put a charge counter on Aether Vial during upkeep trigger, and did not activate Wasteland or any other ability.",
       "betterLine": "Put the charge counter on Aether Vial (going to 3 counters). Then in combat, attack with Broadside Bombardiers for lethal - opponent at 2 life with only a tapped creature that can't block menace alone. Alternatively, even without the counter, just proceed to combat and attack for the win.",
       "type": "blunder",
-      "snapshotIndex": 201,
+      "snapshotIndex": 202,
       "player": "Opus Stoic"
     }
   ],
@@ -79343,7 +79343,8 @@
       ],
       "subsequentActions": [
         "GPT5n Coach chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 4
     },
     {
       "index": 1,
@@ -79374,7 +79375,8 @@
       ],
       "subsequentActions": [
         "GPT5n Coach skips Draw step"
-      ]
+      ],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -79440,6 +79442,7 @@
         "GPT5n Coach puts Flooded Strand from hand onto the Battlefield",
         "GPT5n Coach skip attack"
       ],
+      "actionSeq": 9,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -79501,6 +79504,7 @@
         21
       ],
       "subsequentActions": [],
+      "actionSeq": 14,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -79556,6 +79560,7 @@
         "GPT5n Coach activates: search your library for a Plains or Island card, put it onto the battlefield, then shuffle. from Flooded Strand",
         "GPT5n Coach searches their library (source: Flooded Strand)"
       ],
+      "actionSeq": 15,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -79635,7 +79640,8 @@
       "subsequentActions": [
         "GPT5n Coach puts Island from library onto the Battlefield (source: Flooded Strand)",
         "GPT5n Coach's library is shuffled (source: Flooded Strand)"
-      ]
+      ],
+      "actionSeq": 22
     },
     {
       "index": 6,
@@ -79688,6 +79694,7 @@
       "subsequentActions": [
         "GPT5n Coach casts Ponder from hand"
       ],
+      "actionSeq": 27,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -79758,6 +79765,7 @@
       "subsequentActions": [
         "GPT5n Coach puts a card from library to the top of their library (source: Ponder)"
       ],
+      "actionSeq": 32,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -79824,6 +79832,7 @@
         "GPT5n Coach puts a card from library to the top of their library (source: Ponder)",
         "GPT5n Coach puts Ponder from stack into their graveyard"
       ],
+      "actionSeq": 34,
       "pilotContext": {
         "landDropsUsed": 1,
         "playableCards": [
@@ -79884,6 +79893,7 @@
       "subsequentActions": [
         "Opus Stoic puts Wasteland from hand onto the Battlefield"
       ],
+      "actionSeq": 41,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -79948,6 +79958,7 @@
       "subsequentActions": [
         "Opus Stoic casts Aether Vial from hand"
       ],
+      "actionSeq": 43,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -80012,6 +80023,7 @@
         55
       ],
       "subsequentActions": [],
+      "actionSeq": 47,
       "pilotContext": {
         "playableCards": [
           "p4",
@@ -80075,6 +80087,7 @@
         59
       ],
       "subsequentActions": [],
+      "actionSeq": 49,
       "pilotContext": {
         "playableCards": [
           "p4",
@@ -80138,6 +80151,7 @@
         64
       ],
       "subsequentActions": [],
+      "actionSeq": 51,
       "pilotContext": {
         "playableCards": [
           "p4",
@@ -80201,6 +80215,7 @@
         68
       ],
       "subsequentActions": [],
+      "actionSeq": 53,
       "pilotContext": {
         "playableCards": [
           "p4",
@@ -80264,6 +80279,7 @@
         73
       ],
       "subsequentActions": [],
+      "actionSeq": 55,
       "pilotContext": {
         "playableCards": [
           "p4",
@@ -80328,6 +80344,7 @@
         77
       ],
       "subsequentActions": [],
+      "actionSeq": 57,
       "pilotContext": {
         "playableCards": [
           "p4",
@@ -80394,6 +80411,7 @@
       "subsequentActions": [
         "Opus Stoic puts Aether Vial from stack onto the Battlefield"
       ],
+      "actionSeq": 59,
       "pilotContext": {
         "playableCards": [
           "p4",
@@ -80444,6 +80462,7 @@
       "subsequentActions": [
         "Opus Stoic skip attack"
       ],
+      "actionSeq": 63,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -80486,6 +80505,7 @@
         101
       ],
       "subsequentActions": [],
+      "actionSeq": 68,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -80554,6 +80574,7 @@
       "subsequentActions": [
         "GPT5n Coach casts Brainstorm from hand"
       ],
+      "actionSeq": 70,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -80620,6 +80641,7 @@
         96
       ],
       "subsequentActions": [],
+      "actionSeq": 73,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -80678,6 +80700,7 @@
         100
       ],
       "subsequentActions": [],
+      "actionSeq": 74,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -80742,6 +80765,7 @@
         107
       ],
       "subsequentActions": [],
+      "actionSeq": 76,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -80800,6 +80824,7 @@
         111
       ],
       "subsequentActions": [],
+      "actionSeq": 77,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -80864,6 +80889,7 @@
         116
       ],
       "subsequentActions": [],
+      "actionSeq": 79,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -80929,6 +80955,7 @@
         121
       ],
       "subsequentActions": [],
+      "actionSeq": 81,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -80994,6 +81021,7 @@
         126
       ],
       "subsequentActions": [],
+      "actionSeq": 83,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81077,6 +81105,7 @@
         134
       ],
       "subsequentActions": [],
+      "actionSeq": 85,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81162,6 +81191,7 @@
         139
       ],
       "subsequentActions": [],
+      "actionSeq": 87,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81247,6 +81277,7 @@
         142
       ],
       "subsequentActions": [],
+      "actionSeq": 88,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81332,6 +81363,7 @@
         145
       ],
       "subsequentActions": [],
+      "actionSeq": 89,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81439,6 +81471,7 @@
       "subsequentActions": [
         "GPT5n Coach puts a card from hand to the top of their library (source: Brainstorm)"
       ],
+      "actionSeq": 90,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81541,6 +81574,7 @@
         "GPT5n Coach puts a card from hand to the top of their library (source: Brainstorm)",
         "GPT5n Coach puts Brainstorm from stack into their graveyard"
       ],
+      "actionSeq": 93,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81603,6 +81637,7 @@
         "GPT5n Coach skip attack",
         "Opus Stoic - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
       ],
+      "actionSeq": 96,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81661,6 +81696,7 @@
         163
       ],
       "subsequentActions": [],
+      "actionSeq": 104,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -81714,6 +81750,7 @@
         167
       ],
       "subsequentActions": [],
+      "actionSeq": 105,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -81750,7 +81787,8 @@
       ],
       "subsequentActions": [
         "Opus Stoic puts 1 charge counter on Aether Vial"
-      ]
+      ],
+      "actionSeq": 108
     },
     {
       "index": 38,
@@ -81807,6 +81845,7 @@
       "subsequentActions": [
         "Opus Stoic puts Bloodstained Mire from hand onto the Battlefield"
       ],
+      "actionSeq": 110,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -81867,6 +81906,7 @@
       "subsequentActions": [
         "Opus Stoic skip attack"
       ],
+      "actionSeq": 112,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -81919,6 +81959,7 @@
         186
       ],
       "subsequentActions": [],
+      "actionSeq": 117,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -81988,6 +82029,7 @@
       "subsequentActions": [
         "GPT5n Coach puts Underground Sea from hand onto the Battlefield"
       ],
+      "actionSeq": 119,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -82060,6 +82102,7 @@
       "subsequentActions": [
         "GPT5n Coach casts Ponder from hand"
       ],
+      "actionSeq": 121,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -82151,6 +82194,7 @@
       "subsequentActions": [
         "GPT5n Coach puts a card from library to the top of their library (source: Ponder)"
       ],
+      "actionSeq": 126,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -82218,6 +82262,7 @@
         "GPT5n Coach puts a card from library to the top of their library (source: Ponder)",
         "GPT5n Coach puts Ponder from stack into their graveyard"
       ],
+      "actionSeq": 129,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -82262,6 +82307,7 @@
         216
       ],
       "subsequentActions": [],
+      "actionSeq": 134,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -82294,6 +82340,7 @@
         "GPT5n Coach skip attack",
         "Opus Stoic - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
       ],
+      "actionSeq": 134,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -82358,6 +82405,7 @@
         226
       ],
       "subsequentActions": [],
+      "actionSeq": 142,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -82395,6 +82443,7 @@
       "subsequentActions": [
         "Opus Stoic puts 1 charge counter on Aether Vial"
       ],
+      "actionSeq": 144,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -82466,6 +82515,7 @@
       "subsequentActions": [
         "Opus Stoic puts Wasteland from hand onto the Battlefield"
       ],
+      "actionSeq": 146,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -82514,6 +82564,7 @@
         "Opus Stoic sacrificed Bloodstained Mire (source: Bloodstained Mire)",
         "Opus Stoic activates: search your library for a Swamp or Mountain card, put it onto the battlefield, then shuffle. from Bloodstained Mire"
       ],
+      "actionSeq": 149,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -82580,6 +82631,7 @@
       "subsequentActions": [
         "Opus Stoic searches their library (source: Bloodstained Mire)"
       ],
+      "actionSeq": 153,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -82668,6 +82720,7 @@
         "Opus Stoic puts Badlands from library onto the Battlefield (source: Bloodstained Mire)",
         "Opus Stoic's library is shuffled (source: Bloodstained Mire)"
       ],
+      "actionSeq": 156,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -82759,6 +82812,7 @@
       "subsequentActions": [
         "Opus Stoic casts Broadside Bombardiers from hand"
       ],
+      "actionSeq": 159,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -82808,6 +82862,7 @@
       "subsequentActions": [
         "Opus Stoic puts Broadside Bombardiers from stack onto the Battlefield"
       ],
+      "actionSeq": 165,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -82847,6 +82902,7 @@
         261
       ],
       "subsequentActions": [],
+      "actionSeq": 168,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -82907,6 +82963,7 @@
       "subsequentActions": [
         "Opus Stoic attacks GPT5n Coach with 1 creature"
       ],
+      "actionSeq": 169,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -82943,6 +83000,7 @@
       "subsequentActions": [
         "Attacker: Broadside Bombardiers (2/2) unblocked"
       ],
+      "actionSeq": 173,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -82984,6 +83042,7 @@
       "subsequentActions": [
         "GPT5n Coach loses 2 life at combat from Broadside Bombardiers"
       ],
+      "actionSeq": 176,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83041,6 +83100,7 @@
         277
       ],
       "subsequentActions": [],
+      "actionSeq": 179,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83098,6 +83158,7 @@
         281
       ],
       "subsequentActions": [],
+      "actionSeq": 181,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83155,6 +83216,7 @@
         286
       ],
       "subsequentActions": [],
+      "actionSeq": 183,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83212,6 +83274,7 @@
         291
       ],
       "subsequentActions": [],
+      "actionSeq": 185,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83248,6 +83311,7 @@
         295
       ],
       "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83285,6 +83349,7 @@
         298
       ],
       "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83323,6 +83388,7 @@
         302
       ],
       "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83360,6 +83426,7 @@
         305
       ],
       "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83397,6 +83464,7 @@
         308
       ],
       "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83437,6 +83505,7 @@
         314
       ],
       "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83474,6 +83543,7 @@
         317
       ],
       "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83511,6 +83581,7 @@
         325
       ],
       "subsequentActions": [],
+      "actionSeq": 187,
       "pilotContext": {
         "untappedLands": 1,
         "playableCards": [
@@ -83566,6 +83637,7 @@
         329
       ],
       "subsequentActions": [],
+      "actionSeq": 188,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -83590,7 +83662,8 @@
         326,
         327
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 190
     },
     {
       "index": 73,
@@ -83657,6 +83730,7 @@
         332
       ],
       "subsequentActions": [],
+      "actionSeq": 190,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -83730,6 +83804,7 @@
         "GPT5n Coach loses 4 life from Snuff Out",
         "GPT5n Coach casts Snuff Out using alternative casting costs targeting Broadside Bombardiers from hand"
       ],
+      "actionSeq": 191,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -83813,6 +83888,7 @@
         342
       ],
       "subsequentActions": [],
+      "actionSeq": 194,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -83874,6 +83950,7 @@
         346
       ],
       "subsequentActions": [],
+      "actionSeq": 195,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -83941,6 +84018,7 @@
       "subsequentActions": [
         "GPT5n Coach loses 1 life from Force of Will"
       ],
+      "actionSeq": 196,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -84015,6 +84093,7 @@
         "GPT5n Coach moves Force of Will from hand to the exile zone (source: Force of Will)",
         "GPT5n Coach casts Force of Will using alternative casting costs targeting Snuff Out from hand"
       ],
+      "actionSeq": 198,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -84083,6 +84162,7 @@
         362
       ],
       "subsequentActions": [],
+      "actionSeq": 201,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -84142,6 +84222,7 @@
         366
       ],
       "subsequentActions": [],
+      "actionSeq": 202,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -84208,6 +84289,7 @@
         "GPT5n Coach moves Murktide Regent from hand to the exile zone (source: Force of Will)",
         "GPT5n Coach casts Force of Will using alternative casting costs targeting Force of Will from hand"
       ],
+      "actionSeq": 203,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -84269,6 +84351,7 @@
       "subsequentActions": [
         "GPT5n Coach casts Orcish Bowmasters from hand"
       ],
+      "actionSeq": 208,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -84300,6 +84383,7 @@
       "subsequentActions": [
         "GPT5n Coach puts Orcish Bowmasters from stack onto the Battlefield"
       ],
+      "actionSeq": 212,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -84363,6 +84447,7 @@
         "GPT5n Coach puts Force of Will from stack into their graveyard (source: Force of Will)",
         "Force of Will is countered by Force of Will"
       ],
+      "actionSeq": 215,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -84426,6 +84511,7 @@
         382
       ],
       "subsequentActions": [],
+      "actionSeq": 239,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -84461,6 +84547,7 @@
         386
       ],
       "subsequentActions": [],
+      "actionSeq": 241,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -84540,6 +84627,7 @@
         390
       ],
       "subsequentActions": [],
+      "actionSeq": 242,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -84587,6 +84675,7 @@
       "subsequentActions": [
         "Opus Stoic activates: You may put a creature card with mana value equal to the number of charge counters on Aether Vial from your hand onto the battlefield. from Aether Vial"
       ],
+      "actionSeq": 243,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -84646,6 +84735,7 @@
         398
       ],
       "subsequentActions": [],
+      "actionSeq": 245,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -84684,6 +84774,7 @@
       "subsequentActions": [
         "Opus Stoic puts Munitions Expert from hand onto the Battlefield (source: Aether Vial)"
       ],
+      "actionSeq": 247,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -84749,6 +84840,7 @@
       "subsequentActions": [
         "Opus Stoic - Ability triggers: Munitions Expert - When Munitions Expert enters, you may have it deal damage to target creature or planeswalker equal to the number of Goblins you control. - targeting Orcish Bowmasters"
       ],
+      "actionSeq": 250,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -84804,6 +84896,7 @@
         412
       ],
       "subsequentActions": [],
+      "actionSeq": 252,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -84843,6 +84936,7 @@
         "Munitions Expert deals 1 damage to Orcish Bowmasters",
         "Orcish Bowmasters died"
       ],
+      "actionSeq": 254,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -84924,6 +85018,7 @@
         "Opus Stoic casts Broadside Bombardiers from hand",
         "Opus Stoic puts Broadside Bombardiers from stack onto the Battlefield"
       ],
+      "actionSeq": 257,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -84986,6 +85081,7 @@
       "subsequentActions": [
         "Opus Stoic attacks GPT5n Coach with 1 creature"
       ],
+      "actionSeq": 267,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -85052,6 +85148,7 @@
         "Attacker: Broadside Bombardiers (2/2) unblocked",
         "GPT5n Coach loses 2 life at combat from Broadside Bombardiers"
       ],
+      "actionSeq": 272,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -85105,6 +85202,7 @@
         433
       ],
       "subsequentActions": [],
+      "actionSeq": 279,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -85220,6 +85318,7 @@
         437
       ],
       "subsequentActions": [],
+      "actionSeq": 281,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -85275,6 +85374,7 @@
         "Opus Stoic activates: Broadside Bombardiers deals damage equal to 2 plus the sacrificed permanent's mana value to any target. from Broadside Bombardiers targeting GPT5n Coach",
         "GPT5n Coach loses 4 life from Broadside Bombardiers"
       ],
+      "actionSeq": 282,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -85334,6 +85434,7 @@
         447
       ],
       "subsequentActions": [],
+      "actionSeq": 290,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -85400,6 +85501,7 @@
       "subsequentActions": [
         "GPT5n Coach casts Thoughtseize targeting GPT5n Coach from hand"
       ],
+      "actionSeq": 291,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -85451,6 +85553,7 @@
         "GPT5n Coach loses 2 life from Thoughtseize",
         "GPT5n Coach puts Thoughtseize from stack into their graveyard"
       ],
+      "actionSeq": 295,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -85511,6 +85614,7 @@
         462
       ],
       "subsequentActions": [],
+      "actionSeq": 304,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -85560,6 +85664,7 @@
         "Attacker: Orc Army Token (1/1) unblocked",
         "Opus Stoic loses 1 life at combat from Orc Army Token"
       ],
+      "actionSeq": 305,
       "pilotContext": {
         "combatPhase": "attackers"
       }
@@ -85594,6 +85699,7 @@
       "subsequentActions": [
         "Opus Stoic - Ability triggers: Aether Vial - At the beginning of your upkeep, you may put a charge counter on Aether Vial."
       ],
+      "actionSeq": 315,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -85660,6 +85766,7 @@
         475
       ],
       "subsequentActions": [],
+      "actionSeq": 318,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -85697,6 +85804,7 @@
       "subsequentActions": [
         "Opus Stoic puts 1 charge counter on Aether Vial"
       ],
+      "actionSeq": 320,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -85756,6 +85864,7 @@
         "Opus Stoic attacks GPT5n Coach with 1 creature",
         "Attacker: Broadside Bombardiers (2/2) unblocked"
       ],
+      "actionSeq": 324,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -85829,6 +85938,7 @@
         "GPT5n Coach loses 2 life at combat from Broadside Bombardiers",
         "GPT5n Coach has lost the game."
       ],
+      "actionSeq": 330,
       "pilotContext": {
         "untappedLands": 3
       }

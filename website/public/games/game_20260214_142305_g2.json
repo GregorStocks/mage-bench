@@ -40514,7 +40514,7 @@
       "actionTaken": "Played Hallowed Fountain as the turn 1 land drop",
       "betterLine": "Play Gloomlake Verge turn 1 for free untapped U mana, then Hallowed Fountain turn 2",
       "type": "blunder",
-      "snapshotIndex": 2,
+      "snapshotIndex": 3,
       "player": "Haiku Libby"
     },
     {
@@ -40523,7 +40523,7 @@
       "actionTaken": "Cast Spyglass Siren on turn 1",
       "betterLine": "Cast Stormchaser's Talent on turn 1 to create a prowess Otter token that synergizes with the spell-heavy hand and provides long-term scaling through Class level-ups",
       "type": "blunder",
-      "snapshotIndex": 4,
+      "snapshotIndex": 5,
       "player": "Haiku Libby"
     },
     {
@@ -40532,7 +40532,7 @@
       "actionTaken": "Cast Get Lost targeting Llanowar Elves, spending premium removal on a 1-drop and giving opponent two Map tokens.",
       "betterLine": "Cast Stormchaser's Talent to develop the board with an Otter token. The Spyglass Siren can already attack in the air, and building board presence while holding removal for bigger threats (like the 4-drops in opponent's deck) would likely be more efficient. Alternatively, Seam Rip or Boomerang Basics could handle the Elf without giving away Map tokens, but Stormchaser's Talent is the strongest proactive play.",
       "type": "blunder",
-      "snapshotIndex": 16,
+      "snapshotIndex": 17,
       "player": "Haiku Libby"
     },
     {
@@ -40541,7 +40541,7 @@
       "actionTaken": "Cast Stormchaser's Talent before playing the Hallowed Fountain land from hand.",
       "betterLine": "Play Hallowed Fountain first (paying 2 life for untapped), then cast Stormchaser's Talent, preserving more mana flexibility and potentially enabling additional plays this turn.",
       "type": "blunder",
-      "snapshotIndex": 29,
+      "snapshotIndex": 30,
       "player": "Haiku Libby"
     },
     {
@@ -40550,7 +40550,7 @@
       "actionTaken": "Played Fabled Passage, getting a tapped basic land",
       "betterLine": "Play Temple Garden (pay 2 life, untapped), then cast Seam Rip exiling Otter Token or Spyglass Siren. Save Fabled Passage for a later turn when you have 4+ lands to get the untap benefit.",
       "type": "blunder",
-      "snapshotIndex": 39,
+      "snapshotIndex": 40,
       "player": "Gem3P ESPN"
     },
     {
@@ -40559,7 +40559,7 @@
       "actionTaken": "Cast Nowhere to Run targeting Sazh's Chocobo (a 1/2) in precombat main",
       "betterLine": "Attack with flyers for damage, hold Nowhere to Run for a more impactful target like Mossborn Hydra or Mightform Harmonizer. Could use Boomerang Basics as tempo if needed, or just pressure with the existing board advantage.",
       "type": "blunder",
-      "snapshotIndex": 47,
+      "snapshotIndex": 48,
       "player": "Haiku Libby"
     },
     {
@@ -40568,7 +40568,7 @@
       "actionTaken": "Cast only Llanowar Elves for G, leaving 2 mana unused",
       "betterLine": "Cast both Seam Rip (targeting Stormchaser's Talent) and Llanowar Elves this turn, using all 3 available mana efficiently",
       "type": "blunder",
-      "snapshotIndex": 59,
+      "snapshotIndex": 60,
       "player": "Gem3P ESPN"
     },
     {
@@ -40577,7 +40577,7 @@
       "actionTaken": "Attacked with all creatures including the Otter Token",
       "betterLine": "Attack with only Spyglass Siren (flying, can't be blocked by ground creatures) to preserve the Otter Token for future prowess triggers and better attacks when backed by spell casts.",
       "type": "blunder",
-      "snapshotIndex": 65,
+      "snapshotIndex": 66,
       "player": "Haiku Libby"
     },
     {
@@ -40586,7 +40586,7 @@
       "actionTaken": "Leveled up Stormchaser's Talent to level 2 for 3U, using most/all available mana without addressing the Mossborn Hydra.",
       "betterLine": "Cast Boomerang Basics (U) targeting Mossborn Hydra to reset all its accumulated +1/+1 counters, then level up Stormchaser's Talent to level 2 (3U) with remaining mana, getting back Get Lost or No More Lies from graveyard.",
       "type": "blunder",
-      "snapshotIndex": 74,
+      "snapshotIndex": 75,
       "player": "Haiku Libby"
     },
     {
@@ -40595,7 +40595,7 @@
       "actionTaken": "Returned Get Lost from graveyard to hand via Stormchaser's Talent level 2",
       "betterLine": "Return No More Lies to counter the incoming Felidar Retreat (which would be devastating with the opponent's landfall engine), and use Boomerang Basics to handle creature threats",
       "type": "blunder",
-      "snapshotIndex": 74,
+      "snapshotIndex": 75,
       "player": "Haiku Libby"
     },
     {
@@ -40604,7 +40604,7 @@
       "actionTaken": "Put Icetill Explorer's mill trigger on the stack first (resolving last)",
       "betterLine": "Put Mossborn Hydra's doubling trigger on the stack first (resolving last, to maximize counters doubled), then Sazh's Chocobo's counter, then Icetill Explorer's mill last on stack (resolving first) to potentially enable playing a milled land for extra landfall triggers before doubling.",
       "type": "blunder",
-      "snapshotIndex": 82,
+      "snapshotIndex": 83,
       "player": "Gem3P ESPN"
     }
   ],
@@ -40659,7 +40659,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -40695,7 +40696,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -40745,6 +40747,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -40783,7 +40786,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -40820,6 +40824,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -40876,6 +40881,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -40914,6 +40920,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -40952,7 +40959,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 8,
@@ -40981,7 +40989,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 9,
@@ -41018,7 +41027,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 10,
@@ -41062,6 +41072,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -41120,6 +41131,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -41160,6 +41172,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -41235,6 +41248,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -41315,6 +41329,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -41373,6 +41388,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -41413,6 +41429,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -41467,6 +41484,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -41505,7 +41523,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 19,
@@ -41559,6 +41578,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -41599,6 +41619,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -41631,7 +41652,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 22,
@@ -41714,6 +41736,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -41754,6 +41777,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -41817,6 +41841,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -41857,6 +41882,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -41923,6 +41949,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -41963,6 +41990,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -42031,6 +42059,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -42069,7 +42098,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 30,
@@ -42121,6 +42151,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -42159,7 +42190,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 32,
@@ -42205,6 +42237,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -42283,6 +42316,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -42333,6 +42367,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -42374,6 +42409,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -42481,6 +42517,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -42515,6 +42552,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -42574,6 +42612,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -42623,6 +42662,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -42663,6 +42703,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -42702,6 +42743,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -42734,6 +42776,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -42797,6 +42840,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -42837,6 +42881,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -42893,6 +42938,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -42933,6 +42979,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -42967,6 +43014,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -43051,6 +43099,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -43084,6 +43133,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -43143,6 +43193,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -43174,7 +43225,8 @@
         "Haiku Libby draws seven cards",
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 52,
@@ -43243,6 +43295,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -43289,6 +43342,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -43372,6 +43426,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -43405,6 +43460,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -43475,6 +43531,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -43515,6 +43572,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -43588,6 +43646,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -43637,6 +43696,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -43700,6 +43760,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -43740,6 +43801,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -43806,6 +43868,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_blockers",
@@ -43917,6 +43980,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -43950,6 +44014,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -43998,6 +44063,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -44037,6 +44103,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -44076,6 +44143,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -44122,6 +44190,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -44175,6 +44244,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44226,6 +44296,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44259,6 +44330,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44359,6 +44431,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44411,6 +44484,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44443,6 +44517,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44524,6 +44599,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -44564,6 +44640,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -44616,6 +44693,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -44655,6 +44733,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -44717,6 +44796,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -44776,6 +44856,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_blockers",
         "incomingAttackers": [
@@ -44883,6 +44964,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -44923,6 +45005,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -44998,6 +45081,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -45057,6 +45141,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -45110,6 +45195,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -45160,6 +45246,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -45193,6 +45280,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -45288,6 +45376,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -45347,6 +45436,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -45400,6 +45490,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -45433,6 +45524,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -45517,6 +45609,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -45576,6 +45669,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 2
@@ -45629,6 +45723,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 2
@@ -45662,6 +45757,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 2
@@ -45739,6 +45835,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 2
@@ -45807,6 +45904,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
@@ -45840,6 +45938,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -45871,6 +45970,7 @@
         "Gem3P ESPN draws seven cards",
         "Haiku Libby keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }

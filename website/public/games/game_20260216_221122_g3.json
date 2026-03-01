@@ -43446,7 +43446,7 @@
       "actionTaken": "Discarded Mountain, keeping Hired Claw",
       "betterLine": "Discard Hired Claw instead. Being stuck on 1 land is a critical situation where every land matters. Sacred Foundry costs 2 life to come in untapped, so Mountain as a free untapped source is valuable. Hired Claw is the least impactful card for a burn-oriented aggro plan.",
       "type": "blunder",
-      "snapshotIndex": 81,
+      "snapshotIndex": 82,
       "player": "GPT5m Perfect"
     },
     {
@@ -43455,7 +43455,7 @@
       "actionTaken": "Targeted Grk41F Teach (opponent's face) with Shock for 2 damage",
       "betterLine": "Target Bloodghast with Shock to remove a recurring attacker, or save Shock for a more impactful moment. With Lightning Helix in hand to handle Inti and the life gain to stabilize, removing board threats is more important than 2 face damage when behind at 9 life.",
       "type": "blunder",
-      "snapshotIndex": 104,
+      "snapshotIndex": 105,
       "player": "GPT5m Perfect"
     },
     {
@@ -43464,7 +43464,7 @@
       "actionTaken": "Played Restless Vents, which enters tapped, leaving no ability to cast Greasewrench Goblin this turn.",
       "betterLine": "Play Swamp (enters untapped), then cast Greasewrench Goblin with a Blazemire Verge for R. Attack with Inti + Bloodghast for 7+ damage this turn, and have Goblin ready to attack next turn for a cleaner kill.",
       "type": "blunder",
-      "snapshotIndex": 111,
+      "snapshotIndex": 112,
       "player": "Grk41F Teach"
     },
     {
@@ -43473,7 +43473,7 @@
       "actionTaken": "Chose 'Draw a card' from Monument to Endurance's trigger.",
       "betterLine": "Choose 'Each opponent loses 3 life' to drop opponent from 9 to 6 life, making lethal much easier with the existing board of attackers and potentially closing the game immediately.",
       "type": "blunder",
-      "snapshotIndex": 115,
+      "snapshotIndex": 116,
       "player": "Grk41F Teach"
     }
   ],
@@ -43529,7 +43529,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -43563,7 +43564,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -43654,7 +43656,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -43698,7 +43701,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -43736,6 +43740,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -43784,6 +43789,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -43825,6 +43831,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -43862,6 +43869,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -43938,6 +43946,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -43997,6 +44006,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44051,6 +44061,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44102,6 +44113,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44168,6 +44180,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44219,6 +44232,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44278,6 +44292,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -44328,6 +44343,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -44369,6 +44385,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44419,6 +44436,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44458,7 +44476,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 19,
@@ -44506,6 +44525,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44551,6 +44571,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44600,6 +44621,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44640,6 +44662,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44705,6 +44728,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44745,6 +44769,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44785,6 +44810,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44835,6 +44861,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44866,7 +44893,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 28,
@@ -44924,6 +44952,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -44976,6 +45005,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45025,6 +45055,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45064,7 +45095,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 32,
@@ -45101,7 +45133,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 33,
@@ -45138,7 +45171,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 34,
@@ -45188,7 +45222,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 35,
@@ -45225,7 +45260,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 36,
@@ -45262,7 +45298,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 37,
@@ -45299,7 +45336,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 38,
@@ -45336,7 +45374,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 39,
@@ -45366,7 +45405,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 40,
@@ -45403,7 +45443,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 41,
@@ -45440,7 +45481,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 42,
@@ -45538,6 +45580,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45598,6 +45641,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -45639,6 +45683,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45710,6 +45755,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45775,6 +45821,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45828,6 +45875,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45868,6 +45916,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45908,6 +45957,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45948,6 +45998,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45988,6 +46039,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -46029,6 +46081,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -46106,6 +46159,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -46156,6 +46210,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -46206,6 +46261,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -46257,6 +46313,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46302,6 +46359,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46360,6 +46418,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46400,6 +46459,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46453,6 +46513,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46497,6 +46558,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46550,6 +46612,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46605,6 +46668,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46643,6 +46707,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -46694,7 +46759,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 66,
@@ -46776,6 +46842,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -46825,7 +46892,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 68,
@@ -46855,7 +46923,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 69,
@@ -46902,7 +46971,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 70,
@@ -46972,6 +47042,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -47043,6 +47114,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -47091,6 +47163,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47122,7 +47195,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 74,
@@ -47151,7 +47225,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 75,
@@ -47180,7 +47255,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 76,
@@ -47208,7 +47284,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 77,
@@ -47255,7 +47332,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 78,
@@ -47293,6 +47371,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47358,6 +47437,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47435,6 +47515,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47494,6 +47575,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47547,6 +47629,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47604,6 +47687,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47651,6 +47735,7 @@
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47682,7 +47767,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 86,
@@ -47735,7 +47821,8 @@
         "Grk41F Teach draws seven cards",
         "Grk41F Teach keeps hand",
         "GPT5m Perfect decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     }
   ]
 }

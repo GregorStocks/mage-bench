@@ -41071,7 +41071,7 @@
       "actionTaken": "Played Mountain from hand as the land drop for the turn.",
       "betterLine": "Play Godless Shrine (paying 2 life to have it enter untapped) to get Plains and Swamp types. Then crack Arid Mesa for a basic Mountain to get 3 basic land types immediately, setting up a cheaper Scion of Draco and enabling Territorial Kavu as a 3/3 next turn if a green source is found.",
       "type": "blunder",
-      "snapshotIndex": 27,
+      "snapshotIndex": 28,
       "player": "Opus Grudge"
     },
     {
@@ -41080,7 +41080,7 @@
       "actionTaken": "Cast Phlage, Titan of Fire's Fury from hand for {1}{R}{W}, which will be immediately sacrificed since it didn't escape.",
       "betterLine": "Crack Arid Mesa for a fetchable land if needed, then cast Teferi, Time Raveler ({1}{W}{U} using Temple Garden, Godless Shrine, and finding an Island or using existing lands). Teferi's -3 could bounce Dredger's Insight and draw a card, while the static ability prevents opponent from using instant-speed abilities. If blue mana isn't available, at minimum save Phlage for escape later and use Arid Mesa to fix mana for Teferi or Scion of Draco on a future turn.",
       "type": "blunder",
-      "snapshotIndex": 83,
+      "snapshotIndex": 84,
       "player": "Opus Grudge"
     },
     {
@@ -41089,7 +41089,7 @@
       "actionTaken": "Cast Dredger's Insight, which mills cards and provides incremental value but does nothing to prevent the opponent from escaping Phlage for lethal damage next turn.",
       "betterLine": "Cast Agatha's Soul Cauldron for {2}, then tap it to exile Phlage from the opponent's graveyard, removing the lethal escape threat. Could also play the Forest first for additional mana flexibility.",
       "type": "blunder",
-      "snapshotIndex": 104,
+      "snapshotIndex": 105,
       "player": "GLM47 Gramps"
     },
     {
@@ -41098,7 +41098,7 @@
       "actionTaken": "Cast Badgermole Cub instead of Agatha's Soul Cauldron",
       "betterLine": "Cast Agatha's Soul Cauldron, then next turn exile Walking Ballista from graveyard with Cauldron and cast Yawgmoth to combo kill with Young Wolf + undying + Ballista ping ability",
       "type": "blunder",
-      "snapshotIndex": 112,
+      "snapshotIndex": 113,
       "player": "GLM47 Gramps"
     }
   ],
@@ -41154,7 +41154,8 @@
         "Opus Grudge draws seven cards",
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -41188,7 +41189,8 @@
         "Opus Grudge draws seven cards",
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -41226,7 +41228,8 @@
         "Opus Grudge draws seven cards",
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -41296,6 +41299,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -41350,6 +41354,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -41410,6 +41415,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -41465,6 +41471,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -41511,6 +41518,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -41552,6 +41560,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -41623,6 +41632,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -41663,6 +41673,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -41713,6 +41724,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -41763,6 +41775,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -41813,6 +41826,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -41887,6 +41901,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -41939,6 +41954,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -42017,6 +42033,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -42058,6 +42075,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -42115,6 +42133,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -42185,6 +42204,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -42232,6 +42252,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -42273,6 +42294,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -42320,6 +42342,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -42379,6 +42402,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -42425,6 +42449,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -42466,6 +42491,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -42497,6 +42523,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -42566,6 +42593,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -42629,6 +42657,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1,
@@ -42693,6 +42722,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -42734,6 +42764,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -42799,6 +42830,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -42848,6 +42880,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "blockers",
@@ -42897,6 +42930,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -42937,6 +42971,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -42977,6 +43012,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -43032,6 +43068,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
@@ -43073,6 +43110,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -43158,6 +43196,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -43207,6 +43246,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -43248,6 +43288,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -43308,6 +43349,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -43349,6 +43391,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -43421,6 +43464,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -43468,6 +43512,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -43530,6 +43575,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -43594,6 +43640,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -43638,6 +43685,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -43697,6 +43745,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -43737,6 +43786,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -43787,6 +43837,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -43836,6 +43887,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1,
@@ -43879,6 +43931,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -43920,6 +43973,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -43958,6 +44012,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44015,6 +44070,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0,
@@ -44086,6 +44142,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1,
@@ -44144,6 +44201,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44242,6 +44300,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44311,6 +44370,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
@@ -44362,6 +44422,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -44421,6 +44482,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -44471,6 +44533,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -44530,6 +44593,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -44576,6 +44640,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "blockers",
@@ -44641,6 +44706,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -44680,7 +44746,8 @@
         "Opus Grudge draws seven cards",
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 67,
@@ -44748,7 +44815,8 @@
         "Opus Grudge draws seven cards",
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 68,
@@ -44785,7 +44853,8 @@
         "Opus Grudge draws seven cards",
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 69,
@@ -44846,6 +44915,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers"
@@ -44887,6 +44957,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -44966,6 +45037,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -45014,6 +45086,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45055,6 +45128,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45115,6 +45189,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45156,6 +45231,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45197,6 +45273,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -45270,6 +45347,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -45317,6 +45395,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -45365,6 +45444,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -45426,6 +45506,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1,
@@ -45471,6 +45552,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45549,6 +45631,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45589,6 +45672,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45620,6 +45704,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45708,6 +45793,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0,
@@ -45784,6 +45870,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
@@ -45844,6 +45931,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45900,6 +45988,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45974,6 +46063,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "blockers",
         "incomingAttackers": [
@@ -46024,7 +46114,8 @@
         "Opus Grudge draws seven cards",
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 91,
@@ -46065,6 +46156,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -46107,6 +46199,7 @@
         "GLM47 Gramps draws seven cards",
         "Opus Grudge keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [

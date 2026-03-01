@@ -106404,7 +106404,7 @@
       "actionTaken": "Attacked with Temple Garden (1/1 earthbent land) for 1 damage.",
       "betterLine": "Don't attack. Keep Temple Garden untapped as a mana source and potential blocker. The 1 damage is not worth the risk of losing tempo on mana development when you have expensive cards like Appa (4 mana) and Interdimensional Web Watch (4 mana) in hand.",
       "type": "blunder",
-      "snapshotIndex": 70,
+      "snapshotIndex": 71,
       "player": "Opus Analyst"
     },
     {
@@ -106413,7 +106413,7 @@
       "actionTaken": "Targeted Temple Garden (own earthbent land-creature) with airbend, exiling it.",
       "betterLine": "Target Sunpearl Kirin to exile the opponent's 2/1 flash flyer, removing a threat. Alternatively, target the Otter Token to shrink the opponent's board. Either would have been far better than exiling your own land.",
       "type": "blunder",
-      "snapshotIndex": 76,
+      "snapshotIndex": 77,
       "player": "Opus Analyst"
     },
     {
@@ -106422,7 +106422,7 @@
       "actionTaken": "Cast Appa, Steadfast Guardian in postcombat main with no nonland permanents to airbend.",
       "betterLine": "Cast Airbender Ascension ({1}{W}) this turn, then hold Appa (which has flash) for a future turn when the Ascension is on board to airbend it. This would let Appa airbend the Ascension, and recasting it from exile for {2} would trigger both Appa's token creation and Ascension's quest counter.",
       "type": "blunder",
-      "snapshotIndex": 107,
+      "snapshotIndex": 108,
       "player": "Opus Analyst"
     },
     {
@@ -106431,7 +106431,7 @@
       "actionTaken": "Chose to activate a Map token before playing a land, based on reasoning about a nonexistent Llanowar Elves.",
       "betterLine": "Play Floodfarm Verge first (enters untapped, free), then use Map tokens or other abilities with full mana available. Temple Garden should NOT be played as paying 2 life at 4 life is extremely dangerous.",
       "type": "blunder",
-      "snapshotIndex": 193,
+      "snapshotIndex": 194,
       "player": "Opus Analyst"
     },
     {
@@ -106440,7 +106440,7 @@
       "actionTaken": "Played Starting Town from hand, which enters tapped and requires 1 life payment for colored mana.",
       "betterLine": "Play Floodfarm Verge or Hushwood Verge, both of which enter untapped and produce colored mana without any life cost - critical at 4 life.",
       "type": "blunder",
-      "snapshotIndex": 196,
+      "snapshotIndex": 197,
       "player": "Opus Analyst"
     },
     {
@@ -106449,7 +106449,7 @@
       "actionTaken": "Passed without casting any spells during combat.",
       "betterLine": "Cast Nowhere to Run targeting Hushwood Verge to kill the animated land and trigger prowess, or use Kaito's Ninjutsu to swap in as a 3/4 attacker, maximizing combat damage against an opponent at 4 life.",
       "type": "blunder",
-      "snapshotIndex": 252,
+      "snapshotIndex": 253,
       "player": "Grk41F Detect"
     },
     {
@@ -106458,7 +106458,7 @@
       "actionTaken": "Passed combat and the turn without casting any spells, missing the opportunity to attack for lethal.",
       "betterLine": "Cast Kaito, Bane of Nightmares in the first main phase for {2}{U}{B}, then attack with Kaito as a 3/4 hexproof creature to deal lethal damage to the opponent at 1 life.",
       "type": "blunder",
-      "snapshotIndex": 256,
+      "snapshotIndex": 257,
       "player": "Grk41F Detect"
     }
   ],
@@ -106514,7 +106514,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -106552,7 +106553,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -106589,7 +106591,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -106626,7 +106629,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -106660,7 +106664,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -106698,6 +106703,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -106738,6 +106744,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -106776,6 +106783,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -106833,6 +106841,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -106908,6 +106917,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -106949,6 +106959,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107009,6 +107020,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107049,6 +107061,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107089,6 +107102,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107129,6 +107143,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107169,6 +107184,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -107235,6 +107251,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -107276,6 +107293,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -107326,6 +107344,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -107376,6 +107395,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -107427,6 +107447,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -107468,6 +107489,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107516,6 +107538,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107556,6 +107579,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107596,6 +107620,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107633,6 +107658,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -107694,6 +107720,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -107755,6 +107782,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -107795,7 +107823,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 29,
@@ -107842,6 +107871,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -107892,6 +107922,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -107933,6 +107964,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108002,6 +108034,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108043,6 +108076,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108084,6 +108118,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108125,6 +108160,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108163,6 +108199,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108204,6 +108241,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -108278,6 +108316,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -108355,6 +108394,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -108414,6 +108454,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -108464,6 +108505,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -108505,6 +108547,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -108546,6 +108589,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -108617,6 +108661,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -108658,6 +108703,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -108698,6 +108744,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108770,6 +108817,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108811,6 +108859,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108860,6 +108909,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -108901,6 +108951,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -108941,6 +108992,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -108981,6 +109033,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -109021,6 +109074,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -109094,6 +109148,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -109135,6 +109190,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -109212,6 +109268,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -109271,6 +109328,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -109321,6 +109379,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -109372,6 +109431,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -109413,6 +109473,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -109505,6 +109566,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -109546,6 +109608,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -109587,6 +109650,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -109656,6 +109720,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -109694,6 +109759,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -109734,6 +109800,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -109773,7 +109840,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 68,
@@ -109811,6 +109879,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -109851,6 +109920,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -109925,6 +109995,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -109966,6 +110037,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -110023,6 +110095,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -110073,6 +110146,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -110123,6 +110197,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -110164,6 +110239,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -110253,6 +110329,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -110294,6 +110371,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -110345,6 +110423,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -110395,6 +110474,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -110433,6 +110513,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -110477,7 +110558,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 82,
@@ -110514,7 +110596,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 83,
@@ -110551,7 +110634,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 84,
@@ -110641,6 +110725,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -110692,6 +110777,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -110733,6 +110819,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -110829,6 +110916,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -110895,6 +110983,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -110945,6 +111034,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -111043,6 +111133,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -111084,6 +111175,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -111151,6 +111243,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -111192,6 +111285,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -111232,6 +111326,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -111272,6 +111367,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -111348,6 +111444,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -111387,7 +111484,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 98,
@@ -111424,7 +111522,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 99,
@@ -111461,7 +111560,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 100,
@@ -111496,6 +111596,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -111536,6 +111637,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -111576,7 +111678,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 103,
@@ -111613,7 +111716,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 104,
@@ -111650,7 +111754,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 105,
@@ -111698,6 +111803,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -111747,6 +111853,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -111787,6 +111894,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -111835,6 +111943,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -111883,6 +111992,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -111947,6 +112057,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -111997,6 +112108,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 0
@@ -112038,6 +112150,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -112079,6 +112192,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -112158,6 +112272,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -112208,6 +112323,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -112258,6 +112374,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 0
@@ -112308,6 +112425,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -112375,6 +112493,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -112416,6 +112535,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -112454,6 +112574,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -112502,6 +112623,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -112574,6 +112696,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -112624,6 +112747,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 0
@@ -112664,7 +112788,8 @@
         "Grk41F Detect draws seven cards",
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 125,
@@ -112702,6 +112827,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -112775,6 +112901,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_blockers",
@@ -112832,6 +112959,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -112880,6 +113008,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -112956,6 +113085,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "declare_blockers",
@@ -113014,6 +113144,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -113064,6 +113195,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 10,
         "landDropsUsed": 1
@@ -113114,6 +113246,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 9,
         "landDropsUsed": 1
@@ -113161,6 +113294,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -113208,6 +113342,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -113314,6 +113449,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -113370,6 +113506,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -113432,6 +113569,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -113476,6 +113614,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -113538,6 +113677,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -113606,6 +113746,7 @@
         "Opus Analyst draws seven cards",
         "Opus Analyst keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "combatPhase": "attackers"

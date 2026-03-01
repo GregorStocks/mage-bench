@@ -201,21 +201,22 @@ def compute_aftermath_index(decision: dict, snapshots: list[dict]) -> int:
     """Compute the aftermath snapshot index for a decision.
 
     Mirrors the logic in _eval_one_decision from blunder_analysis.py:
-    finds the first snapshot at or after action_ts/action_seq, starting from the
-    decision's snapshot_index.
+    finds the first snapshot strictly after action_ts/action_seq, starting
+    from the decision's snapshot_index.  action_seq represents the game state
+    BEFORE the action processes, so we need > (not >=).
     """
     s_idx = snapshot_index(decision)
-    action_seq = decision.get("action_seq", 0)
+    action_seq = decision.get("action_seq", 0) or decision.get("actionSeq", 0)
     action_ts = decision.get("action_ts", "")
     if action_seq:
         for i in range(s_idx, len(snapshots)):
-            if snapshots[i].get("seq", 0) >= action_seq:
+            if snapshots[i].get("seq", 0) > action_seq:
                 return i
     elif action_ts:
         for i in range(s_idx, len(snapshots)):
-            if snapshots[i].get("ts", "") >= action_ts:
+            if snapshots[i].get("ts", "") > action_ts:
                 return i
-    return s_idx
+    return min(s_idx + 1, len(snapshots) - 1)
 
 
 def reverse_map_annotations(

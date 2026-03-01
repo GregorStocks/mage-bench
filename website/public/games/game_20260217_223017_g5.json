@@ -56442,7 +56442,7 @@
       "actionTaken": "Targeted opponent (Qwen3L Grudge) with Urza's Bauble's ability",
       "betterLine": "Targeting the opponent is correct for information gathering. No better line exists for the target choice.",
       "type": "blunder",
-      "snapshotIndex": 17,
+      "snapshotIndex": 18,
       "player": "Grok4F Coach"
     },
     {
@@ -56451,7 +56451,7 @@
       "actionTaken": "Attempted to cast a spell that couldn't be paid for, resulting in no spell being cast this priority window.",
       "betterLine": "Cast Pinnacle Emissary for {1}{U}{R} using available mana sources, deploying a threat that creates Drone tokens whenever artifact spells are cast.",
       "type": "blunder",
-      "snapshotIndex": 122,
+      "snapshotIndex": 123,
       "player": "Grok4F Coach"
     },
     {
@@ -56460,7 +56460,7 @@
       "actionTaken": "Cast Force of Will using alternative cost (pay 1 life, exile a blue card - likely Kappa Cannoneer) to counter Grim Monolith",
       "betterLine": "Pay the full mana cost of {3}{U}{U} using 2 Seat of the Synod (UU), Mox Opal (U), and Ancient Tomb (CC) to counter Grim Monolith while preserving both Kappa Cannoneers in hand",
       "type": "blunder",
-      "snapshotIndex": 164,
+      "snapshotIndex": 165,
       "player": "Grok4F Coach"
     },
     {
@@ -56469,7 +56469,7 @@
       "actionTaken": "Cast Pithing Needle (MV 1) into Chalice of the Void with 1 charge counter, getting it countered for free.",
       "betterLine": "Activate Tezzeret's 0 ability to untap an artifact for mana advantage or use Tezzeret's -3 to search for a 0-or-1 MV artifact (putting it into hand, to be cast later after dealing with Chalice). The Pithing Needle should never have been cast while Chalice on 1 was in play — it was a guaranteed counter. If Pithing Needle was needed, the player should have first found a way to remove or bypass Chalice.",
       "type": "blunder",
-      "snapshotIndex": 208,
+      "snapshotIndex": 209,
       "player": "Qwen3L Grudge"
     },
     {
@@ -56478,7 +56478,7 @@
       "actionTaken": "Declined to cast Kappa Cannoneer, passing up a likely lethal attack.",
       "betterLine": "Cast Kappa Cannoneer using Seat of the Synod x2 + Mox Opal for colored mana, improvise with Chalice/Drone/other artifacts. Attack with unblockable Cannoneer plus other creatures for likely lethal damage against opponent at 9 life.",
       "type": "blunder",
-      "snapshotIndex": 213,
+      "snapshotIndex": 214,
       "player": "Grok4F Coach"
     }
   ],
@@ -56534,7 +56534,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -56568,7 +56569,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -56605,7 +56607,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -56685,7 +56688,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -56719,7 +56723,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -56786,6 +56791,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56832,6 +56838,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56881,6 +56888,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56944,6 +56952,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -56990,6 +56999,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57039,6 +57049,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57093,6 +57104,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57149,6 +57161,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57198,6 +57211,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57256,6 +57270,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57302,6 +57317,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57360,6 +57376,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57406,6 +57423,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57461,6 +57479,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57510,6 +57529,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57556,6 +57576,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57597,6 +57618,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57636,6 +57658,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57706,6 +57729,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -57752,6 +57776,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -57801,6 +57826,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -57857,7 +57883,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 27,
@@ -57917,6 +57944,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -58016,7 +58044,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 29,
@@ -58059,6 +58088,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -58108,6 +58138,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -58140,7 +58171,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 32,
@@ -58183,6 +58215,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -58237,6 +58270,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -58277,6 +58311,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -58317,6 +58352,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -58384,6 +58420,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -58415,7 +58452,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 38,
@@ -58453,7 +58491,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 39,
@@ -58489,7 +58528,8 @@
         "Grok4F Coach draws seven cards",
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 40,
@@ -58532,6 +58572,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -58573,6 +58614,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -58622,6 +58664,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -58700,6 +58743,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -58749,6 +58793,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -58809,6 +58854,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -58861,6 +58907,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -58912,6 +58959,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -58974,6 +59022,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59015,6 +59064,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -59046,6 +59096,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -59078,6 +59129,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -59121,6 +59173,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -59164,6 +59217,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59215,6 +59269,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -59256,6 +59311,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -59298,6 +59354,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -59339,6 +59396,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -59388,6 +59446,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -59447,6 +59506,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -59484,6 +59544,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -59529,6 +59590,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -59570,6 +59632,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -59611,6 +59674,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       },
@@ -59661,6 +59725,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -59717,6 +59782,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -59758,6 +59824,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -59809,6 +59876,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -59850,6 +59918,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -59921,6 +59990,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -59963,6 +60033,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       },
@@ -60035,6 +60106,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -60175,6 +60247,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -60243,6 +60316,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -60322,6 +60396,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -60381,6 +60456,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -60424,6 +60500,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -60484,6 +60561,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -60539,6 +60617,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -60579,6 +60658,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -60619,6 +60699,7 @@
         "Qwen3L Grudge draws seven cards",
         "Grok4F Coach keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }

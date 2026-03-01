@@ -32159,7 +32159,8 @@
         "Grok4 Philo draws seven cards",
         "Qwen3 Stats decides to take mulligan",
         "Grok4 Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -32194,7 +32195,8 @@
         "Grok4 Philo draws seven cards",
         "Qwen3 Stats decides to take mulligan",
         "Grok4 Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -32228,7 +32230,8 @@
         "Grok4 Philo draws seven cards",
         "Qwen3 Stats decides to take mulligan",
         "Grok4 Philo decides to take mulligan"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -32275,6 +32278,7 @@
         "Qwen3 Stats decides to take mulligan",
         "Grok4 Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -32322,6 +32326,7 @@
         "Qwen3 Stats decides to take mulligan",
         "Grok4 Philo decides to take mulligan"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1

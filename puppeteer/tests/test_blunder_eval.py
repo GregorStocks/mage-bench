@@ -59,8 +59,8 @@ class TestComputeAftermathIndex:
             {"ts": "2026-01-01T00:00:02.000"},
         ]
         decision = {"snapshot_index": 0, "action_ts": "2026-01-01T00:00:99.000"}
-        # No snapshot >= action_ts, falls back to snapshot_index
-        assert compute_aftermath_index(decision, snapshots) == 0
+        # No snapshot > action_ts, falls back to snapshot_index + 1
+        assert compute_aftermath_index(decision, snapshots) == 1
 
     def test_starts_from_snapshot_index(self) -> None:
         """Search starts from decision's snapshot_index, not from 0."""
@@ -222,7 +222,7 @@ class TestLookupAnnotationForDecision:
             "player": "Alice",
         }
         annotations = [
-            {"snapshotIndex": 5, "player": "Alice", "severity": "minor", "description": "bad play"},
+            {"snapshotIndex": 6, "player": "Alice", "severity": "minor", "description": "bad play"},
         ]
         result = lookup_annotation_for_decision(decision, annotations, snapshots)
         assert result is not None
@@ -237,7 +237,7 @@ class TestLookupAnnotationForDecision:
             "player": "Alice",
         }
         annotations = [
-            {"snapshotIndex": 5, "player": "Bob", "severity": "minor"},
+            {"snapshotIndex": 6, "player": "Bob", "severity": "minor"},
         ]
         result = lookup_annotation_for_decision(decision, annotations, snapshots)
         assert result is None
@@ -355,9 +355,9 @@ class TestBaselineDerivation:
             "player": "Alice",
         }
         aftermath = compute_aftermath_index(decision, snapshots)
-        assert aftermath == 5
+        assert aftermath == 6  # strictly after ts "05.000" → ts "06.000" at index 6
 
-        annotations = [{"snapshotIndex": 5, "player": "Alice", "severity": "moderate", "description": "bad"}]
+        annotations = [{"snapshotIndex": 6, "player": "Alice", "severity": "moderate", "description": "bad"}]
         match = lookup_annotation_for_decision(decision, annotations, snapshots)
         assert match is not None
 
@@ -371,9 +371,9 @@ class TestBaselineDerivation:
             "player": "Bob",
         }
         aftermath = compute_aftermath_index(decision, snapshots)
-        assert aftermath == 6
+        assert aftermath == 7  # strictly after ts "06.000" → ts "07.000" at index 7
 
-        annotations = [{"snapshotIndex": 5, "player": "Alice", "severity": "moderate", "description": "bad"}]
+        annotations = [{"snapshotIndex": 6, "player": "Alice", "severity": "moderate", "description": "bad"}]
         match = lookup_annotation_for_decision(decision, annotations, snapshots)
         assert match is None
 

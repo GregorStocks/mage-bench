@@ -57170,7 +57170,7 @@
       "actionTaken": "Chose Island as the basic land type for Multiversal Passage",
       "betterLine": "Choose Plains to enable casting Aven Interrupter ({1}{W}{W}) on turn 4, since Floodfarm Verge and Fountainport still provide blue mana access",
       "type": "blunder",
-      "snapshotIndex": 35,
+      "snapshotIndex": 36,
       "player": "GPT5m Snark"
     },
     {
@@ -57179,7 +57179,7 @@
       "actionTaken": "Cast Three Steps Ahead during postcombat main without first playing Agna Qel'a land drop",
       "betterLine": "Play Agna Qel'a first, then pass the turn holding up Three Steps Ahead as a counterspell for the opponent's next turn, protecting the Quantum Riddler clock",
       "type": "blunder",
-      "snapshotIndex": 65,
+      "snapshotIndex": 66,
       "player": "GPT5m Snark"
     },
     {
@@ -57188,7 +57188,7 @@
       "actionTaken": "Selected mode 3 (Draw two cards, then discard a card) on Three Steps Ahead",
       "betterLine": "Select mode 2 (Create a token that's a copy of Quantum Riddler) to get a 4/6 flyer and an ETB card draw, providing both board presence and card advantage",
       "type": "blunder",
-      "snapshotIndex": 69,
+      "snapshotIndex": 70,
       "player": "GPT5m Snark"
     },
     {
@@ -57197,7 +57197,7 @@
       "actionTaken": "Selected Done without adding the copy mode to Three Steps Ahead, casting it with only one Spree mode (counter).",
       "betterLine": "Also select 'Create a token that's a copy of target artifact or creature you control' targeting Quantum Riddler to get a 4/6 flyer + draw a card, in addition to the counter mode. The total cost would be {1}{U} + {3} + {U} = {2}{3}{U} which is 6 mana — they likely had enough lands. Even if mana was tight, the copy mode alone ({U} + {3} = 4 mana) targeting Quantum Riddler would have been excellent value.",
       "type": "blunder",
-      "snapshotIndex": 69,
+      "snapshotIndex": 70,
       "player": "GPT5m Snark"
     },
     {
@@ -57206,7 +57206,7 @@
       "actionTaken": "Cast Boomerang Basics targeting their own Stormchaser's Talent to bounce it and draw a card.",
       "betterLine": "Cast Slickshot Show-Off (1R), then chain cheap spells like Wild Ride targeting Slickshot (+3/+0 and haste) and Shock/Burst Lightning at opponent's face to trigger prowess on both creatures and attack for massive damage. With 4 mana available: Slickshot (1R) + Wild Ride (R) + Shock (R) would make Slickshot a 10/2 flyer and Otter a 4/4, attacking for 14.",
       "type": "blunder",
-      "snapshotIndex": 74,
+      "snapshotIndex": 75,
       "player": "Gem3P Sport"
     },
     {
@@ -57215,7 +57215,7 @@
       "actionTaken": "Used Ajani's +1 to create a 1/1 Kithkin token.",
       "betterLine": "Use Ajani's -2 to deal 4 damage to one of the tapped Otter tokens, killing it and reducing the opponent's board pressure. At 7 life, removing threats is far more important than creating a 1/1 chump blocker.",
       "type": "blunder",
-      "snapshotIndex": 92,
+      "snapshotIndex": 93,
       "player": "GPT5m Snark"
     },
     {
@@ -57224,7 +57224,7 @@
       "actionTaken": "Plotted Slickshot Show-Off for {1}{R} to cast it for free next turn, planning to plot both copies.",
       "betterLine": "Cast Slickshot Show-Off normally for {1}{R} (it has haste and flying), then cast burn spells like Shock and Burst Lightning targeting the opponent's face. Each noncreature spell triggers prowess on both Otters and gives Slickshot +2/+0. A line like: Cast Slickshot (haste/flying 1/2), cast Shock face (2 damage, Slickshot becomes 3/2, Otters get +1/+1), cast Burst Lightning face (2 damage, Slickshot becomes 5/2, Otters get +1/+1 again) — that's 4 burn damage plus Slickshot attacking for 5 in the air, which is 9 damage against 7 life = lethal.",
       "type": "blunder",
-      "snapshotIndex": 97,
+      "snapshotIndex": 98,
       "player": "Gem3P Sport"
     },
     {
@@ -57233,7 +57233,7 @@
       "actionTaken": "Cast Three Steps Ahead during own combat phase (likely to draw cards or copy a creature)",
       "betterLine": "Hold both copies of Three Steps Ahead for defensive countermagic given the precarious 7 life total, and focus on using Ajani's +1 to build board presence and Aven Interrupter as flash threat/pseudo-counter.",
       "type": "blunder",
-      "snapshotIndex": 103,
+      "snapshotIndex": 104,
       "player": "GPT5m Snark"
     },
     {
@@ -57242,7 +57242,7 @@
       "actionTaken": "Discarded Starting Town to Three Steps Ahead's discard requirement.",
       "betterLine": "Discarding Abandoned Air Temple might have been slightly better since the player has no basic lands in play (making it enter tapped) and Starting Town always provides colored mana immediately. However, this is close and depends on future draws.",
       "type": "blunder",
-      "snapshotIndex": 105,
+      "snapshotIndex": 106,
       "player": "GPT5m Snark"
     }
   ],
@@ -57298,7 +57298,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -57333,7 +57334,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -57378,7 +57380,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -57423,6 +57426,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57464,6 +57468,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -57505,6 +57510,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -57548,6 +57554,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -57596,6 +57603,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57637,6 +57645,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -57678,6 +57687,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -57734,6 +57744,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -57775,6 +57786,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -57815,6 +57827,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -57862,6 +57875,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -57919,6 +57933,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -57960,6 +57975,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58000,6 +58016,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58044,6 +58061,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -58093,7 +58111,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 19,
@@ -58160,7 +58179,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 20,
@@ -58207,7 +58227,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 21,
@@ -58254,7 +58275,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 22,
@@ -58323,6 +58345,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -58373,6 +58396,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -58437,6 +58461,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -58502,6 +58527,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -58550,6 +58576,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -58591,6 +58618,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -58633,6 +58661,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -58718,6 +58747,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -58785,6 +58815,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -58848,6 +58879,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -58907,6 +58939,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -58965,6 +58998,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -59024,6 +59058,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -59081,6 +59116,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -59155,6 +59191,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_blockers",
@@ -59226,6 +59263,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -59266,6 +59304,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -59352,6 +59391,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -59415,6 +59455,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59480,6 +59521,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -59541,6 +59583,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -59604,6 +59647,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -59668,6 +59712,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -59718,6 +59763,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -59771,6 +59817,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -59846,6 +59893,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -59911,6 +59959,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -59965,6 +60014,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -60032,6 +60082,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       },
@@ -60096,6 +60147,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -60159,6 +60211,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -60218,6 +60271,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -60277,6 +60331,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -60341,6 +60396,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -60440,6 +60496,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -60485,6 +60542,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -60553,6 +60611,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -60643,6 +60702,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -60707,6 +60767,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -60792,6 +60853,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -60863,6 +60925,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -60922,6 +60985,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -60970,6 +61034,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -61033,6 +61098,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -61093,6 +61159,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -61144,6 +61211,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -61215,6 +61283,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -61264,6 +61333,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -61406,6 +61476,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 0
@@ -61541,6 +61612,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -61646,6 +61718,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -61723,6 +61796,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -61786,6 +61860,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -61845,6 +61920,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -61906,6 +61982,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -61965,6 +62042,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -62014,7 +62092,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 79,
@@ -62099,7 +62178,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 80,
@@ -62146,7 +62226,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 81,
@@ -62174,7 +62255,8 @@
         "Gem3P Sport chooses that they take the first turn",
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 82,
@@ -62226,6 +62308,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }
@@ -62266,6 +62349,7 @@
         "Gem3P Sport draws seven cards",
         "GPT5m Snark draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }

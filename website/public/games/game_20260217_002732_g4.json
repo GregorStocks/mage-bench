@@ -168033,7 +168033,7 @@
       "actionTaken": "Cast Frantic Search (reasonable), but discarded Commune with Lava and Forest, keeping Swarm Intelligence (7 mana), Melek (6 mana), Rashmi (4 mana), and Twinning Staff.",
       "betterLine": "Should have discarded Swarm Intelligence instead of Commune with Lava. Swarm Intelligence costs 7 mana and is the least likely to be cast soon, while Commune with Lava is a key synergy piece with the Kalamax commander that provides scalable card advantage at instant speed.",
       "type": "blunder",
-      "snapshotIndex": 99,
+      "snapshotIndex": 100,
       "player": "Haiku Optim"
     },
     {
@@ -168042,7 +168042,7 @@
       "actionTaken": "Cast Master of the Pearl Trident (UU) without first playing Forest from hand.",
       "betterLine": "Play Forest first (making the land drop), then cast Master of the Pearl Trident. This ensures the land drop isn't missed and maximizes available mana going forward.",
       "type": "blunder",
-      "snapshotIndex": 115,
+      "snapshotIndex": 116,
       "player": "Opus Minimal"
     },
     {
@@ -168051,7 +168051,7 @@
       "actionTaken": "Cast Merfolk Sovereign without first playing the Island from hand.",
       "betterLine": "Play Island first (getting closer to casting Tatyova next turn with 5 lands), then cast Merfolk Sovereign. The land drop costs nothing and ensures no missed land drops.",
       "type": "blunder",
-      "snapshotIndex": 153,
+      "snapshotIndex": 154,
       "player": "Opus Minimal"
     },
     {
@@ -168060,7 +168060,7 @@
       "actionTaken": "Cast Tributary Instructor (4/4 body, 6/6 with lords)",
       "betterLine": "Cast Tatyova, Benthic Druid for the same mana cost (GGUUU covers 3GU), getting a repeatable card draw engine that generates value on every land drop for the rest of the game.",
       "type": "blunder",
-      "snapshotIndex": 200,
+      "snapshotIndex": 201,
       "player": "Opus Minimal"
     },
     {
@@ -168069,7 +168069,7 @@
       "actionTaken": "Played Rootbound Crag and passed the turn without casting any creatures.",
       "betterLine": "Play Rootbound Crag, then cast Tymna the Weaver (1WB) and Zhur-Taa Druid (RG) or Sylvok Explorer (1G) to develop the board and set up card draw for future turns.",
       "type": "blunder",
-      "snapshotIndex": 216,
+      "snapshotIndex": 217,
       "player": "GPT5n Memoir"
     },
     {
@@ -168078,7 +168078,7 @@
       "actionTaken": "Cast Kindred Discovery naming Merfolk in precombat main",
       "betterLine": "This is actually reasonable - Kindred Discovery before combat draws 3 cards from attacking Merfolk. Tatyova could also be considered but draws fewer cards immediately. The main concern is that casting before combat rather than holding up Curse of the Swine mana leaves no interaction, but with only 5 mana total this is a minor consideration.",
       "type": "blunder",
-      "snapshotIndex": 241,
+      "snapshotIndex": 242,
       "player": "Opus Minimal"
     },
     {
@@ -168087,7 +168087,7 @@
       "actionTaken": "Cast Tishana directly with 4 creatures on board, drawing 4 cards.",
       "betterLine": "Play Island first, cast Stonybrook Banneret (1U) to have 5 creatures on board, then cast Tishana (5GU) to draw 5 cards instead of 4.",
       "type": "blunder",
-      "snapshotIndex": 296,
+      "snapshotIndex": 297,
       "player": "Opus Minimal"
     },
     {
@@ -168096,7 +168096,7 @@
       "actionTaken": "Selected only Chrome Courier as attacker instead of all creatures",
       "betterLine": "Attack with both Chrome Courier and Indomitable Archangel directed at Haiku Optim for exactly lethal damage (5 flying damage vs 5 life)",
       "type": "blunder",
-      "snapshotIndex": 364,
+      "snapshotIndex": 365,
       "player": "MiMo Philo"
     },
     {
@@ -168105,7 +168105,7 @@
       "actionTaken": "Chose Tishana, Voice of Thunder (likely in hand, not on battlefield) reasoning to 'pump Tishana to 20/20'",
       "betterLine": "Put the +1/+1 counter on Tributary Instructor to enable its death-draw trigger and increase Inspiring Call value, or on another battlefield Merfolk without counters for maximum utility.",
       "type": "blunder",
-      "snapshotIndex": 380,
+      "snapshotIndex": 381,
       "player": "Opus Minimal"
     }
   ],
@@ -168173,7 +168173,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -168207,7 +168208,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -168241,7 +168243,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -168278,7 +168281,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -168312,7 +168316,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -168347,6 +168352,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -168378,7 +168384,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 7,
@@ -168433,6 +168440,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -168473,6 +168481,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -168523,7 +168532,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 10,
@@ -168584,6 +168594,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -168622,6 +168633,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -168675,7 +168687,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 13,
@@ -168714,6 +168727,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -168770,6 +168784,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -168836,6 +168851,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -168886,6 +168902,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -168970,6 +168987,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -169029,7 +169047,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 19,
@@ -169073,6 +169092,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -169133,6 +169153,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -169173,6 +169194,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -169256,6 +169278,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -169318,6 +169341,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -169359,6 +169383,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -169400,6 +169425,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -169475,6 +169501,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -169567,6 +169594,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
@@ -169618,6 +169646,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -169696,6 +169725,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -169756,6 +169786,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -169796,6 +169827,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -169862,6 +169894,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -169921,6 +169954,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -169974,6 +170008,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -170033,6 +170068,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -170073,6 +170109,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -170177,6 +170214,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -170256,6 +170294,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "combatPhase": "declare_attackers"
       }
@@ -170314,7 +170353,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 40,
@@ -170351,7 +170391,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 41,
@@ -170413,7 +170454,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 42,
@@ -170469,7 +170511,8 @@
         "MiMo Philo draws seven cards",
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 43,
@@ -170517,6 +170560,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       },
@@ -170656,6 +170700,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -170710,6 +170755,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -170750,6 +170796,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -170821,6 +170868,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -170880,6 +170928,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -170939,6 +170988,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 5
       }
@@ -170992,6 +171042,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -171053,6 +171104,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "attackers",
@@ -171115,6 +171167,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -171282,6 +171335,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 8,
         "landDropsUsed": 1
@@ -171490,6 +171544,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -171531,6 +171586,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -171748,6 +171804,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -171789,6 +171846,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -171850,6 +171908,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -171956,6 +172015,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -172010,6 +172070,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
@@ -172060,6 +172121,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -172144,6 +172206,7 @@
         "GPT5n Memoir draws seven cards",
         "Haiku Optim draws seven cards"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6
       }

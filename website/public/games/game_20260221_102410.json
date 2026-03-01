@@ -66904,7 +66904,7 @@
       "actionTaken": "Bottomed Unmask, keeping Thassa's Oracle in hand",
       "betterLine": "Bottom Thassa's Oracle instead, keeping both Unmask (free disruption) and Thoughtseize to protect the combo line. Oracle will end up in the graveyard when the library is milled and can be reanimated with Dread Return.",
       "type": "blunder",
-      "snapshotIndex": 1,
+      "snapshotIndex": 2,
       "player": "Gem25F Nature"
     },
     {
@@ -66913,7 +66913,7 @@
       "actionTaken": "Took Tezzeret, Cruel Captain with Thoughtseize",
       "betterLine": "Take Kozilek's Command, which is the only card that can directly disrupt the Balustrade Spy/Thassa's Oracle combo by exiling creatures or graveyard cards at instant speed.",
       "type": "blunder",
-      "snapshotIndex": 17,
+      "snapshotIndex": 18,
       "player": "Gem25F Nature"
     },
     {
@@ -66922,7 +66922,7 @@
       "actionTaken": "Took Mystic Forge with Unmask, leaving Kozilek's Command in opponent's hand",
       "betterLine": "Take Kozilek's Command with Unmask, as it's the only card in the opponent's hand that can interact with and disrupt the Balustrade Spy/Undercity Informer + Thassa's Oracle combo at instant speed",
       "type": "blunder",
-      "snapshotIndex": 130,
+      "snapshotIndex": 131,
       "player": "Gem25F Nature"
     },
     {
@@ -66931,7 +66931,7 @@
       "actionTaken": "Passed priority without making any plays, then discarded Narcomoeba to hand size.",
       "betterLine": "If forced to discard, should have discarded a Simian Spirit Guide or Elvish Spirit Guide instead of Narcomoeba. Narcomoeba provides devotion to blue on the battlefield after being milled, which is critical for Thassa's Oracle's win condition. Spirit Guides in the graveyard still get milled past (they're already in hand, not library), and having fewer spirit guides is less costly than losing a devotion source for the Oracle win.",
       "type": "blunder",
-      "snapshotIndex": 200,
+      "snapshotIndex": 201,
       "player": "Gem25F Nature"
     },
     {
@@ -66940,7 +66940,7 @@
       "actionTaken": "Exiled Elvish Spirit Guide from hand to add {G} with no way to spend it.",
       "betterLine": "Pass the turn without exiling any Spirit Guides. Preserve all mana-producing creatures in hand until a black mana source (like drawing a Dark Ritual or Lotus Petal) enables the full combo in a single turn.",
       "type": "blunder",
-      "snapshotIndex": 254,
+      "snapshotIndex": 255,
       "player": "Gem25F Nature"
     },
     {
@@ -66949,7 +66949,7 @@
       "actionTaken": "Exiled Elvish Spirit Guide and both Simian Spirit Guides from hand, producing {G}{R}{R} that cannot be used to cast anything.",
       "betterLine": "Pass the turn without exiling any Spirit Guides. Hold them until a black mana source (Dark Ritual, Lotus Petal, etc.) is drawn to enable the Balustrade Spy combo. The Spirit Guides could also serve as sacrifice fodder for Cabal Therapy's flashback cost.",
       "type": "blunder",
-      "snapshotIndex": 255,
+      "snapshotIndex": 256,
       "player": "Gem25F Nature"
     }
   ],
@@ -67005,7 +67005,8 @@
         "Qwen3 Villain draws seven cards",
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -67039,7 +67040,8 @@
         "Qwen3 Villain draws seven cards",
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -67076,7 +67078,8 @@
         "Qwen3 Villain draws seven cards",
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -67156,7 +67159,8 @@
         "Qwen3 Villain draws seven cards",
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -67219,6 +67223,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -67273,6 +67278,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -67322,6 +67328,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -67356,7 +67363,8 @@
         "Qwen3 Villain draws seven cards",
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 8,
@@ -67409,6 +67417,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -67468,6 +67477,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -67503,6 +67513,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -67546,6 +67557,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -67608,6 +67620,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -67684,6 +67697,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -67749,6 +67763,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -67803,6 +67818,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -67908,6 +67924,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -67960,6 +67977,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -68010,6 +68028,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -68062,6 +68081,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p2",
@@ -68112,6 +68132,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p2",
@@ -68162,6 +68183,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -68250,6 +68272,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0,
@@ -68313,6 +68336,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p2",
@@ -68365,6 +68389,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p2",
@@ -68408,6 +68433,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p9"
@@ -68440,7 +68466,8 @@
         "Qwen3 Villain draws seven cards",
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 27,
@@ -68486,6 +68513,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -68557,6 +68585,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -68652,6 +68681,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -68730,6 +68760,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -68765,7 +68796,8 @@
         "Qwen3 Villain draws seven cards",
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 32,
@@ -68820,6 +68852,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p3"
@@ -68890,6 +68923,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -68984,6 +69018,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p26",
@@ -69104,6 +69139,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -69201,6 +69237,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -69252,6 +69289,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69306,6 +69344,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69364,6 +69403,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69427,6 +69467,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69471,6 +69512,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69552,6 +69594,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69622,6 +69665,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -69693,6 +69737,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69764,6 +69809,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -69835,6 +69881,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -69952,6 +69999,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -70052,6 +70100,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -70144,6 +70193,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p5",
@@ -70261,6 +70311,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -70312,6 +70363,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p5",
@@ -70405,6 +70457,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -70524,6 +70577,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -70624,6 +70678,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -70704,6 +70759,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -70799,6 +70855,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "playableCards": [
           "p5",
@@ -70917,6 +70974,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -71017,6 +71075,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "playableCards": [
@@ -71097,6 +71156,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -71215,6 +71275,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0,
@@ -71265,7 +71326,8 @@
         "Qwen3 Villain draws seven cards",
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 62,
@@ -71302,7 +71364,8 @@
         "Qwen3 Villain draws seven cards",
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 63,
@@ -71386,6 +71449,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "playableCards": [
@@ -71438,6 +71502,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -71512,6 +71577,7 @@
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0,
         "playableCards": [
@@ -71556,7 +71622,8 @@
         "Qwen3 Villain draws seven cards",
         "Gem25F Nature draws seven cards",
         "Qwen3 Villain keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     }
   ]
 }

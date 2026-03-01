@@ -27008,7 +27008,7 @@
       "actionTaken": "Named Scout for Cavern of Souls",
       "betterLine": "Named Warrior for Cavern of Souls, which is more likely to match future creature draws in a combat-oriented deck, though neither option matches current hand creatures beyond Changeling",
       "type": "blunder",
-      "snapshotIndex": 23,
+      "snapshotIndex": 24,
       "player": "GPT5m Stats"
     },
     {
@@ -27017,7 +27017,7 @@
       "actionTaken": "Played Jasmine Dragon Tea Shop as land for turn, leaving 2 untapped lands unused and deploying no creatures.",
       "betterLine": "Play Jasmine Dragon Tea Shop as land drop, then cast Earth Kingdom Protectors or Earthen Ally using the two already-untapped lands (Cavern of Souls + Starting Town) to begin developing the board. Alternatively, cast Earthen Ally with the existing lands and save the land drop, though deploying both is better.",
       "type": "blunder",
-      "snapshotIndex": 55,
+      "snapshotIndex": 56,
       "player": "GPT5m Stats"
     }
   ],
@@ -27073,7 +27073,8 @@
         "Grok4 Brewer draws seven cards",
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -27108,7 +27109,8 @@
         "Grok4 Brewer draws seven cards",
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -27155,7 +27157,8 @@
         "Grok4 Brewer draws seven cards",
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -27203,6 +27206,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -27244,6 +27248,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -27300,6 +27305,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -27360,6 +27366,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "declare_attackers"
@@ -27401,6 +27408,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -27441,6 +27449,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -27499,6 +27508,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -27549,6 +27559,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -27590,6 +27601,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -27690,6 +27702,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -27758,6 +27771,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -27808,6 +27822,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -27858,6 +27873,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -27900,6 +27916,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -27956,6 +27973,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -28019,6 +28037,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -28059,6 +28078,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -28099,6 +28119,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -28153,6 +28174,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -28209,6 +28231,7 @@
         "GPT5m Stats draws seven cards",
         "Grok4 Brewer keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0

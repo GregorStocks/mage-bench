@@ -44202,7 +44202,7 @@
       "actionTaken": "Played Sunbillow Verge (untapped land) on turn 1 with no spells to cast.",
       "betterLine": "Play Restless Anchorage on turn 1 to use the 'enters tapped' on a turn with no plays, saving untapped lands for turns where immediate mana matters.",
       "type": "blunder",
-      "snapshotIndex": 13,
+      "snapshotIndex": 14,
       "player": "GPT5n Heckler"
     },
     {
@@ -44211,7 +44211,7 @@
       "actionTaken": "Played Sunbillow Verge as their land for turn 3",
       "betterLine": "Play Hallowed Fountain (paying 2 life to enter untapped) to have access to both W and U mana, enabling Consult the Star Charts in future turns while still being able to cast Rest in Peace this turn and Day of Judgment on turn 4.",
       "type": "blunder",
-      "snapshotIndex": 28,
+      "snapshotIndex": 29,
       "player": "GPT5n Heckler"
     },
     {
@@ -44220,7 +44220,7 @@
       "actionTaken": "Played Riverpyre Verge (conditional dual land)",
       "betterLine": "Play Spirebluff Canal, which is the slightly better land to have on battlefield since it produces U/R unconditionally",
       "type": "blunder",
-      "snapshotIndex": 60,
+      "snapshotIndex": 61,
       "player": "DSV3 Minimal"
     },
     {
@@ -44229,7 +44229,7 @@
       "actionTaken": "Cast Consult the Star Charts for 1U, using up mana needed for Day of Judgment this turn",
       "betterLine": "Play Restless Anchorage (or Sunbillow Verge) as land drop, then cast Day of Judgment with the 4+ mana available (2WW) to clear the board immediately and survive at 3 life",
       "type": "blunder",
-      "snapshotIndex": 83,
+      "snapshotIndex": 84,
       "player": "GPT5n Heckler"
     }
   ],
@@ -44295,7 +44295,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 1,
@@ -44332,7 +44333,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 2,
@@ -44369,7 +44371,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 3,
@@ -44406,7 +44409,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 4,
@@ -44444,7 +44448,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 5,
@@ -44508,6 +44513,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -44567,6 +44573,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44608,6 +44615,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44648,6 +44656,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44687,7 +44696,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 10,
@@ -44722,6 +44732,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44792,6 +44803,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 0
       }
@@ -44850,6 +44862,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -44901,6 +44914,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -44951,6 +44965,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45001,6 +45016,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45059,6 +45075,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -45100,6 +45117,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45140,6 +45158,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45179,7 +45198,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 20,
@@ -45212,6 +45232,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45282,6 +45303,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -45341,6 +45363,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -45392,6 +45415,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45441,7 +45465,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 25,
@@ -45486,6 +45511,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "landDropsUsed": 1
       }
@@ -45546,6 +45572,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
@@ -45589,6 +45616,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45628,6 +45656,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45676,6 +45705,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45740,6 +45770,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -45780,6 +45811,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45820,6 +45852,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45860,6 +45893,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45900,6 +45934,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45940,6 +45975,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -45981,6 +46017,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -46041,6 +46078,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -46110,6 +46148,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -46151,6 +46190,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -46203,6 +46243,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -46244,6 +46285,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -46285,6 +46327,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -46323,6 +46366,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -46373,6 +46417,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -46432,6 +46477,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -46484,6 +46530,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -46544,6 +46591,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -46604,6 +46652,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -46655,6 +46704,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -46706,6 +46756,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -46753,6 +46804,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -46815,6 +46867,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers",
@@ -46868,6 +46921,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -46919,6 +46973,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -46961,6 +47016,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -47001,6 +47057,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -47041,6 +47098,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -47081,6 +47139,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -47119,6 +47178,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -47169,6 +47229,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47228,6 +47289,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47287,6 +47349,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -47334,6 +47397,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       },
@@ -47375,6 +47439,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -47407,6 +47472,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -47467,6 +47533,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -47515,6 +47582,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
@@ -47566,6 +47634,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47625,6 +47694,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47684,6 +47754,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -47743,6 +47814,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47804,6 +47876,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
@@ -47863,6 +47936,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -47912,7 +47986,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 75,
@@ -47970,6 +48045,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "castRolledBack": true
     },
     {
@@ -48019,7 +48095,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 77,
@@ -48067,6 +48144,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48117,6 +48195,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48168,6 +48247,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48242,6 +48322,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
@@ -48294,7 +48375,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 82,
@@ -48356,6 +48438,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
@@ -48407,6 +48490,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4
       }
@@ -48457,6 +48541,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48507,6 +48592,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48558,6 +48644,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48608,6 +48695,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2
       }
@@ -48657,6 +48745,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
@@ -48698,6 +48787,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
@@ -48736,6 +48826,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -48787,6 +48878,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
@@ -48870,6 +48962,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -48929,6 +49022,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -48989,6 +49083,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
@@ -49049,6 +49144,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -49110,6 +49206,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
@@ -49164,7 +49261,8 @@
         "GPT5n Heckler draws seven cards",
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
-      ]
+      ],
+      "actionSeq": 0
     },
     {
       "index": 98,
@@ -49209,6 +49307,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 1
       }
@@ -49268,6 +49367,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 6,
         "landDropsUsed": 1
@@ -49319,6 +49419,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -49368,6 +49469,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -49420,6 +49522,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
@@ -49471,6 +49574,7 @@
         "DSV3 Minimal draws seven cards",
         "GPT5n Heckler keeps hand"
       ],
+      "actionSeq": 0,
       "pilotContext": {
         "untappedLands": 3
       }
