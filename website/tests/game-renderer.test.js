@@ -419,10 +419,9 @@ describe("renderStatusLine", () => {
     expect(el.textContent).toContain("Priority: Bob");
   });
 
-  it("handles missing fields gracefully", () => {
-    R.renderStatusLine(el, { turn: null, phase: null, step: null });
-    expect(el.textContent).toContain("Turn ?");
-    expect(el.textContent).toContain("?");
+  it("shows Pregame when no active player and no player turn", () => {
+    R.renderStatusLine(el, { turn: 1, phase: null, step: null });
+    expect(el.textContent).toContain("Pregame");
   });
 
   it("skips step when same as phase", () => {

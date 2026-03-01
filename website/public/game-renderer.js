@@ -1228,6 +1228,7 @@
   // ── Status line ──
 
   function formatTurnLabel(playerTurn, activePlayer) {
+    if (!activePlayer && playerTurn == null) return "Pregame";
     var turnNum = playerTurn != null ? "Turn " + playerTurn : "Turn ?";
     if (activePlayer) return activePlayer + "'s " + turnNum;
     return turnNum;
@@ -1235,7 +1236,8 @@
 
   function renderStatusLine(el, snap, playerTurn) {
     if (!el || !snap) return;
-    var turn = formatTurnLabel(playerTurn != null ? playerTurn : snap.turn, snap.active_player);
+    var effectiveTurn = playerTurn != null ? playerTurn : (snap.active_player ? snap.turn : null);
+    var turn = formatTurnLabel(effectiveTurn, snap.active_player);
     var phase = snap.phase || "?";
     var step = snap.step || "?";
     var phaseDisplay = step && step !== phase ? phase + " / " + step : phase;
