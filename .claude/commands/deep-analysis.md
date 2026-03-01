@@ -29,7 +29,7 @@ If the full log directory doesn't exist but the game export exists in `website/p
 
 ### Step 2: Bootstrap from gz (if available)
 
-If `website/public/games/${GAME_ID}.json.gz` exists (either on the current branch or generatable from the logs), extract a quick overview before diving into raw logs:
+If `website/public/games/${GAME_ID}.json` or `.json.gz` exists (either on the current branch or generatable from the logs), extract a quick overview before diving into raw logs:
 
 ```bash
 uv run python scripts/game-gz-bootstrap.py ${GAME_ID}
@@ -38,6 +38,10 @@ uv run python scripts/game-gz-bootstrap.py ${GAME_ID}
 This gives you a roadmap — you'll know which players had errors, roughly when, and what to look for in the raw logs.
 
 **Check the `errors` array first**: The export may contain an `errors` field with critical issues surfaced from the per-player error logs (loop detection, uncaught exceptions, short ID collisions). These are high-signal bug indicators — always check and call them out before diving into raw logs.
+
+**Check for existing annotations**: If the export has an `annotations` array, blunder analysis has already been run. Reference these annotations to guide your investigation — they identify specific decisions that were likely mistakes and explain why.
+
+**Check the `decisions` array**: If the export has a `decisions` array, use `extract_decisions.py` to view structured decision records with board state, available choices, reasoning, and what happened next. This is often more useful than manually correlating events across log files.
 
 ### Step 3: Read game metadata
 
@@ -59,15 +63,13 @@ uv run python scripts/list-issues.py
 - **Error logs**: Read `*_errors.log` files. Look for Java exceptions (NPE, IndexOutOfBounds, ClassCast), MCP tool failures, and stack traces. Note the exact filename and line numbers.
 - **Pilot logs**: Read `*_pilot.log` files. Look for LLM decision failures, repeated tool call patterns (loops), models sending wrong parameters, empty responses, and context trimming warnings. **Pay close attention to what models complain about in their reasoning/thinking traces** — when a model says "this doesn't make sense", "the tool returned wrong data", or "why can't I cast this", those are often smoking guns for real platform bugs rather than model confusion.
 - **Bridge logs**: Read `*_bridge.jsonl` files. Look for repeated identical MCP calls (loop signatures), failed actions, "Index out of range" errors, and action sequences that suggest confusion (e.g., cast → cancel → cast → cancel).
-  - For stale-choice race monitoring, grep for `choose_action out-of-range diagnostic` in `*_mcp.log` and classify each hit:
+  - For stale-choice race monitoring, use the Grep tool for `choose_action out-of-range diagnostic` in the game directory's `*_mcp.log` files and classify each hit:
     - likely model misuse: `last_choices_response=boolean` with `index>=0`, or negative index
     - suspicious race: `last_choices_count >= 0` with tiny `last_choices_age_ms` and rapid action-type flips
-  - Suggested quick checks:
-    ```bash
-    rg -n "choose_action out-of-range diagnostic" "$GAME_DIR"/*_mcp.log
-    rg -n "Index .* out of range" "$GAME_DIR"/*_errors.log "$GAME_DIR"/*_pilot.log
-    ```
-- **Game events**: Read `game_events.jsonl`. Look for stalls (long gaps between events), excessive auto-passes, turn timeouts, and game flow anomalies.
+  - Use the Grep tool (not bash `rg`) for searching log files:
+    - `choose_action out-of-range diagnostic` in `$GAME_DIR` with glob `*_mcp.log`
+    - `Index .* out of range` in `$GAME_DIR` with glob `*_errors.log` or `*_pilot.log`
+- **Game events**: Read `game_events.jsonl`. Look for stalls (long gaps between events), excessive auto-passes, turn timeouts, and game flow anomalies. For targeted investigation, use `game_timeline.py` from the export — it supports `--turns`, `--player`, `--mana`, and `-v` flags to drill into specific turns or mana behavior.
 
 ### Step 6: Cross-reference findings
 
@@ -128,9 +130,9 @@ Only analyze the game selected in step 1. Do not look at older games — each an
 
 Present a summary of all issues created, grouped by priority. For model-only issues, mention them in the summary but note they don't need code fixes.
 
-### Step 12: Create reusable debugging scripts
+### Step 12: Create reusable analysis scripts
 
-If you need to write any non-trivial log analysis logic (more than a simple jq one-liner), create a Python script in `scripts/debugging/` rather than writing throwaway one-off code. Run these scripts with `uv run python scripts/debugging/your_script.py`. These scripts accumulate over time into a reusable debugging toolkit. Check what already exists in `scripts/debugging/` before creating something new — you may be able to reuse or extend an existing script.
+If you need to write any non-trivial log analysis logic (more than a simple jq one-liner), create a Python script in `scripts/analysis/` rather than writing throwaway one-off code. Run these scripts with `uv run python scripts/analysis/your_script.py`. These scripts accumulate over time into a reusable analysis toolkit. Check what already exists in `scripts/analysis/` before creating something new — you may be able to reuse or extend an existing script. Key scripts already available: `game_timeline.py`, `mcp_errors.py`, `mana_tapping.py`, `extract_decisions.py`.
 
 ### Step 13: Document investigation tricks
 
