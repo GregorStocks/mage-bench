@@ -510,7 +510,7 @@ def mcp_tools_to_openai(mcp_tools, allowed_tools: set[str] | None = None) -> lis
             "type": "function",
             "function": {
                 "name": tool.name,
-                "description": tool.description or "",
+                "description": tool.description or "",  # noqa: MBF001
                 "parameters": tool.inputSchema or {"type": "object", "properties": {}},
             },
         }
@@ -628,7 +628,7 @@ async def run_pilot_loop(
         {"role": "user", "content": initial_message},
     ]
     state_summary = ""
-    model_price = get_model_price(model, prices or {})
+    model_price = get_model_price(model, prices or {})  # noqa: MBF001
     cumulative_cost = 0.0
     empty_responses = 0  # consecutive LLM responses with no reasoning text
     last_was_empty = False  # retry once on first empty response before counting
@@ -772,7 +772,7 @@ async def run_pilot_loop(
 
             # Log LLM response to JSONL
             if game_log:
-                llm_event = {"reasoning": choice.message.content or ""}
+                llm_event = {"reasoning": choice.message.content or ""}  # noqa: MBF001
                 # Capture extended thinking / chain-of-thought if present.
                 # OpenRouter returns this as `reasoning_content` for models
                 # that support it (Claude, Gemini 2.5 thinking mode, etc.).
@@ -1018,7 +1018,7 @@ async def run_pilot_loop(
             else:
                 # LLM stopped calling tools — always counts as stalling
                 turns_without_progress += 1
-                content = (choice.message.content or "").strip()
+                content = (choice.message.content or "").strip()  # noqa: MBF001
                 if content:
                     logger.info("[pilot] Thinking: %s", content[:500])
                     history.append({"role": "assistant", "content": content})

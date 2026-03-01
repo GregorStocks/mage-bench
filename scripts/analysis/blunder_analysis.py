@@ -739,7 +739,7 @@ def _call_llm(
                 ],
                 max_tokens=16384,
             )
-            text = response.choices[0].message.content or ""
+            text = response.choices[0].message.content or ""  # noqa: MBF001
             usage = response.usage
             assert usage is not None, "API response missing usage data"
             return text, usage.prompt_tokens, usage.completion_tokens

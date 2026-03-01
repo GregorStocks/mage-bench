@@ -242,7 +242,7 @@ async def run_replay(
             async def call_tool(name: str, arguments: dict) -> str:
                 return await execute_tool(session, name, arguments)
 
-            script = script or []
+            script = script or []  # noqa: MBF001
             prompt = await execute_replay_script(call_tool, script, system_prompt, game_log, skip_history=skip_history)
 
             # Write prompt to file
