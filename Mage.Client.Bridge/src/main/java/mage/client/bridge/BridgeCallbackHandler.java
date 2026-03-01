@@ -1909,7 +1909,7 @@ public class BridgeCallbackHandler {
                             }
                             if (matchedKey == null) {
                                 return buildError(result, "invalid_choice",
-                                    "'" + text + "' is not a valid choice", true, action);
+                                    "'" + text + "' is not a valid choice", true, action, true);
                             }
                             session.sendPlayerString(gameId, matchedKey);
                             trackSentResponse(gameId, ResponseType.STRING, matchedKey, null);
@@ -1927,7 +1927,7 @@ public class BridgeCallbackHandler {
                             }
                             if (matched == null) {
                                 return buildError(result, "invalid_choice",
-                                    "'" + text + "' is not a valid choice", true, action);
+                                    "'" + text + "' is not a valid choice", true, action, true);
                             }
                             session.sendPlayerString(gameId, matched);
                             trackSentResponse(gameId, ResponseType.STRING, matched, null);
