@@ -1,15 +1,35 @@
 [
   {
-    "decision_index": 1
+    "decision_index": 1,
+    "annotation_version": 29,
+    "annotation_severity": "moderate",
+    "annotation_description": "The player mulliganed a 7-card hand that had 2 Plains, multiple white creatures on a reasonable curve (Infantry Veteran at 1, Daybreak Charger at 2, Knight of the Tusk at 6), a combat trick (Moment of Triumph), and a powerful enchantment (Blessed Sanctuary). While the hand only has 2 lands and no non-white mana sources, the white creatures form a functional curve. With 2 lands and draws to find more, this hand is keepable - especially since mulliganing to 6 means losing a card and potentially getting a worse hand.",
+    "verdict": "questionable",
+    "human_notes": "marginal hand"
   },
   {
-    "decision_index": 4
+    "decision_index": 4,
+    "annotation_version": 29,
+    "annotation_severity": "minor",
+    "annotation_description": "Playing Forest turn 1 instead of Treetop Village wastes the opportunity to get the 'enters tapped' downside out of the way on a turn with no 1-drops to cast. This delays Uktabi Orangutan by a full turn: with Treetop Village T1, the line is T2 Swamp\u2192Oathsworn Vampire, T3 Forest\u2192Uktabi Orangutan. With Forest T1, the line becomes T2 Swamp\u2192Vampire, T3 Treetop Village (tapped, can't cast 3-drop), T4 Forest\u2192Orangutan.",
+    "verdict": "blunder",
+    "human_notes": "treetop village strictly better than forest here (unless you're worried about wasteland or something)"
   },
   {
-    "decision_index": 7
+    "decision_index": 7,
+    "annotation_version": 29,
+    "annotation_severity": "minor",
+    "annotation_description": "Playing Forest instead of Swamp wastes the opportunity to cast Oathsworn Vampire this turn. With Forest + Swamp, the player has exactly {1}{B} to cast the 2/2 vampire. Playing a second Forest leaves 2 green mana with nothing castable.",
+    "verdict": "blunder",
+    "human_notes": "better to play swamp so you can get the oathsworn vampire down"
   },
   {
-    "decision_index": 12
+    "decision_index": 12,
+    "annotation_version": 29,
+    "annotation_severity": null,
+    "annotation_description": null,
+    "verdict": "not_blunder",
+    "human_notes": "better to play orangutan later when you can get etb value. if cub attacks you probably won't block it anyways, so etb tapped is fine"
   },
   {
     "decision_index": 15
