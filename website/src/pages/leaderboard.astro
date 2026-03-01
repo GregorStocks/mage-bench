@@ -72,6 +72,10 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
           <option value={p}>{p}</option>
         ))}
       </select>
+      <label class="retired-toggle" title="Retired models are older or superseded versions no longer included in the evaluation gauntlet. Their historical ratings are preserved but no new games are played.">
+        <input type="checkbox" id="show-retired" />
+        Show retired models
+      </label>
     </div>
 
     <div class="table-wrap">
@@ -101,6 +105,8 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
                 data-win-rate={m.winRate}
                 data-blunder-score={m.blunderScore}
                 data-avg-api-cost={m.avgApiCost}
+                data-retired={m.retired ? 'true' : ''}
+                class:list={[{ retired: m.retired }]}
               >
                 <td class="rank-cell">{i + 1}</td>
                 <td class="model-name">{m.modelName}</td>
@@ -133,6 +139,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   const headers = table.querySelectorAll('th[data-sort]');
   const searchInput = document.getElementById('search-input') as HTMLInputElement;
   const providerFilter = document.getElementById('provider-filter') as HTMLSelectElement;
+  const showRetiredCheckbox = document.getElementById('show-retired') as HTMLInputElement;
   const noResults = document.getElementById('no-results')!;
   const formatTabs = document.getElementById('format-tabs');
 
@@ -242,6 +249,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   function applyFilters() {
     const searchTerm = searchInput.value.toLowerCase().trim();
     const provider = providerFilter.value;
+    const showRetired = showRetiredCheckbox.checked;
     const tbody = getActiveTbody();
     if (!tbody) return;
     const rows = tbody.querySelectorAll('tr');
@@ -251,7 +259,8 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       const el = row as HTMLElement;
       const matchesSearch = !searchTerm || (el.dataset.modelName ?? '').includes(searchTerm);
       const matchesProvider = !provider || el.dataset.provider === provider;
-      const visible = matchesSearch && matchesProvider;
+      const matchesRetired = showRetired || el.dataset.retired !== 'true';
+      const visible = matchesSearch && matchesProvider && matchesRetired;
 
       el.style.display = visible ? '' : 'none';
       if (visible) visibleCount++;
@@ -279,7 +288,9 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
   searchInput.addEventListener('input', applyFilters);
   providerFilter.addEventListener('change', applyFilters);
+  showRetiredCheckbox.addEventListener('change', applyFilters);
   updateGamesLinks();
+  applyFilters();
   }
 </script>
 
@@ -398,6 +409,23 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     color: #a0a0b8;
   }
 
+  .retired-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: #a0a0b8;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 1px dotted #a0a0b8;
+    padding-bottom: 1px;
+  }
+
+  .retired-toggle input[type="checkbox"] {
+    accent-color: #e94560;
+    cursor: pointer;
+  }
+
   .table-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -504,6 +532,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
   tbody tr:hover {
     background: rgba(233, 69, 96, 0.08);
+  }
+
+  tbody tr.retired {
+    opacity: 0.5;
+    font-style: italic;
   }
 
   .no-results {
