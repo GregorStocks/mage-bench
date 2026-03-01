@@ -148,13 +148,6 @@ DECK_SAVANNAH_LIONS = "puppeteer/tests/decks/savannah_lions.dck"
 DECK_ANCIENT_STIRRINGS = "puppeteer/tests/decks/ancient_stirrings.dck"
 DECK_MDFC_LAND_AND_SUSPEND = "puppeteer/tests/decks/mdfc_land_and_suspend.dck"
 
-# Default opponent script: keep opening hand, then pass everything.
-# execute_replay_script breaks on game_over, so the extras are never reached.
-OPPONENT_PASS_SCRIPT: list[dict] = [
-    {"name": "pass_priority", "arguments": {}},
-    {"name": "choose_action", "arguments": {"answer": False}},
-    *[{"name": "pass_priority", "arguments": {"until": "my_turn"}} for _ in range(100)],
-]
 
 # Main classes for direct java -cp launches (from each module's pom.xml exec-maven-plugin config)
 MAIN_CLASS_OBSERVER = "mage.client.observer.ObserverMain"
@@ -458,17 +451,24 @@ def _run_replay_on_bridge(
     script: list[dict],
     game_dir: Path,
     player_name: str,
-    skip_history: bool = False,
+    skip_postscript: bool = False,
+    write_log: bool = True,
+    should_concede: bool = True,
 ) -> list[dict]:
     """Execute a replay script on an existing BridgeSession and return the captured prompt.
 
     Delegates to ``execute_replay_script`` from ``puppeteer.replay`` — the same
     core that the subprocess path uses — so script execution logic lives in one place.
 
-    Writes ``{player}_llm.jsonl`` so ``build_export`` can produce a full export.
+    When ``write_log`` is True, writes ``{player}_llm.jsonl`` so ``build_export``
+    can produce a full export.  Player B should set this to False — two concurrent
+    writers produce nondeterministic event ordering in the export.
+
+    When ``should_concede`` is False, skip the concede after the script finishes.
+    Player B must not concede — it would end the game while player A is still
+    executing.  The defensive concede in ``run_golden_scenario`` handles cleanup.
     """
     from puppeteer.config import load_prompts
-    from puppeteer.game_log import GameLogWriter
     from puppeteer.replay import execute_replay_script
 
     # Use a config path anchored to the repo root so prompts.json resolves
@@ -478,31 +478,59 @@ def _run_replay_on_bridge(
     assert "default" in prompts, "prompts.json must contain a 'default' key"
     system_prompt = prompts["default"]
 
-    # Filter out keepAlive-only tools (join_table) so the available_tools
-    # list matches what a non-keepAlive bridge would report.
-    tool_names = [t for t in bridge.list_tools() if t != "join_table"]
+    game_log = None
+    if write_log:
+        from puppeteer.game_log import GameLogWriter
 
-    with GameLogWriter(game_dir, player_name) as game_log:
+        # Filter out keepAlive-only tools (join_table) so the available_tools
+        # list matches what a non-keepAlive bridge would report.
+        tool_names = [t for t in bridge.list_tools() if t != "join_table"]
+        game_log = GameLogWriter(game_dir, player_name)
+        game_log.__enter__()
         game_log.emit("game_start", available_tools=tool_names)
 
+    try:
         # Wrap sync bridge.call_tool as async for execute_replay_script
         async def async_call_tool(name: str, arguments: dict) -> str:
             return bridge.call_tool(name, arguments)
 
         prompt = asyncio.run(
-            execute_replay_script(async_call_tool, script, system_prompt, game_log, skip_history=skip_history)
+            execute_replay_script(async_call_tool, script, system_prompt, game_log, skip_postscript=skip_postscript)
         )
 
-        # Write prompt to file for debugging / golden comparison
-        prompt_path = game_dir / f"{player_name}_golden_prompt.json"
-        prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
+        if write_log:
+            # Write prompt to file for debugging / golden comparison
+            prompt_path = game_dir / f"{player_name}_golden_prompt.json"
+            prompt_path.write_text(json.dumps(prompt, indent=2, sort_keys=True, ensure_ascii=False) + "\n")
 
-        # Concede to end the game (no-op if game already ended from opponent)
-        bridge.call_tool("concede", {})
+        if should_concede:
+            # Concede to end the game (no-op if game already ended from opponent)
+            bridge.call_tool("concede", {})
 
-        game_log.emit("game_end", reason="replay_script_complete")
+        if game_log is not None:
+            game_log.emit("game_end", reason="replay_script_complete")
+    finally:
+        if game_log is not None:
+            game_log.__exit__(None, None, None)
 
     return prompt
+
+
+def _run_opponent_autopass(bridge: BridgeSession) -> None:
+    """Auto-pass for the opponent until the game ends.
+
+    Responds to each priority window individually (no ``until`` parameter)
+    so we don't race ahead of the other player's script.  Handles mulligans
+    by keeping the hand and answers all other prompts with "no"/pass.
+    """
+    while True:
+        result = bridge.call_tool("pass_priority", {})
+        data = json.loads(result)
+        game_ended = data.get("game_over") or data.get("player_dead") or data.get("stop_reason") == "game_over"
+        if game_ended:
+            break
+        if data.get("action_pending"):
+            bridge.call_tool("choose_action", {"choice": "no"})
 
 
 # ---------------------------------------------------------------------------
@@ -581,7 +609,8 @@ def run_golden_scenario(
 
     Both players use persistent BridgeManager JVMs with scripted replay.
     Player A's prompt is captured and compared against golden files.
-    Player B runs ``script_b`` (defaults to OPPONENT_PASS_SCRIPT).
+    Player B runs ``script_b`` if provided, otherwise auto-passes every
+    priority window until the game ends.
 
     Automatically asserts golden prompt and export comparisons using
     ``golden_name`` as the file identifier.
@@ -589,7 +618,6 @@ def run_golden_scenario(
     Returns the captured prompt messages array (what the LLM would see).
     """
     game_dir.mkdir(parents=True, exist_ok=True)
-    effective_script_b = script_b if script_b is not None else OPPONENT_PASS_SCRIPT
 
     _write_game_meta(
         game_dir,
@@ -683,13 +711,18 @@ def run_golden_scenario(
 
         def _replay_b() -> None:
             try:
-                _run_replay_on_bridge(
-                    session_b,
-                    effective_script_b,
-                    game_dir,
-                    player_b_name,
-                    skip_history=True,
-                )
+                if script_b is not None:
+                    _run_replay_on_bridge(
+                        session_b,
+                        script_b,
+                        game_dir,
+                        player_b_name,
+                        skip_postscript=True,
+                        write_log=False,
+                        should_concede=False,
+                    )
+                else:
+                    _run_opponent_autopass(session_b)
             except Exception as exc:
                 replay_errors.append(("player_b", exc))
 

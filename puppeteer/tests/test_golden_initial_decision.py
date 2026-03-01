@@ -26,6 +26,12 @@ def test_initial_decision(xmage_server, tmp_path, project_root, bridge_session, 
         deck_a=DECK_RED_STOMPY,
         deck_b=DECK_GOBLINS,
         script_a=[
+            # Choose TestPlayer as starting player, keep hand.
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"index": 0}},
+            {"name": "pass_priority", "arguments": {}},
+            {"name": "choose_action", "arguments": {"answer": False}},
+            # First real decision point — capture state.
             {"name": "pass_priority", "arguments": {}},
             {"name": "get_game_state", "arguments": {}},
         ],
