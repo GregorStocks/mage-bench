@@ -2593,13 +2593,150 @@
     },
     {
       "args": {},
+      "gameSeq": 80,
+      "player": "TestPlayer",
+      "result": {
+        "active_player": "TestPlayer",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 80,
+        "phase": "Precombat Main",
+        "players": [
+          {
+            "battlefield": [
+              {
+                "id": "p12",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Island",
+                "rules": [
+                  "{T}: Add {U}."
+                ],
+                "tapped": false
+              },
+              {
+                "copy": true,
+                "id": "p11",
+                "modified": true,
+                "name": "Memnite",
+                "original_card": "Clone",
+                "power": "1",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": "1"
+              },
+              {
+                "id": "p16",
+                "name": "Memnite",
+                "power": "1",
+                "summoning_sick": false,
+                "tapped": false,
+                "toughness": "1"
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p10",
+                "name": "Black Lotus",
+                "rules": [
+                  "{T}, Sacrifice {this}: Add three mana of any one color."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Island",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {U}."
+                ]
+              }
+            ],
+            "hand_size": 4,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 51,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "priority_player": "TestPlayer",
+        "stack": [],
+        "step": "Precombat Main",
+        "turn": 3
+      },
+      "seq": 24,
+      "tool": "get_game_state",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
       "player": "TestPlayer",
       "result": {
         "cursor": 29,
         "event_count": 29,
         "history": "Turn 1:\n    - TestPlayer drew Island\n    - TestPlayer drew Clone\n    - TestPlayer drew Memnite\n    - TestPlayer drew Black Lotus\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer cast Black Lotus\n    - TestPlayer cast Memnite\n    - TestPlayer sacrificed Black Lotus\n    - TestPlayer cast Clone\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n"
       },
-      "seq": 24,
+      "seq": 25,
       "tool": "get_game_history",
       "type": "tool_call"
     }
@@ -2610,7 +2747,7 @@
       "deckName": "clone_and_memnite",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 23,
+      "toolCallsOk": 24,
       "tools": [
         "get_game_log",
         "get_game_history",

@@ -2141,14 +2141,65 @@
     },
     {
       "args": {},
+      "gameSeq": 70,
       "player": "Opponent",
       "result": {
-        "cursor": 26,
-        "event_count": 26,
-        "history": "Turn 1:\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - Opponent drew Savannah Lions\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew Plains\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew a card\n  Declare Blockers:\n    - Opponent blocked Savannah Lions with Savannah Lions\n  Combat Damage:\n    - Savannah Lions was destroyed (TestPlayer)\n    - Savannah Lions was destroyed (Opponent)\n"
+        "active_player": "TestPlayer",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 70,
+        "phase": "Postcombat Main",
+        "players": [
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p9",
+                "name": "Savannah Lions"
+              }
+            ],
+            "hand_size": 6,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "hand_size": 0,
+            "is_active": true,
+            "is_you": false,
+            "library_size": 0,
+            "life": 20,
+            "name": "TestPlayer"
+          }
+        ],
+        "priority_player": "TestPlayer",
+        "stack": [],
+        "step": "Postcombat Main",
+        "turn": 2
       },
       "seq": 12,
-      "tool": "get_game_history",
+      "tool": "get_game_state",
       "type": "tool_call"
     },
     {
@@ -2173,6 +2224,18 @@
       },
       "seq": 12,
       "tool": "choose_action",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
+      "player": "Opponent",
+      "result": {
+        "cursor": 26,
+        "event_count": 26,
+        "history": "Turn 1:\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - TestPlayer drew a card\n    - Opponent drew Savannah Lions\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n    - Opponent drew Plains\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew Plains\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew a card\n  Declare Blockers:\n    - Opponent blocked Savannah Lions with Savannah Lions\n  Combat Damage:\n    - Savannah Lions was destroyed (TestPlayer)\n    - Savannah Lions was destroyed (Opponent)\n"
+      },
+      "seq": 13,
+      "tool": "get_game_history",
       "type": "tool_call"
     },
     {
@@ -2483,13 +2546,138 @@
     },
     {
       "args": {},
+      "gameSeq": 66,
+      "player": "TestPlayer",
+      "result": {
+        "active_player": "TestPlayer",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 66,
+        "phase": "Postcombat Main",
+        "players": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p16",
+                "name": "Savannah Lions"
+              }
+            ],
+            "hand": [
+              {
+                "id": "p11",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p26",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "battlefield": [
+              {
+                "id": "p3",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": true
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p9",
+                "name": "Savannah Lions"
+              }
+            ],
+            "hand_size": 6,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 52,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "priority_player": "TestPlayer",
+        "stack": [],
+        "step": "Postcombat Main",
+        "turn": 2
+      },
+      "seq": 16,
+      "tool": "get_game_state",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
       "player": "TestPlayer",
       "result": {
         "cursor": 26,
         "event_count": 26,
         "history": "Turn 1:\n    - TestPlayer drew Savannah Lions\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n    - TestPlayer cast Savannah Lions\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - Opponent played Plains\n    - Opponent cast Savannah Lions\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Declare Blockers:\n    - Opponent blocked Savannah Lions with Savannah Lions\n  Combat Damage:\n    - Savannah Lions was destroyed (TestPlayer)\n    - Savannah Lions was destroyed (Opponent)\n"
       },
-      "seq": 16,
+      "seq": 17,
       "tool": "get_game_history",
       "type": "tool_call"
     }
@@ -2500,7 +2688,7 @@
       "deckName": "savannah_lions",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 15,
+      "toolCallsOk": 16,
       "tools": [
         "get_game_log",
         "get_game_history",
@@ -2518,7 +2706,7 @@
       "deckName": "savannah_lions",
       "name": "Opponent",
       "toolCallsFailed": 1,
-      "toolCallsOk": 10,
+      "toolCallsOk": 11,
       "tools": [
         "get_game_log",
         "get_game_history",

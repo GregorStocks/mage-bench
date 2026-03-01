@@ -3426,13 +3426,221 @@
     },
     {
       "args": {},
+      "gameSeq": 172,
+      "player": "TestPlayer",
+      "result": {
+        "active_player": "TestPlayer",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 172,
+        "phase": "Precombat Main",
+        "players": [
+          {
+            "battlefield": [
+              {
+                "id": "p26",
+                "name": "Boggart Bog",
+                "original_card": "Boggart Trawler",
+                "rules": [
+                  "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                  "{T}: Add {B}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p12",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p13",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p14",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p15",
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p40",
+                "name": "Rhino Token",
+                "power": "4",
+                "rules": [
+                  "Trample"
+                ],
+                "summoning_sick": true,
+                "tapped": false,
+                "token": true,
+                "toughness": "4"
+              },
+              {
+                "id": "p41",
+                "name": "Rhino Token",
+                "power": "4",
+                "rules": [
+                  "Trample"
+                ],
+                "summoning_sick": true,
+                "tapped": false,
+                "token": true,
+                "toughness": "4"
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p11",
+                "name": "Crashing Footfalls",
+                "rules": [
+                  "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                  "Create two 4/4 green Rhino creature tokens with trample."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p29",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p32",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p35",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p42",
+                "is_land": true,
+                "name": "Plains",
+                "playable": true,
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 48,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p4",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p5",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p6",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p7",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 48,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "priority_player": "TestPlayer",
+        "stack": [],
+        "step": "Precombat Main",
+        "turn": 6
+      },
+      "seq": 24,
+      "tool": "get_game_state",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
       "player": "TestPlayer",
       "result": {
         "cursor": 41,
         "event_count": 41,
         "history": "Turn 1:\n    - TestPlayer drew Boggart Trawler\n    - TestPlayer drew Crashing Footfalls\n    - TestPlayer drew Forest\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Forest\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Postcombat Main:\n    - TestPlayer played Boggart Bog\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 6 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 7 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 8 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 9 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 10 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 11 (TestPlayer):\n  Upkeep:\n    - TestPlayer cast Crashing Footfalls\n  Draw:\n    - TestPlayer drew Plains\n"
       },
-      "seq": 24,
+      "seq": 25,
       "tool": "get_game_history",
       "type": "tool_call"
     }
@@ -3443,7 +3651,7 @@
       "deckName": "mdfc_land_and_suspend",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 23,
+      "toolCallsOk": 24,
       "tools": [
         "get_game_log",
         "get_game_history",

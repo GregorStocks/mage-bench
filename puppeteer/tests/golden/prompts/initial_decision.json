@@ -125,9 +125,55 @@
       {
         "function": {
           "arguments": {},
-          "name": "get_game_history"
+          "name": "get_game_state"
         },
         "id": "call_3",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "active_player": "",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 1,
+      "players": [
+        {
+          "hand": [],
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 50,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 0,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 60,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "",
+      "stack": [],
+      "turn": 1
+    },
+    "role": "tool",
+    "tool_call_id": "call_3"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_4",
         "type": "function"
       }
     ]
@@ -139,6 +185,6 @@
       "history": "No game events recorded yet."
     },
     "role": "tool",
-    "tool_call_id": "call_3"
+    "tool_call_id": "call_4"
   }
 ]

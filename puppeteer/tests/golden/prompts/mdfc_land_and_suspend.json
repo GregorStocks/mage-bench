@@ -69,10 +69,6 @@
     "tool_call_id": "call_3"
   },
   {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -89,17 +85,13 @@
     ]
   },
   {
-    "content": {
-      "action_taken": "no",
-      "game_seq": 5,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play spells and abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
-    },
+    "content": "OK: no",
     "role": "tool",
     "tool_call_id": "call_4"
+  },
+  {
+    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,
@@ -2206,9 +2198,227 @@
       {
         "function": {
           "arguments": {},
-          "name": "get_game_history"
+          "name": "get_game_state"
         },
         "id": "call_23",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "active_player": "TestPlayer",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 172,
+      "phase": "Precombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Boggart Bog",
+              "original_card": "Boggart Trawler",
+              "rules": [
+                "As {this} enters, you may pay 3 life. If you don't, it enters tapped.",
+                "{T}: Add {B}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Forest",
+              "rules": [
+                "{T}: Add {G}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Rhino Token",
+              "power": 4,
+              "rules": [
+                "Trample"
+              ],
+              "summoning_sick": true,
+              "tapped": false,
+              "token": true,
+              "toughness": 4
+            },
+            {
+              "id": "_",
+              "name": "Rhino Token",
+              "power": 4,
+              "rules": [
+                "Trample"
+              ],
+              "summoning_sick": true,
+              "tapped": false,
+              "token": true,
+              "toughness": 4
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Crashing Footfalls",
+              "rules": [
+                "Suspend 4&mdash;{G} (Rather than cast this card from your hand, you may pay {G} and exile it with four time counters on it. At the beginning of your upkeep, remove a time counter. When the last is removed, you may cast it without paying its mana cost.)",
+                "Create two 4/4 green Rhino creature tokens with trample."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 48,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 48,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [],
+      "step": "Precombat Main",
+      "turn": 6
+    },
+    "role": "tool",
+    "tool_call_id": "call_23"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_24",
         "type": "function"
       }
     ]
@@ -2220,6 +2430,6 @@
       "history": "Turn 1:\n    - TestPlayer drew Boggart Trawler\n    - TestPlayer drew Crashing Footfalls\n    - TestPlayer drew Forest\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Forest\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Postcombat Main:\n    - TestPlayer played Boggart Bog\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 6 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 7 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 8 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 9 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 10 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 11 (TestPlayer):\n  Upkeep:\n    - TestPlayer cast Crashing Footfalls\n  Draw:\n    - TestPlayer drew Plains\n"
     },
     "role": "tool",
-    "tool_call_id": "call_23"
+    "tool_call_id": "call_24"
   }
 ]

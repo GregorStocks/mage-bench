@@ -27,10 +27,6 @@
     "tool_call_id": "call_1"
   },
   {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -47,17 +43,13 @@
     ]
   },
   {
-    "content": {
-      "action_taken": "selected_target_0",
-      "game_seq": 1,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Mulligan down to 6 cards?",
-      "next_action_pending": true,
-      "next_action_type": "GAME_ASK",
-      "success": true
-    },
+    "content": "OK: selected_target_0",
     "role": "tool",
     "tool_call_id": "call_2"
+  },
+  {
+    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,
@@ -1491,9 +1483,140 @@
       {
         "function": {
           "arguments": {},
-          "name": "get_game_history"
+          "name": "get_game_state"
         },
         "id": "call_21",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "active_player": "Opponent",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 53,
+      "phase": "Precombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Badlands",
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ],
+              "tapped": true
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 4,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 8,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [
+        {
+          "id": "_",
+          "name": "Lightning Bolt",
+          "rules": [
+            "{this} deals 3 damage to any target."
+          ]
+        },
+        {
+          "id": "_",
+          "name": "Lightning Bolt",
+          "rules": [
+            "{this} deals 3 damage to any target."
+          ],
+          "targets": [
+            {
+              "id": "_",
+              "name": "Opponent"
+            }
+          ]
+        }
+      ],
+      "step": "Precombat Main",
+      "turn": 2
+    },
+    "role": "tool",
+    "tool_call_id": "call_21"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_22",
         "type": "function"
       }
     ]
@@ -1505,6 +1628,6 @@
       "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Badlands\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n"
     },
     "role": "tool",
-    "tool_call_id": "call_21"
+    "tool_call_id": "call_22"
   }
 ]

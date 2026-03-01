@@ -974,13 +974,120 @@
     },
     {
       "args": {},
+      "gameSeq": 27,
+      "player": "TestPlayer",
+      "result": {
+        "active_player": "TestPlayer",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 27,
+        "phase": "Postcombat Main",
+        "players": [
+          {
+            "battlefield": [
+              {
+                "id": "p11",
+                "name": "Forest",
+                "rules": [
+                  "{T}: Add {G}."
+                ],
+                "tapped": true
+              }
+            ],
+            "hand": [
+              {
+                "id": "p24",
+                "mana_cost": "{0}",
+                "name": "Ornithopter",
+                "power": "0",
+                "rules": [
+                  "Flying"
+                ],
+                "toughness": "2"
+              },
+              {
+                "id": "p12",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p13",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p14",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              }
+            ],
+            "hand_size": 6,
+            "is_active": true,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 7,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 53,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "priority_player": "TestPlayer",
+        "stack": [
+          {
+            "id": "p23",
+            "name": "Ancient Stirrings",
+            "rules": [
+              "Look at the top five cards of your library. You may reveal a colorless card from among them and put it into your hand. Put the rest on the bottom of your library in any order."
+            ]
+          }
+        ],
+        "step": "Postcombat Main",
+        "turn": 1
+      },
+      "seq": 13,
+      "tool": "get_game_state",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
       "player": "TestPlayer",
       "result": {
         "cursor": 17,
         "event_count": 17,
         "history": "Turn 1:\n    - TestPlayer drew Ancient Stirrings\n    - TestPlayer drew Forest\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Forest\n    - TestPlayer cast Ancient Stirrings\n"
       },
-      "seq": 13,
+      "seq": 14,
       "tool": "get_game_history",
       "type": "tool_call"
     }
@@ -991,7 +1098,7 @@
       "deckName": "ancient_stirrings",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 12,
+      "toolCallsOk": 13,
       "tools": [
         "get_game_log",
         "get_game_history",

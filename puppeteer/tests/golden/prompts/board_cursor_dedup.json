@@ -687,9 +687,120 @@
       {
         "function": {
           "arguments": {},
-          "name": "get_game_history"
+          "name": "get_game_state"
         },
         "id": "call_10",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "active_player": "Opponent",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 26,
+      "phase": "Combat",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Badlands",
+              "rules": [
+                "{T}: Add {B}.",
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{R}",
+              "name": "Lightning Bolt",
+              "playable": true,
+              "rules": [
+                "{this} deals 3 damage to any target."
+              ]
+            },
+            {
+              "id": "_",
+              "mana_cost": "{0}",
+              "name": "Memnite",
+              "power": 1,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plateau",
+              "rules": [
+                "{T}: Add {R}.",
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Taiga",
+              "rules": [
+                "{T}: Add {G}.",
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 8,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [],
+      "step": "Declare Attackers",
+      "turn": 1
+    },
+    "role": "tool",
+    "tool_call_id": "call_10"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_11",
         "type": "function"
       }
     ]
@@ -701,6 +812,6 @@
       "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n"
     },
     "role": "tool",
-    "tool_call_id": "call_10"
+    "tool_call_id": "call_11"
   }
 ]

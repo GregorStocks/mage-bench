@@ -69,10 +69,6 @@
     "tool_call_id": "call_3"
   },
   {
-    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
-    "role": "user"
-  },
-  {
     "content": null,
     "role": "assistant",
     "tool_calls": [
@@ -89,17 +85,13 @@
     ]
   },
   {
-    "content": {
-      "action_taken": "no",
-      "game_seq": 5,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play spells and abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
-    },
+    "content": "OK: no",
     "role": "tool",
     "tool_call_id": "call_4"
+  },
+  {
+    "content": "Continue playing. Call pass_priority to get your next decision, then choose_action to respond. All cards listed are playable right now. Play cards with id=pN, pass with answer=false.",
+    "role": "user"
   },
   {
     "content": null,
@@ -1719,9 +1711,156 @@
       {
         "function": {
           "arguments": {},
-          "name": "get_game_history"
+          "name": "get_game_state"
         },
         "id": "call_23",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "active_player": "TestPlayer",
+      "available": true,
+      "cursor": 1,
+      "game_seq": 80,
+      "phase": "Precombat Main",
+      "players": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
+              "name": "Island",
+              "rules": [
+                "{T}: Add {U}."
+              ],
+              "tapped": false
+            },
+            {
+              "copy": true,
+              "id": "_",
+              "modified": true,
+              "name": "Memnite",
+              "original_card": "Clone",
+              "power": 1,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 1
+            },
+            {
+              "id": "_",
+              "name": "Memnite",
+              "power": 1,
+              "summoning_sick": false,
+              "tapped": false,
+              "toughness": 1
+            }
+          ],
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Black Lotus",
+              "rules": [
+                "{T}, Sacrifice {this}: Add three mana of any one color."
+              ]
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Island",
+              "playable": true,
+              "rules": [
+                "{T}: Add {U}."
+              ]
+            }
+          ],
+          "hand_size": 4,
+          "is_active": true,
+          "is_you": true,
+          "library_size": 51,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [],
+      "step": "Precombat Main",
+      "turn": 3
+    },
+    "role": "tool",
+    "tool_call_id": "call_23"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {},
+          "name": "get_game_history"
+        },
+        "id": "call_24",
         "type": "function"
       }
     ]
@@ -1733,6 +1872,6 @@
       "history": "Turn 1:\n    - TestPlayer drew Island\n    - TestPlayer drew Clone\n    - TestPlayer drew Memnite\n    - TestPlayer drew Black Lotus\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - TestPlayer drew Island\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Island\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n  Precombat Main:\n    - TestPlayer cast Black Lotus\n    - TestPlayer cast Memnite\n    - TestPlayer sacrificed Black Lotus\n    - TestPlayer cast Clone\n    - TestPlayer played Island\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Island\n"
     },
     "role": "tool",
-    "tool_call_id": "call_23"
+    "tool_call_id": "call_24"
   }
 ]

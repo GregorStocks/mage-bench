@@ -108,10 +108,39 @@ async def execute_replay_script(
         except (json.JSONDecodeError, TypeError):
             pass
 
+    # Always capture final game state (used by golden page prompt display)
+    state_result = await call_tool("get_game_state", {})
+    if game_log:
+        game_log.emit("tool_call", tool="get_game_state", arguments={}, result=state_result)
+    state_call_id = f"call_{len(script) + 1}"
+    history.append(
+        {
+            "role": "assistant",
+            "content": None,
+            "tool_calls": [
+                {
+                    "id": state_call_id,
+                    "type": "function",
+                    "function": {
+                        "name": "get_game_state",
+                        "arguments": json.dumps({}),
+                    },
+                }
+            ],
+        }
+    )
+    history.append(
+        {
+            "role": "tool",
+            "tool_call_id": state_call_id,
+            "content": state_result,
+        }
+    )
+
     history_result = await call_tool("get_game_history", {})
     if game_log:
         game_log.emit("tool_call", tool="get_game_history", arguments={}, result=history_result)
-    history_call_id = f"call_{len(script) + 1}"
+    history_call_id = f"call_{len(script) + 2}"
     history.append(
         {
             "role": "assistant",

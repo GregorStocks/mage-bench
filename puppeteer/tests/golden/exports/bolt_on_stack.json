@@ -1989,13 +1989,134 @@
     },
     {
       "args": {},
+      "gameSeq": 53,
+      "player": "TestPlayer",
+      "result": {
+        "active_player": "Opponent",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 53,
+        "phase": "Precombat Main",
+        "players": [
+          {
+            "battlefield": [
+              {
+                "id": "p10",
+                "name": "Badlands",
+                "rules": [
+                  "{T}: Add {B}.",
+                  "{T}: Add {R}."
+                ],
+                "tapped": false
+              },
+              {
+                "id": "p14",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "tapped": true
+              }
+            ],
+            "hand": [
+              {
+                "id": "p13",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "power": "1",
+                "toughness": "1"
+              },
+              {
+                "id": "p24",
+                "is_land": true,
+                "name": "Plains",
+                "rules": [
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plateau",
+                "rules": [
+                  "{T}: Add {R}.",
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Taiga",
+                "rules": [
+                  "{T}: Add {G}.",
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 4,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 52,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "graveyard": [
+              {
+                "id": "p3",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 8,
+            "is_active": true,
+            "is_you": false,
+            "library_size": 51,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "priority_player": "TestPlayer",
+        "stack": [
+          {
+            "id": "p27",
+            "name": "Lightning Bolt",
+            "rules": [
+              "{this} deals 3 damage to any target."
+            ]
+          },
+          {
+            "id": "p26",
+            "name": "Lightning Bolt",
+            "rules": [
+              "{this} deals 3 damage to any target."
+            ],
+            "targets": [
+              {
+                "id": "p1",
+                "name": "Opponent"
+              }
+            ]
+          }
+        ],
+        "step": "Precombat Main",
+        "turn": 2
+      },
+      "seq": 22,
+      "tool": "get_game_state",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
       "player": "TestPlayer",
       "result": {
         "cursor": 24,
         "event_count": 24,
         "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Badlands\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n"
       },
-      "seq": 22,
+      "seq": 23,
       "tool": "get_game_history",
       "type": "tool_call"
     }
@@ -2006,7 +2127,7 @@
       "deckName": "bolt_and_burn",
       "name": "TestPlayer",
       "toolCallsFailed": 2,
-      "toolCallsOk": 19,
+      "toolCallsOk": 20,
       "tools": [
         "get_game_log",
         "get_game_history",

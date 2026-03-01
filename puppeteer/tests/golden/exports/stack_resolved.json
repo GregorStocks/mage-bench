@@ -1129,13 +1129,113 @@
     },
     {
       "args": {},
+      "gameSeq": 32,
+      "player": "TestPlayer",
+      "result": {
+        "active_player": "Opponent",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 32,
+        "phase": "Precombat Main",
+        "players": [
+          {
+            "battlefield": [
+              {
+                "id": "p14",
+                "name": "Mountain",
+                "rules": [
+                  "{T}: Add {R}."
+                ],
+                "tapped": true
+              }
+            ],
+            "graveyard": [
+              {
+                "id": "p11",
+                "name": "Lightning Bolt",
+                "rules": [
+                  "{this} deals 3 damage to any target."
+                ]
+              }
+            ],
+            "hand": [
+              {
+                "id": "p10",
+                "is_land": true,
+                "name": "Badlands",
+                "rules": [
+                  "{T}: Add {B}.",
+                  "{T}: Add {R}."
+                ]
+              },
+              {
+                "id": "p12",
+                "mana_cost": "{R}",
+                "name": "Lightning Bolt",
+                "rules": [
+                  "{this} deals 3 damage to any target."
+                ]
+              },
+              {
+                "id": "p13",
+                "mana_cost": "{0}",
+                "name": "Memnite",
+                "power": "1",
+                "toughness": "1"
+              },
+              {
+                "id": "p15",
+                "is_land": true,
+                "name": "Plateau",
+                "rules": [
+                  "{T}: Add {R}.",
+                  "{T}: Add {W}."
+                ]
+              },
+              {
+                "id": "p16",
+                "is_land": true,
+                "name": "Taiga",
+                "rules": [
+                  "{T}: Add {G}.",
+                  "{T}: Add {R}."
+                ]
+              }
+            ],
+            "hand_size": 5,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 53,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 8,
+            "is_active": true,
+            "is_you": false,
+            "library_size": 52,
+            "life": 17,
+            "name": "Opponent"
+          }
+        ],
+        "priority_player": "TestPlayer",
+        "stack": [],
+        "step": "Precombat Main",
+        "turn": 1
+      },
+      "seq": 13,
+      "tool": "get_game_state",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
       "player": "TestPlayer",
       "result": {
         "cursor": 20,
         "event_count": 20,
         "history": "Turn 1:\n    - TestPlayer drew Mountain\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Lightning Bolt\n    - TestPlayer drew Memnite\n    - TestPlayer drew Taiga\n    - TestPlayer drew Badlands\n    - TestPlayer drew Plateau\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Mountain\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n  Precombat Main:\n    - TestPlayer cast Lightning Bolt\n    - Opponent lost 3 life\n"
       },
-      "seq": 13,
+      "seq": 14,
       "tool": "get_game_history",
       "type": "tool_call"
     }
@@ -1146,7 +1246,7 @@
       "deckName": "bolt_and_burn",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 12,
+      "toolCallsOk": 13,
       "tools": [
         "get_game_log",
         "get_game_history",

@@ -178,13 +178,49 @@
     },
     {
       "args": {},
+      "gameSeq": 1,
+      "player": "TestPlayer",
+      "result": {
+        "active_player": "",
+        "available": true,
+        "cursor": 1,
+        "game_seq": 1,
+        "players": [
+          {
+            "hand": [],
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": true,
+            "library_size": 50,
+            "life": 20,
+            "name": "TestPlayer"
+          },
+          {
+            "hand_size": 0,
+            "is_active": false,
+            "is_you": false,
+            "library_size": 60,
+            "life": 20,
+            "name": "Opponent"
+          }
+        ],
+        "priority_player": "",
+        "stack": [],
+        "turn": 1
+      },
+      "seq": 4,
+      "tool": "get_game_state",
+      "type": "tool_call"
+    },
+    {
+      "args": {},
       "player": "TestPlayer",
       "result": {
         "cursor": 0,
         "event_count": 0,
         "history": "No game events recorded yet."
       },
-      "seq": 4,
+      "seq": 5,
       "tool": "get_game_history",
       "type": "tool_call"
     }
@@ -195,7 +231,7 @@
       "deckName": "Red Stompy",
       "name": "TestPlayer",
       "toolCallsFailed": 0,
-      "toolCallsOk": 3,
+      "toolCallsOk": 4,
       "tools": [
         "get_game_log",
         "get_game_history",
