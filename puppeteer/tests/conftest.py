@@ -267,8 +267,10 @@ def potato_process(xmage_server, project_root):
     )
 
     with timed_phase("session", "potato_jvm_startup"):
-        potato = PotatoProcess(proc)
-        print(f"Potato JVM started (pid={proc.pid})")
+        potato = PotatoProcess(proc, potato_log)
+        print(f"Potato JVM started (pid={proc.pid}), waiting for POTATO_READY...")
+        potato.wait_for_ready(timeout=120)
+        print("Potato ready")
 
     yield potato
 

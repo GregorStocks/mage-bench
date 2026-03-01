@@ -704,6 +704,8 @@ public class BridgeCallbackHandler {
         if (gameView == null) {
             gameView = lastGameView;
         }
+        // Capture for use in lambdas (must be effectively final).
+        final GameView gv = gameView;
         if (action != null) {
             result.put("game_seq", action.gameSeq());
         }
@@ -786,8 +788,8 @@ public class BridgeCallbackHandler {
                         var targets = new ArrayList<Map<String, Object>>();
                         for (UUID targetId : card.getTargets()) {
                             var t = new HashMap<String, Object>();
-                            t.put("id", getStableShortId(targetId));
-                            t.put("name", describeTarget(targetId, null, lastGameView));
+                            t.put("id", getStableShortId(targetId, findCardViewById(targetId, gameView)));
+                            t.put("name", describeTarget(targetId, null, gameView));
                             targets.add(t);
                         }
                         item.put("targets", targets);
@@ -858,9 +860,9 @@ public class BridgeCallbackHandler {
                     // (HashMap iteration order depends on UUID hashCodes, which vary across JVM runs)
                     var sortedPlayable = new ArrayList<>(playable.getObjects().entrySet());
                     sortedPlayable.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
-                        CardView cv = findCardViewById(e.getKey());
+                        CardView cv = findCardViewById(e.getKey(), gv);
                         return cv != null ? safeDisplayName(cv) : "";
-                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey()))));
+                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey(), gv))));
 
                     int idx = 0;
                     for (Map.Entry<UUID, PlayableObjectStats> entry : sortedPlayable) {
@@ -881,7 +883,7 @@ public class BridgeCallbackHandler {
                         }
 
                         // Determine where this object lives (hand = cast, battlefield = activate)
-                        CardView cardView = findCardViewById(objectId);
+                        CardView cardView = findCardViewById(objectId, gameView);
                         var choiceEntry = new HashMap<String, Object>();
                         choiceEntry.put("index", idx);
                         choiceEntry.put("id", getStableShortId(objectId, cardView));
@@ -1082,9 +1084,9 @@ public class BridgeCallbackHandler {
                     // Sort mana sources by card name for deterministic ordering
                     var sortedManaEntries = new ArrayList<>(manaPlayable.getObjects().entrySet());
                     sortedManaEntries.sort(Comparator.<Map.Entry<UUID, PlayableObjectStats>, String>comparing(e -> {
-                        CardView cv = findCardViewById(e.getKey());
+                        CardView cv = findCardViewById(e.getKey(), gv);
                         return cv != null ? safeDisplayName(cv) : "";
-                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey()))));
+                    }).thenComparingInt(e -> getStableShortIdSequence(e.getKey(), findCardViewById(e.getKey(), gv))));
 
                     int idx = 0;
                     for (Map.Entry<UUID, PlayableObjectStats> entry : sortedManaEntries) {
@@ -1098,7 +1100,7 @@ public class BridgeCallbackHandler {
                             continue;
                         }
 
-                        CardView cardView = findCardViewById(manaObjectId);
+                        CardView cardView = findCardViewById(manaObjectId, gameView);
                         String cardName;
                         if (cardView != null) {
                             cardName = cardView.getDisplayName();
@@ -1193,12 +1195,14 @@ public class BridgeCallbackHandler {
                         if (nameCmp != 0) {
                             return nameCmp;
                         }
-                        return Integer.compare(getStableShortIdSequence(a.targetId()), getStableShortIdSequence(b.targetId()));
+                        return Integer.compare(
+                            getStableShortIdSequence(a.targetId(), findCardViewById(a.targetId(), gv)),
+                            getStableShortIdSequence(b.targetId(), findCardViewById(b.targetId(), gv)));
                     });
 
                     int idx = 0;
                     for (TargetChoice tc : targetChoices) {
-                        tc.entry().put("id", getStableShortId(tc.targetId()));
+                        tc.entry().put("id", getStableShortId(tc.targetId(), findCardViewById(tc.targetId(), gameView)));
                         tc.entry().put("index", idx);
                         choiceList.add(tc.entry());
                         indexToUuid.add(tc.targetId());

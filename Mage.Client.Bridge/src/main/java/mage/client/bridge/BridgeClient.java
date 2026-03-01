@@ -331,6 +331,10 @@ public class BridgeClient {
             // resets state, joins the next available table, plays the game, then reads again.
             // When stdin closes, exit cleanly.
             logger.info("Entering keepAlive stdin loop (potato mode)...");
+            // Signal readiness so the test harness knows we're connected and ready.
+            // Python polls the log file for this marker before sending the first game.
+            System.out.println("POTATO_READY");
+            System.out.flush();
             java.io.BufferedReader stdinReader = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
 
             // Background thread for pinging the server to stay connected
@@ -375,11 +379,15 @@ public class BridgeClient {
                     UUID tableId = tryJoinTable(session, roomId, username, deck, targetTableId);
                     if (tableId == null) {
                         logger.error("keepAlive: failed to join table, continuing to read stdin...");
+                        System.out.println("POTATO_READY");
+                        System.out.flush();
                         continue;
                     }
                     logger.info("keepAlive: joined table " + tableId + ", waiting for game to finish...");
                     fresh.awaitGameFinished(600_000); // 10 min max per game
                     logger.info("keepAlive: game finished, ready for next");
+                    System.out.println("POTATO_READY");
+                    System.out.flush();
                 }
             } catch (java.io.IOException e) {
                 logger.info("keepAlive: stdin read error: " + e.getMessage());

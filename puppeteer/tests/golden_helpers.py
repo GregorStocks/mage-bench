@@ -275,10 +275,36 @@ class PotatoProcess:
     it to load the deck, reset state, and join the next available game table.
     """
 
-    def __init__(self, proc: subprocess.Popen[bytes]) -> None:
+    _READY_MARKER = "POTATO_READY"
+
+    def __init__(self, proc: subprocess.Popen[bytes], log_path: Path) -> None:
         self.proc = proc
+        self._log_path = log_path
+        self._last_ready_pos = 0
         assert proc.stdin is not None, "PotatoProcess requires stdin=PIPE"
         self._stdin = io.TextIOWrapper(proc.stdin, encoding="utf-8", line_buffering=True)
+
+    def wait_for_ready(self, timeout: float = 60) -> None:
+        """Block until the potato writes POTATO_READY to its log.
+
+        The potato prints this marker at startup and after each game finishes.
+        We track file position so each call waits for the NEXT occurrence.
+        """
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            try:
+                with open(self._log_path) as f:
+                    f.seek(self._last_ready_pos)
+                    content = f.read()
+            except FileNotFoundError:
+                time.sleep(0.1)
+                continue
+            idx = content.find(self._READY_MARKER)
+            if idx >= 0:
+                self._last_ready_pos += idx + len(self._READY_MARKER) + 1
+                return
+            time.sleep(0.1)
+        raise TimeoutError(f"Potato not ready within {timeout}s — check {self._log_path}")
 
     def join_next_game(self, deck_path: str, *, table_id: str | None = None) -> None:
         """Send a deck path to trigger the potato to join the next game."""
@@ -859,6 +885,14 @@ def _run_golden_persistent(
         # and all subsequent persistent tests fail on join_table.
         try:
             bridge.call_tool("concede", timeout=10)
+        except Exception:
+            pass
+        # Wait for the potato to finish game cleanup before starting the next test.
+        # Without this, the potato may still be in handleGameOver pulling final
+        # bridge events when the next test tries to start a new game, causing
+        # a bridge_join timeout.
+        try:
+            potato.wait_for_ready(timeout=15)
         except Exception:
             pass
         # Kill only the per-test processes — session-scoped ones are managed by fixtures
