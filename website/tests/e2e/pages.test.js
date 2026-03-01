@@ -68,8 +68,8 @@ describe("top-level pages load with expected content", () => {
 describe("leaderboard has data", () => {
   test("leaderboard table has at least one model row", () => {
     const html = readPage("leaderboard");
-    // Each model row has a data-model-name attribute
-    const modelRows = html.match(/data-model-name=/g);
+    // Each model row has a data-model-id attribute
+    const modelRows = html.match(/data-model-id=/g);
     expect(modelRows).not.toBeNull();
     expect(modelRows.length).toBeGreaterThan(0);
   });
