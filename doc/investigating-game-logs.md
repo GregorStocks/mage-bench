@@ -146,6 +146,28 @@ These often indicate ShortIdRegistry remapping: a card's short ID changed betwee
 when choices were presented and when the LLM responded. Common with multi-step
 targeting (e.g., Doomsday pile construction) and mana sources that get sacrificed.
 
+## Hallucinated object IDs
+
+When models fabricate IDs that don't exist in the game state (common with gpt-4o-mini
+and other weak models that skip `get_action_choices`):
+
+```bash
+# Detect hallucinated or stale IDs in blocker/attacker assignments and targeting
+grep "unknown attacker ID\|not a valid block target\|not found in current choices" "$GAME_DIR"/*_mcp.log "$GAME_DIR"/*_pilot.log
+```
+
+## Blind index-0 targeting
+
+Weak models skip `get_action_choices` and default to `index:0` for targeting,
+often hitting the wrong creature (opponent's creatures may be listed first).
+
+```bash
+# Count instances where model skipped get_action_choices
+grep -c "auto-populating choices" "$GAME_DIR"/*_mcp.log
+```
+
+Cross-reference with blunder annotations to see if blind targeting caused misplays.
+
 ## Ward / additional cost prompt confusion
 
 When a model casts a spell targeting a creature with ward, the game sends a
