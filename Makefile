@@ -14,6 +14,7 @@ clean:
 lint:
 	uv run python scripts/checks/lint_issues.py
 	uv run python scripts/checks/lint_scripts_are_python.py
+	uv run python scripts/checks/lint_no_fallback.py
 	uv run --project puppeteer ruff check puppeteer/ scripts/
 
 .PHONY: lint-fix
