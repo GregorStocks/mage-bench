@@ -162,8 +162,11 @@ def load_baseline() -> dict:
 
 
 def save_baseline(baseline: dict) -> None:
-    """Write baseline to disk."""
-    BASELINE_PATH.write_text(json.dumps(baseline, indent=2) + "\n")
+    """Write baseline to disk with sorted keys for stable diffs."""
+    # Normalize cost field: "cost_usd" float -> "cost" string like "$1.23"
+    if "cost_usd" in baseline:
+        baseline = {**baseline, "cost": f"${baseline.pop('cost_usd'):.2f}"}
+    BASELINE_PATH.write_text(json.dumps(baseline, indent=2, sort_keys=True) + "\n")
 
 
 # --- Ground truth entry constructors ---
