@@ -37,7 +37,7 @@ def test_clone_copies_memnite(
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "1"}},
             # Next turn: cast Black Lotus then Memnite.
-            {"name": "pass_priority", "arguments": {}},
+            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
             {"name": "choose_action", "arguments": {"choice": "0"}},
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "0"}},

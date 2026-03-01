@@ -138,7 +138,8 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 3
+            "board_cursor": 3,
+            "until": "precombat_main"
           },
           "name": "pass_priority"
         },
@@ -148,7 +149,13 @@
     ]
   },
   {
-    "content": "action_pending(GAME_SELECT, playable_cards); select; 7 choices: Dark Depths, Plains, Plains",
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "current_step": "Precombat Main",
+      "game_seq": 21,
+      "stop_reason": "step_not_reached"
+    },
     "role": "tool",
     "tool_call_id": "call_7"
   },
@@ -169,7 +176,13 @@
     ]
   },
   {
-    "content": "OK: selected_1",
+    "content": {
+      "error": "Object p12 not found in current choices",
+      "error_code": "invalid_choice",
+      "game_seq": 21,
+      "retryable": true,
+      "success": false
+    },
     "role": "tool",
     "tool_call_id": "call_8"
   },
@@ -184,7 +197,8 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 4
+            "board_cursor": 3,
+            "until": "precombat_main"
           },
           "name": "pass_priority"
         },
@@ -207,7 +221,202 @@
                 "{T}: Add {W}."
               ],
               "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ]
             },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Thespian's Stage",
+              "rules": [
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 53,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "hand_size": 8,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "board_cursor": 4,
+      "context": "T1 Precombat Main/Precombat Main (Opponent)",
+      "current_step": "Precombat Main",
+      "game_seq": 21,
+      "message": "Play instants and activated abilities",
+      "respond_with": "choice=yes (confirm) or choice=no (pass)",
+      "response_type": "boolean",
+      "stop_reason": "reached_step",
+      "untapped_lands": 1
+    },
+    "role": "tool",
+    "tool_call_id": "call_9"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "choice": "_"
+          },
+          "name": "choose_action"
+        },
+        "id": "call_10",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "error": "Object p10 not found in current choices",
+      "error_code": "invalid_choice",
+      "game_seq": 21,
+      "retryable": true,
+      "success": false
+    },
+    "role": "tool",
+    "tool_call_id": "call_10"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "board_cursor": 4,
+            "until": "precombat_main"
+          },
+          "name": "pass_priority"
+        },
+        "id": "call_11",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board_cursor": 4,
+      "board_unchanged": true,
+      "context": "T1 Precombat Main/Precombat Main (Opponent)",
+      "current_step": "Precombat Main",
+      "game_seq": 21,
+      "message": "Play instants and activated abilities",
+      "respond_with": "choice=yes (confirm) or choice=no (pass)",
+      "response_type": "boolean",
+      "stop_reason": "reached_step",
+      "untapped_lands": 1
+    },
+    "role": "tool",
+    "tool_call_id": "call_11"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "choice": "_"
+          },
+          "name": "choose_action"
+        },
+        "id": "call_12",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "error": "Object p16 not found in current choices",
+      "error_code": "invalid_choice",
+      "game_seq": 21,
+      "retryable": true,
+      "success": false
+    },
+    "role": "tool",
+    "tool_call_id": "call_12"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "board_cursor": 4
+          },
+          "name": "pass_priority"
+        },
+        "id": "call_13",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
             {
               "id": "_",
               "name": "Plains",
@@ -288,7 +497,7 @@
           "hand_size": 7,
           "is_active": true,
           "is_you": true,
-          "library_size": 51,
+          "library_size": 52,
           "life": 20,
           "name": "TestPlayer"
         },
@@ -300,19 +509,12 @@
               "rules": [
                 "{T}: Add {R}."
               ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
             }
           ],
           "hand_size": 7,
           "is_active": false,
           "is_you": false,
-          "library_size": 51,
+          "library_size": 52,
           "life": 20,
           "name": "Opponent"
         }
@@ -362,473 +564,15 @@
           "name": "Thespian's Stage"
         }
       ],
-      "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 58,
+      "context": "T2 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 33,
       "has_playable_cards": true,
       "land_drops_used": 0,
       "message": "Play spells and abilities",
       "respond_with": "choice=pN to play, or choice=no to pass",
       "response_type": "select",
       "stop_reason": "playable_cards",
-      "untapped_lands": 2
-    },
-    "role": "tool",
-    "tool_call_id": "call_9"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "choice": "_"
-          },
-          "name": "choose_action"
-        },
-        "id": "call_10",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_taken": "selected_0",
-      "game_seq": 58,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play spells and abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
-    },
-    "role": "tool",
-    "tool_call_id": "call_10"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 5
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_11",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_pending": true,
-      "action_type": "GAME_SELECT",
-      "board": [
-        {
-          "battlefield": [
-            {
-              "counters": {
-                "ice": 10
-              },
-              "id": "_",
-              "name": "Dark Depths",
-              "rules": [
-                "{this} enters with ten ice counters on it.",
-                "{3}: Remove an ice counter from {this}.",
-                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Thespian's Stage",
-              "playable": true,
-              "rules": [
-                "{T}: Add {C}.",
-                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 50,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 50,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "board_cursor": 6,
-      "choices": [
-        {
-          "action": "land",
-          "id": "_",
-          "index": 0,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 1,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 2,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 5,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 6,
-          "name": "Thespian's Stage"
-        }
-      ],
-      "context": "T4 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 83,
-      "has_playable_cards": true,
-      "land_drops_used": 0,
-      "message": "Play spells and abilities",
-      "respond_with": "choice=pN to play, or choice=no to pass",
-      "response_type": "select",
-      "stop_reason": "playable_cards",
-      "untapped_lands": 3
-    },
-    "role": "tool",
-    "tool_call_id": "call_11"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "choice": "_"
-          },
-          "name": "choose_action"
-        },
-        "id": "call_12",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_taken": "selected_6",
-      "game_seq": 83,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play spells and abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
-    },
-    "role": "tool",
-    "tool_call_id": "call_12"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 6
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_13",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_pending": true,
-      "action_type": "GAME_SELECT",
-      "board": [
-        {
-          "battlefield": [
-            {
-              "counters": {
-                "ice": 10
-              },
-              "id": "_",
-              "name": "Dark Depths",
-              "rules": [
-                "{this} enters with ten ice counters on it.",
-                "{3}: Remove an ice counter from {this}.",
-                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Thespian's Stage",
-              "rules": [
-                "{T}: Add {C}.",
-                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
-              ],
-              "tapped": false
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            }
-          ],
-          "hand_size": 6,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 50,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 50,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "board_cursor": 7,
-      "choices": [
-        {
-          "action": "activate",
-          "id": "_",
-          "index": 0,
-          "name": "Dark Depths",
-          "playable_abilities": [
-            "{3}: Remove an ice counter from {this}."
-          ]
-        },
-        {
-          "action": "activate",
-          "id": "_",
-          "index": 1,
-          "name": "Thespian's Stage",
-          "playable_abilities": [
-            "{2}, {T}: {this} becomes a copy of target land, e..."
-          ]
-        }
-      ],
-      "context": "T4 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 91,
-      "has_playable_cards": true,
-      "message": "Play instants and activated abilities",
-      "respond_with": "choice=pN to play, or choice=no to pass",
-      "response_type": "select",
-      "stop_reason": "playable_cards",
-      "untapped_lands": 4
+      "untapped_lands": 1
     },
     "role": "tool",
     "tool_call_id": "call_13"
@@ -851,12 +595,12 @@
   },
   {
     "content": {
-      "action_taken": "selected_1",
-      "game_seq": 91,
+      "action_taken": "selected_6",
+      "game_seq": 33,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Choose spell or ability to play: Thespian's Stage",
+      "next_action_message": "Play spells and abilities",
       "next_action_pending": true,
-      "next_action_type": "GAME_CHOOSE_ABILITY",
+      "next_action_type": "GAME_SELECT",
       "success": true
     },
     "role": "tool",
@@ -869,7 +613,7 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 7
+            "board_cursor": 5
           },
           "name": "pass_priority"
         },
@@ -881,228 +625,37 @@
   {
     "content": {
       "action_pending": true,
-      "action_type": "GAME_CHOOSE_ABILITY",
-      "board_cursor": 7,
-      "board_unchanged": true,
-      "choices": [
-        {
-          "description": "1. {T}: Add {C}.",
-          "index": 0
-        },
-        {
-          "description": "2. {2}, {T}: Thespian's Stage becomes a copy of target land, except it has this ability.",
-          "index": 1
-        }
-      ],
-      "context": "T4 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 92,
-      "message": "Choose spell or ability to play: Thespian's Stage",
-      "respond_with": "choice=N",
-      "response_type": "index",
-      "stop_reason": "non_priority_action",
-      "untapped_lands": 4
-    },
-    "role": "tool",
-    "tool_call_id": "call_15"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "choice": 1
-          },
-          "name": "choose_action"
-        },
-        "id": "call_16",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_taken": "selected_ability_1",
-      "game_seq": 92,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Select a land",
-      "next_action_pending": true,
-      "next_action_type": "GAME_TARGET",
-      "success": true
-    },
-    "role": "tool",
-    "tool_call_id": "call_16"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 7
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_17",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_pending": true,
-      "action_type": "GAME_TARGET",
-      "board_cursor": 7,
-      "board_unchanged": true,
-      "can_cancel": true,
-      "choices": [
-        {
-          "id": "_",
-          "index": 0,
-          "name": "Dark Depths",
-          "target_type": "permanent"
-        },
-        {
-          "id": "_",
-          "index": 1,
-          "name": "Plains",
-          "target_type": "permanent"
-        },
-        {
-          "id": "_",
-          "index": 2,
-          "name": "Plains",
-          "target_type": "permanent"
-        },
-        {
-          "id": "_",
-          "index": 3,
-          "name": "Thespian's Stage",
-          "target_type": "permanent"
-        }
-      ],
-      "context": "T4 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 93,
-      "message": "Select a land",
-      "required": false,
-      "respond_with": "choice=pN, or choice=no to cancel",
-      "response_type": "index",
-      "stack": [
-        {
-          "name": "Ability"
-        }
-      ],
-      "stop_reason": "non_priority_action",
-      "untapped_lands": 4
-    },
-    "role": "tool",
-    "tool_call_id": "call_17"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "choice": "_"
-          },
-          "name": "choose_action"
-        },
-        "id": "call_18",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_taken": "selected_target_0",
-      "game_seq": 93,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play instants and activated abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
-    },
-    "role": "tool",
-    "tool_call_id": "call_18"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 7
-          },
-          "name": "pass_priority"
-        },
-        "id": "call_19",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_pending": true,
-      "action_type": "GAME_TARGET",
+      "action_type": "GAME_SELECT",
       "board": [
         {
           "battlefield": [
             {
-              "counters": {
-                "ice": 10
-              },
               "id": "_",
-              "name": "Dark Depths",
+              "name": "Plains",
               "rules": [
-                "{this} enters with ten ice counters on it.",
-                "{3}: Remove an ice counter from {this}.",
-                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+                "{T}: Add {W}."
               ],
               "tapped": false
             },
             {
-              "copy": true,
               "id": "_",
-              "modified": true,
-              "name": "Dark Depths",
-              "original_card": "Thespian's Stage",
+              "name": "Thespian's Stage",
               "rules": [
-                "{this} enters with ten ice counters on it.",
-                "{3}: Remove an ice counter from {this}.",
-                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible.",
+                "{T}: Add {C}.",
                 "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
               ],
-              "tapped": true
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": true
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": true
+              "tapped": false
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
-              "name": "Plains",
+              "name": "Dark Depths",
               "rules": [
-                "{T}: Add {W}."
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
               ]
             },
             {
@@ -1149,7 +702,7 @@
           "hand_size": 6,
           "is_active": true,
           "is_you": true,
-          "library_size": 50,
+          "library_size": 52,
           "life": 20,
           "name": "TestPlayer"
         },
@@ -1161,14 +714,264 @@
               "rules": [
                 "{T}: Add {R}."
               ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 52,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "board_cursor": 6,
+      "choices": [
+        {
+          "action": "activate",
+          "id": "_",
+          "index": 0,
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
+        }
+      ],
+      "context": "T2 Combat/Declare Attackers (TestPlayer)",
+      "game_seq": 41,
+      "has_playable_cards": true,
+      "message": "Play instants and activated abilities",
+      "respond_with": "choice=pN to play, or choice=no to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
+    },
+    "role": "tool",
+    "tool_call_id": "call_15"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "choice": 1
+          },
+          "name": "choose_action"
+        },
+        "id": "call_16",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "choices": [
+        {
+          "action": "activate",
+          "id": "_",
+          "index": 0,
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
+        }
+      ],
+      "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
+      "error_code": "index_out_of_range",
+      "game_seq": 41,
+      "retryable": true,
+      "success": false
+    },
+    "role": "tool",
+    "tool_call_id": "call_16"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "board_cursor": 6
+          },
+          "name": "pass_priority"
+        },
+        "id": "call_17",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board_cursor": 6,
+      "board_unchanged": true,
+      "choices": [
+        {
+          "action": "activate",
+          "id": "_",
+          "index": 0,
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
+        }
+      ],
+      "context": "T2 Postcombat Main/Postcombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 43,
+      "has_playable_cards": true,
+      "land_drops_used": 1,
+      "message": "Play spells and abilities",
+      "respond_with": "choice=pN to play, or choice=no to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
+    },
+    "role": "tool",
+    "tool_call_id": "call_17"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "choice": "_"
+          },
+          "name": "choose_action"
+        },
+        "id": "call_18",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "choices": [
+        {
+          "action": "activate",
+          "id": "_",
+          "index": 0,
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
+        }
+      ],
+      "error": "Object p10 not found in current choices",
+      "error_code": "invalid_choice",
+      "game_seq": 43,
+      "retryable": true,
+      "success": false
+    },
+    "role": "tool",
+    "tool_call_id": "call_18"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "board_cursor": 6
+          },
+          "name": "pass_priority"
+        },
+        "id": "call_19",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
             },
             {
               "id": "_",
-              "name": "Mountain",
+              "name": "Thespian's Stage",
               "rules": [
-                "{T}: Add {R}."
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+              ],
+              "tapped": false
+            }
+          ],
+          "hand": [
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Dark Depths",
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
               ]
             },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
             {
               "id": "_",
               "name": "Mountain",
@@ -1177,39 +980,34 @@
               ]
             }
           ],
-          "hand_size": 7,
-          "is_active": false,
+          "hand_size": 8,
+          "is_active": true,
           "is_you": false,
-          "library_size": 50,
+          "library_size": 51,
           "life": 20,
           "name": "Opponent"
         }
       ],
-      "board_cursor": 8,
-      "can_cancel": false,
+      "board_cursor": 7,
       "choices": [
         {
+          "action": "activate",
           "id": "_",
           "index": 0,
-          "name": "Dark Depths",
-          "target_type": "permanent"
-        },
-        {
-          "id": "_",
-          "index": 1,
-          "name": "Dark Depths",
-          "tapped": true,
-          "target_type": "permanent"
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
         }
       ],
-      "context": "T4 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 99,
-      "message": "Select a Dark Depths to keep (Legendary Rule)?",
-      "required": true,
-      "respond_with": "choice=pN",
-      "response_type": "index",
-      "stop_reason": "non_priority_action",
-      "untapped_lands": 1
+      "context": "T2 Precombat Main/Precombat Main (Opponent)",
+      "game_seq": 46,
+      "has_playable_cards": true,
+      "message": "Play instants and activated abilities",
+      "respond_with": "choice=pN to play, or choice=no to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
     },
     "role": "tool",
     "tool_call_id": "call_19"
@@ -1232,13 +1030,22 @@
   },
   {
     "content": {
-      "action_taken": "selected_target_1",
-      "game_seq": 99,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play instants and activated abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
+      "choices": [
+        {
+          "action": "activate",
+          "id": "_",
+          "index": 0,
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
+        }
+      ],
+      "error": "Index 1 is out of range (valid: 0-0). Call get_action_choices to see current options.",
+      "error_code": "index_out_of_range",
+      "game_seq": 46,
+      "retryable": true,
+      "success": false
     },
     "role": "tool",
     "tool_call_id": "call_20"
@@ -1250,7 +1057,8 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 8
+            "board_cursor": 7,
+            "until": "precombat_main"
           },
           "name": "pass_priority"
         },
@@ -1263,222 +1071,26 @@
     "content": {
       "action_pending": true,
       "action_type": "GAME_SELECT",
-      "board": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Marit Lage",
-              "power": 20,
-              "rules": [
-                "Flying",
-                "Indestructible"
-              ],
-              "summoning_sick": false,
-              "tapped": false,
-              "token": true,
-              "toughness": 20
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Dark Depths",
-              "rules": [
-                "{this} enters with ten ice counters on it.",
-                "{3}: Remove an ice counter from {this}.",
-                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Thespian's Stage",
-              "rules": [
-                "{T}: Add {C}.",
-                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
-              ]
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "playable": true,
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 49,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 49,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "board_cursor": 9,
+      "board_cursor": 7,
+      "board_unchanged": true,
       "choices": [
         {
-          "action": "land",
+          "action": "activate",
           "id": "_",
           "index": 0,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 1,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 2,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 3,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 4,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 5,
-          "name": "Plains"
-        },
-        {
-          "action": "land",
-          "id": "_",
-          "index": 6,
-          "name": "Plains"
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
         }
       ],
-      "context": "T5 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
-      "game_seq": 123,
-      "has_playable_cards": true,
-      "land_drops_used": 0,
-      "message": "Play spells and abilities",
+      "context": "T2 Precombat Main/Precombat Main (Opponent)",
+      "current_step": "Precombat Main",
+      "game_seq": 46,
+      "message": "Play instants and activated abilities",
       "respond_with": "choice=pN to play, or choice=no to pass",
       "response_type": "select",
-      "stop_reason": "playable_cards",
+      "stop_reason": "reached_step",
       "untapped_lands": 2
     },
     "role": "tool",
@@ -1503,9 +1115,9 @@
   {
     "content": {
       "action_taken": "passed_priority",
-      "game_seq": 123,
+      "game_seq": 46,
       "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Select attackers",
+      "next_action_message": "Play instants and activated abilities",
       "next_action_pending": true,
       "next_action_type": "GAME_SELECT",
       "success": true
@@ -1520,7 +1132,7 @@
       {
         "function": {
           "arguments": {
-            "board_cursor": 9
+            "board_cursor": 7
           },
           "name": "pass_priority"
         },
@@ -1533,186 +1145,26 @@
     "content": {
       "action_pending": true,
       "action_type": "GAME_SELECT",
-      "board": [
-        {
-          "battlefield": [
-            {
-              "id": "_",
-              "name": "Marit Lage",
-              "power": 20,
-              "rules": [
-                "Flying",
-                "Indestructible"
-              ],
-              "summoning_sick": false,
-              "tapped": false,
-              "token": true,
-              "toughness": 20
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            },
-            {
-              "id": "_",
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ],
-              "tapped": false
-            }
-          ],
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Dark Depths",
-              "rules": [
-                "{this} enters with ten ice counters on it.",
-                "{3}: Remove an ice counter from {this}.",
-                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Thespian's Stage",
-              "rules": [
-                "{T}: Add {C}.",
-                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
-              ]
-            }
-          ],
-          "hand": [
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": true,
-          "is_you": true,
-          "library_size": 49,
-          "life": 20,
-          "name": "TestPlayer"
-        },
-        {
-          "graveyard": [
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            }
-          ],
-          "hand_size": 7,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 49,
-          "life": 20,
-          "name": "Opponent"
-        }
-      ],
-      "board_cursor": 10,
+      "board_cursor": 7,
+      "board_unchanged": true,
       "choices": [
         {
-          "choice_type": "attacker",
+          "action": "activate",
           "id": "_",
           "index": 0,
-          "name": "Marit Lage",
-          "power": 20,
-          "toughness": 20
-        },
-        {
-          "choice_type": "special",
-          "id": "all",
-          "index": 1,
-          "name": "All attack"
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
         }
       ],
-      "combat_phase": "attackers",
-      "context": "T5 Combat/Declare Attackers (TestPlayer)",
-      "game_seq": 125,
-      "message": "Select attackers",
-      "respond_with": "attackers=p1,p2,... or choice=yes (confirm) or choice=no (skip)",
+      "context": "T2 Postcombat Main/Postcombat Main (Opponent)",
+      "game_seq": 53,
+      "has_playable_cards": true,
+      "message": "Play instants and activated abilities",
+      "respond_with": "choice=pN to play, or choice=no to pass",
       "response_type": "select",
-      "stop_reason": "combat",
+      "stop_reason": "playable_cards",
       "untapped_lands": 2
     },
     "role": "tool",
@@ -1736,16 +1188,23 @@
   },
   {
     "content": {
-      "action_taken": "batch_attack",
-      "declared": [
-        "all"
+      "choices": [
+        {
+          "action": "activate",
+          "id": "_",
+          "index": 0,
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
+        }
       ],
-      "game_seq": 125,
-      "next_action_hint": "Call get_action_choices or choose_action to see details, or pass_priority to continue.",
-      "next_action_message": "Play instants and activated abilities",
-      "next_action_pending": true,
-      "next_action_type": "GAME_SELECT",
-      "success": true
+      "error": "GAME_SELECT requires choice=pN to play a card, or choice=\"no\" to pass priority. Call get_action_choices first to see available cards.",
+      "error_code": "missing_param",
+      "game_seq": 53,
+      "retryable": true,
+      "success": false,
+      "warning": "Ignored attackers parameter (not in declare_attackers phase)"
     },
     "role": "tool",
     "tool_call_id": "call_24"
@@ -1766,43 +1225,16 @@
   },
   {
     "content": {
-      "active_player": "TestPlayer",
+      "active_player": "Opponent",
       "available": true,
-      "combat": [
-        {
-          "attackers": [
-            {
-              "id": "_",
-              "name": "Marit Lage",
-              "power": 20,
-              "toughness": 20
-            }
-          ],
-          "blocked": false,
-          "defending": "Opponent"
-        }
-      ],
       "cursor": 1,
-      "game_seq": 130,
-      "phase": "Combat",
+      "game_seq": 53,
+      "phase": "Postcombat Main",
       "players": [
         {
           "battlefield": [
             {
               "id": "_",
-              "name": "Marit Lage",
-              "power": 20,
-              "rules": [
-                "Flying",
-                "Indestructible"
-              ],
-              "summoning_sick": false,
-              "tapped": true,
-              "token": true,
-              "toughness": 20
-            },
-            {
-              "id": "_",
               "name": "Plains",
               "rules": [
                 "{T}: Add {W}."
@@ -1811,16 +1243,18 @@
             },
             {
               "id": "_",
-              "name": "Plains",
+              "name": "Thespian's Stage",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
               ],
               "tapped": false
             }
           ],
-          "graveyard": [
+          "hand": [
             {
               "id": "_",
+              "is_land": true,
               "name": "Dark Depths",
               "rules": [
                 "{this} enters with ten ice counters on it.",
@@ -1830,18 +1264,136 @@
             },
             {
               "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            }
+          ],
+          "hand_size": 6,
+          "is_active": false,
+          "is_you": true,
+          "library_size": 52,
+          "life": 20,
+          "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 8,
+          "is_active": true,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
+        }
+      ],
+      "priority_player": "TestPlayer",
+      "stack": [],
+      "step": "Postcombat Main",
+      "turn": 2
+    },
+    "role": "tool",
+    "tool_call_id": "call_25"
+  },
+  {
+    "content": null,
+    "role": "assistant",
+    "tool_calls": [
+      {
+        "function": {
+          "arguments": {
+            "board_cursor": 7
+          },
+          "name": "pass_priority"
+        },
+        "id": "call_26",
+        "type": "function"
+      }
+    ]
+  },
+  {
+    "content": {
+      "action_pending": true,
+      "action_type": "GAME_SELECT",
+      "board": [
+        {
+          "battlefield": [
+            {
+              "id": "_",
+              "name": "Plains",
+              "rules": [
+                "{T}: Add {W}."
+              ],
+              "tapped": false
+            },
+            {
+              "id": "_",
               "name": "Thespian's Stage",
               "rules": [
                 "{T}: Add {C}.",
                 "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
-              ]
+              ],
+              "tapped": false
             }
           ],
           "hand": [
             {
               "id": "_",
               "is_land": true,
+              "name": "Dark Depths",
+              "playable": true,
+              "rules": [
+                "{this} enters with ten ice counters on it.",
+                "{3}: Remove an ice counter from {this}.",
+                "When {this} has no ice counters on it, sacrifice it. If you do, create Marit Lage, a legendary 20/20 black Avatar creature token with flying and indestructible."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
               "name": "Plains",
+              "playable": true,
               "rules": [
                 "{T}: Add {W}."
               ]
@@ -1850,6 +1402,7 @@
               "id": "_",
               "is_land": true,
               "name": "Plains",
+              "playable": true,
               "rules": [
                 "{T}: Add {W}."
               ]
@@ -1858,6 +1411,7 @@
               "id": "_",
               "is_land": true,
               "name": "Plains",
+              "playable": true,
               "rules": [
                 "{T}: Add {W}."
               ]
@@ -1866,6 +1420,7 @@
               "id": "_",
               "is_land": true,
               "name": "Plains",
+              "playable": true,
               "rules": [
                 "{T}: Add {W}."
               ]
@@ -1874,6 +1429,7 @@
               "id": "_",
               "is_land": true,
               "name": "Plains",
+              "playable": true,
               "rules": [
                 "{T}: Add {W}."
               ]
@@ -1882,14 +1438,7 @@
               "id": "_",
               "is_land": true,
               "name": "Plains",
-              "rules": [
-                "{T}: Add {W}."
-              ]
-            },
-            {
-              "id": "_",
-              "is_land": true,
-              "name": "Plains",
+              "playable": true,
               "rules": [
                 "{T}: Add {W}."
               ]
@@ -1898,7 +1447,7 @@
           "hand_size": 7,
           "is_active": true,
           "is_you": true,
-          "library_size": 49,
+          "library_size": 51,
           "life": 20,
           "name": "TestPlayer"
         },
@@ -1917,60 +1466,79 @@
               "rules": [
                 "{T}: Add {R}."
               ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
-            },
-            {
-              "id": "_",
-              "name": "Mountain",
-              "rules": [
-                "{T}: Add {R}."
-              ]
             }
           ],
           "hand_size": 7,
           "is_active": false,
           "is_you": false,
-          "library_size": 49,
+          "library_size": 51,
           "life": 20,
           "name": "Opponent"
         }
       ],
-      "priority_player": "TestPlayer",
-      "stack": [],
-      "step": "Declare Attackers",
-      "turn": 5
-    },
-    "role": "tool",
-    "tool_call_id": "call_25"
-  },
-  {
-    "content": null,
-    "role": "assistant",
-    "tool_calls": [
-      {
-        "function": {
-          "arguments": {
-            "board_cursor": 10
-          },
-          "name": "pass_priority"
+      "board_cursor": 8,
+      "choices": [
+        {
+          "action": "land",
+          "id": "_",
+          "index": 0,
+          "name": "Dark Depths"
         },
-        "id": "call_26",
-        "type": "function"
-      }
-    ]
-  },
-  {
-    "content": {
-      "action_pending": false,
-      "game_over": true,
-      "game_seq": 140,
-      "stop_reason": "game_over"
+        {
+          "action": "land",
+          "id": "_",
+          "index": 1,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 2,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 3,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 4,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 5,
+          "name": "Plains"
+        },
+        {
+          "action": "land",
+          "id": "_",
+          "index": 6,
+          "name": "Plains"
+        },
+        {
+          "action": "activate",
+          "id": "_",
+          "index": 7,
+          "name": "Thespian's Stage",
+          "playable_abilities": [
+            "{2}, {T}: {this} becomes a copy of target land, e..."
+          ]
+        }
+      ],
+      "context": "T3 Precombat Main/Precombat Main (TestPlayer) YOUR_MAIN",
+      "game_seq": 58,
+      "has_playable_cards": true,
+      "land_drops_used": 0,
+      "message": "Play spells and abilities",
+      "respond_with": "choice=pN to play, or choice=no to pass",
+      "response_type": "select",
+      "stop_reason": "playable_cards",
+      "untapped_lands": 2
     },
     "role": "tool",
     "tool_call_id": "call_26"
@@ -1993,49 +1561,14 @@
     "content": {
       "active_player": "TestPlayer",
       "available": true,
-      "combat": [
-        {
-          "attackers": [
-            {
-              "id": "_",
-              "name": "Marit Lage",
-              "power": 20,
-              "toughness": 20
-            }
-          ],
-          "blocked": false,
-          "defending": "Opponent"
-        }
-      ],
       "cursor": 2,
-      "game_seq": 140,
-      "phase": "Combat",
+      "game_seq": 58,
+      "phase": "Precombat Main",
       "players": [
-        {
-          "hand_size": 0,
-          "is_active": false,
-          "is_you": false,
-          "library_size": 0,
-          "life": 0,
-          "name": "Opponent"
-        },
         {
           "battlefield": [
             {
               "id": "_",
-              "name": "Marit Lage",
-              "power": 20,
-              "rules": [
-                "Flying",
-                "Indestructible"
-              ],
-              "summoning_sick": false,
-              "tapped": true,
-              "token": true,
-              "toughness": 20
-            },
-            {
-              "id": "_",
               "name": "Plains",
               "rules": [
                 "{T}: Add {W}."
@@ -2044,17 +1577,20 @@
             },
             {
               "id": "_",
-              "name": "Plains",
+              "name": "Thespian's Stage",
               "rules": [
-                "{T}: Add {W}."
+                "{T}: Add {C}.",
+                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
               ],
               "tapped": false
             }
           ],
-          "graveyard": [
+          "hand": [
             {
               "id": "_",
+              "is_land": true,
               "name": "Dark Depths",
+              "playable": true,
               "rules": [
                 "{this} enters with ten ice counters on it.",
                 "{3}: Remove an ice counter from {this}.",
@@ -2063,25 +1599,95 @@
             },
             {
               "id": "_",
-              "name": "Thespian's Stage",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
               "rules": [
-                "{T}: Add {C}.",
-                "{2}, {T}: {this} becomes a copy of target land, except it has this ability."
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
+              ]
+            },
+            {
+              "id": "_",
+              "is_land": true,
+              "name": "Plains",
+              "playable": true,
+              "rules": [
+                "{T}: Add {W}."
               ]
             }
           ],
           "hand_size": 7,
           "is_active": true,
-          "is_you": false,
-          "library_size": 49,
+          "is_you": true,
+          "library_size": 51,
           "life": 20,
           "name": "TestPlayer"
+        },
+        {
+          "graveyard": [
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            },
+            {
+              "id": "_",
+              "name": "Mountain",
+              "rules": [
+                "{T}: Add {R}."
+              ]
+            }
+          ],
+          "hand_size": 7,
+          "is_active": false,
+          "is_you": false,
+          "library_size": 51,
+          "life": 20,
+          "name": "Opponent"
         }
       ],
       "priority_player": "TestPlayer",
       "stack": [],
-      "step": "Combat Damage",
-      "turn": 5
+      "step": "Precombat Main",
+      "turn": 3
     },
     "role": "tool",
     "tool_call_id": "call_27"
@@ -2102,9 +1708,9 @@
   },
   {
     "content": {
-      "cursor": 38,
-      "event_count": 38,
-      "history": "Turn 1:\n    - TestPlayer drew Dark Depths\n    - TestPlayer drew Thespian's Stage\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Plains\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Dark Depths\n\nTurn 6 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 7 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Thespian's Stage\n  Declare Attackers:\n    - TestPlayer activated Thespian's Stage's ability\n    - TestPlayer sacrificed Thespian's Stage\n\nTurn 8 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 9 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Combat Damage:\n    - Opponent lost 20 life\n"
+      "cursor": 25,
+      "event_count": 25,
+      "history": "Turn 1:\n    - TestPlayer drew Dark Depths\n    - TestPlayer drew Thespian's Stage\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - TestPlayer drew Plains\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n    - Opponent drew a card\n  Postcombat Main:\n    - TestPlayer played Plains\n\nTurn 2 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 3 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n  Precombat Main:\n    - TestPlayer played Thespian's Stage\n\nTurn 4 (Opponent):\n  Draw:\n    - Opponent drew a card\n\nTurn 5 (TestPlayer):\n  Draw:\n    - TestPlayer drew Plains\n"
     },
     "role": "tool",
     "tool_call_id": "call_28"

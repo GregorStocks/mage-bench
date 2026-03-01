@@ -43,7 +43,7 @@ def test_bolt_on_stack(xmage_server, tmp_path, project_root, bridge_session, opp
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
             # T2: Play Badlands for second R source.
-            {"name": "pass_priority", "arguments": {}},
+            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
             {"name": "choose_action", "arguments": {"choice": "p10"}},
             # T2: Declare attackers — skip (Memnite could attack but we decline).
             {"name": "pass_priority", "arguments": {}},

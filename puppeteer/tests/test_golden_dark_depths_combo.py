@@ -39,13 +39,13 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root, bridge_session,
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "p11"}},
             # Turn 2: Play Plains (p12).
-            {"name": "pass_priority", "arguments": {}},
+            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
             {"name": "choose_action", "arguments": {"choice": "p12"}},
             # Turn 3: Play Dark Depths (p10, enters with 10 ice counters).
-            {"name": "pass_priority", "arguments": {}},
+            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
             {"name": "choose_action", "arguments": {"choice": "p10"}},
             # Turn 4: Play Thespian's Stage (p16).
-            {"name": "pass_priority", "arguments": {}},
+            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
             {"name": "choose_action", "arguments": {"choice": "p16"}},
             # T4 combat: Activate Thespian's Stage.
             {"name": "pass_priority", "arguments": {}},
@@ -63,7 +63,7 @@ def test_dark_depths_combo(xmage_server, tmp_path, project_root, bridge_session,
             {"name": "pass_priority", "arguments": {}},
             {"name": "choose_action", "arguments": {"choice": "1"}},
             # Turn 5: pass precombat main to reach combat.
-            {"name": "pass_priority", "arguments": {}},
+            {"name": "pass_priority", "arguments": {"until": "precombat_main"}},
             {"name": "choose_action", "arguments": {"choice": "no"}},
             # Declare Marit Lage as attacker for lethal (20 damage).
             {"name": "pass_priority", "arguments": {}},
