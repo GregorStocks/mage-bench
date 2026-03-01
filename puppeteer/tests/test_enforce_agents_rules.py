@@ -75,7 +75,7 @@ class TestBlockedCommands:
     def test_mvn_blocked(self, command: str) -> None:
         result = _run_hook(command)
         assert result.returncode == 2
-        assert "mvn" in result.stderr.lower()
+        assert "make" in result.stderr.lower()
 
     @pytest.mark.parametrize(
         "command",
@@ -89,7 +89,7 @@ class TestBlockedCommands:
     def test_npm_npx_blocked(self, command: str) -> None:
         result = _run_hook(command)
         assert result.returncode == 2
-        assert "npm" in result.stderr.lower()
+        assert "make" in result.stderr.lower()
 
     @pytest.mark.parametrize(
         "command",
