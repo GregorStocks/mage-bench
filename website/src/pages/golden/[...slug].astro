@@ -510,6 +510,7 @@ const scenarioTitle = slug.replace(/_/g, ' ');
   var playerMeta = {};
   var turnStartIndices = [];
   var phaseTransitions = [];
+  var playerTurnNumbers = [];
   var showLlm = true;
   var isCommander = false;
   var filterPlayer = "";
@@ -579,6 +580,9 @@ const scenarioTitle = slug.replace(/_/g, ' ');
     });
     playerFilter.classList.remove("hidden");
   }
+
+  // Compute per-player turn numbers
+  playerTurnNumbers = R.computePlayerTurnNumbers(game.snapshots);
 
   // Build turn start indices
   var lastTurn = -1;
@@ -877,7 +881,7 @@ const scenarioTitle = slug.replace(/_/g, ' ');
       var phase = snap.phase || "";
       var step = snap.step || "";
       var phaseDisplay = step && step !== phase ? phase + " / " + step : phase;
-      phaseBar.textContent = R.formatTurnLabel(snap.turn, snap.active_player) + " \u2014 " + phaseDisplay;
+      phaseBar.textContent = R.formatTurnLabel(playerTurnNumbers[index], snap.active_player) + " \u2014 " + phaseDisplay;
       playersGrid.insertBefore(phaseBar, playersGrid.children[insertIdx]);
     }
 

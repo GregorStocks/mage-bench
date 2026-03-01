@@ -1198,17 +1198,44 @@
     return key.toLowerCase().replace(/_/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); });
   }
 
+  // ── Per-player turn counting ──
+
+  /**
+   * Pre-compute per-player turn numbers from snapshots.
+   * Returns an array where each index maps to the active player's
+   * individual turn number at that snapshot (e.g. "this is Player A's
+   * 3rd turn" even if the game turn counter says 5).
+   */
+  function computePlayerTurnNumbers(snapshots) {
+    var counts = {};  // player name -> turn count so far
+    var result = [];
+    var lastTurn = -1;
+    var lastPlayer = null;
+    for (var i = 0; i < snapshots.length; i++) {
+      var snap = snapshots[i];
+      var ap = snap.active_player;
+      var t = snap.turn;
+      if (ap && (t !== lastTurn || ap !== lastPlayer)) {
+        counts[ap] = (counts[ap] || 0) + 1;
+        lastTurn = t;
+        lastPlayer = ap;
+      }
+      result[i] = ap ? (counts[ap] || 0) : null;
+    }
+    return result;
+  }
+
   // ── Status line ──
 
-  function formatTurnLabel(turn, activePlayer) {
-    var turnNum = turn != null ? "Turn " + turn : "Turn ?";
+  function formatTurnLabel(playerTurn, activePlayer) {
+    var turnNum = playerTurn != null ? "Turn " + playerTurn : "Turn ?";
     if (activePlayer) return activePlayer + "'s " + turnNum;
     return turnNum;
   }
 
-  function renderStatusLine(el, snap) {
+  function renderStatusLine(el, snap, playerTurn) {
     if (!el || !snap) return;
-    var turn = formatTurnLabel(snap.turn, snap.active_player);
+    var turn = formatTurnLabel(playerTurn != null ? playerTurn : snap.turn, snap.active_player);
     var phase = snap.phase || "?";
     var step = snap.step || "?";
     var phaseDisplay = step && step !== phase ? phase + " / " + step : phase;
@@ -1468,6 +1495,7 @@
     renderPlayers: renderPlayers,
     renderStack: renderStack,
     renderStatusLine: renderStatusLine,
+    computePlayerTurnNumbers: computePlayerTurnNumbers,
     setupMousePreview: setupMousePreview,
     // Diffs
     computeDiff: computeDiff,

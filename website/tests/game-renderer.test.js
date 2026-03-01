@@ -367,6 +367,36 @@ describe("computeDiff", () => {
   });
 });
 
+// ── computePlayerTurnNumbers ─────────────────────────────────────
+
+describe("computePlayerTurnNumbers", () => {
+  it("computes per-player turn numbers for sequential 2p game", () => {
+    var snaps = [
+      { turn: 1, active_player: null },
+      { turn: 1, active_player: "Alice" },
+      { turn: 2, active_player: "Bob" },
+      { turn: 3, active_player: "Alice" },
+      { turn: 4, active_player: "Bob" },
+      { turn: 5, active_player: "Alice" },
+    ];
+    var result = R.computePlayerTurnNumbers(snaps);
+    expect(result).toEqual([null, 1, 1, 2, 2, 3]);
+  });
+
+  it("computes per-player turn numbers for round-based 4p game", () => {
+    var snaps = [
+      { turn: 1, active_player: "A" },
+      { turn: 1, active_player: "B" },
+      { turn: 1, active_player: "C" },
+      { turn: 1, active_player: "D" },
+      { turn: 2, active_player: "A" },
+      { turn: 2, active_player: "B" },
+    ];
+    var result = R.computePlayerTurnNumbers(snaps);
+    expect(result).toEqual([1, 1, 1, 1, 2, 2]);
+  });
+});
+
 // ── renderStatusLine ────────────────────────────────────────────
 
 describe("renderStatusLine", () => {
@@ -383,10 +413,9 @@ describe("renderStatusLine", () => {
       step: "DECLARE_ATTACKERS",
       active_player: "Alice",
       priority_player: "Bob",
-    });
-    expect(el.textContent).toContain("Turn 5");
+    }, 3);
+    expect(el.textContent).toContain("Alice's Turn 3");
     expect(el.textContent).toContain("COMBAT / DECLARE_ATTACKERS");
-    expect(el.textContent).toContain("Alice's Turn 5");
     expect(el.textContent).toContain("Priority: Bob");
   });
 

@@ -180,6 +180,9 @@ import Base from '../../layouts/Base.astro';
     var prevTurn = null;
     var prevPhase = null;
     var prevStep = null;
+    var prevActivePlayer = null;
+    var livePlayerTurnCounts = {};  // player name -> turn count
+    var curPlayerTurn = null;       // current active player's turn number
 
     function initPlayerColors(players) {
       if (playersInitialized) return;
@@ -266,15 +269,22 @@ import Base from '../../layouts/Base.astro';
         // Process game events (from raw, before normalization strips them)
         processEvents(raw.events);
 
-        // Inject phase/step separators when transitions occur
+        // Track per-player turn numbers
         var curTurn = state.turn;
         var curPhase = state.phase;
         var curStep = state.step;
+        var curActive = state.active_player;
+        if (curActive && (curTurn !== prevTurn || curActive !== prevActivePlayer)) {
+          livePlayerTurnCounts[curActive] = (livePlayerTurnCounts[curActive] || 0) + 1;
+        }
+        curPlayerTurn = curActive ? (livePlayerTurnCounts[curActive] || null) : null;
+
+        // Inject phase/step separators when transitions occur
         if (prevTurn !== null) {
           if (curTurn !== prevTurn) {
             var sep = document.createElement("div");
             sep.className = "turn-separator";
-            sep.textContent = "\u2014 " + R.formatTurnLabel(curTurn, state.active_player) + " \u2014";
+            sep.textContent = "\u2014 " + R.formatTurnLabel(curPlayerTurn, curActive) + " \u2014";
             logList.appendChild(sep);
           }
           if (curPhase !== prevPhase || curStep !== prevStep) {
@@ -293,13 +303,14 @@ import Base from '../../layouts/Base.astro';
         prevTurn = curTurn;
         prevPhase = curPhase;
         prevStep = curStep;
+        prevActivePlayer = curActive;
 
         // Compute diff against previous state for animations
         var diffs = prevState ? R.computeDiff(prevState, state) : null;
         prevState = state;
 
         // Status line
-        R.renderStatusLine(turnInfoEl, state);
+        R.renderStatusLine(turnInfoEl, state, curPlayerTurn);
 
         // Positioned mode (OBS)
         if (usePositioned) {
