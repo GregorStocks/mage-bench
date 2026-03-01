@@ -44,7 +44,8 @@ test-e2e:
 	cd website && npm install --prefer-offline --no-audit --no-fund && npm run build && npx vitest run --config vitest.e2e.config.js
 
 .PHONY: check
-check: lint format-check typecheck test test-js verify-decks verify-schema-types
+check: lint format-check typecheck test test-js verify-decks verify-schema-types verify-mcp-tools
+	@touch tmp/.check-passed
 
 .PHONY: test-golden
 test-golden:
@@ -198,6 +199,13 @@ schema-types:
 verify-schema-types:
 	@cd website && npx json2ts ../schemas/game-export-v2.schema.json | diff -q - src/types/game-export.d.ts > /dev/null 2>&1 \
 		|| (echo "ERROR: website/src/types/game-export.d.ts is out of date. Run 'make schema-types' to regenerate." && exit 1)
+
+# Verify mcp-tools.json is up to date with McpServer.java
+.PHONY: verify-mcp-tools
+verify-mcp-tools:
+	@cd Mage.Client.Bridge && mvn -q compile exec:exec -Dexec.executable=java '-Dexec.args=-cp %classpath mage.client.bridge.McpServer' \
+		| diff -q - ../website/src/data/mcp-tools.json > /dev/null 2>&1 \
+		|| (echo "ERROR: website/src/data/mcp-tools.json is out of date. Run 'make mcp-tools' to regenerate." && exit 1)
 
 .PHONY: games-to-analyze
 games-to-analyze:

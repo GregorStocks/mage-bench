@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Pre-hook that enforces AGENTS.md rules by blocking prohibited Bash commands.
+"""Pre-hook that enforces project rules by blocking prohibited Bash commands.
 
 Reads JSON from stdin with tool_input.command. Exits 2 to block, 0 to allow.
 """
 
 import json
+import os
 import re
+import subprocess
 import sys
+import time
 
 
 def block(msg: str) -> None:
@@ -23,36 +26,137 @@ def strip_quotes(command: str) -> str:
     return oneline
 
 
+def check_generated_files(command: str) -> None:
+    """Block commits where source files are staged but generated outputs are stale."""
+    if not re.search(r"^\s*git\s+commit\b", command):
+        return
+    try:
+        staged_result = subprocess.run(
+            ["git", "diff", "--cached", "--name-only"],
+            capture_output=True, text=True, timeout=5,
+        )
+        staged = set(staged_result.stdout.strip().split("\n")) if staged_result.stdout.strip() else set()
+
+        dirty_result = subprocess.run(
+            ["git", "diff", "--name-only"],
+            capture_output=True, text=True, timeout=5,
+        )
+        dirty = set(dirty_result.stdout.strip().split("\n")) if dirty_result.stdout.strip() else set()
+    except (subprocess.TimeoutExpired, FileNotFoundError):
+        return
+
+    # McpServer.java -> mcp-tools.json
+    mcp_source = "Mage.Client.Bridge/src/main/java/mage/client/bridge/McpServer.java"
+    mcp_output = "website/src/data/mcp-tools.json"
+    if mcp_source in staged and mcp_output not in staged and mcp_output in dirty:
+        block(
+            "Blocked: McpServer.java is staged but mcp-tools.json has unstaged changes.\n"
+            "Run: make mcp-tools && git add website/src/data/mcp-tools.json"
+        )
+
+    # game-export-v2.schema.json -> game-export.d.ts
+    schema_source = "schemas/game-export-v2.schema.json"
+    schema_output = "website/src/types/game-export.d.ts"
+    if schema_source in staged and schema_output not in staged and schema_output in dirty:
+        block(
+            "Blocked: game-export-v2.schema.json is staged but game-export.d.ts has unstaged changes.\n"
+            "Run: make schema-types && git add website/src/types/game-export.d.ts"
+        )
+
+
+def check_pr_preconditions(stripped: str) -> None:
+    """Block gh pr create if make check hasn't been run recently."""
+    if not re.search(r"\bgh\s+pr\s+create\b", stripped):
+        return
+
+    project_dir = os.environ.get("CLAUDE_PROJECT_DIR", ".")
+    stamp = os.path.join(project_dir, "tmp", ".check-passed")
+
+    if not os.path.exists(stamp):
+        block(
+            "Blocked: run 'make check' before creating a PR.\n"
+            "No record of a passing 'make check' found."
+        )
+
+    stamp_mtime = os.path.getmtime(stamp)
+
+    stamp_age = time.time() - stamp_mtime
+    if stamp_age > 1800:  # 30 minutes
+        block(
+            "Blocked: run 'make check' before creating a PR.\n"
+            f"Last 'make check' was {int(stamp_age // 60)} minutes ago — run it again."
+        )
+
+    # Check stamp is newer than HEAD commit
+    try:
+        result = subprocess.run(
+            ["git", "log", "-1", "--format=%ct", "HEAD"],
+            capture_output=True, text=True, timeout=5,
+        )
+        head_time = int(result.stdout.strip())
+        if stamp_mtime < head_time:
+            block(
+                "Blocked: run 'make check' before creating a PR.\n"
+                "New commits were made after the last 'make check' run."
+            )
+    except (subprocess.TimeoutExpired, FileNotFoundError, ValueError):
+        pass
+
+
 def check(command: str) -> None:
     stripped = strip_quotes(command)
 
     # --- Git rules (check raw command — these are always first token) ---
 
     if re.search(r"^\s*git\s+rebase\b", command):
-        block("Blocked: git rebase is not allowed. Use 'git merge origin/master' instead.")
+        block(
+            "Blocked: we never rebase — always merge.\n"
+            "Use 'git fetch origin && git merge origin/master'."
+        )
 
     if re.search(r"^\s*git\s+commit\b.*--amend\b", command):
-        block("Blocked: git commit --amend is not allowed. Create a new commit instead.")
+        block("Blocked: never amend commits. Create a new commit instead.")
 
     if re.search(r"^\s*git\s+push\b.*(--force-with-lease|--force|-f)\b", command):
-        block("Blocked: force-push is not allowed. Create new commits and push normally.")
+        block("Blocked: never force-push. Create new commits and push normally.")
+
+    # --- Generated file checks at commit time ---
+    check_generated_files(command)
+
+    # --- PR preconditions ---
+    check_pr_preconditions(stripped)
 
     # --- Tool rules (check stripped to ignore quoted strings) ---
 
     if re.search(r"(?:^|\s|[;&|])\s*mvn\b", stripped):
-        block("Blocked: never invoke mvn directly. Use 'make build' or other make targets.")
+        block(
+            "Blocked: the Makefile handles classpaths and caching correctly.\n"
+            "Use 'make build' or other make targets."
+        )
 
     if re.search(r"(?:^|\s|[;&|])\s*np[mx]\b", stripped):
-        block("Blocked: never invoke npm/npx directly. Use 'make website' or other make targets.")
+        block(
+            "Blocked: each worktree has its own port and config.\n"
+            "Use 'make website' or other make targets."
+        )
 
     if re.search(r"(?:^|\s|[;&|])\s*(?:python3|pip3?)\b", stripped):
-        block("Blocked: never use python3/pip/pip3 directly. Use 'uv run' instead.")
+        block(
+            "Blocked: all Python must go through uv for dependency management.\n"
+            "Use 'uv run python ...', 'uv run --project puppeteer python -m ...', or 'uv add <pkg>'."
+        )
 
     if re.search(r"(?:^|\s|[;&|])\s*(?:pkill|killall)\b", stripped):
-        block("Blocked: pkill/killall can kill other Claudes' dev servers in other worktrees. Kill specific PIDs instead.")
+        block(
+            "Blocked: pkill/killall can kill other Claudes' dev servers in other worktrees.\n"
+            "Kill specific PIDs instead."
+        )
 
     if re.search(r"lsof\b.*\|.*kill\b", stripped):
-        block("Blocked: lsof piped to kill can kill other Claudes' dev servers. Kill specific PIDs instead.")
+        block(
+            "Blocked: lsof piped to kill can kill other Claudes' dev servers.\n"
+            "Kill specific PIDs instead."
+        )
 
     # --- Expensive configs ---
 
@@ -62,7 +166,10 @@ def check(command: str) -> None:
     )
     paid_pattern = "|".join(re.escape(c) for c in paid_configs)
     if re.search(rf"make\s+run\b.*CONFIG\s*=\s*({paid_pattern})\b", stripped):
-        block("Blocked: this config consumes API tokens. Use free configs only (e.g. standard-dumb, modern-staller).")
+        block(
+            "Blocked: this config consumes real API tokens and costs money.\n"
+            "For testing, use free configs: 'make run' (standard-dumb) or 'make run CONFIG=modern-staller'."
+        )
 
     # --- Golden tests — use make targets ---
     if re.search(r"GOLDEN_INTEGRATION\s*=\s*1", stripped) or re.search(r"-m\s+golden", stripped):
@@ -101,7 +208,9 @@ def check(command: str) -> None:
     # (e.g. "dale-dragon-lily/tmp/foo" is fine, "/tmp/foo" is not).
     # The negative lookbehind rejects /tmp when preceded by path characters.
     if re.search(r"(?<![a-zA-Z0-9._-])/tmp(?:/|\s|$)", command):
-        block("Blocked: never use /tmp/. Use tmp/ (repo-local scratch directory) instead.")
+        block(
+            "Blocked: use tmp/ (repo-local, gitignored, per-worktree) instead of /tmp/."
+        )
 
 
 def main() -> None:

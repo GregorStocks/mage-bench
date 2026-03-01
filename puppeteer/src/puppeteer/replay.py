@@ -98,7 +98,12 @@ async def execute_replay_script(
         # Check for game over
         try:
             result_data = json.loads(result_text)
-            if result_data.get("game_over") or result_data.get("player_dead"):
+            game_ended = (
+                result_data.get("game_over")
+                or result_data.get("player_dead")
+                or result_data.get("stop_reason") == "game_over"
+            )
+            if game_ended:
                 break
         except (json.JSONDecodeError, TypeError):
             pass
