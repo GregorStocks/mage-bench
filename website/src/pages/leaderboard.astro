@@ -57,7 +57,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       ))}
     </div>
 
-    <p class="methodology-link"><a href="/methodology">How scoring works</a> <span class="sep">|</span> <a href="/model-stats">Advanced model stats</a></p>
+    <p class="methodology-link"><a href="/methodology">How scoring works</a></p>
 
     <div class="filters">
       <input
@@ -151,7 +151,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
       if (!link) return;
       const params = new URLSearchParams({ model: modelId });
       if (effort) params.set('effort', effort);
-      if (activeFormat !== 'jumpstart') params.set('format', activeFormat);
+      if (activeFormat !== 'combined') params.set('format', activeFormat);
       link.href = '/games?' + params.toString();
     });
   }
