@@ -222,8 +222,9 @@ def format_play_context(
 ) -> str:
     """Format a decision for display during auditing."""
     aftermath = compute_aftermath_index(decision, snapshots)
-    game_state = decision.get("game_state", {})
-    stack = game_state.get("stack", [])
+    snap_idx = get_snapshot_index(decision)
+    snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else {}
+    stack = snapshot.get("stack", [])
     stack_str = (
         ", ".join(s if isinstance(s, str) else s.get("name", "?") for s in stack)
         if stack
@@ -233,10 +234,14 @@ def format_play_context(
     # Find the current player's hand
     player_name = decision.get("player", "")
     hand_str = "?"
-    for p in game_state.get("players", []):
+    for p in snapshot.get("players", []):
         if p.get("name") == player_name:
             hand = p.get("hand", [])
-            hand_str = ", ".join(hand) if hand else "(empty)"
+            hand_str = (
+                ", ".join(h if isinstance(h, str) else h.get("name", "?") for h in hand)
+                if hand
+                else "(empty)"
+            )
             break
 
     lines = [
