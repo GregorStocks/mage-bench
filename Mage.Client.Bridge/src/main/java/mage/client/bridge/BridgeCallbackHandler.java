@@ -2873,7 +2873,13 @@ public class BridgeCallbackHandler {
     }
 
     /**
-     * Concede the current game.
+     * Concede the current game and wait for the server to confirm it ended.
+     *
+     * Blocking until GAME_OVER is critical for multi-game (keepAlive) sessions:
+     * the Python test harness starts the next game immediately after concede
+     * returns.  If we return before the server processes the game end, the
+     * opponent (potato) may still be in handleGameOver pulling bridge events
+     * and unable to join the next table — causing a bridge_join timeout flake.
      */
     public boolean concede() {
         UUID gameId = currentGameId;
@@ -2889,6 +2895,18 @@ public class BridgeCallbackHandler {
         }
         logger.info("[" + client.getUsername() + "] Conceding game " + gameId);
         session.sendPlayerAction(PlayerAction.CONCEDE, gameId, null);
+        // In keepAlive mode, wait for the server to end the game before returning.
+        // handleGameOver fires gameFinishedLatch when the server confirms the game ended.
+        if (keepAliveAfterGame) {
+            try {
+                boolean finished = gameFinishedLatch.await(15, java.util.concurrent.TimeUnit.SECONDS);
+                if (!finished) {
+                    logger.warn("[" + client.getUsername() + "] Concede sent but GAME_OVER not received within 15s");
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
         return true;
     }
 

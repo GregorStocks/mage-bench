@@ -63,6 +63,15 @@ Use `tmp/` (in the repo root) as a scratch directory instead of `/tmp/`. It's gi
 
 Golden test exports include `seq` numbers from the server that represent the actual game event sequence. **Never strip, normalize, or collapse seq numbers or snapshots** in golden export comparisons. If a golden test fails on CI with different seq numbers or missing/extra snapshots, the game is playing out differently — fix the root cause (usually nondeterministic auto-pass behavior in the bridge), don't mask it in the comparison.
 
+## CI Flakes
+
+**CI flakes are not acceptable. Never re-run CI to work around a failure.** If a golden test or any other CI job fails, the failure has a root cause — find it and fix it. Common golden test flakes have real causes:
+
+- **bridge_join timeout**: The potato or bridge didn't join the table in time. Usually a keepAlive loop issue where the previous game's cleanup races with the next game's setup.
+- **Nondeterministic game replay**: Auto-pass or priority logic behaves differently across runs.
+
+Re-running CI (`gh run rerun`, `gh run retry`) is blocked by the enforcement hook. If you believe a failure is infrastructure-related (e.g. GitHub runner OOM, network timeout downloading dependencies), ask Gregor to re-run it.
+
 ## Testing
 
 When changing Python code in `puppeteer/`, add or update tests in `puppeteer/tests/`. Run tests with:
