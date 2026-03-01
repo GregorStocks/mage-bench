@@ -94,7 +94,8 @@ describe("game pages", () => {
     const firstGame = gameDirs[0].name;
     const html = readPage(`games/${firstGame}`);
     expect(html).toContain('id="visualizer"');
-    expect(html).toContain('id="turn-select"');
+    expect(html).toContain('id="viewer-container"');
+    expect(html).toContain("game-viewer.js");
     expect(html).toContain("Game Replay");
   });
 

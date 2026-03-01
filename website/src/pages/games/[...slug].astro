@@ -26,6 +26,7 @@ const { slug } = Astro.params;
 
 <Base title="Game Replay" wide>
   <link rel="stylesheet" href="/game-renderer.css" />
+  <link rel="stylesheet" href="/game-viewer.css" />
   <div id="visualizer">
     <div id="loading">Loading game data...</div>
     <div id="error" class="hidden"></div>
@@ -39,76 +40,8 @@ const { slug } = Astro.params;
         </div>
       </div>
 
-      <!-- Transport controls -->
-      <div id="transport">
-        <div class="transport-buttons">
-          <button id="btn-start" title="First snapshot">|&lt;</button>
-          <button id="btn-prev" title="Previous (Left arrow)">&lt;</button>
-          <button id="btn-next" title="Next (Right arrow)">&gt;</button>
-          <button id="btn-end" title="Last snapshot">&gt;|</button>
-          <button id="btn-auto" title="Auto-play">Play</button>
-        </div>
-        <div class="turn-nav">
-          <button id="btn-prev-turn" title="Previous turn ([)">&lt;T</button>
-          <select id="turn-select" title="Jump to turn"></select>
-          <button id="btn-next-turn" title="Next turn (])">T&gt;</button>
-        </div>
-        <div id="slider-container">
-          <input type="range" id="slider" min="0" max="0" value="0" />
-        </div>
-        <input type="number" id="snapshot-jump" min="1" max="1" value="1" title="Jump to snapshot #" />
-        <div id="snapshot-counter"></div>
-      </div>
-
-      <!-- Main content: board left, logs right -->
-      <div id="game-content">
-        <div id="game-left">
-          <!-- Stack (left sidebar) -->
-          <div id="stack-section">
-            <div class="section-title">Stack</div>
-            <div id="stack-cards" class="cards-row"></div>
-          </div>
-
-          <!-- Board: 2x2 player grid -->
-          <div id="players-grid"></div>
-        </div>
-
-        <div id="game-right">
-          <!-- Action log -->
-          <div id="action-log">
-            <div class="action-log-header">
-              <span class="section-title">Game Log</span>
-              <div class="log-filters">
-                <select id="player-filter" class="hidden" title="Filter by player">
-                  <option value="">All players</option>
-                </select>
-                <label class="filter-checkbox hidden"><input type="checkbox" id="filter-llm" checked /> LLM</label>
-                <label class="filter-checkbox hidden"><input type="checkbox" id="filter-game" checked /> Game</label>
-                <label class="filter-checkbox hidden"><input type="checkbox" id="filter-chat" checked /> Chat</label>
-                <label class="filter-checkbox hidden"><input type="checkbox" id="filter-annotations" checked /> Blunders</label>
-                <label id="llm-toggle-label" class="hidden">
-                  <input type="checkbox" id="llm-toggle" checked /> Show LLM thinking
-                </label>
-              </div>
-            </div>
-            <div id="action-list"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card preview (hover) -->
-      <div id="card-preview" class="hidden">
-        <img id="preview-image" alt="" />
-        <div class="card-meta">
-          <div class="card-name-row">
-            <div id="preview-name" class="card-name"></div>
-            <div id="preview-cost" class="card-cost"></div>
-          </div>
-          <div id="preview-type" class="card-type"></div>
-          <pre id="preview-rules" class="card-rules"></pre>
-          <div id="preview-stats" class="card-stats"></div>
-        </div>
-      </div>
+      <!-- Viewer module populates this container -->
+      <div id="viewer-container"></div>
     </div>
   </div>
 </Base>
@@ -139,6 +72,7 @@ const { slug } = Astro.params;
     border: 1px solid #0f3460;
     border-radius: 8px;
     margin-bottom: 0.75rem;
+    flex-wrap: wrap;
   }
 
   #game-title {
@@ -162,1153 +96,90 @@ const { slug } = Astro.params;
     color: #fff;
   }
 
+  #blunder-summary {
+    font-size: 0.8rem;
+    color: #e94560;
+    white-space: nowrap;
+  }
 
+  .old-analysis-tag {
+    font-size: 0.7rem;
+    color: #888;
+    font-style: italic;
+  }
 
-  /* Transport */
-  #transport {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+  #error-summary {
+    font-size: 0.8rem;
+    color: #e67e22;
+    cursor: pointer;
+  }
+
+  .error-list {
+    font-size: 0.75rem;
+    color: #a0a0b8;
+    padding-left: 1.2rem;
+    margin-top: 0.3rem;
+  }
+
+  .error-link {
+    color: #e67e22;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  #epoch-info {
+    font-size: 0.7rem;
+    color: #666;
+  }
+
+  #epoch-banner {
+    background: #3d1a00;
+    color: #e67e22;
     padding: 0.5rem 1rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
     border-radius: 8px;
+    font-size: 0.8rem;
     margin-bottom: 0.75rem;
   }
 
-  .transport-buttons {
-    display: flex;
-    gap: 0.25rem;
-    flex-shrink: 0;
-  }
-
-  .transport-buttons button {
-    background: #0f3460;
-    color: #e0e0e0;
-    border: 1px solid #1a4a8a;
-    border-radius: 4px;
-    padding: 0.35rem 0.6rem;
-    cursor: pointer;
-    font-family: monospace;
-    font-size: 0.85rem;
-    transition: background 0.15s;
-  }
-
-  .transport-buttons button:hover {
-    background: #1a4a8a;
-  }
-
-  .transport-buttons button.active {
-    background: #e94560;
-    border-color: #e94560;
-    color: #fff;
-  }
-
-  .turn-nav {
-    display: flex;
-    gap: 0.25rem;
-    flex-shrink: 0;
-    align-items: center;
-  }
-
-  .turn-nav button {
-    background: #0f3460;
-    color: #e0e0e0;
-    border: 1px solid #1a4a8a;
-    border-radius: 4px;
-    padding: 0.35rem 0.5rem;
-    cursor: pointer;
-    font-family: monospace;
-    font-size: 0.8rem;
-    transition: background 0.15s;
-  }
-
-  .turn-nav button:hover {
-    background: #1a4a8a;
-  }
-
-  #turn-select {
-    background: #0f3460;
-    color: #e0e0e0;
-    border: 1px solid #1a4a8a;
-    border-radius: 4px;
-    padding: 0.3rem 0.4rem;
-    font-family: monospace;
-    font-size: 0.8rem;
-    cursor: pointer;
-  }
-
-  #slider-container {
-    flex: 1;
-    min-width: 100px;
-    position: relative;
-  }
-
-  #slider {
-    width: 100%;
-    accent-color: #e94560;
-  }
-
-  #snapshot-jump {
-    width: 5rem;
-    background: #0f3460;
-    color: #e0e0e0;
-    border: 1px solid #1a4a8a;
-    border-radius: 4px;
-    padding: 0.3rem 0.4rem;
-    font-family: monospace;
-    font-size: 0.8rem;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  /* Hide spin buttons on number input */
-  #snapshot-jump::-webkit-inner-spin-button,
-  #snapshot-jump::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  #snapshot-jump { -moz-appearance: textfield; }
-
-  #snapshot-counter {
-    font-size: 0.8rem;
-    color: #a0a0b8;
-    white-space: nowrap;
-    min-width: 4rem;
-    text-align: right;
-  }
-
   @media (max-width: 600px) {
-    #transport {
-      flex-wrap: wrap;
-    }
-
-    #slider-container {
-      flex-basis: 100%;
-      order: 10;
-    }
-
-    #snapshot-jump {
-      width: 3.5rem;
-    }
-
-    #snapshot-counter {
-      min-width: auto;
-    }
-
     #game-header {
       flex-wrap: wrap;
     }
-
-    #game-left {
-      flex-direction: column;
-    }
   }
-
-  /* Two-column layout */
-  #game-content {
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-  }
-
-  #game-left {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    gap: 0.75rem;
-    align-items: flex-start;
-  }
-
-  #game-right {
-    flex: 1;
-    min-width: 0;
-  }
-
-  @media (max-width: 900px) {
-    #game-content {
-      flex-direction: column;
-    }
-
-    #game-left {
-      width: 100%;
-    }
-
-    #game-right {
-      width: 100%;
-    }
-  }
-
-  /* Action log */
-  #action-log {
-    padding: 0.75rem 1rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
-    border-radius: 8px;
-    position: sticky;
-    top: 0.5rem;
-  }
-
-  .action-log-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.4rem;
-    flex-wrap: wrap;
-    gap: 0.3rem;
-  }
-
-  .log-filters {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-  }
-
-  #player-filter {
-    background: #0f3460;
-    color: #e0e0e0;
-    border: 1px solid #1a4a8a;
-    border-radius: 4px;
-    padding: 0.2rem 0.3rem;
-    font-size: 0.72rem;
-    cursor: pointer;
-  }
-
-  .filter-checkbox {
-    font-size: 0.72rem;
-    color: #888;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .filter-checkbox input {
-    margin-right: 2px;
-    accent-color: #e94560;
-  }
-
-  #llm-toggle-label {
-    font-size: 0.72rem;
-    color: #888;
-    cursor: pointer;
-    user-select: none;
-  }
-
-  #llm-toggle {
-    margin-right: 4px;
-    accent-color: #e94560;
-  }
-
-  #action-list {
-    overflow-y: auto;
-    overflow-x: hidden;
-    font-size: 0.93rem;
-    line-height: 1.5;
-    word-break: break-word;
-  }
-
 </style>
 
 <script is:inline src="/game-renderer.js"></script>
+<script is:inline src="/game-viewer.js"></script>
 <script is:inline define:vars={{ minBlunderVersion }}>
   (function () {
-    var R = window.GameRenderer;
-
     var slug = window.location.pathname.replace(/^\/games\//, "").replace(/\/$/, "");
     if (!slug) {
-      showError("No game ID in URL.");
+      document.getElementById("loading").classList.add("hidden");
+      document.getElementById("error").textContent = "No game ID in URL.";
+      document.getElementById("error").classList.remove("hidden");
       return;
     }
 
     var loadingEl = document.getElementById("loading");
     var errorEl = document.getElementById("error");
     var gameUI = document.getElementById("game-ui");
-
-    // Transport
-    var btnStart = document.getElementById("btn-start");
-    var btnPrev = document.getElementById("btn-prev");
-    var btnNext = document.getElementById("btn-next");
-    var btnEnd = document.getElementById("btn-end");
-    var btnAuto = document.getElementById("btn-auto");
-    var slider = document.getElementById("slider");
-    var counterEl = document.getElementById("snapshot-counter");
-    var snapshotJump = document.getElementById("snapshot-jump");
-
-    // Display
     var gameTitleEl = document.getElementById("game-title");
-    var playersGrid = document.getElementById("players-grid");
-    var stackSection = document.getElementById("stack-section");
-    var stackCards = document.getElementById("stack-cards");
-    var actionList = document.getElementById("action-list");
-
-    // Turn navigation
-    var turnSelect = document.getElementById("turn-select");
-    var btnPrevTurn = document.getElementById("btn-prev-turn");
-    var btnNextTurn = document.getElementById("btn-next-turn");
-
-    // Card preview elements
-    var previewEls = {
-      container: document.getElementById("card-preview"),
-      image: document.getElementById("preview-image"),
-      name: document.getElementById("preview-name"),
-      cost: document.getElementById("preview-cost"),
-      type: document.getElementById("preview-type"),
-      stats: document.getElementById("preview-stats"),
-      rules: document.getElementById("preview-rules"),
-    };
-
-    var game = null;
-    var currentIndex = 0;
-    var autoPlayInterval = null;
-    var playerColorMap = {};
-    var playerMeta = {};
-    var turnStartIndices = [];
-    var phaseTransitions = [];
-    var playerTurnNumbers = [];  // per-snapshot player turn number
-    var showLlm = true;
-    var isCommander = false;
-    var traceByTs = {};  // ts -> trace event lookup (kept for potential future use)
-    var filterPlayer = "";  // "" = all players
-    var filterLlm = true;
-    var filterGame = true;
-    var filterChat = true;
-    var filterAnnotations = true;
-    var useSeq = false;  // v2 games: sort by seq instead of ts
-
-    // LLM toggle
-    var llmToggleLabel = document.getElementById("llm-toggle-label");
-    var llmToggle = document.getElementById("llm-toggle");
-    llmToggle.addEventListener("change", function () {
-      showLlm = llmToggle.checked;
-      renderSnapshot(currentIndex);
-    });
-
-    // Player filter
-    var playerFilter = document.getElementById("player-filter");
-    playerFilter.addEventListener("change", function () {
-      filterPlayer = playerFilter.value;
-      renderSnapshot(currentIndex);
-    });
-
-    // Event type filter checkboxes
-    var filterLlmEl = document.getElementById("filter-llm");
-    var filterGameEl = document.getElementById("filter-game");
-    var filterChatEl = document.getElementById("filter-chat");
-    var filterAnnotationsEl = document.getElementById("filter-annotations");
-
-    filterLlmEl.addEventListener("change", function () {
-      filterLlm = filterLlmEl.checked;
-      renderSnapshot(currentIndex);
-    });
-    filterGameEl.addEventListener("change", function () {
-      filterGame = filterGameEl.checked;
-      renderSnapshot(currentIndex);
-    });
-    filterChatEl.addEventListener("change", function () {
-      filterChat = filterChatEl.checked;
-      renderSnapshot(currentIndex);
-    });
-    filterAnnotationsEl.addEventListener("change", function () {
-      filterAnnotations = filterAnnotationsEl.checked;
-      renderSnapshot(currentIndex);
-    });
-
-    function showError(msg) {
-      loadingEl.classList.add("hidden");
-      errorEl.textContent = msg;
-      errorEl.classList.remove("hidden");
-    }
+    var viewerContainer = document.getElementById("viewer-container");
+    var viewer = null;
 
     function escapeHtml(str) {
       return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     }
 
-    function colorizePlayerNames(message) {
-      var escaped = escapeHtml(message);
-      var names = Object.keys(playerColorMap);
-      names.sort(function (a, b) { return b.length - a.length; });
-      names.forEach(function (name) {
-        var cls = "action-" + R.PLAYER_COLORS[playerColorMap[name]];
-        var escapedName = escapeHtml(name);
-        escaped = escaped.split(escapedName).join('<span class="' + cls + '">' + escapedName + '</span>');
-      });
-      return escaped;
-    }
-
-    function playerColorClass(playerName) {
-      var idx = playerColorMap[playerName];
-      return idx != null ? "llm-player-" + idx : "";
-    }
-
-    function playerSpan(playerName) {
-      var idx = playerColorMap[playerName];
-      var cls = idx != null ? "action-" + R.PLAYER_COLORS[idx] : "";
-      return '<span class="llm-player ' + cls + '">' + escapeHtml(playerName) + '</span>';
-    }
-
-    function formatToolArgs(args) {
-      if (!args || typeof args !== "object") return "";
-      var keys = Object.keys(args);
-      if (keys.length === 0) return "";
-      var parts = [];
-      keys.forEach(function (k) {
-        var v = args[k];
-        if (typeof v === "string" && v.length > 40) v = v.substring(0, 40) + "...";
-        else if (typeof v === "object") v = JSON.stringify(v).substring(0, 40) + (JSON.stringify(v).length > 40 ? "..." : "");
-        parts.push(k + "=" + v);
-      });
-      return parts.join(", ");
-    }
-
-    function tryFormatJson(str) {
-      if (!str || typeof str !== "string") return str || "";
-      try {
-        return JSON.stringify(JSON.parse(str), null, 2);
-      } catch (e) {
-        return str;
-      }
-    }
-
-    function formatTimestamp(ts) {
-      if (!ts) return null;
-      var match = ts.match(/T(\d{2}:\d{2}:\d{2})(\.\d+)?/);
-      if (!match) return null;
-      return { display: match[1], full: match[1] + (match[2] || "") };
-    }
-
-    function makeTimestampEl(ts) {
-      var parsed = formatTimestamp(ts);
-      if (!parsed) return null;
-      var span = document.createElement("span");
-      span.className = "entry-ts";
-      span.textContent = parsed.display;
-      span.title = parsed.full;
-      return span;
-    }
-
-    // Extract [System] messages from a tool_call result's recent_chat field.
-    // These are injected by the MCP layer for events like failed mana payment.
-    function extractSystemMessages(toolCallEvent) {
-      if (!toolCallEvent.result) return [];
-      try {
-        var r = JSON.parse(toolCallEvent.result);
-        var chat = r.recent_chat || [];
-        var msgs = [];
-        chat.forEach(function (msg) {
-          if (typeof msg === "string" && msg.indexOf("[System]") !== -1) {
-            msgs.push(msg.replace("[System] ", ""));
-          }
-        });
-        return msgs;
-      } catch (ex) {
-        return [];
-      }
-    }
-
-    // Merge consecutive llm_response + tool_call events into combined entries.
-    // Each llm_response is followed by zero or more tool_call results from the same player.
-    // System messages are injected by the pre-pass in renderSnapshot (with backdated timestamps)
-    // and flow through as meta events.
-    function mergeLlmEvents(events) {
-      var merged = [];
-      var i = 0;
-      while (i < events.length) {
-        var e = events[i];
-        if (e.type === "llm_response") {
-          // Collect subsequent tool_call events from the same player
-          var toolResults = [];
-          var j = i + 1;
-          while (j < events.length && events[j].type === "tool_call" && events[j].player === e.player) {
-            if (events[j].tool !== "send_chat_message") {
-              toolResults.push(events[j]);
-            }
-            j++;
-          }
-          var mergedSeq = e.gameSeq || (toolResults.length > 0 ? toolResults[0].gameSeq : 0) || 0;
-          merged.push({
-            type: "llm_merged",
-            ts: e.ts,
-            gameSeq: mergedSeq,
-            player: e.player,
-            reasoning: e.reasoning,
-            thinking: e.thinking,
-            toolCalls: e.toolCalls,
-            costUsd: e.costUsd,
-            toolResults: toolResults,
-          });
-          i = j;
-        } else if (e.type === "tool_call") {
-          if (e.tool === "send_chat_message") {
-            i++;
-            continue;
-          }
-          // Orphan tool_call (no preceding llm_response) — render standalone
-          merged.push({
-            type: "llm_merged",
-            ts: e.ts,
-            gameSeq: e.gameSeq || 0,
-            player: e.player,
-            toolResults: [e],
-          });
-          i++;
-        } else {
-          // Meta events pass through unchanged
-          merged.push(e);
-          i++;
-        }
-      }
-      return merged;
-    }
-
-    function renderToolResult(tc) {
-      var details = document.createElement("details");
-      details.className = "llm-tool-detail";
-      var summary = document.createElement("summary");
-      var argsSummary = formatToolArgs(tc.args);
-      summary.innerHTML = escapeHtml(tc.tool) + "(" + escapeHtml(argsSummary) + ")";
-      details.appendChild(summary);
-      if (tc.result) {
-        var pre = document.createElement("pre");
-        pre.textContent = tryFormatJson(tc.result);
-        details.appendChild(pre);
-      }
-      return details;
-    }
-
-    function renderLlmEvent(event) {
-      var type = event.type;
-
-      if (type === "llm_merged") {
-        var hasReasoning = event.reasoning && event.reasoning.trim();
-        var hasThinking = event.thinking && event.thinking.trim();
-        var hasToolResults = event.toolResults && event.toolResults.length > 0;
-
-        if (hasReasoning || hasThinking) {
-          // Full thought block with reasoning and/or extended thinking + tool results
-          var div = document.createElement("div");
-          div.className = "llm-event llm-thought " + playerColorClass(event.player);
-
-          var header = '<span class="thinking-badge">thinking</span>' + playerSpan(event.player);
-          var headerEl = document.createElement("div");
-          headerEl.innerHTML = header;
-          div.appendChild(headerEl);
-
-          // Extended thinking (chain-of-thought) in a collapsible block
-          if (hasThinking) {
-            var thinkDetails = document.createElement("details");
-            thinkDetails.className = "llm-thinking-block";
-            var thinkSummary = document.createElement("summary");
-            thinkSummary.textContent = "Thinking (" + event.thinking.length + " chars)";
-            thinkDetails.appendChild(thinkSummary);
-            var thinkPre = document.createElement("pre");
-            thinkPre.className = "llm-thinking-text";
-            thinkPre.textContent = event.thinking;
-            thinkDetails.appendChild(thinkPre);
-            div.appendChild(thinkDetails);
-          }
-
-          if (hasReasoning) {
-            var reasoningEl = document.createElement("div");
-            reasoningEl.className = "llm-reasoning";
-            reasoningEl.textContent = event.reasoning;
-            div.appendChild(reasoningEl);
-          }
-
-          // Inline tool results
-          if (hasToolResults) {
-            event.toolResults.forEach(function (tc) {
-              div.appendChild(renderToolResult(tc));
-            });
-          }
-
-          return div;
-        } else if (hasToolResults) {
-          // Compact: no reasoning, just tool call(s) with expandable results
-          var div = document.createElement("div");
-          div.className = "llm-event llm-compact";
-          var headerHtml = playerSpan(event.player);
-          var headerEl = document.createElement("span");
-          headerEl.innerHTML = headerHtml;
-          div.appendChild(headerEl);
-          event.toolResults.forEach(function (tc) {
-            div.appendChild(renderToolResult(tc));
-          });
-          return div;
-        }
-        return null; // Empty response, skip
-      }
-
-      // context_trim is noise in the viewer — suppress it
-      if (type === "context_trim") return null;
-
-      // System messages extracted from tool result recent_chat (e.g. spell cancelled)
-      if (type === "system_message") {
-        var div = document.createElement("div");
-        div.className = "llm-event llm-system-message";
-        div.innerHTML = playerSpan(event.player) + ' <span class="system-message-text">' + escapeHtml(event.message) + '</span>';
-        return div;
-      }
-
-      // Meta events: stall, llm_error, context_reset, auto_pilot_mode
-      var div = document.createElement("div");
-      div.className = "llm-event llm-meta";
-
-      if (type === "stall") {
-        div.textContent = event.player + " stalled (" + (event.turnsWithoutProgress || 0) + " turns without progress)";
-      } else if (type === "llm_error") {
-        div.textContent = event.player + " error: " + (event.errorType || "") + " " + (event.errorMessage || "");
-      } else if (type === "context_reset") {
-        div.textContent = event.player + " context reset: " + (event.reason || "");
-      } else if (type === "auto_pilot_mode") {
-        div.textContent = event.player + " switched to auto-pilot: " + (event.reason || "");
-      } else {
-        div.textContent = event.player + " " + type;
-      }
-
-      return div;
-    }
-
-    function renderAnnotation(ann) {
-      var div = document.createElement("div");
-      div.className = "annotation-block severity-" + ann.severity;
-
-      var header = document.createElement("div");
-      header.className = "annotation-header";
-      var badge = document.createElement("span");
-      badge.className = "annotation-badge severity-" + ann.severity;
-      badge.textContent = ann.severity === "questionable" ? "questionable" : ann.severity + " blunder";
-      header.appendChild(badge);
-      div.appendChild(header);
-
-      var desc = document.createElement("div");
-      desc.className = "annotation-description";
-      desc.textContent = ann.description;
-      div.appendChild(desc);
-
-      var details = document.createElement("details");
-      details.className = "annotation-details";
-      var summary = document.createElement("summary");
-      summary.textContent = "Analysis";
-      details.appendChild(summary);
-      var content = document.createElement("div");
-      var fieldsHtml =
-        '<div class="annotation-field"><strong>Action taken:</strong> ' + escapeHtml(ann.actionTaken) + '</div>' +
-        '<div class="annotation-field"><strong>Better line:</strong> ' + escapeHtml(ann.betterLine) + '</div>';
-      if (ann.llmReasoning) {
-        fieldsHtml += '<div class="annotation-field"><strong>Why the LLM erred:</strong> ' + escapeHtml(ann.llmReasoning) + '</div>';
-      }
-      content.innerHTML = fieldsHtml;
-      details.appendChild(content);
-      div.appendChild(details);
-
-      return div;
-    }
-
-    function renderAnnotationMarkers(annotations, totalSnapshots) {
-      var container = document.getElementById("slider-container");
-      var existing = container.querySelector(".annotation-markers");
-      if (existing) existing.remove();
-
-      if (!annotations || annotations.length === 0) return;
-
-      var markers = document.createElement("div");
-      markers.className = "annotation-markers";
-      annotations.forEach(function (ann) {
-        var dot = document.createElement("div");
-        dot.className = "annotation-marker severity-" + ann.severity;
-        var pct = totalSnapshots > 1 ? (ann.snapshotIndex / (totalSnapshots - 1)) * 100 : 50;
-        dot.style.left = pct + "%";
-        dot.title = ann.player + " (" + ann.severity + "): " + ann.description.substring(0, 80);
-        dot.addEventListener("click", function () { goTo(ann.snapshotIndex); });
-        markers.appendChild(dot);
-      });
-      container.appendChild(markers);
-    }
-
-    function renderSnapshot(index) {
-      var snap = game.snapshots[index];
-      if (!snap) return;
-
-      // Compute diff against previous snapshot
-      var prevSnap = index > 0 ? game.snapshots[index - 1] : null;
-      var diffs = R.computeDiff(prevSnap, snap);
-
-      // Compute running cost up to current snapshot
-      if (game.llmEvents && game.llmEvents.length > 0) {
-        var costNextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
-        var costCutoffTs = costNextSnap ? (costNextSnap.ts || "") : "";
-        var runningCost = {};
-        game.llmEvents.forEach(function (e) {
-          if (costCutoffTs && e.ts >= costCutoffTs) return;
-          if (e.costUsd && e.player) {
-            runningCost[e.player] = (runningCost[e.player] || 0) + e.costUsd;
-          }
-        });
-        (game.players || []).forEach(function (p) {
-          if (playerMeta[p.name]) {
-            playerMeta[p.name].totalCostUsd = runningCost[p.name] || 0;
-          }
-        });
-      }
-
-      // Players
-      R.renderPlayers(playersGrid, snap.players, {
-        cardImages: game.cardImages,
-        playerColorMap: playerColorMap,
-        playerMeta: playerMeta,
-        diffs: diffs,
-        previewEls: previewEls,
-        priorityPlayerName: snap.priority_player,
-        isCommander: isCommander,
-      });
-
-      // Phase bar between player battlefields
-      if (playersGrid.children.length >= 2) {
-        var insertIdx = playersGrid.children.length <= 2 ? 1 : 2;
-        var phaseBar = document.createElement("div");
-        phaseBar.id = "phase-bar";
-        var phase = snap.phase || "";
-        var step = snap.step || "";
-        var phaseDisplay = step && step !== phase ? phase + " / " + step : phase;
-        phaseBar.textContent = R.formatTurnLabel(playerTurnNumbers[index], snap.active_player) + " \u2014 " + phaseDisplay;
-        playersGrid.insertBefore(phaseBar, playersGrid.children[insertIdx]);
-      }
-
-      // Stack
-      R.renderStack(stackSection, stackCards, snap.stack, game.cardImages, previewEls);
-
-      // Action log: show full accumulated log up to current snapshot
-      actionList.innerHTML = "";
-      var prevSeq = index > 0 ? game.snapshots[index - 1].seq : 0;
-      var curSeq = snap.seq;
-
-      // Spam patterns to filter from the game log
-      var SPAM_RE = / skip attack$|^Attacker: .+ unblocked$/;
-
-      // All game actions + chat up to current snapshot
-      var allActions = game.actions.filter(function (a) {
-        if (a.seq > curSeq) return false;
-        if (!a.message && a.type !== "chat") return false;
-        if (a.type !== "chat" && SPAM_RE.test(a.message)) return false;
-        if (filterPlayer) {
-          if (a.type === "chat") {
-            if (a.from !== filterPlayer) return false;
-          } else {
-            if ((a.message || "").indexOf(filterPlayer) === -1) return false;
-          }
-        }
-        return true;
-      });
-
-      // Extract chat messages from llmEvents (always, regardless of showLlm toggle)
-      var chatFromLlm = [];
-      if (game.llmEvents) {
-        var chatNextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
-        var chatNextSeq = chatNextSnap ? (chatNextSnap.seq || Infinity) : Infinity;
-        var chatNextTs = chatNextSnap ? (chatNextSnap.ts || "") : "";
-        game.llmEvents.forEach(function (e) {
-          if (e.type !== "tool_call" || e.tool !== "send_chat_message") return;
-          if (useSeq) {
-            if ((e.gameSeq || 0) >= chatNextSeq) return;
-          } else {
-            if (chatNextTs && e.ts >= chatNextTs) return;
-          }
-          if (filterPlayer && e.player !== filterPlayer) return;
-          chatFromLlm.push({
-            ts: e.ts || "",
-            from: e.player,
-            message: (e.args && e.args.message) || "",
-            gameSeq: e.gameSeq || 0,
-          });
-        });
-      }
-
-      // All LLM events up to current snapshot (accumulated, not windowed)
-      var hasLlmEvents = game.llmEvents && game.llmEvents.length > 0;
-      var relevantLlm = [];
-      if (hasLlmEvents && showLlm) {
-        var nextSnap = index < game.snapshots.length - 1 ? game.snapshots[index + 1] : null;
-        var nextTs = nextSnap ? (nextSnap.ts || "") : "";
-        var nextSeq = nextSnap ? (nextSnap.seq || Infinity) : Infinity;
-
-        // Pre-pass: extract system messages from ALL events (before filtering)
-        // and backdate them to the previous event for the same player, since they
-        // happen during blocking calls but only surface in the result.
-        var systemMessages = [];
-        var lastPlayerTs = {};
-        var lastPlayerSeq = {};
-        game.llmEvents.forEach(function (e) {
-          if (e.type === "tool_call") {
-            var sysmsgs = extractSystemMessages(e);
-            if (sysmsgs.length > 0) {
-              var backdatedTs = lastPlayerTs[e.player] || e.ts;
-              var backdatedSeq = lastPlayerSeq[e.player] || e.gameSeq || 0;
-              sysmsgs.forEach(function (msg) {
-                systemMessages.push({ type: "system_message", ts: backdatedTs, gameSeq: backdatedSeq, player: e.player, message: msg });
-              });
-            }
-            lastPlayerTs[e.player] = e.ts;
-            lastPlayerSeq[e.player] = e.gameSeq || 0;
-          }
-        });
-
-        relevantLlm = game.llmEvents.filter(function (e) {
-          if (useSeq) {
-            if ((e.gameSeq || 0) >= nextSeq) return false;
-          } else {
-            if (nextTs && e.ts >= nextTs) return false;
-          }
-          if (filterPlayer && e.player !== filterPlayer) return false;
-          return true;
-        });
-
-        // Add backdated system messages that fall within the snapshot window
-        systemMessages.forEach(function (sm) {
-          if (useSeq) {
-            if ((sm.gameSeq || 0) >= nextSeq) return;
-          } else {
-            if (nextTs && sm.ts >= nextTs) return;
-          }
-          if (filterPlayer && sm.player !== filterPlayer) return;
-          relevantLlm.push(sm);
-        });
-      }
-
-      // Merge llm_response + tool_call into combined events
-      var mergedLlm = mergeLlmEvents(relevantLlm);
-
-      // Build unified timeline: interleave game actions and LLM events
-      // v1: sort by ts (timestamp string). v2: sort by seq (game sequence number).
-      var timeline = [];
-      var showGameActions = filterGame;
-      var showChatMessages = filterChat;
-      var showLlmEvents = filterLlm;
-
-      function itemSeq(item) {
-        if (item.kind === "action" || item.kind === "chat") return item.data.seq || item.data.gameSeq || 0;
-        if (item.kind === "llm") return item.data.gameSeq || item.data.seq || 0;
-        if (item.kind === "turn-sep" || item.kind === "phase-sep") return item.data.seq || 0;
-        if (item.kind === "annotation") {
-          if (item.seq != null) return item.seq;
-          var annSnap = game.snapshots[item.data.snapshotIndex];
-          return annSnap ? (annSnap.seq || 0) : 0;
-        }
-        return 0;
-      }
-
-      allActions.forEach(function (a) {
-        var isChat = a.type === "chat";
-        if (isChat && showChatMessages) {
-          timeline.push({ kind: "chat", ts: a.ts || "", data: a });
-        } else if (!isChat && showGameActions) {
-          timeline.push({ kind: "action", ts: a.ts || "", data: a });
-        }
-      });
-      if (showLlmEvents) {
-        mergedLlm.forEach(function (e) {
-          timeline.push({ kind: "llm", ts: e.ts || "", data: e });
-        });
-      }
-      // Add chat extracted from llmEvents, deduplicating against chat already in allActions
-      if (showChatMessages && chatFromLlm.length > 0) {
-        var chatDedup = {};
-        allActions.forEach(function (a) {
-          if (a.type === "chat") {
-            var div = document.createElement("div");
-            div.innerHTML = a.message || "";
-            var decoded = div.textContent || div.innerText || "";
-            chatDedup[a.from + "|" + decoded] = true;
-          }
-        });
-        chatFromLlm.forEach(function (c) {
-          if (!chatDedup[c.from + "|" + c.message]) {
-            timeline.push({ kind: "chat", ts: c.ts, data: c });
-          }
-        });
-      }
-
-      function timelineSort(a, b) {
-        if (useSeq) {
-          var aSeq = itemSeq(a);
-          var bSeq = itemSeq(b);
-          if (aSeq !== bSeq) return aSeq - bSeq;
-        } else {
-          if (a.ts < b.ts) return -1;
-          if (a.ts > b.ts) return 1;
-        }
-        // At same position: turn-sep first, then phase-sep, then regular items, then annotations last
-        var order = { "turn-sep": -2, "phase-sep": -1, "annotation": 1 };
-        var aOrd = order[a.kind] || 0;
-        var bOrd = order[b.kind] || 0;
-        return aOrd - bOrd;
-      }
-
-      timeline.sort(timelineSort);
-
-      // Add annotations up to current snapshot (only for "all" and "game" filters)
-      var showAnnotations = filterAnnotations;
-      if (showAnnotations && game.annotations) {
-        game.annotations.forEach(function (ann) {
-          if (ann.snapshotIndex <= index) {
-            var annSnap = game.snapshots[ann.snapshotIndex] || {};
-            var nextAnnSnap = game.snapshots[ann.snapshotIndex + 1];
-            if (useSeq) {
-              var annSeq = nextAnnSnap ? (nextAnnSnap.seq || 0) : (annSnap.seq || 0);
-              timeline.push({ kind: "annotation", seq: annSeq, data: ann });
-            } else {
-              var annTs = nextAnnSnap ? (nextAnnSnap.ts || "") : (annSnap.ts || "");
-              timeline.push({ kind: "annotation", ts: annTs, data: ann });
-            }
-          }
-        });
-        timeline.sort(timelineSort);
-      }
-
-      // Add phase/step transition separators (only when game actions are shown)
-      if (filterGame) {
-        phaseTransitions.forEach(function (pt) {
-          if (pt.index <= index) {
-            timeline.push({
-              kind: pt.turnChanged ? "turn-sep" : "phase-sep",
-              ts: pt.ts,
-              data: pt,
-            });
-          }
-        });
-        timeline.sort(timelineSort);
-      }
-
-      // Render interleaved timeline
-      timeline.forEach(function (item) {
-        var el = null;
-        if (item.kind === "chat") {
-          var a = item.data;
-          el = document.createElement("div");
-          el.className = "chat-line";
-          var fromIdx = playerColorMap[a.from];
-          var fromCls = fromIdx != null ? "action-" + R.PLAYER_COLORS[fromIdx] : "";
-          el.innerHTML = '<span class="chat-badge">chat</span><span class="chat-from ' + fromCls + '">' + escapeHtml(a.from || "") + ':</span> ' + escapeHtml(a.message || "");
-        } else if (item.kind === "action") {
-          var a = item.data;
-          el = document.createElement("div");
-          el.className = "action-line";
-          // Highlight actions from the current step
-          if (a.seq > prevSeq) {
-            el.style.color = "#e0e0f0";
-          }
-          el.innerHTML = colorizePlayerNames(a.message);
-        } else if (item.kind === "llm") {
-          el = renderLlmEvent(item.data);
-        } else if (item.kind === "annotation") {
-          el = renderAnnotation(item.data);
-        } else if (item.kind === "turn-sep") {
-          el = document.createElement("div");
-          el.className = "turn-separator";
-          el.textContent = "\u2014 " + R.formatTurnLabel(item.data.playerTurn, item.data.active_player) + " \u2014";
-        } else if (item.kind === "phase-sep") {
-          el = document.createElement("div");
-          el.className = "phase-separator";
-          el.textContent = "\u2014 " + R.formatPhaseStep(item.data.phase, item.data.step) + " \u2014";
-        }
-        if (el) {
-          actionList.appendChild(el);
-        }
-      });
-
-      // Show winner at end of game
-      if (game.winner && index === game.snapshots.length - 1) {
-        var winLine = document.createElement("div");
-        winLine.className = "game-result-line";
-        var winIdx = playerColorMap[game.winner];
-        var winCls = winIdx != null ? "action-" + R.PLAYER_COLORS[winIdx] : "";
-        winLine.innerHTML = '<span class="' + winCls + '">' + escapeHtml(game.winner) + '</span> wins the game!';
-        actionList.appendChild(winLine);
-      }
-
-      // Sync game log height with left column, then auto-scroll to bottom
-      setTimeout(function () {
-        var leftHeight = document.getElementById("game-left").offsetHeight;
-        // Subtract action-log header (~60px for filters/title)
-        var headerHeight = actionList.parentElement.offsetHeight - actionList.offsetHeight;
-        var targetHeight = Math.max(400, leftHeight - headerHeight);
-        actionList.style.maxHeight = targetHeight + "px";
-        actionList.style.minHeight = targetHeight + "px";
-        actionList.scrollTop = actionList.scrollHeight;
-      }, 50);
-
-      // Update transport
-      slider.value = String(index);
-      snapshotJump.value = String(index + 1);
-      counterEl.textContent = (index + 1) + " / " + game.snapshots.length;
-
-      // Sync turn dropdown
-      if (turnStartIndices.length > 0) {
-        var currentTurn = snap.turn;
-        for (var ti = turnStartIndices.length - 1; ti >= 0; ti--) {
-          if (turnStartIndices[ti].turn <= currentTurn) {
-            turnSelect.selectedIndex = ti;
-            break;
-          }
-        }
-      }
-
-    }
-
-    function goTo(index) {
-      currentIndex = Math.max(0, Math.min(index, game.snapshots.length - 1));
-      renderSnapshot(currentIndex);
-    }
-
-    function toggleAutoPlay() {
-      if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
-        autoPlayInterval = null;
-        btnAuto.textContent = "Play";
-        btnAuto.classList.remove("active");
-      } else {
-        btnAuto.textContent = "Pause";
-        btnAuto.classList.add("active");
-        autoPlayInterval = setInterval(function () {
-          if (currentIndex >= game.snapshots.length - 1) {
-            toggleAutoPlay();
-            return;
-          }
-          goTo(currentIndex + 1);
-        }, 500);
-      }
-    }
-
-    function fetchGameData(slug) {
-      return fetch("/games/" + slug + ".json")
-        .then(function (r) {
-          var ct = (r.headers.get("content-type") || "");
-          if (r.ok && ct.indexOf("json") !== -1) return r.json();
-          // Fall back to .json.gz
-          return fetch("/games/" + slug + ".json.gz").then(function (r2) {
-            if (!r2.ok) throw new Error("Game not found");
-            var ds = new DecompressionStream("gzip");
-            return new Response(r2.body.pipeThrough(ds)).json();
-          });
-        });
-    }
-
-    fetchGameData(slug)
-      .then(function (data) {
-        game = data;
-
+    GameViewer.fetchGameData("", slug)
+      .then(function (game) {
         if (!game.snapshots || game.snapshots.length === 0) {
-          showError("No snapshots in game data.");
-          return;
-        }
-
-        // v2 games have seq on everything but no ts on actions/snapshots
-        useSeq = game.version != null;
-
-        // Fill in missing gameSeq on llmEvents from neighboring events.
-        // Events like game_start, llm_error, stall, auto_pilot_mode don't
-        // have gameSeq, so inherit from the previous event to sort correctly.
-        if (useSeq && game.llmEvents) {
-          var lastSeq = 0;
-          game.llmEvents.forEach(function (e) {
-            if (e.gameSeq != null) {
-              lastSeq = e.gameSeq;
-            } else {
-              e.gameSeq = lastSeq;
-            }
-          });
+          throw new Error("No snapshots in game data.");
         }
 
         // Show UI
         loadingEl.classList.add("hidden");
         gameUI.classList.remove("hidden");
-
-        // Build player color map and meta
-        (game.players || []).forEach(function (p, i) {
-          playerColorMap[p.name] = i % 4;
-          if (p.model || p.totalCostUsd != null) {
-            playerMeta[p.name] = { model: p.model, totalCostUsd: 0 };
-          }
-        });
-
-        // Detect commander format
-        isCommander = (game.players || []).some(function (p) { return !!p.commander; });
-
-        // Show filter checkboxes based on content
-        var hasLlm = game.llmEvents && game.llmEvents.length > 0;
-        var hasChat = (game.actions && game.actions.some(function (a) { return a.type === "chat"; }))
-          || (game.llmEvents && game.llmEvents.some(function (e) { return e.tool === "send_chat_message"; }));
-        var hasAnnotations = game.annotations && game.annotations.length > 0;
-        if (hasLlm) {
-          llmToggleLabel.classList.remove("hidden");
-          filterLlmEl.parentElement.classList.remove("hidden");
-        }
-        // Always show game filter (games always have game actions)
-        filterGameEl.parentElement.classList.remove("hidden");
-        if (hasChat) {
-          filterChatEl.parentElement.classList.remove("hidden");
-        }
-        if (hasAnnotations) {
-          filterAnnotationsEl.parentElement.classList.remove("hidden");
-        }
-
-        // Populate player filter dropdown
-        if (game.players && game.players.length > 1) {
-          game.players.forEach(function (p) {
-            var opt = document.createElement("option");
-            opt.value = p.name;
-            opt.textContent = p.name;
-            playerFilter.appendChild(opt);
-          });
-          playerFilter.classList.remove("hidden");
-        }
-
-        // Build trace lookup by timestamp
-        if (game.llmTrace) {
-          game.llmTrace.forEach(function (t) {
-            traceByTs[t.ts + "|" + t.player] = t;
-          });
-        }
-
-        // Compute per-player turn numbers
-        playerTurnNumbers = R.computePlayerTurnNumbers(game.snapshots);
-
-        // Build turn start indices
-        var lastTurn = -1;
-        game.snapshots.forEach(function (snap, i) {
-          if (snap.turn !== lastTurn) {
-            turnStartIndices.push({ turn: snap.turn, index: i });
-            lastTurn = snap.turn;
-          }
-        });
-
-        // Build phase/step transition indices
-        game.snapshots.forEach(function (snap, i) {
-          if (i === 0) return;
-          var prev = game.snapshots[i - 1];
-          var turnChanged = snap.turn !== prev.turn;
-          var phaseChanged = snap.phase !== prev.phase || snap.step !== prev.step;
-          if (turnChanged || phaseChanged) {
-            phaseTransitions.push({
-              index: i,
-              ts: snap.ts || "",
-              seq: snap.seq || 0,
-              turn: snap.turn,
-              playerTurn: playerTurnNumbers[i],
-              phase: snap.phase,
-              step: snap.step,
-              turnChanged: turnChanged,
-              active_player: snap.active_player,
-            });
-          }
-        });
-
-        // Populate turn dropdown
-        turnStartIndices.forEach(function (t) {
-          var opt = document.createElement("option");
-          opt.value = String(t.index);
-          opt.textContent = "Turn " + t.turn;
-          turnSelect.appendChild(opt);
-        });
 
         // Title: "PlayerName (deck) vs PlayerName (deck)"
         var playerNames = (game.players || []).map(function (p) {
@@ -1349,9 +220,6 @@ const { slug } = Astro.params;
             summaryEl.appendChild(oldTag);
           }
           document.getElementById("game-header").appendChild(summaryEl);
-
-          // Render timeline markers
-          renderAnnotationMarkers(game.annotations, game.snapshots.length);
         }
 
         // Error summary in header
@@ -1366,18 +234,7 @@ const { slug } = Astro.params;
           game.errors.forEach(function (err) {
             var li = document.createElement("li");
             var text = "[" + (err.ts || "?") + "] [" + (err.source || "?") + "] " + (err.player || "?") + ": " + (err.message || "?");
-            if (err.decisionIndex != null && game.decisions && game.decisions[err.decisionIndex]) {
-              var link = document.createElement("a");
-              link.textContent = text;
-              link.href = "#";
-              link.className = "error-link";
-              link.addEventListener("click", (function (snapIdx) {
-                return function (e) { e.preventDefault(); goTo(snapIdx); };
-              })(game.decisions[err.decisionIndex].snapshotIndex));
-              li.appendChild(link);
-            } else {
-              li.textContent = text;
-            }
+            li.textContent = text;
             errorList.appendChild(li);
           });
           errorSummaryEl.appendChild(errorList);
@@ -1401,79 +258,28 @@ const { slug } = Astro.params;
           document.getElementById("game-header").after(epochBanner);
         }
 
-        // Set up transport
-        slider.max = String(game.snapshots.length - 1);
-        snapshotJump.max = String(game.snapshots.length);
-
-        snapshotJump.addEventListener("change", function () {
-          var val = Number(snapshotJump.value);
-          if (val >= 1 && val <= game.snapshots.length) {
-            goTo(val - 1);
-          }
-        });
-        snapshotJump.addEventListener("keydown", function (e) {
-          if (e.key === "Enter") {
-            e.preventDefault();
-            snapshotJump.blur();
-            var val = Number(snapshotJump.value);
-            if (val >= 1 && val <= game.snapshots.length) {
-              goTo(val - 1);
-            }
-          }
-        });
-
-        btnStart.addEventListener("click", function () { goTo(0); });
-        btnPrev.addEventListener("click", function () { goTo(currentIndex - 1); });
-        btnNext.addEventListener("click", function () { goTo(currentIndex + 1); });
-        btnEnd.addEventListener("click", function () { goTo(game.snapshots.length - 1); });
-        btnAuto.addEventListener("click", toggleAutoPlay);
-        slider.addEventListener("input", function () { goTo(Number(slider.value)); });
-
-        // Turn navigation
-        turnSelect.addEventListener("change", function () { goTo(Number(turnSelect.value)); });
-        btnPrevTurn.addEventListener("click", function () {
-          var idx = Math.max(0, turnSelect.selectedIndex - 1);
-          turnSelect.selectedIndex = idx;
-          goTo(Number(turnSelect.value));
-        });
-        btnNextTurn.addEventListener("click", function () {
-          var idx = Math.min(turnStartIndices.length - 1, turnSelect.selectedIndex + 1);
-          turnSelect.selectedIndex = idx;
-          goTo(Number(turnSelect.value));
-        });
-
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "ArrowRight") { e.preventDefault(); goTo(currentIndex + 1); }
-          if (e.key === "ArrowLeft") { e.preventDefault(); goTo(currentIndex - 1); }
-          if (e.key === "Home") { e.preventDefault(); goTo(0); }
-          if (e.key === "End") { e.preventDefault(); goTo(game.snapshots.length - 1); }
-          if (e.key === " ") { e.preventDefault(); toggleAutoPlay(); }
-          if (e.key === "Escape") { R.hidePreview(previewEls); }
-          if (e.key === "[") { e.preventDefault(); btnPrevTurn.click(); }
-          if (e.key === "]") { e.preventDefault(); btnNextTurn.click(); }
-        });
-
-        // Set up mouse-following card preview
-        R.setupMousePreview(previewEls.container);
-
-        // Render first snapshot (or jump to ?s=N if specified)
+        // Create the viewer — jump to ?s=N if specified
         var params = new URLSearchParams(window.location.search);
         var startSnap = params.get("s");
+        var initialSnapshot = 0;
         if (startSnap !== null) {
           var snapNum = parseInt(startSnap, 10);
           if (!isNaN(snapNum) && snapNum >= 0 && snapNum < game.snapshots.length) {
-            goTo(snapNum);
-          } else {
-            renderSnapshot(0);
+            initialSnapshot = snapNum;
           }
-        } else {
-          renderSnapshot(0);
         }
+
+        viewer = GameViewer.create(viewerContainer, game, {
+          initialSnapshot: initialSnapshot,
+        });
+
+        // Auto-focus the viewer for keyboard navigation
+        viewerContainer.focus();
       })
       .catch(function (err) {
-        showError(err.message || "Failed to load game data.");
+        loadingEl.classList.add("hidden");
+        errorEl.textContent = err.message || "Failed to load game data.";
+        errorEl.classList.remove("hidden");
       });
-
-    window.addEventListener("blur", function () { R.hidePreview(previewEls); });
   })();
 </script>

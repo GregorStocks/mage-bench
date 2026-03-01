@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blunder Audit</title>
 <link rel="stylesheet" href="/game-renderer.css">
+<link rel="stylesheet" href="/game-viewer.css">
 <style>
 :root {
   --bg: #1a1a2e;
@@ -123,10 +124,10 @@ body {
 /* Detail panel */
 #detail {
   flex: 1;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   min-width: 0;
+  overflow: hidden;
 }
 #detail-empty {
   display: flex;
@@ -138,32 +139,20 @@ body {
 }
 #detail-content { display: none; flex-direction: column; height: 100%; }
 
-/* Board area */
-#board-area {
+/* Viewer container (GameViewer.create populates this) */
+#viewer-container {
   flex: 1;
-  min-height: 200px;
-  overflow: hidden;
-  position: relative;
-}
-#players-grid {
-  height: 100%;
+  min-height: 0;
+  overflow: auto;
   padding: 0.25rem;
 }
-#stack-section {
-  position: absolute;
-  top: 0.25rem;
-  left: 0.25rem;
-  z-index: 10;
-  max-width: 160px;
-}
-#stack-cards { display: flex; flex-direction: column; gap: 2px; }
 
-/* Context + verdict bar */
-#context-bar {
+/* Audit bar (below viewer) */
+#audit-bar {
   flex-shrink: 0;
   background: var(--card-bg);
   border-top: 1px solid var(--border);
-  padding: 0.6rem 1rem;
+  padding: 0.5rem 1rem;
   display: flex;
   gap: 1rem;
   align-items: flex-start;
@@ -181,9 +170,7 @@ body {
   color: var(--accent);
   margin-bottom: 0.25rem;
 }
-#decision-chosen {
-  margin-bottom: 0.25rem;
-}
+#decision-chosen { margin-bottom: 0.25rem; }
 #annotation-box {
   margin-top: 0.35rem;
   padding: 0.4rem 0.6rem;
@@ -205,24 +192,12 @@ body {
 #annotation-box .ann-severity.minor { color: var(--yellow); }
 #annotation-box .ann-severity.questionable { color: #888; }
 #annotation-desc { color: var(--text-dim); margin-top: 0.15rem; }
-
-/* Better line / action taken */
 #annotation-details {
   margin-top: 0.25rem;
   font-size: 0.78rem;
 }
 #annotation-details .detail-label { color: var(--text-dim); font-weight: 600; }
 #annotation-details .detail-value { color: var(--text); }
-
-/* Recent log */
-#recent-log {
-  margin-top: 0.3rem;
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  max-height: 3.5em;
-  overflow-y: auto;
-}
-#recent-log div { padding: 0.05rem 0; }
 
 /* Verdict panel */
 #verdict-panel {
@@ -285,34 +260,6 @@ body {
   color: var(--text-dim);
   display: block;
 }
-
-/* Card preview (reuses game-renderer.css structure) */
-#card-preview {
-  position: fixed;
-  z-index: 1000;
-  pointer-events: none;
-  background: #111;
-  border: 1px solid #444;
-  border-radius: 8px;
-  padding: 6px;
-  max-width: 260px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-}
-#card-preview.hidden { display: none; }
-#preview-image {
-  width: 240px;
-  border-radius: 6px;
-  display: block;
-}
-.card-meta { padding: 4px 2px 0; }
-.card-name-row { display: flex; justify-content: space-between; align-items: baseline; }
-.card-name { font-weight: 700; font-size: 0.85rem; }
-.card-cost { font-size: 0.8rem; color: var(--text-dim); }
-.card-type { font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; }
-.card-rules { font-size: 0.72rem; color: var(--text-dim); margin-top: 2px; white-space: pre-wrap; font-family: inherit; }
-.card-stats { font-size: 0.75rem; font-weight: 700; margin-top: 2px; }
-
-/* Existing verdict display */
 #existing-verdict {
   text-align: center;
   padding: 0.3rem;
@@ -328,15 +275,6 @@ body {
   color: var(--text-dim);
   text-align: center;
   font-style: italic;
-}
-
-/* Phase bar override for embedded board */
-#phase-bar {
-  text-align: center;
-  padding: 0.2rem;
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  background: rgba(15,52,96,0.5);
 }
 
 /* Spinner */
@@ -384,14 +322,8 @@ body {
   <div id="detail">
     <div id="detail-empty">Select a play from the sidebar</div>
     <div id="detail-content">
-      <div id="board-area">
-        <div id="stack-section" class="hidden">
-          <div class="section-title">Stack</div>
-          <div id="stack-cards" class="cards-row"></div>
-        </div>
-        <div id="players-grid"></div>
-      </div>
-      <div id="context-bar">
+      <div id="viewer-container"></div>
+      <div id="audit-bar">
         <div id="decision-context">
           <div id="decision-message"></div>
           <div id="decision-chosen"></div>
@@ -400,7 +332,6 @@ body {
             <div id="annotation-desc"></div>
             <div id="annotation-details"></div>
           </div>
-          <div id="recent-log"></div>
         </div>
         <div id="verdict-panel">
           <div id="existing-verdict" class="hidden"></div>
@@ -419,32 +350,21 @@ body {
   </div>
 </div>
 
-<!-- Card preview (hover) -->
-<div id="card-preview" class="hidden">
-  <img id="preview-image" alt="">
-  <div class="card-meta">
-    <div class="card-name-row">
-      <div id="preview-name" class="card-name"></div>
-      <div id="preview-cost" class="card-cost"></div>
-    </div>
-    <div id="preview-type" class="card-type"></div>
-    <pre id="preview-rules" class="card-rules"></pre>
-    <div id="preview-stats" class="card-stats"></div>
-  </div>
-</div>
-
 <script src="/game-renderer.js"></script>
+<script src="/game-viewer.js"></script>
 <script>
 (function() {
   "use strict";
 
-  var R = window.GameRenderer;
   var allPlays = [];
   var filteredPlays = [];
   var selectedIdx = -1;
   var selectedVerdict = null;
   var submitting = false;
   var currentDetail = null;
+  var viewer = null;
+  var gameDataCache = {};  // game_id -> game data
+  var currentGameId = null;
 
   // DOM refs
   var playListEl = document.getElementById("play-list");
@@ -452,32 +372,18 @@ body {
   var filterVerdictEl = document.getElementById("filter-verdict");
   var detailEmpty = document.getElementById("detail-empty");
   var detailContent = document.getElementById("detail-content");
-  var playersGrid = document.getElementById("players-grid");
-  var stackSection = document.getElementById("stack-section");
-  var stackCards = document.getElementById("stack-cards");
+  var viewerContainer = document.getElementById("viewer-container");
   var decisionMessage = document.getElementById("decision-message");
   var decisionChosen = document.getElementById("decision-chosen");
   var annotationBox = document.getElementById("annotation-box");
   var annSeverity = document.getElementById("ann-severity");
   var annotationDesc = document.getElementById("annotation-desc");
   var annotationDetails = document.getElementById("annotation-details");
-  var recentLog = document.getElementById("recent-log");
   var existingVerdictEl = document.getElementById("existing-verdict");
   var existingNotesEl = document.getElementById("existing-notes");
   var notesInput = document.getElementById("notes-input");
   var submitBtn = document.getElementById("submit-btn");
   var verdictStatus = document.getElementById("verdict-status");
-
-  var previewEls = {
-    container: document.getElementById("card-preview"),
-    image: document.getElementById("preview-image"),
-    name: document.getElementById("preview-name"),
-    cost: document.getElementById("preview-cost"),
-    type: document.getElementById("preview-type"),
-    rules: document.getElementById("preview-rules"),
-    stats: document.getElementById("preview-stats"),
-  };
-  R.setupMousePreview(previewEls.container);
 
   // -- Data loading --
 
@@ -489,6 +395,8 @@ body {
         allPlays = plays;
         applyFilter();
         loadStats();
+        // Check for hash route on initial load
+        handleHashRoute();
       });
   }
 
@@ -500,6 +408,59 @@ body {
           s.unaudited + " remaining \u00b7 " + s.games + " games";
       });
   }
+
+  function loadGameData(gameId) {
+    if (gameDataCache[gameId]) {
+      return Promise.resolve(gameDataCache[gameId]);
+    }
+    return GameViewer.fetchGameData("", gameId).then(function(data) {
+      gameDataCache[gameId] = data;
+      return data;
+    });
+  }
+
+  // -- URL hash routing --
+
+  function updateHash(gameId, di) {
+    var hash = "#" + gameId + "/" + di;
+    if (window.location.hash !== hash) {
+      history.replaceState(null, "", hash);
+    }
+  }
+
+  function handleHashRoute() {
+    var hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    var parts = hash.substring(1).split("/");
+    if (parts.length !== 2) return;
+    var gameId = parts[0];
+    var di = parseInt(parts[1], 10);
+    if (isNaN(di)) return;
+
+    // Find this play in filteredPlays
+    var idx = filteredPlays.findIndex(function(p) {
+      return p.game_id === gameId && p.decision_index === di;
+    });
+    if (idx >= 0) {
+      selectPlay(idx);
+    } else {
+      // Try all plays (might be filtered out)
+      idx = allPlays.findIndex(function(p) {
+        return p.game_id === gameId && p.decision_index === di;
+      });
+      if (idx >= 0) {
+        // Switch to "all" filter to show it
+        filterVerdictEl.value = "all";
+        applyFilter();
+        idx = filteredPlays.findIndex(function(p) {
+          return p.game_id === gameId && p.decision_index === di;
+        });
+        if (idx >= 0) selectPlay(idx);
+      }
+    }
+  }
+
+  window.addEventListener("hashchange", handleHashRoute);
 
   // -- Filtering --
 
@@ -513,7 +474,6 @@ body {
       filteredPlays = allPlays.filter(function(p) { return p.verdict === f; });
     }
     renderPlayList();
-    // Re-select if the current play is still visible
     if (currentDetail) {
       var newIdx = filteredPlays.findIndex(function(p) {
         return p.game_id === currentDetail.game_id && p.decision_index === currentDetail.decision_index;
@@ -552,12 +512,10 @@ body {
         currentGame = play.game_id;
         var header = document.createElement("div");
         header.className = "game-group-header";
-        // Abbreviate game_id: game_20260210_074307 -> 2026-02-10 07:43
         var m = currentGame.match(/game_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/);
         header.textContent = m
           ? m[1]+"-"+m[2]+"-"+m[3]+" "+m[4]+":"+m[5]
           : currentGame;
-        // Count unaudited in this game
         var unaudited = allPlays.filter(function(p) {
           return p.game_id === currentGame && p.verdict == null;
         }).length;
@@ -607,10 +565,9 @@ body {
 
   function highlightSelected() {
     var rows = playListEl.querySelectorAll(".play-row");
-    rows.forEach(function(r, i) {
+    rows.forEach(function(r) {
       r.classList.toggle("selected", parseInt(r.dataset.idx) === selectedIdx);
     });
-    // Scroll selected into view
     var sel = playListEl.querySelector(".play-row.selected");
     if (sel) sel.scrollIntoView({ block: "nearest" });
   }
@@ -620,10 +577,8 @@ body {
     if (!sel) return;
     var info = sel.querySelector(".play-info");
     if (!info) return;
-    // Update player name
     var playerSpan = info.querySelector(".play-player");
     if (playerSpan && play.player) playerSpan.textContent = play.player;
-    // Update turn
     var turnSpan = info.querySelector(".play-turn");
     if (!turnSpan && play.turn) {
       turnSpan = document.createElement("span");
@@ -631,7 +586,6 @@ body {
       info.insertBefore(turnSpan, info.querySelector(".play-message"));
     }
     if (turnSpan && play.turn) turnSpan.textContent = " T" + play.turn;
-    // Update message
     var msgDiv = info.querySelector(".play-message");
     if (!msgDiv && play.message) {
       msgDiv = document.createElement("div");
@@ -639,7 +593,6 @@ body {
       info.appendChild(msgDiv);
     }
     if (msgDiv && play.message) msgDiv.textContent = play.message;
-    // Update severity badge
     var badge = sel.querySelector(".sev-badge");
     if (badge && play.annotation_severity) {
       badge.className = "sev-badge " + sevClass(play.annotation_severity);
@@ -652,6 +605,11 @@ body {
     detailEmpty.style.display = "flex";
     detailContent.style.display = "none";
     currentDetail = null;
+    if (viewer) {
+      viewer.destroy();
+      viewer = null;
+    }
+    currentGameId = null;
   }
 
   function selectPlay(idx) {
@@ -664,58 +622,61 @@ body {
     detailContent.style.display = "flex";
     verdictStatus.textContent = "Loading...";
 
-    fetch("/api/plays/" + play.game_id + "/" + play.decision_index)
-      .then(function(r) { return r.json(); })
-      .then(function(detail) {
-        currentDetail = detail;
-        // Enrich sidebar entry with detail data for future renders
-        play.player = detail.player;
-        play.turn = detail.turn;
-        play.message = detail.message;
-        play.annotation_severity = play.annotation_severity || (detail.annotation && detail.annotation.severity);
-        renderDetail(detail);
-        // Re-render just the selected row to show enriched data
-        updateSelectedRow(play);
-      })
-      .catch(function(e) {
-        verdictStatus.textContent = "Error: " + e.message;
-      });
+    // Update URL hash
+    updateHash(play.game_id, play.decision_index);
+
+    // Fetch play detail (for annotation, verdict, aftermath_index) and game data in parallel
+    Promise.all([
+      fetch("/api/plays/" + play.game_id + "/" + play.decision_index).then(function(r) { return r.json(); }),
+      loadGameData(play.game_id),
+    ])
+    .then(function(results) {
+      var detail = results[0];
+      var gameData = results[1];
+      currentDetail = detail;
+
+      // Enrich sidebar entry
+      play.player = detail.player;
+      play.turn = detail.turn;
+      play.message = detail.message;
+      play.annotation_severity = play.annotation_severity || (detail.annotation && detail.annotation.severity);
+      updateSelectedRow(play);
+
+      // Create or reuse the game viewer
+      if (currentGameId === play.game_id && viewer) {
+        // Same game — just navigate to the right snapshot
+        viewer.goTo(detail.aftermath_index);
+      } else {
+        // Different game — create a new viewer
+        if (viewer) viewer.destroy();
+        viewer = GameViewer.create(viewerContainer, gameData, {
+          initialSnapshot: detail.aftermath_index,
+        });
+        currentGameId = play.game_id;
+      }
+
+      // Render audit context
+      renderAuditContext(detail);
+    })
+    .catch(function(e) {
+      verdictStatus.textContent = "Error: " + e.message;
+    });
   }
 
-  // -- Detail rendering --
+  // -- Audit context rendering --
 
-  function renderDetail(d) {
-    // Board
-    playersGrid.innerHTML = "";
-    var snap = d.snapshot;
-    if (snap && snap.players) {
-      R.renderPlayers(playersGrid, snap.players, {
-        cardImages: d.card_images || {},
-        previewEls: previewEls,
-        priorityPlayerName: snap.priority_player,
-      });
+  function escapeHtml(s) {
+    var div = document.createElement("div");
+    div.textContent = s;
+    return div.innerHTML;
+  }
 
-      // Insert phase bar between player areas
-      if (playersGrid.children.length >= 2) {
-        var insertIdx = playersGrid.children.length <= 2 ? 1 : 2;
-        var phaseBar = document.createElement("div");
-        phaseBar.id = "phase-bar";
-        var phase = snap.phase || "";
-        var step = snap.step || "";
-        var phaseDisplay = R.formatPhaseStep(phase, step);
-        var turnLabel = (d.player || "?") + "'s Turn " + (d.turn || "?");
-        phaseBar.textContent = turnLabel + " \u2014 " + phaseDisplay;
-        playersGrid.insertBefore(phaseBar, playersGrid.children[insertIdx]);
-      }
-    }
-
-    // Stack
-    R.renderStack(stackSection, stackCards, snap ? snap.stack : [], d.card_images || {}, previewEls);
-
-    // Decision context
+  function renderAuditContext(d) {
     decisionMessage.textContent = d.message || "";
     decisionChosen.innerHTML = '<span class="label">Chosen: </span><span class="value">' +
-      escapeHtml(d.chosen || "?") + '</span>';
+      escapeHtml(d.chosen || "?") + '</span>' +
+      ' <span class="label">Hand: </span><span class="value">' +
+      escapeHtml(d.hand || "?") + '</span>';
 
     // Annotation
     if (d.annotation && d.annotation.severity) {
@@ -736,16 +697,6 @@ body {
       annotationDetails.innerHTML = detailsHtml;
     } else {
       annotationBox.classList.add("hidden");
-    }
-
-    // Recent log
-    recentLog.innerHTML = "";
-    if (d.recent_actions && d.recent_actions.length) {
-      d.recent_actions.forEach(function(msg) {
-        var div = document.createElement("div");
-        div.textContent = msg;
-        recentLog.appendChild(div);
-      });
     }
 
     // Existing verdict
@@ -774,12 +725,6 @@ body {
     verdictStatus.textContent = "";
   }
 
-  function escapeHtml(s) {
-    var div = document.createElement("div");
-    div.textContent = s;
-    return div.innerHTML;
-  }
-
   // -- Verdict buttons --
 
   document.querySelectorAll(".verdict-btn").forEach(function(btn) {
@@ -794,7 +739,6 @@ body {
       b.classList.toggle("selected", b.dataset.verdict === v);
     });
     submitBtn.disabled = false;
-    // Focus notes if empty
     if (!notesInput.value) notesInput.focus();
   }
 
@@ -820,24 +764,20 @@ body {
       if (!r.ok) return r.json().then(function(e) { throw new Error(e.error); });
       return r.json();
     })
-    .then(function(result) {
+    .then(function() {
       verdictStatus.textContent = "Saved: " + selectedVerdict.replace(/_/g, " ");
 
-      // Update local data
       var play = filteredPlays[selectedIdx];
       play.verdict = selectedVerdict;
-      // Update in allPlays too
       allPlays.forEach(function(p) {
         if (p.game_id === play.game_id && p.decision_index === play.decision_index) {
           p.verdict = selectedVerdict;
         }
       });
 
-      // Re-render sidebar
       renderPlayList();
       loadStats();
 
-      // Auto-advance to next unaudited
       submitting = false;
       advanceToNextUnaudited();
     })
@@ -849,14 +789,12 @@ body {
   }
 
   function advanceToNextUnaudited() {
-    // Find next unaudited play after current
     for (var i = selectedIdx + 1; i < filteredPlays.length; i++) {
       if (filteredPlays[i].verdict == null) {
         selectPlay(i);
         return;
       }
     }
-    // Wrap around
     for (var i = 0; i < selectedIdx; i++) {
       if (filteredPlays[i].verdict == null) {
         selectPlay(i);
@@ -869,7 +807,7 @@ body {
   // -- Keyboard shortcuts --
 
   document.addEventListener("keydown", function(e) {
-    // Don't intercept when typing in notes
+    // Don't intercept when typing in notes or in viewer inputs
     if (e.target === notesInput) {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
@@ -877,6 +815,8 @@ body {
       }
       return;
     }
+    // Let viewer handle its own keys when it's focused
+    if (viewerContainer.contains(e.target) && e.target !== document.body) return;
 
     switch (e.key) {
       case "b":

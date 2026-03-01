@@ -41,8 +41,11 @@ CONFIG_PATH = Path.home() / ".mage-bench" / "config.json"
 STATIC_FILES: dict[str, Path] = {
     "/game-renderer.js": WEBSITE_PUBLIC / "game-renderer.js",
     "/game-renderer.css": WEBSITE_PUBLIC / "game-renderer.css",
+    "/game-viewer.js": WEBSITE_PUBLIC / "game-viewer.js",
+    "/game-viewer.css": WEBSITE_PUBLIC / "game-viewer.css",
     "/cardback.jpg": WEBSITE_PUBLIC / "cardback.jpg",
 }
+GAMES_DIR = WEBSITE_PUBLIC / "games"
 
 # In-memory caches (single-user tool, no concurrency concerns)
 _game_data_cache: dict[str, dict] = {}
@@ -125,9 +128,8 @@ def _build_play_detail(game_id: str, di: int) -> dict:
 
     aftermath_idx = compute_aftermath_index(decision, snapshots)
     snap_idx = get_snapshot_index(decision)
-    snapshot = snapshots[aftermath_idx] if aftermath_idx < len(snapshots) else {}
 
-    # Also get the "before" snapshot for context
+    # Get the "before" snapshot for hand context
     before_snapshot = snapshots[snap_idx] if snap_idx < len(snapshots) else {}
 
     # Look up annotation
@@ -178,9 +180,6 @@ def _build_play_detail(game_id: str, di: int) -> dict:
         },
         "verdict": gt_entry.get("verdict") if gt_entry else None,
         "human_notes": gt_entry.get("human_notes") if gt_entry else None,
-        # Snapshot data for board rendering
-        "snapshot": snapshot,
-        "card_images": game_data.get("cardImages", {}),
         "aftermath_index": aftermath_idx,
         "snapshot_index": snap_idx,
     }
@@ -297,6 +296,17 @@ class AuditHandler(BaseHTTPRequestHandler):
 
         if path in STATIC_FILES:
             self._send_file(STATIC_FILES[path])
+            return
+
+        # Game data files from website/public/games/
+        if path.startswith("/games/"):
+            filename = path.split("/games/", 1)[1]
+            # Reject path traversal
+            if ".." in filename or "/" in filename:
+                self._send_error(400, "Invalid path")
+                return
+            filepath = GAMES_DIR / filename
+            self._send_file(filepath)
             return
 
         # API: list plays

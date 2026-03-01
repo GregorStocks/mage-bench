@@ -1,0 +1,269 @@
+/**
+ * game-viewer.css — styles for the GameViewer widget.
+ *
+ * Extracted from [...slug].astro so the viewer module can be reused
+ * by the blunder audit UI and other consumers.
+ */
+
+/* Transport */
+#transport {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.transport-buttons {
+  display: flex;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.transport-buttons button {
+  background: #0f3460;
+  color: #e0e0e0;
+  border: 1px solid #1a4a8a;
+  border-radius: 4px;
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 0.85rem;
+  transition: background 0.15s;
+}
+
+.transport-buttons button:hover {
+  background: #1a4a8a;
+}
+
+.transport-buttons button.active {
+  background: #e94560;
+  border-color: #e94560;
+  color: #fff;
+}
+
+.turn-nav {
+  display: flex;
+  gap: 0.25rem;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.turn-nav button {
+  background: #0f3460;
+  color: #e0e0e0;
+  border: 1px solid #1a4a8a;
+  border-radius: 4px;
+  padding: 0.35rem 0.5rem;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 0.8rem;
+  transition: background 0.15s;
+}
+
+.turn-nav button:hover {
+  background: #1a4a8a;
+}
+
+#turn-select {
+  background: #0f3460;
+  color: #e0e0e0;
+  border: 1px solid #1a4a8a;
+  border-radius: 4px;
+  padding: 0.3rem 0.4rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+#slider-container {
+  flex: 1;
+  min-width: 100px;
+  position: relative;
+}
+
+#slider {
+  width: 100%;
+  accent-color: #e94560;
+}
+
+#snapshot-jump {
+  width: 5rem;
+  background: #0f3460;
+  color: #e0e0e0;
+  border: 1px solid #1a4a8a;
+  border-radius: 4px;
+  padding: 0.3rem 0.4rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Hide spin buttons on number input */
+#snapshot-jump::-webkit-inner-spin-button,
+#snapshot-jump::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+#snapshot-jump { -moz-appearance: textfield; }
+
+#snapshot-counter {
+  font-size: 0.8rem;
+  color: #a0a0b8;
+  white-space: nowrap;
+  min-width: 4rem;
+  text-align: right;
+}
+
+/* Two-column layout */
+#game-content {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+#game-left {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+#game-right {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Action log */
+#action-log {
+  padding: 0.75rem 1rem;
+  background: #16213e;
+  border: 1px solid #0f3460;
+  border-radius: 8px;
+  position: sticky;
+  top: 0.5rem;
+}
+
+.action-log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.log-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+#player-filter {
+  background: #0f3460;
+  color: #e0e0e0;
+  border: 1px solid #1a4a8a;
+  border-radius: 4px;
+  padding: 0.2rem 0.3rem;
+  font-size: 0.72rem;
+  cursor: pointer;
+}
+
+.filter-checkbox {
+  font-size: 0.72rem;
+  color: #888;
+  cursor: pointer;
+  user-select: none;
+}
+
+.filter-checkbox input {
+  margin-right: 2px;
+  accent-color: #e94560;
+}
+
+#llm-toggle-label {
+  font-size: 0.72rem;
+  color: #888;
+  cursor: pointer;
+  user-select: none;
+}
+
+#llm-toggle {
+  margin-right: 4px;
+  accent-color: #e94560;
+}
+
+#action-list {
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 0.93rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+/* Annotation markers on slider */
+.annotation-markers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.annotation-marker {
+  position: absolute;
+  top: -2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.annotation-marker.severity-major { background: #e74c3c; }
+.annotation-marker.severity-moderate { background: #e67e22; }
+.annotation-marker.severity-minor { background: #f1c40f; }
+.annotation-marker.severity-questionable { background: #888; }
+
+/* Responsive */
+@media (max-width: 600px) {
+  #transport {
+    flex-wrap: wrap;
+  }
+
+  #slider-container {
+    flex-basis: 100%;
+    order: 10;
+  }
+
+  #snapshot-jump {
+    width: 3.5rem;
+  }
+
+  #snapshot-counter {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  #game-content {
+    flex-direction: column;
+  }
+
+  #game-left {
+    width: 100%;
+  }
+
+  #game-right {
+    width: 100%;
+  }
+}

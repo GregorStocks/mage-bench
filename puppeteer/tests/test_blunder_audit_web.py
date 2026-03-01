@@ -107,6 +107,16 @@ class TestStaticFiles:
         resp = urlopen(f"http://127.0.0.1:{server_port}/game-renderer.css", timeout=5)
         assert resp.status == 200
 
+    def test_serves_game_viewer_js(self, server_port: int) -> None:
+        resp = urlopen(f"http://127.0.0.1:{server_port}/game-viewer.js", timeout=5)
+        assert resp.status == 200
+        body = resp.read().decode()
+        assert "GameViewer" in body
+
+    def test_serves_game_viewer_css(self, server_port: int) -> None:
+        resp = urlopen(f"http://127.0.0.1:{server_port}/game-viewer.css", timeout=5)
+        assert resp.status == 200
+
 
 class TestHostnameConfig:
     def test_reads_hostname(self, _temp_config: Path, _temp_ground_truth: Path) -> None:
