@@ -738,12 +738,9 @@
       var cardAttachments = obj && obj.id ? (attachments[obj.id] || []) : [];
 
       if (cardAttachments.length > 0) {
-        // Render card + attachments as a vertical group
+        // Render attachments first (peek name at top), then main card on top
         var group = document.createElement("div");
         group.className = "card-with-attachments";
-        var el = makeCardThumbnail(name, obj, cardImages, tapped, previewEls);
-        applyDiffClasses(el, name);
-        group.appendChild(el);
         cardAttachments.forEach(function (att) {
           var attName = att.name || "Unknown";
           var attEl = makeCardThumbnail(attName, att, cardImages, !!att.tapped, previewEls);
@@ -751,6 +748,10 @@
           applyDiffClasses(attEl, attName);
           group.appendChild(attEl);
         });
+        var el = makeCardThumbnail(name, obj, cardImages, tapped, previewEls);
+        el.classList.add("main-card");
+        applyDiffClasses(el, name);
+        group.appendChild(el);
         container.appendChild(group);
       } else {
         var el = makeCardThumbnail(name, obj, cardImages, tapped, previewEls);

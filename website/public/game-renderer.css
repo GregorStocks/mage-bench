@@ -441,7 +441,7 @@
 }
 
 .land-stack-group .card-thumb + .card-thumb {
-  margin-top: -92px;
+  margin-top: -98px;
 }
 
 .land-stack-group .card-thumb:hover {
@@ -452,18 +452,17 @@
   margin-top: 0;
 }
 
-/* Tapped lands in stacks: keep same vertical overlap, override rotation margins */
+/* Tapped lands in stacks: zero out rotation margins (but NOT margin-top, which is
+   set by the + .card-thumb overlap rule above) */
 .land-stack-group .card-thumb.tapped {
   margin-left: 0;
   margin-right: 0;
+  margin-bottom: 0;
 }
 
-.land-stack-group .card-thumb.tapped + .card-thumb {
-  margin-top: -72px;
-}
-
-.land-stack-group .card-thumb.tapped:first-child {
-  margin-top: 0;
+/* Ensure tapped cards still get the stack overlap (higher specificity than .tapped base rule) */
+.land-stack-group .card-thumb + .card-thumb.tapped {
+  margin-top: -98px;
 }
 
 /* Battlefield separator between creatures and artifacts/enchantments */
@@ -475,7 +474,7 @@
   flex-shrink: 0;
 }
 
-/* Card with attachments (aura/equipment physically behind main card, peeking out) */
+/* Card with attachments (aura/equipment behind main card, name peeking out at top) */
 .card-with-attachments {
   display: flex;
   flex-direction: column;
@@ -483,16 +482,22 @@
   position: relative;
 }
 
-.card-with-attachments > .card-thumb:first-child {
+/* Main card (last child) sits on top, overlapping attachments */
+.card-with-attachments .main-card {
   z-index: 2;
   position: relative;
+  margin-top: -98px;
 }
 
+/* Attachment cards (before main card) — name line peeks out at top */
 .card-with-attachments .attachment-card {
-  /* Same size as main card — slides behind it with only bottom edge visible */
-  margin-top: -96px;
   position: relative;
   z-index: 1;
+}
+
+/* Multiple attachments overlap each other too */
+.card-with-attachments .attachment-card + .attachment-card {
+  margin-top: -98px;
 }
 
 .card-with-attachments .attachment-card:hover {
