@@ -1,0 +1,10 @@
+{
+  "title": "Simplify choose_action params to reduce nonsensical LLM parameter combinations",
+  "description": "LLMs struggle with mutually-exclusive fields. choose_action currently has separate `index`, `id`, and `answer` params that are context-dependent (use `index` for abilities, `id` for permanents, `answer` for booleans). Models like o3 send ALL params every call (index=0, id=p1, answer=false, amount=0) forcing the bridge to guess intent and the analysis pipeline to reconcile conflicts.\n\nProposed direction: merge `index` and `id` into a single string field (e.g. `choice`) that accepts either an integer string or a permanent ID. The bridge already does this disambiguation internally — surface it in the API so models can't send conflicting values.\n\nSimilar simplifications to audit:\n- `answer` (boolean) vs `index`/`id` (selection) — could these be a single field where 'yes'/'no' are valid values alongside IDs?\n- `mana_plan` array of IDs — could this accept a comma-separated string instead of requiring JSON array construction?\n- `attackers`/`blockers` arrays — same pattern\n\nThe goal is fewer fields with less opportunity for nonsensical combinations, even if the resulting API is less \"clean\" from a traditional design perspective. LLMs work better with fewer, more flexible fields than with many typed, mutually-exclusive ones.\n\nNote: this would require a harness epoch bump since it changes tool semantics.",
+  "status": "open",
+  "priority": 3,
+  "type": "task",
+  "labels": ["bridge"],
+  "created_at": "2026-03-01T12:00:00.000000-08:00",
+  "updated_at": "2026-03-01T12:00:00.000000-08:00"
+}
