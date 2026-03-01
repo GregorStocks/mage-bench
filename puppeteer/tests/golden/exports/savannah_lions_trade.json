@@ -2140,18 +2140,6 @@
       "type": "tool_call"
     },
     {
-      "args": {},
-      "player": "Opponent",
-      "result": {
-        "cursor": 0,
-        "event_count": 0,
-        "history": "No game events recorded yet."
-      },
-      "seq": 12,
-      "tool": "get_game_history",
-      "type": "tool_call"
-    },
-    {
       "args": {
         "attackers": [
           "all"
@@ -2518,7 +2506,7 @@
       "deckName": "savannah_lions",
       "name": "Opponent",
       "toolCallsFailed": 1,
-      "toolCallsOk": 10,
+      "toolCallsOk": 9,
       "tools": [
         "get_game_log",
         "get_game_history",

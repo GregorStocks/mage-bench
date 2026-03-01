@@ -40,6 +40,7 @@ async def execute_replay_script(
     script: list[dict],
     system_prompt: str,
     game_log: GameLogWriter | None = None,
+    skip_history: bool = False,
 ) -> list[dict]:
     """Execute a replay script and return the captured prompt messages.
 
@@ -108,33 +109,34 @@ async def execute_replay_script(
         except (json.JSONDecodeError, TypeError):
             pass
 
-    history_result = await call_tool("get_game_history", {})
-    if game_log:
-        game_log.emit("tool_call", tool="get_game_history", arguments={}, result=history_result)
-    history_call_id = f"call_{len(script) + 1}"
-    history.append(
-        {
-            "role": "assistant",
-            "content": None,
-            "tool_calls": [
-                {
-                    "id": history_call_id,
-                    "type": "function",
-                    "function": {
-                        "name": "get_game_history",
-                        "arguments": json.dumps({}),
-                    },
-                }
-            ],
-        }
-    )
-    history.append(
-        {
-            "role": "tool",
-            "tool_call_id": history_call_id,
-            "content": history_result,
-        }
-    )
+    if not skip_history:
+        history_result = await call_tool("get_game_history", {})
+        if game_log:
+            game_log.emit("tool_call", tool="get_game_history", arguments={}, result=history_result)
+        history_call_id = f"call_{len(script) + 1}"
+        history.append(
+            {
+                "role": "assistant",
+                "content": None,
+                "tool_calls": [
+                    {
+                        "id": history_call_id,
+                        "type": "function",
+                        "function": {
+                            "name": "get_game_history",
+                            "arguments": json.dumps({}),
+                        },
+                    }
+                ],
+            }
+        )
+        history.append(
+            {
+                "role": "tool",
+                "tool_call_id": history_call_id,
+                "content": history_result,
+            }
+        )
 
     return _render_context(history, system_prompt, state_summary="")
 
@@ -148,6 +150,7 @@ async def run_replay(
     script: list[dict] | None = None,
     game_dir: Path | None = None,
     table_id: str | None = None,
+    skip_history: bool = False,
 ) -> list[dict]:
     """Run the replay pilot.
 
@@ -211,7 +214,7 @@ async def run_replay(
                 return await execute_tool(session, name, arguments)
 
             script = script or []
-            prompt = await execute_replay_script(call_tool, script, system_prompt, game_log)
+            prompt = await execute_replay_script(call_tool, script, system_prompt, game_log, skip_history=skip_history)
 
             # Write prompt to file
             if game_dir:
@@ -243,6 +246,8 @@ def main() -> int:
     parser.add_argument("--script", type=Path, help="Path to script JSON file")
     parser.add_argument("--game-dir", type=Path, help="Game log directory")
     parser.add_argument("--table-id", help="UUID of the specific table to join")
+    parser.add_argument("--skip-history", action="store_true",
+                        help="Skip the post-script get_game_history call")
     args = parser.parse_args()
 
     # Determine project root
@@ -271,6 +276,7 @@ def main() -> int:
                 script=script,
                 game_dir=args.game_dir,
                 table_id=args.table_id,
+                skip_history=args.skip_history,
             )
         )
     except KeyboardInterrupt:
