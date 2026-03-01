@@ -349,6 +349,14 @@ def _chosen_display(
 ) -> str:
     """Format what was chosen for display."""
     if chosen is None:
+        # Batch attack/block declarations store the response in chosen_args,
+        # not in chosen.  Render them instead of "(no response)".
+        attackers = chosen_args.get("attackers")
+        if attackers:
+            return _batch_attack_display(attackers, choices)
+        blockers = chosen_args.get("blockers")
+        if blockers:
+            return _batch_block_display(blockers, choices)
         return "(no response)"
     if isinstance(chosen, bool):
         return str(chosen)
@@ -358,6 +366,38 @@ def _chosen_display(
             return str(c.get("name") or c.get("description") or chosen)
         return str(c)
     return str(chosen)
+
+
+def _batch_attack_display(attackers: list, choices: list) -> str:
+    """Render a batch attack declaration for display."""
+    if attackers == ["all"]:
+        # Resolve names from choices (exclude the "All attack" special entry)
+        names = [c.get("name", str(c)) for c in choices if isinstance(c, dict) and c.get("id") != "all"]
+        if names:
+            return f"Attack with all ({', '.join(names)})"
+        return "Attack with all creatures"
+    # Resolve individual attacker IDs to names
+    choice_by_id = {c["id"]: c.get("name", c["id"]) for c in choices if isinstance(c, dict) and "id" in c}
+    names = [choice_by_id.get(a, a) for a in attackers]
+    return f"Attack with {', '.join(names)}"
+
+
+def _batch_block_display(blockers: list, choices: list) -> str:
+    """Render a batch block declaration for display."""
+    if not blockers:
+        return "No blocks"
+    # blockers are "blocker_id:attacker_id" strings
+    choice_by_id = {c["id"]: c.get("name", c["id"]) for c in choices if isinstance(c, dict) and "id" in c}
+    parts = []
+    for entry in blockers:
+        if ":" in entry:
+            blocker_id, attacker_id = entry.split(":", 1)
+            blocker_name = choice_by_id.get(blocker_id, blocker_id)
+            attacker_name = choice_by_id.get(attacker_id, attacker_id)
+            parts.append(f"{blocker_name} blocks {attacker_name}")
+        else:
+            parts.append(choice_by_id.get(entry, entry))
+    return ", ".join(parts)
 
 
 def _render_card_reference(

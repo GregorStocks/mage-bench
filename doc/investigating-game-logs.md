@@ -178,6 +178,27 @@ grep "Unknown tool:" "$GAME_DIR"/*_errors.log
 grep -c "Unknown tool:" "$GAME_DIR"/*_errors.log
 ```
 
+## Verifying blunder annotations against decisions
+
+Batch attack/block decisions have `chosen=None` (the actual data is in `chosenArgs`).
+The blunder LLM may misinterpret these as timeouts. Verify annotations against decisions:
+
+```python
+# Check which batch decisions generated false-positive annotations
+import json
+from scripts.analysis.blunder_eval_common import compute_aftermath_index
+
+with open('website/public/games/GAME_ID.json') as f:
+    data = json.load(f)
+
+for d in data['decisions']:
+    if d.get('chosen') is None and d.get('chosenArgs', {}).get('attackers'):
+        aft = compute_aftermath_index(d, data['snapshots'])
+        has_ann = any(a['snapshotIndex'] == aft for a in data.get('annotations', []))
+        if has_ann:
+            print(f"Decision {d['index']}: batch_attack {d['chosenArgs']} -> FALSE POSITIVE annotation at snapshot {aft}")
+```
+
 ## Tracing auto-mana payment sequences
 
 ```bash

@@ -104,7 +104,9 @@ MAX_WORKERS = 50
 # v27: fix is_forced false positives — boolean questions and single-choice
 #      selects with pass option are no longer skipped
 # v28: add deck archetype/strategy context to game overview when available
-BLUNDER_SCRIPT_VERSION = 28
+# v29: fix batch attack/block decisions rendering as "(no response)" — now shows
+#      actual attackers/blockers from chosenArgs (eliminates false-positive annotations)
+BLUNDER_SCRIPT_VERSION = 29
 
 # --- Prompt components ---
 
