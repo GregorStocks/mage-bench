@@ -12,7 +12,8 @@ clean:
 
 .PHONY: lint
 lint:
-	uv run python scripts/lint-issues.py
+	uv run python scripts/checks/lint_issues.py
+	uv run python scripts/checks/lint_scripts_are_python.py
 	uv run --project puppeteer ruff check puppeteer/ scripts/
 
 .PHONY: lint-fix
@@ -45,7 +46,7 @@ test-e2e:
 
 .PHONY: check
 check:
-	@scripts/quiet-check.sh $(if $(VERBOSE),-v)
+	@uv run python scripts/checks/quiet_check.py $(if $(VERBOSE),-v)
 	@touch tmp/.check-passed
 
 .PHONY: test-golden

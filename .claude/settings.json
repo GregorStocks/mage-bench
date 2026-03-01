@@ -61,7 +61,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/install-cloud-deps.sh\"",
+            "command": "uv run python \"$CLAUDE_PROJECT_DIR/scripts/install-cloud-deps.py\"",
             "timeout": 120
           }
         ]
