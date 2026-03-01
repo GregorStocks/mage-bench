@@ -645,6 +645,9 @@ if (fs.existsSync(exportsDir)) {
 
   <!-- Model Stats logic (same as old model-stats.astro) -->
   <script>
+    // Models with known-unreliable cached_tokens data (upstream API bug)
+    const UNRELIABLE_CACHE_MODELS = new Set(['x-ai/grok-4.1-fast']);
+
     const rawData = JSON.parse(document.getElementById('model-stats-data')!.textContent!);
     const models = rawData.models as Record<string, any>;
     const minEpochInput = document.getElementById('min-epoch') as HTMLInputElement;
