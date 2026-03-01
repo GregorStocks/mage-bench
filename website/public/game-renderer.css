@@ -428,12 +428,12 @@
   margin-top: 4px;
   padding-top: 4px;
   border-top: 1px dashed rgba(255, 255, 255, 0.06);
+  min-height: 150px; /* 145px base + 4px padding-top + 1px border-top */
 }
 
 /* Hide separator when land row is empty */
 .battlefield-zone .land-row:empty {
   border-top: none;
-  margin-top: 0;
   padding-top: 0;
 }
 
