@@ -1,0 +1,10 @@
+{
+  "title": "Add a lint check that all our scripts are Python, not Bash",
+  "description": "We should have a lint check that verifies all scripts in scripts/ are Python, not Bash. scripts/quiet-check.sh is the one exception (it wraps make targets). Everything else should be Python for consistency and maintainability.",
+  "status": "open",
+  "priority": 4,
+  "type": "task",
+  "labels": ["lint"],
+  "created_at": "2026-03-01T12:00:00.000000-08:00",
+  "updated_at": "2026-03-01T12:00:00.000000-08:00"
+}
