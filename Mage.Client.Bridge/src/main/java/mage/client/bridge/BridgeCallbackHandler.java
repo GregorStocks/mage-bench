@@ -1511,7 +1511,7 @@ public class BridgeCallbackHandler {
             long waitStart = System.currentTimeMillis();
             synchronized (actionLock) {
                 while ((action = pendingAction) == null) {
-                    if (playerDead || (activeGames.isEmpty() && gameEverStarted)) {
+                    if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                         break;
                     }
                     if (System.currentTimeMillis() - waitStart > 10_000) {
@@ -2024,7 +2024,7 @@ public class BridgeCallbackHandler {
         if (Boolean.TRUE.equals(result.get("success"))) {
             long waitStart = System.currentTimeMillis();
             while (pendingAction == null) {
-                if (playerDead || (activeGames.isEmpty() && gameEverStarted)) {
+                if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                     break;
                 }
                 if (System.currentTimeMillis() - waitStart > STALL_NUDGE_MS) {
@@ -2069,7 +2069,7 @@ public class BridgeCallbackHandler {
             if (next != null) {
                 return next;
             }
-            if (playerDead || (activeGames.isEmpty() && gameEverStarted)) {
+            if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 return null;
             }
             if (System.currentTimeMillis() - waitStart > 10_000) {
@@ -2400,7 +2400,7 @@ public class BridgeCallbackHandler {
     private void waitForNextActionAfterBatch(Map<String, Object> result) {
         long waitStart = System.currentTimeMillis();
         while (pendingAction == null) {
-            if (playerDead || (activeGames.isEmpty() && gameEverStarted)) {
+            if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 break;
             }
             if (System.currentTimeMillis() - waitStart > STALL_NUDGE_MS) {
@@ -3396,7 +3396,7 @@ public class BridgeCallbackHandler {
             }
 
             // Game over bail-out: don't block forever if the game ended
-            if (playerDead || (activeGames.isEmpty() && gameEverStarted)) {
+            if (playerDead || (activeGames.isEmpty() && gameEverStarted) || !client.isRunning()) {
                 long elapsed = System.currentTimeMillis() - startTime;
                 logger.info("[" + client.getUsername() + "] passPriority EXIT game_over:"
                     + " elapsed=" + elapsed + "ms"
@@ -5372,6 +5372,9 @@ public class BridgeCallbackHandler {
         // session.getBridgeEvents() after client.stop() — hanging on a dead
         // connection and deadlocking the replay subprocess.
         UUID playerId = activeGames.remove(gameId);
+        synchronized (actionLock) {
+            actionLock.notifyAll();
+        }
 
         // Pull bridge events one last time — the playerId we just removed
         // is still valid for the RPC.  After this, the server GameController
