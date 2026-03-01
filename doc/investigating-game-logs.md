@@ -221,6 +221,31 @@ for d in data['decisions']:
             print(f"Decision {d['index']}: batch_attack {d['chosenArgs']} -> FALSE POSITIVE annotation at snapshot {aft}")
 ```
 
+## Verifying `chosen` field accuracy (id vs index conflicts)
+
+When a model sends both `id` and `index` in `choose_action`, the bridge prefers `id`
+but the decisions export's `chosen` field may reflect the raw `index`. This can cause
+false blunder annotations (e.g., "targeted self" when the target was actually the opponent).
+
+```python
+# Find decisions where action_taken disagrees with chosen
+import json
+with open('website/public/games/GAME_ID.json') as f:
+    data = json.load(f)
+
+for d in data['decisions']:
+    chosen = d.get('chosen')
+    taken = d.get('actionResult', {}).get('action_taken', '')
+    if isinstance(chosen, int) and taken.startswith('selected_target_'):
+        actual = int(taken.split('_')[-1])
+        if chosen != actual:
+            print(f"Decision {d['index']}: chosen={chosen} but action_taken={taken}")
+            print(f"  choices[{chosen}]={d['choices'][chosen].get('name')}")
+            print(f"  choices[{actual}]={d['choices'][actual].get('name')}")
+```
+
+Also check `actionResult.warning` for "Both id and index provided" messages.
+
 ## Tracing auto-mana payment sequences
 
 ```bash
