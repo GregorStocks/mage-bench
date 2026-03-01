@@ -1105,7 +1105,7 @@
       "actionType": "GAME_CHOOSE_PILE",
       "choiceCount": 0,
       "choices": [],
-      "chosen": null,
+      "chosen": 1,
       "chosenArgs": {
         "pile": 1
       },
@@ -1140,7 +1140,7 @@
     "seq": 103
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 32,
+  "harnessEpoch": 33,
   "llmEvents": [
     {
       "availableTools": [
