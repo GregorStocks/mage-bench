@@ -482,6 +482,7 @@ body {
   // -- Data loading --
 
   function loadPlays() {
+    playListEl.innerHTML = '<div style="padding:1rem;color:var(--text-dim);text-align:center"><span class="spinner"></span> Loading plays...</div>';
     fetch("/api/plays")
       .then(function(r) { return r.json(); })
       .then(function(plays) {
@@ -578,12 +579,14 @@ body {
       info.className = "play-info";
       var playerSpan = document.createElement("span");
       playerSpan.className = "play-player";
-      playerSpan.textContent = play.player || "?";
+      playerSpan.textContent = play.player || ("Decision #" + play.decision_index);
       info.appendChild(playerSpan);
-      var turnSpan = document.createElement("span");
-      turnSpan.className = "play-turn";
-      turnSpan.textContent = " T" + (play.turn || "?");
-      info.appendChild(turnSpan);
+      if (play.turn) {
+        var turnSpan = document.createElement("span");
+        turnSpan.className = "play-turn";
+        turnSpan.textContent = " T" + play.turn;
+        info.appendChild(turnSpan);
+      }
       if (play.message) {
         var msgDiv = document.createElement("div");
         msgDiv.className = "play-message";
@@ -612,6 +615,37 @@ body {
     if (sel) sel.scrollIntoView({ block: "nearest" });
   }
 
+  function updateSelectedRow(play) {
+    var sel = playListEl.querySelector(".play-row.selected");
+    if (!sel) return;
+    var info = sel.querySelector(".play-info");
+    if (!info) return;
+    // Update player name
+    var playerSpan = info.querySelector(".play-player");
+    if (playerSpan && play.player) playerSpan.textContent = play.player;
+    // Update turn
+    var turnSpan = info.querySelector(".play-turn");
+    if (!turnSpan && play.turn) {
+      turnSpan = document.createElement("span");
+      turnSpan.className = "play-turn";
+      info.insertBefore(turnSpan, info.querySelector(".play-message"));
+    }
+    if (turnSpan && play.turn) turnSpan.textContent = " T" + play.turn;
+    // Update message
+    var msgDiv = info.querySelector(".play-message");
+    if (!msgDiv && play.message) {
+      msgDiv = document.createElement("div");
+      msgDiv.className = "play-message";
+      info.appendChild(msgDiv);
+    }
+    if (msgDiv && play.message) msgDiv.textContent = play.message;
+    // Update severity badge
+    var badge = sel.querySelector(".sev-badge");
+    if (badge && play.annotation_severity) {
+      badge.className = "sev-badge " + sevClass(play.annotation_severity);
+    }
+  }
+
   // -- Play selection --
 
   function showEmpty() {
@@ -634,7 +668,14 @@ body {
       .then(function(r) { return r.json(); })
       .then(function(detail) {
         currentDetail = detail;
+        // Enrich sidebar entry with detail data for future renders
+        play.player = detail.player;
+        play.turn = detail.turn;
+        play.message = detail.message;
+        play.annotation_severity = play.annotation_severity || (detail.annotation && detail.annotation.severity);
         renderDetail(detail);
+        // Re-render just the selected row to show enriched data
+        updateSelectedRow(play);
       })
       .catch(function(e) {
         verdictStatus.textContent = "Error: " + e.message;

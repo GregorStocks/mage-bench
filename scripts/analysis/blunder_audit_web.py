@@ -106,41 +106,14 @@ def _recent_actions_before(
 
 
 def _build_play_summary(game_id: str, entry: dict) -> dict:
-    """Build a lightweight play summary for the play list."""
-    result: dict = {
+    """Build a lightweight play summary from ground truth only (no game file I/O)."""
+    return {
         "game_id": game_id,
         "decision_index": entry["decision_index"],
         "verdict": entry.get("verdict"),
         "human_notes": entry.get("human_notes"),
         "annotation_severity": entry.get("annotation_severity"),
     }
-
-    try:
-        game_data = _load_game_cached(game_id)
-        decisions = _load_decisions_cached(game_id)
-        decision = _find_decision(decisions, entry["decision_index"])
-        snapshots = game_data.get("snapshots", [])
-
-        result["player"] = decision.get("player", "?")
-        result["turn"] = decision.get("turn", "?")
-        result["phase"] = decision.get("phase", "?")
-        result["message"] = decision.get("message", "?")
-        result["chosen"] = chosen_display(decision)
-
-        # Get annotation from game file if not in ground truth
-        if not result["annotation_severity"]:
-            ann = lookup_annotation_for_decision(
-                decision, game_data.get("annotations", []), snapshots
-            )
-            if ann:
-                result["annotation_severity"] = ann.get("severity")
-
-    except Exception:
-        result.setdefault("player", "?")
-        result.setdefault("turn", "?")
-        result.setdefault("phase", "?")
-
-    return result
 
 
 def _build_play_detail(game_id: str, di: int) -> dict:
