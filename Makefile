@@ -187,6 +187,10 @@ blunder-seed:
 blunder-audit:
 	uv run --project puppeteer python scripts/analysis/blunder_audit.py $(ARGS)
 
+.PHONY: blunder-audit-web
+blunder-audit-web:
+	uv run --project puppeteer python scripts/analysis/blunder_audit_web.py $(ARGS)
+
 .PHONY: blunder-baseline
 blunder-baseline:
 	uv run --project puppeteer python scripts/analysis/blunder_baseline.py
