@@ -1533,8 +1533,7 @@ public class BridgeCallbackHandler {
         if (interactionsThisTurn > maxInteractionsPerTurn) {
             logger.warn("[" + client.getUsername() + "] Loop detected (" + interactionsThisTurn
                 + " interactions this turn), auto-handling " + action.method().name());
-            logError("Loop detected (" + interactionsThisTurn
-                + " interactions this turn), auto-handling " + action.method().name());
+            // Not a critical error — LLM is stuck in a loop, not a code bug
             executeDefaultAction();
             result.put("success", true);
             result.put("action_taken", "auto_passed_loop_detected");
@@ -2002,7 +2001,7 @@ public class BridgeCallbackHandler {
         } finally {
             lastChoices = null;
             if (Boolean.FALSE.equals(result.get("success"))) {
-                logError("choose_action failed: " + result.get("error"));
+                logger.warn("[" + client.getUsername() + "] choose_action failed: " + result.get("error"));
             }
         }
 
@@ -3093,8 +3092,7 @@ public class BridgeCallbackHandler {
                 if (interactionsThisTurn > maxInteractionsPerTurn) {
                     logger.warn("[" + client.getUsername() + "] Loop detected (" + interactionsThisTurn
                         + " interactions on turn " + lastTurnNumber + "), auto-passing " + method.name());
-                    logError("Loop detected (" + interactionsThisTurn
-                        + " interactions on turn " + lastTurnNumber + "), auto-passing " + method.name());
+                    // Not a critical error — LLM is stuck in a loop, not a code bug
                     executeDefaultAction();
                     actionsPassed++;
                     continue;

@@ -89,13 +89,19 @@ async def test_exception_counts_as_error():
 
 
 @pytest.mark.asyncio
-async def test_logs_errors_to_file(tmp_path: Path):
+async def test_logs_errors_as_warnings(tmp_path: Path, caplog):
+    """Auto-pass errors are logged as warnings, not written to the error log file.
+
+    These are LLM degradation issues, not code bugs, so they shouldn't surface
+    as critical errors on the website.
+    """
     max_errors = 2
     responses = [json.dumps({"error": "broken"})] * (max_errors + 1)
     session = _make_session(responses)
     await auto_pass_loop(session, tmp_path, "player1", "test", max_consecutive_errors=max_errors)
+    # Should NOT write to the error log file
     error_log = tmp_path / "player1_errors.log"
-    assert error_log.exists()
-    content = error_log.read_text()
-    assert "Auto-pass error: broken" in content
-    assert "Too many consecutive errors" in content
+    assert not error_log.exists()
+    # Should appear in log output as warnings
+    assert "Auto-pass error: broken" in caplog.text
+    assert "Too many consecutive errors" in caplog.text

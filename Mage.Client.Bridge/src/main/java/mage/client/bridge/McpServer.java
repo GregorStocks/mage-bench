@@ -147,7 +147,7 @@ public class McpServer {
                 Object result = handleRequest(method, params);
                 response.put("result", result);
             } catch (Exception e) {
-                client.getCallbackHandler().logError("MCP request failed (" + method + "): " + e.getMessage());
+                logger.warn("[" + client.getUsername() + "] MCP request failed (" + method + "): " + e.getMessage());
                 response.put("error", Map.of("code", -32603, "message", e.getMessage()));
             }
 

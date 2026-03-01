@@ -12,7 +12,7 @@ from pathlib import Path
 
 from mcp import ClientSession
 
-from puppeteer.log import get_logger, log_error
+from puppeteer.log import get_logger
 
 logger = get_logger(__name__)
 
@@ -54,38 +54,18 @@ async def auto_pass_loop(
                 return
             if "error" in result_data:
                 consecutive_errors += 1
-                log_error(
-                    logger,
-                    game_dir,
-                    username,
-                    f"[{label}] Auto-pass error: {result_data['error']}",
-                )
+                logger.warning("[%s] Auto-pass error: %s", label, result_data["error"])
                 if consecutive_errors >= max_consecutive_errors:
-                    log_error(
-                        logger,
-                        game_dir,
-                        username,
-                        f"[{label}] Too many consecutive errors, exiting",
-                    )
+                    logger.warning("[%s] Too many consecutive errors, exiting", label)
                     return
                 await asyncio.sleep(5)
             else:
                 consecutive_errors = 0
         except Exception as pass_err:
             consecutive_errors += 1
-            log_error(logger, game_dir, username, f"[{label}] Auto-pass exception: {pass_err}")
+            logger.warning("[%s] Auto-pass exception: %s", label, pass_err)
             if consecutive_errors >= max_consecutive_errors:
-                log_error(
-                    logger,
-                    game_dir,
-                    username,
-                    f"[{label}] Too many consecutive errors, exiting",
-                )
+                logger.warning("[%s] Too many consecutive errors, exiting", label)
                 return
             await asyncio.sleep(5)
-    log_error(
-        logger,
-        game_dir,
-        username,
-        f"[{label}] Auto-pass loop reached max iterations, exiting",
-    )
+    logger.warning("[%s] Auto-pass loop reached max iterations, exiting", label)

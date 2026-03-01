@@ -657,7 +657,7 @@ async def run_pilot_loop(
 
     while True:
         if time.monotonic() - game_start > MAX_GAME_DURATION_SECS:
-            log_error(logger, game_dir, username, "[pilot] Maximum game duration exceeded, switching to auto-pass")
+            logger.warning("[pilot] Maximum game duration exceeded, switching to auto-pass")
             if game_log:
                 game_log.emit("auto_pilot_mode", reason="max_duration_exceeded")
             await auto_pass_loop(session, game_dir, username, "pilot")
@@ -720,12 +720,12 @@ async def run_pilot_loop(
             if choice.finish_reason == "length":
                 consecutive_truncations += 1
                 tokens_used = (response.usage.completion_tokens or 0) if response.usage else "?"
-                log_error(
-                    logger,
-                    game_dir,
-                    username,
-                    f"[pilot] OUTPUT TRUNCATED: finish_reason=length, completion_tokens={tokens_used}/{MAX_TOKENS}. "
-                    f"Model hit max_tokens cap before producing a tool call. [{consecutive_truncations}]",
+                logger.warning(
+                    "[pilot] OUTPUT TRUNCATED: finish_reason=length, completion_tokens=%s/%s. "
+                    "Model hit max_tokens cap before producing a tool call. [%d]",
+                    tokens_used,
+                    MAX_TOKENS,
+                    consecutive_truncations,
                 )
                 if consecutive_truncations >= MAX_CONSECUTIVE_TRUNCATIONS:
                     logger.warning("[pilot] Repeated truncations, resetting conversation context")
@@ -904,12 +904,7 @@ async def run_pilot_loop(
                             turn_had_successful_action = True
                             turns_without_progress = 0
                         else:
-                            log_error(
-                                logger,
-                                game_dir,
-                                username,
-                                f"[pilot] Action failed: {result_data.get('error', '')}",
-                            )
+                            logger.warning("[pilot] Action failed: %s", result_data.get("error", ""))
                             turn_had_actionable_opportunity = True
                     elif fn.name == "get_action_choices":
                         result_data = json.loads(result_text)
@@ -1031,19 +1026,9 @@ async def run_pilot_loop(
                 else:
                     last_was_empty = False
                     empty_responses += 1
-                    log_error(
-                        logger,
-                        game_dir,
-                        username,
-                        f"[pilot] Empty response from LLM (no tools, no text) [{empty_responses}]",
-                    )
+                    logger.warning("[pilot] Empty response from LLM (no tools, no text) [%d]", empty_responses)
                     if empty_responses >= 10:
-                        log_error(
-                            logger,
-                            game_dir,
-                            username,
-                            "[pilot] LLM appears degraded (no tools or text), switching to auto-pass mode",
-                        )
+                        logger.warning("[pilot] LLM appears degraded (no tools or text), switching to auto-pass mode")
                         if game_log:
                             game_log.emit("auto_pilot_mode", reason="LLM degraded (10+ empty responses)")
                         try:
@@ -1067,12 +1052,10 @@ async def run_pilot_loop(
             # until something interesting happens (new turn, new cards, etc.)
             if turns_without_progress >= MAX_TURNS_WITHOUT_PROGRESS:
                 last_tools = sorted(turn_tools_called) if choice.message.tool_calls and turn_tools_called else []
-                log_error(
-                    logger,
-                    game_dir,
-                    username,
-                    f"[pilot] Stalled: {turns_without_progress} turns without progress, "
-                    f"last tools: {last_tools or 'none'}, auto-passing until next event",
+                logger.warning(
+                    "[pilot] Stalled: %d turns without progress, last tools: %s, auto-passing until next event",
+                    turns_without_progress,
+                    last_tools or "none",
                 )
                 if game_log:
                     game_log.emit(
@@ -1113,11 +1096,10 @@ async def run_pilot_loop(
 
         except asyncio.TimeoutError:
             consecutive_timeouts += 1
-            log_error(
-                logger,
-                game_dir,
-                username,
-                f"[pilot] LLM request timed out after {LLM_REQUEST_TIMEOUT_SECS}s [{consecutive_timeouts}]",
+            logger.warning(
+                "[pilot] LLM request timed out after %ss [%d]",
+                LLM_REQUEST_TIMEOUT_SECS,
+                consecutive_timeouts,
             )
             if game_log:
                 game_log.emit(
@@ -1155,7 +1137,7 @@ async def run_pilot_loop(
         except Exception as e:
             consecutive_timeouts = 0
             error_str = str(e)
-            log_error(logger, game_dir, username, f"[pilot] LLM error: {e}")
+            logger.warning("[pilot] LLM error: %s", e)
             if game_log:
                 game_log.emit("llm_error", error_type=type(e).__name__, error_message=error_str[:500])
 
@@ -1165,7 +1147,7 @@ async def run_pilot_loop(
             if any(code in error_str for code in permanent_codes):
                 is_not_found = "404" in error_str and "401" not in error_str
                 reason = "Model not found" if is_not_found else "Credits exhausted"
-                log_error(logger, game_dir, username, f"[pilot] {reason}, aborting")
+                logger.warning("[pilot] %s, aborting", reason)
                 if game_log:
                     game_log.emit("permanent_llm_failure", reason=reason)
                 try:
