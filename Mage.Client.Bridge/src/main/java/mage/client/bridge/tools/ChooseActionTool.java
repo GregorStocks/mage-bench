@@ -40,7 +40,12 @@ public class ChooseActionTool {
             @Tool.Field(name = "next_action_message", type = "string",
                 description = "Human-readable message describing the follow-up action (e.g. the question text for GAME_ASK)"),
             @Tool.Field(name = "next_action_hint", type = "string",
-                description = "Hint for handling the follow-up action: call get_action_choices/choose_action for details, or pass_priority to continue")
+                description = "Hint for handling the follow-up action: call get_action_choices/choose_action for details, or pass_priority to continue"),
+            @Tool.Field(name = "choices", type = "array[object]",
+                description = "Available choices (attached to error responses so the model can self-correct without a separate get_action_choices call)"),
+            @Tool.Field(name = "player_dead", type = "boolean", description = "Whether you died"),
+            @Tool.Field(name = "game_over", type = "boolean", description = "Whether the game ended"),
+            @Tool.Field(name = "recent_chat", type = "array[string]", description = "Chat messages received since last check")
         }
     )
     public static Map<String, Object> execute(
