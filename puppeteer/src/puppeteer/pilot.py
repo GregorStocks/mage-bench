@@ -794,7 +794,13 @@ async def run_pilot_loop(
                     if ptd and getattr(ptd, "cached_tokens", None):
                         usage_dict["cached_tokens"] = ptd.cached_tokens
                         total_prompt = response.usage.prompt_tokens or 0
-                        if total_prompt > 0:
+                        if ptd.cached_tokens > total_prompt > 0:
+                            logger.warning(
+                                "[pilot] cached_tokens (%d) > prompt_tokens (%d) — upstream API bug",
+                                ptd.cached_tokens,
+                                total_prompt,
+                            )
+                        elif total_prompt > 0:
                             hit_pct = ptd.cached_tokens / total_prompt * 100
                             logger.debug("[pilot] Cache: %d/%d (%.0f%%)", ptd.cached_tokens, total_prompt, hit_pct)
                     ctd = response.usage.completion_tokens_details
