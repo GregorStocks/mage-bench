@@ -173,7 +173,7 @@ def _load_inactive_statuses(presets_json: Path) -> dict[str, str] | None:
     data = json.loads(presets_json.read_text())
     presets = data.get("presets", {})
     statuses: dict[str, str] = {}
-    for name, preset in presets.items():
+    for preset in presets.values():
         status = preset.get("status", "retired")
         if status == "active":
             continue

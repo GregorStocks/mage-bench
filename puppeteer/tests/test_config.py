@@ -427,8 +427,18 @@ SAMPLE_MODELS_DATA = {
 
 SAMPLE_PRESETS_WITH_POOL = {
     "presets": {
-        "preset-a": {"model": "test/model-a", "status": "active", "reasoning_effort": "medium", "system_prompt": "default"},
-        "preset-b": {"model": "test/model-b", "status": "active", "reasoning_effort": "high", "system_prompt": "default"},
+        "preset-a": {
+            "model": "test/model-a",
+            "status": "active",
+            "reasoning_effort": "medium",
+            "system_prompt": "default",
+        },
+        "preset-b": {
+            "model": "test/model-b",
+            "status": "active",
+            "reasoning_effort": "high",
+            "system_prompt": "default",
+        },
         "preset-c": {"model": "test/model-c", "status": "active", "system_prompt": "default"},
     },
 }

@@ -13,10 +13,7 @@ from itertools import combinations
 from pathlib import Path
 
 from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
-from puppeteer.leaderboard import (
-    compute_openskill_ratings,
-    derive_format,
-)
+from puppeteer.leaderboard import derive_format
 from puppeteer.log import get_logger
 
 logger = get_logger(__name__)
