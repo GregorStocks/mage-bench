@@ -82,12 +82,10 @@ const { slug } = Astro.params;
                 <select id="player-filter" class="hidden" title="Filter by player">
                   <option value="">All players</option>
                 </select>
-                <select id="event-type-filter" class="hidden" title="Filter by event type">
-                  <option value="">All events</option>
-                  <option value="llm">LLM calls only</option>
-                  <option value="game">Game actions only</option>
-                  <option value="chat">Chat only</option>
-                </select>
+                <label class="filter-checkbox hidden"><input type="checkbox" id="filter-llm" checked /> LLM</label>
+                <label class="filter-checkbox hidden"><input type="checkbox" id="filter-game" checked /> Game</label>
+                <label class="filter-checkbox hidden"><input type="checkbox" id="filter-chat" checked /> Chat</label>
+                <label class="filter-checkbox hidden"><input type="checkbox" id="filter-annotations" checked /> Blunders</label>
                 <label id="llm-toggle-label" class="hidden">
                   <input type="checkbox" id="llm-toggle" checked /> Show LLM thinking
                 </label>
@@ -367,7 +365,7 @@ const { slug } = Astro.params;
     flex-wrap: wrap;
   }
 
-  #player-filter, #event-type-filter {
+  #player-filter {
     background: #0f3460;
     color: #e0e0e0;
     border: 1px solid #1a4a8a;
@@ -375,6 +373,18 @@ const { slug } = Astro.params;
     padding: 0.2rem 0.3rem;
     font-size: 0.72rem;
     cursor: pointer;
+  }
+
+  .filter-checkbox {
+    font-size: 0.72rem;
+    color: #888;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .filter-checkbox input {
+    margin-right: 2px;
+    accent-color: #e94560;
   }
 
   #llm-toggle-label {
@@ -459,7 +469,10 @@ const { slug } = Astro.params;
     var isCommander = false;
     var traceByTs = {};  // ts -> trace event lookup (kept for potential future use)
     var filterPlayer = "";  // "" = all players
-    var filterEventType = "";  // "" = all, "llm" = LLM only, "game" = game actions only
+    var filterLlm = true;
+    var filterGame = true;
+    var filterChat = true;
+    var filterAnnotations = true;
     var useSeq = false;  // v2 games: sort by seq instead of ts
 
     // LLM toggle
@@ -477,10 +490,26 @@ const { slug } = Astro.params;
       renderSnapshot(currentIndex);
     });
 
-    // Event type filter
-    var eventTypeFilter = document.getElementById("event-type-filter");
-    eventTypeFilter.addEventListener("change", function () {
-      filterEventType = eventTypeFilter.value;
+    // Event type filter checkboxes
+    var filterLlmEl = document.getElementById("filter-llm");
+    var filterGameEl = document.getElementById("filter-game");
+    var filterChatEl = document.getElementById("filter-chat");
+    var filterAnnotationsEl = document.getElementById("filter-annotations");
+
+    filterLlmEl.addEventListener("change", function () {
+      filterLlm = filterLlmEl.checked;
+      renderSnapshot(currentIndex);
+    });
+    filterGameEl.addEventListener("change", function () {
+      filterGame = filterGameEl.checked;
+      renderSnapshot(currentIndex);
+    });
+    filterChatEl.addEventListener("change", function () {
+      filterChat = filterChatEl.checked;
+      renderSnapshot(currentIndex);
+    });
+    filterAnnotationsEl.addEventListener("change", function () {
+      filterAnnotations = filterAnnotationsEl.checked;
       renderSnapshot(currentIndex);
     });
 
@@ -951,9 +980,9 @@ const { slug } = Astro.params;
       // Build unified timeline: interleave game actions and LLM events
       // v1: sort by ts (timestamp string). v2: sort by seq (game sequence number).
       var timeline = [];
-      var showGameActions = filterEventType === "" || filterEventType === "game";
-      var showChatMessages = filterEventType === "" || filterEventType === "chat";
-      var showLlmEvents = filterEventType === "" || filterEventType === "llm";
+      var showGameActions = filterGame;
+      var showChatMessages = filterChat;
+      var showLlmEvents = filterLlm;
 
       function itemSeq(item) {
         if (item.kind === "action" || item.kind === "chat") return item.data.seq || item.data.gameSeq || 0;
@@ -1017,7 +1046,7 @@ const { slug } = Astro.params;
       timeline.sort(timelineSort);
 
       // Add annotations up to current snapshot (only for "all" and "game" filters)
-      var showAnnotations = filterEventType === "" || filterEventType === "game";
+      var showAnnotations = filterAnnotations;
       if (showAnnotations && game.annotations) {
         game.annotations.forEach(function (ann) {
           if (ann.snapshotIndex <= index) {
@@ -1035,8 +1064,8 @@ const { slug } = Astro.params;
         timeline.sort(timelineSort);
       }
 
-      // Add phase/step transition separators (skip for chat-only mode)
-      if (filterEventType !== "chat") {
+      // Add phase/step transition separators (only when game actions are shown)
+      if (filterGame) {
         phaseTransitions.forEach(function (pt) {
           if (pt.index <= index) {
             timeline.push({
@@ -1204,15 +1233,22 @@ const { slug } = Astro.params;
         // Detect commander format
         isCommander = (game.players || []).some(function (p) { return !!p.commander; });
 
-        // Show LLM toggle and filters if we have LLM events
+        // Show filter checkboxes based on content
         var hasLlm = game.llmEvents && game.llmEvents.length > 0;
         var hasChat = (game.actions && game.actions.some(function (a) { return a.type === "chat"; }))
           || (game.llmEvents && game.llmEvents.some(function (e) { return e.tool === "send_chat_message"; }));
+        var hasAnnotations = game.annotations && game.annotations.length > 0;
         if (hasLlm) {
           llmToggleLabel.classList.remove("hidden");
+          filterLlmEl.parentElement.classList.remove("hidden");
         }
-        if (hasLlm || hasChat) {
-          eventTypeFilter.classList.remove("hidden");
+        // Always show game filter (games always have game actions)
+        filterGameEl.parentElement.classList.remove("hidden");
+        if (hasChat) {
+          filterChatEl.parentElement.classList.remove("hidden");
+        }
+        if (hasAnnotations) {
+          filterAnnotationsEl.parentElement.classList.remove("hidden");
         }
 
         // Populate player filter dropdown
