@@ -12,6 +12,8 @@ sources:
 
 from __future__ import annotations
 
+import json
+
 BASIC_LAND_NAMES = frozenset(
     [
         "Plains",
@@ -368,6 +370,13 @@ def _chosen_display(
     return str(chosen)
 
 
+def _attacker_id(entry: object) -> str:
+    """Extract an attacker ID from either string or dict form."""
+    if isinstance(entry, dict):
+        return str(entry.get("id", entry))
+    return str(entry)
+
+
 def _batch_attack_display(attackers: list, choices: list) -> str:
     """Render a batch attack declaration for display."""
     if attackers == ["all"]:
@@ -376,27 +385,45 @@ def _batch_attack_display(attackers: list, choices: list) -> str:
         if names:
             return f"Attack with all ({', '.join(names)})"
         return "Attack with all creatures"
-    # Resolve individual attacker IDs to names
+    # Resolve individual attacker IDs to names (entries may be strings or dicts)
     choice_by_id = {c["id"]: c.get("name", c["id"]) for c in choices if isinstance(c, dict) and "id" in c}
-    names = [choice_by_id.get(a, a) for a in attackers]
+    names = [choice_by_id.get(_attacker_id(a), _attacker_id(a)) for a in attackers]
     return f"Attack with {', '.join(names)}"
 
 
-def _batch_block_display(blockers: list, choices: list) -> str:
-    """Render a batch block declaration for display."""
+def _batch_block_display(blockers: list | str, choices: list) -> str:
+    """Render a batch block declaration for display.
+
+    Handles three persisted formats:
+    - List of "blocker_id:attacker_id" strings (current)
+    - JSON-encoded string of the above list (legacy)
+    - List of {"id": blocker_id, "blocks": attacker_id} dicts (legacy)
+    """
     if not blockers:
         return "No blocks"
-    # blockers are "blocker_id:attacker_id" strings
+    # Legacy: JSON-encoded string
+    if isinstance(blockers, str):
+        try:
+            blockers = json.loads(blockers)
+        except (json.JSONDecodeError, TypeError):
+            return f"Block ({blockers})"
     choice_by_id = {c["id"]: c.get("name", c["id"]) for c in choices if isinstance(c, dict) and "id" in c}
     parts = []
     for entry in blockers:
-        if ":" in entry:
+        if isinstance(entry, dict):
+            # Legacy dict form: {"id": "p5", "blocks": "p17"}
+            blocker_id = str(entry.get("id", "?"))
+            attacker_id = str(entry.get("blocks", "?"))
+            blocker_name = choice_by_id.get(blocker_id, blocker_id)
+            attacker_name = choice_by_id.get(attacker_id, attacker_id)
+            parts.append(f"{blocker_name} blocks {attacker_name}")
+        elif isinstance(entry, str) and ":" in entry:
             blocker_id, attacker_id = entry.split(":", 1)
             blocker_name = choice_by_id.get(blocker_id, blocker_id)
             attacker_name = choice_by_id.get(attacker_id, attacker_id)
             parts.append(f"{blocker_name} blocks {attacker_name}")
         else:
-            parts.append(choice_by_id.get(entry, entry))
+            parts.append(str(choice_by_id.get(str(entry), str(entry))))
     return ", ".join(parts)
 
 
