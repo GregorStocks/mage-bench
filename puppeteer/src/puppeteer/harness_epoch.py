@@ -41,7 +41,8 @@ games at or above MIN_LEADERBOARD_EPOCH.
 #  29 - Chat nudge: system prompt encourages chatting; pilot injects reminders when silent 2+ turns (Feb 28)
 #  30 - Include next_action_message in choose_action response when next_action_pending=true (Feb 28)
 #  31 - Text-based invalid_choice errors now include valid choices in response (Feb 28)
-HARNESS_EPOCH = 31
+#  32 - Fix client-side yield cancelling pending non-priority actions (GAME_TARGET, etc.) (Feb 28)
+HARNESS_EPOCH = 32
 
 # Minimum epoch for leaderboard inclusion. Games below this are shown
 # in the games list but excluded from ELO ratings.
