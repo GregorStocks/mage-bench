@@ -14,6 +14,7 @@ Requires OPENROUTER_API_KEY environment variable.
 
 import html
 import json
+import logging
 import os
 import re
 import sys
@@ -22,6 +23,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from openai import OpenAI
+
+# Suppress httpx's per-request INFO logging (e.g. "HTTP Request: POST ... 200 OK")
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
