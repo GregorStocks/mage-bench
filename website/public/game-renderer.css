@@ -168,9 +168,10 @@
   min-width: 0;
 }
 
-/* Battlefield minimum height: space for creatures row + lands row */
-.battlefield-zone {
-  min-height: 240px;
+/* Battlefield rows always reserve space for one line of cards so height
+   doesn't jump when lands/creatures appear or disappear */
+.battlefield-zone .cards-row {
+  min-height: 114px;
 }
 
 /* Zones */
@@ -416,6 +417,13 @@
   margin-top: 4px;
   padding-top: 4px;
   border-top: 1px dashed rgba(255, 255, 255, 0.06);
+}
+
+/* Hide separator when land row is empty */
+.battlefield-zone .land-row:empty {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 /* Stacked land card (single) */

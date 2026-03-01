@@ -760,50 +760,43 @@
       }
     }
 
-    // Build non-land row (creatures + other permanents)
-    var nonLandRow = null;
-    if (creatures.length > 0 || otherNonLands.length > 0) {
-      nonLandRow = document.createElement("div");
-      nonLandRow.className = "cards-row cards-grid";
+    // Build non-land row (creatures + other permanents) — always created for stable height
+    var nonLandRow = document.createElement("div");
+    nonLandRow.className = "cards-row cards-grid";
 
-      creatures.forEach(function (card) {
-        renderCardWithAttachments(card, nonLandRow);
+    creatures.forEach(function (card) {
+      renderCardWithAttachments(card, nonLandRow);
+    });
+
+    // Non-creature non-lands (artifacts, enchantments, etc.) — separator + right side
+    if (otherNonLands.length > 0 && creatures.length > 0) {
+      var sep = document.createElement("div");
+      sep.className = "bf-separator";
+      nonLandRow.appendChild(sep);
+    }
+    otherNonLands.forEach(function (card) {
+      renderCardWithAttachments(card, nonLandRow);
+    });
+
+    // Ghost non-lands
+    if (diffInfo && diffInfo.ghostCards) {
+      diffInfo.ghostCards.forEach(function (ghost) {
+        var gObj = typeof ghost === "string" ? { name: ghost } : ghost;
+        if (!isLikelyLand(gObj)) {
+          var gName = gObj.name || "Unknown";
+          var gTapped = !!gObj.tapped;
+          var el = makeCardThumbnail(gName, gObj, cardImages, gTapped, previewEls);
+          el.classList.add("card-ghost");
+          nonLandRow.appendChild(el);
+        }
       });
-
-      // Non-creature non-lands (artifacts, enchantments, etc.) — separator + right side
-      if (otherNonLands.length > 0 && creatures.length > 0) {
-        var sep = document.createElement("div");
-        sep.className = "bf-separator";
-        nonLandRow.appendChild(sep);
-      }
-      otherNonLands.forEach(function (card) {
-        renderCardWithAttachments(card, nonLandRow);
-      });
-
-      // Ghost non-lands
-      if (diffInfo && diffInfo.ghostCards) {
-        diffInfo.ghostCards.forEach(function (ghost) {
-          var gObj = typeof ghost === "string" ? { name: ghost } : ghost;
-          if (!isLikelyLand(gObj)) {
-            var gName = gObj.name || "Unknown";
-            var gTapped = !!gObj.tapped;
-            var el = makeCardThumbnail(gName, gObj, cardImages, gTapped, previewEls);
-            el.classList.add("card-ghost");
-            nonLandRow.appendChild(el);
-          }
-        });
-      }
     }
 
-    // Build lands row (stacked by name, overlapping individual cards)
-    var landsRow = null;
-    if (lands.length > 0 || (diffInfo && diffInfo.ghostCards && diffInfo.ghostCards.some(function (g) {
-      var go = typeof g === "string" ? { name: g } : g;
-      return isLikelyLand(go);
-    }))) {
-      landsRow = document.createElement("div");
-      landsRow.className = "cards-row cards-grid land-row";
+    // Build lands row (stacked by name, overlapping individual cards) — always created for stable height
+    var landsRow = document.createElement("div");
+    landsRow.className = "cards-row cards-grid land-row";
 
+    if (lands.length > 0) {
       var landGroups = _groupLandsByName(lands);
 
       landGroups.forEach(function (group) {
@@ -826,29 +819,29 @@
           landsRow.appendChild(stack);
         }
       });
+    }
 
-      // Ghost lands
-      if (diffInfo && diffInfo.ghostCards) {
-        diffInfo.ghostCards.forEach(function (ghost) {
-          var gObj = typeof ghost === "string" ? { name: ghost } : ghost;
-          if (isLikelyLand(gObj)) {
-            var gName = gObj.name || "Unknown";
-            var gTapped = !!gObj.tapped;
-            var el = makeCardThumbnail(gName, gObj, cardImages, gTapped, previewEls);
-            el.classList.add("card-ghost");
-            landsRow.appendChild(el);
-          }
-        });
-      }
+    // Ghost lands
+    if (diffInfo && diffInfo.ghostCards) {
+      diffInfo.ghostCards.forEach(function (ghost) {
+        var gObj = typeof ghost === "string" ? { name: ghost } : ghost;
+        if (isLikelyLand(gObj)) {
+          var gName = gObj.name || "Unknown";
+          var gTapped = !!gObj.tapped;
+          var el = makeCardThumbnail(gName, gObj, cardImages, gTapped, previewEls);
+          el.classList.add("card-ghost");
+          landsRow.appendChild(el);
+        }
+      });
     }
 
     // Append rows: top player gets lands→creatures, bottom player gets creatures→lands
     if (topPlayer) {
-      if (landsRow) zone.appendChild(landsRow);
-      if (nonLandRow) zone.appendChild(nonLandRow);
+      zone.appendChild(landsRow);
+      zone.appendChild(nonLandRow);
     } else {
-      if (nonLandRow) zone.appendChild(nonLandRow);
-      if (landsRow) zone.appendChild(landsRow);
+      zone.appendChild(nonLandRow);
+      zone.appendChild(landsRow);
     }
 
     return zone;
