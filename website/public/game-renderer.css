@@ -52,7 +52,8 @@
     min-height: 120px;
   }
 
-  .battlefield-zone .cards-row {
+  .battlefield-zone .cards-row,
+  .hand-zone .cards-row {
     min-height: 0;
   }
 }
@@ -254,6 +255,11 @@
   background: rgba(59, 130, 246, 0.06);
   border-radius: 4px;
   margin: 2px 0;
+}
+
+/* Hand row reserves space for one line of small thumbnails (65px × 1.393 aspect + 2px border) */
+.hand-zone .cards-row {
+  min-height: 93px;
 }
 
 .zone-title {
