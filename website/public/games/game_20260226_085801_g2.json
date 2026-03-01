@@ -59638,178 +59638,376 @@
   "youtubeUrl": "https://youtu.be/jhnsettRF_A",
   "annotations": [
     {
-      "severity": "minor",
-      "description": "Eye of Ugin produces no mana, so playing it turn 1 delays mana development by a full turn. The Eldrazi cost reduction doesn't help until there's enough mana to cast spells anyway. Additionally, the player has two Eye of Ugin in hand, and since it's legendary, the second becomes a dead card.",
-      "actionTaken": "Played Eye of Ugin turn 1, producing no mana and stranding the second Eye of Ugin in hand.",
-      "betterLine": "Play Cavern of Souls (naming Eldrazi) or Abundant Countryside turn 1 to start mana development. Eye of Ugin can be played on a later turn when the cost reduction becomes relevant, and the second copy could potentially be played after the first is destroyed.",
+      "severity": "moderate",
+      "description": "Timed out and failed to play any land on Turn 1, missing a critical mana development turn. The hand has no 1-drop plays besides a land, but playing a land (Cavern of Souls naming Eldrazi, or Abundant Countryside) is essential for casting Thought-Knot Seer on a reasonable timeline. Could also have cast Chalice of the Void for X=0 against potential free spells.",
+      "actionTaken": "No response - passed Turn 1 without playing a land or any spell.",
+      "betterLine": "Play Cavern of Souls naming Eldrazi (or Eye of Ugin for the cost reduction on Eldrazi spells). Consider casting Chalice of the Void for X=0 if relevant against the opponent's deck.",
       "type": "blunder",
       "snapshotIndex": 2,
       "player": "Qwen3L Villain"
     },
     {
-      "severity": "questionable",
-      "description": "Playing Bloodstained Mire instead of Wasteland when the opponent has only one land (Abundant Countryside) is debatable. Destroying the opponent's only land with Wasteland on turn 2 would be a devastating tempo play, potentially locking them out of the game for multiple turns. The Bloodstained Mire play fetches a Mountain and costs 1 life, enabling a turn 3 Goblin Matron, but the opponent could also play another land next turn and recover. However, playing Wasteland as mana + destroying their land means you'd have only colorless mana (Mountain + Wasteland), which doesn't cast Goblin Matron (needs 2R). You could play Wasteland, use it for mana this turn, then destroy their land next turn - but that gives them time to play a second land. The line of playing Wasteland now and destroying their Countryside immediately leaves you with only Mountain (1 red mana), delaying Matron by a turn but potentially crippling the opponent. Given the Goblin deck's need for colored mana and the opponent likely being on Eldrazi (which can function on colorless), the Bloodstained Mire line developing your own mana is reasonable, but the Wasteland-to-destroy-their-only-land line deserved serious consideration.",
-      "actionTaken": "Played Bloodstained Mire as land for turn to fetch a Mountain and develop mana for turn 3 Goblin Matron.",
-      "betterLine": "Consider playing Wasteland and immediately sacrificing it to destroy the opponent's only land (Abundant Countryside), potentially locking them out for a turn. Then play Bloodstained Mire next turn to fetch a Mountain and cast Matron on turn 4 instead of turn 3 - one turn slower on Matron but potentially devastating to opponent's development.",
+      "severity": "moderate",
+      "description": "Timed out on Turn 1 and missed their land drop entirely. With a hand containing multiple lands and Chalice of the Void, failing to play any land sets back development significantly. Even just playing Cavern of Souls (naming Eldrazi) or Abundant Countryside would establish mana for future turns.",
+      "actionTaken": "No response - passed the turn without playing a land or any spell.",
+      "betterLine": "Play Cavern of Souls naming Eldrazi (or Abundant Countryside) to begin mana development. Could also consider casting Chalice of the Void for X=0 afterward, though its value depends on the matchup.",
       "type": "blunder",
-      "snapshotIndex": 25,
-      "player": "Sonnet Detect"
+      "snapshotIndex": 2,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "major",
+      "description": "Timed out and took no action on Turn 3 with zero lands in play. Has multiple lands in hand (Abundant Countryside, Cavern of Souls, two Eye of Ugins) but played none. This is catastrophic for development — they need mana to cast Glaring Fleshraker (3 mana) and Thought-Knot Seer (4 mana). Missing yet another land drop when already at 0 lands puts them impossibly far behind.",
+      "actionTaken": "Timed out and passed without playing a land or casting any spell.",
+      "betterLine": "Play Cavern of Souls naming Eldrazi to start developing mana and set up uncounterable Eldrazi spells. Alternatively, play Abundant Countryside for immediate colorless mana production.",
+      "type": "blunder",
+      "snapshotIndex": 15,
+      "player": "Qwen3L Villain"
     },
     {
       "severity": "minor",
-      "description": "With Goblin Warchief (1RR) and multiple goblins in hand, the player needs both red and potentially black mana soon. Sling-Gang Lieutenant costs 3B, requiring black mana. Fetching a basic Mountain instead of Badlands means the player won't have access to black mana without fetching again later. While playing around Wasteland is a consideration, the opponent has shown no Wasteland and the player themselves holds two Wastelands. Getting Badlands here would enable casting Sling-Gang Lieutenant on curve (turn 4 with 3 lands) or at least have the option available. With only basic Mountains, the player is locked into only red spells.",
-      "actionTaken": "Fetched a basic Mountain to play around potential land destruction.",
-      "betterLine": "Fetch Badlands to have access to black mana for Sling-Gang Lieutenant. The opponent's deck appears to be an Eldrazi deck (Abundant Countryside, colorless cards) unlikely to run Wasteland, and having black mana available is more important than Wasteland protection given the hand composition.",
+      "description": "Player timed out and failed to confirm casting Chalice of the Void for X=0, which costs 0 mana and is essentially a free play. Chalice on 0 can counter relevant Legacy cards (Chrome Mox, Lotus Petal, Memnite, etc.) at no mana cost and minimal opportunity cost.",
+      "actionTaken": "Timed out and did not cast Chalice of the Void for X=0.",
+      "betterLine": "Cast Chalice of the Void for X=0 for free, gaining potential value against zero-cost spells.",
+      "type": "blunder",
+      "snapshotIndex": 16,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "minor",
+      "description": "Fetched a basic Mountain instead of Badlands when they need black mana access for Sling-Gang Lieutenant in hand. They already have a basic Mountain in play, so fetching another basic only provides redundant red mana. With Wastelands as their likely next land drops (providing only colorless), they'll be locked out of casting Sling-Gang Lieutenant without a black source.",
+      "actionTaken": "Fetched a basic Mountain from library",
+      "betterLine": "Fetch Badlands to have access to both red and black mana, enabling Sling-Gang Lieutenant ({3}{B}) while still being able to cast red spells like Goblin Warchief and Goblin Matron.",
       "type": "blunder",
       "snapshotIndex": 31,
       "player": "Sonnet Detect"
     },
     {
-      "severity": "moderate",
-      "description": "Playing Eye of Ugin (which produces no mana) instead of Cavern of Souls means the player cannot cast Chalice of the Void for X=1 this turn. Chalice at 1 is devastating against Goblins, shutting down many of their key spells. The Eye of Ugin cost reduction provides the same timeline for Eldrazi creatures regardless of play order, but misses the critical Chalice@1 window.",
-      "actionTaken": "Played Eye of Ugin, leaving only 1 mana-producing land and unable to cast Chalice for X=1.",
-      "betterLine": "Play Cavern of Souls (naming Eldrazi), then cast Chalice of the Void for X=1 using Abundant Countryside + Cavern of Souls, locking out many Goblin spells. Play Eye of Ugin next turn.",
+      "severity": "major",
+      "description": "Timed out and missed a critical land drop on turn 5 with only 1 land on the battlefield. With Cavern of Souls in hand, this was essential to progress toward casting Glaring Fleshraker or Thought-Knot Seer. Being stuck on 1 land on turn 5 against an aggressive Goblins deck is likely game-losing.",
+      "actionTaken": "No response (timeout) — passed without playing any land or spell.",
+      "betterLine": "Play Cavern of Souls naming Eldrazi to have 2 mana sources, getting closer to casting Glaring Fleshraker (turn 6 with another land) or Thought-Knot Seer. Could also consider casting Chalice of the Void for X=0 as a free play.",
       "type": "blunder",
       "snapshotIndex": 36,
       "player": "Qwen3L Villain"
     },
     {
       "severity": "minor",
-      "description": "Playing Eye of Ugin instead of Cavern of Souls delays the ability to cast Chalice of the Void for X=1 by one turn. With Cavern of Souls, they'd have 2 mana-producing lands next turn and could slam Chalice on 1 against the Goblin deck, which is a devastating play. Eye of Ugin doesn't produce mana, leaving them with only 1 mana source. Both lines reach Glaring Fleshraker at the same time, but the Chalice timing difference matters against aggro.",
-      "actionTaken": "Played Eye of Ugin, a non-mana-producing land, leaving only 1 mana source",
-      "betterLine": "Play Cavern of Souls (naming Eldrazi) to have 2 mana sources next turn, enabling a turn-6 Chalice of the Void for X=1 against the Goblin deck",
+      "description": "Playing Eye of Ugin when holding two copies makes the second copy a dead card (legendary rule). Cavern of Souls provides the same mana acceleration while preserving the second Eye of Ugin as insurance against land destruction (opponent could have Wasteland). Both lines reach the same turn 6 board, but Cavern first maintains redundancy.",
+      "actionTaken": "Played Eye of Ugin as land drop, stranding the second copy as a dead card.",
+      "betterLine": "Play Cavern of Souls (naming Eldrazi) to produce mana and keep both Eye of Ugins as redundant options for future turns.",
       "type": "blunder",
       "snapshotIndex": 36,
       "player": "Qwen3L Villain"
     },
     {
       "severity": "moderate",
-      "description": "The player played Wasteland as their land drop but didn't immediately use it to destroy Eye of Ugin, which is a critical land for the Eldrazi opponent (makes colorless Eldrazi spells cost 2 less). More importantly, by playing Wasteland instead of casting Skirk Prospector first, they miss the opportunity to have both Wasteland destruction AND Skirk Prospector this turn. The correct sequence is: cast Skirk Prospector (R) using one Mountain, then play Wasteland and immediately sacrifice it to destroy Eye of Ugin. This gives them a 1/1 body on board AND removes the opponent's key cost-reduction land. By playing Wasteland as the land drop first, they now need to choose between using Wasteland to destroy Eye of Ugin (leaving only 2 Mountains for casting) or saving it. If they cast Skirk Prospector after playing Wasteland, they have the same mana but the sequencing is fine - however, the reasoning text cuts off and doesn't mention destroying Eye of Ugin at all, which is the primary concern. Eye of Ugin reducing Eldrazi costs by 2 is extremely dangerous and should be destroyed immediately.",
-      "actionTaken": "Played Wasteland as land drop without immediately sacrificing it to destroy Eye of Ugin, and without first casting Skirk Prospector.",
-      "betterLine": "Cast Skirk Prospector using one Mountain (spending R), then play Wasteland, then immediately activate Wasteland to destroy Eye of Ugin. This removes the opponent's key cost-reduction land while also deploying a creature.",
+      "description": "Timed out and failed to cast Glaring Fleshraker, which costs only {C} thanks to Eye of Ugin's cost reduction (reducing {2}{C} to {C}). This is a key engine piece that creates Eldrazi Spawn tokens and deals damage whenever colorless creatures enter, and could have been deployed this turn with just Abundant Countryside's mana.",
+      "actionTaken": "Timed out and passed priority without casting anything.",
+      "betterLine": "Cast Glaring Fleshraker for {C} using Abundant Countryside, deploying the Eldrazi token engine early to start generating value from subsequent colorless spells.",
       "type": "blunder",
-      "snapshotIndex": 47,
+      "snapshotIndex": 37,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "minor",
+      "description": "Player timed out and failed to cast Chalice of the Void for X=0, which was their only legal play. Casting it would have triggered Glaring Fleshraker to create a 0/1 Eldrazi Spawn token and deal 1 damage to the opponent, all for free (0 mana cost). The Chalice on 0 also has marginal upside against potential 0-cost spells like Lotus Petal or Chrome Mox.",
+      "actionTaken": "Timed out and passed without casting anything",
+      "betterLine": "Cast Chalice of the Void for X=0 to get a free Glaring Fleshraker trigger (Spawn token + 1 damage) and incidental Chalice on 0 value",
+      "type": "blunder",
+      "snapshotIndex": 41,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "moderate",
+      "description": "Failed to use Wasteland to destroy Eye of Ugin, one of the most powerful lands in the opponent's Eldrazi deck. Eye of Ugin provides a {2} discount on all colorless Eldrazi spells and can tutor colorless creatures. Leaving it in play allows the opponent to chain cheap Eldrazi with Glaring Fleshraker already on board. The Wasteland only produces colorless mana which is largely irrelevant for the Goblin strategy.",
+      "actionTaken": "Passed priority without activating Wasteland",
+      "betterLine": "Activate Wasteland targeting Eye of Ugin to deny the opponent the {2} cost reduction on Eldrazi spells and the late-game tutor ability. Two Mountains are sufficient to begin deploying the Goblin chain with Skirk Prospector.",
+      "type": "blunder",
+      "snapshotIndex": 50,
       "player": "Sonnet Detect"
     },
     {
       "severity": "moderate",
-      "description": "Eye of Ugin does not produce mana - it only reduces Eldrazi costs and has a 7-mana tutor ability. The opponent only has 2 lands total. Destroying Abundant Countryside would have left the opponent with ZERO mana-producing lands, completely cutting them off from casting any spells until they found another land. Instead, destroying Eye of Ugin left them with Abundant Countryside still producing mana.",
-      "actionTaken": "Destroyed Eye of Ugin with Wasteland",
-      "betterLine": "Destroy Abundant Countryside to leave the opponent with zero mana production (Eye of Ugin produces no mana), effectively locking them out of the game while they're stuck on one non-mana-producing land",
+      "description": "Destroyed Eye of Ugin instead of Abundant Countryside. Eye of Ugin produces no mana - only reduces Eldrazi costs and has a 7-mana tutor ability. Destroying Abundant Countryside would have left the opponent with only Eye of Ugin, which taps for zero mana, effectively mana-screwing them with a Glaring Fleshraker they can't leverage. Instead, destroying Eye of Ugin leaves the opponent with Abundant Countryside still producing mana.",
+      "actionTaken": "Wastelanded Eye of Ugin, leaving opponent with Abundant Countryside (a mana-producing land)",
+      "betterLine": "Wasteland Abundant Countryside, leaving opponent with only Eye of Ugin which produces no mana at all, effectively stranding them until they draw another land",
       "type": "blunder",
       "snapshotIndex": 56,
       "player": "Sonnet Detect"
     },
     {
+      "severity": "minor",
+      "description": "Failed to attack with Glaring Fleshraker (2/2) into an empty board with no blockers. This is free damage with no downside - the opponent has no creatures to block.",
+      "actionTaken": "Did not declare attackers (timeout/no response)",
+      "betterLine": "Attack with Glaring Fleshraker for 2 free damage against an empty board.",
+      "type": "blunder",
+      "snapshotIndex": 61,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to attack with Glaring Fleshraker (2/2) into an empty board. The opponent has no creatures to block, so this is 2 free damage. While the game is still early and 2 damage isn't decisive, there's no downside to attacking here.",
+      "actionTaken": "Timed out and did not declare any attackers",
+      "betterLine": "Attack with Glaring Fleshraker for 2 unblocked damage, bringing opponent to 17.",
+      "type": "blunder",
+      "snapshotIndex": 61,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "major",
+      "description": "Timed out and passed priority during precombat main phase with a land drop available and the opportunity to play Ancient Tomb into Chalice of the Void for X=1, which would be devastating against Goblins (countering Skirk Prospector, Munitions Expert, etc.). Opponent's Wasteland is sick this turn, making it the ideal window to deploy and use Ancient Tomb. Missing this land drop also delays casting Thought-Knot Seer.",
+      "actionTaken": "Timed out and passed without playing a land or casting any spell.",
+      "betterLine": "Play Ancient Tomb, then tap Ancient Tomb ({C}{C}) to cast Chalice of the Void with X=1, getting a charge counter on Chalice that counters all 1-mana spells. This locks out key Goblin cards and triggers Glaring Fleshraker (creating a Spawn token and dealing 1 damage to opponent).",
+      "type": "blunder",
+      "snapshotIndex": 77,
+      "player": "Qwen3L Villain"
+    },
+    {
       "severity": "moderate",
-      "description": "Cast Kozilek's Command for X=1 when the opponent has no creatures on board (making the exile mode wasteful), instead of playing Eye of Ugin first and casting Thought-Knot Seer. Eye of Ugin reduces Thought-Knot Seer's cost by {2}, making it castable for just {1}{C}. TKS would be a 4/4 body that strips a card from opponent's hand AND triggers Glaring Fleshraker for a spawn token + 1 damage ping.",
-      "actionTaken": "Cast Kozilek's Command with X=1, likely choosing exile creature (no valid target) and spawn creation modes",
-      "betterLine": "Play Eye of Ugin as land for turn, then cast Thought-Knot Seer for {1}{C} (reduced by Eye of Ugin's {2} discount) using Ancient Tomb + Abundant Countryside. This gives a 4/4 body, strips opponent's best card, and triggers Glaring Fleshraker.",
+      "description": "Timed out and passed priority with castable spells that would generate significant value. Kozilek's Command for X=1 (using Ancient Tomb for {C}{C} and Abundant Countryside for {C}) would draw a card, scry 1, plus trigger Glaring Fleshraker to create a Spawn token and deal 1 damage. Even Chalice of the Void for X=0 would trigger Fleshraker for free. These are meaningful resources wasted.",
+      "actionTaken": "Timed out and passed without casting any spells.",
+      "betterLine": "Cast Kozilek's Command for X=1 (costing {1}{C}{C}) using Ancient Tomb and Abundant Countryside, choosing 'scry 1, draw a card' and another relevant mode, while also triggering Glaring Fleshraker for a Spawn token and 1 damage to opponent.",
       "type": "blunder",
       "snapshotIndex": 78,
       "player": "Qwen3L Villain"
     },
     {
-      "severity": "moderate",
-      "description": "With Eye of Ugin reducing costs by {2}, Eldrazi Linebreaker costs just {R} (payable via Abundant Countryside's creature mana) and Thought-Knot Seer costs just {1}{C} (payable via Ancient Tomb). Both could be cast this turn, generating two Glaring Fleshraker triggers (2 Spawn tokens + 2 damage), plus Linebreaker would give haste and +X/+0 in combat with 4 Eldrazi on board. Casting only TKS wastes the Abundant Countryside mana and misses significant board development and damage.",
-      "actionTaken": "Cast only Thought-Knot Seer, leaving mana unused and Linebreaker in hand.",
-      "betterLine": "Cast Eldrazi Linebreaker first (costs {R} after Eye reduction, using Abundant Countryside), then cast Thought-Knot Seer (costs {1}{C} after Eye reduction, using Ancient Tomb), deploying both threats and maximizing Glaring Fleshraker triggers.",
+      "severity": "minor",
+      "description": "Failed to attack with Glaring Fleshraker (2/2) when the opponent had no creatures to block. This is 2 free damage against an opponent at 17 life.",
+      "actionTaken": "Timed out and did not declare any attackers.",
+      "betterLine": "Attack with Glaring Fleshraker for 2 unblockable damage, bringing opponent to 15 life.",
       "type": "blunder",
-      "snapshotIndex": 97,
+      "snapshotIndex": 80,
       "player": "Qwen3L Villain"
     },
     {
       "severity": "minor",
-      "description": "Casting Thought-Knot Seer over Eldrazi Linebreaker misses significant immediate damage. Linebreaker with haste and its combat trigger (+X/+0 where X = Eldrazi count) plus Glaring Fleshraker triggers would deal approximately 7 damage this turn (5 trample attack + 2 Fleshraker pings), compared to TKS which has no haste and only deals 2 from Fleshraker pings. Additionally, no land was played before casting the spell.",
-      "actionTaken": "Cast Thought-Knot Seer (4/4 no haste, hand disruption + 2 Fleshraker ping damage)",
-      "betterLine": "Play Cavern of Souls or Abundant Countryside first, then cast Eldrazi Linebreaker for immediate 5/3 trample haste attack plus Fleshraker triggers, dealing ~7 damage to an opponent at 15 life with minimal board presence",
+      "description": "Declined to activate Wasteland to destroy opponent's Ancient Tomb during combat. Ancient Tomb provides {C}{C} which is critical for the opponent's Eldrazi strategy, especially with Glaring Fleshraker already on board and 7 cards in hand. The opponent could easily chain colorless spells next turn generating massive value with Fleshraker triggers.",
+      "actionTaken": "Passed on activating Wasteland, keeping it as a land that only produces {C} (not useful for the player's red/black Goblin spells).",
+      "betterLine": "Activate Wasteland to destroy Ancient Tomb, significantly slowing the opponent's Eldrazi mana development. The player's own spells (Goblin Warchief at 1RR, other Goblins) only need red/black mana from Mountains, making the Wasteland's {C} production largely irrelevant for their game plan.",
+      "type": "blunder",
+      "snapshotIndex": 84,
+      "player": "Sonnet Detect"
+    },
+    {
+      "severity": "moderate",
+      "description": "Failed to activate Wasteland to destroy opponent's Ancient Tomb. The opponent is on an Eldrazi ramp deck with Glaring Fleshraker already in play and 7 cards in hand. Ancient Tomb provides 2 colorless mana which is critical for casting Eldrazi threats. Wasteland only produces colorless mana which doesn't help cast any of the goblin spells in hand (all requiring red/black mana), so losing it as a mana source costs almost nothing.",
+      "actionTaken": "Passed priority without activating Wasteland, keeping it as a colorless-only land source",
+      "betterLine": "Activate Wasteland targeting Ancient Tomb to deny the opponent 2 colorless mana per turn, significantly slowing their Eldrazi development while losing virtually nothing since Wasteland's colorless mana doesn't cast any goblins in hand",
+      "type": "blunder",
+      "snapshotIndex": 88,
+      "player": "Sonnet Detect"
+    },
+    {
+      "severity": "major",
+      "description": "Timed out and passed the entire precombat main phase with a land drop available and multiple strong plays. Could have played a land (Cavern of Souls or Eye of Ugin) and cast either Eldrazi Linebreaker or Thought-Knot Seer, generating Fleshraker triggers and developing significant board pressure against an opponent at 15 life with only small creatures in the graveyard.",
+      "actionTaken": "Timed out and passed priority, playing no land and casting no spells.",
+      "betterLine": "Play Cavern of Souls (naming Eldrazi) or Eye of Ugin, then cast Eldrazi Linebreaker (with Cavern/Countryside for R + Ancient Tomb for CC) or Thought-Knot Seer (with Eye of Ugin's cost reduction). Either play triggers Glaring Fleshraker for a Spawn token + 1 damage, and develops a serious threat.",
+      "type": "blunder",
+      "snapshotIndex": 96,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "major",
+      "description": "Timed out during precombat main phase with multiple excellent plays available. Eye of Ugin reduces colorless Eldrazi costs by 2, making Thought-Knot Seer castable for just {1}{C} (Ancient Tomb covers it) — a 4/4 that strips opponent's best card and triggers Glaring Fleshraker for a spawn token + 1 damage. Eldrazi Linebreaker was also castable cheaply. Missing this turn's development is devastating when the opponent is rebuilding at 15 life.",
+      "actionTaken": "Timed out and passed without casting anything.",
+      "betterLine": "Cast Thought-Knot Seer using Ancient Tomb (2 colorless, with Eye of Ugin discount) to strip opponent's best card, create a Fleshraker spawn token, and deal 1 damage. Then potentially attack with Fleshraker or hold for combat phase with Linebreaker's trigger consideration.",
       "type": "blunder",
       "snapshotIndex": 97,
       "player": "Qwen3L Villain"
     },
     {
-      "severity": "questionable",
-      "description": "Exiled Goblin Ringleader instead of Munitions Expert. Munitions Expert with flash is the opponent's primary way to remove Thought-Knot Seer (4/4) or Glaring Fleshraker, which are the key threats on board. While Ringleader provides card advantage, the opponent at 13 life facing an aggressive Eldrazi board needs interaction more than cards. Goblin Matron can also tutor for another Ringleader but finding another Expert may be harder.",
-      "actionTaken": "Exiled Goblin Ringleader from opponent's hand",
-      "betterLine": "Exile Munitions Expert to protect Thought-Knot Seer and Glaring Fleshraker from removal, preserving the board advantage and damage clock",
+      "severity": "moderate",
+      "description": "Cast Thought-Knot Seer alone when both Eldrazi Linebreaker and TKS could be cast this turn. Linebreaker costs just {R} after Eye of Ugin's {2} discount (payable with Abundant Countryside's creature mana), and TKS costs {1}{C} (payable with Ancient Tomb's {C}{C}). Casting both would generate 2 Fleshraker triggers (2 spawns, 2 damage), create 5 Eldrazi on board, and Linebreaker's combat trigger would give a creature +5/+0 and haste for a potentially lethal or near-lethal attack.",
+      "actionTaken": "Cast Thought-Knot Seer using Ancient Tomb, leaving Abundant Countryside unused and Linebreaker uncast.",
+      "betterLine": "Cast Eldrazi Linebreaker first for {R} (Abundant Countryside creature mana after Eye of Ugin discount), then cast Thought-Knot Seer for {C}{C} (Ancient Tomb after discount). This deploys both threats, maximizes Fleshraker triggers, and enables a massive combat step with Linebreaker's +X/+0 ability.",
       "type": "blunder",
-      "snapshotIndex": 112,
+      "snapshotIndex": 97,
       "player": "Qwen3L Villain"
     },
     {
+      "severity": "moderate",
+      "description": "Kozilek's Command is a colorless Eldrazi spell, so Eye of Ugin reduces its cost by {2}. At X=0, the cost of {C}{C} becomes free. Casting it for free could choose 'scry 0, draw a card' plus another mode, AND trigger Glaring Fleshraker (cast a colorless spell = make a Spawn token, another colorless creature enters = deal 1 damage). This is a free card draw + damage + token that was missed due to timeout.",
+      "actionTaken": "No response - passed priority without casting anything",
+      "betterLine": "Cast Kozilek's Command for X=0 (free due to Eye of Ugin cost reduction), choosing 'scry 0, draw a card' and another mode, getting a free card draw plus Fleshraker triggers",
+      "type": "blunder",
+      "snapshotIndex": 102,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "questionable",
+      "description": "Eye of Ugin reduces all colorless Eldrazi spell costs by {2}, which is enormously powerful. Leaving it in play lets the opponent chain cheap Eldrazi threats. However, Sonnet Detect only has 3 lands and a hand full of goblins needing mana, so keeping Wasteland as a mana source has merit.",
+      "actionTaken": "Passed priority, keeping Wasteland as a mana source",
+      "betterLine": "Activate Wasteland targeting Eye of Ugin to deny the {2} cost reduction on future Eldrazi spells. Even though it costs a land, Eye of Ugin's mana advantage over multiple turns likely outweighs losing one colorless mana source, especially since the Goblin deck can function on 2 Mountains with Skirk Prospector for additional mana.",
+      "type": "blunder",
+      "snapshotIndex": 103,
+      "player": "Sonnet Detect"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to attack with Glaring Fleshraker into an empty board, missing 2 free damage against an opponent at 13 life. The opponent has no creatures to block, so this is completely risk-free damage.",
+      "actionTaken": "Timed out and declared no attackers.",
+      "betterLine": "Attack with Glaring Fleshraker for 2 unblocked damage, bringing opponent to 11 life.",
+      "type": "blunder",
+      "snapshotIndex": 115,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "minor",
+      "description": "Timed out and failed to attack with Glaring Fleshraker (2/2) into an empty board. Opponent has no creatures to block and only Mountains + Wasteland untapped, making it impossible to cast Munitions Expert (BR) or any removal. This was 2 free damage with zero risk.",
+      "actionTaken": "No response - failed to declare attackers, missing 2 damage.",
+      "betterLine": "Attack with Glaring Fleshraker for 2 damage, bringing opponent from 13 to 11 life.",
+      "type": "blunder",
+      "snapshotIndex": 115,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to cast Chalice of the Void for X=0, which would have been free (0 mana) and triggered Glaring Fleshraker to create a 0/1 Eldrazi Spawn token and deal 1 damage to the opponent. This is pure upside with no downside cost.",
+      "actionTaken": "Timed out and passed without casting Chalice of the Void",
+      "betterLine": "Cast Chalice of the Void for X=0 to trigger Glaring Fleshraker, creating an Eldrazi Spawn token and dealing 1 damage to the opponent (who is at 11 life). Free value with no mana cost.",
+      "type": "blunder",
+      "snapshotIndex": 122,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "questionable",
+      "description": "Opponent's Eye of Ugin just entered and reduces colorless Eldrazi spell costs by 2. Destroying it with Wasteland would significantly slow the opponent's Eldrazi development. However, Sonnet is at 11 life facing lethal threats and needs every mana source to deploy defensive creatures.",
+      "actionTaken": "Passed priority, keeping Wasteland as a mana source",
+      "betterLine": "Activate Wasteland targeting Eye of Ugin to prevent cost reduction on future Eldrazi spells. Then play Wooded Foothills next turn to partially replace the lost mana source.",
+      "type": "blunder",
+      "snapshotIndex": 125,
+      "player": "Sonnet Detect"
+    },
+    {
+      "severity": "moderate",
+      "description": "Failed to name 'Goblin' as the creature type for Cavern of Souls due to timeout. The player's entire hand consists of Goblin creatures (Goblin Matron, Goblin Warchief, Munitions Expert, Skirk Prospector, Sling-Gang Lieutenant). Naming Goblin would provide colored mana for all of them and make them uncounterable - especially relevant with opponent's Chalice of the Void on the battlefield. The default type chosen (Pirate, Shapeshifter, or Noble) provides no benefit for any card in the player's hand or deck.",
+      "actionTaken": "Timed out and let the game auto-select a creature type (likely not Goblin)",
+      "betterLine": "Name 'Goblin' for Cavern of Souls to enable colored mana production and uncounterability for the entire hand of Goblin spells",
+      "type": "blunder",
+      "snapshotIndex": 132,
+      "player": "Sonnet Detect"
+    },
+    {
       "severity": "major",
-      "description": "Missed lethal by not casting Eldrazi Linebreaker. With Eye of Ugin reducing cost to just {R}, casting Linebreaker triggers Glaring Fleshraker (1 damage, opponent to 9, plus spawn token). At combat, with 6 Eldrazi on board, Linebreaker pumps a creature +6/+0. Attacking with Thought-Knot Seer (10/4), Glaring Fleshraker (2/2), and Linebreaker (3/3 haste) = 15 damage against opponent at 9 life — massive overkill.",
-      "actionTaken": "Cast Kozilek's Command instead of going for the lethal attack.",
-      "betterLine": "Play Abundant Countryside from hand, tap the other Abundant Countryside for {R}, cast Eldrazi Linebreaker (cost reduced to {R} by Eye of Ugin), trigger Fleshraker for 1 damage, then at combat pump Thought-Knot Seer +6/+0 and attack for lethal.",
+      "description": "Timed out in precombat main with a land drop available and Eldrazi Linebreaker castable (costs only {R} with Eye of Ugin's cost reduction). Linebreaker would trigger Glaring Fleshraker (spawn + 1 damage ping), then at combat give +X/+0 where X = number of Eldrazi (potentially 6). Combined with Thought-Knot Seer and other attackers against an opponent at 10 life, this was likely a lethal or near-lethal turn.",
+      "actionTaken": "Timed out and passed priority, doing nothing in precombat main phase.",
+      "betterLine": "Play Abundant Countryside (or Cavern of Souls naming Eldrazi), then cast Eldrazi Linebreaker for {R} (Eye of Ugin reduces cost by 2). Fleshraker triggers create spawn + deal 1 damage (opponent to 9). At combat, Linebreaker gives a creature +6/+0 (6 Eldrazi on board). Pump TKS to 10/4 trample and attack with everything for likely lethal.",
       "type": "blunder",
       "snapshotIndex": 139,
       "player": "Qwen3L Villain"
     },
     {
       "severity": "major",
-      "description": "Missed lethal. Casting Eldrazi Linebreaker (costs just {R} with Eye of Ugin's {2} reduction) using Abundant Countryside for {R} would trigger Glaring Fleshraker for 1 damage (putting opponent to 9), then at combat Linebreaker's trigger gives +6/+0 (6 Eldrazi on board) to Thought-Knot Seer making it 10/4, which attacks for lethal against a 9-life opponent with no meaningful blockers.",
-      "actionTaken": "Passed priority without casting any spells or playing a land",
-      "betterLine": "Cast Eldrazi Linebreaker using Abundant Countryside for {R} (Eye of Ugin reduces cost by {2}), trigger Glaring Fleshraker for 1 damage to opponent (now 9 life), then in combat use Linebreaker's trigger to buff Thought-Knot Seer to 10/4 and attack for lethal.",
+      "description": "Opponent is at 10 life. Casting Eldrazi Linebreaker (using Ancient Tomb for {C}{C} and Abundant Countryside for {R} creature mana) would trigger Glaring Fleshraker (1 damage, opponent to 9, plus a spawn token). At combat, Linebreaker's trigger gives a creature +X/+0 where X = number of Eldrazi (6: Fleshraker, TKS, 3 spawns, Linebreaker). Buffing TKS to 10/4 and attacking with TKS + Linebreaker (3/3 trample) + Fleshraker (2/2) = 15 damage against an opponent at 9 life — lethal even through a single blocker.",
+      "actionTaken": "Cast Kozilek's Command instead of Eldrazi Linebreaker, missing lethal on board.",
+      "betterLine": "Play Cavern of Souls (or any land), cast Eldrazi Linebreaker using Ancient Tomb + Abundant Countryside. Fleshraker deals 1 damage (opponent to 9). In combat, use Linebreaker's trigger to buff Thought-Knot Seer by +6/+0, then attack with everything for lethal.",
+      "type": "blunder",
+      "snapshotIndex": 139,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "major",
+      "description": "Passed the precombat main phase without playing a land or casting Eldrazi Linebreaker, missing a likely lethal attack. With Eye of Ugin reducing costs, Linebreaker costs just {R}. Playing Cavern of Souls (naming Eldrazi) or Abundant Countryside provides the red mana. Casting Linebreaker triggers Glaring Fleshraker (spawn token + 1 damage, opponent to 9). At combat, Linebreaker gives +6/+0 to Thought-Knot Seer (10/4), and attacking with TKS, Linebreaker (3/3 trample), and Fleshraker (2/2) represents 15 damage against 9 life — lethal even through a blocker.",
+      "actionTaken": "Passed priority without playing a land or casting any spell, ending the precombat main phase.",
+      "betterLine": "Play Cavern of Souls (naming Eldrazi) or Abundant Countryside, then cast Eldrazi Linebreaker for {R} (reduced by Eye of Ugin). This triggers Fleshraker for 1 damage. Then attack with Thought-Knot Seer (boosted to 10/4 by Linebreaker), Linebreaker (3/3 trample), and Fleshraker (2/2) for likely lethal damage.",
       "type": "blunder",
       "snapshotIndex": 141,
       "player": "Qwen3L Villain"
     },
     {
-      "severity": "moderate",
-      "description": "The player declined to activate Wasteland to destroy one of the opponent's key lands (Eye of Ugin, Ancient Tomb, or Abundant Countryside) during the opponent's precombat main. Eye of Ugin reduces Eldrazi costs by 2 and is a legendary land the opponent just replayed. Destroying it would significantly slow down the Eldrazi deck's mana advantage. The player has 4 lands including Wasteland and Cavern of Souls, so losing Wasteland still leaves 3 lands which is enough to execute the Goblin plan. At 10 life facing a board with Thought-Knot Seer (4/4), Glaring Fleshraker, and Eldrazi Spawn tokens, tempo is critical. Additionally, the player could have flashed in Munitions Expert to kill Glaring Fleshraker (dealing 1 damage with just itself as a Goblin) - though that only deals 1 damage which isn't enough. However, Wasteland on Eye of Ugin is a clear value play that should have been made.",
-      "actionTaken": "Passed without activating Wasteland or taking any action during opponent's precombat main.",
-      "betterLine": "Activate Wasteland targeting Eye of Ugin to deny the opponent 2 mana discount on colorless Eldrazi spells and the late-game tutor ability. This would slow down their development significantly while the player still has enough mana (3 lands) to execute the Goblin combo plan.",
+      "severity": "minor",
+      "description": "Passed without using Wasteland to destroy Eye of Ugin, a critical land that reduces Eldrazi costs by 2 and can tutor colorless creatures. The opponent has Glaring Fleshraker triggering off cheap Eldrazi, making Eye of Ugin extremely dangerous to leave in play.",
+      "actionTaken": "Passed priority without activating Wasteland",
+      "betterLine": "Activate Wasteland targeting Eye of Ugin to deny the opponent's Eldrazi cost reduction and tutoring ability, then play Wooded Foothills to maintain land count for future turns.",
       "type": "blunder",
       "snapshotIndex": 142,
       "player": "Sonnet Detect"
     },
     {
       "severity": "major",
-      "description": "Missed lethal by not casting Eldrazi Linebreaker before combat. Linebreaker costs {1}{C}{R} minus {2} from Eye of Ugin = just {R}, payable with Abundant Countryside. Casting it triggers Glaring Fleshraker (create Spawn + 1 damage ping). Then at beginning of combat, Linebreaker's trigger gives a creature +X/+0 where X = number of Eldrazi (6: Linebreaker, Fleshraker, TKS, 3 Spawns) = +6/+0. Linebreaker becomes 9/3 with trample and haste. Attack with Linebreaker (9) + TKS (4) + Fleshraker (2) = 15 combat + 1 Fleshraker ping = 16 damage vs opponent's 10 life = lethal.",
-      "actionTaken": "Went to combat without casting Eldrazi Linebreaker from hand, attacking with only existing creatures for 6 damage.",
-      "betterLine": "Cast Eldrazi Linebreaker (costs {R} with Eye of Ugin discount) using Abundant Countryside before combat, triggering Fleshraker for a Spawn token and 1 damage ping, then attack with everything for lethal.",
+      "description": "Failed to attack with any creatures against an opponent at 10 life with NO blockers on the battlefield. Attacking with Thought-Knot Seer (4/4) and Glaring Fleshraker (2/2) would deal 6 damage, putting the opponent to 4 life with lethal threatening next turn via Eldrazi Linebreaker. Missing 6 free damage against an empty board is devastating.",
+      "actionTaken": "Timed out and declared no attackers against an empty board with opponent at 10 life.",
+      "betterLine": "Attack with at least Thought-Knot Seer and Glaring Fleshraker for 6 damage (opponent to 4 life). Could also send Spawn tokens for chip damage. Next turn Eldrazi Linebreaker would likely enable lethal.",
       "type": "blunder",
       "snapshotIndex": 143,
       "player": "Qwen3L Villain"
     },
     {
       "severity": "major",
-      "description": "Missed lethal by not casting Kozilek's Command during combat. With Ancient Tomb (2), Abundant Countryside (1), and 2 Eldrazi Spawn sacrificed (2) = 5 mana available. Eye of Ugin reduces the cost by 2, so Kozilek's Command at X=5 costs 5 mana. Choosing to create 5 Eldrazi Spawn tokens triggers Glaring Fleshraker 5 times for 5 damage. Combined with 6 combat damage (4+2), that's 11 damage against the opponent's 10 life — lethal.",
-      "actionTaken": "Declined to cast Kozilek's Command, dealing only 6 combat damage and leaving opponent at 4 life.",
-      "betterLine": "Cast Kozilek's Command for X=5 during combat (using Ancient Tomb, Abundant Countryside, and 2 Spawn tokens for mana, with Eye of Ugin cost reduction), choosing to create 5 Spawn tokens to trigger Glaring Fleshraker 5 times for exactly lethal damage.",
+      "description": "Failed to attack with any creatures when opponent is at 10 life with zero blockers on board. Attacking with Thought-Knot Seer (4/4) and Glaring Fleshraker (2/2) would deal 6 damage, putting opponent to 4 life - near-lethal range with Kozilek's Command and Fleshraker triggers available. Missing 6 free damage against a defenseless opponent at low life is game-altering.",
+      "actionTaken": "Timed out and attacked with nothing despite opponent having no blockers and being at 10 life.",
+      "betterLine": "Attack with at least Thought-Knot Seer and Glaring Fleshraker for 6 damage (to 4 life). Could even attack with all creatures for 6+ damage since opponent has no blockers. This would set up lethal next turn or via Kozilek's Command / Fleshraker triggers.",
       "type": "blunder",
-      "snapshotIndex": 146,
+      "snapshotIndex": 143,
       "player": "Qwen3L Villain"
     },
     {
       "severity": "major",
-      "description": "Opponent is at 4 life. Kozilek's Command with X=4 (choosing to create 4 Eldrazi Spawn tokens) would trigger Glaring Fleshraker 4 times, dealing 4 damage to the opponent for exact lethal. The cost after Eye of Ugin's 2-mana reduction is just 4 colorless mana, payable with Ancient Tomb (2) + sacrificing 2 Eldrazi Spawn tokens (2).",
-      "actionTaken": "Declined to cast Kozilek's Command, missing lethal damage.",
-      "betterLine": "Cast Kozilek's Command with X=4, choosing to create 4 Eldrazi Spawn tokens. Glaring Fleshraker triggers 4 times dealing 4 damage to the opponent at 4 life for the win.",
+      "description": "Missed lethal. With Eye of Ugin reducing cost by 2, Kozilek's Command at X=4 costs only {2}{C}{C} (payable with Ancient Tomb + Abundant Countryside + Eye of Ugin/another land). Casting it during combat choosing 'create X Spawn tokens' would generate 4 Spawn tokens entering the battlefield, triggering Glaring Fleshraker 4 times for 4 damage, plus the cast trigger creates another Spawn for 1 more damage (5 total from Fleshraker). Combined with the 6 damage from attacking Thought-Knot Seer (4) and Glaring Fleshraker (2), that's 11 damage against an opponent at 10 life — lethal.",
+      "actionTaken": "Passed priority during combat without casting anything.",
+      "betterLine": "Cast Kozilek's Command with X=4 (reduced cost via Eye of Ugin) choosing 'create X Spawn tokens' plus any second mode. The Spawn token ETBs trigger Glaring Fleshraker for 5 total damage, plus 6 combat damage = 11 total, killing the opponent at 10 life.",
+      "type": "blunder",
+      "snapshotIndex": 145,
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "minor",
+      "description": "Played Wooded Foothills instead of Bloodstained Mire as the land drop. Bloodstained Mire can fetch a Swamp, providing black mana independently of Cavern of Souls. This matters for casting multiple spells in the same turn (e.g., Goblin Warchief + Munitions Expert or Sling-Gang Lieutenant) since Cavern of Souls can only tap once for colored mana. Wooded Foothills can only fetch Mountains in this deck, offering no additional color flexibility.",
+      "actionTaken": "Played Wooded Foothills as land for turn",
+      "betterLine": "Play Bloodstained Mire instead, preserving the option to fetch a Swamp for black mana, enabling casting multiple colored spells without relying solely on Cavern of Souls for black.",
+      "type": "blunder",
+      "snapshotIndex": 153,
+      "player": "Sonnet Detect"
+    },
+    {
+      "severity": "major",
+      "description": "Opponent is at 4 life. Casting Kozilek's Command (reduced by Eye of Ugin by 2) with X=4 or X=5, choosing the mode to create X Eldrazi Spawn tokens, would trigger Glaring Fleshraker's 'whenever another colorless creature enters, deal 1 damage to each opponent' ability for each token entering. With X=4, that's 4 damage which is lethal. Additionally, casting the colorless spell itself triggers Fleshraker to create another Spawn, adding yet another damage trigger. This was a clear lethal line that was missed.",
+      "actionTaken": "Passed priority during combat without casting Kozilek's Command, missing lethal.",
+      "betterLine": "Cast Kozilek's Command with X=4 (cost reduced by Eye of Ugin to 4 mana, payable with Ancient Tomb + Abundant Countryside + 1 Spawn sacrifice), choosing to create 4 Eldrazi Spawn tokens. The cast trigger from Fleshraker creates a 5th Spawn. Each of the 5 colorless creatures entering triggers Fleshraker for 5 damage, killing the opponent at 4 life.",
       "type": "blunder",
       "snapshotIndex": 157,
       "player": "Qwen3L Villain"
     },
     {
       "severity": "major",
-      "description": "The opponent is at 3 life with a Glaring Fleshraker on board (which deals 1 damage to each opponent whenever another colorless creature enters). The player has Thought-Knot Seer (4/4) and Glaring Fleshraker (2/2) plus two Eldrazi Spawn tokens already on the battlefield. Rather than winning the game immediately, the player attempted to cast Eldrazi Linebreaker but failed the mana payment, resulting in no action taken. The player should have played a land first (Cavern of Souls naming Eldrazi), then cast Eldrazi Linebreaker using proper mana sources. With Glaring Fleshraker on board, casting the colorless Linebreaker would create a Spawn token (Fleshraker trigger: 1 damage to opponent, putting them to 2), then the Spawn entering triggers another 1 damage (opponent to 1 life... wait, Fleshraker triggers: casting colorless spell creates Spawn, then Spawn entering deals 1 damage). Actually: Cast Linebreaker → Fleshraker trigger creates Spawn → Spawn enters, Fleshraker deals 1 damage (opponent to 2). Then combat with Linebreaker granting haste and +X/+0 where X = number of Eldrazi (Thought-Knot Seer, Glaring Fleshraker, Linebreaker, 3 Spawn tokens = 6 Eldrazi), so +6/+0 to any creature. Attack with the buffed creature for lethal easily against 2 life. The failed mana payment means the player missed lethal this turn.",
-      "actionTaken": "Attempted to cast Eldrazi Linebreaker but failed mana payment, resulting in no spell cast and wasted the turn's critical action window.",
-      "betterLine": "Play Cavern of Souls (naming Eldrazi) first, then cast Eldrazi Linebreaker using Cavern of Souls + Ancient Tomb (or other proper mana sources) for {1}{C}{R}. Glaring Fleshraker triggers would deal damage bringing opponent closer to 0, and combat with haste creatures would deliver lethal against the opponent at 3 life.",
+      "description": "Opponent is at 3 life with no creatures on board. Qwen3L has Thought-Knot Seer (4/4) and Glaring Fleshraker (2/2) ready to attack for 6 damage — already lethal. Additionally, casting Eldrazi Linebreaker for just {R} (Eye of Ugin discount) would trigger Fleshraker for 1 damage and create an even more overwhelming board. The timeout caused a complete miss of a guaranteed lethal attack.",
+      "actionTaken": "Timed out and passed without taking any action in precombat main phase.",
+      "betterLine": "Play a land if desired, optionally cast Eldrazi Linebreaker for {R} (dealing 1 via Fleshraker trigger), then move to combat and attack with all creatures for lethal damage against an opponent at 3 life with no blockers.",
       "type": "blunder",
       "snapshotIndex": 164,
       "player": "Qwen3L Villain"
     },
     {
-      "severity": "moderate",
-      "description": "At 3 life facing lethal on board (Thought-Knot Seer 4/4 + Glaring Fleshraker 2/2), the player passed without using Wasteland to destroy a key nonbasic land (Ancient Tomb or Eye of Ugin) or casting Munitions Expert. Wasting the Wasteland activation at end of opponent's turn or during their own main phase could deny critical mana or the Eye of Ugin cost reduction, potentially slowing the opponent's development while the player tries to stabilize.",
-      "actionTaken": "Passed priority without activating Wasteland or casting Munitions Expert",
-      "betterLine": "Activate Wasteland targeting Eye of Ugin (to prevent cost reduction on future Eldrazi) or Ancient Tomb (to deny mana), then proceed to cast creatures to build a board presence and potentially use Munitions Expert to remove Thought-Knot Seer after building goblin count",
+      "severity": "questionable",
+      "description": "At 3 life facing lethal on board (4/4 Thought-Knot Seer + 2/2 Fleshraker + tokens), the player passed priority without activating Wasteland to destroy Eye of Ugin (which reduces opponent's Eldrazi costs by 2). While Munitions Expert with 0 Goblins on board deals 0 damage, Wasteland activation is free value that could slow the opponent's development. The risk of passing and potentially losing the window for sorcery-speed plays is concerning at such low life.",
+      "actionTaken": "Passed priority without taking any action",
+      "betterLine": "Activate Wasteland targeting Eye of Ugin to deny cost reduction on future Eldrazi spells, then proceed to cast sorcery-speed creatures (Warchief → Skirk Prospector → Matron → Sling-Gang Lieutenant) for a potential combo kill",
+      "type": "blunder",
+      "snapshotIndex": 164,
+      "player": "Sonnet Detect"
+    },
+    {
+      "severity": "major",
+      "description": "Opponent is at 3 life. Thought-Knot Seer (4/4) and Glaring Fleshraker (2/2) are both individually lethal. Even if the opponent flashes in a Munitions Expert to block one attacker, the other deals lethal damage. Attacking with all creatures wins the game here.",
+      "actionTaken": "Timed out and did not declare any attackers, missing lethal on board.",
+      "betterLine": "Attack with all creatures (at minimum Thought-Knot Seer and Glaring Fleshraker) to deal lethal damage to the opponent at 3 life.",
       "type": "blunder",
       "snapshotIndex": 165,
-      "player": "Sonnet Detect"
+      "player": "Qwen3L Villain"
+    },
+    {
+      "severity": "major",
+      "description": "Opponent is at 3 life with no untapped creatures. Thought-Knot Seer alone deals 4 damage, which is lethal. Even with potential flash blockers like Munitions Expert from the opponent's hand, attacking with all creatures presents overwhelming damage that can't be fully blocked or prevented. Timing out here means missing a near-guaranteed lethal attack.",
+      "actionTaken": "Timed out and did not declare any attackers, passing the combat phase with opponent at 3 life.",
+      "betterLine": "Attack with all creatures (at minimum Thought-Knot Seer 4/4) to deal lethal damage to the opponent at 3 life.",
+      "type": "blunder",
+      "snapshotIndex": 165,
+      "player": "Qwen3L Villain"
     }
   ],
-  "blunderScriptVersion": 19,
+  "blunderScriptVersion": 28,
   "decisions": [
     {
       "index": 0,

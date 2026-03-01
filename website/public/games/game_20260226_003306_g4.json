@@ -62094,159 +62094,132 @@
   "annotations": [
     {
       "severity": "major",
-      "description": "Bottomed Hollow One when the hand contains Burning Inquiry, which discards 3 cards and would make Hollow One free to cast on turn 1. A turn 1 Mountain → Burning Inquiry → free Hollow One (4/4) is one of the most powerful openings this deck can produce.",
-      "actionTaken": "Put Hollow One on the bottom of the library",
-      "betterLine": "Bottom Marauding Mako (can't be deployed before Burning Inquiry on T1 anyway) or Mountain (have two other red sources), keeping the Burning Inquiry + Hollow One combo for a potential turn 1 free 4/4.",
+      "description": "Mulliganed a strong 7-card hand with two lands, excellent curve (turn 1 Mako, turn 2 Bowmasters/Nethergoyf), free cycling from Street Wraith for card advantage and synergy. This hand has everything: mana, threats, interaction, and synergy.",
+      "actionTaken": "Chose to mulligan to 6 cards",
+      "betterLine": "Keep the 7-card hand. It has a perfect curve with Marauding Mako on turn 1, Orcish Bowmasters or Nethergoyf on turn 2, two lands including a fetchland, and Street Wraith for free cycling/card draw.",
+      "type": "blunder",
+      "snapshotIndex": 1,
+      "player": "DSV3 Lucky"
+    },
+    {
+      "severity": "major",
+      "description": "Put Hollow One on the bottom of the library instead of a redundant land, destroying the Turn 1 Burning Inquiry + free Hollow One combo. With Mountain + Burning Inquiry, casting Burning Inquiry discards 3 cards, reducing Hollow One's cost by 6 (making it free). This is one of the most powerful openings in the deck.",
+      "actionTaken": "Bottomed Hollow One, keeping three lands",
+      "betterLine": "Bottom Bloodstained Mire (or Blood Crypt), keeping the Burning Inquiry + Hollow One + Marauding Mako package with Mountain to cast Burning Inquiry turn 1 for a free 4/4 and a growing Mako.",
       "type": "blunder",
       "snapshotIndex": 2,
       "player": "DSV3 Lucky"
     },
     {
       "severity": "minor",
-      "description": "With Ugin's Labyrinth already in hand (which needs a colorless card with mana value 7+ to imprint for double mana), keeping the second Devourer of Destiny on top would have been more valuable than Walking Ballista. The player already has one Devourer in hand to imprint on Ugin's Labyrinth, but having a second Devourer available means they could draw into a castable threat after using the first one for imprint. However, Walking Ballista is also a reasonable keep as a colorless spell that triggers Glaring Fleshraker and serves as flexible removal. The real issue is that Eldrazi Temple was exiled - a land that produces double colorless for Eldrazi spells is extremely valuable in this deck. Keeping Eldrazi Temple on top instead of Walking Ballista would have accelerated the game plan significantly, giving access to a second Eldrazi Temple (one already in hand) for faster Devourer of Destiny casting or earlier Kozilek's Command.",
-      "actionTaken": "Put Walking Ballista on top, exiling Eldrazi Temple, Blade of the Bloodchief, and Devourer of Destiny.",
-      "betterLine": "Put Eldrazi Temple on top of the library. With Ugin's Labyrinth + Devourer of Destiny already in hand for turn 1 double mana, drawing a second Eldrazi Temple would provide massive mana acceleration for casting Glaring Fleshraker and Kozilek's Command faster, or even hard-casting Devourer of Destiny.",
-      "type": "blunder",
-      "snapshotIndex": 6,
-      "player": "MiMo Rookie"
-    },
-    {
-      "severity": "minor",
-      "description": "Playing Blood Crypt (paying 2 life to enter untapped) when Bloodstained Mire would be more efficient. Bloodstained Mire can fetch a basic Mountain for just 1 life to cast Marauding Mako, while preserving the option to crack for Blood Crypt at instant speed if Orcish Bowmasters needs to be cast. This wastes 1 life and uses the dual land prematurely.",
-      "actionTaken": "Played Blood Crypt (paying 2 life for untapped dual land)",
-      "betterLine": "Play Bloodstained Mire, crack it for a basic Mountain (1 life) to cast Marauding Mako. Save Blood Crypt for a future turn when both colors are needed, or crack a different fetch for it later.",
+      "description": "Playing Blood Crypt directly instead of a Bloodstained Mire. Fetching with Mire first provides deck thinning and preserves the dual land in hand for a future turn where it could enter tapped if life is tight. The fetch can still find Blood Crypt untapped for the same color access this turn.",
+      "actionTaken": "Played Blood Crypt directly from hand",
+      "betterLine": "Play Bloodstained Mire, sacrifice it to fetch Blood Crypt (or a basic Mountain/Swamp) untapped, preserving the other Blood Crypt in hand for later flexibility and gaining deck thinning.",
       "type": "blunder",
       "snapshotIndex": 17,
       "player": "DSV3 Lucky"
     },
     {
-      "severity": "questionable",
-      "description": "Casting Marauding Mako before Burning Inquiry misses a synergy opportunity. Burning Inquiry causes each player to draw 3 and discard 3 at random, and Marauding Mako gets +1/+1 counters whenever you discard cards. If Mako were on the battlefield when Burning Inquiry resolves, it would get 3 +1/+1 counters from the random discards, making it a 4/4. However, the player only has 1 mana available this turn, so they can't cast both spells. The question is whether deploying Mako now (to attack next turn as a 1/1) is better than casting Burning Inquiry now (to potentially disrupt the opponent's Eldrazi ramp plan and save Mako for the Burning Inquiry synergy next turn). Given the opponent is ramping with Ugin's Labyrinth and has exiled Devourer of Destiny, disrupting their hand with Burning Inquiry could be more impactful than a 1/1 body. Additionally, next turn with 2 lands, the player could cast Mako then Burning Inquiry for a 4/4.",
-      "actionTaken": "Cast Marauding Mako as a 1/1 on turn 2",
-      "betterLine": "Cast Burning Inquiry to disrupt the opponent's hand and save Marauding Mako for next turn when both can be cast together for the +1/+1 counter synergy (Mako into Burning Inquiry = 4/4)",
-      "type": "blunder",
-      "snapshotIndex": 22,
-      "player": "DSV3 Lucky"
-    },
-    {
       "severity": "minor",
-      "description": "Playing Boseiju, Who Endures instead of Eldrazi Temple is suboptimal. Eldrazi Temple would provide {C}{C} for casting colorless Eldrazi spells, which synergizes perfectly with the Eldrazi-heavy hand (Glaring Fleshraker costs {2}{C}, Kozilek's Command costs {X}{C}{C}). With Ugin's Labyrinth producing {C}{C} and Eldrazi Temple producing {C}{C} for Eldrazi spells, the player could cast Glaring Fleshraker next turn (needing 2C + C, which Ugin's Labyrinth + Eldrazi Temple provides). Boseiju only adds {G}, which doesn't cast anything relevant in hand. Boseiju's channel ability is situationally useful but there's no pressing target right now, and it can be played later. Eldrazi Temple accelerates the game plan significantly.",
-      "actionTaken": "Played Boseiju, Who Endures as their land for the turn.",
-      "betterLine": "Play Eldrazi Temple instead, enabling Turn 3 Glaring Fleshraker (Ugin's Labyrinth for {C}{C} + Eldrazi Temple for {C} = exactly {2}{C} needed). This would establish a key threat that generates value from all subsequent colorless spells.",
+      "description": "Playing Boseiju instead of Eldrazi Temple misses the opportunity to have 4 mana for Eldrazi spells this turn. With Eldrazi Temple, MiMo could cast Glaring Fleshraker (3 mana) and then Walking Ballista for X=0 (free colorless spell that triggers Fleshraker to create a Spawn token and deal 1 damage), generating more value this turn. Boseiju's channel ability isn't needed right now.",
+      "actionTaken": "Played Boseiju, Who Endures, producing only 3 total mana (2 colorless + 1 green)",
+      "betterLine": "Play Eldrazi Temple for 4 Eldrazi mana total, cast Glaring Fleshraker, then cast Walking Ballista X=0 to trigger Fleshraker (creating a Spawn token and dealing 1 damage)",
       "type": "blunder",
       "snapshotIndex": 28,
       "player": "MiMo Rookie"
     },
     {
       "severity": "moderate",
-      "description": "MiMo Rookie used Ugin's Labyrinth to return Devourer of Destiny to hand instead of tapping it for 2 colorless mana. With Ugin's Labyrinth producing {C}{C} (since Devourer was exiled with it), plus Boseiju for {G}, they could have had 3 mana available to cast Glaring Fleshraker (costs {2}{C}). Instead, they retrieved Devourer of Destiny (a 7-mana creature they can't cast for many turns) and lost access to the double mana from Ugin's Labyrinth for future turns. This delays their board development significantly - Glaring Fleshraker is a key engine card that would generate tokens and deal damage from subsequent colorless spells.",
-      "actionTaken": "Used Ugin's Labyrinth to return Devourer of Destiny to hand instead of tapping for {C}{C}.",
-      "betterLine": "Tap Ugin's Labyrinth for {C}{C}, tap Boseiju for {G}, then cast Glaring Fleshraker for {2}{C}. This develops the board with a key engine piece while keeping Devourer exiled to maintain the double mana production from Ugin's Labyrinth on future turns.",
+      "description": "Returned Devourer of Destiny from Ugin's Labyrinth to hand instead of tapping for {C}{C}. This degrades the Labyrinth from producing 2 mana to 1 mana per turn, and the returned Devourer costs 7 mana which is many turns away from castable. More importantly, tapping for {C}{C} plus playing Eldrazi Temple and tapping Boseiju would have provided exactly enough mana to cast Glaring Fleshraker this turn, which is a key synergy piece.",
+      "actionTaken": "Activated Ugin's Labyrinth to return exiled Devourer of Destiny to hand",
+      "betterLine": "Tap Ugin's Labyrinth for {C}{C}, then in postcombat main play Eldrazi Temple, tap Boseiju for {G} and Eldrazi Temple for {C}, and cast Glaring Fleshraker for {2}{C}",
       "type": "blunder",
-      "snapshotIndex": 32,
+      "snapshotIndex": 31,
       "player": "MiMo Rookie"
     },
     {
       "severity": "minor",
-      "description": "Fetching Blood Crypt costs 2 life to enter untapped (or enters tapped if they don't pay). The player already has a Blood Crypt on the battlefield for black mana. They have two Orcish Bowmasters in hand (1B each), but only need one black source at a time. Fetching a basic Mountain would provide red mana for free (no life payment) and avoid unnecessary life loss. The Bloodstained Mire already cost 1 life, and paying another 2 life for Blood Crypt means 3 life total for this land fetch. With the player already at 17 life, this is a small but real cost. A basic Mountain enters untapped for free and still gives access to red mana, while the existing Blood Crypt covers black.",
-      "actionTaken": "Fetched Blood Crypt from library (will cost 2 life to enter untapped or enter tapped)",
-      "betterLine": "Fetch a basic Mountain to avoid paying 2 additional life, since the existing Blood Crypt already provides black mana for Orcish Bowmasters.",
+      "description": "Playing Bloodstained Mire instead of Mountain costs 1 life unnecessarily. With Blood Crypt already on board, playing Mountain provides the same mana access (1 generic + B from Blood Crypt = Orcish Bowmasters, or R from either land = Burning Inquiry) without needing to crack a fetch. The fetchlands are better saved for later turns when specific color fixing might be needed.",
+      "actionTaken": "Played Bloodstained Mire as the land drop",
+      "betterLine": "Play Mountain to save 1 life and preserve fetchlands for future turns when color fixing is more relevant",
+      "type": "blunder",
+      "snapshotIndex": 38,
+      "player": "DSV3 Lucky"
+    },
+    {
+      "severity": "minor",
+      "description": "Failed to attack with Marauding Mako (1/1) into an empty board with no untapped mana on the opponent's side. The opponent has no blockers and no mana available to cast anything, so this is completely free damage.",
+      "actionTaken": "Timed out and did not declare any attackers.",
+      "betterLine": "Attack with Marauding Mako for 1 free damage.",
+      "type": "blunder",
+      "snapshotIndex": 41,
+      "player": "DSV3 Lucky"
+    },
+    {
+      "severity": "minor",
+      "description": "Fetching Blood Crypt instead of Mountain means paying 2 life unnecessarily (or having it enter tapped). With Blood Crypt already in play providing black mana, and a Mountain already in hand for future turns, fetching Mountain here gets an untapped land for free while preserving 2 life points.",
+      "actionTaken": "Fetched Blood Crypt (will cost 2 life to enter untapped or enter tapped)",
+      "betterLine": "Fetch Mountain - enters untapped for free, provides the generic mana needed for Orcish Bowmasters alongside existing Blood Crypt, and saves 2 life",
       "type": "blunder",
       "snapshotIndex": 47,
       "player": "DSV3 Lucky"
     },
     {
-      "severity": "questionable",
-      "description": "Casting Kozilek's Command during combat with X=1 uses all available mana (Boseiju for {G}, Eldrazi Temple for {C}{C} toward Eldrazi spell, Ugin's Labyrinth for {C}) but the timing is questionable. While exiling Marauding Mako (a growing threat) is reasonable, casting this during combat on their own turn rather than waiting until the opponent's end step means they're tapping out and can't use mana for anything else this turn cycle. Additionally, with X=1, the spell only creates one 0/1 token and exiles one creature - relatively low impact. However, Marauding Mako with Burning Inquiry synergy could grow quickly, so removing it now has merit. The bigger question is whether main phase 2 would have been better for sequencing - they could have played Forest first (from hand) to have more mana available, potentially casting with X=2 instead to exile the 1/2 Orc Army token as well or get more value.",
-      "actionTaken": "Cast Kozilek's Command with X=1 during combat phase, planning to create a token and exile Marauding Mako",
-      "betterLine": "Wait until main phase 2, play Forest from hand first, then cast Kozilek's Command with X=1 (or potentially save it for opponent's end step for more flexibility). Playing the land first doesn't increase X since the extra mana is green, but it does leave more options open. Alternatively, waiting for opponent's end step preserves information advantage.",
-      "type": "blunder",
-      "snapshotIndex": 65,
-      "player": "MiMo Rookie"
-    },
-    {
       "severity": "minor",
-      "description": "Playing Mountain before Bloodstained Mire is a sequencing error. The player should play the fetch land (Bloodstained Mire) instead of the basic Mountain, because fetch lands provide more flexibility - they can fetch a basic Mountain if needed but also thin the deck, and importantly, if they want to cast Burning Inquiry this turn, the fetch land crack triggers shuffle which could matter. More critically, playing the fetch land preserves the option to play Mountain later if needed, while playing Mountain first means the fetch land might be stranded if they need the land drop for something else next turn. Additionally, with Orcish Bowmasters in hand costing {1}{B}, they already have BB available from the two Blood Crypts, so the Mountain adds redundant red mana. The fetch land would give them more options and deck thinning.",
-      "actionTaken": "Played basic Mountain as their land for the turn.",
-      "betterLine": "Play Bloodstained Mire instead. This preserves flexibility - they can crack it later for whatever color they need, thin their deck, and still have the Mountain in hand for a future land drop.",
+      "description": "Timed out and declared no attackers when the opponent had no blockers and all lands tapped. This was a free 3 damage (Marauding Mako, Orcish Bowmasters, and Orc Army Token are all 1/1s) with essentially zero risk.",
+      "actionTaken": "No response (timeout) — no attackers declared.",
+      "betterLine": "Attack with at least Marauding Mako, Orcish Bowmasters, and Orc Army Token for 3 free damage, bringing opponent from 18 to 15.",
       "type": "blunder",
-      "snapshotIndex": 76,
-      "player": "DSV3 Lucky"
-    },
-    {
-      "severity": "questionable",
-      "description": "Burning Inquiry is a high-variance play here. With two Orcish Bowmasters in play, the opponent drawing 3 cards triggers Bowmasters twice (2 extra draws beyond the first), dealing 2 damage and growing the Orc Army. However, the random discard aspect means DSV3 Lucky could lose important cards (and did lose Nethergoyf, which would have been a strong threat from the graveyard-matters perspective). The opponent has very few cards in hand and could potentially draw into answers. The Bowmasters synergy is real but the risk of discarding valuable cards and giving the opponent fresh cards when they're likely empty-handed is significant. Playing Bloodstained Mire first (to thin the deck and have the land in play) before casting Burning Inquiry would have been strictly better sequencing, and holding Burning Inquiry for a turn when the opponent might have more cards to lose could also be considered.",
-      "actionTaken": "Cast Burning Inquiry without first playing Bloodstained Mire from hand, losing Street Wraith and Nethergoyf to random discard.",
-      "betterLine": "Play Bloodstained Mire first (free land drop), then cast Burning Inquiry to avoid risking discarding the land. Alternatively, hold Burning Inquiry and just play the land, keeping options open.",
-      "type": "blunder",
-      "snapshotIndex": 96,
+      "snapshotIndex": 79,
       "player": "DSV3 Lucky"
     },
     {
       "severity": "moderate",
-      "description": "All three Orcish Bowmasters triggers are targeting the player's own Marauding Mako, which will kill it (1/1 base, even with some counters). This wastes 3 damage that could go to the opponent's face (bringing them from 13 to 10) and unnecessarily kills their own creature. With Lightning Bolt in hand, every point of damage to the opponent matters.",
-      "actionTaken": "Targeted own Marauding Mako with all three Bowmasters damage triggers, killing their own creature.",
-      "betterLine": "Target the opponent (MiMo Rookie) with all three Bowmasters triggers to deal 3 damage to their face, bringing them to 10 life while preserving Marauding Mako as an attacker.",
+      "description": "DSV3 Lucky targeted their own Marauding Mako (1/1) with an Orcish Bowmasters trigger, killing it for no benefit. The Mako could grow with future discard effects and was a useful creature. Meanwhile, the 1 damage could have gone to the opponent (bringing them closer to lethal range) or to an opponent's creature if relevant.",
+      "actionTaken": "Targeted own Marauding Mako 1/1 with Orcish Bowmasters' 1 damage trigger, killing it",
+      "betterLine": "Target the opponent (MiMo Rookie) with the Bowmasters trigger for 1 additional damage, preserving Marauding Mako as a threat that could grow from future discard effects",
       "type": "blunder",
       "snapshotIndex": 106,
       "player": "DSV3 Lucky"
     },
     {
       "severity": "minor",
-      "description": "Attempted to cast Walking Ballista before playing Urza's Saga as a land drop. Urza's Saga should be played first to gain an additional mana source (enabling a larger Ballista or other plays) and to start its chapter progression. The cast was also rolled back due to mana payment issues, wasting the priority window.",
-      "actionTaken": "Attempted to cast Walking Ballista (which was rolled back due to mana payment failure), without first playing Urza's Saga.",
-      "betterLine": "Play Urza's Saga first (land drop), then cast Walking Ballista with X=2 using the additional mana, or consider Kozilek's Command for board interaction/token generation.",
+      "description": "Attempted to cast Walking Ballista but couldn't complete mana payment, wasting a priority window in a critical turn. At 10 life facing 12+ power on the opponent's board, every action matters. The player should have first played Urza's Saga as their land drop to maximize available mana, then used their mana efficiently for Kozilek's Command (to exile a threat or create blockers) and/or Haywire Mite.",
+      "actionTaken": "Attempted to cast Walking Ballista, which was rolled back due to inability to pay mana costs.",
+      "betterLine": "Play Urza's Saga first (land drop), then cast Haywire Mite for {1} as a blocker, and cast Kozilek's Command using Eldrazi Temple + Ugin's Labyrinth mana to exile a key threat like the 8/8 Orc Army token or create Spawn blockers.",
       "type": "blunder",
       "snapshotIndex": 128,
       "player": "MiMo Rookie"
     },
     {
-      "severity": "major",
-      "description": "Player has 14 power of attackers (Marauding Mako 4/4, Orc Army 8/8, two Orcish Bowmasters 1/1 each) against an opponent at 10 life with no creatures to block. Plus Lightning Bolt in hand for 3 more damage. This is lethal on board. Instead of going to combat, the player cast Thoughtseize, losing 2 life unnecessarily and potentially giving the opponent information or time.",
-      "actionTaken": "Cast Thoughtseize precombat, paying 2 life",
-      "betterLine": "Go directly to combat and attack with all creatures for 14 damage against opponent's 10 life for lethal. Lightning Bolt available as backup if needed.",
-      "type": "blunder",
-      "snapshotIndex": 145,
-      "player": "DSV3 Lucky"
-    },
-    {
-      "severity": "major",
-      "description": "DSV3 Lucky has lethal damage on board (Marauding Mako 4/4 + Orc Army 8/8 + two Orcish Bowmasters 1/1 each = 14 power) against an opponent at 10 life with no blockers. Additionally, Lightning Bolt in hand provides 3 more damage if needed. Instead of attacking for lethal, they cast Thoughtseize, losing 2 life unnecessarily.",
-      "actionTaken": "Cast Thoughtseize targeting opponent instead of attacking for lethal.",
-      "betterLine": "Go to combat and attack with all creatures for 14 damage against opponent's 10 life, winning the game immediately.",
-      "type": "blunder",
-      "snapshotIndex": 146,
-      "player": "DSV3 Lucky"
-    },
-    {
       "severity": "moderate",
-      "description": "Activating Ugin's Labyrinth to return Devourer of Destiny to hand in response to Thoughtseize gives the opponent a better card to take with Thoughtseize, while also permanently downgrading Ugin's Labyrinth from producing CC to just C. This is counterproductive.",
-      "actionTaken": "Activated Ugin's Labyrinth to return exiled Devourer of Destiny to hand before Thoughtseize resolves",
-      "betterLine": "Cast Kozilek's Command in response to Thoughtseize (using Eldrazi Temple CC + Ugin's Labyrinth CC for X=2), choosing modes like 'exile target creature with MV 2 or less' (hitting an Orcish Bowmasters) and 'create 2 Eldrazi Spawn tokens' or 'scry 2, draw a card'. This resolves before Thoughtseize, protecting it from being taken, and advances the board position while keeping Ugin's Labyrinth producing CC.",
+      "description": "Activated Ugin's Labyrinth to return exiled Devourer of Destiny to hand in response to Thoughtseize. This gives the opponent an additional high-value target to choose with Thoughtseize, and permanently downgrades Ugin's Labyrinth from producing CC to just C. Meanwhile, casting Kozilek's Command in response (X=2 using Ugin's Labyrinth CC + Eldrazi Temple CC) could have exiled an Orcish Bowmasters (mana value 2) and provided card selection/draw, gaining real board advantage before Thoughtseize resolves.",
+      "actionTaken": "Activated Ugin's Labyrinth to return Devourer of Destiny to hand before Thoughtseize resolves.",
+      "betterLine": "Cast Kozilek's Command for X=2 in response to Thoughtseize, choosing to exile an Orcish Bowmasters (mana value 2) and scry 2 + draw a card. This removes a threat, generates card advantage, and the Command is spent before Thoughtseize resolves so it can't be taken.",
       "type": "blunder",
       "snapshotIndex": 149,
       "player": "MiMo Rookie"
     },
     {
       "severity": "minor",
-      "description": "Walking Ballista is the least threatening card in the opponent's hand given the mana constraints (at most a 2/2 with ~5 available mana). The dominant board position means the priority should be removing cards that could disrupt the lethal attack or turn the game around. Kozilek's Command is castable with current mana and could exile creatures or provide card draw, while Emrakul could be game-ending if the game goes longer.",
-      "actionTaken": "Chose to discard Walking Ballista from opponent's hand with Thoughtseize",
-      "betterLine": "Discard Kozilek's Command (most immediately impactful interaction that could exile key attackers) or Emrakul, the Promised End (the most game-ending threat if the game stalls)",
+      "description": "Took Walking Ballista with Thoughtseize when the opponent can't cast a meaningful Ballista with only 3 lands. Devourer of Destiny is the real threat - it exiles a colored permanent on cast and could remove the 8/8 Orc Army token. With Eldrazi Temple + Ugin's Labyrinth (exiled card) + Boseiju, the opponent could reach 7 mana for Devourer relatively soon, while DSV3 Lucky is threatening lethal next turn.",
+      "actionTaken": "Took Walking Ballista with Thoughtseize",
+      "betterLine": "Take Devourer of Destiny, which is the most realistic way for the opponent to survive by exiling the 8/8 Orc Army token. Kozilek's Command is also a reasonable consideration as it's an instant-speed answer.",
       "type": "blunder",
-      "snapshotIndex": 152,
+      "snapshotIndex": 151,
       "player": "DSV3 Lucky"
     },
     {
-      "severity": "minor",
-      "description": "With X=1, creating a single 0/1 Eldrazi Spawn token is less valuable than scrying 1 and drawing a card (Mode 2). MiMo Rookie is behind on board facing lethal threats (8/8 Orc Army, 4/4 Mako, two Bowmasters) at 10 life and needs to find answers. Drawing a card with scry provides much better chances of finding relevant plays than a 0/1 token that provides minimal board impact.",
-      "actionTaken": "Chose Mode 1 (create 1 Eldrazi Spawn token) as first mode of Kozilek's Command",
-      "betterLine": "Choose Mode 2 (scry 1, draw a card) paired with Mode 3 (exile Marauding Mako with MV 1) to both remove a 4/4 threat and dig for answers to the dominant board state",
+      "severity": "major",
+      "description": "Failed to declare attackers when the opponent is at 7 life with no blockers and no untapped mana. Any combination of attackers totaling 7+ power (e.g., the 8/8 Orc Army Token alone) would have been lethal. The opponent has no creatures and all lands are tapped.",
+      "actionTaken": "No response - failed to declare any attackers, missing guaranteed lethal.",
+      "betterLine": "Attack with all creatures (or at minimum the 8/8 Orc Army Token) for lethal damage against the opponent at 7 life with no blockers.",
       "type": "blunder",
-      "snapshotIndex": 155,
-      "player": "MiMo Rookie"
+      "snapshotIndex": 170,
+      "player": "DSV3 Lucky"
     }
   ],
-  "blunderScriptVersion": 18,
+  "blunderScriptVersion": 28,
   "decisions": [
     {
       "index": 0,

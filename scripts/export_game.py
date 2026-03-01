@@ -23,6 +23,26 @@ _ERROR_LINE_ISO_RE = re.compile(
     r"^\[\d{4}-\d{2}-\d{2}T(\d{2}:\d{2}:\d{2})\.\d+[-+]\d{2}:\d{2}\]\s+\[(\w+)\]\s+(.+)$"
 )
 
+# Error messages caused by LLM mistakes, not code bugs.  These are still
+# logged for debugging but shouldn't surface as "critical errors" on the
+# website.  Old error logs may still contain them, so we filter at export time.
+_LLM_ERROR_PREFIXES = (
+    "choose_action failed:",
+    "Loop detected",
+    "MCP request failed",
+    "OUTPUT TRUNCATED:",
+    "Action failed:",
+    "Empty response from LLM",
+    "LLM appears degraded",
+    "Stalled:",
+    "LLM request timed out",
+    "LLM error:",
+    "Maximum game duration exceeded",
+    "Auto-pass",
+    "Too many consecutive errors",
+    "Auto-pass loop reached max iterations",
+)
+
 # LLM event types to include in the website export
 _LLM_EVENT_TYPES = {
     "game_start",
@@ -45,11 +65,17 @@ def _strip_html(message: str) -> str:
     return message.strip()
 
 
+def _is_llm_error(message: str) -> bool:
+    """Return True if this error message is an LLM mistake, not a code bug."""
+    return any(message.startswith(prefix) for prefix in _LLM_ERROR_PREFIXES)
+
+
 def _read_errors(game_dir: Path) -> list[dict]:
     """Read per-player error logs and return structured error entries.
 
     Each entry has: ts (HH:MM:SS or ""), player, source (pilot/mcp/unknown),
-    message.
+    message.  LLM-caused errors are filtered out — only infrastructure bugs
+    are surfaced as critical errors.
     """
     errors: list[dict] = []
     for log_file in sorted(game_dir.glob("*_errors.log")):
@@ -61,12 +87,15 @@ def _read_errors(game_dir: Path) -> list[dict]:
                     continue
                 m = _ERROR_LINE_RE.match(line) or _ERROR_LINE_ISO_RE.match(line)
                 if m:
+                    message = m.group(3)
+                    if _is_llm_error(message):
+                        continue
                     errors.append(
                         {
                             "ts": m.group(1),
                             "player": player,
                             "source": m.group(2),
-                            "message": m.group(3),
+                            "message": message,
                         }
                     )
                 else:

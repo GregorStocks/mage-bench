@@ -94124,112 +94124,193 @@
   "annotations": [
     {
       "severity": "minor",
-      "description": "Cast Lotus Petal before playing a land on Turn 1 in Legacy. This means if the opponent has Daze (a common Legacy card, and it's in the opponent's deck), Lotus Petal gets countered for free since there's no mana to pay the {1}. Playing Eldrazi Temple first would allow tapping it for {C} to pay for Daze.",
-      "actionTaken": "Cast Lotus Petal with no lands in play",
-      "betterLine": "Play Eldrazi Temple first, then cast Lotus Petal. This way if the opponent Dazes the Petal, you can tap Eldrazi Temple to pay {1} and resolve it.",
+      "description": "Cast Lotus Petal before playing a land. While Lotus Petal costs {0}, the standard sequencing principle is to play lands first since land drops cannot be countered or responded to. By casting Lotus Petal first, the opponent gets an unnecessary priority window and could theoretically interact (e.g., Force of Will) before the land is in play.",
+      "actionTaken": "Cast Lotus Petal before making a land drop",
+      "betterLine": "Play Eldrazi Temple first (land drops can't be interacted with), then cast Lotus Petal. This follows the fundamental 'play lands before spells' sequencing principle and denies the opponent any opportunity to interact before securing the land drop.",
       "type": "blunder",
       "snapshotIndex": 6,
       "player": "GLM47 Gramps"
     },
     {
       "severity": "minor",
-      "description": "Passed the turn without casting Brainstorm despite having the ideal setup: Lotus Petal for mana and two Polluted Deltas in hand for the fetch-shuffle to lock in a perfect Brainstorm. Against Eldrazi, the opponent could deploy Thought-Knot Seer as early as next turn, which would exile a card from hand before getting to Brainstorm. Digging now maximizes card quality and finds answers before the opponent's threats come down.",
-      "actionTaken": "Passed priority in postcombat main phase, preserving Lotus Petal and not casting any spells.",
-      "betterLine": "Sacrifice Lotus Petal for U, cast Brainstorm, put two worst cards on top. Next turn, play Polluted Delta and crack it to shuffle away the unwanted cards — the classic Brainstorm-fetch sequence that is a core Legacy play pattern.",
+      "description": "Cast Lotus Petal before playing a land. Should play land first to ensure the land drop isn't missed and to play around potential interaction. If an opponent somehow counters or interacts with Lotus Petal, the player would still want their land on the battlefield.",
+      "actionTaken": "Cast Lotus Petal before playing a land on Turn 1",
+      "betterLine": "Play Eldrazi Temple first (securing the land drop), then cast Lotus Petal. This way the land is guaranteed on the battlefield regardless of any interaction with the Petal.",
       "type": "blunder",
-      "snapshotIndex": 25,
+      "snapshotIndex": 6,
+      "player": "GLM47 Gramps"
+    },
+    {
+      "severity": "questionable",
+      "description": "Casting Ponder (sorcery speed) uses the only available mana when Consider could be held up alongside Daze. Against Eldrazi Stompy, the opponent could slam a Thought-Knot Seer (Temple + Petal + another land = 4 mana) or other threat next turn. By passing and holding Consider for end of turn, Lucky keeps Daze live (bouncing Underground Sea) while still cantripping. Ponder does see more cards, but the tempo advantage of threatening Daze against a fast deck is significant.",
+      "actionTaken": "Cast Ponder during precombat main, tapping out the only land",
+      "betterLine": "Pass the turn, threatening Daze (returning Underground Sea). If opponent plays a threat, Daze it. Cast Consider at end of opponent's turn to maintain card selection while keeping interaction up.",
+      "type": "blunder",
+      "snapshotIndex": 13,
       "player": "Gem25P Lucky"
     },
     {
       "severity": "minor",
-      "description": "Taking one Daze when the opponent still has a second copy is less impactful than taking Brainstorm, which is the most powerful card selection spell in Legacy and could find Force of Will or other critical answers. The remaining Daze still threatens to counter GLM47's next spell, so removing one of two copies has diminishing returns.",
-      "actionTaken": "Exiled one of two Dazes from opponent's hand",
-      "betterLine": "Exile Brainstorm to deny the opponent their best card selection, preventing them from digging for Force of Will, removal, or other key answers. The opponent would be left with two Dazes and a Consider, which is much less threatening than having Brainstorm access.",
+      "description": "With Thought-Knot Seer's trigger, chose to exile Daze instead of Brainstorm. Taking one Daze still leaves a second Daze in hand, diminishing the value. Meanwhile, Brainstorm is the most powerful card selection spell in Legacy and would let the opponent dig for key answers (Force of Will, removal, etc.). Additionally, Cavern of Souls in hand can make future Eldrazi creatures uncounterable, reducing Daze's impact on the primary game plan.",
+      "actionTaken": "Exiled Daze from opponent's hand",
+      "betterLine": "Exile Brainstorm - it's the most impactful single card, providing card selection that could find any answer. Taking one of two Dazes has diminished returns, and Cavern of Souls already protects creature spells from being countered.",
       "type": "blunder",
       "snapshotIndex": 41,
       "player": "GLM47 Gramps"
     },
     {
       "severity": "minor",
-      "description": "Played Swamp instead of Polluted Delta before casting Brainstorm. This prevents the classic Brainstorm + fetchland shuffle, meaning the two cards put back on top of the library stay there. With a Polluted Delta on the battlefield, the player could crack it after Brainstorm to shuffle away unwanted cards.",
-      "actionTaken": "Played Swamp as land drop, then cast Brainstorm without a fetchland available to shuffle away put-back cards.",
-      "betterLine": "Play Polluted Delta first, then cast Brainstorm off Underground Sea, put two unwanted cards back on top, then crack Polluted Delta to shuffle them away.",
+      "description": "Playing Swamp instead of Polluted Delta with Brainstorm in hand is a Legacy sequencing error. Having a fetch land on the battlefield enables the critical Brainstorm + fetch shuffle interaction this turn — Brainstorm to find better cards, put two bad ones on top, then crack Delta to shuffle them away. Playing Swamp means any Brainstorm cast this turn will leave the two worst cards stuck on top of the library.",
+      "actionTaken": "Played Swamp as the land drop",
+      "betterLine": "Play Polluted Delta as the land drop, then cast Brainstorm (drawing 3, putting 2 back), then crack Polluted Delta to shuffle away the unwanted cards. This is one of the most fundamental synergies in Legacy.",
       "type": "blunder",
       "snapshotIndex": 44,
       "player": "Gem25P Lucky"
     },
     {
-      "severity": "moderate",
-      "description": "The player passed their main phase with Lotus Petal still untapped on the battlefield, believing they had already used it. They had both Ponder and Consider castable by sacrificing Lotus Petal for {U}. Facing a Thought-Knot Seer and an aggressive Eldrazi deck, digging for answers with Ponder (or Consider) was important. The Lotus Petal was going to lose value over time anyway, and finding removal or a threat was critical.",
-      "actionTaken": "Passed priority in precombat main phase without casting any spells, mistakenly believing Lotus Petal was already used.",
-      "betterLine": "Sacrifice Lotus Petal for {U} and cast Ponder to dig for answers to the opponent's Eldrazi threats, then play Polluted Delta next turn for additional mana development.",
+      "severity": "minor",
+      "description": "Chose Consider over Ponder when casting at sorcery speed during the main phase. Ponder looks at 3 cards and offers a shuffle if all are bad, providing significantly better card selection than Consider's surveil 1 + draw. With an opponent's Thought-Knot Seer about to attack and needing to find answers, the deeper selection from Ponder was important. Additionally, Polluted Delta in hand could shuffle away unwanted cards placed on top by Ponder on a future turn.",
+      "actionTaken": "Cast Consider, which only sees 2 cards (surveil 1, then draw)",
+      "betterLine": "Cast Ponder to look at 3 cards with the option to shuffle, maximizing the chance of finding relevant answers to the Eldrazi threats",
+      "type": "blunder",
+      "snapshotIndex": 53,
+      "player": "Gem25P Lucky"
+    },
+    {
+      "severity": "minor",
+      "description": "Passed priority in precombat main phase without casting either cantrip (Ponder or Consider) despite having Lotus Petal available to generate {U}. The opponent has a Thought-Knot Seer threatening 4 damage per turn, and the player needs to dig for answers. Ponder especially would provide excellent card selection to find removal or threats.",
+      "actionTaken": "Passed priority, ending the main phase without casting anything.",
+      "betterLine": "Sacrifice Lotus Petal for {U} and cast Ponder to dig for answers to the Thought-Knot Seer. Ponder's ability to see 3 cards and shuffle gives the best chance of finding relevant interaction or threats.",
       "type": "blunder",
       "snapshotIndex": 55,
       "player": "Gem25P Lucky"
     },
     {
-      "severity": "minor",
-      "description": "Player passed in postcombat main with castable cantrips available. They have Lotus Petal on the battlefield that could be sacrificed for {U} to cast either Ponder or Consider. Facing a Thought-Knot Seer, digging for answers is important. While saving Lotus Petal for a future turn has some merit (next turn they can play Polluted Delta and have blue mana naturally), casting Ponder now to find threats/answers one turn sooner against an aggressive Eldrazi board is likely worth the Petal.",
-      "actionTaken": "Passed priority with no response, ending the turn without casting any spells.",
-      "betterLine": "Sacrifice Lotus Petal for {U} and cast Ponder to dig for answers to the Thought-Knot Seer, with the option to shuffle if the top 3 cards are poor.",
+      "severity": "moderate",
+      "description": "Player timed out and passed in postcombat main with Ponder (sorcery-speed cantrip) available to cast via Lotus Petal sacrifice. Facing a Thought-Knot Seer with limited answers in hand, they need to dig for interaction. Ponder can only be cast at sorcery speed, so this was the last opportunity. The Lotus Petal mana would otherwise go unused.",
+      "actionTaken": "Timed out and passed priority, ending the turn without casting anything.",
+      "betterLine": "Sacrifice Lotus Petal for {U} and cast Ponder to dig for answers to Thought-Knot Seer, saving Consider for instant-speed use later.",
       "type": "blunder",
       "snapshotIndex": 59,
       "player": "Gem25P Lucky"
     },
     {
       "severity": "minor",
-      "description": "Casting Eldrazi Linebreaker instead of Grim Monolith. Grim Monolith costs {2} (payable with 2 Eldrazi Temples) and would enable casting Reality Smasher (a 5/5 haste trampler) as early as next turn by providing {C}{C}{C}. Alternatively, Chalice of the Void on 1 would shut down the opponent's cantrip-heavy blue deck (Brainstorm, Ponder, Consider, Daze). The Linebreaker is a reasonable threat but doesn't accelerate the game plan as effectively.",
-      "actionTaken": "Cast Eldrazi Linebreaker",
-      "betterLine": "Cast Grim Monolith to enable Reality Smasher next turn, or cast Chalice of the Void on X=1 to lock out the opponent's 1-mana spells",
+      "description": "Cast Consider instead of Ponder when they had exactly one blue mana available (from Lotus Petal sacrifice). Ponder is strictly better here - it sees 3 cards with a shuffle option versus Consider's surveil 1 + draw. With a 4/4 Thought-Knot Seer threatening them and needing to find answers, maximizing card selection matters. There's no reason to prefer Consider's instant speed since Daze can't be cast (no untapped Island to return) and they have no other meaningful instant-speed interaction to hold up.",
+      "actionTaken": "Cast Consider using Lotus Petal mana",
+      "betterLine": "Cast Ponder instead of Consider to see 3 cards deep with shuffle option, maximizing chances of finding an answer to Thought-Knot Seer",
+      "type": "blunder",
+      "snapshotIndex": 65,
+      "player": "Gem25P Lucky"
+    },
+    {
+      "severity": "minor",
+      "description": "Used Lotus Petal to cast Consider (surveil 1, draw 1) when Ponder (look at top 3, optionally shuffle, draw 1) was in hand and costs the same {U}. Ponder provides significantly better card selection, especially important when looking for answers to the opponent's Thought-Knot Seer and Eldrazi pressure.",
+      "actionTaken": "Cast Consider using Lotus Petal for {U}",
+      "betterLine": "Save Lotus Petal and cast Ponder (sorcery) instead, which provides much better card selection by looking at 3 cards with shuffle option.",
+      "type": "blunder",
+      "snapshotIndex": 67,
+      "player": "Gem25P Lucky"
+    },
+    {
+      "severity": "minor",
+      "description": "GLM47 Gramps failed to attack with Thought-Knot Seer (a 4/4) into an opponent with no creatures on the battlefield. The opponent is at 20 life and has no blockers — there is zero risk in attacking, and 4 damage is significant. The opponent has a tapped Underground Sea, a sick Swamp, and a Lotus Petal, so they cannot meaningfully interact in combat. Missing 4 damage for free delays the clock unnecessarily.",
+      "actionTaken": "Timed out and did not declare any attackers.",
+      "betterLine": "Attack with Thought-Knot Seer for 4 unblocked damage, putting the opponent to 16.",
+      "type": "blunder",
+      "snapshotIndex": 72,
+      "player": "GLM47 Gramps"
+    },
+    {
+      "severity": "moderate",
+      "description": "With 3 untapped lands (Cavern of Souls + 2 Eldrazi Temples), the player could cast Grim Monolith (2 mana) and then Chalice of the Void on X=1 (2 mana) in the same turn. Chalice on 1 would be devastating against the opponent's Legacy blue deck, countering their Brainstorms, Ponders, Considers, and Dazes. Instead, Linebreaker uses all mana for a 3/3 that doesn't immediately impact the board (postcombat, no haste benefit this turn).",
+      "actionTaken": "Cast Eldrazi Linebreaker, using all available mana on a 3/3 trample creature postcombat.",
+      "betterLine": "Cast Grim Monolith (2 mana) + Chalice of the Void on X=1 (2 mana), locking out opponent's cheap cantrips and counterspells while also having Monolith available for massive ramp next turn to cast Reality Smasher and more.",
       "type": "blunder",
       "snapshotIndex": 95,
       "player": "GLM47 Gramps"
     },
     {
-      "severity": "questionable",
-      "description": "Fetched a second Underground Sea instead of a basic Island. Against an Eldrazi deck that very likely runs Wasteland, having all non-basic lands is risky. The player already has a Swamp for black mana, so a basic Island would provide the needed blue mana while being Wasteland-proof. The player still has Polluted Delta in hand but may need it later.",
-      "actionTaken": "Fetched Underground Sea (second copy)",
-      "betterLine": "Fetch basic Island to play around Wasteland while still having blue mana for countermagic. Black mana is already covered by Swamp.",
+      "severity": "minor",
+      "description": "Fetched Underground Sea instead of basic Island against an Eldrazi Stompy deck that very commonly plays Wasteland. With Chalice on 1 already blanking most of the hand (Consider, Ponder, Daze), protecting mana base from Wasteland is critical. Lucky already has an Underground Sea and Swamp, so a basic Island would ensure blue mana access even if Wasteland destroys the dual.",
+      "actionTaken": "Fetched Underground Sea",
+      "betterLine": "Fetch basic Island to protect against Wasteland while still having access to both blue and black mana through the existing Underground Sea and Swamp.",
       "type": "blunder",
       "snapshotIndex": 108,
       "player": "Gem25P Lucky"
     },
     {
       "severity": "minor",
-      "description": "Fetched a third Underground Sea instead of a basic Island against an Eldrazi deck that commonly plays Wasteland. With 2 Underground Seas already in play, a basic Island would protect blue mana sources from Wasteland, which is critical for casting Force of Will. The player's hand is mostly locked out by Chalice on 1 anyway, so the black mana from a third dual is less important than Wasteland insurance.",
+      "description": "Fetched a third Underground Sea instead of a basic Island against an Eldrazi Stompy deck that very likely runs Wasteland. With 2 Underground Seas and a Swamp already in play, Lucky has abundant black mana and doesn't need another dual. A basic Island would be immune to Wasteland, protecting the ability to cast Force of Will (the only relevant spell given Chalice on 1 counters everything else in hand).",
       "actionTaken": "Fetched Underground Sea (third copy)",
-      "betterLine": "Fetch basic Island to play around Wasteland and ensure blue mana access for Force of Will",
+      "betterLine": "Fetch basic Island to play around Wasteland, preserving blue mana sources for Force of Will",
       "type": "blunder",
       "snapshotIndex": 131,
       "player": "Gem25P Lucky"
     },
     {
-      "severity": "moderate",
-      "description": "Chalice of the Void has 1 charge counter, meaning Dark Ritual (MV=1) would be countered if cast. The player attempted to cast Dark Ritual as a stepping stone to Doomsday, but it would be countered by Chalice. Meanwhile, the player has 3 Underground Seas + Swamp = 4 black mana sources, which is more than enough to cast Doomsday (BBB) directly without needing Dark Ritual.",
-      "actionTaken": "Chose to cast Dark Ritual (which would be countered by Chalice of the Void on 1) as the first step of their combo plan.",
-      "betterLine": "Cast Doomsday directly by tapping three Underground Seas for BBB, bypassing Chalice entirely. This preserves Lotus Petal and doesn't waste Dark Ritual on a Chalice counter.",
+      "severity": "major",
+      "description": "Missed lethal on board. Casting Eldrazi Linebreaker (using Cavern of Souls for R + Eldrazi Temple for {C} and {1}) would create 3 Eldrazi on board. At combat, Linebreaker's trigger gives +3/+0 and haste to any creature. Pumping Reality Smasher to 8/5 trample + Thought-Knot Seer 4/4 + Linebreaker 3/3 trample = 15 damage against opponent's 14 life with no blockers.",
+      "actionTaken": "Cast Thought-Knot Seer to strip opponent's hand, missing the lethal attack this turn.",
+      "betterLine": "Cast Eldrazi Linebreaker, then attack with all three creatures (Reality Smasher pumped to 8/5, TKS 4/4, Linebreaker 3/3) for 15 total damage against 14 life for the win.",
+      "type": "blunder",
+      "snapshotIndex": 136,
+      "player": "GLM47 Gramps"
+    },
+    {
+      "severity": "major",
+      "description": "Failed to attack with Reality Smasher (5/5) and Thought-Knot Seer (4/4) into a completely empty board, missing 9 damage that would have put the opponent to 5 life. This likely delays lethal by a full turn and gives the opponent time to find answers.",
+      "actionTaken": "Timed out and attacked with nothing (no response).",
+      "betterLine": "Attack with both Reality Smasher and the non-sick Thought-Knot Seer for 9 damage, putting the opponent to 5 life. Next turn with Eldrazi Linebreaker pump and three attackers, that would likely be lethal.",
+      "type": "blunder",
+      "snapshotIndex": 153,
+      "player": "GLM47 Gramps"
+    },
+    {
+      "severity": "minor",
+      "description": "Attempted to cast Dark Ritual (mana value 1) into their opponent's Chalice of the Void with 1 charge counter, which would counter the spell even if the mana payment had succeeded. Dark Ritual cannot resolve through Chalice on 1.",
+      "actionTaken": "Attempted to cast Dark Ritual (rolled back by game engine due to mana payment issue, but even if it resolved the mana payment, Chalice would have countered it)",
+      "betterLine": "Cast Doomsday directly using 3 black mana from lands (Swamp + Underground Sea x3), or recognize that winning through Chalice on 1 with a Doomsday pile of mostly 1-mana cantrips may not be viable. If a pile exists using 0-mana or 2+ mana draw spells, go for Doomsday; otherwise the game may already be lost.",
       "type": "blunder",
       "snapshotIndex": 192,
       "player": "Gem25P Lucky"
     },
     {
-      "severity": "moderate",
-      "description": "Brainstorm costs 1 mana and will be countered by Chalice of the Void on 1. Including it in the Doomsday pile wastes a precious slot. At 2 life post-Doomsday with only 5 cards in library, every card must contribute to winning. The pile needs to work around Chalice on 1 by using 0-cost artifacts (Lion's Eye Diamond, Lotus Petal) and Thassa's Oracle with non-1-CMC draw enablers like Edge of Autumn (cycling) or Quantum Riddler (Warp for 1U).",
-      "actionTaken": "Selected Brainstorm as part of the Doomsday pile despite Chalice of the Void on 1 making it uncastable.",
-      "betterLine": "Build a pile around cards that dodge Chalice on 1: e.g., Thassa's Oracle, Lion's Eye Diamond, Lotus Petal, Edge of Autumn, and Cavern of Souls or another enabler. Use 0-cost artifacts and Edge of Autumn cycling (costs sacrificing a land, not mana value 1) to draw through the pile.",
+      "severity": "minor",
+      "description": "GLM47 passed priority with Doomsday on the stack without activating Wasteland to destroy one of the opponent's untapped lands. After Doomsday resolves, the opponent will be at 2 life and need to execute their 5-card pile. While Chalice on 1 helps, destroying an untapped land (like Island or Underground Sea) could further disrupt the opponent's ability to cast pile cards. Wasteland activation is essentially free here since GLM47 doesn't need the colorless mana from it.",
+      "actionTaken": "Passed priority without responding to Doomsday",
+      "betterLine": "Activate Wasteland targeting one of the opponent's untapped lands (Island or Underground Sea) to reduce their post-Doomsday mana and disrupt pile execution",
+      "type": "blunder",
+      "snapshotIndex": 201,
+      "player": "GLM47 Gramps"
+    },
+    {
+      "severity": "major",
+      "description": "Selecting Brainstorm for the Doomsday pile when Chalice of the Void on 1 is in play. Brainstorm has mana value 1 and will be countered by Chalice, wasting a critical pile slot. At 4 life (going to 2 after Doomsday) with lethal on the opponent's board, every pile slot matters for assembling a same-turn win.",
+      "actionTaken": "Selected Brainstorm as part of the Doomsday pile despite Chalice of the Void on 1 countering it.",
+      "betterLine": "Build a pile using cards not affected by Chalice on 1, such as Thassa's Oracle (MV 2), Lion's Eye Diamond (MV 0), Edge of Autumn (cycle doesn't cast), and other non-1-MV cards to enable a same-turn Oracle win.",
       "type": "blunder",
       "snapshotIndex": 202,
       "player": "Gem25P Lucky"
     },
     {
       "severity": "minor",
-      "description": "At 2 life with no blockers on Lucky's side, attacking with only 1 creature instead of all 3 available attackers risks the opponent having instant-speed removal for that single attacker. Attacking with all creatures plays around removal and guarantees lethal.",
-      "actionTaken": "Attacked with only 1 creature when the opponent was at 2 life with no blockers.",
-      "betterLine": "Attack with all available creatures (Reality Smasher + both Thought-Knot Seers) to play around potential instant-speed removal and guarantee lethal damage.",
+      "description": "Targeted Reality Smasher with Eldrazi Linebreaker's combat trigger instead of targeting the Linebreaker itself. Reality Smasher already has haste naturally, so the haste portion is wasted. Targeting Linebreaker would have given it haste (it's summoning sick) and allowed all 4 Eldrazi to attack into an opponent at 2 life, maximizing pressure against potential interaction.",
+      "actionTaken": "Targeted Reality Smasher with the +4/+0 and haste buff, leaving Eldrazi Linebreaker unable to attack due to summoning sickness.",
+      "betterLine": "Target Eldrazi Linebreaker with its own trigger to grant it haste, enabling all 4 Eldrazi to attack. With the opponent at 2 life, having 4 attackers instead of 3 provides better insurance against removal or blocking.",
+      "type": "blunder",
+      "snapshotIndex": 220,
+      "player": "GLM47 Gramps"
+    },
+    {
+      "severity": "major",
+      "description": "Opponent is at 2 life with no blockers on the battlefield. GLM47 has Reality Smasher (9/5 trample haste), and two Thought-Knot Seers (4/4 each) available to attack. Any single attacker is lethal. The player timed out and failed to declare any attackers, missing a guaranteed kill.",
+      "actionTaken": "No response (timeout) — no attackers declared, missing lethal.",
+      "betterLine": "Attack with all available creatures (or even just one) to deal lethal damage to the opponent at 2 life.",
       "type": "blunder",
       "snapshotIndex": 223,
       "player": "GLM47 Gramps"
     }
   ],
-  "blunderScriptVersion": 24
+  "blunderScriptVersion": 28
 }

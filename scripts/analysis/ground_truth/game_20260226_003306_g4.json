@@ -1,5 +1,8 @@
 [
   {
+    "decision_index": 2
+  },
+  {
     "decision_index": 3,
     "annotation_version": 18,
     "annotation_severity": "major",
@@ -48,6 +51,12 @@
     "human_notes": "returning devourer to hand is actively bad, should cast a spell"
   },
   {
+    "decision_index": 18
+  },
+  {
+    "decision_index": 19
+  },
+  {
     "decision_index": 22,
     "annotation_version": 18,
     "annotation_severity": "minor",
@@ -62,6 +71,9 @@
     "annotation_description": "Playing Mountain before Bloodstained Mire is a sequencing error. The player should play the fetch land (Bloodstained Mire) instead of the basic Mountain, because fetch lands provide more flexibility - they can fetch a basic Mountain if needed but also thin the deck, and importantly, if they want to cast Burning Inquiry this turn, the fetch land crack triggers shuffle which could matter. More critically, playing the fetch land preserves the option to play Mountain later if needed, while playing Mountain first means the fetch land might be stranded if they need the land drop for something else next turn. Additionally, with Orcish Bowmasters in hand costing {1}{B}, they already have BB available from the two Blood Crypts, so the Mountain adds redundant red mana. The fetch land would give them more options and deck thinning.",
     "verdict": "not_blunder",
     "human_notes": "playing mountain is more life-efficient and we don't need the fixing or shuffle. conceivably we'd want to fetch a surveil land here, but the best play is almost certainly to use 3 mana this turn to cast bowmasters into burning inquiry, so that likely doesn't come up"
+  },
+  {
+    "decision_index": 33
   },
   {
     "decision_index": 37,
@@ -96,5 +108,8 @@
   },
   {
     "decision_index": 57
+  },
+  {
+    "decision_index": 62
   }
 ]

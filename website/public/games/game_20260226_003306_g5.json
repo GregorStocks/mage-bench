@@ -48044,69 +48044,69 @@
   "annotations": [
     {
       "severity": "questionable",
-      "description": "In Legacy, playing a dual land directly on turn 1 instead of a fetchland exposes the dual to Wasteland. Against a Goblins deck (which commonly runs Wasteland), leading with the fetchland to protect the dual land is generally preferred. However, playing Underground Sea directly does dodge potential Stifle on the fetch activation.",
-      "actionTaken": "Played Underground Sea directly as the turn 1 land",
-      "betterLine": "Play Polluted Delta, crack it to fetch Underground Sea (or another blue/black source), then cast Personal Tutor. This protects the dual from Wasteland while still enabling the same plays this turn.",
+      "description": "In Legacy, the vast majority of decks want to be on the play to have the tempo advantage of going first — playing a land first, casting the first spell, and having priority. Choosing to be on the draw is unusual and generally suboptimal unless you have a specific reason (e.g., a dedicated control or combo deck that values the extra card). Without knowing the exact deck, choosing to go second is a questionable decision since most competitive Legacy strategies benefit from going first.",
+      "actionTaken": "Chose to be on the draw (let Sonnet Tactic go first)",
+      "betterLine": "Choose to be on the play (select yourself as starting player) to gain tempo advantage",
       "type": "blunder",
-      "snapshotIndex": 6,
-      "player": "Sonnet Tactic"
-    },
-    {
-      "severity": "minor",
-      "description": "Playing Badlands instead of Aether Vial on turn 1 is a significant tempo loss for a Goblin tribal deck. Aether Vial is one of the most important turn 1 plays in any Vial deck - it allows free creature deployment on subsequent turns, effectively doubling mana usage. With Aether Vial in hand and a land to play, the correct line is to play a land and cast Aether Vial. On turn 2, Vial ticks to 1 counter; turn 3 it reaches 2 counters (allowing free Battle Cry Goblin or Broadside Bombardiers). Every turn Vial is delayed costs significant tempo. The player should have played Badlands (or a fetch land) AND cast Aether Vial for 1 mana.",
-      "actionTaken": "Played Badlands as the land drop without casting Aether Vial, leaving 1 mana unused.",
-      "betterLine": "Play Badlands, then cast Aether Vial for {1} using the Badlands. This gets Vial ticking a full turn earlier, which is critical for the Goblin Vial strategy.",
-      "type": "blunder",
-      "snapshotIndex": 9,
+      "snapshotIndex": 0,
       "player": "KimiK2 Sport"
     },
     {
-      "severity": "moderate",
-      "description": "Cast Doomsday using LED (which discards hand), losing Edge of Autumn - a key cycling draw spell that could have been used to draw into the Doomsday pile. After Doomsday resolves, they have no way to draw a card until next turn's draw step, giving the opponent a full turn while at 10 life with an empty hand and minimal board.",
-      "actionTaken": "Cast Doomsday by cracking LED (discarding Edge of Autumn, Personal Tutor, and Polluted Delta) with no immediate way to draw into the pile.",
-      "betterLine": "Play Polluted Delta from hand, crack the on-battlefield Polluted Delta for U, cast Personal Tutor to find a setup piece, then combo off on a subsequent turn with Doomsday + LED while having Edge of Autumn available to cycle into the pile immediately.",
+      "severity": "minor",
+      "description": "Cast Personal Tutor before deploying Lion's Eye Diamond. In Legacy combo, the standard line is to play LED first (it's free at {0}), then cast Personal Tutor, allowing you to hold priority and crack LED in response to the tutor on the stack. This generates 3 mana while discarding the hand (which you're about to lose value from anyway since the tutor finds your key card). By casting Personal Tutor first without LED on the battlefield, they lose the option to crack LED in response.",
+      "actionTaken": "Cast Personal Tutor with Lion's Eye Diamond still in hand",
+      "betterLine": "Cast Lion's Eye Diamond first (free), then cast Personal Tutor, retaining the option to crack LED in response to the tutor on the stack for 3 mana if needed",
+      "type": "blunder",
+      "snapshotIndex": 25,
+      "player": "Sonnet Tactic"
+    },
+    {
+      "severity": "questionable",
+      "description": "Casting Doomsday without a cantrip to immediately draw into the pile means passing the turn at 10 life with an empty hand, giving the opponent a full turn cycle to interact or develop their board. The opponent has 7 cards and a Goblin deck that could pressure quickly. Additionally, 3 useful cards (Polluted Delta, Edge of Autumn, Personal Tutor) are discarded to LED.",
+      "actionTaken": "Cast Doomsday using LED mana, discarding entire hand and going to 10 life with no immediate way to draw into the pile",
+      "betterLine": "Wait for a turn where you have a cantrip available to immediately draw into the Doomsday pile after it resolves, or use Personal Tutor first to set up a better sequence. Playing the Polluted Delta from hand first would also preserve a land drop.",
       "type": "blunder",
       "snapshotIndex": 48,
       "player": "Sonnet Tactic"
     },
     {
-      "severity": "major",
-      "description": "Choosing Ponder instead of Brainstorm as the first card in the Doomsday pile prevents the immediate win. With Brainstorm, the line is: cycle Edge of Autumn (sac land) to draw Brainstorm, crack LED for UUU, cast Brainstorm drawing Thassa's Oracle + 2 cards, put 2 back (library=2), cast Oracle with UU (devotion=2 ≥ 2 cards in library = win). With Ponder, you only draw 1 card after looking at 3, leaving 3 cards in library when Oracle enters, and devotion of 2 < 3 means you don't win.",
-      "actionTaken": "Selected Ponder as first card in the Doomsday pile",
-      "betterLine": "Select Brainstorm as the first pile card, enabling the immediate win line: Edge of Autumn cycling → draw Brainstorm → crack LED for UUU → Brainstorm draws Oracle + 2 → put 2 back → cast Oracle with UU → devotion 2 ≥ 2 cards in library → win",
+      "severity": "minor",
+      "description": "In a Doomsday pile execution, the player cast Ponder before playing their Polluted Delta as a land. Since cracking Lion's Eye Diamond in response to Ponder will discard the entire hand (including the unplayed Polluted Delta), the land drop is permanently lost. Playing Polluted Delta first preserves an additional fetchland on the battlefield, which could provide mana or deck manipulation during the combo turn.",
+      "actionTaken": "Cast Ponder immediately without playing Polluted Delta as a land first.",
+      "betterLine": "Play Polluted Delta as a land first, then cast Ponder (and crack LED in response to Ponder). This preserves the extra fetchland on the battlefield at zero cost.",
       "type": "blunder",
-      "snapshotIndex": 54,
-      "player": "Sonnet Tactic"
-    },
-    {
-      "severity": "major",
-      "description": "In a Doomsday pile resolution, putting Lotus Petal on top instead of Brainstorm off Ponder is a critical sequencing error. The classic Doomsday winning line is to draw Brainstorm, then cast it while cracking LED in response (LED is on battlefield) to generate mana and draw 3 cards from the remaining pile. By drawing Lotus Petal first, they strand Brainstorm on top of their library with no efficient way to access it this turn.",
-      "actionTaken": "Put Lotus Petal on top of library (drawing it off Ponder), leaving Brainstorm as second card",
-      "betterLine": "Put Brainstorm on top of library, draw it off Ponder, then crack Polluted Delta for a land, tap for U, cast Brainstorm and crack LED in response for 3 mana, discard hand, draw remaining 3 pile cards to execute the win",
-      "type": "blunder",
-      "snapshotIndex": 77,
+      "snapshotIndex": 72,
       "player": "Sonnet Tactic"
     },
     {
       "severity": "moderate",
-      "description": "Against a Doomsday opponent at 9 life who will likely combo off next turn, KimiK2 Sport chose Goblin Matron over Broadside Bombardiers from Aether Vial. The Bombardiers-first line allows vialing in the hasty menace creature, then casting Goblin Matron from hand (using Cavern of Souls + Badlands), attacking with both, and using Bombardiers' boast ability to sacrifice Matron for 2+3=5 damage plus combat damage, potentially dealing 7+ damage this turn versus the Matron line which generates less immediate pressure.",
-      "actionTaken": "Put Goblin Matron into play with Aether Vial to tutor for a Goblin card",
-      "betterLine": "Put Broadside Bombardiers into play with Aether Vial (haste, menace), play Cavern of Souls naming Goblin, cast Goblin Matron from hand with Badlands + Cavern, attack with Bombardiers and potentially other creatures, then use Bombardiers' boast to sacrifice Matron for 5 damage to face, threatening lethal against the 9-life Doomsday opponent.",
+      "description": "Against a post-Doomsday opponent at 9 life with only 3 cards in library, KimiK2 chose Goblin Matron (1/1 without haste) over Broadside Bombardiers (2/2 with haste and menace). Bombardiers could attack immediately for 2, then use its Boast ability to sacrifice Aether Vial (which has done its job) to deal 2+1=3 damage to face, totaling 5 damage and putting the opponent to 4 life. Against a Doomsday pile, speed is critical as the opponent could combo off on their next turn. The tutor from Matron adds nothing urgent when KimiK2 already has strong cards in hand.",
+      "actionTaken": "Put Goblin Matron onto the battlefield via Aether Vial, tutoring for a Goblin while applying no immediate pressure.",
+      "betterLine": "Put Broadside Bombardiers onto the battlefield via Aether Vial, attack for 2 damage with haste+menace, then use Boast to sacrifice Aether Vial dealing 3 damage to face (total 5 damage, opponent to 4 life), maximizing pressure against the Doomsday pile.",
       "type": "blunder",
-      "snapshotIndex": 94,
+      "snapshotIndex": 93,
       "player": "KimiK2 Sport"
     },
     {
-      "severity": "moderate",
-      "description": "Already had Muxus in hand and tutored for a redundant second copy. Muxus costs 6 mana and KimiK2 Sport only has 1 land in play (plus 2 fetchlands and Cavern in hand), so casting even one Muxus is several turns away. A redundant legendary creature provides no immediate value.",
-      "actionTaken": "Tutored for a second Muxus, Goblin Grandee despite already having one in hand.",
-      "betterLine": "Tutor for Goblin Warchief (3 CMC, exactly matching Aether Vial's charge counters for immediate deployment). Warchief gives all goblins haste and reduces their costs by {1}, making Muxus cost 5 instead of 6 and enabling a faster Muxus deployment. Alternatively, Skirk Prospector could enable mana acceleration through sacrificing goblins.",
+      "severity": "minor",
+      "description": "Tutored for a second copy of Muxus, Goblin Grandee when they already have one in hand. Since Muxus is legendary, the second copy provides almost no value - it's only useful if the first is countered or removed, and the opponent has very limited resources post-Doomsday (tapped Underground Sea, LED, 3 cards in library).",
+      "actionTaken": "Searched for a second Muxus, Goblin Grandee with Goblin Matron's ETB trigger.",
+      "betterLine": "Search for Skirk Prospector (1-drop, castable off Badlands, enables sacrificing Goblin Matron for mana to help cast Muxus faster) or Goblin Warchief (cost reduction and haste for goblins, can be vialed in at 3 counters). Either provides meaningful board development rather than a redundant legendary.",
       "type": "blunder",
-      "snapshotIndex": 97,
+      "snapshotIndex": 96,
       "player": "KimiK2 Sport"
+    },
+    {
+      "severity": "major",
+      "description": "Cast Brainstorm with only 2 cards remaining in library. Brainstorm requires drawing 3 cards, but the third draw from an empty library causes an immediate game loss via state-based actions. This is a post-Doomsday position where library size is critically important.",
+      "actionTaken": "Cast Brainstorm with 2 cards in library, which attempts to draw 3 cards and results in drawing from an empty library (game loss).",
+      "betterLine": "Play Polluted Delta as land drop first, then cast Personal Tutor (which shuffles library and puts a card on top, keeping library at 2+1=3 cards if there's a valid sorcery target), and only then cast Brainstorm safely. Alternatively, find a line that doesn't involve drawing more cards than exist in the library.",
+      "type": "blunder",
+      "snapshotIndex": 107,
+      "player": "Sonnet Tactic"
     }
   ],
-  "blunderScriptVersion": 18,
+  "blunderScriptVersion": 28,
   "decisions": [
     {
       "index": 0,

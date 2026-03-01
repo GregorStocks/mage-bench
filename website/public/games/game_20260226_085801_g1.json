@@ -78312,160 +78312,214 @@
   "youtubeUrl": "https://youtu.be/UmWrXjwpr84",
   "annotations": [
     {
-      "severity": "questionable",
-      "description": "Playing Polluted Delta instead of Scalding Tarn forgoes the ability to cast Faithless Looting on turn 1. Faithless Looting turn 1 would dig two cards deeper, set up the graveyard for Emperor of Bones, and smooth future draws. The Polluted Delta line prioritizes a clean turn 2 Psychic Frog (fetch Swamp now, Scalding Tarn for Island turn 2), which is also strong but misses early card selection.",
-      "actionTaken": "Played Polluted Delta, which cannot produce red mana, making Faithless Looting uncastable on turn 1.",
-      "betterLine": "Play Scalding Tarn, fetch a Mountain, cast Faithless Looting turn 1 to filter draws and stock the graveyard for Emperor of Bones. Then use Polluted Delta turn 2 to set up colors for Psychic Frog.",
+      "severity": "minor",
+      "description": "Playing Polluted Delta instead of Scalding Tarn means no red mana available this turn, missing the opportunity to cast Faithless Looting on turn 1. Faithless Looting is the ideal turn 1 play for this deck, fueling graveyard synergies with Emperor of Bones and Psychic Frog.",
+      "actionTaken": "Played Polluted Delta, which can only fetch Island or Swamp (no red source).",
+      "betterLine": "Play Scalding Tarn, fetch a Mountain (or a dual that produces red), then cast Faithless Looting turn 1 to dig and fill the graveyard.",
       "type": "blunder",
       "snapshotIndex": 8,
       "player": "MiMo Minimal"
     },
     {
       "severity": "minor",
-      "description": "Playing Raucous Theater (enters tapped) instead of Scalding Tarn means the player has only 1 untapped mana (Watery Grave) this turn instead of 2. With Scalding Tarn, they could fetch an untapped Island or Mountain, giving them 2 mana available to cast Psychic Frog (UB) by fetching an Island (U from fetched land + B from Watery Grave). Instead, by playing the tapped land, they can only cast Faithless Looting (R) with Watery Grave's mana, missing the opportunity to deploy Psychic Frog on turn 2. Psychic Frog is a key threat that should come down as early as possible to start generating card advantage through combat damage and discarding synergies, especially with Emperor of Bones in hand wanting cards in the graveyard.",
-      "actionTaken": "Played Raucous Theater (enters tapped), leaving only 1 untapped mana and unable to cast Psychic Frog this turn.",
-      "betterLine": "Play Scalding Tarn, crack it to fetch an untapped Island (or Watery Grave/similar dual), then cast Psychic Frog for UB. This deploys the key threat a turn earlier.",
+      "description": "Cracking Polluted Delta during their own postcombat main phase when they can't cast anything this turn anyway. There's no benefit to fetching now versus waiting until the opponent's end step, and cracking it now gives away information about their colors/deck unnecessarily.",
+      "actionTaken": "Activated Polluted Delta during own postcombat main phase on turn 1.",
+      "betterLine": "Pass the turn and crack Polluted Delta at the end of the opponent's turn to preserve information and maintain flexibility on which land to fetch.",
+      "type": "blunder",
+      "snapshotIndex": 9,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "minor",
+      "description": "Paid 2 life to have Watery Grave enter untapped on Turn 1 postcombat main phase with no instant-speed plays available for 1 mana. The hand contains Emperor of Bones (1B), Faithless Looting (R), Psychic Frog (UB), Raucous Theater, and Scalding Tarn — none of which can be meaningfully used with a single untapped UB source before Turn 2.",
+      "actionTaken": "Paid 2 life to have Watery Grave enter untapped",
+      "betterLine": "Let Watery Grave enter tapped, saving 2 life. It would be untapped by Turn 2 when the player can actually use multiple mana for their 2-drop spells.",
+      "type": "blunder",
+      "snapshotIndex": 12,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "moderate",
+      "description": "Playing Raucous Theater (enters tapped) on turn 3 wastes the entire turn with no play, when Scalding Tarn could enter untapped and be cracked to enable casting Psychic Frog or Emperor of Bones this turn. With only 1 untapped land (Watery Grave), playing a tapped land means 0 additional mana this turn.",
+      "actionTaken": "Played Raucous Theater, which enters tapped, leaving only 1 mana available and no 2-mana play possible on turn 3.",
+      "betterLine": "Play Scalding Tarn, crack it for a Swamp (or similar), then cast Psychic Frog (UB) or Emperor of Bones (1B) this turn. Save Raucous Theater for a turn where the tempo loss matters less.",
       "type": "blunder",
       "snapshotIndex": 22,
       "player": "MiMo Minimal"
     },
     {
-      "severity": "minor",
-      "description": "Fetching a basic Swamp when the hand contains Psychic Frog (UB), Emperor of Bones (1B), and Faithless Looting (R). The player already has Watery Grave (U/B) and Raucous Theater (B/R), so black mana is well covered. The hand has Faithless Looting which costs R, and Scalding Tarn still in hand which can fetch mountains/islands later. However, the bigger issue is that Blood Crypt (Swamp Mountain) would have provided both B and R, enabling casting Faithless Looting this turn while also being a black source. With a basic Swamp, the player can't cast Faithless Looting this turn since they only have Raucous Theater for red mana and would need it for other spells. Blood Crypt enters untapped for 2 life (going to 13 instead of 15) but enables casting Faithless Looting immediately alongside other plays.",
-      "actionTaken": "Fetched basic Swamp, which only produces B and enters untapped for free.",
-      "betterLine": "Fetch Blood Crypt (paying 2 life to have it enter untapped) to have access to both B and R from it, enabling Faithless Looting this turn while still having Watery Grave for U/B. This improves mana flexibility significantly with the current hand.",
-      "type": "blunder",
-      "snapshotIndex": 43,
-      "player": "MiMo Minimal"
-    },
-    {
-      "severity": "minor",
-      "description": "With 3 lands available (Raucous Theater for R, Watery Grave for U, Swamp for B), MiMo could have cast both Faithless Looting (R) and Psychic Frog (UB) this turn, deploying a stronger threat while also filtering cards and fueling the graveyard for Psychic Frog's abilities. Instead, they cast only Emperor of Bones, using just 2 mana and wasting a mana.",
-      "actionTaken": "Cast Emperor of Bones for {1}{B}, leaving one land unused and not deploying additional spells.",
-      "betterLine": "Cast Faithless Looting for {R} (via Raucous Theater), draw 2 and discard 2, then cast Psychic Frog for {U}{B} (via Watery Grave + Swamp). This maximizes mana usage, deploys the stronger threat, and fuels the graveyard for Psychic Frog's abilities.",
+      "severity": "questionable",
+      "description": "Emperor of Bones was chosen over Psychic Frog when both could be paired with Faithless Looting this turn. Psychic Frog is generally the stronger card - it synergizes beautifully with Faithless Looting (discard to grow), threatens card draw on combat damage, and can gain flying for evasion. Emperor of Bones lacks good reanimation targets currently.",
+      "actionTaken": "Cast Emperor of Bones",
+      "betterLine": "Cast Psychic Frog ({U}{B}), then Faithless Looting ({R}) to draw 2 and discard 2 - discards can pump Frog and stock the graveyard for later use.",
       "type": "blunder",
       "snapshotIndex": 48,
       "player": "MiMo Minimal"
     },
     {
       "severity": "minor",
-      "description": "Casting Emperor of Bones before playing a land drop (Scalding Tarn) is a sequencing error. Playing Scalding Tarn first costs nothing and provides additional information and flexibility - it could be cracked for a Mountain to cast Faithless Looting, or held as an additional mana source. Additionally, casting Psychic Frog (UB) might be slightly better here since it's an evasive threat that draws cards on combat damage, and the graveyard currently has very few creatures to exile with Emperor of Bones. However, the land-before-spell sequencing is the clearest mistake.",
-      "actionTaken": "Cast Emperor of Bones before playing a land for the turn.",
-      "betterLine": "Play Scalding Tarn first, then decide between casting Emperor of Bones or Psychic Frog with full information and maximum mana available.",
+      "description": "Casting Snapback (via alternate cost of exiling a blue card) to bounce Emperor of Bones, a 2/2 summoning sick creature that costs only {1}{B} to replay. This is a 2-for-0 card disadvantage (Snapback + exiled blue card) to delay a cheap creature by one turn. Emperor of Bones isn't an immediate lethal threat.",
+      "actionTaken": "Cast Snapback via alternate cost to bounce Emperor of Bones",
+      "betterLine": "Pass the turn and save Snapback and the blue card for a more impactful moment, such as bouncing a larger threat or protecting a combo turn. The 2/2 Emperor of Bones doesn't warrant spending two cards to delay by one turn.",
       "type": "blunder",
-      "snapshotIndex": 72,
-      "player": "MiMo Minimal"
+      "snapshotIndex": 54,
+      "player": "GPT52 Memoir"
     },
     {
       "severity": "minor",
-      "description": "Emperor of Bones exiles a card from a graveyard, and when +1/1 counters are placed on it (via Adapt), it can put an exiled creature card onto the battlefield. Exiling Snapback (an instant) means it can never be reanimated by Emperor of Bones. Goblin Charbelcher is an artifact, also not a creature. However, the key consideration is denying the opponent resources. Goblin Charbelcher is a much more dangerous card for the opponent to potentially recur or interact with - it's a powerful artifact that could win the game. Snapback is a relatively low-impact bounce spell that's already been used. More importantly, neither card exiled here is a creature, so neither can be reanimated by Emperor of Bones. The choice doesn't matter much for Emperor's reanimation ability, but exiling Goblin Charbelcher would deny the opponent a potentially game-winning artifact if they have any graveyard recursion (like Tameshi, Reality Architect, which can return artifacts from graveyard to battlefield).",
+      "description": "Using Snapback's alternative cost (exiling a blue card from hand) to bounce a 2/2 Emperor of Bones that the opponent can simply replay next turn for 1B is a poor use of resources. This effectively costs two cards (Snapback + exiled blue card) to temporarily remove a small creature. With no lands in play and being in a desperate position, conserving resources for a more impactful use would be better.",
+      "actionTaken": "Cast Snapback (exiling a blue card) to bounce Emperor of Bones, a 2/2 that the opponent can cheaply replay next turn.",
+      "betterLine": "Hold Snapback for a more threatening target or a situation where the tempo gain matters more. The opponent will simply replay Emperor of Bones next turn, making this a 2-for-0 card disadvantage for minimal tempo gain.",
+      "type": "blunder",
+      "snapshotIndex": 56,
+      "player": "GPT52 Memoir"
+    },
+    {
+      "severity": "questionable",
+      "description": "Using Snapback's alternative cost (exiling a blue card from hand) to bounce Emperor of Bones, a 2/2 that the opponent can easily recast next turn for {1}{B}. GPT52 Memoir is already severely resource-constrained with zero lands in play, and exiling a useful blue card for a temporary bounce of a small creature is questionable card economy. The opponent's lands are mostly tapped this turn anyway, limiting Emperor's immediate threat.",
+      "actionTaken": "Cast Snapback (exiling a blue card) to bounce Emperor of Bones",
+      "betterLine": "Let the Lotus Bloom time counter resolve and save resources. Emperor of Bones is not immediately threatening since the opponent lacks mana to adapt it this turn, and the bounce is temporary. Preserving the blue card (likely Flare of Denial or a creature) could be more valuable later.",
+      "type": "blunder",
+      "snapshotIndex": 59,
+      "player": "GPT52 Memoir"
+    },
+    {
+      "severity": "minor",
+      "description": "Emperor of Bones exiled Snapback from opponent's graveyard instead of Goblin Charbelcher. The opponent's deck includes Tameshi, Reality Architect which can return artifact cards from graveyard to battlefield. Goblin Charbelcher is a major win condition/combo piece that could be recurred, while Snapback is a situational bounce spell with an alternate cost (exile a blue card) making the graveyard copy less critical.",
       "actionTaken": "Exiled Snapback from opponent's graveyard with Emperor of Bones trigger",
-      "betterLine": "Exile Goblin Charbelcher from opponent's graveyard to deny potential recursion of a much more powerful card, especially given cards like Tameshi or Whir of Invention that the opponent might be building toward",
+      "betterLine": "Exile Goblin Charbelcher to deny the opponent potential recursion of their combo piece via Tameshi or other graveyard-to-battlefield effects",
       "type": "blunder",
       "snapshotIndex": 79,
       "player": "MiMo Minimal"
     },
     {
-      "severity": "minor",
-      "description": "Fetching basic Island instead of Steam Vents. While Island provides untapped blue, Steam Vents would provide both blue AND red from one land, giving better mana flexibility for a deck running both Psychic Frog (UB) and Faithless Looting (R). The 2 life cost at 15 life is very manageable.",
-      "actionTaken": "Fetched basic Island with Scalding Tarn",
-      "betterLine": "Fetch Steam Vents (paying 2 life) for better color flexibility, providing access to both U and R from one land while still enabling Psychic Frog next turn",
-      "type": "blunder",
-      "snapshotIndex": 88,
-      "player": "MiMo Minimal"
-    },
-    {
       "severity": "moderate",
-      "description": "Emperor of Bones already has +1/+1 counters on it, so Adapt 2 does nothing — Adapt only adds counters if the creature has no +1/+1 counters. This wastes 2 mana ({1}{B}) for zero effect. The player should have recognized that their 4/4 Emperor of Bones with 2 +1/+1 counters cannot be adapted again.",
-      "actionTaken": "Activated Adapt 2 on Emperor of Bones that already had two +1/+1 counters, wasting 2 mana.",
-      "betterLine": "Play Scalding Tarn as a land drop, then cast Psychic Frog ({U}{B}) to develop the board, or cast Faithless Looting to dig for cards. The 2 mana spent on a failed Adapt was completely wasted.",
+      "description": "Activated Adapt 2 on Emperor of Bones that already has +1/+1 counters. Adapt explicitly does nothing if the creature already has +1/+1 counters on it, so this wastes {1}{B} (2 mana) for zero effect. The Emperor is already 4/4 with two +1/+1 counters.",
+      "actionTaken": "Activated Adapt 2 on Emperor of Bones that already had +1/+1 counters, wasting 2 mana for no effect.",
+      "betterLine": "Play Scalding Tarn (land drop), then cast Psychic Frog ({U}{B}) to develop another threat while still having mana available for Fatal Push or other plays. Alternatively, cast Faithless Looting to improve hand quality, or deploy the second Emperor of Bones.",
       "type": "blunder",
       "snapshotIndex": 107,
       "player": "MiMo Minimal"
     },
     {
-      "severity": "minor",
-      "description": "Cast Psychic Frog before playing Scalding Tarn from hand. Playing the land first would provide additional mana flexibility for the rest of the turn (e.g., having mana for Fatal Push or Emperor of Bones' second ability, or discarding to Psychic Frog while keeping interaction mana up).",
-      "actionTaken": "Cast Psychic Frog (UB) before making land drop with Scalding Tarn",
-      "betterLine": "Play Scalding Tarn first, then cast Psychic Frog, leaving more mana available for other plays this turn",
+      "severity": "major",
+      "description": "Player was casting Disrupting Shoal to counter Psychic Frog (mana value 2) but timed out and failed to select a blue card to exile. This means Disrupting Shoal fails and Psychic Frog resolves. Psychic Frog is one of the most dangerous threats in Modern - it draws cards on combat damage, grows with discards, and can gain flying. Letting it resolve while also wasting the Disrupting Shoal is devastating.",
+      "actionTaken": "Timed out without selecting a card, causing Disrupting Shoal to fail and Psychic Frog to resolve.",
+      "betterLine": "Exile Fallaji Archaeologist (mana value 2) to properly counter Psychic Frog with Disrupting Shoal, preserving Thundertrap Trainer for later card selection.",
       "type": "blunder",
-      "snapshotIndex": 112,
+      "snapshotIndex": 118,
+      "player": "GPT52 Memoir"
+    },
+    {
+      "severity": "major",
+      "description": "Fatal Push was cast with no enemy creatures on the battlefield, meaning the only valid target is MiMo's own Emperor of Bones (4/4). This destroys their own primary threat for absolutely no benefit.",
+      "actionTaken": "Cast Fatal Push, presumably targeting their own Emperor of Bones 4/4",
+      "betterLine": "Pass priority and proceed to combat, attacking with the 4/4 Emperor of Bones to pressure the opponent's 20 life total.",
+      "type": "blunder",
+      "snapshotIndex": 126,
       "player": "MiMo Minimal"
     },
     {
-      "severity": "minor",
-      "description": "Fetched Watery Grave which provides U/B colors already available, when Blood Crypt would have provided access to R mana needed to cast Faithless Looting in hand. Faithless Looting is a key enabler for the Emperor of Bones graveyard strategy.",
-      "actionTaken": "Fetched Watery Grave (U/B), duplicating existing color coverage",
-      "betterLine": "Fetch Blood Crypt (B/R) to enable casting Faithless Looting next turn, which fuels the graveyard for Emperor of Bones and digs for more resources",
-      "type": "blunder",
-      "snapshotIndex": 125,
-      "player": "MiMo Minimal"
-    },
-    {
-      "severity": "minor",
-      "description": "Emperor of Bones can only reanimate creature cards exiled with it. Exiling Disrupting Shoal (an instant) means it can never be put onto the battlefield via Emperor's ability. Psychic Frog was available in the graveyard as a creature that could potentially be reanimated later.",
-      "actionTaken": "Exiled Disrupting Shoal (an instant) from opponent's graveyard with Emperor of Bones' combat trigger.",
-      "betterLine": "Exile Psychic Frog from own graveyard, which is a creature card that could be reanimated if +1/+1 counters are later placed on Emperor of Bones (e.g., via a second Emperor of Bones or other counter sources).",
+      "severity": "moderate",
+      "description": "Emperor of Bones can only reanimate creature cards exiled with it. Psychic Frog is the only creature among the exile targets and could be reanimated when Emperor adapts (already available for {1}{B}). Exiling Disrupting Shoal accomplishes essentially nothing - it's a non-creature and the opponent has no way to reuse it from graveyard.",
+      "actionTaken": "Exiled Disrupting Shoal (a non-creature instant from opponent's graveyard)",
+      "betterLine": "Exile Psychic Frog from own graveyard, enabling reanimation via Emperor of Bones' adapt trigger to create a hasty Psychic Frog attacker",
       "type": "blunder",
       "snapshotIndex": 130,
       "player": "MiMo Minimal"
     },
     {
-      "severity": "minor",
-      "description": "Cast Fallaji Archaeologist (0/3, mills 3) instead of Tameshi, Reality Architect (2/3) with the Lotus Bloom's 3 mana. Tameshi is a better body and critically can recover Goblin Charbelcher from the graveyard in future turns, which is the player's win condition. With no lands on board, the player is in a desperate position where setting up the Charbelcher recovery plan via Tameshi is more important than milling 3 cards.",
-      "actionTaken": "Cast Fallaji Archaeologist using Lotus Bloom's 3 mana",
-      "betterLine": "Cast Tameshi, Reality Architect to set up future Goblin Charbelcher recovery from graveyard and get a better body on board",
+      "severity": "moderate",
+      "description": "Failed to attack with a 4/4 Emperor of Bones into an empty board. The opponent has no creatures to block, so this is 4 free damage (20% of opponent's remaining life). The timeout caused the player to skip their attack entirely.",
+      "actionTaken": "No response — skipped the attack step without declaring any attackers.",
+      "betterLine": "Attack with Emperor of Bones for 4 unblockable damage, bringing the opponent from 20 to 16 life.",
+      "type": "blunder",
+      "snapshotIndex": 133,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "major",
+      "description": "Player timed out and took no action with Lotus Bloom as their only mana source and no lands in play. They had castable spells that would develop their board position against an opponent's 4/4 Emperor of Bones. Lotus Bloom is a one-shot resource that was wasted this turn. Fallaji Archaeologist would have provided a blocker, milled cards for future value, and enabled Flare of Denial as free countermagic.",
+      "actionTaken": "Timed out and passed without casting anything, wasting the Lotus Bloom turn.",
+      "betterLine": "Sacrifice Lotus Bloom for {U}{U}{U}, cast Fallaji Archaeologist for {1}{U} (leaving {U} open), getting a 0/3 blocker, milling 3 cards, potentially finding a spell, and enabling Flare of Denial. Alternatively, cast Tameshi for {2}{U} to develop a bigger threat.",
+      "type": "blunder",
+      "snapshotIndex": 149,
+      "player": "GPT52 Memoir"
+    },
+    {
+      "severity": "questionable",
+      "description": "Casting Fallaji Archaeologist (0/3 for 2 mana) instead of Tameshi, Reality Architect (2/3 for 3 mana) when Lotus Bloom provides exactly 3 mana. Tameshi is a bigger body (relevant blocking Emperor of Bones 4/4), uses mana more efficiently (no waste), and could potentially recur Goblin Charbelcher from graveyard later. Both serve as blue creatures for Flare of Denial.",
+      "actionTaken": "Cast Fallaji Archaeologist for {1}{U}, leaving 1 mana unused from Lotus Bloom",
+      "betterLine": "Cast Tameshi, Reality Architect for {2}{U}, using all 3 mana from Lotus Bloom efficiently, getting a bigger body and potential graveyard recursion",
       "type": "blunder",
       "snapshotIndex": 149,
       "player": "GPT52 Memoir"
     },
     {
       "severity": "minor",
-      "description": "Cast Emperor of Bones before Faithless Looting. Faithless Looting costs only {R} and draws 2 cards, potentially finding better options or more impactful plays before committing 2 mana to a second Emperor. Better card selection before committing resources is standard sequencing.",
-      "actionTaken": "Cast Emperor of Bones ({1}{B}) before casting Faithless Looting",
-      "betterLine": "Cast Faithless Looting first for {R} to draw 2 and see more options, then decide whether to cast Emperor of Bones or potentially a better card found from Looting",
+      "description": "Playing Emperor of Bones before casting Faithless Looting is suboptimal sequencing. Faithless Looting costs only {R} and draws 2 cards while discarding 2, providing crucial information about what's available before committing to a play. If this was the activate option (Adapt), it does nothing since the Emperor already has +1/+1 counters. If casting a second copy, the legend rule would destroy the existing 4/4 to get a fresh 2/2, losing the +1/+1 counters.",
+      "actionTaken": "Chose Emperor of Bones (either activating Adapt on the 4/4 or casting a second copy) before seeing Faithless Looting draws.",
+      "betterLine": "Cast Faithless Looting first for {R} to draw 2 cards and see more options, then decide whether to cast Emperor of Bones or take a different line based on what was drawn.",
       "type": "blunder",
       "snapshotIndex": 168,
       "player": "MiMo Minimal"
     },
     {
-      "severity": "questionable",
-      "description": "Took Flare of Denial from opponent's hand, but opponent has no blue creatures on board to sacrifice for its alternate cost, making it much harder to cast (costs 1UU normally). Disrupting Shoal or Goblin Charbelcher may have been better targets. Disrupting Shoal can be cast for free by exiling any blue card (opponent has multiple), and Charbelcher represents a potential win condition.",
-      "actionTaken": "Chose to discard Flare of Denial with Thoughtseize",
-      "betterLine": "Take Goblin Charbelcher (removing their win condition from hand, forcing them to rely on Whir to find another copy from library) or Disrupting Shoal (the more castable free counterspell given opponent has no creatures for Flare's alternate cost)",
+      "severity": "moderate",
+      "description": "Failed to attack with a 4/4 Emperor of Bones into an empty board, missing 4 free damage against an opponent at 16 life. The opponent has no creatures to block. This was a timeout/no response rather than a deliberate choice.",
+      "actionTaken": "Did not declare any attackers (timed out).",
+      "betterLine": "Attack with the 4/4 Emperor of Bones for 4 unblocked damage, bringing the opponent from 16 to 12 life.",
+      "type": "blunder",
+      "snapshotIndex": 188,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "moderate",
+      "description": "Disrupting Shoal was cast to counter Thoughtseize (MV 1), but with no lands in play and no blue card with MV 1 in hand, the only possible X value is 0. Disrupting Shoal with X=0 cannot counter a spell with MV 1, so this wastes the Disrupting Shoal for nothing while Thoughtseize still resolves.",
+      "actionTaken": "Cast Disrupting Shoal (which will have X=0) attempting to counter Thoughtseize (MV 1)",
+      "betterLine": "Let Thoughtseize resolve. Losing a card to Thoughtseize is bad but at least you keep Disrupting Shoal for a future spell that might have MV 0, or save it for when you have mana to hard-cast it with appropriate X value.",
+      "type": "blunder",
+      "snapshotIndex": 207,
+      "player": "GPT52 Memoir"
+    },
+    {
+      "severity": "minor",
+      "description": "Took Flare of Denial with Thoughtseize instead of the opponent's Goblin Charbelcher or a Whir of Invention. MiMo is the aggressor with 8 power on board vs opponent at 12 life, meaning the primary concern is the opponent comboing off with Charbelcher before being killed. Flare of Denial is less threatening since the opponent has no blue creatures to sacrifice for its alternate cost, and MiMo has almost nothing worth countering in hand (just Faithless Looting).",
+      "actionTaken": "Took Flare of Denial from opponent's hand",
+      "betterLine": "Take Goblin Charbelcher to prevent the combo kill, forcing the opponent to use Whir of Invention (requiring 7+ mana) to find another copy from the library, buying crucial time to attack for lethal.",
       "type": "blunder",
       "snapshotIndex": 210,
       "player": "MiMo Minimal"
     },
     {
       "severity": "minor",
-      "description": "Emperor of Bones can only reanimate creature cards exiled with it, but Goblin Charbelcher is an artifact, not a creature, so exiling it provides no reanimation potential. While this Emperor already has +1/+1 counters (making Adapt unavailable), exiling a creature like Fallaji Archaeologist would at least preserve theoretical upside if counters could be added another way, while also denying a creature from the opponent's graveyard.",
-      "actionTaken": "Exiled Goblin Charbelcher (an artifact) with Emperor of Bones' combat trigger.",
-      "betterLine": "Exile Fallaji Archaeologist from opponent's graveyard — it's a creature that could potentially be reanimated by Emperor of Bones, providing actual value from the exile, while also denying the opponent graveyard resources.",
-      "type": "blunder",
-      "snapshotIndex": 213,
-      "player": "MiMo Minimal"
-    },
-    {
-      "severity": "moderate",
-      "description": "Emperor of Bones can only reanimate creature cards exiled with it. Lotus Bloom is an artifact, not a creature, so exiling it wastes the reanimation potential of this Emperor's trigger. There were two Fallaji Archaeologists in the opponent's graveyard that could have been exiled and later reanimated via Adapt.",
-      "actionTaken": "Exiled Lotus Bloom with Emperor of Bones' beginning-of-combat trigger",
-      "betterLine": "Exile a Fallaji Archaeologist instead, which is a creature card that could be reanimated when this Emperor Adapts for {1}{B}, providing a free body and ETB mill/draw trigger",
+      "description": "Emperor of Bones can only reanimate creature cards exiled with it. Lotus Bloom is an artifact and cannot be reanimated. Fallaji Archaeologist is a creature in the opponent's graveyard that could be reanimated when Emperor adapts, providing card advantage (mill 3 + potential card selection).",
+      "actionTaken": "Exiled Lotus Bloom with Emperor of Bones' combat trigger",
+      "betterLine": "Exile Fallaji Archaeologist instead, giving this Emperor of Bones a creature reanimation target when it adapts for {1}{B}",
       "type": "blunder",
       "snapshotIndex": 214,
       "player": "MiMo Minimal"
     },
     {
       "severity": "major",
-      "description": "MiMo Minimal missed lethal. Opponent is at 12 life with no blockers. Psychic Frog can be pumped by discarding Faithless Looting (the only card in hand) to get +1/+1, making total attack power 4+4+2+2 = 12, exactly lethal. Instead, they attacked for only 11 damage.",
-      "actionTaken": "Attacked with all creatures for 11 total damage (4+4+2+1) against opponent at 12 life, leaving opponent alive at 1 life.",
-      "betterLine": "Before combat, discard Faithless Looting to Psychic Frog's ability to put a +1/+1 counter on it (making it 2/3), then attack with all creatures for exactly 12 lethal damage.",
+      "description": "The opponent is at 12 life with no creatures on the battlefield. MiMo has two 4/4 Emperor of Bones, one 2/2 Emperor of Bones, and a 1/2 Psychic Frog. Without pumping, total attack damage is 4+4+2+1=11, one short of lethal. Discarding Faithless Looting to Psychic Frog would make it 2/3, bringing total damage to exactly 12 — lethal. The player timed out and failed to activate the ability.",
+      "actionTaken": "No response (timeout) — did not activate Psychic Frog's discard ability.",
+      "betterLine": "Discard Faithless Looting to Psychic Frog to pump it to 2/3, then attack with all creatures for exactly 12 damage (lethal).",
+      "type": "blunder",
+      "snapshotIndex": 230,
+      "player": "MiMo Minimal"
+    },
+    {
+      "severity": "major",
+      "description": "Failed to declare any attackers against an opponent at 12 life with NO blockers on the battlefield. Had two 4/4 Emperor of Bones, one 2/2 Emperor of Bones, and a 1/2 Psychic Frog available to attack for 11 total damage, putting the opponent to 1 life. The Psychic Frog would also draw a card on combat damage. This was a timeout/no response that wasted a critical attack opportunity.",
+      "actionTaken": "No attackers declared (timeout/no response)",
+      "betterLine": "Attack with all creatures (11 damage total) to put the opponent to 1 life, with Psychic Frog drawing a card on damage. This likely wins the game next turn.",
       "type": "blunder",
       "snapshotIndex": 234,
       "player": "MiMo Minimal"
     }
   ],
-  "blunderScriptVersion": 19,
+  "blunderScriptVersion": 28,
   "decisions": [
     {
       "index": 0,

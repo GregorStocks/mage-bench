@@ -15,35 +15,61 @@ def _get_read_errors():
     return _read_errors
 
 
-def test_read_errors_parses_pilot_and_mcp():
+def test_read_errors_parses_code_bugs():
+    """Only infrastructure errors (code bugs) are returned."""
     _read_errors = _get_read_errors()
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "Alice_errors.log").write_text(
-            "[10:30:45] [pilot] Stalled: 20 turns\n[10:31:00] [mcp] choose_action failed: index out of range\n"
+            "[10:30:45] [mcp] Zombie game detected: no actionable callback for 15000ms\n"
+            "[10:31:00] [mcp] Server short ID collision: p3 was mapped to abc but server now says def\n"
         )
         errors = _read_errors(game_dir)
         assert len(errors) == 2
         assert errors[0] == {
             "ts": "10:30:45",
             "player": "Alice",
-            "source": "pilot",
-            "message": "Stalled: 20 turns",
+            "source": "mcp",
+            "message": "Zombie game detected: no actionable callback for 15000ms",
         }
         assert errors[1] == {
             "ts": "10:31:00",
             "player": "Alice",
             "source": "mcp",
-            "message": "choose_action failed: index out of range",
+            "message": "Server short ID collision: p3 was mapped to abc but server now says def",
         }
+
+
+def test_read_errors_filters_llm_errors():
+    """LLM mistakes (bad tool calls, loops, timeouts) are filtered out."""
+    _read_errors = _get_read_errors()
+    with tempfile.TemporaryDirectory() as tmpdir:
+        game_dir = Path(tmpdir)
+        (game_dir / "Alice_errors.log").write_text(
+            "[10:30:45] [pilot] Stalled: 20 turns without progress\n"
+            "[10:31:00] [mcp] choose_action failed: index out of range\n"
+            "[10:31:05] [mcp] Loop detected (27 interactions this turn)\n"
+            "[10:31:10] [mcp] Zombie game detected: no actionable callback for 15000ms\n"
+            "[10:31:15] [pilot] LLM request timed out after 120s [3]\n"
+            "[10:31:20] [pilot] Action failed: Object p3 not found\n"
+            "[10:31:25] [mcp] MCP request failed (choose_action): bad json\n"
+        )
+        errors = _read_errors(game_dir)
+        # Only the zombie game error should survive
+        assert len(errors) == 1
+        assert errors[0]["message"] == "Zombie game detected: no actionable callback for 15000ms"
 
 
 def test_read_errors_multiple_players():
     _read_errors = _get_read_errors()
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
-        (game_dir / "Alice_errors.log").write_text("[10:30:45] [pilot] Error A\n")
-        (game_dir / "Bob_errors.log").write_text("[10:30:50] [mcp] Error B\n")
+        (game_dir / "Alice_errors.log").write_text(
+            "[10:30:45] [mcp] Zombie game detected: no actionable callback for 15000ms\n"
+        )
+        (game_dir / "Bob_errors.log").write_text(
+            "[10:30:50] [mcp] Error handling callback GAME_SELECT: NullPointerException\n"
+        )
         errors = _read_errors(game_dir)
         assert len(errors) == 2
         players = {e["player"] for e in errors}
@@ -61,7 +87,7 @@ def test_read_errors_blank_lines_skipped():
     _read_errors = _get_read_errors()
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
-        (game_dir / "Alice_errors.log").write_text("\n[10:30:45] [pilot] Error\n\n")
+        (game_dir / "Alice_errors.log").write_text("\n[10:30:45] [mcp] Error handling callback GAME_SELECT: NPE\n\n")
         errors = _read_errors(game_dir)
         assert len(errors) == 1
 
@@ -82,7 +108,9 @@ def test_read_errors_player_name_with_spaces():
     _read_errors = _get_read_errors()
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
-        (game_dir / "Gem3F Libby_errors.log").write_text("[10:30:45] [mcp] Loop detected\n")
+        (game_dir / "Gem3F Libby_errors.log").write_text(
+            "[10:30:45] [mcp] Zombie game detected: no actionable callback for 10000ms\n"
+        )
         errors = _read_errors(game_dir)
         assert len(errors) == 1
         assert errors[0]["player"] == "Gem3F Libby"
@@ -93,11 +121,7 @@ def test_read_errors_iso_timestamp():
     _read_errors = _get_read_errors()
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
-        line = (
-            "[2026-02-28T14:33:38.795711643-08:00] [mcp]"
-            " Loop detected (27 interactions on turn 12),"
-            " auto-passing GAME_SELECT\n"
-        )
+        line = "[2026-02-28T14:33:38.795711643-08:00] [mcp] Zombie game detected: no actionable callback for 20000ms\n"
         (game_dir / "Alice_errors.log").write_text(line)
         errors = _read_errors(game_dir)
         assert len(errors) == 1
@@ -105,7 +129,7 @@ def test_read_errors_iso_timestamp():
             "ts": "14:33:38",
             "player": "Alice",
             "source": "mcp",
-            "message": ("Loop detected (27 interactions on turn 12), auto-passing GAME_SELECT"),
+            "message": "Zombie game detected: no actionable callback for 20000ms",
         }
 
 
@@ -115,13 +139,14 @@ def test_read_errors_mixed_formats():
     with tempfile.TemporaryDirectory() as tmpdir:
         game_dir = Path(tmpdir)
         (game_dir / "Bot_errors.log").write_text(
-            "[13:55:11] [pilot] Action failed: Object p3 not found\n"
-            "[2026-02-28T14:33:38.123456789-08:00] [mcp] choose_action failed: bad index\n"
+            "[13:55:11] [mcp] Error handling callback GAME_SELECT: NPE\n"
+            "[2026-02-28T14:33:38.123456789-08:00] [mcp]"
+            " Server short ID collision: p3 was mapped to abc but server now says def\n"
         )
         errors = _read_errors(game_dir)
         assert len(errors) == 2
         assert errors[0]["ts"] == "13:55:11"
-        assert errors[0]["source"] == "pilot"
+        assert errors[0]["source"] == "mcp"
         assert errors[1]["ts"] == "14:33:38"
         assert errors[1]["source"] == "mcp"
-        assert errors[1]["message"] == "choose_action failed: bad index"
+        assert errors[1]["message"].startswith("Server short ID collision:")
