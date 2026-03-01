@@ -323,8 +323,8 @@ const { slug } = Astro.params;
   }
 
   #game-right {
-    width: 420px;
-    flex-shrink: 0;
+    flex: 1;
+    min-width: 0;
   }
 
   @media (max-width: 900px) {
@@ -629,9 +629,7 @@ const { slug } = Astro.params;
       details.className = "llm-tool-detail";
       var summary = document.createElement("summary");
       var argsSummary = formatToolArgs(tc.args);
-      var latency = tc.latencyMs != null ? " " + (tc.latencyMs / 1000).toFixed(1) + "s" : "";
-      summary.innerHTML = escapeHtml(tc.tool) + "(" + escapeHtml(argsSummary) + ")" +
-        (latency ? '<span class="llm-cost">' + latency + '</span>' : "");
+      summary.innerHTML = escapeHtml(tc.tool) + "(" + escapeHtml(argsSummary) + ")";
       details.appendChild(summary);
       if (tc.result) {
         var pre = document.createElement("pre");
@@ -655,9 +653,6 @@ const { slug } = Astro.params;
           div.className = "llm-event llm-thought " + playerColorClass(event.player);
 
           var header = '<span class="thinking-badge">thinking</span>' + playerSpan(event.player);
-          if (event.costUsd != null) {
-            header += '<span class="llm-cost">$' + event.costUsd.toFixed(4) + '</span>';
-          }
           var headerEl = document.createElement("div");
           headerEl.innerHTML = header;
           div.appendChild(headerEl);
@@ -696,9 +691,6 @@ const { slug } = Astro.params;
           var div = document.createElement("div");
           div.className = "llm-event llm-compact";
           var headerHtml = playerSpan(event.player);
-          if (event.costUsd != null) {
-            headerHtml += '<span class="llm-cost">$' + event.costUsd.toFixed(4) + '</span>';
-          }
           var headerEl = document.createElement("span");
           headerEl.innerHTML = headerHtml;
           div.appendChild(headerEl);
@@ -1040,8 +1032,6 @@ const { slug } = Astro.params;
           el.textContent = "\u2014 " + R.formatPhaseStep(item.data.phase, item.data.step) + " \u2014";
         }
         if (el) {
-          var tsEl = makeTimestampEl(item.ts);
-          if (tsEl) el.insertBefore(tsEl, el.firstChild);
           actionList.appendChild(el);
         }
       });

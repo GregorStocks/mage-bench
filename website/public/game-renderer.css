@@ -948,6 +948,10 @@
   font-family: monospace;
   font-size: 0.72rem;
   padding: 1px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.4rem;
 }
 
 .llm-compact .llm-player {
@@ -958,7 +962,12 @@
 .llm-tool-detail {
   font-size: 0.72rem;
   color: #888;
-  margin: 2px 0;
+  margin: 0;
+  display: inline;
+}
+
+.llm-compact .llm-tool-detail {
+  display: inline;
 }
 
 .llm-tool-detail summary {
@@ -967,6 +976,7 @@
   padding: 1px 0;
   list-style: disclosure-closed;
   word-break: break-all;
+  display: list-item;
 }
 
 .llm-tool-detail summary::-webkit-details-marker {
