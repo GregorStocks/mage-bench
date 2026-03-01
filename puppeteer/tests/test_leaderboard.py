@@ -1,4 +1,4 @@
-"""Tests for leaderboard generation: Elo/OpenSkill ratings, placement, aggregation."""
+"""Tests for leaderboard generation: OpenSkill ratings, placement, aggregation."""
 
 import gzip
 import json
@@ -12,7 +12,6 @@ from puppeteer.leaderboard import (
     _player_key,
     _split_key,
     capitalize_provider,
-    compute_elo_ratings,
     compute_openskill_ratings,
     compute_thinking_time,
     derive_display_name,
@@ -193,7 +192,7 @@ def test_extract_placements_from_game_file():
 
 
 def test_ratings_no_games():
-    ratings, per_game = compute_elo_ratings([])
+    ratings, per_game = compute_openskill_ratings([])
     assert ratings == {}
     assert per_game == []
 
@@ -212,11 +211,11 @@ def test_ratings_winner_gains():
             ],
         )
     ]
-    ratings, _per_game = compute_elo_ratings(games)
-    # Winner should have highest rating
+    ratings, _per_game = compute_openskill_ratings(games)
+    # Winner should have highest rating (winner-takes-all: all losers are tied)
     assert ratings["a/model-a"] > ratings["b/model-b"]
-    assert ratings["b/model-b"] > ratings["c/model-c"]
-    assert ratings["c/model-c"] > ratings["d/model-d"]
+    assert ratings["b/model-b"] == ratings["c/model-c"]
+    assert ratings["c/model-c"] == ratings["d/model-d"]
 
 
 def test_ratings_no_placements_no_change():
@@ -229,7 +228,7 @@ def test_ratings_no_placements_no_change():
             [_pilot("Alice", "a/model-a"), _pilot("Bob", "b/model-b")],
         )
     ]
-    _ratings, per_game = compute_elo_ratings(games)
+    _ratings, per_game = compute_openskill_ratings(games)
     assert len(per_game) == 1
     # Ratings should be equal (both start the same, no update)
     assert per_game[0]["players"][0]["ratingBefore"] == per_game[0]["players"][0]["ratingAfter"]
@@ -251,7 +250,7 @@ def test_ratings_chronological_order():
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
         ),
     ]
-    _ratings, per_game = compute_elo_ratings(games)
+    _ratings, per_game = compute_openskill_ratings(games)
     # After 2 wins, Alice should be higher than after 1 win
     assert per_game[1]["players"][0]["ratingBefore"] > per_game[0]["players"][0]["ratingBefore"]
 
@@ -265,7 +264,7 @@ def test_ratings_per_game_snapshots():
             [_pilot("Alice", "a/x", placement=1), _pilot("Bob", "b/y", placement=2)],
         )
     ]
-    _, per_game = compute_elo_ratings(games)
+    _, per_game = compute_openskill_ratings(games)
     assert len(per_game) == 1
     assert per_game[0]["id"] == "g1"
     assert len(per_game[0]["players"]) == 2
@@ -286,13 +285,13 @@ def test_ratings_skips_non_pilots():
             [_cpu("CPU1"), _pilot("Alice", "a/x")],
         )
     ]
-    ratings, per_game = compute_elo_ratings(games)
+    ratings, per_game = compute_openskill_ratings(games)
     assert "a/x" in ratings
     assert len(per_game[0]["players"]) == 1
 
 
 def test_ratings_full_ordering():
-    """Full ordering (1st through 4th) should produce differentiated ratings."""
+    """Winner-takes-all: winner is rated highest, all losers are tied."""
     games = [
         _make_game(
             "g1",
@@ -306,13 +305,11 @@ def test_ratings_full_ordering():
             ],
         )
     ]
-    ratings, _ = compute_elo_ratings(games)
-    # Full ordering: each player should have a distinct rating
-    sorted_by_rating = sorted(ratings.items(), key=lambda x: -x[1])
-    assert sorted_by_rating[0][0] == "a/a"  # Alice won
-    assert sorted_by_rating[1][0] == "b/b"  # Bob 2nd
-    assert sorted_by_rating[2][0] == "c/c"  # Carol 3rd
-    assert sorted_by_rating[3][0] == "d/d"  # Dave 4th
+    ratings, _ = compute_openskill_ratings(games)
+    # Winner is rated highest
+    assert ratings["a/a"] > ratings["b/b"]
+    # All losers are tied (winner-takes-all scoring)
+    assert ratings["b/b"] == ratings["c/c"] == ratings["d/d"]
 
 
 # --- compute_openskill_ratings ---
@@ -670,18 +667,22 @@ def test_generate_leaderboard_file_integration():
         assert output_path.exists()
         result = json.loads(output_path.read_text())
         assert result["totalGames"] == 1
-        assert len(result["models"]) == 2
-        assert result["models"][0]["modelName"] == "Claude Sonnet 4.5"
-        assert result["models"][0]["rating"] > result["models"][1]["rating"]
+        # Top-level models come from jumpstart (empty here), check format pool instead
+        assert "formats" in result
+        assert result["formats"]["standard"]["totalGames"] == 1
+        standard_models = result["formats"]["standard"]["models"]
+        assert len(standard_models) == 2
+        assert standard_models[0]["modelName"] == "Claude Sonnet 4.5"
+        assert standard_models[0]["rating"] > standard_models[1]["rating"]
 
-        # Verify elo.json
-        elo_path = games_dir.parent / "data" / "elo.json"
-        assert elo_path.exists()
-        elo_data = json.loads(elo_path.read_text())
-        assert "game_20260101_000000" in elo_data
-        assert "anthropic/claude-sonnet-4.5" in elo_data["game_20260101_000000"]
-        claude_elo = elo_data["game_20260101_000000"]["anthropic/claude-sonnet-4.5"]
-        assert claude_elo["after"] > claude_elo["before"]
+        # Verify ratings.json
+        ratings_path = games_dir.parent / "data" / "ratings.json"
+        assert ratings_path.exists()
+        ratings_data = json.loads(ratings_path.read_text())
+        assert "game_20260101_000000" in ratings_data
+        assert "anthropic/claude-sonnet-4.5" in ratings_data["game_20260101_000000"]
+        claude_rating = ratings_data["game_20260101_000000"]["anthropic/claude-sonnet-4.5"]
+        assert claude_rating["after"] > claude_rating["before"]
 
 
 def test_generate_leaderboard_file_no_games():
@@ -736,10 +737,11 @@ def test_generate_leaderboard_file_with_game_fallback():
         )
         result = json.loads(output_path.read_text())
 
-        # Alice won (1st), Bob eliminated last (2nd), Carol eliminated first (3rd)
-        models_by_name = {m["modelName"]: m for m in result["models"]}
+        # Alice won (1st), Bob and Carol are losers (winner-takes-all: tied)
+        standard_models = result["formats"]["standard"]["models"]
+        models_by_name = {m["modelName"]: m for m in standard_models}
         assert models_by_name["X"]["rating"] > models_by_name["Y"]["rating"]
-        assert models_by_name["Y"]["rating"] > models_by_name["Z"]["rating"]
+        assert models_by_name["Y"]["rating"] == models_by_name["Z"]["rating"]
 
 
 # --- derive_format ---
@@ -775,7 +777,7 @@ def test_derive_format_commander_from_game_type():
 # --- generate_all_leaderboards ---
 
 
-def test_generate_all_leaderboards_1v1_and_commander():
+def test_generate_all_leaderboards_legacy_and_commander():
     legacy_game = _make_game(
         "g1",
         "20260101_000000",
@@ -802,14 +804,17 @@ def test_generate_all_leaderboards_1v1_and_commander():
         {},
     )
 
-    assert "1v1" in format_results
+    assert "legacy" in format_results
     assert "commander" in format_results
+    assert "combined" in format_results
 
-    assert format_results["1v1"]["totalGames"] == 1
+    assert format_results["legacy"]["totalGames"] == 1
     assert format_results["commander"]["totalGames"] == 1
+    assert format_results["combined"]["totalGames"] == 2
 
 
-def test_generate_all_leaderboards_1v1_includes_all_formats():
+def test_generate_all_leaderboards_separate_format_pools():
+    """Each constructed format gets its own independent rating pool."""
     games = []
     for i, fmt in enumerate(["Constructed - Legacy", "Constructed - Modern", "Constructed - Standard"]):
         g = _make_game(
@@ -825,11 +830,14 @@ def test_generate_all_leaderboards_1v1_includes_all_formats():
         games,
         {},
     )
-    assert format_results["1v1"]["totalGames"] == 3
+    assert format_results["legacy"]["totalGames"] == 1
+    assert format_results["modern"]["totalGames"] == 1
+    assert format_results["standard"]["totalGames"] == 1
+    assert format_results["combined"]["totalGames"] == 3
 
 
-def test_generate_all_leaderboards_commander_uses_openskill():
-    """Commander ratings should use OpenSkill, producing differentiated ratings."""
+def test_generate_all_leaderboards_commander_winner_rated_highest():
+    """Commander ratings should produce differentiated ratings."""
     games = [
         _make_game(
             "g1",
@@ -852,7 +860,7 @@ def test_generate_all_leaderboards_commander_uses_openskill():
     assert sorted_models[0]["modelId"] == "a/a"
     # All 4 should appear
     assert len(models) == 4
-    # Ratings in elo.json
+    # Ratings in ratings.json
     assert "g1" in ratings_by_game
 
 
@@ -884,16 +892,17 @@ def test_generate_leaderboard_file_has_formats_key():
         )
         result = json.loads(output_path.read_text())
 
-        # Backward compat: top-level fields (from 1v1 pool)
+        # Top-level fields (from jumpstart pool — empty here since only legacy game)
         assert "totalGames" in result
         assert "models" in result
         assert result["totalGames"] == 1
 
         # Per-pool data
         assert "formats" in result
-        assert "1v1" in result["formats"]
+        assert "legacy" in result["formats"]
         assert "commander" in result["formats"]
-        assert result["formats"]["1v1"]["totalGames"] == 1
+        assert "combined" in result["formats"]
+        assert result["formats"]["legacy"]["totalGames"] == 1
 
 
 # --- _player_key / _split_key ---
@@ -1089,7 +1098,7 @@ def test_ratings_separate_by_effort():
             ],
         ),
     ]
-    ratings, _ = compute_elo_ratings(games)
+    ratings, _ = compute_openskill_ratings(games)
     assert "a/x::medium" in ratings
     assert "a/x::low" in ratings
     assert ratings["a/x::medium"] > ratings["a/x::low"]
@@ -1144,8 +1153,9 @@ def test_generate_leaderboard_file_excludes_old_epochs():
         assert result["minEpoch"] == 11
         assert result["epochCounts"] == {"2": 1, str(HARNESS_EPOCH): 1}
 
-        # Only current-epoch models should appear (epoch 2 is below MIN_LEADERBOARD_EPOCH=11)
-        model_ids = {m["modelId"] for m in result["models"]}
+        # Only current-epoch models should appear in the standard pool
+        standard_models = result["formats"]["standard"]["models"]
+        model_ids = {m["modelId"] for m in standard_models}
         assert "c/z" in model_ids
         assert "a/x" not in model_ids
 

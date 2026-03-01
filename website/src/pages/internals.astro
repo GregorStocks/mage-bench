@@ -56,7 +56,10 @@ if (fs.existsSync(exportsDir)) {
           <span class="control-label">Format</span>
           <div class="toggle-buttons" id="format-buttons">
             <button class="toggle-btn active" data-format="all">All</button>
-            <button class="toggle-btn" data-format="1v1">1v1</button>
+            <button class="toggle-btn" data-format="jumpstart">Jumpstart</button>
+            <button class="toggle-btn" data-format="standard">Standard</button>
+            <button class="toggle-btn" data-format="modern">Modern</button>
+            <button class="toggle-btn" data-format="legacy">Legacy</button>
             <button class="toggle-btn" data-format="commander">Commander</button>
           </div>
         </div>
@@ -427,8 +430,7 @@ if (fs.existsSync(exportsDir)) {
       const filtered = trendData.games
         .filter(g => {
           if (g.epoch < minEpochTrend) return false;
-          if (currentFormat === '1v1' && g.format === 'commander') return false;
-          if (currentFormat === 'commander' && g.format !== 'commander') return false;
+          if (currentFormat !== 'all' && g.format !== currentFormat) return false;
           return g.ts !== '';
         })
         .sort((a, b) => new Date(a.ts).getTime() - new Date(b.ts).getTime());

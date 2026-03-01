@@ -70,9 +70,6 @@ def compute_thinking_time(llm_events: list[dict]) -> dict[str, float]:
     return thinking
 
 
-_STARTING_RATING = 1600
-_K_FACTOR = 32
-
 # Scale raw OpenSkill ordinals (centered at 0) to a DCI-style rating.
 _OPENSKILL_BASE = 1600
 _OPENSKILL_SCALE = 100
@@ -89,9 +86,12 @@ _DECK_TYPE_TO_FORMAT: dict[str, str] = {
 
 # Display labels for leaderboard tabs.
 FORMAT_LABELS: dict[str, str] = {
-    "1v1": "1v1",
-    "commander": "Commander",
     "jumpstart": "Jumpstart",
+    "standard": "Standard",
+    "modern": "Modern",
+    "legacy": "Legacy",
+    "commander": "Commander",
+    "combined": "Combined",
 }
 
 
@@ -109,11 +109,6 @@ def derive_format(game: dict) -> str:
     if "Commander" in game_type or not deck_type:
         return "commander"
     return deck_type.lower().replace(" ", "-")
-
-
-def _expected_score(ra: float, rb: float) -> float:
-    """Elo expected score for player A against player B."""
-    return 1.0 / (1.0 + 10.0 ** ((rb - ra) / 400.0))
 
 
 _PROVIDER_DISPLAY: dict[str, str] = {
@@ -234,101 +229,6 @@ def _openskill_display_rating(ordinal: float) -> int:
     return round(ordinal * _OPENSKILL_SCALE + _OPENSKILL_BASE)
 
 
-def compute_elo_ratings(
-    games_index: list[dict],
-    games_dir: Path | None = None,
-) -> tuple[dict[str, float], list[dict]]:
-    """Compute Elo ratings from game history.
-
-    Processes games chronologically, updating ratings for 1v1 results.
-    Games with no placement data are skipped (no rating update) but still
-    record snapshots.
-
-    Returns (final_ratings, per_game_ratings) where per_game_ratings is a list
-    of dicts with {id, players: [{key, ratingBefore, ratingAfter}]}.
-    """
-    ratings: dict[str, float] = {}
-    per_game: list[dict] = []
-
-    sorted_games = sorted(games_index, key=lambda g: g.get("timestamp", ""))
-
-    for game in sorted_games:
-        pilots = [p for p in game.get("players", []) if p.get("type") == "pilot" and p.get("model")]
-        if len(pilots) < 2:
-            # Need at least 2 pilots for rating; record snapshot with no change
-            for p in pilots:
-                key = _player_key(p)
-                if key not in ratings:
-                    ratings[key] = float(_STARTING_RATING)
-            if pilots:
-                key = _player_key(pilots[0])
-                display = round(ratings[key])
-                per_game.append(
-                    {
-                        "id": game.get("id", ""),
-                        "players": [{"key": key, "ratingBefore": display, "ratingAfter": display}],
-                    }
-                )
-            continue
-
-        # Ensure all pilots have a rating
-        for p in pilots:
-            key = _player_key(p)
-            if key not in ratings:
-                ratings[key] = float(_STARTING_RATING)
-
-        # Record before ratings
-        pilot_keys = [_player_key(p) for p in pilots]
-        before = {key: round(ratings[key]) for key in pilot_keys}
-
-        # Get placements
-        placements = extract_placements(game, games_dir)
-
-        has_placements = any(p["name"] in placements for p in pilots)
-        if has_placements:
-            # Pairwise Elo updates for all pilot pairs
-            deltas: dict[str, float] = {key: 0.0 for key in pilot_keys}
-            for i, pi in enumerate(pilots):
-                for j, pj in enumerate(pilots):
-                    if i >= j:
-                        continue
-                    ki = _player_key(pi)
-                    kj = _player_key(pj)
-                    pi_place = placements.get(pi["name"], len(pilots))
-                    pj_place = placements.get(pj["name"], len(pilots))
-                    if pi_place == pj_place:
-                        continue
-                    ea = _expected_score(ratings[ki], ratings[kj])
-                    sa = 1.0 if pi_place < pj_place else 0.0
-                    deltas[ki] += _K_FACTOR * (sa - ea)
-                    deltas[kj] += _K_FACTOR * ((1.0 - sa) - (1.0 - ea))
-            for key in pilot_keys:
-                ratings[key] += deltas[key]
-
-        # Record after ratings
-        after = {key: round(ratings[key]) for key in pilot_keys}
-        per_game.append(
-            {
-                "id": game.get("id", ""),
-                "players": [
-                    {
-                        "key": key,
-                        "ratingBefore": before[key],
-                        "ratingAfter": after[key],
-                    }
-                    for key in pilot_keys
-                ],
-            }
-        )
-
-    # Build final display ratings
-    final: dict[str, float] = {}
-    for mid, r in ratings.items():
-        final[mid] = round(r)
-
-    return final, per_game
-
-
 def compute_openskill_ratings(
     games_index: list[dict],
     games_dir: Path | None = None,
@@ -419,12 +319,10 @@ def generate_leaderboard(
     games_index: list[dict],
     model_registry: dict[str, str],
     games_dir: Path | None = None,
-    *,
-    rating_fn: str = "elo",
 ) -> tuple[dict, dict[str, dict[str, dict[str, int]]]]:
     """Aggregate game results into leaderboard data.
 
-    rating_fn selects the rating algorithm: "elo" or "openskill".
+    Uses OpenSkill PlackettLuce for ratings.
 
     Returns (benchmark_results, ratings_by_game) where ratings_by_game is
     {game_id: {model_id: {before, after}}}.
@@ -432,8 +330,7 @@ def generate_leaderboard(
     # Filter to games with a winner for leaderboard purposes
     scored_games = [g for g in games_index if g.get("winner")]
 
-    compute_fn = compute_openskill_ratings if rating_fn == "openskill" else compute_elo_ratings
-    final_ratings, per_game = compute_fn(scored_games, games_dir)
+    final_ratings, per_game = compute_openskill_ratings(scored_games, games_dir)
 
     # Build ratings_by_game lookup
     ratings_by_game: dict[str, dict[str, dict[str, int]]] = {}
@@ -492,7 +389,7 @@ def generate_leaderboard(
         win_rate = wins / games_played
         avg_cost = s["total_cost"] / games_played
         provider_slug = model_id.split("/", 1)[0]
-        rating = final_ratings.get(key, _STARTING_RATING)
+        rating = final_ratings.get(key, _OPENSKILL_BASE)
 
         display_name = model_registry.get(model_id) or derive_display_name(model_id)
         if effort:
@@ -533,47 +430,40 @@ def generate_leaderboard(
     return benchmark_results, ratings_by_game
 
 
+_FORMAT_POOLS = ("jumpstart", "standard", "modern", "legacy", "commander")
+
+
 def generate_all_leaderboards(
     games_index: list[dict],
     model_registry: dict[str, str],
     games_dir: Path | None = None,
 ) -> tuple[dict[str, dict], dict[str, dict[str, dict[str, int]]]]:
-    """Generate 1v1, Commander, and Jumpstart leaderboards.
+    """Generate per-format leaderboards plus a combined view.
 
     Returns (format_results, ratings_by_game) where format_results maps
-    "1v1", "commander", and "jumpstart" to their respective benchmark_results
-    dicts. 1v1 and Jumpstart use Elo; Commander uses OpenSkill PlackettLuce.
+    each format in FORMAT_LABELS to its benchmark_results dict. All formats
+    use OpenSkill PlackettLuce. The "combined" pool includes all games.
     """
-    # Partition into 1v1 (standard/modern/legacy), commander, and jumpstart
-    _1V1_FORMATS = {"standard", "modern", "legacy"}
-    games_1v1 = [g for g in games_index if derive_format(g) in _1V1_FORMATS]
-    games_commander = [g for g in games_index if derive_format(g) == "commander"]
-    games_jumpstart = [g for g in games_index if derive_format(g) == "jumpstart"]
+    # Partition games by format
+    games_by_format: dict[str, list[dict]] = {fmt: [] for fmt in _FORMAT_POOLS}
+    for g in games_index:
+        fmt = derive_format(g)
+        if fmt in games_by_format:
+            games_by_format[fmt].append(g)
 
-    # 1v1: all Standard/Modern/Legacy in one Elo pool
-    results_1v1, ratings_1v1 = generate_leaderboard(games_1v1, model_registry, games_dir, rating_fn="elo")
-
-    # Commander: OpenSkill PlackettLuce with full placement ordering
-    results_commander, ratings_commander = generate_leaderboard(
-        games_commander, model_registry, games_dir, rating_fn="openskill"
-    )
-
-    # Jumpstart: simpler 40-card format, Elo (two-player duels)
-    results_jumpstart, ratings_jumpstart = generate_leaderboard(
-        games_jumpstart, model_registry, games_dir, rating_fn="elo"
-    )
-
-    format_results: dict[str, dict] = {
-        "1v1": results_1v1,
-        "commander": results_commander,
-        "jumpstart": results_jumpstart,
-    }
-
-    # Merge per-game ratings (game IDs are unique across pools)
+    format_results: dict[str, dict] = {}
     ratings_by_game: dict[str, dict[str, dict[str, int]]] = {}
-    ratings_by_game.update(ratings_1v1)
-    ratings_by_game.update(ratings_commander)
-    ratings_by_game.update(ratings_jumpstart)
+
+    # Independent OpenSkill pool per format
+    for fmt in _FORMAT_POOLS:
+        results, ratings = generate_leaderboard(games_by_format[fmt], model_registry, games_dir)
+        format_results[fmt] = results
+        ratings_by_game.update(ratings)
+
+    # Combined: all games in one pool (separate rating computation, not used for per-game display)
+    all_games = [g for games in games_by_format.values() for g in games]
+    combined_results, _ = generate_leaderboard(all_games, model_registry, games_dir)
+    format_results["combined"] = combined_results
 
     return format_results, ratings_by_game
 
@@ -670,13 +560,14 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     model_registry = load_model_registry(models_json)
     format_results, ratings_by_game = generate_all_leaderboards(rated_games, model_registry, games_dir)
 
-    # Build output with backward-compatible top-level fields from 1v1
-    pool_1v1 = format_results.get("1v1", {"generatedAt": "", "totalGames": 0, "models": []})
-    total_games = sum(p.get("totalGames", 0) for p in format_results.values())
+    # Build output with backward-compatible top-level fields from jumpstart (primary format)
+    pool_jumpstart = format_results.get("jumpstart", {"generatedAt": "", "totalGames": 0, "models": []})
+    # Sum games across real pools (not combined, which double-counts)
+    total_games = sum(format_results[fmt].get("totalGames", 0) for fmt in _FORMAT_POOLS if fmt in format_results)
     output = {
-        "generatedAt": pool_1v1.get("generatedAt", ""),
+        "generatedAt": pool_jumpstart.get("generatedAt", ""),
         "totalGames": total_games,
-        "models": pool_1v1.get("models", []),
+        "models": pool_jumpstart.get("models", []),
         "formats": format_results,
         "minEpoch": MIN_LEADERBOARD_EPOCH,
         "minBlunderVersion": MIN_BLUNDER_VERSION,
@@ -689,11 +580,11 @@ def generate_leaderboard_file(games_dir: Path, data_dir: Path, models_json: Path
     output_path = data_dir / "benchmark-results.json"
     output_path.write_text(json.dumps(output, indent=2) + "\n")
 
-    # Write elo.json to public/data/ (kept as elo.json for backward compat)
-    elo_dir = games_dir.parent / "data"
-    elo_dir.mkdir(parents=True, exist_ok=True)
-    elo_path = elo_dir / "elo.json"
-    elo_path.write_text(json.dumps(ratings_by_game, indent=2) + "\n")
+    # Write ratings.json to public/data/
+    ratings_dir = games_dir.parent / "data"
+    ratings_dir.mkdir(parents=True, exist_ok=True)
+    ratings_path = ratings_dir / "ratings.json"
+    ratings_path.write_text(json.dumps(ratings_by_game, indent=2) + "\n")
 
     return output_path
 

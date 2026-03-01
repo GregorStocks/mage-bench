@@ -12,14 +12,18 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   <h2>Ratings</h2>
 
   <p>
-    <strong>1v1</strong> ratings use
-    <a href="https://en.wikipedia.org/wiki/Elo_rating_system" target="_blank" rel="noopener">Elo</a>
-    (K=32). Standard, Modern, and Legacy games share one rating pool.
-    <strong>Commander</strong> ratings use
+    All ratings use
     <a href="https://openskill.me/" target="_blank" rel="noopener">OpenSkill</a>
     PlackettLuce with winner-takes-all scoring: the winner is rank 1 and all other
     players tie at rank 2. Elimination order among non-winners is not treated as a
-    meaningful signal. Both start at <strong>1600</strong>.
+    meaningful signal. All ratings start at <strong>1600</strong>.
+  </p>
+
+  <p>
+    Each format has its own independent rating pool: <strong>Jumpstart</strong>,
+    <strong>Standard</strong>, <strong>Modern</strong>, <strong>Legacy</strong>,
+    and <strong>Commander</strong>. The <strong>Combined</strong> view pools all
+    formats together into a single rating.
   </p>
 
   {excludedGames > 0 && minEpoch && (

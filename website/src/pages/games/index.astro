@@ -467,17 +467,17 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     font-variant-numeric: tabular-nums;
   }
 
-  .player-elo {
+  .player-rating {
     font-size: 0.75rem;
     color: #a0a0b8;
     font-variant-numeric: tabular-nums;
   }
 
-  .player-elo.elo-up {
+  .player-rating.rating-up {
     color: #a8d9a5;
   }
 
-  .player-elo.elo-down {
+  .player-rating.rating-down {
     color: #e94560;
   }
 
@@ -688,7 +688,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     bar.appendChild(count);
   }
 
-  function renderGameCard(game, eloData) {
+  function renderGameCard(game, ratingsData) {
     var a = document.createElement("a");
     a.href = "/games/" + game.id;
     a.className = "game-card";
@@ -838,19 +838,19 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
         cell.appendChild(scoreEl);
       }
 
-      // Elo (if available) — key matches _player_key(): "model::effort" or "model"
-      var gameElo = eloData[game.id];
-      var eloKey = p.model;
-      if (eloKey && p.reasoningEffort) eloKey += "::" + p.reasoningEffort;
-      var playerElo = gameElo && eloKey ? gameElo[eloKey] : null;
-      if (playerElo) {
-        var eloEl = document.createElement("div");
-        eloEl.className = "player-elo";
-        var delta = playerElo.after - playerElo.before;
-        if (delta > 0) eloEl.classList.add("elo-up");
-        else if (delta < 0) eloEl.classList.add("elo-down");
-        eloEl.textContent = playerElo.before + " \u2192 " + playerElo.after;
-        cell.appendChild(eloEl);
+      // Rating (if available) — key matches _player_key(): "model::effort" or "model"
+      var gameRatings = ratingsData[game.id];
+      var ratingKey = p.model;
+      if (ratingKey && p.reasoningEffort) ratingKey += "::" + p.reasoningEffort;
+      var playerRating = gameRatings && ratingKey ? gameRatings[ratingKey] : null;
+      if (playerRating) {
+        var ratingEl = document.createElement("div");
+        ratingEl.className = "player-rating";
+        var delta = playerRating.after - playerRating.before;
+        if (delta > 0) ratingEl.classList.add("rating-up");
+        else if (delta < 0) ratingEl.classList.add("rating-down");
+        ratingEl.textContent = playerRating.before + " \u2192 " + playerRating.after;
+        cell.appendChild(ratingEl);
       }
 
       grid.appendChild(cell);
@@ -888,7 +888,7 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     return a;
   }
 
-  var __eloData = {};
+  var ratingsData = {};
 
   function renderFormatTabs(games) {
     var tabsEl = document.getElementById("format-tabs");
@@ -996,7 +996,6 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
 
   function renderAll() {
     var games = __games;
-    var eloData = __eloData;
     var list = document.getElementById("games-list");
     list.innerHTML = "";
 
@@ -1018,16 +1017,16 @@ games.sort((a, b) => String(b.id).localeCompare(String(a.id)));
     }
 
     filtered.forEach(function (game) {
-      list.appendChild(renderGameCard(game, eloData));
+      list.appendChild(renderGameCard(game, ratingsData));
     });
 
   }
 
-  fetch("/data/elo.json").then(function (r) {
+  fetch("/data/ratings.json").then(function (r) {
     return r.ok ? r.json() : {};
   }).catch(function () { return {}; })
-    .then(function (eloData) {
-      __eloData = eloData;
+    .then(function (data) {
+      ratingsData = data;
       renderAll();
     })
     .catch(function () {

@@ -15,7 +15,6 @@ from pathlib import Path
 
 from puppeteer.harness_epoch import MIN_LEADERBOARD_EPOCH
 from puppeteer.leaderboard import (
-    compute_elo_ratings,
     compute_openskill_ratings,
     derive_format,
 )
@@ -101,8 +100,7 @@ def get_yente_pool(
 ) -> list[str]:
     """Return gauntlet preset names for models rated above threshold.
 
-    deck_type: the deckType from the config, used to determine whether
-    to use Elo (1v1 formats) or OpenSkill (commander) ratings.
+    deck_type: the deckType from the config, used to determine the rating pool.
 
     Returns a list of preset name strings (e.g. ["sonnet-medium", "grok4f-medium"]).
     Prints a Fiddler quote and the eligible pool to stderr.
@@ -117,12 +115,11 @@ def get_yente_pool(
     # Compute ratings for the appropriate pool
     if is_commander:
         pool_games = [g for g in rated_games if derive_format(g) == "commander"]
-        final_ratings, _per_game = compute_openskill_ratings(pool_games, games_dir)
         mode_label = "commander"
     else:
         pool_games = [g for g in rated_games if derive_format(g) != "commander"]
-        final_ratings, _per_game = compute_elo_ratings(pool_games, games_dir)
-        mode_label = "1v1"
+        mode_label = "2-player"
+    final_ratings, _per_game = compute_openskill_ratings(pool_games, games_dir)
 
     # Build reverse mapping: player_key -> preset name
     key_to_preset = _build_key_to_preset(presets_path)
@@ -241,7 +238,7 @@ def get_round_robin_matchup(
         mode_label = "commander"
     else:
         pool_games = [g for g in epoch_games if derive_format(g) != "commander"]
-        mode_label = "1v1"
+        mode_label = "2-player"
 
     # Build mappings
     key_to_preset = _build_key_to_preset(presets_path)
