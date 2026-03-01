@@ -23,7 +23,7 @@ DECKS_DIR = REPO_ROOT / "data" / "decks"
 CONFIGS_DIR = REPO_ROOT / "configs"
 
 # Special preset/personality keywords resolved at runtime, not looked up in JSON.
-_SPECIAL_PRESET_KEYWORDS = {"random", "yente", "round-robin"}
+_SPECIAL_PRESET_KEYWORDS = {"random", "round-robin"}
 _SPECIAL_PERSONALITY_KEYWORDS = {"random"}
 
 # Models that were retired from models.json but still appear in historical
@@ -77,13 +77,19 @@ class TestPresetsReferenceValidModels:
 
         assert not missing, "Presets reference unknown models:\n  " + "\n  ".join(missing)
 
-    def test_gauntlet_entries_exist_in_presets(self) -> None:
+    def test_all_presets_have_valid_status(self) -> None:
         presets_data = _load_json(PUPPETEER_DIR / "presets.json")
-        preset_names = set(presets_data["presets"])
-        gauntlet = presets_data["gauntlet"]
+        valid_statuses = {"active", "retired", "buggy", "expensive"}
 
-        missing = [g for g in gauntlet if g not in preset_names]
-        assert not missing, f"Gauntlet references unknown presets: {missing}"
+        bad = []
+        for name, preset in presets_data["presets"].items():
+            status = preset.get("status")
+            if status is None:
+                bad.append(f"{name!r}: missing 'status' field")
+            elif status not in valid_statuses:
+                bad.append(f"{name!r}: invalid status {status!r}")
+
+        assert not bad, "Preset status issues:\n  " + "\n  ".join(bad)
 
     def test_preset_system_prompts_exist(self) -> None:
         presets_data = _load_json(PUPPETEER_DIR / "presets.json")
@@ -488,21 +494,12 @@ class TestPersonalityNamePartLength:
 
 
 # ---------------------------------------------------------------------------
-# Test 18: No duplicate gauntlet entries
+# Test 18: At least one active preset exists
 # ---------------------------------------------------------------------------
 
 
-class TestGauntletNoDuplicates:
-    def test_gauntlet_entries_unique(self) -> None:
+class TestActivePresetsExist:
+    def test_has_active_presets(self) -> None:
         presets_data = _load_json(PUPPETEER_DIR / "presets.json")
-        gauntlet = presets_data["gauntlet"]
-
-        seen: dict[str, int] = {}
-        dupes: list[str] = []
-        for entry in gauntlet:
-            seen[entry] = seen.get(entry, 0) + 1
-        for entry, count in seen.items():
-            if count > 1:
-                dupes.append(f"{entry!r} appears {count} times")
-
-        assert not dupes, "Duplicate gauntlet entries (would bias matchmaking):\n  " + "\n  ".join(dupes)
+        active = [name for name, p in presets_data["presets"].items() if p.get("status") == "active"]
+        assert active, "No presets with status='active' — matchmaking needs at least one"

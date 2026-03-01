@@ -391,41 +391,6 @@
       "_notes": "Meta's latest Llama 4. 1M context. No reasoning mode. Non-thinking baseline. Google provider breaks tool calling (outputs ReAct-style text instead of tool_calls)."
     }
   ],
-  "_recommendations": {
-    "gauntlet_pool": [
-      "anthropic/claude-sonnet-4.5",
-      "anthropic/claude-haiku-4.5",
-      "anthropic/claude-opus-4.6",
-      "google/gemini-3-flash-preview",
-      "google/gemini-3-pro-preview",
-      "moonshotai/kimi-k2.5",
-      "minimax/minimax-m2.5",
-      "z-ai/glm-4.7",
-      "xiaomi/mimo-v2-flash",
-      "qwen/qwen3-max-thinking",
-      "x-ai/grok-4-fast",
-      "x-ai/grok-4.1-fast",
-      "openai/o3",
-      "openai/gpt-5.2",
-      "openai/gpt-5.3-codex",
-      "openai/gpt-5",
-      "deepseek/deepseek-v3.2",
-      "qwen/qwen3-235b-a22b-2507",
-      "meta-llama/llama-4-maverick"
-    ],
-    "reasoning": "Trimmed gauntlet: dropped Grok 4 (non-Fast), GPT-5 Mini, GPT-5 Nano, Kimi K2 0905, Gemini 2.5 Flash/Pro, GPT-4o-mini — all superseded or consistently bottom-tier. MiniMax upgraded from M2.1 to M2.5.",
-    "showcase_matches": [
-      "anthropic/claude-opus-4.6",
-      "google/gemini-3-pro-preview",
-      "x-ai/grok-4"
-    ],
-    "skip": [
-      "openai/o4-mini",
-      "openai/gpt-5.1",
-      "mistralai/mistral-large-2512"
-    ],
-    "skip_reasoning": "o4-mini produces persistent empty responses and stall loops. GPT-5.1 superseded by GPT-5 and GPT-5.2. Mistral Large is non-thinking and underperforms reasoning models."
-  },
   "_thinking_config": {
     "_comment": "How to enable thinking for each provider via OpenRouter's unified reasoning param",
     "anthropic": {
