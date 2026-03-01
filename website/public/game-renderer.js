@@ -1200,15 +1200,20 @@
 
   // ── Status line ──
 
+  function formatTurnLabel(turn, activePlayer) {
+    var turnNum = turn != null ? "Turn " + turn : "Turn ?";
+    if (activePlayer) return activePlayer + "'s " + turnNum;
+    return turnNum;
+  }
+
   function renderStatusLine(el, snap) {
     if (!el || !snap) return;
-    var turn = snap.turn != null ? "Turn " + snap.turn : "Turn ?";
+    var turn = formatTurnLabel(snap.turn, snap.active_player);
     var phase = snap.phase || "?";
     var step = snap.step || "?";
     var phaseDisplay = step && step !== phase ? phase + " / " + step : phase;
-    var active = snap.active_player || "?";
     var priority = snap.priority_player || "?";
-    el.textContent = turn + " | " + phaseDisplay + " | Active: " + active + " | Priority: " + priority;
+    el.textContent = turn + " | " + phaseDisplay + " | Priority: " + priority;
   }
 
   // ── Diff computation ──
@@ -1474,6 +1479,7 @@
     computeCardFontSize: computeCardFontSize,
     // Phase formatting
     formatPhaseStep: formatPhaseStep,
+    formatTurnLabel: formatTurnLabel,
     // Constants
     PLAYER_COLORS: PLAYER_COLORS,
   };

@@ -842,7 +842,7 @@ const { slug } = Astro.params;
         var phase = snap.phase || "";
         var step = snap.step || "";
         var phaseDisplay = step && step !== phase ? phase + " / " + step : phase;
-        phaseBar.textContent = "Turn " + snap.turn + " \u2014 " + phaseDisplay;
+        phaseBar.textContent = R.formatTurnLabel(snap.turn, snap.active_player) + " \u2014 " + phaseDisplay;
         playersGrid.insertBefore(phaseBar, playersGrid.children[insertIdx]);
       }
 
@@ -1033,7 +1033,7 @@ const { slug } = Astro.params;
         } else if (item.kind === "turn-sep") {
           el = document.createElement("div");
           el.className = "turn-separator";
-          el.textContent = "\u2014 Turn " + item.data.turn + " \u2014";
+          el.textContent = "\u2014 " + R.formatTurnLabel(item.data.turn, item.data.active_player) + " \u2014";
         } else if (item.kind === "phase-sep") {
           el = document.createElement("div");
           el.className = "phase-separator";
@@ -1216,6 +1216,7 @@ const { slug } = Astro.params;
               phase: snap.phase,
               step: snap.step,
               turnChanged: turnChanged,
+              active_player: snap.active_player,
             });
           }
         });

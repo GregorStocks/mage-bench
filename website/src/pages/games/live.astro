@@ -274,7 +274,7 @@ import Base from '../../layouts/Base.astro';
           if (curTurn !== prevTurn) {
             var sep = document.createElement("div");
             sep.className = "turn-separator";
-            sep.textContent = "\u2014 Turn " + curTurn + " \u2014";
+            sep.textContent = "\u2014 " + R.formatTurnLabel(curTurn, state.active_player) + " \u2014";
             logList.appendChild(sep);
           }
           if (curPhase !== prevPhase || curStep !== prevStep) {

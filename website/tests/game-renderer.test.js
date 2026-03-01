@@ -386,7 +386,7 @@ describe("renderStatusLine", () => {
     });
     expect(el.textContent).toContain("Turn 5");
     expect(el.textContent).toContain("COMBAT / DECLARE_ATTACKERS");
-    expect(el.textContent).toContain("Active: Alice");
+    expect(el.textContent).toContain("Alice's Turn 5");
     expect(el.textContent).toContain("Priority: Bob");
   });
 

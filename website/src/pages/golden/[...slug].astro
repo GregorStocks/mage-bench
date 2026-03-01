@@ -877,7 +877,7 @@ const scenarioTitle = slug.replace(/_/g, ' ');
       var phase = snap.phase || "";
       var step = snap.step || "";
       var phaseDisplay = step && step !== phase ? phase + " / " + step : phase;
-      phaseBar.textContent = "Turn " + snap.turn + " \u2014 " + phaseDisplay;
+      phaseBar.textContent = R.formatTurnLabel(snap.turn, snap.active_player) + " \u2014 " + phaseDisplay;
       playersGrid.insertBefore(phaseBar, playersGrid.children[insertIdx]);
     }
 
