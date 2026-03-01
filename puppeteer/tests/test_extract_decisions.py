@@ -412,6 +412,38 @@ class TestResolveChosenIndex:
         result = _resolve_chosen_index({"attackers": ["p1"]}, [], {"action_taken": "selected_0"})
         assert result == 0
 
+    def test_id_overrides_index_when_both_present(self) -> None:
+        """When both id and index are provided, id wins (matching bridge behavior)."""
+        choices = [
+            {"name": "Self", "id": "p2", "is_you": True},
+            {"name": "Opponent", "id": "p1"},
+        ]
+        # Model sends index=0 (default) but id=p1 (actual intent)
+        result = _resolve_chosen_index({"index": 0, "id": "p1"}, choices, {"action_taken": "selected_target_1"})
+        assert result == 1  # id=p1 is at index 1, not index 0
+
+    def test_id_overrides_index_id_not_found_falls_back(self) -> None:
+        """When both id and index are present but id doesn't match, use index."""
+        choices = [{"name": "A", "id": "p1"}, {"name": "B", "id": "p2"}]
+        result = _resolve_chosen_index({"index": 0, "id": "p99"}, choices, {})
+        assert result == 0  # id=p99 not found, fall back to index=0
+
+    def test_id_overrides_index_empty_id_uses_index(self) -> None:
+        """When id is empty string, index is used directly."""
+        choices = [{"name": "A", "id": "p1"}, {"name": "B", "id": "p2"}]
+        result = _resolve_chosen_index({"index": 1, "id": ""}, choices, {})
+        assert result == 1  # empty id is falsy, use index
+
+    def test_action_taken_selected_target(self) -> None:
+        """Fallback handles selected_target_N format."""
+        result = _resolve_chosen_index({"attackers": ["p1"]}, [], {"action_taken": "selected_target_2"})
+        assert result == 2
+
+    def test_action_taken_selected_ability(self) -> None:
+        """Fallback handles selected_ability_N format."""
+        result = _resolve_chosen_index({"attackers": ["p1"]}, [], {"action_taken": "selected_ability_0"})
+        assert result == 0
+
     def test_no_resolution(self) -> None:
         assert _resolve_chosen_index({"attackers": ["p1"]}, [], {}) is None
 
@@ -551,6 +583,35 @@ class TestExtractDecisionsV2:
         decisions = _extract_decisions_v2(_v2_game_data(events))
         assert len(decisions) == 1
         assert decisions[0]["chosen"] == 0
+
+    def test_id_overrides_index_in_full_pipeline(self) -> None:
+        """When model sends both id and index, id wins (matching bridge)."""
+        choices = [
+            {"name": "Self", "id": "p2", "index": 0, "is_you": True},
+            {"name": "Opponent", "id": "p1", "index": 1},
+        ]
+        events = [
+            _v2_pass_priority(
+                "Alice",
+                "T01",
+                choices,
+                message="Select a player",
+                action_type="GAME_TARGET",
+                response_type="index",
+            ),
+            _v2_llm_response("Alice", "T02"),
+            # Model sends index=0 (default) but id=p1 (actual intent)
+            _v2_choose_action(
+                "Alice",
+                "T03",
+                {"index": 0, "id": "p1", "answer": False, "amount": 0},
+                "selected_target_1",
+            ),
+        ]
+        decisions = _extract_decisions_v2(_v2_game_data(events))
+        assert len(decisions) == 1
+        # id=p1 is at index 1, not the raw index=0
+        assert decisions[0]["chosen"] == 1
 
     def test_get_action_choices_also_collected(self) -> None:
         """Rare get_action_choices with action_pending=true is also a decision source."""

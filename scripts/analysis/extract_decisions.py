@@ -153,25 +153,36 @@ def _resolve_chosen_index(
 ) -> object | None:
     """Resolve chosen_index from choose_action args.
 
-    Tries arg keys in order: index, answer, amount, id.
-    Falls back to parsing "selected_N" from action_taken.
+    When both id and index are provided, prefers id (matching bridge behavior
+    which uses id and ignores index in that case).
+    Falls back to parsing the trailing integer from action_taken.
     """
+    has_id = "id" in chosen_args and chosen_args["id"]
+
     if "index" in chosen_args:
+        # When both id and index are present, the bridge prefers id.
+        if has_id:
+            target_id = chosen_args["id"]
+            for ci, c in enumerate(available_choices):
+                if isinstance(c, dict) and c.get("id") == target_id:
+                    return ci
+            # id didn't match any choice; fall through to index
         return chosen_args["index"]
     if "answer" in chosen_args:
         return chosen_args["answer"]
     if "amount" in chosen_args:
         return chosen_args["amount"]
-    if "id" in chosen_args:
+    if has_id:
         target_id = chosen_args["id"]
         for ci, c in enumerate(available_choices):
             if isinstance(c, dict) and c.get("id") == target_id:
                 return ci
-    # Fallback: parse "selected_N" from action_taken
+    # Fallback: parse trailing integer from action_taken.
+    # Handles selected_0, selected_target_1, selected_ability_0, etc.
     taken = action_result.get("action_taken", "")
-    if taken.startswith("selected_"):
+    if taken.startswith("selected"):
         try:
-            return int(taken.split("_", 1)[1])
+            return int(taken.rsplit("_", 1)[1])
         except (ValueError, IndexError):
             pass
     return None
