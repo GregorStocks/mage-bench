@@ -402,9 +402,7 @@ class TestNoOrphanedPrompts:
 
         presets_data = _load_json(PUPPETEER_DIR / "presets.json")
         referenced = {
-            preset.get("system_prompt")
-            for preset in presets_data["presets"].values()
-            if preset.get("system_prompt")
+            preset.get("system_prompt") for preset in presets_data["presets"].values() if preset.get("system_prompt")
         }
 
         orphaned = prompt_files - referenced
@@ -463,8 +461,7 @@ class TestConfigDeckTypes:
                     bad.append(f"{config_path.name}: {dt!r}")
 
         assert not bad, (
-            "Configs use unrecognized deckType values (add to _VALID_DECK_TYPES if intentional):\n  "
-            + "\n  ".join(bad)
+            "Configs use unrecognized deckType values (add to _VALID_DECK_TYPES if intentional):\n  " + "\n  ".join(bad)
         )
 
 
@@ -487,9 +484,7 @@ class TestPersonalityNamePartLength:
             for key, val in personalities.items()
             if len(val["name_part"]) > self._MAX_LENGTH
         ]
-        assert not too_long, (
-            f"Personality name_parts exceed {self._MAX_LENGTH} chars:\n  " + "\n  ".join(too_long)
-        )
+        assert not too_long, f"Personality name_parts exceed {self._MAX_LENGTH} chars:\n  " + "\n  ".join(too_long)
 
 
 # ---------------------------------------------------------------------------
