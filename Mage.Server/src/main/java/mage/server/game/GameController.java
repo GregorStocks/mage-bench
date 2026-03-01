@@ -857,7 +857,13 @@ public class GameController implements GameCallback {
     }
 
     private synchronized void choosePile(UUID playerId, final String message, final List<? extends Card> pile1, final List<? extends Card> pile2) throws MageException {
-        perform(playerId, playerId1 -> getGameSession(playerId1).choosePile(message, new CardsView(game, pile1, playerId), new CardsView(game, pile2, playerId)));
+        perform(playerId, playerId1 -> {
+            CardsView pile1View = new CardsView(game, pile1, playerId);
+            CardsView pile2View = new CardsView(game, pile2, playerId);
+            assignShortIds(pile1View);
+            assignShortIds(pile2View);
+            getGameSession(playerId1).choosePile(message, pile1View, pile2View);
+        });
     }
 
     private synchronized void chooseMode(UUID playerId, final Map<UUID, String> modes, final String message) throws MageException {
@@ -871,12 +877,15 @@ public class GameController implements GameCallback {
     private synchronized void target(UUID playerId, final String question, final Cards cards, final List<Permanent> perms, final Set<UUID> targets, final boolean required, final Map<String, Serializable> options) throws MageException {
         perform(playerId, playerId1 -> {
             if (cards != null) {
-                getGameSession(playerId1).target(question, new CardsView(game, cards.getCards(game), playerId, true), targets, required, options);
+                CardsView cardsView = new CardsView(game, cards.getCards(game), playerId, true);
+                assignShortIds(cardsView);
+                getGameSession(playerId1).target(question, cardsView, targets, required, options);
             } else if (perms != null) {
                 CardsView permsView = new CardsView();
                 for (Permanent perm : perms) {
                     permsView.put(perm.getId(), new PermanentView(perm, game.getCard(perm.getId()), playerId1, game));
                 }
+                assignShortIds(permsView);
                 getGameSession(playerId1).target(question, permsView, targets, required, options);
             } else {
                 getGameSession(playerId1).target(question, new CardsView(), targets, required, options);
@@ -888,8 +897,28 @@ public class GameController implements GameCallback {
     private synchronized void target(UUID playerId, final String question, final Collection<? extends Ability> abilities, final boolean required, final Map<String, Serializable> options) throws MageException {
         perform(playerId, playerId1 -> {
             CardsView cardsView = new CardsView(abilities, game);
+            assignShortIds(cardsView);
             getGameSession(playerId1).target(question, cardsView, null, required, options);
         });
+    }
+
+    /**
+     * Assign server short IDs to CardViews in a CardsView that don't already have one.
+     * Callback-created CardsViews (target, choosePile) bypass GameView.assignShortIds(),
+     * so library cards from scry/tutor effects would otherwise get local l-prefix IDs.
+     */
+    private void assignShortIds(CardsView cardsView) {
+        mage.util.ShortIdRegistry registry = game.getShortIdRegistry();
+        List<CardView> sorted = new ArrayList<>(cardsView.values());
+        sorted.sort(Comparator.comparing(
+            (CardView cv) -> cv.getDisplayName() != null ? cv.getDisplayName() : "",
+            String::compareTo
+        ).thenComparingInt(cv -> registry.getSequence(cv.getId())));
+        for (CardView cv : sorted) {
+            if (cv.getShortId() == null || cv.getShortId().isBlank()) {
+                cv.setShortId(registry.getOrAssign(cv.getId()));
+            }
+        }
     }
 
     private synchronized void select(final UUID playerId, final String message, final Map<String, Serializable> options) throws MageException {
