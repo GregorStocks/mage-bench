@@ -1818,6 +1818,19 @@ public class ObserverGamePanel extends GamePanel {
         // Build compact player state (without layout info)
         var playersArray = new JsonArray();
         Map<String, Card> loadedCards = getLoadedCards();
+
+        // Build UUID→shortId map for all battlefield permanents (needed for attachedTo resolution)
+        var uuidToShortId = new HashMap<UUID, String>();
+        for (PlayerView p : game.getPlayers()) {
+            if (p.getBattlefield() != null) {
+                for (PermanentView pv : p.getBattlefield().values()) {
+                    if (pv.getShortId() != null) {
+                        uuidToShortId.put(pv.getId(), pv.getShortId());
+                    }
+                }
+            }
+        }
+
         for (PlayerView player : game.getPlayers()) {
             UUID playerId = player.getPlayerId();
             var playerJson = new JsonObject();
@@ -1920,6 +1933,12 @@ public class ObserverGamePanel extends GamePanel {
                     }
                     if (perm.isFaceDown()) {
                         permJson.addProperty("face_down", true);
+                    }
+                    if (perm.getAttachedTo() != null) {
+                        String targetShortId = uuidToShortId.get(perm.getAttachedTo());
+                        if (targetShortId != null) {
+                            permJson.addProperty("attachedTo", targetShortId);
+                        }
                     }
                     bfArray.add(permJson);
                 }

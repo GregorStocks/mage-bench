@@ -205,14 +205,50 @@
   width: 70px;
 }
 
+/* Library zone: card-back with count overlay */
+.library-zone {
+  padding: 0.3rem 0.4rem;
+}
+
+.library-card-back {
+  position: relative;
+  width: 70px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(150, 195, 205, 0.2);
+}
+
+.library-card-back-face {
+  width: 100%;
+  aspect-ratio: 146 / 204;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #3b1f0a 0%, #5a2d0c 25%, #4a1a08 50%, #6b340e 75%, #3b1f0a 100%);
+  background-size: 200% 200%;
+}
+
+.library-count {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
 /* Graveyard zone colored border */
 .graveyard-zone {
   border-bottom: 2px solid rgba(168, 85, 247, 0.3) !important;
 }
 
-/* Hand zone colored border */
+/* Hand zone: distinct background to differentiate from battlefield */
 .hand-zone {
   border-bottom: 2px solid rgba(59, 130, 246, 0.3) !important;
+  background: rgba(59, 130, 246, 0.06);
+  border-radius: 4px;
+  margin: 2px 0;
 }
 
 .zone-title {
@@ -382,23 +418,83 @@
   border-top: 1px dashed rgba(255, 255, 255, 0.06);
 }
 
-/* Stacked land card */
+/* Stacked land card (single) */
 .land-stack {
   position: relative;
 }
 
-.land-count-badge {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  background: rgba(0, 0, 0, 0.85);
-  color: #e0e0e0;
-  font-size: 0.55rem;
-  font-weight: 700;
-  padding: 1px 4px;
-  border-radius: 3px;
-  line-height: 1.2;
+/* Land stack group: overlapping cards stacked vertically */
+.land-stack-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.land-stack-group .card-thumb {
+  width: 80px;
+}
+
+.land-stack-group .card-thumb {
+  position: relative;
+}
+
+.land-stack-group .card-thumb + .card-thumb {
+  margin-top: -80px;
+}
+
+.land-stack-group .card-thumb:hover {
+  z-index: 2;
+}
+
+.land-stack-group .card-thumb:first-child {
+  margin-top: 0;
+}
+
+/* Tapped lands in stacks: keep same vertical overlap, override rotation margins */
+.land-stack-group .card-thumb.tapped {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.land-stack-group .card-thumb.tapped + .card-thumb {
+  margin-top: -60px;
+}
+
+.land-stack-group .card-thumb.tapped:first-child {
+  margin-top: 0;
+}
+
+/* Battlefield separator between creatures and artifacts/enchantments */
+.bf-separator {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
+/* Card with attachments (aura/equipment displayed under main card) */
+.card-with-attachments {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.card-with-attachments > .card-thumb:first-child {
   z-index: 1;
+  position: relative;
+}
+
+.card-with-attachments .attachment-card {
+  width: 60px;
+  margin-top: -16px;
+  opacity: 0.85;
+}
+
+.card-with-attachments .attachment-card:hover {
+  opacity: 1;
+  z-index: 2;
 }
 
 /* Section titles */

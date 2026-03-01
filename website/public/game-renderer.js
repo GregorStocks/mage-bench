@@ -17,7 +17,7 @@
       power: c.power,
       toughness: c.toughness,
       mana_cost: c.manaCost || c.mana_cost,
-      typeLine: c.typeLine,
+      typeLine: c.typeLine || c.type_line,
       rules: c.rules,
       imageUrl: c.imageUrl,
       damage: c.damage,
@@ -29,6 +29,8 @@
       original_card: c.originalCard || c.original_card,
       back_face: c.back_face || c.backFace,
       copy: c.copy,
+      id: c.id,
+      attached_to: c.attachedTo || c.attached_to,
     };
   }
 
@@ -639,38 +641,69 @@
 
   // ── Battlefield zone with land/nonland split ──
 
-  function _groupLands(lands) {
-    // Group lands by name+tapped → { key: { name, tapped, count, card } }
-    var groups = {};
+  function _isCreature(card) {
+    if (!card || typeof card === "string") return false;
+    if (hasPT(card)) return true;
+    var tl = card.typeLine || card.type_line;
+    if (tl) return /\bCreature\b/.test(tl);
+    return false;
+  }
+
+  function _groupLandsByName(lands) {
+    // Group lands by name only (mixed tapped + untapped in same group)
+    var groups = [];
+    var seen = {};
     lands.forEach(function (card) {
       var name = card.name || "Unknown";
-      var tapped = !!card.tapped;
-      var key = name + (tapped ? "|T" : "|U");
-      if (!groups[key]) {
-        groups[key] = { name: name, tapped: tapped, count: 0, card: card };
+      if (!seen[name]) {
+        seen[name] = { name: name, cards: [] };
+        groups.push(seen[name]);
       }
-      groups[key].count++;
+      seen[name].cards.push(card);
     });
-    return Object.keys(groups).map(function (k) { return groups[k]; });
+    return groups;
   }
 
   function makeBattlefieldZone(cards, opts) {
-    // opts: { cardImages, diffInfo, previewEls }
+    // opts: { cardImages, diffInfo, previewEls, topPlayer }
     opts = opts || {};
     var cardImages = opts.cardImages || {};
     var diffInfo = opts.diffInfo || null;
     var previewEls = opts.previewEls;
+    var topPlayer = opts.topPlayer || false;
 
-    // Split into non-lands (top) and lands (bottom)
-    var nonLands = [];
+    // Build id→card map and attachment mapping (for auras/equipment)
+    var idMap = {};
+    var attachments = {}; // targetId → [card, ...]
+    var attachedIds = {};  // ids of cards that are attached to something
+    (cards || []).forEach(function (card) {
+      if (typeof card !== "string" && card.id) {
+        idMap[card.id] = card;
+      }
+    });
+    (cards || []).forEach(function (card) {
+      if (typeof card !== "string" && card.attached_to && idMap[card.attached_to]) {
+        if (!attachments[card.attached_to]) attachments[card.attached_to] = [];
+        attachments[card.attached_to].push(card);
+        attachedIds[card.id] = true;
+      }
+    });
+
+    // Split into lands, creatures, and other non-lands (artifacts, enchantments, etc.)
+    var creatures = [];
+    var otherNonLands = [];
     var lands = [];
     (cards || []).forEach(function (card) {
       if (typeof card === "string") {
-        nonLands.push(card);
+        creatures.push(card); // unknown cards go to creatures section
+      } else if (attachedIds[card.id]) {
+        return; // skip attached cards, they render under their targets
       } else if (isLikelyLand(card)) {
         lands.push(card);
+      } else if (_isCreature(card)) {
+        creatures.push(card);
       } else {
-        nonLands.push(card);
+        otherNonLands.push(card);
       }
     });
 
@@ -683,34 +716,67 @@
     titleEl.textContent = "Battlefield (" + totalCount + ")";
     zone.appendChild(titleEl);
 
-    // Non-lands section (creatures, artifacts, etc.) - full thumbnails
-    if (nonLands.length > 0) {
-      var creaturesRow = document.createElement("div");
-      creaturesRow.className = "cards-row cards-grid";
-      zone.appendChild(creaturesRow);
+    var enteredBag = diffInfo ? diffInfo.enteredNames.slice() : [];
+    var tapChangedSet = diffInfo ? diffInfo.tapChangedNames : [];
 
-      var enteredBag = diffInfo ? diffInfo.enteredNames.slice() : [];
-      var tapChangedSet = diffInfo ? diffInfo.tapChangedNames : [];
+    function applyDiffClasses(el, name) {
+      if (!diffInfo) return;
+      var enteredIdx = enteredBag.indexOf(name);
+      if (enteredIdx !== -1) {
+        el.classList.add("card-entered");
+        enteredBag.splice(enteredIdx, 1);
+      }
+      if (tapChangedSet.indexOf(name) !== -1) {
+        el.classList.add("card-tap-changed");
+      }
+    }
 
-      nonLands.forEach(function (card) {
-        var name, obj, tapped;
-        if (typeof card === "string") {
-          name = card; obj = null; tapped = false;
-        } else {
-          name = card.name || "Unknown"; obj = card; tapped = !!card.tapped;
-        }
+    function renderCardWithAttachments(card, container) {
+      var name = typeof card === "string" ? card : (card.name || "Unknown");
+      var obj = typeof card === "string" ? null : card;
+      var tapped = obj ? !!obj.tapped : false;
+      var cardAttachments = obj && obj.id ? (attachments[obj.id] || []) : [];
+
+      if (cardAttachments.length > 0) {
+        // Render card + attachments as a vertical group
+        var group = document.createElement("div");
+        group.className = "card-with-attachments";
         var el = makeCardThumbnail(name, obj, cardImages, tapped, previewEls);
-        if (diffInfo) {
-          var enteredIdx = enteredBag.indexOf(name);
-          if (enteredIdx !== -1) {
-            el.classList.add("card-entered");
-            enteredBag.splice(enteredIdx, 1);
-          }
-          if (tapChangedSet.indexOf(name) !== -1) {
-            el.classList.add("card-tap-changed");
-          }
-        }
-        creaturesRow.appendChild(el);
+        applyDiffClasses(el, name);
+        group.appendChild(el);
+        cardAttachments.forEach(function (att) {
+          var attName = att.name || "Unknown";
+          var attEl = makeCardThumbnail(attName, att, cardImages, !!att.tapped, previewEls);
+          attEl.classList.add("attachment-card");
+          applyDiffClasses(attEl, attName);
+          group.appendChild(attEl);
+        });
+        container.appendChild(group);
+      } else {
+        var el = makeCardThumbnail(name, obj, cardImages, tapped, previewEls);
+        applyDiffClasses(el, name);
+        container.appendChild(el);
+      }
+    }
+
+    // Build non-land row (creatures + other permanents)
+    var nonLandRow = null;
+    if (creatures.length > 0 || otherNonLands.length > 0) {
+      nonLandRow = document.createElement("div");
+      nonLandRow.className = "cards-row cards-grid";
+
+      creatures.forEach(function (card) {
+        renderCardWithAttachments(card, nonLandRow);
+      });
+
+      // Non-creature non-lands (artifacts, enchantments, etc.) — separator + right side
+      if (otherNonLands.length > 0 && creatures.length > 0) {
+        var sep = document.createElement("div");
+        sep.className = "bf-separator";
+        nonLandRow.appendChild(sep);
+      }
+      otherNonLands.forEach(function (card) {
+        renderCardWithAttachments(card, nonLandRow);
       });
 
       // Ghost non-lands
@@ -722,51 +788,42 @@
             var gTapped = !!gObj.tapped;
             var el = makeCardThumbnail(gName, gObj, cardImages, gTapped, previewEls);
             el.classList.add("card-ghost");
-            creaturesRow.appendChild(el);
+            nonLandRow.appendChild(el);
           }
         });
       }
     }
 
-    // Lands section - stacked with count badges
+    // Build lands row (stacked by name, overlapping individual cards)
+    var landsRow = null;
     if (lands.length > 0 || (diffInfo && diffInfo.ghostCards && diffInfo.ghostCards.some(function (g) {
       var go = typeof g === "string" ? { name: g } : g;
       return isLikelyLand(go);
     }))) {
-      var landsRow = document.createElement("div");
+      landsRow = document.createElement("div");
       landsRow.className = "cards-row cards-grid land-row";
-      zone.appendChild(landsRow);
 
-      var landGroups = _groupLands(lands);
-      var landEnteredBag = diffInfo ? diffInfo.enteredNames.slice() : [];
-      var landTapChangedSet = diffInfo ? diffInfo.tapChangedNames : [];
+      var landGroups = _groupLandsByName(lands);
 
       landGroups.forEach(function (group) {
-        var el = makeCardThumbnail(group.name, group.card, cardImages, group.tapped, previewEls);
-        el.classList.add("land-stack");
-
-        if (group.count > 1) {
-          var badge = document.createElement("span");
-          badge.className = "land-count-badge";
-          badge.textContent = "x" + group.count;
-          el.appendChild(badge);
+        if (group.cards.length === 1) {
+          // Single land — render as normal thumbnail
+          var card = group.cards[0];
+          var el = makeCardThumbnail(card.name || "Unknown", card, cardImages, !!card.tapped, previewEls);
+          el.classList.add("land-stack");
+          applyDiffClasses(el, card.name || "Unknown");
+          landsRow.appendChild(el);
+        } else {
+          // Multiple lands — render as overlapping stack
+          var stack = document.createElement("div");
+          stack.className = "land-stack-group";
+          group.cards.forEach(function (card) {
+            var el = makeCardThumbnail(card.name || "Unknown", card, cardImages, !!card.tapped, previewEls);
+            applyDiffClasses(el, card.name || "Unknown");
+            stack.appendChild(el);
+          });
+          landsRow.appendChild(stack);
         }
-
-        // Check diff info for entered lands
-        if (diffInfo) {
-          for (var i = 0; i < group.count; i++) {
-            var enteredIdx = landEnteredBag.indexOf(group.name);
-            if (enteredIdx !== -1) {
-              el.classList.add("card-entered");
-              landEnteredBag.splice(enteredIdx, 1);
-            }
-          }
-          if (landTapChangedSet.indexOf(group.name) !== -1) {
-            el.classList.add("card-tap-changed");
-          }
-        }
-
-        landsRow.appendChild(el);
       });
 
       // Ghost lands
@@ -784,9 +841,13 @@
       }
     }
 
-    // Empty state
-    if (totalCount === 0 && !(diffInfo && diffInfo.ghostCards && diffInfo.ghostCards.length > 0)) {
-      // no content needed
+    // Append rows: top player gets lands→creatures, bottom player gets creatures→lands
+    if (topPlayer) {
+      if (landsRow) zone.appendChild(landsRow);
+      if (nonLandRow) zone.appendChild(nonLandRow);
+    } else {
+      if (nonLandRow) zone.appendChild(nonLandRow);
+      if (landsRow) zone.appendChild(landsRow);
     }
 
     return zone;
@@ -876,9 +937,7 @@
 
       var lifeEl = document.createElement("div");
       lifeEl.className = "player-life";
-      var libCount = player.library_size;
-      var lifeText = "Life " + (player.life != null ? player.life : "?") +
-                     " | Library " + (libCount != null ? libCount : "?");
+      var lifeText = "Life " + (player.life != null ? player.life : "?");
       if (showTimer && (player.priorityTimeLeftSecs > 0 || player.timerActive)) {
         var secs = player.priorityTimeLeftSecs || 0;
         var m = Math.floor(secs / 60);
@@ -921,68 +980,90 @@
         ghostCards: playerDiff.battlefield.left || [],
       } : null;
 
-      // Side zones (commander/graveyard/exile) + battlefield in a horizontal layout
+      // Side zones (library/commander/graveyard/exile) + battlefield in a horizontal layout
       var bodyRow = document.createElement("div");
       bodyRow.className = "player-body";
 
-      // Side zones column (left)
+      // Detect top player for zone reordering (index 0 in 1v1)
+      var playerIdx = players.indexOf(player);
+      var isTopPlayer = players.length === 2 && playerIdx === 0;
+
+      // Side zones column (left) — always shown (library card-back is always present)
+      var sideCol = document.createElement("div");
+      sideCol.className = "side-zones";
+
+      // Library card-back with count
+      var libCount = player.library_size;
+      var libZone = document.createElement("div");
+      libZone.className = "zone library-zone";
+      var libThumb = document.createElement("div");
+      libThumb.className = "card-thumb card-thumb-sm library-card-back";
+      var libImg = document.createElement("div");
+      libImg.className = "library-card-back-face";
+      libThumb.appendChild(libImg);
+      var libCountEl = document.createElement("span");
+      libCountEl.className = "library-count";
+      libCountEl.textContent = libCount != null ? libCount : "?";
+      libThumb.appendChild(libCountEl);
+      libZone.appendChild(libThumb);
+      sideCol.appendChild(libZone);
+
       var commanders = player.commanders || [];
       if (commanders.length === 0 && player.commander) {
         commanders = [typeof player.commander === "string" ? player.commander : player.commander];
       }
-      var hasAnySideZone = isCommander || player.graveyard.length > 0 || (player.exile && player.exile.length > 0);
-      if (hasAnySideZone) {
-        var sideCol = document.createElement("div");
-        sideCol.className = "side-zones";
 
-        if (isCommander) {
-          var cmdZone = makeZone("Commander", commanders, {
-            cardImages: cardImages, previewEls: previewEls,
-            useThumbnails: commanders.length > 0, smallThumbs: true,
-          });
-          cmdZone.classList.add("commander-zone");
-          sideCol.appendChild(cmdZone);
-        }
+      if (isCommander) {
+        var cmdZone = makeZone("Commander", commanders, {
+          cardImages: cardImages, previewEls: previewEls,
+          useThumbnails: commanders.length > 0, smallThumbs: true,
+        });
+        cmdZone.classList.add("commander-zone");
+        sideCol.appendChild(cmdZone);
+      }
 
-        var gyDiff = playerDiff ? {
-          enteredNames: (playerDiff.graveyard.entered || []).slice(),
+      var gyDiff = playerDiff ? {
+        enteredNames: (playerDiff.graveyard.entered || []).slice(),
+        tapChangedNames: [],
+        ghostCards: [],
+      } : null;
+      var gyZone = makeZone("Graveyard", player.graveyard, {
+        cardImages: cardImages, diffInfo: gyDiff, previewEls: previewEls,
+        useThumbnails: player.graveyard.length > 0, smallThumbs: true,
+      });
+      gyZone.classList.add("graveyard-zone");
+      sideCol.appendChild(gyZone);
+
+      var exZone = null;
+      if (player.exile && player.exile.length > 0) {
+        var exDiff = playerDiff ? {
+          enteredNames: (playerDiff.exile.entered || []).slice(),
           tapChangedNames: [],
           ghostCards: [],
         } : null;
-        var gyZone = makeZone("Graveyard", player.graveyard, {
-          cardImages: cardImages, diffInfo: gyDiff, previewEls: previewEls,
-          useThumbnails: player.graveyard.length > 0, smallThumbs: true,
+        exZone = makeZone("Exile", player.exile, {
+          cardImages: cardImages, diffInfo: exDiff, previewEls: previewEls,
+          useThumbnails: true, smallThumbs: true,
         });
-        gyZone.classList.add("graveyard-zone");
-        sideCol.appendChild(gyZone);
-
-        if (player.exile && player.exile.length > 0) {
-          var exDiff = playerDiff ? {
-            enteredNames: (playerDiff.exile.entered || []).slice(),
-            tapChangedNames: [],
-            ghostCards: [],
-          } : null;
-          var exZone = makeZone("Exile", player.exile, {
-            cardImages: cardImages, diffInfo: exDiff, previewEls: previewEls,
-            useThumbnails: true, smallThumbs: true,
-          });
-          exZone.classList.add("exile-zone");
-          sideCol.appendChild(exZone);
-        }
-
-        bodyRow.appendChild(sideCol);
-
-        // Fit graveyard cards with aggressive overlap (show only card names)
-        _fitOverlappingCards(gyZone, 300, 70, true);
+        exZone.classList.add("exile-zone");
+        sideCol.appendChild(exZone);
       }
+
+      bodyRow.appendChild(sideCol);
+
+      // Fit graveyard and exile cards with aggressive overlap
+      _fitOverlappingCards(gyZone, 300, 70, true);
+      if (exZone) _fitOverlappingCards(exZone, 300, 70, true);
 
       // Main column (battlefield + hand)
       var mainCol = document.createElement("div");
       mainCol.className = "main-zones";
+      if (isTopPlayer) mainCol.classList.add("top-player");
 
-      mainCol.appendChild(makeBattlefieldZone(player.battlefield, {
+      var bfZone = makeBattlefieldZone(player.battlefield, {
         cardImages: cardImages, diffInfo: bfDiff, previewEls: previewEls,
-      }));
+        topPlayer: isTopPlayer,
+      });
 
       var handDiff = playerDiff ? {
         enteredNames: (playerDiff.hand.entered || []).slice(),
@@ -994,7 +1075,16 @@
         useThumbnails: player.hand.length > 0, smallThumbs: true,
       });
       handZone.classList.add("hand-zone");
-      mainCol.appendChild(handZone);
+
+      if (isTopPlayer) {
+        // Top player: hand on top, battlefield below (creatures closest to center)
+        mainCol.appendChild(handZone);
+        mainCol.appendChild(bfZone);
+      } else {
+        // Bottom player: battlefield on top (creatures closest to center), hand below
+        mainCol.appendChild(bfZone);
+        mainCol.appendChild(handZone);
+      }
 
       bodyRow.appendChild(mainCol);
       card.appendChild(bodyRow);
