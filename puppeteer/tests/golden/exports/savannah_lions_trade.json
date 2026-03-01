@@ -1758,7 +1758,7 @@
       "gameSeq": 54,
       "player": "Opponent",
       "result": {
-        "error": "Index 0 is out of range (no choices loaded \u2014 call get_action_choices first). Call get_action_choices to see current options.",
+        "error": "Index 0 is out of range (no choices loaded — call get_action_choices first). Call get_action_choices to see current options.",
         "error_code": "index_out_of_range",
         "game_seq": 54,
         "retryable": true,
