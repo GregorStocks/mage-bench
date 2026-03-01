@@ -51,6 +51,10 @@
   .battlefield-zone {
     min-height: 120px;
   }
+
+  .battlefield-zone .cards-row {
+    min-height: 0;
+  }
 }
 
 .player-card {
