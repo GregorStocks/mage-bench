@@ -48,16 +48,23 @@ def load_issues() -> list[tuple[str, int, str]]:
 
 
 def get_claimed() -> set[str]:
-    """Get set of already-claimed issue filenames from open PRs."""
-    result = run(
-        ["gh", "pr", "list", "--state", "open", "--json", "body", "--jq", ".[].body"]
-    )
-    assert result.returncode == 0, f"gh pr list failed: {result.stderr}"
+    """Get set of already-claimed issue filenames from open and merged PRs.
+
+    Closed (abandoned) PRs are intentionally excluded — closing a PR
+    without merging releases the claim so another agent can pick it up.
+    """
     claimed = set()
-    for line in result.stdout.splitlines():
-        m = re.search(r"<!-- claim: (.+?) -->", line.strip().replace("\r", ""))
-        if m:
-            claimed.add(m.group(1))
+    for state in ("open", "merged"):
+        result = run(
+            ["gh", "pr", "list", "--state", state, "--json", "body", "--jq", ".[].body"]
+        )
+        assert result.returncode == 0, (
+            f"gh pr list --state {state} failed: {result.stderr}"
+        )
+        for line in result.stdout.splitlines():
+            m = re.search(r"<!-- claim: (.+?) -->", line.strip().replace("\r", ""))
+            if m:
+                claimed.add(m.group(1))
     return claimed
 
 

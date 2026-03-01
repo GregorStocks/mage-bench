@@ -27,18 +27,23 @@ def run(cmd: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
 
 
 def list_claimed() -> list[str]:
-    """Return list of claimed issue filenames from open PRs."""
-    result = run(
-        ["gh", "pr", "list", "--state", "open", "--json", "body", "--jq", ".[].body"]
-    )
-    if result.returncode != 0:
-        return []
+    """Return list of claimed issue filenames from open and merged PRs.
+
+    Closed (abandoned) PRs are intentionally excluded — closing a PR
+    without merging releases the claim so another agent can pick it up.
+    """
     claimed = []
-    for line in result.stdout.splitlines():
-        line = line.strip().replace("\r", "")
-        m = re.search(r"<!-- claim: (.+?) -->", line)
-        if m:
-            claimed.append(m.group(1))
+    for state in ("open", "merged"):
+        result = run(
+            ["gh", "pr", "list", "--state", state, "--json", "body", "--jq", ".[].body"]
+        )
+        if result.returncode != 0:
+            continue
+        for line in result.stdout.splitlines():
+            line = line.strip().replace("\r", "")
+            m = re.search(r"<!-- claim: (.+?) -->", line)
+            if m:
+                claimed.append(m.group(1))
     return sorted(set(claimed))
 
 
