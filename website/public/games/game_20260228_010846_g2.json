@@ -116421,7 +116421,8 @@
       ],
       "subsequentActions": [
         "Grk41F Heckler chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 5
     },
     {
       "index": 1,
@@ -116450,7 +116451,8 @@
         8,
         11
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -116485,7 +116487,8 @@
       "subsequentActions": [
         "Grk41F Heckler skips Draw step",
         "Grk41F Heckler skip attack"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 3,
@@ -116546,7 +116549,8 @@
           "p7",
           "p8"
         ]
-      }
+      },
+      "actionSeq": 17
     },
     {
       "index": 4,
@@ -116579,7 +116583,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 20
     },
     {
       "index": 5,
@@ -116640,7 +116645,8 @@
           "p15",
           "p23"
         ]
-      }
+      },
+      "actionSeq": 22
     },
     {
       "index": 6,
@@ -116691,7 +116697,8 @@
         "playableCards": [
           "p10"
         ]
-      }
+      },
+      "actionSeq": 26
     },
     {
       "index": 7,
@@ -116746,7 +116753,8 @@
           "p7",
           "p8"
         ]
-      }
+      },
+      "actionSeq": 40
     },
     {
       "index": 8,
@@ -116803,7 +116811,8 @@
           "p3",
           "p25"
         ]
-      }
+      },
+      "actionSeq": 44
     },
     {
       "index": 9,
@@ -116838,7 +116847,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 48
     },
     {
       "index": 10,
@@ -116890,7 +116900,8 @@
           "p3",
           "p25"
         ]
-      }
+      },
+      "actionSeq": 50
     },
     {
       "index": 11,
@@ -116954,7 +116965,8 @@
           "p15",
           "p23"
         ]
-      }
+      },
+      "actionSeq": 52
     },
     {
       "index": 12,
@@ -117015,7 +117027,8 @@
         "playableCards": [
           "p26"
         ]
-      }
+      },
+      "actionSeq": 56
     },
     {
       "index": 13,
@@ -117074,7 +117087,8 @@
       ],
       "pilotContext": {
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 65
     },
     {
       "index": 14,
@@ -117106,7 +117120,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 79
     },
     {
       "index": 15,
@@ -117180,7 +117195,8 @@
           "p8",
           "p28"
         ]
-      }
+      },
+      "actionSeq": 81
     },
     {
       "index": 16,
@@ -117257,7 +117273,8 @@
           "p9",
           "p28"
         ]
-      }
+      },
+      "actionSeq": 85
     },
     {
       "index": 17,
@@ -117295,7 +117312,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 90
     },
     {
       "index": 18,
@@ -117377,7 +117395,8 @@
           "p23",
           "p30"
         ]
-      }
+      },
+      "actionSeq": 101
     },
     {
       "index": 19,
@@ -117460,7 +117479,8 @@
           "p11",
           "p16"
         ]
-      }
+      },
+      "actionSeq": 105
     },
     {
       "index": 20,
@@ -117497,7 +117517,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 112
     },
     {
       "index": 21,
@@ -117579,7 +117600,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 114
     },
     {
       "index": 22,
@@ -117636,7 +117658,8 @@
       ],
       "pilotContext": {
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 121
     },
     {
       "index": 23,
@@ -117699,7 +117722,8 @@
             "toughness": "1"
           }
         ]
-      }
+      },
+      "actionSeq": 127
     },
     {
       "index": 24,
@@ -117735,7 +117759,8 @@
         "Skyhunter Prowler deals 1 damage to Fanatical Firebrand",
         "Fanatical Firebrand deals 1 damage to Skyhunter Prowler",
         "Fanatical Firebrand died"
-      ]
+      ],
+      "actionSeq": 132
     },
     {
       "index": 25,
@@ -117767,7 +117792,8 @@
         109,
         110
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 138
     },
     {
       "index": 26,
@@ -117799,7 +117825,8 @@
         113,
         114
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 140
     },
     {
       "index": 27,
@@ -117857,7 +117884,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
-      }
+      },
+      "actionSeq": 143
     },
     {
       "index": 28,
@@ -117895,7 +117923,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 148
     },
     {
       "index": 29,
@@ -117930,7 +117959,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 156
     },
     {
       "index": 30,
@@ -118007,7 +118037,8 @@
           "p33",
           "p30"
         ]
-      }
+      },
+      "actionSeq": 160
     },
     {
       "index": 31,
@@ -118044,7 +118075,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 161
     },
     {
       "index": 32,
@@ -118090,7 +118122,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 165
     },
     {
       "index": 33,
@@ -118172,7 +118205,8 @@
           "p33",
           "p30"
         ]
-      }
+      },
+      "actionSeq": 167
     },
     {
       "index": 34,
@@ -118235,7 +118269,8 @@
         "playableCards": [
           "p36"
         ]
-      }
+      },
+      "actionSeq": 170
     },
     {
       "index": 35,
@@ -118292,7 +118327,8 @@
         "playableCards": [
           "p11"
         ]
-      }
+      },
+      "actionSeq": 178
     },
     {
       "index": 36,
@@ -118346,7 +118382,8 @@
         "playableCards": [
           "p11"
         ]
-      }
+      },
+      "actionSeq": 180
     },
     {
       "index": 37,
@@ -118427,7 +118464,8 @@
           "p28",
           "p35"
         ]
-      }
+      },
+      "actionSeq": 182
     },
     {
       "index": 38,
@@ -118494,7 +118532,8 @@
           "p25",
           "p28"
         ]
-      }
+      },
+      "actionSeq": 186
     },
     {
       "index": 39,
@@ -118532,7 +118571,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 190
     },
     {
       "index": 40,
@@ -118590,7 +118630,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "declare_attackers"
-      }
+      },
+      "actionSeq": 195
     },
     {
       "index": 41,
@@ -118625,7 +118666,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 199
     },
     {
       "index": 42,
@@ -118698,7 +118740,8 @@
         "playableCards": [
           "p11"
         ]
-      }
+      },
+      "actionSeq": 201
     },
     {
       "index": 43,
@@ -118755,7 +118798,8 @@
           "p3",
           "p25"
         ]
-      }
+      },
+      "actionSeq": 210
     },
     {
       "index": 44,
@@ -118794,7 +118838,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 215
     },
     {
       "index": 45,
@@ -118826,7 +118871,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 220
     },
     {
       "index": 46,
@@ -118908,7 +118954,8 @@
           "p11",
           "p30"
         ]
-      }
+      },
+      "actionSeq": 222
     },
     {
       "index": 47,
@@ -118974,7 +119021,8 @@
         "playableCards": [
           "p11"
         ]
-      }
+      },
+      "actionSeq": 226
     },
     {
       "index": 48,
@@ -119037,7 +119085,8 @@
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 227
     },
     {
       "index": 49,
@@ -119088,7 +119137,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 230
     },
     {
       "index": 50,
@@ -119137,7 +119187,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 238
     },
     {
       "index": 51,
@@ -119181,7 +119232,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 244
     },
     {
       "index": 52,
@@ -119254,7 +119306,8 @@
           "p35",
           "p44"
         ]
-      }
+      },
+      "actionSeq": 246
     },
     {
       "index": 53,
@@ -119299,7 +119352,8 @@
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 247
     },
     {
       "index": 54,
@@ -119355,7 +119409,8 @@
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 248
     },
     {
       "index": 55,
@@ -119423,7 +119478,8 @@
           "p25",
           "p44"
         ]
-      }
+      },
+      "actionSeq": 253
     },
     {
       "index": 56,
@@ -119460,7 +119516,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 259
     },
     {
       "index": 57,
@@ -119506,7 +119563,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 262
     },
     {
       "index": 58,
@@ -119541,7 +119599,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 264
     },
     {
       "index": 59,
@@ -119578,7 +119637,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 266
     },
     {
       "index": 60,
@@ -119610,7 +119670,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 273
     },
     {
       "index": 61,
@@ -119678,7 +119739,8 @@
           "p48",
           "p32"
         ]
-      }
+      },
+      "actionSeq": 275
     },
     {
       "index": 62,
@@ -119759,7 +119821,8 @@
           "p48",
           "p13"
         ]
-      }
+      },
+      "actionSeq": 279
     },
     {
       "index": 63,
@@ -119821,7 +119884,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 290
     },
     {
       "index": 64,
@@ -119876,7 +119940,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 291
     },
     {
       "index": 65,
@@ -119933,7 +119998,8 @@
       ],
       "pilotContext": {
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 297
     },
     {
       "index": 66,
@@ -119995,7 +120061,8 @@
             "toughness": "4"
           }
         ]
-      }
+      },
+      "actionSeq": 303
     },
     {
       "index": 67,
@@ -120029,7 +120096,8 @@
       ],
       "subsequentActions": [
         "Grk41F Heckler loses 4 life at combat from Markov Warlord"
-      ]
+      ],
+      "actionSeq": 307
     },
     {
       "index": 68,
@@ -120061,7 +120129,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 312
     },
     {
       "index": 69,
@@ -120095,7 +120164,8 @@
       ],
       "subsequentActions": [
         "Grk41F Heckler skip attack"
-      ]
+      ],
+      "actionSeq": 313
     },
     {
       "index": 70,
@@ -120117,7 +120187,8 @@
         314,
         315
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 320
     },
     {
       "index": 71,
@@ -120190,7 +120261,8 @@
           "p5",
           "p51"
         ]
-      }
+      },
+      "actionSeq": 322
     },
     {
       "index": 72,
@@ -120237,7 +120309,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 328
     },
     {
       "index": 73,
@@ -120275,7 +120348,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 331
     },
     {
       "index": 74,
@@ -120313,7 +120387,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 335
     },
     {
       "index": 75,
@@ -120390,7 +120465,8 @@
           "p48",
           "p55"
         ]
-      }
+      },
+      "actionSeq": 341
     },
     {
       "index": 76,
@@ -120476,7 +120552,8 @@
           "p48",
           "p42"
         ]
-      }
+      },
+      "actionSeq": 345
     },
     {
       "index": 77,
@@ -120547,7 +120624,8 @@
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 347
     },
     {
       "index": 78,
@@ -120619,7 +120697,8 @@
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 349
     },
     {
       "index": 79,
@@ -120672,7 +120751,8 @@
       "pilotContext": {
         "untappedLands": 7,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 355
     },
     {
       "index": 80,
@@ -120727,7 +120807,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 7
-      }
+      },
+      "actionSeq": 358
     },
     {
       "index": 81,
@@ -120802,7 +120883,8 @@
           "p48",
           "p42"
         ]
-      }
+      },
+      "actionSeq": 360
     },
     {
       "index": 82,
@@ -120875,7 +120957,8 @@
           "p51",
           "p57"
         ]
-      }
+      },
+      "actionSeq": 364
     },
     {
       "index": 83,
@@ -120952,7 +121035,8 @@
           "p25",
           "p57"
         ]
-      }
+      },
+      "actionSeq": 368
     },
     {
       "index": 84,
@@ -120998,7 +121082,8 @@
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 372
     },
     {
       "index": 85,
@@ -121054,7 +121139,8 @@
       ],
       "pilotContext": {
         "untappedLands": 7
-      }
+      },
+      "actionSeq": 373
     },
     {
       "index": 86,
@@ -121100,7 +121186,8 @@
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 376
     },
     {
       "index": 87,
@@ -121152,7 +121239,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 7
-      }
+      },
+      "actionSeq": 379
     },
     {
       "index": 88,
@@ -121228,7 +121316,8 @@
       "pilotContext": {
         "untappedLands": 4,
         "combatPhase": "declare_attackers"
-      }
+      },
+      "actionSeq": 380
     },
     {
       "index": 89,
@@ -121270,7 +121359,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 385
     },
     {
       "index": 90,
@@ -121348,7 +121438,8 @@
             "toughness": "5"
           }
         ]
-      }
+      },
+      "actionSeq": 387
     },
     {
       "index": 91,
@@ -121396,7 +121487,8 @@
       ],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 391
     },
     {
       "index": 92,
@@ -121441,7 +121533,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 396
     },
     {
       "index": 93,
@@ -121493,7 +121586,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 7
-      }
+      },
+      "actionSeq": 397
     },
     {
       "index": 94,
@@ -121548,7 +121642,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 7
-      }
+      },
+      "actionSeq": 399
     },
     {
       "index": 95,
@@ -121637,7 +121732,8 @@
           "p60",
           "p42"
         ]
-      }
+      },
+      "actionSeq": 400
     },
     {
       "index": 96,
@@ -121694,7 +121790,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 416
     },
     {
       "index": 97,
@@ -121739,7 +121836,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 419
     },
     {
       "index": 98,
@@ -121778,7 +121876,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 420
     },
     {
       "index": 99,
@@ -121854,7 +121953,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 425
     },
     {
       "index": 100,
@@ -121897,7 +121997,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 430
     },
     {
       "index": 101,
@@ -121942,7 +122043,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 431
     },
     {
       "index": 102,
@@ -121997,7 +122099,8 @@
       ],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 432
     },
     {
       "index": 103,
@@ -122032,7 +122135,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 435
     },
     {
       "index": 104,
@@ -122080,7 +122184,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 436
     },
     {
       "index": 105,
@@ -122139,7 +122244,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 440
     },
     {
       "index": 106,
@@ -122176,7 +122282,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 449
     },
     {
       "index": 107,
@@ -122225,7 +122332,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 454
     },
     {
       "index": 108,
@@ -122257,7 +122365,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 459
     },
     {
       "index": 109,
@@ -122342,7 +122451,8 @@
           "p25",
           "p67"
         ]
-      }
+      },
+      "actionSeq": 463
     },
     {
       "index": 110,
@@ -122418,7 +122528,8 @@
           "p4",
           "p25"
         ]
-      }
+      },
+      "actionSeq": 467
     },
     {
       "index": 111,
@@ -122463,7 +122574,8 @@
       "pilotContext": {
         "untappedLands": 7,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 468
     },
     {
       "index": 112,
@@ -122510,7 +122622,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 475
     },
     {
       "index": 113,
@@ -122548,7 +122661,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 478
     },
     {
       "index": 114,
@@ -122586,7 +122700,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 481
     },
     {
       "index": 115,
@@ -122621,7 +122736,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 486
     },
     {
       "index": 116,
@@ -122700,7 +122816,8 @@
           "p66",
           "p71"
         ]
-      }
+      },
+      "actionSeq": 490
     },
     {
       "index": 117,
@@ -122769,7 +122886,8 @@
           "p66",
           "p71"
         ]
-      }
+      },
+      "actionSeq": 500
     },
     {
       "index": 118,
@@ -122819,7 +122937,8 @@
         "playableCards": [
           "p66"
         ]
-      }
+      },
+      "actionSeq": 508
     },
     {
       "index": 119,
@@ -122855,7 +122974,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 514
     },
     {
       "index": 120,
@@ -122945,7 +123065,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 516
     },
     {
       "index": 121,
@@ -123026,7 +123147,8 @@
             "toughness": "2"
           }
         ]
-      }
+      },
+      "actionSeq": 528
     },
     {
       "index": 122,
@@ -123064,7 +123186,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 537
     }
   ],
   "annotations": [
@@ -123312,5 +123435,6 @@
       "player": "Opus Sport"
     }
   ],
-  "blunderScriptVersion": 28
+  "blunderScriptVersion": 28,
+  "errors": []
 }

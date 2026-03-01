@@ -88033,7 +88033,8 @@
       ],
       "subsequentActions": [
         "GLM47 Gramps chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 5
     },
     {
       "index": 1,
@@ -88062,7 +88063,8 @@
         8,
         11
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 7
     },
     {
       "index": 2,
@@ -88096,7 +88098,8 @@
       ],
       "subsequentActions": [
         "GLM47 Gramps skips Draw step"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 3,
@@ -88120,7 +88123,8 @@
       ],
       "subsequentActions": [
         "GLM47 Gramps skip attack"
-      ]
+      ],
+      "actionSeq": 12
     },
     {
       "index": 4,
@@ -88187,7 +88191,8 @@
           "p6",
           "p7"
         ]
-      }
+      },
+      "actionSeq": 17
     },
     {
       "index": 5,
@@ -88229,7 +88234,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 18
     },
     {
       "index": 6,
@@ -88266,7 +88272,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 21
     },
     {
       "index": 7,
@@ -88327,7 +88334,8 @@
           "p5",
           "p6"
         ]
-      }
+      },
+      "actionSeq": 24
     },
     {
       "index": 8,
@@ -88388,7 +88396,8 @@
           "p15",
           "p24"
         ]
-      }
+      },
+      "actionSeq": 28
     },
     {
       "index": 9,
@@ -88453,7 +88462,8 @@
           "p11",
           "p16"
         ]
-      }
+      },
+      "actionSeq": 32
     },
     {
       "index": 10,
@@ -88497,7 +88507,8 @@
           "p12",
           "p13"
         ]
-      }
+      },
+      "actionSeq": 35
     },
     {
       "index": 11,
@@ -88557,7 +88568,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 37
     },
     {
       "index": 12,
@@ -88606,7 +88618,8 @@
         "playableCards": [
           "p29"
         ]
-      }
+      },
+      "actionSeq": 51
     },
     {
       "index": 13,
@@ -88660,7 +88673,8 @@
           "p10",
           "p11"
         ]
-      }
+      },
+      "actionSeq": 58
     },
     {
       "index": 14,
@@ -88734,7 +88748,8 @@
           "p6",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 60
     },
     {
       "index": 15,
@@ -88769,7 +88784,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 68
     },
     {
       "index": 16,
@@ -88848,7 +88864,8 @@
           "p8",
           "p9"
         ]
-      }
+      },
+      "actionSeq": 70
     },
     {
       "index": 17,
@@ -88893,7 +88910,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 75
     },
     {
       "index": 18,
@@ -88942,7 +88960,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 77
     },
     {
       "index": 19,
@@ -88979,7 +88998,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 84
     },
     {
       "index": 20,
@@ -89041,7 +89061,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 87
     },
     {
       "index": 21,
@@ -89120,7 +89141,8 @@
           "p15",
           "p36"
         ]
-      }
+      },
+      "actionSeq": 91
     },
     {
       "index": 22,
@@ -89165,7 +89187,8 @@
           "p11",
           "p13"
         ]
-      }
+      },
+      "actionSeq": 98
     },
     {
       "index": 23,
@@ -89253,7 +89276,8 @@
           "p13",
           "p38"
         ]
-      }
+      },
+      "actionSeq": 100
     },
     {
       "index": 24,
@@ -89310,7 +89334,8 @@
           "p11",
           "p40"
         ]
-      }
+      },
+      "actionSeq": 107
     },
     {
       "index": 25,
@@ -89363,7 +89388,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 109
     },
     {
       "index": 26,
@@ -89404,7 +89430,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 115
     },
     {
       "index": 27,
@@ -89469,7 +89496,8 @@
           "p42",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 117
     },
     {
       "index": 28,
@@ -89518,7 +89546,8 @@
         "playableCards": [
           "p11"
         ]
-      }
+      },
+      "actionSeq": 124
     },
     {
       "index": 29,
@@ -89563,7 +89592,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 126
     },
     {
       "index": 30,
@@ -89608,7 +89638,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 128
     },
     {
       "index": 31,
@@ -89653,7 +89684,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 130
     },
     {
       "index": 32,
@@ -89693,7 +89725,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 132
     },
     {
       "index": 33,
@@ -89751,7 +89784,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 133
     },
     {
       "index": 34,
@@ -89799,7 +89833,8 @@
         "playableCards": [
           "p11"
         ]
-      }
+      },
+      "actionSeq": 140
     },
     {
       "index": 35,
@@ -89844,7 +89879,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 142
     },
     {
       "index": 36,
@@ -89889,7 +89925,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 144
     },
     {
       "index": 37,
@@ -89938,7 +89975,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 146
     },
     {
       "index": 38,
@@ -89983,7 +90021,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 148
     },
     {
       "index": 39,
@@ -90028,7 +90067,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 150
     },
     {
       "index": 40,
@@ -90076,7 +90116,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 152
     },
     {
       "index": 41,
@@ -90152,7 +90193,8 @@
           "p31",
           "p8"
         ]
-      }
+      },
+      "actionSeq": 163
     },
     {
       "index": 42,
@@ -90193,7 +90235,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 164
     },
     {
       "index": 43,
@@ -90238,7 +90281,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 167
     },
     {
       "index": 44,
@@ -90287,7 +90331,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 169
     },
     {
       "index": 45,
@@ -90359,7 +90404,8 @@
           "p39",
           "p40"
         ]
-      }
+      },
+      "actionSeq": 178
     },
     {
       "index": 46,
@@ -90414,7 +90460,8 @@
         "playableCards": [
           "p11"
         ]
-      }
+      },
+      "actionSeq": 186
     },
     {
       "index": 47,
@@ -90464,7 +90511,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 187
     },
     {
       "index": 48,
@@ -90530,7 +90578,8 @@
         "playableCards": [
           "p11"
         ]
-      }
+      },
+      "actionSeq": 194
     },
     {
       "index": 49,
@@ -90582,7 +90631,8 @@
           "p11",
           "p40"
         ]
-      }
+      },
+      "actionSeq": 199
     },
     {
       "index": 50,
@@ -90656,7 +90706,8 @@
           "p8",
           "p49"
         ]
-      }
+      },
+      "actionSeq": 201
     },
     {
       "index": 51,
@@ -90701,7 +90752,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 203
     },
     {
       "index": 52,
@@ -90746,7 +90798,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 205
     },
     {
       "index": 53,
@@ -90796,7 +90849,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 207
     },
     {
       "index": 54,
@@ -90869,7 +90923,8 @@
           "p39",
           "p40"
         ]
-      }
+      },
+      "actionSeq": 224
     },
     {
       "index": 55,
@@ -90932,7 +90987,8 @@
           "p11",
           "p52"
         ]
-      }
+      },
+      "actionSeq": 232
     },
     {
       "index": 56,
@@ -90976,7 +91032,8 @@
       ],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 233
     },
     {
       "index": 57,
@@ -91010,7 +91067,8 @@
       ],
       "subsequentActions": [
         "Gem25P Lucky searches their library (source: Polluted Delta)"
-      ]
+      ],
+      "actionSeq": 238
     },
     {
       "index": 58,
@@ -91071,7 +91129,8 @@
           "p11",
           "p52"
         ]
-      }
+      },
+      "actionSeq": 240
     },
     {
       "index": 59,
@@ -91105,7 +91164,8 @@
         305,
         306
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 244
     },
     {
       "index": 60,
@@ -91127,7 +91187,8 @@
         308,
         309
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 244
     },
     {
       "index": 61,
@@ -91150,7 +91211,8 @@
         311,
         313
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 244
     },
     {
       "index": 62,
@@ -91210,7 +91272,8 @@
           "p52",
           "p40"
         ]
-      }
+      },
+      "actionSeq": 245
     },
     {
       "index": 63,
@@ -91284,7 +91347,8 @@
           "p56",
           "p49"
         ]
-      }
+      },
+      "actionSeq": 247
     },
     {
       "index": 64,
@@ -91329,7 +91393,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 249
     },
     {
       "index": 65,
@@ -91376,7 +91441,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 251
     },
     {
       "index": 66,
@@ -91415,7 +91481,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 255
     },
     {
       "index": 67,
@@ -91453,7 +91520,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 260
     },
     {
       "index": 68,
@@ -91522,7 +91590,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 263
     },
     {
       "index": 69,
@@ -91570,7 +91639,8 @@
         "playableCards": [
           "p49"
         ]
-      }
+      },
+      "actionSeq": 265
     },
     {
       "index": 70,
@@ -91628,7 +91698,8 @@
         "playableCards": [
           "p31"
         ]
-      }
+      },
+      "actionSeq": 267
     },
     {
       "index": 71,
@@ -91665,7 +91736,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 272
     },
     {
       "index": 72,
@@ -91700,7 +91772,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 275
     },
     {
       "index": 73,
@@ -91769,7 +91842,8 @@
       ],
       "pilotContext": {
         "combatPhase": "declare_attackers"
-      }
+      },
+      "actionSeq": 277
     },
     {
       "index": 74,
@@ -91804,7 +91878,8 @@
       "subsequentActions": [
         "Gem25P Lucky loses 4 life at combat from Thought-Knot Seer",
         "Gem25P Lucky loses 5 life at combat from Reality Smasher"
-      ]
+      ],
+      "actionSeq": 287
     },
     {
       "index": 75,
@@ -91836,7 +91911,8 @@
         375,
         376
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 292
     },
     {
       "index": 76,
@@ -91871,7 +91947,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 294
     },
     {
       "index": 77,
@@ -91944,7 +92021,8 @@
           "p61",
           "p40"
         ]
-      }
+      },
+      "actionSeq": 296
     },
     {
       "index": 78,
@@ -92011,7 +92089,8 @@
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 303
     },
     {
       "index": 79,
@@ -92091,7 +92170,8 @@
           "p40",
           "p63"
         ]
-      }
+      },
+      "actionSeq": 315
     },
     {
       "index": 80,
@@ -92147,7 +92227,8 @@
         "playableCards": [
           "p62"
         ]
-      }
+      },
+      "actionSeq": 320
     },
     {
       "index": 81,
@@ -92218,7 +92299,8 @@
           "p52",
           "p61"
         ]
-      }
+      },
+      "actionSeq": 323
     },
     {
       "index": 82,
@@ -92262,7 +92344,8 @@
       ],
       "pilotContext": {
         "untappedLands": 5
-      }
+      },
+      "actionSeq": 324
     },
     {
       "index": 83,
@@ -92328,7 +92411,8 @@
         "playableCards": [
           "p62"
         ]
-      }
+      },
+      "actionSeq": 329
     },
     {
       "index": 84,
@@ -92384,7 +92468,8 @@
           "p52",
           "p61"
         ]
-      }
+      },
+      "actionSeq": 331
     },
     {
       "index": 85,
@@ -92448,7 +92533,8 @@
         "playableCards": [
           "p62"
         ]
-      }
+      },
+      "actionSeq": 335
     },
     {
       "index": 86,
@@ -92521,7 +92607,8 @@
           "p61",
           "p40"
         ]
-      }
+      },
+      "actionSeq": 336
     },
     {
       "index": 87,
@@ -92585,7 +92672,8 @@
         "playableCards": [
           "p62"
         ]
-      }
+      },
+      "actionSeq": 344
     },
     {
       "index": 88,
@@ -92673,7 +92761,8 @@
           "p40"
         ]
       },
-      "castRolledBack": true
+      "castRolledBack": true,
+      "actionSeq": 348
     },
     {
       "index": 89,
@@ -92696,7 +92785,8 @@
         455,
         457
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 361
     },
     {
       "index": 90,
@@ -92757,7 +92847,8 @@
         "playableCards": [
           "p62"
         ]
-      }
+      },
+      "actionSeq": 361
     },
     {
       "index": 91,
@@ -93088,7 +93179,8 @@
           "p61",
           "p13"
         ]
-      }
+      },
+      "actionSeq": 362
     },
     {
       "index": 92,
@@ -93182,7 +93274,8 @@
           "p61",
           "p13"
         ]
-      }
+      },
+      "actionSeq": 411
     },
     {
       "index": 93,
@@ -93262,7 +93355,8 @@
           "p61",
           "p13"
         ]
-      }
+      },
+      "actionSeq": 413
     },
     {
       "index": 94,
@@ -93338,7 +93432,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 414
     },
     {
       "index": 95,
@@ -93406,7 +93501,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 416
     },
     {
       "index": 96,
@@ -93460,7 +93556,8 @@
         "playableCards": [
           "p62"
         ]
-      }
+      },
+      "actionSeq": 426
     },
     {
       "index": 97,
@@ -93511,7 +93608,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 426
     },
     {
       "index": 98,
@@ -93600,7 +93698,8 @@
           "p62",
           "p109"
         ]
-      }
+      },
+      "actionSeq": 429
     },
     {
       "index": 99,
@@ -93651,7 +93750,8 @@
         "playableCards": [
           "p62"
         ]
-      }
+      },
+      "actionSeq": 431
     },
     {
       "index": 100,
@@ -93716,7 +93816,8 @@
         "playableCards": [
           "p62"
         ]
-      }
+      },
+      "actionSeq": 440
     },
     {
       "index": 101,
@@ -93788,7 +93889,8 @@
           "p61",
           "p13"
         ]
-      }
+      },
+      "actionSeq": 441
     },
     {
       "index": 102,
@@ -93861,7 +93963,8 @@
         "playableCards": [
           "p62"
         ]
-      }
+      },
+      "actionSeq": 445
     },
     {
       "index": 103,
@@ -93922,7 +94025,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 448
     },
     {
       "index": 104,
@@ -93981,7 +94085,8 @@
           "p52",
           "p61"
         ]
-      }
+      },
+      "actionSeq": 449
     },
     {
       "index": 105,
@@ -94056,7 +94161,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 450
     },
     {
       "index": 106,
@@ -94118,7 +94224,8 @@
           "p52",
           "p61"
         ]
-      }
+      },
+      "actionSeq": 459
     }
   ],
   "annotations": [
@@ -94312,5 +94419,6 @@
       "player": "GLM47 Gramps"
     }
   ],
-  "blunderScriptVersion": 28
+  "blunderScriptVersion": 28,
+  "errors": []
 }

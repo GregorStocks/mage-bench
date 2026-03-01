@@ -78568,7 +78568,8 @@
       "subsequentActions": [
         "MiMo Minimal chooses that they take the first turn",
         "MiMo Minimal's library is shuffled"
-      ]
+      ],
+      "actionSeq": 3
     },
     {
       "index": 1,
@@ -78645,7 +78646,8 @@
       ],
       "subsequentActions": [
         "MiMo Minimal puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 2,
@@ -78680,7 +78682,8 @@
       "subsequentActions": [
         "MiMo Minimal skips Draw step",
         "MiMo Minimal skip attack"
-      ]
+      ],
+      "actionSeq": 10
     },
     {
       "index": 3,
@@ -78741,7 +78744,8 @@
           "p22",
           "p23"
         ]
-      }
+      },
+      "actionSeq": 17
     },
     {
       "index": 4,
@@ -78787,7 +78791,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 19
     },
     {
       "index": 5,
@@ -78832,7 +78837,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 20
     },
     {
       "index": 6,
@@ -78869,7 +78875,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 24
     },
     {
       "index": 7,
@@ -78955,7 +78962,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 27
     },
     {
       "index": 8,
@@ -78984,7 +78992,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 28
     },
     {
       "index": 9,
@@ -79025,7 +79034,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 28
     },
     {
       "index": 10,
@@ -79119,7 +79129,8 @@
       ],
       "subsequentActions": [
         "GPT52 Memoir discards Goblin Charbelcher"
-      ]
+      ],
+      "actionSeq": 42
     },
     {
       "index": 11,
@@ -79175,7 +79186,8 @@
           "p22",
           "p23"
         ]
-      }
+      },
+      "actionSeq": 44
     },
     {
       "index": 12,
@@ -79213,7 +79225,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 47
     },
     {
       "index": 13,
@@ -79261,7 +79274,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 50
     },
     {
       "index": 14,
@@ -79306,7 +79320,8 @@
       ],
       "subsequentActions": [
         "MiMo Minimal skip attack"
-      ]
+      ],
+      "actionSeq": 53
     },
     {
       "index": 15,
@@ -79362,7 +79377,8 @@
         "playableCards": [
           "p36"
         ]
-      }
+      },
+      "actionSeq": 59
     },
     {
       "index": 16,
@@ -79417,7 +79433,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 60
     },
     {
       "index": 17,
@@ -79510,7 +79527,8 @@
           "p21",
           "p23"
         ]
-      }
+      },
+      "actionSeq": 71
     },
     {
       "index": 18,
@@ -79562,7 +79580,8 @@
           "p19",
           "p21"
         ]
-      }
+      },
+      "actionSeq": 74
     },
     {
       "index": 19,
@@ -79639,7 +79658,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 81
     },
     {
       "index": 20,
@@ -79718,7 +79738,8 @@
           "p19",
           "p21"
         ]
-      }
+      },
+      "actionSeq": 89
     },
     {
       "index": 21,
@@ -79756,7 +79777,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 93
     },
     {
       "index": 22,
@@ -79811,7 +79833,8 @@
         "playableCards": [
           "p8"
         ]
-      }
+      },
+      "actionSeq": 97
     },
     {
       "index": 23,
@@ -79863,7 +79886,8 @@
       ],
       "subsequentActions": [
         "GPT52 Memoir - Ability triggers: Lotus Bloom - At the beginning of your upkeep, if this card is suspended, remove a time counter from it."
-      ]
+      ],
+      "actionSeq": 99
     },
     {
       "index": 24,
@@ -79918,7 +79942,8 @@
         "playableCards": [
           "p8"
         ]
-      }
+      },
+      "actionSeq": 103
     },
     {
       "index": 25,
@@ -79998,7 +80023,8 @@
         "GPT52 Memoir puts Emperor of Bones from battlefield into its owner's hand (source: Snapback)",
         "GPT52 Memoir puts Snapback from stack into their graveyard",
         "Removed 1 time counter from Lotus Bloom (2 left)"
-      ]
+      ],
+      "actionSeq": 106
     },
     {
       "index": 26,
@@ -80045,7 +80071,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 116
     },
     {
       "index": 27,
@@ -80087,7 +80114,8 @@
         140,
         141
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 119
     },
     {
       "index": 28,
@@ -80132,7 +80160,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 121
     },
     {
       "index": 29,
@@ -80225,7 +80254,8 @@
           "p23",
           "p46"
         ]
-      }
+      },
+      "actionSeq": 123
     },
     {
       "index": 30,
@@ -80263,7 +80293,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 127
     },
     {
       "index": 31,
@@ -80327,7 +80358,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 132
     },
     {
       "index": 32,
@@ -80382,7 +80414,8 @@
           "p23",
           "p46"
         ]
-      }
+      },
+      "actionSeq": 140
     },
     {
       "index": 33,
@@ -80428,7 +80461,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 142
     },
     {
       "index": 34,
@@ -80473,7 +80507,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 143
     },
     {
       "index": 35,
@@ -80511,7 +80546,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 147
     },
     {
       "index": 36,
@@ -80588,7 +80624,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 150
     },
     {
       "index": 37,
@@ -80638,7 +80675,8 @@
       ],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 157
     },
     {
       "index": 38,
@@ -80731,7 +80769,8 @@
           "p21",
           "p46"
         ]
-      }
+      },
+      "actionSeq": 176
     },
     {
       "index": 39,
@@ -80790,7 +80829,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 182
     },
     {
       "index": 40,
@@ -80822,7 +80862,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 186
     },
     {
       "index": 41,
@@ -80878,7 +80919,8 @@
         "playableCards": [
           "p54"
         ]
-      }
+      },
+      "actionSeq": 187
     },
     {
       "index": 42,
@@ -80931,7 +80973,8 @@
         208,
         209
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 190
     },
     {
       "index": 43,
@@ -81011,7 +81054,8 @@
         "MiMo Minimal puts Psychic Frog from stack into their graveyard (source: Disrupting Shoal)",
         "Psychic Frog is countered by Disrupting Shoal",
         "GPT52 Memoir puts Disrupting Shoal from stack into their graveyard"
-      ]
+      ],
+      "actionSeq": 191
     },
     {
       "index": 44,
@@ -81058,7 +81102,8 @@
         "playableCards": [
           "p46"
         ]
-      }
+      },
+      "actionSeq": 199
     },
     {
       "index": 45,
@@ -81108,7 +81153,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 201
     },
     {
       "index": 46,
@@ -81145,7 +81191,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 206
     },
     {
       "index": 47,
@@ -81211,7 +81258,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 209
     },
     {
       "index": 48,
@@ -81250,7 +81298,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 210
     },
     {
       "index": 49,
@@ -81297,7 +81346,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 214
     },
     {
       "index": 50,
@@ -81343,7 +81393,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 215
     },
     {
       "index": 51,
@@ -81385,7 +81436,8 @@
         250,
         255
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 217
     },
     {
       "index": 52,
@@ -81469,7 +81521,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 218
     },
     {
       "index": 53,
@@ -81528,7 +81581,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 223
     },
     {
       "index": 54,
@@ -81576,7 +81630,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 229
     },
     {
       "index": 55,
@@ -81627,7 +81682,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 234
     },
     {
       "index": 56,
@@ -81673,7 +81729,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 242
     },
     {
       "index": 57,
@@ -81718,7 +81775,8 @@
       "subsequentActions": [
         "GPT52 Memoir casts Lotus Bloom from exile zone",
         "GPT52 Memoir puts Lotus Bloom from stack onto the Battlefield"
-      ]
+      ],
+      "actionSeq": 243
     },
     {
       "index": 58,
@@ -81782,7 +81840,8 @@
           "p45",
           "p67"
         ]
-      }
+      },
+      "actionSeq": 248
     },
     {
       "index": 59,
@@ -81868,7 +81927,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 248
     },
     {
       "index": 60,
@@ -81921,7 +81981,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 253
     },
     {
       "index": 61,
@@ -81976,7 +82037,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 261
     },
     {
       "index": 62,
@@ -82018,7 +82080,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 263
     },
     {
       "index": 63,
@@ -82064,7 +82127,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 264
     },
     {
       "index": 64,
@@ -82126,7 +82190,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 265
     },
     {
       "index": 65,
@@ -82168,7 +82233,8 @@
         308,
         309
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 275
     },
     {
       "index": 66,
@@ -82213,7 +82279,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 277
     },
     {
       "index": 67,
@@ -82291,7 +82358,8 @@
           "p73",
           "p19"
         ]
-      }
+      },
+      "actionSeq": 279
     },
     {
       "index": 68,
@@ -82329,7 +82397,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 283
     },
     {
       "index": 69,
@@ -82398,7 +82467,8 @@
         "playableCards": [
           "p73"
         ]
-      }
+      },
+      "actionSeq": 286
     },
     {
       "index": 70,
@@ -82436,7 +82506,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 290
     },
     {
       "index": 71,
@@ -82540,7 +82611,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 295
     },
     {
       "index": 72,
@@ -82644,7 +82716,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 297
     },
     {
       "index": 73,
@@ -82750,7 +82823,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 299
     },
     {
       "index": 74,
@@ -82811,7 +82885,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 309
     },
     {
       "index": 75,
@@ -82895,7 +82970,8 @@
           "p19",
           "p80"
         ]
-      }
+      },
+      "actionSeq": 329
     },
     {
       "index": 76,
@@ -82949,7 +83025,8 @@
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 333
     },
     {
       "index": 77,
@@ -83004,7 +83081,8 @@
         "playableCards": [
           "p79"
         ]
-      }
+      },
+      "actionSeq": 334
     },
     {
       "index": 78,
@@ -83036,7 +83114,8 @@
       ],
       "subsequentActions": [
         "GPT52 Memoir reveals Goblin Charbelcher, Flare of Denial, Tameshi, Reality Architect, Whir of Invention, Whir of Invention, Whir of Invention, Disrupting Shoal"
-      ]
+      ],
+      "actionSeq": 336
     },
     {
       "index": 79,
@@ -83119,7 +83198,8 @@
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 338
     },
     {
       "index": 80,
@@ -83158,7 +83238,8 @@
         370,
         380
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 343
     },
     {
       "index": 81,
@@ -83262,7 +83343,8 @@
       ],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 344
     },
     {
       "index": 82,
@@ -83366,7 +83448,8 @@
       ],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 346
     },
     {
       "index": 83,
@@ -83471,7 +83554,8 @@
       ],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 348
     },
     {
       "index": 84,
@@ -83536,7 +83620,8 @@
       ],
       "pilotContext": {
         "untappedLands": 4
-      }
+      },
+      "actionSeq": 352
     },
     {
       "index": 85,
@@ -83603,7 +83688,8 @@
       ],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 356
     },
     {
       "index": 86,
@@ -83639,7 +83725,8 @@
       "subsequentActions": [
         "MiMo Minimal moves Lotus Bloom from graveyard to the exile zone (source: Emperor of Bones)",
         "MiMo Minimal moves Goblin Charbelcher from graveyard to the exile zone (source: Emperor of Bones)"
-      ]
+      ],
+      "actionSeq": 369
     },
     {
       "index": 87,
@@ -83730,7 +83817,8 @@
       ],
       "pilotContext": {
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 375
     },
     {
       "index": 88,
@@ -83773,7 +83861,8 @@
         408,
         409
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 387
     },
     {
       "index": 89,
@@ -83820,7 +83909,9 @@
         "GPT52 Memoir loses 4 life at combat from Emperor of Bones",
         "GPT52 Memoir loses 4 life at combat from Emperor of Bones",
         "GPT52 Memoir loses 2 life at combat from Emperor of Bones"
-      ]
+      ],
+      "actionSeq": 388
     }
-  ]
+  ],
+  "errors": []
 }

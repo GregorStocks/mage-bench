@@ -62267,7 +62267,8 @@
       ],
       "subsequentActions": [
         "MiMo Rookie chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 3
     },
     {
       "index": 1,
@@ -62296,7 +62297,8 @@
         8,
         12
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 5
     },
     {
       "index": 2,
@@ -62330,7 +62332,8 @@
       ],
       "subsequentActions": [
         "DSV3 Lucky's library is shuffled"
-      ]
+      ],
+      "actionSeq": 6
     },
     {
       "index": 3,
@@ -62407,7 +62410,8 @@
       ],
       "subsequentActions": [
         "DSV3 Lucky puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 4,
@@ -62436,7 +62440,8 @@
         22,
         26
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 10
     },
     {
       "index": 5,
@@ -62471,7 +62476,8 @@
       "subsequentActions": [
         "MiMo Rookie reveals Devourer of Destiny",
         "MiMo Rookie - Ability triggers: Devourer of Destiny - look at the top four cards of your library. Put up to one of them back on top of your library and the rest into exile."
-      ]
+      ],
+      "actionSeq": 11
     },
     {
       "index": 6,
@@ -62534,7 +62540,8 @@
         "MiMo Rookie moves Blade of the Bloodchief from library to the exile zone (source: Devourer of Destiny)",
         "MiMo Rookie moves Devourer of Destiny from library to the exile zone (source: Devourer of Destiny)",
         "MiMo Rookie skips Draw step"
-      ]
+      ],
+      "actionSeq": 16
     },
     {
       "index": 7,
@@ -62603,7 +62610,8 @@
           "p13",
           "p16"
         ]
-      }
+      },
+      "actionSeq": 27
     },
     {
       "index": 8,
@@ -62648,7 +62656,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 32
     },
     {
       "index": 9,
@@ -62714,7 +62723,8 @@
           "p18",
           "p6"
         ]
-      }
+      },
+      "actionSeq": 36
     },
     {
       "index": 10,
@@ -62752,7 +62762,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 37
     },
     {
       "index": 11,
@@ -62799,7 +62810,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 41
     },
     {
       "index": 12,
@@ -62858,7 +62870,8 @@
           "p19",
           "p4"
         ]
-      }
+      },
+      "actionSeq": 45
     },
     {
       "index": 13,
@@ -62905,7 +62918,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 49
     },
     {
       "index": 14,
@@ -62988,7 +63002,8 @@
           "p13",
           "p30"
         ]
-      }
+      },
+      "actionSeq": 53
     },
     {
       "index": 15,
@@ -63033,7 +63048,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 58
     },
     {
       "index": 16,
@@ -63080,7 +63096,8 @@
       ],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 59
     },
     {
       "index": 17,
@@ -63126,7 +63143,8 @@
         "playableCards": [
           "p30"
         ]
-      }
+      },
+      "actionSeq": 66
     },
     {
       "index": 18,
@@ -63196,7 +63214,8 @@
           "p19",
           "p6"
         ]
-      }
+      },
+      "actionSeq": 68
     },
     {
       "index": 19,
@@ -63255,7 +63274,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 72
     },
     {
       "index": 20,
@@ -63300,7 +63320,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 78
     },
     {
       "index": 21,
@@ -63345,7 +63366,8 @@
       ],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 79
     },
     {
       "index": 22,
@@ -63405,7 +63427,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 86
     },
     {
       "index": 23,
@@ -63445,7 +63468,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 87
     },
     {
       "index": 24,
@@ -63506,7 +63530,8 @@
           "p8",
           "p21"
         ]
-      }
+      },
+      "actionSeq": 94
     },
     {
       "index": 25,
@@ -63573,7 +63598,8 @@
         "DSV3 Lucky - Ability triggers: Orcish Bowmasters - When Orcish Bowmasters enters and whenever an opponent draws a card except the first one they draw in each of their draw steps, Orcish Bowmasters deals 1 damage to any target. Then amass Orcs 1. - targeting MiMo Rookie",
         "MiMo Rookie loses 1 life from Orcish Bowmasters",
         "DSV3 Lucky creates a Orc Army Token token"
-      ]
+      ],
+      "actionSeq": 101
     },
     {
       "index": 26,
@@ -63658,7 +63684,8 @@
           "p43",
           "p30"
         ]
-      }
+      },
+      "actionSeq": 111
     },
     {
       "index": 27,
@@ -63713,7 +63740,8 @@
         "playableCards": [
           "p15"
         ]
-      }
+      },
+      "actionSeq": 116
     },
     {
       "index": 28,
@@ -63769,7 +63797,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 118
     },
     {
       "index": 29,
@@ -63811,7 +63840,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 121
     },
     {
       "index": 30,
@@ -63861,7 +63891,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 125
     },
     {
       "index": 31,
@@ -63919,7 +63950,8 @@
         "playableCards": [
           "p30"
         ]
-      }
+      },
+      "actionSeq": 135
     },
     {
       "index": 32,
@@ -64002,7 +64034,8 @@
           "p21",
           "p49"
         ]
-      }
+      },
+      "actionSeq": 137
     },
     {
       "index": 33,
@@ -64091,7 +64124,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 141
     },
     {
       "index": 34,
@@ -64152,7 +64186,8 @@
           "p21",
           "p49"
         ]
-      }
+      },
+      "actionSeq": 151
     },
     {
       "index": 35,
@@ -64250,7 +64285,8 @@
         "playableCards": [
           "p49"
         ]
-      }
+      },
+      "actionSeq": 158
     },
     {
       "index": 36,
@@ -64302,7 +64338,8 @@
         "playableCards": [
           "p49"
         ]
-      }
+      },
+      "actionSeq": 163
     },
     {
       "index": 37,
@@ -64365,7 +64402,8 @@
           "p19",
           "p49"
         ]
-      }
+      },
+      "actionSeq": 170
     },
     {
       "index": 38,
@@ -64443,7 +64481,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 182
     },
     {
       "index": 39,
@@ -64537,7 +64576,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 183
     },
     {
       "index": 40,
@@ -64609,7 +64649,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 185
     },
     {
       "index": 41,
@@ -64703,7 +64744,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 186
     },
     {
       "index": 42,
@@ -64769,7 +64811,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 188
     },
     {
       "index": 43,
@@ -64863,7 +64906,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 189
     },
     {
       "index": 44,
@@ -64929,7 +64973,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 191
     },
     {
       "index": 45,
@@ -65013,7 +65058,8 @@
           "p30"
         ]
       },
-      "castRolledBack": true
+      "castRolledBack": true,
+      "actionSeq": 224
     },
     {
       "index": 46,
@@ -65063,7 +65109,8 @@
         "playableCards": [
           "p57"
         ]
-      }
+      },
+      "actionSeq": 230
     },
     {
       "index": 47,
@@ -65135,7 +65182,8 @@
         "playableCards": [
           "p57"
         ]
-      }
+      },
+      "actionSeq": 235
     },
     {
       "index": 48,
@@ -65191,7 +65239,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 237
     },
     {
       "index": 49,
@@ -65269,7 +65318,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 241
     },
     {
       "index": 50,
@@ -65331,7 +65381,8 @@
           "p57"
         ]
       },
-      "castRolledBack": true
+      "castRolledBack": true,
+      "actionSeq": 247
     },
     {
       "index": 51,
@@ -65394,7 +65445,8 @@
           "p55",
           "p56"
         ]
-      }
+      },
+      "actionSeq": 251
     },
     {
       "index": 52,
@@ -65449,7 +65501,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 252
     },
     {
       "index": 53,
@@ -65504,7 +65557,8 @@
         "playableCards": [
           "p57"
         ]
-      }
+      },
+      "actionSeq": 256
     },
     {
       "index": 54,
@@ -65553,7 +65607,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 259
     },
     {
       "index": 55,
@@ -65624,7 +65679,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 261
     },
     {
       "index": 56,
@@ -65670,7 +65726,8 @@
         "playableCards": [
           "p57"
         ]
-      }
+      },
+      "actionSeq": 266
     },
     {
       "index": 57,
@@ -65726,7 +65783,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 268
     },
     {
       "index": 58,
@@ -65765,7 +65823,8 @@
       ],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 272
     },
     {
       "index": 59,
@@ -65812,7 +65871,8 @@
         "playableCards": [
           "p55"
         ]
-      }
+      },
+      "actionSeq": 283
     },
     {
       "index": 60,
@@ -65908,7 +65968,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 284
     },
     {
       "index": 61,
@@ -65964,7 +66025,8 @@
           "p72",
           "p77"
         ]
-      }
+      },
+      "actionSeq": 295
     },
     {
       "index": 62,
@@ -66064,7 +66126,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 299
     },
     {
       "index": 63,
@@ -66112,7 +66175,9 @@
       ],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 311
     }
-  ]
+  ],
+  "errors": []
 }

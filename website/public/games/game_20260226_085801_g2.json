@@ -60055,7 +60055,8 @@
       ],
       "subsequentActions": [
         "Qwen3L Villain chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 3
     },
     {
       "index": 1,
@@ -60078,7 +60079,8 @@
         8,
         10
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 5
     },
     {
       "index": 2,
@@ -60107,7 +60109,8 @@
         12,
         15
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 5
     },
     {
       "index": 3,
@@ -60138,7 +60141,8 @@
       ],
       "subsequentActions": [
         "Qwen3L Villain skips Draw step"
-      ]
+      ],
+      "actionSeq": 6
     },
     {
       "index": 4,
@@ -60203,7 +60207,8 @@
           "p6",
           "p7"
         ]
-      }
+      },
+      "actionSeq": 8
     },
     {
       "index": 5,
@@ -60263,7 +60268,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 8
     },
     {
       "index": 6,
@@ -60324,7 +60330,8 @@
           "p14",
           "p16"
         ]
-      }
+      },
+      "actionSeq": 15
     },
     {
       "index": 7,
@@ -60346,7 +60353,8 @@
         33,
         34
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 18
     },
     {
       "index": 8,
@@ -60370,7 +60378,8 @@
       ],
       "subsequentActions": [
         "Sonnet Detect skip attack"
-      ]
+      ],
+      "actionSeq": 18
     },
     {
       "index": 9,
@@ -60412,7 +60421,8 @@
         38,
         39
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 21
     },
     {
       "index": 10,
@@ -60477,7 +60487,8 @@
           "p6",
           "p7"
         ]
-      }
+      },
+      "actionSeq": 24
     },
     {
       "index": 11,
@@ -60556,7 +60567,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 24
     },
     {
       "index": 12,
@@ -60604,7 +60616,8 @@
           "p5"
         ]
       },
-      "castRolledBack": true
+      "castRolledBack": true,
+      "actionSeq": 26
     },
     {
       "index": 13,
@@ -60636,7 +60649,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 27
     },
     {
       "index": 14,
@@ -60677,7 +60691,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 27
     },
     {
       "index": 15,
@@ -60704,7 +60719,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 28
     },
     {
       "index": 16,
@@ -60740,7 +60756,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 28
     },
     {
       "index": 17,
@@ -60776,7 +60793,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 30
     },
     {
       "index": 18,
@@ -60821,7 +60839,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 30
     },
     {
       "index": 19,
@@ -60851,7 +60870,8 @@
         "playableCards": [
           "p5"
         ]
-      }
+      },
+      "actionSeq": 32
     },
     {
       "index": 20,
@@ -60889,7 +60909,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 32
     },
     {
       "index": 21,
@@ -60925,7 +60946,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 37
     },
     {
       "index": 22,
@@ -60988,7 +61010,8 @@
           "p16",
           "p27"
         ]
-      }
+      },
+      "actionSeq": 39
     },
     {
       "index": 23,
@@ -61033,7 +61056,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 44
     },
     {
       "index": 24,
@@ -61077,7 +61101,8 @@
       ],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 45
     },
     {
       "index": 25,
@@ -61114,7 +61139,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 49
     },
     {
       "index": 26,
@@ -61195,7 +61221,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 52
     },
     {
       "index": 27,
@@ -61254,7 +61281,8 @@
           "p6",
           "p7"
         ]
-      }
+      },
+      "actionSeq": 59
     },
     {
       "index": 28,
@@ -61318,7 +61346,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 59
     },
     {
       "index": 29,
@@ -61366,7 +61395,8 @@
           "p5",
           "p24"
         ]
-      }
+      },
+      "actionSeq": 61
     },
     {
       "index": 30,
@@ -61419,7 +61449,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 61
     },
     {
       "index": 31,
@@ -61455,7 +61486,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 63
     },
     {
       "index": 32,
@@ -61503,7 +61535,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 65
     },
     {
       "index": 33,
@@ -61543,7 +61576,8 @@
         "playableCards": [
           "p5"
         ]
-      }
+      },
+      "actionSeq": 70
     },
     {
       "index": 34,
@@ -61608,7 +61642,8 @@
           "p16",
           "p27"
         ]
-      }
+      },
+      "actionSeq": 77
     },
     {
       "index": 35,
@@ -61632,7 +61667,8 @@
       ],
       "subsequentActions": [
         "Sonnet Detect skip attack"
-      ]
+      ],
+      "actionSeq": 80
     },
     {
       "index": 36,
@@ -61677,7 +61713,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 82
     },
     {
       "index": 37,
@@ -61699,7 +61736,8 @@
         140,
         141
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 86
     },
     {
       "index": 38,
@@ -61744,7 +61782,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 87
     },
     {
       "index": 39,
@@ -61788,7 +61827,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 88
     },
     {
       "index": 40,
@@ -61848,7 +61888,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 89
     },
     {
       "index": 41,
@@ -61890,7 +61931,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 97
     },
     {
       "index": 42,
@@ -61949,7 +61991,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 97
     },
     {
       "index": 43,
@@ -61977,7 +62020,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 103
     },
     {
       "index": 44,
@@ -62035,7 +62079,8 @@
           "p33",
           "p27"
         ]
-      }
+      },
+      "actionSeq": 110
     },
     {
       "index": 45,
@@ -62059,7 +62104,8 @@
       ],
       "subsequentActions": [
         "Sonnet Detect skip attack"
-      ]
+      ],
+      "actionSeq": 113
     },
     {
       "index": 46,
@@ -62104,7 +62150,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 115
     },
     {
       "index": 47,
@@ -62170,7 +62217,8 @@
           "p5",
           "p7"
         ]
-      }
+      },
+      "actionSeq": 119
     },
     {
       "index": 48,
@@ -62240,7 +62288,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 119
     },
     {
       "index": 49,
@@ -62294,7 +62343,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 121
     },
     {
       "index": 50,
@@ -62339,7 +62389,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 122
     },
     {
       "index": 51,
@@ -62398,7 +62449,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 123
     },
     {
       "index": 52,
@@ -62445,7 +62497,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 130
     },
     {
       "index": 53,
@@ -62490,7 +62543,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 135
     },
     {
       "index": 54,
@@ -62514,7 +62568,8 @@
       ],
       "subsequentActions": [
         "Sonnet Detect skip attack"
-      ]
+      ],
+      "actionSeq": 137
     },
     {
       "index": 55,
@@ -62561,7 +62616,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 139
     },
     {
       "index": 56,
@@ -62644,7 +62700,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 144
     },
     {
       "index": 57,
@@ -62729,7 +62786,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 146
     },
     {
       "index": 58,
@@ -62816,7 +62874,8 @@
       "pilotContext": {
         "untappedLands": 2,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 146
     },
     {
       "index": 59,
@@ -62890,7 +62949,8 @@
           "p31",
           "p9"
         ]
-      }
+      },
+      "actionSeq": 148
     },
     {
       "index": 60,
@@ -62966,7 +63026,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 148
     },
     {
       "index": 61,
@@ -63021,7 +63082,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 150
     },
     {
       "index": 62,
@@ -63067,7 +63129,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 159
     },
     {
       "index": 63,
@@ -63111,7 +63174,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 160
     },
     {
       "index": 64,
@@ -63159,7 +63223,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 162
     },
     {
       "index": 65,
@@ -63204,7 +63269,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 165
     },
     {
       "index": 66,
@@ -63256,7 +63322,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 165
     },
     {
       "index": 67,
@@ -63300,7 +63367,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 170
     },
     {
       "index": 68,
@@ -63348,7 +63416,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 172
     },
     {
       "index": 69,
@@ -63423,7 +63492,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 175
     },
     {
       "index": 70,
@@ -63466,7 +63536,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 178
     },
     {
       "index": 71,
@@ -63508,7 +63579,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 179
     },
     {
       "index": 72,
@@ -63566,7 +63638,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 179
     },
     {
       "index": 73,
@@ -63603,7 +63676,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 182
     },
     {
       "index": 74,
@@ -63650,7 +63724,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 186
     },
     {
       "index": 75,
@@ -63688,7 +63763,8 @@
         "playableCards": [
           "p5"
         ]
-      }
+      },
+      "actionSeq": 190
     },
     {
       "index": 76,
@@ -63732,7 +63808,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 190
     },
     {
       "index": 77,
@@ -63775,7 +63852,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 191
     },
     {
       "index": 78,
@@ -63824,7 +63902,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 198
     },
     {
       "index": 79,
@@ -63871,7 +63950,8 @@
       ],
       "pilotContext": {
         "untappedLands": 3
-      }
+      },
+      "actionSeq": 205
     },
     {
       "index": 80,
@@ -63967,7 +64047,8 @@
           "p33",
           "p39"
         ]
-      }
+      },
+      "actionSeq": 209
     },
     {
       "index": 81,
@@ -64020,7 +64101,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 210
     },
     {
       "index": 82,
@@ -64077,7 +64159,8 @@
         "playableCards": [
           "p37"
         ]
-      }
+      },
+      "actionSeq": 216
     },
     {
       "index": 83,
@@ -64157,7 +64240,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 220
     },
     {
       "index": 84,
@@ -64238,7 +64322,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 220
     },
     {
       "index": 85,
@@ -64327,7 +64412,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 226
     },
     {
       "index": 86,
@@ -64381,7 +64467,8 @@
         "playableCards": [
           "p37"
         ]
-      }
+      },
+      "actionSeq": 227
     },
     {
       "index": 87,
@@ -64447,7 +64534,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 228
     },
     {
       "index": 88,
@@ -64538,7 +64626,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
-      }
+      },
+      "actionSeq": 228
     },
     {
       "index": 89,
@@ -64598,7 +64687,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 232
     },
     {
       "index": 90,
@@ -64703,7 +64793,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 247
     },
     {
       "index": 91,
@@ -64819,7 +64910,8 @@
           "p15",
           "p39"
         ]
-      }
+      },
+      "actionSeq": 244
     },
     {
       "index": 92,
@@ -64885,7 +64977,8 @@
         "playableCards": [
           "p37"
         ]
-      }
+      },
+      "actionSeq": 249
     },
     {
       "index": 93,
@@ -64936,7 +65029,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 250
     },
     {
       "index": 94,
@@ -65043,7 +65137,8 @@
           "p33",
           "p15"
         ]
-      }
+      },
+      "actionSeq": 251
     },
     {
       "index": 95,
@@ -65089,7 +65184,8 @@
       "pilotContext": {
         "untappedLands": 5,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 252
     },
     {
       "index": 96,
@@ -65168,7 +65264,8 @@
         "playableCards": [
           "p37"
         ]
-      }
+      },
+      "actionSeq": 259
     },
     {
       "index": 97,
@@ -65237,7 +65334,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 263
     },
     {
       "index": 98,
@@ -65324,7 +65422,8 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 264
     },
     {
       "index": 99,
@@ -65378,7 +65477,8 @@
         "playableCards": [
           "p37"
         ]
-      }
+      },
+      "actionSeq": 265
     },
     {
       "index": 100,
@@ -65444,7 +65544,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 266
     },
     {
       "index": 101,
@@ -65535,7 +65636,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "declare_attackers"
-      }
+      },
+      "actionSeq": 266
     },
     {
       "index": 102,
@@ -65596,7 +65698,9 @@
           "p8",
           "p31"
         ]
-      }
+      },
+      "actionSeq": 270
     }
-  ]
+  ],
+  "errors": []
 }

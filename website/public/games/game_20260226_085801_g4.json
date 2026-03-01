@@ -61320,7 +61320,8 @@
       ],
       "subsequentActions": [
         "o3 Rambler chooses that they take the first turn"
-      ]
+      ],
+      "actionSeq": 3
     },
     {
       "index": 1,
@@ -61364,7 +61365,8 @@
       ],
       "subsequentActions": [
         "o3 Rambler's library is shuffled"
-      ]
+      ],
+      "actionSeq": 5
     },
     {
       "index": 2,
@@ -61452,7 +61454,8 @@
       ],
       "subsequentActions": [
         "o3 Rambler puts a card from hand to the bottom of their library"
-      ]
+      ],
+      "actionSeq": 8
     },
     {
       "index": 3,
@@ -61497,7 +61500,8 @@
       "subsequentActions": [
         "o3 Rambler skips Draw step",
         "o3 Rambler skip attack"
-      ]
+      ],
+      "actionSeq": 10
     },
     {
       "index": 4,
@@ -61569,7 +61573,8 @@
           "p18",
           "p19"
         ]
-      }
+      },
+      "actionSeq": 17
     },
     {
       "index": 5,
@@ -61634,7 +61639,8 @@
         "playableCards": [
           "p21"
         ]
-      }
+      },
+      "actionSeq": 19
     },
     {
       "index": 6,
@@ -61683,7 +61689,8 @@
       ],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 23
     },
     {
       "index": 7,
@@ -61774,7 +61781,8 @@
       ],
       "subsequentActions": [
         "GPT5n ESPN discards Aether Vial"
-      ]
+      ],
+      "actionSeq": 36
     },
     {
       "index": 8,
@@ -61876,7 +61884,8 @@
           "p22",
           "p23"
         ]
-      }
+      },
+      "actionSeq": 38
     },
     {
       "index": 9,
@@ -61963,7 +61972,8 @@
           "p23"
         ]
       },
-      "castRolledBack": true
+      "castRolledBack": true,
+      "actionSeq": 40
     },
     {
       "index": 10,
@@ -61985,7 +61995,8 @@
         44,
         45
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 53
     },
     {
       "index": 11,
@@ -62040,7 +62051,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 53
     },
     {
       "index": 12,
@@ -62097,7 +62109,8 @@
       ],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 55
     },
     {
       "index": 13,
@@ -62153,7 +62166,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 59
     },
     {
       "index": 14,
@@ -62205,7 +62219,8 @@
         61,
         62
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 66
     },
     {
       "index": 15,
@@ -62256,7 +62271,8 @@
         65,
         66
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 67
     },
     {
       "index": 16,
@@ -62321,7 +62337,8 @@
       ],
       "subsequentActions": [
         "GPT5n ESPN skip attack"
-      ]
+      ],
+      "actionSeq": 68
     },
     {
       "index": 17,
@@ -62365,7 +62382,8 @@
       ],
       "subsequentActions": [
         "GPT5n ESPN discards down to 7 hand cards"
-      ]
+      ],
+      "actionSeq": 72
     },
     {
       "index": 18,
@@ -62456,7 +62474,8 @@
       "subsequentActions": [
         "GPT5n ESPN discards Battle Cry Goblin",
         "Grim Monolith: Grim Monolith doesn't untap during your untap step."
-      ]
+      ],
+      "actionSeq": 76
     },
     {
       "index": 19,
@@ -62480,7 +62499,8 @@
       ],
       "subsequentActions": [
         "o3 Rambler skip attack"
-      ]
+      ],
+      "actionSeq": 79
     },
     {
       "index": 20,
@@ -62538,7 +62558,8 @@
       "pilotContext": {
         "untappedLands": 2
       },
-      "castRolledBack": true
+      "castRolledBack": true,
+      "actionSeq": 82
     },
     {
       "index": 21,
@@ -62592,7 +62613,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 86
     },
     {
       "index": 22,
@@ -62637,7 +62659,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 98
     },
     {
       "index": 23,
@@ -62695,7 +62718,8 @@
         "playableCards": [
           "p40"
         ]
-      }
+      },
+      "actionSeq": 102
     },
     {
       "index": 24,
@@ -62717,7 +62741,8 @@
         109,
         110
       ],
-      "subsequentActions": []
+      "subsequentActions": [],
+      "actionSeq": 105
     },
     {
       "index": 25,
@@ -62771,7 +62796,8 @@
       ],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 105
     },
     {
       "index": 26,
@@ -62827,7 +62853,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 107
     },
     {
       "index": 27,
@@ -62883,7 +62910,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 109
     },
     {
       "index": 28,
@@ -62939,7 +62967,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 111
     },
     {
       "index": 29,
@@ -62994,7 +63023,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 113
     },
     {
       "index": 30,
@@ -63050,7 +63080,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 115
     },
     {
       "index": 31,
@@ -63105,7 +63136,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 117
     },
     {
       "index": 32,
@@ -63161,7 +63193,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 119
     },
     {
       "index": 33,
@@ -63216,7 +63249,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 121
     },
     {
       "index": 34,
@@ -63272,7 +63306,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 123
     },
     {
       "index": 35,
@@ -63327,7 +63362,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 125
     },
     {
       "index": 36,
@@ -63383,7 +63419,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 127
     },
     {
       "index": 37,
@@ -63440,7 +63477,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 129
     },
     {
       "index": 38,
@@ -63541,7 +63579,8 @@
           "p23",
           "p15"
         ]
-      }
+      },
+      "actionSeq": 136
     },
     {
       "index": 39,
@@ -63597,7 +63636,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 146
     },
     {
       "index": 40,
@@ -63655,7 +63695,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 148
     },
     {
       "index": 41,
@@ -63700,7 +63741,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 152
     },
     {
       "index": 42,
@@ -63769,7 +63811,8 @@
       ],
       "pilotContext": {
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 154
     },
     {
       "index": 43,
@@ -63806,7 +63849,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 167
     },
     {
       "index": 44,
@@ -63847,7 +63891,8 @@
       ],
       "subsequentActions": [
         "GPT5n ESPN skip attack"
-      ]
+      ],
+      "actionSeq": 168
     },
     {
       "index": 45,
@@ -63903,7 +63948,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 170
     },
     {
       "index": 46,
@@ -63958,7 +64004,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 172
     },
     {
       "index": 47,
@@ -64014,7 +64061,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 174
     },
     {
       "index": 48,
@@ -64069,7 +64117,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 176
     },
     {
       "index": 49,
@@ -64125,7 +64174,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 178
     },
     {
       "index": 50,
@@ -64181,7 +64231,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 180
     },
     {
       "index": 51,
@@ -64237,7 +64288,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 182
     },
     {
       "index": 52,
@@ -64293,7 +64345,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 184
     },
     {
       "index": 53,
@@ -64349,7 +64402,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 186
     },
     {
       "index": 54,
@@ -64405,7 +64459,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 188
     },
     {
       "index": 55,
@@ -64461,7 +64516,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 190
     },
     {
       "index": 56,
@@ -64517,7 +64573,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 192
     },
     {
       "index": 57,
@@ -64574,7 +64631,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 194
     },
     {
       "index": 58,
@@ -64672,7 +64730,8 @@
           "p23",
           "p15"
         ]
-      }
+      },
+      "actionSeq": 202
     },
     {
       "index": 59,
@@ -64710,7 +64769,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 209
     },
     {
       "index": 60,
@@ -64766,7 +64826,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 214
     },
     {
       "index": 61,
@@ -64822,7 +64883,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 216
     },
     {
       "index": 62,
@@ -64878,7 +64940,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 218
     },
     {
       "index": 63,
@@ -64934,7 +64997,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 220
     },
     {
       "index": 64,
@@ -64990,7 +65054,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 222
     },
     {
       "index": 65,
@@ -65046,7 +65111,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 224
     },
     {
       "index": 66,
@@ -65102,7 +65168,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 226
     },
     {
       "index": 67,
@@ -65158,7 +65225,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 228
     },
     {
       "index": 68,
@@ -65214,7 +65282,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 230
     },
     {
       "index": 69,
@@ -65252,7 +65321,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 232
     },
     {
       "index": 70,
@@ -65344,7 +65414,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 234
     },
     {
       "index": 71,
@@ -65411,7 +65482,8 @@
           "p41",
           "p15"
         ]
-      }
+      },
+      "actionSeq": 236
     },
     {
       "index": 72,
@@ -65447,7 +65519,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 237
     },
     {
       "index": 73,
@@ -65515,7 +65588,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 238
     },
     {
       "index": 74,
@@ -65571,7 +65645,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 242
     },
     {
       "index": 75,
@@ -65610,7 +65685,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 244
     },
     {
       "index": 76,
@@ -65677,7 +65753,8 @@
           "p41",
           "p15"
         ]
-      }
+      },
+      "actionSeq": 251
     },
     {
       "index": 77,
@@ -65725,7 +65802,8 @@
         "playableCards": [
           "p46"
         ]
-      }
+      },
+      "actionSeq": 253
     },
     {
       "index": 78,
@@ -65781,7 +65859,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 256
     },
     {
       "index": 79,
@@ -65817,7 +65896,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 258
     },
     {
       "index": 80,
@@ -65883,7 +65963,8 @@
         "playableCards": [
           "p46"
         ]
-      }
+      },
+      "actionSeq": 260
     },
     {
       "index": 81,
@@ -65946,7 +66027,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 262
     },
     {
       "index": 82,
@@ -66009,7 +66091,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 264
     },
     {
       "index": 83,
@@ -66072,7 +66155,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 266
     },
     {
       "index": 84,
@@ -66135,7 +66219,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 268
     },
     {
       "index": 85,
@@ -66198,7 +66283,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 270
     },
     {
       "index": 86,
@@ -66261,7 +66347,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 272
     },
     {
       "index": 87,
@@ -66324,7 +66411,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 274
     },
     {
       "index": 88,
@@ -66369,7 +66457,8 @@
       "pilotContext": {
         "untappedLands": 1,
         "landDropsUsed": 0
-      }
+      },
+      "actionSeq": 276
     },
     {
       "index": 89,
@@ -66459,7 +66548,8 @@
           "p47",
           "p15"
         ]
-      }
+      },
+      "actionSeq": 279
     },
     {
       "index": 90,
@@ -66515,7 +66605,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 283
     },
     {
       "index": 91,
@@ -66571,7 +66662,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 285
     },
     {
       "index": 92,
@@ -66627,7 +66719,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 287
     },
     {
       "index": 93,
@@ -66683,7 +66776,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 289
     },
     {
       "index": 94,
@@ -66739,7 +66833,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 291
     },
     {
       "index": 95,
@@ -66795,7 +66890,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 293
     },
     {
       "index": 96,
@@ -66851,7 +66947,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 295
     },
     {
       "index": 97,
@@ -66907,7 +67004,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 297
     },
     {
       "index": 98,
@@ -66963,7 +67061,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 299
     },
     {
       "index": 99,
@@ -67019,7 +67118,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 301
     },
     {
       "index": 100,
@@ -67075,7 +67175,8 @@
       "subsequentActions": [],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 303
     },
     {
       "index": 101,
@@ -67135,7 +67236,8 @@
       ],
       "pilotContext": {
         "untappedLands": 1
-      }
+      },
+      "actionSeq": 305
     },
     {
       "index": 102,
@@ -67204,7 +67306,8 @@
       "pilotContext": {
         "untappedLands": 4,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 311
     },
     {
       "index": 103,
@@ -67269,7 +67372,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "landDropsUsed": 1
-      }
+      },
+      "actionSeq": 318
     },
     {
       "index": 104,
@@ -67348,7 +67452,8 @@
       "pilotContext": {
         "untappedLands": 3,
         "combatPhase": "attackers"
-      }
+      },
+      "actionSeq": 320
     },
     {
       "index": 105,
@@ -67404,7 +67509,8 @@
       ],
       "pilotContext": {
         "untappedLands": 2
-      }
+      },
+      "actionSeq": 330
     },
     {
       "index": 106,
@@ -67449,7 +67555,8 @@
       "subsequentActions": [
         "Attacker: Reality Smasher (5/5) unblocked",
         "Attacker: Thought-Knot Seer (4/4) unblocked"
-      ]
+      ],
+      "actionSeq": 335
     },
     {
       "index": 107,
@@ -67492,7 +67599,9 @@
         "GPT5n ESPN loses 5 life at combat from Reality Smasher",
         "GPT5n ESPN loses 4 life at combat from Thought-Knot Seer",
         "GPT5n ESPN has lost the game."
-      ]
+      ],
+      "actionSeq": 339
     }
-  ]
+  ],
+  "errors": []
 }
