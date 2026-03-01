@@ -229,8 +229,7 @@
   width: 100%;
   aspect-ratio: 146 / 204;
   border-radius: 3px;
-  background: linear-gradient(135deg, #3b1f0a 0%, #5a2d0c 25%, #4a1a08 50%, #6b340e 75%, #3b1f0a 100%);
-  background-size: 200% 200%;
+  background: url('/cardback.jpg') center / cover no-repeat;
 }
 
 .library-count {
