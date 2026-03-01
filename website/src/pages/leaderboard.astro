@@ -23,14 +23,6 @@ const activeFormats = FORMAT_ORDER.filter(
   (f) => f === 'jumpstart' || (formats[f] && formats[f].totalGames > 0)
 );
 
-// Collect all providers across all formats for the filter dropdown
-const allProviders = [
-  ...new Set(
-    Object.values(formats)
-      .flatMap((f: any) => (f.models || []).map((m: any) => m.provider))
-  ),
-].sort();
-
 const hasData = benchmarkData.models.length > 0 || Object.keys(formats).length > 1;
 const excludedGames = (benchmarkData as any).excludedGames ?? 0;
 const minEpoch = (benchmarkData as any).minEpoch ?? null;
@@ -55,24 +47,14 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
           <span class="tab-count">({(formats[fmt]?.totalGames ?? 0)})</span>
         </button>
       ))}
+      <label class="retired-toggle" title="Retired models are older or superseded versions no longer included in the evaluation gauntlet. Their historical ratings are preserved but no new games are played.">
+        <input type="checkbox" id="show-retired" />
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+        Show retired models
+      </label>
     </div>
 
     <p class="methodology-link"><a href="/methodology">How scoring works</a></p>
-
-    <div class="filters">
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Search model name..."
-        autocomplete="off"
-      />
-      <select id="provider-filter">
-        <option value="">All Providers</option>
-        {allProviders.map((p: string) => (
-          <option value={p}>{p}</option>
-        ))}
-      </select>
-    </div>
 
     <div class="table-wrap">
       <table id="leaderboard-table" class="format-jumpstart">
@@ -92,7 +74,6 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
           <tbody data-format={fmt} style={fmt !== 'jumpstart' ? 'display: none;' : ''}>
             {(formats[fmt]?.models || []).map((m: any, i: number) => (
               <tr
-                data-model-name={m.modelName.toLowerCase()}
                 data-model-id={m.modelId}
                 data-reasoning-effort={m.reasoningEffort || ''}
                 data-provider={m.provider}
@@ -101,9 +82,11 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
                 data-win-rate={m.winRate}
                 data-blunder-score={m.blunderScore}
                 data-avg-api-cost={m.avgApiCost}
+                data-retired={m.retired ? 'true' : ''}
+                class:list={[{ retired: m.retired }]}
               >
                 <td class="rank-cell">{i + 1}</td>
-                <td class="model-name">{m.modelName}</td>
+                <td class="model-name">{m.modelName}{m.retired && <span class="retired-label"> (retired)</span>}</td>
                 <td>{m.provider}</td>
                 <td class="num">{m.rating}</td>
                 <td class="num"><span class={`blunder-val ${m.blunderScore < 0.3 ? 'blunder-good' : m.blunderScore < 0.8 ? 'blunder-ok' : 'blunder-bad'}`}>{m.blunderScore.toFixed(2)}</span></td>
@@ -131,8 +114,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     // No data yet, nothing to make interactive
   } else {
   const headers = table.querySelectorAll('th[data-sort]');
-  const searchInput = document.getElementById('search-input') as HTMLInputElement;
-  const providerFilter = document.getElementById('provider-filter') as HTMLSelectElement;
+  const showRetiredCheckbox = document.getElementById('show-retired') as HTMLInputElement;
   const noResults = document.getElementById('no-results')!;
   const formatTabs = document.getElementById('format-tabs');
 
@@ -240,8 +222,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   });
 
   function applyFilters() {
-    const searchTerm = searchInput.value.toLowerCase().trim();
-    const provider = providerFilter.value;
+    const showRetired = showRetiredCheckbox.checked;
     const tbody = getActiveTbody();
     if (!tbody) return;
     const rows = tbody.querySelectorAll('tr');
@@ -249,9 +230,7 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
 
     rows.forEach(row => {
       const el = row as HTMLElement;
-      const matchesSearch = !searchTerm || (el.dataset.modelName ?? '').includes(searchTerm);
-      const matchesProvider = !provider || el.dataset.provider === provider;
-      const visible = matchesSearch && matchesProvider;
+      const visible = showRetired || el.dataset.retired !== 'true';
 
       el.style.display = visible ? '' : 'none';
       if (visible) visibleCount++;
@@ -277,9 +256,9 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     });
   }
 
-  searchInput.addEventListener('input', applyFilters);
-  providerFilter.addEventListener('change', applyFilters);
+  showRetiredCheckbox.addEventListener('change', applyFilters);
   updateGamesLinks();
+  applyFilters();
   }
 </script>
 
@@ -360,42 +339,55 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     margin: 0 0.3rem;
   }
 
-  .filters {
+  .retired-toggle {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .filters input,
-  .filters select {
-    font-family: inherit;
-    font-size: 0.9rem;
-    padding: 0.5rem 0.75rem;
-    background: #16213e;
-    border: 1px solid #0f3460;
-    border-radius: 4px;
-    color: #e0e0e0;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .filters input {
-    flex: 1;
-    min-width: 200px;
-  }
-
-  .filters select {
-    min-width: 160px;
-  }
-
-  .filters input:focus,
-  .filters select:focus {
-    border-color: #e94560;
-  }
-
-  .filters input::placeholder {
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
     color: #a0a0b8;
+    cursor: pointer;
+    white-space: nowrap;
+    margin-left: auto;
+    border-bottom: 1px dotted #a0a0b8;
+    padding-bottom: 1px;
+  }
+
+  .retired-toggle input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .toggle-track {
+    position: relative;
+    display: inline-block;
+    width: 32px;
+    height: 18px;
+    background: #0f3460;
+    border-radius: 9px;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    background: #a0a0b8;
+    border-radius: 50%;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .retired-toggle input:checked + .toggle-track {
+    background: #e94560;
+  }
+
+  .retired-toggle input:checked + .toggle-track .toggle-thumb {
+    transform: translateX(14px);
+    background: #fff;
   }
 
   .table-wrap {
@@ -506,6 +498,15 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
     background: rgba(233, 69, 96, 0.08);
   }
 
+  tbody tr.retired {
+    font-style: italic;
+  }
+
+  .retired-label {
+    color: #a0a0b8;
+    font-weight: 400;
+  }
+
   .no-results {
     color: #a0a0b8;
     font-style: italic;
@@ -521,15 +522,6 @@ const minEpoch = (benchmarkData as any).minEpoch ?? null;
   }
 
   @media (max-width: 600px) {
-    .filters {
-      flex-direction: column;
-    }
-
-    .filters input,
-    .filters select {
-      width: 100%;
-    }
-
     th, td {
       padding: 0.5rem;
       font-size: 0.8rem;
