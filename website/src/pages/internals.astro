@@ -191,15 +191,31 @@ if (fs.existsSync(exportsDir)) {
     Chart.register(...registerables);
 
     // ─── Tab switching ───
+    function switchTab(tabName: string) {
+      const btn = document.querySelector(`.tab[data-tab="${tabName}"]`);
+      if (!btn) return;
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(`tab-${tabName}`)!.classList.add('active');
+    }
+
     document.querySelectorAll('.tab').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        btn.classList.add('active');
         const target = btn.getAttribute('data-tab')!;
-        document.getElementById(`tab-${target}`)!.classList.add('active');
+        location.hash = target;
       });
     });
+
+    // Activate tab from URL hash (e.g. /internals#model-stats)
+    function activateFromHash() {
+      const hash = location.hash.replace('#', '');
+      if (hash && document.querySelector(`.tab[data-tab="${hash}"]`)) {
+        switchTab(hash);
+      }
+    }
+    activateFromHash();
+    window.addEventListener('hashchange', activateFromHash);
 
     // ─── Trend chart ───
     type PlayerRecord = {
@@ -342,6 +358,14 @@ if (fs.existsSync(exportsDir)) {
       updateChart();
     });
 
+    // Models with known-unreliable cached_tokens data (upstream API bug).
+    // Keys may have a ::effort suffix, so check the model ID prefix.
+    const UNRELIABLE_CACHE_MODELS = new Set(['x-ai/grok-4.1-fast']);
+    function hasUnreliableCache(key: string): boolean {
+      const modelId = key.split('::')[0];
+      return UNRELIABLE_CACHE_MODELS.has(modelId);
+    }
+
     // Per-game metric: computes a single value for one player in one game
     type PerGameMetric = {
       label: string;
@@ -366,7 +390,8 @@ if (fs.existsSync(exportsDir)) {
       cacheRate: {
         label: 'Cache Rate',
         unit: '%',
-        compute: (p) => p.promptTokens > 0 ? (p.cachedTokens / p.promptTokens) * 100 : null,
+        compute: (p) => p.promptTokens > 0 && !hasUnreliableCache(p.key)
+            ? (p.cachedTokens / p.promptTokens) * 100 : null,
       },
       winRate: {
         label: 'Win (1=yes, 0=no)',
@@ -641,6 +666,14 @@ if (fs.existsSync(exportsDir)) {
 
   <!-- Model Stats logic (same as old model-stats.astro) -->
   <script>
+    // Models with known-unreliable cached_tokens data (upstream API bug).
+    // Keys may have a ::effort suffix, so check the model ID prefix.
+    const UNRELIABLE_CACHE_MODELS = new Set(['x-ai/grok-4.1-fast']);
+    function hasUnreliableCache(key: string): boolean {
+      const modelId = key.split('::')[0];
+      return UNRELIABLE_CACHE_MODELS.has(modelId);
+    }
+
     const rawData = JSON.parse(document.getElementById('model-stats-data')!.textContent!);
     const models = rawData.models as Record<string, any>;
     const minEpochInput = document.getElementById('min-epoch') as HTMLInputElement;
@@ -740,7 +773,7 @@ if (fs.existsSync(exportsDir)) {
           avgPromptTokens: successfulResponses > 0 ? totalPrompt / successfulResponses : 0,
           avgCompletionTokens: successfulResponses > 0 ? totalCompletion / successfulResponses : 0,
           avgCost: gamesPlayed > 0 ? totalCost / gamesPlayed : 0,
-          cacheRate: totalPrompt > 0 ? totalCached / totalPrompt : 0,
+          cacheRate: hasUnreliableCache(key) ? -1 : (totalPrompt > 0 ? totalCached / totalPrompt : 0),
           reasoningPct: totalCompletion > 0 ? totalReasoning / totalCompletion : 0,
           hasPreTokenDetailData,
           latencyP50: totalSamples > 0 ? weightedP50 / totalSamples : 0,
@@ -793,7 +826,7 @@ if (fs.existsSync(exportsDir)) {
           <td class="num">${Math.round(s.avgPromptTokens).toLocaleString()}</td>
           <td class="num">${Math.round(s.avgCompletionTokens).toLocaleString()}</td>
           <td class="num">$${s.avgCost.toFixed(2)}</td>
-          <td class="num">${s.cacheRate > 0 ? (s.cacheRate * 100).toFixed(1) + '%' : '-'}${s.hasPreTokenDetailData ? '*' : ''}</td>
+          <td class="num">${s.cacheRate < 0 ? '*' : s.cacheRate > 0 ? (s.cacheRate * 100).toFixed(1) + '%' : '-'}${s.hasPreTokenDetailData ? '*' : ''}</td>
           <td class="num">${s.reasoningPct > 0 ? (s.reasoningPct * 100).toFixed(1) + '%' : '-'}${s.hasPreTokenDetailData ? '*' : ''}</td>
           <td class="num">${s.latencyP50.toFixed(1)}</td>
           <td class="num">${s.latencyP95.toFixed(1)}</td>
