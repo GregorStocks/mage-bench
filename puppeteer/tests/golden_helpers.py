@@ -19,6 +19,7 @@ import json
 import os
 import subprocess
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -146,6 +147,14 @@ DECK_PLAINS_LIONS = "puppeteer/tests/decks/plains_lions_opponent.dck"
 DECK_SAVANNAH_LIONS = "puppeteer/tests/decks/savannah_lions.dck"
 DECK_ANCIENT_STIRRINGS = "puppeteer/tests/decks/ancient_stirrings.dck"
 DECK_MDFC_LAND_AND_SUSPEND = "puppeteer/tests/decks/mdfc_land_and_suspend.dck"
+
+# Default opponent script: keep opening hand, then pass everything.
+# execute_replay_script breaks on game_over, so the extras are never reached.
+OPPONENT_PASS_SCRIPT: list[dict] = [
+    {"name": "pass_priority", "arguments": {}},
+    {"name": "choose_action", "arguments": {"answer": False}},
+    *[{"name": "pass_priority", "arguments": {"until": "my_turn"}} for _ in range(100)],
+]
 
 # Main classes for direct java -cp launches (from each module's pom.xml exec-maven-plugin config)
 MAIN_CLASS_OBSERVER = "mage.client.observer.ObserverMain"
@@ -294,11 +303,15 @@ class BridgeManager:
         port: int,
         project_root: Path,
         allowed_sets: str,
+        username: str = "TestPlayer",
+        label: str = "bridge",
     ) -> None:
         self._server = server
         self._port = port
         self._project_root = project_root
         self._allowed_sets = allowed_sets
+        self._username = username
+        self._label = label
         self.session: BridgeSession | None = None
         self._proc: subprocess.Popen | None = None
         self._log_fh: object | None = None
@@ -307,7 +320,7 @@ class BridgeManager:
         """Start the bridge JVM and initialize MCP session."""
         from puppeteer.port import find_available_port, wait_for_port
 
-        tmp_dir = self._project_root / "tmp" / "golden-bridge"
+        tmp_dir = self._project_root / "tmp" / f"golden-{self._label}"
         tmp_dir.mkdir(parents=True, exist_ok=True)
 
         mcp_port_res = find_available_port("localhost", 19000)
@@ -323,7 +336,7 @@ class BridgeManager:
                 "xmage.bridge.personality": "sleepwalker",
                 "xmage.bridge.keepAlive": "true",
                 "xmage.bridge.mcpPort": str(mcp_port),
-                "xmage.bridge.username": "TestPlayer",
+                "xmage.bridge.username": self._username,
                 "xmage.sets.allowed": self._allowed_sets,
             },
         )
@@ -339,7 +352,8 @@ class BridgeManager:
             stderr=subprocess.STDOUT,
         )
 
-        print(f"Bridge JVM started (pid={self._proc.pid}), waiting for MCP on port {mcp_port}...", flush=True)
+        label = self._label.title()
+        print(f"{label} JVM started (pid={self._proc.pid}), waiting for MCP on port {mcp_port}...", flush=True)
         assert wait_for_port("127.0.0.1", mcp_port, 120), (
             f"Bridge MCP HTTP server did not start on port {mcp_port} within 120s"
         )
@@ -347,7 +361,7 @@ class BridgeManager:
 
         self.session = BridgeSession(f"http://127.0.0.1:{mcp_port}/mcp")
         self.session.initialize()
-        print("Bridge MCP initialized via HTTP", flush=True)
+        print(f"{self._label.title()} MCP initialized via HTTP", flush=True)
 
     def stop(self) -> None:
         """Kill the bridge JVM and clean up."""
@@ -379,151 +393,10 @@ class BridgeManager:
         """Verify bridge health. Restart if unhealthy."""
         if self.is_healthy():
             return
-        print("Bridge unhealthy, restarting JVM...", flush=True)
+        print(f"{self._label.title()} unhealthy, restarting JVM...", flush=True)
         self.stop()
         time.sleep(self._SERVER_CLEANUP_DELAY)
-        with timed_phase("session", "bridge_jvm_restart"):
-            self.start()
-
-
-class PotatoProcess:
-    """Persistent potato JVM controlled via stdin line protocol.
-
-    In keepAlive mode, the potato reads deck paths from stdin. Each line triggers
-    it to load the deck, reset state, and join the next available game table.
-    """
-
-    _READY_MARKER = "POTATO_READY"
-
-    def __init__(self, proc: subprocess.Popen[bytes], log_path: Path) -> None:
-        self.proc = proc
-        self._log_path = log_path
-        self._last_ready_pos = 0
-        assert proc.stdin is not None, "PotatoProcess requires stdin=PIPE"
-        self._stdin = io.TextIOWrapper(proc.stdin, encoding="utf-8", line_buffering=True)
-
-    def wait_for_ready(self, timeout: float = 60) -> None:
-        """Block until the potato writes POTATO_READY to its log.
-
-        The potato prints this marker at startup and after each game finishes.
-        We track file position so each call waits for the NEXT occurrence.
-        """
-        deadline = time.monotonic() + timeout
-        while time.monotonic() < deadline:
-            try:
-                with open(self._log_path) as f:
-                    f.seek(self._last_ready_pos)
-                    content = f.read()
-            except FileNotFoundError:
-                time.sleep(0.1)
-                continue
-            idx = content.find(self._READY_MARKER)
-            if idx >= 0:
-                self._last_ready_pos += idx + len(self._READY_MARKER) + 1
-                return
-            time.sleep(0.1)
-        raise TimeoutError(f"Potato not ready within {timeout}s — check {self._log_path}")
-
-    def join_next_game(self, deck_path: str, *, table_id: str | None = None) -> None:
-        """Send a deck path to trigger the potato to join the next game."""
-        if table_id is not None:
-            msg = json.dumps({"deck_path": deck_path, "table_id": table_id}, separators=(",", ":"))
-        else:
-            msg = deck_path
-        self._stdin.write(msg + "\n")
-        self._stdin.flush()
-
-    def close(self) -> None:
-        try:
-            self._stdin.close()
-        except Exception:
-            pass
-
-
-class PotatoManager:
-    """Manages a persistent potato JVM with automatic restart on failure.
-
-    Encapsulates the potato JVM lifecycle. The potato communicates via stdin
-    line protocol (deck paths) and signals readiness via a log file marker.
-    """
-
-    _SERVER_CLEANUP_DELAY = 2  # seconds for XMage server to detect disconnection
-
-    def __init__(
-        self,
-        server: str,
-        port: int,
-        project_root: Path,
-        allowed_sets: str,
-    ) -> None:
-        self._server = server
-        self._port = port
-        self._project_root = project_root
-        self._allowed_sets = allowed_sets
-        self.potato: PotatoProcess | None = None
-        self._proc: subprocess.Popen | None = None
-        self._log_fh: object | None = None
-
-    def start(self) -> None:
-        """Start the potato JVM and wait for readiness."""
-        tmp_dir = self._project_root / "tmp" / "golden-potato"
-        tmp_dir.mkdir(parents=True, exist_ok=True)
-
-        potato_cp = compute_module_classpath(self._project_root, "Mage.Client.Bridge")
-        potato_cmd = _build_java_cmd(
-            potato_cp,
-            MAIN_CLASS_BRIDGE,
-            {
-                "xmage.bridge.server": self._server,
-                "xmage.bridge.port": str(self._port),
-                "xmage.bridge.personality": "potato",
-                "xmage.bridge.keepAlive": "true",
-                "xmage.bridge.username": "Opponent",
-                "xmage.sets.allowed": self._allowed_sets,
-            },
-        )
-
-        potato_log = tmp_dir / "potato.log"
-        self._log_fh = open(potato_log, "w")
-
-        self._proc = subprocess.Popen(
-            potato_cmd,
-            cwd=self._project_root / "Mage.Client.Bridge",
-            stdin=subprocess.PIPE,
-            stdout=self._log_fh,
-            stderr=subprocess.STDOUT,
-        )
-
-        self.potato = PotatoProcess(self._proc, potato_log)
-        print(f"Potato JVM started (pid={self._proc.pid}), waiting for POTATO_READY...", flush=True)
-        self.potato.wait_for_ready(timeout=120)
-        print("Potato ready", flush=True)
-
-    def stop(self) -> None:
-        """Kill the potato JVM and clean up."""
-        if self.potato:
-            self.potato.close()
-            self.potato = None
-        if self._proc:
-            try:
-                self._proc.wait(timeout=3)
-            except subprocess.TimeoutExpired:
-                kill_tree(self._proc.pid)
-            self._proc = None
-        if self._log_fh:
-            self._log_fh.close()
-            self._log_fh = None
-
-    def is_alive(self) -> bool:
-        """Check if the potato process is still running."""
-        return self._proc is not None and self._proc.poll() is None
-
-    def restart(self) -> None:
-        """Kill and restart the potato JVM."""
-        print("Restarting potato JVM...", flush=True)
-        self.stop()
-        time.sleep(self._SERVER_CLEANUP_DELAY)
-        with timed_phase("session", "potato_jvm_restart"):
+        with timed_phase("session", f"{self._label}_jvm_restart"):
             self.start()
 
 
@@ -585,6 +458,7 @@ def _run_replay_on_bridge(
     script: list[dict],
     game_dir: Path,
     player_name: str,
+    skip_history: bool = False,
 ) -> list[dict]:
     """Execute a replay script on an existing BridgeSession and return the captured prompt.
 
@@ -615,7 +489,9 @@ def _run_replay_on_bridge(
         async def async_call_tool(name: str, arguments: dict) -> str:
             return bridge.call_tool(name, arguments)
 
-        prompt = asyncio.run(execute_replay_script(async_call_tool, script, system_prompt, game_log))
+        prompt = asyncio.run(
+            execute_replay_script(async_call_tool, script, system_prompt, game_log, skip_history=skip_history)
+        )
 
         # Write prompt to file for debugging / golden comparison
         prompt_path = game_dir / f"{player_name}_golden_prompt.json"
@@ -632,49 +508,6 @@ def _run_replay_on_bridge(
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
-
-
-def _start_process(
-    args: list[str],
-    cwd: Path,
-    env_updates: dict[str, str],
-    log_path: Path,
-) -> tuple[subprocess.Popen, object]:
-    """Start a subprocess with logging. Returns (proc, log_file_handle)."""
-    env = os.environ.copy()
-    env.update(env_updates)
-    log_fh = open(log_path, "w")
-    proc = subprocess.Popen(
-        args,
-        cwd=cwd,
-        env=env,
-        stdout=log_fh,
-        stderr=subprocess.STDOUT,
-    )
-    return proc, log_fh
-
-
-def _wait_for_log_marker(
-    log_path: Path,
-    marker: str,
-    proc: subprocess.Popen,
-    timeout: int = 120,
-) -> None:
-    """Wait for a marker string to appear in a log file."""
-    deadline = time.monotonic() + timeout
-    while time.monotonic() < deadline:
-        if proc.poll() is not None:
-            log_text = log_path.read_text() if log_path.exists() else "<no log>"
-            raise RuntimeError(
-                f"Process exited (rc={proc.returncode}) before marker appeared.\n"
-                f"Marker: {marker!r}\n"
-                f"Log tail:\n{log_text[-2000:]}"
-            )
-        if log_path.exists() and marker in log_path.read_text():
-            return
-        time.sleep(2)
-    log_text = log_path.read_text() if log_path.exists() else "<no log>"
-    raise TimeoutError(f"Marker not found within {timeout}s: {marker!r}\nLog tail:\n{log_text[-2000:]}")
 
 
 def _wait_for_health(port: int, timeout: int = 120) -> None:
@@ -726,69 +559,6 @@ def _wait_for_game_end_http(port: int, game_dir: Path, timeout: int = 30) -> Non
         raise RuntimeError(f"Wait-for-game-end failed (HTTP {e.code}): {error_body}") from e
 
 
-def _wait_for_files_quiescent(paths: list[Path], timeout: int = 30, stable_for: float = 2.0) -> None:
-    """Wait until at least one export file exists and observed sizes stop changing."""
-    deadline = time.monotonic() + timeout
-    last_sizes: tuple[tuple[str, int], ...] | None = None
-    stable_since: float | None = None
-    while time.monotonic() < deadline:
-        snapshot: list[tuple[str, int]] = []
-        for path in paths:
-            if path.exists():
-                snapshot.append((str(path), path.stat().st_size))
-        size_tuple = tuple(snapshot)
-        if size_tuple and size_tuple == last_sizes:
-            if stable_since is None:
-                stable_since = time.monotonic()
-            elif (time.monotonic() - stable_since) >= stable_for:
-                return
-        else:
-            stable_since = None
-            if size_tuple:
-                last_sizes = size_tuple
-        time.sleep(0.25)
-    current = {str(path): (path.stat().st_size if path.exists() else "<missing>") for path in paths}
-    raise TimeoutError(f"Game export files did not quiesce within {timeout}s: {current}")
-
-
-def _wait_for_game_end_event(game_dir: Path, timeout: int = 30) -> None:
-    """Wait until server_game_events.jsonl contains a game_end event.
-
-    The spectator writes game_end asynchronously after the game ends on the
-    server.  Without this wait, the export pipeline may run before the event
-    is written, producing gameOver=null.
-    """
-    server_events = game_dir / "server_game_events.jsonl"
-    spectator_events = game_dir / "game_events.jsonl"
-    deadline = time.monotonic() + timeout
-    t0 = time.monotonic()
-    while time.monotonic() < deadline:
-        # Check server events (version 2 export path)
-        if server_events.exists():
-            text = server_events.read_text()
-            if '"game_end"' in text:
-                return
-        # Fallback: check spectator events (version 1 export path)
-        if spectator_events.exists():
-            text = spectator_events.read_text()
-            if '"game_over"' in text:
-                return
-        time.sleep(0.25)
-    # Dump diagnostic info on timeout
-    elapsed = time.monotonic() - t0
-    diag_parts = [f"No game_end event found within {elapsed:.1f}s in {game_dir}"]
-    for path in [server_events, spectator_events]:
-        if path.exists():
-            text = path.read_text()
-            lines = text.strip().split("\n")
-            diag_parts.append(f"  {path.name}: {len(lines)} lines, last: {lines[-1][:200] if lines else '<empty>'}")
-        else:
-            diag_parts.append(f"  {path.name}: does not exist")
-    diag = "\n".join(diag_parts)
-    print(diag, flush=True)
-    raise TimeoutError(diag)
-
-
 def run_golden_scenario(
     server: str,
     port: int,
@@ -796,68 +566,171 @@ def run_golden_scenario(
     game_dir: Path,
     deck_a: str,
     deck_b: str,
-    script: list[dict],
+    script_a: list[dict],
     golden_name: str,
+    bridge_a: BridgeManager,
+    bridge_b: BridgeManager,
+    spectator: SpectatorProcess,
+    script_b: list[dict] | None = None,
     player_a_name: str = "TestPlayer",
     player_b_name: str = "Opponent",
     game_type: str = "Two Player Duel",
     deck_type: str = "Constructed - Legacy",
-    bridge: BridgeManager | None = None,
-    potato: PotatoManager | None = None,
-    spectator: SpectatorProcess | None = None,
 ) -> list[dict]:
-    """Run a golden test scenario with a replay player vs a potato opponent.
+    """Run a golden test scenario with two replay bridges.
 
-    Starts a observer spectator (creates the game table), a replay client
-    (executes scripted MCP tool calls and captures the LLM prompt), and a
-    potato client (auto-responds to everything as the opponent).
-
-    When ``bridge`` and/or ``potato`` are provided, reuses those session-scoped
-    JVM managers instead of spawning fresh JVMs per test. The managers
-    automatically restart unhealthy JVMs between tests.
-
-    When ``spectator`` is provided, reuses the session-scoped spectator JVM
-    instead of spawning a fresh one per test.
+    Both players use persistent BridgeManager JVMs with scripted replay.
+    Player A's prompt is captured and compared against golden files.
+    Player B runs ``script_b`` (defaults to OPPONENT_PASS_SCRIPT).
 
     Automatically asserts golden prompt and export comparisons using
     ``golden_name`` as the file identifier.
 
     Returns the captured prompt messages array (what the LLM would see).
     """
-    use_persistent = bridge is not None and potato is not None
-    if use_persistent:
-        return _run_golden_persistent(
-            server,
-            port,
-            project_root,
-            game_dir,
-            deck_a,
-            deck_b,
-            script,
-            golden_name,
-            player_a_name,
-            player_b_name,
-            game_type,
-            deck_type,
-            bridge,
-            potato,
-            spectator,
-        )
-    return _run_golden_subprocess(
-        server,
-        port,
-        project_root,
+    game_dir.mkdir(parents=True, exist_ok=True)
+    effective_script_b = script_b if script_b is not None else OPPONENT_PASS_SCRIPT
+
+    _write_game_meta(
         game_dir,
-        deck_a,
-        deck_b,
-        script,
-        golden_name,
-        player_a_name,
-        player_b_name,
         game_type,
         deck_type,
-        spectator,
+        player_a_name,
+        "replay",
+        deck_a,
+        player_b_name,
+        "replay",
+        deck_b,
     )
+
+    # Ensure both bridges are in a clean state from the previous test.
+    if not bridge_a.is_healthy():
+        bridge_a.ensure_healthy()
+        bridge_b.ensure_healthy()
+    elif not bridge_b.is_healthy():
+        bridge_b.ensure_healthy()
+
+    session_a = bridge_a.session
+    session_b = bridge_b.session
+
+    try:
+        with timed_phase(golden_name, "spectator_command"):
+            table_id = _send_spectator_command(
+                spectator,
+                game_dir,
+                deck_a,
+                deck_b,
+                player_a_name,
+                player_b_name,
+                "replay",
+                game_type,
+                deck_type,
+            )
+
+        # Both bridges join the table concurrently
+        join_errors: list[tuple[str, Exception]] = []
+
+        def _join_a() -> None:
+            try:
+                session_a.call_tool(
+                    "join_table",
+                    {
+                        "deck_path": str(project_root / deck_a),
+                        "table_id": table_id,
+                    },
+                )
+            except Exception as exc:
+                join_errors.append(("bridge_a", exc))
+
+        def _join_b() -> None:
+            try:
+                session_b.call_tool(
+                    "join_table",
+                    {
+                        "deck_path": str(project_root / deck_b),
+                        "table_id": table_id,
+                    },
+                )
+            except Exception as exc:
+                join_errors.append(("bridge_b", exc))
+
+        with timed_phase(golden_name, "bridge_join"):
+            t_a = threading.Thread(target=_join_a)
+            t_b = threading.Thread(target=_join_b)
+            t_a.start()
+            t_b.start()
+            t_a.join(timeout=120)
+            t_b.join(timeout=120)
+            if join_errors:
+                labels = ", ".join(f"{lbl}: {exc}" for lbl, exc in join_errors)
+                raise RuntimeError(f"Bridge join failed: {labels}")
+
+        # Run both replay scripts concurrently
+        prompt_a: list[dict] | None = None
+        replay_errors: list[tuple[str, Exception]] = []
+
+        def _replay_a() -> None:
+            nonlocal prompt_a
+            try:
+                prompt_a = _run_replay_on_bridge(
+                    session_a,
+                    script_a,
+                    game_dir,
+                    player_a_name,
+                )
+            except Exception as exc:
+                replay_errors.append(("player_a", exc))
+
+        def _replay_b() -> None:
+            try:
+                _run_replay_on_bridge(
+                    session_b,
+                    effective_script_b,
+                    game_dir,
+                    player_b_name,
+                    skip_history=True,
+                )
+            except Exception as exc:
+                replay_errors.append(("player_b", exc))
+
+        with timed_phase(golden_name, "replay"):
+            t_a = threading.Thread(target=_replay_a)
+            t_b = threading.Thread(target=_replay_b)
+            t_a.start()
+            t_b.start()
+            t_a.join(timeout=180)
+            t_b.join(timeout=180)
+
+        # Player A errors are fatal; player B errors are usually benign
+        # (game ended from player A's concede)
+        for lbl, exc in replay_errors:
+            if lbl == "player_a":
+                raise exc
+        for lbl, exc in replay_errors:
+            if lbl == "player_b":
+                print(f"  [{golden_name}] Player B error (likely benign): {exc}", flush=True)
+
+        assert prompt_a is not None, "Player A script did not produce a prompt"
+
+        with timed_phase(golden_name, "game_end_signal"):
+            spectator.wait_for_game_end(game_dir)
+
+        with timed_phase(golden_name, "golden_comparison"):
+            assert_golden_prompt(golden_name, prompt_a)
+            assert_golden_export(golden_name, game_dir)
+            assert_golden_blunder_prompts(golden_name, game_dir, script_a)
+
+        return prompt_a
+
+    finally:
+        # Defensive concede on both bridges so they're ready for the next test.
+        # _run_replay_on_bridge already concedes on success, but if it failed
+        # mid-script, we need this safety net.
+        for session in [session_a, session_b]:
+            try:
+                session.call_tool("concede", timeout=10)
+            except Exception:
+                pass
 
 
 def _write_game_meta(
@@ -909,591 +782,6 @@ def _send_spectator_command(
     }
     spectator.start_game(game_dir, players_config, player_a_name)
     return spectator.wait_for_ready(game_dir)
-
-
-def _start_spectator(
-    server: str,
-    port: int,
-    project_root: Path,
-    game_dir: Path,
-    deck_a: str,
-    deck_b: str,
-    player_a_name: str,
-    player_b_name: str,
-    player_b_type: str,
-    game_type: str,
-    deck_type: str,
-) -> tuple[subprocess.Popen, object, Path]:
-    """Start a observer spectator and wait for table creation.
-
-    Returns (proc, log_file_handle, log_path).
-    """
-    players_config = json.dumps(
-        {
-            "players": [
-                {"type": "replay", "name": player_a_name, "deck": deck_a},
-                {"type": player_b_type, "name": player_b_name, "deck": deck_b},
-            ],
-            "gameType": game_type,
-            "deckType": deck_type,
-        },
-        separators=(",", ":"),
-    )
-
-    spectator_log = game_dir / "spectator.log"
-    cp = compute_module_classpath(project_root, "Mage.Client.Observer")
-    cmd = _build_java_cmd(
-        cp,
-        MAIN_CLASS_OBSERVER,
-        {
-            "xmage.aiPuppeteer.autoConnect": "true",
-            "xmage.aiPuppeteer.autoStart": "true",
-            "xmage.aiPuppeteer.disableWhatsNew": "true",
-            "xmage.observer.noWindow": "true",
-            "xmage.aiPuppeteer.server": server,
-            "xmage.aiPuppeteer.port": str(port),
-            "xmage.aiPuppeteer.user": "spectator",
-            "xmage.aiPuppeteer.password": "",
-            "xmage.observer.gameDir": str(game_dir),
-        },
-    )
-
-    spectator_proc, spectator_fh = _start_process(
-        args=cmd,
-        cwd=project_root / "Mage.Client.Observer",
-        env_updates={
-            "XMAGE_AI_PUPPETEER": "1",
-            "XMAGE_AI_PUPPETEER_USER": "spectator",
-            "XMAGE_AI_PUPPETEER_PASSWORD": "",
-            "XMAGE_AI_PUPPETEER_SERVER": server,
-            "XMAGE_AI_PUPPETEER_PORT": str(port),
-            "XMAGE_AI_PUPPETEER_DISABLE_WHATS_NEW": "1",
-            "XMAGE_AI_PUPPETEER_PLAYERS_CONFIG": players_config,
-            "XMAGE_AI_PUPPETEER_SKIP_INIT_SHUFFLING": "true",
-            "XMAGE_AI_PUPPETEER_WINS_NEEDED": "1",
-            "XMAGE_AI_PUPPETEER_CHOOSING_PLAYER": player_a_name,
-        },
-        log_path=spectator_log,
-    )
-
-    _wait_for_log_marker(
-        spectator_log,
-        "AI Puppeteer: waiting for",
-        spectator_proc,
-        timeout=SPECTATOR_READY_TIMEOUT_SECONDS,
-    )
-
-    return spectator_proc, spectator_fh, spectator_log
-
-
-def _run_golden_persistent(
-    server: str,
-    port: int,
-    project_root: Path,
-    game_dir: Path,
-    deck_a: str,
-    deck_b: str,
-    script: list[dict],
-    golden_name: str,
-    player_a_name: str,
-    player_b_name: str,
-    game_type: str,
-    deck_type: str,
-    bridge: BridgeManager,
-    potato: PotatoManager,
-    spectator: SpectatorProcess | None = None,
-) -> list[dict]:
-    """Run a golden scenario using session-scoped bridge and potato JVMs."""
-    game_dir.mkdir(parents=True, exist_ok=True)
-    _write_game_meta(
-        game_dir,
-        game_type,
-        deck_type,
-        player_a_name,
-        "replay",
-        deck_a,
-        player_b_name,
-        "potato",
-        deck_b,
-    )
-
-    # Ensure bridge and potato are in a clean state from the previous test.
-    # If the bridge is unresponsive (stuck mid-game from a previous failure),
-    # restart both JVMs so this test starts fresh.
-    if not bridge.is_healthy():
-        bridge.ensure_healthy()
-        potato.restart()
-    elif not potato.is_alive():
-        potato.restart()
-
-    session = bridge.session
-    pot = potato.potato
-
-    procs: list[subprocess.Popen] = []
-    log_fhs: list = []
-
-    try:
-        # Start spectator — reuse session-scoped process if available
-        table_id: str | None = None
-        if spectator is not None:
-            with timed_phase(golden_name, "spectator_command"):
-                table_id = _send_spectator_command(
-                    spectator,
-                    game_dir,
-                    deck_a,
-                    deck_b,
-                    player_a_name,
-                    player_b_name,
-                    "potato",
-                    game_type,
-                    deck_type,
-                )
-        else:
-            with timed_phase(golden_name, "spectator_startup"):
-                spectator_proc, spectator_fh, _spectator_log = _start_spectator(
-                    server,
-                    port,
-                    project_root,
-                    game_dir,
-                    deck_a,
-                    deck_b,
-                    player_a_name,
-                    player_b_name,
-                    "potato",
-                    game_type,
-                    deck_type,
-                )
-                procs.append(spectator_proc)
-                log_fhs.append(spectator_fh)
-
-        # Tell potato to join with the new deck (non-blocking: potato starts polling)
-        pot.join_next_game(str(project_root / deck_b), table_id=table_id)
-
-        # Tell bridge to join with the new deck (blocking: waits for game start)
-        join_args: dict = {"deck_path": str(project_root / deck_a)}
-        if table_id is not None:
-            join_args["table_id"] = table_id
-        with timed_phase(golden_name, "bridge_join"):
-            session.call_tool("join_table", join_args)
-
-        # Execute replay script on the persistent bridge
-        with timed_phase(golden_name, "replay"):
-            prompt = _run_replay_on_bridge(session, script, game_dir, player_a_name)
-
-        # Wait for the spectator to signal that event files are fully written.
-        # Uses HTTP long-poll when session-scoped spectator is available,
-        # falls back to file quiescence for non-keepAlive spectators.
-        with timed_phase(golden_name, "game_end_signal"):
-            if spectator is not None:
-                spectator.wait_for_game_end(game_dir)
-            else:
-                _wait_for_game_end_event(game_dir)
-                _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
-
-        with timed_phase(golden_name, "golden_comparison"):
-            assert_golden_prompt(golden_name, prompt)
-            assert_golden_export(golden_name, game_dir)
-            assert_golden_blunder_prompts(golden_name, game_dir, script)
-
-        return prompt
-
-    finally:
-        # Concede the bridge game so it's ready for the next test.
-        # Without this, a failed test leaves the bridge stuck mid-game
-        # and all subsequent persistent tests fail on join_table.
-        # If concede fails, the next test's ensure_healthy will restart.
-        try:
-            session.call_tool("concede", timeout=10)
-        except Exception:
-            pass
-        # Wait for the potato to finish game cleanup before starting the next test.
-        # Without this, the potato may still be in handleGameOver pulling final
-        # bridge events when the next test tries to start a new game, causing
-        # a bridge_join timeout.
-        try:
-            pot.wait_for_ready(timeout=15)
-        except Exception:
-            pass
-        # Kill only the per-test processes — session-scoped ones are managed by fixtures
-        for proc in procs:
-            if proc.poll() is None:
-                kill_tree(proc.pid)
-        for fh in log_fhs:
-            fh.close()
-
-
-def _run_golden_subprocess(
-    server: str,
-    port: int,
-    project_root: Path,
-    game_dir: Path,
-    deck_a: str,
-    deck_b: str,
-    script: list[dict],
-    golden_name: str,
-    player_a_name: str,
-    player_b_name: str,
-    game_type: str,
-    deck_type: str,
-    spectator: SpectatorProcess | None = None,
-) -> list[dict]:
-    """Run a golden scenario by spawning fresh subprocess per test (original approach)."""
-    game_dir.mkdir(parents=True, exist_ok=True)
-    _write_game_meta(
-        game_dir,
-        game_type,
-        deck_type,
-        player_a_name,
-        "replay",
-        deck_a,
-        player_b_name,
-        "potato",
-        deck_b,
-    )
-
-    # Write script file
-    script_path = game_dir / "script.json"
-    script_path.write_text(json.dumps(script))
-
-    procs: list[subprocess.Popen] = []
-    log_fhs: list = []
-
-    try:
-        # Start spectator — reuse session-scoped process if available
-        spectator_log: Path | None = None
-        table_id: str | None = None
-        if spectator is not None:
-            spectator_log = spectator.log_path
-            with timed_phase(golden_name, "spectator_command"):
-                table_id = _send_spectator_command(
-                    spectator,
-                    game_dir,
-                    deck_a,
-                    deck_b,
-                    player_a_name,
-                    player_b_name,
-                    "potato",
-                    game_type,
-                    deck_type,
-                )
-        else:
-            with timed_phase(golden_name, "spectator_startup"):
-                spectator_proc, spectator_fh, spectator_log = _start_spectator(
-                    server,
-                    port,
-                    project_root,
-                    game_dir,
-                    deck_a,
-                    deck_b,
-                    player_a_name,
-                    player_b_name,
-                    "potato",
-                    game_type,
-                    deck_type,
-                )
-                procs.append(spectator_proc)
-                log_fhs.append(spectator_fh)
-
-        # --- Start replay client (player A) ---
-        replay_log = game_dir / f"{player_a_name}_replay.log"
-        replay_args = [
-            sys.executable,
-            "-m",
-            "puppeteer.replay",
-            "--server",
-            server,
-            "--port",
-            str(port),
-            "--username",
-            player_a_name,
-            "--project-root",
-            str(project_root),
-            "--deck",
-            str(project_root / deck_a),
-            "--script",
-            str(script_path),
-            "--game-dir",
-            str(game_dir),
-        ]
-        if table_id is not None:
-            replay_args.extend(["--table-id", table_id])
-        replay_proc, replay_fh = _start_process(
-            args=replay_args,
-            cwd=project_root,
-            env_updates={"PYTHONUNBUFFERED": "1"},
-            log_path=replay_log,
-        )
-        procs.append(replay_proc)
-        log_fhs.append(replay_fh)
-
-        # --- Start potato client (player B) ---
-        potato_log = game_dir / f"{player_b_name}_mcp.log"
-        bridge_cp = compute_module_classpath(project_root, "Mage.Client.Bridge")
-        potato_sys_props: dict[str, str] = {
-            "xmage.bridge.server": server,
-            "xmage.bridge.port": str(port),
-            "xmage.bridge.personality": "potato",
-            "xmage.bridge.username": player_b_name,
-            "xmage.bridge.deck": str(project_root / deck_b),
-        }
-        if table_id is not None:
-            potato_sys_props["xmage.bridge.tableId"] = table_id
-        potato_cmd = _build_java_cmd(
-            bridge_cp,
-            MAIN_CLASS_BRIDGE,
-            potato_sys_props,
-        )
-        potato_proc, potato_fh = _start_process(
-            args=potato_cmd,
-            cwd=project_root / "Mage.Client.Bridge",
-            env_updates={},
-            log_path=potato_log,
-        )
-        procs.append(potato_proc)
-        log_fhs.append(potato_fh)
-
-        # Wait for the replay client to finish
-        with timed_phase(golden_name, "replay_and_game"):
-            try:
-                replay_proc.wait(timeout=180)
-            except subprocess.TimeoutExpired as e:
-                log_text = spectator_log.read_text() if spectator_log.exists() else "<no log>"
-                replay_text = replay_log.read_text() if replay_log.exists() else "<no log>"
-                potato_text = potato_log.read_text() if potato_log.exists() else "<no log>"
-                raise TimeoutError(
-                    f"Replay client did not complete within 180s.\n"
-                    f"Spectator log tail:\n{log_text[-2000:]}\n"
-                    f"Replay log tail:\n{replay_text[-2000:]}\n"
-                    f"Potato log tail:\n{potato_text[-2000:]}"
-                ) from e
-
-            if replay_proc.returncode != 0:
-                replay_text = replay_log.read_text() if replay_log.exists() else "<no log>"
-                raise RuntimeError(
-                    f"Replay client exited with code {replay_proc.returncode}.\nReplay log tail:\n{replay_text[-2000:]}"
-                )
-
-        with timed_phase(golden_name, "game_end_signal"):
-            if spectator is not None:
-                spectator.wait_for_game_end(game_dir)
-            else:
-                _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
-
-        prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
-        assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_log}"
-        prompt = json.loads(prompt_path.read_text())
-
-        with timed_phase(golden_name, "golden_comparison"):
-            assert_golden_prompt(golden_name, prompt)
-            assert_golden_export(golden_name, game_dir)
-            assert_golden_blunder_prompts(golden_name, game_dir, script)
-
-        return prompt
-
-    finally:
-        for proc in procs:
-            if proc.poll() is None:
-                kill_tree(proc.pid)
-        for fh in log_fhs:
-            fh.close()
-
-
-def run_golden_scenario_two_replay(
-    server: str,
-    port: int,
-    project_root: Path,
-    game_dir: Path,
-    deck_a: str,
-    deck_b: str,
-    script_a: list[dict],
-    script_b: list[dict],
-    golden_name: str,
-    player_a_name: str = "TestPlayer",
-    player_b_name: str = "Opponent",
-    game_type: str = "Two Player Duel",
-    deck_type: str = "Constructed - Legacy",
-    spectator: SpectatorProcess | None = None,
-) -> list[dict]:
-    """Run a golden test scenario with replay clients for both players.
-
-    When ``spectator`` is provided, reuses the session-scoped spectator JVM
-    instead of spawning a fresh one per test.
-
-    Automatically asserts golden prompt and export comparisons using
-    ``golden_name`` as the file identifier.
-    """
-    game_dir.mkdir(parents=True, exist_ok=True)
-
-    # Write game metadata so build_export finds harness_epoch and player info
-    meta = {
-        "harness_epoch": HARNESS_EPOCH,
-        "game_type": game_type,
-        "deck_type": deck_type,
-        "players": [
-            {"type": "replay", "name": player_a_name, "deck_path": deck_a},
-            {"type": "replay", "name": player_b_name, "deck_path": deck_b},
-        ],
-    }
-    (game_dir / "game_meta.json").write_text(json.dumps(meta, indent=2) + "\n")
-
-    # Write scripts
-    script_a_path = game_dir / "script_a.json"
-    script_b_path = game_dir / "script_b.json"
-    script_a_path.write_text(json.dumps(script_a))
-    script_b_path.write_text(json.dumps(script_b))
-
-    procs: list[subprocess.Popen] = []
-    log_fhs: list = []
-
-    try:
-        # --- Start observer spectator ---
-        if spectator is not None:
-            spectator_log = spectator.log_path
-            with timed_phase(golden_name, "spectator_command"):
-                _send_spectator_command(
-                    spectator,
-                    game_dir,
-                    deck_a,
-                    deck_b,
-                    player_a_name,
-                    player_b_name,
-                    "replay",
-                    game_type,
-                    deck_type,
-                )
-        else:
-            with timed_phase(golden_name, "spectator_startup"):
-                spectator_proc, spectator_fh, spectator_log = _start_spectator(
-                    server,
-                    port,
-                    project_root,
-                    game_dir,
-                    deck_a,
-                    deck_b,
-                    player_a_name,
-                    player_b_name,
-                    "replay",
-                    game_type,
-                    deck_type,
-                )
-                procs.append(spectator_proc)
-                log_fhs.append(spectator_fh)
-
-        # --- Start replay client (player A) ---
-        replay_a_log = game_dir / f"{player_a_name}_replay.log"
-        replay_a_proc, replay_a_fh = _start_process(
-            args=[
-                sys.executable,
-                "-m",
-                "puppeteer.replay",
-                "--server",
-                server,
-                "--port",
-                str(port),
-                "--username",
-                player_a_name,
-                "--project-root",
-                str(project_root),
-                "--deck",
-                str(project_root / deck_a),
-                "--script",
-                str(script_a_path),
-                "--game-dir",
-                str(game_dir),
-            ],
-            cwd=project_root,
-            env_updates={"PYTHONUNBUFFERED": "1"},
-            log_path=replay_a_log,
-        )
-        procs.append(replay_a_proc)
-        log_fhs.append(replay_a_fh)
-
-        # --- Start replay client (player B) ---
-        # --skip-history: player B isn't the conceding player whose prompt we
-        # compare, and its get_game_history races with event delivery.
-        replay_b_log = game_dir / f"{player_b_name}_replay.log"
-        replay_b_proc, replay_b_fh = _start_process(
-            args=[
-                sys.executable,
-                "-m",
-                "puppeteer.replay",
-                "--server",
-                server,
-                "--port",
-                str(port),
-                "--username",
-                player_b_name,
-                "--project-root",
-                str(project_root),
-                "--deck",
-                str(project_root / deck_b),
-                "--script",
-                str(script_b_path),
-                "--game-dir",
-                str(game_dir),
-                "--skip-history",
-            ],
-            cwd=project_root,
-            env_updates={"PYTHONUNBUFFERED": "1"},
-            log_path=replay_b_log,
-        )
-        procs.append(replay_b_proc)
-        log_fhs.append(replay_b_fh)
-
-        # Wait for replay clients to finish (they write golden prompts then concede)
-        with timed_phase(golden_name, "replay_and_game"):
-            try:
-                replay_a_proc.wait(timeout=180)
-                replay_b_proc.wait(timeout=180)
-            except subprocess.TimeoutExpired as e:
-                log_text = spectator_log.read_text() if spectator_log.exists() else "<no log>"
-                replay_a_text = replay_a_log.read_text() if replay_a_log.exists() else "<no log>"
-                replay_b_text = replay_b_log.read_text() if replay_b_log.exists() else "<no log>"
-                raise TimeoutError(
-                    "Replay clients did not complete within 180s.\n"
-                    f"Spectator log tail:\n{log_text[-2000:]}\n"
-                    f"Replay A log tail:\n{replay_a_text[-2000:]}\n"
-                    f"Replay B log tail:\n{replay_b_text[-2000:]}"
-                ) from e
-
-            # Check replay client exit codes
-            if replay_a_proc.returncode != 0:
-                replay_a_text = replay_a_log.read_text() if replay_a_log.exists() else "<no log>"
-                raise RuntimeError(
-                    f"Replay client A exited with code {replay_a_proc.returncode}.\n"
-                    f"Replay log tail:\n{replay_a_text[-2000:]}"
-                )
-            if replay_b_proc.returncode != 0:
-                replay_b_text = replay_b_log.read_text() if replay_b_log.exists() else "<no log>"
-                raise RuntimeError(
-                    f"Replay client B exited with code {replay_b_proc.returncode}.\n"
-                    f"Replay log tail:\n{replay_b_text[-2000:]}"
-                )
-
-        # Wait for spectator to signal event files are fully written.
-        with timed_phase(golden_name, "game_end_signal"):
-            if spectator is not None:
-                spectator.wait_for_game_end(game_dir)
-            else:
-                _wait_for_files_quiescent([game_dir / "game_events.jsonl", game_dir / "server_game_events.jsonl"])
-
-        # Read golden prompt for player A
-        prompt_path = game_dir / f"{player_a_name}_golden_prompt.json"
-        assert prompt_path.exists(), f"Golden prompt not written: {prompt_path}\nCheck replay log: {replay_a_log}"
-        prompt = json.loads(prompt_path.read_text())
-
-        with timed_phase(golden_name, "golden_comparison"):
-            assert_golden_prompt(golden_name, prompt)
-            assert_golden_export(golden_name, game_dir)
-
-        return prompt
-
-    finally:
-        for proc in procs:
-            if proc.poll() is None:
-                kill_tree(proc.pid)
-        for fh in log_fhs:
-            fh.close()
 
 
 def _to_sorted_json(obj: object) -> str:

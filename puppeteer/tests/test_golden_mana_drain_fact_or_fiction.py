@@ -5,12 +5,19 @@ import pytest
 from tests.golden_helpers import (
     DECK_MANA_DRAIN_FOF,
     DECK_PLAINS_LIONS,
-    run_golden_scenario_two_replay,
+    run_golden_scenario,
 )
 
 
 @pytest.mark.golden
-def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root, spectator_process):
+def test_mana_drain_into_fact_or_fiction(
+    xmage_server,
+    tmp_path,
+    project_root,
+    bridge_session,
+    opponent_session,
+    spectator_process,
+):
     """Mana Drain counters Savannah Lions, then Fact or Fiction off the mana.
 
     Script:
@@ -22,7 +29,7 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root, s
     - P1: choose the 3-card pile
     """
     server, port = xmage_server
-    run_golden_scenario_two_replay(
+    run_golden_scenario(
         server=server,
         port=port,
         project_root=project_root,
@@ -82,5 +89,7 @@ def test_mana_drain_into_fact_or_fiction(xmage_server, tmp_path, project_root, s
             {"name": "pass_priority", "arguments": {}},
         ],
         golden_name="mana_drain_fact_or_fiction",
+        bridge_a=bridge_session,
+        bridge_b=opponent_session,
         spectator=spectator_process,
     )

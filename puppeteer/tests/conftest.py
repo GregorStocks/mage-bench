@@ -17,7 +17,6 @@ from tests.golden_helpers import (
     MAIN_CLASS_OBSERVER,
     MAIN_CLASS_SERVER,
     BridgeManager,
-    PotatoManager,
     SpectatorProcess,
     _build_java_cmd,
     _wait_for_health,
@@ -43,30 +42,6 @@ def extract_golden_set_codes(project_root: Path) -> str:
             for match in _SET_CODE_RE.finditer(path.read_text()):
                 codes.add(match.group(1))
     return ",".join(sorted(codes))
-
-
-def pytest_collection_modifyitems(items: list) -> None:
-    """Schedule tests that use bridge/potato session fixtures last.
-
-    Tests that spawn their own subprocesses (e.g. two-replay tests) must run
-    before the persistent bridge/potato fixtures are created, because those
-    fixtures stay connected to the XMage server as "TestPlayer"/"Opponent" and
-    their leftover table state can interfere with fresh subprocess clients
-    that use the same usernames.
-
-    Note: spectator_process is NOT included here — the spectator connects as
-    "spectator" (not a player username) so it doesn't conflict with subprocess
-    clients.
-    """
-    bridge_potato_fixtures = {"bridge_session", "potato_process"}
-    non_bridge_potato = []
-    bridge_potato = []
-    for item in items:
-        if bridge_potato_fixtures & set(item.fixturenames):
-            bridge_potato.append(item)
-        else:
-            non_bridge_potato.append(item)
-    items[:] = non_bridge_potato + bridge_potato
 
 
 @pytest.fixture(scope="session")
@@ -175,19 +150,17 @@ def bridge_session(xmage_server, project_root):
 
 
 @pytest.fixture(scope="session")
-def potato_process(xmage_server, project_root):
-    """Session-scoped potato JVM controlled via stdin line protocol.
+def opponent_session(xmage_server, project_root):
+    """Session-scoped opponent bridge JVM with persistent MCP session.
 
-    Starts a potato bridge client with keepAlive=true. Each line written
-    to stdin is a deck path — the potato loads it, resets state, joins the
-    next available table, and plays the game. Automatically restarts if the
-    potato JVM crashes between tests.
+    Starts a sleepwalker bridge client as "Opponent" with keepAlive=true.
+    Runs replay scripts for the opponent side of golden tests.
     """
     server, port = xmage_server
     allowed_sets = extract_golden_set_codes(project_root)
 
-    mgr = PotatoManager(server, port, project_root, allowed_sets)
-    with timed_phase("session", "potato_jvm_startup"):
+    mgr = BridgeManager(server, port, project_root, allowed_sets, username="Opponent", label="opponent")
+    with timed_phase("session", "opponent_jvm_startup"):
         mgr.start()
 
     yield mgr
