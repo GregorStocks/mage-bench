@@ -249,7 +249,7 @@
     {
       "id": "minimax/minimax-m2.1",
       "name": "MiniMax M2.1",
-      "name_part": "MiniMx",
+      "name_part": "MMx21",
       "_input_per_m": 0.27,
       "_output_per_m": 0.95,
       "_context_k": 196,
@@ -366,6 +366,17 @@
       "_thinking": false,
       "_tier": "dirt-cheap",
       "_notes": "Large Qwen3 MoE (235B total, 22B active). Absurdly cheap. No reasoning mode. Non-thinking baseline."
+    },
+    {
+      "id": "google/gemini-2.0-flash-001",
+      "name": "Gemini 2.0 Flash",
+      "name_part": "Gem2F",
+      "_input_per_m": 0.10,
+      "_output_per_m": 0.40,
+      "_context_k": 1000,
+      "_thinking": false,
+      "_tier": "dirt-cheap",
+      "_notes": "Older Gemini 2.0 Flash. Superseded by 2.5/3 Flash variants. Kept for historical game data."
     },
     {
       "id": "meta-llama/llama-4-maverick",
