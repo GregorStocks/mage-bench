@@ -14,11 +14,10 @@ from puppeteer.xml_config import modify_server_config
 from tests.golden_helpers import (
     DECK_GOBLINS,
     DECK_RED_STOMPY,
-    MAIN_CLASS_BRIDGE,
     MAIN_CLASS_OBSERVER,
     MAIN_CLASS_SERVER,
-    BridgeSession,
-    PotatoProcess,
+    BridgeManager,
+    PotatoManager,
     SpectatorProcess,
     _build_java_cmd,
     _wait_for_health,
@@ -160,70 +159,19 @@ def bridge_session(xmage_server, project_root):
     """Session-scoped bridge JVM with persistent MCP session.
 
     Starts a sleepwalker bridge client with keepAlive=true. Communication
-    happens via JSON-RPC over HTTP.
+    happens via JSON-RPC over HTTP. Automatically restarts if the bridge
+    becomes unresponsive between tests (e.g. stuck mid-game after a failure).
     """
     server, port = xmage_server
-
-    tmp_dir = project_root / "tmp" / "golden-bridge"
-    tmp_dir.mkdir(parents=True, exist_ok=True)
-
     allowed_sets = extract_golden_set_codes(project_root)
 
-    # Allocate a port for the MCP HTTP server
-    mcp_port_res = find_available_port("localhost", 19000)
-    mcp_port = mcp_port_res.port
-
-    bridge_cp = compute_module_classpath(project_root, "Mage.Client.Bridge")
-    bridge_cmd = _build_java_cmd(
-        bridge_cp,
-        MAIN_CLASS_BRIDGE,
-        {
-            "xmage.bridge.server": server,
-            "xmage.bridge.port": str(port),
-            "xmage.bridge.personality": "sleepwalker",
-            "xmage.bridge.keepAlive": "true",
-            "xmage.bridge.mcpPort": str(mcp_port),
-            "xmage.bridge.username": "TestPlayer",
-            "xmage.sets.allowed": allowed_sets,
-        },
-    )
-
-    bridge_log = tmp_dir / "bridge.log"
-    bridge_log_fh = open(bridge_log, "w")
-
-    proc = subprocess.Popen(
-        bridge_cmd,
-        cwd=project_root / "Mage.Client.Bridge",
-        stdin=subprocess.PIPE,
-        stdout=bridge_log_fh,
-        stderr=subprocess.STDOUT,
-    )
-
+    mgr = BridgeManager(server, port, project_root, allowed_sets)
     with timed_phase("session", "bridge_jvm_startup"):
-        print(f"Bridge JVM started (pid={proc.pid}), waiting for MCP HTTP server on port {mcp_port}...")
-        assert wait_for_port("127.0.0.1", mcp_port, 120), (
-            f"Bridge MCP HTTP server did not start on port {mcp_port} within 120s — check {bridge_log}"
-        )
-        mcp_port_res.release()
+        mgr.start()
 
-        bridge = BridgeSession(f"http://127.0.0.1:{mcp_port}/mcp")
-        bridge.initialize()
-        print("Bridge MCP initialized via HTTP")
+    yield mgr
 
-    yield bridge
-
-    bridge.close()
-    # Close stdin to signal the bridge to shut down
-    if proc.stdin:
-        try:
-            proc.stdin.close()
-        except Exception:
-            pass
-    try:
-        proc.wait(timeout=10)
-    except subprocess.TimeoutExpired:
-        kill_tree(proc.pid)
-    bridge_log_fh.close()
+    mgr.stop()
 
 
 @pytest.fixture(scope="session")
@@ -232,54 +180,19 @@ def potato_process(xmage_server, project_root):
 
     Starts a potato bridge client with keepAlive=true. Each line written
     to stdin is a deck path — the potato loads it, resets state, joins the
-    next available table, and plays the game.
+    next available table, and plays the game. Automatically restarts if the
+    potato JVM crashes between tests.
     """
     server, port = xmage_server
-
-    tmp_dir = project_root / "tmp" / "golden-potato"
-    tmp_dir.mkdir(parents=True, exist_ok=True)
-
     allowed_sets = extract_golden_set_codes(project_root)
 
-    potato_cp = compute_module_classpath(project_root, "Mage.Client.Bridge")
-    potato_cmd = _build_java_cmd(
-        potato_cp,
-        MAIN_CLASS_BRIDGE,
-        {
-            "xmage.bridge.server": server,
-            "xmage.bridge.port": str(port),
-            "xmage.bridge.personality": "potato",
-            "xmage.bridge.keepAlive": "true",
-            "xmage.bridge.username": "Opponent",
-            "xmage.sets.allowed": allowed_sets,
-        },
-    )
-
-    potato_log = tmp_dir / "potato.log"
-    potato_log_fh = open(potato_log, "w")
-
-    proc = subprocess.Popen(
-        potato_cmd,
-        cwd=project_root / "Mage.Client.Bridge",
-        stdin=subprocess.PIPE,
-        stdout=potato_log_fh,
-        stderr=subprocess.STDOUT,
-    )
-
+    mgr = PotatoManager(server, port, project_root, allowed_sets)
     with timed_phase("session", "potato_jvm_startup"):
-        potato = PotatoProcess(proc, potato_log)
-        print(f"Potato JVM started (pid={proc.pid}), waiting for POTATO_READY...")
-        potato.wait_for_ready(timeout=120)
-        print("Potato ready")
+        mgr.start()
 
-    yield potato
+    yield mgr
 
-    potato.close()
-    try:
-        proc.wait(timeout=10)
-    except subprocess.TimeoutExpired:
-        kill_tree(proc.pid)
-    potato_log_fh.close()
+    mgr.stop()
 
 
 @pytest.fixture(scope="session")

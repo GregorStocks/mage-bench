@@ -267,6 +267,124 @@ class BridgeSession:
     def close(self) -> None:
         pass
 
+    def is_responsive(self, timeout: int = 5) -> bool:
+        """Check if the bridge can respond to RPCs within the given timeout."""
+        try:
+            self._rpc("tools/list", {}, timeout=timeout)
+            return True
+        except Exception:
+            return False
+
+
+class BridgeManager:
+    """Manages a persistent sleepwalker bridge JVM with automatic restart on failure.
+
+    Encapsulates the bridge JVM lifecycle (start, stop, health check, restart).
+    Used by session-scoped pytest fixtures to provide fault tolerance: if a test
+    leaves the bridge in a stuck state, the next test detects this and restarts
+    the JVM rather than cascading failures across all subsequent tests.
+    """
+
+    _HEALTH_CHECK_TIMEOUT = 5  # seconds
+    _SERVER_CLEANUP_DELAY = 2  # seconds for XMage server to detect disconnection
+
+    def __init__(
+        self,
+        server: str,
+        port: int,
+        project_root: Path,
+        allowed_sets: str,
+    ) -> None:
+        self._server = server
+        self._port = port
+        self._project_root = project_root
+        self._allowed_sets = allowed_sets
+        self.session: BridgeSession | None = None
+        self._proc: subprocess.Popen | None = None
+        self._log_fh: object | None = None
+
+    def start(self) -> None:
+        """Start the bridge JVM and initialize MCP session."""
+        from puppeteer.port import find_available_port, wait_for_port
+
+        tmp_dir = self._project_root / "tmp" / "golden-bridge"
+        tmp_dir.mkdir(parents=True, exist_ok=True)
+
+        mcp_port_res = find_available_port("localhost", 19000)
+        mcp_port = mcp_port_res.port
+
+        bridge_cp = compute_module_classpath(self._project_root, "Mage.Client.Bridge")
+        bridge_cmd = _build_java_cmd(
+            bridge_cp,
+            MAIN_CLASS_BRIDGE,
+            {
+                "xmage.bridge.server": self._server,
+                "xmage.bridge.port": str(self._port),
+                "xmage.bridge.personality": "sleepwalker",
+                "xmage.bridge.keepAlive": "true",
+                "xmage.bridge.mcpPort": str(mcp_port),
+                "xmage.bridge.username": "TestPlayer",
+                "xmage.sets.allowed": self._allowed_sets,
+            },
+        )
+
+        bridge_log = tmp_dir / "bridge.log"
+        self._log_fh = open(bridge_log, "w")
+
+        self._proc = subprocess.Popen(
+            bridge_cmd,
+            cwd=self._project_root / "Mage.Client.Bridge",
+            stdin=subprocess.PIPE,
+            stdout=self._log_fh,
+            stderr=subprocess.STDOUT,
+        )
+
+        print(f"Bridge JVM started (pid={self._proc.pid}), waiting for MCP on port {mcp_port}...", flush=True)
+        assert wait_for_port("127.0.0.1", mcp_port, 120), (
+            f"Bridge MCP HTTP server did not start on port {mcp_port} within 120s"
+        )
+        mcp_port_res.release()
+
+        self.session = BridgeSession(f"http://127.0.0.1:{mcp_port}/mcp")
+        self.session.initialize()
+        print("Bridge MCP initialized via HTTP", flush=True)
+
+    def stop(self) -> None:
+        """Kill the bridge JVM and clean up."""
+        if self.session:
+            self.session.close()
+            self.session = None
+        if self._proc:
+            if self._proc.stdin:
+                try:
+                    self._proc.stdin.close()
+                except Exception:
+                    pass
+            try:
+                self._proc.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                kill_tree(self._proc.pid)
+            self._proc = None
+        if self._log_fh:
+            self._log_fh.close()
+            self._log_fh = None
+
+    def is_healthy(self) -> bool:
+        """Check if the bridge can respond to RPCs."""
+        if self.session is None:
+            return False
+        return self.session.is_responsive(timeout=self._HEALTH_CHECK_TIMEOUT)
+
+    def ensure_healthy(self) -> None:
+        """Verify bridge health. Restart if unhealthy."""
+        if self.is_healthy():
+            return
+        print("Bridge unhealthy, restarting JVM...", flush=True)
+        self.stop()
+        time.sleep(self._SERVER_CLEANUP_DELAY)
+        with timed_phase("session", "bridge_jvm_restart"):
+            self.start()
+
 
 class PotatoProcess:
     """Persistent potato JVM controlled via stdin line protocol.
@@ -320,6 +438,93 @@ class PotatoProcess:
             self._stdin.close()
         except Exception:
             pass
+
+
+class PotatoManager:
+    """Manages a persistent potato JVM with automatic restart on failure.
+
+    Encapsulates the potato JVM lifecycle. The potato communicates via stdin
+    line protocol (deck paths) and signals readiness via a log file marker.
+    """
+
+    _SERVER_CLEANUP_DELAY = 2  # seconds for XMage server to detect disconnection
+
+    def __init__(
+        self,
+        server: str,
+        port: int,
+        project_root: Path,
+        allowed_sets: str,
+    ) -> None:
+        self._server = server
+        self._port = port
+        self._project_root = project_root
+        self._allowed_sets = allowed_sets
+        self.potato: PotatoProcess | None = None
+        self._proc: subprocess.Popen | None = None
+        self._log_fh: object | None = None
+
+    def start(self) -> None:
+        """Start the potato JVM and wait for readiness."""
+        tmp_dir = self._project_root / "tmp" / "golden-potato"
+        tmp_dir.mkdir(parents=True, exist_ok=True)
+
+        potato_cp = compute_module_classpath(self._project_root, "Mage.Client.Bridge")
+        potato_cmd = _build_java_cmd(
+            potato_cp,
+            MAIN_CLASS_BRIDGE,
+            {
+                "xmage.bridge.server": self._server,
+                "xmage.bridge.port": str(self._port),
+                "xmage.bridge.personality": "potato",
+                "xmage.bridge.keepAlive": "true",
+                "xmage.bridge.username": "Opponent",
+                "xmage.sets.allowed": self._allowed_sets,
+            },
+        )
+
+        potato_log = tmp_dir / "potato.log"
+        self._log_fh = open(potato_log, "w")
+
+        self._proc = subprocess.Popen(
+            potato_cmd,
+            cwd=self._project_root / "Mage.Client.Bridge",
+            stdin=subprocess.PIPE,
+            stdout=self._log_fh,
+            stderr=subprocess.STDOUT,
+        )
+
+        self.potato = PotatoProcess(self._proc, potato_log)
+        print(f"Potato JVM started (pid={self._proc.pid}), waiting for POTATO_READY...", flush=True)
+        self.potato.wait_for_ready(timeout=120)
+        print("Potato ready", flush=True)
+
+    def stop(self) -> None:
+        """Kill the potato JVM and clean up."""
+        if self.potato:
+            self.potato.close()
+            self.potato = None
+        if self._proc:
+            try:
+                self._proc.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                kill_tree(self._proc.pid)
+            self._proc = None
+        if self._log_fh:
+            self._log_fh.close()
+            self._log_fh = None
+
+    def is_alive(self) -> bool:
+        """Check if the potato process is still running."""
+        return self._proc is not None and self._proc.poll() is None
+
+    def restart(self) -> None:
+        """Kill and restart the potato JVM."""
+        print("Restarting potato JVM...", flush=True)
+        self.stop()
+        time.sleep(self._SERVER_CLEANUP_DELAY)
+        with timed_phase("session", "potato_jvm_restart"):
+            self.start()
 
 
 class SpectatorProcess:
@@ -597,8 +802,8 @@ def run_golden_scenario(
     player_b_name: str = "Opponent",
     game_type: str = "Two Player Duel",
     deck_type: str = "Constructed - Legacy",
-    bridge: BridgeSession | None = None,
-    potato: PotatoProcess | None = None,
+    bridge: BridgeManager | None = None,
+    potato: PotatoManager | None = None,
     spectator: SpectatorProcess | None = None,
 ) -> list[dict]:
     """Run a golden test scenario with a replay player vs a potato opponent.
@@ -608,7 +813,8 @@ def run_golden_scenario(
     potato client (auto-responds to everything as the opponent).
 
     When ``bridge`` and/or ``potato`` are provided, reuses those session-scoped
-    JVM processes instead of spawning fresh ones per test.
+    JVM managers instead of spawning fresh JVMs per test. The managers
+    automatically restart unhealthy JVMs between tests.
 
     When ``spectator`` is provided, reuses the session-scoped spectator JVM
     instead of spawning a fresh one per test.
@@ -793,8 +999,8 @@ def _run_golden_persistent(
     player_b_name: str,
     game_type: str,
     deck_type: str,
-    bridge: BridgeSession,
-    potato: PotatoProcess,
+    bridge: BridgeManager,
+    potato: PotatoManager,
     spectator: SpectatorProcess | None = None,
 ) -> list[dict]:
     """Run a golden scenario using session-scoped bridge and potato JVMs."""
@@ -810,6 +1016,18 @@ def _run_golden_persistent(
         "potato",
         deck_b,
     )
+
+    # Ensure bridge and potato are in a clean state from the previous test.
+    # If the bridge is unresponsive (stuck mid-game from a previous failure),
+    # restart both JVMs so this test starts fresh.
+    if not bridge.is_healthy():
+        bridge.ensure_healthy()
+        potato.restart()
+    elif not potato.is_alive():
+        potato.restart()
+
+    session = bridge.session
+    pot = potato.potato
 
     procs: list[subprocess.Popen] = []
     log_fhs: list = []
@@ -849,18 +1067,18 @@ def _run_golden_persistent(
                 log_fhs.append(spectator_fh)
 
         # Tell potato to join with the new deck (non-blocking: potato starts polling)
-        potato.join_next_game(str(project_root / deck_b), table_id=table_id)
+        pot.join_next_game(str(project_root / deck_b), table_id=table_id)
 
         # Tell bridge to join with the new deck (blocking: waits for game start)
         join_args: dict = {"deck_path": str(project_root / deck_a)}
         if table_id is not None:
             join_args["table_id"] = table_id
         with timed_phase(golden_name, "bridge_join"):
-            bridge.call_tool("join_table", join_args)
+            session.call_tool("join_table", join_args)
 
         # Execute replay script on the persistent bridge
         with timed_phase(golden_name, "replay"):
-            prompt = _run_replay_on_bridge(bridge, script, game_dir, player_a_name)
+            prompt = _run_replay_on_bridge(session, script, game_dir, player_a_name)
 
         # Wait for the spectator to signal that event files are fully written.
         # Uses HTTP long-poll when session-scoped spectator is available,
@@ -883,8 +1101,9 @@ def _run_golden_persistent(
         # Concede the bridge game so it's ready for the next test.
         # Without this, a failed test leaves the bridge stuck mid-game
         # and all subsequent persistent tests fail on join_table.
+        # If concede fails, the next test's ensure_healthy will restart.
         try:
-            bridge.call_tool("concede", timeout=10)
+            session.call_tool("concede", timeout=10)
         except Exception:
             pass
         # Wait for the potato to finish game cleanup before starting the next test.
@@ -892,7 +1111,7 @@ def _run_golden_persistent(
         # bridge events when the next test tries to start a new game, causing
         # a bridge_join timeout.
         try:
-            potato.wait_for_ready(timeout=15)
+            pot.wait_for_ready(timeout=15)
         except Exception:
             pass
         # Kill only the per-test processes — session-scoped ones are managed by fixtures
