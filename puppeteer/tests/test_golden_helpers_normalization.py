@@ -30,6 +30,26 @@ def test_normalize_prompt_strips_local_short_ids():
     assert normalized[0]["content"]["id"] == "_"
 
 
+def test_normalize_prompt_strips_choice_short_ids():
+    """The unified 'choice' field should normalize short IDs the same as 'id'."""
+    payload = [{"content": '{"choice":"p11","name":"Lightning Bolt"}'}]
+
+    normalized = _normalize_prompt_for_golden(payload)
+    assert normalized[0]["content"]["choice"] == "_"
+
+
+def test_normalize_prompt_preserves_choice_non_ids():
+    """Non-ID choice values (integers, booleans) should not be normalized."""
+    # "0" is valid JSON for integer 0, so it gets parsed to int
+    payload = [{"content": '{"choice":"0"}'}]
+    normalized = _normalize_prompt_for_golden(payload)
+    assert normalized[0]["content"]["choice"] == 0
+
+    payload2 = [{"content": '{"choice":"yes"}'}]
+    normalized2 = _normalize_prompt_for_golden(payload2)
+    assert normalized2[0]["content"]["choice"] == "yes"
+
+
 def test_normalize_embedded_json_sorts_keys():
     payload = {"result": '{"b":2,"a":1}'}
 

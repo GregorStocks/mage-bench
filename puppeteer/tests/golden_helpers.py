@@ -1369,7 +1369,7 @@ def _normalize_prompt_for_golden(obj: object) -> object:
     if isinstance(obj, dict):
         out: dict[str, object] = {}
         for key, value in obj.items():
-            if key == "id" and _is_short_id(value):
+            if key in ("id", "choice") and _is_short_id(value):
                 out[key] = "_"
                 continue
             out[key] = _normalize_prompt_for_golden(value)

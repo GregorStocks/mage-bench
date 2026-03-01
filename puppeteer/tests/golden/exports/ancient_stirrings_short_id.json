@@ -103,7 +103,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "index": 0
+        "choice": "0"
       },
       "index": 0,
       "isForced": false,
@@ -138,7 +138,7 @@
       "choices": [],
       "chosen": false,
       "chosenArgs": {
-        "answer": false
+        "choice": "no"
       },
       "index": 1,
       "isForced": false,
@@ -211,7 +211,7 @@
       ],
       "chosen": 0,
       "chosenArgs": {
-        "id": "p11"
+        "choice": "p11"
       },
       "index": 2,
       "isForced": false,
@@ -258,7 +258,7 @@
       "choices": [],
       "chosen": true,
       "chosenArgs": {
-        "answer": true
+        "choice": "yes"
       },
       "index": 3,
       "isForced": false,
@@ -289,7 +289,7 @@
     "seq": 29
   },
   "gameType": "Two Player Duel",
-  "harnessEpoch": 35,
+  "harnessEpoch": 36,
   "llmEvents": [
     {
       "availableTools": [
@@ -355,7 +355,7 @@
         "game_seq": 1,
         "message": "Select a starting player",
         "required": true,
-        "respond_with": "id=\"pN\" or index=N",
+        "respond_with": "choice=pN",
         "response_type": "index",
         "stop_reason": "non_priority_action"
       },
@@ -365,7 +365,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 1,
       "player": "TestPlayer",
@@ -471,7 +471,7 @@
         "context": "T1 ()",
         "game_seq": 5,
         "message": "Mulligan down to 6 cards?",
-        "respond_with": "answer=true or answer=false",
+        "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
         "stop_reason": "non_priority_action",
         "your_hand": [
@@ -532,7 +532,7 @@
     },
     {
       "args": {
-        "answer": false
+        "choice": "no"
       },
       "gameSeq": 5,
       "player": "TestPlayer",
@@ -684,7 +684,7 @@
         "has_playable_cards": true,
         "land_drops_used": 0,
         "message": "Play spells and abilities",
-        "respond_with": "id=\"pN\" or index=N to play, or answer=false to pass",
+        "respond_with": "choice=pN to play, or choice=no to pass",
         "response_type": "select",
         "stop_reason": "playable_cards"
       },
@@ -694,7 +694,7 @@
     },
     {
       "args": {
-        "id": "p11"
+        "choice": "p11"
       },
       "gameSeq": 15,
       "player": "TestPlayer",
@@ -713,7 +713,7 @@
     },
     {
       "args": {
-        "id": "p10"
+        "choice": "p10"
       },
       "gameSeq": 18,
       "player": "TestPlayer",
@@ -814,7 +814,7 @@
         "game_seq": 23,
         "land_drops_used": 1,
         "message": "Reveal a colorless card and put it into your hand?",
-        "respond_with": "answer=true or answer=false",
+        "respond_with": "choice=yes or choice=no",
         "response_type": "boolean",
         "stack": [
           {
@@ -829,7 +829,7 @@
     },
     {
       "args": {
-        "answer": true
+        "choice": "yes"
       },
       "gameSeq": 23,
       "player": "TestPlayer",
@@ -848,7 +848,7 @@
     },
     {
       "args": {
-        "index": 0
+        "choice": "0"
       },
       "gameSeq": 24,
       "player": "TestPlayer",
